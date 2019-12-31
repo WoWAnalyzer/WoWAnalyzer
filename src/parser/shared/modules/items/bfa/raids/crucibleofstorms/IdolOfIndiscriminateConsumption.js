@@ -7,7 +7,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
@@ -207,7 +207,7 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
       return suggest(
         <>
           Your usage of <ItemLink id={ITEMS.IDOL_OF_INDISCRIMINATE_CONSUMPTION.id} /> can be improved. Try to use it when you are on low health.
-        </>
+        </>,
       )
         .icon(ITEMS.IDOL_OF_INDISCRIMINATE_CONSUMPTION.icon)
         .actual(`${formatPercentage(actual)}% of casts at above ${formatPercentage(this.constructor.hpSuggestionThreshold)}% HP.`)
@@ -217,7 +217,7 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
       return suggest(
         <>
           Your usage of <ItemLink id={ITEMS.IDOL_OF_INDISCRIMINATE_CONSUMPTION.id} /> can be improved. Try to hit enough targets to heal to full.
-        </>
+        </>,
       )
         .icon(ITEMS.IDOL_OF_INDISCRIMINATE_CONSUMPTION.icon)
         .actual(`${formatPercentage(actual)}% of casts could've hit additional targets without causing overhealing.`)

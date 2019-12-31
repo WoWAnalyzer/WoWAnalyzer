@@ -76,7 +76,7 @@ class Haunt extends Analyzer {
         return suggest(
           <>
             Your <SpellLink id={SPELLS.HAUNT_TALENT.id} /> debuff uptime is too low. While it's usually not possible to get 100% uptime due to travel and cast time, you should aim for as much uptime on the debuff as possible.
-          </>
+          </>,
         )
           .icon(SPELLS.HAUNT_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Haunt uptime.`)

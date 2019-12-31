@@ -6,7 +6,11 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2019, 11, 1), <>Added a small statistic for <SpellLink id={SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />.</>, niseko),
+  change(date(2019, 12, 31), <>Added a small statistic for <SpellLink id={SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />.</>, niseko),
+  change(date(2019, 12, 18), <>Added a list of <SpellLink id={SPELLS.CHAIN_HEAL.id} /> casts that only hit one target to the <SpellLink id={SPELLS.CHAIN_HEAL.id} /> statistic, if that happened.</>, niseko),
+  change(date(2019, 12, 10), <>Fixed a bug affecting <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> statistics when used pre-pull.</>, [niseko]),
+  change(date(2019, 11, 1), <><SpellLink id={SPELLS.TURN_OF_THE_TIDE_TRAIT.id} /> azerite trait support.</>, [niseko]),
+  change(date(2019, 11, 1), <>Removed <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> checklist rule as it doesn't line up with current shaman gameplay anymore.</>, niseko),
   change(date(2019, 9, 26), <>Updated for patch 8.2.5: <SpellLink id={SPELLS.DELUGE_TALENT.id} /> now includes <SpellLink id={SPELLS.HEALING_WAVE.id} /> and <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} />.</>, niseko),
   change(date(2019, 9, 5), 'Updated for patch 8.2.', niseko),
   change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),

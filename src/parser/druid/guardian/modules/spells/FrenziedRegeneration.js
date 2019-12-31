@@ -94,7 +94,7 @@ class FrenziedRegeneration extends Analyzer {
         return suggest(
           <>
             You are casting <SpellLink id={SPELLS.FRENZIED_REGENERATION.id} /> inefficiently (at high HP and after low damage intake).  It is almost always better to wait until after you have taken a big hit to cast it, even if that means spending extended periods of time at maximum charges.  If you don't already have one, consider getting an FR prediction weakaura to assist you in casting it more effectively.
-          </>
+          </>,
         )
           .icon(SPELLS.FRENZIED_REGENERATION.icon)
           .actual(`${formatPercentage(actual, 0)}% of casts had a predicted heal of less than ${formatPercentage(HEAL_THRESHOLD, 0)}% and were cast above ${formatPercentage(HP_THRESHOLD, 0)}% HP`)

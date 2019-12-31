@@ -27,5 +27,5 @@ fs.writeFileSync(
 // eslint-disable
 
 export default ${JSON.stringify(output)};
-`
+`,
 );

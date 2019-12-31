@@ -8,6 +8,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 12, 22), <>Warning threshold for <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> / <SpellLink id={SPELLS.PURIFYING_BREW.id} /> is now calculated based on time spent in red stagger.</>, emallson),
+  change(date(2019, 10, 28), <>Added support for items in the <SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> tab.</>, Abelito75),
   change(date(2019, 10, 16), <>Removed <SpellLink id={SPELLS.ARCANE_TORRENT_ENERGY.id} /> from Brewmaster suggestions.</>, emallson),
   change(date(2019, 9, 27), <>Update to date for 8.2.5 </>,Abelito75),
   change(date(2019, 7, 20), 'Updated hit-tracking blacklist and internal constants for Eternal Palace.', emallson),

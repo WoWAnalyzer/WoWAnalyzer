@@ -113,7 +113,7 @@ class HealingRainLocation extends Analyzer {
         'Reported Healing Rain size is too large, something went wrong.',
         'Allowed Size:', this.healingRainDiameter,
         'Reported Width:', ellipseWidth,
-        'Reported Height:', ellipseHeight
+        'Reported Height:', ellipseHeight,
       );
       return null;
     }

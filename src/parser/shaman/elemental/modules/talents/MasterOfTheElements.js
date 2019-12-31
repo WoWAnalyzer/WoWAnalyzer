@@ -147,7 +147,7 @@ class MasterOfTheElements extends Analyzer {
           <tbody>
             {Object.keys(this.moteBuffedAbilities).map((e) => (
               <tr key={e}>
-                <th>{<SpellLink id={Number(e)} />}</th>
+                <th><SpellLink id={Number(e)} /></th>
                 <td>{this.moteBuffedAbilities[e]}</td>
               </tr>
             ))}

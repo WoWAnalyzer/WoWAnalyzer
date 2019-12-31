@@ -6,7 +6,7 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { SERPENT_STING_SV_BASE_DURATION } from 'parser/hunter/survival/constants';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatDuration } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';

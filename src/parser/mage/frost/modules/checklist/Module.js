@@ -6,10 +6,14 @@ import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import BrainFreeze from '../features/BrainFreeze';
+import BrainFreezeNoIL from '../features/BrainFreezeNoIL';
 import GlacialSpike from '../features/GlacialSpike';
+import GlacialSpikeNoIL from '../features/GlacialSpikeNoIL';
 import IceLance from '../features/IceLance';
+import IceLanceNoIL from '../features/IceLanceNoIL';
 import ThermalVoid from '../features/ThermalVoid';
 import WintersChill from '../features/WintersChill';
+import WintersChillNoIL from '../features/WintersChillNoIL';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ArcaneIntellect from '../../../shared/modules/features/ArcaneIntellect';
 import CancelledCasts from '../../../shared/modules/features/CancelledCasts';
@@ -33,6 +37,13 @@ class Checklist extends BaseChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     waterElemental: WaterElemental,
+
+    //NoIL Build
+    brainFreezeNoIL: BrainFreezeNoIL,
+    glacialSpikeNoIL: GlacialSpikeNoIL,
+    iceLanceNoIL: IceLanceNoIL,
+    wintersChillNoIL: WintersChillNoIL,
+
   };
 
   render() {
@@ -40,6 +51,7 @@ class Checklist extends BaseChecklist {
       <Component
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
+        owner={this.owner}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
@@ -57,6 +69,14 @@ class Checklist extends BaseChecklist {
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
           runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,
           waterElementalUptime: this.waterElemental.suggestionThresholds,
+
+          //NoIL Build
+          brainFreezeUtilizationNoIL: this.brainFreezeNoIL.utilSuggestionThresholds,
+          brainFreezeOverwritesNoIL: this.brainFreezeNoIL.overwriteSuggestionThresholds,
+          brainFreezeExpiredNoIL: this.brainFreezeNoIL.expiredSuggestionThresholds,
+          brainFreezeUnbuffedFlurryNoIL: this.brainFreezeNoIL.flurryWithoutProcSuggestionThresholds,
+          glacialSpikeUtilizationNoIL: this.glacialSpikeNoIL.utilSuggestionThresholds,
+          wintersChillHardCastsNoIL: this.wintersChillNoIL.hardcastUtilSuggestionThresholds,
         }}
       />
     );

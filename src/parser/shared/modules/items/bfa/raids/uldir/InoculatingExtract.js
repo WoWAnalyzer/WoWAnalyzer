@@ -5,7 +5,7 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 
@@ -14,7 +14,7 @@ import Abilities from 'parser/core/modules/Abilities';
  * Use: Inject 5 stacks of Mutating Antibodies into a friendly target for 30 sec. your direct heals on
  * that ally will consume a Mutating Antibody to restore an additional 3135 health. (1 Min, 30 Sec
  * Cooldown).
- * 
+ *
  * Test Log: /report/LnhTFvq9fxWRHQrJ/10-LFR+Champion+of+the+Light+-+Kill+(2:28)/Medizin
  */
 
@@ -85,7 +85,7 @@ class InoculatingExtract extends Analyzer{
           <>
             You had wasted charges from your <ItemLink id={ITEMS.INOCULATING_EXTRACT.id} />.
             Make sure that every buff placed on a target is consumed.
-          </>
+          </>,
         ).icon(ITEMS.INOCULATING_EXTRACT.icon)
           .actual(`${formatPercentage(actual)}% charges used.`)
           .recommended(` ${formatPercentage(recommended)}% is recommended`)

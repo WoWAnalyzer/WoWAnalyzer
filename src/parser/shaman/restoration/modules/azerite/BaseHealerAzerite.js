@@ -1,5 +1,5 @@
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatNth } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -7,7 +7,7 @@ import Events from 'parser/core/Events';
 
 import React from 'react';
 
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import Statistic from 'interface/statistics/Statistic';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -87,7 +87,6 @@ class BaseHealerAzerite extends Analyzer {
 
   moreInformation = null;
   statistic() {
-    const nth = (number) => ["st", "nd", "rd"][((number + 90) % 100 - 10) % 10 - 1] || "th";
     const numTraits = this.azerite.length;
 
     if (!this.disableStatistic) {
@@ -104,7 +103,7 @@ class BaseHealerAzerite extends Analyzer {
             </h4>
             <div className="flex" style={{ borderBottom: '1px solid #fab700', fontWeight: 'bold', fontSize: '14px', padding: '6px 22px 5px' }}>
               <div className="flex-main">
-                {`Total`}
+                Total
               </div>
               <div className="flex-sub text-right">
                 <ItemHealingDone amount={this.totalHealing} />
@@ -123,7 +122,7 @@ class BaseHealerAzerite extends Analyzer {
                 {this.azerite.slice().reverse().map((trait, index) => {
                   return (
                     <tr key={index}>
-                      {numTraits > 1 && (<td>{index + 1}{nth(index + 1)}</td>)}
+                      {numTraits > 1 && (<td>{formatNth(index + 1)}</td>)}
                       <td>{trait.itemlevel}</td>
                       <td>{formatNumber(trait.healing)}</td>
                       <td>{formatPercentage(trait.overhealing / (trait.healing + trait.overhealing))}%</td>

@@ -46,7 +46,7 @@ class ThrashHitCount extends HitCountAoE {
       return suggest(
         <>
           You are using <SpellLink id={SPELLS.THRASH_FERAL.id} /> out of range of any targets. Try to get familiar with the range of your area of effect abilities so you can avoid wasting energy when they'll not hit anything.
-        </>
+        </>,
       )
         .icon(SPELLS.THRASH_FERAL.icon)
         .actual(`${actual.toFixed(1)} uses per minute that hit nothing.`)

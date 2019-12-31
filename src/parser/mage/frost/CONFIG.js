@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { Sharrq, Dambroda } from 'CONTRIBUTORS';
-import retryingPromise from 'common/retryingPromise';
+
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
+import NoIceLance from './icons/noicelance.jpg';
 import CHANGELOG from './CHANGELOG';
 
 export default {
@@ -30,14 +31,21 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/67LHQfJjCFzgyXBr/8-Normal+Stormwall+Blockade+-+Kill+(7:17)/84-Tueri',
-
+  builds: {
+    NO_IL: {
+      url: "noil",
+      name: "No Ice Lance",
+      icon: <img src={NoIceLance} alt="No Ice lance" className="icon" />,
+      visible: true,
+    },
+  },
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.FROST_MAGE,
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "FrostMage" */).then(exports => exports.default)),
+  parser: () => import('./CombatLogParser' /* webpackChunkName: "FrostMage" */).then(exports => exports.default),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

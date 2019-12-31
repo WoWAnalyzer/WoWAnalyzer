@@ -1,13 +1,13 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import { formatNumber, formatDuration } from 'common/format';
+import { formatNumber, formatDuration, formatNth } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
 import SpellLink from 'common/SpellLink';
 
 import StatIcon from 'interface/icons/PrimaryStat';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
-import ItemManaGained from 'interface/others/ItemManaGained';
+import ItemHealingDone from 'interface/ItemHealingDone';
+import ItemManaGained from 'interface/ItemManaGained';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import StatisticGroup from 'interface/statistics/StatisticGroup';
@@ -180,7 +180,6 @@ class TheEverRisingTide extends Analyzer {
   }
 
   statistic() {
-    const nth = (number) => number + (["st", "nd", "rd"][((number + 90) % 100 - 10) % 10 - 1] || "th");
     const rank = this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE.traitId);
     return (
       <StatisticGroup category={STATISTIC_CATEGORY.ITEMS}>
@@ -212,7 +211,7 @@ class TheEverRisingTide extends Analyzer {
                     Object.values(this.byCast).map((cast, index) => {
                       return (
                         <tr key={index}>
-                          <th>{nth(index + 1)}</th>
+                          <th>{formatNth(index + 1)}</th>
                           <td>{formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000) || 0}</td>
                           <td>{cast.maxStacks}</td>
                           <td>{formatNumber(cast.healing)}</td>
