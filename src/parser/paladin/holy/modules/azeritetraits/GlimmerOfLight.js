@@ -82,7 +82,6 @@ class GlimmerOfLight extends Analyzer {
       this.glimmerBuffs.splice(index, 1);
     } else if (this.glimmerBuffs.length >= GLIMMER_CAP) {
       // if glimmer count is over the limit //
-      console.log('===Glimmer cast over count===');
       this.overCap += 1;
       this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[GLIMMER_CAP - 1].timestamp);
       this.glimmerBuffs.splice(GLIMMER_CAP - 1, 1);
