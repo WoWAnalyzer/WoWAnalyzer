@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import CORE_CHANGELOG from 'CHANGELOG';
-import AVAILABLE_CONFIGS from 'parser/AVAILABLE_CONFIGS';
+import AVAILABLE_CONFIGS from 'parser';
 
 import Changelog from '../Changelog';
 

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Yajinni,
   Mamtooth,
@@ -37,6 +38,7 @@ import {
   Draenal,
   JeremyDwayne,
   axelkic,
+  layday,
 } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -46,6 +48,10 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2019, 12, 31), 'Replaced TravisCI build pipelines with GitHub actions workflows.', Zerotorescue),
+  change(date(2019, 12, 29), "Updated Combatant to typescript",[HawkCorrigan]),
+  change(date(2019, 12, 27), 'Indicate elemental shaman has been updated for 8.2.5 and update the example log', Draenal),
+  change(date(2019, 12, 23), 'Fixed early DoT refresh extension check.', layday),
   change(date(2019, 12, 17), "Fixed integration testing code with new build support.", [emallson]),
   change(date(2019, 12, 16), "Updated internal test tools to use new API URL.", [emallson]),
   change(date(2019, 12, 15), "Fix spell icons in cooldowns tab.", [Zerotorescue]),
@@ -68,6 +74,8 @@ export default [
   change(date(2019, 10, 2), <>Added Potion of Empowered Proximity for the potion checker.</>, Abelito75),
   change(date(2019, 10, 2), <>Fixed an issue in Cast Efficiency that caused spells to have a time on CD higher than 100%.</>, Sharrq),
   change(date(2019, 9, 30), <>Adjusted phase transitions for Orgozoa, Za'qul, and Queen Azshara to be more accurate.</>, Sharrq),
+  change(date(2019, 9, 24), <>Updated channeling code to take into account downtime from items like <ItemLink id={ITEMS.AZSHARAS_FONT_OF_POWER.id} /> and to display them on the timeline.</>, Yajinni),
+  change(date(2019, 9, 24), <>Added <ItemLink id={ITEMS.AZSHARAS_FONT_OF_POWER.id} />.</>, Yajinni),
   change(date(2019, 9, 20), <>Added <ItemLink id={ITEMS.CYCLOTRONIC_BLAST.id} />.</>, Juko8),
   change(date(2019, 9, 20), 'Added 8.2 gems', Juko8),
   change(date(2019, 9, 16), <>Changed how cast efficiency is tracked for spells with charges <em>and</em> charge refunds (mostly <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} />).</>, emallson),

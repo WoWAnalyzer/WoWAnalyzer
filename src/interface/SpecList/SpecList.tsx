@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DocumentTitle from 'interface/DocumentTitle';
-import AVAILABLE_CONFIGS from 'parser/AVAILABLE_CONFIGS';
+import AVAILABLE_CONFIGS from 'parser';
 
 import './SpecList.css';
 

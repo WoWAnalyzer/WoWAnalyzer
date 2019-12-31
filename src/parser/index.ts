@@ -46,7 +46,9 @@ import ProtectionWarrior from './warrior/protection/CONFIG';
 import ArmsWarrior from './warrior/arms/CONFIG';
 import FuryWarrior from './warrior/fury/CONFIG';
 
-export default [
+import Config from './Config';
+
+const configs: Config[] = [
   BloodDeathKnight,
   UnholyDeathKnight,
   FrostDeathKnight,
@@ -95,3 +97,5 @@ export default [
   ArmsWarrior,
   FuryWarrior,
 ];
+
+export default configs;
