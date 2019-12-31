@@ -120,8 +120,7 @@ class AncestralProtectionTotem extends Analyzer {
                         </SpellLink></td>
                     </tr>
                   );
-                }
-                )
+                })
             }
           </tbody>
         </table>
