@@ -1,8 +1,5 @@
 <h1>
   <img src="https://user-images.githubusercontent.com/4565223/54240739-2d6e0b00-451f-11e9-8473-d15e78914c9b.png" height="36" valign="bottom" /> WoWAnalyzer
-  <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer">
-   <img src="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master">
-  </a>
 </h1>
 
 > WoWAnalyzer is a tool to help you analyze and improve your World of Warcraft raiding performance through various relevant metrics and gameplay suggestions.
