@@ -48,6 +48,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2019, 12, 31), 'Replaced TravisCI build pipelines with GitHub actions workflows.', Zerotorescue),
   change(date(2019, 12, 23), 'Fixed early DoT refresh extension check.', layday),
   change(date(2019, 12, 17), "Fixed integration testing code with new build support.", [emallson]),
   change(date(2019, 12, 16), "Updated internal test tools to use new API URL.", [emallson]),
