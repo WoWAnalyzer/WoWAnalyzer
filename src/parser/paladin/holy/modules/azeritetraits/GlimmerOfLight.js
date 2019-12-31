@@ -62,17 +62,17 @@ class GlimmerOfLight extends Analyzer {
     this.healingTransfered += event.amount + (event.absorbed || 0);
   }
 
-  updateActiveGlimmers(event){
+  updateActiveGlimmers(timestamp){
     for (let i = this.glimmerBuffs.length; i > 0; i--) {
-      if (this.glimmerBuffs[i - 1].timestamp - event.timestamp > BUFF_DURATION * 1000){
-        this.glimmerBuffs.splice(i, 1);
+      if (timestamp - this.glimmerBuffs[i - 1].timestamp > BUFF_DURATION * 1000){
+        this.glimmerBuffs.splice(i - 1, 1);
       }
     }
   }
 
   onCast(event) {
     this.casts += 1;
-    this.updateActiveGlimmers(event);
+    this.updateActiveGlimmers(event.timestamp);
     
     const index = this.glimmerBuffs.findIndex(g => g.targetID === event.targetID);
     if(index >= 0) {
@@ -80,13 +80,12 @@ class GlimmerOfLight extends Analyzer {
       this.wastedEarlyRefresh += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
       this.earlyRefresh += 1;
       this.glimmerBuffs.splice(index, 1);
-      console.log(`Glimmer overwrite at: ${event.timestamp}`);
     } else if (this.glimmerBuffs.length >= GLIMMER_CAP) {
       // if glimmer count is over the limit //
-      const lastGlimmer = this.glimmerBuffs.pop();
+      console.log('===Glimmer cast over count===');
       this.overCap += 1;
-      this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - lastGlimmer.timestamp);
-      console.log(`Over Glimmer cap at: ${event.timestamp}`);
+      this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[GLIMMER_CAP - 1].timestamp);
+      this.glimmerBuffs.splice(GLIMMER_CAP - 1, 1);
     }
 
     const glimmer = {targetID: event.targetID, timestamp: event.timestamp};
@@ -115,8 +114,12 @@ class GlimmerOfLight extends Analyzer {
     return this.healing + this.healingTransfered;
   }
 
-  get glimmersWasted() {
+  get earlyGlimmersWasted() {
     return this.wastedEarlyRefresh / (this.casts * BUFF_DURATION * 1000);
+  }
+
+  get overCapGlimmersWasted(){
+    return this.wastedOverCap / (this.casts * BUFF_DURATION * 1000);
   }
 
   statistic() {
@@ -137,9 +140,9 @@ class GlimmerOfLight extends Analyzer {
             Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
             Holy Shocks/minute: <b>{this.holyShocksPerMinute.toFixed(1)}</b><br />
             Early refresh(s): <b>{this.earlyRefresh}</b><br />
-            Lost to early refresh: <b>{(this.wastedEarlyRefresh/1000).toFixed(1)}(sec) {(this.earlyRefresh * 100).toFixed(1)}%</b><br />
-            Glimmer of Lights over cap: <b>{this.overCap}</b><br />
-            Lost to over capping: <b>{(this.wastedOverCap/1000).toFixed(1)}(sec) {(this.overCap * 100).toFixed(1)}%</b><br />
+            Lost to early refresh: <b>{(this.wastedEarlyRefresh/1000).toFixed(1)}(sec) {(this.earlyGlimmersWasted * 100).toFixed(1)}%</b><br />
+            Glimmer of Lights over {GLIMMER_CAP} buff cap: <b>{this.overCap}</b><br />
+            Lost to over capping: <b>{(this.wastedOverCap/1000).toFixed(1)}(sec) {(this.overCapGlimmersWasted * 100).toFixed(1)}%</b><br />
             Glimmer damage: <b>{formatNumber(this.damage)}</b><br />
           </Trans>
         )}
