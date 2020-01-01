@@ -137,12 +137,12 @@ class GlimmerOfLight extends Analyzer {
           <Trans>
             Total healing done: <b>{formatNumber(this.totalHealing)}</b><br />
             Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
+            Glimmer damage: <b>{formatNumber(this.damage)}</b><br />
             Holy Shocks/minute: <b>{this.holyShocksPerMinute.toFixed(1)}</b><br />
             Early refresh(s): <b>{this.earlyRefresh}</b><br />
             Lost to early refresh: <b>{(this.wastedEarlyRefresh/1000).toFixed(1)}(sec) {(this.earlyGlimmersWasted * 100).toFixed(1)}%</b><br />
             Glimmer of Lights over {GLIMMER_CAP} buff cap: <b>{this.overCap}</b><br />
             Lost to over capping: <b>{(this.wastedOverCap/1000).toFixed(1)}(sec) {(this.overCapGlimmersWasted * 100).toFixed(1)}%</b><br />
-            Glimmer damage: <b>{formatNumber(this.damage)}</b><br />
           </Trans>
         )}
       />
