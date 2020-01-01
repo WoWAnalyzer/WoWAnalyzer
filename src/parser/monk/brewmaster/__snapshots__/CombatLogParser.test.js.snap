@@ -5271,6 +5271,10 @@ exports[`The Brewmaster Analyzer analyzers StraightNoChaser matches the statisti
 
 exports[`The Brewmaster Analyzer analyzers StraightNoChaser matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Brewmaster Analyzer analyzers Strife matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers Strife matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Brewmaster Analyzer analyzers SwirlingSands matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Brewmaster Analyzer analyzers SwirlingSands matches the suggestions snapshot 1`] = `"module inactive"`;

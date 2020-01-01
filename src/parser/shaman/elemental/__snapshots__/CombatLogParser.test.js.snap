@@ -5591,6 +5591,10 @@ exports[`Elemental Shaman integration test analyzers Stormkeeper matches the sta
 
 exports[`Elemental Shaman integration test analyzers Stormkeeper matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`Elemental Shaman integration test analyzers Strife matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Elemental Shaman integration test analyzers Strife matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`Elemental Shaman integration test analyzers SurgeOfPower matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`Elemental Shaman integration test analyzers SurgeOfPower matches the suggestions snapshot 1`] = `"module inactive"`;
