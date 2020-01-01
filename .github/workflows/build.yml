@@ -110,9 +110,8 @@ jobs:
           path: .
       - run: tar -xzf dependencies.tar.gz
       - run: yarn test:integration --runInBand
-
   build:
-    needs: [typecheck, linting, test-interface, test-parser, test-integration]
+    needs: [prepare]
     name: 'Build'
     runs-on: ubuntu-latest
     steps:
@@ -139,8 +138,10 @@ jobs:
         with:
           name: build
           path: build.tar.gz
+
   docker-image:
-    needs: [build]
+    needs:
+      [typecheck, linting, test-interface, test-parser, test-integration, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request'
