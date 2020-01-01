@@ -24,7 +24,7 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
  */
 
 const BUFF_DURATION = 30;
-const GLIMMER_CAP = 8;// this will be set to 8 with next patch //
+const GLIMMER_CAP = (new Date() < new Date(2020, 1, 1)) ? 99 : 8;
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
@@ -156,6 +156,30 @@ class GlimmerOfLight extends Analyzer {
         minor: 0.15,
         average: 0.25,
         major: .35,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get suggestEarlyRefresh() {
+    return {
+      actual: this.wastedEarlyRefresh,
+      isGreaterThan: {
+        minor: 0.1,
+        average: 0.2,
+        major: 0.3,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get suggestGlimmerCap() {
+    return{
+      actual: this.wastedOverCap,
+      isGreaterThan: {
+        minor: 0.1,
+        average: 0.2,
+        major: 0.3,
       },
       style: 'percentage',
     };
