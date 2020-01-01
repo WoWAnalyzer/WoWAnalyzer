@@ -81,7 +81,7 @@ function writeLog(filename, fightId, playerId, cb, report, combatants, events) {
 
 const [filename, logId, fightId, playerId]= argv.slice(2, argv.length);
 
-requestFight(logId, 
-  requestCombatants.bind(null, logId, fightId, 
+requestFight(logId,
+  requestCombatants.bind(null, logId, fightId,
     requestEvents.bind(null, logId, playerId,
       writeLog.bind(null, filename, fightId, playerId, (path) => console.log(`wrote ${path}`)))));

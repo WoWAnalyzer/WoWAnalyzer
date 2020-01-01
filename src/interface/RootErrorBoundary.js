@@ -23,8 +23,8 @@ class RootErrorBoundary extends React.Component {
     this.handleErrorEvent = this.handleErrorEvent.bind(this);
     this.handleUnhandledrejectionEvent = this.handleUnhandledrejectionEvent.bind(this);
 
-    // window.addEventListener('error', this.handleErrorEvent);
-    // window.addEventListener('unhandledrejection', this.handleUnhandledrejectionEvent);
+    window.addEventListener('error', this.handleErrorEvent);
+    window.addEventListener('unhandledrejection', this.handleUnhandledrejectionEvent);
   }
 
   componentWillUnmount() {
