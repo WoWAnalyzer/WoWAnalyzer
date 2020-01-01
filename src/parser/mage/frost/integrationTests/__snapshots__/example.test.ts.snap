@@ -4709,7 +4709,7 @@ exports[`The Frost Mage Analyzer analyzers ThroughputStatisticGroup matches the 
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=6&source=102&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=6&source=102&type=damage-done"
             >
               <div
                 style={
@@ -4831,7 +4831,7 @@ exports[`The Frost Mage Analyzer analyzers ThroughputStatisticGroup matches the 
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=6&source=102&type=healing"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=6&source=102&type=healing"
             >
               <div
                 style={
@@ -4949,7 +4949,7 @@ exports[`The Frost Mage Analyzer analyzers ThroughputStatisticGroup matches the 
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=6&source=102&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=6&source=102&type=damage-taken"
             >
               <div
                 style={

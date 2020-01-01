@@ -9665,7 +9665,7 @@ exports[`Holy Paladin integration test analyzers ThroughputStatisticGroup matche
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=8&source=3&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=8&source=3&type=damage-done"
             >
               <div
                 style={
@@ -9787,7 +9787,7 @@ exports[`Holy Paladin integration test analyzers ThroughputStatisticGroup matche
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=8&source=3&type=healing"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=8&source=3&type=healing"
             >
               <div
                 style={
@@ -9905,7 +9905,7 @@ exports[`Holy Paladin integration test analyzers ThroughputStatisticGroup matche
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=8&source=3&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=8&source=3&type=damage-taken"
             >
               <div
                 style={

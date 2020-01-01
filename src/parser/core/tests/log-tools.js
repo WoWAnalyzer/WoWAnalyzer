@@ -73,7 +73,10 @@ export function parseLog(
       builds[key].active = key === buildKey;
     });
   const parser = new parserClass(
-    log.report,
+    {
+      ...log.report,
+      code: log.meta.reportCode || 'TEST',
+    },
     friendlies,
     fight,
     log.combatants,

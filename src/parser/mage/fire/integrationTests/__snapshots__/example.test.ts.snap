@@ -4717,7 +4717,7 @@ exports[`The Fire Mage Analyzer analyzers ThroughputStatisticGroup matches the s
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=12&source=12&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=12&type=damage-done"
             >
               <div
                 style={
@@ -4839,7 +4839,7 @@ exports[`The Fire Mage Analyzer analyzers ThroughputStatisticGroup matches the s
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=12&source=12&type=healing"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=12&type=healing"
             >
               <div
                 style={
@@ -4957,7 +4957,7 @@ exports[`The Fire Mage Analyzer analyzers ThroughputStatisticGroup matches the s
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=12&source=12&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=12&type=damage-taken"
             >
               <div
                 style={

@@ -4988,7 +4988,7 @@ exports[`The Blood Deathknight Analyzer analyzers ThroughputStatisticGroup match
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=15&source=21&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=15&source=21&type=damage-done"
             >
               <div
                 style={
@@ -5110,7 +5110,7 @@ exports[`The Blood Deathknight Analyzer analyzers ThroughputStatisticGroup match
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=15&source=21&type=healing"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=15&source=21&type=healing"
             >
               <div
                 style={
@@ -5228,7 +5228,7 @@ exports[`The Blood Deathknight Analyzer analyzers ThroughputStatisticGroup match
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=15&source=21&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=15&source=21&type=damage-taken"
             >
               <div
                 style={

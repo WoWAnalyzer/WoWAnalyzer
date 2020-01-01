@@ -5735,7 +5735,7 @@ exports[`Elemental Shaman integration test analyzers ThroughputStatisticGroup ma
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=18&source=23&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=18&source=23&type=damage-done"
             >
               <div
                 style={
@@ -5857,7 +5857,7 @@ exports[`Elemental Shaman integration test analyzers ThroughputStatisticGroup ma
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=18&source=23&type=healing"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=18&source=23&type=healing"
             >
               <div
                 style={
@@ -5975,7 +5975,7 @@ exports[`Elemental Shaman integration test analyzers ThroughputStatisticGroup ma
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=18&source=23&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=18&source=23&type=damage-taken"
             >
               <div
                 style={

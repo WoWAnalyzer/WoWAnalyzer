@@ -5339,7 +5339,7 @@ exports[`The Brewmaster Analyzer analyzers ThroughputStatisticGroup matches the 
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=12&source=3&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=3&type=damage-done"
             >
               <div
                 style={
@@ -5461,7 +5461,7 @@ exports[`The Brewmaster Analyzer analyzers ThroughputStatisticGroup matches the 
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=12&source=3&type=healing"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=3&type=healing"
             >
               <div
                 style={
@@ -5579,7 +5579,7 @@ exports[`The Brewmaster Analyzer analyzers ThroughputStatisticGroup matches the 
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=12&source=3&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=3&type=damage-taken"
             >
               <div
                 style={

@@ -4623,7 +4623,7 @@ exports[`The Protection Paladin Analyzer analyzers ThroughputStatisticGroup matc
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=1&source=1&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=1&source=1&type=damage-done"
             >
               <div
                 style={
@@ -4745,7 +4745,7 @@ exports[`The Protection Paladin Analyzer analyzers ThroughputStatisticGroup matc
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=1&source=1&type=healing"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=1&source=1&type=healing"
             >
               <div
                 style={
@@ -4863,7 +4863,7 @@ exports[`The Protection Paladin Analyzer analyzers ThroughputStatisticGroup matc
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=1&source=1&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=1&source=1&type=damage-taken"
             >
               <div
                 style={

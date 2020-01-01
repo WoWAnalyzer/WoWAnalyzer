@@ -4365,7 +4365,7 @@ exports[`The Arcane Mage Analyzer analyzers ThroughputStatisticGroup matches the
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=20&source=28&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=20&source=28&type=damage-done"
             >
               <div
                 style={
@@ -4487,7 +4487,7 @@ exports[`The Arcane Mage Analyzer analyzers ThroughputStatisticGroup matches the
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=20&source=28&type=healing"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=20&source=28&type=healing"
             >
               <div
                 style={
@@ -4605,7 +4605,7 @@ exports[`The Arcane Mage Analyzer analyzers ThroughputStatisticGroup matches the
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=20&source=28&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=20&source=28&type=damage-taken"
             >
               <div
                 style={
