@@ -24,7 +24,7 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
  */
 
 const BUFF_DURATION = 30;
-const GLIMMER_CAP = (new Date() < new Date(2020, 1, 1)) ? 99 : 8;
+const GLIMMER_CAP = (new Date() < new Date(2020, 1, 14)) ? 99 : 8;
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
@@ -149,25 +149,14 @@ class GlimmerOfLight extends Analyzer {
     );
   }
 
-  get suggestedGlimmerUsage() {
-    return {
-      actual: this.glimmersWasted,
-      isGreaterThan: {
-        minor: 0.15,
-        average: 0.25,
-        major: .35,
-      },
-      style: 'percentage',
-    };
-  }
 
   get suggestEarlyRefresh() {
     return {
-      actual: this.wastedEarlyRefresh,
+      actual: this.earlyGlimmersWasted,
       isGreaterThan: {
-        minor: 0.1,
-        average: 0.2,
-        major: 0.3,
+        minor: 0.15,
+        average: 0.25,
+        major: 0.35,
       },
       style: 'percentage',
     };
@@ -175,7 +164,7 @@ class GlimmerOfLight extends Analyzer {
 
   get suggestGlimmerCap() {
     return{
-      actual: this.wastedOverCap,
+      actual: this.overCapGlimmersWasted,
       isGreaterThan: {
         minor: 0.1,
         average: 0.2,
@@ -186,16 +175,34 @@ class GlimmerOfLight extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestedGlimmerUsage).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
-        <>
-          Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved. Try to avoid overwritting buffs too early.
-        </>,
-      )
+    if (this.owner.builds.GLIMMER.active){
+      when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Trans>
+            Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved. Try to avoid overwritting buffs too early.
+          </Trans>,
+        )
+          .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
+          .actual(`Percentage uptime lost to early refresh was ${formatPercentage(this.earlyGlimmersWasted)}%`)
+          .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`);
+      });
+    }
+
+    if (this.owner.builds.GLIMMER.active){
+      when(this.suggestGlimmerCap).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Trans>
+            Patch 8.3 implemented a <a href="https://www.wowhead.com/news=295502.3/blizzard-official-class-changes-for-patch-8-3-visions-of-nzoth">glimmer cap </a>
+            limiting the number of active <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> buffs to {GLIMMER_CAP}.<br />
+            Avoid stacking haste cooldowns to prevent over-capping on <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />.  
+            <a href="https://questionablyepic.com/glimmer-8-3/">More info here.</a>
+          </Trans>,
+        )
         .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
-        .actual(`Percentage uptime lost to early refresh was ${formatPercentage(this.glimmersWasted)}%`)
-        .recommended(`< 15% is recommended`);
-    });
+        .actual(`Percentage uptime lost to overcapping active glimmers was ${formatPercentage(this.overCapGlimmersWasted)}%`)
+        .recommended(`< ${this.suggestGlimmerCap.isGreaterThan.minor * 100}% is reccommended`);
+      });
+    }
   }
 }
 
