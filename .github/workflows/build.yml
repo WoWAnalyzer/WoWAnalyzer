@@ -64,7 +64,7 @@ jobs:
           path: .
       - run: tar -xzf dependencies.tar.gz
       - run: yarn lint --max-warnings=0
-  interface-tests:
+  test-interface:
     needs: [prepare]
     # This should actually include anything but parser and integration tests
     name: 'Interface tests'
@@ -79,8 +79,8 @@ jobs:
           name: dependencies
           path: .
       - run: tar -xzf dependencies.tar.gz
-      - run: yarn test --testPathIgnorePatterns "integrationTests|/src\/parser/" --watchAll
-  parser-tests:
+      - run: yarn test:interface
+  test-parser:
     needs: [prepare]
     name: 'Parser tests'
     runs-on: ubuntu-latest
@@ -94,8 +94,8 @@ jobs:
           name: dependencies
           path: .
       - run: tar -xzf dependencies.tar.gz
-      - run: yarn test --testPathIgnorePatterns integrationTests ./src/parser
-  integration-tests:
+      - run: yarn test:parser
+  test-integration:
     needs: [prepare]
     name: 'Integration tests'
     runs-on: ubuntu-latest
@@ -109,7 +109,7 @@ jobs:
           name: dependencies
           path: .
       - run: tar -xzf dependencies.tar.gz
-      - run: yarn test integrationTests
+      - run: yarn test:integration
 
   build:
     needs: [typecheck, linting, test-interface, test-parser, test-integration]
