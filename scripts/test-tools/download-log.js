@@ -54,7 +54,7 @@ function writeLog(filename, fightId, playerId, cb, report, combatants, events) {
   const fight = report.fights.find(({id}) => id === Number(fightId));
   const combatant = combatants.events.find(({sourceID}) => sourceID === Number(playerId));
 
-  const path = `test-logs/${filename}.zip`;
+  const path = `${filename}.zip`;
   const out = fs.createWriteStream(path);
   const compress = archiver('zip');
   compress.on('warning', err => console.warn(err));
@@ -84,4 +84,4 @@ const [filename, logId, fightId, playerId]= argv.slice(2, argv.length);
 requestFight(logId,
   requestCombatants.bind(null, logId, fightId,
     requestEvents.bind(null, logId, playerId,
-      writeLog.bind(null, filename, fightId, playerId, (path) => console.log(`wrote ${path}`)))));
+      writeLog.bind(null, filename, fightId, playerId, (path) => console.log(`Wrote ${path}. Please move it to your spec directory/integrationTests.`)))));
