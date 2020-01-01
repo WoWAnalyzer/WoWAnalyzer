@@ -3340,21 +3340,18 @@ exports[`Elemental Shaman integration test analyzers LavaShock matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
+        <div
+          className="flex-sub icon"
+        >
           <a
             href="http://wowhead.com/spell=273448"
             rel="noopener noreferrer"
@@ -3366,50 +3363,18 @@ exports[`Elemental Shaman integration test analyzers LavaShock matches the stati
               src="//render-us.worldofwarcraft.com/icons/56/spell_nature_earthshock.jpg"
             />
           </a>
-           
-          <a
-            href="http://wowhead.com/spell=273448"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Lava Shock
-          </a>
-        </label>
+        </div>
         <div
-          className="value"
+          className="flex-main value"
         >
-          <img
-            alt="Damage"
-            className="icon"
-            src="/img/sword.png"
-          />
-           
-          1,053
-           DPS
-           
+          <div>
+            {0} Damage
+          </div>
           <small>
-            2.31
-             % of total
+            Damage done
           </small>
         </div>
       </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
     </div>
   </div>
 </div>
