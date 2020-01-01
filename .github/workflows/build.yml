@@ -64,10 +64,10 @@ jobs:
           path: .
       - run: tar -xzf dependencies.tar.gz
       - run: yarn lint --max-warnings=0
-  # TODO: Split integration tests and other tests into 2 steps
-  tests:
+  interface-tests:
     needs: [prepare]
-    name: 'Tests'
+    # This should actually include anything but parser and integration tests
+    name: 'Interface tests'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -79,10 +79,40 @@ jobs:
           name: dependencies
           path: .
       - run: tar -xzf dependencies.tar.gz
-      - run: yarn test --maxWorkers=2
+      - run: yarn test --testPathIgnorePatterns "integrationTests|/src\/parser/" --watchAll
+  parser-tests:
+    needs: [prepare]
+    name: 'Parser tests'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/download-artifact@v1
+        with:
+          name: dependencies
+          path: .
+      - run: tar -xzf dependencies.tar.gz
+      - run: yarn test --testPathIgnorePatterns integrationTests ./src/parser
+  integration-tests:
+    needs: [prepare]
+    name: 'Integration tests'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/download-artifact@v1
+        with:
+          name: dependencies
+          path: .
+      - run: tar -xzf dependencies.tar.gz
+      - run: yarn test integrationTests
 
   build:
-    needs: [typecheck]
+    needs: [typecheck, linting, test-interface, test-parser, test-integration]
     name: 'Build'
     runs-on: ubuntu-latest
     steps:
