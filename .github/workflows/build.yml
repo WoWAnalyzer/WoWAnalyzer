@@ -64,10 +64,10 @@ jobs:
           path: .
       - run: tar -xzf dependencies.tar.gz
       - run: yarn lint --max-warnings=0
-  # TODO: Split integration tests and other tests into 2 steps
-  tests:
+  test-interface:
     needs: [prepare]
-    name: 'Tests'
+    # This should actually include anything but parser and integration tests
+    name: 'Interface tests'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -79,10 +79,39 @@ jobs:
           name: dependencies
           path: .
       - run: tar -xzf dependencies.tar.gz
-      - run: yarn test --maxWorkers=2
-
+      - run: yarn test:interface --runInBand
+  test-parser:
+    needs: [prepare]
+    name: 'Parser tests'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/download-artifact@v1
+        with:
+          name: dependencies
+          path: .
+      - run: tar -xzf dependencies.tar.gz
+      - run: yarn test:parser --runInBand
+  test-integration:
+    needs: [prepare]
+    name: 'Integration tests'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/download-artifact@v1
+        with:
+          name: dependencies
+          path: .
+      - run: tar -xzf dependencies.tar.gz
+      - run: yarn test:integration --runInBand
   build:
-    needs: [typecheck]
+    needs: [prepare]
     name: 'Build'
     runs-on: ubuntu-latest
     steps:
@@ -109,8 +138,10 @@ jobs:
         with:
           name: build
           path: build.tar.gz
+
   docker-image:
-    needs: [build]
+    needs:
+      [typecheck, linting, test-interface, test-parser, test-integration, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request'

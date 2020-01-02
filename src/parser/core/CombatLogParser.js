@@ -45,7 +45,6 @@ import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import DistanceMoved from '../shared/modules/others/DistanceMoved';
 import DispelTracker from '../shared/modules/DispelTracker';
-import ChannelingShared from '../shared/modules/features/ChannelingShared';
 
 // Tabs
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
@@ -243,7 +242,6 @@ class CombatLogParser {
     distanceMoved: DistanceMoved,
     deathRecapTracker: DeathRecapTracker,
     dispels: DispelTracker,
-    channelingShared:ChannelingShared,
 
     critEffectBonus: CritEffectBonus,
 

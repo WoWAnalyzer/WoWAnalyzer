@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`The Brewmaster Analyzer analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers Abilities matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Brewmaster Monk integration test: example log analyzers Abilities matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`The Brewmaster Analyzer analyzers AbilitiesMissing matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers AbilitiesMissing matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers AbilitiesMissing matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Brewmaster Monk integration test: example log analyzers AbilitiesMissing matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`The Brewmaster Analyzer analyzers AbyssalSpeakersGauntlets matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers AbyssalSpeakersGauntlets matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers AbyssalSpeakersGauntlets matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers AbyssalSpeakersGauntlets matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers AgilityValue matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers AgilityValue matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers AgilityValue matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers AgilityValue matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -111,7 +111,7 @@ exports[`The Brewmaster Analyzer analyzers AlwaysBeCasting matches the statistic
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -128,23 +128,23 @@ Array [
 ]
 `;
 
-exports[`The Brewmaster Analyzer analyzers AncientKnotOfWisdom matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers AncientKnotOfWisdom matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers AncientKnotOfWisdom matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers AncientKnotOfWisdom matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ArcaneTorrent matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ArcaneTorrent matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ArcaneTorrent matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ArcaneTorrent matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ArchiveOfTheTitans matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ArchiveOfTheTitans matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ArchiveOfTheTitans matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ArchiveOfTheTitans matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers AshvanesRazorCoral matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers AshvanesRazorCoral matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers AshvanesRazorCoral matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers AshvanesRazorCoral matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers AzerokksResonatingHeart matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers AzerokksResonatingHeart matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -239,55 +239,55 @@ exports[`The Brewmaster Analyzer analyzers AzerokksResonatingHeart matches the s
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers AzerokksResonatingHeart matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers AzerokksResonatingHeart matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers AzsharasFontofPower matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers AzsharasFontofPower matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers AzsharasFontofPower matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers AzsharasFontofPower matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BalefireBranch matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BalefireBranch matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BalefireBranch matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BalefireBranch matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Berserking matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Berserking matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Berserking matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Berserking matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BlackOxBrew matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BlackOxBrew matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BlackOxBrew matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BlackOxBrew matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BlackoutCombo matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BlackoutCombo matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BlackoutCombo matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BlackoutCombo matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BlessedPortents matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BlessedPortents matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BlessedPortents matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BlessedPortents matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BlightborneInfusion matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BlightborneInfusion matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BlightborneInfusion matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BlightborneInfusion matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BloodRite matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BloodRite matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BloodRite matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BloodRite matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BloodthirstyUrchin matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BloodthirstyUrchin matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BloodthirstyUrchin matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BloodthirstyUrchin matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BondedSouls matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BondedSouls matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BondedSouls matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BondedSouls matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BracingChill matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BracingChill matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BracingChill matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers BracingChill matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers BreathOfFire matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers BreathOfFire matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers BreathOfFire matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers BreathOfFire matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -310,7 +310,7 @@ Array [
 ]
 `;
 
-exports[`The Brewmaster Analyzer analyzers BrewCDR matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers BrewCDR matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -372,13 +372,13 @@ exports[`The Brewmaster Analyzer analyzers BrewCDR matches the statistic snapsho
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers BrewCDR matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers BrewCDR matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers Buffs matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers Buffs matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers Buffs matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Brewmaster Monk integration test: example log analyzers Buffs matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers CastEfficiency matches the statistic snapshot 1`] = `
 <div
   className="panel "
 >
@@ -2847,7 +2847,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers CastEfficiency matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -2934,7 +2934,7 @@ Array [
 ]
 `;
 
-exports[`The Brewmaster Analyzer analyzers CelestialFortune matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers CelestialFortune matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -2979,117 +2979,113 @@ exports[`The Brewmaster Analyzer analyzers CelestialFortune matches the statisti
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers CelestialFortune matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers CelestialFortune matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers ChannelingShared matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers ChannelingShared matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`The Brewmaster Analyzer analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers CombatPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Brewmaster Monk integration test: example log analyzers CombatPotion matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers CombatPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers Combatants matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers CombatPotion matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers Combatants matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers Combatants matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers ConcentratedMending matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Combatants matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers ConcentratedMending matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ConcentratedMending matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ConchofDarkWhispers matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ConcentratedMending matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ConchofDarkWhispers matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ConchofDarkWhispers matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ConstructOvercharger matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ConchofDarkWhispers matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ConstructOvercharger matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ConstructOvercharger matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers CostalSurge matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ConstructOvercharger matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers CostalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers CostalSurge matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers CrestOfPaku matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers CostalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers CrestOfPaku matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers CrestOfPaku matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers CritEffectBonus matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers CrestOfPaku matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers CritEffectBonus matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers CritEffectBonus matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers CritValue matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers CritEffectBonus matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers CritValue matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers CritValue matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers CrystallineCarapace matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers CritValue matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers CrystallineCarapace matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers CrystallineCarapace matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers CyclotronicBlast matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers CrystallineCarapace matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers CyclotronicBlast matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers CyclotronicBlast matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DamageDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers CyclotronicBlast matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers DamageDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers DamageTaken matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers DamageTaken matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers DamageTaken matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers DamageTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers DamageTaken matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers DamageTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers DamageTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers DarkmoonDeckBlockades matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DamageTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers DarkmoonDeckBlockades matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DarkmoonDeckBlockades matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DarkmoonDeckFathoms matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DarkmoonDeckBlockades matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DarkmoonDeckFathoms matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DarkmoonDeckFathoms matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DarkmoonDeckTides matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DarkmoonDeckFathoms matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DarkmoonDeckTides matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DarkmoonDeckTides matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DeadlyNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DarkmoonDeckTides matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DeadlyNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DeadlyNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DeathDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers DeadlyNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DeathDowntime matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers DeathDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers DeathRecapTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers DeathDowntime matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers DeathRecapTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers DeathRecapTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers DeathTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers DeathRecapTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers DeathTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers DeathTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers DiamondLacedReflectingPrism matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DeathTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers DiamondLacedReflectingPrism matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DiamondLacedReflectingPrism matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DiscOfSystematicRegression matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DiamondLacedReflectingPrism matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DiscOfSystematicRegression matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DiscOfSystematicRegression matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DispelTracker matches the statistic snapshot 1`] = `null`;
 
-exports[`The Brewmaster Analyzer analyzers DiscOfSystematicRegression matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DispelTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers DispelTracker matches the statistic snapshot 1`] = `null`;
-
-exports[`The Brewmaster Analyzer analyzers DispelTracker matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Brewmaster Analyzer analyzers DistanceMoved matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers DistanceMoved matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3214,35 +3210,35 @@ exports[`The Brewmaster Analyzer analyzers DistanceMoved matches the statistic s
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers DistanceMoved matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers DistanceMoved matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers DreadGladiatorsBadge matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DreadGladiatorsBadge matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DreadGladiatorsBadge matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DreadGladiatorsBadge matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DreadGladiatorsInsignia matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DreadGladiatorsInsignia matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DreadGladiatorsInsignia matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DreadGladiatorsInsignia matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DreadGladiatorsMedallion matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DreadGladiatorsMedallion matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DreadGladiatorsMedallion matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DreadGladiatorsMedallion matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DribblingInkpod matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DribblingInkpod matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers DribblingInkpod matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers DribblingInkpod matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ElementalWhirl matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ElementalWhirl matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ElementalWhirl matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ElementalWhirl matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ElusiveFootwork matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ElusiveFootwork matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ElusiveFootwork matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ElusiveFootwork matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers EnchantChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers EnchantChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers EnchantChecker matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers EnchantChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3309,49 +3305,49 @@ Array [
 ]
 `;
 
-exports[`The Brewmaster Analyzer analyzers Enemies matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers Enemies matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers Enemies matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers Enemies matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers EnemyInstances matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers EnemyInstances matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers EnemyInstances matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers EnemyInstances matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers EphemeralRecovery matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers EphemeralRecovery matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers EphemeralRecovery matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers EphemeralRecovery matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers EternalAlchemistStone matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers EternalAlchemistStone matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers EternalAlchemistStone matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers EternalAlchemistStone matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers EventEmitter matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers EventEmitter matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers EventEmitter matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Brewmaster Monk integration test: example log analyzers EventEmitter matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`The Brewmaster Analyzer analyzers FangsOfIntertwinedEssence matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FangsOfIntertwinedEssence matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FangsOfIntertwinedEssence matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FangsOfIntertwinedEssence matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FathomDredgers matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FathomDredgers matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FathomDredgers matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FathomDredgers matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FathuulsFloodguards matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FathuulsFloodguards matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FathuulsFloodguards matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FathuulsFloodguards matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FirstMatesSpyglass matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FirstMatesSpyglass matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FirstMatesSpyglass matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FirstMatesSpyglass matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FitToBurst matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FitToBurst matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FitToBurst matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FitToBurst matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FlaskChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers FlaskChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers FlaskChecker matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers FlaskChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3363,9 +3359,9 @@ Array [
 ]
 `;
 
-exports[`The Brewmaster Analyzer analyzers FoodChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers FoodChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers FoodChecker matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers FoodChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3377,27 +3373,27 @@ Array [
 ]
 `;
 
-exports[`The Brewmaster Analyzer analyzers ForceMultiplier matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ForceMultiplier matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ForceMultiplier matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ForceMultiplier matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FreneticCorpuscle matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FreneticCorpuscle matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers FreneticCorpuscle matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers FreneticCorpuscle matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers GalecallersBoon matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers GalecallersBoon matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers GalecallersBoon matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers GalecallersBoon matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Gemhide matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Gemhide matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Gemhide matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Gemhide matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers GiftOfTheNaaru matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers GiftOfTheNaaru matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers GiftOfTheNaaru matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers GiftOfTheNaaru matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers GiftOfTheOx matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3459,61 +3455,61 @@ exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the statistic sna
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers GiftOfTheOx matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers GildedLoaFigurine matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers GildedLoaFigurine matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers GildedLoaFigurine matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers GildedLoaFigurine matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers GlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers GlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers GlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers GlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers GripsOfForsakenSanity matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers GripsOfForsakenSanity matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers GripsOfForsakenSanity matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers GripsOfForsakenSanity matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Guard matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Guard matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Guard matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Guard matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Gutripper matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Gutripper matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Gutripper matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Gutripper matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers HarbingersInscrutableWill matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers HarbingersInscrutableWill matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers HarbingersInscrutableWill matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers HarbingersInscrutableWill matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers HarlansLoadedDice matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers HarlansLoadedDice matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers HarlansLoadedDice matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers HarlansLoadedDice matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Haste matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers Haste matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers Haste matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers Haste matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers HealingDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers HealingDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers HealingDone matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers HealingDone matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers HealingReceived matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers HealingReceived matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers HealingReceived matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers HealingReceived matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers HealthPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers HealthPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers HealthPotion matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers HealthPotion matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers Healthstone matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers Healthstone matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers Healthstone matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers Healthstone matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers HeedMyCall matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers HeedMyCall matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers HeedMyCall matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers HeedMyCall matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers HighTolerance matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3575,9 +3571,9 @@ exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic s
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers HighTolerance matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers HighTolerance matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers HotTrubTimeMachine matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers HotTrubTimeMachine matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3653,25 +3649,25 @@ exports[`The Brewmaster Analyzer analyzers HotTrubTimeMachine matches the statis
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers HotTrubTimeMachine matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers HotTrubTimeMachine matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers IdolOfIndiscriminateConsumption matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers IdolOfIndiscriminateConsumption matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers IdolOfIndiscriminateConsumption matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers IdolOfIndiscriminateConsumption matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers IgnitionMagesFuse matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers IgnitionMagesFuse matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers IgnitionMagesFuse matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers IgnitionMagesFuse matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers IncandescentSliver matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers IncandescentSliver matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers IncandescentSliver matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers IncandescentSliver matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers InoculatingExtract matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers InoculatingExtract matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers InoculatingExtract matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers InoculatingExtract matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers IronSkinBrew matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3733,17 +3729,17 @@ exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the statistic sn
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers IronSkinBrew matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers KegSmash matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers KegSmash matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers KegSmash matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers KegSmash matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers LadyWaycrestsMusicBox matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LadyWaycrestsMusicBox matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LadyWaycrestsMusicBox matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LadyWaycrestsMusicBox matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LaserMatrix matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers LaserMatrix matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3830,45 +3826,45 @@ exports[`The Brewmaster Analyzer analyzers LaserMatrix matches the statistic sna
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers LaserMatrix matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers LaserMatrix matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers LeggingsOfTheAberrantTidesage matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LeggingsOfTheAberrantTidesage matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LeggingsOfTheAberrantTidesage matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LeggingsOfTheAberrantTidesage matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LegplatesOfUnboundAnguish matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LegplatesOfUnboundAnguish matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LegplatesOfUnboundAnguish matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LegplatesOfUnboundAnguish matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LingeringSporepods matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LingeringSporepods matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LingeringSporepods matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LingeringSporepods matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LoyalToTheEnd matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LoyalToTheEnd matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LoyalToTheEnd matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LoyalToTheEnd matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LurkersInsidiousGift matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LurkersInsidiousGift matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LurkersInsidiousGift matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LurkersInsidiousGift matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LustrousGoldenPlumage matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LustrousGoldenPlumage matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers LustrousGoldenPlumage matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers LustrousGoldenPlumage matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers MalformedHeraldsLegwraps matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers MalformedHeraldsLegwraps matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers MalformedHeraldsLegwraps matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers MalformedHeraldsLegwraps matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ManaValues matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ManaValues matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ManaValues matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ManaValues matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers MasterfulNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers MasterfulNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers MasterfulNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers MasterfulNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers MasteryValue matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers MasteryValue matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3915,21 +3911,21 @@ exports[`The Brewmaster Analyzer analyzers MasteryValue matches the statistic sn
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers MasteryValue matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers MasteryValue matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers MeticulousScheming matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers MeticulousScheming matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers MeticulousScheming matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers MeticulousScheming matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers MightOfTheMountain matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers MightOfTheMountain matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers MightOfTheMountain matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers MightOfTheMountain matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers MitigationCheck matches the statistic snapshot 1`] = `null`;
+exports[`Brewmaster Monk integration test: example log analyzers MitigationCheck matches the statistic snapshot 1`] = `null`;
 
-exports[`The Brewmaster Analyzer analyzers MitigationCheck matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers MitigationCheck matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers MitigationSheet matches the statistic snapshot 1`] = `
 <div
   className="panel "
 >
@@ -4804,27 +4800,27 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers MitigationSheet matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers MydasTalisman matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers MydasTalisman matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers MydasTalisman matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers MydasTalisman matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers NullDynamo matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers NullDynamo matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers NullDynamo matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers NullDynamo matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers OverWhelmingPower matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers OverWhelmingPower matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers OverWhelmingPower matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers OverWhelmingPower matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Pets matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers Pets matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers Pets matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers Pets matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers PrePotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers PrePotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers PrePotion matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers PrePotion matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4873,11 +4869,11 @@ Array [
 ]
 `;
 
-exports[`The Brewmaster Analyzer analyzers PreparationRuleAnalyzer matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers PreparationRuleAnalyzer matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers PreparationRuleAnalyzer matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers PreparationRuleAnalyzer matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers PurifyingBrew matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers PurifyingBrew matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4939,7 +4935,7 @@ exports[`The Brewmaster Analyzer analyzers PurifyingBrew matches the statistic s
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers PurifyingBrew matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers PurifyingBrew matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4994,29 +4990,29 @@ Array [
 ]
 `;
 
-exports[`The Brewmaster Analyzer analyzers QuickNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers QuickNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers QuickNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers QuickNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers RaidHealthTab matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers RaidHealthTab matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers RaidHealthTab matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers RaidHealthTab matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers RevitalizingVoodooTotem matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers RevitalizingVoodooTotem matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers RevitalizingVoodooTotem matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers RevitalizingVoodooTotem matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers RezansGleamingEye matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers RezansGleamingEye matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers RezansGleamingEye matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers RezansGleamingEye matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers RotcrustedVoodooDoll matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers RotcrustedVoodooDoll matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers RotcrustedVoodooDoll matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers RotcrustedVoodooDoll matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers RushingJadeWind matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers RushingJadeWind matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers RushingJadeWind matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers RushingJadeWind matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -5039,39 +5035,39 @@ Array [
 ]
 `;
 
-exports[`The Brewmaster Analyzer analyzers Savior matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Savior matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Savior matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Savior matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers SeaGiantsTidestone matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers SeaGiantsTidestone matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers SeaGiantsTidestone matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers SeaGiantsTidestone matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Seabreeze matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Seabreeze matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Seabreeze matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Seabreeze matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers SharedBrews matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers SharedBrews matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers SharedBrews matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers SharedBrews matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers SpellHistory matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers SpellHistory matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers SpellHistory matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers SpellHistory matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers SpellManaCost matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers SpellManaCost matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers SpellUsable matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers SpellUsable matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers Stagger matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers Stagger matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -5133,17 +5129,17 @@ exports[`The Brewmaster Analyzer analyzers Stagger matches the statistic snapsho
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers Stagger matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers Stagger matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers StaggerFabricator matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers StaggerFabricator matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers StaggerFabricator matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers StaggerFabricator matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers StaggerPoolGraph matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers StaggerPoolGraph matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers StaggerPoolGraph matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers StaggerPoolGraph matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers StaggeringStrikes matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -5223,57 +5219,57 @@ exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statist
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers StaggeringStrikes matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers StalwartNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers StalwartNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers StalwartNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers StalwartNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers StatTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers StatTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers StatTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers StatTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers Stoneform matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Stoneform matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Stoneform matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Stoneform matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers StormglideSteps matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers StormglideSteps matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers StormglideSteps matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers StormglideSteps matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers StraightNoChaser matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers StraightNoChaser matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers StraightNoChaser matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers StraightNoChaser matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Strife matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Strife matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Strife matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Strife matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers SwirlingSands matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers SwirlingSands matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers SwirlingSands matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers SwirlingSands matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers SynergisticGrowth matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers SynergisticGrowth matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers SynergisticGrowth matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers SynergisticGrowth matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers SyringeOfBloodborneInfirmity matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers SyringeOfBloodborneInfirmity matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers SyringeOfBloodborneInfirmity matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers SyringeOfBloodborneInfirmity matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TheCrucibleofFlame matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TheCrucibleofFlame matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TheCrucibleofFlame matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TheCrucibleofFlame matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TheEverRisingTide matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TheEverRisingTide matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TheEverRisingTide matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TheEverRisingTide matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TheWellOfExistence matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TheWellOfExistence matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TheWellOfExistence matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TheWellOfExistence matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ThroughputStatisticGroup matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers ThroughputStatisticGroup matches the statistic snapshot 1`] = `
 <div
   className="col-md-6 col-sm-12 col-xs-12"
   position={0}
@@ -5339,7 +5335,7 @@ exports[`The Brewmaster Analyzer analyzers ThroughputStatisticGroup matches the 
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=12&source=3&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=3&type=damage-done"
             >
               <div
                 style={
@@ -5461,7 +5457,7 @@ exports[`The Brewmaster Analyzer analyzers ThroughputStatisticGroup matches the 
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=12&source=3&type=healing"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=3&type=healing"
             >
               <div
                 style={
@@ -5579,7 +5575,7 @@ exports[`The Brewmaster Analyzer analyzers ThroughputStatisticGroup matches the 
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=12&source=3&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=3&type=damage-taken"
             >
               <div
                 style={
@@ -5644,49 +5640,49 @@ exports[`The Brewmaster Analyzer analyzers ThroughputStatisticGroup matches the 
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers ThroughputStatisticGroup matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers ThroughputStatisticGroup matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers TidalSurge matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TidalSurge matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TidalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TidalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TigerPalm matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers TigerPalm matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers TigerPalm matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers TigerPalm matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers TotalDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers TotalDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers TotalDowntime matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers TotalDowntime matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers Tradewinds matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Tradewinds matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers Tradewinds matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers Tradewinds matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TrainingOfNiuzao matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TrainingOfNiuzao matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TrainingOfNiuzao matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TrainingOfNiuzao matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TreacherousCovenant matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TreacherousCovenant matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TreacherousCovenant matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TreacherousCovenant matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TridentOfDeepOcean matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TridentOfDeepOcean matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TridentOfDeepOcean matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TridentOfDeepOcean matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TwitchingTentacleofXalzaix matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TwitchingTentacleofXalzaix matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers TwitchingTentacleofXalzaix matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers TwitchingTentacleofXalzaix matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers UnstableCatalyst matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers UnstableCatalyst matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers UnstableCatalyst matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers UnstableCatalyst matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers VantusRune matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers VantusRune matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers VantusRune matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers VantusRune matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers VersatileNavigation matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log analyzers VersatileNavigation matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -5794,41 +5790,41 @@ exports[`The Brewmaster Analyzer analyzers VersatileNavigation matches the stati
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers VersatileNavigation matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers VersatileNavigation matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers VersatilityValue matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Brewmaster Monk integration test: example log analyzers VersatilityValue matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Brewmaster Analyzer analyzers VersatilityValue matches the suggestions snapshot 1`] = `Array []`;
+exports[`Brewmaster Monk integration test: example log analyzers VersatilityValue matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers VesselOfSkitteringShadows matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers VesselOfSkitteringShadows matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers VesselOfSkitteringShadows matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers VesselOfSkitteringShadows matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers VigilantsBloodshaper matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers VigilantsBloodshaper matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers VigilantsBloodshaper matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers VigilantsBloodshaper matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers VoidStone matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers VoidStone matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers VoidStone matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers VoidStone matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers WardOfEnvelopment matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers WardOfEnvelopment matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers WardOfEnvelopment matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers WardOfEnvelopment matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers WorldveinResonance matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers WorldveinResonance matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers WorldveinResonance matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers WorldveinResonance matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers WoundBinder matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers WoundBinder matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers WoundBinder matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers WoundBinder matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ZaxasjsDeepstriders matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ZaxasjsDeepstriders matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers ZaxasjsDeepstriders matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Brewmaster Monk integration test: example log analyzers ZaxasjsDeepstriders matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log should match the checklist snapshot 1`] = `
 <ul
   className="checklist"
 >
