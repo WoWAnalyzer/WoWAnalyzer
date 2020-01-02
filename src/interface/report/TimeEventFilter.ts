@@ -12,7 +12,7 @@ const bench = (id: string) => TIME_AVAILABLE && console.time(id);
 const benchEnd = (id: string) => TIME_AVAILABLE && console.timeEnd(id);
 
 //returns whether e2 follows e and the events are associated
-const eventFollows = (e: BuffEvent, e2: BuffEvent) =>
+const eventFollows = (e: BuffEvent | StackEvent, e2: BuffEvent | StackEvent) =>
   e2.timestamp > e.timestamp
   && (e2.ability && e.ability ? e2.ability.guid === e.ability.guid : !e2.ability && !e.ability) //if both have an ability, its ID needs to match, otherwise neither can have an ability
   && e2.sourceID === e.sourceID
@@ -31,7 +31,7 @@ interface Props {
   phaseinstance: number,
   bossPhaseEvents: PhaseEvent[],
   events: Event[],
-  children: (isLoading: boolean, events: Event[], fight: any) => any,
+  children: (isLoading: boolean, events?: Event[], fight?: any) => any,
 }
 
 interface State {
@@ -120,7 +120,7 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
   }
 
   render() {
-    return this.props.children(this.state.isLoading, this.state!.events!, this.state.fight);
+    return this.props.children(this.state.isLoading, this.state.events, this.state.fight);
   }
 
 }
@@ -156,7 +156,7 @@ function findRelevantPreFilterEvents(events: Event[]){
             //find relevant stack information for active buff / debuff
             stackEvents.push(...buffRelevantEvents.reverse().reduce((arr: StackEvent[], e2: Event) => {
               //traverse through all following stack events in chronological order
-              if(eventFollows(e as BuffEvent, e2 as BuffEvent)){
+              if(eventFollows(e as BuffEvent, e2 as StackEvent)){
                 //if stack is added, add the event to the end of the array
                 if(e2.type === EventType.ApplyBuffStack || e2.type === EventType.ApplyDebuffStack){
                   return [...arr, e2 as StackEvent];
@@ -179,7 +179,7 @@ function findRelevantPreFilterEvents(events: Event[]){
       case EventType.Cast:
         //only keep "latest" cast, override type to prevent > 100% uptime / efficiency
         //whitelist certain casts (like potions) to keep suggestions working
-        if(SECOND_POTIONS.includes((e as BuffEvent).ability.guid) || !castHappenedLater(e as CastEvent)){
+        if(SECOND_POTIONS.includes(e.ability.guid) || !castHappenedLater(e as CastEvent)){
           castEvents.push({...(e as CastEvent), type: EventType.FilterCooldownInfo, trigger: e.type});
         }
         break;
@@ -221,7 +221,7 @@ export function filterEvents(events: Event[], start: number, end: number){
   .map(e => ({
     ...e,
     prepull: true, //pretend previous events were "prepull"
-    ...(e.type !== EventType.FilterCooldownInfo && e.type !== "cast" && SECOND_POTIONS.includes(e.ability.guid) && {type: EventType.FilterBuffInfo, trigger: e.type}),
+    ...(e.type !== EventType.FilterCooldownInfo && e.type !== EventType.Cast && SECOND_POTIONS.includes(e.ability.guid) && {type: EventType.FilterBuffInfo, trigger: e.type}),
     ...(e.type !== EventType.FilterCooldownInfo && !SECOND_POTIONS.includes(e.ability.guid) ? {timestamp: start} : {__fabricated: true}), //override existing timestamps to the start of the time period to avoid >100% uptimes (only on non casts to retain cooldowns)
   }));
   const postFilterEvents = findRelevantPostFilterEvents(events.filter(event => event.timestamp > end))
