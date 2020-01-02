@@ -160,7 +160,7 @@ export default {
     icon: 'ability_monk_thunderfocustea',
   },
   //MW Conflict and Strife
-  //Not sure why but warcraft logs records some wotc heals as pvp talent source and some as honor talent source
+  //One is crit one is non crit
   WAY_OF_THE_CRANE_HEAL: {//pvp talent
     id: 216161,
     name: 'Way of the Crane',

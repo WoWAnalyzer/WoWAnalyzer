@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Elemental Shaman integration test analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers Abilities matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Elemental Shaman integration test: example log analyzers Abilities matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`Elemental Shaman integration test analyzers AbilitiesMissing matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers AbilitiesMissing matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers AbilitiesMissing matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Elemental Shaman integration test: example log analyzers AbilitiesMissing matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`Elemental Shaman integration test analyzers AbyssalSpeakersGauntlets matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers AbyssalSpeakersGauntlets matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers AbyssalSpeakersGauntlets matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers AbyssalSpeakersGauntlets matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Aftershock matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers Aftershock matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -57,11 +57,11 @@ exports[`Elemental Shaman integration test analyzers Aftershock matches the stat
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers Aftershock matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers Aftershock matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `null`;
+exports[`Elemental Shaman integration test: example log analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `null`;
 
-exports[`Elemental Shaman integration test analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -78,27 +78,27 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test analyzers AncientKnotOfWisdom matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers AncientKnotOfWisdom matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers AncientKnotOfWisdom matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers AncientKnotOfWisdom matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ArcaneTorrent matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ArcaneTorrent matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ArcaneTorrent matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ArcaneTorrent matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ArchiveOfTheTitans matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ArchiveOfTheTitans matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ArchiveOfTheTitans matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ArchiveOfTheTitans matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Ascendance matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Ascendance matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Ascendance matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Ascendance matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers AshvanesRazorCoral matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers AshvanesRazorCoral matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers AshvanesRazorCoral matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers AshvanesRazorCoral matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers AstralShift matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers AstralShift matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -160,57 +160,57 @@ exports[`Elemental Shaman integration test analyzers AstralShift matches the sta
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers AstralShift matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers AstralShift matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers AzerokksResonatingHeart matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers AzerokksResonatingHeart matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers AzerokksResonatingHeart matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers AzerokksResonatingHeart matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers AzsharasFontofPower matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers AzsharasFontofPower matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers AzsharasFontofPower matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers AzsharasFontofPower matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BalefireBranch matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BalefireBranch matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BalefireBranch matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BalefireBranch matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Berserking matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Berserking matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Berserking matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Berserking matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BlessedPortents matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BlessedPortents matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BlessedPortents matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BlessedPortents matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BlightborneInfusion matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BlightborneInfusion matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BlightborneInfusion matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BlightborneInfusion matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BloodRite matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BloodRite matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BloodRite matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BloodRite matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BloodthirstyUrchin matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BloodthirstyUrchin matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BloodthirstyUrchin matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BloodthirstyUrchin matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BondedSouls matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BondedSouls matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BondedSouls matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BondedSouls matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BracingChill matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BracingChill matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers BracingChill matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers BracingChill matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Buffs matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers Buffs matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers Buffs matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Elemental Shaman integration test: example log analyzers Buffs matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`Elemental Shaman integration test analyzers CallTheThunder matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers CallTheThunder matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers CallTheThunder matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers CallTheThunder matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers CancelledCasts matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers CancelledCasts matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -289,7 +289,7 @@ exports[`Elemental Shaman integration test analyzers CancelledCasts matches the 
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers CancelledCasts matches the suggestions snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers CancelledCasts matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -306,7 +306,7 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test analyzers CastEfficiency matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers CastEfficiency matches the statistic snapshot 1`] = `
 <div
   className="panel "
 >
@@ -2713,7 +2713,7 @@ exports[`Elemental Shaman integration test analyzers CastEfficiency matches the 
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers CastEfficiency matches the suggestions snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers CastEfficiency matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -2759,111 +2759,107 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers ChannelingShared matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers ChannelingShared matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`Elemental Shaman integration test analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers CombatPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Elemental Shaman integration test: example log analyzers CombatPotion matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers CombatPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers Combatants matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers CombatPotion matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers Combatants matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers Combatants matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers ConcentratedMending matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Combatants matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers ConcentratedMending matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ConcentratedMending matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ConchofDarkWhispers matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ConcentratedMending matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ConchofDarkWhispers matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ConchofDarkWhispers matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ConstructOvercharger matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ConchofDarkWhispers matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ConstructOvercharger matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ConstructOvercharger matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers CostalSurge matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ConstructOvercharger matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers CostalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers CostalSurge matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers CrestOfPaku matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers CostalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers CrestOfPaku matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers CrestOfPaku matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers CritEffectBonus matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers CrestOfPaku matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers CritEffectBonus matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers CritEffectBonus matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers CrystallineCarapace matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers CritEffectBonus matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers CrystallineCarapace matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers CrystallineCarapace matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers CyclotronicBlast matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers CrystallineCarapace matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers CyclotronicBlast matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers CyclotronicBlast matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DamageDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers CyclotronicBlast matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers DamageDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers DamageTaken matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers DamageTaken matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers DamageTaken matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers DamageTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers DamageTaken matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers DamageTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers DamageTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers DarkmoonDeckBlockades matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DamageTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers DarkmoonDeckBlockades matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DarkmoonDeckBlockades matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DarkmoonDeckFathoms matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DarkmoonDeckBlockades matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DarkmoonDeckFathoms matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DarkmoonDeckFathoms matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DarkmoonDeckTides matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DarkmoonDeckFathoms matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DarkmoonDeckTides matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DarkmoonDeckTides matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DeadlyNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DarkmoonDeckTides matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DeadlyNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DeadlyNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DeathDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers DeadlyNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DeathDowntime matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers DeathDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers DeathRecapTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers DeathDowntime matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers DeathRecapTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers DeathRecapTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers DeathTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers DeathRecapTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers DeathTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers DeathTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers DiamondLacedReflectingPrism matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DeathTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers DiamondLacedReflectingPrism matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DiamondLacedReflectingPrism matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DiscOfSystematicRegression matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DiamondLacedReflectingPrism matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DiscOfSystematicRegression matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DiscOfSystematicRegression matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DispelTracker matches the statistic snapshot 1`] = `null`;
 
-exports[`Elemental Shaman integration test analyzers DiscOfSystematicRegression matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DispelTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers DispelTracker matches the statistic snapshot 1`] = `null`;
-
-exports[`Elemental Shaman integration test analyzers DispelTracker matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`Elemental Shaman integration test analyzers DistanceMoved matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers DistanceMoved matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -2988,85 +2984,85 @@ exports[`Elemental Shaman integration test analyzers DistanceMoved matches the s
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers DistanceMoved matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers DistanceMoved matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers DreadGladiatorsBadge matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DreadGladiatorsBadge matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DreadGladiatorsBadge matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DreadGladiatorsBadge matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DreadGladiatorsInsignia matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DreadGladiatorsInsignia matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DreadGladiatorsInsignia matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DreadGladiatorsInsignia matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DreadGladiatorsMedallion matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DreadGladiatorsMedallion matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DreadGladiatorsMedallion matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DreadGladiatorsMedallion matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DribblingInkpod matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DribblingInkpod matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers DribblingInkpod matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers DribblingInkpod matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers EarthShield matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers EarthShield matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers EarthShield matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers EarthShield matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers EarthenRage matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers EarthenRage matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers EarthenRage matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers EarthenRage matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers EchoOfTheElementals matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers EchoOfTheElementals matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers EchoOfTheElementals matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers EchoOfTheElementals matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ElementalBlast matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ElementalBlast matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ElementalBlast matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ElementalBlast matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ElementalWhirl matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ElementalWhirl matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ElementalWhirl matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ElementalWhirl matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers EnchantChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers EnchantChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers EnchantChecker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers EnchantChecker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers Enemies matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers Enemies matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers Enemies matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers Enemies matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers EnemyInstances matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers EnemyInstances matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers EnemyInstances matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers EnemyInstances matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers EphemeralRecovery matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers EphemeralRecovery matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers EphemeralRecovery matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers EphemeralRecovery matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers EternalAlchemistStone matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers EternalAlchemistStone matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers EternalAlchemistStone matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers EternalAlchemistStone matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers EventEmitter matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers EventEmitter matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers EventEmitter matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Elemental Shaman integration test: example log analyzers EventEmitter matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`Elemental Shaman integration test analyzers FangsOfIntertwinedEssence matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers FangsOfIntertwinedEssence matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers FangsOfIntertwinedEssence matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers FangsOfIntertwinedEssence matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers FathomDredgers matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers FathomDredgers matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers FathomDredgers matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers FathomDredgers matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers FathuulsFloodguards matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers FathuulsFloodguards matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers FathuulsFloodguards matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers FathuulsFloodguards matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers FirstMatesSpyglass matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers FirstMatesSpyglass matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers FirstMatesSpyglass matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers FirstMatesSpyglass matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers FlameShock matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers FlameShock matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3128,7 +3124,7 @@ exports[`Elemental Shaman integration test analyzers FlameShock matches the stat
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers FlameShock matches the suggestions snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers FlameShock matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3153,87 +3149,87 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test analyzers FlaskChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers FlaskChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers FlaskChecker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers FlaskChecker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers FoodChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers FoodChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers FoodChecker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers FoodChecker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers ForceMultiplier matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ForceMultiplier matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ForceMultiplier matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ForceMultiplier matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers FreneticCorpuscle matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers FreneticCorpuscle matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers FreneticCorpuscle matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers FreneticCorpuscle matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers GalecallersBoon matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers GalecallersBoon matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers GalecallersBoon matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers GalecallersBoon matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Gemhide matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Gemhide matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Gemhide matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Gemhide matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers GiftOfTheNaaru matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers GiftOfTheNaaru matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers GiftOfTheNaaru matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers GiftOfTheNaaru matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers GildedLoaFigurine matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers GildedLoaFigurine matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers GildedLoaFigurine matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers GildedLoaFigurine matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers GlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers GlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers GlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers GlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers GripsOfForsakenSanity matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers GripsOfForsakenSanity matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers GripsOfForsakenSanity matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers GripsOfForsakenSanity matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Gutripper matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Gutripper matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Gutripper matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Gutripper matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers HarbingersInscrutableWill matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers HarbingersInscrutableWill matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers HarbingersInscrutableWill matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers HarbingersInscrutableWill matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers HarlansLoadedDice matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers HarlansLoadedDice matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers HarlansLoadedDice matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers HarlansLoadedDice matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Haste matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers Haste matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers Haste matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers Haste matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers HealingDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers HealingDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers HealingDone matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers HealingDone matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers HealthPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers HealthPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers HealthPotion matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers HealthPotion matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers Healthstone matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers Healthstone matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers Healthstone matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers Healthstone matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers HeedMyCall matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers HeedMyCall matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers HeedMyCall matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers HeedMyCall matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Icefury matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers Icefury matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers Icefury matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers Icefury matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers IdolOfIndiscriminateConsumption matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers IdolOfIndiscriminateConsumption matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers IdolOfIndiscriminateConsumption matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers IdolOfIndiscriminateConsumption matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers IgneousPotential matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers IgneousPotential matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3313,29 +3309,29 @@ exports[`Elemental Shaman integration test analyzers IgneousPotential matches th
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers IgneousPotential matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers IgneousPotential matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers IgnitionMagesFuse matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers IgnitionMagesFuse matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers IgnitionMagesFuse matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers IgnitionMagesFuse matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers IncandescentSliver matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers IncandescentSliver matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers IncandescentSliver matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers IncandescentSliver matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers InoculatingExtract matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers InoculatingExtract matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers InoculatingExtract matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers InoculatingExtract matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LadyWaycrestsMusicBox matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LadyWaycrestsMusicBox matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LadyWaycrestsMusicBox matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LadyWaycrestsMusicBox matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LaserMatrix matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LaserMatrix matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LaserMatrix matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LaserMatrix matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LavaShock matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers LavaShock matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3380,41 +3376,41 @@ exports[`Elemental Shaman integration test analyzers LavaShock matches the stati
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers LavaShock matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers LavaShock matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers LavaSurge matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers LavaSurge matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers LavaSurge matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers LavaSurge matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers LeggingsOfTheAberrantTidesage matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LeggingsOfTheAberrantTidesage matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LeggingsOfTheAberrantTidesage matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LeggingsOfTheAberrantTidesage matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LegplatesOfUnboundAnguish matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LegplatesOfUnboundAnguish matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LegplatesOfUnboundAnguish matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LegplatesOfUnboundAnguish matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LingeringSporepods matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LingeringSporepods matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LingeringSporepods matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LingeringSporepods matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LiquidMagmaTotem matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LiquidMagmaTotem matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LiquidMagmaTotem matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LiquidMagmaTotem matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LoyalToTheEnd matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LoyalToTheEnd matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LoyalToTheEnd matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LoyalToTheEnd matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LurkersInsidiousGift matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LurkersInsidiousGift matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LurkersInsidiousGift matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LurkersInsidiousGift matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LustrousGoldenPlumage matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LustrousGoldenPlumage matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers LustrousGoldenPlumage matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers LustrousGoldenPlumage matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers MaelstromDetails matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers MaelstromDetails matches the statistic snapshot 1`] = `
 Array [
   <div
     className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -4764,7 +4760,7 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test analyzers MaelstromDetails matches the suggestions snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers MaelstromDetails matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4781,23 +4777,23 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test analyzers MaelstromTab matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers MaelstromTab matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers MaelstromTab matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers MaelstromTab matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers MaelstromTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers MaelstromTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers MaelstromTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers MaelstromTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers MalformedHeraldsLegwraps matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers MalformedHeraldsLegwraps matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers MalformedHeraldsLegwraps matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers MalformedHeraldsLegwraps matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ManaValues matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ManaValues matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ManaValues matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ManaValues matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers MasterOfTheElements matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers MasterOfTheElements matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4861,25 +4857,25 @@ exports[`Elemental Shaman integration test analyzers MasterOfTheElements matches
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers MasterOfTheElements matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers MasterOfTheElements matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers MasterfulNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers MasterfulNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers MasterfulNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers MasterfulNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers MeticulousScheming matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers MeticulousScheming matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers MeticulousScheming matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers MeticulousScheming matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers MightOfTheMountain matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers MightOfTheMountain matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers MightOfTheMountain matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers MightOfTheMountain matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers MydasTalisman matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers MydasTalisman matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers MydasTalisman matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers MydasTalisman matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers NaturalHarmony matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers NaturalHarmony matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -5022,13 +5018,13 @@ exports[`Elemental Shaman integration test analyzers NaturalHarmony matches the 
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers NaturalHarmony matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers NaturalHarmony matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers NullDynamo matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers NullDynamo matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers NullDynamo matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers NullDynamo matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers OverWhelmingPower matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers OverWhelmingPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -5123,9 +5119,9 @@ exports[`Elemental Shaman integration test analyzers OverWhelmingPower matches t
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers OverWhelmingPower matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers OverWhelmingPower matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers Overload matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers Overload matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -5322,85 +5318,85 @@ exports[`Elemental Shaman integration test analyzers Overload matches the statis
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers Overload matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers Overload matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers PackSpirit matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers PackSpirit matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers PackSpirit matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers PackSpirit matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Pets matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers Pets matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers Pets matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers Pets matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers PrePotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers PrePotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers PrePotion matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers PrePotion matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers PreparationRuleAnalyzer matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers PreparationRuleAnalyzer matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers PreparationRuleAnalyzer matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers PreparationRuleAnalyzer matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers PrimalFireElemental matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers PrimalFireElemental matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers PrimalFireElemental matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers PrimalFireElemental matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers PrimalStormElemental matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers PrimalStormElemental matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers PrimalStormElemental matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers PrimalStormElemental matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers QuickNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers QuickNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers QuickNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers QuickNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers RaidHealthTab matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers RaidHealthTab matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers RaidHealthTab matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers RaidHealthTab matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers RevitalizingVoodooTotem matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers RevitalizingVoodooTotem matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers RevitalizingVoodooTotem matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers RevitalizingVoodooTotem matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers RezansGleamingEye matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers RezansGleamingEye matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers RezansGleamingEye matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers RezansGleamingEye matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers RotcrustedVoodooDoll matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers RotcrustedVoodooDoll matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers RotcrustedVoodooDoll matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers RotcrustedVoodooDoll matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Savior matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Savior matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Savior matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Savior matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SeaGiantsTidestone matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SeaGiantsTidestone matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SeaGiantsTidestone matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SeaGiantsTidestone matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Seabreeze matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Seabreeze matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Seabreeze matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Seabreeze matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SereneSpirit matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SereneSpirit matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SereneSpirit matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SereneSpirit matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SpellHistory matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers SpellHistory matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers SpellHistory matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers SpellHistory matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers SpellManaCost matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers SpellManaCost matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers SpellUsable matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers SpellUsable matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers SpiritWolf matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers SpiritWolf matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -5462,37 +5458,37 @@ exports[`Elemental Shaman integration test analyzers SpiritWolf matches the stat
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers SpiritWolf matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers SpiritWolf matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers StalwartNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers StalwartNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers StalwartNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers StalwartNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers StatTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers StatTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers StatTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers StatTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers StaticCharge matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers StaticCharge matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers StaticCharge matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers StaticCharge matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Stoneform matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Stoneform matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Stoneform matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Stoneform matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers StormElemental matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers StormElemental matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers StormElemental matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers StormElemental matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers StormFireElemental matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers StormFireElemental matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers StormFireElemental matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers StormFireElemental matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers StormglideSteps matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers StormglideSteps matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers StormglideSteps matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers StormglideSteps matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Stormkeeper matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers Stormkeeper matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -5554,29 +5550,33 @@ exports[`Elemental Shaman integration test analyzers Stormkeeper matches the sta
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers Stormkeeper matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers Stormkeeper matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers SurgeOfPower matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Strife matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SurgeOfPower matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Strife matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SwirlingSands matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SurgeOfPower matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SwirlingSands matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SurgeOfPower matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SynapseShock matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SwirlingSands matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SynapseShock matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SwirlingSands matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SynergisticGrowth matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SynapseShock matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SynergisticGrowth matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SynapseShock matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SyringeOfBloodborneInfirmity matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SynergisticGrowth matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers SyringeOfBloodborneInfirmity matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers SynergisticGrowth matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TheCrucibleofFlame matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers SyringeOfBloodborneInfirmity matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Elemental Shaman integration test: example log analyzers SyringeOfBloodborneInfirmity matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`Elemental Shaman integration test: example log analyzers TheCrucibleofFlame matches the statistic snapshot 1`] = `
 <div
   category="ITEMS"
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -5655,17 +5655,17 @@ exports[`Elemental Shaman integration test analyzers TheCrucibleofFlame matches 
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers TheCrucibleofFlame matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers TheCrucibleofFlame matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers TheEverRisingTide matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TheEverRisingTide matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TheEverRisingTide matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TheEverRisingTide matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TheWellOfExistence matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TheWellOfExistence matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TheWellOfExistence matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TheWellOfExistence matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ThroughputStatisticGroup matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log analyzers ThroughputStatisticGroup matches the statistic snapshot 1`] = `
 <div
   className="col-md-6 col-sm-12 col-xs-12"
   position={0}
@@ -5731,7 +5731,7 @@ exports[`Elemental Shaman integration test analyzers ThroughputStatisticGroup ma
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=18&source=23&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=18&source=23&type=damage-done"
             >
               <div
                 style={
@@ -5853,7 +5853,7 @@ exports[`Elemental Shaman integration test analyzers ThroughputStatisticGroup ma
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=18&source=23&type=healing"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=18&source=23&type=healing"
             >
               <div
                 style={
@@ -5971,7 +5971,7 @@ exports[`Elemental Shaman integration test analyzers ThroughputStatisticGroup ma
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/undefined/#fight=18&source=23&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/TEST/#fight=18&source=23&type=damage-taken"
             >
               <div
                 style={
@@ -6036,85 +6036,85 @@ exports[`Elemental Shaman integration test analyzers ThroughputStatisticGroup ma
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers ThroughputStatisticGroup matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers ThroughputStatisticGroup matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers TidalSurge matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TidalSurge matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TidalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TidalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TotalDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Elemental Shaman integration test: example log analyzers TotalDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`Elemental Shaman integration test analyzers TotalDowntime matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test: example log analyzers TotalDowntime matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Elemental Shaman integration test analyzers TotemMastery matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TotemMastery matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TotemMastery matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TotemMastery matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Tradewinds matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Tradewinds matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers Tradewinds matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers Tradewinds matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TreacherousCovenant matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TreacherousCovenant matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TreacherousCovenant matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TreacherousCovenant matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TridentOfDeepOcean matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TridentOfDeepOcean matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TridentOfDeepOcean matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TridentOfDeepOcean matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TwitchingTentacleofXalzaix matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TwitchingTentacleofXalzaix matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers TwitchingTentacleofXalzaix matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers TwitchingTentacleofXalzaix matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers UnlimitedPower matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers UnlimitedPower matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers UnlimitedPower matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers UnlimitedPower matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers UnlimitedPowerTimesByStacks matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers UnlimitedPowerTimesByStacks matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers UnlimitedPowerTimesByStacks matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers UnlimitedPowerTimesByStacks matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers UnstableCatalyst matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers UnstableCatalyst matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers UnstableCatalyst matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers UnstableCatalyst matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers VantusRune matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers VantusRune matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers VantusRune matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers VantusRune matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers VersatileNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers VersatileNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers VersatileNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers VersatileNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers VesselOfSkitteringShadows matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers VesselOfSkitteringShadows matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers VesselOfSkitteringShadows matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers VesselOfSkitteringShadows matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers VigilantsBloodshaper matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers VigilantsBloodshaper matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers VigilantsBloodshaper matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers VigilantsBloodshaper matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers VoidStone matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers VoidStone matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers VoidStone matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers VoidStone matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers WardOfEnvelopment matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers WardOfEnvelopment matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers WardOfEnvelopment matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers WardOfEnvelopment matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers WorldveinResonance matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers WorldveinResonance matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers WorldveinResonance matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers WorldveinResonance matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers WoundBinder matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers WoundBinder matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers WoundBinder matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers WoundBinder matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ZaxasjsDeepstriders matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ZaxasjsDeepstriders matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test analyzers ZaxasjsDeepstriders matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Elemental Shaman integration test: example log analyzers ZaxasjsDeepstriders matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`Elemental Shaman integration test should match the checklist snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log should match the checklist snapshot 1`] = `
 <ul
   className="checklist"
 >

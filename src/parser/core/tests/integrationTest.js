@@ -59,16 +59,16 @@ function checklist(parser) {
  * See the Brewmaster analyzer for a worked example.
  *
  * @param {object} parserClass - (uninstantiated) CombatLogParser subclass to test.
- * @param {string} filename - which log from `test-logs` to load
+ * @param {string} path - An absolute path to the log to load.
  * @param {string} build - which build to use when parsing the log. undefined means "no build"
  * @param {boolean} suppressWarn - Suppress `console.warn`
  * @param {boolean} suppressLog - Suppress `console.log`
  */
-export default function integrationTest(parserClass, filename, build = undefined, suppressLog = true, suppressWarn = true) {
+export default function integrationTest(parserClass, path, build = undefined, suppressLog = true, suppressWarn = true) {
   return () => {
     let parser;
     beforeAll(async () => {
-      const log = await loadLog(filename);
+      const log = await loadLog(path);
       parser = parseLog(parserClass, log, build, suppressLog, suppressWarn);
       window.fetch = jest.fn(url => {
         throw new Error(`Attempt to fetch "${url}". These tests shouldn't do AJAX calls.`);

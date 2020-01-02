@@ -31,7 +31,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }) => {
     />
   );
   AbilityRequirement.propTypes = {
-    spell: PropTypes.object.isRequired,
+    spell: PropTypes.number.isRequired,
   };
 
   const VoidFormStacks = props => {
