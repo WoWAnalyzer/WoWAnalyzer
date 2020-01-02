@@ -61,7 +61,7 @@ class AncestralProtectionTotem extends Analyzer {
   spellToText(ability) {
     switch (ability) {
       case SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id:
-        return "APT cast";
+        return "Totem placed";
       case SPELLS.TOTEMIC_REVIVAL_DEBUFF.id:
         return "Able to revive";
       case SPELLS.TOTEMIC_REVIVAL_CAST.id:
@@ -87,7 +87,7 @@ class AncestralProtectionTotem extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(60)}
       >
-        {(this.aptEvents.length > 0) ?
+        {(this.aptEvents.length > 0) && (
           <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
             <thead>
               <tr>
@@ -121,7 +121,7 @@ class AncestralProtectionTotem extends Analyzer {
               }
             </tbody>
           </table>
-          : ''}
+        )}
       </LazyLoadStatisticBox>
     );
   }
