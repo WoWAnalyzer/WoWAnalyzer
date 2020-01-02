@@ -69,7 +69,7 @@ class TimeInput extends React.PureComponent<Props, State> {
   }
 
   handleChangeM(e : React.ChangeEvent<HTMLInputElement>) {
-    const val = parseInt(e.target.value, 10) || 0;
+    const val = Number(e.target.value) || 0;
     if (val > 99) {
       this.forceUpdate();
       return;
@@ -78,7 +78,7 @@ class TimeInput extends React.PureComponent<Props, State> {
   }
 
   handleChangeS(e : React.ChangeEvent<HTMLInputElement>) {
-    const val = parseInt(e.target.value, 10) || 0;
+    const val = Number(e.target.value) || 0;
     if (val > 99) {
       this.forceUpdate();
       return;
@@ -87,7 +87,7 @@ class TimeInput extends React.PureComponent<Props, State> {
   }
 
   handleChangeMs(e : React.ChangeEvent<HTMLInputElement>) {
-    const val = parseInt(e.target.value, 10) || 0;
+    const val = Number(e.target.value) || 0;
     if (val > 999) {
       this.forceUpdate();
       return;

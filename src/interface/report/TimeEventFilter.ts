@@ -5,7 +5,7 @@ import { SECOND_POTIONS } from 'parser/shared/modules/items/PrePotion';
 import { EventType, Event, PhaseEvent, CastEvent, ApplyBuffStackEvent, ApplyDebuffStackEvent, RemoveBuffStack, RemoveDebuffStack, ApplyBuffEvent, RemoveBuffEvent, ApplyDebuffEvent, RemoveDebuffEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
 
 import { EventsParseError } from './EventParser';
-import { SELECTION_ALL_PHASES } from './PhaseParser';
+import { SELECTION_ALL_PHASES, Fight } from './PhaseParser';
 
 const TIME_AVAILABLE = console.time && console.timeEnd;
 const bench = (id: string) => TIME_AVAILABLE && console.time(id);
@@ -19,13 +19,7 @@ const eventFollows = (e: BuffEvent | StackEvent, e2: BuffEvent | StackEvent) =>
   && e2.targetID === e.targetID;
 
 interface Props {
-  fight: {
-    // eslint-disable-next-line camelcase
-    start_time: number,
-    // eslint-disable-next-line camelcase
-    end_time: number,
-    boss: number,
-  },
+  fight: Fight,
   filter: Filter,
   phase: string,
   phaseinstance: number,

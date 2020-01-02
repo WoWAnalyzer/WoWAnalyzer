@@ -6,21 +6,30 @@ import { findByBossId, Phase } from 'raids';
 export const SELECTION_ALL_PHASES = "ALL";
 export const SELECTION_CUSTOM_PHASE = "CUSTOM";
 
+//todo: move this
+export interface Fight {
+  filtered?: boolean;
+  phase: string;
+  // eslint-disable-next-line camelcase
+  offset_time: number;
+  // eslint-disable-next-line camelcase
+  original_end_time: number;
+  // eslint-disable-next-line camelcase
+  start_time: number,
+  // eslint-disable-next-line camelcase
+  end_time: number,
+  boss: number,
+}
+
 interface Props {
-  fight: {
-    // eslint-disable-next-line camelcase
-    start_time: number,
-    // eslint-disable-next-line camelcase
-    end_time: number,
-    boss: number,
-  },
+  fight: Fight,
   bossPhaseEvents: PhaseEvent[],
   children: (isLoading: boolean, phases?: {[key:string]: Phase}) => ReactNode,
 }
 
 interface State {
   isLoading: boolean,
-  phases?: {[key:string]: Phase},
+  phases: { [key:string]: Phase } | undefined,
 }
 
 class PhaseParser extends React.PureComponent<Props, State> {
@@ -29,6 +38,7 @@ class PhaseParser extends React.PureComponent<Props, State> {
     super(props);
     this.state = {
       isLoading: true,
+      phases: undefined,
     };
   }
 
@@ -52,8 +62,10 @@ class PhaseParser extends React.PureComponent<Props, State> {
     if(!bossPhaseEvents){
       return {};
     }
-    const phaseStarts = Array.from(new Set<string>(bossPhaseEvents.filter((e : PhaseEvent) => e.type === EventType.PhaseStart).map((e: PhaseEvent) => e.phase.key))); //distinct phase starts
-    const phaseEnds = Array.from(new Set<string>(bossPhaseEvents.filter((e : PhaseEvent) => e.type === EventType.PhaseEnd).map((e: PhaseEvent) => e.phase.key))); //distinct phase ends
+    const distinct = <T extends any>(items: T[]) => Array.from(new Set<T>(items));
+    
+    const phaseStarts = distinct(bossPhaseEvents.filter((e : PhaseEvent) => e.type === EventType.PhaseStart).map((e: PhaseEvent) => e.phase.key)); //distinct phase starts
+    const phaseEnds = distinct(bossPhaseEvents.filter((e : PhaseEvent) => e.type === EventType.PhaseEnd).map((e: PhaseEvent) => e.phase.key)); //distinct phase ends
     const phaseKeys = phaseStarts.filter(e => phaseEnds.includes(e)); //only include phases that contain start and end event
     const boss = findByBossId(fight.boss);
     const bossPhases = (boss && boss.fight.phases) || {};

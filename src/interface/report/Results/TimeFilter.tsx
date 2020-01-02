@@ -1,9 +1,10 @@
 import React from 'react';
 
 import TimeInput from './TimeInput';
+import { Fight } from '../PhaseParser';
 
 interface Props {
-  fight: any,
+  fight: Fight,
   isLoading: boolean,
   applyFilter: (start: number, end: number) => void,
 }

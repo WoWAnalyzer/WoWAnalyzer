@@ -1,15 +1,14 @@
 import React from 'react';
 
-import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE } from 'interface/report/PhaseParser';
+import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE, Fight } from 'interface/report/PhaseParser';
 import { Phase } from 'raids';
 
 import './PhaseSelector.scss';
 
-
 const INSTANCE_SEPARATOR = '_INSTANCE_';
 
 interface Props {
-  fight: any;
+  fight: Fight;
   phases: {
     [key: string]: Phase
   };
@@ -21,8 +20,16 @@ interface Props {
 
 interface State {
   phases: {
-    [key: string]: Phase
+    [key: string]: PhaseSelection
   };
+}
+
+interface PhaseSelection {
+  name: string,
+  key: string,
+  instance: number,
+  start: number,
+  multiple?: boolean,
 }
 
 class PhaseSelector extends React.PureComponent<Props, State> {
@@ -46,23 +53,17 @@ class PhaseSelector extends React.PureComponent<Props, State> {
 
   //builds a dictionary of phases / phase instances to keep track of in order to be able to attribute a unique "key" to each phase for the dropdown
   //without losing the actual key (and without having to for example replace an "instance token" like an underscore)
-  buildPhases() {
-    const phases : {
-      name: string; 
-      key: string;
-      instance: number;
-      start: number;
-      multiple?: boolean;
-    }[] = [];
+  buildPhases() : {[key: string]: PhaseSelection} {
+    const phases : PhaseSelection[] = [];
     Object.keys(this.props.phases).forEach(key => {
       const phase = this.props.phases[key];
-      if (phase!.start!.length !== phase!.end!.length) {
-        phases.push({ name: phase.name, key: key, start: phase!.start![0], instance: 0 });
+      if (phase.start!.length !== phase.end!.length) {
+        phases.push({ name: phase.name, key: key, start: phase.start![0], instance: 0 });
       } else {
-        phases.push(...phase!.start!.map((start, index) => (
+        phases.push(...phase.start!.map((start, index) => (
           {
             name: phase.name,
-            key: key,
+            key,
             instance: index,
             start: start,
             multiple: phase.multiple,
@@ -102,7 +103,7 @@ class PhaseSelector extends React.PureComponent<Props, State> {
         {fight.filtered && !fight.phase && <option key="custom" value={SELECTION_CUSTOM_PHASE}>Custom</option>}
         <option key="all" value={SELECTION_ALL_PHASES}>All Phases</option>
         {Object.keys(phases).map(key =>
-          <option key={key} value={key}>{phases[key].name}{phases[key].multiple ? ' ' + (phases[key]!.instance! + 1) : ''}</option>,
+          <option key={key} value={key}>{phases[key].name}{phases[key].multiple ? ' ' + (phases[key].instance + 1) : ''}</option>,
         )}
       </select>
     );
