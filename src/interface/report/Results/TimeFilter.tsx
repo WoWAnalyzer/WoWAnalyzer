@@ -1,18 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import TimeInput from './TimeInput';
 
-class TimeFilter extends React.PureComponent {
-  static propTypes = {
-    fight: PropTypes.object.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    applyFilter: PropTypes.func.isRequired,
-  };
+interface Props {
+  fight: any,
+  isLoading: boolean,
+  applyFilter: (start: number, end: number) => void,
+}
 
-  constructor(...args){
-    super(...args);
-    this.phaseRef = React.createRef();
+interface State {
+  start: number,
+  end: number,
+  max: number,
+}
+
+class TimeFilter extends React.PureComponent<Props, State> {
+
+  constructor(props: Props){
+    super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.selectStart = this.selectStart.bind(this);
@@ -28,26 +33,26 @@ class TimeFilter extends React.PureComponent {
     };
   }
 
-  componentDidUpdate(prevProps, prevState, prevContext) {
+  componentDidUpdate(prevProps: Props) {
     if(this.props.fight !== prevProps.fight){
       this.setState(this.generateBoundary());
     }
   }
 
-  selectStart(time) {
+  selectStart(time: number) {
     this.setState({start: time});
   }
 
-  selectEnd(time) {
+  selectEnd(time: number) {
     this.setState({end: time});
   }
 
-  handleSubmit(e) {
+  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     this.props.applyFilter(this.state.start, this.state.end);
   }
 
-  handleReset(e){
+  handleReset(e: React.MouseEvent<HTMLButtonElement>){
     e.preventDefault();
     this.props.applyFilter(0, this.state.max);
   }

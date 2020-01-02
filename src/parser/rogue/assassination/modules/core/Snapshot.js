@@ -5,7 +5,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { PRE_FILTER_COOLDOWN_EVENT_TYPE } from 'interface/report/TimeEventFilter';
+import { EventType } from 'parser/core/Events';
 const debug = false;
 
 const PANDEMIC_FRACTION = 0.3;
@@ -66,7 +66,7 @@ class Snapshot extends Analyzer {
   }
 
   on_event(event){
-    if(event.type === PRE_FILTER_COOLDOWN_EVENT_TYPE && event.sourceID === this.owner.playerId){
+    if(event.type === EventType.FilterCooldownInfo && event.sourceID === this.owner.playerId){
       this.on_byPlayer_cast(event);
     }
   }

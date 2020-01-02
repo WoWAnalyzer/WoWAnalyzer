@@ -8,6 +8,17 @@ type Boss = {
 
 }
 
+export type Phase = {
+  name: string,
+  key: string,
+  instance?: number,
+  difficulties: number[],
+  filter?: any,
+  multiple?: boolean,
+  start?: number[],
+  end?: number[],
+}
+
 const raids = {
   // Battle for Azeroth
   Dungeons: require('./dungeons').default,
