@@ -179,7 +179,7 @@ function findRelevantPreFilterEvents(events: Event[]){
       case EventType.Cast:
         //only keep "latest" cast, override type to prevent > 100% uptime / efficiency
         //whitelist certain casts (like potions) to keep suggestions working
-        if(SECOND_POTIONS.includes(e.ability.guid) || !castHappenedLater(e as CastEvent)){
+        if(SECOND_POTIONS.includes((e as CastEvent).ability.guid) || !castHappenedLater(e as CastEvent)){
           castEvents.push({...(e as CastEvent), type: EventType.FilterCooldownInfo, trigger: e.type});
         }
         break;
