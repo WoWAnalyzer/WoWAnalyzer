@@ -23,7 +23,7 @@ class MightOfTheMountain extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.race && this.selectedCombatant.race === RACES.Dwarf;
+    this.active = this.selectedCombatant.race === RACES.Dwarf;
     if (!this.active) {
       return;
     }
