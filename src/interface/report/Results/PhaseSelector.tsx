@@ -57,7 +57,7 @@ class PhaseSelector extends React.PureComponent<Props, State> {
     const phases : PhaseSelection[] = [];
     Object.keys(this.props.phases).forEach(key => {
       const phase = this.props.phases[key];
-      if (phase.start!.length !== phase.end!.length) {
+      if (phase.start.length !== phase.end.length) {
         phases.push({ name: phase.name, key: key, start: phase.start![0], instance: 0 });
       } else {
         phases.push(...phase.start!.map((start, index) => (

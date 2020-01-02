@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { END_EVENT_TYPE } from 'parser/shared/normalizers/FightEnd';
-import { Phase } from 'raids';
+import { PhaseConfig } from 'raids';
 
 import EventFilter from './EventFilter';
 
@@ -415,7 +415,7 @@ export interface UpdateSpellUsableEvent extends Event {
 }
 
 export interface PhaseEvent extends Event {
-  phase: Phase;
+  phase: PhaseConfig;
   __fabricated: true;
 }
 

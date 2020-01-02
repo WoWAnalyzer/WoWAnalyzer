@@ -8,15 +8,18 @@ type Boss = {
 
 }
 
-export type Phase = {
+export interface PhaseConfig {
   name: string,
   key: string,
-  instance?: number,
   difficulties: number[],
   filter?: any,
   multiple?: boolean,
-  start?: number[],
-  end?: number[],
+  instance?: number,
+}
+
+export interface Phase extends PhaseConfig {
+  start: number[],
+  end: number[],
 }
 
 const raids = {
