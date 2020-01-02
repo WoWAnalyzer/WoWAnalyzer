@@ -728,7 +728,7 @@ class CombatLogParser {
               }
             }
             if (module.suggestions) {
-              module.suggestions(results.suggestions.when, { i18n });
+              module.suggestions(results.suggestions.when);
             }
           }catch(e){ //error occured during results generation of module, disable module and all modules depending on it
             if (process.env.NODE_ENV !== 'production') {
