@@ -4611,6 +4611,10 @@ exports[`The Frost Mage Analyzer analyzers StormglideSteps matches the statistic
 
 exports[`The Frost Mage Analyzer analyzers StormglideSteps matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Frost Mage Analyzer analyzers Strife matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Frost Mage Analyzer analyzers Strife matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Frost Mage Analyzer analyzers SwirlingSands matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Frost Mage Analyzer analyzers SwirlingSands matches the suggestions snapshot 1`] = `"module inactive"`;

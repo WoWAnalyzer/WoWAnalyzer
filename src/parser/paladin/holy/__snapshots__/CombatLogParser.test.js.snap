@@ -9571,6 +9571,10 @@ exports[`Holy Paladin integration test analyzers StormglideSteps matches the sta
 
 exports[`Holy Paladin integration test analyzers StormglideSteps matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`Holy Paladin integration test analyzers Strife matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers Strife matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`Holy Paladin integration test analyzers SwirlingSands matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`Holy Paladin integration test analyzers SwirlingSands matches the suggestions snapshot 1`] = `"module inactive"`;

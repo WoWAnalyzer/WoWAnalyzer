@@ -4271,6 +4271,10 @@ exports[`The Arcane Mage Analyzer analyzers StormglideSteps matches the statisti
 
 exports[`The Arcane Mage Analyzer analyzers StormglideSteps matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Arcane Mage Analyzer analyzers Strife matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Arcane Mage Analyzer analyzers Strife matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Arcane Mage Analyzer analyzers SwirlingSands matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Arcane Mage Analyzer analyzers SwirlingSands matches the suggestions snapshot 1`] = `"module inactive"`;

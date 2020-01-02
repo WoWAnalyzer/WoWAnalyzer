@@ -4794,6 +4794,10 @@ exports[`The Blood Deathknight Analyzer analyzers StormglideSteps matches the st
 
 exports[`The Blood Deathknight Analyzer analyzers StormglideSteps matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Blood Deathknight Analyzer analyzers Strife matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Strife matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Blood Deathknight Analyzer analyzers SwirlingSands matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Blood Deathknight Analyzer analyzers SwirlingSands matches the suggestions snapshot 1`] = `"module inactive"`;
