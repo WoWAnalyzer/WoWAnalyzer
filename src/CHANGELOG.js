@@ -48,6 +48,8 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 1, 2), 'Converted Event Filtering to TypeScript.', Zeboot),
+  change(date(2020, 1, 2), 'Fixed bug causing timefilter input to stop responding.', Zeboot),
   change(date(2019, 12, 31), 'Replaced TravisCI build pipelines with GitHub actions workflows.', Zerotorescue),
   change(date(2019, 12, 29), "Updated Combatant to typescript",[HawkCorrigan]),
   change(date(2019, 12, 27), 'Indicate elemental shaman has been updated for 8.2.5 and update the example log', Draenal),
