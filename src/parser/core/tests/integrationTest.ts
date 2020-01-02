@@ -123,15 +123,15 @@ export default function integrationTest(
 
           it('matches the statistic snapshot', () => {
             const statistic = integrationStatistic(module, parser);
-            // if (statistic) {
+            if (statistic) {
               expect(statistic).toMatchSnapshot();
-            // }
+            }
           });
           it('matches the suggestions snapshot', () => {
             const suggestions = integrationSuggestions(module);
-            // if (suggestions && suggestions.length !== 0) {
+            if (suggestions && suggestions.length !== 0) {
               expect(suggestions).toMatchSnapshot();
-            // }
+            }
           });
         });
       });
