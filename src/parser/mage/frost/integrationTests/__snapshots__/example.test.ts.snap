@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Frost Mage integration test: example log analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -209,7 +209,7 @@ exports[`Frost Mage integration test: example log analyzers AlwaysBeCasting matc
 </div>
 `;
 
-exports[`Frost Mage integration test: example log analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
+exports[`Frost Mage integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -240,7 +240,7 @@ Array [
 ]
 `;
 
-exports[`Frost Mage integration test: example log analyzers ArchiveOfTheTitans matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log ArchiveOfTheTitans matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -321,7 +321,7 @@ exports[`Frost Mage integration test: example log analyzers ArchiveOfTheTitans m
 </div>
 `;
 
-exports[`Frost Mage integration test: example log analyzers BoneChilling matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log BoneChilling matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -400,7 +400,7 @@ exports[`Frost Mage integration test: example log analyzers BoneChilling matches
 </div>
 `;
 
-exports[`Frost Mage integration test: example log analyzers CancelledCasts matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log CancelledCasts matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -479,7 +479,7 @@ exports[`Frost Mage integration test: example log analyzers CancelledCasts match
 </div>
 `;
 
-exports[`Frost Mage integration test: example log analyzers CancelledCasts matches the suggestions snapshot 1`] = `
+exports[`Frost Mage integration test: example log CancelledCasts matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -514,7 +514,7 @@ Array [
 ]
 `;
 
-exports[`Frost Mage integration test: example log analyzers CastEfficiency matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
 <div
   className="panel "
 >
@@ -3529,7 +3529,7 @@ exports[`Frost Mage integration test: example log analyzers CastEfficiency match
 </div>
 `;
 
-exports[`Frost Mage integration test: example log analyzers CastEfficiency matches the suggestions snapshot 1`] = `
+exports[`Frost Mage integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3616,7 +3616,7 @@ Array [
 ]
 `;
 
-exports[`Frost Mage integration test: example log analyzers DistanceMoved matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log DistanceMoved matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3741,7 +3741,7 @@ exports[`Frost Mage integration test: example log analyzers DistanceMoved matche
 </div>
 `;
 
-exports[`Frost Mage integration test: example log analyzers EnchantChecker matches the suggestions snapshot 1`] = `
+exports[`Frost Mage integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3808,7 +3808,7 @@ Array [
 ]
 `;
 
-exports[`Frost Mage integration test: example log analyzers FlaskChecker matches the suggestions snapshot 1`] = `
+exports[`Frost Mage integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3820,7 +3820,7 @@ Array [
 ]
 `;
 
-exports[`Frost Mage integration test: example log analyzers FoodChecker matches the suggestions snapshot 1`] = `
+exports[`Frost Mage integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3832,7 +3832,7 @@ Array [
 ]
 `;
 
-exports[`Frost Mage integration test: example log analyzers Gutripper matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log Gutripper matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3900,7 +3900,7 @@ exports[`Frost Mage integration test: example log analyzers Gutripper matches th
 </div>
 `;
 
-exports[`Frost Mage integration test: example log analyzers OverWhelmingPower matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log OverWhelmingPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3995,7 +3995,7 @@ exports[`Frost Mage integration test: example log analyzers OverWhelmingPower ma
 </div>
 `;
 
-exports[`Frost Mage integration test: example log analyzers PrePotion matches the suggestions snapshot 1`] = `
+exports[`Frost Mage integration test: example log PrePotion matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4019,7 +4019,7 @@ Array [
 ]
 `;
 
-exports[`Frost Mage integration test: example log analyzers RotcrustedVoodooDoll matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log RotcrustedVoodooDoll matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4099,7 +4099,7 @@ exports[`Frost Mage integration test: example log analyzers RotcrustedVoodooDoll
 </div>
 `;
 
-exports[`Frost Mage integration test: example log analyzers ThroughputStatisticGroup matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
 <div
   className="col-md-6 col-sm-12 col-xs-12"
   position={0}
@@ -4470,7 +4470,7 @@ exports[`Frost Mage integration test: example log analyzers ThroughputStatisticG
 </div>
 `;
 
-exports[`Frost Mage integration test: example log analyzers VigilantsBloodshaper matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log VigilantsBloodshaper matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4550,7 +4550,7 @@ exports[`Frost Mage integration test: example log analyzers VigilantsBloodshaper
 </div>
 `;
 
-exports[`Frost Mage integration test: example log analyzers WaterElemental matches the statistic snapshot 1`] = `
+exports[`Frost Mage integration test: example log WaterElemental matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >

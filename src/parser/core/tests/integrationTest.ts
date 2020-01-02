@@ -136,12 +136,10 @@ export default function integrationTest(
         });
       });
 
-    describe('analyzers', () => {
-      testAnalyzers({
-        ...parserClass.internalModules,
-        ...parserClass.defaultModules,
-        ...parserClass.specModules,
-      });
+    testAnalyzers({
+      ...parserClass.internalModules,
+      ...parserClass.defaultModules,
+      ...parserClass.specModules,
     });
   };
 }

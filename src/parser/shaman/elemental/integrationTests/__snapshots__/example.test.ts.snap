@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Elemental Shaman integration test: example log analyzers Aftershock matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log Aftershock matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -45,7 +45,7 @@ exports[`Elemental Shaman integration test: example log analyzers Aftershock mat
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -62,7 +62,7 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers AstralShift matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log AstralShift matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -124,7 +124,7 @@ exports[`Elemental Shaman integration test: example log analyzers AstralShift ma
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers CancelledCasts matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log CancelledCasts matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -203,7 +203,7 @@ exports[`Elemental Shaman integration test: example log analyzers CancelledCasts
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers CancelledCasts matches the suggestions snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log CancelledCasts matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -220,7 +220,7 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers CastEfficiency matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
 <div
   className="panel "
 >
@@ -2627,7 +2627,7 @@ exports[`Elemental Shaman integration test: example log analyzers CastEfficiency
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers CastEfficiency matches the suggestions snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -2673,7 +2673,7 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers DistanceMoved matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log DistanceMoved matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -2798,7 +2798,7 @@ exports[`Elemental Shaman integration test: example log analyzers DistanceMoved 
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers FlameShock matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log FlameShock matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -2860,7 +2860,7 @@ exports[`Elemental Shaman integration test: example log analyzers FlameShock mat
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers FlameShock matches the suggestions snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log FlameShock matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -2885,7 +2885,7 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers IgneousPotential matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log IgneousPotential matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -2965,7 +2965,7 @@ exports[`Elemental Shaman integration test: example log analyzers IgneousPotenti
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers LavaShock matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log LavaShock matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3010,7 +3010,7 @@ exports[`Elemental Shaman integration test: example log analyzers LavaShock matc
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers MaelstromDetails matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log MaelstromDetails matches the statistic snapshot 1`] = `
 Array [
   <div
     className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -4360,7 +4360,7 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers MaelstromDetails matches the suggestions snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log MaelstromDetails matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4377,7 +4377,7 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers MasterOfTheElements matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log MasterOfTheElements matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4441,7 +4441,7 @@ exports[`Elemental Shaman integration test: example log analyzers MasterOfTheEle
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers NaturalHarmony matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log NaturalHarmony matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4584,7 +4584,7 @@ exports[`Elemental Shaman integration test: example log analyzers NaturalHarmony
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers OverWhelmingPower matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log OverWhelmingPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4679,7 +4679,7 @@ exports[`Elemental Shaman integration test: example log analyzers OverWhelmingPo
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers Overload matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log Overload matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4876,7 +4876,7 @@ exports[`Elemental Shaman integration test: example log analyzers Overload match
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers SpiritWolf matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log SpiritWolf matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4938,7 +4938,7 @@ exports[`Elemental Shaman integration test: example log analyzers SpiritWolf mat
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers Stormkeeper matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log Stormkeeper matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -5000,7 +5000,7 @@ exports[`Elemental Shaman integration test: example log analyzers Stormkeeper ma
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers TheCrucibleofFlame matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log TheCrucibleofFlame matches the statistic snapshot 1`] = `
 <div
   category="ITEMS"
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -5079,7 +5079,7 @@ exports[`Elemental Shaman integration test: example log analyzers TheCrucibleofF
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log analyzers ThroughputStatisticGroup matches the statistic snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
 <div
   className="col-md-6 col-sm-12 col-xs-12"
   position={0}

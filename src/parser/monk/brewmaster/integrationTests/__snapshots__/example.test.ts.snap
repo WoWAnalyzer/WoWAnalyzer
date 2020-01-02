@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Brewmaster Monk integration test: example log analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -95,7 +95,7 @@ exports[`Brewmaster Monk integration test: example log analyzers AlwaysBeCasting
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -112,7 +112,7 @@ Array [
 ]
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers AzerokksResonatingHeart matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log AzerokksResonatingHeart matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -207,7 +207,7 @@ exports[`Brewmaster Monk integration test: example log analyzers AzerokksResonat
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers BreathOfFire matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log BreathOfFire matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -230,7 +230,7 @@ Array [
 ]
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers BrewCDR matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log BrewCDR matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -292,7 +292,7 @@ exports[`Brewmaster Monk integration test: example log analyzers BrewCDR matches
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers CastEfficiency matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
 <div
   className="panel "
 >
@@ -2761,7 +2761,7 @@ exports[`Brewmaster Monk integration test: example log analyzers CastEfficiency 
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers CastEfficiency matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -2848,7 +2848,7 @@ Array [
 ]
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers CelestialFortune matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log CelestialFortune matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -2893,7 +2893,7 @@ exports[`Brewmaster Monk integration test: example log analyzers CelestialFortun
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers DistanceMoved matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log DistanceMoved matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3018,7 +3018,7 @@ exports[`Brewmaster Monk integration test: example log analyzers DistanceMoved m
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers EnchantChecker matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3085,7 +3085,7 @@ Array [
 ]
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers FlaskChecker matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3097,7 +3097,7 @@ Array [
 ]
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers FoodChecker matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3109,7 +3109,7 @@ Array [
 ]
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers GiftOfTheOx matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log GiftOfTheOx matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3171,7 +3171,7 @@ exports[`Brewmaster Monk integration test: example log analyzers GiftOfTheOx mat
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers HighTolerance matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log HighTolerance matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3233,7 +3233,7 @@ exports[`Brewmaster Monk integration test: example log analyzers HighTolerance m
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers HotTrubTimeMachine matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log HotTrubTimeMachine matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3309,7 +3309,7 @@ exports[`Brewmaster Monk integration test: example log analyzers HotTrubTimeMach
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers IronSkinBrew matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log IronSkinBrew matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3371,7 +3371,7 @@ exports[`Brewmaster Monk integration test: example log analyzers IronSkinBrew ma
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers LaserMatrix matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log LaserMatrix matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3458,7 +3458,7 @@ exports[`Brewmaster Monk integration test: example log analyzers LaserMatrix mat
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers MasteryValue matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log MasteryValue matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3505,7 +3505,7 @@ exports[`Brewmaster Monk integration test: example log analyzers MasteryValue ma
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers MitigationSheet matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log MitigationSheet matches the statistic snapshot 1`] = `
 <div
   className="panel "
 >
@@ -4380,7 +4380,7 @@ exports[`Brewmaster Monk integration test: example log analyzers MitigationSheet
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers PrePotion matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log PrePotion matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4429,7 +4429,7 @@ Array [
 ]
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers PurifyingBrew matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log PurifyingBrew matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4491,7 +4491,7 @@ exports[`Brewmaster Monk integration test: example log analyzers PurifyingBrew m
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers PurifyingBrew matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log PurifyingBrew matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4546,7 +4546,7 @@ Array [
 ]
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers RushingJadeWind matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log RushingJadeWind matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4569,7 +4569,7 @@ Array [
 ]
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers Stagger matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log Stagger matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4631,7 +4631,7 @@ exports[`Brewmaster Monk integration test: example log analyzers Stagger matches
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers StaggeringStrikes matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log StaggeringStrikes matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4711,7 +4711,7 @@ exports[`Brewmaster Monk integration test: example log analyzers StaggeringStrik
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers ThroughputStatisticGroup matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
 <div
   className="col-md-6 col-sm-12 col-xs-12"
   position={0}
@@ -5082,7 +5082,7 @@ exports[`Brewmaster Monk integration test: example log analyzers ThroughputStati
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log analyzers VersatileNavigation matches the statistic snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log VersatileNavigation matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >

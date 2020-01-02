@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Protection Paladin integration test: example log analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -95,7 +95,7 @@ exports[`Protection Paladin integration test: example log analyzers AlwaysBeCast
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
+exports[`Protection Paladin integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -124,7 +124,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log analyzers ArchiveOfTheTitans matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log ArchiveOfTheTitans matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -205,7 +205,7 @@ exports[`Protection Paladin integration test: example log analyzers ArchiveOfThe
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers CastEfficiency matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
 <div
   className="panel "
 >
@@ -2827,7 +2827,7 @@ exports[`Protection Paladin integration test: example log analyzers CastEfficien
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers CastEfficiency matches the suggestions snapshot 1`] = `
+exports[`Protection Paladin integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3078,7 +3078,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log analyzers Consecration matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log Consecration matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3123,7 +3123,7 @@ exports[`Protection Paladin integration test: example log analyzers Consecration
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers Consecration matches the suggestions snapshot 1`] = `
+exports[`Protection Paladin integration test: example log Consecration matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3140,7 +3140,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log analyzers DarkmoonDeckBlockades matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log DarkmoonDeckBlockades matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3214,7 +3214,7 @@ exports[`Protection Paladin integration test: example log analyzers DarkmoonDeck
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers DistanceMoved matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log DistanceMoved matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3339,7 +3339,7 @@ exports[`Protection Paladin integration test: example log analyzers DistanceMove
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers EnchantChecker matches the suggestions snapshot 1`] = `
+exports[`Protection Paladin integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3406,7 +3406,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log analyzers FlaskChecker matches the suggestions snapshot 1`] = `
+exports[`Protection Paladin integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3425,7 +3425,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log analyzers FoodChecker matches the suggestions snapshot 1`] = `
+exports[`Protection Paladin integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3437,7 +3437,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log analyzers GrandCrusader matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log GrandCrusader matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3518,7 +3518,7 @@ exports[`Protection Paladin integration test: example log analyzers GrandCrusade
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers Gutripper matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log Gutripper matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3586,7 +3586,7 @@ exports[`Protection Paladin integration test: example log analyzers Gutripper ma
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers HammerOfTheRighteous matches the suggestions snapshot 1`] = `
+exports[`Protection Paladin integration test: example log HammerOfTheRighteous matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3621,7 +3621,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log analyzers Judgment matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log Judgment matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3683,7 +3683,7 @@ exports[`Protection Paladin integration test: example log analyzers Judgment mat
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers LightOfTheProtector matches the suggestions snapshot 1`] = `
+exports[`Protection Paladin integration test: example log LightOfTheProtector matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3706,7 +3706,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log analyzers MeticulousScheming matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log MeticulousScheming matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3774,7 +3774,7 @@ exports[`Protection Paladin integration test: example log analyzers MeticulousSc
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers MeticulousScheming matches the suggestions snapshot 1`] = `
+exports[`Protection Paladin integration test: example log MeticulousScheming matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3805,7 +3805,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log analyzers PrePotion matches the suggestions snapshot 1`] = `
+exports[`Protection Paladin integration test: example log PrePotion matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3857,7 +3857,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log analyzers ShieldOfTheRighteous matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log ShieldOfTheRighteous matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3919,7 +3919,7 @@ exports[`Protection Paladin integration test: example log analyzers ShieldOfTheR
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers ShieldOfTheRighteous matches the suggestions snapshot 1`] = `
+exports[`Protection Paladin integration test: example log ShieldOfTheRighteous matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3947,7 +3947,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log analyzers StalwartNavigation matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log StalwartNavigation matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4055,7 +4055,7 @@ exports[`Protection Paladin integration test: example log analyzers StalwartNavi
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log analyzers ThroughputStatisticGroup matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
 <div
   className="col-md-6 col-sm-12 col-xs-12"
   position={0}

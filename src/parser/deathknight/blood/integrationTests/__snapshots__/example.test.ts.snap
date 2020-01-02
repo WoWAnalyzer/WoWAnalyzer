@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Blood Death Knight integration test: example log analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -95,7 +95,7 @@ exports[`Blood Death Knight integration test: example log analyzers AlwaysBeCast
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -121,7 +121,7 @@ Array [
 ]
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers ArchiveOfTheTitans matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log ArchiveOfTheTitans matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -202,7 +202,7 @@ exports[`Blood Death Knight integration test: example log analyzers ArchiveOfThe
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers BloodPlagueUptime matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log BloodPlagueUptime matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -247,7 +247,7 @@ exports[`Blood Death Knight integration test: example log analyzers BloodPlagueU
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers Blooddrinker matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log Blooddrinker matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -309,7 +309,7 @@ exports[`Blood Death Knight integration test: example log analyzers Blooddrinker
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers Bloodworms matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log Bloodworms matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -371,7 +371,7 @@ exports[`Blood Death Knight integration test: example log analyzers Bloodworms m
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers BoneShield matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log BoneShield matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -435,7 +435,7 @@ exports[`Blood Death Knight integration test: example log analyzers BoneShield m
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers Bonestorm matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log Bonestorm matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -497,7 +497,7 @@ exports[`Blood Death Knight integration test: example log analyzers Bonestorm ma
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers CastEfficiency matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
 <div
   className="panel "
 >
@@ -3055,7 +3055,7 @@ exports[`Blood Death Knight integration test: example log analyzers CastEfficien
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers CastEfficiency matches the suggestions snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3224,7 +3224,7 @@ Array [
 ]
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers CrimsonScourge matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log CrimsonScourge matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3286,7 +3286,7 @@ exports[`Blood Death Knight integration test: example log analyzers CrimsonScour
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers CrimsonScourge matches the suggestions snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log CrimsonScourge matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3309,7 +3309,7 @@ Array [
 ]
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers DarkmoonDeckFathoms matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log DarkmoonDeckFathoms matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3372,7 +3372,7 @@ exports[`Blood Death Knight integration test: example log analyzers DarkmoonDeck
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers DistanceMoved matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log DistanceMoved matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3497,7 +3497,7 @@ exports[`Blood Death Knight integration test: example log analyzers DistanceMove
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers EnchantChecker matches the suggestions snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3564,7 +3564,7 @@ Array [
 ]
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers FlaskChecker matches the suggestions snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3576,7 +3576,7 @@ Array [
 ]
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers FoodChecker matches the suggestions snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3588,7 +3588,7 @@ Array [
 ]
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers Gutripper matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log Gutripper matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3656,7 +3656,7 @@ exports[`Blood Death Knight integration test: example log analyzers Gutripper ma
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers HeedMyCall matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log HeedMyCall matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3724,7 +3724,7 @@ exports[`Blood Death Knight integration test: example log analyzers HeedMyCall m
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers Hemostasis matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log Hemostasis matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3786,7 +3786,7 @@ exports[`Blood Death Knight integration test: example log analyzers Hemostasis m
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers LaserMatrix matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log LaserMatrix matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3873,7 +3873,7 @@ exports[`Blood Death Knight integration test: example log analyzers LaserMatrix 
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers MarrowrendUsage matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log MarrowrendUsage matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3935,7 +3935,7 @@ exports[`Blood Death Knight integration test: example log analyzers MarrowrendUs
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers MitigationCheck matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log MitigationCheck matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4016,7 +4016,7 @@ exports[`Blood Death Knight integration test: example log analyzers MitigationCh
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers Ossuary matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log Ossuary matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4078,7 +4078,7 @@ exports[`Blood Death Knight integration test: example log analyzers Ossuary matc
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers Ossuary matches the suggestions snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log Ossuary matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4095,7 +4095,7 @@ Array [
 ]
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers PrePotion matches the suggestions snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log PrePotion matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4119,7 +4119,7 @@ Array [
 ]
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers RuneTracker matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log RuneTracker matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4194,7 +4194,7 @@ exports[`Blood Death Knight integration test: example log analyzers RuneTracker 
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers RunicPowerDetails matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log RunicPowerDetails matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4250,7 +4250,7 @@ exports[`Blood Death Knight integration test: example log analyzers RunicPowerDe
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers SyringeOfBloodborneInfirmity matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log SyringeOfBloodborneInfirmity matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4352,7 +4352,7 @@ exports[`Blood Death Knight integration test: example log analyzers SyringeOfBlo
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers ThroughputStatisticGroup matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
 <div
   className="col-md-6 col-sm-12 col-xs-12"
   position={0}
@@ -4723,7 +4723,7 @@ exports[`Blood Death Knight integration test: example log analyzers ThroughputSt
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log analyzers WillOfTheNecropolis matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log WillOfTheNecropolis matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
