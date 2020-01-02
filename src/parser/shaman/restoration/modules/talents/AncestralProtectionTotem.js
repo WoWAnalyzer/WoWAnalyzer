@@ -25,16 +25,13 @@ class AncestralProtectionTotem extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = !!this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id);
-    if (!this.active) {
-      return;
-    }
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
   fetchAll(pathname, query) {
     const checkAndFetch = async _query => {
       const json = await fetchWcl(pathname, _query);
-      Array.prototype.push.apply(this.aptEvents, json.events);
+      this.aptEvents.push(...json.events);
       if (json.nextPageTimestamp) {
         return checkAndFetch(Object.assign(query, {
           start: json.nextPageTimestamp,
@@ -51,12 +48,11 @@ class AncestralProtectionTotem extends Analyzer {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(
-        type='cast'
-          AND ability.id=${SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id}
-        OR type='applydebuff'
-          AND ability.id=${SPELLS.TOTEMIC_REVIVAL_DEBUFF.id}
-        OR type='cast'
-          AND ability.id=${SPELLS.TOTEMIC_REVIVAL_CAST.id}
+        (type='cast' AND ability.id=${SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id})
+        OR 
+        (type='applydebuff' AND ability.id=${SPELLS.TOTEMIC_REVIVAL_DEBUFF.id})
+        OR 
+        (type='cast' AND ability.id=${SPELLS.TOTEMIC_REVIVAL_CAST.id})
       )`,
     };
     return this.fetchAll(`report/events/${this.owner.report.code}`, query);
@@ -67,7 +63,7 @@ class AncestralProtectionTotem extends Analyzer {
       case SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id:
         return "APT cast";
       case SPELLS.TOTEMIC_REVIVAL_DEBUFF.id:
-        return "Received APT";
+        return "Able to revive";
       case SPELLS.TOTEMIC_REVIVAL_CAST.id:
         return "Resurrected";
       default:
@@ -78,30 +74,31 @@ class AncestralProtectionTotem extends Analyzer {
   statistic() {
     const tooltip = this.loaded
       ? 'This includes the APT casts of all Restoration Shamans in the fight.'
-      : 'Click to analyze how many lives were saved by APT.';
+      : 'Click to analyze APT usage on this fight.';
+    const value = this.aptEvents.length > 0 ? `${this.aptEvents.length} events found` : 'No Results';
 
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />}
-
         label="Ancestral Protection Totem"
+        value={value}
         tooltip={tooltip}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(60)}
       >
-        <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
-          <thead>
-            <tr>
-              <th>Time</th>
-              <th>Player</th>
-              <th style={{ textAlign: 'center' }}>Ability</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.aptEvents
-                .map((event, index) => {
+        {(this.aptEvents.length > 0) ?
+          <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Player</th>
+                <th style={{ textAlign: 'center' }}>Ability</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.aptEvents.map((event, index) => {
                   const combatant = this.combatants.players[event.sourceID];
                   if (!combatant) {
                     return null; // pet or something
@@ -121,9 +118,10 @@ class AncestralProtectionTotem extends Analyzer {
                     </tr>
                   );
                 })
-            }
-          </tbody>
-        </table>
+              }
+            </tbody>
+          </table>
+          : ''}
       </LazyLoadStatisticBox>
     );
   }
