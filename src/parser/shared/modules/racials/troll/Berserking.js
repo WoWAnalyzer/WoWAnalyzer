@@ -16,7 +16,7 @@ class Berserking extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.active = this.selectedCombatant.race && this.selectedCombatant.race === RACES.Troll;
+    this.active = this.selectedCombatant.race === RACES.Troll;
     if (!this.active) {
       return;
     }

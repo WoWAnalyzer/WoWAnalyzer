@@ -11,22 +11,29 @@ class GiftOfTheNaaru extends Analyzer {
     abilities: Abilities,
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.race === RACES.Draenei;
     if (!this.active) {
       return;
     }
 
-    this.abilities.add({
-      spell: [SPELLS.GIFT_OF_THE_NAARU_DK, SPELLS.GIFT_OF_THE_NAARU_HUNTER, SPELLS.GIFT_OF_THE_NAARU_MONK, SPELLS.GIFT_OF_THE_NAARU_MAGE,
-        SPELLS.GIFT_OF_THE_NAARU_PRIEST, SPELLS.GIFT_OF_THE_NAARU_PALADIN, SPELLS.GIFT_OF_THE_NAARU_SHAMAN, SPELLS.GIFT_OF_THE_NAARU_WARRIOR],
+    options.abilities.add({
+      spell: [
+        SPELLS.GIFT_OF_THE_NAARU_DK,
+        SPELLS.GIFT_OF_THE_NAARU_HUNTER,
+        SPELLS.GIFT_OF_THE_NAARU_MONK,
+        SPELLS.GIFT_OF_THE_NAARU_MAGE,
+        SPELLS.GIFT_OF_THE_NAARU_PRIEST,
+        SPELLS.GIFT_OF_THE_NAARU_PALADIN,
+        SPELLS.GIFT_OF_THE_NAARU_SHAMAN,
+        SPELLS.GIFT_OF_THE_NAARU_WARRIOR,
+      ],
       category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       cooldown: 180,
       gcd: null,
     });
   }
-
 }
 
 export default GiftOfTheNaaru;
