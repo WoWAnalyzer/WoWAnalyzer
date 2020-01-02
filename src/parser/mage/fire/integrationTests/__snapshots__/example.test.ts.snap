@@ -1,20 +1,113 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`The Fire Mage Analyzer analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers Abilities matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Fire Mage integration test: example log analyzers Abilities matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`The Fire Mage Analyzer analyzers AbilitiesMissing matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers AbilitiesMissing matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers AbilitiesMissing matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Fire Mage integration test: example log analyzers AbilitiesMissing matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`The Fire Mage Analyzer analyzers AbyssalSpeakersGauntlets matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers AbyssalSpeakersGauntlets matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers AbyssalSpeakersGauntlets matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers AbyssalSpeakersGauntlets matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `null`;
+exports[`Fire Mage integration test: example log analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <img
+            alt="Downtime"
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+           
+          Downtime
+        </label>
+        <div
+          className="value"
+        >
+          25.15 %
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": "0.5em",
+            }
+          }
+        >
+          <div
+            className="statistic-box-bar"
+          >
+            <div
+              className="stat-health-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "width": "74.84749715005334%",
+                }
+              }
+            >
+              <img
+                alt="Active time"
+                src="/img/sword.png"
+              />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+            >
+              <img
+                alt="Downtime"
+                src="/img/afk.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
-exports[`The Fire Mage Analyzer analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -37,19 +130,19 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers AncientKnotOfWisdom matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers AncientKnotOfWisdom matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers AncientKnotOfWisdom matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers AncientKnotOfWisdom matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ArcaneIntellect matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers ArcaneIntellect matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers ArcaneIntellect matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers ArcaneIntellect matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers ArcaneTorrent matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ArcaneTorrent matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ArcaneTorrent matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ArcaneTorrent matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ArchiveOfTheTitans matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers ArchiveOfTheTitans matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -130,21 +223,21 @@ exports[`The Fire Mage Analyzer analyzers ArchiveOfTheTitans matches the statist
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers ArchiveOfTheTitans matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers ArchiveOfTheTitans matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers AshvanesRazorCoral matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers AshvanesRazorCoral matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers AshvanesRazorCoral matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers AshvanesRazorCoral matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers AzerokksResonatingHeart matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers AzerokksResonatingHeart matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers AzerokksResonatingHeart matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers AzerokksResonatingHeart matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers AzsharasFontofPower matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers AzsharasFontofPower matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers AzsharasFontofPower matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers AzsharasFontofPower matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BalefireBranch matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers BalefireBranch matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -227,13 +320,13 @@ exports[`The Fire Mage Analyzer analyzers BalefireBranch matches the statistic s
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers BalefireBranch matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers BalefireBranch matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers Berserking matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Berserking matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Berserking matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Berserking matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BlasterMaster matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers BlasterMaster matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -301,7 +394,7 @@ exports[`The Fire Mage Analyzer analyzers BlasterMaster matches the statistic sn
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers BlasterMaster matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers BlasterMaster matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -339,35 +432,35 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers BlessedPortents matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BlessedPortents matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BlessedPortents matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BlessedPortents matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BlightborneInfusion matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BlightborneInfusion matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BlightborneInfusion matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BlightborneInfusion matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BloodRite matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BloodRite matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BloodRite matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BloodRite matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BloodthirstyUrchin matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BloodthirstyUrchin matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BloodthirstyUrchin matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BloodthirstyUrchin matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BondedSouls matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BondedSouls matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BondedSouls matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BondedSouls matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BracingChill matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BracingChill matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers BracingChill matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers BracingChill matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Buffs matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers Buffs matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers Buffs matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Fire Mage integration test: example log analyzers Buffs matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`The Fire Mage Analyzer analyzers CancelledCasts matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers CancelledCasts matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -446,7 +539,7 @@ exports[`The Fire Mage Analyzer analyzers CancelledCasts matches the statistic s
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers CancelledCasts matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers CancelledCasts matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -475,7 +568,7 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers CastEfficiency matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers CastEfficiency matches the statistic snapshot 1`] = `
 <div
   className="panel "
 >
@@ -3199,7 +3292,7 @@ exports[`The Fire Mage Analyzer analyzers CastEfficiency matches the statistic s
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers CastEfficiency matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers CastEfficiency matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3286,127 +3379,123 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers ChannelingShared matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers ChannelingShared matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`The Fire Mage Analyzer analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers CombatPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Fire Mage integration test: example log analyzers CombatPotion matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers CombatPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers Combatants matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers CombatPotion matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers Combatants matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers Combatants matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers CombustionCharges matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers Combatants matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers CombustionCharges matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers CombustionCharges matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers CombustionFirestarter matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CombustionCharges matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers CombustionFirestarter matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers CombustionSpellUsage matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers CombustionSpellUsage matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers ConcentratedMending matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers ConcentratedMending matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ConcentratedMending matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ConchofDarkWhispers matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ConcentratedMending matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ConchofDarkWhispers matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ConchofDarkWhispers matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ConstructOvercharger matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ConchofDarkWhispers matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ConstructOvercharger matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ConstructOvercharger matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers CooldownThroughputTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers ConstructOvercharger matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers CooldownThroughputTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers CooldownThroughputTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers CostalSurge matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CooldownThroughputTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers CostalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CostalSurge matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers CrestOfPaku matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CostalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers CrestOfPaku matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CrestOfPaku matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers CritEffectBonus matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers CrestOfPaku matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers CritEffectBonus matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers CritEffectBonus matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers CrystallineCarapace matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CritEffectBonus matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers CrystallineCarapace matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CrystallineCarapace matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers CyclotronicBlast matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CrystallineCarapace matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers CyclotronicBlast matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CyclotronicBlast matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DamageDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers CyclotronicBlast matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers DamageDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers DamageTaken matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers DamageTaken matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers DamageTaken matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers DamageTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers DamageTaken matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers DamageTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers DamageTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers DarkmoonDeckBlockades matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DamageTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers DarkmoonDeckBlockades matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DarkmoonDeckBlockades matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DarkmoonDeckFathoms matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DarkmoonDeckBlockades matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DarkmoonDeckFathoms matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DarkmoonDeckFathoms matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DarkmoonDeckTides matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DarkmoonDeckFathoms matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DarkmoonDeckTides matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DarkmoonDeckTides matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DeadlyNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DarkmoonDeckTides matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DeadlyNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DeadlyNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DeathDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers DeadlyNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DeathDowntime matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers DeathDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers DeathRecapTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers DeathDowntime matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers DeathRecapTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers DeathRecapTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers DeathTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers DeathRecapTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers DeathTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers DeathTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers DiamondLacedReflectingPrism matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DeathTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers DiamondLacedReflectingPrism matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DiamondLacedReflectingPrism matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DiscOfSystematicRegression matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DiamondLacedReflectingPrism matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DiscOfSystematicRegression matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DiscOfSystematicRegression matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DispelTracker matches the statistic snapshot 1`] = `null`;
 
-exports[`The Fire Mage Analyzer analyzers DiscOfSystematicRegression matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DispelTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers DispelTracker matches the statistic snapshot 1`] = `null`;
-
-exports[`The Fire Mage Analyzer analyzers DispelTracker matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Fire Mage Analyzer analyzers DistanceMoved matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers DistanceMoved matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3531,31 +3620,31 @@ exports[`The Fire Mage Analyzer analyzers DistanceMoved matches the statistic sn
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers DistanceMoved matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers DistanceMoved matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers DreadGladiatorsBadge matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DreadGladiatorsBadge matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DreadGladiatorsBadge matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DreadGladiatorsBadge matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DreadGladiatorsInsignia matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DreadGladiatorsInsignia matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DreadGladiatorsInsignia matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DreadGladiatorsInsignia matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DreadGladiatorsMedallion matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DreadGladiatorsMedallion matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DreadGladiatorsMedallion matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DreadGladiatorsMedallion matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DribblingInkpod matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DribblingInkpod matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers DribblingInkpod matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers DribblingInkpod matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ElementalWhirl matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ElementalWhirl matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ElementalWhirl matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ElementalWhirl matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers EnchantChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers EnchantChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers EnchantChecker matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers EnchantChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3623,45 +3712,45 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers Enemies matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers Enemies matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers Enemies matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers Enemies matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers EnemyInstances matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers EnemyInstances matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers EnemyInstances matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers EnemyInstances matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers EphemeralRecovery matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers EphemeralRecovery matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers EphemeralRecovery matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers EphemeralRecovery matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers EternalAlchemistStone matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers EternalAlchemistStone matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers EternalAlchemistStone matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers EternalAlchemistStone matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers EventEmitter matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers EventEmitter matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers EventEmitter matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+exports[`Fire Mage integration test: example log analyzers EventEmitter matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`The Fire Mage Analyzer analyzers FangsOfIntertwinedEssence matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers FangsOfIntertwinedEssence matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers FangsOfIntertwinedEssence matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers FangsOfIntertwinedEssence matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers FathomDredgers matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers FathomDredgers matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers FathomDredgers matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers FathomDredgers matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers FathuulsFloodguards matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers FathuulsFloodguards matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers FathuulsFloodguards matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers FathuulsFloodguards matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers FirstMatesSpyglass matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers FirstMatesSpyglass matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers FirstMatesSpyglass matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers FirstMatesSpyglass matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers FlaskChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers FlaskChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers FlaskChecker matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers FlaskChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3673,9 +3762,9 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers FoodChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers FoodChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers FoodChecker matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers FoodChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -3687,39 +3776,39 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers ForceMultiplier matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ForceMultiplier matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ForceMultiplier matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ForceMultiplier matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers FreneticCorpuscle matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers FreneticCorpuscle matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers FreneticCorpuscle matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers FreneticCorpuscle matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers GalecallersBoon matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers GalecallersBoon matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers GalecallersBoon matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers GalecallersBoon matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Gemhide matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Gemhide matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Gemhide matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Gemhide matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers GiftOfTheNaaru matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers GiftOfTheNaaru matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers GiftOfTheNaaru matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers GiftOfTheNaaru matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers GildedLoaFigurine matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers GildedLoaFigurine matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers GildedLoaFigurine matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers GildedLoaFigurine matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers GlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers GlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers GlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers GlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers GripsOfForsakenSanity matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers GripsOfForsakenSanity matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers GripsOfForsakenSanity matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers GripsOfForsakenSanity matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Gutripper matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers Gutripper matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3787,33 +3876,33 @@ exports[`The Fire Mage Analyzer analyzers Gutripper matches the statistic snapsh
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers Gutripper matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers Gutripper matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers HarbingersInscrutableWill matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers HarbingersInscrutableWill matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers HarbingersInscrutableWill matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers HarbingersInscrutableWill matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers HarlansLoadedDice matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers HarlansLoadedDice matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers HarlansLoadedDice matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers HarlansLoadedDice matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Haste matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers Haste matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers Haste matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers Haste matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers HealingDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers HealingDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers HealingDone matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers HealingDone matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers HealthPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers HealthPotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers HealthPotion matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers HealthPotion matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers Healthstone matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers Healthstone matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers Healthstone matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers Healthstone matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers HeatingUp matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers HeatingUp matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3893,9 +3982,9 @@ exports[`The Fire Mage Analyzer analyzers HeatingUp matches the statistic snapsh
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers HeatingUp matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers HeatingUp matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers HeedMyCall matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers HeedMyCall matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -3963,9 +4052,9 @@ exports[`The Fire Mage Analyzer analyzers HeedMyCall matches the statistic snaps
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers HeedMyCall matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers HeedMyCall matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers HotStreak matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4038,11 +4127,11 @@ exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapsh
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers HotStreak matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers HotStreak matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers HotStreakPreCasts matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers HotStreakPreCasts matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4093,83 +4182,83 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers HotStreakWastedCrits matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers HotStreakWastedCrits matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers HotStreakWastedCrits matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers HotStreakWastedCrits matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers HyperthreadWristwraps matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers HyperthreadWristwraps matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers HyperthreadWristwraps matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers HyperthreadWristwraps matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers IdolOfIndiscriminateConsumption matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers IdolOfIndiscriminateConsumption matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers IdolOfIndiscriminateConsumption matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers IdolOfIndiscriminateConsumption matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers IgnitionMagesFuse matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers IgnitionMagesFuse matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers IgnitionMagesFuse matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers IgnitionMagesFuse matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers IncandescentSliver matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers IncandescentSliver matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers IncandescentSliver matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers IncandescentSliver matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers InoculatingExtract matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers InoculatingExtract matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers InoculatingExtract matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers InoculatingExtract matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Kindling matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Kindling matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Kindling matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Kindling matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LadyWaycrestsMusicBox matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LadyWaycrestsMusicBox matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LadyWaycrestsMusicBox matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LadyWaycrestsMusicBox matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LaserMatrix matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LaserMatrix matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LaserMatrix matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LaserMatrix matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LeggingsOfTheAberrantTidesage matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LeggingsOfTheAberrantTidesage matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LeggingsOfTheAberrantTidesage matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LeggingsOfTheAberrantTidesage matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LegplatesOfUnboundAnguish matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LegplatesOfUnboundAnguish matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LegplatesOfUnboundAnguish matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LegplatesOfUnboundAnguish matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LingeringSporepods matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LingeringSporepods matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LingeringSporepods matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LingeringSporepods matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LoyalToTheEnd matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LoyalToTheEnd matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LoyalToTheEnd matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LoyalToTheEnd matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LucidDreams matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LucidDreams matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LucidDreams matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LucidDreams matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LurkersInsidiousGift matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LurkersInsidiousGift matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LurkersInsidiousGift matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LurkersInsidiousGift matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LustrousGoldenPlumage matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LustrousGoldenPlumage matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers LustrousGoldenPlumage matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers LustrousGoldenPlumage matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers MalformedHeraldsLegwraps matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MalformedHeraldsLegwraps matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers MalformedHeraldsLegwraps matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MalformedHeraldsLegwraps matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ManaValues matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ManaValues matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ManaValues matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ManaValues matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers MasterfulNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MasterfulNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers MasterfulNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MasterfulNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Meteor matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers Meteor matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4248,7 +4337,7 @@ exports[`The Fire Mage Analyzer analyzers Meteor matches the statistic snapshot 
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers Meteor matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers Meteor matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4279,13 +4368,13 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers MeteorCombustion matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers MeteorCombustion matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers MeteorCombustion matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers MeteorCombustion matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers MeteorRune matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers MeteorRune matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers MeteorRune matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers MeteorRune matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4322,37 +4411,37 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers MeticulousScheming matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MeticulousScheming matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers MeticulousScheming matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MeticulousScheming matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers MightOfTheMountain matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MightOfTheMountain matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers MightOfTheMountain matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MightOfTheMountain matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers MirrorImage matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MirrorImage matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers MirrorImage matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MirrorImage matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers MydasTalisman matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MydasTalisman matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers MydasTalisman matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers MydasTalisman matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers NullDynamo matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers NullDynamo matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers NullDynamo matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers NullDynamo matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers OverWhelmingPower matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers OverWhelmingPower matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers OverWhelmingPower matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers OverWhelmingPower matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Pets matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers Pets matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers Pets matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers Pets matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers PrePotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers PrePotion matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers PrePotion matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers PrePotion matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4376,35 +4465,35 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers PreparationRuleAnalyzer matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers PreparationRuleAnalyzer matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers PreparationRuleAnalyzer matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers PreparationRuleAnalyzer matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers Pyroclasm matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Pyroclasm matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Pyroclasm matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Pyroclasm matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers QuickNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers QuickNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers QuickNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers QuickNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers RaidHealthTab matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers RaidHealthTab matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers RaidHealthTab matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers RaidHealthTab matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers RevitalizingVoodooTotem matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers RevitalizingVoodooTotem matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers RevitalizingVoodooTotem matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers RevitalizingVoodooTotem matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers RezansGleamingEye matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers RezansGleamingEye matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers RezansGleamingEye matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers RezansGleamingEye matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers RotcrustedVoodooDoll matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers RotcrustedVoodooDoll matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers RotcrustedVoodooDoll matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers RotcrustedVoodooDoll matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers RuneOfPower matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers RuneOfPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4477,21 +4566,21 @@ exports[`The Fire Mage Analyzer analyzers RuneOfPower matches the statistic snap
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers RuneOfPower matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers RuneOfPower matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers Savior matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Savior matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Savior matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Savior matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers SeaGiantsTidestone matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers SeaGiantsTidestone matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers SeaGiantsTidestone matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers SeaGiantsTidestone matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Seabreeze matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Seabreeze matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Seabreeze matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Seabreeze matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers SearingTouch matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers SearingTouch matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4558,7 +4647,7 @@ exports[`The Fire Mage Analyzer analyzers SearingTouch matches the statistic sna
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers SearingTouch matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers SearingTouch matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -4591,67 +4680,67 @@ Array [
 ]
 `;
 
-exports[`The Fire Mage Analyzer analyzers SpellHistory matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers SpellHistory matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers SpellHistory matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers SpellHistory matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers SpellManaCost matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers SpellManaCost matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers SpellUsable matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers SpellUsable matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers StalwartNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers StalwartNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers StalwartNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers StalwartNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers StatTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers StatTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers StatTracker matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers StatTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers Stoneform matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Stoneform matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Stoneform matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Stoneform matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers StormglideSteps matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers StormglideSteps matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers StormglideSteps matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers StormglideSteps matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Strife matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Strife matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Strife matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Strife matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers SwirlingSands matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers SwirlingSands matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers SwirlingSands matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers SwirlingSands matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers SynergisticGrowth matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers SynergisticGrowth matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers SynergisticGrowth matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers SynergisticGrowth matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers SyringeOfBloodborneInfirmity matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers SyringeOfBloodborneInfirmity matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers SyringeOfBloodborneInfirmity matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers SyringeOfBloodborneInfirmity matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TheCrucibleofFlame matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TheCrucibleofFlame matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TheCrucibleofFlame matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TheCrucibleofFlame matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TheEverRisingTide matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TheEverRisingTide matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TheEverRisingTide matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TheEverRisingTide matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TheWellOfExistence matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TheWellOfExistence matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TheWellOfExistence matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TheWellOfExistence matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ThroughputStatisticGroup matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers ThroughputStatisticGroup matches the statistic snapshot 1`] = `
 <div
   className="col-md-6 col-sm-12 col-xs-12"
   position={0}
@@ -5022,49 +5111,49 @@ exports[`The Fire Mage Analyzer analyzers ThroughputStatisticGroup matches the s
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers ThroughputStatisticGroup matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers ThroughputStatisticGroup matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers TidalSurge matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TidalSurge matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TidalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TidalSurge matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TotalDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`Fire Mage integration test: example log analyzers TotalDowntime matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers TotalDowntime matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers TotalDowntime matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers Tradewinds matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Tradewinds matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers Tradewinds matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers Tradewinds matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TreacherousCovenant matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TreacherousCovenant matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TreacherousCovenant matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TreacherousCovenant matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TridentOfDeepOcean matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TridentOfDeepOcean matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TridentOfDeepOcean matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TridentOfDeepOcean matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TwitchingTentacleofXalzaix matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TwitchingTentacleofXalzaix matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers TwitchingTentacleofXalzaix matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers TwitchingTentacleofXalzaix matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers UnstableCatalyst matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers UnstableCatalyst matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers UnstableCatalyst matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers UnstableCatalyst matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers VantusRune matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers VantusRune matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers VantusRune matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers VantusRune matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers VersatileNavigation matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers VersatileNavigation matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers VersatileNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers VersatileNavigation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers VesselOfSkitteringShadows matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers VesselOfSkitteringShadows matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers VesselOfSkitteringShadows matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers VesselOfSkitteringShadows matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers VigilantsBloodshaper matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log analyzers VigilantsBloodshaper matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -5144,29 +5233,29 @@ exports[`The Fire Mage Analyzer analyzers VigilantsBloodshaper matches the stati
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers VigilantsBloodshaper matches the suggestions snapshot 1`] = `Array []`;
+exports[`Fire Mage integration test: example log analyzers VigilantsBloodshaper matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers VoidStone matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers VoidStone matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers VoidStone matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers VoidStone matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers WardOfEnvelopment matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers WardOfEnvelopment matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers WardOfEnvelopment matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers WardOfEnvelopment matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers WorldveinResonance matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers WorldveinResonance matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers WorldveinResonance matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers WorldveinResonance matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers WoundBinder matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers WoundBinder matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers WoundBinder matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers WoundBinder matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ZaxasjsDeepstriders matches the statistic snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ZaxasjsDeepstriders matches the statistic snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers ZaxasjsDeepstriders matches the suggestions snapshot 1`] = `"module inactive"`;
+exports[`Fire Mage integration test: example log analyzers ZaxasjsDeepstriders matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
+exports[`Fire Mage integration test: example log should match the checklist snapshot 1`] = `
 <ul
   className="checklist"
 >
