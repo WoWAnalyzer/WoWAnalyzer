@@ -24,7 +24,7 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
  */
 
 const BUFF_DURATION = 30;
-const GLIMMER_CAP = (new Date() < new Date(2020, 1, 14)) ? 8 : 8;
+const GLIMMER_CAP = (new Date() < new Date(2020, 1, 14)) ? 99 : 8;
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
@@ -185,7 +185,10 @@ class GlimmerOfLight extends Analyzer {
       when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => {
         return suggest(
           <Trans>
-            Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved. Try to avoid overwritting buffs too early.
+            Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved.  
+            To maximize the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />, try to keep as many buffs up as possible.  
+            Avoid overwritting buffs early, this suggestion does not take priority over healing targets with low health. 
+            If two targets have similar health pools priorize the target without a glimmer as your <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> will heal all players with active buffs.
           </Trans>,
         )
           .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
