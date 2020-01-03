@@ -18,13 +18,16 @@ class LucidDreams extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected statTracker!: StatTracker;
 
-  hasLucidMajor: boolean;
+  hasLucidMajor?: boolean;
 
   lastTimestamp = 0;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasEssence(SPELLS.LUCID_DREAMS.traitId);
+    if (!this.active) {
+      return;
+    }
     this.hasLucidMajor = this.selectedCombatant.hasMajor(SPELLS.LUCID_DREAMS.traitId);
     if(this.hasLucidMajor) {
       options.abilities.add({
