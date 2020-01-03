@@ -75,16 +75,17 @@ class GlimmerOfLight extends Analyzer {
     this.updateActiveGlimmers(event.timestamp);
     
     const index = this.glimmerBuffs.findIndex(g => g.targetID === event.targetID);
-    if(index >= 0) {
-      // if an active glimmer was overwritten //
-      this.wastedEarlyRefresh += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
-      this.earlyRefresh += 1;
-      this.glimmerBuffs.splice(index, 1);
-    } else if (this.glimmerBuffs.length >= GLIMMER_CAP) {
+    
+    if (this.glimmerBuffs.length >= GLIMMER_CAP) {
       // if glimmer count is over the limit //
       this.overCap += 1;
       this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[GLIMMER_CAP - 1].timestamp);
       this.glimmerBuffs.splice(GLIMMER_CAP - 1, 1);
+    } else if(index >= 0) {
+      // if an active glimmer was overwritten //
+      this.wastedEarlyRefresh += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
+      this.earlyRefresh += 1;
+      this.glimmerBuffs.splice(index, 1);
     }
 
     const glimmer = {targetID: event.targetID, timestamp: event.timestamp};
@@ -183,7 +184,7 @@ class GlimmerOfLight extends Analyzer {
           </Trans>,
         )
           .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
-          .actual(`Percentage uptime lost to early refresh was ${formatPercentage(this.earlyGlimmersWasted)}%`)
+          .actual(`Uptime lost to early refresh was ${formatPercentage(this.earlyGlimmersWasted)}%`)
           .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`);
       });
     }
@@ -199,7 +200,7 @@ class GlimmerOfLight extends Analyzer {
           </Trans>,
         )
         .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
-        .actual(`Percentage uptime lost to overcapping active glimmers was ${formatPercentage(this.overCapGlimmersWasted)}%`)
+        .actual(`Uptime lost to overcapping active glimmers was ${formatPercentage(this.overCapGlimmersWasted)}%`)
         .recommended(`< ${this.suggestGlimmerCap.isGreaterThan.minor * 100}% is reccommended`);
       });
     }
