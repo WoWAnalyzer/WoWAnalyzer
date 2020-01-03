@@ -26,9 +26,6 @@ class LucidDreams extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasEssence(SPELLS.LUCID_DREAMS.traitId);
     this.hasLucidMajor = this.selectedCombatant.hasMajor(SPELLS.LUCID_DREAMS.traitId);
-    if (!this.active) {
-      return;
-    }
     if(this.hasLucidMajor) {
       options.abilities.add({
         spell: SPELLS.LUCID_DREAMS_MAJOR,
