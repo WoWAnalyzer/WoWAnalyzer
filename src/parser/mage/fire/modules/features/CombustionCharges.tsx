@@ -20,12 +20,7 @@ class CombustionCharges extends Analyzer {
 
   hasPhoenixFlames: boolean;
   hasFlameOn: boolean;
-  lastCastEvent!: {
-      meta?: {
-        isInefficientCast?: any;
-        inefficientCastReason?: any;
-    } | undefined;
-  };
+  lastCastEvent?: CastEvent;
 
   lowPhoenixFlamesCharges = 0;
   lowFireBlastCharges = 0;
@@ -65,6 +60,9 @@ class CombustionCharges extends Analyzer {
   }
 
   flagTimeline() {
+    if (!this.lastCastEvent) {
+      return;
+    }
     this.lastCastEvent.meta = this.lastCastEvent.meta || {};
     this.lastCastEvent.meta.isInefficientCast = true;
     this.lastCastEvent.meta.inefficientCastReason = `This Combustion was cast with a low amount of Fire Blast ${this.hasPhoenixFlames ? 'and/or Phoenix Flames' : '' }charges. In order to get the most out of your Combustion casts, ensure that you have at least ${this.hasFlameOn ? '2' : '1' } Fire Blast charges${this.hasPhoenixFlames ? ' and 2 Phoenix Flames charges' : '' }. `;

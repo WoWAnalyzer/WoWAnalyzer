@@ -26,13 +26,7 @@ class HotStreakWastedCrits extends Analyzer {
   protected enemies!: EnemyInstances;
 
   hasPyromaniac: boolean;
-  lastCastEvent!: {
-    targetID?: any;
-    meta?: {
-      isInefficientCast?: any;
-      inefficientCastReason?: any;
-    } | undefined;
-  };
+  lastCastEvent?: CastEvent;
 
   wastedCrits = 0;
   hasPyromaniacProc = false;
@@ -58,6 +52,9 @@ class HotStreakWastedCrits extends Analyzer {
   //When a spell that contributes towards Hot Streak crits the target while Hot Streak is active, count it as a wasted crit.
   //Excludes the cleave from Phoenix Flames (the cleave doesnt contribute towards Hot Streak) and excludes crits immediately after Pyromaniac procs, cause the player cant do anything to prevent that.
   _onDamage(event: DamageEvent) {
+    if (!this.lastCastEvent) {
+      return;
+    }
     const spellId = event.ability.guid;
     const castTarget = encodeTargetString(this.lastCastEvent.targetID, event.targetInstance);
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);

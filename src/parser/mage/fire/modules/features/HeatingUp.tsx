@@ -27,9 +27,7 @@ class HeatingUp extends Analyzer {
   hasFirestarter: boolean;
   hasSearingTouch: boolean;
   hasPhoenixFlames: boolean;
-  phoenixFlamesCastEvent!: {
-    targetID?: any | undefined;
-  };
+  phoenixFlamesCastEvent?: CastEvent;
 
   fireBlastWithoutHeatingUp = 0;
   phoenixFlamesWithoutHeatingUp = 0;

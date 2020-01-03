@@ -19,15 +19,9 @@ class Pyroclasm extends Analyzer {
   usedProcs = 0;
   unusedProcs = 0;
   overwrittenProcs = 0;
-  beginCastEvent!: {
-    timestamp?: any | undefined;
-  };
-  castEvent!: {
-    timestamp?: any | undefined;
-  };
-  buffAppliedEvent!: {
-    timestamp?: any | undefined;
-  };
+  beginCastEvent?: BeginCastEvent;
+  castEvent?: CastEvent;
+  buffAppliedEvent?: ApplyBuffEvent | ApplyBuffStackEvent;
 
   constructor(options: any) {
     super(options);
@@ -61,7 +55,11 @@ class Pyroclasm extends Analyzer {
 
   //Checks to see if Pyroclasm was removed because it was used (there was a non instant pyroblast within 250ms) or because it expired.
   onPyroclasmRemoved(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    const isInstantCast = (this.castEvent.timestamp - this.beginCastEvent.timestamp < CAST_BUFFER);
+    if (!this.castEvent || !this.beginCastEvent) {
+      return;
+    }
+    const channelingTime = this.castEvent.timestamp - this.beginCastEvent.timestamp;
+    const isInstantCast = channelingTime < CAST_BUFFER;
     if (!isInstantCast && this.castEvent.timestamp > event.timestamp - CAST_BUFFER) {
       this.usedProcs += 1;
     } else {
@@ -79,6 +77,9 @@ class Pyroclasm extends Analyzer {
 
   //If the player has a Pyroclasm proc when the fight ends and they got the proc within the last 5 seconds of the fight, then ignore it. Otherwise, it was wasted.
   onFinished(event: FightEndEvent) {
+    if (!this.buffAppliedEvent) {
+      return;
+    }
     const hasPyroclasmBuff = this.selectedCombatant.hasBuff(SPELLS.PYROCLASM_BUFF.id);
     const adjustedFightEnding = this.owner.currentTimestamp - FIGHT_END_BUFFER;
     if (hasPyroclasmBuff && this.buffAppliedEvent.timestamp < adjustedFightEnding) {

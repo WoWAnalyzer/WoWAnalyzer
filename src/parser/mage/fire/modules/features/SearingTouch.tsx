@@ -17,12 +17,7 @@ class SearingTouch extends Analyzer {
     abilityTracker: AbilityTracker,
   };
   protected abilityTracker!: AbilityTracker;
-  lastCastEvent!: {
-    meta?: {
-      isInefficientCast?: any;
-      inefficientCastReason?: any;
-  } | undefined;
-};
+  lastCastEvent?: CastEvent;
 
   badCasts = 0;
   totalCasts = 0;
@@ -48,7 +43,7 @@ class SearingTouch extends Analyzer {
       return;
     }
     this.totalCasts += 1;
-    if (event.ability.guid === SPELLS.FIREBALL.id) {
+    if (this.lastCastEvent && event.ability.guid === SPELLS.FIREBALL.id) {
       this.badCasts += 1;
       this.lastCastEvent.meta = this.lastCastEvent.meta || {};
       this.lastCastEvent.meta.isInefficientCast = true;
