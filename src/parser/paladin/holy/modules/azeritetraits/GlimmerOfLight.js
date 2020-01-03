@@ -189,7 +189,7 @@ class GlimmerOfLight extends Analyzer {
           </Trans>,
         )
           .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
-          .actual(`Uptime lost to early refresh was ${formatPercentage(this.earlyGlimmerRefreshLoss)}%`)
+          .actual(`Uptime lost to early Glimmer refresh was ${formatPercentage(this.earlyGlimmerRefreshLoss)}%`)
           .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`);
       });
     }
@@ -205,7 +205,7 @@ class GlimmerOfLight extends Analyzer {
           </Trans>,
         )
         .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
-        .actual(`Uptime lost to overcapping active glimmers was ${formatPercentage(this.overCapGlimmerLoss)}%`)
+        .actual(`Uptime lost to overcapping active Glimmers was ${formatPercentage(this.overCapGlimmerLoss)}%`)
         .recommended(`< ${this.suggestGlimmerCap.isGreaterThan.minor * 100}% is reccommended`);
       });
     }
