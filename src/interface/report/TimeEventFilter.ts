@@ -31,7 +31,7 @@ interface Props {
 interface State {
   isLoading: boolean,
   events?: Event[],
-  fight?: any,
+  fight?: Fight,
 }
 
 interface Filter {
@@ -53,13 +53,13 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
   }
 
   //compare filters if both are defined, otherwise to shallow reference copy to avoid rerendering when filter is clicked without changing the timestamps
-  filterDiffers(filter1: Filter, filter2: Filter){
+  filterDiffers(filter1: Filter, filter2: Filter) {
     //if both filters are identical (shallow)
-    if(filter1 === filter2){
+    if (filter1 === filter2) {
       return false;
     }
     //if both are defined, compare start and end
-    if(filter1 && filter2){
+    if (filter1 && filter2) {
       return filter1.start !== filter2.start || filter1.end !== filter2.end;
     }
     //filters aren't equal
@@ -68,8 +68,8 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     const changed = this.props.bossPhaseEvents !== prevProps.bossPhaseEvents
-    || this.props.fight !== prevProps.fight
-    || this.filterDiffers(this.props.filter, prevProps.filter);
+      || this.props.fight !== prevProps.fight
+      || this.filterDiffers(this.props.filter, prevProps.filter);
 
     if (changed) {
       this.setState({
@@ -82,10 +82,10 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
 
   makeEvents() {
     const { bossPhaseEvents, events, filter } = this.props;
-    if(!filter){
-      return {start: this.props.fight.start_time, events: bossPhaseEvents ? [...bossPhaseEvents, ...events] : events, end: this.props.fight.end_time};
+    if (!filter) {
+      return { start: this.props.fight.start_time, events: bossPhaseEvents ? [...bossPhaseEvents, ...events] : events, end: this.props.fight.end_time };
     }
-    return {start: filter.start, events: filterEvents(events, filter.start, filter.end), end: filter.end};
+    return { start: filter.start, events: filterEvents(events, filter.start, filter.end), end: filter.end };
   }
 
   async parse() {
@@ -102,7 +102,7 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
           offset_time: eventFilter.start - this.props.fight.start_time, //time between time filter start and fight start (for e.g. timeline)
           original_end_time: this.props.fight.end_time,
           filtered: (eventFilter.start !== this.props.fight.start_time || eventFilter.end !== this.props.fight.end_time),
-          ...(this.props.phase !== SELECTION_ALL_PHASES && {phase: this.props.phase, instance: this.props.phaseinstance || 0}), //if phase is selected, add it to the fight object
+          ...(this.props.phase !== SELECTION_ALL_PHASES && { phase: this.props.phase, instance: this.props.phaseinstance || 0 }), //if phase is selected, add it to the fight object
         },
         isLoading: false,
       });
@@ -119,44 +119,44 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
 
 }
 
-function findRelevantPostFilterEvents(events: Event[]){
-  return events.filter((e: Event) => e.type === EventType.Cast && SECOND_POTIONS.includes((e as CastEvent).ability.guid)).map(e => ({...e, type: EventType.FilterCooldownInfo, trigger: e.type}));
+function findRelevantPostFilterEvents(events: Event[]) {
+  return events.filter((e: Event) => e.type === EventType.Cast && SECOND_POTIONS.includes((e as CastEvent).ability.guid)).map(e => ({ ...e, type: EventType.FilterCooldownInfo, trigger: e.type }));
 }
 
 //filter prephase events to just the events outside the time period that "matter" to make statistics more accurate (e.g. buffs and cooldowns)
 type StackEvent = ApplyBuffStackEvent | ApplyDebuffStackEvent | RemoveBuffStack | RemoveDebuffStack;
 type BuffEvent = ApplyBuffEvent | ApplyDebuffEvent | RemoveBuffEvent | RemoveDebuffEvent;
 type CastRelevantEvent = CastEvent | FilterCooldownInfoEvent;
-function findRelevantPreFilterEvents(events: Event[]){
-  const buffEvents : BuffEvent[] = []; //(de)buff apply events for (de)buffs that stay active going into the time period
-  const stackEvents : StackEvent[] = []; //stack events related to the above buff events that happen after the buff is applied
-  const castEvents : CastRelevantEvent[] = []; //latest cast event of each cast by player for cooldown tracking
+function findRelevantPreFilterEvents(events: Event[]) {
+  const buffEvents: BuffEvent[] = []; //(de)buff apply events for (de)buffs that stay active going into the time period
+  const stackEvents: StackEvent[] = []; //stack events related to the above buff events that happen after the buff is applied
+  const castEvents: CastRelevantEvent[] = []; //latest cast event of each cast by player for cooldown tracking
 
   const buffIsMarkedActive = (e: BuffEvent) => buffEvents.find(e2 => e.ability.guid === e2.ability.guid && e.targetID === e2.targetID && e.sourceID === e2.targetID) !== undefined;
   const buffIsRemoved = (e: BuffEvent, buffRelevantEvents: Event[]) => buffRelevantEvents.find(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2 as BuffEvent)) !== undefined;
   const castHappenedLater = (e: CastEvent) => castEvents.find(e2 => e.ability.guid === e2.ability.guid && e.sourceID === e2.sourceID) !== undefined;
 
   events.forEach((e, index) => {
-    switch(e.type){
+    switch (e.type) {
       case EventType.ApplyBuff:
       case EventType.ApplyDebuff:
         //if buff isn't already confirmed as "staying active"
-        if(!buffIsMarkedActive(e as BuffEvent)){
+        if (!buffIsMarkedActive(e as BuffEvent)) {
           //look only at buffs that happen after the apply event (since we traverse in reverse order)
           const buffRelevantEvents = events.slice(0, index);
           //if no remove is found following the apply event, mark the buff as "staying active"
-          if(!buffIsRemoved(e as BuffEvent, buffRelevantEvents)){
+          if (!buffIsRemoved(e as BuffEvent, buffRelevantEvents)) {
             buffEvents.push(e as BuffEvent);
             //find relevant stack information for active buff / debuff
             stackEvents.push(...buffRelevantEvents.reverse().reduce((arr: StackEvent[], e2: Event) => {
               //traverse through all following stack events in chronological order
-              if(eventFollows(e as BuffEvent, e2 as StackEvent)){
+              if (eventFollows(e as BuffEvent, e2 as StackEvent)) {
                 //if stack is added, add the event to the end of the array
-                if(e2.type === EventType.ApplyBuffStack || e2.type === EventType.ApplyDebuffStack){
+                if (e2.type === EventType.ApplyBuffStack || e2.type === EventType.ApplyDebuffStack) {
                   return [...arr, e2 as StackEvent];
-                //if stack is removed, remove first event from array
-                }else if(e2.type === EventType.RemoveBuffStack || e2.type === EventType.RemoveDebuffStack){
-                  return arr.slice(0,1);
+                  //if stack is removed, remove first event from array
+                } else if (e2.type === EventType.RemoveBuffStack || e2.type === EventType.RemoveDebuffStack) {
+                  return arr.slice(0, 1);
                 }
               }
               return arr;
@@ -166,15 +166,15 @@ function findRelevantPreFilterEvents(events: Event[]){
         break;
       case EventType.RemoveBuff:
       case EventType.RemoveDebuff:
-        if(SECOND_POTIONS.includes((e as BuffEvent).ability.guid)){
+        if (SECOND_POTIONS.includes((e as BuffEvent).ability.guid)) {
           buffEvents.push(e as BuffEvent);
         }
         break;
       case EventType.Cast:
         //only keep "latest" cast, override type to prevent > 100% uptime / efficiency
         //whitelist certain casts (like potions) to keep suggestions working
-        if(SECOND_POTIONS.includes((e as CastEvent).ability.guid) || !castHappenedLater(e as CastEvent)){
-          castEvents.push({...(e as CastEvent), type: EventType.FilterCooldownInfo, trigger: e.type});
+        if (SECOND_POTIONS.includes((e as CastEvent).ability.guid) || !castHappenedLater(e as CastEvent)) {
+          castEvents.push({ ...(e as CastEvent), type: EventType.FilterCooldownInfo, trigger: e.type });
         }
         break;
       default:
@@ -204,26 +204,26 @@ function findRelevantPreFilterEvents(events: Event[]){
  * @return {Array}
  *  List of filtered events
  */
-export function filterEvents(events: Event[], start: number, end: number){
+export function filterEvents(events: Event[], start: number, end: number) {
   const phaseEvents = events.filter(event =>
-      event.timestamp >= start
-      && event.timestamp <= end,
-    );
+    event.timestamp >= start
+    && event.timestamp <= end,
+  );
 
   const preFilterEvents = findRelevantPreFilterEvents(events.filter(event => event.timestamp < start).reverse())
-  .sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
-  .map(e => ({
-    ...e,
-    prepull: true, //pretend previous events were "prepull"
-    ...(e.type !== EventType.FilterCooldownInfo && e.type !== EventType.Cast && SECOND_POTIONS.includes(e.ability.guid) && {type: EventType.FilterBuffInfo, trigger: e.type}),
-    ...(e.type !== EventType.FilterCooldownInfo && !SECOND_POTIONS.includes(e.ability.guid) ? {timestamp: start} : {__fabricated: true}), //override existing timestamps to the start of the time period to avoid >100% uptimes (only on non casts to retain cooldowns)
-  }));
+    .sort((a, b) => a.timestamp - b.timestamp) //sort events by timestamp
+    .map(e => ({
+      ...e,
+      prepull: true, //pretend previous events were "prepull"
+      ...(e.type !== EventType.FilterCooldownInfo && e.type !== EventType.Cast && SECOND_POTIONS.includes(e.ability.guid) && { type: EventType.FilterBuffInfo, trigger: e.type }),
+      ...(e.type !== EventType.FilterCooldownInfo && !SECOND_POTIONS.includes(e.ability.guid) ? { timestamp: start } : { __fabricated: true }), //override existing timestamps to the start of the time period to avoid >100% uptimes (only on non casts to retain cooldowns)
+    }));
   const postFilterEvents = findRelevantPostFilterEvents(events.filter(event => event.timestamp > end))
-  .sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
-  .map(e => ({
-    ...e,
-    timestamp: end,
-  }));
+    .sort((a, b) => a.timestamp - b.timestamp) //sort events by timestamp
+    .map(e => ({
+      ...e,
+      timestamp: end,
+    }));
   return [...preFilterEvents, ...phaseEvents, ...postFilterEvents];
 }
 
