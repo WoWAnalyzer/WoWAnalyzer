@@ -45,7 +45,6 @@ import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import DistanceMoved from '../shared/modules/others/DistanceMoved';
 import DispelTracker from '../shared/modules/DispelTracker';
-import ChannelingShared from '../shared/modules/features/ChannelingShared';
 
 // Tabs
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
@@ -145,6 +144,7 @@ import TheWellOfExistence from '../shared/modules/spells/bfa/essences/TheWellOfE
 import TheCrucibleofFlame from '../shared/modules/spells/bfa/essences/TheCrucibleofFlame';
 import WorldveinResonance from '../shared/modules/spells/bfa/essences/WorldveinResonance';
 import NullDynamo from '../shared/modules/spells/bfa/essences/NullDynamo';
+import Strife from '../shared/modules/spells/bfa/essences/Strife';
 
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
@@ -242,7 +242,6 @@ class CombatLogParser {
     distanceMoved: DistanceMoved,
     deathRecapTracker: DeathRecapTracker,
     dispels: DispelTracker,
-    channelingShared:ChannelingShared,
 
     critEffectBonus: CritEffectBonus,
 
@@ -341,6 +340,7 @@ class CombatLogParser {
     theCrucibleofFlame: TheCrucibleofFlame,
     worldveinResonance: WorldveinResonance,
     nullDynamo: NullDynamo,
+    strife: Strife,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
@@ -728,7 +728,7 @@ class CombatLogParser {
               }
             }
             if (module.suggestions) {
-              module.suggestions(results.suggestions.when, { i18n });
+              module.suggestions(results.suggestions.when);
             }
           }catch(e){ //error occured during results generation of module, disable module and all modules depending on it
             if (process.env.NODE_ENV !== 'production') {

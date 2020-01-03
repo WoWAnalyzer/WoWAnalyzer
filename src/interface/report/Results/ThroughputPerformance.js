@@ -32,6 +32,10 @@ class ThroughputPerformance extends React.PureComponent {
 
   async load() {
     try {
+      if (process.env.NODE_ENV === 'test') {
+        // Skip during tests since we can't do WCL calls
+        return;
+      }
       const { rankings } = await this.loadRankings();
       // We want the 100th rank to give people a reasonable and easy to grasp goal to aim for.
       const topRank = this._getRank(rankings, 100);
