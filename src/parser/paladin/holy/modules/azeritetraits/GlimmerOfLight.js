@@ -24,7 +24,7 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
  */
 
 const BUFF_DURATION = 30;
-const GLIMMER_CAP = (new Date() < new Date(2020, 1, 14)) ? 99 : 8;
+const GLIMMER_CAP = (new Date() < new Date(2020, 1, 14)) ? 8 : 8;
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
@@ -79,8 +79,13 @@ class GlimmerOfLight extends Analyzer {
     if (this.glimmerBuffs.length >= GLIMMER_CAP) {
       // if glimmer count is over the limit //
       this.overCap += 1;
-      this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[GLIMMER_CAP - 1].timestamp);
-      this.glimmerBuffs.splice(GLIMMER_CAP - 1, 1);
+      if (index < 0){
+        this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[GLIMMER_CAP - 1].timestamp);
+        this.glimmerBuffs.splice(GLIMMER_CAP - 1, 1);
+      } else {
+        this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
+        this.glimmerBuffs.splice(index, 1);
+      }
     } else if(index >= 0) {
       // if an active glimmer was overwritten //
       this.wastedEarlyRefresh += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
@@ -167,9 +172,9 @@ class GlimmerOfLight extends Analyzer {
     return{
       actual: this.overCapGlimmerLoss,
       isGreaterThan: {
-        minor: 0.1,
-        average: 0.2,
-        major: 0.3,
+        minor: 0.15,
+        average: 0.25,
+        major: 0.35,
       },
       style: 'percentage',
     };
