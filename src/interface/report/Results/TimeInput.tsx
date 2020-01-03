@@ -8,7 +8,7 @@ interface Props {
   time: number;
   min: number;
   max: number;
-  onChange: Function;
+  onChange: (time: number) => void;
 }
 
 interface State {
@@ -32,7 +32,7 @@ class TimeInput extends React.PureComponent<Props, State> {
     this.state = this.convertTime(this.props.time);
   }
 
-  componentDidUpdate(prevProps : Props) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.time !== prevProps.time) {
       this.setState(this.convertTime(this.props.time));
     }
@@ -68,7 +68,7 @@ class TimeInput extends React.PureComponent<Props, State> {
 
   }
 
-  handleChangeM(e : React.ChangeEvent<HTMLInputElement>) {
+  handleChangeM(e: React.ChangeEvent<HTMLInputElement>) {
     const val = Number(e.target.value) || 0;
     if (val > 99) {
       this.forceUpdate();
@@ -77,7 +77,7 @@ class TimeInput extends React.PureComponent<Props, State> {
     this.changeTime(MINUTE * val + SECOND * this.state.seconds + this.state.milliseconds);
   }
 
-  handleChangeS(e : React.ChangeEvent<HTMLInputElement>) {
+  handleChangeS(e: React.ChangeEvent<HTMLInputElement>) {
     const val = Number(e.target.value) || 0;
     if (val > 99) {
       this.forceUpdate();
@@ -86,7 +86,7 @@ class TimeInput extends React.PureComponent<Props, State> {
     this.changeTime(MINUTE * this.state.minutes + SECOND * val + this.state.milliseconds);
   }
 
-  handleChangeMs(e : React.ChangeEvent<HTMLInputElement>) {
+  handleChangeMs(e: React.ChangeEvent<HTMLInputElement>) {
     const val = Number(e.target.value) || 0;
     if (val > 999) {
       this.forceUpdate();
