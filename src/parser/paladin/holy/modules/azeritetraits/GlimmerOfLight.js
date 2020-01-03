@@ -114,11 +114,11 @@ class GlimmerOfLight extends Analyzer {
     return this.healing + this.healingTransfered;
   }
 
-  get earlyGlimmersWasted() {
+  get earlyGlimmerRefreshLoss() {
     return this.wastedEarlyRefresh / (this.casts * BUFF_DURATION * 1000);
   }
 
-  get overCapGlimmersWasted(){
+  get overCapGlimmerLoss(){
     return this.wastedOverCap / (this.casts * BUFF_DURATION * 1000);
   }
 
@@ -141,9 +141,9 @@ class GlimmerOfLight extends Analyzer {
             Glimmer damage: <b>{formatNumber(this.damage)}</b><br />
             Holy Shocks/minute: <b>{this.holyShocksPerMinute.toFixed(1)}</b><br />
             Early refresh(s): <b>{this.earlyRefresh}</b><br />
-            Lost to early refresh: <b>{(this.wastedEarlyRefresh/1000).toFixed(1)}(sec) {(this.earlyGlimmersWasted * 100).toFixed(1)}%</b><br />
+            Lost to early refresh: <b>{(this.wastedEarlyRefresh/1000).toFixed(1)}(sec) {(this.earlyGlimmerRefreshLoss * 100).toFixed(1)}%</b><br />
             Glimmer of Lights over {GLIMMER_CAP} buff cap: <b>{this.overCap}</b><br />
-            Lost to over capping: <b>{(this.wastedOverCap/1000).toFixed(1)}(sec) {(this.overCapGlimmersWasted * 100).toFixed(1)}%</b><br />
+            Lost to over capping: <b>{(this.wastedOverCap/1000).toFixed(1)}(sec) {(this.overCapGlimmerLoss * 100).toFixed(1)}%</b><br />
           </Trans>
         )}
       />
@@ -153,7 +153,7 @@ class GlimmerOfLight extends Analyzer {
 
   get suggestEarlyRefresh() {
     return {
-      actual: this.earlyGlimmersWasted,
+      actual: this.earlyGlimmerRefreshLoss,
       isGreaterThan: {
         minor: 0.15,
         average: 0.25,
@@ -165,7 +165,7 @@ class GlimmerOfLight extends Analyzer {
 
   get suggestGlimmerCap() {
     return{
-      actual: this.overCapGlimmersWasted,
+      actual: this.overCapGlimmerLoss,
       isGreaterThan: {
         minor: 0.1,
         average: 0.2,
@@ -184,7 +184,7 @@ class GlimmerOfLight extends Analyzer {
           </Trans>,
         )
           .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
-          .actual(`Uptime lost to early refresh was ${formatPercentage(this.earlyGlimmersWasted)}%`)
+          .actual(`Uptime lost to early refresh was ${formatPercentage(this.earlyGlimmerRefreshLoss)}%`)
           .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`);
       });
     }
@@ -200,7 +200,7 @@ class GlimmerOfLight extends Analyzer {
           </Trans>,
         )
         .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
-        .actual(`Uptime lost to overcapping active glimmers was ${formatPercentage(this.overCapGlimmersWasted)}%`)
+        .actual(`Uptime lost to overcapping active glimmers was ${formatPercentage(this.overCapGlimmerLoss)}%`)
         .recommended(`< ${this.suggestGlimmerCap.isGreaterThan.minor * 100}% is reccommended`);
       });
     }
