@@ -19,10 +19,10 @@ const PURIFY_DELAY_THRESHOLD = 1250; // 1.25s, gives a bit of flexibility in cas
 function markupPurify(event, delay, hasHeavyStagger) {
   const msgs = [];
   if(delay > PURIFY_DELAY_THRESHOLD) {
-    msgs.push(<li>You delayed casting it for <b>{(delay / 1000).toFixed(2)}s</b> after being hit, allowing Stagger to tick down.</li>);
+    msgs.push(<li key="PURIFY_DELAY_THRESHOLD">You delayed casting it for <b>{(delay / 1000).toFixed(2)}s</b> after being hit, allowing Stagger to tick down.</li>);
   }
   if(!hasHeavyStagger) {
-    msgs.push(<li>You cast without reaching at least Heavy Stagger, which is <em>almost always</em> inefficient.</li>);
+    msgs.push(<li key="hasHeavyStagger">You cast without reaching at least Heavy Stagger, which is <em>almost always</em> inefficient.</li>);
   }
 
   if(msgs.length === 0) {
@@ -31,11 +31,11 @@ function markupPurify(event, delay, hasHeavyStagger) {
   const meta = event.meta || {};
   meta.isInefficientCast = true;
   meta.inefficientCastReason = (
-<>
-    This Purifying Brew cast was inefficient because:
-    <ul>{msgs}</ul>
-  </>
-);
+    <>
+      This Purifying Brew cast was inefficient because:
+      <ul>{msgs}</ul>
+    </>
+  );
   event.meta = meta;
 }
 
