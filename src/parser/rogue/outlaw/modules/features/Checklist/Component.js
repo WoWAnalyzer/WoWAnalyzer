@@ -17,7 +17,7 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
     />
   );
   AbilityRequirement.propTypes = {
-    spell: PropTypes.object.isRequired,
+    spell: PropTypes.number.isRequired,
   };
 
   const hasBetweenTheEyesTrait = combatant.hasTrait(SPELLS.ACE_UP_YOUR_SLEEVE.id) || combatant.hasTrait(SPELLS.DEADSHOT.id);

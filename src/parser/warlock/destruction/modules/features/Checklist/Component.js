@@ -18,7 +18,7 @@ const DestructionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sh
     />
   );
   AbilityRequirement.propTypes = {
-    spell: PropTypes.object.isRequired,
+    spell: PropTypes.number.isRequired,
   };
 
   return (
