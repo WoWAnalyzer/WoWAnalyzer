@@ -100,7 +100,7 @@ class PlayerLoader extends React.PureComponent {
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
       const characterDataPromises = combatants.map(player => {
         const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
-        if(!friendly) {
+        if (!friendly) {
           // unsure why this happens, but it can
           return Promise.resolve();
         }
@@ -108,7 +108,7 @@ class PlayerLoader extends React.PureComponent {
         if (!exportedCharacter) {
           return Promise.resolve();
         }
-        return fetchCharacter(friendly.guid, exportedCharacter.region, friendly.realm, friendly.name).then(data => {
+        return fetchCharacter(friendly.guid, exportedCharacter.region, exportedCharacter.server, exportedCharacter.name).then(data => {
           return Promise.resolve(data);
         }).catch(() => {
           // This guy failed to load - this is nice to have data
@@ -266,7 +266,7 @@ class PlayerLoader extends React.PureComponent {
               return {
                 ...friendly,
                 combatant,
-                realm: exportedCharacter ? exportedCharacter.server : undefined,
+                server: exportedCharacter ? exportedCharacter.server : undefined,
                 region: exportedCharacter ? exportedCharacter.region : undefined,
               };
             }).filter(friendly => friendly !== null)}

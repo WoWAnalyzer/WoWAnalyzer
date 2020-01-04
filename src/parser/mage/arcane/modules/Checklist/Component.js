@@ -17,7 +17,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }) => {
     />
   );
   AbilityRequirement.propTypes = {
-    spell: PropTypes.object.isRequired,
+    spell: PropTypes.number.isRequired,
   };
 
   return (

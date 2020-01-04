@@ -1516,6 +1516,13 @@
     "@types/history" "*"
     "@types/react" "*"
 
+"@types/react-test-renderer@^16.9.1":
+  version "16.9.1"
+  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-16.9.1.tgz#9d432c46c515ebe50c45fa92c6fb5acdc22e39c4"
+  integrity sha512-nCXQokZN1jp+QkoDNmDZwoWpKY8HDczqevIDO4Uv9/s9rbGPbSpy8Uaxa5ixHKkcm/Wt0Y9C3wCxZivh4Al+rQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^16.9.16":
   version "16.9.16"
   resolved "https://npm-registry.emico.nl/@types%2freact/-/react-16.9.16.tgz#4f12515707148b1f53a8eaa4341dae5dfefb066d"
