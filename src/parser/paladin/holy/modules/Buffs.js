@@ -48,6 +48,10 @@ class Buffs extends CoreBuffs {
         enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT),
         timelineHightlight: true,
       },
+      {
+        spellId: SPELLS.AVENGING_WRATH.id,
+        triggeredBySpellId: SPELLS.AVENGING_WRATH.id,
+      },
       // Beacons
       {
         spellId: SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id,
