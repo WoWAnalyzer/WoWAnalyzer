@@ -1,40 +1,44 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
 
-class TimeInput extends React.PureComponent {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    time: PropTypes.number.isRequired,
-    min: PropTypes.number.isRequired,
-    max: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired,
-    style: PropTypes.object,
-  };
+interface Props {
+  name: String;
+  time: number;
+  min: number;
+  max: number;
+  onChange: (time: number) => void;
+}
 
-  constructor(...args) {
-    super(...args);
-    this.phaseRef = React.createRef();
+interface State {
+  minutes: number;
+  seconds: number;
+  milliseconds: number;
+}
+
+class TimeInput extends React.PureComponent<Props, State> {
+  private mRef = React.createRef<HTMLInputElement>();
+  private sRef = React.createRef<HTMLInputElement>();
+  private msRef = React.createRef<HTMLInputElement>();
+
+  constructor(props: Props) {
+    super(props);
     this.handleChangeM = this.handleChangeM.bind(this);
     this.handleChangeS = this.handleChangeS.bind(this);
     this.handleChangeMs = this.handleChangeMs.bind(this);
     this.submitChange = this.submitChange.bind(this);
     this.changeTime = this.changeTime.bind(this);
     this.state = this.convertTime(this.props.time);
-    this.mRef = React.createRef();
-    this.sRef = React.createRef();
-    this.msRef = React.createRef();
   }
 
-  componentDidUpdate(prevProps, prevState, prevContext) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.time !== prevProps.time) {
       this.setState(this.convertTime(this.props.time));
     }
   }
 
-  convertTime(time) {
+  convertTime(time: number) {
     return {
       milliseconds: this.toMillisecond(time),
       seconds: this.toSecond(time),
@@ -42,19 +46,19 @@ class TimeInput extends React.PureComponent {
     };
   }
 
-  toMinute(ms) {
-    return parseInt(ms / MINUTE);
+  toMinute(ms: number) {
+    return Math.trunc(ms / MINUTE);
   }
 
-  toSecond(ms) {
-    return parseInt((ms % MINUTE) / SECOND);
+  toSecond(ms: number) {
+    return Math.trunc((ms % MINUTE) / SECOND);
   }
 
-  toMillisecond(ms) {
-    return parseInt(ms % SECOND);
+  toMillisecond(ms: number) {
+    return Math.trunc(ms % SECOND);
   }
 
-  changeTime(time) {
+  changeTime(time: number) {
     if (time > this.props.max || time < this.props.min) {
       this.forceUpdate();
       return;
@@ -64,8 +68,8 @@ class TimeInput extends React.PureComponent {
 
   }
 
-  handleChangeM(e) {
-    const val = parseInt(e.target.value, 10);
+  handleChangeM(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = Number(e.target.value) || 0;
     if (val > 99) {
       this.forceUpdate();
       return;
@@ -73,8 +77,8 @@ class TimeInput extends React.PureComponent {
     this.changeTime(MINUTE * val + SECOND * this.state.seconds + this.state.milliseconds);
   }
 
-  handleChangeS(e) {
-    const val = parseInt(e.target.value, 10);
+  handleChangeS(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = Number(e.target.value) || 0;
     if (val > 99) {
       this.forceUpdate();
       return;
@@ -82,8 +86,8 @@ class TimeInput extends React.PureComponent {
     this.changeTime(MINUTE * this.state.minutes + SECOND * val + this.state.milliseconds);
   }
 
-  handleChangeMs(e) {
-    const val = parseInt(e.target.value, 10);
+  handleChangeMs(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = Number(e.target.value) || 0;
     if (val > 999) {
       this.forceUpdate();
       return;
@@ -91,18 +95,18 @@ class TimeInput extends React.PureComponent {
     this.changeTime(MINUTE * this.state.minutes + SECOND * this.state.seconds + val);
   }
 
-  submitChange(time) {
+  submitChange(time: number) {
     this.props.onChange(time);
   }
 
-  pad(number, digits) {
+  pad(number: number, digits: number) {
     return number.toString().padStart(digits, '0');
   }
 
   render() {
-    const { name, style } = this.props;
+    const { name } = this.props;
     return (
-      <div style={{ ...style }} className={`time-input ${name}`}>
+      <div className={`time-input ${name}`}>
         <input ref={this.mRef} className={`form-control ${name}-minute`} type="number" min="0" max="99" value={this.pad(this.state.minutes, 2)} onChange={this.handleChangeM} />:
         <input ref={this.sRef} className={`form-control ${name}-second`} type="number" min="0" max="99" value={this.pad(this.state.seconds, 2)} onChange={this.handleChangeS} />.
         <input ref={this.msRef} className={`form-control ${name}-millisecond`} type="number" min="0" max="999" value={this.pad(this.state.milliseconds, 3)} onChange={this.handleChangeMs} />
