@@ -6,6 +6,9 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 1, 4), <>Added <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> major essence statistic to track procs, uptime and haste gained.</>, [HolySchmidt]),
+  change(date(2020, 1, 4), <>Added <SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> minor essence statistic to track versitility, healing, and <SpellLink id={SPELLS.AVENGING_WRATH.id} /> cooldown reduction.</> , [HolySchmidt]),
+  change(date(2020, 1, 4), <>Added check to fabricate pre-pull event for <SpellLink id={SPELLS.AVENGING_WRATH.id} /> and added ability cooldown reduction for <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} />.</>, [HolySchmidt]),
   change(date(2019, 12, 21), "Added beacon uptime statistic and checklist rule.", [Torothin]),
   change(date(2019, 12, 14), <>Implemented a fun statistic for <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} />.}</>, [Abelito75]),
   change(date(2019, 12, 8), <>Fixed <SpellLink id={SPELLS.LIGHTS_DECREE.id} /> duration along with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> usage, <SpellLink id={SPELLS.AVENGING_WRATH.id} /> damage, healing, and critical strike contributions.</>, [HolySchmidt]),
