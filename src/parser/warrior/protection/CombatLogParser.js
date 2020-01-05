@@ -33,8 +33,13 @@ import SpellReflect from './modules/spells/SpellReflect';
 //azerite
 import BraceForImpact from './modules/azerite/BraceForImpact';
 
+//essence
+import LucidDreamsRage from 'parser/shared/modules/spells/bfa/essences/LucidDreamsRage';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    lucidDreamsRage: LucidDreamsRage,
+
     // Core
     haste: Haste,
     mitigationCheck: MitigationCheck,
