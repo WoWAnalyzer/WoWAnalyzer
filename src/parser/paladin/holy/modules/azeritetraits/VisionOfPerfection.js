@@ -9,9 +9,11 @@ import Events from 'parser/core/Events';
 import EventsIcon from 'interface/icons/Events';
 import StatIcon from 'interface/icons/PrimaryStat';
 import StatisticGroup from 'interface/statistics/StatisticGroup';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import UptimeIcon from 'interface/icons/Uptime';
 
 
 const BASE_WINGS_DURATION = 20;
@@ -27,10 +29,12 @@ class VisionOfPerfection extends Analyzer {
     statTracker: StatTracker,
   };
 
-  casts = 0;
+  majorHealing = 0;
+  majorHaste = 0;
+  minorHealing = 0;
+  minorVersatility = 0;
   procs = 0;
   extendedBy = 0;
-  avengingWrathDuration = BASE_WINGS_DURATION;
 
   constructor(...args) {
     super(...args);
@@ -40,14 +44,7 @@ class VisionOfPerfection extends Analyzer {
     }
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VISION_OF_PERFECTION_HASTE_BUFF_SELF), this.onVisionProc);
-
-    if(this.selectedCombatant.hasTrait(SPELLS.LIGHTS_DECREE.id)){
-        this.avengingWrathDuration += 5;
-    }
-
-    if(this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id)){
-        this.avengingWrathDuration += this.avengingWrathDuration * 0.25;
-    }
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.STRIVE_FOR_PERFECTION_HEAL), this.onVisionHeal);
 
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.VISION_OF_PERFECTION.traitId);
     if (this.hasMajor){
@@ -65,6 +62,15 @@ class VisionOfPerfection extends Analyzer {
 
 onVisionProc(event){
     this.procs += 1;
+    this.extendedBy += BASE_WINGS_DURATION * 0.35;
+}
+
+onVisionHeal(event){
+    this.minorHealing += event.amount + (event.absorbed || 0);
+}
+
+get additionalUptime(){
+    return 100 * (this.extendedBy * 1000) / this.owner.fightDuration; 
 }
 
 get visionHasteBuff(){
@@ -74,6 +80,7 @@ get visionHasteBuff(){
 
 statistic() {
     const rank = this.selectedCombatant.essenceRank(SPELLS.VISION_OF_PERFECTION.traitId);
+    console.log(`Essence Rank: ${rank}`);
     return (
       <StatisticGroup category={STATISTIC_CATEGORY.ITEMS}>
         <ItemStatistic
@@ -83,7 +90,7 @@ statistic() {
           <div className="pad">
             <label><SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> - Minor Rank {rank}</label>
             <div className="value">
-              <StatIcon stat={"haste"} /> {(this.majorHaste)} <small>average hasted gained</small><br />
+              {rank > 1 && (<><ItemHealingDone amount={this.minorHealing} /><br /></>)}
               {rank > 2 && (<><StatIcon stat={"versatility"} /> {formatNumber(this.minorVersatility)} <small>Versatility gained</small><br /></>)}
             </div>
           </div>
@@ -97,6 +104,7 @@ statistic() {
               <label><SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> - Major Rank {rank}</label>
               <div className="value">
                 <EventsIcon /> {this.procs} <small>procs</small><br />
+                <UptimeIcon /> {this.additionalUptime.toFixed(1)}% <small>uptime {this.extendedBy} seconds</small><br />
                 {rank > 2 && (<><StatIcon stat={"haste"} /> {formatNumber(this.visionHasteBuff)} <small>average Haste gained</small><br /></>)}
               </div>
             </div>
