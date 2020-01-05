@@ -84,7 +84,6 @@ get visionHasteBuff(){
 }
 
 statistic() {
-    console.log(`Essence Rank: ${this.rank}`);
     return (
       <StatisticGroup category={STATISTIC_CATEGORY.ITEMS}>
         <ItemStatistic
