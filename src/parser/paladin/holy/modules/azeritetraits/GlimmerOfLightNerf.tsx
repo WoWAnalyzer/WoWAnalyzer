@@ -53,8 +53,7 @@ class GlimmerOfLightNerf extends Analyzer {
     } else {
       const raw = effective + (event.overheal || 0);
       const rawAfterNerf = raw * (1 - GLIMMER_OF_LIGHT_HEALING_NERF);
-      const effectiveAfterNerf = Math.max(0, rawAfterNerf - (event.overheal || 0));
-      this.healingReductionHealing += effective - effectiveAfterNerf;
+      this.healingReductionHealing += Math.max(0, effective - rawAfterNerf);
     }
   }
 
@@ -67,11 +66,14 @@ class GlimmerOfLightNerf extends Analyzer {
         tooltip={
           <>
             The max amount of healing the Glimmer of Light nerfs will have made
-            you lose out on for this fight. This will likely be noticeably lower
-            due to getting better targets for Holy Shock and reduced
-            overhealing on Glimmer.<br /><br />
-
-            The 12% reduction prediction accounts for overhealing.
+            you lose out on for this fight. This will be noticeably lower due to
+            getting better targets for Holy Shock and reduced overhealing on
+            Glimmer and other spells.
+            <br />
+            <br />
+            The 12% healing reduction prediction accounts for overhealing. The
+            nerf is to the raw healing and a big part of the nerf is irrelevant
+            as it will have been overhealing.
           </>
         }
         drilldown="https://questionablyepic.com/glimmer-8-3/"
