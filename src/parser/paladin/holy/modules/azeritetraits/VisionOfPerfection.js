@@ -44,7 +44,7 @@ class VisionOfPerfection extends Analyzer {
       return;
     }
 
-    rank = this.selectedCombatant.essenceRank(SPELLS.VISION_OF_PERFECTION.traitId);
+    this.rank = this.selectedCombatant.essenceRank(SPELLS.VISION_OF_PERFECTION.traitId);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VISION_OF_PERFECTION_HASTE_BUFF_SELF), this.onVisionProc);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.STRIVE_FOR_PERFECTION_HEAL), this.onVisionHeal);
@@ -91,7 +91,7 @@ statistic() {
           size="flexible"
         >
           <div className="pad">
-            <label><SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> - Minor Rank {rank}</label>
+            <label><SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> - Minor Rank {this.rank}</label>
             <div className="value">
               {this.rank > 1 && (<><ItemHealingDone amount={this.minorHealing} /><br /></>)}
               {this.rank > 2 && (<><StatIcon stat={"versatility"} /> {formatNumber(this.minorVersatility)} <small>Versatility gained</small><br /></>)}
@@ -104,11 +104,11 @@ statistic() {
             size="flexible"
           >
             <div className="pad">
-              <label><SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> - Major Rank {rank}</label>
+              <label><SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> - Major Rank {this.rank}</label>
               <div className="value">
                 <EventsIcon /> {this.procs} <small>procs</small><br />
                 <UptimeIcon /> {this.additionalUptime.toFixed(1)}% <small>uptime {this.extendedBy} seconds</small><br />
-                {rank > 2 && (<><StatIcon stat={"haste"} /> {formatNumber(this.visionHasteBuff)} <small>average Haste gained</small><br /></>)}
+                {this.rank > 2 && (<><StatIcon stat={"haste"} /> {formatNumber(this.visionHasteBuff)} <small>average Haste gained</small><br /></>)}
               </div>
             </div>
           </ItemStatistic>
