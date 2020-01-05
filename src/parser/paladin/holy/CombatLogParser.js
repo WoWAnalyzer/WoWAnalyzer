@@ -49,7 +49,7 @@ import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 // azerite traits //
 import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
 import GlimmerOfLight from './modules/azeritetraits/GlimmerOfLight';
-import GlimmerOfLightNerf from './modules/azeritetraits/GlimmerOfLightNerf';
+// import GlimmerOfLightNerf from './modules/azeritetraits/GlimmerOfLightNerf';
 import LightsDecree from './modules/azeritetraits/LightsDecree';
 import RadiantIncandescence from './modules/azeritetraits/RadiantIncandescence';
 
