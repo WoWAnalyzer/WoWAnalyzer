@@ -36,7 +36,7 @@ class GlimmerOfLight extends Analyzer {
   casts = 0;
   damage = 0;
   earlyRefresh = 0;
-  glimmerBuffs = [];
+  glimmerBuffs/*: Array<ApplyBuffEvent | ApplyDebuffEvent>*/ = [];
   glimmerHits = 0;
   healing = 0;
   overCapHealing = 0;
@@ -55,6 +55,26 @@ class GlimmerOfLight extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT), this.onHeal);
     this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_DAMAGE), this.onDamage);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.applydebuff
+        .by(SELECTED_PLAYER)
+        .spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.removedebuff
+        .by(SELECTED_PLAYER)
+        .spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onRemoveBuff,
+    );
   }
 
   onBeaconTransfer(event) {
@@ -65,39 +85,33 @@ class GlimmerOfLight extends Analyzer {
     this.healingTransfered += event.amount + (event.absorb || 0);
   }
 
-  updateActiveGlimmers(timestamp){
-    for (let i = this.glimmerBuffs.length; i > 0; i--) {
-      if (timestamp - this.glimmerBuffs[i - 1].timestamp > BUFF_DURATION * 1000){
-        this.glimmerBuffs.splice(i - 1, 1);
-      }
-    }
+  onApplyBuff(event/*: ApplyBuffEvent | ApplyDebuffEvent*/) {
+    this.glimmerBuffs.push(event);
+  }
+  onRemoveBuff(event/*: RemoveBuffEvent | RemoveDebuffEvent*/) {
+    this.glimmerBuffs = this.glimmerBuffs.filter(
+      buff => buff.targetID !== event.targetID,
+    );
   }
 
   onCast(event) {
     this.casts += 1;
-    this.updateActiveGlimmers(event.timestamp);
 
     const index = this.glimmerBuffs.findIndex(g => g.targetID === event.targetID);
 
     if (this.glimmerBuffs.length >= GLIMMER_CAP) {
-      // if glimmer count is over the limit //
+      // Cast a new one while at cap (applybuff will occur later, so this will be accurate)
       this.overCap += 1;
-      if (index < 0){
+      if (index < 0) {
         this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[GLIMMER_CAP - 1].timestamp);
-        this.glimmerBuffs.splice(GLIMMER_CAP - 1, 1);
       } else {
         this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
-        this.glimmerBuffs.splice(index, 1);
       }
-    } else if(index >= 0) {
+    } else if (index >= 0) {
       // if an active glimmer was overwritten //
       this.wastedEarlyRefresh += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
       this.earlyRefresh += 1;
-      this.glimmerBuffs.splice(index, 1);
     }
-
-    const glimmer = {targetID: event.targetID, timestamp: event.timestamp};
-    this.glimmerBuffs.unshift(glimmer);
   }
 
   onDamage(event){
