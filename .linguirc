@@ -1,5 +1,6 @@
 {
 	"sourceLocale": "en",
+	"fallbackLocale": "en",
 	"localeDir": "<rootDir>/src/localization",
 	"format": "minimal",
 	"srcPathDirs": [
