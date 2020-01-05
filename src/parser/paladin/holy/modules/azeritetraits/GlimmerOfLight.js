@@ -24,7 +24,9 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
  */
 
 const BUFF_DURATION = 30;
-const GLIMMER_CAP = (new Date() < new Date(2020, 1, 14)) ? 99 : 8;
+export const GLIMMER_CAP_8_3 = 8;
+export const IS_IT_8_3_YET = new Date() > new Date(2020, 1, 14);
+const GLIMMER_CAP = IS_IT_8_3_YET ? GLIMMER_CAP_8_3 : 99;
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
@@ -37,6 +39,7 @@ class GlimmerOfLight extends Analyzer {
   glimmerBuffs = [];
   glimmerHits = 0;
   healing = 0;
+  overCapHealing = 0;
   healingTransfered = 0;
   overCap = 0;
   wastedEarlyRefresh = 0;
@@ -59,7 +62,7 @@ class GlimmerOfLight extends Analyzer {
     if (spellId !== SPELLS.GLIMMER_OF_LIGHT.id) {
       return;
     }
-    this.healingTransfered += event.amount + (event.absorbed || 0);
+    this.healingTransfered += event.amount + (event.absorb || 0);
   }
 
   updateActiveGlimmers(timestamp){
@@ -73,9 +76,9 @@ class GlimmerOfLight extends Analyzer {
   onCast(event) {
     this.casts += 1;
     this.updateActiveGlimmers(event.timestamp);
-    
+
     const index = this.glimmerBuffs.findIndex(g => g.targetID === event.targetID);
-    
+
     if (this.glimmerBuffs.length >= GLIMMER_CAP) {
       // if glimmer count is over the limit //
       this.overCap += 1;
@@ -103,7 +106,7 @@ class GlimmerOfLight extends Analyzer {
   }
 
   onHeal(event) {
-    this.healing += event.amount + (event.absorbed || 0);
+    this.healing += event.amount + (event.absorb || 0);
     this.glimmerHits += 1;
   }
 
@@ -155,7 +158,6 @@ class GlimmerOfLight extends Analyzer {
     );
   }
 
-
   get suggestEarlyRefresh() {
     return {
       actual: this.earlyGlimmerRefreshLoss,
@@ -185,9 +187,9 @@ class GlimmerOfLight extends Analyzer {
       when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => {
         return suggest(
           <Trans>
-            Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved.  
-            To maximize the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />, try to keep as many buffs up as possible.  
-            Avoid overwritting buffs early, this suggestion does not take priority over healing targets with low health. 
+            Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved.
+            To maximize the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />, try to keep as many buffs up as possible.
+            Avoid overwritting buffs early, this suggestion does not take priority over healing targets with low health.
             If two targets have similar health pools priorize the target without a glimmer as your <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> will heal all players with active buffs.
           </Trans>,
         )
@@ -203,7 +205,7 @@ class GlimmerOfLight extends Analyzer {
           <Trans>
             Patch 8.3 implemented a <a href="https://www.wowhead.com/news=295502.3/blizzard-official-class-changes-for-patch-8-3-visions-of-nzoth">glimmer cap </a>
             limiting the number of active <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> buffs to {GLIMMER_CAP}.<br />
-            Avoid stacking haste cooldowns to prevent over-capping on <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />.  
+            Avoid stacking haste cooldowns to prevent over-capping on <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />.
             <a href="https://questionablyepic.com/glimmer-8-3/">More info here.</a>
           </Trans>,
         )

@@ -49,7 +49,7 @@ class SurgeOfLight extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.FLASH_HEAL.id && this.freeFlashHealPending) {
-      this.solHealing += event.amount + (event.absorb || 0);
+      this.solHealing += event.amount + (event.absorbed || 0);
       this.solOverHealing += event.overhealing || 0;
       if (this.currentSolStacks === 0) {
         this.freeFlashHealPending = false;

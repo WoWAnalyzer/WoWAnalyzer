@@ -47,7 +47,7 @@ class InefficientLightOfTheMartyrs extends Analyzer {
       throw new Error('Missing an event');
     }
 
-    const healingDone = heal.amount + (heal.absorb || 0);
+    const healingDone = heal.amount + (heal.absorbed || 0);
     const damageTaken = damage.amount + (damage.absorbed || 0);
 
     const effectiveHealing = healingDone - damageTaken;
