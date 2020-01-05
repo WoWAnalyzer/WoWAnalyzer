@@ -74,6 +74,7 @@ class GlimmerOfLightNerf extends Analyzer {
             The 12% reduction prediction accounts for overhealing.
           </>
         }
+        drilldown="https://questionablyepic.com/glimmer-8-3/"
       >
         <div className="pad" style={{ lineHeight: 1.4 }}>
           <label>
@@ -85,7 +86,7 @@ class GlimmerOfLightNerf extends Analyzer {
             <br />
             <ItemHealingDone amount={this.overCapHealing} lessThan />
             <br />
-            <small>Lost due to 12% reduction:</small>
+            <small>Lost due to 12% healing reduction:</small>
             <br />
             <ItemHealingDone amount={this.healingReductionHealing} lessThan />
             <br />
