@@ -117,7 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     graceOfTheJusticar: GraceOfTheJusticar,
     radiantIncandescence: RadiantIncandescence,
     glimmerOfLight: GlimmerOfLight,
-    glimmerOfLightNerf: GlimmerOfLightNerf,
+    // glimmerOfLightNerf: GlimmerOfLightNerf,
     lightsDecree: LightsDecree,
   };
 }
