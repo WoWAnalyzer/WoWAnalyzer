@@ -7,21 +7,24 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { BeaconHealEvent, HealEvent } from 'parser/core/Events';
 
 import GlimmerOfLight, {
   GLIMMER_CAP_8_3,
   IS_IT_8_3_YET,
 } from './GlimmerOfLight';
+import BeaconHealSource from '../beacons/BeaconHealSource';
 
 const GLIMMER_OF_LIGHT_HEALING_NERF = 0.12;
 
 class GlimmerOfLightNerf extends Analyzer {
   static dependencies = {
     glimmerOfLight: GlimmerOfLight,
+    beaconHealSource: BeaconHealSource,
   };
 
   private glimmerOfLight!: GlimmerOfLight;
+  private beaconHealSource!: BeaconHealSource;
 
   actualHealing = 0;
   overCapHealing = 0;
@@ -39,6 +42,10 @@ class GlimmerOfLightNerf extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT),
       this.onHeal,
     );
+    this.addEventListener(
+      options.beaconHealSource.beacontransfer.by(SELECTED_PLAYER),
+      this.onBeaconTransfer,
+    );
   }
 
   onHeal(event: HealEvent) {
@@ -48,6 +55,27 @@ class GlimmerOfLightNerf extends Analyzer {
     const glimmerNo = index + 1;
     const effective = event.amount + (event.absorbed || 0);
     this.actualHealing += effective;
+    if (glimmerNo > GLIMMER_CAP_8_3) {
+      this.overCapHealing += effective;
+    } else {
+      const raw = effective + (event.overheal || 0);
+      const rawAfterNerf = raw * (1 - GLIMMER_OF_LIGHT_HEALING_NERF);
+      // rawAfterNerf may be more than effective, anything extra will have been
+      // overhealing. When that happens, the nerf had 0 impact.
+      const newEffective = Math.max(0, effective - rawAfterNerf);
+      this.healingReductionHealing += newEffective;
+    }
+  }
+  onBeaconTransfer(event: BeaconHealEvent) {
+    const spellId = event.originalHeal.ability.guid;
+    if (spellId !== SPELLS.GLIMMER_OF_LIGHT.id) {
+      return;
+    }
+    const index = this.glimmerOfLight.glimmerBuffs.findIndex(
+      buff => buff.targetID === event.originalHeal.targetID,
+    );
+    const glimmerNo = index + 1;
+    const effective = event.amount + (event.absorbed || 0);
     if (glimmerNo > GLIMMER_CAP_8_3) {
       this.overCapHealing += effective;
     } else {
@@ -77,6 +105,9 @@ class GlimmerOfLightNerf extends Analyzer {
             The 12% healing reduction prediction accounts for overhealing. The
             nerf is to the raw healing and a big part of the nerf is irrelevant
             as it will have been overhealing.
+            <br />
+            <br />
+            The lost beacon transfer is accounted for in both stats.
           </>
         }
         drilldown="https://questionablyepic.com/glimmer-8-3/"

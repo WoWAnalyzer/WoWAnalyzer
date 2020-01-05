@@ -34,6 +34,7 @@ export enum EventType {
   BeginChannel = 'beginchannel',
   EndChannel = 'endchannel',
   UpdateSpellUsable = 'updatespellusable',
+  BeaconTransfer = 'beacontransfer',
 
   // Phases:
   PhaseStart = 'phasestart',
@@ -182,6 +183,10 @@ export interface HealEvent extends Event {
   facing: number;
   mapID: number;
   itemLevel: number;
+}
+export interface BeaconHealEvent extends Omit<HealEvent, 'type'> {
+  type: EventType.BeaconTransfer,
+  originalHeal: HealEvent,
 }
 export interface AbsorbedEvent extends Event {
   type: EventType.Absorbed;
