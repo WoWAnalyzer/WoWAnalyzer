@@ -62,8 +62,8 @@ class GlimmerOfLightNerf extends Analyzer {
       const rawAfterNerf = raw * (1 - GLIMMER_OF_LIGHT_HEALING_NERF);
       // rawAfterNerf may be more than effective, anything extra will have been
       // overhealing. When that happens, the nerf had 0 impact.
-      const newEffective = Math.max(0, effective - rawAfterNerf);
-      this.healingReductionHealing += newEffective;
+      const healingLost = Math.max(0, effective - rawAfterNerf);
+      this.healingReductionHealing += healingLost;
     }
   }
   onBeaconTransfer(event: BeaconHealEvent) {
@@ -83,8 +83,8 @@ class GlimmerOfLightNerf extends Analyzer {
       const rawAfterNerf = raw * (1 - GLIMMER_OF_LIGHT_HEALING_NERF);
       // rawAfterNerf may be more than effective, anything extra will have been
       // overhealing. When that happens, the nerf had 0 impact.
-      const newEffective = Math.max(0, effective - rawAfterNerf);
-      this.healingReductionHealing += newEffective;
+      const healingLost = Math.max(0, effective - rawAfterNerf);
+      this.healingReductionHealing += healingLost;
     }
   }
 

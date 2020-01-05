@@ -86,7 +86,7 @@ class GlimmerOfLight extends Analyzer {
   }
 
   onApplyBuff(event/*: ApplyBuffEvent | ApplyDebuffEvent*/) {
-    this.glimmerBuffs.push(event);
+    this.glimmerBuffs.unshift(event);
   }
   onRemoveBuff(event/*: RemoveBuffEvent | RemoveDebuffEvent*/) {
     this.glimmerBuffs = this.glimmerBuffs.filter(
