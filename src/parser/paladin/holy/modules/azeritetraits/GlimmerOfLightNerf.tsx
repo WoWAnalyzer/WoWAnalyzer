@@ -53,7 +53,10 @@ class GlimmerOfLightNerf extends Analyzer {
     } else {
       const raw = effective + (event.overheal || 0);
       const rawAfterNerf = raw * (1 - GLIMMER_OF_LIGHT_HEALING_NERF);
-      this.healingReductionHealing += Math.max(0, effective - rawAfterNerf);
+      // rawAfterNerf may be more than effective, anything extra will have been
+      // overhealing. When that happens, the nerf had 0 impact.
+      const newEffective = Math.max(0, effective - rawAfterNerf);
+      this.healingReductionHealing += newEffective;
     }
   }
 
