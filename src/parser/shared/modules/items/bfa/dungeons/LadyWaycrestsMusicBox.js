@@ -40,7 +40,7 @@ class LadyWaycrestsMusicBox extends Analyzer {
     if (spellId !== SPELLS.CACAPHONOUS_CHORD.id) {
       return;
     }
-    this.damage += event.amount + (event.absorb || 0);
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   constructor(...args) {

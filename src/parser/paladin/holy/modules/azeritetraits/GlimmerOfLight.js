@@ -82,7 +82,7 @@ class GlimmerOfLight extends Analyzer {
     if (spellId !== SPELLS.GLIMMER_OF_LIGHT.id) {
       return;
     }
-    this.healingTransfered += event.amount + (event.absorb || 0);
+    this.healingTransfered += event.amount + (event.absorbed || 0);
   }
 
   onApplyBuff(event/*: ApplyBuffEvent | ApplyDebuffEvent*/) {
@@ -120,7 +120,7 @@ class GlimmerOfLight extends Analyzer {
   }
 
   onHeal(event) {
-    this.healing += event.amount + (event.absorb || 0);
+    this.healing += event.amount + (event.absorbed || 0);
     this.glimmerHits += 1;
   }
 
