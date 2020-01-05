@@ -1,4 +1,4 @@
-import AVAILABLE_CONFIGS from 'parser/AVAILABLE_CONFIGS';
+import AVAILABLE_CONFIGS from 'parser';
 import CORE_CHANGELOG from './CHANGELOG';
 
 describe('CHANGELOG', () => {

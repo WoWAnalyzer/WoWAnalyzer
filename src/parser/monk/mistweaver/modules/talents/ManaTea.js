@@ -97,7 +97,7 @@ class ManaTea extends Analyzer {
       return suggest(
         <>
           Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Aim to prioritize as many <SpellLink id={SPELLS.VIVIFY.id} /> casts until the last second of the buff and then cast <SpellLink id={SPELLS.ESSENCE_FONT.id} />. <SpellLink id={SPELLS.ESSENCE_FONT.id} />'s mana cost is taken at the beginning of the channel, so you gain the benefit of <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> even if the channel continues past the buff.
-        </>
+        </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
         .actual(`${formatNumber(this.avgMtSaves)} average mana saved per Mana Tea cast`)
@@ -107,7 +107,7 @@ class ManaTea extends Analyzer {
       return suggest(
         <>
           Your average overhealing was high during your <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> usage. Consider using <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> during specific boss abilities or general periods of high damage to the raid. Also look to target low health raid members to avoid large amounts of overhealing.
-        </>
+        </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
         .actual(`${formatPercentage(this.avgOverhealing)} % average overhealing per Mana Tea cast`)

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import articles from 'articles';
-import DocumentTitle from 'interface/common/DocumentTitle';
+import DocumentTitle from 'interface/DocumentTitle';
 
 import ArticleLoader from './ArticleLoader';
 import './News.scss';

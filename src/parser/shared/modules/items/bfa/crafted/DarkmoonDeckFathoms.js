@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 /**
  * Darkmoon Deck: Fathoms

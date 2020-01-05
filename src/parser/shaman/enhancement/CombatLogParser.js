@@ -21,11 +21,13 @@ import Sundering from './modules/talents/Sundering';
 import TotemMastery from './modules/talents/TotemMastery';
 
 import SpiritWolf from '../shared/talents/SpiritWolf';
+import EarthShield from '../shared/talents/EarthShield';
 import StaticCharge from '../shared/talents/StaticCharge';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
 import PackSpirit from '../shared/azerite/PackSpirit';
 import SereneSpirit from '../shared/azerite/SereneSpirit';
+import NaturalHarmony from '../shared/azerite/NaturalHarmony';
 
 //Resources
 import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
@@ -57,12 +59,14 @@ class CombatLogParser extends CoreCombatLogParser {
     sundering: Sundering,
     totemMastery: TotemMastery,
 
+    earthShield: EarthShield,
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
     ankhNormalizer: AnkhNormalizer,
     astralShift: AstralShift,
     packSpirit: PackSpirit,
     sereneSpirit: SereneSpirit,
+    naturalHarmony: NaturalHarmony,
 
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,

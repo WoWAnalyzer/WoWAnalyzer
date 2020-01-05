@@ -4,7 +4,7 @@ import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStat
 import React from 'react';
 import Renew from 'parser/priest/holy/modules/spells/Renew';
 import PrayerOfMending from 'parser/priest/holy/modules/spells/PrayerOfMending';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatThousands } from 'common/format';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj

@@ -124,7 +124,7 @@ class AngerCD extends Analyzer {
 
     when(this.suggestionThresholdsDemoShout).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        this.DEMOTEXT
+        this.DEMOTEXT,
       )
         .icon(SPELLS.DEMORALIZING_SHOUT.icon)
         .actual(`${formatPercentage(actual)}% Demoralizing Shout`)
@@ -135,7 +135,7 @@ class AngerCD extends Analyzer {
       return suggest(
         <>
           Using  <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important for the increased damage output and rage generation so try to get the maximum casts out of it.
-        </>
+        </>,
       )
         .icon(SPELLS.AVATAR_TALENT.icon)
         .actual(`${formatPercentage(actual)}% Avatar casts`)
@@ -146,7 +146,7 @@ class AngerCD extends Analyzer {
       return suggest(
         <>
           Remember to cast <SpellLink id={SPELLS.LAST_STAND.id} /> more frequently. If you have <SpellLink id={SPELLS.BOLSTER_TALENT.id} /> talented you can use this to fill gaps between your <SpellLink id={SPELLS.SHIELD_BLOCK.id} />.
-        </>
+        </>,
       )
         .icon(SPELLS.LAST_STAND.icon)
         .actual(`${formatPercentage(actual)}% Last Stand casts`)
@@ -157,7 +157,7 @@ class AngerCD extends Analyzer {
       return suggest(
         <>
           Try to use <SpellLink id={SPELLS.SHIELD_WALL.id} /> more often as it reduces both physical and magical damage - unless you need it for a specific mechanic in the fight.
-        </>
+        </>,
       )
         .icon(SPELLS.SHIELD_WALL.icon)
         .actual(`${formatPercentage(actual)}% Shield Wall casts`)

@@ -134,7 +134,7 @@ class ThunderFocusTea extends Analyzer {
           return suggest(
             <>
               You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than <SpellLink id={SPELLS.VIVIFY.id} /> or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells buffed to only these two.
-            </>
+            </>,
           )
             .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
             .actual(`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`)

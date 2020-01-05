@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatPercentage, formatThousands } from 'common/format';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import HIT_TYPES from 'game/HIT_TYPES';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { HOLY_PRIEST_HEALING_INCREASE_AURA } from 'parser/priest/holy/constants';

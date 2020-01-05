@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
 
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 /*
   Umbral Blaze:

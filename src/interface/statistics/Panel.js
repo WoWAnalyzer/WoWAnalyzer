@@ -5,7 +5,7 @@ import InterfacePanel from 'interface/others/Panel';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 
-const Panel = ({ category, position, ...others }) => (
+const Panel = ({ category = STATISTIC_CATEGORY.PANELS, position, ...others }) => (
   <ErrorBoundary>
     <InterfacePanel
       {...others}

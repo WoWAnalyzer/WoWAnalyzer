@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 
-import { i18n } from 'interface/RootLocalizationProvider';
-
 import { loadLog, parseLog } from './log-tools';
 
 class ParserContextProvider extends React.PureComponent {
@@ -28,15 +26,29 @@ class ParserContextProvider extends React.PureComponent {
 }
 
 function renderWithParser(output, parser) {
-  return renderer.create(<ParserContextProvider parser={parser}>{output}</ParserContextProvider>).toJSON();
+  let sanitizedOutput = output;
+  if (Array.isArray(output)) {
+    sanitizedOutput = output.map((item, index) =>
+      React.cloneElement(item, {
+        key: `statistic-output-${index}`,
+      }),
+    );
+  }
+
+  return renderer
+    .create(
+      <ParserContextProvider parser={parser}>
+        {sanitizedOutput}
+      </ParserContextProvider>,
+    )
+    .toJSON();
 }
 
-export function statistic(analyzer, parser=null) {
-  const stat = analyzer.statistic({ i18n });
-  return renderWithParser(stat, parser);
+export function statistic(output, parser = null) {
+  return renderWithParser(output, parser);
 }
 
-export function tab(analyzer, parser=null) {
+export function tab(analyzer, parser = null) {
   const tab = analyzer.tab().render();
   return renderWithParser(tab, parser);
 }
@@ -55,7 +67,14 @@ export function tab(analyzer, parser=null) {
  * @param {string} key - Log identifier
  * @param {function} propFn - Function returning serializable output to be tested for consistency. Optional.
  */
-export default function snapshotTest(parserClass, moduleClass, key, propFn = statistic, suppressLog = true, suppressWarn = true) {
+export default function snapshotTest(
+  parserClass,
+  moduleClass,
+  key,
+  propFn = statistic,
+  suppressLog = true,
+  suppressWarn = true,
+) {
   return () => {
     return loadLog(key).then(log => {
       const parser = parseLog(parserClass, log, suppressLog, suppressWarn);

@@ -36,6 +36,9 @@ class ElementalShamanChecklist extends React.PureComponent {
     const AbilityRequirement = props => (
       <GenericCastEfficiencyRequirement castEfficiency={this.props.castEfficiency.getCastEfficiencyForSpellId(props.spell)} {...props} />
     );
+    AbilityRequirement.propTypes = {
+    spell: PropTypes.number.isRequired,
+  };
 
     const description = (
       <>

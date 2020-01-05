@@ -18,7 +18,7 @@ class DarkShadowNightblade extends DarkShadow {
     if(this.active) {
       this.danceDamageTracker.subscribeInefficientCast(
         [SPELLS.NIGHTBLADE],
-        (_) => 'Dont cast Nightblade during Shadow Dance when using Dark Shadow talent.'
+        (_) => 'Dont cast Nightblade during Shadow Dance when using Dark Shadow talent.',
       ); 
     }   
   }

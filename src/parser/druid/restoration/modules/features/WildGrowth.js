@@ -169,7 +169,7 @@ class WildGrowth extends Analyzer {
       });
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.WILD_GROWTH.id} /> to rejuv ratio can be improved, try to cast more wild growths if possible as it is usually more efficient.</>,)
+        return suggest(<>Your <SpellLink id={SPELLS.WILD_GROWTH.id} /> to rejuv ratio can be improved, try to cast more wild growths if possible as it is usually more efficient.</>)
           .icon(SPELLS.WILD_GROWTH.icon)
           .actual(`${this.wgs} WGs / ${this.rejuvs} rejuvs`)
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);

@@ -5,8 +5,8 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 /**
  * Equip: Your attacks and attacks made against you have a chance to trigger spores to grow for 4 sec before bursting.
@@ -16,7 +16,7 @@ import ItemHealingDone from 'interface/others/ItemHealingDone';
  * It's possible to get a second proc while the "growing spores" buff is already active. In that case
  * the old buff is triggered early, does its damage and healing, and is replaced by the new buff.
  * In short: overlapping procs are not wasted.
- * 
+ *
  * Test Log: https://www.warcraftlogs.com/reports/aMVBAP6Tc4YDkqrF#fight=1&type=damage-done&source=18
  */
 class LingeringSporepods extends Analyzer {
