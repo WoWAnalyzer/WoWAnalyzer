@@ -59,7 +59,7 @@ class VisionOfPerfection extends Analyzer {
 
     if (this.rank > 2){
         this.minorVersatility = calculateSecondaryStatDefault(420,45,this.selectedCombatant.neck.itemLevel);
-        this.statTracker.add(SPELLS.VISION_OF_PERFECTION.traitId, {
+        this.statTracker.add(SPELLS.STRIVE_FOR_PERFECTION.id, {
             versitility: this.minorVersatility,
         });
     }
