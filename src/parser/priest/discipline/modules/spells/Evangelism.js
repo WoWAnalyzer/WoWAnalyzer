@@ -56,7 +56,7 @@ class Evangelism extends Analyzer {
 
       // Add all healing that shouldn't exist to expiration
       if (event.timestamp > target.atonementExpirationTimestamp && this._previousEvangelismCast) {
-        this._evangelismStatistics[this._previousEvangelismCast.timestamp].healing += (event.amount + (event.absorbed || 0));
+        this._evangelismStatistics[this._previousEvangelismCast.timestamp].actualHealing += (event.amount + (event.absorbed || 0));
       }
     }
   }

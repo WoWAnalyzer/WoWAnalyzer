@@ -31,7 +31,7 @@ class FathomDredgers extends Analyzer {
 
   _end(){
     const shield = this.selectedCombatant.getBuff(SPELLS.DREDGED_VITALITY.id);
-    if(shield !== undefined){
+    if (shield !== undefined) {
       this.wastedAbsorb += (shield.absorb || 0);
     }
   }

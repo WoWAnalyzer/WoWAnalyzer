@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans} from '@lingui/macro';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellLink from 'common/SpellLink';
 
@@ -23,20 +24,26 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
  */
 
 const BUFF_DURATION = 30;
+export const GLIMMER_CAP_8_3 = 8;
+export const IS_IT_8_3_YET = new Date() > new Date(2020, 1, 14);
+const GLIMMER_CAP = IS_IT_8_3_YET ? GLIMMER_CAP_8_3 : 99;
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
     beaconHealSource: BeaconHealSource,
   };
 
-  glimmerBuffs = {};
+  casts = 0;
+  damage = 0;
+  earlyRefresh = 0;
+  glimmerBuffs/*: Array<ApplyBuffEvent | ApplyDebuffEvent>*/ = [];
   glimmerHits = 0;
   healing = 0;
-  wasted = 0;
+  overCapHealing = 0;
   healingTransfered = 0;
-  casts = 0;
-  earlyRefresh = 0;
-  damage = 0;
+  overCap = 0;
+  wastedEarlyRefresh = 0;
+  wastedOverCap = 0;
 
   constructor(...args) {
     super(...args);
@@ -48,6 +55,26 @@ class GlimmerOfLight extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT), this.onHeal);
     this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_DAMAGE), this.onDamage);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.applydebuff
+        .by(SELECTED_PLAYER)
+        .spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.removedebuff
+        .by(SELECTED_PLAYER)
+        .spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onRemoveBuff,
+    );
   }
 
   onBeaconTransfer(event) {
@@ -58,15 +85,33 @@ class GlimmerOfLight extends Analyzer {
     this.healingTransfered += event.amount + (event.absorbed || 0);
   }
 
+  onApplyBuff(event/*: ApplyBuffEvent | ApplyDebuffEvent*/) {
+    this.glimmerBuffs.unshift(event);
+  }
+  onRemoveBuff(event/*: RemoveBuffEvent | RemoveDebuffEvent*/) {
+    this.glimmerBuffs = this.glimmerBuffs.filter(
+      buff => buff.targetID !== event.targetID,
+    );
+  }
+
   onCast(event) {
     this.casts += 1;
-    const sinceLastBuff = event.timestamp - (this.glimmerBuffs[event.targetID] || 0);
-    if (sinceLastBuff < BUFF_DURATION * 1000){
-      this.wasted += BUFF_DURATION * 1000 - sinceLastBuff;
+
+    const index = this.glimmerBuffs.findIndex(g => g.targetID === event.targetID);
+
+    if (this.glimmerBuffs.length >= GLIMMER_CAP) {
+      // Cast a new one while at cap (applybuff will occur later, so this will be accurate)
+      this.overCap += 1;
+      if (index < 0) {
+        this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[GLIMMER_CAP - 1].timestamp);
+      } else {
+        this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
+      }
+    } else if (index >= 0) {
+      // if an active glimmer was overwritten //
+      this.wastedEarlyRefresh += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
       this.earlyRefresh += 1;
     }
-
-    this.glimmerBuffs[event.targetID] = event.timestamp;
   }
 
   onDamage(event){
@@ -91,8 +136,12 @@ class GlimmerOfLight extends Analyzer {
     return this.healing + this.healingTransfered;
   }
 
-  get glimmersWasted() {
-    return this.wasted / (this.casts * BUFF_DURATION * 1000);
+  get earlyGlimmerRefreshLoss() {
+    return this.wastedEarlyRefresh / (this.casts * BUFF_DURATION * 1000);
+  }
+
+  get overCapGlimmerLoss(){
+    return this.wastedOverCap / (this.casts * BUFF_DURATION * 1000);
   }
 
   statistic() {
@@ -108,42 +157,77 @@ class GlimmerOfLight extends Analyzer {
           </>
         )}
         tooltip={(
-          <>
+          <Trans>
             Total healing done: <b>{formatNumber(this.totalHealing)}</b><br />
             Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
+            Glimmer damage: <b>{formatNumber(this.damage)}</b><br />
             Holy Shocks/minute: <b>{this.holyShocksPerMinute.toFixed(1)}</b><br />
             Early refresh(s): <b>{this.earlyRefresh}</b><br />
-            Lost to early refresh: <b>{(this.wasted/1000).toFixed(1)}(sec) {(this.glimmersWasted * 100).toFixed(1)}%</b><br />
-            Glimmer damage: <b>{formatNumber(this.damage)}</b><br />
-          </>
+            Lost to early refresh: <b>{(this.wastedEarlyRefresh/1000).toFixed(1)}(sec) {(this.earlyGlimmerRefreshLoss * 100).toFixed(1)}%</b><br />
+            Glimmer of Lights over {GLIMMER_CAP} buff cap: <b>{this.overCap}</b><br />
+            Lost to over capping: <b>{(this.wastedOverCap/1000).toFixed(1)}(sec) {(this.overCapGlimmerLoss * 100).toFixed(1)}%</b><br />
+          </Trans>
         )}
       />
     );
   }
 
-  get suggestedGlimmerUsage() {
+  get suggestEarlyRefresh() {
     return {
-      actual: this.glimmersWasted,
+      actual: this.earlyGlimmerRefreshLoss,
       isGreaterThan: {
         minor: 0.15,
         average: 0.25,
-        major: .35,
+        major: 0.35,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get suggestGlimmerCap() {
+    return{
+      actual: this.overCapGlimmerLoss,
+      isGreaterThan: {
+        minor: 0.15,
+        average: 0.25,
+        major: 0.35,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.suggestedGlimmerUsage).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
-        <>
-          Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved. Try to avoid overwritting buffs too early.
-        </>,
-      )
+    if (this.owner.builds.GLIMMER.active){
+      when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Trans>
+            Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved.
+            To maximize the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />, try to keep as many buffs up as possible.
+            Avoid overwritting buffs early, this suggestion does not take priority over healing targets with low health.
+            If two targets have similar health pools priorize the target without a glimmer as your <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> will heal all players with active buffs.
+          </Trans>,
+        )
+          .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
+          .actual(`Uptime lost to early Glimmer refresh was ${formatPercentage(this.earlyGlimmerRefreshLoss)}%`)
+          .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`);
+      });
+    }
+
+    if (this.owner.builds.GLIMMER.active){
+      when(this.suggestGlimmerCap).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Trans>
+            Patch 8.3 implemented a <a href="https://www.wowhead.com/news=295502.3/blizzard-official-class-changes-for-patch-8-3-visions-of-nzoth">glimmer cap </a>
+            limiting the number of active <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> buffs to {GLIMMER_CAP}.<br />
+            Avoid stacking haste cooldowns to prevent over-capping on <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />.
+            <a href="https://questionablyepic.com/glimmer-8-3/">More info here.</a>
+          </Trans>,
+        )
         .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
-        .actual(`Percentage uptime lost to early refresh was ${formatPercentage(this.glimmersWasted)}%`)
-        .recommended(`< 15% is recommended`);
-    });
+        .actual(`Uptime lost to overcapping active Glimmers was ${formatPercentage(this.overCapGlimmerLoss)}%`)
+        .recommended(`< ${this.suggestGlimmerCap.isGreaterThan.minor * 100}% is reccommended`);
+      });
+    }
   }
 }
 

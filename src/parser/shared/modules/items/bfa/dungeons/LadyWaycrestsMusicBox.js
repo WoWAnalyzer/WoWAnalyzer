@@ -31,7 +31,7 @@ class LadyWaycrestsMusicBox extends Analyzer {
     if (spellId !== SPELLS.HARMONIOUS_CHORD.id) {
       return;
     }
-    this.healing += event.amount + (event.absorb || 0);
+    this.healing += event.amount + (event.absorbed || 0);
     this.overHealing += event.overheal || 0;
   }
 
@@ -40,7 +40,7 @@ class LadyWaycrestsMusicBox extends Analyzer {
     if (spellId !== SPELLS.CACAPHONOUS_CHORD.id) {
       return;
     }
-    this.damage += event.amount + (event.absorb || 0);
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   constructor(...args) {
