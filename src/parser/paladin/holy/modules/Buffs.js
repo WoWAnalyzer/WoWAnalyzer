@@ -37,20 +37,18 @@ class Buffs extends CoreBuffs {
         spellId: SPELLS.AVENGING_CRUSADER_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT),
         timelineHightlight: true,
+        triggeredBySpellId: SPELLS.AVENGING_CRUSADER_TALENT.id,
       },
       {
         spellId: SPELLS.AVENGING_WRATH.id,
         enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT),
         timelineHightlight: true,
+        triggeredBySpellId: SPELLS.AVENGING_WRATH.id,
       },
       {
         spellId: SPELLS.HOLY_AVENGER_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT),
         timelineHightlight: true,
-      },
-      {
-        spellId: SPELLS.AVENGING_WRATH.id,
-        triggeredBySpellId: SPELLS.AVENGING_WRATH.id,
       },
       // Beacons
       {
