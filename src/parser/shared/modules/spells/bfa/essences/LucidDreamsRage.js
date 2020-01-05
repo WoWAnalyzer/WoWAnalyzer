@@ -5,7 +5,7 @@ import { calculatePrimaryStat } from 'common/stats';
 import SpellLink from 'common/SpellLink';
 
 import StatIcon from 'interface/icons/PrimaryStat';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import StatisticGroup from 'interface/statistics/StatisticGroup';
@@ -107,7 +107,7 @@ class LucidDreamsRage extends Analyzer {
             <div className="value">
               <ItemHealingDone amount={this.healing} /><br />
               Rage: {this.rageRestored}
-              <br/>
+              <br />
               {rank > 2 && (<><StatIcon stat={"versatility"} /> {formatNumber(this.minorBuffUptime * this.versGain)} <small>average versatility gained</small><br /></>)}
             </div>
           </div>
@@ -118,7 +118,7 @@ class LucidDreamsRage extends Analyzer {
               <label><SpellLink id={SPELLS.LUCID_DREAMS.id} /> - Major Rank {rank}</label>
               <div className="value">
                  Rage: {this.manaRestoredMajor}
-                 <br/>
+                 <br />
                 {rank > 2 && (<><StatIcon stat={"leech"} /> {formatNumber(this.majorBuffUptime * this.leechGain)} <small>average leech gained</small><br /></>)}
               </div>
             </div>
