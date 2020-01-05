@@ -35,6 +35,7 @@ class VisionOfPerfection extends Analyzer {
   minorVersatility = 0;
   procs = 0;
   extendedBy = 0;
+  rank = 0;
 
   constructor(...args) {
     super(...args);
@@ -42,6 +43,8 @@ class VisionOfPerfection extends Analyzer {
     if (!this.active) {
       return;
     }
+
+    rank = this.selectedCombatant.essenceRank(SPELLS.VISION_OF_PERFECTION.traitId);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VISION_OF_PERFECTION_HASTE_BUFF_SELF), this.onVisionProc);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.STRIVE_FOR_PERFECTION_HEAL), this.onVisionHeal);
@@ -54,10 +57,12 @@ class VisionOfPerfection extends Analyzer {
           });
     }
 
-    this.minorVersatility = calculateSecondaryStatDefault(420,45,this.selectedCombatant.neck.itemLevel);
-    this.statTracker.add(SPELLS.VISION_OF_PERFECTION.traitId, {
-        versitility: this.minorVersatility,
-    });
+    if (this.rank > 2){
+        this.minorVersatility = calculateSecondaryStatDefault(420,45,this.selectedCombatant.neck.itemLevel);
+        this.statTracker.add(SPELLS.VISION_OF_PERFECTION.traitId, {
+            versitility: this.minorVersatility,
+        });
+    }
 }
 
 onVisionProc(event){
@@ -79,8 +84,7 @@ get visionHasteBuff(){
 }
 
 statistic() {
-    const rank = this.selectedCombatant.essenceRank(SPELLS.VISION_OF_PERFECTION.traitId);
-    console.log(`Essence Rank: ${rank}`);
+    console.log(`Essence Rank: ${this.rank}`);
     return (
       <StatisticGroup category={STATISTIC_CATEGORY.ITEMS}>
         <ItemStatistic
@@ -90,8 +94,8 @@ statistic() {
           <div className="pad">
             <label><SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> - Minor Rank {rank}</label>
             <div className="value">
-              {rank > 1 && (<><ItemHealingDone amount={this.minorHealing} /><br /></>)}
-              {rank > 2 && (<><StatIcon stat={"versatility"} /> {formatNumber(this.minorVersatility)} <small>Versatility gained</small><br /></>)}
+              {this.rank > 1 && (<><ItemHealingDone amount={this.minorHealing} /><br /></>)}
+              {this.rank > 2 && (<><StatIcon stat={"versatility"} /> {formatNumber(this.minorVersatility)} <small>Versatility gained</small><br /></>)}
             </div>
           </div>
         </ItemStatistic>
