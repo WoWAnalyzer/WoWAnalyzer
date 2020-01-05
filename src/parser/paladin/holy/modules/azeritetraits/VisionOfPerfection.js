@@ -213,7 +213,7 @@ statistic() {
               <label><SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> - Major Rank {this.rank}</label>
               <div className="value">
                 <EventsIcon /> {this.procs} <small>procs</small><br />
-                <ItemHealingDone amount={this.bonusHealing + this.bonusCritHealing } /><br />
+                <ItemHealingDone amount={this.bonusHealing + this.bonusCritHealing} /><br />
                 <ItemDamageDone amount={this.bonusDamage + this.bonusCritDamage} /><br />
                 <UptimeIcon /> {this.additionalUptime.toFixed(1)}% <small>uptime {this.extendedBy} seconds</small><br />
                 {this.rank > 2 && (<><StatIcon stat={"haste"} /> {formatNumber(this.visionHasteBuff)} <small>average Haste gained</small><br /></>)}
