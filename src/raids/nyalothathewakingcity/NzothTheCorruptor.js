@@ -1,5 +1,4 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
-import SPELLS from 'common/SPELLS';
 
 import Background from './images/backgrounds/NzothTheCorruptor.jpg';
 import Headshot from './images/headshots/NzothTheCorruptor.png';
