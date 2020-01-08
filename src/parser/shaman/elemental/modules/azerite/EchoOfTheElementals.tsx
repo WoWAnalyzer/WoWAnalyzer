@@ -1,11 +1,13 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, {SELECTED_PLAYER, SELECTED_PLAYER_PET} from 'parser/core/Analyzer';
+import Analyzer, {
+  SELECTED_PLAYER,
+  SELECTED_PLAYER_PET,
+} from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import BoringSpellValue
-  from 'interface/statistics/components/BoringSpellValue';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import Statistic from 'interface/statistics/Statistic';
 import { formatNumber } from 'common/format';
 import { Trans } from '@lingui/macro';
@@ -16,7 +18,9 @@ class EchoOfTheElementals extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.ECHO_OF_THE_ELEMENTALS.id);
+    this.active = this.selectedCombatant.hasTrait(
+      SPELLS.ECHO_OF_THE_ELEMENTALS.id,
+    );
 
     let summonSpell = SPELLS.EMBER_ELEMENTAL_SUMMON;
     let damageSpells = [SPELLS.EMBER_BLAST];
@@ -26,11 +30,12 @@ class EchoOfTheElementals extends Analyzer {
     }
     this.addEventListener(
       Events.summon.by(SELECTED_PLAYER).spell(summonSpell),
-      this.onSummon
+      this.onSummon,
     );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(damageSpells),
-      this.onPetDamage);
+      this.onPetDamage,
+    );
   }
 
   protected onSummon() {
@@ -43,14 +48,11 @@ class EchoOfTheElementals extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL()}
-        size="small"
-        >
+      <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="small">
         <BoringSpellValue
-        spell={SPELLS.ECHO_OF_THE_ELEMENTALS.id}
-        value={<Trans>{formatNumber(this.damageGained)}</Trans>}
-        label={<Trans>Damage done</Trans>}
+          spell={SPELLS.ECHO_OF_THE_ELEMENTALS.id}
+          value={formatNumber(this.damageGained)}
+          label={<Trans>Damage done</Trans>}
         />
       </Statistic>
     );

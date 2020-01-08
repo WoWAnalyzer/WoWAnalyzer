@@ -1,7 +1,5 @@
 import { findByBossId } from 'raids';
-
-export const PHASE_START_EVENT_TYPE = 'phasestart';
-export const PHASE_END_EVENT_TYPE = 'phaseend';
+import { EventType } from 'parser/core/Events';
 
 export const abilityFilter = { //filter used for abilities that don't use the default "ability" filter
   "interrupt": "stoppedability",
@@ -208,7 +206,7 @@ function createPhaseStartEvent(timestamp, phase, events) {
   const phaseStartEvent = {
     timestamp: timestamp,
     phase: phase,
-    type: PHASE_START_EVENT_TYPE,
+    type: EventType.PhaseStart,
     __fabricated: true,
   };
 
@@ -219,7 +217,7 @@ function createPhaseEndEvent(timestamp, phase, events) {
   const phaseEndEvent = {
     timestamp: timestamp,
     phase: phase,
-    type: PHASE_END_EVENT_TYPE,
+    type: EventType.PhaseEnd,
     __fabricated: true,
   };
 

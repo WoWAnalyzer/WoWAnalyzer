@@ -73,7 +73,7 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
   }
 
   _heal(event){
-    this.byCast[this.casts].healing += (event.amount || 0) + (event.absorbed || 0);
+    this.byCast[this.casts].actualHealing += (event.amount || 0) + (event.absorbed || 0);
     this.byCast[this.casts].overHealing += event.overheal || 0;
   }
 

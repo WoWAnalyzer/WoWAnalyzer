@@ -58,7 +58,7 @@ class AtonementHealingDone extends Analyzer {
     this._totalAtonement = this._totalAtonement.add(amount, absorbed, overheal);
     this.bySource[spellId] = this.bySource[spellId] || {};
     this.bySource[spellId].ability = ability;
-    this.bySource[spellId].healing = (this.bySource[spellId].healing || new HealingValue()).add(amount, absorbed, overheal);
+    this.bySource[spellId].actualHealing = (this.bySource[spellId].healing || new HealingValue()).add(amount, absorbed, overheal);
 
     if (spellId === SPELLS.PENANCE.id) {
       const source = this.bySource[SPELLS.PENANCE.id];

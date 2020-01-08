@@ -1,30 +1,48 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE } from 'interface/report/PhaseParser';
+import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE, Fight } from 'interface/report/PhaseParser';
+import { Phase } from 'raids';
 
 import './PhaseSelector.scss';
 
 const INSTANCE_SEPARATOR = '_INSTANCE_';
 
-class PhaseSelector extends React.PureComponent {
-  static propTypes = {
-    fight: PropTypes.object.isRequired,
-    phases: PropTypes.object.isRequired,
-    selectedPhase: PropTypes.string.isRequired,
-    selectedInstance: PropTypes.number.isRequired,
-    handlePhaseSelection: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool.isRequired,
+interface Props {
+  fight: Fight;
+  phases: {
+    [key: string]: Phase
   };
+  selectedPhase: String;
+  selectedInstance: number;
+  handlePhaseSelection: (phase?: string, instance?: number) => void;
+  isLoading: boolean;
+}
 
-  constructor(...args) {
-    super(...args);
+interface State {
+  phases: {
+    [key: string]: PhaseSelection
+  };
+}
+
+interface PhaseSelection {
+  name: string,
+  key: string,
+  instance: number,
+  start: number,
+  multiple?: boolean,
+}
+
+class PhaseSelector extends React.PureComponent<Props, State> {
+  private phaseRef: React.RefObject<HTMLSelectElement>;
+
+  constructor(args: Props) {
+    super(args);
     this.state = { phases: this.buildPhases() };
-    this.phaseRef = React.createRef();
+    this.phaseRef = React.createRef<HTMLSelectElement>();
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
+  handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const selectedPhase = this.state.phases[e.target.value];
     if (selectedPhase) {
       this.props.handlePhaseSelection(selectedPhase.key, selectedPhase.instance);
@@ -35,17 +53,17 @@ class PhaseSelector extends React.PureComponent {
 
   //builds a dictionary of phases / phase instances to keep track of in order to be able to attribute a unique "key" to each phase for the dropdown
   //without losing the actual key (and without having to for example replace an "instance token" like an underscore)
-  buildPhases() {
-    const phases = [];
+  buildPhases() : {[key: string]: PhaseSelection} {
+    const phases : PhaseSelection[] = [];
     Object.keys(this.props.phases).forEach(key => {
       const phase = this.props.phases[key];
       if (phase.start.length !== phase.end.length) {
-        phases.push({ name: phase.name, key: key, start: phases.start[0], instance: 0 });
+        phases.push({ name: phase.name, key: key, start: phase.start![0], instance: 0 });
       } else {
-        phases.push(...phase.start.map((start, index) => (
+        phases.push(...phase.start!.map((start, index) => (
           {
             name: phase.name,
-            key: key,
+            key,
             instance: index,
             start: start,
             multiple: phase.multiple,
@@ -63,7 +81,7 @@ class PhaseSelector extends React.PureComponent {
   }
 
   //if phase information changed, build new dictionary of phase selection
-  componentDidUpdate(prevProps, prevState, prevContext) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.phases !== prevProps.phases) {
       this.setState({
         phases: this.buildPhases(),
