@@ -135,6 +135,11 @@ export default {
     name: 'Conflict',
     icon: 'spell_azerite_essence_17',
   },
+  STRIFE_BUFF:{
+    id: 304056,
+    name: 'Strife',
+    icon: 'spell_azerite_essence_17',
+  },
   //Worldvein Resonance
   WORLDVEIN_RESONANCE: {
     id: 295186,

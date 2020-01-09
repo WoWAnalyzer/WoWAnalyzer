@@ -17,7 +17,7 @@ const BrewmasterMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
     />
   );
   AbilityRequirement.propTypes = {
-    spell: PropTypes.object.isRequired,
+    spell: PropTypes.number.isRequired,
   };
 
   return (
@@ -68,14 +68,15 @@ const BrewmasterMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
 <>
           Effective use of <SpellLink id={SPELLS.PURIFYING_BREW.id} /> is fundamental to playing Brewmaster successfully. While we cannot <em>automatically</em> tell whether a purify is effective or not, there are some simple guidelines that naturally lead to more effective purifies:
           <ul>
-            <li>Avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> at less than <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. In a raid environment, <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> is not dangerous in itself. You should almost never purify lower than this unless you cannot be healed.</li>
+            <li>Avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> at less than <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. In a raid environment, <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> is not dangerous in itself. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, this remains a good rule of thumb.</li>
             <li>If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from <SpellLink id={SPELLS.STAGGER.id} />.</li>
           </ul>
           For more information on effective use of <SpellLink id={SPELLS.PURIFYING_BREW.id} />, see the <a href="https://www.peakofserenity.com/bfa/brewmaster/purifying/">Peak of Serenity guide</a>.
         </>
 )}
     >
-      <Requirement name={<>Purifies with less than <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /></>} thresholds={thresholds.purifyHeavy} />
+      <Requirement name={<>Inefficient <SpellLink id={SPELLS.PURIFYING_BREW.id} /> casts.</>} thresholds={thresholds.purifyHeavy}
+        tooltip="A purify is 'inefficient' if it occurs with (relatively) low stagger. The warning threshold is calculated based on how much time you spent in Heavy Stagger." />
       <Requirement name={'Average Purification Delay'} thresholds={thresholds.purifyDelay}
         tooltip="The delay is tracked from the most recent time you were able to purify after a hit. If the hit occurred when no charges were available, you are not penalized." />
       <Requirement name={<>Available <SpellLink id={SPELLS.PURIFYING_BREW.id} /> charges used</>} thresholds={thresholds.purifyCasts}

@@ -6,7 +6,7 @@ import Tooltip from 'common/Tooltip';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 
-import { PRE_FILTER_COOLDOWN_EVENT_TYPE } from 'interface/report/TimeEventFilter';
+import { EventType } from 'parser/core/Events';
 
 const PREPHASE_BUFFER = 1000; //ms a prephase event gets displayed before the phase start
 
@@ -25,10 +25,10 @@ class Lane extends React.PureComponent {
 
   renderEvent(event) {
     switch (event.type) {
-      case PRE_FILTER_COOLDOWN_EVENT_TYPE:
-      case 'cast':
+      case EventType.FilterCooldownInfo:
+      case EventType.Cast:
         return this.renderCast(event);
-      case 'updatespellusable':
+      case EventType.UpdateSpellUsable:
         if (event.trigger === 'restorecharge') {
           return (
             <React.Fragment key={`restorecharge-${event.timestamp}`}>
@@ -110,10 +110,10 @@ class Lane extends React.PureComponent {
     const { children, style } = this.props;
 
     const ability = children[0].ability;
-    if(children[0].type === PRE_FILTER_COOLDOWN_EVENT_TYPE || children[0].type === "cast"){ //if first cast happened before phase
+    if(children[0].type === EventType.FilterCooldownInfo || children[0].type === EventType.Cast){ //if first cast happened before phase
       const nextChildren = children.slice(1, children.length); //all children following the first cast
-      const nextCast = nextChildren.findIndex(e => e.type === "cast" || e.type === PRE_FILTER_COOLDOWN_EVENT_TYPE) + 1; //add 1 since we're searching through the events FOLLOWING the initial cast
-      const nextCD = nextChildren.find(e => e.type === "updatespellusable" && e.trigger === "endcooldown"); //find next end CD event
+      const nextCast = nextChildren.findIndex(e => e.type === EventType.Cast || e.type === EventType.FilterCooldownInfo) + 1; //add 1 since we're searching through the events FOLLOWING the initial cast
+      const nextCD = nextChildren.find(e => e.type === EventType.UpdateSpellUsable && e.trigger === "endcooldown"); //find next end CD event
       if((nextCD && nextCD.end < this.props.fightStartTimestamp - PREPHASE_BUFFER)){//if cooldown ended before the phase (including buffer), remove it to avoid visual overlaps
         children.splice(0, nextCast || children.length); //remove events before the next cast, remove all if there is no next cast to clean up the list
       }

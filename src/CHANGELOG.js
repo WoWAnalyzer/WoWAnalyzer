@@ -49,6 +49,13 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 1, 4), 'Converted Event Filtering to TypeScript.', Zeboot),
+  change(date(2020, 1, 4), 'Fixed bug causing timefilter input to stop responding.', Zeboot),
+  change(date(2020, 1, 1), 'Updated code integration tests to be more maintainable.', Zerotorescue),
+  change(date(2020, 1, 1), "Added statistic for Strife.", Abelito75),
+  change(date(2019, 12, 31), 'Replaced TravisCI build pipelines with GitHub actions workflows.', Zerotorescue),
+  change(date(2019, 12, 29), "Updated Combatant to typescript",[HawkCorrigan]),
+  change(date(2019, 12, 27), 'Indicate elemental shaman has been updated for 8.2.5 and update the example log', Draenal),
   change(date(2019, 12, 23), 'Fixed early DoT refresh extension check.', layday),
   change(date(2019, 12, 17), "Fixed integration testing code with new build support.", [emallson]),
   change(date(2019, 12, 16), <>Added <SpellLink id={SPELLS.BLOOD_OF_THE_ENEMY.id} />.</>, Khazak),
