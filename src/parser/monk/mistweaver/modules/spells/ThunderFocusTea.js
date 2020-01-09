@@ -12,6 +12,7 @@ import DonutChart from 'interface/statistics/components/DonutChart';
 
 const debug = false;
 
+//TODO clean up and make easier to add triggers
 class ThunderFocusTea extends Analyzer {
   castsTftRsk = 0;
   castsTftViv = 0;
@@ -25,10 +26,12 @@ class ThunderFocusTea extends Analyzer {
 
   castBufferTimestamp = null;
   ftActive = false;
+  rmActive = false;
 
   constructor(...args) {
     super(...args);
     this.ftActive = this.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
+    this.rmActive = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_FOCUS_TEA), this.tftCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
   }
@@ -60,6 +63,11 @@ class ThunderFocusTea extends Analyzer {
         
         if(this.selectedCombatant.hasBuff(SPELLS.WAY_OF_THE_CRANE.id)){
           this.correctCasts += 1;
+          return;
+        }
+        
+        if(this.rmActive){
+          this.correctCasts +=1;
         }
 
         debug && console.log('RSK TFT Check ', event.timestamp);
