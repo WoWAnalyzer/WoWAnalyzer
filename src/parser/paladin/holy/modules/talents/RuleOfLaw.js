@@ -36,7 +36,7 @@ class RuleOfLaw extends Analyzer {
       return suggest(
         <Trans>
           Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.
-        </Trans>
+        </Trans>,
       )
         .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
         .actual(<Trans>{formatPercentage(actual)}% uptime</Trans>)

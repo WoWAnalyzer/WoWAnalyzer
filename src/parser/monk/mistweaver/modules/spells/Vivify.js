@@ -82,7 +82,7 @@ class Vivify extends Analyzer {
         return suggest(
           <>
             You are casting <SpellLink id={SPELLS.VIVIFY.id} /> with less than 2 <SpellLink id={SPELLS.RENEWING_MIST.id} /> out on the raid. To ensure you are gaining the maximum <SpellLink id={SPELLS.VIVIFY.id} /> healing, keep <SpellLink id={SPELLS.RENEWING_MIST.id} /> on cooldown.
-          </>
+          </>,
         )
           .icon(SPELLS.VIVIFY.icon)
           .actual(`${this.averageRemPerVivify.toFixed(2)} Renewing Mists per Vivify`)

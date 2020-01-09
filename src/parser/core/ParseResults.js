@@ -10,7 +10,7 @@ const ASSERTION_MODES = {
   IS_FALSE: '==false',
   IS_EQUAL: '===',
 };
-class SuggestionAssertion {
+export class SuggestionAssertion {
   _actual = null;
   _addIssue = null;
 

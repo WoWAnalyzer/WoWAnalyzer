@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatNumber, formatPercentage,formatDuration } from 'common/format';
 import Toggle from 'react-toggle';
-import PerformanceBar from 'common/PerformanceBar';
+import PerformanceBar from 'interface/PerformanceBar';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
 

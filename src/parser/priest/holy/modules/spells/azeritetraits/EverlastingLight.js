@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatThousands } from 'common/format';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 const BASE_MANA = 100000;
 

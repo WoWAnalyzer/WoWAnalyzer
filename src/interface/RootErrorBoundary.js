@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Trans, t } from '@lingui/macro';
 
-import FullscreenError from 'interface/common/FullscreenError';
+import FullscreenError from 'interface/FullscreenError';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import ApiDownBackground from 'interface/common/images/api-down-background.gif';
 import { EventsParseError } from 'interface/report/EventParser';
@@ -23,8 +23,8 @@ class RootErrorBoundary extends React.Component {
     this.handleErrorEvent = this.handleErrorEvent.bind(this);
     this.handleUnhandledrejectionEvent = this.handleUnhandledrejectionEvent.bind(this);
 
-    window.addEventListener('error', this.handleErrorEvent);
-    window.addEventListener('unhandledrejection', this.handleUnhandledrejectionEvent);
+    // window.addEventListener('error', this.handleErrorEvent);
+    // window.addEventListener('unhandledrejection', this.handleUnhandledrejectionEvent);
   }
 
   componentWillUnmount() {

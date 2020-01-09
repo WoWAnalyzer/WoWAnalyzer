@@ -5,7 +5,7 @@ import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber } from 'common/format';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import SpellUsable from 'parser/priest/holy/modules/features/SpellUsable';
 
 /*

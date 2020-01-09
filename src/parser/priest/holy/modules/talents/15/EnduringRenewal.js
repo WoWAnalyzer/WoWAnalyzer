@@ -3,7 +3,7 @@ import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStat
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../constants';
 

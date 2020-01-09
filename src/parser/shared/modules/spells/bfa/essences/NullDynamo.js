@@ -11,8 +11,8 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import { TooltipElement } from 'common/Tooltip';
 
 const DH_BUFF = 1.05;

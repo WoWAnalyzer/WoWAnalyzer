@@ -89,7 +89,7 @@ class SpellUsable extends Analyzer {
    * Returns the amount of time remaining on the cooldown.
    * @param {number} spellId
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
-   * @returns {number|null} Returns null if the spell isn't on cooldown.
+   * @returns {number}
    */
   cooldownRemaining(spellId, timestamp = this.owner.currentTimestamp) {
     const canSpellId = this._getCanonicalId(spellId);

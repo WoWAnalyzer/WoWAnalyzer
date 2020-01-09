@@ -3,7 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 /**
  Your heals have a chance to apply Bracing Chill. Healing a target with Bracing Chill will heal for an additional 1155 and move Bracing Chill to a nearby ally (up to 6 times).

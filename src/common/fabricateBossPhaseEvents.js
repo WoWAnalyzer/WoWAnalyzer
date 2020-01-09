@@ -74,7 +74,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
                 (
                   (e.ability && e.ability.guid === phase.filter.ability.id) ||
                   (e.extraAbility && e.extraAbility.guid === phase.filter.ability.id)
-                )
+                ),
               );
               if (phase.filter.eventInstance !== undefined && phase.filter.eventInstance >= 0 && !phase.multiple) {
                 if (bossEvents.length >= (phase.filter.eventInstance + 1)) {

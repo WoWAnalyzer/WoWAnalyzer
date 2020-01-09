@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import {formatNumber} from 'common/format';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';

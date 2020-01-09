@@ -107,7 +107,7 @@ class RakeSnapshot extends Snapshot {
       return suggest(
         <>
           When <SpellLink id={SPELLS.RAKE.id} /> is empowered by <SpellLink id={SPELLS.PROWL.id} /> avoid refreshing it unless the replacement would also be empowered. You ended {this.prowlLostCastCount} empowered <SpellLink id={SPELLS.RAKE.id} /> bleed{this.prowlLostCastCount!==1?'s':''} more than 1 second early.
-        </>
+        </>,
       )
         .icon(SPELLS.RAKE.icon)
         .actual(`${actual.toFixed(1)} seconds of Prowl buffed Rake was lost per minute.`)
@@ -118,7 +118,7 @@ class RakeSnapshot extends Snapshot {
       return suggest(
         <>
           Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <TooltipElement content={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</TooltipElement> if you have more powerful <TooltipElement content="Applying Rake with Prowl, Tiger's Fury or Bloodtalons will boost its damage until you reapply it.">snapshot buffs</TooltipElement> than were present when it was first cast.
-        </>
+        </>,
       )
         .icon(SPELLS.RAKE.icon)
         .actual(`${formatPercentage(actual)}% of Rake refreshes were early downgrades.`)

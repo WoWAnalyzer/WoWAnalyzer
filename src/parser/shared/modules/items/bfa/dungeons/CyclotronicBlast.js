@@ -6,7 +6,7 @@ import ITEMS from 'common/ITEMS/index';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import Abilities from 'parser/core/modules/Abilities';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 /**

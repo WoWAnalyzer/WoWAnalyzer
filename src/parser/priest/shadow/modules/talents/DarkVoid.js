@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
 import ShadowWordPain from 'parser/priest/shadow/modules/spells/ShadowWordPain';
