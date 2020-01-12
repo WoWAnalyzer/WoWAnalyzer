@@ -34,6 +34,7 @@ import LavaShock from './modules/azerite/LavaShock';
 import SynapseShock from '../shared/azerite/SynapseShock';
 import EchoOfTheElementals from './modules/azerite/EchoOfTheElementals';
 
+import EarthShield from '../shared/talents/EarthShield';
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
@@ -76,6 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unlimitedPowerTimesByStacks: UnlimitedPowerTimesByStacks,
     unlimitedPower: UnlimitedPower,
     icefury: Icefury,
+    earthShield: EarthShield,
 
     // Azerite
     naturalHarmony: NaturalHarmony,

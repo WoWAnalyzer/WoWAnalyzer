@@ -21,7 +21,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
     />
   );
   AbilityRequirement.propTypes = {
-    spell: PropTypes.object.isRequired,
+    spell: PropTypes.number.isRequired,
   };
 
   return (
@@ -149,7 +149,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
           <Requirement
             name={<SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />}
             thresholds={thresholds.overhealing.bestowFaith}
-          />  
+          />
           )
         }
       </Rule>
@@ -158,13 +158,13 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
           name={<Trans>Keep your beacons active</Trans>}
           description={<Trans>Beacon of Light and Beacon of Faith, if talented, should be applied prior to the fight starting and maintained active for as long as the paladin is alive.  Any beacon downtime will result in lost healing and efficiency.</Trans>}
           >
-          {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && 
+          {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) &&
             <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} onClick={e => e.preventDefault()} /> applied prepull</Trans>} thresholds={thresholds.beaconUptimeBoL} />}
-          {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && 
+          {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) &&
             <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} onClick={e => e.preventDefault()} /> Uptime</Trans>} thresholds={thresholds.beaconUptimeBoLUptime} />}
-          {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && 
+          {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) &&
             <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_FAITH_TALENT.id} onClick={e => e.preventDefault()} /> applied prepull</Trans>} thresholds={thresholds.beaconUptimeBoF} />}
-          {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && 
+          {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) &&
             <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_FAITH_TALENT.id} onClick={e => e.preventDefault()} /> Uptime</Trans>} thresholds={thresholds.beaconUptimeBoFUptime} />}
         </Rule>
       )}
