@@ -141,7 +141,7 @@ class ThunderFocusTea extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
           return suggest(
             <>
-              You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than <SpellLink id={SPELLS.VIVIFY.id} /> or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells buffed to only these two.
+              You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than {this.rmActive ? <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> : <SpellLink id={SPELLS.VIVIFY.id} />}  or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells buffed to only these two.
             </>,
           )
             .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
