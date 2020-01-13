@@ -20,7 +20,6 @@ class CombustionCharges extends Analyzer {
 
   hasPhoenixFlames: boolean;
   hasFlameOn: boolean;
-  lastCastEvent?: CastEvent;
 
   lowPhoenixFlamesCharges = 0;
   lowFireBlastCharges = 0;
@@ -35,7 +34,6 @@ class CombustionCharges extends Analyzer {
 
   //When Combustion is cast, check to see how many charges of Fire Blast and Phoenix Flames are available. If there is less than (Max Charges - 1) then its a bad Combustion cast. 
   onCombustion(event: CastEvent) {
-    this.lastCastEvent = event;
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
     const phoenixFlamesCharges = (this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES_TALENT.id) || 0);
     const FIRE_BLAST_THRESHOLD = this.hasFlameOn ? 2 : 1;
@@ -55,17 +53,14 @@ class CombustionCharges extends Analyzer {
     }
 
     if (this.badCast) {
-      this.flagTimeline();
+      this.flagTimeline(event);
     }
   }
 
-  flagTimeline() {
-    if (!this.lastCastEvent) {
-      return;
-    }
-    this.lastCastEvent.meta = this.lastCastEvent.meta || {};
-    this.lastCastEvent.meta.isInefficientCast = true;
-    this.lastCastEvent.meta.inefficientCastReason = `This Combustion was cast with a low amount of Fire Blast ${this.hasPhoenixFlames ? 'and/or Phoenix Flames' : '' }charges. In order to get the most out of your Combustion casts, ensure that you have at least ${this.hasFlameOn ? '2' : '1' } Fire Blast charges${this.hasPhoenixFlames ? ' and 2 Phoenix Flames charges' : '' }. `;
+  flagTimeline(event: CastEvent) {
+    event.meta = event.meta || {};
+    event.meta.isInefficientCast = true;
+    event.meta.inefficientCastReason = `This Combustion was cast with a low amount of Fire Blast ${this.hasPhoenixFlames ? 'and/or Phoenix Flames' : '' }charges. In order to get the most out of your Combustion casts, ensure that you have at least ${this.hasFlameOn ? '2' : '1' } Fire Blast charges${this.hasPhoenixFlames ? ' and 2 Phoenix Flames charges' : '' }. `;
   }
 
   get phoenixFlamesChargeUtil() {

@@ -32,10 +32,8 @@ class CombustionFirestarter extends Analyzer {
   }
 
   //Checks to see if a new Combustion was cast. This variable is marked false once a damage event is triggered since we only want the first damage event in the Combustion (to get the health percentage)
-  protected combustionCastEvent: ApplyBuffEvent | undefined;
   onCombustion(event: ApplyBuffEvent) {
     this.combustionCast = true;
-    this.combustionCastEvent = event;
   }
 
   //The Combustion Cast/Apply Buff event uses the Players Health/Max Health instead of the target, so we need to check the first direct damage event during combustion to get the target's health. If above 90% then Combustion was cast during Firestarter, which is a waste.

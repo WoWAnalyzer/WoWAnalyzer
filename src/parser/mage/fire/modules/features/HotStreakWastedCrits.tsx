@@ -46,7 +46,7 @@ class HotStreakWastedCrits extends Analyzer {
   //If a Hot Streak Contributor was cast then Pyromaniac didnt proc, so set it to false (Pyromaniac procs when Hot Streak is used, so if something was cast, then it didnt proc)
   _onCast(event: CastEvent) {
     this.lastCastEvent = event;
-    this.pyromaniacProc = false;
+    this.hasPyromaniacProc = false;
   }
 
   //When a spell that contributes towards Hot Streak crits the target while Hot Streak is active, count it as a wasted crit.
