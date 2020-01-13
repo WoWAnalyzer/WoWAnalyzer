@@ -38,6 +38,7 @@ import {
   Draenal,
   JeremyDwayne,
   axelkic,
+  Khazak,
   layday,
 } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
@@ -48,6 +49,9 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 1, 12), <>Added <SpellLink id={SPELLS.BLOOD_OF_THE_ENEMY.id} />.</>, Khazak),
+  change(date(2020, 1, 4), 'Converted Event Filtering to TypeScript.', Zeboot),
+  change(date(2020, 1, 4), 'Fixed bug causing timefilter input to stop responding.', Zeboot),
   change(date(2020, 1, 1), 'Updated code integration tests to be more maintainable.', Zerotorescue),
   change(date(2020, 1, 1), "Added statistic for Strife.", Abelito75),
   change(date(2019, 12, 31), 'Replaced TravisCI build pipelines with GitHub actions workflows.', Zerotorescue),

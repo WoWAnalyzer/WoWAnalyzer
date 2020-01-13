@@ -33,21 +33,13 @@ function sortPlayers(a, b) {
   return a.name.localeCompare(b.name);
 }
 
-const PlayerSelection = props => {
-  const { players, makeUrl } = props;
-
-  return (
-    <div className="player-selection">
-      {players.sort(sortPlayers).map(player => (
-        <PlayerTile
-          key={player.guid}
-          player={player}
-          makeUrl={makeUrl}
-        />
-      ))}
-    </div>
-  );
-};
+const PlayerSelection = ({ players, makeUrl }) => (
+  <div className="player-selection">
+    {players.sort(sortPlayers).map(player => (
+      <PlayerTile key={player.guid} player={player} makeUrl={makeUrl} />
+    ))}
+  </div>
+);
 
 PlayerSelection.propTypes = {
   players: PropTypes.arrayOf(PropTypes.object).isRequired,

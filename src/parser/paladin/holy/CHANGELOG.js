@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 1, 5), <>Added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> 8.3 nerf prediction statistic to see how the nerf will affect you.</>, [Zerotorescue]),
+  change(date(2020, 1, 1), <>Added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> build suggestions for early overwriting of active glimmers and added support for 8.3 buff cap of 8.</>, [HolySchmidt]),
   change(date(2019, 12, 21), "Added beacon uptime statistic and checklist rule.", [Torothin]),
   change(date(2019, 12, 14), <>Implemented a fun statistic for <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} />.}</>, [Abelito75]),
   change(date(2019, 12, 8), <>Fixed <SpellLink id={SPELLS.LIGHTS_DECREE.id} /> duration along with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> usage, <SpellLink id={SPELLS.AVENGING_WRATH.id} /> damage, healing, and critical strike contributions.</>, [HolySchmidt]),

@@ -80,7 +80,7 @@ class SelfHealTimingGraph extends Analyzer {
       });
 
     const _casts = this._selfhealTimestamps.map(event => {
-      const startingHP = event.hitPoints - (event.amount || 0) + (event.absorb || 0);
+      const startingHP = event.hitPoints - (event.amount || 0) + (event.absorbed || 0) + (event.absorb || 0);
       const p = (startingHP / event.maxHitPoints) || 0;
       const percentage = Math.min(Math.round(p * 100), 100);
       return {

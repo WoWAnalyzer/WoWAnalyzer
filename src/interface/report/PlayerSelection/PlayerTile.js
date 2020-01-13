@@ -23,8 +23,6 @@ class PlayerTile extends React.PureComponent {
     fetchCharacter: PropTypes.func.isRequired,
   };
 
-  timeout = null;
-
   constructor(props) {
     super(props);
     if (!this.props.characterInfo) {
@@ -39,7 +37,7 @@ class PlayerTile extends React.PureComponent {
       return null;
     }
     try {
-      return await fetchCharacter(player.guid, player.region, player.realm, player.name);
+      return await fetchCharacter(player.guid, player.region, player.server, player.name);
     } catch (err) {
       // No biggy, just show less info
       console.error('An error occured fetching', player, '. The error:', err);

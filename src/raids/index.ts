@@ -8,6 +8,20 @@ type Boss = {
 
 }
 
+export interface PhaseConfig {
+  name: string,
+  key: string,
+  difficulties: number[],
+  filter?: any,
+  multiple?: boolean,
+  instance?: number,
+}
+
+export interface Phase extends PhaseConfig {
+  start: number[],
+  end: number[],
+}
+
 const raids = {
   // Battle for Azeroth
   Dungeons: require('./dungeons').default,

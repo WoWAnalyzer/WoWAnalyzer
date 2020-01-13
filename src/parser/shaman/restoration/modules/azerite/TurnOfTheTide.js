@@ -75,7 +75,7 @@ class TurnOfTheTide extends BaseHealerAzerite {
     const tidalWaveHealing = (event.amount || 0 + event.overheal || 0 + event.absorbed || 0) * TURN_BONUS;
     const actualHealing = Math.max(0, tidalWaveHealing - (event.overheal || 0));
     const overHealing = tidalWaveHealing - actualHealing;
-    this.azerite[this.azerite.length - 1].healing += actualHealing;
+    this.azerite[this.azerite.length - 1].actualHealing += actualHealing;
     this.azerite[this.azerite.length - 1].overhealing += overHealing;
     this.critBonusEstimation += actualHealing;
 
