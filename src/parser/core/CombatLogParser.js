@@ -144,6 +144,7 @@ import TheWellOfExistence from '../shared/modules/spells/bfa/essences/TheWellOfE
 import TheCrucibleofFlame from '../shared/modules/spells/bfa/essences/TheCrucibleofFlame';
 import WorldveinResonance from '../shared/modules/spells/bfa/essences/WorldveinResonance';
 import NullDynamo from '../shared/modules/spells/bfa/essences/NullDynamo';
+import BloodOfTheEnemy from '../shared/modules/spells/bfa/essences/BloodOfTheEnemy';
 import Strife from '../shared/modules/spells/bfa/essences/Strife';
 
 // Uldir
@@ -340,6 +341,7 @@ class CombatLogParser {
     theCrucibleofFlame: TheCrucibleofFlame,
     worldveinResonance: WorldveinResonance,
     nullDynamo: NullDynamo,
+    bloodOfTheEnemy: BloodOfTheEnemy,
     strife: Strife,
 
     // Uldir
