@@ -2,7 +2,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
-import ItemManaGained from 'interface/others/ItemManaGained';
+import ItemManaGained from 'interface/ItemManaGained';
 import SpellLink from 'common/SpellLink';
 
 // Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
@@ -49,7 +49,7 @@ class SurgeOfLight extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.FLASH_HEAL.id && this.freeFlashHealPending) {
-      this.solHealing += event.amount + (event.absorb || 0);
+      this.solHealing += event.amount + (event.absorbed || 0);
       this.solOverHealing += event.overhealing || 0;
       if (this.currentSolStacks === 0) {
         this.freeFlashHealPending = false;

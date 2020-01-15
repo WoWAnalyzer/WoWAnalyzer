@@ -8,7 +8,7 @@ import BoringItemValueText from 'interface/statistics/components/BoringItemValue
 
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
-import ItemManaGained from 'interface/others/ItemManaGained';
+import ItemManaGained from 'interface/ItemManaGained';
 
 const MAX_RESTORES_PER_USE = 6;
 const ACTIVATION_COOLDOWN = 120; // seconds
@@ -19,7 +19,7 @@ const BUFF_DURATION = 20; // seconds
  *
  * The restored mana appears as energize events in the combat log.
  * The buff expires after 20 seconds or after casting 6 spells, whichever is sooner.
- * 
+ *
  * Test Log: https://www.warcraftlogs.com/reports/ML4k1XNYFDPJ6ARb#fight=1&type=damage-done
  */
 class FangsOfIntertwinedEssence extends Analyzer {
@@ -83,7 +83,7 @@ class FangsOfIntertwinedEssence extends Analyzer {
         )}
       >
         <BoringItemValueText item={ITEMS.FANGS_OF_INTERTWINED_ESSENCE}>
-          <ItemManaGained amount={this.manaRestored} /> 
+          <ItemManaGained amount={this.manaRestored} />
         </BoringItemValueText>
       </ItemStatistic>
     );
@@ -105,7 +105,7 @@ class FangsOfIntertwinedEssence extends Analyzer {
       return suggest(
         <>
           Your usage of <ItemLink id={ITEMS.FANGS_OF_INTERTWINED_ESSENCE.id} /> can be improved. Try to cast at least {MAX_RESTORES_PER_USE} spells in the {BUFF_DURATION} seconds after activating it to benefit from the full mana restoration it can provide.
-        </>
+        </>,
       )
         .icon(ITEMS.FANGS_OF_INTERTWINED_ESSENCE.icon)
         .actual(`${formatPercentage(actual)}% of mana restoration triggered`)

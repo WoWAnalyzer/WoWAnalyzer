@@ -8,7 +8,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import Events from 'parser/core/Events';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import Abilities from 'parser/core/modules/Abilities';
 
 const MAX_ALLIES_HIT = 5;
@@ -147,7 +147,7 @@ class WardOfEnvelopment extends Analyzer {
       return suggest(
         <>
           Your usage of <ItemLink id={ITEMS.WARD_OF_ENVELOPMENT.id} /> can be improved. Try to place the it in an area with more allies to increase the overall abosorption it provides.
-        </>
+        </>,
       )
         .icon(ITEMS.WARD_OF_ENVELOPMENT.icon)
         .actual(`Average ${actual.toFixed(2)} out of ${MAX_ALLIES_HIT} allies hit.`)

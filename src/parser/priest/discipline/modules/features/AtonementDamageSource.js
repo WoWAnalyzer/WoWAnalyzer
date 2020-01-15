@@ -1,9 +1,10 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer from "parser/core/Analyzer";
 
-import { DAMAGING_SPELLS_THAT_CAUSE_ATONEMENT } from '../../constants';
+import { ATONEMENT_DAMAGE_SOURCES } from "../../constants";
 
 class AtonementDamageSource extends Analyzer {
   _event = null;
+
   get event() {
     return this._event;
   }
@@ -12,7 +13,7 @@ class AtonementDamageSource extends Analyzer {
     if (!this.owner.byPlayer(event) && !this.owner.byPlayerPet(event)) {
       return;
     }
-    if (!DAMAGING_SPELLS_THAT_CAUSE_ATONEMENT.includes(event.ability.guid)) {
+    if (!ATONEMENT_DAMAGE_SOURCES[event.ability.guid]) {
       return;
     }
     if (event.targetIsFriendly) {

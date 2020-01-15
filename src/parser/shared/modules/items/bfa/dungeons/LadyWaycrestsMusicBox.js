@@ -3,8 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -31,7 +31,7 @@ class LadyWaycrestsMusicBox extends Analyzer {
     if (spellId !== SPELLS.HARMONIOUS_CHORD.id) {
       return;
     }
-    this.healing += event.amount + (event.absorb || 0);
+    this.healing += event.amount + (event.absorbed || 0);
     this.overHealing += event.overheal || 0;
   }
 
@@ -40,7 +40,7 @@ class LadyWaycrestsMusicBox extends Analyzer {
     if (spellId !== SPELLS.CACAPHONOUS_CHORD.id) {
       return;
     }
-    this.damage += event.amount + (event.absorb || 0);
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   constructor(...args) {

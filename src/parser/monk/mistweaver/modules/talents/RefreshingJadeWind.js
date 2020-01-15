@@ -66,7 +66,7 @@ class RefreshingJadeWind extends Analyzer {
         return suggest(
           <>
               You are not utilizing your <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> effectively. <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> excells when you hit 6 targets for the duration of the spell. The easiest way to accomplish this is to stand in melee, but there can be other uses when the raid stacks for various abilities.
-          </>
+          </>,
         )
           .icon(SPELLS.REFRESHING_JADE_WIND_TALENT.icon)
           .actual(`${formatPercentage(this.avgRJWTargetsPercentage)}% of targets hit per Refreshing Jade Wind`)

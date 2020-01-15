@@ -114,6 +114,7 @@ class DeathRecapTracker extends Analyzer {
     }));
   }
 
+  // TODO: Turn this into a core component that is used directly by Results instead (tab is deprecated)
   tab() {
     if (this.deaths.length === 0) {
       return null;

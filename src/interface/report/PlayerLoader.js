@@ -13,13 +13,14 @@ import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
 import { i18n } from 'interface/RootLocalizationProvider';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
-import DocumentTitle from 'interface/common/DocumentTitle';
+import DocumentTitle from 'interface/DocumentTitle';
 import { setCombatants } from 'interface/actions/combatants';
 import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import Tooltip from 'common/Tooltip';
 import PlayerSelection from 'interface/report/PlayerSelection';
 import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
+import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
 import handleApiError from './handleApiError';
 
@@ -36,6 +37,7 @@ class PlayerLoader extends React.PureComponent {
   ranged = 0;
   ilvl = 0;
   heartLvl = 0;
+
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -62,6 +64,7 @@ class PlayerLoader extends React.PureComponent {
     }).isRequired,
     fetchCharacter: PropTypes.func.isRequired,
   };
+
   static getDerivedStateFromProps(props, state) {
     if (props.fight.id !== state.combatantsFightId) {
       // When switching fights we need to unset combatants before rendering to avoid children from doing API calls twice
@@ -69,6 +72,7 @@ class PlayerLoader extends React.PureComponent {
     }
     return state;
   }
+
   state = defaultState;
 
   componentDidMount() {
@@ -76,6 +80,7 @@ class PlayerLoader extends React.PureComponent {
     this.loadCombatants(this.props.report, this.props.fight);
     this.scrollToTop();
   }
+
   componentDidUpdate(prevProps, prevState, prevContext) {
     const changedReport = this.props.report !== prevProps.report;
     const changedFight = this.props.fight !== prevProps.fight;
@@ -95,7 +100,7 @@ class PlayerLoader extends React.PureComponent {
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
       const characterDataPromises = combatants.map(player => {
         const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
-        if(!friendly) {
+        if (!friendly) {
           // unsure why this happens, but it can
           return Promise.resolve();
         }
@@ -103,7 +108,7 @@ class PlayerLoader extends React.PureComponent {
         if (!exportedCharacter) {
           return Promise.resolve();
         }
-        return fetchCharacter(friendly.guid, exportedCharacter.region, friendly.realm, friendly.name).then(data => {
+        return fetchCharacter(friendly.guid, exportedCharacter.region, exportedCharacter.server, exportedCharacter.name).then(data => {
           return Promise.resolve(data);
         }).catch(() => {
           // This guy failed to load - this is nice to have data
@@ -173,6 +178,7 @@ class PlayerLoader extends React.PureComponent {
       this.props.setCombatants(null);
     }
   }
+
   scrollToTop() {
     window.scrollTo(0, 0);
   }
@@ -185,9 +191,11 @@ class PlayerLoader extends React.PureComponent {
       this.props.history.push(makeAnalyzerUrl());
     });
   }
+
   renderLoading() {
     return <ActivityIndicator text={i18n._(t`Fetching player info...`)} />;
   }
+
   render() {
     const { report, fight, playerName, playerId } = this.props;
 
@@ -200,6 +208,7 @@ class PlayerLoader extends React.PureComponent {
     if (!combatants) {
       return this.renderLoading();
     }
+
 
     const players = playerId ? report.friendlies.filter(friendly => friendly.id === playerId) : report.friendlies.filter(friendly => friendly.name === playerName);
     const player = players[0];
@@ -257,11 +266,14 @@ class PlayerLoader extends React.PureComponent {
               return {
                 ...friendly,
                 combatant,
-                realm: exportedCharacter ? exportedCharacter.server : undefined,
+                server: exportedCharacter ? exportedCharacter.server : undefined,
                 region: exportedCharacter ? exportedCharacter.region : undefined,
               };
             }).filter(friendly => friendly !== null)}
             makeUrl={playerId => makeAnalyzerUrl(report, fight.id, playerId)}
+          />
+          <ReportRaidBuffList
+            combatants={combatants}
           />
         </div>
       );
@@ -287,5 +299,5 @@ export default compose(
   connect(mapStateToProps, {
     setCombatants,
     fetchCharacter,
-  })
+  }),
 )(PlayerLoader);

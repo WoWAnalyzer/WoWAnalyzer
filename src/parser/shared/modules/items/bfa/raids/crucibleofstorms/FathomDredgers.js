@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
@@ -31,7 +31,7 @@ class FathomDredgers extends Analyzer {
 
   _end(){
     const shield = this.selectedCombatant.getBuff(SPELLS.DREDGED_VITALITY.id);
-    if(shield !== undefined){
+    if (shield !== undefined) {
       this.wastedAbsorb += (shield.absorb || 0);
     }
   }

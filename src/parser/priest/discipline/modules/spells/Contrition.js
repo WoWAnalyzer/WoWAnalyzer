@@ -25,10 +25,10 @@ class Contrition extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(
-      SPELLS.CONTRITION_TALENT.id
+      SPELLS.CONTRITION_TALENT.id,
     );
     this.penanceBoltEstimation = OffensivePenanceBoltEstimation(
-      this.statTracker
+      this.statTracker,
     );
   }
 
@@ -61,7 +61,7 @@ class Contrition extends Analyzer {
       const estimatedOverhealing = calculateOverhealing(
         estimatedBoltHealing,
         event.amount,
-        event.overheal
+        event.overheal,
       );
 
       this.healing -= estimatedBoltHealing - estimatedOverhealing;

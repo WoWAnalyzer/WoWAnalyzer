@@ -6,6 +6,15 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 11, 29), <>Add a statistic counting the amount of maelstrom not wasted due to <SpellLink id={SPELLS.CALL_THE_THUNDER_TALENT.id} />.</>, [Draenal]),
+  change(date(2019, 11, 28), <>Added a statistic for <SpellLink id={SPELLS.NATURAL_HARMONY_TRAIT.id} /> to track avg crit, haste, mastery and uptime for each</>, [Draenal]),
+  change(date(2019, 11, 27), <>Add an <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> statistic to track uptime and healing.</>, [Draenal]),
+  change(date(2019, 10, 31), <>Add a checklist item for <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} /></>, [HawkCorrigan] ),
+  change(date(2019, 10, 31), <>Fixed formatting for SoP suggestion</>, [HawkCorrigan]),
+  change(date(2019, 10, 26), <>Add a checklist item for <SpellLink id={SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id} /> uptime.</>, [Draenal]),
+  change(date(2019, 10, 21), <>Add a checklist item for <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime and early refreshes.</>, [Draenal]),
+  change(date(2019, 10, 16), <>Count precast <SpellLink id={SPELLS.STORMKEEPER_TALENT.id} /> in total number of <SpellLink id={SPELLS.STORMKEEPER_TALENT.id} /> casts.</>, [TheJigglr]),
+  change(date(2019, 10, 12), <>Add suggestion and checklist for Icefury efficiency.</>, [Draenal]),
   change(date(2019, 10, 12), <>Added cancelled casts to downtime checklist. Add cancelled casts suggestion.</>, [Draenal]),
   change(date(2019, 8, 21), <>Added support for <SpellLink id={SPELLS.SURGE_OF_POWER_TALENT.id} /></>, [TheJigglr]),
   change(date(2019, 8, 14), <>Updated <SpellLink id={SPELLS.LAVA_BURST.id} /> to check for <SpellLink id={SPELLS.FLAME_SHOCK.id} /> on damage instead of on cast.</>, [Draenal]),

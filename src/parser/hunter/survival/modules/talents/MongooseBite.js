@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';

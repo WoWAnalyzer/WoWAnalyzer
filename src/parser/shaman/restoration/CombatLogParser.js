@@ -44,6 +44,7 @@ import Ascendance from './modules/talents/Ascendance';
 import Wellspring from './modules/talents/Wellspring';
 import HighTide from './modules/talents/HighTide';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
+import AncestralProtectionTotem from './modules/talents/AncestralProtectionTotem';
 // Spells
 import ChainHeal from './modules/spells/ChainHeal';
 import HealingSurge from './modules/spells/HealingSurge';
@@ -58,6 +59,7 @@ import SoothingWaters from './modules/azerite/SoothingWaters';
 import OverflowingShores from './modules/azerite/OverflowingShores';
 import SpoutingSpirits from './modules/azerite/SpoutingSpirits';
 import SurgingTides from './modules/azerite/SurgingTides';
+import TurnOfTheTide from './modules/azerite/TurnOfTheTide';
 import VisionOfPerfection from './modules/azerite/essences/VisionOfPerfection';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
@@ -115,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wellspring: Wellspring,
     highTide: HighTide,
     naturesGuardian: NaturesGuardian,
+    ancestralProtectionTotem: AncestralProtectionTotem,
     talentStatisticBox: TalentStatisticBox,
 
     // Spells:
@@ -134,6 +137,7 @@ class CombatLogParser extends CoreCombatLogParser {
     surgingTides: SurgingTides,
     synapseShock: SynapseShock,
     igneousPotential: IgneousPotential,
+    turnOfTheTide: TurnOfTheTide,
     visionOfPerfection: VisionOfPerfection,
 
     // Essences

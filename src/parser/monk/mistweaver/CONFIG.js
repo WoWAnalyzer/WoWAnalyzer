@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Anomoly, Abelito75 } from 'CONTRIBUTORS';
-import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 
 import CHANGELOG from './CHANGELOG';
@@ -10,7 +9,7 @@ export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [Anomoly, Abelito75],
   // The WoW client patch this spec was last updated to be fully compatible with.
-  patchCompatibility: '8.2.5',
+  patchCompatibility: '8.3',
   // If set to  false`, the spec will show up as unsupported.
   isSupported: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
@@ -31,7 +30,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "MistweaverMonk" */).then(exports => exports.default)),
+  parser: () => import('./CombatLogParser' /* webpackChunkName: "MistweaverMonk" */).then(exports => exports.default),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

@@ -9,7 +9,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 import Abilities from '../Abilities';
 
@@ -186,7 +186,7 @@ class IronJaws extends Analyzer {
       return suggest(
         <>
           Using just 1 <SpellLink id={SPELLS.IRON_JAWS_TRAIT.id} /> Azerite trait is usually a waste. The reduction in your damage output from using <SpellLink id={SPELLS.MAIM.id} /> is only just made up for by the trait's bonus damage, so you would be better off with almost any other Feral trait.
-        </>
+        </>,
       )
         .icon(SPELLS.IRON_JAWS_TRAIT.icon)
         .actual(`${actual} Iron Jaws traits.`)
@@ -197,7 +197,7 @@ class IronJaws extends Analyzer {
       return suggest(
         <>
           You're not making full use of your <SpellLink id={SPELLS.IRON_JAWS_TRAIT.id} /> Azerite trait. When <SpellLink id={SPELLS.IRON_JAWS_TRAIT.id} /> procs you should replace your next finisher with <SpellLink id={SPELLS.MAIM.id} /> to make use of the significant bonus damage.
-        </>
+        </>,
       )
         .icon(SPELLS.IRON_JAWS_TRAIT.icon)
         .actual(`${(actual * 100).toFixed(0)}% of Iron Jaws procs wasted.`)
@@ -208,7 +208,7 @@ class IronJaws extends Analyzer {
       return suggest(
         <>
           You're using <SpellLink id={SPELLS.MAIM.id} /> when it's not buffed by your <SpellLink id={SPELLS.IRON_JAWS_TRAIT.id} /> Azerite trait. Because of the cooldown on <SpellLink id={SPELLS.MAIM.id} /> this risks the ability not being available when <SpellLink id={SPELLS.IRON_JAWS_TRAIT.id} /> is active. If a fight requires you to regularly use <SpellLink id={SPELLS.MAIM.id} /> outside of your damage rotation, switching to different Azerite traits is likely to be beneficial.
-        </>
+        </>,
       )
         .icon(SPELLS.IRON_JAWS_TRAIT.icon)
         .actual(`${actual.toFixed(1)} unbuffed Maims per minute.`)
@@ -219,7 +219,7 @@ class IronJaws extends Analyzer {
       return suggest(
         <>
           You're using <SpellLink id={SPELLS.MAIM.id} /> without full combo points. With your <SpellLink id={SPELLS.IRON_JAWS_TRAIT.id} /> Azerite trait <SpellLink id={SPELLS.MAIM.id} /> becomes an important damage source, and using it without full combo points significantly reduces its damage.
-        </>
+        </>,
       )
         .icon(SPELLS.IRON_JAWS_TRAIT.icon)
         .actual(`${(actual * 100).toFixed(0)}% of Maims used without full combo points.`)

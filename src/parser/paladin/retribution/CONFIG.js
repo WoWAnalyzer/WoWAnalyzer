@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Juko8, Skeletor } from 'CONTRIBUTORS';
-import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 
 import CHANGELOG from './CHANGELOG';
@@ -29,7 +28,7 @@ export default {
   	</>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/DPwyKpWBZ6F947mx/2-Normal+Mekkatorque+-+Kill+(7:19)/3-Pepper',
+  exampleReport: '/report/BYXDCHGQyc3L98at/18-Mythic+Lady+Ashvane+-+Kill+(3:47)/Cellendis',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
@@ -37,7 +36,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "RetributionPaladin" */).then(exports => exports.default)),
+  parser: () => import('./CombatLogParser' /* webpackChunkName: "RetributionPaladin" */).then(exports => exports.default),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

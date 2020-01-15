@@ -3,7 +3,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import Events from 'parser/core/Events';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';
@@ -11,7 +11,7 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
 
 /**
  * Avenging Crusader
- * 
+ *
  *  You become the ultimate crusader of light, increasing your Crusader Strike, Judgment, and auto-attack damage by 30%.
  *  Crusader Strike and Judgment cool down 30% faster and heal up to 3 injured allies for 250% of the damage they deal. Lasts 20 sec.
  *  Example Log: https://www.warcraftlogs.com/reports/QNJxrchLwB3WtXqP#fight=last&type=healing&source=7

@@ -5,7 +5,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import { formatNumber } from 'common/format';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 const SPIRIT_DAMAGE_MULTIPLIER = 2;
 const SPIRIT_INSANITY_GENERATION = 2;

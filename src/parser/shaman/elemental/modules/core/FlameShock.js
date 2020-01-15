@@ -5,20 +5,56 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import EarlyDotRefreshesAnalyzer from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
+import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-class FlameShock extends Analyzer {
+class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {
+    ...EarlyDotRefreshesAnalyzer.dependencies,
     enemies: Enemies,
   };
+
+  static dots = [{
+    name: "Flame Shock",
+    debuffId: SPELLS.FLAME_SHOCK.id,
+    castId: SPELLS.FLAME_SHOCK.id,
+    duration: 24000,
+    movementFiller: true,
+  }]
 
   badLavaBursts = 0;
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.FLAME_SHOCK.id) / this.owner.fightDuration;
+  }
+
+  get refreshThreshold() {
+    return {
+      spell: SPELLS.FLAME_SHOCK,
+      count: this.casts[SPELLS.FLAME_SHOCK.id].badCasts,
+      actual: this.badCastsPercent(SPELLS.FLAME_SHOCK.id),
+      isGreaterThan: {
+        minor: 0.10,
+        average: 0.20,
+        major: 0.30,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get uptimeThreshold() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.99,
+        average: 0.95,
+        major: 0.85,
+      },
+      style: 'percentage',
+    };
   }
 
   on_byPlayer_damage(event) {
@@ -33,14 +69,12 @@ class FlameShock extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.uptime).isLessThan(0.99)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.</span>)
-          .icon(SPELLS.FLAME_SHOCK.icon)
-          .actual(`${formatPercentage(actual)}% uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.15);
-      });
+    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<span>Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.</span>)
+        .icon(SPELLS.FLAME_SHOCK.icon)
+        .actual(`${formatPercentage(actual)}% uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
 
     when(this.badLavaBursts).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
@@ -50,6 +84,8 @@ class FlameShock extends Analyzer {
           .recommended(`0 is recommended`)
           .major(recommended+1);
       });
+
+    badRefreshSuggestion(when, this.refreshThreshold);
   }
 
   statistic() {

@@ -2,7 +2,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatPercentage, formatThousands } from 'common/format';
 
 // Example Log: /report/aBxvzDZJQP7431Nt/21-Normal+G'huun+-+Kill+(7:11)/15-Liarine

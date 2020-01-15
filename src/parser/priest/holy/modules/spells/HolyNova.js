@@ -6,8 +6,8 @@ import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatPercentage, formatNumber } from 'common/format';
 
 class HolyNova extends Analyzer {
@@ -40,7 +40,7 @@ class HolyNova extends Analyzer {
   }
 
   get damageDone() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).damageEffective;
+    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).damageEffective || 0;
   }
 
   get averageFriendlyTargetsHit() {
@@ -84,6 +84,9 @@ class HolyNova extends Analyzer {
   }
 
   statistic() {
+    if (this.casts === 0) {
+      return (<></>);
+    }
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HOLY_NOVA.id} />}

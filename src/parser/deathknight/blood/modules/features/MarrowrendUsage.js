@@ -58,14 +58,14 @@ class MarrowrendUsage extends Analyzer {
   on_toPlayer_applybuff(event) {
     if (event.ability.guid === SPELLS.BONE_SHIELD.id){
       this.currentBoneShieldBuffer += 1;
-      this.currentBoneShieldStacks += 1;
+      this.currentBoneShieldStacks = event.stack;
     }
   }
 
   on_toPlayer_applybuffstack(event) {
     if (event.ability.guid === SPELLS.BONE_SHIELD.id){
       this.currentBoneShieldBuffer += 1;
-      this.currentBoneShieldStacks += 1;
+      this.currentBoneShieldStacks = event.stack;
     }
   }
 
@@ -79,7 +79,7 @@ class MarrowrendUsage extends Analyzer {
   on_toPlayer_removebuffstack(event) {
     if (event.ability.guid === SPELLS.BONE_SHIELD.id){
       this.currentBoneShieldBuffer = 0;
-      this.currentBoneShieldStacks -= 1;
+      this.currentBoneShieldStacks = event.stack;
     }
   }
 
@@ -99,7 +99,7 @@ class MarrowrendUsage extends Analyzer {
         const wasted = MR_GAIN - this.currentBoneShieldBuffer;
         this.badMRCasts += 1;
         this.bsStacksWasted += wasted;
-        badCast = badCast + `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${(durationLeft).toFixed(1)} seconds left, wasting ${wasted} charges.<br />`;
+        badCast = badCast + `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${(durationLeft).toFixed(1)} seconds left, wasting ${wasted} charges.`;
       }
 
       if (this.hasBonesOfTheDamned && boneShieldStacks >= REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED) {

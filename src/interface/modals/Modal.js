@@ -48,5 +48,5 @@ export default connect(
   {
     openModal,
     closeModal,
-  }
+  },
 )(Modal);

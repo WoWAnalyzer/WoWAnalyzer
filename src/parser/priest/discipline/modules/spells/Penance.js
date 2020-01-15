@@ -20,7 +20,7 @@ class Penance extends Analyzer {
 
     // Castigation Penance bolt count to 4 (from 3)
     this._boltCount = this.selectedCombatant.hasTalent(
-      SPELLS.CASTIGATION_TALENT.id
+      SPELLS.CASTIGATION_TALENT.id,
     )
       ? 4
       : 3;
@@ -32,7 +32,7 @@ class Penance extends Analyzer {
   get missedBolts() {
     return [...this.eventGrouper].reduce(
       (missedBolts, cast) => missedBolts + (this._boltCount - cast.length),
-      0
+      0,
     );
   }
 

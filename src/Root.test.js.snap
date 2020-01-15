@@ -1,0 +1,1602 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Root matches snapshot 1`] = `
+<Root>
+  <Provider
+    store={
+      Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+        Symbol(observable): [Function],
+      }
+    }
+  >
+    <RootErrorBoundary>
+      <ErrorBoundary>
+        <RootLocalizationProvider>
+          <Connect(LocalizationLoader)>
+            <LocalizationLoader
+              dispatch={[Function]}
+              language="en"
+            >
+              <I18nProvider
+                catalogs={Object {}}
+                defaultRender={null}
+                i18n={
+                  I18n {
+                    "_activeMessages": Object {},
+                    "_catalogs": Object {},
+                    "_dev": Object {
+                      "compile": [Function],
+                      "loadLanguageData": [Function],
+                    },
+                    "_missing": undefined,
+                    "plural": [Function],
+                    "select": [Function],
+                    "selectOrdinal": [Function],
+                    "t": [Function],
+                  }
+                }
+                language="en"
+              >
+                <Connect(ConnectedRouterWithContext)
+                  history={
+                    Object {
+                      "action": "POP",
+                      "block": [Function],
+                      "createHref": [Function],
+                      "go": [Function],
+                      "goBack": [Function],
+                      "goForward": [Function],
+                      "length": 1,
+                      "listen": [Function],
+                      "location": Object {
+                        "hash": "",
+                        "pathname": "/",
+                        "search": "",
+                        "state": undefined,
+                      },
+                      "push": [Function],
+                      "replace": [Function],
+                    }
+                  }
+                >
+                  <ConnectedRouterWithContext
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "createHref": [Function],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "pathname": "/",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    onLocationChanged={[Function]}
+                  >
+                    <ConnectedRouter
+                      history={
+                        Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "createHref": [Function],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "length": 1,
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/",
+                            "search": "",
+                            "state": undefined,
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        }
+                      }
+                      onLocationChanged={[Function]}
+                      store={
+                        Object {
+                          "dispatch": [Function],
+                          "getState": [Function],
+                          "replaceReducer": [Function],
+                          "subscribe": [Function],
+                          Symbol(observable): [Function],
+                        }
+                      }
+                    >
+                      <Router
+                        history={
+                          Object {
+                            "action": "POP",
+                            "block": [Function],
+                            "createHref": [Function],
+                            "go": [Function],
+                            "goBack": [Function],
+                            "goForward": [Function],
+                            "length": 1,
+                            "listen": [Function],
+                            "location": Object {
+                              "hash": "",
+                              "pathname": "/",
+                              "search": "",
+                              "state": undefined,
+                            },
+                            "push": [Function],
+                            "replace": [Function],
+                          }
+                        }
+                      >
+                        <withRouter(Connect(App))>
+                          <Connect(App)
+                            history={
+                              Object {
+                                "action": "POP",
+                                "block": [Function],
+                                "createHref": [Function],
+                                "go": [Function],
+                                "goBack": [Function],
+                                "goForward": [Function],
+                                "length": 1,
+                                "listen": [Function],
+                                "location": Object {
+                                  "hash": "",
+                                  "pathname": "/",
+                                  "search": "",
+                                  "state": undefined,
+                                },
+                                "push": [Function],
+                                "replace": [Function],
+                              }
+                            }
+                            location={
+                              Object {
+                                "hash": "",
+                                "pathname": "/",
+                                "search": "",
+                                "state": undefined,
+                              }
+                            }
+                            match={
+                              Object {
+                                "isExact": true,
+                                "params": Object {},
+                                "path": "/",
+                                "url": "/",
+                              }
+                            }
+                          >
+                            <App
+                              clearError={[Function]}
+                              error={null}
+                              fetchUser={[Function]}
+                              history={
+                                Object {
+                                  "action": "POP",
+                                  "block": [Function],
+                                  "createHref": [Function],
+                                  "go": [Function],
+                                  "goBack": [Function],
+                                  "goForward": [Function],
+                                  "length": 1,
+                                  "listen": [Function],
+                                  "location": Object {
+                                    "hash": "",
+                                    "pathname": "/",
+                                    "search": "",
+                                    "state": undefined,
+                                  },
+                                  "push": [Function],
+                                  "replace": [Function],
+                                }
+                              }
+                              internetExplorerError={[Function]}
+                              location={
+                                Object {
+                                  "hash": "",
+                                  "pathname": "/",
+                                  "search": "",
+                                  "state": undefined,
+                                }
+                              }
+                              match={
+                                Object {
+                                  "isExact": true,
+                                  "params": Object {},
+                                  "path": "/",
+                                  "url": "/",
+                                }
+                              }
+                              openModals={0}
+                              push={[Function]}
+                            >
+                              <div
+                                className="app "
+                              >
+                                <Switch>
+                                  <Route
+                                    component={
+                                      Object {
+                                        "$$typeof": Symbol(react.memo),
+                                        "WrappedComponent": [Function],
+                                        "compare": null,
+                                        "displayName": "Connect(Home)",
+                                        "type": [Function],
+                                      }
+                                    }
+                                    computedMatch={
+                                      Object {
+                                        "isExact": true,
+                                        "params": Object {},
+                                        "path": "/",
+                                        "url": "/",
+                                      }
+                                    }
+                                    location={
+                                      Object {
+                                        "hash": "",
+                                        "pathname": "/",
+                                        "search": "",
+                                        "state": undefined,
+                                      }
+                                    }
+                                  >
+                                    <Connect(Home)
+                                      history={
+                                        Object {
+                                          "action": "POP",
+                                          "block": [Function],
+                                          "createHref": [Function],
+                                          "go": [Function],
+                                          "goBack": [Function],
+                                          "goForward": [Function],
+                                          "length": 1,
+                                          "listen": [Function],
+                                          "location": Object {
+                                            "hash": "",
+                                            "pathname": "/",
+                                            "search": "",
+                                            "state": undefined,
+                                          },
+                                          "push": [Function],
+                                          "replace": [Function],
+                                        }
+                                      }
+                                      location={
+                                        Object {
+                                          "hash": "",
+                                          "pathname": "/",
+                                          "search": "",
+                                          "state": undefined,
+                                        }
+                                      }
+                                      match={
+                                        Object {
+                                          "isExact": true,
+                                          "params": Object {},
+                                          "path": "/",
+                                          "url": "/",
+                                        }
+                                      }
+                                    >
+                                      <Home
+                                        dispatch={[Function]}
+                                        history={
+                                          Object {
+                                            "action": "POP",
+                                            "block": [Function],
+                                            "createHref": [Function],
+                                            "go": [Function],
+                                            "goBack": [Function],
+                                            "goForward": [Function],
+                                            "length": 1,
+                                            "listen": [Function],
+                                            "location": Object {
+                                              "hash": "",
+                                              "pathname": "/",
+                                              "search": "",
+                                              "state": undefined,
+                                            },
+                                            "push": [Function],
+                                            "replace": [Function],
+                                          }
+                                        }
+                                        location={
+                                          Object {
+                                            "hash": "",
+                                            "pathname": "/",
+                                            "search": "",
+                                            "state": undefined,
+                                          }
+                                        }
+                                        match={
+                                          Object {
+                                            "isExact": true,
+                                            "params": Object {},
+                                            "path": "/",
+                                            "url": "/",
+                                          }
+                                        }
+                                        premium={null}
+                                      >
+                                        <div
+                                          className="home-page"
+                                        >
+                                          <div
+                                            className="container"
+                                            style={
+                                              Object {
+                                                "fontSize": 10,
+                                                "marginTop": 10,
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="row"
+                                            >
+                                              <div
+                                                className="col-xs-12 col-sm-6"
+                                              >
+                                                <PatreonButton
+                                                  style={
+                                                    Object {
+                                                      "marginRight": 10,
+                                                    }
+                                                  }
+                                                >
+                                                  <a
+                                                    className="btn patreon"
+                                                    href="https://www.patreon.com/join/wowanalyzer"
+                                                    role="button"
+                                                    style={
+                                                      Object {
+                                                        "marginRight": 10,
+                                                      }
+                                                    }
+                                                  >
+                                                    <Icon>
+                                                      <svg
+                                                        className="icon"
+                                                        viewBox="0 0 100 96"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                      >
+                                                        <g
+                                                          fillRule="evenodd"
+                                                        >
+                                                          <path
+                                                            d="M64.1102,0.1004 C44.259,0.1004 28.1086,16.2486 28.1086,36.0986 C28.1086,55.8884 44.259,71.989 64.1102,71.989 C83.9,71.989 100,55.8884 100,36.0986 C100,16.2486 83.9,0.1004 64.1102,0.1004"
+                                                          />
+                                                          <polygon
+                                                            points=".012 95.988 17.59 95.988 17.59 .1 .012 .1"
+                                                          />
+                                                        </g>
+                                                      </svg>
+                                                    </Icon>
+                                                     
+                                                    Become a Patron
+                                                  </a>
+                                                </PatreonButton>
+                                                <DiscordButton
+                                                  style={
+                                                    Object {
+                                                      "marginRight": 10,
+                                                    }
+                                                  }
+                                                >
+                                                  <a
+                                                    className="btn discord"
+                                                    href="https://discord.gg/AxphPxU"
+                                                    role="button"
+                                                    style={
+                                                      Object {
+                                                        "marginRight": 10,
+                                                      }
+                                                    }
+                                                  >
+                                                    <Icon>
+                                                      <svg
+                                                        className="icon"
+                                                        viewBox="36.9 36.9 725.6 198.3"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                      >
+                                                        <path
+                                                          d="M142.8 120.1c-5.7 0-10.2 4.9-10.2 11s4.6 11 10.2 11c5.7 0 10.2-4.9 10.2-11s-4.6-11-10.2-11zM106.3 120.1c-5.7 0-10.2 4.9-10.2 11s4.6 11 10.2 11c5.7 0 10.2-4.9 10.2-11 .1-6.1-4.5-11-10.2-11z"
+                                                        />
+                                                        <path
+                                                          d="M191.4 36.9h-134c-11.3 0-20.5 9.2-20.5 20.5v134c0 11.3 9.2 20.5 20.5 20.5h113.4l-5.3-18.3 12.8 11.8 12.1 11.1 21.6 18.7V57.4c-.1-11.3-9.3-20.5-20.6-20.5zm-38.6 129.5s-3.6-4.3-6.6-8c13.1-3.7 18.1-11.8 18.1-11.8-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.4-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.6-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.2-1.8-1-2.8-1.7-2.8-1.7s4.8 7.9 17.5 11.7c-3 3.8-6.7 8.2-6.7 8.2-22.1-.7-30.5-15.1-30.5-15.1 0-31.9 14.4-57.8 14.4-57.8 14.4-10.7 28-10.4 28-10.4l1 1.2c-18 5.1-26.2 13-26.2 13s2.2-1.2 5.9-2.8c10.7-4.7 19.2-5.9 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.5 0 0-7.9-7.5-24.9-12.6l1.4-1.6s13.7-.3 28 10.4c0 0 14.4 25.9 14.4 57.8 0-.1-8.4 14.3-30.5 15zM303.8 79.7h-33.2V117l22.1 19.9v-36.2h11.8c7.5 0 11.2 3.6 11.2 9.4v27.7c0 5.8-3.5 9.7-11.2 9.7h-34v21.1h33.2c17.8.1 34.5-8.8 34.5-29.2v-29.8c.1-20.8-16.6-29.9-34.4-29.9zm174 59.7v-30.6c0-11 19.8-13.5 25.8-2.5l18.3-7.4c-7.2-15.8-20.3-20.4-31.2-20.4-17.8 0-35.4 10.3-35.4 30.3v30.6c0 20.2 17.6 30.3 35 30.3 11.2 0 24.6-5.5 32-19.9l-19.6-9c-4.8 12.3-24.9 9.3-24.9-1.4zM417.3 113c-6.9-1.5-11.5-4-11.8-8.3.4-10.3 16.3-10.7 25.6-.8l14.7-11.3c-9.2-11.2-19.6-14.2-30.3-14.2-16.3 0-32.1 9.2-32.1 26.6 0 16.9 13 26 27.3 28.2 7.3 1 15.4 3.9 15.2 8.9-.6 9.5-20.2 9-29.1-1.8l-14.2 13.3c8.3 10.7 19.6 16.1 30.2 16.1 16.3 0 34.4-9.4 35.1-26.6 1-21.7-14.8-27.2-30.6-30.1zm-67 55.5h22.4V79.7h-22.4v88.8zM728 79.7h-33.2V117l22.1 19.9v-36.2h11.8c7.5 0 11.2 3.6 11.2 9.4v27.7c0 5.8-3.5 9.7-11.2 9.7h-34v21.1H728c17.8.1 34.5-8.8 34.5-29.2v-29.8c0-20.8-16.7-29.9-34.5-29.9zm-162.9-1.2c-18.4 0-36.7 10-36.7 30.5v30.3c0 20.3 18.4 30.5 36.9 30.5 18.4 0 36.7-10.2 36.7-30.5V109c0-20.4-18.5-30.5-36.9-30.5zm14.4 60.8c0 6.4-7.2 9.7-14.3 9.7-7.2 0-14.4-3.1-14.4-9.7V109c0-6.5 7-10 14-10 7.3 0 14.7 3.1 14.7 10v30.3zM682.4 109c-.5-20.8-14.7-29.2-33-29.2h-35.5v88.8h22.7v-28.2h4l20.6 28.2h28L665 138.1c10.7-3.4 17.4-12.7 17.4-29.1zm-32.6 12h-13.2v-20.3h13.2c14.1 0 14.1 20.3 0 20.3z"
+                                                        />
+                                                      </svg>
+                                                    </Icon>
+                                                  </a>
+                                                </DiscordButton>
+                                              </div>
+                                              <div
+                                                className="col-xs-12 col-sm-6 text-right"
+                                              >
+                                                <a
+                                                  href="https://github.com/WoWAnalyzer/WoWAnalyzer/actions?query=workflow%3ABuild"
+                                                >
+                                                  <img
+                                                    alt="Build status"
+                                                    src="https://github.com/WoWAnalyzer/WoWAnalyzer/workflows/Build/badge.svg"
+                                                    style={
+                                                      Object {
+                                                        "height": "2.8em",
+                                                      }
+                                                    }
+                                                  />
+                                                </a>
+                                                <GithubButton
+                                                  style={
+                                                    Object {
+                                                      "marginLeft": 10,
+                                                    }
+                                                  }
+                                                >
+                                                  <a
+                                                    className="btn github"
+                                                    href="https://github.com/WoWAnalyzer/WoWAnalyzer"
+                                                    role="button"
+                                                    style={
+                                                      Object {
+                                                        "marginLeft": 10,
+                                                      }
+                                                    }
+                                                  >
+                                                    <Icon>
+                                                      <svg
+                                                        className="icon"
+                                                        viewBox="0 0 1024 1000"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                      >
+                                                        <path
+                                                          d="M512 0C229.25 0 0 229.25 0 512c0 226.25 146.688 418.125 350.156 485.812 25.594 4.688 34.938-11.125 34.938-24.625 0-12.188-0.469-52.562-0.719-95.312C242 908.812 211.906 817.5 211.906 817.5c-23.312-59.125-56.844-74.875-56.844-74.875-46.531-31.75 3.53-31.125 3.53-31.125 51.406 3.562 78.47 52.75 78.47 52.75 45.688 78.25 119.875 55.625 149 42.5 4.654-33 17.904-55.625 32.5-68.375C304.906 725.438 185.344 681.5 185.344 485.312c0-55.938 19.969-101.562 52.656-137.406-5.219-13-22.844-65.094 5.062-135.562 0 0 42.938-13.75 140.812 52.5 40.812-11.406 84.594-17.031 128.125-17.219 43.5 0.188 87.312 5.875 128.188 17.281 97.688-66.312 140.688-52.5 140.688-52.5 28 70.531 10.375 122.562 5.125 135.5 32.812 35.844 52.625 81.469 52.625 137.406 0 196.688-119.75 240-233.812 252.688 18.438 15.875 34.75 47 34.75 94.75 0 68.438-0.688 123.625-0.688 140.5 0 13.625 9.312 29.562 35.25 24.562C877.438 930 1024 738.125 1024 512 1024 229.25 794.75 0 512 0z"
+                                                        />
+                                                      </svg>
+                                                    </Icon>
+                                                     
+                                                    View source on GitHub
+                                                  </a>
+                                                </GithubButton>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <Connect(ReportSelectionHeader)>
+                                            <ReportSelectionHeader
+                                              dispatch={[Function]}
+                                              reportHistory={Array []}
+                                            >
+                                              <header
+                                                className="report-selection"
+                                              >
+                                                <div
+                                                  className="container"
+                                                >
+                                                  <div
+                                                    className="row"
+                                                  >
+                                                    <div
+                                                      className="col-md-12"
+                                                    >
+                                                      <a
+                                                        className="brand-name"
+                                                        href="/"
+                                                      >
+                                                        <ForwardRef(SvgLogo)>
+                                                          <svg>
+                                                            logo.svg
+                                                          </svg>
+                                                        </ForwardRef(SvgLogo)>
+                                                        <h1>
+                                                          WoWAnalyzer
+                                                        </h1>
+                                                      </a>
+                                                      <WithI18n
+                                                        components={
+                                                          Array [
+                                                            <a
+                                                              href="https://www.warcraftlogs.com/"
+                                                              rel="noopener noreferrer"
+                                                              target="_blank"
+                                                            />,
+                                                          ]
+                                                        }
+                                                        id="Improve your performance with personal feedback and stats. Just enter the link of a <0>Warcraft Logs</0> report:"
+                                                      >
+                                                        <I18n
+                                                          update={true}
+                                                          withHash={true}
+                                                        >
+                                                          <Trans
+                                                            components={
+                                                              Array [
+                                                                <a
+                                                                  href="https://www.warcraftlogs.com/"
+                                                                  rel="noopener noreferrer"
+                                                                  target="_blank"
+                                                                />,
+                                                              ]
+                                                            }
+                                                            i18n={
+                                                              I18n {
+                                                                "_activeMessages": Object {},
+                                                                "_catalogs": Object {},
+                                                                "_dev": Object {
+                                                                  "compile": [Function],
+                                                                  "loadLanguageData": [Function],
+                                                                },
+                                                                "_missing": undefined,
+                                                                "plural": [Function],
+                                                                "select": [Function],
+                                                                "selectOrdinal": [Function],
+                                                                "t": [Function],
+                                                              }
+                                                            }
+                                                            i18nHash={null}
+                                                            id="Improve your performance with personal feedback and stats. Just enter the link of a <0>Warcraft Logs</0> report:"
+                                                          >
+                                                            <Render
+                                                              value={
+                                                                Array [
+                                                                  "Improve your performance with personal feedback and stats. Just enter the link of a ",
+                                                                  <a
+                                                                    href="https://www.warcraftlogs.com/"
+                                                                    rel="noopener noreferrer"
+                                                                    target="_blank"
+                                                                  >
+                                                                    Warcraft Logs
+                                                                  </a>,
+                                                                  " report:",
+                                                                ]
+                                                              }
+                                                            >
+                                                              Improve your performance with personal feedback and stats. Just enter the link of a 
+                                                              <a
+                                                                href="https://www.warcraftlogs.com/"
+                                                                key="0"
+                                                                rel="noopener noreferrer"
+                                                                target="_blank"
+                                                              >
+                                                                Warcraft Logs
+                                                              </a>
+                                                               report:
+                                                            </Render>
+                                                          </Trans>
+                                                        </I18n>
+                                                      </WithI18n>
+                                                      <div
+                                                        style={
+                                                          Object {
+                                                            "margin": "30px auto",
+                                                            "maxWidth": 700,
+                                                            "textAlign": "left",
+                                                          }
+                                                        }
+                                                      >
+                                                        <Connect(ReportSelecter)>
+                                                          <ReportSelecter
+                                                            push={[Function]}
+                                                          >
+                                                            <form
+                                                              className="form-inline"
+                                                              onSubmit={[Function]}
+                                                            >
+                                                              <div
+                                                                className="report-selector"
+                                                              >
+                                                                <Tooltip
+                                                                  className=""
+                                                                  content={
+                                                                    <WithI18n
+                                                                      components={
+                                                                        Array [
+                                                                          <br />,
+                                                                          <ul />,
+                                                                          <li />,
+                                                                          <li />,
+                                                                          <li />,
+                                                                          <li />,
+                                                                        ]
+                                                                      }
+                                                                      id="Supported links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>"
+                                                                    />
+                                                                  }
+                                                                  direction="down"
+                                                                  hoverable={false}
+                                                                >
+                                                                  <Tooltip
+                                                                    arrow={true}
+                                                                    arrowSize={10}
+                                                                    background=""
+                                                                    className=""
+                                                                    color=""
+                                                                    content={
+                                                                      <WithI18n
+                                                                        components={
+                                                                          Array [
+                                                                            <br />,
+                                                                            <ul />,
+                                                                            <li />,
+                                                                            <li />,
+                                                                            <li />,
+                                                                            <li />,
+                                                                          ]
+                                                                        }
+                                                                        id="Supported links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>"
+                                                                      />
+                                                                    }
+                                                                    direction="down"
+                                                                    hoverDelay={0}
+                                                                    padding="10px"
+                                                                    tipContentHover={false}
+                                                                    useDefaultStyles={false}
+                                                                    useHover={true}
+                                                                  >
+                                                                    <div
+                                                                      key=".0"
+                                                                      onMouseEnter={[Function]}
+                                                                      onMouseLeave={[Function]}
+                                                                      onTouchStart={[Function]}
+                                                                      style={
+                                                                        Object {
+                                                                          "cursor": "help",
+                                                                          "flex": "1 1",
+                                                                          "padding": 0,
+                                                                        }
+                                                                      }
+                                                                    >
+                                                                      <input
+                                                                        autoCapitalize="off"
+                                                                        autoCorrect="off"
+                                                                        className="form-control"
+                                                                        data-delay-show="200"
+                                                                        name="code"
+                                                                        onChange={[Function]}
+                                                                        placeholder="https://www.warcraftlogs.com/reports/<report code>"
+                                                                        spellCheck="false"
+                                                                        style={
+                                                                          Object {
+                                                                            "height": "100%",
+                                                                            "width": "100%",
+                                                                          }
+                                                                        }
+                                                                        type="text"
+                                                                      />
+                                                                    </div>
+                                                                  </Tooltip>
+                                                                </Tooltip>
+                                                                <button
+                                                                  className="btn btn-primary analyze"
+                                                                  type="submit"
+                                                                >
+                                                                  <WithI18n
+                                                                    id="Analyze"
+                                                                  >
+                                                                    <I18n
+                                                                      update={true}
+                                                                      withHash={true}
+                                                                    >
+                                                                      <Trans
+                                                                        i18n={
+                                                                          I18n {
+                                                                            "_activeMessages": Object {},
+                                                                            "_catalogs": Object {},
+                                                                            "_dev": Object {
+                                                                              "compile": [Function],
+                                                                              "loadLanguageData": [Function],
+                                                                            },
+                                                                            "_missing": undefined,
+                                                                            "plural": [Function],
+                                                                            "select": [Function],
+                                                                            "selectOrdinal": [Function],
+                                                                            "t": [Function],
+                                                                          }
+                                                                        }
+                                                                        i18nHash={null}
+                                                                        id="Analyze"
+                                                                      >
+                                                                        <Render
+                                                                          value="Analyze"
+                                                                        >
+                                                                          Analyze
+                                                                        </Render>
+                                                                      </Trans>
+                                                                    </I18n>
+                                                                  </WithI18n>
+                                                                   
+                                                                  <span
+                                                                    aria-hidden={true}
+                                                                    className="glyphicon glyphicon-chevron-right"
+                                                                  />
+                                                                </button>
+                                                              </div>
+                                                            </form>
+                                                          </ReportSelecter>
+                                                        </Connect(ReportSelecter)>
+                                                        <WithI18n
+                                                          components={
+                                                            Array [
+                                                              <a
+                                                                href="/"
+                                                                onClick={[Function]}
+                                                              />,
+                                                            ]
+                                                          }
+                                                          id="or <0>search for a character</0>."
+                                                        >
+                                                          <I18n
+                                                            update={true}
+                                                            withHash={true}
+                                                          >
+                                                            <Trans
+                                                              components={
+                                                                Array [
+                                                                  <a
+                                                                    href="/"
+                                                                    onClick={[Function]}
+                                                                  />,
+                                                                ]
+                                                              }
+                                                              i18n={
+                                                                I18n {
+                                                                  "_activeMessages": Object {},
+                                                                  "_catalogs": Object {},
+                                                                  "_dev": Object {
+                                                                    "compile": [Function],
+                                                                    "loadLanguageData": [Function],
+                                                                  },
+                                                                  "_missing": undefined,
+                                                                  "plural": [Function],
+                                                                  "select": [Function],
+                                                                  "selectOrdinal": [Function],
+                                                                  "t": [Function],
+                                                                }
+                                                              }
+                                                              i18nHash={null}
+                                                              id="or <0>search for a character</0>."
+                                                            >
+                                                              <Render
+                                                                value={
+                                                                  Array [
+                                                                    "or ",
+                                                                    <a
+                                                                      href="/"
+                                                                      onClick={[Function]}
+                                                                    >
+                                                                      search for a character
+                                                                    </a>,
+                                                                    ".",
+                                                                  ]
+                                                                }
+                                                              >
+                                                                or 
+                                                                <a
+                                                                  href="/"
+                                                                  key="0"
+                                                                  onClick={[Function]}
+                                                                >
+                                                                  search for a character
+                                                                </a>
+                                                                .
+                                                              </Render>
+                                                            </Trans>
+                                                          </I18n>
+                                                        </WithI18n>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </header>
+                                            </ReportSelectionHeader>
+                                          </Connect(ReportSelectionHeader)>
+                                          <main
+                                            className="container"
+                                          >
+                                            <nav>
+                                              <ul>
+                                                <li
+                                                  className="active"
+                                                  key="news"
+                                                >
+                                                  <Link
+                                                    to="/news"
+                                                  >
+                                                    <LinkAnchor
+                                                      href="/news"
+                                                      navigate={[Function]}
+                                                    >
+                                                      <a
+                                                        href="/news"
+                                                        onClick={[Function]}
+                                                      >
+                                                        <Icon
+                                                          className="icon"
+                                                        >
+                                                          <svg
+                                                            className="icon"
+                                                            viewBox="0 0 100 100"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                          >
+                                                            <path
+                                                              d="M77.2,7c-3.5,0-6.4,2.4-7.1,5.8L28.7,27.7H14.8c-4.4,0-8,3.6-8,8v22.8c0,0.2,0,0.4,0.1,0.6l0,0   l8.4,30.4c0.2,0.8,0.9,1.4,1.8,1.5h16.4c1.1,0,2-0.9,2-2c0-0.2,0-0.3-0.1-0.5l-4.6-17.7L43,65l27.2,8.5c0.6,3.9,4.3,6.6,8.3,6   c3.6-0.6,6.2-3.8,6-7.5V61.2l4.3-0.8c3.8-0.7,6.5-4,6.5-7.9V34.6c0-3.9-2.7-7.2-6.5-7.9L84.4,26V14.3c0.1-4-3.1-7.2-7.1-7.3   C77.3,7,77.2,7,77.2,7z M31.1,31L70,17.1v52.1L31.1,57.1L31.1,31z M10.8,35.7c0-2.2,1.8-4,4-4h12.3v24.8H10.8V35.7z M27.6,67.9   c-0.9,0.4-1.3,1.4-1.1,2.3L30.9,87H18.7l-7.3-26.5h17.3l8.6,2.7L27.6,67.9z M80.4,71.9c0,1.8-1.4,3.2-3.2,3.2   c-1.8,0-3.2-1.4-3.2-3.2V14.3c0-1.8,1.4-3.2,3.2-3.2c1.8,0,3.2,1.4,3.2,3.2V71.9z M87.9,30.7c1.9,0.3,3.3,2,3.3,3.9v18   c0,1.9-1.4,3.6-3.3,3.9l-3.5,0.7V30L87.9,30.7z"
+                                                            />
+                                                          </svg>
+                                                        </Icon>
+                                                        <WithI18n
+                                                          id="News"
+                                                        >
+                                                          <I18n
+                                                            update={true}
+                                                            withHash={true}
+                                                          >
+                                                            <Trans
+                                                              i18n={
+                                                                I18n {
+                                                                  "_activeMessages": Object {},
+                                                                  "_catalogs": Object {},
+                                                                  "_dev": Object {
+                                                                    "compile": [Function],
+                                                                    "loadLanguageData": [Function],
+                                                                  },
+                                                                  "_missing": undefined,
+                                                                  "plural": [Function],
+                                                                  "select": [Function],
+                                                                  "selectOrdinal": [Function],
+                                                                  "t": [Function],
+                                                                }
+                                                              }
+                                                              i18nHash={null}
+                                                              id="News"
+                                                            >
+                                                              <Render
+                                                                value="News"
+                                                              >
+                                                                News
+                                                              </Render>
+                                                            </Trans>
+                                                          </I18n>
+                                                        </WithI18n>
+                                                      </a>
+                                                    </LinkAnchor>
+                                                  </Link>
+                                                </li>
+                                                <li
+                                                  key="specs"
+                                                >
+                                                  <Link
+                                                    to="/specs"
+                                                  >
+                                                    <LinkAnchor
+                                                      href="/specs"
+                                                      navigate={[Function]}
+                                                    >
+                                                      <a
+                                                        href="/specs"
+                                                        onClick={[Function]}
+                                                      >
+                                                        <Icon
+                                                          className="icon"
+                                                        >
+                                                          <svg
+                                                            className="icon"
+                                                            viewBox="0 0 91 91"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                          >
+                                                            <path
+                                                              d="M19.963,13.482c0.555,0,1.107-0.138,1.615-0.407c7.332-4.026,15.4-6.069,23.98-6.069c8.563,0,15.746,1.819,23.961,6.052    c0.48,0.282,1.039,0.432,1.615,0.432h0.008h0.006c1.271-0.015,2.445-0.765,2.969-1.859c0.424-0.792,0.514-1.701,0.25-2.563    c-0.266-0.865-0.861-1.575-1.678-2.002c-9.186-4.728-17.553-6.836-27.131-6.836c-9.65,0-18.813,2.32-27.246,6.9    c-1.639,0.914-2.229,2.927-1.332,4.612C17.588,12.816,18.73,13.482,19.963,13.482z"
+                                                            />
+                                                            <path
+                                                              d="M45.516,39.06c10.678,0,19.363,8.151,19.363,18.169c0,1.898,1.488,3.387,3.387,3.387c1.902,0,3.389-1.488,3.389-3.387    c0-13.752-11.725-24.943-26.139-24.943c-14.41,0-26.137,11.191-26.137,24.943c0,7.314,1.652,14.131,4.775,19.705    c3.035,5.479,5.158,7.996,9.031,11.867c0.611,0.666,1.49,1.047,2.412,1.047c0.885,0,1.723-0.334,2.49-1.033    c1.264-1.332,1.266-3.42-0.016-4.771c-3.455-3.504-5.254-5.547-7.971-10.426c-2.582-4.572-3.947-10.24-3.947-16.389    C26.154,47.211,34.84,39.06,45.516,39.06z"
+                                                            />
+                                                            <path
+                                                              d="M82.898,57.186c0-19.686-16.848-35.704-37.555-35.704c-14.691,0-28.107,8.225-34.178,20.958    C9.1,46.809,8.051,51.785,8.051,57.23c0.008,6.139,1.119,12.154,3.291,17.861c0.477,1.316,1.748,2.205,3.17,2.205    c0.402,0,0.799-0.072,1.152-0.207c0.855-0.303,1.535-0.922,1.914-1.742c0.383-0.834,0.41-1.766,0.08-2.619    c-2.576-6.881-2.875-12.143-2.875-15.5c0-4.43,0.834-8.412,2.48-11.834c4.963-10.383,15.984-17.093,28.08-17.093    c16.973,0,30.779,12.977,30.779,28.928c0,4.064-3.586,7.373-7.99,7.373s-7.988-3.309-7.988-7.373    c0-7.795-6.621-14.136-14.758-14.136c-8.143,0-14.766,6.341-14.766,14.134c-0.027,8.91,3.59,17.609,9.928,23.863    c4.973,4.885,9.715,7.563,16.945,9.559c0.33,0.08,0.609,0.121,0.854,0.121c1.541,0,2.9-1.094,3.217-2.549    c0.48-1.803-0.588-3.662-2.373-4.139c-5.951-1.641-9.848-3.844-13.898-7.855c-5.09-5.041-7.893-11.805-7.893-19.041    c0-4.061,3.582-7.367,7.986-7.367c4.402,0,7.982,3.307,7.982,7.367c0,7.797,6.623,14.143,14.764,14.143    S82.898,64.982,82.898,57.186z"
+                                                            />
+                                                            <path
+                                                              d="M72.197,74.4c-0.203,0-0.412,0.018-0.602,0.055c-1.803,0.309-3.488,0.416-4.385,0.416c-4.18,0-7.625-0.957-10.539-2.928    c-5.027-3.381-8.029-8.881-8.029-14.715c0-1.9-1.488-3.389-3.387-3.389c-1.9,0-3.389,1.488-3.389,3.389    c0,8.061,4.117,15.664,11.006,20.332c3.99,2.74,8.814,4.129,14.338,4.129c0.637,0,2.92-0.041,5.537-0.549    c0.91-0.16,1.697-0.662,2.219-1.41c0.516-0.74,0.711-1.635,0.551-2.52C75.225,75.582,73.828,74.4,72.197,74.4z"
+                                                            />
+                                                            <path
+                                                              d="M8.023,36.635h0.023c1.178,0,2.203-0.572,2.676-1.424c3.891-5.444,8.793-9.711,14.576-12.684    c6.025-3.119,13.01-4.768,20.193-4.768c7.156,0,14.129,1.634,20.166,4.729c5.758,2.942,10.777,7.294,14.512,12.585    c0.523,0.742,1.303,1.237,2.215,1.398c0.881,0.144,1.811-0.076,2.521-0.581c0.736-0.517,1.232-1.296,1.396-2.208    c0.148-0.888-0.064-1.813-0.584-2.533c-4.461-6.267-10.166-11.212-16.955-14.695c-6.961-3.575-14.986-5.463-23.213-5.463    c-8.271,0-16.334,1.903-23.32,5.506C15.459,19.975,9.754,24.952,5.27,31.29c-0.73,1.034-0.828,2.379-0.242,3.521    C5.615,35.936,6.764,36.635,8.023,36.635z"
+                                                            />
+                                                          </svg>
+                                                        </Icon>
+                                                        <WithI18n
+                                                          id="Specs"
+                                                        >
+                                                          <I18n
+                                                            update={true}
+                                                            withHash={true}
+                                                          >
+                                                            <Trans
+                                                              i18n={
+                                                                I18n {
+                                                                  "_activeMessages": Object {},
+                                                                  "_catalogs": Object {},
+                                                                  "_dev": Object {
+                                                                    "compile": [Function],
+                                                                    "loadLanguageData": [Function],
+                                                                  },
+                                                                  "_missing": undefined,
+                                                                  "plural": [Function],
+                                                                  "select": [Function],
+                                                                  "selectOrdinal": [Function],
+                                                                  "t": [Function],
+                                                                }
+                                                              }
+                                                              i18nHash={null}
+                                                              id="Specs"
+                                                            >
+                                                              <Render
+                                                                value="Specs"
+                                                              >
+                                                                Specs
+                                                              </Render>
+                                                            </Trans>
+                                                          </I18n>
+                                                        </WithI18n>
+                                                      </a>
+                                                    </LinkAnchor>
+                                                  </Link>
+                                                </li>
+                                                <li
+                                                  key="about"
+                                                >
+                                                  <Link
+                                                    to="/about"
+                                                  >
+                                                    <LinkAnchor
+                                                      href="/about"
+                                                      navigate={[Function]}
+                                                    >
+                                                      <a
+                                                        href="/about"
+                                                        onClick={[Function]}
+                                                      >
+                                                        <ForwardRef(SvgLogo)
+                                                          className="icon"
+                                                        >
+                                                          <svg
+                                                            className="icon"
+                                                          >
+                                                            logo.svg
+                                                          </svg>
+                                                        </ForwardRef(SvgLogo)>
+                                                        <WithI18n
+                                                          id="About"
+                                                        >
+                                                          <I18n
+                                                            update={true}
+                                                            withHash={true}
+                                                          >
+                                                            <Trans
+                                                              i18n={
+                                                                I18n {
+                                                                  "_activeMessages": Object {},
+                                                                  "_catalogs": Object {},
+                                                                  "_dev": Object {
+                                                                    "compile": [Function],
+                                                                    "loadLanguageData": [Function],
+                                                                  },
+                                                                  "_missing": undefined,
+                                                                  "plural": [Function],
+                                                                  "select": [Function],
+                                                                  "selectOrdinal": [Function],
+                                                                  "t": [Function],
+                                                                }
+                                                              }
+                                                              i18nHash={null}
+                                                              id="About"
+                                                            >
+                                                              <Render
+                                                                value="About"
+                                                              >
+                                                                About
+                                                              </Render>
+                                                            </Trans>
+                                                          </I18n>
+                                                        </WithI18n>
+                                                      </a>
+                                                    </LinkAnchor>
+                                                  </Link>
+                                                </li>
+                                                <li
+                                                  key="premium"
+                                                >
+                                                  <Link
+                                                    to="/premium"
+                                                  >
+                                                    <LinkAnchor
+                                                      href="/premium"
+                                                      navigate={[Function]}
+                                                    >
+                                                      <a
+                                                        href="/premium"
+                                                        onClick={[Function]}
+                                                      >
+                                                        <Icon
+                                                          className="icon"
+                                                        >
+                                                          <svg
+                                                            className="icon"
+                                                            viewBox="2 1 96 98"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                          >
+                                                            <path
+                                                              d="M11.38,32.47,6.12,34.56A6.42,6.42,0,0,0,3.76,44.87L7.6,49A1.43,1.43,0,0,1,7.6,51L3.76,55.13A6.42,6.42,0,0,0,6.12,65.44l5.27,2.09a1.43,1.43,0,0,1,.83,1.73l-1.65,5.42A6.42,6.42,0,0,0,17.16,83l5.65-.4a1.42,1.42,0,0,1,1.5,1.2l.87,5.6a6.42,6.42,0,0,0,9.53,4.59l4.92-2.81a1.43,1.43,0,0,1,1.87.43l3.21,4.67a6.42,6.42,0,0,0,10.58,0l3.21-4.67a1.43,1.43,0,0,1,1.87-.43l4.92,2.81a6.42,6.42,0,0,0,9.53-4.59l.87-5.6a1.4,1.4,0,0,1,1.5-1.2l5.65.4a6.42,6.42,0,0,0,6.6-8.27l-1.65-5.42a1.43,1.43,0,0,1,.83-1.73l5.27-2.09a6.42,6.42,0,0,0,2.35-10.31L92.4,51a1.43,1.43,0,0,1,0-1.92l3.84-4.17a6.42,6.42,0,0,0-2.35-10.31l-5.27-2.09a1.43,1.43,0,0,1-.83-1.73l1.65-5.42A6.42,6.42,0,0,0,82.84,17l-5.65.4a1.43,1.43,0,0,1-1.5-1.2l-.87-5.6a6.42,6.42,0,0,0-9.53-4.59L60.37,8.88a1.43,1.43,0,0,1-1.87-.43L55.29,3.78a6.42,6.42,0,0,0-10.58,0L41.5,8.45a1.42,1.42,0,0,1-1.87.43L34.71,6.06a6.42,6.42,0,0,0-9.53,4.59l-.87,5.6a1.41,1.41,0,0,1-1.5,1.2L17.16,17a6.42,6.42,0,0,0-6.59,8.27l1.65,5.42A1.43,1.43,0,0,1,11.38,32.47Zm1.84,4.65A6.46,6.46,0,0,0,17,29.28l-1.65-5.42A1.42,1.42,0,0,1,16.81,22l5.65.4A6.46,6.46,0,0,0,29.26,17l.87-5.6a1.42,1.42,0,0,1,2.11-1l4.92,2.81a6.45,6.45,0,0,0,8.48-1.93l3.21-4.67a1.42,1.42,0,0,1,2.34,0l3.21,4.67a6.46,6.46,0,0,0,8.48,1.93l4.92-2.81a1.42,1.42,0,0,1,2.11,1l.87,5.6a6.45,6.45,0,0,0,6.8,5.42l5.65-.4a1.39,1.39,0,0,1,1.21.53,1.41,1.41,0,0,1,.25,1.3L83,29.28a6.46,6.46,0,0,0,3.77,7.83L92,39.21a1.42,1.42,0,0,1,.52,2.28l-3.84,4.17a6.45,6.45,0,0,0,0,8.69l3.84,4.17A1.42,1.42,0,0,1,92,60.79l-5.27,2.09A6.45,6.45,0,0,0,83,70.72l1.65,5.42a1.41,1.41,0,0,1-.25,1.3,1.38,1.38,0,0,1-1.21.53l-5.65-.4A6.46,6.46,0,0,0,70.74,83l-.87,5.6a1.42,1.42,0,0,1-2.11,1l-4.92-2.81a6.46,6.46,0,0,0-8.48,1.94l-3.21,4.67a1.42,1.42,0,0,1-2.34,0l-3.21-4.67a6.45,6.45,0,0,0-5.31-2.77,6.36,6.36,0,0,0-3.16.84L32.23,89.6a1.42,1.42,0,0,1-2.11-1L29.26,83a6.45,6.45,0,0,0-6.8-5.42l-5.65.4a1.39,1.39,0,0,1-1.21-.53,1.41,1.41,0,0,1-.25-1.3L17,70.72a6.46,6.46,0,0,0-3.77-7.83L8,60.79a1.42,1.42,0,0,1-.52-2.28l3.84-4.17a6.45,6.45,0,0,0,0-8.69L7.44,41.49A1.42,1.42,0,0,1,8,39.21Z"
+                                                            />
+                                                            <path
+                                                              d="M30.17,74.89h7.29a4.24,4.24,0,0,0,4-2.69l1.28.77a13.43,13.43,0,0,0,6.92,1.92H62.56a9.37,9.37,0,0,0,8.91-6.45l5.64-17.16A9.38,9.38,0,0,0,69.35,39c-2.12-.26-5.9-.68-9-.76a18.35,18.35,0,0,1,1.18-6c1.3-3.92,1.17-7.19-.4-9.73a8.34,8.34,0,0,0-6-3.81l-.31,0a4.4,4.4,0,0,0-4.24,3.09,2.58,2.58,0,0,0-.08.36l-.5,3.59a9.87,9.87,0,0,1-.86,2.87L44.41,38.87a4.87,4.87,0,0,1-2.77,2.64,4.22,4.22,0,0,0-4.17-3.38H30.17a4.19,4.19,0,0,0-4.25,4.13V70.76A4.19,4.19,0,0,0,30.17,74.89ZM49,40.92l4.8-10.14a14.87,14.87,0,0,0,1.29-4.32L55.4,24a3.11,3.11,0,0,1,1.52,1.24c.74,1.2.71,3.12-.09,5.53-1.34,4-1.75,7.24-1.21,9.56a3.84,3.84,0,0,0,3.77,3,81.23,81.23,0,0,1,9.35.74,4.38,4.38,0,0,1,3.63,5.72L66.72,66.88a4.37,4.37,0,0,1-4.16,3H49.63a8.44,8.44,0,0,1-4.34-1.21l-3.57-2.15V46.66A9.81,9.81,0,0,0,49,40.92Zm-18,2.21h5.79V69.89H30.93Z"
+                                                            />
+                                                          </svg>
+                                                        </Icon>
+                                                        <WithI18n
+                                                          id="Premium"
+                                                        >
+                                                          <I18n
+                                                            update={true}
+                                                            withHash={true}
+                                                          >
+                                                            <Trans
+                                                              i18n={
+                                                                I18n {
+                                                                  "_activeMessages": Object {},
+                                                                  "_catalogs": Object {},
+                                                                  "_dev": Object {
+                                                                    "compile": [Function],
+                                                                    "loadLanguageData": [Function],
+                                                                  },
+                                                                  "_missing": undefined,
+                                                                  "plural": [Function],
+                                                                  "select": [Function],
+                                                                  "selectOrdinal": [Function],
+                                                                  "t": [Function],
+                                                                }
+                                                              }
+                                                              i18nHash={null}
+                                                              id="Premium"
+                                                            >
+                                                              <Render
+                                                                value="Premium"
+                                                              >
+                                                                Premium
+                                                              </Render>
+                                                            </Trans>
+                                                          </I18n>
+                                                        </WithI18n>
+                                                      </a>
+                                                    </LinkAnchor>
+                                                  </Link>
+                                                </li>
+                                                <li
+                                                  key="help-wanted"
+                                                >
+                                                  <Link
+                                                    to="/help-wanted"
+                                                  >
+                                                    <LinkAnchor
+                                                      href="/help-wanted"
+                                                      navigate={[Function]}
+                                                    >
+                                                      <a
+                                                        href="/help-wanted"
+                                                        onClick={[Function]}
+                                                      >
+                                                        <Icon
+                                                          className="icon"
+                                                        >
+                                                          <svg
+                                                            className="icon"
+                                                            viewBox="0 0 100 100"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                          >
+                                                            <path
+                                                              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                                                            />
+                                                            <path
+                                                              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                                                            />
+                                                            <path
+                                                              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                                                            />
+                                                          </svg>
+                                                        </Icon>
+                                                        <WithI18n
+                                                          id="Help wanted"
+                                                        >
+                                                          <I18n
+                                                            update={true}
+                                                            withHash={true}
+                                                          >
+                                                            <Trans
+                                                              i18n={
+                                                                I18n {
+                                                                  "_activeMessages": Object {},
+                                                                  "_catalogs": Object {},
+                                                                  "_dev": Object {
+                                                                    "compile": [Function],
+                                                                    "loadLanguageData": [Function],
+                                                                  },
+                                                                  "_missing": undefined,
+                                                                  "plural": [Function],
+                                                                  "select": [Function],
+                                                                  "selectOrdinal": [Function],
+                                                                  "t": [Function],
+                                                                }
+                                                              }
+                                                              i18nHash={null}
+                                                              id="Help wanted"
+                                                            >
+                                                              <Render
+                                                                value="Help wanted"
+                                                              >
+                                                                Help wanted
+                                                              </Render>
+                                                            </Trans>
+                                                          </I18n>
+                                                        </WithI18n>
+                                                      </a>
+                                                    </LinkAnchor>
+                                                  </Link>
+                                                </li>
+                                              </ul>
+                                            </nav>
+                                            <ErrorBoundary>
+                                              <Switch>
+                                                <Route
+                                                  component={[Function]}
+                                                  computedMatch={
+                                                    Object {
+                                                      "isExact": true,
+                                                      "params": Object {},
+                                                      "path": "/",
+                                                      "url": "/",
+                                                    }
+                                                  }
+                                                  exact={true}
+                                                  location={
+                                                    Object {
+                                                      "hash": "",
+                                                      "pathname": "/",
+                                                      "search": "",
+                                                      "state": undefined,
+                                                    }
+                                                  }
+                                                  path="/"
+                                                >
+                                                  <ComponentLazyLoader
+                                                    history={
+                                                      Object {
+                                                        "action": "POP",
+                                                        "block": [Function],
+                                                        "createHref": [Function],
+                                                        "go": [Function],
+                                                        "goBack": [Function],
+                                                        "goForward": [Function],
+                                                        "length": 1,
+                                                        "listen": [Function],
+                                                        "location": Object {
+                                                          "hash": "",
+                                                          "pathname": "/",
+                                                          "search": "",
+                                                          "state": undefined,
+                                                        },
+                                                        "push": [Function],
+                                                        "replace": [Function],
+                                                      }
+                                                    }
+                                                    location={
+                                                      Object {
+                                                        "hash": "",
+                                                        "pathname": "/",
+                                                        "search": "",
+                                                        "state": undefined,
+                                                      }
+                                                    }
+                                                    match={
+                                                      Object {
+                                                        "isExact": true,
+                                                        "params": Object {},
+                                                        "path": "/",
+                                                        "url": "/",
+                                                      }
+                                                    }
+                                                  >
+                                                    <DelayRender
+                                                      delay={1000}
+                                                    />
+                                                  </ComponentLazyLoader>
+                                                </Route>
+                                              </Switch>
+                                            </ErrorBoundary>
+                                          </main>
+                                        </div>
+                                      </Home>
+                                    </Connect(Home)>
+                                  </Route>
+                                </Switch>
+                              </div>
+                              <Footer>
+                                <footer>
+                                  <div
+                                    className="container text-center"
+                                  >
+                                    <div>
+                                      <a
+                                        href="/"
+                                      >
+                                        <img
+                                          alt="Logo"
+                                          className="wowanalyzer-logo"
+                                          src="logo.svg"
+                                        />
+                                      </a>
+                                      <h1>
+                                        Be a part of us
+                                      </h1>
+                                      <div
+                                        className="social-links"
+                                      >
+                                        <Tooltip
+                                          className=""
+                                          content="Discord"
+                                          direction="down"
+                                          hoverable={false}
+                                        >
+                                          <Tooltip
+                                            arrow={true}
+                                            arrowSize={10}
+                                            background=""
+                                            className=""
+                                            color=""
+                                            content="Discord"
+                                            direction="down"
+                                            hoverDelay={0}
+                                            padding="10px"
+                                            tipContentHover={false}
+                                            useDefaultStyles={false}
+                                            useHover={true}
+                                          >
+                                            <a
+                                              href="https://wowanalyzer.com/discord"
+                                              key=".0"
+                                              onMouseEnter={[Function]}
+                                              onMouseLeave={[Function]}
+                                              onTouchStart={[Function]}
+                                            >
+                                              <Icon>
+                                                <svg
+                                                  className="icon"
+                                                  viewBox="35 20 175 200"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                  <path
+                                                    d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zM140.9 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1s-4.5-11.1-10.2-11.1z"
+                                                  />
+                                                  <path
+                                                    d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"
+                                                  />
+                                                </svg>
+                                              </Icon>
+                                            </a>
+                                          </Tooltip>
+                                        </Tooltip>
+                                        <Tooltip
+                                          className=""
+                                          content="GitHub"
+                                          direction="down"
+                                          hoverable={false}
+                                        >
+                                          <Tooltip
+                                            arrow={true}
+                                            arrowSize={10}
+                                            background=""
+                                            className=""
+                                            color=""
+                                            content="GitHub"
+                                            direction="down"
+                                            hoverDelay={0}
+                                            padding="10px"
+                                            tipContentHover={false}
+                                            useDefaultStyles={false}
+                                            useHover={true}
+                                          >
+                                            <a
+                                              href="https://github.com/WoWAnalyzer/WoWAnalyzer"
+                                              key=".0"
+                                              onMouseEnter={[Function]}
+                                              onMouseLeave={[Function]}
+                                              onTouchStart={[Function]}
+                                            >
+                                              <Icon>
+                                                <svg
+                                                  className="icon"
+                                                  viewBox="0 0 1024 1000"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                  <path
+                                                    d="M512 0C229.25 0 0 229.25 0 512c0 226.25 146.688 418.125 350.156 485.812 25.594 4.688 34.938-11.125 34.938-24.625 0-12.188-0.469-52.562-0.719-95.312C242 908.812 211.906 817.5 211.906 817.5c-23.312-59.125-56.844-74.875-56.844-74.875-46.531-31.75 3.53-31.125 3.53-31.125 51.406 3.562 78.47 52.75 78.47 52.75 45.688 78.25 119.875 55.625 149 42.5 4.654-33 17.904-55.625 32.5-68.375C304.906 725.438 185.344 681.5 185.344 485.312c0-55.938 19.969-101.562 52.656-137.406-5.219-13-22.844-65.094 5.062-135.562 0 0 42.938-13.75 140.812 52.5 40.812-11.406 84.594-17.031 128.125-17.219 43.5 0.188 87.312 5.875 128.188 17.281 97.688-66.312 140.688-52.5 140.688-52.5 28 70.531 10.375 122.562 5.125 135.5 32.812 35.844 52.625 81.469 52.625 137.406 0 196.688-119.75 240-233.812 252.688 18.438 15.875 34.75 47 34.75 94.75 0 68.438-0.688 123.625-0.688 140.5 0 13.625 9.312 29.562 35.25 24.562C877.438 930 1024 738.125 1024 512 1024 229.25 794.75 0 512 0z"
+                                                  />
+                                                </svg>
+                                              </Icon>
+                                            </a>
+                                          </Tooltip>
+                                        </Tooltip>
+                                        <Tooltip
+                                          className=""
+                                          content="Patreon"
+                                          direction="down"
+                                          hoverable={false}
+                                        >
+                                          <Tooltip
+                                            arrow={true}
+                                            arrowSize={10}
+                                            background=""
+                                            className=""
+                                            color=""
+                                            content="Patreon"
+                                            direction="down"
+                                            hoverDelay={0}
+                                            padding="10px"
+                                            tipContentHover={false}
+                                            useDefaultStyles={false}
+                                            useHover={true}
+                                          >
+                                            <a
+                                              href="https://www.patreon.com/join/wowanalyzer"
+                                              key=".0"
+                                              onMouseEnter={[Function]}
+                                              onMouseLeave={[Function]}
+                                              onTouchStart={[Function]}
+                                            >
+                                              <Icon>
+                                                <svg
+                                                  className="icon"
+                                                  viewBox="0 0 100 96"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                  <g
+                                                    fillRule="evenodd"
+                                                  >
+                                                    <path
+                                                      d="M64.1102,0.1004 C44.259,0.1004 28.1086,16.2486 28.1086,36.0986 C28.1086,55.8884 44.259,71.989 64.1102,71.989 C83.9,71.989 100,55.8884 100,36.0986 C100,16.2486 83.9,0.1004 64.1102,0.1004"
+                                                    />
+                                                    <polygon
+                                                      points=".012 95.988 17.59 95.988 17.59 .1 .012 .1"
+                                                    />
+                                                  </g>
+                                                </svg>
+                                              </Icon>
+                                            </a>
+                                          </Tooltip>
+                                        </Tooltip>
+                                      </div>
+                                      <br />
+                                      <div
+                                        className="attribution"
+                                      >
+                                        Log data from 
+                                        <a
+                                          href="https://www.warcraftlogs.com"
+                                        >
+                                          Warcaft Logs
+                                        </a>
+                                        .
+                                         
+                                        <TooltipElement
+                                          className=""
+                                          content={
+                                            <React.Fragment>
+                                              Icon creators:
+                                              <br />
+                                              <ul>
+                                                <li>
+                                                  Fingerprint by IconsGhost
+                                                </li>
+                                                <li>
+                                                  Scroll by jngll
+                                                </li>
+                                                <li>
+                                                  Delete by johartcamp
+                                                </li>
+                                                <li>
+                                                  Skull by Royyan Razka
+                                                </li>
+                                                <li>
+                                                  Heart by Emir Palavan
+                                                </li>
+                                                <li>
+                                                  armor by Jetro Cabau Quirós
+                                                </li>
+                                                <li>
+                                                  Checklist by David
+                                                </li>
+                                                <li>
+                                                  Idea by Anne
+                                                </li>
+                                                <li>
+                                                  About Document by Deepz
+                                                </li>
+                                                <li>
+                                                  Stats by Barracuda
+                                                </li>
+                                                <li>
+                                                  Dropdown by zalhan
+                                                </li>
+                                                <li>
+                                                  timeline by Alexander Blagochevsky
+                                                </li>
+                                                <li>
+                                                  abilities by sachin modgekar
+                                                </li>
+                                                <li>
+                                                  Vision by supalerk laipawat
+                                                </li>
+                                                <li>
+                                                  Lightning by Mooms
+                                                </li>
+                                                <li>
+                                                  Grid Many Rows by Justin White
+                                                </li>
+                                                <li>
+                                                  Info by Gregor Cresnar
+                                                </li>
+                                                <li>
+                                                  Plus by Galaxicon
+                                                </li>
+                                                <li>
+                                                  duration by Bohdan Burmich
+                                                </li>
+                                                <li>
+                                                  link by arjuazka
+                                                </li>
+                                              </ul>
+                                            </React.Fragment>
+                                          }
+                                          direction="down"
+                                          hoverable={false}
+                                          style={Object {}}
+                                          tooltipClassName=""
+                                        >
+                                          <Tooltip
+                                            arrow={true}
+                                            arrowSize={10}
+                                            background=""
+                                            className=""
+                                            color=""
+                                            content={
+                                              <React.Fragment>
+                                                Icon creators:
+                                                <br />
+                                                <ul>
+                                                  <li>
+                                                    Fingerprint by IconsGhost
+                                                  </li>
+                                                  <li>
+                                                    Scroll by jngll
+                                                  </li>
+                                                  <li>
+                                                    Delete by johartcamp
+                                                  </li>
+                                                  <li>
+                                                    Skull by Royyan Razka
+                                                  </li>
+                                                  <li>
+                                                    Heart by Emir Palavan
+                                                  </li>
+                                                  <li>
+                                                    armor by Jetro Cabau Quirós
+                                                  </li>
+                                                  <li>
+                                                    Checklist by David
+                                                  </li>
+                                                  <li>
+                                                    Idea by Anne
+                                                  </li>
+                                                  <li>
+                                                    About Document by Deepz
+                                                  </li>
+                                                  <li>
+                                                    Stats by Barracuda
+                                                  </li>
+                                                  <li>
+                                                    Dropdown by zalhan
+                                                  </li>
+                                                  <li>
+                                                    timeline by Alexander Blagochevsky
+                                                  </li>
+                                                  <li>
+                                                    abilities by sachin modgekar
+                                                  </li>
+                                                  <li>
+                                                    Vision by supalerk laipawat
+                                                  </li>
+                                                  <li>
+                                                    Lightning by Mooms
+                                                  </li>
+                                                  <li>
+                                                    Grid Many Rows by Justin White
+                                                  </li>
+                                                  <li>
+                                                    Info by Gregor Cresnar
+                                                  </li>
+                                                  <li>
+                                                    Plus by Galaxicon
+                                                  </li>
+                                                  <li>
+                                                    duration by Bohdan Burmich
+                                                  </li>
+                                                  <li>
+                                                    link by arjuazka
+                                                  </li>
+                                                </ul>
+                                              </React.Fragment>
+                                            }
+                                            direction="down"
+                                            hoverDelay={0}
+                                            padding="10px"
+                                            tipContentHover={false}
+                                            useDefaultStyles={false}
+                                            useHover={true}
+                                          >
+                                            <dfn
+                                              className=""
+                                              key=".0"
+                                              onMouseEnter={[Function]}
+                                              onMouseLeave={[Function]}
+                                              onTouchStart={[Function]}
+                                              style={Object {}}
+                                            >
+                                              Icons by the 
+                                              <a
+                                                href="https://thenounproject.com"
+                                              >
+                                                Noun Project
+                                              </a>
+                                              .
+                                            </dfn>
+                                          </Tooltip>
+                                        </TooltipElement>
+                                        <br />
+                                        World of Warcraft and related artwork is copyright of Blizzard Entertainment, Inc.
+                                        <br />
+                                        This is a fan site and we are not affiliated.
+                                      </div>
+                                    </div>
+                                  </div>
+                                </footer>
+                              </Footer>
+                              <PortalTarget>
+                                <div
+                                  id="portal-target"
+                                />
+                              </PortalTarget>
+                              <Tracker />
+                              <Hotkeys />
+                            </App>
+                          </Connect(App)>
+                        </withRouter(Connect(App))>
+                      </Router>
+                    </ConnectedRouter>
+                  </ConnectedRouterWithContext>
+                </Connect(ConnectedRouterWithContext)>
+              </I18nProvider>
+            </LocalizationLoader>
+          </Connect(LocalizationLoader)>
+        </RootLocalizationProvider>
+      </ErrorBoundary>
+    </RootErrorBoundary>
+  </Provider>
+</Root>
+`;

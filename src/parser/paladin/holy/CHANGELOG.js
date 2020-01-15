@@ -1,11 +1,21 @@
 import React from 'react';
 
-import { Zerotorescue, HolySchmidt, Abelito75, blazyb } from 'CONTRIBUTORS';
+import { Zerotorescue, HolySchmidt, Abelito75, blazyb, Taleria, Torothin } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 1, 5), <>Added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> 8.3 nerf prediction statistic to see how the nerf will affect you.</>, [Zerotorescue]),
+  change(date(2020, 1, 1), <>Added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> build suggestions for early overwriting of active glimmers and added support for 8.3 buff cap of 8.</>, [HolySchmidt]),
+  change(date(2019, 12, 21), "Added beacon uptime statistic and checklist rule.", [Torothin]),
+  change(date(2019, 12, 14), <>Implemented a fun statistic for <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} />.}</>, [Abelito75]),
+  change(date(2019, 12, 8), <>Fixed <SpellLink id={SPELLS.LIGHTS_DECREE.id} /> duration along with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> usage, <SpellLink id={SPELLS.AVENGING_WRATH.id} /> damage, healing, and critical strike contributions.</>, [HolySchmidt]),
+  change(date(2019, 12, 1), <><SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> cooldown reduction will correctly adjust for <SpellLink id={SPELLS.SANCTIFIED_WRATH_TALENT.id} />, added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> build support and fixed spelling errors.</>, [HolySchmidt]),
+  change(date(2019, 12, 1), <><SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> build has been added for Holy Paladin, will now link to a guild on the build and not suggest that all mana must be used during a fight.</>, [HolySchmidt]),
+  change(date(2019, 11, 23), <><SpellLink id={SPELLS.LIGHTS_DECREE.id} /> statistic added showing healing, beacon healing and added duration.</>, [Taleria]),
+  change(date(2019, 11, 9), <>Added suggestion in the timeline and a tooltip to prioritize <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> over <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> when using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> talent.</>, [HolySchmidt]),
+  change(date(2019, 10, 21), <>Fixed a typo in <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} />'s suggestion. </>, [Abelito75]),
   change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
   change(date(2019, 6, 13), <><SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> statistic added showing healing, damage, beacon healing, <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />s/min and refresh utilization.</>, [HolySchmidt]),
   change(date(2019, 6, 2), <>Enabled the QElive auto import link for stat values.</>, [Abelito75]),

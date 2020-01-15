@@ -3,7 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import Statistic from 'interface/statistics/Statistic';
@@ -11,6 +12,7 @@ import DonutChart from 'interface/statistics/components/DonutChart';
 
 const debug = false;
 
+//TODO clean up and make easier to add triggers
 class ThunderFocusTea extends Analyzer {
   castsTftRsk = 0;
   castsTftViv = 0;
@@ -24,20 +26,21 @@ class ThunderFocusTea extends Analyzer {
 
   castBufferTimestamp = null;
   ftActive = false;
+  rmActive = false;
 
   constructor(...args) {
     super(...args);
     this.ftActive = this.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
+    this.rmActive = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_FOCUS_TEA), this.tftCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
   }
 
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.THUNDER_FOCUS_TEA.id === spellId) {
-      this.castsTft += 1;
-    }
+  tftCast(event) {
+    this.castsTft += this.ftActive ? 2 : 1;
   }
 
-  on_byPlayer_cast(event) {
+  buffedCast(event) {
     const spellId = event.ability.guid;
 
       // Implemented as a way to remove non-buffed REM or EF casts that occur at the same timestamp as the buffed Viv cast.
@@ -60,6 +63,11 @@ class ThunderFocusTea extends Analyzer {
         
         if(this.selectedCombatant.hasBuff(SPELLS.WAY_OF_THE_CRANE.id)){
           this.correctCasts += 1;
+          return;
+        }
+        
+        if(this.rmActive){
+          this.correctCasts +=1;
         }
 
         debug && console.log('RSK TFT Check ', event.timestamp);
@@ -113,21 +121,6 @@ class ThunderFocusTea extends Analyzer {
     );
   }
 
-  on_fightend() {
-    if (this.ftActive) {
-      this.castsTft += this.castsTft;
-    }
-    if (debug) {
-      console.log(`TFT Casts:${this.castsTft}`);
-      console.log(`RSK Buffed:${this.castsTftRsk}`);
-      console.log(`Enm Buffed:${this.castsTftEnm}`);
-      console.log(`Viv Buffed:${this.castsTftViv}`);
-      console.log(`REM Buffed:${this.castsTftRem}`);
-      console.log(`Correct Casts:${this.correctCasts}`);
-      console.log(`Casts Under tft:${this.castsUnderTft}`);
-    }
-  }
-
   get incorrectTftCasts() {
     return this.castsUnderTft - this.correctCasts;
   }
@@ -148,8 +141,8 @@ class ThunderFocusTea extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
           return suggest(
             <>
-              You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than <SpellLink id={SPELLS.VIVIFY.id} /> or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells buffed to only these two.
-            </>
+              You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than {this.rmActive ? <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> : <SpellLink id={SPELLS.VIVIFY.id} />}  or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells buffed to only these two.
+            </>,
           )
             .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
             .actual(`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`)

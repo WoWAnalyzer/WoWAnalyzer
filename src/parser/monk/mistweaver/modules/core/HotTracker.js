@@ -7,6 +7,8 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 const PANDEMIC_FACTOR = 1.3;
 const PANDEMIC_EXTRA = 0.3;
 
+const TFT_REM = 10000;//10 seconds for rem
+
 // tolerated difference between expected and actual HoT fall before a 'mismatch' is logged
 const EXPECTED_REMOVAL_THRESHOLD = 200;
 
@@ -55,10 +57,10 @@ class HotTracker extends Analyzer {
     }
 
     hot.attributions.forEach(att => {
-      att.healing += healing;
+      att.actualHealing += healing;
     });
     hot.boosts.forEach(att => {
-      att.healing += calculateEffectiveHealing(event, att.boost);
+      att.actualHealing += calculateEffectiveHealing(event, att.boost);
     });
     // extensions handled when HoT falls, using ticks list
   }
@@ -74,9 +76,19 @@ class HotTracker extends Analyzer {
       return;
     }
 
+    if(this.hots[-1] && spellId === SPELLS.RENEWING_MIST_HEAL.id){
+      if (!this.hots[targetId]) {
+        this.hots[targetId] = {};
+      }
+      this.hots[targetId][spellId] = this.hots[-1][spellId];
+      delete this.hots[-1];
+      return;
+    }
+
     const newHot = {
       start: event.timestamp,
       end: event.timestamp + this.hotInfo[spellId].duration,
+      originalEnd: event.timestamp + this.hotInfo[spellId].duration,
       spellId, // stored extra here so I don't have to convert string to number like I would if I used its key in the object.
       name: event.ability.name, // stored for logging
       ticks: [], // listing of ticks w/ effective heal amount and timestamp, to be used as part of the HoT extension calculations
@@ -88,6 +100,10 @@ class HotTracker extends Analyzer {
       this.hots[targetId] = {};
     }
     this.hots[targetId][spellId] = newHot;
+
+    if(this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && spellId === SPELLS.RENEWING_MIST_HEAL.id){
+      this.hots[targetId][spellId].end += TFT_REM;
+    }
   }
 
   on_byPlayer_refreshbuff(event) {
@@ -106,6 +122,8 @@ class HotTracker extends Analyzer {
     const oldEnd = hot.end;
     const freshDuration = this.hotInfo[spellId].duration;
     hot.end += this._calculateExtension(freshDuration, hot, spellId, true, true);
+
+    hot.originalEnd = hot.end;//reframe our info
 
     // seperately calculating if refresh was in pandemic, because for display to the player I want to avoid factoring in tick clipping...
     const remaining = oldEnd - event.timestamp;
@@ -138,10 +156,15 @@ class HotTracker extends Analyzer {
       return;
     }
 
-    this._checkRemovalTime(this.hots[targetId][spellId], event.timestamp, targetId);
-    this._tallyExtensions(this.hots[targetId][spellId]);
+    if(spellId === SPELLS.RENEWING_MIST_HEAL.id && this.hots[targetId][spellId].end > event.timestamp){
+      this.hots[-1] = {};
+      this.hots[-1][spellId] = this.hots[targetId][spellId];
+    }else{
+      this._checkRemovalTime(this.hots[targetId][spellId], event.timestamp, targetId);
+      this._tallyExtensions(this.hots[targetId][spellId]);
+    }
+    delete this.hots[targetId][spellId];//we still delete in the end but we move first
 
-    delete this.hots[targetId][spellId];
   }
 
   /*

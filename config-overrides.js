@@ -1,6 +1,10 @@
-const { override, useEslintRc, disableEsLint } = require('customize-cra');
+const {
+  override,
+  useEslintRc,
+  disableEsLint,
+} = require('customize-cra');
 
 module.exports = override(
   process.env.DISABLE_AUTOMATIC_ESLINT ? disableEsLint() : useEslintRc(),
-  (config, env) => config
+  // addBabelPlugin('babel-plugin-transform-typescript-metadata'),
 );

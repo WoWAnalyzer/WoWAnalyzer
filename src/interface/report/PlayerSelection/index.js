@@ -33,27 +33,17 @@ function sortPlayers(a, b) {
   return a.name.localeCompare(b.name);
 }
 
-class PlayerSelection extends React.PureComponent {
-  static propTypes = {
-    players: PropTypes.arrayOf(PropTypes.object).isRequired,
-    makeUrl: PropTypes.func.isRequired,
-  };
+const PlayerSelection = ({ players, makeUrl }) => (
+  <div className="player-selection">
+    {players.sort(sortPlayers).map(player => (
+      <PlayerTile key={player.guid} player={player} makeUrl={makeUrl} />
+    ))}
+  </div>
+);
 
-  render() {
-    const { players, makeUrl } = this.props;
-
-    return (
-      <div className="player-selection">
-        {players.sort(sortPlayers).map(player => (
-          <PlayerTile
-            key={player.guid}
-            player={player}
-            makeUrl={makeUrl}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+PlayerSelection.propTypes = {
+  players: PropTypes.arrayOf(PropTypes.object).isRequired,
+  makeUrl: PropTypes.func.isRequired,
+};
 
 export default PlayerSelection;

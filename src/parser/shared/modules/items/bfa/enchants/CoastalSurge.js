@@ -3,13 +3,13 @@ import Analyzer from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 const COASTAL_SURGE_ENCHANT_ID = 5946;
 /**
  * Costal Surge:
  * Permanently enchant a weapon to sometimes cause the wielder's helpful spells to put a short heal over time effect on the target for 10 sec.
- * 
+ *
  * Test Log: /report/2fZTqh6VbNC1xXPL/6-Normal+Champion+of+the+Light+-+Kill+(1:31)/Akkame/statistics
  */
 class CostalSurge extends Analyzer {

@@ -6,7 +6,20 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2019, 10, 13), <>New Tier 45 comparison tool to see if you picked the best talent for your playstyle </>,Abelito75),
+  change(date(2020, 1, 8), <>Updated for 8.3 </>,Abelito75),
+  change(date(2020, 1, 8), <>Updated stat weight calculation for <SpellLink id={SPELLS.RISING_MIST_TALENT.id} />, added new essence font statistic, tft rsk with rm is a correct use of tft now. </>,Abelito75),
+  change(date(2019, 12, 5), <>Updated stat weight calculation for <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> and Lucid Dreams. </>,Anomoly),
+  change(date(2019, 11, 25), <>Added a Essence Font healing breakdown donut. </>,Abelito75),
+  change(date(2019, 11, 25), <>Fixed upwelling randomly bugging out. </>,Abelito75),
+  change(date(2019, 11, 20), <>Added Uplift revival reduction to rising mist tooltip. </>,Abelito75),
+  change(date(2019, 11, 16), <>Updated a few spells to use new methods. </>,Abelito75),
+  change(date(2019, 11, 12), <>Big Rising Mist overhaul. Now includes extra Vivify cleaves, Enveloping Mist, and Gusts Of mist hits from Essence Font's Hot. </>,Abelito75),
+  change(date(2019, 11, 9), <>Added upwelling statistic. </>,Abelito75),
+  change(date(2019, 11, 9), <>Fixed Tier45 comparison if you didn't play in a way where mana would be returned/saved. </>,Abelito75),
+  change(date(2019, 10, 14), <>Fixed small typos for rising mist statistic box. </>,Abelito75),
+  change(date(2019, 10, 14), <>Spelling and grammar corrections in Tier 45 comparison tool. </>,JeremyDwayne),
+  change(date(2019, 10, 13), <>Fixed Tier 45 comparison tool. </>,Abelito75),
+  change(date(2019, 10, 13), <>New Tier 45 comparison tool to see if you picked the best talent for your playstyle. </>,Abelito75),
   change(date(2019, 10, 4), <>Added missing array declaration for enemiesHitSCK <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />.</>, JeremyDwayne),
   change(date(2019, 10, 1), <>Bugfix for Lifecycles adding the potential mana reduction from an empowered <SpellLink id={SPELLS.VIVIFY.id} /> </>,Anomoly),
   change(date(2019, 9, 27), <>Update to date for 8.2.5 </>,Abelito75),

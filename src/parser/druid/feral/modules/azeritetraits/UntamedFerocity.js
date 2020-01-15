@@ -11,7 +11,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 import { calcShredBonus, calcSwipeBonus, isAffectedByWildFleshrending } from '../azeritetraits/WildFleshrending';
 import Abilities from '../Abilities.js';
@@ -46,7 +46,7 @@ export function calcBonus(combatant) {
  * Untamed Ferocity
  * Combo-point generating abilities deal X additional instant damage and reduce the cooldown of
  * Berserk by 0.3 sec [or Incarnation: King of the Jungle by 0.2 sec]
- * 
+ *
  * Test Log: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Enicat/statistics
  */
 class UntamedFerocity extends Analyzer {
@@ -130,7 +130,7 @@ class UntamedFerocity extends Analyzer {
     const improvedPossibleCasts = Math.floor((this.owner.fightDuration + this.cooldownReduction) / cooldownDuration) + 1;
     const extraCastsPossible = improvedPossibleCasts - basePossibleCasts;
     const extraCastsComment = (improvedPossibleCasts === basePossibleCasts) ? `This wasn't enough to allow any extra casts during the fight, but may have given you more freedom in timing those casts.` : <>This gave you the opportunity over the duration of the fight to use {cooldownName} <b>{extraCastsPossible}</b> extra time{extraCastsPossible === 1 ? '' : 's'}.</>;
-    
+
     return (
       <ItemStatistic
         size="flexible"

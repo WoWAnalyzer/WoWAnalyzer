@@ -39,7 +39,7 @@ class TestCombatLogParser extends CombatLogParser {
       offset_time: 0,
       filtered: false,
     },
-    combatantInfoEvents = []
+    combatantInfoEvents = [],
   ) {
     super(report, selectedPlayer, selectedFight, combatantInfoEvents);
   }
