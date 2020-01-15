@@ -79,14 +79,14 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
           spellId = Number(spellId);
           if (!feed[spellId]) {
             feed[spellId] = [];
-            feed[spellId].actualHealing = 0;
+            feed[spellId].healing = 0;
             feed[spellId].effectiveHealing = 0;
             feed[spellId].name = cooldown.feed[spellId].name;
             feed[spellId].icon = cooldown.feed[spellId].icon;
           }
           const rawHealing = cooldown.feed[spellId].healing;
           const effectiveHealing = rawHealing * (1 - percentOverheal) * feedingFactor;
-          feed[spellId].actualHealing += rawHealing;
+          feed[spellId].healing += rawHealing;
           feed[spellId].effectiveHealing += effectiveHealing;
           totals.total += rawHealing;
           totals.totalEffective += effectiveHealing;
@@ -265,11 +265,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     if (event.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id && this.lastCBT) {
       this.hasBeenCBTHealingEvent = true;
       this.popCBT(event);
-      this.lastCBT.actualHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.lastCBT.healing += (event.amount || 0) + (event.absorbed || 0);
       this.lastCBT.overheal += (event.overheal || 0);
     } else if (event.ability.guid === SPELLS.ASCENDANCE_HEAL.id && this.lastAsc) {
       this.hasBeenAscHealingOrCastEvent = true;
-      this.lastAsc.actualHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.lastAsc.healing += (event.amount || 0) + (event.absorbed || 0);
       this.lastAsc.overheal += (event.overheal || 0);
     }
 
@@ -283,11 +283,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id && !ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.includes(spellId))) {
         if (!cooldown.feed[spellId]) {
           cooldown.feed[spellId] = [];
-          cooldown.feed[spellId].actualHealing = 0;
+          cooldown.feed[spellId].healing = 0;
           cooldown.feed[spellId].name = event.ability.name;
           cooldown.feed[spellId].icon = event.ability.abilityIcon;
         }
-        cooldown.feed[spellId].actualHealing += healingDone;
+        cooldown.feed[spellId].healing += healingDone;
       }
       cooldown.events.push(event);
     });
