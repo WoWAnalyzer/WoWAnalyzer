@@ -6,6 +6,7 @@ import { Juko8, Skeletor } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 1, 15), "Marked as up to date for 8.3", Juko8),
   change(date(2019, 9, 12), <>Added <SpellLink id={SPELLS.EXECUTION_SENTENCE_TALENT.id} icon /> </>, Juko8),
   change(date(2019, 7, 24), <>Updated <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> module to display <SpellLink id={SPELLS.EXECUTION_SENTENCE_TALENT.id} icon /> consumptions.</>, Skeletor),
   change(date(2019, 3, 11), <>Updated <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id} icon /> module with tooltip displaying what spells the procs were used for and longest chain of procs.</>, Juko8),
