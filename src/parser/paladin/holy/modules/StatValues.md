@@ -47,15 +47,15 @@ If we had 9% crit, the 500 effective healing gained from the rating would be jus
 If at the heal-event the critical strike chance was more than 100% for that spell, it is completely ignored and not included in the value of this spell. We take into account Holy Shock's double crit chance as well as crit buffs such as Avenging Wrath.
 
 ## Haste (HPCT)
-HPCT stands for "Healing per Cast Time". This is the max value that 1% Haste would be worth if you would cast everything you are already casting and that can be casted quicker 1% faster. Mana and overhealing are not accounted for in any way.
+HPCT stands for "Healing per Cast Time". This is the max value that Haste would be worth if you would cast everything you are already casting (that scales with Haste) faster. Mana and overhealing are not accounted for in any way.
 
 If your spell's cooldown scales with Haste that speeds up your entire "rotation", e.g. HS -> FoL -> LoD -> BF -> FoL -> J -> HS stays the same you just cast them quicker after each other This isn't the kind of rotation you repeat exactly as after the second HS LoD and BF will be on CD, but imagine that those spells are available to you then that's how you'd cast it, with 10% Haste you'd cast the exact same thing only 10% faster. The result is that you cast everything that's limited by a Hasted cooldown 10% faster.
 
-The real value of Haste (HPCT) will be between 0 and the shown value. It depends on if you have the mana left to spend, if the gained casts would overheal and how well you are at casting spells limited by Hasted cooldowns end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast less bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.
+The real value of Haste (HPCT) will be between 0 and the shown value. It depends on various things, such as if you have the mana left to spend, if the gained casts would overheal, and how well you are at casting spells end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast fewer bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.
 
-If there are intense moments of damage taken where people are dying due to lack of healing and you're GCD capped, Haste might also help increase your throughput during this period saving lifes and helping you kill the boss.
+Haste can also help you safe lives during intense moments in a fight. If you notice you're GCD capped when people are dying, Haste might help you land more heals. This can help you save lives and help you actually kill the boss.
 
-**The easiest advice here is to get Haste to a point you're comfortable at. This is usually around 5-9%.**
+**The easiest advice here is to get Haste to a point you're comfortable at. Experiment with different Haste levels, and don't drop a lot of item level for it.**
 
 ## Mastery
 Mastery is pretty basic; every time a spell is cast we calculate the mastery effectiveness of that spell. The value of Mastery is then the same calculation as for Versatility, but multiplied for the actual mastery effectiveness of that spell. The same overhealing approach counts as well.

@@ -411,7 +411,7 @@ class BaseHealerStatValues extends Analyzer {
   _getTooltip(stat) {
     switch (stat) {
       case STAT.HASTE_HPCT:
-        return 'HPCT stands for "Healing per Cast Time". This is the value that 1% Haste would be worth if you would cast everything you are already casting (and that can be casted quicker) 1% faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.';
+        return 'HPCT stands for "Healing per Cast Time". This is the value that Haste would be worth if you would cast everything you are already casting (and that scales with Haste) faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.';
       case STAT.HASTE_HPM:
         return 'HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste\'s bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.';
       case STAT.VERSATILITY_DR:
@@ -421,6 +421,7 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
   moreInformationLink = null;
+  static position = STATISTIC_ORDER.CORE(9);
   statistic() {
     const results = this._prepareResults();
     const qeLink = results.reduce((urlParts, stat) => {
@@ -437,7 +438,7 @@ class BaseHealerStatValues extends Analyzer {
       return urlParts;
     }, []).join('&');
     return (
-      <StatisticWrapper position={STATISTIC_ORDER.CORE(11)}>
+      <StatisticWrapper position={this.constructor.position}>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <div className="panel items statistic">
             {this.moreInformationLink && (
