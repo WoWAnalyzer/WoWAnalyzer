@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Zerotorescue } from 'CONTRIBUTORS';
+import { Zerotorescue, HolySchmidt } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -10,8 +10,8 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Zerotorescue],
-  patchCompatibility: '8.1.5',
+  contributors: [Zerotorescue, HolySchmidt],
+  patchCompatibility: '8.3.0',
   isSupported: true,
   description: (
     <>

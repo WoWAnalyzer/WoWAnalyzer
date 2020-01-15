@@ -16,7 +16,7 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds, owner }) =>
     />
   );
   AbilityRequirement.propTypes = {
-    spell: PropTypes.object.isRequired,
+    spell: PropTypes.number.isRequired,
   };
 
   return (

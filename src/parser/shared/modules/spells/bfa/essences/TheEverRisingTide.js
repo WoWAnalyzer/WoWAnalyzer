@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import { formatNumber, formatDuration } from 'common/format';
+import { formatNumber, formatDuration, formatNth } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
 import SpellLink from 'common/SpellLink';
 
@@ -108,7 +108,7 @@ class TheEverRisingTide extends Analyzer {
     if (!this.buffActive) {
       return;
     }
-    this.byCast[this.casts].healing += calculateEffectiveHealing(event, OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK * this.stacks);
+    this.byCast[this.casts].actualHealing += calculateEffectiveHealing(event, OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK * this.stacks);
   }
 
   _applyBuff(event) {
@@ -180,7 +180,6 @@ class TheEverRisingTide extends Analyzer {
   }
 
   statistic() {
-    const nth = (number) => number + (["st", "nd", "rd"][((number + 90) % 100 - 10) % 10 - 1] || "th");
     const rank = this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE.traitId);
     return (
       <StatisticGroup category={STATISTIC_CATEGORY.ITEMS}>
@@ -212,7 +211,7 @@ class TheEverRisingTide extends Analyzer {
                     Object.values(this.byCast).map((cast, index) => {
                       return (
                         <tr key={index}>
-                          <th>{nth(index + 1)}</th>
+                          <th>{formatNth(index + 1)}</th>
                           <td>{formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000) || 0}</td>
                           <td>{cast.maxStacks}</td>
                           <td>{formatNumber(cast.healing)}</td>

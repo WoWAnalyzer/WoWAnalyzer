@@ -144,6 +144,7 @@ import TheWellOfExistence from '../shared/modules/spells/bfa/essences/TheWellOfE
 import TheCrucibleofFlame from '../shared/modules/spells/bfa/essences/TheCrucibleofFlame';
 import WorldveinResonance from '../shared/modules/spells/bfa/essences/WorldveinResonance';
 import NullDynamo from '../shared/modules/spells/bfa/essences/NullDynamo';
+import Strife from '../shared/modules/spells/bfa/essences/Strife';
 
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
@@ -182,6 +183,9 @@ import DribblingInkpod from '../shared/modules/items/bfa/raids/azsharaseternalpa
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
 import EventEmitter from './modules/EventEmitter';
+// Eternal Palace
+import AzsharasFontofPower from '../shared/modules/items/bfa/raids/eternalpalace/AzsharasFontofPower';
+
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -336,6 +340,7 @@ class CombatLogParser {
     theCrucibleofFlame: TheCrucibleofFlame,
     worldveinResonance: WorldveinResonance,
     nullDynamo: NullDynamo,
+    strife: Strife,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
@@ -365,8 +370,9 @@ class CombatLogParser {
     tridentOfDeepOcean: TridentOfDeepOcean,
     voidStone: VoidStone,
     zaxasjsDeepstriders: ZaxasjsDeepstriders,
-    //Azsharas Eternal Palace
+    // Eternal Palace
     ashvanesRazorCoral: AshvanesRazorCoral,
+    azsharasFontofPower:AzsharasFontofPower,
     bloodthirstyUrchin: BloodthirstyUrchin,
     dribblingInkpod: DribblingInkpod,
   };
@@ -722,7 +728,7 @@ class CombatLogParser {
               }
             }
             if (module.suggestions) {
-              module.suggestions(results.suggestions.when, { i18n });
+              module.suggestions(results.suggestions.when);
             }
           }catch(e){ //error occured during results generation of module, disable module and all modules depending on it
             if (process.env.NODE_ENV !== 'production') {

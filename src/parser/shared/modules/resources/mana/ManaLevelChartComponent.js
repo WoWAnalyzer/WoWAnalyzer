@@ -6,7 +6,7 @@ import fetchWcl from 'common/fetchWclApi';
 import ManaStyles from 'interface/others/ManaStyles.js';
 import ManaLevelGraph from 'interface/others/charts/ManaLevelGraph';
 
-class Mana extends React.PureComponent {
+class ManaLevelChartComponent extends React.PureComponent {
   static propTypes = {
     reportCode: PropTypes.string.isRequired,
     start: PropTypes.number.isRequired,
@@ -109,4 +109,4 @@ class Mana extends React.PureComponent {
   }
 }
 
-export default Mana;
+export default ManaLevelChartComponent;

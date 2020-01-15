@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { PRE_FILTER_BUFF_EVENT_TYPE } from 'interface/report/TimeEventFilter';
+import { EventType } from 'parser/core/Events';
 
 const debug = false;
 
@@ -41,11 +41,11 @@ class ApplyBuff extends EventsNormalizer {
 
       this._buffsAppliedByPlayerId[targetId] = this._buffsAppliedByPlayerId[targetId] || [];
 
-      if (event.type === 'applybuff') {
+      if (event.type === EventType.ApplyBuff) {
         const spellId = event.ability.guid;
         this._buffsAppliedByPlayerId[targetId].push(spellId);
       }
-      if (['removebuff', 'applybuffstack', 'removebuffstack', 'refreshbuff', PRE_FILTER_BUFF_EVENT_TYPE].includes(event.type)) {
+      if ([EventType.RemoveBuff, EventType.ApplyBuffStack, EventType.RemoveBuffStack, EventType.RefreshBuff, EventType.FilterBuffInfo].includes(event.type)) {
         const spellId = event.ability.guid;
         if (this._buffsAppliedByPlayerId[targetId].includes(spellId)) {
           // This buff has an `applybuff` event and so isn't broken :D
@@ -56,7 +56,7 @@ class ApplyBuff extends EventsNormalizer {
         const targetInfo = this._combatantInfoEvents.find(combatantInfoEvent => combatantInfoEvent.sourceID === targetId);
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
-          timestamp: (event.type === PRE_FILTER_BUFF_EVENT_TYPE) ? firstStartTimestamp - this.owner.fight.offset_time : firstStartTimestamp,
+          timestamp: (event.type === EventType.FilterBuffInfo) ? firstStartTimestamp - this.owner.fight.offset_time : firstStartTimestamp,
           type: 'applybuff',
           ability: event.ability,
           sourceID: sourceId,

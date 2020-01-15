@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlexibleWidthXYPlot as XYPlot, DiscreteColorLegend, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, AreaSeries, LineSeries } from 'react-vis/es';
+import { FlexibleWidthXYPlot as XYPlot, DiscreteColorLegend, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, AreaSeries, LineSeries } from 'react-vis';
 import { formatDuration } from 'common/format';
 import './FocusChart.scss';
 const COLORS = {
