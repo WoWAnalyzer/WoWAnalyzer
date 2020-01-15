@@ -278,8 +278,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RISING_SUN_KICK,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        cooldown: haste => 16 / (1 + haste),
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
         },
         timelineSortIndex: 100,
       },
