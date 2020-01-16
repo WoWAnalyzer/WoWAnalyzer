@@ -108,7 +108,7 @@ class TheEverRisingTide extends Analyzer {
     if (!this.buffActive) {
       return;
     }
-    this.byCast[this.casts].actualHealing += calculateEffectiveHealing(event, OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK * this.stacks);
+    this.byCast[this.casts].healing += calculateEffectiveHealing(event, OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK * this.stacks);
   }
 
   _applyBuff(event) {

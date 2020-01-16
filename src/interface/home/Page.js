@@ -87,8 +87,8 @@ class Home extends React.PureComponent {
               <DiscordButton style={{ marginRight: 10 }} />
             </div>
             <div className="col-xs-12 col-sm-6 text-right">
-              <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer">
-                <img src="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master" alt="Build status" style={{ height: '2.8em' }} />
+              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/actions?query=workflow%3ABuild">
+                <img src="https://github.com/WoWAnalyzer/WoWAnalyzer/workflows/Build/badge.svg" alt="Build status" style={{ height: '2.8em' }} />
               </a>
               <GithubButton style={{ marginLeft: 10 }} />
             </div>

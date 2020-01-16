@@ -6,6 +6,7 @@ import { Juko8, Skeletor } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 1, 15), 'Marked as up to date for 8.3', Juko8),
   change(date(2019, 11, 18), <>Added timeline highlights of bad <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon /> casts during <SpellLink id={SPELLS.EXECUTION_SENTENCE_TALENT.id} icon />. </>, Juko8),
   change(date(2019, 11, 8), <>Updated cooldown calculations for <SpellLink id={SPELLS.AVENGING_WRATH.id} icon /> and <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> when using <SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} icon />.</>, Juko8),
   change(date(2019, 9, 12), <>Added <SpellLink id={SPELLS.EXECUTION_SENTENCE_TALENT.id} icon />. </>, Juko8),

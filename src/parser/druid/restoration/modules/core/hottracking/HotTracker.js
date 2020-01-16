@@ -79,10 +79,10 @@ class HotTracker extends Analyzer {
     }
 
     hot.attributions.forEach(att => {
-      att.actualHealing += healing;
+      att.healing += healing;
     });
     hot.boosts.forEach(att => {
-      att.actualHealing += calculateEffectiveHealing(event, att.boost);
+      att.healing += calculateEffectiveHealing(event, att.boost);
     });
     // extensions handled when HoT falls, using ticks list
   }

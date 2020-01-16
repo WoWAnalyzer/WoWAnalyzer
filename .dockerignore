@@ -4,8 +4,6 @@ node_modules
 # Unused files
 .docker
 .docker*
-.travis
-.travis.yml
 Docker*
 *.md
 # .git is very slow and we don't need it for anything but `yarn test`

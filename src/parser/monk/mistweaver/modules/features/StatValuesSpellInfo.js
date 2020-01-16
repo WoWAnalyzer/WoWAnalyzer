@@ -122,7 +122,7 @@ export default {
     int: true,
     crit: true,
     hasteHpm: false,
-    hasteHpct: false,
+    hasteHpct: true,
     mastery: false,
     vers: true,
   },

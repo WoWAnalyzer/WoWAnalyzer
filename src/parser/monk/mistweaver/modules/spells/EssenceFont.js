@@ -4,8 +4,12 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreChanneling from 'parser/shared/modules/Channeling';
 
-
 import Analyzer from 'parser/core/Analyzer';
+
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber } from 'common/format';
+import { TooltipElement } from 'common/Tooltip';
 
 const debug = false;
 
@@ -26,6 +30,9 @@ class EssenceFont extends Analyzer {
   efHotOverheal = 0;
   targetOverlap = 0;
 
+  uniqueTargets = new Set();
+  total = 0;
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
@@ -38,6 +45,7 @@ class EssenceFont extends Analyzer {
       this.totalHealing += event.amount || 0;
       this.totalOverhealing += event.overheal || 0;
       this.totalAbsorbs += event.absorbed || 0;
+      this.uniqueTargets.add(event.targetID);
     }
 
     if (spellId === SPELLS.ESSENCE_FONT.id) {
@@ -52,6 +60,8 @@ class EssenceFont extends Analyzer {
 
     if (spellId === SPELLS.ESSENCE_FONT.id) {
       this.castEF += 1;
+      this.total += this.uniqueTargets.size || 0;
+      this.uniqueTargets.clear();
     }
   }
 
@@ -74,6 +84,8 @@ class EssenceFont extends Analyzer {
 
   on_fightend() {
     if (debug) {
+      const averageHits = this.total / this.castEF;
+      console.log(`Average uniqueTargets hit: ${averageHits}`);
       console.log(`EF Casts: ${this.castEF}`);
       console.log(`EF Targets Hit: ${this.targetsEF}`);
       console.log(`EF Avg Targets Hit per Cast: ${this.targetsEF / this.castEF}`);
@@ -119,6 +131,23 @@ class EssenceFont extends Analyzer {
           .recommended(`${recommended} targets hit is recommended`);
       });
   }
+
+  statistic() {
+    const averageHits = this.total / this.castEF;
+    return (
+      <StatisticBox
+        postion={STATISTIC_ORDER.OPTIONAL(50)}
+        icon={<SpellIcon id={SPELLS.ESSENCE_FONT.id} />}
+        value={`${formatNumber(averageHits)}`}
+        label={(
+          <TooltipElement content="This is the average unique targets hit per essences font cast.">
+            Average Unique Targets Hit
+          </TooltipElement>
+        )}
+      />
+    );
+  }
+
 }
 
 export default EssenceFont;
