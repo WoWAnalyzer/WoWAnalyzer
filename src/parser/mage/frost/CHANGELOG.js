@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 1, 15), <>Updated <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc usage for NoIL and compatibility to 8.3.</>,[Sharrq]),
   change(date(2019, 11, 14), 'Added support for the NoIL Build.',[Sharrq]),
   change(date(2019, 9, 30), 'Updated Spec Compatibility to 8.2.5.',[Sharrq]),
   change(date(2019, 8, 6), 'Updated spec compatibility to 8.2.', [Sharrq]),
