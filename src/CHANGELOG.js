@@ -49,6 +49,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 1, 16), 'Added Ny\'alotha boss information and phases.', Sharrq),
   change(date(2020, 1, 15), 'Changed the stat values statistic layout.', Zerotorescue),
   change(date(2020, 1, 12), <>Added <SpellLink id={SPELLS.BLOOD_OF_THE_ENEMY.id} />.</>, Khazak),
   change(date(2020, 1, 4), 'Converted Event Filtering to TypeScript.', Zeboot),
