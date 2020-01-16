@@ -29,6 +29,7 @@ const raids = {
   BattleOfDazaralor: require('./battleofdazaralor').default, // tier 23
   CrucibleOfStorms: require('./crucibleofstorms').default, //tier 23.5
   AzsharasEternalPalace: require('./azsharaseternalpalace').default, //tier 24
+  NyalothaTheWakingCity: require('./nyalothathewakingcity').default, //tier 25
 };
 export default raids;
 
