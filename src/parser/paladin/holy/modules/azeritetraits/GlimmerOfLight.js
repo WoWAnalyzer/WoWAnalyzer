@@ -157,7 +157,7 @@ class GlimmerOfLight extends Analyzer {
           </>
         )}
         tooltip={(
-          <Trans>
+          <>
             Total healing done: <b>{formatNumber(this.totalHealing)}</b><br />
             Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
             Glimmer damage: <b>{formatNumber(this.damage)}</b><br />
@@ -166,7 +166,7 @@ class GlimmerOfLight extends Analyzer {
             Lost to early refresh: <b>{(this.wastedEarlyRefresh/1000).toFixed(1)}(sec) {(this.earlyGlimmerRefreshLoss * 100).toFixed(1)}%</b><br />
             Glimmer of Lights over {GLIMMER_CAP} buff cap: <b>{this.overCap}</b><br />
             Lost to over capping: <b>{(this.wastedOverCap/1000).toFixed(1)}(sec) {(this.overCapGlimmerLoss * 100).toFixed(1)}%</b><br />
-          </Trans>
+          </>
         )}
       />
     );
