@@ -76,7 +76,7 @@
     "test:interface": "yarn test --testPathIgnorePatterns \"integrationTests|/src\\/parser/\"",
     "test:parser": "yarn test --testPathIgnorePatterns integrationTests ./src/parser",
     "test:integration": "yarn test integrationTests",
-    "test:types": "tsc",
+    "typecheck": "tsc",
     "lint": "eslint .",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node"
