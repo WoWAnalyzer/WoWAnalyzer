@@ -184,7 +184,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.AVENGING_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
+        cooldown: (this.selectedCombatant.hasMajor(SPELLS.VISION_OF_PERFECTION.traitId)) ? 120 * 0.79 : 120,
         gcd: {
           base: 1500,
         },
@@ -197,7 +197,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.AVENGING_CRUSADER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
+        cooldown: (this.selectedCombatant.hasMajor(SPELLS.VISION_OF_PERFECTION.traitId)) ? 120 * 0.79 : 120,
         gcd: {
           base: 1500,
         },
