@@ -6,9 +6,10 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 1, 5), <>Added <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> major essence statistic to track procs, uptime and haste gained.</>, [HolySchmidt]),
-  change(date(2020, 1, 5), <>Added <SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> minor essence statistic to track versitility, healing, and <SpellLink id={SPELLS.AVENGING_WRATH.id} /> cooldown reduction.</> , [HolySchmidt]),
-  change(date(2020, 1, 5), <>Added check to fabricate pre-pull event for <SpellLink id={SPELLS.AVENGING_WRATH.id} /> and added ability cooldown reduction for <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} />.</>, [HolySchmidt]),
+  change(date(2020, 1, 18), <>Added <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> major essence statistic to track procs, uptime and haste gained.</>, [HolySchmidt]),
+  change(date(2020, 1, 18), <>Added <SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> minor essence statistic to track versitility, healing, and <SpellLink id={SPELLS.AVENGING_WRATH.id} /> cooldown reduction.</> , [HolySchmidt]),
+  change(date(2020, 1, 18), <>Added check to fabricate pre-pull event for <SpellLink id={SPELLS.AVENGING_WRATH.id} /> and added ability cooldown reduction for <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} />.</>, [HolySchmidt]),
+  change(date(2020, 1, 15), <>Removed <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> 8.3 nerf prediction statistic.</>, [Zerotorescue]),
   change(date(2020, 1, 5), <>Added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> 8.3 nerf prediction statistic to see how the nerf will affect you.</>, [Zerotorescue]),
   change(date(2020, 1, 1), <>Added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> build suggestions for early overwriting of active glimmers and added support for 8.3 buff cap of 8.</>, [HolySchmidt]),
   change(date(2019, 12, 21), "Added beacon uptime statistic and checklist rule.", [Torothin]),

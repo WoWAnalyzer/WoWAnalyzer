@@ -81,9 +81,11 @@
   right: 0;
   width: 0;
   height: 0;
+  z-index: 1;
   border-right: 30px solid #2b2b2f;
   border-left: none;
   border-bottom: 30px solid transparent;
+  color: #fff;
   cursor: help;
 
   svg {

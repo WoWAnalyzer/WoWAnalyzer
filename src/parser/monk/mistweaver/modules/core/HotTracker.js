@@ -57,10 +57,10 @@ class HotTracker extends Analyzer {
     }
 
     hot.attributions.forEach(att => {
-      att.actualHealing += healing;
+      att.healing += healing;
     });
     hot.boosts.forEach(att => {
-      att.actualHealing += calculateEffectiveHealing(event, att.boost);
+      att.healing += calculateEffectiveHealing(event, att.boost);
     });
     // extensions handled when HoT falls, using ticks list
   }
@@ -164,7 +164,7 @@ class HotTracker extends Analyzer {
       this._tallyExtensions(this.hots[targetId][spellId]);
     }
     delete this.hots[targetId][spellId];//we still delete in the end but we move first
-
+    
   }
 
   /*

@@ -35,6 +35,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
       >
         <AbilityRequirement spell={SPELLS.RENEWING_MIST.id} />
         <Requirement name={(<><SpellLink id={SPELLS.RENEWING_MIST.id} /> avg per Vivify cast</>)} thresholds={thresholds.vivify} />
+        {combatant.hasTalent(SPELLS.RISING_MIST_TALENT.id) && <AbilityRequirement spell={SPELLS.RISING_SUN_KICK.id} />}
       </Rule>
 
       <Rule

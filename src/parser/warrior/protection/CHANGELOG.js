@@ -7,6 +7,8 @@ import { Abelito75 } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [   
+  change(date(2019, 1, 18),<>Included Lucid dream statistic.</>,Abelito75),
+  change(date(2020, 1, 15),<>Updated for 8.3 </>,Abelito75),
   change(date(2019, 11, 9),<>Fixed a bugged where precasted <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> would break a few modules. </>,Abelito75),
   change(date(2019, 10, 28),<>Added bad <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast highlighting to the timeline. </>,Abelito75),
   change(date(2019, 10, 3),<>Spell reflect is now based off of damage reduced. </>,Abelito75),

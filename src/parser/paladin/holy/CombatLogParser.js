@@ -49,7 +49,6 @@ import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 // azerite traits //
 import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
 import GlimmerOfLight from './modules/azeritetraits/GlimmerOfLight';
-import GlimmerOfLightNerf from './modules/azeritetraits/GlimmerOfLightNerf';
 import LightsDecree from './modules/azeritetraits/LightsDecree';
 import RadiantIncandescence from './modules/azeritetraits/RadiantIncandescence';
 import VisionOfPerfection from './modules/azeritetraits/VisionOfPerfection';
@@ -118,7 +117,6 @@ class CombatLogParser extends CoreCombatLogParser {
     graceOfTheJusticar: GraceOfTheJusticar,
     radiantIncandescence: RadiantIncandescence,
     glimmerOfLight: GlimmerOfLight,
-    glimmerOfLightNerf: GlimmerOfLightNerf,
     lightsDecree: LightsDecree,
     visionOfPerfection: VisionOfPerfection,
   };
