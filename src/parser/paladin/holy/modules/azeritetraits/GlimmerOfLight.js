@@ -24,7 +24,9 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
  */
 
 const BUFF_DURATION = 30;
-const GLIMMER_CAP = (new Date() < new Date(2020, 1, 14)) ? 99 : 8;
+export const GLIMMER_CAP_8_3 = 8;
+export const IS_IT_8_3_YET = new Date() > new Date(2020, 1, 14);
+const GLIMMER_CAP = IS_IT_8_3_YET ? GLIMMER_CAP_8_3 : 99;
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
@@ -34,9 +36,10 @@ class GlimmerOfLight extends Analyzer {
   casts = 0;
   damage = 0;
   earlyRefresh = 0;
-  glimmerBuffs = [];
+  glimmerBuffs/*: Array<ApplyBuffEvent | ApplyDebuffEvent>*/ = [];
   glimmerHits = 0;
   healing = 0;
+  overCapHealing = 0;
   healingTransfered = 0;
   overCap = 0;
   wastedEarlyRefresh = 0;
@@ -52,6 +55,26 @@ class GlimmerOfLight extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT), this.onHeal);
     this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_DAMAGE), this.onDamage);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.applydebuff
+        .by(SELECTED_PLAYER)
+        .spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.removedebuff
+        .by(SELECTED_PLAYER)
+        .spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
+      this.onRemoveBuff,
+    );
   }
 
   onBeaconTransfer(event) {
@@ -62,39 +85,33 @@ class GlimmerOfLight extends Analyzer {
     this.healingTransfered += event.amount + (event.absorbed || 0);
   }
 
-  updateActiveGlimmers(timestamp){
-    for (let i = this.glimmerBuffs.length; i > 0; i--) {
-      if (timestamp - this.glimmerBuffs[i - 1].timestamp > BUFF_DURATION * 1000){
-        this.glimmerBuffs.splice(i - 1, 1);
-      }
-    }
+  onApplyBuff(event/*: ApplyBuffEvent | ApplyDebuffEvent*/) {
+    this.glimmerBuffs.unshift(event);
+  }
+  onRemoveBuff(event/*: RemoveBuffEvent | RemoveDebuffEvent*/) {
+    this.glimmerBuffs = this.glimmerBuffs.filter(
+      buff => buff.targetID !== event.targetID,
+    );
   }
 
   onCast(event) {
     this.casts += 1;
-    this.updateActiveGlimmers(event.timestamp);
-    
+
     const index = this.glimmerBuffs.findIndex(g => g.targetID === event.targetID);
-    
+
     if (this.glimmerBuffs.length >= GLIMMER_CAP) {
-      // if glimmer count is over the limit //
+      // Cast a new one while at cap (applybuff will occur later, so this will be accurate)
       this.overCap += 1;
-      if (index < 0){
+      if (index < 0) {
         this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[GLIMMER_CAP - 1].timestamp);
-        this.glimmerBuffs.splice(GLIMMER_CAP - 1, 1);
       } else {
         this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
-        this.glimmerBuffs.splice(index, 1);
       }
-    } else if(index >= 0) {
+    } else if (index >= 0) {
       // if an active glimmer was overwritten //
       this.wastedEarlyRefresh += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
       this.earlyRefresh += 1;
-      this.glimmerBuffs.splice(index, 1);
     }
-
-    const glimmer = {targetID: event.targetID, timestamp: event.timestamp};
-    this.glimmerBuffs.unshift(glimmer);
   }
 
   onDamage(event){
@@ -155,7 +172,6 @@ class GlimmerOfLight extends Analyzer {
     );
   }
 
-
   get suggestEarlyRefresh() {
     return {
       actual: this.earlyGlimmerRefreshLoss,
@@ -185,9 +201,9 @@ class GlimmerOfLight extends Analyzer {
       when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => {
         return suggest(
           <Trans>
-            Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved.  
-            To maximize the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />, try to keep as many buffs up as possible.  
-            Avoid overwritting buffs early, this suggestion does not take priority over healing targets with low health. 
+            Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved.
+            To maximize the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />, try to keep as many buffs up as possible.
+            Avoid overwritting buffs early, this suggestion does not take priority over healing targets with low health.
             If two targets have similar health pools priorize the target without a glimmer as your <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> will heal all players with active buffs.
           </Trans>,
         )
@@ -203,7 +219,7 @@ class GlimmerOfLight extends Analyzer {
           <Trans>
             Patch 8.3 implemented a <a href="https://www.wowhead.com/news=295502.3/blizzard-official-class-changes-for-patch-8-3-visions-of-nzoth">glimmer cap </a>
             limiting the number of active <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> buffs to {GLIMMER_CAP}.<br />
-            Avoid stacking haste cooldowns to prevent over-capping on <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />.  
+            Avoid stacking haste cooldowns to prevent over-capping on <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />.
             <a href="https://questionablyepic.com/glimmer-8-3/">More info here.</a>
           </Trans>,
         )

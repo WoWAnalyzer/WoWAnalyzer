@@ -348,4 +348,54 @@ export default {
     name: 'Condensed Life Force',
     icon: 'spell_azerite_essence14',
   },
+
+  // Blood of the Enemy
+  BLOOD_OF_THE_ENEMY: {
+    id: 297108,
+    traitId: 23,
+    name: 'Blood of the Enemy',
+    icon: 'inv__azerite-explosion',
+  },
+
+  BLOOD_SOAKED_STACKING_BUFF: {
+    id: 297162,
+    name: 'Blood-Soaked',
+    icon: 'inv__azerite-explosion',
+  },
+
+  BLOOD_SOAKED_HASTE_BUFF: {
+    id: 297168,
+    name: 'Blood-Soaked',
+    icon: 'inv__azerite-explosion',
+  },
+
+  BLOOD_OF_THE_ENEMY_MAJOR_RANK_THREE_CRIT_DAMAGE_BUFF: {
+    id: 298277,
+    name: 'Blood of the Enemy',
+    icon: 'inv__azerite-explosion',
+  },
+
+  BLOOD_OF_THE_ENEMY_MAJOR_RANK_TWO_REDUCED_CD: {
+    id: 298273,
+    name: 'Blood-Soaked',
+    icon: 'inv__azerite-explosion',
+  },
+
+  BLOOD_OF_THE_ENEMY_MINOR: {
+    id: 297147,
+    name: 'Blood-Soaked',
+    icon: 'inv__azerite-explosion',
+  },
+
+  BLOOD_OF_THE_ENEMY_MINOR_RANK_TWO_CRIT_BUFF: {
+    id: 298274,
+    name: 'Blood-Soaked',
+    icon: 'inv__azerite-explosion',
+  },
+
+  BLOOD_OF_THE_ENEMY_MINOR_RANK_THREE_PARTIAL_STACK_LOSS: {
+    id: 298275,
+    name: 'Blood-Soaked',
+    icon: 'inv__azerite-explosion',
+  },
 };

@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+    change(date(2020, 1, 18), 'Updated patch compatibility to 8.3', [Khazak]),
     change(date(2019, 11, 17), <>Fixed rune gain from <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> crashing the runes tab</>, [Khazak]),
     change(date(2019, 11, 13), <>Changed statistic boxes to use new position prop</>, [Khazak]),
     change(date(2019, 11, 13), <>Updated <SpellLink id={SPELLS.ICECAP_TALENT.id} /> module with 3 second reduction</>, [Khazak]),

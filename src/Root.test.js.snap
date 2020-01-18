@@ -427,11 +427,11 @@ exports[`Root matches snapshot 1`] = `
                                                 className="col-xs-12 col-sm-6 text-right"
                                               >
                                                 <a
-                                                  href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer"
+                                                  href="https://github.com/WoWAnalyzer/WoWAnalyzer/actions?query=workflow%3ABuild"
                                                 >
                                                   <img
                                                     alt="Build status"
-                                                    src="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master"
+                                                    src="https://github.com/WoWAnalyzer/WoWAnalyzer/workflows/Build/badge.svg"
                                                     style={
                                                       Object {
                                                         "height": "2.8em",
