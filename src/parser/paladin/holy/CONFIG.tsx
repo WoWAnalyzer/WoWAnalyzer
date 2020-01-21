@@ -11,7 +11,7 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Zerotorescue, HolySchmidt],
-  patchCompatibility: '8.3.0',
+  patchCompatibility: '8.3',
   isSupported: true,
   description: (
     <>

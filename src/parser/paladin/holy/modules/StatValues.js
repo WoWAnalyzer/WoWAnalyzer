@@ -138,7 +138,7 @@ class StatValues extends BaseHealerStatValues {
 
             The real value of Haste (HPCT) will be between 0 and the shown value. It depends on various things, such as if you have the mana left to spend, if the gained casts would overheal, and how well you are at casting spells end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast fewer bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.<br /><br />
 
-            Haste can also help you safe lives during intense moments in a fight. If you notice you're GCD capped when people are dying, Haste might help you land more heals. This can help you save lives and help you actually kill the boss.<br /><br />
+            Haste can also help you safe lives during intense damage phases. If you notice you're GCD capped when people are dying, Haste might help you land more heals. This may contribute more towards actually getting the kill.<br /><br />
 
             <b>The easiest advice here is to get Haste to a point you're comfortable at. Experiment with different Haste levels, and don't drop a lot of item level for it.</b>
           </Trans>

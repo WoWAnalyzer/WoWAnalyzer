@@ -61,7 +61,7 @@ jobs:
           name: dependencies
           path: .
       - run: tar -xzf dependencies.tar.gz
-      - run: yarn test:types
+      - run: yarn typecheck
   linting:
     needs: [prepare]
     name: 'ESLint'

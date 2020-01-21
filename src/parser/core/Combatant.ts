@@ -180,7 +180,7 @@ class Combatant extends Entity {
     return Boolean(this.essencesByTraitID[traitId]);
   }
   hasMajor(traitId: number) {
-    return this.essencesByTraitID[traitId].isMajor;
+    return this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].isMajor;
   }
   essenceRank(traitId: number) {
     return (
