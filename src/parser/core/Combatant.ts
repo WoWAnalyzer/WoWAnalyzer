@@ -3,6 +3,7 @@ import RACES from 'game/RACES';
 import TALENT_ROWS from 'game/TALENT_ROWS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import traitIdMap from 'common/TraitIdMap';
+import corruptionIdMap from 'common/corruptionIdMap';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids/index';
 import { CombatantInfoEvent, Trait, Item } from 'parser/core/Events';
@@ -41,6 +42,11 @@ type Player = {
 type Talent = {
   id: number;
 };
+
+type Corruption = {
+  name: string;
+  corruption: number;
+}
 
 class Combatant extends Entity {
   get id() {
@@ -92,6 +98,7 @@ class Combatant extends Entity {
     this._parseEssences(combatantInfo.heartOfAzeroth);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
+    this._parseCorruption(combatantInfo.gear);
   }
 
   // region Talents
@@ -186,6 +193,32 @@ class Combatant extends Entity {
     return (
       this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].rank
     );
+  }
+  // endregion
+
+  // region Traits
+  // needs a count because you can stack
+  corruptionBySpellId: { [key: number]: number } = {}
+  _parseCorruption(gear: Array<Item>) {
+    gear.forEach((item, index) => {
+      const bonusId = item.bonusIDs?.find(x => Object.keys(corruptionIdMap).includes(x.toString()));
+      if (bonusId === undefined) {
+        return;
+      }
+      const corr = corruptionIdMap[bonusId];
+
+      //if (!Object.keys(this.corruptionBySpellId).includes(corr.spellId.toString())) {
+      if (this.corruptionBySpellId[corr.spellId]) {
+        this.corruptionBySpellId[corr.spellId] = this.corruptionBySpellId[corr.spellId] + 1;
+      } else {
+        this.corruptionBySpellId[corr.spellId] = 1;
+      }
+      //}
+    });
+    console.log(this.corruptionBySpellId);
+  }
+  hasCorruption(spellId: number) {
+    return Boolean(this.corruptionBySpellId[spellId]);
   }
   // endregion
 

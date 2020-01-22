@@ -1,0 +1,45 @@
+/*
+https://github.com/simulationcraft/simc/blob/bfa-dev/SpellDataDump/bonus_ids.txt#L3776
+*/
+
+const corruptionIdMap: { [key: number]: { spellId: number; name: string; corruption: number; } } = {
+  6537: { spellId: 318276, name: "Twilight Devastation", corruption: 25 },
+  6538: { spellId: 318477, name: "Twilight Devastation", corruption: 50 },
+  6539: { spellId: 318478, name: "Twilight Devastation", corruption: 75 },
+  6540: { spellId: 318286, name: "Void Ritual", corruption: 15 },
+  6541: { spellId: 318479, name: "Void Ritual", corruption: 35 },
+  6542: { spellId: 318480, name: "Void Ritual", corruption: 66 },
+  6543: { spellId: 318481, name: "Twisted Appendage", corruption: 10 },
+  6544: { spellId: 318482, name: "Twisted Appendage", corruption: 35 },
+  6545: { spellId: 318483, name: "Twisted Appendage", corruption: 66 },
+  6546: { spellId: 318239, name: "Glimpse of Clarity", corruption: 15 },
+  6547: { spellId: 318303, name: "Ineffable Truth", corruption: 12 },
+  6548: { spellId: 318484, name: "Ineffable Truth", corruption: 30 },
+  6549: { spellId: 318280, name: "Echoing Void", corruption: 25 },
+  6550: { spellId: 318485, name: "Echoing Void", corruption: 35 },
+  6551: { spellId: 318486, name: "Echoing Void", corruption: 60 },
+  6552: { spellId: 318274, name: "Infinite Stars", corruption: 20 },
+  6553: { spellId: 318487, name: "Infinite Stars", corruption: 50 },
+  6554: { spellId: 318488, name: "Infinite Stars", corruption: 75 },
+  6555: { spellId: 318266, name: "Racing Pulse", corruption: 15 },
+  6556: { spellId: 318268, name: "Deadly Momentum", corruption: 15 },
+  6557: { spellId: 318269, name: "Honed Mind", corruption: 15 },
+  6558: { spellId: 318270, name: "Surging Vitality", corruption: 15 },
+  6559: { spellId: 318492, name: "Racing Pulse", corruption: 20 },
+  6560: { spellId: 318496, name: "Racing Pulse", corruption: 35 },
+  6561: { spellId: 318493, name: "Deadly Momentum", corruption: 20 },
+  6562: { spellId: 318497, name: "Deadly Momentum", corruption: 35 },
+  6563: { spellId: 318494, name: "Honed Mind", corruption: 20 },
+  6564: { spellId: 318498, name: "Honed Mind", corruption: 35 },
+  6565: { spellId: 318495, name: "Surging Vitality", corruption: 20 },
+  6566: { spellId: 318499, name: "Surging Vitality", corruption: 35 },
+  6567: { spellId: 318294, name: "Devour Vitality", corruption: 35 },
+  6568: { spellId: 316780, name: "Whispered Truths", corruption: 25 },
+  6569: { spellId: 317290, name: "Lash of the Void", corruption: 25 },
+  6570: { spellId: 318299, name: "Flash of Insight", corruption: 20 },
+  6571: { spellId: 318293, name: "Searing Flames", corruption: 30 },
+  6572: { spellId: 316651, name: "Obsidian Skin", corruption: 50 },
+  6573: { spellId: 318272, name: "Gushing Wound", corruption: 15 },
+};
+
+export default corruptionIdMap;
