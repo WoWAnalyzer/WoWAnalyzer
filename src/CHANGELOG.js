@@ -49,6 +49,8 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 1, 23), <>Added <SpellLink id={SPELLS.INEFFABLE_TRUTH_BUFF.id} />.</>, niseko),
+  change(date(2020, 1, 23), 'Added basic corruption effect support.', niseko),
   change(date(2020, 1, 20), 'Updated Azerite Trait info for Patch 8.3.', emallson),
   change(date(2020, 1, 16), 'Added Ny\'alotha boss information and phases.', Sharrq),
   change(date(2020, 1, 15), 'Changed the stat values statistic layout.', Zerotorescue),
