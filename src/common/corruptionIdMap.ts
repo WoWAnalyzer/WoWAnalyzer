@@ -1,8 +1,31 @@
-/*
-https://github.com/simulationcraft/simc/blob/bfa-dev/SpellDataDump/bonus_ids.txt#L3776
-*/
+/**
+ * https://github.com/simulationcraft/simc/blob/bfa-dev/SpellDataDump/bonus_ids.txt#L3776
+ * Corruption amount might get changed around at random (blizzard things), everything else should stay accurate
+ */
 
-const corruptionIdMap: { [key: number]: { spellId: number; name: string; corruption: number; } } = {
+const corruptionIdMap: { [key: number]: { spellId: number; name: string; corruption?: number; } } = {
+  6437: { spellId: 315277, name: "Strikethrough" },
+  6438: { spellId: 315281, name: "Strikethrough" },
+  6439: { spellId: 315282, name: "Strikethrough" },
+  6471: { spellId: 315529, name: "Masterful" },
+  6472: { spellId: 315530, name: "Masterful" },
+  6473: { spellId: 315531, name: "Masterful" },
+  6474: { spellId: 315544, name: "Expedient" },
+  6475: { spellId: 315545, name: "Expedient" },
+  6476: { spellId: 315546, name: "Expedient" },
+  6477: { spellId: 315549, name: "Versatile" },
+  6478: { spellId: 315552, name: "Versatile" },
+  6479: { spellId: 315553, name: "Versatile" },
+  6480: { spellId: 315554, name: "Severe" },
+  6481: { spellId: 315557, name: "Severe" },
+  6482: { spellId: 315558, name: "Severe" },
+  6483: { spellId: 315607, name: "Avoidant" },
+  6484: { spellId: 315608, name: "Avoidant" },
+  6485: { spellId: 315609, name: "Avoidant" },
+  6486: { spellId: 315574, name: "Glimpse of Clarity" },
+  6493: { spellId: 315590, name: "Siphoner" },
+  6494: { spellId: 315591, name: "Siphoner" },
+  6495: { spellId: 315592, name: "Siphoner" },
   6537: { spellId: 318276, name: "Twilight Devastation", corruption: 25 },
   6538: { spellId: 318477, name: "Twilight Devastation", corruption: 50 },
   6539: { spellId: 318478, name: "Twilight Devastation", corruption: 75 },

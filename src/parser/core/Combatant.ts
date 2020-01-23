@@ -45,7 +45,10 @@ type Talent = {
 
 type Corruption = {
   name: string;
-  corruption: number;
+  /** The amount of Corruption gained by using this effect */
+  corruption?: number;
+  /** How often someone has this corruption effect of that exact rank */
+  count: number;
 }
 
 class Combatant extends Entity {
@@ -196,29 +199,35 @@ class Combatant extends Entity {
   }
   // endregion
 
-  // region Traits
-  // needs a count because you can stack
-  corruptionBySpellId: { [key: number]: number } = {}
+  // region Corruption effects
+  corruptionBySpellId: { [key: number]: Corruption } = {}
   _parseCorruption(gear: Array<Item>) {
-    gear.forEach((item, index) => {
+    gear.forEach((item) => {
       const bonusId = item.bonusIDs?.find(x => Object.keys(corruptionIdMap).includes(x.toString()));
       if (bonusId === undefined) {
         return;
       }
       const corr = corruptionIdMap[bonusId];
 
-      //if (!Object.keys(this.corruptionBySpellId).includes(corr.spellId.toString())) {
-      if (this.corruptionBySpellId[corr.spellId]) {
-        this.corruptionBySpellId[corr.spellId] = this.corruptionBySpellId[corr.spellId] + 1;
+      if (!this.corruptionBySpellId[corr.spellId]) {
+        this.corruptionBySpellId[corr.spellId] = {
+          name: corr.name,
+          corruption: corr.corruption || undefined,
+          count: 1,
+        };
       } else {
-        this.corruptionBySpellId[corr.spellId] = 1;
+        this.corruptionBySpellId[corr.spellId].count += 1;
       }
-      //}
     });
-    console.log(this.corruptionBySpellId);
   }
   hasCorruption(spellId: number) {
     return Boolean(this.corruptionBySpellId[spellId]);
+  }
+  hasCorruptionByName(spell: string) {
+    return Boolean(Object.values(this.corruptionBySpellId).find(p => p.name === spell));
+  }
+  getCorruptionCount(spellId: number) {
+    return Number(this.corruptionBySpellId[spellId]?.count || 0);
   }
   // endregion
 
