@@ -30,11 +30,13 @@ export enum EventType {
   CombatantInfo = 'combatantinfo',
 
   // Fabricated:
+  FightEnd = 'fightend',
   GlobalCooldown = 'globalcooldown',
   BeginChannel = 'beginchannel',
   EndChannel = 'endchannel',
   UpdateSpellUsable = 'updatespellusable',
   BeaconTransfer = 'beacontransfer',
+
 
   // Phases:
   PhaseStart = 'phasestart',
@@ -387,6 +389,11 @@ export interface SummonEvent extends Event {
   targetInstance: number;
   targetIsFriendly: boolean;
   ability: Ability;
+}
+export interface FightEndEvent extends Event {
+  type: EventType.FightEnd;
+  timestamp: number;
+  __fabricated: true;
 }
 export interface GlobalCooldownEvent extends Event {
   type: EventType.GlobalCooldown;

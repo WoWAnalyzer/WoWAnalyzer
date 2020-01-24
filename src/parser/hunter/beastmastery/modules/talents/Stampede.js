@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { formatNumber, formatMilliseconds } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -149,19 +148,6 @@ class Stampede extends Analyzer {
       );
     }
     return null;
-  }
-
-  /**
-   * @Deprecated
-   * @returns {*}
-   */
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.STAMPEDE_TALENT.id} />}
-        value={<ItemDamageDone amount={this.damage} />}
-      />
-    );
   }
 }
 

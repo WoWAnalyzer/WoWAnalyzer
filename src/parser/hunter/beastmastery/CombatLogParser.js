@@ -35,7 +35,7 @@ import AnimalCompanion from './modules/talents/AnimalCompanion';
 //Spells
 import BeastCleave from './modules/spells/BeastCleave';
 import CobraShot from './modules/spells/CobraShot';
-import BarbedShot from './modules/spells/BarbedShot';
+import BarbedShot from './modules/spells/BarbedShot.tsx';
 import AspectOfTheWild from './modules/spells/AspectOfTheWild';
 import BestialWrath from './modules/spells/BestialWrath';
 

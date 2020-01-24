@@ -5,10 +5,11 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
+import BarbedShot from 'parser/hunter/beastmastery/modules/spells/BarbedShot';
+
 import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import TimeFocusCapped from '../../../shared/modules/features/TimeFocusCapped';
-import BarbedShot from '../../modules/spells/BarbedShot';
 import BestialWrath from '../../modules/spells/BestialWrath';
 import KillerCobra from '../../modules/talents/KillerCobra';
 import CobraShot from '../../modules/spells/CobraShot';
