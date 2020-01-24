@@ -1,6 +1,4 @@
 import React from 'react';
-
-import { END_EVENT_TYPE } from 'parser/shared/normalizers/FightEnd';
 import { PhaseConfig } from 'raids';
 
 import EventFilter from './EventFilter';
@@ -217,6 +215,7 @@ export interface DamageEvent extends Event {
   sourceID?: number;
   sourceIsFriendly: true;
   targetID: number;
+  targetInstance: number,
   targetIsFriendly: false;
   ability: Ability;
   hitType: number;
@@ -302,7 +301,7 @@ export interface ApplyDebuffStackEvent extends BuffEvent {
   ability: Ability;
   stack: number;
 }
-export interface RemoveBuffStack extends BuffEvent {
+export interface RemoveBuffStackEvent extends BuffEvent {
   type: EventType.RemoveBuffStack;
 
   sourceID: number;
@@ -312,7 +311,7 @@ export interface RemoveBuffStack extends BuffEvent {
   ability: Ability;
   stack: number;
 }
-export interface RemoveDebuffStack extends BuffEvent {
+export interface RemoveDebuffStackEvent extends BuffEvent {
   type: EventType.RemoveBuffStack;
 
   sourceID: number;
@@ -404,6 +403,9 @@ export interface GlobalCooldownEvent extends Event {
   timestamp: number;
   trigger: CastEvent;
   __fabricated: true;
+}
+export interface FightEndEvent extends Event {
+  type: EventType.FightEnd;
 }
 export interface UpdateSpellUsableEvent extends Event {
   type: EventType.UpdateSpellUsable;
@@ -718,7 +720,7 @@ const Events = {
     return new EventFilter(EventType.Resurrect);
   },
   get fightend() {
-    return new EventFilter(END_EVENT_TYPE);
+    return new EventFilter(EventType.FightEnd);
   },
   get phasestart() {
     return new EventFilter(EventType.PhaseStart);

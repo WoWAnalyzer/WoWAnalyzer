@@ -6,7 +6,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import HotStreakPreCasts from './HotStreakPreCasts';
 
 const debug = false;
@@ -17,13 +17,18 @@ class HotStreak extends Analyzer {
   static dependencies = {
     hotStreakPreCasts: HotStreakPreCasts,
   };
+  protected hotStreakPreCasts!: HotStreakPreCasts;
+
+  hasPyroclasm: boolean;
 
   totalHotStreakProcs = 0;
   expiredProcs = 0;
   hotStreakRemoved = 0;
+  castTimestamp = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
+    this.hasPyroclasm = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST,SPELLS.FLAMESTRIKE]), this.onHotStreakSpenderCast);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.onHotStreakApplied);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.checkForExpiredProcs);
@@ -31,17 +36,17 @@ class HotStreak extends Analyzer {
   }
 
   //When Pyroblast is cast, get the timestamp. This is used for determining if pyroblast was cast immediately before Hot Streak was removed.
-  onHotStreakSpenderCast(event) {
+  onHotStreakSpenderCast(event: CastEvent) {
     this.castTimestamp = event.timestamp;
   }
 
   //Count the number of times Hot Streak was applied
-  onHotStreakApplied() {
+  onHotStreakApplied(event: ApplyBuffEvent) {
     this.totalHotStreakProcs += 1;
   }
 
   //Checks to see if there was a Hot Streak spender cast immediately before Hot Streak was removed. If there was not, then it must have expired.
-  checkForExpiredProcs(event) {
+  checkForExpiredProcs(event: RemoveBuffEvent) {
     if (!this.castTimestamp || this.castTimestamp + PROC_WINDOW_MS < event.timestamp) {
       debug && this.log("Hot Streak proc expired");
       this.expiredProcs += 1;
@@ -72,9 +77,9 @@ class HotStreak extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.hotStreakUtilizationThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>You allowed {formatPercentage(this.expiredProcsPercent)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</>)
           .icon(SPELLS.HOT_STREAK.icon)
           .actual(`${formatPercentage(this.hotStreakUtil)}% expired`)
