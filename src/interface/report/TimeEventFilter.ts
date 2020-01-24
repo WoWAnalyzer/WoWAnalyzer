@@ -2,7 +2,7 @@ import React from 'react';
 
 import { captureException } from 'common/errorLogger';
 import { SECOND_POTIONS } from 'parser/shared/modules/items/PrePotion';
-import { EventType, Event, PhaseEvent, CastEvent, ApplyBuffStackEvent, ApplyDebuffStackEvent, RemoveBuffStack, RemoveDebuffStack, ApplyBuffEvent, RemoveBuffEvent, ApplyDebuffEvent, RemoveDebuffEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
+import { EventType, Event, PhaseEvent, CastEvent, ApplyBuffStackEvent, ApplyDebuffStackEvent, RemoveBuffStackEvent, RemoveDebuffStackEvent, ApplyBuffEvent, RemoveBuffEvent, ApplyDebuffEvent, RemoveDebuffEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
 
 import { EventsParseError } from './EventParser';
 import { SELECTION_ALL_PHASES, Fight } from './PhaseParser';
@@ -124,7 +124,7 @@ function findRelevantPostFilterEvents(events: Event[]) {
 }
 
 //filter prephase events to just the events outside the time period that "matter" to make statistics more accurate (e.g. buffs and cooldowns)
-type StackEvent = ApplyBuffStackEvent | ApplyDebuffStackEvent | RemoveBuffStack | RemoveDebuffStack;
+type StackEvent = ApplyBuffStackEvent | ApplyDebuffStackEvent | RemoveBuffStackEvent | RemoveDebuffStackEvent;
 type BuffEvent = ApplyBuffEvent | ApplyDebuffEvent | RemoveBuffEvent | RemoveDebuffEvent;
 type CastRelevantEvent = CastEvent | FilterCooldownInfoEvent;
 function findRelevantPreFilterEvents(events: Event[]) {

@@ -17,9 +17,15 @@ class Meteor extends Analyzer {
     meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
   };
+  protected abilityTracker!: AbilityTracker;
+  protected enemies!: EnemyInstances;
+  protected meteorRune!: MeteorRune;
+  protected meteorCombustion!: MeteorCombustion;
 
-  constructor(...args) {
-    super(...args);
+  hasMeteor: boolean;
+
+  constructor(options: any) {
+    super(options);
     this.hasMeteor = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
     this.active = this.hasMeteor ? true : false;
 
@@ -37,8 +43,6 @@ class Meteor extends Analyzer {
   }
 
   get meteorCastEfficiency() {
-    console.log(this.owner.fightDuration / 60000);
-    console.log(this.meteorMaxCasts);
     return this.totalMeteorCasts / this.meteorMaxCasts;
   }
 
@@ -54,9 +58,9 @@ class Meteor extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.meteorEfficiencySuggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
+			.addSuggestion((suggest: any, actual: any, recommended: any) => {
 				return suggest(<>You could have cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> {this.meteorMaxCasts} times during this fight, but you only cast it {this.totalMeteorCasts} times. While you should not cast Meteor on cooldown (since you need to have it available for <SpellLink id={SPELLS.COMBUSTION.id} />), you should be casting it at least once per minute.</>)
 					.icon(SPELLS.METEOR_TALENT.icon)
 					.actual(`${formatPercentage(this.meteorCastEfficiency)}% Utilization`)
@@ -75,7 +79,7 @@ class Meteor extends Analyzer {
             <ul>
               <li>{this.totalMeteorCasts} Total Meteor casts</li>
               <li>{this.meteorMaxCasts} Adjusted max casts</li>
-              <li>{this.meteorRune.totalMeteorCasts - this.badMeteor} Meteor casts during Rune of Power</li>
+              <li>{this.meteorRune.totalMeteorCasts - this.meteorRune.badMeteor} Meteor casts during Rune of Power</li>
               <li>{this.meteorRune.badMeteor} Meteor casts without Rune of Power</li>
               <li>{this.meteorCombustion.combustionWithoutMeteor} Combustion casts without Meteor</li>
             </ul>

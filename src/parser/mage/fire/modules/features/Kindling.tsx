@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -20,17 +20,18 @@ class Kindling extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+  protected spellUsable!: SpellUsable;
 
   cooldownReduction = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.KINDLING_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(COMBUST_REDUCTION_SPELLS), this.onCritDamage);
   }
 
   //Look for crit damage events to reduce the cooldown on Kindling
-  onCritDamage(event) {
+  onCritDamage(event: DamageEvent) {
     const combustionOnCD = this.spellUsable.isOnCooldown(SPELLS.COMBUSTION.id);
     if (event.hitType !== HIT_TYPES.CRIT) {
       return;
