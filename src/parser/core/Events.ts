@@ -389,11 +389,7 @@ export interface SummonEvent extends Event {
   targetIsFriendly: boolean;
   ability: Ability;
 }
-export interface FightEndEvent extends Event {
-  type: EventType.FightEnd;
-  timestamp: number;
-  __fabricated: true;
-}
+
 export interface GlobalCooldownEvent extends Event {
   type: EventType.GlobalCooldown;
   ability: Ability;
@@ -406,6 +402,8 @@ export interface GlobalCooldownEvent extends Event {
 }
 export interface FightEndEvent extends Event {
   type: EventType.FightEnd;
+  timestamp: number;
+  __fabricated: true;
 }
 export interface UpdateSpellUsableEvent extends Event {
   type: EventType.UpdateSpellUsable;
