@@ -42,7 +42,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const ZONE_DEFAULT_ETERNAL_PALACE = 23;
+const ZONE_DEFAULT_NYALOTHA = 24;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
@@ -71,7 +71,7 @@ class CharacterParses extends React.Component {
       class: '',
       activeSpec: [],
       activeDifficultyIds: Object.values(DIFFICULTIES),
-      activeZoneID: ZONE_DEFAULT_ETERNAL_PALACE,
+      activeZoneID: ZONE_DEFAULT_NYALOTHA,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
       metric: 'dps',
