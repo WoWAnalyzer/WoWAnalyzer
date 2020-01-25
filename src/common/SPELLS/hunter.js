@@ -587,7 +587,7 @@ export default {
     name: 'Dismiss Pet',
     icon: 'spell_nature_spiritwolf',
   },
-  PLAY_DEAD: {
+  PLAY_DEAD: { //Is also Wake Up
     id: 209997,
     name: 'Play Dead',
     icon: 'inv_misc_pelt_bear_03',

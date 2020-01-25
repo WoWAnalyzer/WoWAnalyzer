@@ -80,7 +80,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         timelineSortIndex: -1,
         gcd: {
-          base: 1500, //This is set to 1500 currently, but it's altered to be accurate inside the GlobalCooldown module because it is currently bugged in-game
+          base: 1500,
         },
         castEfficiency: {
           suggestion: true,
@@ -238,6 +238,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.FEIGN_DEATH,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: null,
       },
       {
         spell: [SPELLS.CALL_PET_1, SPELLS.CALL_PET_2, SPELLS.CALL_PET_3, SPELLS.CALL_PET_4, SPELLS.CALL_PET_5],
