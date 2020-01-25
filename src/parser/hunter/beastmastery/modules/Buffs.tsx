@@ -4,8 +4,6 @@ import CoreBuffs from 'parser/core/modules/Buffs';
 
 class Buffs extends CoreBuffs {
   buffs() {
-    // const combatant = this.selectedCombatant;
-
     return [
       {
         spellId: SPELLS.BESTIAL_WRATH.id,

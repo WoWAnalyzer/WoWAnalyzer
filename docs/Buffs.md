@@ -4,7 +4,7 @@ The buffs module is a core configuration module to teach modules about buffs. Yo
 
 ## Setup
 
-Make a Buffs module in your spec folder, in the location `<spec>/modules/Buffs.js`. You can copy an existing Buffs module as a basis, or use the skeleton below.
+Make a Buffs module in your spec folder, in the location `<spec>/modules/Buffs.tsx`. You can copy an existing Buffs module as a basis, or use the skeleton below.
 
 To configure buffs, override the `buffs()` method of the module, and return an array with configuration objects for your buffs.
 
