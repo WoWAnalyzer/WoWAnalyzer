@@ -385,6 +385,7 @@ export interface SummonEvent extends Event {
     petOwner: number;
     icon: string;
   };
+  targetID: number;
   targetInstance: number;
   targetIsFriendly: boolean;
   ability: Ability;

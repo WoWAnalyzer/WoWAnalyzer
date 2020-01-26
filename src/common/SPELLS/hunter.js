@@ -62,15 +62,10 @@ export default {
     name: 'Dire Beast',
     icon: 'ability_hunter_longevity',
   },
-  DIRE_BEAST_SECONDARY_WITH_SCENT: { // Dire Beast ID with Scent of Blood talent
-    id: 132764,
+  DIRE_BEAST_SUMMON: {
+    id: 306229,
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
-  },
-  DIRE_BEAST_SECONDARY_WITHOUT_SCENT: { // Dire Beast ID without Scent of Blood talent
-    id: 219199,
-    name: 'Dire Beast',
-    icon: 'ability_hunter_longevity',
   },
   STAMPEDE_DAMAGE: {
     id: 201594,
