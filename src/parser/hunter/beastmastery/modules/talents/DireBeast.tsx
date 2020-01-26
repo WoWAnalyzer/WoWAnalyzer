@@ -42,7 +42,6 @@ class DireBeast extends Analyzer {
   }
 
   on_byPlayerPet_damage(event: DamageEvent) {
-    console.log(event);
     const sourceId: string = encodeTargetString(event.sourceID);
     if (this.activeDireBeasts.includes(sourceId)) {
       this.damage += event.amount +

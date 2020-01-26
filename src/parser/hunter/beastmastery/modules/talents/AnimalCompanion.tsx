@@ -7,6 +7,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from '../../../../core/Events';
+import { isPermanentPet } from '../../../../warlock/demonology/modules/pets/helpers';
 
 /**
  * Your Call Pet additionally summons the first pet from your stable.
@@ -39,6 +40,9 @@ class AnimalCompanion extends Analyzer {
     if (!foundPet) {
       const sourcePet = this.owner.playerPets.find((pet: { id: number | undefined; }) => pet.id ===
         event.sourceID);
+      if (!isPermanentPet(sourcePet.guid)) {
+        return;
+      }
       this.pets.push({
         petName: sourcePet.name,
         sourceID: event.sourceID,

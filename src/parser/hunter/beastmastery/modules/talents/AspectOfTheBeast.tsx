@@ -19,6 +19,11 @@ import { DamageEvent } from '../../../../core/Events';
  */
 
 const ASPECT_MULTIPLIER = 0.3;
+const ABILITIES_NOT_AFFECTED: number[] = [
+  SPELLS.MELEE.id,
+  SPELLS.KILL_COMMAND_DAMAGE_BM.id,
+  SPELLS.STOMP_DAMAGE.id,
+];
 
 class AspectOfTheBeast extends Analyzer {
 
@@ -32,12 +37,7 @@ class AspectOfTheBeast extends Analyzer {
 
   on_byPlayerPet_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
-    if (spellId ===
-      SPELLS.MELEE.id ||
-      spellId ===
-      SPELLS.KILL_COMMAND_DAMAGE_BM.id ||
-      spellId ===
-      SPELLS.STOMP_DAMAGE.id) {
+    if (ABILITIES_NOT_AFFECTED.includes(spellId)) {
       return;
     }
     this.damage += calculateEffectiveDamage(event, ASPECT_MULTIPLIER);
