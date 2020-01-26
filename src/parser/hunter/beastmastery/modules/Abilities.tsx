@@ -3,9 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from '../../../core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {
@@ -29,7 +30,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.KILL_COMMAND_CAST_BM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => 7.5 / (1 + haste),
+        cooldown: haste => 7.5 /
+          (
+            1 + haste
+          ),
         gcd: {
           base: 1500,
         },
@@ -61,7 +65,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => 12 / (1 + haste),
+        cooldown: haste => 12 /
+          (
+            1 + haste
+          ),
         charges: 2,
         gcd: {
           base: 1500,
@@ -129,7 +136,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHIMAERA_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => 15 / (1 + haste),
+        cooldown: haste => 15 /
+          (
+            1 + haste
+          ),
         enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id),
         gcd: {
           base: 1500,
@@ -153,26 +163,34 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
         cooldown: 180,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: [SPELLS.PRIMAL_RAGE_1, SPELLS.PRIMAL_RAGE_2],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 360,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
 
       {
         spell: SPELLS.MASTERS_CALL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.CONCUSSIVE_SHOT,
@@ -186,13 +204,17 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.COUNTER_SHOT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 24,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.MISDIRECTION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.INTIMIDATION,
@@ -213,15 +235,31 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
-        gcd: null,
+        cooldown: 180 *
+          (
+            1 -
+            (
+              combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0
+            )
+          ),
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
-        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
-        gcd: null,
+        cooldown: 180 *
+          (
+            1 -
+            (
+              combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0
+            )
+          ),
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.FREEZING_TRAP,
@@ -243,10 +281,18 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FEIGN_DEATH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
-        spell: [SPELLS.CALL_PET_1, SPELLS.CALL_PET_2, SPELLS.CALL_PET_3, SPELLS.CALL_PET_4, SPELLS.CALL_PET_5],
+        spell: [
+          SPELLS.CALL_PET_1,
+          SPELLS.CALL_PET_2,
+          SPELLS.CALL_PET_3,
+          SPELLS.CALL_PET_4,
+          SPELLS.CALL_PET_5,
+        ],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -276,17 +322,25 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
         castEfficiency: {
           suggestion: true,
         },
       },
       {
-        spell: [SPELLS.BLOOD_FURY_PHYSICAL, SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL, SPELLS.BLOOD_FURY_SPELL],
+        spell: [
+          SPELLS.BLOOD_FURY_PHYSICAL,
+          SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL,
+          SPELLS.BLOOD_FURY_SPELL,
+        ],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         isUndetectable: true,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
         castEfficiency: {
           suggestion: true,
         },

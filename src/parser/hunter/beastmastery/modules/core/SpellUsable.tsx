@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
+import { CastEvent } from '../../../../core/Events';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
@@ -12,12 +13,9 @@ class SpellUsable extends CoreSpellUsable {
       guid: any;
     };
   } | null | undefined;
-  on_byPlayer_cast(event: { ability: { guid: any; }; } | null) {
+  on_byPlayer_cast(event: CastEvent) {
     if (super.on_byPlayer_cast) {
       super.on_byPlayer_cast(event);
-    }
-    if(event === null) {
-      return;
     }
     const spellId = event.ability.guid;
     if (spellId === SPELLS.AUTO_SHOT.id) {
