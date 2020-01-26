@@ -159,9 +159,9 @@ class BarbedShot extends Analyzer {
       return {
         actual: this.percentUptimeMaxStacks,
         isLessThan: {
-          minor: 0.80,
-          average: 0.75,
-          major: 0.7,
+          minor: 0.75,
+          average: 0.70,
+          major: 0.65,
         },
         style: 'percentage',
       };
