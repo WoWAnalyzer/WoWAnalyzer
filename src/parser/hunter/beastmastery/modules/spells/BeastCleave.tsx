@@ -7,6 +7,12 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import {
+  ApplyBuffEvent,
+  DamageEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from '../../../../core/Events';
 
 /**
  * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
@@ -23,7 +29,7 @@ class BeastCleave extends Analyzer {
   casts = 0;
   castsWithoutHits = 0;
 
-  on_toPlayerPet_applybuff(event) {
+  on_toPlayerPet_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
       return;
@@ -33,7 +39,7 @@ class BeastCleave extends Analyzer {
     this.beastCleaveHits = 0;
   }
 
-  on_toPlayerPet_removebuff(event) {
+  on_toPlayerPet_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
       return;
@@ -44,7 +50,7 @@ class BeastCleave extends Analyzer {
     this.cleaveUp = false;
   }
 
-  on_toPlayerPet_refreshbuff(event) {
+  on_toPlayerPet_refreshbuff(event: RefreshBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
       return;
@@ -56,7 +62,7 @@ class BeastCleave extends Analyzer {
     this.beastCleaveHits = 0;
   }
 
-  on_byPlayerPet_damage(event) {
+  on_byPlayerPet_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BEAST_CLEAVE_DAMAGE.id) {
       return;
@@ -77,9 +83,9 @@ class BeastCleave extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     if (this.casts > 0) {
-      when(this.beastCleavesWithoutHits).addSuggestion((suggest, actual, recommended) => {
+      when(this.beastCleavesWithoutHits).addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} time{actual === 1 ? '' : 's'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
           .icon(SPELLS.MULTISHOT_BM.icon)
           .actual(`${actual} cast${actual === 1 ? '' : 's'} without any Beast Cleave damage`)

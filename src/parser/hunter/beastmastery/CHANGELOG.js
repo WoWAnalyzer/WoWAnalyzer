@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 9, 26), <> Updated <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} />, <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} />, <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> and <SpellLink id={SPELLS.COBRA_SHOT.id} /> modules. </>, Putro),
   change(date(2019, 9, 25), <> Updated the BM specific GCD module to add more spells in and remove some code meant to handle <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> affecting itself twice.</>, Putro),
   change(date(2019, 9, 24), <> Updated the <SpellLink id={SPELLS.BARBED_SHOT.id} /> module. </>, Putro),
   change(date(2019, 9, 21), <> Added a <SpellLink id={SPELLS.DIRE_CONSEQUENCES.id} /> module. </>, [LeoZhekov]),
