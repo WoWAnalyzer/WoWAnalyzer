@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -102,23 +101,6 @@ class BeastCleave extends Analyzer {
             </>
           </BoringSpellValueText>
         </Statistic>
-      );
-    }
-    return null;
-  }
-
-  /**
-   * @deprecated
-   * @returns {null|*}
-   */
-  subStatistic() {
-    //Beast Cleave is only used on AoE - no reason to show this statistic on single-target, so this just checks if Beast Cleave did any damage at all, since it only makes sense to show it on AoE fights.
-    if (this.damage > 0) {
-      return (
-        <StatisticListBoxItem
-          title={<SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} />}
-          value={<ItemDamageDone amount={this.damage} />}
-        />
       );
     }
     return null;

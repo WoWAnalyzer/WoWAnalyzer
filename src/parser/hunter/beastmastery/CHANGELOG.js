@@ -6,6 +6,8 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 9, 25), <> Updated the BM specific GCD module to add more spells in and remove some code meant to handle <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> affecting itself twice.</>, Putro),
+  change(date(2019, 9, 24), <> Updated the <SpellLink id={SPELLS.BARBED_SHOT.id} /> module. </>, Putro),
   change(date(2019, 9, 21), <> Added a <SpellLink id={SPELLS.DIRE_CONSEQUENCES.id} /> module. </>, [LeoZhekov]),
   change(date(2019, 7, 31), <> Added some inefficient casts highlights on the timeline and updated all statistics for spells, talents and traits to use the new statistics module. </>, [LeoZhekov]),
   change(date(2018, 11, 14), <> Created a module for <SpellLink id={SPELLS.BORN_TO_BE_WILD_TALENT.id} /> and <SpellLink id={SPELLS.BINDING_SHOT_TALENT.id} />. </>, [Putro]),
