@@ -1,12 +1,15 @@
 import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import UptimeIcon from 'interface/icons/Uptime';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events from 'parser/core/Events';
 
 const DAMAGE_BOOST = .10;
 const DURATION_BOOST_MS = 500;
@@ -25,49 +28,42 @@ class GatheringStorm extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GATHERING_STORM_TALENT.id);
-  }
-
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.GATHERING_STORM_TALENT_BUFF.id) {
+    if (!this.active) {
       return;
     }
+    
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GATHERING_STORM_TALENT_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.GATHERING_STORM_TALENT_BUFF), this.onApplyBuffStack);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.REMORSELESS_WINTER_DAMAGE), this.onDamage);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.GATHERING_STORM_TALENT_BUFF), this.onRemoveBuff);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+  }
+
+  onApplyBuff(event) {
     this.currentStacks = 1;
     this.totalCasts++;
     this.totalStacks++;
     debug && console.log('applied buff');
   }
 
-  on_byPlayer_applybuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.GATHERING_STORM_TALENT_BUFF.id) {
-      return;
-    }
+  onApplyBuffStack(event) {
     this.currentStacks++;
     this.totalStacks++;
     debug && console.log(`added buff stack, now at ${this.currentStacks}`);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.REMORSELESS_WINTER_DAMAGE.id) {
-      return;
-    }
+  onDamage(event) {
     const boostedDamage = calculateEffectiveDamage(event, (DAMAGE_BOOST * this.currentStacks));
     this.bonusDamage += boostedDamage;
     debug && console.log(`boosted damage with ${this.currentStacks} stacks = ${boostedDamage}`);
   }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.GATHERING_STORM_TALENT_BUFF.id) {
-      return;
-    }
+  onRemoveBuff(event) {
     this.currentStacks = 0;
     debug && console.log(`removed buff`);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.REMORSELESS_WINTER.id)) {
       return;
     }
@@ -92,13 +88,13 @@ class GatheringStorm extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        position={STATISTIC_ORDER.CORE(50)}
+        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.GATHERING_STORM_TALENT.id} />}
-        value={`${this.averageExtension.toFixed(1)}`}
-        label="Average seconds added to each Remorseless Winter"
-        tooltip={(
+        label="Gathering Storm"
+        value={(
           <>
-            Bonus damage from Gathering Storm: {this.owner.formatItemDamageDone(this.bonusDamage)}
+            <ItemDamageDone amount={this.bonusDamage} /> <br />
+            <UptimeIcon /> {this.averageExtension.toFixed(1)} <small>average seconds extended </small>
           </>
         )}
       />

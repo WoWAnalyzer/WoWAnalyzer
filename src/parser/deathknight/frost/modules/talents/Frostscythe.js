@@ -5,8 +5,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import Events from 'parser/core/Events';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 /**
  *A sweeping attack that strikes all enemies in front of you for (14% of attack power) Frost damage. This attack benefits from Killing Machine. Critical strikes with Frostscythe deal 4 times normal damage.
@@ -20,13 +21,16 @@ class Frostscythe extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FROSTSCYTHE_TALENT.id);
-  }
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FROSTSCYTHE_TALENT.id) {
+    if (!this.active) {
       return;
     }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FROSTSCYTHE_TALENT), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FROSTSCYTHE_TALENT), this.onDamage);
+    this.addEventListener(Events.fightend, this.onFightEnd);
+  }
+
+  onCast(event) {
     if (this.hits >= this.hitThreshold) { // this is checking the previous cast, not the cast in the current event
       this.goodCasts += 1;
     }
@@ -35,15 +39,11 @@ class Frostscythe extends Analyzer {
     this.hits = 0;
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FROSTSCYTHE_TALENT.id) {
-      return;
-    }
+  onDamage(event) {
     this.hits += 1;
   }
 
-  on_fightend() { // check if the last cast of Fsc was good
+  onFightEnd() { // check if the last cast of Fsc was good
     if (this.hits >= this.hitThreshold) {
       this.goodCasts += 1;
     }
@@ -80,6 +80,7 @@ class Frostscythe extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.FROSTSCYTHE_TALENT.id} />}
         value={`${formatPercentage(this.efficiency)}%`}
         label="Frostscythe efficiency"
@@ -87,7 +88,6 @@ class Frostscythe extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(60);
 }
 
 export default Frostscythe;
