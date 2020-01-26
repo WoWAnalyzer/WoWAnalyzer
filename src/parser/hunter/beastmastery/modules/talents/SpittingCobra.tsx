@@ -4,14 +4,19 @@ import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText
+  from 'interface/statistics/components/BoringSpellValueText';
+import { DamageEvent, EnergizeEvent } from '../../../../core/Events';
 
 /**
  *
- * Summons a Spitting Cobra for 20 sec that attacks your target for (31.2% of Attack power) Nature damage every 2 sec.
- * While the Cobra is active you gain 2 Focus every sec. * Increases the effectiveness of your pet's Predator's Thirst, Endurance Training, and Pathfinding passives by 50%.
+ * Summons a Spitting Cobra for 20 sec that attacks your target for (31.2% of
+ * Attack power) Nature damage every 2 sec. While the Cobra is active you gain
+ * 2 Focus every sec. * Increases the effectiveness of your pet's Predator's
+ * Thirst, Endurance Training, and Pathfinding passives by 50%.
  *
- * Example log: https://www.warcraftlogs.com/reports/Z6GjqpNcvw3kBAL2#fight=3&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/Z6GjqpNcvw3kBAL2#fight=3&type=damage-done
  */
 
 class SpittingCobra extends Analyzer {
@@ -20,12 +25,13 @@ class SpittingCobra extends Analyzer {
   focusGained = 0;
   focusWasted = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
+  constructor(options: any) {
+    super(options);
+    this.active
+      = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
   }
 
-  on_byPlayer_energize(event) {
+  on_byPlayer_energize(event: EnergizeEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SPITTING_COBRA_TALENT.id) {
       return;
@@ -34,12 +40,15 @@ class SpittingCobra extends Analyzer {
     this.focusWasted += event.waste;
   }
 
-  on_byPlayerPet_damage(event) {
+  on_byPlayerPet_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SPITTING_COBRA_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount + (event.absorbed || 0);
+    this.damage += event.amount +
+      (
+        event.absorbed || 0
+      );
   }
 
   statistic() {

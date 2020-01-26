@@ -105,7 +105,7 @@ class FeedingFrenzy extends Analyzer {
       return;
     }
 
-    const [ traitDamageContribution ] = calculateBonusAzeriteDamage(event, [this.traitBonus], this.lastAttackPower, FEEDING_FRENZY_DAMAGE_COEFFICIENT);
+    const [traitDamageContribution] = calculateBonusAzeriteDamage(event, [this.traitBonus], this.lastAttackPower, FEEDING_FRENZY_DAMAGE_COEFFICIENT);
     this.traitDamageContribution += traitDamageContribution;
 
     if (debug) {
@@ -137,7 +137,7 @@ class FeedingFrenzy extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        category={"AZERITE_POWERS"}
+        category={'AZERITE_POWERS'}
         tooltip={(
           <>
             This only accounts for the added uptime granted when casting Barbed Shot after 8 seconds had passed, so each cast can potentially be worth up to 1 second. <br />
@@ -153,7 +153,7 @@ class FeedingFrenzy extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.FEEDING_FRENZY}>
           <>
-            <UptimeIcon />  {formatNumber(this.extraBuffUptime / MS)}s <small>added Frenzy Uptime</small> <br />
+            <UptimeIcon /> {formatNumber(this.extraBuffUptime / MS)}s <small>added Frenzy Uptime</small> <br />
             {formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS
           </>
         </BoringSpellValueText>
