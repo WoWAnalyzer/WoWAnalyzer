@@ -26,18 +26,17 @@ import {
  */
 
 //max stacks your pet can have of the Frenzy buff
-const MAX_FRENZY_STACKS = 3;
+const MAX_FRENZY_STACKS: number = 3;
 
 class BarbedShot extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
 
-  barbedShotStacks: any[][];
+  barbedShotStacks: Array<Array<number>> = [];
   lastBarbedShotStack: number = 0;
   lastBarbedShotUpdate = this.owner.fight.start_time;
   currentStacks: number = 0;
-
 
   constructor(options: any) {
     super(options);
@@ -45,12 +44,11 @@ class BarbedShot extends Analyzer {
       { length: MAX_FRENZY_STACKS + 1 },
       x => [],
     );
-    console.log(this.barbedShotStacks);
   }
+
 
   handleStacks(
     event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent,
-    stack: any = null,
   ) {
     if (event.type === 'removebuff') {
       this.currentStacks = 0;
@@ -58,9 +56,8 @@ class BarbedShot extends Analyzer {
       this.currentStacks = 1;
     } else if (event.type === 'applybuffstack') {
       this.currentStacks = event.stack;
-    }
-    if (stack) {
-      this.currentStacks = stack;
+    } else if (event.type === 'fightend') {
+      this.currentStacks = this.lastBarbedShotStack;
     }
 
     this.barbedShotStacks[this.lastBarbedShotStack].push(event.timestamp -
@@ -75,8 +72,8 @@ class BarbedShot extends Analyzer {
 
   getAverageBarbedShotStacks() {
     let avgStacks = 0;
-    this.barbedShotStacks.forEach((elem: any[], index: number) => {
-      avgStacks += elem.reduce((a, b) => a + b, 0) /
+    this.barbedShotStacks.forEach((elem: Array<number>, index: number) => {
+      avgStacks += elem.reduce((a: number, b: number) => a + b, 0) /
         this.owner.fightDuration *
         index;
     });
@@ -99,7 +96,7 @@ class BarbedShot extends Analyzer {
     this.handleStacks(event);
   }
 
-  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent): void {
+  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
       return;
@@ -108,12 +105,15 @@ class BarbedShot extends Analyzer {
   }
 
   on_fightend(event: FightEndEvent) {
-    this.handleStacks(event, this.lastBarbedShotStack);
+    this.handleStacks(event);
   }
 
   get percentUptimeMaxStacks() {
     return (
-      this.barbedShotStacks[MAX_FRENZY_STACKS].reduce((a, b) => a + b, 0)
+      this.barbedShotStacks[MAX_FRENZY_STACKS].reduce((
+        a: number,
+        b: number,
+      ) => a + b, 0)
     ) / this.owner.fightDuration;
   }
 
@@ -124,8 +124,8 @@ class BarbedShot extends Analyzer {
       val,
     ) => acc.concat(val), []);
     const petUptime = flattenArray.reduce((
-      totalUptime,
-      stackUptime,
+      totalUptime: number,
+      stackUptime: number,
     ) => totalUptime + stackUptime, 0);
     return petUptime / this.owner.fightDuration;
   }
@@ -141,9 +141,9 @@ class BarbedShot extends Analyzer {
     return {
       actual: this.percentUptimePet,
       isLessThan: {
-        minor: 0.95,
-        average: 0.85,
-        major: 0.8,
+        minor: 0.90,
+        average: 0.825,
+        major: 0.75,
       },
       style: 'percentage',
     };
@@ -154,9 +154,9 @@ class BarbedShot extends Analyzer {
       return {
         actual: this.percentUptimeMaxStacks,
         isLessThan: {
-          minor: 0.90,
-          average: 0.85,
-          major: 0.80,
+          minor: 0.85,
+          average: 0.80,
+          major: 0.75,
         },
         style: 'percentage',
       };
@@ -164,9 +164,9 @@ class BarbedShot extends Analyzer {
       return {
         actual: this.percentUptimeMaxStacks,
         isLessThan: {
-          minor: 0.85,
-          average: 0.80,
-          major: 0.75,
+          minor: 0.80,
+          average: 0.75,
+          major: 0.7,
         },
         style: 'percentage',
       };
@@ -224,9 +224,11 @@ class BarbedShot extends Analyzer {
                 {Object.values(this.barbedShotTimesByStacks).map((e, i) => (
                   <tr key={i}>
                     <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) /
+                    <td>{formatDuration(e.reduce((a: number, b: number) => a +
+                      b, 0) /
                       1000)}</td>
-                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) /
+                    <td>{formatPercentage(e.reduce((a: number, b: number) => a +
+                      b, 0) /
                       this.owner.fightDuration)}%
                     </td>
                   </tr>
