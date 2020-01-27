@@ -38,9 +38,6 @@ class SpittingCobra extends Analyzer {
     if (spellId !== SPELLS.SPITTING_COBRA_TALENT.id) {
       return;
     }
-    if (event.resourceChange === 1) {
-      console.log(event);
-    }
     this.focusGained += event.resourceChange - event.waste;
     //event.waste doesn't always contain the amount of focus wasted in the energize events from this talent so we need to the check below
     if (event.resourceChange < FOCUS_PER_ENERGIZE && event.waste === 0) {
