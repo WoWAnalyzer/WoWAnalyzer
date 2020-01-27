@@ -8,6 +8,7 @@ import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldo
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { CastEvent } from '../../../../core/Events';
 
 /**
  * A quick shot causing Physical damage.
@@ -22,21 +23,23 @@ class CobraShot extends Analyzer {
     globalCooldown: GlobalCooldown,
   };
 
+  protected spellUsable!: SpellUsable;
+  protected globalCooldown!: GlobalCooldown;
+
+
   effectiveKCReductionMs = 0;
   wastedKCReductionMs = 0;
   wastedCasts = 0;
   casts = 0;
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.COBRA_SHOT.id) {
       return;
     }
     if (event.meta === undefined) {
       event.meta = {
-        isEnhancedCast: false,
         isInefficientCast: false,
-        enhancedCastReason: '',
         inefficientCastReason: '',
       };
     }
@@ -93,18 +96,18 @@ class CobraShot extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.cdrEfficiencyCobraShotThreshold).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.cdrEfficiencyCobraShotThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>A crucial part of <SpellLink id={SPELLS.COBRA_SHOT.id} /> is the cooldown reduction of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> it provides. When the cooldown of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is larger than the duration of your GCD + 1s, you'll want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to maximize the amount of casts of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />. If the cooldown of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is lower than GCD + 1s, you'll only want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} />, if you'd be capping focus otherwise.</>)
         .icon(SPELLS.COBRA_SHOT.icon)
         .actual(`You had ${formatPercentage(actual)}% effective cooldown reduction of Kill Command`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
-    when(this.wastedCobraShotsThreshold).addSuggestion((suggest, actual) => {
+    when(this.wastedCobraShotsThreshold).addSuggestion((suggest: any, actual: any) => {
       return suggest(<>You should never cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> when <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is off cooldown.</>)
         .icon(SPELLS.COBRA_SHOT.icon)
         .actual(`You cast ${actual} Cobra Shots when Kill Command wasn't on cooldown`)
-        .recommended(`0 casts  is recommended`);
+        .recommended(`0 inefficient casts  is recommended`);
     });
   }
 

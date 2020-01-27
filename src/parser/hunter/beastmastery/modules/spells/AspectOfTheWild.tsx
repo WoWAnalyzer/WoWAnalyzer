@@ -1,10 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { CastEvent, DamageEvent } from '../../../../core/Events';
 
 /**
- * Grants you and your pet 5 Focus per sec and 10% increased critical strike chance for 20 sec.
- * Reduces GCD by 200ms before haste.
+ * Grants you and your pet 5 Focus per sec and 10% increased critical strike
+ * chance for 20 sec. Reduces GCD by 200ms before haste.
  */
 
 class AspectOfTheWild extends Analyzer {
@@ -12,9 +13,11 @@ class AspectOfTheWild extends Analyzer {
     spellUsable: SpellUsable,
   };
 
+  protected spellUsable!: SpellUsable;
+
   casts = 0;
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ASPECT_OF_THE_WILD.id) {
       return;
@@ -22,7 +25,7 @@ class AspectOfTheWild extends Analyzer {
     this.casts += 1;
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.ASPECT_OF_THE_WILD.id)) {
       return;
     }

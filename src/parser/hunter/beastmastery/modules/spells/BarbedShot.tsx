@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatDuration, formatPercentage } from 'common/format';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
@@ -29,10 +28,6 @@ import {
 const MAX_FRENZY_STACKS: number = 3;
 
 class BarbedShot extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-
   barbedShotStacks: Array<Array<number>> = [];
   lastBarbedShotStack: number = 0;
   lastBarbedShotUpdate = this.owner.fight.start_time;
@@ -164,9 +159,9 @@ class BarbedShot extends Analyzer {
       return {
         actual: this.percentUptimeMaxStacks,
         isLessThan: {
-          minor: 0.80,
-          average: 0.75,
-          major: 0.7,
+          minor: 0.75,
+          average: 0.70,
+          major: 0.65,
         },
         style: 'percentage',
       };

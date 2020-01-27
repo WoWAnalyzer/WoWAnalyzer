@@ -39,7 +39,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.85,
+          recommendedEfficiency: 0.8,
         },
       },
       {
