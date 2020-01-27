@@ -19,6 +19,8 @@ import { DamageEvent, EnergizeEvent } from '../../../../core/Events';
  * https://www.warcraftlogs.com/reports/Z6GjqpNcvw3kBAL2#fight=3&type=damage-done
  */
 
+const FOCUS_PER_ENERGIZE = 2;
+
 class SpittingCobra extends Analyzer {
 
   damage = 0;
@@ -36,8 +38,16 @@ class SpittingCobra extends Analyzer {
     if (spellId !== SPELLS.SPITTING_COBRA_TALENT.id) {
       return;
     }
+    if (event.resourceChange === 1) {
+      console.log(event);
+    }
     this.focusGained += event.resourceChange - event.waste;
-    this.focusWasted += event.waste;
+    //event.waste doesn't always contain the amount of focus wasted in the energize events from this talent so we need to the check below
+    if (event.resourceChange < FOCUS_PER_ENERGIZE && event.waste === 0) {
+      this.focusWasted += FOCUS_PER_ENERGIZE - event.resourceChange;
+    } else {
+      this.focusWasted += event.waste;
+    }
   }
 
   on_byPlayerPet_damage(event: DamageEvent) {

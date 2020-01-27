@@ -16,11 +16,6 @@ import { EnergizeEvent } from '../../../../core/Events';
 
 const SCENT_OF_BLOOD_INCREASE_PER_TICK = 2;
 const BASELINE_BARBED_REGEN_PER_TICK = 5;
-// Currently Scent of Blood also affects Dire Beast focus regen - but since
-// Barbed Shot ticks 4 times, it gives 2 extra focus per tick however Dire
-// Beast only ticks once we only get 2 additional focus from that instead of
-// the full 8
-const BASELINE_DIRE_BEAST_REGEN = 10;
 
 const BARBED_SHOT_GENERATORS = [
   SPELLS.BARBED_SHOT_BUFF.id,
@@ -35,7 +30,6 @@ class ScentOfBlood extends Analyzer {
   damage = 0;
   focusGained = 0;
   focusWastedFromBS = 0;
-  focusWastedFromDB = 0;
 
   constructor(options: any) {
     super(options);
@@ -45,20 +39,7 @@ class ScentOfBlood extends Analyzer {
 
   on_toPlayer_energize(event: EnergizeEvent) {
     const spellId = event.ability.guid;
-    if (!BARBED_SHOT_GENERATORS.includes(spellId) &&
-      spellId !==
-      SPELLS.DIRE_BEAST_GENERATOR.id) {
-      return;
-    }
-    if (spellId === SPELLS.DIRE_BEAST_GENERATOR.id) {
-      if (event.waste >= SCENT_OF_BLOOD_INCREASE_PER_TICK) { //No focus gain from the talent
-        this.focusWastedFromDB += SCENT_OF_BLOOD_INCREASE_PER_TICK;
-        return;
-      }
-      this.focusGained += event.resourceChange -
-        BASELINE_DIRE_BEAST_REGEN -
-        event.waste;
-      this.focusWastedFromDB += event.waste;
+    if (!BARBED_SHOT_GENERATORS.includes(spellId)) {
       return;
     }
     if (event.waste >= SCENT_OF_BLOOD_INCREASE_PER_TICK) {//No focus gain from the talent
@@ -81,8 +62,6 @@ class ScentOfBlood extends Analyzer {
           <>
             <ul>
               <li>You wasted {this.focusWastedFromBS} focus by being too close to focus cap when Barbed Shot gave you focus.</li>
-              {this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) &&
-              <li> You wasted {this.focusWastedFromDB} focus by being too close to focus cap when Dire Beast gave you focus.</li>}
             </ul>
           </>
         )}
