@@ -52,7 +52,7 @@ class AMurderOfCrows extends Analyzer {
     this.active
       = this.selectedCombatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id);
     if (this.active) {
-      this.abilities.add({
+      options.abilities.add({
         spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
