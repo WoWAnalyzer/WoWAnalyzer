@@ -56,7 +56,7 @@ class Trueshot extends Analyzer {
             Information regarding your average Trueshot window:
             <ul>
               <li>You started your Trueshot windows with an average of {this.averageFocus} Focus.</li>
-              <li>You hit an average of {this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
+              <li>You hit an average of {this.averageAimedShots} Aimed Shots inside each Trueshot window.</li>
             </ul>
           </>
         )}

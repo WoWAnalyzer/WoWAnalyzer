@@ -10,7 +10,6 @@ import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import MongooseBite from '../../modules/talents/MongooseBite';
 import BirdOfPrey from '../../modules/talents/BirdOfPrey';
 
-
 class Checklist extends BaseChecklist {
   static dependencies = {
     combatants: Combatants,

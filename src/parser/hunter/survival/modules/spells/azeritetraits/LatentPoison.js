@@ -83,7 +83,7 @@ class LatentPoison extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        category={"AZERITE_POWERS"}
+        category={'AZERITE_POWERS'}
         tooltip={(
           <>
             {this.utilised} stacks consumed / {this.maxPossible} possible.<br />

@@ -137,14 +137,14 @@ class VipersVenom extends Analyzer {
             <ul>
               <li>Average time between gaining Viper's Venom buff and using it was <b>{this.averageTimeBetweenBuffAndUsage}</b> seconds.
                 <ul>
-                  <li>Note: This accounts for the GCD after the {this.spellKnown.name} proccing Viper's Venom. </li>
+                  <li>Note: This accounts for the GCD after the {this.spellKnown.name} proccing Viper's Venom.</li>
                   {this.wastedProcs > 0 && <li>You wasted {this.wastedProcs} procs by gaining a new proc, whilst your current proc was still active.</li>}
                 </ul>
               </li>
             </ul>
           </>
         )}
-        category={"TALENTS"}
+        category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.VIPERS_VENOM_TALENT}>
           <>
