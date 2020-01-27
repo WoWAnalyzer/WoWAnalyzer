@@ -51,33 +51,30 @@ class AMurderOfCrows extends Analyzer {
     super(options);
     this.active
       = this.selectedCombatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id);
-    if (!this.active) {
-      return;
+    if (this.active) {
+      this.abilities.add({
+        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          maxCasts: () => this.maxCasts,
+        },
+      });
     }
-    this.abilities.add({
-      spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      cooldown: 60,
-      gcd: {
-        base: 1500,
-      },
-      castEfficiency: {
-        suggestion: true,
-        recommendedEfficiency: 0.85,
-        maxCasts: () => this.maxCasts,
-      },
-      //...this.constructor.extraAbilityInfo,
-    });
   }
 
   checkForReset(event: CastEvent | EnergizeEvent | ApplyBuffEvent | RemoveBuffEvent | ApplyBuffStackEvent | DamageEvent) {
     // Checks if we've had atleast 1 damage tick of the currently applied
     // crows, and checks that crows is in fact on cooldown.
     if (this.lastDamageTick &&
-      this.spellUsable.isOnCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id)
+      this.spellUsable.isOnCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id) &&
       // Checks whether the current damage event happened while the time passed
       // since crows application is less than the crows duration
-      &&
       this.applicationTimestamp &&
       event.timestamp <
       this.crowsEndingTimestamp
