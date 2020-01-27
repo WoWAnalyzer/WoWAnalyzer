@@ -6,7 +6,8 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2019, 9, 27), <> Updated the shared hunter talent modules for 8.3. </>, Putro),
+  change(date(2020, 1, 28), <> Completely reworked the Focus modules for Hunter. A new tab, chart and statistic has been added for Focus metrics. </>, Putro),
+  change(date(2020, 1, 27), <> Updated the shared hunter talent modules for 8.3. </>, Putro),
   change(date(2019, 9, 21), <> Added a <SpellLink id={SPELLS.DIRE_CONSEQUENCES.id} /> module </>, [LeoZhekov]),
   change(date(2019, 7, 31), <> Added some inefficient casts and enhanced casts highlights on the timeline and updated all statistics for spells, talents and traits to use the new statistics module. </>, [LeoZhekov]),
   change(date(2019, 7, 18), <>Added checklist module and statistic for <SpellLink id={SPELLS.PRIMEVAL_INTUITION.id} />. </>, [LeoZhekov]),

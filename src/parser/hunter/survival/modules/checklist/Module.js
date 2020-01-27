@@ -7,7 +7,6 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 
 import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import TimeFocusCapped from '../../../shared/modules/features/TimeFocusCapped';
 import MongooseBite from '../../modules/talents/MongooseBite';
 import BirdOfPrey from '../../modules/talents/BirdOfPrey';
 
@@ -18,7 +17,6 @@ class Checklist extends BaseChecklist {
     castEfficiency: CastEfficiency,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,
-    timeFocusCapped: TimeFocusCapped,
     mongooseBite: MongooseBite,
     birdOfPrey: BirdOfPrey,
   };
@@ -30,7 +28,6 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
-          focusCappedSuggestionThresholds: this.timeFocusCapped.suggestionThresholds,
           mongooseBiteAverageFocusThreshold: this.mongooseBite.focusOnMongooseWindowThreshold,
           mongooseBite5StackHitPercentageThreshold: this.mongooseBite.mongoose5StackHitThreshold,
           birdPercentEffectiveness: this.birdOfPrey.birdPercentEffectiveness,

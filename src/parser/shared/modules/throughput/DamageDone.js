@@ -75,7 +75,7 @@ class DamageDone extends Analyzer {
           <div className="flex-sub icon">
             <img
               src="/img/sword.png"
-              alt="Healing"
+              alt="Damage"
             />
           </div>
           <Tooltip content={<>Total damage done: <strong>{formatThousands(this.total.effective)}</strong></>}>

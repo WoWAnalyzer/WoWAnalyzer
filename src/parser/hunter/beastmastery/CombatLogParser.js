@@ -8,8 +8,7 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import FocusUsage from '../shared/modules/features/FocusUsage';
-import TimeFocusCapped from '../shared/modules/features/TimeFocusCapped';
+import FocusUsage from '../shared/modules/resources/FocusUsage';
 
 //Talents
 import KillerInstinct from './modules/talents/KillerInstinct';
@@ -40,8 +39,11 @@ import AspectOfTheWild from './modules/spells/AspectOfTheWild';
 import BestialWrath from './modules/spells/BestialWrath';
 
 //Focus
-import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
-import FocusTab from '../shared/modules/features/focuschart/FocusTab';
+import FocusTracker from '../shared/modules/resources/FocusTracker';
+import FocusDetails from '../shared/modules/resources/FocusDetails';
+import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
+import BeastMasteryFocusCapTracker from './modules/core/BeastMasteryFocusCapTracker';
+import Focus from './modules/core/Focus';
 
 //Azerite Traits
 import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
@@ -62,11 +64,13 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     focusUsage: FocusUsage,
-    timeFocusCapped: TimeFocusCapped,
 
-    //Focus Chart
+    //Resources
     focusTracker: FocusTracker,
-    focusTab: FocusTab,
+    focusDetails: FocusDetails,
+    spellFocusCost: SpellFocusCost,
+    beastMasteryFocusCapTracker: BeastMasteryFocusCapTracker,
+    focus: Focus,
 
     //Spells
     bestialWrath: BestialWrath,
