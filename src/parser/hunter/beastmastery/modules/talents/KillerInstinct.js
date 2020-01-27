@@ -1,7 +1,5 @@
 import React from 'react';
-import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
@@ -65,19 +63,6 @@ class KillerInstinct extends Analyzer {
           </>
         </BoringSpellValueText>
       </Statistic>
-    );
-  }
-
-  /**
-   * @deprecated
-   * @returns {*}
-   */
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.KILLER_INSTINCT_TALENT.id} />}
-        value={<ItemDamageDone amount={this.damage} />}
-      />
     );
   }
 }

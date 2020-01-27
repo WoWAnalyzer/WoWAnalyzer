@@ -16,5 +16,5 @@ export default [
   change(date(2018, 8, 6), <>Adds initial tracking for <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> to ensure the GCD is accurate in the analyzer.</>, [Putro]),
   change(date(2018, 8, 12), 'Removed all legendaries and tier gear in preparation for Battle for Azeroth launch', [Putro]),
   change(date(2018, 8, 6), <>Adds buff indicators to relevant spells in the timeline, adjusted placement of statistic boxes and added example logs to everything BFA related.</>, [Putro]),
-  change(date(2018, 7, 23), 'Updated a large amount of modules to be ready for pre-patch and BFA. Updated patch combatility to 8.0.1.', [Putro]),
+  change(date(2018, 7, 23), 'Updated a large amount of modules to be ready for pre-patch and BFA. Updated patch compatibility to 8.0.1.', [Putro]),
 ];
