@@ -6,7 +6,8 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText
+  from 'interface/statistics/components/BoringSpellValueText';
 import {
   ApplyBuffEvent,
   DamageEvent,
@@ -15,12 +16,15 @@ import {
 } from '../../../../core/Events';
 
 /**
- * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
+ * After you Multi-Shot, your pet's melee attacks also strike all other nearby
+ * enemy targets for 100% as much for the next 4 sec.
  *
- * Example log: https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=last&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=last&type=damage-done
  *
- * This module also tracks the amount of multi-shot casts that did not trigger any beast cleave damage
- * Example: https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=last&type=damage-done
+ * This module also tracks the amount of multi-shot casts that did not trigger
+ * any beast cleave damage Example:
+ * https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=last&type=damage-done
  */
 class BeastCleave extends Analyzer {
   damage = 0;
@@ -67,7 +71,10 @@ class BeastCleave extends Analyzer {
     if (spellId !== SPELLS.BEAST_CLEAVE_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount + (event.absorbed || 0);
+    this.damage += event.amount +
+      (
+        event.absorbed || 0
+      );
     this.beastCleaveHits++;
   }
 
@@ -85,10 +92,19 @@ class BeastCleave extends Analyzer {
 
   suggestions(when: any) {
     if (this.casts > 0) {
-      when(this.beastCleavesWithoutHits).addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} time{actual === 1 ? '' : 's'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
+      when(this.beastCleavesWithoutHits).addSuggestion((
+        suggest: any,
+        actual: any,
+        recommended: any,
+      ) => {
+        return suggest(<>You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} time{actual ===
+        1
+          ? ''
+          : 's'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
           .icon(SPELLS.MULTISHOT_BM.icon)
-          .actual(`${actual} cast${actual === 1 ? '' : 's'} without any Beast Cleave damage`)
+          .actual(`${actual} cast${actual === 1
+            ? ''
+            : 's'} without any Beast Cleave damage`)
           .recommended(`${recommended} is recommended`);
       });
     }

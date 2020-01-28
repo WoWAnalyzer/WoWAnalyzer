@@ -198,7 +198,6 @@ class BarbedShot extends Analyzer {
         tooltip={(
           <>
             <ul>
-
               <li>Your pet had an average of {this.getAverageBarbedShotStacks()} stacks active throughout the fight.</li>
               <li>Your pet had an overall uptime of {formatPercentage(this.percentUptimePet)}% on the increased attack speed buff</li>
               <li>You had an uptime of {formatPercentage(this.percentPlayerUptime)}% on the focus regen buff.</li>
