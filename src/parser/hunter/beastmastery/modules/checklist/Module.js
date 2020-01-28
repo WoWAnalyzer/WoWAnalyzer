@@ -5,7 +5,6 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
-
 import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import TimeFocusCapped from '../../../shared/modules/features/TimeFocusCapped';

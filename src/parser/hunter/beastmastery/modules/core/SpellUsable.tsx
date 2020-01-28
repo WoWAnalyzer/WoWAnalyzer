@@ -7,12 +7,7 @@ class SpellUsable extends CoreSpellUsable {
     ...CoreSpellUsable.dependencies,
   };
 
-  lastPotentialTriggerForBarbedShotReset: {
-    timestamp?: any;
-    ability?: {
-      guid: any;
-    };
-  } | null | undefined;
+  lastPotentialTriggerForBarbedShotReset: CastEvent | undefined;
   on_byPlayer_cast(event: CastEvent) {
     if (super.on_byPlayer_cast) {
       super.on_byPlayer_cast(event);
@@ -21,14 +16,20 @@ class SpellUsable extends CoreSpellUsable {
     if (spellId === SPELLS.AUTO_SHOT.id) {
       this.lastPotentialTriggerForBarbedShotReset = event;
     } else if (spellId === SPELLS.BARBED_SHOT.id) {
-      this.lastPotentialTriggerForBarbedShotReset = null;
+      this.lastPotentialTriggerForBarbedShotReset = undefined;
     }
   }
 
   beginCooldown(spellId: number, cooldownTriggerEvent: any) {
     if (spellId === SPELLS.BARBED_SHOT.id) {
       if (this.isOnCooldown(spellId)) {
-        this.endCooldown(spellId, undefined, this.lastPotentialTriggerForBarbedShotReset ? this.lastPotentialTriggerForBarbedShotReset.timestamp : undefined);
+        this.endCooldown(
+          spellId,
+          undefined,
+          this.lastPotentialTriggerForBarbedShotReset
+            ? this.lastPotentialTriggerForBarbedShotReset.timestamp
+            : undefined,
+        );
       }
     }
 
