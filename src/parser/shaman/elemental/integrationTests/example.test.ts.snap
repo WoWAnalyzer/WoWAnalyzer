@@ -5113,7 +5113,7 @@ exports[`Elemental Shaman integration test: example log ThroughputStatisticGroup
             className="flex-sub icon"
           >
             <img
-              alt="Healing"
+              alt="Damage"
               src="/img/sword.png"
             />
           </div>

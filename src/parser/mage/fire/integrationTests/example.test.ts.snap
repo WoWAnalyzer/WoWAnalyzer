@@ -4242,7 +4242,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
             className="flex-sub icon"
           >
             <img
-              alt="Healing"
+              alt="Damage"
               src="/img/sword.png"
             />
           </div>
