@@ -281,7 +281,7 @@ class SpellUsable extends Analyzer {
         name: spell ? spell.name : undefined,
         abilityIcon: spell ? spell.icon : undefined,
       },
-      name: ability.name,
+      name: ability ? ability.name : undefined,
       trigger,
       timestamp,
       isOnCooldown: this.isOnCooldown(spellId),
