@@ -5,6 +5,7 @@ import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75, Anatta336, Jerem
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 1, 29), 'Bumped Updated for patch to 8.3', [blazyb]),
   change(date(2020, 1, 28), 'Updated mastery coefficient and thus making spec compatible with patch 8.3.', [blazyb]),
   change(date(2019, 10, 4), 'No spec changes have occurred, restoration druid module is compatible with patch 8.2.5', [JeremyDwayne]),
   change(date(2019, 8, 18), 'Corrected some global cooldown values related to catweaving.', [Anatta336]),
