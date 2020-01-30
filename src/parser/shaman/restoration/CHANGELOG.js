@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 1, 31), <>Added <SpellLink id={SPELLS.NATURAL_HARMONY_TRAIT.id} /> to Restoration Shaman.</>, niseko),
   change(date(2020, 1, 2), <>Added a small statistic for <SpellLink id={SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />.</>, niseko),
   change(date(2019, 12, 18), <>Added a list of <SpellLink id={SPELLS.CHAIN_HEAL.id} /> casts that only hit one target to the <SpellLink id={SPELLS.CHAIN_HEAL.id} /> statistic, if that happened.</>, niseko),
   change(date(2019, 12, 10), <>Fixed a bug affecting <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> statistics when used pre-pull.</>, [niseko]),
