@@ -4299,7 +4299,7 @@ exports[`Frost Death Knight integration test: example log ThroughputStatisticGro
             className="flex-sub icon"
           >
             <img
-              alt="Healing"
+              alt="Damage"
               src="/img/sword.png"
             />
           </div>

@@ -113,7 +113,7 @@ class BlurOfTalons extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        category={"AZERITE_POWERS"}
+        category={'AZERITE_POWERS'}
         tooltip={(
           <>
             Blur of Talons was up for a total of {this.uptime} seconds

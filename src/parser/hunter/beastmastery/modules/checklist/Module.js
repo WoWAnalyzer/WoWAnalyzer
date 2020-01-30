@@ -7,7 +7,6 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 
 import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import TimeFocusCapped from '../../../shared/modules/features/TimeFocusCapped';
 import BestialWrath from '../../modules/spells/BestialWrath';
 import KillerCobra from '../../modules/talents/KillerCobra';
 import CobraShot from '../../modules/spells/CobraShot';
@@ -19,7 +18,6 @@ class Checklist extends BaseChecklist {
     castEfficiency: CastEfficiency,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,
-    timeFocusCapped: TimeFocusCapped,
     barbedShot: BarbedShot,
     bestialWrath: BestialWrath,
     killerCobra: KillerCobra,
@@ -33,7 +31,6 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
-          focusCappedSuggestionThresholds: this.timeFocusCapped.suggestionThresholds,
           frenzy3StackSuggestionThreshold: this.barbedShot.frenzy3StackThreshold,
           frenzyUptimeSuggestionThreshold: this.barbedShot.frenzyUptimeThreshold,
           bestialWrathCDREfficiencyThreshold: this.bestialWrath.cdrEfficiencyBestialWrathThreshold,

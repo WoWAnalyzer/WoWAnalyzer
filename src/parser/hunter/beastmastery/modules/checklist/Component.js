@@ -78,7 +78,6 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }) => {
         )}
       >
         <Requirement name={<> Active time</>} thresholds={thresholds.downtimeSuggestionThresholds} />
-        <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Time focus capped</>} thresholds={thresholds.focusCappedSuggestionThresholds} />
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

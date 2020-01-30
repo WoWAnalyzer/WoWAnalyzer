@@ -57,7 +57,7 @@ class SteelTrap extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
-        category={"TALENTS"}
+        category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.STEEL_TRAP_TALENT}>
           <>

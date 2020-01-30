@@ -94,7 +94,7 @@ class InTheRhythm extends Analyzer {
             You lost out on {formatNumber(this.wastedUptime / 1000)} seconds of uptime from refreshing the buff before it expired.
           </>
         )}
-        category={"AZERITE_POWERS"}
+        category={'AZERITE_POWERS'}
       >
         <BoringSpellValueText spell={SPELLS.IN_THE_RHYTHM}>
           <>

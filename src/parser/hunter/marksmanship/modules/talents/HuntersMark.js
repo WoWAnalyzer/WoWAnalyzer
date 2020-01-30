@@ -76,8 +76,8 @@ class HuntersMark extends Analyzer {
       return;
     }
     this.markWindow[enemyID].forEach(window => {
-      if (window.status === "active") {
-        window.status = "inactive";
+      if (window.status === 'active') {
+        window.status = 'inactive';
       }
     });
 
@@ -99,7 +99,7 @@ class HuntersMark extends Analyzer {
     if (!this.markWindow[enemyID]) {
       this.markWindow[enemyID] = [];
     }
-    this.markWindow[enemyID].push({ status: "active", start: event.timestamp });
+    this.markWindow[enemyID].push({ status: 'active', start: event.timestamp });
   }
 
   calculateMarkDamage(event) {
@@ -114,7 +114,7 @@ class HuntersMark extends Analyzer {
       return;
     }
     this.markWindow[enemyID].forEach(window => {
-      if (window.start < event.timestamp && window.status === "active") {
+      if (window.start < event.timestamp && window.status === 'active') {
         this.damage += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
       }
     });

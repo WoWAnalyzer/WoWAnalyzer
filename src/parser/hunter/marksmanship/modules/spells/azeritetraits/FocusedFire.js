@@ -58,7 +58,7 @@ class FocusedFire extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        category={"AZERITE_POWERS"}
+        category={'AZERITE_POWERS'}
       >
         <BoringSpellValueText spell={SPELLS.FOCUSED_FIRE}>
           <>

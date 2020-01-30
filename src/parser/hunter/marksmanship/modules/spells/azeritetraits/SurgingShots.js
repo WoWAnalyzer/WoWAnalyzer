@@ -61,7 +61,7 @@ class SurgingShots extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        category={"AZERITE_POWERS"}
+        category={'AZERITE_POWERS'}
       >
         <BoringSpellValueText spell={SPELLS.SURGING_SHOTS}>
           <>
