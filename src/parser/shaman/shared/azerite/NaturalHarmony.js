@@ -17,7 +17,7 @@ import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 
 const NaturalHarmonyStats = traits => Object.values(traits).reduce((total, ilvl) => {
-  const statForPiece = calculateAzeriteEffects(SPELLS.NATURAL_HARMONY_TRAIT.id, ilvl)[0]; 
+  const statForPiece = calculateAzeriteEffects(SPELLS.NATURAL_HARMONY_TRAIT.id, ilvl)[0];
   return statForPiece + total;
 }, 0);
 
@@ -63,7 +63,7 @@ class NaturalHarmony extends Analyzer {
   }
 
   get averageCrit() {
-    return (this.naturalHarmonyStatValue * this.critBuffUptime).toFixed(0);    
+    return (this.naturalHarmonyStatValue * this.critBuffUptime).toFixed(0);
   }
 
   get averageHaste() {
@@ -73,7 +73,7 @@ class NaturalHarmony extends Analyzer {
   get averageMastery() {
     return (this.naturalHarmonyStatValue * this.masteryBuffUptime).toFixed(0);
   }
-  
+
   statistic() {
     return (
       <AzeritePowerStatistic
@@ -89,21 +89,21 @@ class NaturalHarmony extends Analyzer {
         <BoringSpellValueText spell={SPELLS.NATURAL_HARMONY_TRAIT}>
           <CriticalStrikeIcon /> <TooltipElement content={(
             <div>
-              <UptimeIcon /> {formatPercentage(this.critBuffUptime, 2)} uptime
+              <UptimeIcon /> {formatPercentage(this.critBuffUptime, 2)}% uptime
             </div>
           )}
           > {this.averageCrit} <small>average Crit gained</small></TooltipElement><br />
           <HasteIcon /> <TooltipElement content={(
             <div>
-              <UptimeIcon /> {formatPercentage(this.hasteBuffUptime, 2)} uptime 
+              <UptimeIcon /> {formatPercentage(this.hasteBuffUptime, 2)}% uptime
             </div>
           )}
           >{this.averageHaste} <small>average Haste gained</small></TooltipElement><br />
           <MasteryIcon /> <TooltipElement content={(
             <div>
-              <UptimeIcon /> {formatPercentage(this.masteryBuffUptime, 2)} uptime 
+              <UptimeIcon /> {formatPercentage(this.masteryBuffUptime, 2)}% uptime
             </div>
-          )} 
+          )}
           >{this.averageMastery} <small>average Mastery gained</small></TooltipElement>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
