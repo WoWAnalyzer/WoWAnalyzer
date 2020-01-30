@@ -187,6 +187,8 @@ import EventEmitter from './modules/EventEmitter';
 // Eternal Palace
 import AzsharasFontofPower from '../shared/modules/items/bfa/raids/eternalpalace/AzsharasFontofPower';
 
+import IneffableTruth from '../shared/modules/spells/bfa/corruptions/IneffableTruth';
+
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -377,6 +379,8 @@ class CombatLogParser {
     azsharasFontofPower:AzsharasFontofPower,
     bloodthirstyUrchin: BloodthirstyUrchin,
     dribblingInkpod: DribblingInkpod,
+
+    ineffableTruth: IneffableTruth,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

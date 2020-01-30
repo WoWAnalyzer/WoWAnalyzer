@@ -3,6 +3,7 @@ import RACES from 'game/RACES';
 import TALENT_ROWS from 'game/TALENT_ROWS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import traitIdMap from 'common/TraitIdMap';
+import corruptionIdMap from 'common/corruptionIdMap';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids/index';
 import { CombatantInfoEvent, Trait, Item } from 'parser/core/Events';
@@ -41,6 +42,14 @@ type Player = {
 type Talent = {
   id: number;
 };
+
+type Corruption = {
+  name: string;
+  /** The amount of Corruption gained by using this effect */
+  corruption?: number;
+  /** How often someone has this corruption effect of that exact rank */
+  count: number;
+}
 
 class Combatant extends Entity {
   get id() {
@@ -92,6 +101,7 @@ class Combatant extends Entity {
     this._parseEssences(combatantInfo.heartOfAzeroth);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
+    this._parseCorruption(combatantInfo.gear);
   }
 
   // region Talents
@@ -186,6 +196,38 @@ class Combatant extends Entity {
     return (
       this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].rank
     );
+  }
+  // endregion
+
+  // region Corruption effects
+  corruptionBySpellId: { [key: number]: Corruption } = {}
+  _parseCorruption(gear: Array<Item>) {
+    gear.forEach((item) => {
+      const bonusId = item.bonusIDs?.find(x => Object.keys(corruptionIdMap).includes(x.toString()));
+      if (bonusId === undefined) {
+        return;
+      }
+      const corr = corruptionIdMap[bonusId];
+
+      if (!this.corruptionBySpellId[corr.spellId]) {
+        this.corruptionBySpellId[corr.spellId] = {
+          name: corr.name,
+          corruption: corr.corruption || undefined,
+          count: 1,
+        };
+      } else {
+        this.corruptionBySpellId[corr.spellId].count += 1;
+      }
+    });
+  }
+  hasCorruption(spellId: number) {
+    return Boolean(this.corruptionBySpellId[spellId]);
+  }
+  hasCorruptionByName(spell: string) {
+    return Boolean(Object.values(this.corruptionBySpellId).find(p => p.name === spell));
+  }
+  getCorruptionCount(spellId: number) {
+    return Number(this.corruptionBySpellId[spellId]?.count || 0);
   }
   // endregion
 
