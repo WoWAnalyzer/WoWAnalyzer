@@ -333,7 +333,7 @@ exports[`Arcane Mage integration test: example log CancelledCasts matches the st
             </g>
           </svg>
            
-          4.02
+          5.17
           % 
           <small>
             Casts Cancelled
@@ -360,6 +360,41 @@ exports[`Arcane Mage integration test: example log CancelledCasts matches the st
     </div>
   </div>
 </div>
+`;
+
+exports[`Arcane Mage integration test: example log CancelledCasts matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_map_01",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You cancelled 
+      5.17
+      % of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as 
+      <ForwardRef
+        id={1953}
+      />
+      , 
+      <ForwardRef
+        id={212653}
+      />
+      <React.Fragment>
+        , and 
+        <ForwardRef
+          id={236457}
+        />
+      </React.Fragment>
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      5.17% casts cancelled
+       (
+      &lt;5.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Arcane Mage integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
@@ -5201,7 +5236,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "56.737498912728256%",
+                  "width": "56.16336098169378%",
                 }
               }
             />
@@ -5354,7 +5389,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  4.02%
+                  5.17%
                    
                    
                 </div>
@@ -5374,9 +5409,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "98.85172413793104%",
                       }
                     }
                   />

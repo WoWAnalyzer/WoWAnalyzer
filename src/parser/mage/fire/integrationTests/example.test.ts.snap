@@ -438,7 +438,7 @@ exports[`Fire Mage integration test: example log CancelledCasts matches the stat
             </g>
           </svg>
            
-          6.96
+          14.56
           % 
           <small>
             Casts Cancelled
@@ -472,10 +472,10 @@ Array [
   Object {
     "details": null,
     "icon": "inv_misc_map_01",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <React.Fragment>
       You cancelled 
-      6.96
+      14.56
       % of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as 
       <ForwardRef
         id={1953}
@@ -487,7 +487,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      6.96% casts cancelled
+      14.56% casts cancelled
        (
       &lt;5.00% is recommended
       )
@@ -6352,8 +6352,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "47.43822743581738%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "29.684429967462954%",
                 }
               }
             />
@@ -6506,7 +6506,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  6.96%
+                  14.56%
                    
                    
                 </div>
@@ -6526,9 +6526,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "86.93291139240506%",
+                        "width": "51.42531645569621%",
                       }
                     }
                   />
