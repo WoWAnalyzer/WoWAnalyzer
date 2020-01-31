@@ -12,7 +12,7 @@ import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { CastEvent } from '../../core/Events';
 
-const debug = true;
+const debug = false;
 const MS_BUFFER = 100;
 
 class CancelledCasts extends Analyzer {

@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class CancelledCasts extends CoreCancelledCasts {
 
