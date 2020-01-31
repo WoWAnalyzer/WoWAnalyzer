@@ -12,7 +12,7 @@ import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { CastEvent } from '../../core/Events';
 
-const debug = false;
+const debug = true;
 const MS_BUFFER = 100;
 
 class CancelledCasts extends Analyzer {
@@ -27,14 +27,13 @@ class CancelledCasts extends Analyzer {
     }
   } = {};
   IGNORED_ABILITIES: number[] = [];
-  
+
   on_byPlayer_begincast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (this.IGNORED_ABILITIES.includes(spellId)) {
       return;
     }
-    if (this.wasCastStarted &&
-      this.beginCastSpell &&
+    if (this.wasCastStarted && this.beginCastSpell !== undefined &&
       event.timestamp -
       this.beginCastSpell.timestamp >
       MS_BUFFER) {
@@ -47,10 +46,7 @@ class CancelledCasts extends Analyzer {
 
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (this.beginCastSpell === undefined) {
-      return;
-    }
-    const beginCastAbility = this.beginCastSpell.ability;
+    const beginCastAbility = this.beginCastSpell && this.beginCastSpell.ability;
     if (this.IGNORED_ABILITIES.includes(spellId) || !beginCastAbility) {
       return;
     }
@@ -65,7 +61,7 @@ class CancelledCasts extends Analyzer {
   }
 
   addToCancelledList() {
-    if (this.beginCastSpell === undefined) {
+    if (!this.beginCastSpell) {
       return;
     }
     const beginCastAbility = this.beginCastSpell.ability;
@@ -101,12 +97,14 @@ class CancelledCasts extends Analyzer {
 
   on_fightend() {
     debug &&
-    console.log(formatMilliseconds(this.owner.fightDuration),
+    console.log(
+      formatMilliseconds(this.owner.fightDuration),
       'Casts Finished:',
       `${formatNumber(this.castsFinished)}`,
     );
     debug &&
-    console.log(formatMilliseconds(this.owner.fightDuration),
+    console.log(
+      formatMilliseconds(this.owner.fightDuration),
       'Casts Cancelled:',
       `${formatNumber(this.castsCancelled)}`,
     );
