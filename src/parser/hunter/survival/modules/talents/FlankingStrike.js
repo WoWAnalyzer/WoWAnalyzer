@@ -124,7 +124,7 @@ class FlankingStrike extends Analyzer {
             </table>
           </>
         )}
-        category={"TALENTS"}
+        category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.FLANKING_STRIKE_TALENT}>
           <>

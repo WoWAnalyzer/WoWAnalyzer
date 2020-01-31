@@ -9,9 +9,15 @@ import SpellUsable from './modules/core/SpellUsable';
 //Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import TimeFocusCapped from '../shared/modules/features/TimeFocusCapped';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
-import FocusUsage from '../shared/modules/features/FocusUsage';
+import FocusUsage from '../shared/modules/resources/FocusUsage';
+
+//Focus
+import FocusTracker from '../shared/modules/resources/FocusTracker';
+import FocusDetails from '../shared/modules/resources/FocusDetails';
+import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
+import FocusCapTracker from '../shared/modules/resources/FocusCapTracker';
+import Focus from './modules/core/Focus';
 
 //Spells
 import Trueshot from './modules/spells/Trueshot';
@@ -38,10 +44,6 @@ import BornToBeWild from '../shared/modules/talents/BornToBeWild';
 import BindingShot from '../shared/modules/talents/BindingShot';
 import CarefulAim from './modules/talents/CarefulAim';
 
-//Focus
-import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
-import FocusTab from '../shared/modules/features/focuschart/FocusTab';
-
 //Azerite Traits
 import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
 import SteadyAim from './modules/spells/azeritetraits/SteadyAim';
@@ -60,13 +62,15 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    timeFocusCapped: TimeFocusCapped,
     cancelledCasts: CancelledCasts,
     focusUsage: FocusUsage,
 
-    //Focus Chart
+    //Resources
     focusTracker: FocusTracker,
-    focusTab: FocusTab,
+    focusDetails: FocusDetails,
+    spellFocusCost: SpellFocusCost,
+    focusCapTracker: FocusCapTracker,
+    focus: Focus,
 
     //Spells
     trueshot: Trueshot,

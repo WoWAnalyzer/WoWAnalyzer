@@ -3813,7 +3813,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
             className="flex-sub icon"
           >
             <img
-              alt="Healing"
+              alt="Damage"
               src="/img/sword.png"
             />
           </div>

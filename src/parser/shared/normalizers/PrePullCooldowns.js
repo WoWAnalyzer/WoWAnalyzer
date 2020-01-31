@@ -175,7 +175,7 @@ class PrePullCooldowns extends EventsNormalizer {
     for (let i = prepullCasts.length - 1; i >= 0; i -= 1) {
       const event = prepullCasts[i];
       const gcd = this._resolveAbilityGcd(event.ability.guid);
-      if (gcd === null) {
+      if (gcd === 0) {
         // When the ability is off the GCD give it at least some margin so it properly appears as cast before the pull and out of combat
         event.timestamp = fightStartTimestamp - this.owner.fight.offset_time - 100;
       } else {
@@ -192,11 +192,11 @@ class PrePullCooldowns extends EventsNormalizer {
     const ability = this.abilities.getAbility(id);
     if (!ability) {
       captureException(new Error(`No ability available for spell: ${id}`));
-      return null;
+      return 0;
     }
     const gcdProp = ability.gcd;
     if (!gcdProp) {
-      return null;
+      return 0;
     }
     if (typeof gcdProp.static === 'number') {
       return gcdProp.static;

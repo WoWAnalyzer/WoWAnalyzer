@@ -119,7 +119,7 @@ class GlobalCooldown extends Analyzer {
       // If gcd isn't set, null, or 0 (falsey), the spell isn't on the GCD. ps. you should set gcd to null to be explicit.
       return 0;
     }
-    if (gcd.static) {
+    if (gcd.static !== undefined) {
       return this._resolveAbilityGcdField(gcd.static);
     }
     if (gcd.base) {

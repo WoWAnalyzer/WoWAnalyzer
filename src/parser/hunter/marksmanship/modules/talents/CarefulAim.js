@@ -148,7 +148,8 @@ class CarefulAim extends Analyzer {
                       formatDuration((boss.timestampSub80 - boss.timestampSub100 + boss.timestampDead - boss.timestampSub20) / 1000)}</td>
                     <td>{(boss.bossName === 'Adds' ?
                       this.owner.fightDuration / 1000 / boss.aimedShotsInCA :
-                      (boss.timestampSub80 - boss.timestampSub100 + boss.timestampDead - boss.timestampSub20) / 1000 / boss.aimedShotsInCA).toFixed(1)}s</td>
+                      (boss.timestampSub80 - boss.timestampSub100 + boss.timestampDead - boss.timestampSub20) / 1000 / boss.aimedShotsInCA).toFixed(1)}s
+                    </td>
                   </tr>
                 ))}
               </tbody>
