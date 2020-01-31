@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
-import CrossIcon from '/interface/icons/Cross';
+import CrossIcon from 'interface/icons/Cross';
 
 /**
  * Tracks the amount of cancelled casts in %.
