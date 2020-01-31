@@ -398,4 +398,10 @@ export default {
     name: 'Blood-Soaked',
     icon: 'inv__azerite-explosion',
   },
+
+  SEETHING_RAGE: {
+    id: 297126,
+    name: 'Seething Rage',
+    icon: 'inv__azerite-explosion',
+  },
 };
