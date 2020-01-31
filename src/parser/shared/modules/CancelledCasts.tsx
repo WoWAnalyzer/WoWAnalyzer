@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
+import {
+  formatMilliseconds,
+  formatNumber,
+  formatPercentage,
+} from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import CrossIcon from 'interface/icons/Cross';
 import Statistic from 'interface/statistics/Statistic';
@@ -23,15 +27,17 @@ class CancelledCasts extends Analyzer {
     }
   } = {};
   IGNORED_ABILITIES: number[] = [];
-
-  //static IGNORED_ABILITIES: number[] = [];
-
+  
   on_byPlayer_begincast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (this.IGNORED_ABILITIES.includes(spellId)) {
       return;
     }
-    if (this.wasCastStarted && this.beginCastSpell && event.timestamp - this.beginCastSpell.timestamp > MS_BUFFER) {
+    if (this.wasCastStarted &&
+      this.beginCastSpell &&
+      event.timestamp -
+      this.beginCastSpell.timestamp >
+      MS_BUFFER) {
       this.castsCancelled += 1;
       this.addToCancelledList();
     }
@@ -39,9 +45,9 @@ class CancelledCasts extends Analyzer {
     this.wasCastStarted = true;
   }
 
-  on_byPlayer_cast(event:CastEvent) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if(this.beginCastSpell === undefined) {
+    if (this.beginCastSpell === undefined) {
       return;
     }
     const beginCastAbility = this.beginCastSpell.ability;
@@ -59,7 +65,7 @@ class CancelledCasts extends Analyzer {
   }
 
   addToCancelledList() {
-    if(this.beginCastSpell === undefined) {
+    if (this.beginCastSpell === undefined) {
       return;
     }
     const beginCastAbility = this.beginCastSpell.ability;
@@ -71,7 +77,7 @@ class CancelledCasts extends Analyzer {
     } else {
       this.cancelledSpellList[beginCastAbility.guid].amount += 1;
     }
-    debug && this.log(beginCastAbility.name + " cast cancelled");
+    debug && this.log(beginCastAbility.name + ' cast cancelled');
   }
   get totalCasts() {
     return this.castsCancelled + this.castsFinished;
@@ -94,8 +100,16 @@ class CancelledCasts extends Analyzer {
   }
 
   on_fightend() {
-    debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Casts Finished:', `${formatNumber(this.castsFinished)}`);
-    debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Casts Cancelled:', `${formatNumber(this.castsCancelled)}`);
+    debug &&
+    console.log(formatMilliseconds(this.owner.fightDuration),
+      'Casts Finished:',
+      `${formatNumber(this.castsFinished)}`,
+    );
+    debug &&
+    console.log(formatMilliseconds(this.owner.fightDuration),
+      'Casts Cancelled:',
+      `${formatNumber(this.castsCancelled)}`,
+    );
   }
 
   statistic() {
@@ -114,10 +128,10 @@ class CancelledCasts extends Analyzer {
             </ul>
           </>
         )}
-        >
-          <BoringValueText label="Cancelled Casts">
-            <CrossIcon /> {formatPercentage(this.cancelledPercentage)}% <small>Casts Cancelled</small>
-          </BoringValueText>
+      >
+        <BoringValueText label="Cancelled Casts">
+          <CrossIcon /> {formatPercentage(this.cancelledPercentage)}% <small>Casts Cancelled</small>
+        </BoringValueText>
       </Statistic>
     );
   }
