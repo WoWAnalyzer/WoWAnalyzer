@@ -28,19 +28,21 @@ const MINOR_SPELL_IDS = {
   1: SPELLS.BLOOD_OF_THE_ENEMY_MINOR.id,
   2: SPELLS.BLOOD_OF_THE_ENEMY_MINOR_RANK_TWO_CRIT_BUFF.id,
   3: SPELLS.BLOOD_OF_THE_ENEMY_MINOR_RANK_THREE_PARTIAL_STACK_LOSS.id,
+  4: SPELLS.BLOOD_OF_THE_ENEMY_MINOR_RANK_THREE_PARTIAL_STACK_LOSS.id,
 };
 
 const MAJOR_SPELL_IDS = {
   1: SPELLS.BLOOD_OF_THE_ENEMY.id,
   2: SPELLS.BLOOD_OF_THE_ENEMY_MAJOR_RANK_TWO_REDUCED_CD.id,
   3: SPELLS.BLOOD_OF_THE_ENEMY_MAJOR_RANK_THREE_CRIT_DAMAGE_BUFF.id,
+  4: SPELLS.BLOOD_OF_THE_ENEMY_MAJOR_RANK_THREE_CRIT_DAMAGE_BUFF.id,
 };
 
 /**
  * Major: The Heart of Azeroth erupts violently, dealing 19,408 Shadow damage to enemies within 12 yds. You gain 25% critical strike chance against the targets for 10 sec.
  * Minor: Your critical strikes with spells and abilities grant a stack of Blood-Soaked. Upon reaching 40 stacks, you gain 548 Haste for 8 sec.
  * R2: 30 second CD reduction / Each stack of Blood-Soaked grants 8 Critical Strike
- * R3: increases your critical hit damage by 25% for 15 sec / Blood-Soaked has a 25% chance of only consuming 30 stacks.
+ * R3: increases your critical hit damage by 25% for 5 sec / Blood-Soaked has a 25% chance of only consuming 30 stacks.
  */
 class BloodOfTheEnemy extends Analyzer {
   static dependencies = {
@@ -110,8 +112,8 @@ class BloodOfTheEnemy extends Analyzer {
       return;
     }
 
-    const enemyHasDebuff = enemy.hasBuff(SPELLS.BLOOD_OF_THE_ENEMY.id);
-    if (!enemyHasDebuff) {
+    const playerHasBuff = this.selectedCombatant.hasBuff(SPELLS.SEETHING_RAGE.id);
+    if (!playerHasBuff) {
       return;
     }
 
