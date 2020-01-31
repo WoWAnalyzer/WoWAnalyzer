@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 1, 31), <> Update the CancelledCast module to a new look, so that it is consistent with the rest of the codebase. </>, Putro),
   change(date(2020, 1, 28), <> Completely reworked the Focus modules for Hunter. A new tab, chart and statistic has been added for Focus metrics. </>, Putro),
   change(date(2020, 1, 27), <> Updated the shared hunter talent modules for 8.3. </>, Putro),
   change(date(2019, 7, 31), <> Added some inefficient casts highlights on the timeline and updated all statistics for spells, talents and traits to use the new statistics module. </>, [LeoZhekov]),
