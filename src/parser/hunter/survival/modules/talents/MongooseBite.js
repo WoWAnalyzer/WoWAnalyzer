@@ -209,7 +209,7 @@ class MongooseBite extends Analyzer {
             </table>
           </>
         )}
-        category={"TALENTS"}
+        category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.MONGOOSE_BITE_TALENT}>
           <ItemDamageDone amount={this.damage} /> <br />

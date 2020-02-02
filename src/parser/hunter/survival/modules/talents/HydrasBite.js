@@ -118,7 +118,7 @@ class HydrasBite extends Analyzer {
             </table>
           </>
         )}
-        category={"TALENTS"}
+        category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.HYDRAS_BITE_TALENT}>
           <>

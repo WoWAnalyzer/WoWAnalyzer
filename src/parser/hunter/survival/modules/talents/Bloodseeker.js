@@ -66,7 +66,7 @@ class Bloodseeker extends Analyzer {
             You had {formatPercentage(this.uptime)}% uptime on the buff, with an average of {(this.averageStacks).toFixed(2)} stacks.
           </>
         )}
-        category={"TALENTS"}
+        category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.BLOODSEEKER_TALENT}>
           <>

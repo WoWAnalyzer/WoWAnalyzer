@@ -70,12 +70,11 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }) => {
         name={<>Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> focus capping</>}
         description={(
           <>
-            As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use {combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> : <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> } to stay off the focus cap and do some damage.
+            As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use {combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> : <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />} to stay off the focus cap and do some damage.
           </>
         )}
       >
         <Requirement name={<> Active time</>} thresholds={thresholds.downtimeSuggestionThresholds} />
-        <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Time focus capped</>} thresholds={thresholds.focusCappedSuggestionThresholds} />
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

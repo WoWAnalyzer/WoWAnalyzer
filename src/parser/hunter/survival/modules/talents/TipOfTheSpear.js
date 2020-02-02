@@ -77,7 +77,7 @@ class TipOfTheSpear extends Analyzer {
             You consumed {this.usedStacks}/{this.usedStacks + this.wastedStacks} possible stacks.
           </>
         )}
-        category={"TALENTS"}
+        category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.TIP_OF_THE_SPEAR_TALENT}>
           <>

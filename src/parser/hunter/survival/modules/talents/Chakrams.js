@@ -71,7 +71,7 @@ class Chakrams extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(21)}
         size="flexible"
-        category={"TALENTS"}
+        category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.CHAKRAMS_TALENT}>
           <>

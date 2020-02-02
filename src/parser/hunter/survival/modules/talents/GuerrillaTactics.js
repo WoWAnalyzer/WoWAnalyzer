@@ -35,7 +35,7 @@ class GuerrillaTactics extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
-        category={"TALENTS"}
+        category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.GUERRILLA_TACTICS_TALENT}>
           <>

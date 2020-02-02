@@ -198,7 +198,7 @@ const SPECS: {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77495,
-    masteryCoefficient: 0.6,
+    masteryCoefficient: 0.546,
     ranking: {
       class: 2,
       spec: 4,
