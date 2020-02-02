@@ -1,5 +1,6 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -8,7 +9,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 const LAG_BUFFER_MS = 100;
-const BUFF_DURATION_SEC = 10;
+const BUFF_DURATION_MS = 10000;
 
 class KillingMachineEfficiency extends Analyzer {
   static dependencies = {
@@ -21,31 +22,29 @@ class KillingMachineEfficiency extends Analyzer {
   refreshedKMProcs = 0;
   expiredKMProcs = 0;
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.KILLING_MACHINE.id){
-      return;
-    }
+  constructor(...args) {
+    super(...args);
+    
+    this.addEventListener(Events.GlobalCooldown, this.globalCooldown);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onRemoveBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onRefreshBuff);
+    
+  }
+
+  onApplyBuff(event) {
     this.kmProcs += 1;
     this.lastProc = event;
   }
 
-  on_byPlayer_removebuff(event){
-    const spellId = event.ability.guid;
-    if(spellId !== SPELLS.KILLING_MACHINE.id || !this.lastProc){
-      return;
-    }
+  onRemoveBuff(event){
     const durationHeld = event.timestamp - this.lastProc.timestamp;
-    if(durationHeld > (BUFF_DURATION_SEC * 1000)){
+    if(durationHeld > (BUFF_DURATION_MS)){
       this.expiredKMProcs += 1;
     }
   }
 
-  on_byPlayer_refreshbuff(event){
-    const spellId = event.ability.guid;
-    if(spellId !== SPELLS.KILLING_MACHINE.id || !this.lastGCD){
-      return;
-    }
+  onRefreshBuff(event){
     const timeSinceGCD = event.timestamp - this.lastGCD.timestamp;
     if(timeSinceGCD < this.lastGCD.duration + LAG_BUFFER_MS){
       return;
@@ -53,7 +52,7 @@ class KillingMachineEfficiency extends Analyzer {
     this.refreshedKMProcs += 1;
   }
 
-  on_byPlayer_globalcooldown(event) {
+  globalCooldown(event) {
     this.lastGCD = event;
   }
 

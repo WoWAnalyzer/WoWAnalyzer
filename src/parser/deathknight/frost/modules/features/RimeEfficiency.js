@@ -1,5 +1,6 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -21,31 +22,28 @@ class RimeEfficiency extends Analyzer {
   refreshedRimeProcs = 0;
   expiredRimeProcs = 0;
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.RIME.id){
-      return;
-    }
+  constructor(...args) {
+    super(...args);
+
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.onRemoveBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.onRefreshBuff);
+    this.addEventListener(Events.GlobalCooldown, this.onGlobalCooldown);
+  }
+
+  onApplyBuff(event) {
     this.rimeProcs += 1;
     this.lastProc = event;
   }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.RIME.id || !this.lastProc) {
-      return;
-    }
+  onRemoveBuff(event) {
     const durationHeld = event.timestamp - this.lastProc.timestamp;
     if (durationHeld > (BUFF_DURATION_SEC * 1000)) {
       this.expiredRimeProcs += 1;
     }
   }
 
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.RIME.id || !this.lastGCD) {
-      return;
-    }
+  onRefreshBuff(event) {
     const timeSinceGCD = event.timestamp - this.lastGCD.timestamp;
     if (timeSinceGCD < this.lastGCD.duration + LAG_BUFFER_MS) {
       return;
@@ -53,7 +51,7 @@ class RimeEfficiency extends Analyzer {
     this.refreshedRimeProcs += 1;
   }
 
-  on_byPlayer_globalcooldown(event) {
+  onGlobalCooldown(event) {
     this.lastGCD = event;
   }
 

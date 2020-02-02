@@ -1,5 +1,6 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -14,14 +15,16 @@ class HardHowlingBlastCasts extends Analyzer {
     enemies: Enemies,
   };
 
+  constructor(...args) {
+    super(...args);
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOWLING_BLAST), this.onCast);
+  }
+
   castsWithoutRime = 0;
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
+  onCast(event) {
     const target = this.enemies.getEntity(event);
-    if (spellId !== SPELLS.HOWLING_BLAST.id || !target) {
-      return;
-    }
     if (!this.selectedCombatant.hasBuff(SPELLS.RIME.id, event.timestamp) && target.hasBuff(SPELLS.FROST_FEVER.id)) {
       this.castsWithoutRime += 1;
       debug && console.log(`Caught a HB hardcast at ${event.timestamp}`);
