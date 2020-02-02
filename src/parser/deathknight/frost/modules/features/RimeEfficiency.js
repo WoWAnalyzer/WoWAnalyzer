@@ -25,25 +25,25 @@ class RimeEfficiency extends Analyzer {
   constructor(...args) {
     super(...args);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.applyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.removeBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.refreshBuff);
-    this.addEventListener(Events.GlobalCooldown, this.globalCooldown);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.onRemoveBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.onRefreshBuff);
+    this.addEventListener(Events.GlobalCooldown, this.onGlobalCooldown);
   }
 
-  applyBuff(event) {
+  onApplyBuff(event) {
     this.rimeProcs += 1;
     this.lastProc = event;
   }
 
-  removeBuff(event) {
+  onRemoveBuff(event) {
     const durationHeld = event.timestamp - this.lastProc.timestamp;
     if (durationHeld > (BUFF_DURATION_SEC * 1000)) {
       this.expiredRimeProcs += 1;
     }
   }
 
-  refreshBuff(event) {
+  onRefreshBuff(event) {
     const timeSinceGCD = event.timestamp - this.lastGCD.timestamp;
     if (timeSinceGCD < this.lastGCD.duration + LAG_BUFFER_MS) {
       return;
@@ -51,7 +51,7 @@ class RimeEfficiency extends Analyzer {
     this.refreshedRimeProcs += 1;
   }
 
-  globalCooldown(event) {
+  onGlobalCooldown(event) {
     this.lastGCD = event;
   }
 

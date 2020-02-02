@@ -26,25 +26,25 @@ class KillingMachineEfficiency extends Analyzer {
     super(...args);
     
     this.addEventListener(Events.GlobalCooldown, this.globalCooldown);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.applyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.removeBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.refreshBuff);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onRemoveBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onRefreshBuff);
     
   }
 
-  applyBuff(event) {
+  onApplyBuff(event) {
     this.kmProcs += 1;
     this.lastProc = event;
   }
 
-  removeBuff(event){
+  onRemoveBuff(event){
     const durationHeld = event.timestamp - this.lastProc.timestamp;
     if(durationHeld > (BUFF_DURATION_MS)){
       this.expiredKMProcs += 1;
     }
   }
 
-  refreshBuff(event){
+  onRefreshBuff(event){
     const timeSinceGCD = event.timestamp - this.lastGCD.timestamp;
     if(timeSinceGCD < this.lastGCD.duration + LAG_BUFFER_MS){
       return;
