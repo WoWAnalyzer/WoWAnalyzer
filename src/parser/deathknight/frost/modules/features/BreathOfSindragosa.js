@@ -6,7 +6,8 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 const GOOD_BREATH_DURATION_MS = 20000;
 
@@ -18,21 +19,26 @@ class BreathOfSindragosa extends Analyzer {
   totalDuration = 0;
   breathActive = false;
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id) {
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id);
+    if (!this.active) {
       return;
     }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BREATH_OF_SINDRAGOSA_TALENT), this.onCast);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BREATH_OF_SINDRAGOSA_TALENT), this.onRemoveBuff);
+    this.addEventListener(Events.fightend, this.onFightEnd);
+  }
+
+
+  onCast(event) {
     this.casts += 1;
     this.beginTimestamp = event.timestamp;
     this.breathActive = true;
   }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id) {
-      return;
-    }
+  onRemoveBuff(event) {
     this.breathActive = false;
     const duration = event.timestamp - this.beginTimestamp;
     if (duration < GOOD_BREATH_DURATION_MS) {
@@ -41,7 +47,7 @@ class BreathOfSindragosa extends Analyzer {
     this.totalDuration += duration;
   }
 
-  on_fightend(event) {
+  onFightEnd(event) {
     if (this.breathActive) {
       this.casts -=1;
     }
@@ -50,7 +56,7 @@ class BreathOfSindragosa extends Analyzer {
   suggestions(when){
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> You are not getting good uptime from your <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. Your cast should last <b>at least</b> 15 seconds to take full advantage of the <SpellLink id={SPELLS.PILLAR_OF_FROST.id} /> buff.  A good cast is one that lasts 20 seconds or more.  To ensure a good duration, make you sure have 60+ Runic Power pooled and have less than 2 Runes available before you start the cast.  Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> before you cast Breath of Sindragosa. {this.tickingOnFinishedString}</>)
+        return suggest(<> You are not getting good uptime from your <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. Your cast should last <b>at least</b> 15 seconds to take full advantage of the <SpellLink id={SPELLS.PILLAR_OF_FROST.id} /> buff.  A good cast is one that lasts 20 seconds or more.  To ensure a good duration, make you sure have 60+ Runic Power pooled and have less than 5 Runes available before you start the cast.  Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> before you cast Breath of Sindragosa. {this.tickingOnFinishedString}</>)
           .icon(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.icon)
           .actual(`You averaged ${(this.averageDuration).toFixed(1)} seconds of uptime per cast`)
           .recommended(`>${recommended} seconds is recommended`);
