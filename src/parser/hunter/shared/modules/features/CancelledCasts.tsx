@@ -12,7 +12,7 @@ import CrossIcon from 'interface/icons/Cross';
 /**
  * Tracks the amount of cancelled casts in %.
  *
- * Example log:
+ * Example log:death
  * https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
  */
 
