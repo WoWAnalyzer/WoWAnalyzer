@@ -5,23 +5,24 @@ import { formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import MasteryIcon from 'interface/icons/Mastery';
-import ItemStatistic from 'interface/statistics/ItemStatistic';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 // yes these are static
-const T1_STATS = 392;
-const T2_STATS = 523;
-const T3_STATS = 915;
+const T1_STATS: number = 392;
+const T2_STATS: number = 523;
+const T3_STATS: number = 915;
 
 class HonedMind extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
 
-  statAmount = 0;
+  statAmount: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasCorruptionByName("Honed Mind");
     if (!this.active) {
       return;
@@ -31,7 +32,7 @@ class HonedMind extends Analyzer {
     this.statAmount += this.selectedCombatant.getCorruptionCount(SPELLS.HONED_MIND_T2.id) * T2_STATS;
     this.statAmount += this.selectedCombatant.getCorruptionCount(SPELLS.HONED_MIND_T3.id) * T3_STATS;
 
-    this.statTracker.add(SPELLS.HONED_MIND_BUFF.id, {
+    options.statTracker.add(SPELLS.HONED_MIND_BUFF.id, {
       mastery: this.statAmount,
     });
   }
@@ -42,11 +43,11 @@ class HonedMind extends Analyzer {
 
   statistic() {
     return (
-      <ItemStatistic size="flexible">
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
         <BoringSpellValueText spell={SPELLS.HONED_MIND_BUFF}>
           <MasteryIcon /> {formatNumber(this.buffUptime * this.statAmount)} <small>average Mastery</small>
         </BoringSpellValueText>
-      </ItemStatistic>
+      </Statistic>
     );
   }
 }

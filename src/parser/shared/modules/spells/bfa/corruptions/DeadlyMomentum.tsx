@@ -5,23 +5,24 @@ import { formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import CriticalIcon from 'interface/icons/CriticalStrike';
-import ItemStatistic from 'interface/statistics/ItemStatistic';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 // yes these are static
-const T1_STATS = 31;
-const T2_STATS = 41;
-const T3_STATS = 72;
+const T1_STATS: number = 31;
+const T2_STATS: number = 41;
+const T3_STATS: number = 72;
 
 class DeadlyMomentum extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
 
-  statAmount = 0;
+  statAmount: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasCorruptionByName("Deadly Momentum");
     if (!this.active) {
       return;
@@ -31,7 +32,7 @@ class DeadlyMomentum extends Analyzer {
     this.statAmount += this.selectedCombatant.getCorruptionCount(SPELLS.DEADLY_MOMENTUM_T2.id) * T2_STATS;
     this.statAmount += this.selectedCombatant.getCorruptionCount(SPELLS.DEADLY_MOMENTUM_T3.id) * T3_STATS;
 
-    this.statTracker.add(SPELLS.DEADLY_MOMENTUM_BUFF.id, {
+    options.statTracker.add(SPELLS.DEADLY_MOMENTUM_BUFF.id, {
       crit: this.statAmount,
     });
   }
@@ -42,11 +43,11 @@ class DeadlyMomentum extends Analyzer {
 
   statistic() {
     return (
-      <ItemStatistic size="flexible">
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
         <BoringSpellValueText spell={SPELLS.DEADLY_MOMENTUM_BUFF}>
           <CriticalIcon /> {formatNumber(this.weightedBuffUptime * this.statAmount)} <small>average Crit</small>
         </BoringSpellValueText>
-      </ItemStatistic>
+      </Statistic>
     );
   }
 }
