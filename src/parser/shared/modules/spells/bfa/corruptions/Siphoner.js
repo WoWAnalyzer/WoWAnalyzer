@@ -4,16 +4,14 @@ import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
-const SMALL_SIPHON = 0.03;
-const MEDIUM_SIPHON = 0.05;
-const BIG_SIPHON = 0.08;
+const T1_SIPHON = 0.03;
+const T2_SIPHON = 0.05;
+const T3_SIPHON = 0.08;
 
 class Siphoner extends Analyzer {
   static dependencies = {
@@ -31,9 +29,9 @@ class Siphoner extends Analyzer {
     }
 
     let leechPercent = 0;
-    leechPercent += this.selectedCombatant.getCorruptionCount(SPELLS.SIPHONER_3.id) * SMALL_SIPHON;
-    leechPercent += this.selectedCombatant.getCorruptionCount(SPELLS.SIPHONER_5.id) * MEDIUM_SIPHON;
-    leechPercent += this.selectedCombatant.getCorruptionCount(SPELLS.SIPHONER_8.id) * BIG_SIPHON;
+    leechPercent += this.selectedCombatant.getCorruptionCount(SPELLS.SIPHONER_T1.id) * T1_SIPHON;
+    leechPercent += this.selectedCombatant.getCorruptionCount(SPELLS.SIPHONER_T2.id) * T2_SIPHON;
+    leechPercent += this.selectedCombatant.getCorruptionCount(SPELLS.SIPHONER_T3.id) * T3_SIPHON;
 
     this.leechRatingFromSiphoner = leechPercent * this.statTracker.leechRatingPerPercent;
 
@@ -50,13 +48,11 @@ class Siphoner extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SIPHONER_8.id} />}
-        value={<ItemHealingDone amount={this.healing} />}
-        category={STATISTIC_CATEGORY.ITEMS}
-        position={STATISTIC_ORDER.OPTIONAL(60)}
-        label={<SpellLink id={SPELLS.SIPHONER_8.id} icon={false} />}
-      />
+      <ItemStatistic size="flexible">
+        <BoringSpellValueText spell={SPELLS.SIPHONER_T3}>
+        <ItemHealingDone amount={this.healing} />
+        </BoringSpellValueText>
+      </ItemStatistic>
     );
   }
 }
