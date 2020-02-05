@@ -25,6 +25,7 @@ class StatValues extends BaseHealerStatValues {
   };
 
   spellInfo = SPELL_INFO;
+  qeLive = true;
 
   on_feed_heal(event) {
     const spellInfo = this._getSpellInfo(event);
