@@ -189,6 +189,7 @@ import AzsharasFontofPower from '../shared/modules/items/bfa/raids/eternalpalace
 
 import IneffableTruth from '../shared/modules/spells/bfa/corruptions/IneffableTruth';
 import VoidRitual from '../shared/modules/spells/bfa/corruptions/VoidRitual';
+import Siphoner from '../shared/modules/spells/bfa/corruptions/Siphoner';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -382,6 +383,7 @@ class CombatLogParser {
 
     ineffableTruth: IneffableTruth,
     voidRitual: VoidRitual,
+    siphoner: Siphoner,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

@@ -37,4 +37,19 @@ export default {
     name: 'Void Ritual',
     icon: 'spell_shadow_shadesofdarkness',
   },
+  SIPHONER_T1: {
+    id: 315590,
+    name: 'Siphoner',
+    icon: 'spell_shadow_lifedrain02_purple',
+  },
+  SIPHONER_T2: {
+    id: 315591,
+    name: 'Siphoner',
+    icon: 'spell_shadow_lifedrain02_purple',
+  },
+  SIPHONER_T3: {
+    id: 315592,
+    name: 'Siphoner',
+    icon: 'spell_shadow_lifedrain02_purple',
+  },
 };
