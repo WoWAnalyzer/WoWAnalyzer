@@ -192,7 +192,8 @@ import HonedMind from '../shared/modules/spells/bfa/corruptions/HonedMind';
 import SurgingVitality from '../shared/modules/spells/bfa/corruptions/SurgingVitality';
 import RacingPulse from '../shared/modules/spells/bfa/corruptions/RacingPulse';
 import DeadlyMomentum from '../shared/modules/spells/bfa/corruptions/DeadlyMomentum';
-
+import VoidRitual from '../shared/modules/spells/bfa/corruptions/VoidRitual';
+import Siphoner from '../shared/modules/spells/bfa/corruptions/Siphoner';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -390,6 +391,8 @@ class CombatLogParser {
     surgingVitality: SurgingVitality,
     racingPulse: RacingPulse,
     deadlyMomentum: DeadlyMomentum,
+    voidRitual: VoidRitual,
+    siphoner: Siphoner,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
