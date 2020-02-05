@@ -165,11 +165,11 @@ import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/
 import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 import VoidStone from '../shared/modules/items/bfa/raids/crucibleofstorms/VoidStone';
 import ZaxasjsDeepstriders from '../shared/modules/items/bfa/raids/crucibleofstorms/ZaxasjsDeepstriders';
+// Azsharas Eternal Palace
 import AshvanesRazorCoral from '../shared/modules/items/bfa/raids/azsharaseternalpalace/AshvanesRazorCoral';
 import BloodthirstyUrchin from '../shared/modules/items/bfa/raids/azsharaseternalpalace/BloodthirstyUrchin';
 import DribblingInkpod from '../shared/modules/items/bfa/raids/azsharaseternalpalace/DribblingInkpod';
-// Eternal Palace
-import AzsharasFontofPower from '../shared/modules/items/bfa/raids/eternalpalace/AzsharasFontofPower';
+import AzsharasFontofPower from '../shared/modules/items/bfa/raids/azsharaseternalpalace/AzsharasFontofPower';
 // Nyalotha
 import VitaChargedTitanshard from '../shared/modules/items/bfa/raids/nyalothathewakingcity/VitaChargedTitanshard';
 import VoidTwistedTitanshard from '../shared/modules/items/bfa/raids/nyalothathewakingcity/VoidTwistedTitanshard';

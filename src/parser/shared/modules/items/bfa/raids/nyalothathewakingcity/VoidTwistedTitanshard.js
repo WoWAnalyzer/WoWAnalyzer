@@ -7,8 +7,9 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemLink from 'common/ItemLink';
 import UptimeIcon from 'interface/icons/Uptime';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatPercentage, formatNumber, formatThousands } from 'common/format';
 import HasteIcon from 'interface/icons/Haste';
+import HealthIcon from 'interface/icons/Health';
 import React from 'react';
 
 const MAX_UPTIME_PER_PROC = 15000;
@@ -20,12 +21,13 @@ class VoidTwistedTitanshard extends Analyzer {
 
   critRating = null;
   procs = 0;
+  healing = 0;
+  wastedAbsorb = 0;
 
   constructor(...args) {
     super(...args);
     this._item = this.selectedCombatant.getTrinket(ITEMS.VOID_TWISTED_TITANSHARD.id);
     this.active = !!this._item;
-    console.log(this._item);
 
     if (this.active) {
       this.critRating = calculateSecondaryStatDefault(445, 589, this._item.itemLevel);
@@ -53,6 +55,23 @@ class VoidTwistedTitanshard extends Analyzer {
       return;
     }
     this.procs += 1;
+    this.healing += event.absorb;
+  }
+
+  on_byPlayer_removebuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.LUMINOUS_BARRIER_TALENT.id) {
+      return;
+    }
+
+    if (event.absorb > 0) {
+      this.wastedAbsorb += event.absorb;
+      this.healing -= event.absorb;
+    }
+  }
+
+  get hps() {
+    return this.healing / this.owner.fightDuration * 1000;
   }
 
   statistic() {
@@ -61,16 +80,16 @@ class VoidTwistedTitanshard extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         size="flexible"
         tooltip={(
-          <> :) </>
+          <>Effectiveness refers to how long the shield persisted on average out of the maximum duration.</>
         )}
       >
         <div className="pad">
           <label><ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} details={this._item} /></label>
 
           <div className="value">
-            <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small><br />
-            <UptimeIcon /> {formatPercentage(this.effectiveness, 0)}% <small>effectiveness</small><br />
+            <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime, {formatPercentage(this.effectiveness, 0)}% effectiveness</small><br />
             <HasteIcon /> {formatNumber(this.averageCritRating)} <small>average Crit gained</small><br />
+            <HealthIcon />{formatNumber(this.hps)} <small>HPS</small>
           </div>
         </div>
       </Statistic>

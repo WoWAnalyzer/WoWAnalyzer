@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import Abilities from 'parser/core/modules/Abilities';
