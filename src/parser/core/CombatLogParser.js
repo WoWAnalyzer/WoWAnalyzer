@@ -188,6 +188,10 @@ import EventEmitter from './modules/EventEmitter';
 import AzsharasFontofPower from '../shared/modules/items/bfa/raids/eternalpalace/AzsharasFontofPower';
 
 import IneffableTruth from '../shared/modules/spells/bfa/corruptions/IneffableTruth';
+import HonedMind from '../shared/modules/spells/bfa/corruptions/HonedMind';
+import SurgingVitality from '../shared/modules/spells/bfa/corruptions/SurgingVitality';
+import RacingPulse from '../shared/modules/spells/bfa/corruptions/RacingPulse';
+import DeadlyMomentum from '../shared/modules/spells/bfa/corruptions/DeadlyMomentum';
 
 
 // This prints to console anything that the DI has to do
@@ -380,7 +384,12 @@ class CombatLogParser {
     bloodthirstyUrchin: BloodthirstyUrchin,
     dribblingInkpod: DribblingInkpod,
 
+    // Corruptions
     ineffableTruth: IneffableTruth,
+    honedMind: HonedMind,
+    surgingVitality: SurgingVitality,
+    racingPulse: RacingPulse,
+    deadlyMomentum: DeadlyMomentum,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
