@@ -17,4 +17,19 @@ export default {
     name: 'Ineffable Truth',
     icon: 'inv_wand_1h_nzothraid_d_01',
   },
+  SIPHONER_3: {
+    id: 315590,
+    name: 'Siphoner',
+    icon: 'spell_shadow_lifedrain02_purple',
+  },
+  SIPHONER_5: {
+    id: 315591,
+    name: 'Siphoner',
+    icon: 'spell_shadow_lifedrain02_purple',
+  },
+  SIPHONER_8: {
+    id: 315592,
+    name: 'Siphoner',
+    icon: 'spell_shadow_lifedrain02_purple',
+  },
 };
