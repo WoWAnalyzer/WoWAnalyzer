@@ -49,6 +49,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} />.</>, niseko),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.SIPHONER_T3.id} /> and fixed leech stat values in parses using this corruption.</>, niseko),
   change(date(2020, 1, 30), <>Fixed bug in calcuating bonus crit damage from <SpellLink id={SPELLS.BLOOD_OF_THE_ENEMY.id} />.</>, Khazak),
   change(date(2020, 1, 27), <>Added <SpellLink id={SPELLS.INEFFABLE_TRUTH_BUFF.id} />.</>, niseko),
