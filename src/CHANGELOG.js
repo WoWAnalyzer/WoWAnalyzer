@@ -224,5 +224,4 @@ export default [
   change(date(2018, 6, 2), 'Improved error handling so the app will no longer permanently stay stuck in a loading state when something unexpected happens.', [Zerotorescue]),
   change(date(2018, 6, 2), 'Fixed an issue where the character search realm matching was case-sensitive.', [Zerotorescue]),
   change(date(2018, 6, 1), <>Removed all changelog entries before June 2018, and updated spec contributors to match. If you're interested in older changelogs, visit <a href="https://legion.wowanalyzer.com/">https://legion.wowanalyzer.com/</a>.</>, [Zerotorescue]),
-]
-;
+];

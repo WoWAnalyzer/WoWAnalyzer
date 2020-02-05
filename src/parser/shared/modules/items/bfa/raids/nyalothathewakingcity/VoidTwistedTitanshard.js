@@ -7,7 +7,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemLink from 'common/ItemLink';
 import UptimeIcon from 'interface/icons/Uptime';
-import { formatPercentage, formatNumber, formatThousands } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import HasteIcon from 'interface/icons/Haste';
 import HealthIcon from 'interface/icons/Health';
 import React from 'react';
