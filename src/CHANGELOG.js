@@ -9,7 +9,13 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+<<<<<<< HEAD
   change(date(2020, 2, 5), <> Implemented <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} />, <ItemLink id={ITEMS.VITA_CHARGED_TITANSHARD.id} /> and <SpellLink id={SPELLS.TITANIC_EMPOWERMENT.id} />. </>, Putro),
+=======
+  change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.HONED_MIND_BUFF.id} />, <SpellLink id={SPELLS.SURGING_VITALITY_BUFF.id} />, <SpellLink id={SPELLS.RACING_PULSE_BUFF.id} /> and <SpellLink id={SPELLS.DEADLY_MOMENTUM_BUFF.id} />.</>, niseko),
+  change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} />.</>, niseko),
+  change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.SIPHONER_T3.id} /> and fixed leech stat values in parses using this corruption.</>, niseko),
+>>>>>>> upstream/master
   change(date(2020, 1, 30), <>Fixed bug in calcuating bonus crit damage from <SpellLink id={SPELLS.BLOOD_OF_THE_ENEMY.id} />.</>, Khazak),
   change(date(2020, 1, 27), <>Added <SpellLink id={SPELLS.INEFFABLE_TRUTH_BUFF.id} />.</>, niseko),
   change(date(2020, 1, 27), 'Added basic corruption effect support.', niseko),
@@ -23,7 +29,11 @@ export default [
   change(date(2020, 1, 1), 'Updated code integration tests to be more maintainable.', Zerotorescue),
   change(date(2020, 1, 1), 'Added statistic for Strife.', Abelito75),
   change(date(2019, 12, 31), 'Replaced TravisCI build pipelines with GitHub actions workflows.', Zerotorescue),
+<<<<<<< HEAD
   change(date(2019, 12, 29), 'Updated Combatant to typescript', [HawkCorrigan]),
+=======
+  change(date(2019, 12, 29), "Updated Combatant to typescript", [HawkCorrigan]),
+>>>>>>> upstream/master
   change(date(2019, 12, 27), 'Indicate elemental shaman has been updated for 8.2.5 and update the example log', Draenal),
   change(date(2019, 12, 23), 'Fixed early DoT refresh extension check.', layday),
   change(date(2019, 12, 17), 'Fixed integration testing code with new build support.', [emallson]),
