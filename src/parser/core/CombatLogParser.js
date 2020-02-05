@@ -188,6 +188,10 @@ import EventEmitter from './modules/EventEmitter';
 import AzsharasFontofPower from '../shared/modules/items/bfa/raids/eternalpalace/AzsharasFontofPower';
 
 import IneffableTruth from '../shared/modules/spells/bfa/corruptions/IneffableTruth';
+import HonedMind from '../shared/modules/spells/bfa/corruptions/HonedMind';
+import SurgingVitality from '../shared/modules/spells/bfa/corruptions/SurgingVitality';
+import RacingPulse from '../shared/modules/spells/bfa/corruptions/RacingPulse';
+import DeadlyMomentum from '../shared/modules/spells/bfa/corruptions/DeadlyMomentum';
 import VoidRitual from '../shared/modules/spells/bfa/corruptions/VoidRitual';
 import Siphoner from '../shared/modules/spells/bfa/corruptions/Siphoner';
 
@@ -381,7 +385,12 @@ class CombatLogParser {
     bloodthirstyUrchin: BloodthirstyUrchin,
     dribblingInkpod: DribblingInkpod,
 
+    // Corruptions
     ineffableTruth: IneffableTruth,
+    honedMind: HonedMind,
+    surgingVitality: SurgingVitality,
+    racingPulse: RacingPulse,
+    deadlyMomentum: DeadlyMomentum,
     voidRitual: VoidRitual,
     siphoner: Siphoner,
   };
