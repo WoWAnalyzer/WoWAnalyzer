@@ -9,23 +9,31 @@ import UptimeIcon from 'interface/icons/Uptime';
 import { formatPercentage, formatNumber } from 'common/format';
 import PrimaryStatIcon from 'interface/icons/PrimaryStat';
 import SpellLink from 'common/SpellLink';
+import { calculatePrimaryStat } from 'common/stats';
 
-const PRIMARY_STAT = 1091; // The 2-set gives a static amount of primary stat
+//const PRIMARY_STAT = 1091; // The 2-set gives a static amount of primary stat
+//But it is potentially bugged at the moment as the effect actually scales with ilvl.
+//It is currently averaging (and rounding down) the ilvl of the two trinkets in order to determine the scaling.
 class TitanicEmpowerment extends Analyzer {
 
   static dependencies = {
     statTracker: StatTracker,
   };
 
+  statBuff = 0;
+
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTrinket(ITEMS.VITA_CHARGED_TITANSHARD.id) && this.selectedCombatant.hasTrinket(ITEMS.VOID_TWISTED_TITANSHARD.id);
+    this._vitaItem = this.selectedCombatant.getTrinket(ITEMS.VITA_CHARGED_TITANSHARD.id);
+    this._voidItem = this.selectedCombatant.getTrinket(ITEMS.VOID_TWISTED_TITANSHARD.id);
+    this.active = !!this._vitaItem && !!this._voidItem;
 
     if (this.active) {
+      this.statBuff = calculatePrimaryStat(445, 1091, Math.floor(this._voidItem.itemLevel + this._vitaItem.itemLevel) / 2);
       this.statTracker.add(SPELLS.TITANIC_EMPOWERMENT.id, {
-        strength: PRIMARY_STAT,
-        intellect: PRIMARY_STAT,
-        agility: PRIMARY_STAT,
+        strength: this.statBuff,
+        intellect: this.statBuff,
+        agility: this.statBuff,
       });
     }
   }
@@ -34,7 +42,7 @@ class TitanicEmpowerment extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.TITANIC_EMPOWERMENT.id) / this.owner.fightDuration;
   }
   get averageStatModifier() {
-    return PRIMARY_STAT * this.uptime;
+    return this.statBuff * this.uptime;
   }
 
   statistic() {
