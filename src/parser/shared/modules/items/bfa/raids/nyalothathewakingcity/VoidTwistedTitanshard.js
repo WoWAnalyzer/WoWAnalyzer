@@ -9,8 +9,8 @@ import ItemLink from 'common/ItemLink';
 import UptimeIcon from 'interface/icons/Uptime';
 import { formatPercentage, formatNumber } from 'common/format';
 import HasteIcon from 'interface/icons/Haste';
-import HealthIcon from 'interface/icons/Health';
 import React from 'react';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 const MAX_UPTIME_PER_PROC = 15000;
 
@@ -70,10 +70,6 @@ class VoidTwistedTitanshard extends Analyzer {
     }
   }
 
-  get hps() {
-    return this.healing / this.owner.fightDuration * 1000;
-  }
-
   statistic() {
     return (
       <Statistic
@@ -89,7 +85,7 @@ class VoidTwistedTitanshard extends Analyzer {
           <div className="value">
             <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime, {formatPercentage(this.effectiveness, 0)}% effectiveness</small><br />
             <HasteIcon /> {formatNumber(this.averageCritRating)} <small>average Crit gained</small><br />
-            <HealthIcon />{formatNumber(this.hps)} <small>HPS</small>
+            <ItemHealingDone amount={this.healing} />
           </div>
         </div>
       </Statistic>
