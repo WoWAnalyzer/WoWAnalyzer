@@ -16,6 +16,7 @@ ItemStatistic.propTypes = {
 ItemStatistic.defaultProps = {
   category: STATISTIC_CATEGORY.ITEMS,
   position: STATISTIC_ORDER.OPTIONAL(0),
+  size: 'flexible',
 };
 
 export default ItemStatistic;

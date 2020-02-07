@@ -49,6 +49,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 2, 7), 'Added statistics for the 8.3 Alchemist Stones.', niseko),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.HONED_MIND_BUFF.id} />, <SpellLink id={SPELLS.SURGING_VITALITY_BUFF.id} />, <SpellLink id={SPELLS.RACING_PULSE_BUFF.id} /> and <SpellLink id={SPELLS.DEADLY_MOMENTUM_BUFF.id} />.</>, niseko),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} />.</>, niseko),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.SIPHONER_T3.id} /> and fixed leech stat values in parses using this corruption.</>, niseko),

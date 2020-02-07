@@ -56,4 +56,19 @@ export default {
     name: 'Eternal Alchemist Stone',
     icon: 'inv_alchemist_81_eternalalchemiststone',
   },
+  UNBOUND_ALCHEMIST_STONE: {
+    id: 171088,
+    name: 'Unbound Alchemist Stone',
+    icon: 'achievement_dungeon_ulduar80_heroic',
+  },
+  AWAKENED_ALCHEMIST_STONE: {
+    id: 171087,
+    name: 'Awakened Alchemist Stone',
+    icon: 'achievement_dungeon_ulduar80_normal',
+  },
+  PEERLESS_ALCHEMIST_STONE: {
+    id: 171085,
+    name: 'Peerless Alchemist Stone',
+    icon: 'achievement_dungeon_ulduar80_10man',
+  },
 };
