@@ -4,11 +4,12 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { calculatePrimaryStat } from 'common/stats';
 import { formatNumber } from 'common/format';
-import ItemStatistic from 'interface/statistics/ItemStatistic';
+import Statistic from 'interface/statistics/Statistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemManaGained from 'interface/ItemManaGained';
 import PrimaryStatIcon from 'interface/icons/PrimaryStat';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Events, { HealEvent, EnergizeEvent, Item } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -81,7 +82,7 @@ class AlchemistStone extends Analyzer {
   statistic() {
     const primaryStat = this.selectedCombatant.spec.primaryStat;
     return (
-      <ItemStatistic>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
         <BoringItemValueText item={this.item!}>
           <ItemHealingDone amount={this.healing} /><br />
           {(this.manaGained > 0) && (
@@ -89,10 +90,9 @@ class AlchemistStone extends Analyzer {
           )}
           <PrimaryStatIcon stat={primaryStat} /> {formatNumber(this.averageMainstat)} <small>average {primaryStat} gained</small>
         </BoringItemValueText>
-      </ItemStatistic>
+      </Statistic>
     );
   }
-
 }
 
 export default AlchemistStone;
