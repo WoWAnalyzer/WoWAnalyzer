@@ -6,7 +6,7 @@ import traitIdMap from 'common/TraitIdMap';
 import corruptionIdMap from 'common/corruptionIdMap';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids/index';
-import { CombatantInfoEvent, Trait, Item } from 'parser/core/Events';
+import { CombatantInfoEvent, Item, Trait } from 'parser/core/Events';
 import Entity from './Entity';
 
 export interface CombatantInfo extends CombatantInfoEvent {
@@ -47,6 +47,8 @@ type Corruption = {
   name: string;
   /** The amount of Corruption gained by using this effect */
   corruption?: number;
+  /** The rank of the effect */
+  rank: string;
   /** How often someone has this corruption effect of that exact rank */
   count: number;
 }
@@ -91,8 +93,11 @@ class Combatant extends Entity {
       (player: Player) => player.id === combatantInfo.sourceID,
     );
     this._combatantInfo = {
-      // In super rare cases `playerInfo` can be undefined, not taking this into account would cause the log to be unparsable
-      name: (playerInfo && playerInfo.name) || 'undefined',
+      // In super rare cases `playerInfo` can be undefined, not taking this
+      // into account would cause the log to be unparsable
+      name: (
+        playerInfo && playerInfo.name
+      ) || 'undefined',
       ...combatantInfo,
     };
 
@@ -183,14 +188,16 @@ class Combatant extends Entity {
         essence.isMajor = true;
       }
       this.essencesByTraitID[essence.traitID] = essence;
-      //essence = {icon:string, isMajor:bool, rank:int, slot:int, spellID:int, traitID:int}
+      //essence = {icon:string, isMajor:bool, rank:int, slot:int, spellID:int,
+      // traitID:int}
     });
   }
   hasEssence(traitId: number) {
     return Boolean(this.essencesByTraitID[traitId]);
   }
   hasMajor(traitId: number) {
-    return this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].isMajor;
+    return this.essencesByTraitID[traitId] &&
+      this.essencesByTraitID[traitId].isMajor;
   }
   essenceRank(traitId: number) {
     return (
@@ -200,10 +207,11 @@ class Combatant extends Entity {
   // endregion
 
   // region Corruption effects
-  corruptionBySpellId: { [key: number]: Corruption } = {}
+  corruptionBySpellId: { [key: number]: Corruption } = {};
   _parseCorruption(gear: Array<Item>) {
     gear.forEach((item) => {
-      const bonusId = item.bonusIDs?.find(x => Object.keys(corruptionIdMap).includes(x.toString()));
+      const bonusId = item.bonusIDs?.find(x => Object.keys(corruptionIdMap)
+        .includes(x.toString()));
       if (bonusId === undefined) {
         return;
       }
@@ -212,7 +220,8 @@ class Combatant extends Entity {
       if (!this.corruptionBySpellId[corr.spellId]) {
         this.corruptionBySpellId[corr.spellId] = {
           name: corr.name,
-          corruption: corr.corruption || undefined,
+          corruption: corr.corruption,
+          rank: corr.rank,
           count: 1,
         };
       } else {
@@ -224,7 +233,8 @@ class Combatant extends Entity {
     return Boolean(this.corruptionBySpellId[spellId]);
   }
   hasCorruptionByName(spell: string) {
-    return Boolean(Object.values(this.corruptionBySpellId).find(p => p.name === spell));
+    return Boolean(Object.values(this.corruptionBySpellId).find(p => p.name ===
+      spell));
   }
   getCorruptionCount(spellId: number) {
     return Number(this.corruptionBySpellId[spellId]?.count || 0);
@@ -360,8 +370,9 @@ class Combatant extends Entity {
   get offHand() {
     return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
-  // Punchcards are insertable items for the Pocket Sized Computation Device trinket
-  // The PSCD never has actual gems in it, since it is a one-time quest reward
+  // Punchcards are insertable items for the Pocket Sized Computation Device
+  // trinket The PSCD never has actual gems in it, since it is a one-time quest
+  // reward
   get trinket1Punchcard() {
     const punchcard =
       this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET1) || undefined;
@@ -408,7 +419,10 @@ class Combatant extends Entity {
   // endregion
 
   _parsePrepullBuffs(buffs: any) {
-    // TODO: We only apply prepull buffs in the `auras` prop of combatantinfo, but not all prepull buffs are in there and ApplyBuff finds more. We should update ApplyBuff to add the other buffs to the auras prop of the combatantinfo too (or better yet, make a new normalizer for that).
+    // TODO: We only apply prepull buffs in the `auras` prop of combatantinfo,
+    // but not all prepull buffs are in there and ApplyBuff finds more. We
+    // should update ApplyBuff to add the other buffs to the auras prop of the
+    // combatantinfo too (or better yet, make a new normalizer for that).
     const timestamp = this.owner.fight.start_time;
     buffs.forEach((buff: any) => {
       const spell = SPELLS[buff.ability];
