@@ -13,7 +13,7 @@ class Essence extends React.PureComponent {
     essences: PropTypes.object.isRequired,
   };
 
-  essences = this.props.essences || {}
+  essences = this.props.essences || {};
 
   state = {
     essences: Object.values(ESSENCES),
@@ -36,20 +36,19 @@ class Essence extends React.PureComponent {
         <div className="essences">
           <div className="essence-row">
             {Object.values(this.essences).map((essence, index) => {
-              const spell = this.state.essences.find(e => e.id === essence.spellID);
               const quality = this.convertRankIntoQuality(essence.rank);
               const height = index === 0 ? '60px' : '45px';
               return (
-                  <div key={essence.spellID} style={{ display: 'inline-block', textAlign: 'center' }}>
-                    <SpellLink
-                      id={essence.spellID}
-                      details={essence.spellID}
-                      style={{ margin: '5px', display: 'block', fontSize: '46px', lineHeight: 1 }}
-                      icon={false}
-                    >
-                      <Icon icon={spell ? spell.icon : FALLBACK_ICON} style={{ border: '3px solid', height: height }} className={quality} />
-                    </SpellLink>
-                  </div>
+                <div key={essence.spellID} style={{ display: 'inline-block', textAlign: 'center' }}>
+                  <SpellLink
+                    id={essence.spellID}
+                    details={essence.spellID}
+                    style={{ margin: '5px', display: 'block', fontSize: '46px', lineHeight: 1 }}
+                    icon={false}
+                  >
+                    <Icon icon={essence ? essence.icon : FALLBACK_ICON} style={{ border: '3px solid', height: height }} className={quality} />
+                  </SpellLink>
+                </div>
               );
             })}
           </div>
