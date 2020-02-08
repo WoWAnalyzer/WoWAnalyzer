@@ -23,7 +23,7 @@ export default {
         filter: {
           type: 'removebuff',
           ability: {
-            id: SPELLS.OBSIDIAN_SKIN.id,
+            id: SPELLS.OBSIDIAN_SKIN_MECHANIC.id,
           },
         },
         multiple: true,
@@ -34,7 +34,7 @@ export default {
         filter: {
           type: 'applybuff',
           ability: {
-            id: SPELLS.OBSIDIAN_SKIN.id,
+            id: SPELLS.OBSIDIAN_SKIN_MECHANIC.id,
           },
         },
         multiple: true,
