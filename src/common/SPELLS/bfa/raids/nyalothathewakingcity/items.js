@@ -22,6 +22,31 @@ export default {
   //Vexiona
 
   //Raden the Despoiled
+  VITA_CHARGED_PROC: { //Vita-Charged Titanshard
+    id: 315586,
+    name: 'Vita Charged',
+    icon: 'spell_nature_lightningoverload',
+  },
+  VITA_CHARGED_BUFF: { //Vita-Charged Titanshard
+    id: 315787,
+    name: 'Vita Charged',
+    icon: 'spell_nature_lightningoverload',
+  },
+  VOID_CHARGED_PROC: { //Void-Twisted Titanshard
+    id: 315736,
+    name: 'Void Charged',
+    icon: 'spell_priest_mindspike',
+  },
+  VOID_SHROUD: { //Void-Twisted Titanshard
+    id: 315763,
+    name: 'Void Shroud',
+    icon: 'spell_priest_mindspike',
+  },
+  TITANIC_EMPOWERMENT: { //2-set from Void-Twisted Titanshard + Vita-Charged Titanshard
+    id: 315858,
+    name: 'Titanic Empowerment',
+    icon: 'inv_netherportal',
+  },
 
   //Carapace of Nzoth
 
