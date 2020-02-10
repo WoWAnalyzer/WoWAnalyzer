@@ -416,6 +416,21 @@ export default {
     name: 'Intellect',
     icon: 'spell_arcane_focusedpower',
   },
+  ALCHEMISTS_STRENGTH: {
+    id: 299788,
+    name: 'Alchemist\'s Strength',
+    icon: 'spell_nature_strength',
+  },
+  ALCHEMISTS_AGILITY: {
+    id: 299789,
+    name: 'Alchemist\'s Agility',
+    icon: 'ability_hunter_onewithnature',
+  },
+  ALCHEMISTS_INTELLECT: {
+    id: 299790,
+    name: 'Alchemist\'s Intellect',
+    icon: 'spell_arcane_focusedpower',
+  },
 
   // Encounter mechanics
   RECURSIVE_STRIKES_ENEMY: {
