@@ -45,7 +45,6 @@ class Corruption extends React.PureComponent {
                   >
                     <SpellIcon id={corruption[0]} noLink style={{ border: '3px solid', height: '60px' }} />
                   </SpellLink>
-                  <div style={{ fontSize: 8 }}>{corruption[1].name}</div>
                   <div>{corruption[1].count}x {corruption[1].rank === '' ? '' : <>T{corruption[1].rank}</>}</div>
                 </div>
               );
