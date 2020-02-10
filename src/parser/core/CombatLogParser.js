@@ -102,7 +102,7 @@ import CoastalSurge from '../shared/modules/items/bfa/enchants/CoastalSurge';
 import DarkmoonDeckTides from '../shared/modules/items/bfa/crafted/DarkmoonDeckTides';
 import DarkmoonDeckFathoms from '../shared/modules/items/bfa/crafted/DarkmoonDeckFathoms';
 import DarkmoonDeckBlockades from '../shared/modules/items/bfa/crafted/DarkmoonDeckBlockades';
-import EternalAlchemistStone from '../shared/modules/items/bfa/crafted/EternalAlchemistStone';
+import AlchemistStone from '../shared/modules/items/bfa/crafted/AlchemistStone';
 // Azerite Traits
 import Gemhide from '../shared/modules/spells/bfa/azeritetraits/Gemhide';
 import CrystallineCarapace from '../shared/modules/spells/bfa/azeritetraits/CrystallineCarapace';
@@ -296,7 +296,7 @@ class CombatLogParser {
     darkmoonDeckTides: DarkmoonDeckTides,
     darkmoonDeckFathoms: DarkmoonDeckFathoms,
     darkmoonDeckBlockades: DarkmoonDeckBlockades,
-    eternalAlchemistStone: EternalAlchemistStone,
+    alchemistStone: AlchemistStone,
     // Enchants
     deadlyNavigation: DeadlyNavigation,
     masterfulNavigation: MasterfulNavigation,
