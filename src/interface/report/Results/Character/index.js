@@ -51,23 +51,6 @@ const CharacterTab = props => {
               ) : <small>Unavailable because your character could not be found.</small>}
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-12">
-              <h2>
-                Corruption Effects
-              </h2>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12 hpadding-lg-30" style={{ fontSize: 16 }}>
-              <>
-                1 : This effect can happen<br />
-                20 : This effect can happen<br />
-                40 : This effect can happen<br />
-                60 : This effect can happen<br />
-              </>
-            </div>
-          </div>
         </div>
       </div>
     </div>
