@@ -27,10 +27,16 @@ class Corruption extends React.PureComponent {
   }
 
   render() {
+    let totalCorruption = 0;
+    for (const corr in this.corruptions) {
+      if (this.corruptions.hasOwnProperty(corr)) {
+        totalCorruption += this.corruptions[corr].corruption;
+      }
+    }
     return (
       <>
         <h3>
-          Corruptions
+          Corruptions - ({totalCorruption} Total)
         </h3>
         <div className="corruption">
           <div className="corruption-row">
