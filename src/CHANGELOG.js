@@ -9,6 +9,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 2, 10), <> Implemented a corruption overview on the character page. </>, Putro),
   change(date(2020, 2, 5), <> Implemented <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} />, <ItemLink id={ITEMS.VITA_CHARGED_TITANSHARD.id} /> and <SpellLink id={SPELLS.TITANIC_EMPOWERMENT.id} />. </>, Putro),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.HONED_MIND_BUFF.id} />, <SpellLink id={SPELLS.SURGING_VITALITY_BUFF.id} />, <SpellLink id={SPELLS.RACING_PULSE_BUFF.id} /> and <SpellLink id={SPELLS.DEADLY_MOMENTUM_BUFF.id} />.</>, niseko),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} />.</>, niseko),
