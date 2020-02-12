@@ -15,7 +15,7 @@ export default {
   },
 
   //Maut
-  OBSIDIAN_SKIN: {
+  OBSIDIAN_SKIN_MECHANIC: {
     id: 306005,
     name: 'Obsidian Skin',
     icon: 'inv_misc_archstone_01',

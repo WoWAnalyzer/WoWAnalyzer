@@ -66,8 +66,8 @@ class IneffableTruth extends Analyzer {
       return;
     }
 
-    this.reductionPercent += this.selectedCombatant.getCorruptionCount(SPELLS.INEFFABLE_TRUTH_30.id) * SMALL_TRUTH;
-    this.reductionPercent += this.selectedCombatant.getCorruptionCount(SPELLS.INEFFABLE_TRUTH_50.id) * BIG_TRUTH;
+    this.reductionPercent += this.selectedCombatant.getCorruptionCount(SPELLS.INEFFABLE_TRUTH_T1.id) * SMALL_TRUTH;
+    this.reductionPercent += this.selectedCombatant.getCorruptionCount(SPELLS.INEFFABLE_TRUTH_T2.id) * BIG_TRUTH;
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INEFFABLE_TRUTH_BUFF), this.setBuffActive);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INEFFABLE_TRUTH_BUFF), this.setBuffInactive);
     this.addEventListener(EventEmitter.catchAll, this.reduceCooldowns);

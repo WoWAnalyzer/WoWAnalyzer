@@ -9,6 +9,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 2, 12), <> Implemented a corruption overview on the character page. </>, Putro),
   change(date(2020, 2, 12), 'Fixed a bug that breaks the player selection when there is incomplete information from warcraftlogs.', niseko),
   change(date(2020, 2, 9), 'Added statistics for the 8.3 Alchemist Stones.', niseko),
   change(date(2020, 2, 5), <> Implemented <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} />, <ItemLink id={ITEMS.VITA_CHARGED_TITANSHARD.id} /> and <SpellLink id={SPELLS.TITANIC_EMPOWERMENT.id} />. </>, Putro),
