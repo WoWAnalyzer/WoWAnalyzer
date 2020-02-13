@@ -3,7 +3,25 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 function suggest(when, tracker, suggestion) {
-  const tracked = tracker.buildersObj[suggestion.spell.id];
+  let tracked = { generated: 0, wasted: 0, casts: 0 };
+  //If an array of spells is passed, we manipulate the data to aggregate all the generated and wasted resources as well as the individual focus instances into 1 spell so that it can be displayed.
+  if (Array.isArray(suggestion.spell)) {
+    let newSuggestionSpell = { id: null };
+    for (let i = 0; i < suggestion.spell.length; i++) {
+      if (!tracker.buildersObj[suggestion.spell[i].id]) {
+        continue;
+      }
+      if (newSuggestionSpell.id === null) {
+        newSuggestionSpell = suggestion.spell[i];
+      }
+      tracked.generated += tracker.buildersObj[suggestion.spell[i].id].generated;
+      tracked.wasted += tracker.buildersObj[suggestion.spell[i].id].wasted;
+      tracked.casts += tracker.buildersObj[suggestion.spell[i].id].casts;
+    }
+    suggestion.spell = newSuggestionSpell;
+  } else {
+    tracked = tracker.buildersObj[suggestion.spell.id];
+  }
   if (!tracked) {
     return;
   }

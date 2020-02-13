@@ -19,8 +19,13 @@ class Focus extends Analyzer {
       major: 0.1,
       extraSuggestion: <>Try to keep focus below max by using <SpellLink id={SPELLS.COBRA_SHOT.id} /> and <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />.</>,
     });
-
-    //TODO Implement something to track the various Barbed Shot regenerate events in one resourceSuggest
+    resourceSuggest(when, this.focusTracker, {
+      spell: [SPELLS.BARBED_SHOT_BUFF, SPELLS.BARBED_SHOT_BUFF_STACK_2, SPELLS.BARBED_SHOT_BUFF_STACK_3, SPELLS.BARBED_SHOT_BUFF_STACK_4, SPELLS.BARBED_SHOT_BUFF_STACK_5],
+      minor: 0.025,
+      avg: 0.05,
+      major: 0.1,
+      extraSuggestion: <>Try to keep focus below max by using <SpellLink id={SPELLS.COBRA_SHOT.id} /> and <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />.</>,
+    });
   }
 }
 
