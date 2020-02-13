@@ -31,7 +31,6 @@ class FocusCapTracker extends RegenResourceCapTracker {
   static resourceType = RESOURCE_TYPES.FOCUS;
   static baseRegenRate = BASE_FOCUS_REGEN;
   static isRegenHasted = true;
-  static cumulativeEventWindow = 400;
 
   naturalRegenRate() {
     const regen = super.naturalRegenRate();

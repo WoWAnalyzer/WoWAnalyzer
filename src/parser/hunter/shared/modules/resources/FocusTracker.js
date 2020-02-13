@@ -23,7 +23,6 @@ class FocusTracker extends ResourceTracker {
     let waste;
     let gain;
     if (BARBED_SHOT_SPELLS.includes(spellId)) {
-      console.log(event);
       gain = event.resourceChange;
       waste = BARBED_SHOT_REGEN - event.resourceChange;
     } else {
