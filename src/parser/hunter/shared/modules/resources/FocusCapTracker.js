@@ -79,7 +79,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }
 
-  get suggestionThresholds() {
+  get focusNaturalRegenWasteThresholds() {
     return {
       actual: 1 - this.wastedPercent,
       isLessThan: {
@@ -92,7 +92,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+    when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.

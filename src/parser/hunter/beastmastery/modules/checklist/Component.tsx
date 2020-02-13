@@ -5,14 +5,16 @@ import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import PreparationRule
+  from 'parser/shared/modules/features/Checklist/PreparationRule';
+import GenericCastEfficiencyRequirement
+  from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellIcon from 'common/SpellIcon';
 
-const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = props => (
+const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+  const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -38,12 +40,18 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }) => {
         <AbilityRequirement spell={SPELLS.BARBED_SHOT.id} />
         <AbilityRequirement spell={SPELLS.BESTIAL_WRATH.id} />
         <AbilityRequirement spell={SPELLS.ASPECT_OF_THE_WILD.id} />
-        {combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) && <AbilityRequirement spell={SPELLS.DIRE_BEAST_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id) && <AbilityRequirement spell={SPELLS.CHIMAERA_SHOT_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) && <AbilityRequirement spell={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.BARRAGE_TALENT.id) && <AbilityRequirement spell={SPELLS.BARRAGE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id) && <AbilityRequirement spell={SPELLS.STAMPEDE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id) && <AbilityRequirement spell={SPELLS.SPITTING_COBRA_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) &&
+        <AbilityRequirement spell={SPELLS.DIRE_BEAST_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id) &&
+        <AbilityRequirement spell={SPELLS.CHIMAERA_SHOT_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) &&
+        <AbilityRequirement spell={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.BARRAGE_TALENT.id) &&
+        <AbilityRequirement spell={SPELLS.BARRAGE_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id) &&
+        <AbilityRequirement spell={SPELLS.STAMPEDE_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id) &&
+        <AbilityRequirement spell={SPELLS.SPITTING_COBRA_TALENT.id} />}
       </Rule>
       <Rule
         name="Barbed Shot usage"
@@ -55,7 +63,10 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }) => {
       >
         <Requirement name={<>Uptime of <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> </>} thresholds={thresholds.frenzyUptimeSuggestionThreshold} />
         <Requirement name={<>3 stack uptime of <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> </>} thresholds={thresholds.frenzy3StackSuggestionThreshold} />
-        <Requirement name={<><SpellLink id={SPELLS.BESTIAL_WRATH.id} /> CDR Efficiency</>} thresholds={thresholds.bestialWrathCDREfficiencyThreshold} />
+        <Requirement
+          name={<>
+            <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> CDR Efficiency</>} thresholds={thresholds.bestialWrathCDREfficiencyThreshold}
+        />
       </Rule>
       <Rule
         name="Talent, cooldown and spell efficiency"
@@ -65,19 +76,36 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }) => {
           </>
         )}
       >
-        <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Average focus on <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /> cast </>} thresholds={thresholds.bestialWrathFocusThreshold} />
-        <Requirement name={<><SpellIcon id={SPELLS.COBRA_SHOT.id} /><SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} icon={false} /> CDR efficiency</>} thresholds={thresholds.cobraShotCDREfficiencyThreshold} />
-        {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && <Requirement name={<> Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets </>} thresholds={thresholds.wastedKillerCobraThreshold} />}
+        <Requirement
+          name={<>
+            <SpellIcon id={SPELLS.COBRA_SHOT.id} /><SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} icon={false} /> CDR efficiency</>} thresholds={thresholds.cobraShotCDREfficiencyThreshold}
+        />
+        <Requirement
+          name={<>
+            <SpellLink id={SPELLS.COBRA_SHOT.id} /> casts when <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> wasn't on cd</>} thresholds={thresholds.wastedCobraShotsThreshold}
+        />
+        <Requirement
+          name={<>
+            <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> Average focus on <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /> cast </>} thresholds={thresholds.bestialWrathFocusThreshold}
+        />
+        <Requirement
+          name={<>
+            <SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} /> applications with 0 cleaves</>} thresholds={thresholds.beastCleaveThresholds}
+        />
+        {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) &&
+        <Requirement name={<> Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets </>} thresholds={thresholds.wastedKillerCobraThreshold} />}
       </Rule>
       <Rule
-        name={<>Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> focus capping</>}
+        name={<>Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> focus capping</>}
         description={(
           <>
             As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.
           </>
         )}
       >
-        <Requirement name={<> Active time</>} thresholds={thresholds.downtimeSuggestionThresholds} />
+        <Requirement name="Active time" thresholds={thresholds.downtimeSuggestionThresholds} />
+        <Requirement name="Effective Focus from generators" thresholds={thresholds.focusGeneratorWasteThresholds} />
+        <Requirement name="Effective Focus from natural regen" thresholds={thresholds.focusNaturalRegenWasteThresholds} />
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

@@ -6,6 +6,9 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 2, 14), <>Added a <SpellLink id={SPELLS.RAPID_RELOAD.id} /> azerite trait module. </>, Putro),
+  change(date(2020, 2, 14), <>Fix a bug that would indicate you hadn't hit enemies with <SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} /> despite having done so whilst using <SpellLink id={SPELLS.ANIMAL_COMPANION_TALENT.id} />.</>, Putro),
+  change(date(2020, 2, 13), 'Add focus checks from natural regeneration and from generators, as well as additional cobra shot and multi shot checks to the BM checklist.', Putro),
   change(date(2020, 2, 13), 'Improve focus tab to include wasted information that is not normally included in the combatlog.', Putro),
   change(date(2020, 1, 28), 'Completely reworked the Focus modules for Hunter. A new tab, chart and statistic has been added for Focus metrics.', Putro),
   change(date(2020, 1, 28), 'Set BM compatibility to 8.3.', Putro),
