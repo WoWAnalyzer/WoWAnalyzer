@@ -7,10 +7,12 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 
 import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import BestialWrath from '../../modules/spells/BestialWrath';
-import KillerCobra from '../../modules/talents/KillerCobra';
-import CobraShot from '../../modules/spells/CobraShot';
-import BarbedShot from '../../modules/spells/BarbedShot';
+import BestialWrath from '../spells/BestialWrath';
+import KillerCobra from '../talents/KillerCobra';
+import CobraShot from '../spells/CobraShot';
+import BarbedShot from '../spells/BarbedShot';
+import FocusDetails from '../../../shared/modules/resources/FocusDetails';
+import BeastMasteryFocusCapTracker from '../core/BeastMasteryFocusCapTracker';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -22,6 +24,8 @@ class Checklist extends BaseChecklist {
     bestialWrath: BestialWrath,
     killerCobra: KillerCobra,
     cobraShot: CobraShot,
+    focusGeneratorDetails: FocusDetails,
+    focusCapTracker: BeastMasteryFocusCapTracker,
   };
   render() {
     return (
@@ -38,6 +42,8 @@ class Checklist extends BaseChecklist {
           wastedKillerCobraThreshold: this.killerCobra.wastedKillerCobraThreshold,
           cobraShotCDREfficiencyThreshold: this.cobraShot.cdrEfficiencyCobraShotThreshold,
           wastedCobraShotsThreshold: this.cobraShot.wastedCobraShotsThreshold,
+          focusGeneratorWasteThresholds: this.focusGeneratorDetails.focusGeneratorWasteThresholds,
+          focusNaturalRegenWasteThresholds: this.focusCapTracker.focusNaturalRegenWasteThresholds,
         }}
       />
     );
