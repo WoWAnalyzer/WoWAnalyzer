@@ -16,6 +16,7 @@ export default {
       physical: [],
       magical: [],
     },
+    resultsWarning: 'Logs recorded for this fight contain many issues that may make analysis inaccurate. Please consider analyzing a different fight.',
     phases: {
       P1: {
         name: 'Stage 1: The Prophet',
