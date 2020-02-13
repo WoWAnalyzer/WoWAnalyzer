@@ -32,7 +32,7 @@ class FocusDetails extends Analyzer {
     return this.wasted / this.total || 0;
   }
 
-  get suggestionThresholds() {
+  get focusGeneratorWasteThresholds() {
     return {
       actual: 1 - this.wastedPercent,
       isLessThan: {

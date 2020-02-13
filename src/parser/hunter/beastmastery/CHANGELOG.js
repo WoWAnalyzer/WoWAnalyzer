@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 2, 13), 'Add checks about focus from both natural regeneration and generators to the BM checklist.', Putro),
   change(date(2020, 2, 13), 'Improve focus tab to include wasted information that is not normally included in the combatlog.', Putro),
   change(date(2020, 1, 28), 'Completely reworked the Focus modules for Hunter. A new tab, chart and statistic has been added for Focus metrics.', Putro),
   change(date(2020, 1, 28), 'Set BM compatibility to 8.3.', Putro),
