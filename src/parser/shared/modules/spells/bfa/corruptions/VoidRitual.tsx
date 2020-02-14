@@ -13,9 +13,9 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 // yes these are static
-const T1_STATS: number = 7;
-const T2_STATS: number = 17;
-const T3_STATS: number = 32;
+const T1_STATS: number = 14;
+const T2_STATS: number = 33;
+const T3_STATS: number = 63;
 
 class VoidRitual extends Analyzer {
   static dependencies = {
