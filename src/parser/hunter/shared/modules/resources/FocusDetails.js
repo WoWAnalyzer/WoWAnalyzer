@@ -63,7 +63,7 @@ class FocusDetails extends Analyzer {
   tab() {
     return {
       title: 'Focus',
-      url: 'focus-usage',
+      url: 'focus',
       render: () => (
         <Panel>
           <ResourceBreakdown

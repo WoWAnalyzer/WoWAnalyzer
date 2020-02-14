@@ -31,7 +31,6 @@ class FocusCapTracker extends RegenResourceCapTracker {
   static resourceType = RESOURCE_TYPES.FOCUS;
   static baseRegenRate = BASE_FOCUS_REGEN;
   static isRegenHasted = true;
-  static cumulativeEventWindow = 400;
 
   naturalRegenRate() {
     const regen = super.naturalRegenRate();
@@ -60,7 +59,22 @@ class FocusCapTracker extends RegenResourceCapTracker {
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }
 
-  on_byPlayer_Damage(event) {
+  on_byPlayer_damage(event) {
+    const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
+    this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
+  }
+
+  on_byPlayer_heal(event) {
+    const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
+    this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
+  }
+
+  on_byPlayer_applybuff(event) {
+    const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
+    this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
+  }
+
+  on_byPlayer_removebuff(event) {
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }
