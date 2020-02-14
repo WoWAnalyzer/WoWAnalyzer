@@ -10,9 +10,9 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 // yes these are static
-const T1_STATS: number = 312;
-const T2_STATS: number = 416;
-const T3_STATS: number = 728;
+const T1_STATS: number = 343;
+const T2_STATS: number = 458;
+const T3_STATS: number = 801;
 
 class SurgingVitality extends Analyzer {
   static dependencies = {
