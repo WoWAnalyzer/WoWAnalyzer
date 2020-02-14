@@ -79,8 +79,8 @@ class PrimalInstincts extends Analyzer {
         <BoringSpellValueText spell={SPELLS.PRIMAL_INSTINCTS}>
           <>
             <MasteryIcon /> {formatNumber(this.avgMastery)}
-            <small>average Mastery gained</small><br />
-            {this.numProcs} <small>Barbed shot charges regained</small>
+            <small> average Mastery gained</small><br />
+            {this.numProcs} <small>Barbed Shot charges regained</small>
           </>
         </BoringSpellValueText>
       </Statistic>

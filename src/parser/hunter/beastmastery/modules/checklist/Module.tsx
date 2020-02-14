@@ -3,9 +3,10 @@ import React from 'react';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer
+  from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
-import Component from './Component';
+import Component from 'parser/hunter/beastmastery/modules/checklist/Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import BestialWrath from '../spells/BestialWrath';
 import KillerCobra from '../talents/KillerCobra';
@@ -29,6 +30,17 @@ class Checklist extends BaseChecklist {
     focusCapTracker: BeastMasteryFocusCapTracker,
     beastCleave: BeastCleave,
   };
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected barbedShot!: BarbedShot;
+  protected bestialWrath!: BestialWrath;
+  protected killerCobra!: KillerCobra;
+  protected cobraShot!: CobraShot;
+  protected focusGeneratorDetails!: FocusDetails;
+  protected focusCapTracker!: BeastMasteryFocusCapTracker;
+  protected beastCleave!: BeastCleave;
   render() {
     return (
       <Component

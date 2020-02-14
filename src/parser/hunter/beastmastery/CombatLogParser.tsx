@@ -5,7 +5,8 @@ import Checklist from './modules/checklist/Module';
 //Features
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import CooldownThroughputTracker
+  from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import FocusUsage from '../shared/modules/resources/FocusUsage';
 //Talents
@@ -38,14 +39,16 @@ import BestialWrath from './modules/spells/BestialWrath';
 import FocusTracker from '../shared/modules/resources/FocusTracker';
 import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
-import BeastMasteryFocusCapTracker from './modules/core/BeastMasteryFocusCapTracker';
+import BeastMasteryFocusCapTracker
+  from './modules/core/BeastMasteryFocusCapTracker';
 import Focus from './modules/core/Focus';
 //Azerite Traits
 import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
 import HazeOfRage from './modules/spells/azeritetraits/HazeOfRage';
 import FeedingFrenzy from './modules/spells/azeritetraits/FeedingFrenzy';
 import PrimalInstincts from './modules/spells/azeritetraits/PrimalInstincts';
-import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
+import DireConsequences
+  from '../shared/modules/spells/azeritetraits/DireConsequences';
 import RapidReload from '../shared/modules/spells/azeritetraits/RapidReload';
 
 class CombatLogParser extends CoreCombatLogParser {
