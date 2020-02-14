@@ -13,6 +13,7 @@ import CobraShot from '../spells/CobraShot';
 import BarbedShot from '../spells/BarbedShot';
 import FocusDetails from '../../../shared/modules/resources/FocusDetails';
 import BeastMasteryFocusCapTracker from '../core/BeastMasteryFocusCapTracker';
+import BeastCleave from '../spells/BeastCleave';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -26,6 +27,7 @@ class Checklist extends BaseChecklist {
     cobraShot: CobraShot,
     focusGeneratorDetails: FocusDetails,
     focusCapTracker: BeastMasteryFocusCapTracker,
+    beastCleave: BeastCleave,
   };
   render() {
     return (
@@ -33,15 +35,20 @@ class Checklist extends BaseChecklist {
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{
+          //Preparation
           ...this.preparationRuleAnalyzer.thresholds,
-          downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
+          //Barbed Shot Usage
           frenzy3StackSuggestionThreshold: this.barbedShot.frenzy3StackThreshold,
           frenzyUptimeSuggestionThreshold: this.barbedShot.frenzyUptimeThreshold,
           bestialWrathCDREfficiencyThreshold: this.bestialWrath.cdrEfficiencyBestialWrathThreshold,
+          //Spells  & Talents
           bestialWrathFocusThreshold: this.bestialWrath.focusOnBestialWrathCastThreshold,
           wastedKillerCobraThreshold: this.killerCobra.wastedKillerCobraThreshold,
           cobraShotCDREfficiencyThreshold: this.cobraShot.cdrEfficiencyCobraShotThreshold,
           wastedCobraShotsThreshold: this.cobraShot.wastedCobraShotsThreshold,
+          beastCleaveThresholds: this.beastCleave.beastCleavesWithoutHits,
+          //Downtime & FocusCapping
+          downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
           focusGeneratorWasteThresholds: this.focusGeneratorDetails.focusGeneratorWasteThresholds,
           focusNaturalRegenWasteThresholds: this.focusCapTracker.focusNaturalRegenWasteThresholds,
         }}

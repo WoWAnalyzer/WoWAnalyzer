@@ -134,7 +134,7 @@ class BeastCleave extends Analyzer {
         >
           <BoringSpellValueText spell={SPELLS.BEAST_CLEAVE_BUFF}>
             <>
-              <ItemDamageDone amount={this.damage} /> <br />
+              <ItemDamageDone amount={this.damage} />
             </>
           </BoringSpellValueText>
         </Statistic>

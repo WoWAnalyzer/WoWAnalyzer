@@ -65,8 +65,10 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }) => {
           </>
         )}
       >
-        <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Average focus on <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /> cast </>} thresholds={thresholds.bestialWrathFocusThreshold} />
         <Requirement name={<><SpellIcon id={SPELLS.COBRA_SHOT.id} /><SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} icon={false} /> CDR efficiency</>} thresholds={thresholds.cobraShotCDREfficiencyThreshold} />
+        <Requirement name={<><SpellLink id={SPELLS.COBRA_SHOT.id} /> casts when <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> wasn't on cd</>} thresholds={thresholds.wastedCobraShotsThreshold} />
+        <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Average focus on <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /> cast </>} thresholds={thresholds.bestialWrathFocusThreshold} />
+        <Requirement name={<><SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} /> applications with 0 cleaves</>} thresholds={thresholds.beastCleaveThresholds} />
         {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && <Requirement name={<> Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets </>} thresholds={thresholds.wastedKillerCobraThreshold} />}
       </Rule>
       <Rule

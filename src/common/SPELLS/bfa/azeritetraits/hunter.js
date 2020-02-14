@@ -133,4 +133,9 @@ export default {
     name: 'Dire Consequences',
     icon: 'ability_hunter_longevity',
   },
+  RAPID_RELOAD: {
+    id: 278530,
+    name: 'Rapid Reload',
+    icon: 'ability_upgrademoonglaive',
+  },
 };
