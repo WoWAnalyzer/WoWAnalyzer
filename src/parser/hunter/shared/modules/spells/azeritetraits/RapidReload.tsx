@@ -21,6 +21,8 @@ const COOLDOWN_REDUCTION_MS = 1000;
  * Multi-Shots that damage more than 2 targets fire an additional wave of
  * bullets, dealing 1817 damage and reducing the cooldown of your Aspects by 1
  * sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/gnM3RY6QWKwa2tGF#fight=18&type=damage-done&source=10
  */
 class RapidReload extends Analyzer {
   static dependencies = {

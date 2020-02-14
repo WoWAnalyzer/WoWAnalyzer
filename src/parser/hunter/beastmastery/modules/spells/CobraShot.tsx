@@ -15,6 +15,8 @@ import { CastEvent } from '../../../../core/Events';
 /**
  * A quick shot causing Physical damage.
  * Reduces the cooldown of Kill Command by 1 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/gnM3RY6QWKwa2tGF#fight=18&type=damage-done&source=10
  */
 
 const COOLDOWN_REDUCTION_MS = 1000;
