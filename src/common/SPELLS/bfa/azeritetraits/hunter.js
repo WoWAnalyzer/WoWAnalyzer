@@ -125,6 +125,16 @@ export default {
     name: 'Primeval Intuition',
     icon: 'ability_hunter_silenthunter',
   },
+  WILDFIRE_CLUSTER: {
+    id: 272742,
+    name: 'Wildfire Cluster',
+    icon: 'spell_mage_flameorb',
+  },
+  WILDFIRE_CLUSTER_DAMAGE: {
+    id: 272745,
+    name: 'Wildfire Cluster',
+    icon: 'spell_mage_flameorb',
+  },
 
   // shared
   DIRE_CONSEQUENCES: {

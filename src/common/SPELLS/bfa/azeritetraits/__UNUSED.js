@@ -810,11 +810,6 @@ export default {
     name: 'Whirling Rebound',
     icon: 'ability_hunter_hatchettoss',
   },
-  WILDFIRE_CLUSTER: {
-    id: 272743,
-    name: 'Wildfire Cluster',
-    icon: 'spell_mage_flameorb',
-  },
   WINDS_OF_WAR: {
     id: 267671,
     name: 'Winds of War',
