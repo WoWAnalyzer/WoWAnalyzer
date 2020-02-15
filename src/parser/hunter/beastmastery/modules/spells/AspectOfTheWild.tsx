@@ -25,6 +25,7 @@ class AspectOfTheWild extends Analyzer {
       return;
     }
     this.casts += 1;
+    this.markCastAsInefficient(event);
   }
 
   on_byPlayer_damage(event: DamageEvent) {
@@ -36,6 +37,24 @@ class AspectOfTheWild extends Analyzer {
       this.spellUsable.beginCooldown(SPELLS.ASPECT_OF_THE_WILD.id, {
         timestamp: this.owner.fight.start_time,
       });
+    }
+  }
+
+  markCastAsInefficient(event: CastEvent) {
+    if (event.meta === undefined) {
+      event.meta = {
+        isInefficientCast: false,
+        inefficientCastReason: '',
+      };
+    }
+    const hasPrimalInstincts = this.selectedCombatant.hasTrait(SPELLS.PRIMAL_INSTINCTS.id);
+    const hasTwoBarbedStacks = this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id) === 2;
+
+    if (hasPrimalInstincts && hasTwoBarbedStacks) {
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason
+        = 'Aspect of the Wild was cast while having two charges of Barbed Shot and using Primal Instincts.';
+      return;
     }
   }
 }
