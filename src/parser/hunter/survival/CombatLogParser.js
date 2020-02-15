@@ -51,6 +51,7 @@ import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
 import BlurOfTalons from './modules/spells/azeritetraits/BlurOfTalons';
 import PrimevalIntuition from './modules/spells/azeritetraits/PrimevalIntuition';
 import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
+import WildfireCluster from './modules/spells/azeritetraits/WildfireCluster';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -109,6 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     blurOfTalons: BlurOfTalons,
     primevalIntuition: PrimevalIntuition,
     direConsequences: DireConsequences,
+    wildfireCluster: WildfireCluster,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }],
