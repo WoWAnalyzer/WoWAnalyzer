@@ -15,6 +15,8 @@ import {
   RemoveBuffEvent,
 } from '../../../../core/Events';
 
+const MS_BUFFER = 100;
+
 /**
  * After you Multi-Shot, your pet's melee attacks also strike all other nearby
  * enemy targets for 100% as much for the next 4 sec.
@@ -32,15 +34,20 @@ class BeastCleave extends Analyzer {
   beastCleaveHits = 0;
   casts = 0;
   castsWithoutHits = 0;
+  timestamp = 0;
 
   on_toPlayerPet_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
       return;
     }
-    this.casts++;
+    if (this.timestamp + MS_BUFFER > event.timestamp) {
+      return;
+    }
+    this.casts += 1;
     this.cleaveUp = true;
     this.beastCleaveHits = 0;
+    this.timestamp = event.timestamp;
   }
 
   on_toPlayerPet_removebuff(event: RemoveBuffEvent) {
@@ -48,10 +55,14 @@ class BeastCleave extends Analyzer {
     if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
       return;
     }
+    if (this.timestamp + MS_BUFFER > event.timestamp) {
+      return;
+    }
     if (this.beastCleaveHits === 0) {
-      this.castsWithoutHits++;
+      this.castsWithoutHits += 1;
     }
     this.cleaveUp = false;
+    this.timestamp = event.timestamp;
   }
 
   on_toPlayerPet_refreshbuff(event: RefreshBuffEvent) {
@@ -59,11 +70,15 @@ class BeastCleave extends Analyzer {
     if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
       return;
     }
-    this.casts++;
+    if (this.timestamp + MS_BUFFER > event.timestamp) {
+      return;
+    }
+    this.casts += 1;
     if (this.beastCleaveHits === 0) {
       this.castsWithoutHits++;
     }
     this.beastCleaveHits = 0;
+    this.timestamp = event.timestamp;
   }
 
   on_byPlayerPet_damage(event: DamageEvent) {
@@ -75,7 +90,7 @@ class BeastCleave extends Analyzer {
       (
         event.absorbed || 0
       );
-    this.beastCleaveHits++;
+    this.beastCleaveHits += 1;
   }
 
   get beastCleavesWithoutHits() {
@@ -119,7 +134,7 @@ class BeastCleave extends Analyzer {
         >
           <BoringSpellValueText spell={SPELLS.BEAST_CLEAVE_BUFF}>
             <>
-              <ItemDamageDone amount={this.damage} /> <br />
+              <ItemDamageDone amount={this.damage} />
             </>
           </BoringSpellValueText>
         </Statistic>

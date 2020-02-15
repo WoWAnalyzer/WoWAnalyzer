@@ -76,7 +76,7 @@ class DanceOfDeath extends Analyzer {
         <BoringSpellValueText spell={SPELLS.DANCE_OF_DEATH}>
           <>
             <Agility /> {formatNumber(this.avgAgility)}
-            <small>average Agility</small> <br />
+            <small> average Agility</small> <br />
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>
         </BoringSpellValueText>

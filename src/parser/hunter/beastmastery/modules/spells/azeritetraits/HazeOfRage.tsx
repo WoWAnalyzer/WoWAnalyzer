@@ -68,7 +68,7 @@ class HazeOfRage extends Analyzer {
         <BoringSpellValueText spell={SPELLS.HAZE_OF_RAGE}>
           <>
             <AgilityIcon /> {formatNumber(this.avgAgility)}
-            <small>average Agility gained</small><br />
+            <small> average Agility gained</small><br />
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>
         </BoringSpellValueText>

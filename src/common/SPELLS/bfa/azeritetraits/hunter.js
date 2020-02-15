@@ -126,11 +126,20 @@ export default {
     icon: 'ability_hunter_silenthunter',
   },
 
-
   // shared
   DIRE_CONSEQUENCES: {
     id: 287093,
     name: 'Dire Consequences',
     icon: 'ability_hunter_longevity',
+  },
+  RAPID_RELOAD: {
+    id: 278530,
+    name: 'Rapid Reload',
+    icon: 'ability_upgrademoonglaive',
+  },
+  RAPID_RELOAD_DAMAGE: {
+    id: 278565,
+    name: 'Multi-Shot Rapid Relooad',
+    icon: 'ability_upgrademoonglaive',
   },
 };
