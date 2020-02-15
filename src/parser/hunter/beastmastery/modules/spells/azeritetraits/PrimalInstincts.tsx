@@ -42,6 +42,7 @@ class PrimalInstincts extends Analyzer {
 
   mastery = 0;
   wastedBarbedShots = 0;
+  chargesGained = 0;
 
   constructor(options: any) {
     super(options);
@@ -66,10 +67,6 @@ class PrimalInstincts extends Analyzer {
     return this.uptime * this.mastery;
   }
 
-  get numProcs() {
-    return this.selectedCombatant.getBuffTriggerCount(SPELLS.PRIMAL_INSTINCTS_BUFF.id);
-  }
-
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PRIMAL_INSTINCTS_BUFF.id) {
@@ -79,6 +76,8 @@ class PrimalInstincts extends Analyzer {
     const hasTwoBarbedCharges = this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id) === 2;
     if (hasTwoBarbedCharges) {
       this.wastedBarbedShots++;
+    } else {
+      this.chargesGained++;
     }
   }
 
@@ -99,7 +98,7 @@ class PrimalInstincts extends Analyzer {
           <>
             <MasteryIcon /> {formatNumber(this.avgMastery)}
             <small> average Mastery gained</small><br />
-            {this.numProcs} <small>Barbed Shot charges regained</small>
+            {this.chargesGained}/{this.chargesGained + this.wastedBarbedShots} <small>Barbed Shot charges regained</small>
           </>
         </BoringSpellValueText>
       </Statistic>
