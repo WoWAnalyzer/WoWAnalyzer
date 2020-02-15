@@ -14,7 +14,8 @@ async function getChangedFiles(targetBranch) {
 }
 
 function getChangelogs(changedFiles) {
-  return changedFiles.filter(path => path.includes('/CHANGELOG.js'));
+  const allowedChangelogFormats = ['/CHANGELOG.js','/CHANGELOG.tsx'];
+  return changedFiles.filter(path => allowedChangelogFormats.some(format => path.includes(format)));
 }
 
 async function main() {
