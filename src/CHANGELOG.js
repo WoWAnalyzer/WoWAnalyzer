@@ -14,7 +14,7 @@ export default [
   change(date(2020, 2, 12), 'Implemented a corruption overview on the character page.', Putro),
   change(date(2020, 2, 12), 'Fixed a bug that breaks the player selection when there is incomplete information from warcraftlogs.', niseko),
   change(date(2020, 2, 9), 'Added statistics for the 8.3 Alchemist Stones.', niseko),
-  change(date(2020, 2, 5), <> Implemented <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} />, <ItemLink id={ITEMS.VITA_CHARGED_TITANSHARD.id} /> and <SpellLink id={SPELLS.TITANIC_EMPOWERMENT.id} />. </>, Putro),
+  change(date(2020, 2, 5), <> Implemented <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} />, <ItemLink id={ITEMS.VITA_CHARGED_TITANSHARD.id} /> as well as an individual statistic for the set bonus <SpellLink id={SPELLS.TITANIC_EMPOWERMENT.id} />. </>, Putro),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.HONED_MIND_BUFF.id} />, <SpellLink id={SPELLS.SURGING_VITALITY_BUFF.id} />, <SpellLink id={SPELLS.RACING_PULSE_BUFF.id} /> and <SpellLink id={SPELLS.DEADLY_MOMENTUM_BUFF.id} />.</>, niseko),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} />.</>, niseko),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.SIPHONER_T3.id} /> and fixed leech stat values in parses using this corruption.</>, niseko),
