@@ -174,6 +174,8 @@ import AzsharasFontofPower from '../shared/modules/items/bfa/raids/azsharasetern
 import VitaChargedTitanshard from '../shared/modules/items/bfa/raids/nyalothathewakingcity/VitaChargedTitanshard';
 import VoidTwistedTitanshard from '../shared/modules/items/bfa/raids/nyalothathewakingcity/VoidTwistedTitanshard';
 import TitanicEmpowerment from '../shared/modules/items/bfa/raids/nyalothathewakingcity/TitanicEmpowerment';
+import ForbiddenObsidianClaw from '../shared/modules/items/bfa/raids/nyalothathewakingcity/ForbiddenObsidianClaw';
+import HummingBlackDragonscale from '../shared/modules/items/bfa/raids/nyalothathewakingcity/HummingBlackDragonscale';
 //Corruptions
 import IneffableTruth from '../shared/modules/spells/bfa/corruptions/IneffableTruth';
 import HonedMind from '../shared/modules/spells/bfa/corruptions/HonedMind';
@@ -380,6 +382,8 @@ class CombatLogParser {
     vitaChargedTitanshard: VitaChargedTitanshard,
     voidTwistedTitanshard: VoidTwistedTitanshard,
     titanicEmpowerment: TitanicEmpowerment,
+    forbiddenObsidianClaw: ForbiddenObsidianClaw,
+    hummingBlackDragonscale: HummingBlackDragonscale,
 
     //Corruptions
     ineffableTruth: IneffableTruth,
