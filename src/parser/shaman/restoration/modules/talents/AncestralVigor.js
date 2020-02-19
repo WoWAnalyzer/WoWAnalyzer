@@ -42,7 +42,7 @@ class AncestralVigor extends Analyzer {
   fetchAll(pathname, query) {
     const checkAndFetch = async _query => {
       const json = await fetchWcl(pathname, _query);
-      Array.prototype.push.apply(this.lifeSavingEvents, json.events);
+      this.lifeSavingEvents.push(...json.events);
       if (json.nextPageTimestamp) {
         return checkAndFetch(Object.assign(query, {
           start: json.nextPageTimestamp,
@@ -55,6 +55,8 @@ class AncestralVigor extends Analyzer {
   }
 
   load() {
+    // clear array to avoid duplicate entries after switching tabs and clicking it again
+    this.lifeSavingEvents = [];
     const query = {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
@@ -78,6 +80,8 @@ class AncestralVigor extends Analyzer {
   }
 
   statistic() {
+    // filter out non-players
+    this.loaded && (this.lifeSavingEvents = this.lifeSavingEvents.filter(event => !!this.combatants.players[event.targetID]));
     const tooltip = this.loaded
       ? 'The amount of players that would have died without your Ancestral Vigor buff.'
       : 'Click to analyze how many lives were saved by the ancestral vigor buff.';
@@ -117,10 +121,6 @@ class AncestralVigor extends Analyzer {
                 this.lifeSavingEvents
                   .map((event, index) => {
                     const combatant = this.combatants.players[event.targetID];
-                    if (!combatant) {
-                      return null; // pet or something
-                    }
-
                     const spec = SPECS[combatant.specId];
                     const specClassName = spec.className.replace(' ', '');
 
