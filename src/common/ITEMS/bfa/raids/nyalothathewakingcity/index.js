@@ -17,4 +17,16 @@ export default {
     icon: 'spell_priest_mindspike',
     quality: ITEM_QUALITIES.PURPLE,
   },
+  FORBIDDEN_OBSIDIAN_CLAW: {
+    id: 173944,
+    name: 'Forbidden Obsidian Claw',
+    icon: 'inv_misc_bearclaw_nightmare',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
+  HUMMING_BLACK_DRAGONSCALE: {
+    id: 174044,
+    name: 'Humming Black Dragonscale',
+    icon: 'inv_misc_scales_stonypale',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
 };
