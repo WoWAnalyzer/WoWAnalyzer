@@ -3,6 +3,14 @@ import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
 export default {
   // Group by boss (with comments)
 
+  //Skitra the Prophet
+  WHISPERING_ELDRITH_BOW: {
+    id: 172193,
+    name: 'Whispering Eldritch Bow',
+    icon: 'inv_bow_1h_nzothraid_d_01',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
+
   // Ra-den the Despoiled
   VITA_CHARGED_TITANSHARD: { //Trinket
     id: 174500,
@@ -10,7 +18,6 @@ export default {
     icon: 'spell_nature_lightningoverload',
     quality: ITEM_QUALITIES.PURPLE,
   },
-
   VOID_TWISTED_TITANSHARD: { //Trinket
     id: 174528,
     name: 'Void-Twisted Titanshard',

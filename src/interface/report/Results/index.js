@@ -36,6 +36,7 @@ import Statistics from './Statistics';
 import Character from './Character';
 import EncounterStats from './EncounterStats';
 import DegradedExperience from './DegradedExperience';
+import ItemWarning from './ItemWarning';
 import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
 import ScrollToTop from './ScrollToTop';
@@ -169,7 +170,6 @@ class Results extends React.PureComponent {
       || this.props.parsingState !== EVENT_PARSING_STATE.DONE;
   }
 
-
   renderContent(selectedTab, results) {
     const { parser, premium } = this.props;
 
@@ -214,7 +214,6 @@ class Results extends React.PureComponent {
           return this.renderLoadingIndicator();
         }
         const statTracker = parser.getModule(StatTracker);
-
         return (
           <div className="container">
             <Character
@@ -380,6 +379,7 @@ class Results extends React.PureComponent {
             </Warning>
           </div>
         )}
+        {parser && parser.selectedCombatant.gear && <ItemWarning gear={parser.selectedCombatant.gear} />}
         {timeFilter && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
