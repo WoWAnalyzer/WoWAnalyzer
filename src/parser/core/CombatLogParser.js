@@ -137,6 +137,7 @@ import WorldveinResonance from '../shared/modules/spells/bfa/essences/WorldveinR
 import NullDynamo from '../shared/modules/spells/bfa/essences/NullDynamo';
 import BloodOfTheEnemy from '../shared/modules/spells/bfa/essences/BloodOfTheEnemy';
 import Strife from '../shared/modules/spells/bfa/essences/Strife';
+import TheFormlessVoid from '../shared/modules/spells/bfa/essences/TheFormlessVoid';
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -343,6 +344,7 @@ class CombatLogParser {
     nullDynamo: NullDynamo,
     bloodOfTheEnemy: BloodOfTheEnemy,
     strife: Strife,
+    theFormlessVoid: TheFormlessVoid,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,

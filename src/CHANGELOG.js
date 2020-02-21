@@ -9,6 +9,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 2, 21), <>Added <SpellLink id={SPELLS.SYMBIOTIC_PRESENCE.id} />.</>, niseko),
   change(date(2020, 2, 17), <>Added <ItemLink id={ITEMS.FORBIDDEN_OBSIDIAN_CLAW.id} /> and <ItemLink id={ITEMS.HUMMING_BLACK_DRAGONSCALE.id} />.</>, niseko),
   change(date(2020, 2, 14), <>Updated <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} /> and <SpellLink id={SPELLS.SURGING_VITALITY_BUFF.id} /> with the hotfixed stat values.</>, niseko),
   change(date(2020, 2, 13), 'Add a warning to the Skitra encounter page as the logs for the fight are only accurate if the analyzed player is the one logging.', Putro),
