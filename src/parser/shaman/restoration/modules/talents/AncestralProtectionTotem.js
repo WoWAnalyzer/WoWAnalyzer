@@ -44,6 +44,7 @@ class AncestralProtectionTotem extends Analyzer {
   }
 
   load() {
+    this.aptEvents = [];
     const query = {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,

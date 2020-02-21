@@ -12,8 +12,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
-
-import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
+import { ABILITIES_AFFECTED_BY_MASTERY, BASE_ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {
@@ -95,6 +94,7 @@ class MasteryEffectiveness extends Analyzer {
         >
           <PlayerBreakdown
             report={this.report}
+            spellreport={this.spellReport}
             players={this.owner.players}
           />
         </Panel>
@@ -125,6 +125,33 @@ class MasteryEffectiveness extends Analyzer {
     }, {});
 
     return statsByTargetId;
+  }
+
+  get spellReport() {
+    const statsBySpellId = this.masteryHealEvents.reduce((obj, event) => {
+      if (!BASE_ABILITIES_AFFECTED_BY_MASTERY.includes(event.ability.guid)) {
+        return obj;
+      }
+      // Update the spell-totals
+      if (!obj[event.ability.guid]) {
+        obj[event.ability.guid] = {
+          spellId: event.ability.guid,
+          effectiveHealing: 0,
+          healingReceived: 0,
+          healingFromMastery: 0,
+          maxPotentialHealingFromMastery: 0,
+        };
+      }
+      const spellStats = obj[event.ability.guid];
+      spellStats.effectiveHealing += event.effectiveHealing;
+      spellStats.healingReceived += event.amount;
+      spellStats.healingFromMastery += event.masteryHealingDone;
+      spellStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryHealing;
+
+      return obj;
+    }, {});
+
+    return statsBySpellId;
   }
 }
 
