@@ -4,7 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
- // Trait IDs
+ // Trait IDs https://github.com/simulationcraft/simc/blob/bfa-dev/engine/dbc/generated/azerite.inc#L383
   //   2 = "Azeroth's Undying Gift"
   //   3 = "Sphere of Suppression"
   //   4 = "Worldvein Resonance"
@@ -403,5 +403,22 @@ export default {
     id: 297126,
     name: 'Seething Rage',
     icon: 'inv__azerite-explosion',
+  },
+  // The Formless Void
+  THE_FORMLESS_VOID: {
+    id: 313922,
+    traitId: 37,
+    name: 'Replica of Knowledge',
+    icon: 'ability_essence_replicaofknowledge',
+  },
+  SYMBIOTIC_PRESENCE: {
+    id: 313920,
+    name: 'Symbiotic Presence',
+    icon: 'ability_essence_replicaofknowledge',
+  },
+  SYMBIOTIC_PRESENCE_BUFF: {
+    id: 312915,
+    name: 'Symbiotic Presence',
+    icon: 'ability_essence_replicaofknowledge',
   },
 };
