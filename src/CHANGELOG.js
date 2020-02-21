@@ -9,6 +9,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 2, 21), <>Added the possibility of adding item warnings, and added a warning for people using <ItemLink id={ITEMS.WHISPERING_ELDRITH_BOW.id} />.</>, Putro),
   change(date(2020, 2, 21), <>Added <SpellLink id={SPELLS.SYMBIOTIC_PRESENCE.id} />.</>, niseko),
   change(date(2020, 2, 17), <>Added <ItemLink id={ITEMS.FORBIDDEN_OBSIDIAN_CLAW.id} /> and <ItemLink id={ITEMS.HUMMING_BLACK_DRAGONSCALE.id} />.</>, niseko),
   change(date(2020, 2, 14), <>Updated <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} /> and <SpellLink id={SPELLS.SURGING_VITALITY_BUFF.id} /> with the hotfixed stat values.</>, niseko),
