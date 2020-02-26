@@ -5,6 +5,9 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
+import RageDetails from '../../core/RageDetails';
+import RageTracker from '../../core/RageTracker';
+
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import MissedRampage from '../../spells/MissedRampage';
 
@@ -15,6 +18,8 @@ class Checklist extends BaseChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     combatants: Combatants,
     castEfficiency: CastEfficiency,
+    rageDetails: RageDetails,
+    rageTracker: RageTracker,
     missedRampage: MissedRampage,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
@@ -26,7 +31,7 @@ class Checklist extends BaseChecklist {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-
+          rageDetails: this.rageDetails.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           missedRampage: this.missedRampage.suggestionThresholds,
         }}

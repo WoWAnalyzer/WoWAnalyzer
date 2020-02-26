@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Eylwen, Zerotorescue } from 'CONTRIBUTORS';
+import { Eylwen, Zerotorescue, Abelito75 } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 2, 25), <>Added Rage tracker.</>, Abelito75),
   change(date(2018, 12, 15), <>Updated Fury for 8.1:  removal of the GCD on <SpellLink id={SPELLS.CHARGE.id} />, added <SpellLink id={SPELLS.COLD_STEEL_HOT_BLOOD_ENERGIZE.id} /> and <SpellLink id={SPELLS.UNBRIDLED_FEROCITY.id} /></>, [Eylwen]),
   change(date(2018, 7, 19), <>Implemented the cooldown reduction of <SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> and added a statistic to show the cooldown reduction usage.</>, [Zerotorescue]),
   change(date(2018, 6, 30), <>Ignored cooldown errors triggered by <SpellLink id={SPELLS.SUDDEN_DEATH_TALENT_FURY.id} />'s random cooldown resets of <SpellLink id={SPELLS.EXECUTE_FURY.id} />.</>, [Zerotorescue]),
