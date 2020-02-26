@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 2, 25), <>Siegebreaker during Recklessness checker.</>, Abelito75),
+  change(date(2020, 2, 25), <>Added buffs to timeline.</>, Abelito75),
   change(date(2020, 2, 25), <>Added Rage tracker.</>, Abelito75),
   change(date(2018, 12, 15), <>Updated Fury for 8.1:  removal of the GCD on <SpellLink id={SPELLS.CHARGE.id} />, added <SpellLink id={SPELLS.COLD_STEEL_HOT_BLOOD_ENERGIZE.id} /> and <SpellLink id={SPELLS.UNBRIDLED_FEROCITY.id} /></>, [Eylwen]),
   change(date(2018, 7, 19), <>Implemented the cooldown reduction of <SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> and added a statistic to show the cooldown reduction usage.</>, [Zerotorescue]),
