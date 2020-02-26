@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
+import ResourceLink from 'common/ResourceLink';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
@@ -67,6 +69,17 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
       >
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
       </Rule>
+      <Rule
+        name="Don't get too angry"
+        description={(
+          <>
+            Minimizing your wasted <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> should be top priority as a protection warrior so be sure to use <SpellLink id={SPELLS.IGNORE_PAIN.id} /> and <SpellLink id={SPELLS.REVENGE.id} /> to avoid this.
+          </>
+        )}
+      >
+        <Requirement name="Lost Rage" thresholds={thresholds.rageDetails} />
+      </Rule>
+
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
