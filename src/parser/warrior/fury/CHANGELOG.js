@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 2, 26), <>Fixed typo.</>, Abelito75),
   change(date(2020, 2, 26), <>Removed missed rampage swings as its not important, add checks to only use Dragon Roar and Bladestorm during enrage.</>, Abelito75),
   change(date(2020, 2, 25), <>Siegebreaker during Recklessness checker.</>, Abelito75),
   change(date(2020, 2, 25), <>Added buffs to timeline.</>, Abelito75),
