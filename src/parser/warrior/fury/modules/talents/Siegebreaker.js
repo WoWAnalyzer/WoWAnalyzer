@@ -57,7 +57,7 @@ class Siegebreaker extends Analyzer {
     }else if(this.inValidRecklessness){
       this.lastRecklessness.meta = event.meta || {};
       this.lastRecklessness.meta.isInefficientCast = true;
-      this.lastRecklessness.meta.inefficientCastReason = `You didn't cast siegebreaker during this recklessness.`;
+      this.lastRecklessness.meta.inefficientCastReason = `You didn't cast Siege Breaker during this Recklessness.`;
     }
     this.inValidRecklessness = false;
     this.siegeCasted = false;
