@@ -37,6 +37,7 @@ import UnbridledFerocity from './modules/azerite/UnbridledFerocity';
 
 import RageTracker from './modules/core/RageTracker';
 import RageDetails from './modules/core/RageDetails';
+import Buffs from './modules/features/Buffs';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,6 +47,8 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
+    buffs: Buffs,
+
 
     rageTracker: RageTracker,
     rageDetails: RageDetails,

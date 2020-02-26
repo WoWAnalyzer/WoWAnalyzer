@@ -32,6 +32,7 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
         {combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id) && (<AbilityRequirement spell={SPELLS.BLADESTORM_TALENT.id} />)}
         {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && (<AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />)}
         <AbilityRequirement spell={SPELLS.RECKLESSNESS.id} />
+        {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && <Requirement name={(<><SpellLink id={SPELLS.RECKLESSNESS.id} /> casts with <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} />  </>)} thresholds={thresholds.siegeBreaker} />}
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RAGE.id) && (<AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RAGE.id} />)}
       </Rule>
