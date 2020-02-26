@@ -73,7 +73,7 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
         name="Don't get too angry"
         description={(
           <>
-            Minimizing your wasted <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> should be top priority as a protection warrior so be sure to use <SpellLink id={SPELLS.IGNORE_PAIN.id} /> and <SpellLink id={SPELLS.REVENGE.id} /> to avoid this.
+            Minimizing your wasted <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> should be top priority as a Fury Warrior, so be sure to use <SpellLink id={SPELLS.RAMPAGE.id} /> to avoid this.
           </>
         )}
       >
