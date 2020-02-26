@@ -24,7 +24,7 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.SIEGEBREAKER_TALENT.id,
         timelineHightlight: true,
-      }
+      },
     ];
   }
 }

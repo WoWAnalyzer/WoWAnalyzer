@@ -13,7 +13,7 @@ import MissedRampage from '../../spells/MissedRampage';
 
 import Component from './Component';
 
-import SiegeBreaker from '../../talents/Siegebreaker'
+import SiegeBreaker from '../../talents/Siegebreaker';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
