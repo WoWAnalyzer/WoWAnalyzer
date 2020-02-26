@@ -12,7 +12,6 @@ import EnrageNormalizer from './modules/normalizers/Enrage';
 import Enrage from './modules/buffdebuff/Enrage';
 
 import MissedRampage from './modules/spells/MissedRampage';
-import RampageCancelled from './modules/spells/RampageCancelled';
 import Recklessness from './modules/spells/Recklessness';
 
 import AngerManagement from './modules/talents/AngerManagement';
@@ -58,7 +57,6 @@ class CombatLogParser extends CoreCombatLogParser {
     enrageUptime: Enrage,
 
     missedRampage: MissedRampage,
-    rampageCancelled: RampageCancelled,
     recklessness: Recklessness,
 
     angerManagement: AngerManagement,

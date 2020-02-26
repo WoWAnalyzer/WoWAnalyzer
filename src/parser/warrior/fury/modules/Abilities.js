@@ -65,7 +65,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: 0.95,
         },
         enabled: combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id),
       },

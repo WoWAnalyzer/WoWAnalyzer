@@ -97,7 +97,7 @@ class Siegebreaker extends Analyzer {
         .actual(`${formatPercentage(actual)}% of Recklessnesses casts without a Siegebreaker cast`)
         .recommended(`${formatPercentage(recommended)}+% is recommended`);
     });
-}
+  }
 
   statistic() {
     return (

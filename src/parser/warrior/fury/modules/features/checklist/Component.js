@@ -29,10 +29,12 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
         description="Your cooldowns are an important contributor to your damage throughput. Try to get in as many efficient casts as the fight allows."
       >
         {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && (<AbilityRequirement spell={SPELLS.SIEGEBREAKER_TALENT.id} />)}
-        {combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id) && (<AbilityRequirement spell={SPELLS.BLADESTORM_TALENT.id} />)}
-        {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && (<AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />)}
-        <AbilityRequirement spell={SPELLS.RECKLESSNESS.id} />
         {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && <Requirement name={(<><SpellLink id={SPELLS.RECKLESSNESS.id} /> casts with <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} />  </>)} thresholds={thresholds.siegeBreaker} />}
+        {combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id) && (<AbilityRequirement spell={SPELLS.BLADESTORM_TALENT.id} />)}
+        {combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id) && <Requirement name={(<><SpellLink id={SPELLS.BLADESTORM_TALENT.id} /> casts inside of Enrage </>)} thresholds={thresholds.bladeStorm} />}
+        {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && (<AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />)}
+        {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && <Requirement name={(<><SpellLink id={SPELLS.DRAGON_ROAR_TALENT.id} /> casts inside of Enrage </>)} thresholds={thresholds.dragonRoar} />}
+        <AbilityRequirement spell={SPELLS.RECKLESSNESS.id} />
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RAGE.id) && (<AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RAGE.id} />)}
       </Rule>

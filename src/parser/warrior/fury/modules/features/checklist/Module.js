@@ -14,6 +14,8 @@ import MissedRampage from '../../spells/MissedRampage';
 import Component from './Component';
 
 import SiegeBreaker from '../../talents/Siegebreaker';
+import Bladestorm from '../../talents/Bladestorm';
+import DragonRoar from '../../talents/DragonRoar';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -25,6 +27,8 @@ class Checklist extends BaseChecklist {
     missedRampage: MissedRampage,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     siegeBreaker: SiegeBreaker,
+    bladeStorm: Bladestorm,
+    dragonRoar: DragonRoar,
   };
 
   render() {
@@ -36,6 +40,8 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
           rageDetails: this.rageDetails.suggestionThresholds,
           siegeBreaker: this.siegeBreaker.suggestionThresholds,
+          bladeStorm: this.bladeStorm.suggestionThresholds,
+          dragonRoar: this.dragonRoar.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           missedRampage: this.missedRampage.suggestionThresholds,
         }}
