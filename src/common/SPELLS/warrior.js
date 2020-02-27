@@ -373,6 +373,12 @@ export default {
     name: 'T21 4P Bonus',
     icon: 'ability_warrior_rampage',
   },
+  //stray buffs
+  WHIRLWIND_BUFF:{
+    id: 85739,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
 
   // Protection:
   //Rotational Spells
