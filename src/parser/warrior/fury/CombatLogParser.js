@@ -37,6 +37,7 @@ import UnbridledFerocity from './modules/azerite/UnbridledFerocity';
 import RageTracker from './modules/core/RageTracker';
 import RageDetails from './modules/core/RageDetails';
 import Buffs from './modules/features/Buffs';
+import WhirlWind from './modules/spells/Whirlwind';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -48,7 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     buffs: Buffs,
 
-
+    whirlWind: WhirlWind,
     rageTracker: RageTracker,
     rageDetails: RageDetails,
 

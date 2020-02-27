@@ -16,6 +16,7 @@ import Component from './Component';
 import SiegeBreaker from '../../talents/Siegebreaker';
 import Bladestorm from '../../talents/Bladestorm';
 import DragonRoar from '../../talents/DragonRoar';
+import WhirlWind from '../../spells/Whirlwind';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -29,6 +30,7 @@ class Checklist extends BaseChecklist {
     siegeBreaker: SiegeBreaker,
     bladeStorm: Bladestorm,
     dragonRoar: DragonRoar,
+    whirlWind: WhirlWind,
   };
 
   render() {
@@ -44,6 +46,7 @@ class Checklist extends BaseChecklist {
           dragonRoar: this.dragonRoar.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           missedRampage: this.missedRampage.suggestionThresholds,
+          whirlWind: this.whirlWind.suggestionThresholds,
         }}
       />
     );
