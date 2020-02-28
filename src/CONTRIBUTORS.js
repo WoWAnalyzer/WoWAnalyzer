@@ -837,3 +837,12 @@ export const layday = {
   nickname: 'layday',
   github: 'layday',
 };
+export const FraunchToost = {
+  nickname: 'FraunchToost',
+  github: 'FraunchToost',
+  mains: [{
+    name: 'Azamia',
+    spec: SPECS.MISTWEAVER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Azamia',
+  }],
+};
