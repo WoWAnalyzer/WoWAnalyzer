@@ -16,6 +16,8 @@ import { calculatePrimaryStat } from 'common/stats';
  * Ashjra'kamas, Shroud of Resolve -
  * Equip: Your spells and abilities have a chance to increase your $pri by 1900 for 15 sec.
  */
+const PROC_ADDED_ITEMLEVEL = 492;
+
 class Ashjrakamas extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
@@ -24,7 +26,7 @@ class Ashjrakamas extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasBack(ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id);
+    this.active = this.selectedCombatant.hasBack(ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id) && this.selectedCombatant.getItem(ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id).itemLevel >= PROC_ADDED_ITEMLEVEL;
     if (!this.active) {
       return;
     }
