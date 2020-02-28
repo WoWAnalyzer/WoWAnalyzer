@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import UptimeIcon from 'interface/icons/Uptime';
 import PrimaryStatIcon from 'interface/icons/PrimaryStat';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
@@ -16,6 +17,9 @@ import { calculatePrimaryStat } from 'common/stats';
  * Equip: Your spells and abilities have a chance to increase your $pri by 1900 for 15 sec.
  */
 class Ashjrakamas extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
   stats = 0;
 
   constructor(...args) {
@@ -24,8 +28,14 @@ class Ashjrakamas extends Analyzer {
     if (!this.active) {
       return;
     }
-      
+
     this.stats = calculatePrimaryStat(492, 3386, this.selectedCombatant.getItem(ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id).itemLevel);
+
+    this.statTracker.add(SPELLS.DRACONIC_EMPOWERMENT.id, {
+      intellect: this.stats,
+      strength: this.stats,
+      agility: this.stats,
+    });
   }
 
   get totalBuffUptime() {
