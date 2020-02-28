@@ -1,3 +1,5 @@
+import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
+
 export default {
   DARKMOON_DECK_BLOCKADES: {
     id: 159128,
@@ -70,5 +72,13 @@ export default {
     id: 171085,
     name: 'Peerless Alchemist Stone',
     icon: 'achievement_dungeon_ulduar80_10man',
+  },
+
+  // yeah its not crafted but I don't want to open up the legendary category for 1 item
+  ASHJRAKAMAS_SHROUD_OF_RESOLVE: {
+    id: 169223,
+    name: 'Ashjra\'kamas, Shroud of Resolve',
+    icon: 'inv_misc_cape_deathwingraid_d_03',
+    quality: ITEM_QUALITIES.LEGENDARY,
   },
 };
