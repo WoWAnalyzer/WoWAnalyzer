@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Anomoly, Gao, Zerotorescue, Abelito75, niseko, blazyb, JeremyDwayne } from 'CONTRIBUTORS';
+import { Anomoly, Gao, Zerotorescue, Abelito75, niseko, blazyb, JeremyDwayne, FraunchToost } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 2, 27), <>Bugfix to only show <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> cast efficiency suggestion when <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> is talented. </>,FraunchToost),
   change(date(2020, 1, 8), <>Updated for 8.3 </>,Abelito75),
   change(date(2020, 1, 8), <>Updated stat weight calculation for <SpellLink id={SPELLS.RISING_MIST_TALENT.id} />, added new essence font statistic, tft rsk with rm is a correct use of tft now. </>,Abelito75),
   change(date(2019, 12, 5), <>Updated stat weight calculation for <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> and Lucid Dreams. </>,Anomoly),
