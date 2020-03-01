@@ -28,6 +28,7 @@ import AstralShift from '../shared/spells/AstralShift';
 import PackSpirit from '../shared/azerite/PackSpirit';
 import SereneSpirit from '../shared/azerite/SereneSpirit';
 import NaturalHarmony from '../shared/azerite/NaturalHarmony';
+import AncestralResonance from '../shared/azerite/AncestralResonance';
 
 //Resources
 import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
@@ -67,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     packSpirit: PackSpirit,
     sereneSpirit: SereneSpirit,
     naturalHarmony: NaturalHarmony,
+    ancestralResonance: AncestralResonance,
 
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,
