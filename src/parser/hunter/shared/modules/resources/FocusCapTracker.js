@@ -32,15 +32,8 @@ class FocusCapTracker extends RegenResourceCapTracker {
   static baseRegenRate = BASE_FOCUS_REGEN;
   static isRegenHasted = true;
 
-  naturalRegenRate() {
-    const regen = super.naturalRegenRate();
-    return regen;
-  }
-
   currentMaxResource() {
-    const max = BASE_FOCUS_MAX;
-    // What should be x.5 becomes x in-game.
-    return Math.floor(max);
+    return BASE_FOCUS_MAX;
   }
 
   get wastedPercent() {
@@ -55,26 +48,13 @@ class FocusCapTracker extends RegenResourceCapTracker {
   }
 
   on_byPlayer_cast(event) {
+    super.on_byPlayer_cast(event);
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }
 
   on_byPlayer_damage(event) {
-    const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-    this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
-  }
-
-  on_byPlayer_heal(event) {
-    const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-    this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
-  }
-
-  on_byPlayer_applybuff(event) {
-    const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-    this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
-  }
-
-  on_byPlayer_removebuff(event) {
+    super.on_byPlayer_damage(event);
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }

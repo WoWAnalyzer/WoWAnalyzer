@@ -283,7 +283,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,
+          suggestion: combatant.hasTalent(SPELLS.RISING_MIST_TALENT.id),
         },
         timelineSortIndex: 100,
       },

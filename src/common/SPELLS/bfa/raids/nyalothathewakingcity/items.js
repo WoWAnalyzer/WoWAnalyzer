@@ -4,8 +4,23 @@ export default {
   // Group by boss (with comments)
 
   //Wrathion, The Black Emperor
+  HUMMING_BLACK_DRAGONSCALE_BUFF: {
+    id: 313571,
+    name: 'Dragon\'s Flight',
+    icon: 'inv_icon_wing08e',
+  },
 
   //Maut
+  FORBIDDEN_OBSIDIAN_CLAW_DAMAGE: {
+    id: 313148,
+    name: 'Obsidian Claw',
+    icon: 'talentspec_druid_feral_cat',
+  },
+  FORBIDDEN_OBSIDIAN_CLAW_DRAIN: {
+    id: 313162,
+    name: 'Obsidian Claw',
+    icon: 'spell_shadow_siphonmana',
+  },
 
   //The Prophet Skitra
 

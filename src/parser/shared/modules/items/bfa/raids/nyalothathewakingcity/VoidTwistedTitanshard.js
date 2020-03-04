@@ -30,7 +30,7 @@ class VoidTwistedTitanshard extends Analyzer {
     this.active = !!this._item;
 
     if (this.active) {
-      this.critRating = calculateSecondaryStatDefault(445, 589, this._item.itemLevel);
+      this.critRating = calculateSecondaryStatDefault(460, 1543, this._item.itemLevel);
       this.statTracker.add(SPELLS.VOID_SHROUD.id, {
         crit: this.critRating,
       });

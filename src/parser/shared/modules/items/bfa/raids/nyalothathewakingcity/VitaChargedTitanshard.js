@@ -25,7 +25,7 @@ class VitaChargedTitanshard extends Analyzer {
     this.active = !!this._item;
 
     if (this.active) {
-      this.hasteRating = calculateSecondaryStatDefault(445, 611, this._item.itemLevel);
+      this.hasteRating = calculateSecondaryStatDefault(445, 1525, this._item.itemLevel);
       this.statTracker.add(SPELLS.VITA_CHARGED_BUFF.id, {
         haste: this.hasteRating,
       });

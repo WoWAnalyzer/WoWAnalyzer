@@ -42,6 +42,7 @@ import AstralShift from '../shared/spells/AstralShift';
 import PackSpirit from '../shared/azerite/PackSpirit';
 import SereneSpirit from '../shared/azerite/SereneSpirit';
 import IgneousPotential from '../shared/azerite/IgneousPotential';
+import AncestralResonance from '../shared/azerite/AncestralResonance';
 
 //Resources
 import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
@@ -96,6 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     packSpirit: PackSpirit,
     sereneSpirit: SereneSpirit,
     igneousPotential: IgneousPotential,
+    ancestralResonance: AncestralResonance,
   };
 
 }

@@ -137,6 +137,7 @@ import WorldveinResonance from '../shared/modules/spells/bfa/essences/WorldveinR
 import NullDynamo from '../shared/modules/spells/bfa/essences/NullDynamo';
 import BloodOfTheEnemy from '../shared/modules/spells/bfa/essences/BloodOfTheEnemy';
 import Strife from '../shared/modules/spells/bfa/essences/Strife';
+import TheFormlessVoid from '../shared/modules/spells/bfa/essences/TheFormlessVoid';
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -174,7 +175,9 @@ import AzsharasFontofPower from '../shared/modules/items/bfa/raids/azsharasetern
 import VitaChargedTitanshard from '../shared/modules/items/bfa/raids/nyalothathewakingcity/VitaChargedTitanshard';
 import VoidTwistedTitanshard from '../shared/modules/items/bfa/raids/nyalothathewakingcity/VoidTwistedTitanshard';
 import TitanicEmpowerment from '../shared/modules/items/bfa/raids/nyalothathewakingcity/TitanicEmpowerment';
-//Corruptions
+import ForbiddenObsidianClaw from '../shared/modules/items/bfa/raids/nyalothathewakingcity/ForbiddenObsidianClaw';
+import HummingBlackDragonscale from '../shared/modules/items/bfa/raids/nyalothathewakingcity/HummingBlackDragonscale';
+// Corruptions
 import IneffableTruth from '../shared/modules/spells/bfa/corruptions/IneffableTruth';
 import HonedMind from '../shared/modules/spells/bfa/corruptions/HonedMind';
 import SurgingVitality from '../shared/modules/spells/bfa/corruptions/SurgingVitality';
@@ -182,6 +185,8 @@ import RacingPulse from '../shared/modules/spells/bfa/corruptions/RacingPulse';
 import DeadlyMomentum from '../shared/modules/spells/bfa/corruptions/DeadlyMomentum';
 import VoidRitual from '../shared/modules/spells/bfa/corruptions/VoidRitual';
 import Siphoner from '../shared/modules/spells/bfa/corruptions/Siphoner';
+// Legendaries
+import Ashjrakamas from '../shared/modules/items/bfa/Ashjrakamas';
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
@@ -341,6 +346,7 @@ class CombatLogParser {
     nullDynamo: NullDynamo,
     bloodOfTheEnemy: BloodOfTheEnemy,
     strife: Strife,
+    theFormlessVoid: TheFormlessVoid,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
@@ -376,12 +382,14 @@ class CombatLogParser {
     bloodthirstyUrchin: BloodthirstyUrchin,
     dribblingInkpod: DribblingInkpod,
 
-    //Nyalotha The Waking City
+    // Nyalotha The Waking City
     vitaChargedTitanshard: VitaChargedTitanshard,
     voidTwistedTitanshard: VoidTwistedTitanshard,
     titanicEmpowerment: TitanicEmpowerment,
+    forbiddenObsidianClaw: ForbiddenObsidianClaw,
+    hummingBlackDragonscale: HummingBlackDragonscale,
 
-    //Corruptions
+    // Corruptions
     ineffableTruth: IneffableTruth,
     honedMind: HonedMind,
     surgingVitality: SurgingVitality,
@@ -389,6 +397,9 @@ class CombatLogParser {
     deadlyMomentum: DeadlyMomentum,
     voidRitual: VoidRitual,
     siphoner: Siphoner,
+
+    // Legendaries
+    ashjrakamas: Ashjrakamas,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

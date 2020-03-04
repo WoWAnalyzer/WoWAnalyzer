@@ -469,4 +469,11 @@ export default {
     name: 'Big Red Rays',
     icon: 'priest_icon_chakra_red',
   },
+
+  // Legendary cloak
+  DRACONIC_EMPOWERMENT: {
+    id: 317859,
+    name: 'Draconic Empowerment',
+    icon: 'inv_misc_head_dragon_black',
+  },
 };

@@ -11,15 +11,9 @@ class BeastMasteryFocusCapTracker extends FocusCapTracker {
     return regenRate;
   }
 
-  naturalRegenRate() {
-    const regen = super.naturalRegenRate();
-    return regen;
-  }
-
   currentMaxResource() {
     const max = BASE_FOCUS_MAX;
-    // What should be x.5 becomes x in-game.
-    return Math.floor(max);
+    return max;
   }
 }
 

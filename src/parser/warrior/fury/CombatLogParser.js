@@ -12,7 +12,6 @@ import EnrageNormalizer from './modules/normalizers/Enrage';
 import Enrage from './modules/buffdebuff/Enrage';
 
 import MissedRampage from './modules/spells/MissedRampage';
-import RampageCancelled from './modules/spells/RampageCancelled';
 import Recklessness from './modules/spells/Recklessness';
 
 import AngerManagement from './modules/talents/AngerManagement';
@@ -35,6 +34,11 @@ import RecklessFlurry from './modules/azerite/RecklessFlurry';
 import SimmeringRage from './modules/azerite/SimmeringRage';
 import UnbridledFerocity from './modules/azerite/UnbridledFerocity';
 
+import RageTracker from './modules/core/RageTracker';
+import RageDetails from './modules/core/RageDetails';
+import Buffs from './modules/features/Buffs';
+import WhirlWind from './modules/spells/Whirlwind';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     abilities: Abilities,
@@ -43,13 +47,17 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
+    buffs: Buffs,
+
+    whirlWind: WhirlWind,
+    rageTracker: RageTracker,
+    rageDetails: RageDetails,
 
     enrageNormalizer: EnrageNormalizer,
 
     enrageUptime: Enrage,
 
     missedRampage: MissedRampage,
-    rampageCancelled: RampageCancelled,
     recklessness: Recklessness,
 
     angerManagement: AngerManagement,

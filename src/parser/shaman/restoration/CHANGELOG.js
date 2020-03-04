@@ -6,6 +6,9 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 2, 28), <><SpellLink id={SPELLS.RIPTIDE.id} /> is going to complain a lot less about its usage.</>, [niseko]),
+  change(date(2020, 2, 28), <>Added a statistic for <SpellLink id={SPELLS.ANCESTRAL_RESONANCE.id} />.</>, [niseko]),
+  change(date(2020, 2, 19), 'Added a toggle to the Mastery Effectiveness panel to show effectiveness by spell instead of player.', niseko),
   change(date(2020, 2, 5), 'Enabled the link to Questionably Live in the Stat Values panel.', niseko),
   change(date(2020, 1, 31), <>Added <SpellLink id={SPELLS.NATURAL_HARMONY_TRAIT.id} /> to Restoration Shaman.</>, niseko),
   change(date(2020, 1, 2), <>Added a small statistic for <SpellLink id={SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />.</>, niseko),

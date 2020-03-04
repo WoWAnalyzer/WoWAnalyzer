@@ -28,15 +28,16 @@ class AimedShot extends Analyzer {
         inefficientCastReason: '',
       };
     }
-    if (this.aimedShotWhilePreciseShotsIsUp()) {
+
+    const hasPreciseShotsBuff = this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS.id);
+    const hasTrueshotBuff = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id);
+
+    if (hasPreciseShotsBuff && !hasTrueshotBuff) {
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = 'Aimed Shot while having Precise Shots stacks left.';
     }
   }
 
-  aimedShotWhilePreciseShotsIsUp() {
-    return this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS.id);
-  }
 }
 
 export default AimedShot;
