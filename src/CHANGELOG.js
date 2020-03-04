@@ -9,6 +9,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 3, 4), "Fix a bug where having multiple of the same corruption didn't count towards corruption total", Putro),
   change(date(2020, 2, 14), <>Updated <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} /> and <SpellLink id={SPELLS.SURGING_VITALITY_BUFF.id} /> with the hotfixed stat values.</>, niseko),
   change(date(2020, 2, 13), 'Add a warning to the Skitra encounter page as the logs for the fight are only accurate if the analyzed player is the one logging.', Putro),
   change(date(2020, 2, 12), 'Implemented a corruption overview on the character page.', Putro),
