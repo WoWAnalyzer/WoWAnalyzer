@@ -185,6 +185,7 @@ import RacingPulse from '../shared/modules/spells/bfa/corruptions/RacingPulse';
 import DeadlyMomentum from '../shared/modules/spells/bfa/corruptions/DeadlyMomentum';
 import VoidRitual from '../shared/modules/spells/bfa/corruptions/VoidRitual';
 import Siphoner from '../shared/modules/spells/bfa/corruptions/Siphoner';
+import FlashOfInsight from '../shared/modules/spells/bfa/corruptions/FlashOfInsight';
 // Legendaries
 import Ashjrakamas from '../shared/modules/items/bfa/Ashjrakamas';
 
@@ -397,6 +398,7 @@ class CombatLogParser {
     deadlyMomentum: DeadlyMomentum,
     voidRitual: VoidRitual,
     siphoner: Siphoner,
+    flashOfInsight: FlashOfInsight,
 
     // Legendaries
     ashjrakamas: Ashjrakamas,

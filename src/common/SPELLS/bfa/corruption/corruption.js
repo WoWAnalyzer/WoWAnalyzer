@@ -312,6 +312,11 @@ export default {
     name: 'Flash of Insight',
     icon: 'spell_shadow_unholyfrenzy',
   },
+  FLASH_OF_INSIGHT_BUFF: {
+    id: 316744,
+    name: 'Flash of Insight',
+    icon: 'spell_shadow_unholyfrenzy',
+  },
   SEARING_FLAMES: {
     id: 318293,
     name: 'Searing Flames',
