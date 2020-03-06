@@ -185,6 +185,11 @@ import RacingPulse from '../shared/modules/spells/bfa/corruptions/RacingPulse';
 import DeadlyMomentum from '../shared/modules/spells/bfa/corruptions/DeadlyMomentum';
 import VoidRitual from '../shared/modules/spells/bfa/corruptions/VoidRitual';
 import Siphoner from '../shared/modules/spells/bfa/corruptions/Siphoner';
+import Versatile from '../shared/modules/spells/bfa/corruptions/Versatile';
+import Severe from '../shared/modules/spells/bfa/corruptions/Severe';
+import Masterful from '../shared/modules/spells/bfa/corruptions/Masterful';
+import Expedient from '../shared/modules/spells/bfa/corruptions/Expedient';
+
 // Legendaries
 import Ashjrakamas from '../shared/modules/items/bfa/Ashjrakamas';
 
@@ -397,6 +402,10 @@ class CombatLogParser {
     deadlyMomentum: DeadlyMomentum,
     voidRitual: VoidRitual,
     siphoner: Siphoner,
+    versatile: Versatile,
+    severe: Severe,
+    masterful: Masterful,
+    expedient: Expedient,
 
     // Legendaries
     ashjrakamas: Ashjrakamas,
