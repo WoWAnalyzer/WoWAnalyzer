@@ -16,7 +16,7 @@ import { TooltipElement } from 'common/Tooltip';
  * Equip: Your spells and abilities have a chance to increase your $pri by 1900 for 15 sec.
  */
 const PROC_ADDED_ITEMLEVEL = 492;
-const STATS = 3648;
+const PROC_STATS = 3648;
 
 class Ashjrakamas extends Analyzer {
   static dependencies = {
@@ -30,13 +30,10 @@ class Ashjrakamas extends Analyzer {
       return;
     }
 
-    // TODO check if this buff scales, hotfix notes make it sound static.
-    //this.stats = calculatePrimaryStat(492, 3648, this.selectedCombatant.getItem(ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id).itemLevel);
-
     this.statTracker.add(SPELLS.DRACONIC_EMPOWERMENT.id, {
-      intellect: STATS,
-      strength: STATS,
-      agility: STATS,
+      intellect: PROC_STATS,
+      strength: PROC_STATS,
+      agility: PROC_STATS,
     });
   }
 
@@ -55,7 +52,7 @@ class Ashjrakamas extends Analyzer {
               <UptimeIcon /> {formatPercentage(this.totalBuffUptime, 2)}% uptime
             </div>
           )}
-          > {formatNumber(this.totalBuffUptime * STATS)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small></TooltipElement><br />
+          > {formatNumber(this.totalBuffUptime * PROC_STATS)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small></TooltipElement><br />
         </BoringItemValueText>
       </ItemStatistic>
     );
