@@ -10,19 +10,18 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import { formatPercentage, formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
-import { calculatePrimaryStat } from 'common/stats';
 
 /**
  * Ashjra'kamas, Shroud of Resolve -
  * Equip: Your spells and abilities have a chance to increase your $pri by 1900 for 15 sec.
  */
 const PROC_ADDED_ITEMLEVEL = 492;
+const STATS = 3648;
 
 class Ashjrakamas extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
-  stats = 0;
 
   constructor(...args) {
     super(...args);
@@ -31,12 +30,13 @@ class Ashjrakamas extends Analyzer {
       return;
     }
 
-    this.stats = calculatePrimaryStat(492, 3386, this.selectedCombatant.getItem(ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id).itemLevel);
+    // TODO check if this buff scales, hotfix notes make it sound static.
+    //this.stats = calculatePrimaryStat(492, 3648, this.selectedCombatant.getItem(ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id).itemLevel);
 
     this.statTracker.add(SPELLS.DRACONIC_EMPOWERMENT.id, {
-      intellect: this.stats,
-      strength: this.stats,
-      agility: this.stats,
+      intellect: STATS,
+      strength: STATS,
+      agility: STATS,
     });
   }
 
@@ -55,7 +55,7 @@ class Ashjrakamas extends Analyzer {
               <UptimeIcon /> {formatPercentage(this.totalBuffUptime, 2)}% uptime
             </div>
           )}
-          > {formatNumber(this.totalBuffUptime * this.stats)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small></TooltipElement><br />
+          > {formatNumber(this.totalBuffUptime * STATS)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small></TooltipElement><br />
         </BoringItemValueText>
       </ItemStatistic>
     );
