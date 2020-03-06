@@ -373,7 +373,12 @@ class StatTracker extends Analyzer {
       ...this._pullStats,
     };
 
-    this.addStatMultiplier({ intellect: 1 + ARMOR_INT_BONUS }); // Really hoping people don't run around with wrong armor types
+    // Really hoping people don't run around with wrong armor types
+    this.addStatMultiplier({
+      intellect: 1 + ARMOR_INT_BONUS,
+      strength: 1 + ARMOR_INT_BONUS,
+      agility: 1 + ARMOR_INT_BONUS,
+    });
 
     debug && this._debugPrintStats(this._currentStats);
   }
