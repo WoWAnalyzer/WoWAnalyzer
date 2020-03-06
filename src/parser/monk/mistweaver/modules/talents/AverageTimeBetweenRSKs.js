@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -14,12 +13,10 @@ import Events from 'parser/core/Events';
 */
 
 class TimeBetweenRSKs extends Analyzer {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-  };
 
   totalRSKCasts = 0;
-  rskEvents = [];
+  firstRSKTimestamp = 0;
+  lastRSKTimestamp = 0;
 
   constructor(...args) {
     super(...args);
@@ -31,29 +28,35 @@ class TimeBetweenRSKs extends Analyzer {
   }
 
   onRSK(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.RISING_SUN_KICK.id !== spellId) {
-      return;
+    if (this.totalRSKCasts === 0) {
+      this.firstRSKTimestamp = event.timestamp;
+    } else {
+      this.lastRSKTimestamp = event.timestamp;
     }
     this.totalRSKCasts += 1;
-    this.rskEvents.push(event.timestamp);
-  }
-
-  get lastRSKTimestamp() {
-    return this.rskEvents[this.totalRSKCasts-1];
   }
 
   get rskWindow () {
-    return this.lastRSKTimestamp - this.owner.fight.start_time;
+    return this.lastRSKTimestamp - this.firstRSKTimestamp;
+  }
+
+  get averageTimeBetweenRSKSeconds () {
+    if (this.totalRSKCasts === 0) {
+      return 'Rising Sun Kick was not cast';
+    } else if (this.totalRSKCasts === 1) {
+      return 'Rising Sun Kick was only cast once';
+    } else {
+      return ((this.rskWindow/1000)/(this.totalRSKCasts-1)).toFixed(2) + `s`;
+    }
   }
 
   statistic() {
 
     return (
       <TalentStatisticBox
-        position={STATISTIC_ORDER.CORE(10)}
+        position={STATISTIC_ORDER.CORE(15)}
         icon={<><SpellIcon id={SPELLS.RISING_SUN_KICK.id} /></>}
-        value={((this.rskWindow/1000)/this.totalRSKCasts).toFixed(2) + `s`}
+        value={this.averageTimeBetweenRSKSeconds}
         label="Average time between Rising Sun Kick casts"
       />
     );
