@@ -147,6 +147,11 @@ export default {
     name: 'Worldvein Resonance',
     icon: 'inv_misc_azerite_01',
   },
+  WORLDVEIN_RESONANCE_BUFF: {
+    id: 313310,
+    name: 'Worldvein Resonance',
+    icon: 'inv_misc_azerite_01',
+  },
   LIFEBLOOD_BUFF: {
     // buff given when stood near shards with the minor essence, stacking up to 4
     id: 295137,

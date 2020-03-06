@@ -19,8 +19,8 @@ const debug = false;
 const MAX_SHARDS = 4;
 
 // Log using minor: https://www.warcraftlogs.com/reports/QnWhPJNz76ALRCby/#fight=1&source=11
-// Log using major (Russian language): https://www.warcraftlogs.com/reports/Bv7QGZcW3YMHt9NA#fight=72&type=damage-done&source=398
-// Possible improvement: Just activating the Major whenever it's available may not be optimal. Better to only use it if you'll be stood still for some time and do not already have a high stack count. In practice no spec is recommended to take this essence as a major so few players would actually benefit from a more in-depth analysis. It would be difficult to get that analysis accurate as it'd need to account for shards from other players for which we don't have full information.
+// Log using major (Russian language) (OLD): https://www.warcraftlogs.com/reports/Bv7QGZcW3YMHt9NA#fight=72&type=damage-done&source=398
+// TODO Major buff & statistics
 class WorldveinResonance extends Analyzer {
   static dependencies = {
     abilities: Abilities,
@@ -151,10 +151,6 @@ class WorldveinResonance extends Analyzer {
         </div>
       </ItemStatistic>
     );
-    // TODO
-    //{this._hasMajor && (
-    //  <><PrimaryStatIcon stat={primaryStat} /> {formatNumber(this.averageStat)} <small> major average {primaryStat} gained</small></>
-    //)}
   }
 }
 
