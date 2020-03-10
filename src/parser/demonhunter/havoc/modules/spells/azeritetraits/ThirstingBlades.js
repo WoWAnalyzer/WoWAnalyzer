@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import React from 'react';
@@ -31,33 +32,40 @@ class ThirstingBlades extends Analyzer {
   stacksGained = 0; // total over entire fight used (wont count stacks that dont get used like at end of fight)
   castedCount = 0; // how many chaos strikes or annhilation casts (buff is removed/used)
   currentStacks = 0; // tracks the stack amount everytime the buff is removed/used
+  abilityName = "Thirsting Blades";
 
   constructor(...args) {
     super(...args);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.THIRSTING_BLADES.id);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER), this.onApplyBuffStack);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveThirstingBlades);
-
+    
     const { damage } = azeriteTraitStats(this.selectedCombatant.traitsBySpellId[SPELLS.THIRSTING_BLADES.id]);
     this.damagePerThirstingBlades = damage;
 
   }
 
   onApplyBuff(event) {
-    if(event.ability.name === "Thirsting Blades") {
+    if(event.ability.name === this.abilityName) {
       this.currentStacks = 1;
     }
   }
 
   onApplyBuffStack(event) {
-    if(event.ability.name === "Thirsting Blades") {
+    if(event.ability.name === this.abilityName) {
       this.currentStacks += 1;
     }
   }
 
+  // Using remove buff to only count the buffs that were used/consumed by annhilation/chaos strike
+  // This will cause a slight difference between warcraft logs and analyzer reports
   onRemoveThirstingBlades(event) {
-    if(event.ability.name === "Thirsting Blades") {
+    if(event.ability.name === this.abilityName) {
       this.stacksGained += this.currentStacks;
       this.castedCount += 1;
       this.currentStacks = 0;
@@ -88,14 +96,11 @@ class ThirstingBlades extends Analyzer {
             src="/img/sword.png"
             alt="Damage"
             className="icon"
-          /> 
-            {formatNumber(dps)} DPS 
-            <small>
+          /> {formatNumber(dps)} DPS <small>
               {formatPercentage(damageThroughputPercent)} % of total
             </small>
             <br />
-            {this.stacksGained}  
-            <small> Fury saved</small>
+            <SpellIcon id={SPELLS.EYE_BEAM.id} noLink /> {this.stacksGained} <small> Fury saved</small>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );
