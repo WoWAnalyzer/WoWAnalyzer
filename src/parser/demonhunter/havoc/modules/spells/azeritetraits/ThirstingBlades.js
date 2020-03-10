@@ -32,7 +32,6 @@ class ThirstingBlades extends Analyzer {
   stacksGained = 0; // total over entire fight used (wont count stacks that dont get used like at end of fight)
   castedCount = 0; // how many chaos strikes or annhilation casts (buff is removed/used)
   currentStacks = 0; // tracks the stack amount everytime the buff is removed/used
-  abilityName = "Thirsting Blades";
 
   constructor(...args) {
     super(...args);
@@ -51,13 +50,13 @@ class ThirstingBlades extends Analyzer {
   }
 
   onApplyBuff(event) {
-    if(event.ability.name === this.abilityName) {
+    if(event.ability.guid === SPELLS.THIRSTING_BLADES_BUFF.id) {
       this.currentStacks = 1;
     }
   }
 
   onApplyBuffStack(event) {
-    if(event.ability.name === this.abilityName) {
+    if(event.ability.guid === SPELLS.THIRSTING_BLADES_BUFF.id) {
       this.currentStacks += 1;
     }
   }
@@ -65,7 +64,7 @@ class ThirstingBlades extends Analyzer {
   // Using remove buff to only count the buffs that were used/consumed by annhilation/chaos strike
   // This will cause a slight difference between warcraft logs and analyzer reports
   onRemoveThirstingBlades(event) {
-    if(event.ability.name === this.abilityName) {
+    if(event.ability.guid === SPELLS.THIRSTING_BLADES_BUFF.id) {
       this.stacksGained += this.currentStacks;
       this.castedCount += 1;
       this.currentStacks = 0;
