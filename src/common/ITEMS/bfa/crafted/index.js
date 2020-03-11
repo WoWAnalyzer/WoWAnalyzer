@@ -41,6 +41,11 @@ export default {
     name: 'Vantus Rune',
     icon: 'ability_fomor_boss_rune_brown',
   },
+  VANTUS_RUNE_NYALOTHA: {
+    id: 171203,
+    name: 'Vantus Rune',
+    icon: 'inv_inscription_80_vantusrune_nyalotha',
+  },
   
   // Alchemy
   ENDLESS_TINCTURE_OF_FRACTIONAL_POWER: {
