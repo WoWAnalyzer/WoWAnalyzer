@@ -28,8 +28,19 @@ class HighTide extends Analyzer {
   };
   healing = 0;
   chainHealTimestamp = 0;
-
   buffer = [];
+
+  // high tide efficiency trackers
+  highTideEvents = [];
+  usedHighTides = 0;
+  wastedHighTides = 0;
+  currentHighTideBuff = 0;
+
+  /*
+    Double stack log: https://www.warcraftlogs.com/reports/Qb91XvyqtNjaHRPr#fight=21&type=auras&source=11&pins=0%24Separate%24%23244F4B%24healing%240%240.0.0.Any%24137004809.0.0.Shaman%24true%240.0.0.Any%24false%241064&ability=288675
+    Buff applied pre-fight: https://www.warcraftlogs.com/reports/R4JncHyajt8VQr9h#fight=48&type=auras&source=14&ability=288675
+
+  */
 
   constructor(...args) {
     super(...args);
@@ -37,7 +48,38 @@ class HighTide extends Analyzer {
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
     this.addEventListener(Events.fightend, this.onFightEnd);
+    
+    // these are for tracking high tide efficiency
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.onChainHealCast);
+    this.addEventListener(Events.applybuff, this.onHighTideBuff);
+    this.addEventListener(Events.applybuffstack, this.onHighTideBuff);
+    this.addEventListener(Events.removebuff, this.onHighTideRemoveBuff);
   }
+
+  onHighTideBuff(event) {
+    if(event.ability.guid === 288675) {
+      this.highTideEvents.push(event);
+      this.wastedHighTides += this.currentHighTideBuff; //not sure if this is possible
+      this.currentHighTideBuff = 2;
+    }
+  }
+
+  onHighTideRemoveBuff(event) {
+    if(event.ability.guid === 288675) {
+      this.highTideEvents.push(event);
+      this.wastedHighTides += this.currentHighTideBuff; //if there were leftovers when buff expires
+      this.currentHighTideBuff = 0;
+    }
+  }
+
+  onChainHealCast(event) {
+    if(event.ability.name === "Chain Heal" && this.currentHighTideBuff > 0) {
+      this.highTideEvents.push(event);
+      this.usedHighTides++;
+      this.currentHighTideBuff -= 1;
+    }
+  }
+
 
   chainHeal(event) {
     const hasHighTide = this.selectedCombatant.hasBuff(SPELLS.HIGH_TIDE_BUFF.id);
@@ -104,11 +146,21 @@ class HighTide extends Analyzer {
   }
 
   subStatistic() {
+    console.log(this.highTideEvents,"this.usedHighTides,this.wastedHighTides,this.currentHighTideBuff",this.usedHighTides,this.wastedHighTides,this.currentHighTideBuff);
+    const highTideToolTip = `
+      ${this.usedHighTides} High Tide buffs used and 
+      ${(this.wastedHighTides+this.currentHighTideBuff)} High Tide buffs unused
+    `;
+
     return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
-      />
+      <div>
+        <StatisticListBoxItem
+          title={<SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} />}
+          value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
+          valueTooltip={highTideToolTip}
+        />
+      </div>
+          
     );
   }
 }
