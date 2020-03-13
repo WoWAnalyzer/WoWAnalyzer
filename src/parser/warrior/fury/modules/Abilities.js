@@ -1,9 +1,4 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import ITEMS from 'common/ITEMS';
-
 import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
