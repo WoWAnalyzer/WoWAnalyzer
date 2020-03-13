@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 2, 28), <>Added a statistic for <SpellLink id={SPELLS.ANCESTRAL_RESONANCE.id} />.</>, [niseko]),
   change(date(2019, 11, 28), <>Added a statistic for <SpellLink id={SPELLS.NATURAL_HARMONY_TRAIT.id} /> to track avg crit, haste, mastery and uptime for each</>, [Draenal]),
   change(date(2019, 10, 31), <>Add a suggestion for Lightning Shield uptime</>, [HawkCorrigan]),
   change(date(2019, 11, 27), <>Add an <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> statistic to track uptime and healing.</>, [Draenal]),

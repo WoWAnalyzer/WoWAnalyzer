@@ -70,6 +70,7 @@ import SereneSpirit from '../shared/azerite/SereneSpirit';
 import SynapseShock from '../shared/azerite/SynapseShock';
 import IgneousPotential from '../shared/azerite/IgneousPotential';
 import NaturalHarmony from '../shared/azerite/NaturalHarmony';
+import AncestralResonance from '../shared/azerite/AncestralResonance';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 
@@ -140,10 +141,6 @@ class CombatLogParser extends CoreCombatLogParser {
     igneousPotential: IgneousPotential,
     turnOfTheTide: TurnOfTheTide,
     visionOfPerfection: VisionOfPerfection,
-    naturalHarmony: NaturalHarmony,
-
-    // Essences
-    lucidDreams: LucidDreams,
 
     // Shared:
     spiritWolf: SpiritWolf,
@@ -151,6 +148,11 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     packSpirit: PackSpirit,
     sereneSpirit: SereneSpirit,
+    naturalHarmony: NaturalHarmony,
+    ancestralResonance: AncestralResonance,
+
+    // Essences
+    lucidDreams: LucidDreams,
 
     // Normalizers:
     cloudburstNormalizer: CloudburstNormalizer,

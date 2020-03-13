@@ -18,7 +18,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 0.90 : 0.70,
+          recommendedEfficiency: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 0.60 : 0.50,
         },
         healSpellIds: [
           SPELLS.SURGING_TIDES_ABSORB.id,
