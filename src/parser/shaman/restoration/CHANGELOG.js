@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { niseko, blazyb } from 'CONTRIBUTORS';
+import { niseko, blazyb, Torothin } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 2, 28), <><SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} /> buff usage added as a value tooltip for Hight Tide healing.</>, [Torothin]),
   change(date(2020, 2, 28), <><SpellLink id={SPELLS.RIPTIDE.id} /> is going to complain a lot less about its usage.</>, [niseko]),
   change(date(2020, 2, 28), <>Added a statistic for <SpellLink id={SPELLS.ANCESTRAL_RESONANCE.id} />.</>, [niseko]),
   change(date(2020, 2, 19), 'Added a toggle to the Mastery Effectiveness panel to show effectiveness by spell instead of player.', niseko),
