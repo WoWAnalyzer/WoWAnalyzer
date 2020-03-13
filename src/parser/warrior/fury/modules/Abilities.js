@@ -174,14 +174,8 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         buffSpellId: SPELLS.BOUNDING_STRIDE_BUFF.id,
         cooldown: 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
-        charges: 1 + (combatant.hasShoulder(ITEMS.TIMELESS_STRATAGEM.id) ? 2 : 0),
+        charges: 1,
         gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.1,
-          importance: ISSUE_IMPORTANCE.MINOR,
-          extraSuggestion: <>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</>,
-        },
       },
       {
         spell: SPELLS.STORM_BOLT_TALENT,
