@@ -8,7 +8,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_nzothraid_drestagath',
   fight: {
-    vantusRuneBuffId: 306500,
+    vantusRuneBuffId: 306485,
     softMitigationChecks: {
       physical: [],
       magical: [],

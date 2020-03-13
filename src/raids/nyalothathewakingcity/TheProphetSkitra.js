@@ -11,7 +11,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_nzothraid_skitra',
   fight: {
-    vantusRuneBuffId: 306504,
+    vantusRuneBuffId: 306476,
     softMitigationChecks: {
       physical: [],
       magical: [],
