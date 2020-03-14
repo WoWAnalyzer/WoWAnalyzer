@@ -27,6 +27,17 @@ class FuriousSlashUptime extends Analyzer {
   get numberTimesDropped(){
     return this.furiousSlashTimesByStack[0].length-1;
   }
+
+  get uptime(){
+    const stacks = Object.values(this.furiousSlashTimesByStack).map((e, i) => e.reduce((a, b) => a + b, 0));
+    stacks.shift();
+    let value = 0;
+    stacks.forEach(function(i){
+      value += i;
+    });
+	  return value;
+	  //find the highest stack count possible, and return the uptime at that amount of stacks
+  }
   
   get uptimeSuggestionThresholds(){
 	  return{
@@ -52,7 +63,7 @@ return suggest(<>You dropped <SpellLink id={SPELLS.FURIOUS_SLASH_TALENT.id} /> m
   
   statistic() {
 	  return (
-	  <StatisticBox icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />} value={`${formatPercentage(this.numberTimesDropped / this.owner.fightDuration)}%`} label="Furious Slash Max Stack Buff Uptime">
+	  <StatisticBox icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />} value={`${formatPercentage(this.uptime / this.owner.fightDuration)}%`} label="Furious Slash Stack Buff Uptime">
 	  
 	    <table className="table table-condensed">
             <thead>

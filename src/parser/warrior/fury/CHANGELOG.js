@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 2, 27), <>Furious Slash uptime requirement changed to general not max stacks.</>, Abelito75),
+  change(date(2020, 3, 13), <>Furious Slash uptime requirement changed to general not max stacks.</>, Abelito75),
   change(date(2020, 2, 27), <>Removed Heroic Leap check as it wasn't important.</>, Abelito75),
   change(date(2020, 2, 27), <>Whirlwind checker for casting it at the correct times.</>, Abelito75),
   change(date(2020, 2, 26), <>Fixed typo.</>, Abelito75),
