@@ -837,3 +837,14 @@ export const layday = {
   nickname: 'layday',
   github: 'layday',
 };
+export const FraunchToost = {
+  nickname: 'FraunchToost',
+  github: 'FraunchToost',
+  discord: 'FraunchToost#1207',
+  avatar: require('./interface/images/avatars/FraunchToost-avatar.png'),
+  mains: [{
+    name: 'Azamia',
+    spec: SPECS.MISTWEAVER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Azamia',
+  }],
+};
