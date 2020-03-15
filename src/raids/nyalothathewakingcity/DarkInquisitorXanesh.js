@@ -8,7 +8,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_nzothraid_xanesh',
   fight: {
-    vantusRuneBuffId: 306503,
+    vantusRuneBuffId: 306477,
     softMitigationChecks: {
       physical: [],
       magical: [],

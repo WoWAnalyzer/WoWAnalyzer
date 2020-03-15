@@ -454,14 +454,6 @@ export interface ChangeStatsEvent extends Event {
   delta: Stats
 }
 
-export interface Changebuffstack extends Event {
-  targetID: number
-  trigger: any
-  after: Stats
-  before: Stats
-  delta: Stats
-}
-
 export interface PhaseEvent extends Event {
   phase: PhaseConfig;
   __fabricated: true;
