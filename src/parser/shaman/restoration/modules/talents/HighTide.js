@@ -52,31 +52,27 @@ class HighTide extends Analyzer {
     
     // these are for tracking high tide efficiency
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.onChainHealCast);
-    this.addEventListener(Events.applybuff, this.onHighTideBuff);
-    this.addEventListener(Events.applybuffstack, this.onHighTideBuff); //possible to get a re-application of the buff
-    this.addEventListener(Events.removebuff, this.onHighTideRemoveBuff);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF), this.onHighTideBuff);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF), this.onHighTideBuff); //possible to get a re-application of the buff
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF), this.onHighTideRemoveBuff);
   }
 
   // in the event of a High Tide buff, if a buff still exists adds it to unused then resets buff counter to 2
   onHighTideBuff(event) {
-    if(event.ability.guid === 288675) {
-      this.unusedHighTides += this.currentHighTideBuff; //not sure if this is possible
-      this.currentHighTideBuff = 2;
-    }
+    this.unusedHighTides += this.currentHighTideBuff; //not sure if this is possible
+    this.currentHighTideBuff = 2;
   }
 
   // in the event of a High Tide remove buff, adds any existing buff to unused and sets buff counter to 0
   onHighTideRemoveBuff(event) {
-    if(event.ability.guid === 288675) {
-      this.unusedHighTides += this.currentHighTideBuff; //if there were leftovers when buff expires
-      this.currentHighTideBuff = 0;
-    }
+    this.unusedHighTides += this.currentHighTideBuff; //if there were leftovers when buff expires
+    this.currentHighTideBuff = 0;
   }
 
   // on a chain heal cast and buff counter is greater than 0, adds one to used counter 
   // and reduces buff counter by one.
   onChainHealCast(event) {
-    if(event.ability.name === "Chain Heal" && this.currentHighTideBuff > 0) {
+    if(this.currentHighTideBuff > 0) {
       this.usedHighTides++;
       this.currentHighTideBuff -= 1;
     }
