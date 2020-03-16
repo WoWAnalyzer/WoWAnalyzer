@@ -37,6 +37,18 @@ export default {
     icon: 'ability_demonhunter_bladedance',
   },
 
+  // Vengeance
+  REVEL_IN_PAIN: {
+    id: 272983,
+    name: 'Revel in Pain',
+    icon: 'ability_demonhunter_fierybrand',
+  },
+  REVEL_IN_PAIN_BUFF: {
+    id: 272987,
+    name: 'Revel in Pain',
+    icon: 'ability_demonhunter_fierybrand',
+  },
+
   //Shared
 
 };
