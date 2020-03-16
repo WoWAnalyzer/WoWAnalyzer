@@ -35,7 +35,6 @@ export enum EventType {
   UpdateSpellUsable = 'updatespellusable',
   BeaconTransfer = 'beacontransfer',
 
-
   // Phases:
   PhaseStart = 'phasestart',
   PhaseEnd = 'phaseend',

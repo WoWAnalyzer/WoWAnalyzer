@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Mamtooth, Yajinni, Zerotorescue, Viridis } from 'CONTRIBUTORS';
+import { Mamtooth, Yajinni, Zerotorescue, Viridis, Torothin } from 'CONTRIBUTORS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 3, 9), <>Added a <SpellLink id={SPELLS.THIRSTING_BLADES.id} /> component.</>, [Torothin]),
   change(date(2019, 8, 14), <>Added damage component for <SpellLink id={SPELLS.REVOLVING_BLADES.id} />.</>, [Viridis]),
   change(date(2019, 8, 9), <>Fixed <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> occurence calculations and added statistics for bad <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> casts.</>, [Viridis]),
   change(date(2019, 4, 21), <>Cleaned up the Fury usage code and added a condition for <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> that tracks the Fury it generates and only considers Fury above 50 at the time of cast to be wasted.</>, [Yajinni]),
