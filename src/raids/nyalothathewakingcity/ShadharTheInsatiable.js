@@ -10,7 +10,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_nzothraid_shadhar',
   fight: {
-    vantusRuneBuffId: 306501,
+    vantusRuneBuffId: 306484,
     softMitigationChecks: {
       physical: [],
       magical: [],
