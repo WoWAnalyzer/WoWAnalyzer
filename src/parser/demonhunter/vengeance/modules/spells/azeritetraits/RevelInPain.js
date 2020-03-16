@@ -1,5 +1,4 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
@@ -14,13 +13,27 @@ import React from 'react';
  * damage dealt to them while Fiery Brand was active.
  *
  * example logs: 
+ * 3 traits
+ * https://www.warcraftlogs.com/reports/wLNhvfpnBZ7rWFzb#fight=1&type=healing&source=6&ability=272987
+ * 
  * 2 traits
  * https://www.warcraftlogs.com/reports/r3gwc1YhD6nBZpPK#fight=1&type=healing&source=13&ability=272987
+ * 
+ * 1 trait
+ * https://www.warcraftlogs.com/reports/gGLKqpdXvkbnxA1a#fight=11&type=healing&source=4&ability=272987
+ * 
+ * 0 traits
+ * https://www.warcraftlogs.com/reports/tJVXCrKG73Qb4m28#fight=47&type=healing&source=629
+ * 
+ * <100% usage
+ * https://www.warcraftlogs.com/reports/1wy7mgD2Yk3x8LvB#fight=1&type=healing&source=8 
+ * 
+ * <100% usage
+ * https://www.warcraftlogs.com/reports/zn1CyDWfYa4Hv8KN#fight=2&type=healing&source=7&ability=272987
  * 
  */
 class RevelInPain extends Analyzer {
 
-  eventArray = [];
   totalAbsorbedPossible = 0;
   totalAbsorbed = 0;
 
@@ -30,46 +43,31 @@ class RevelInPain extends Analyzer {
     if (!this.active) {
       return;
     }
-    // else {
-    //   alert("has trait")
-    // }
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REVEL_IN_PAIN_BUFF), this.onBuff);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.REVEL_IN_PAIN_BUFF), this.onAbsorbed);
-    this.addEventListener(Events.absorbed, this.eventMethod);
     
   }
 
   onAbsorbed(event){
-    // this.eventMethod(event);
     this.totalAbsorbed += event.amount;
   }
 
   onBuff(event){
-    // this.eventMethod(event);
     this.totalAbsorbedPossible += event.absorb;
-  }
-
-  eventMethod(event) {
-    // 272987 is the absorb
-    // 272987 also is applybuff
-      if( 
-        event.ability.guid === 272986) {
-          this.eventArray.push(event);
-        }
-        //this.eventArray.push(event);
   }
 
 
   statistic() {
-    const absorbThroughputPercent = formatPercentage(this.owner.getPercentageOfTotalDamageTaken(this.totalAbsorbed));
-    const hps = this.totalAbsorbed / this.owner.fightDuration * 1000;
-    const usedAbsorbPossible = formatPercentage(this.totalAbsorbed/this.totalAbsorbedPossible);
-    // const buffUptimePercent = this.buffUptime / this.owner.fightDuration;
 
-    console.log(this.eventArray,absorbThroughputPercent, hps, usedAbsorbPossible);
+    const absorbhps = this.totalAbsorbed / this.owner.fightDuration * 1000;
+
+    // a percentage of absorb hps over total hps
+    const absorbThroughputPercent = formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalAbsorbed));
     
-
+    // this is how effective the tank was at ensuring the bubble was consumed rather than expired
+    const usedAbsorbPossible = formatPercentage(this.totalAbsorbed/this.totalAbsorbedPossible);
+    
     return (
       <AzeritePowerStatistic
         size="flexible"
@@ -79,14 +77,13 @@ class RevelInPain extends Analyzer {
             src="/img/healing.png"
             alt="Heal"
             className="icon"
-          /> {formatNumber(hps)} HPS <small>{absorbThroughputPercent} % of total damage taken</small>
+          /> {formatNumber(absorbhps)} HPS <small>{absorbThroughputPercent} % of total</small>
           <br />
           <img
             src="/img/shield.png"
             alt="Armor"
             className="icon"
           /> {usedAbsorbPossible} % <small>absorbs used</small>  
-          {/* <small>{formatPercentage(buffUptimePercent)} % uptime</small> */}
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );
