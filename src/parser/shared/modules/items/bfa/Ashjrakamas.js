@@ -16,7 +16,7 @@ import { TooltipElement } from 'common/Tooltip';
  * Equip: Your spells and abilities have a chance to increase your $pri by 1900 for 15 sec.
  */
 const PROC_ADDED_ITEMLEVEL = 492;
-const PROC_STATS = 3648;
+const PROC_STATS = 3386;
 
 class Ashjrakamas extends Analyzer {
   static dependencies = {
