@@ -3,11 +3,11 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatDuration, formatPercentage } from 'common/format';
+import { formatDuration, formatPercentage, formatNumber } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import FuriousSlashTimesByStacks from './/FuriousSlashTimesByStacks';
+import FuriousSlashTimesByStacks from './FuriousSlashTimesByStacks';
 
 class FuriousSlashUptime extends Analyzer {
 	static dependencies = {
@@ -24,37 +24,46 @@ class FuriousSlashUptime extends Analyzer {
 	  return this.furiousSlashTimesByStacks.furiousSlashTimesByStacks;
   }
   
-  get maxStackUptime(){
-	  const stacks = Object.values(this.furiousSlashTimesByStack).map((e, i) => e.reduce((a, b) => a + b, 0));
-	  return stacks[stacks.length - 1];
+  get numberTimesDropped(){
+    return this.furiousSlashTimesByStack[0].length-1;
+  }
+
+  get uptime(){
+    const stacks = Object.values(this.furiousSlashTimesByStack).map((e, i) => e.reduce((a, b) => a + b, 0));
+    stacks.shift();
+    let value = 0;
+    stacks.forEach(function(i){
+      value += i;
+    });
+	  return value;
 	  //find the highest stack count possible, and return the uptime at that amount of stacks
   }
   
   get uptimeSuggestionThresholds(){
 	  return{
-		  actual: (this.maxStackUptime / this.owner.fightDuration),
-		  isLessThan:{
-			  minor: 0.95,
-			  average: 0.9,
-			  major: 0.85,
+		  actual: this.numberTimesDropped,
+		  isGreaterThan:{
+			  minor: 0,
+			  average: 1,
+			  major: 2,
 		  },
-		  style: 'percentage',
+		  style: 'number',
 	  };
   }
   
   suggestions(when){
 		  when(this.uptimeSuggestionThresholds)
 		  .addSuggestion((suggest, actual, recommended) => {
-return suggest(<>Your <SpellLink id={SPELLS.FURIOUS_SLASH_TALENT.id} /> uptime can be improved. Try to keep the Furious Slash buff at maximum stacks.</>)
+return suggest(<>You dropped <SpellLink id={SPELLS.FURIOUS_SLASH_TALENT.id} /> multiply times throughout the fight. This can be improved.</>)
 		  .icon(SPELLS.FURIOUS_SLASH_TALENT.icon)
-		  .actual(`${formatPercentage(actual)}% Furious Slash Uptime At Maximum Stacks`)
-		  .recommended(`>${formatPercentage(recommended)} is recommended`);
+		  .actual(`${formatNumber(actual)} times Furious Slash dropped`)
+		  .recommended(`${formatNumber(recommended)} is recommended`);
 		  });
   }
   
   statistic() {
 	  return (
-	  <StatisticBox icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />} value={`${formatPercentage(this.maxStackUptime / this.owner.fightDuration)}%`} label="Furious Slash Max Stack Buff Uptime">
+	  <StatisticBox icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />} value={`${formatPercentage(this.uptime / this.owner.fightDuration)}%`} label="Furious Slash Stack Buff Uptime">
 	  
 	    <table className="table table-condensed">
             <thead>
