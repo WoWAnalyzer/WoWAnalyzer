@@ -66,7 +66,7 @@ class ElementalShamanChecklist extends React.PureComponent {
   minimizeDowntimeRule() {
     const description = (
       <>
-        Downtime is the time where you are not casting or not GCD locked. Ensure you are casting as much as possible by avoiding movement when you could be casting.
+        Downtime is the time where you are not casting and not GCD locked. Ensure you are casting as much as possible by avoiding movement when you could be casting.
         Elemental shaman has many GCDs available from <SpellLink id={SPELLS.EARTH_SHOCK.id} />, <SpellLink id={SPELLS.LAVA_SURGE.id} /> empowered <SpellLink id={SPELLS.LAVA_BURST.id} />s, <SpellLink id={SPELLS.FROST_SHOCK.id} />, and others that help you move towards your location without incurring downtime.
         Additionally, cancelled casts contribute significantly as they fill a GCD without actually doing damage. It's expected that some casts will need to be cancelled due to mechanics, but proper planning can help mitigate that.
       </>
