@@ -5854,7 +5854,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
           <div
             className="col-md-12"
           >
-            Downtime is the time where you are not casting (and not on GCD) or are on GCD from a cancelled cast. Ensure you are casting as much as possible by avoiding movement when you could be casting. Elemental shaman has many GCDs available from 
+            Downtime is the time where you are not casting and not GCD locked. Ensure you are casting as much as possible by avoiding movement when you could be casting. Elemental shaman has many GCDs available from 
             <a
               href="http://wowhead.com/spell=8042"
               rel="noopener noreferrer"
