@@ -49,6 +49,7 @@ import LivelySpirit from './modules/items/azeritetraits/LivelySpirit';
 import RampantGrowth from './modules/items/azeritetraits/RampantGrowth';
 import EarlyHarvest from './modules/items/azeritetraits/EarlyHarvest';
 import LucidDreams from './modules/essences/LucidDreamsHealersRestoDruid';
+import VisionsOfPerfection from './modules/essences/VisionsOfPerfection';
 
 import StatWeights from './modules/features/StatWeights';
 
@@ -125,7 +126,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Essences
     lucidDreams: LucidDreams,
+    visionsOfPerfection: VisionsOfPerfection,
 
+    //stat weights
     statWeights: StatWeights,
 
     // Mana Tab
