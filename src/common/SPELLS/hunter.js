@@ -129,6 +129,21 @@ export default {
     name: 'Barbed Shot 5',
     icon: 'ability_hunter_barbedshot',
   },
+  BARBED_SHOT_BUFF_STACK_6: { //6th stack of Barbed Shot on the player
+    id: 284255,
+    name: 'Barbed Shot 5',
+    icon: 'ability_hunter_barbedshot',
+  },
+  BARBED_SHOT_BUFF_STACK_7: { //7th stack of Barbed Shot on the player
+    id: 284257,
+    name: 'Barbed Shot 5',
+    icon: 'ability_hunter_barbedshot',
+  },
+  BARBED_SHOT_BUFF_STACK_8: { //8th stack of Barbed Shot on the player
+    id: 284258,
+    name: 'Barbed Shot 5',
+    icon: 'ability_hunter_barbedshot',
+  },
   BARBED_SHOT_PET_BUFF: {
     id: 272790,
     name: 'Frenzy',
