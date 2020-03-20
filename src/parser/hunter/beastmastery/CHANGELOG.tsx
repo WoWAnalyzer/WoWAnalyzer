@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 1, 24), <> Updated the <SpellLink id={SPELLS.BARBED_SHOT.id} /> module to allow for up to 8 simultaenous buffs running, which reflects behaviour in-game. </>, Putro),
   change(date(2020, 2, 15), <> Added an inefficient cast detection of <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> when you have two stacks of <SpellLink id={SPELLS.BARBED_SHOT.id} /> up. Also included the number of wasted <SpellLink id={SPELLS.BARBED_SHOT.id} /> stacks in the <SpellLink id={SPELLS.PRIMAL_INSTINCTS.id} /> statistics. </>, LeoZhekov),
   change(date(2020, 2, 14), <>Added a <SpellLink id={SPELLS.RAPID_RELOAD.id} /> azerite trait module. </>, Putro),
   change(date(2020, 2, 14), <>Fix a bug that would indicate you hadn't hit enemies with <SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} /> despite having done so whilst using <SpellLink id={SPELLS.ANIMAL_COMPANION_TALENT.id} />.</>, Putro),
