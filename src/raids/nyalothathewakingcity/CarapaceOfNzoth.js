@@ -10,7 +10,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_nzothraid_carapace',
   fight: {
-    vantusRuneBuffId: 313554,
+    vantusRuneBuffId: 313553,
     softMitigationChecks: {
       physical: [],
       magical: [],

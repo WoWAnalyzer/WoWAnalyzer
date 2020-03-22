@@ -11,7 +11,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_nzothraid_hivemind',
   fight: {
-    vantusRuneBuffId: 306478,
+    vantusRuneBuffId: 306502,
     softMitigationChecks: {
       physical: [],
       magical: [],

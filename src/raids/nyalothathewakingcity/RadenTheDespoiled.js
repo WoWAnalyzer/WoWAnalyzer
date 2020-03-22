@@ -10,7 +10,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_nzothraid_raden',
   fight: {
-    vantusRuneBuffId: 313550,
+    vantusRuneBuffId: 313549,
     softMitigationChecks: {
       physical: [],
       magical: [],

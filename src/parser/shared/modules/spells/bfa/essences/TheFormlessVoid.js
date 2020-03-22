@@ -12,7 +12,6 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-// This essence frequently bugs out in-game and gives you rank 1 stat values instead of your actual rank and can swap around in ranks mid encounter
 class TheFormlessVoid extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
@@ -20,7 +19,6 @@ class TheFormlessVoid extends Analyzer {
 
   primaryStatBuff = 0;
   hasteBuff = 0;
-  rank = 0;
 
   constructor(...args) {
     super(...args);
@@ -29,16 +27,8 @@ class TheFormlessVoid extends Analyzer {
       return;
     }
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.THE_FORMLESS_VOID.traitId);
-    this.rank = this.selectedCombatant.essenceRank(SPELLS.THE_FORMLESS_VOID.traitId);
-
-    if (this.rank < 2) {
-      this.primaryStatBuff = calculatePrimaryStat(440, 300, this.selectedCombatant.neck.itemLevel);
-    } else {
-      this.primaryStatBuff = calculatePrimaryStat(440, 375, this.selectedCombatant.neck.itemLevel);
-    }
-    if (this.rank >= 3) {
-      this.hasteBuff = calculatePrimaryStat(440, 68, this.selectedCombatant.neck.itemLevel);
-    }
+    this.primaryStatBuff = calculatePrimaryStat(440, 375, this.selectedCombatant.neck.itemLevel);
+    this.hasteBuff = calculatePrimaryStat(440, 68, this.selectedCombatant.neck.itemLevel);
 
     this.statTracker.add(SPELLS.SYMBIOTIC_PRESENCE_BUFF.id, {
       intellect: this.primaryStatBuff,
@@ -51,16 +41,17 @@ class TheFormlessVoid extends Analyzer {
   }
 
   statistic() {
+    const rank = this.selectedCombatant.essenceRank(SPELLS.THE_FORMLESS_VOID.traitId);
     return (
-      <ItemStatistic flexible>
-        <div className="pad">
-          <label><SpellLink id={SPELLS.THE_FORMLESS_VOID.id} /> <small>Minor Rank {this.rank}</small></label>
-          <div className="value">
-            <PrimaryStatIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.minorBuffUptime * this.primaryStatBuff)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small><br />
-            {this.rank >= 3 && (<><HasteIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.minorBuffUptime * this.hasteBuff)} <small>average Haste gained</small><br /></>)}
+        <ItemStatistic flexible>
+          <div className="pad">
+            <label><SpellLink id={SPELLS.THE_FORMLESS_VOID.id} /> <small>Minor Rank {rank}</small></label>
+            <div className="value">
+              <PrimaryStatIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.minorBuffUptime * this.primaryStatBuff)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small><br />
+              <HasteIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.minorBuffUptime * this.hasteBuff)} <small>average Haste gained</small><br />
+            </div>
           </div>
-        </div>
-      </ItemStatistic>
+        </ItemStatistic>
     );
   }
 }

@@ -11,7 +11,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_nzothraid_maut',
   fight: {
-    vantusRuneBuffId: 306480,
+    vantusRuneBuffId: 306505,
     softMitigationChecks: {
       physical: [],
       magical: [],

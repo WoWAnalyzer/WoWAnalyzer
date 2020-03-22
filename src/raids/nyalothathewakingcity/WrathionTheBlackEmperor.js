@@ -11,7 +11,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_nzothraid_wrathion',
   fight: {
-    vantusRuneBuffId: 306475,
+    vantusRuneBuffId: 306498,
     softMitigationChecks: {
       physical: [],
       magical: [],

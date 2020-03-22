@@ -52,7 +52,6 @@ import RefreshingJadeWind from './modules/talents/RefreshingJadeWind';
 import Lifecycles from './modules/talents/Lifecycles';
 import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
 import RisingMist from './modules/talents/RisingMist';
-import AverageTimeBetweenRSKSs from './modules/talents/AverageTimeBetweenRSKs';
 import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaTea';
 import Tier45Comparison from './modules/talents/Tier45Comparison';
 import Upwelling from './modules/talents/Upwelling';
@@ -106,7 +105,6 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryStats: MasteryStats,
     buffs: Buffs,
     essenceFontHealingBreakDown: EssenceFontHealingBreakdown,
-    averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
 
     // Spells
     essenceFont: EssenceFont,

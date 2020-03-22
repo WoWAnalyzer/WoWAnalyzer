@@ -11,7 +11,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_nzothraid_ilgynoth',
   fight: {
-    vantusRuneBuffId: 313551,
+    vantusRuneBuffId: 313552,
     softMitigationChecks: {
       physical: [],
       magical: [],

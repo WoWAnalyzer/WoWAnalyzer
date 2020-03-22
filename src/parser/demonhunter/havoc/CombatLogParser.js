@@ -42,7 +42,6 @@ import FuriousGaze from './modules/spells/azeritetraits/FuriousGaze';
 import EyesofRage from './modules/spells/azeritetraits/EyesofRage';
 import ChaoticTransformation from './modules/spells/azeritetraits/ChaoticTransformation';
 import RevolvingBlades from './modules/spells/azeritetraits/RevolvingBlades';
-import ThirstingBlades from './modules/spells/azeritetraits/ThirstingBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,7 +86,6 @@ class CombatLogParser extends CoreCombatLogParser {
     eyesofRage: EyesofRage,
     chaoticTransformation: ChaoticTransformation,
     revolvingBlades: RevolvingBlades,
-    thirstingBlades: ThirstingBlades,
 
     //Resources
     furyTracker: FuryTracker,

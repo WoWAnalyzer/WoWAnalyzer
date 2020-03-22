@@ -190,7 +190,7 @@ class RisingMist extends Analyzer {
     return this.risingMistCount === 0 ? 0 : (this.risingMists.reduce((acc, risingMist) => acc + risingMist.duration, 0) / this.risingMistCount) / 1000;
   }
   get hotHealing() {
-    return this.hotTracker.healingAfterFallOff;
+    return this.risingMists.reduce((acc, risingMist) => acc + risingMist.healing, 0);
   }
 
   get directHealing() {
