@@ -840,8 +840,6 @@ export const layday = {
 export const FraunchToost = {
   nickname: 'FraunchToost',
   github: 'FraunchToost',
-  discord: 'FraunchToost#1207',
-  avatar: require('./interface/images/avatars/FraunchToost-avatar.png'),
   mains: [{
     name: 'Azamia',
     spec: SPECS.MISTWEAVER_MONK,

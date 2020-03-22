@@ -30,7 +30,7 @@ class Corruption extends React.PureComponent {
     let totalCorruption = 0;
     for (const corr in this.corruptions) {
       if (this.corruptions.hasOwnProperty(corr)) {
-        totalCorruption += this.corruptions[corr].corruption * this.corruptions[corr].count;
+        totalCorruption += this.corruptions[corr].corruption;
       }
     }
     return (

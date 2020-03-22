@@ -36,16 +36,6 @@ export default {
     name: 'Revolving Blades',
     icon: 'ability_demonhunter_bladedance',
   },
-  THIRSTING_BLADES: {
-    id: 278493,
-    name: 'Thirsting Blades',
-    icon: 'ability_demonhunter_chaosstrike',
-  },
-  THIRSTING_BLADES_BUFF: {
-    id: 278736,
-    name: 'Thirsting Blades',
-    icon: 'ability_demonhunter_chaosstrike',
-  },
 
   //Shared
 

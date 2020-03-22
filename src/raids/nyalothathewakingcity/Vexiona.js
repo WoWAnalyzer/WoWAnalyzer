@@ -11,7 +11,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_nzothraid_vexiona',
   fight: {
-    vantusRuneBuffId: 306479,
+    vantusRuneBuffId: 306499,
     softMitigationChecks: {
       physical: [],
       magical: [],

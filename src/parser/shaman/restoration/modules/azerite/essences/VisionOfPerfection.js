@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import { formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import { TooltipElement } from 'common/Tooltip';
 import { calculateAzeriteEffects, calculateSecondaryStatDefault } from 'common/stats';
 
 import StatIcon from 'interface/icons/PrimaryStat';
@@ -18,7 +17,6 @@ import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Combatants from 'parser/shared/modules/Combatants';
 
 const HTT_DURATION = 10500;
 const HTT_BASE_COOLDOWN = 180000;
@@ -28,10 +26,8 @@ class VisionOfPerfection extends Analyzer {
     abilities: Abilities,
     statTracker: StatTracker,
     buffs: Buffs,
-    combatants: Combatants,
   };
   majorHealing = 0;
-  majorPetHealing = 0;
   majorHaste = 0;
   minorHealing = 0;
   minorSavedTime = 0;
@@ -47,17 +43,15 @@ class VisionOfPerfection extends Analyzer {
     }
 
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.VISION_OF_PERFECTION.traitId);
+    this.minorVersatility = calculateSecondaryStatDefault(420,45,this.selectedCombatant.neck.itemLevel);
+    // Below was way inaccurate, need to revisit it.
+    // Currently scales backwards on the tooltip on live servers (45 vers at neck 55, 43 vers at neck 57, 42 vers at neck 61)
+    // this.minorVersatility = calculateAzeriteEffects(SPELLS.STRIVE_FOR_PERFECTION_VERSATILITY.id, this.selectedCombatant.neck.itemLevel)[0];
     this.majorHaste = calculateAzeriteEffects(SPELLS.VISION_OF_PERFECTION_HASTE_CALC.id, this.selectedCombatant.neck.itemLevel)[0];
 
     this.statTracker.add(SPELLS.VISION_OF_PERFECTION_HASTE_BUFF_SELF.id, {
       haste: this.majorHaste,
     });
-    if (this.rank > 2) {
-      this.minorVersatility = calculateSecondaryStatDefault(420, 45, this.selectedCombatant.neck.itemLevel);
-      this.statTracker.add(SPELLS.STRIVE_FOR_PERFECTION.id, {
-        versatility: this.minorVersatility,
-      });
-    }
 
     this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.HEALING_TIDE_TOTEM_CAST), this._newHTT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_TIDE_TOTEM_CAST), this._realHTT);
@@ -83,10 +77,6 @@ class VisionOfPerfection extends Analyzer {
 
   _HTTheal(event) {
     if (event.timestamp < this.castTimestamp + HTT_DURATION) {
-      return;
-    }
-    if (!this.combatants.getEntity(event)) {
-      this.majorPetHealing += event.amount + (event.absorbed || 0);
       return;
     }
     this.majorHealing += event.amount + (event.absorbed || 0);
@@ -121,13 +111,7 @@ class VisionOfPerfection extends Analyzer {
             <div className="pad">
               <label><SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> - Major Rank {rank}</label>
               <div className="value">
-                <TooltipElement content={(
-                  <div>
-                    Healing on Pets is filtered out.<br />
-                    Unfiltered: <ItemHealingDone amount={this.majorHealing + this.majorPetHealing} />
-                  </div>
-                )}>
-                  <ItemHealingDone amount={this.majorHealing} /></TooltipElement><br />
+                <ItemHealingDone amount={this.majorHealing} /><br />
                 <EventsIcon /> {this.summons} <small>procs</small><br />
                 {rank > 2 && (<><StatIcon stat={"haste"} /> {formatNumber(this.majorHasteGain)} <small>average Haste gained</small><br /></>)}
               </div>

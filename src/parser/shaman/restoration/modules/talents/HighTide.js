@@ -21,14 +21,6 @@ const bounceReduction = 0.7;
  * Every 40000 mana you spend brings a High Tide, making your next 2 Chain Heals heal for an additional 20% and not reduce with each jump.
  */
 
- /**
-  * Logs for testing High Tide buff usage
-  * 
-  * Double stack log: https://www.warcraftlogs.com/reports/Qb91XvyqtNjaHRPr#fight=21&type=auras&source=11&pins=0%24Separate%24%23244F4B%24healing%240%240.0.0.Any%24137004809.0.0.Shaman%24true%240.0.0.Any%24false%241064&ability=288675
-  * Buff applied pre-pull: https://www.warcraftlogs.com/reports/R4JncHyajt8VQr9h#fight=48&type=auras&source=14&ability=288675
-
-  */
-
 class HighTide extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
@@ -36,12 +28,8 @@ class HighTide extends Analyzer {
   };
   healing = 0;
   chainHealTimestamp = 0;
-  buffer = [];
 
-  // high tide efficiency trackers
-  usedHighTides = 0;
-  unusedHighTides = 0;
-  currentHighTideBuff = 0;
+  buffer = [];
 
   constructor(...args) {
     super(...args);
@@ -49,33 +37,6 @@ class HighTide extends Analyzer {
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
     this.addEventListener(Events.fightend, this.onFightEnd);
-    
-    // these are for tracking high tide efficiency
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.onChainHealCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF), this.onHighTideBuff);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF), this.onHighTideBuff); //possible to get a re-application of the buff
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF), this.onHighTideRemoveBuff);
-  }
-
-  // in the event of a High Tide buff, if a buff still exists adds it to unused then resets buff counter to 2
-  onHighTideBuff(event) {
-    this.unusedHighTides += this.currentHighTideBuff; //not sure if this is possible
-    this.currentHighTideBuff = 2;
-  }
-
-  // in the event of a High Tide remove buff, adds any existing buff to unused and sets buff counter to 0
-  onHighTideRemoveBuff(event) {
-    this.unusedHighTides += this.currentHighTideBuff; //if there were leftovers when buff expires
-    this.currentHighTideBuff = 0;
-  }
-
-  // on a chain heal cast and buff counter is greater than 0, adds one to used counter 
-  // and reduces buff counter by one.
-  onChainHealCast(event) {
-    if(this.currentHighTideBuff > 0) {
-      this.usedHighTides++;
-      this.currentHighTideBuff -= 1;
-    }
   }
 
   chainHeal(event) {
@@ -143,19 +104,11 @@ class HighTide extends Analyzer {
   }
 
   subStatistic() {
-    const highTideToolTip = `
-      ${this.usedHighTides} High Tide buffs used and 
-      ${(this.unusedHighTides+this.currentHighTideBuff)} High Tide buffs unused`;
-
     return (
-      <div>
-        <StatisticListBoxItem
-          title={<SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} />}
-          value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
-          valueTooltip={highTideToolTip}
-        />
-      </div>
-          
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
+      />
     );
   }
 }
