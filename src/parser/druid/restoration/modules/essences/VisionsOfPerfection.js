@@ -69,8 +69,10 @@ class VisionsOfPerfection extends Analyzer {
     if(debug){
       console.log("direct healing: " + this.directHealing);
       console.log("direct overhealing: " + this.directOverheal);
+      console.log("Total Healing" + this.totalHealing);
       console.log("hot healing: " + this.hotHealing);
       console.log("hot overhealing: " + this.hotOverhealing);
+      console.log("Total overhealing: " + this.totalOverhealing);
     }
   }
 

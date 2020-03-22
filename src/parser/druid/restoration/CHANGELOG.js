@@ -5,7 +5,8 @@ import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75, Anatta336, Jerem
 import { change, date } from 'common/changelog';
 
 export default [  
-  change(date(2020, 3, 17), 'Added Visions of Perfection Statistic', [blazyb]),
+  change(date(2020, 3, 17), 'Visions of Perection Statistic updated', [Abelito75]),
+  change(date(2020, 3, 17), 'Added Visions of Perfection Statistic', [Abelito75]),
   change(date(2020, 1, 29), 'Bumped Updated for patch to 8.3', [blazyb]),
   change(date(2020, 1, 28), 'Updated mastery coefficient and thus making spec compatible with patch 8.3.', [blazyb]),
   change(date(2019, 10, 4), 'No spec changes have occurred, restoration druid module is compatible with patch 8.2.5', [JeremyDwayne]),
