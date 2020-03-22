@@ -9,6 +9,9 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 3, 16), <>Adjusted <ItemLink id={ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id} /> for hotfixes.</>, niseko),
+  change(date(2020, 3, 6), 'Fixed an issue where Vantus Runes weren\'t working as intended.', niseko),
+  change(date(2020, 3, 4), "Fix a bug where having multiple of the same corruption didn't count towards corruption total", Putro),
   change(date(2020, 2, 28), <>Added the primary stat proc of <ItemLink id={ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id} />.</>, niseko),
   change(date(2020, 2, 21), <>Added the possibility of adding item warnings, and added a warning for people using <ItemLink id={ITEMS.WHISPERING_ELDRITH_BOW.id} />.</>, Putro),
   change(date(2020, 2, 21), <>Added <SpellLink id={SPELLS.SYMBIOTIC_PRESENCE.id} />.</>, niseko),
