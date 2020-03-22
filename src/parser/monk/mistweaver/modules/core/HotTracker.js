@@ -34,6 +34,8 @@ class HotTracker extends Analyzer {
   // }
   hots = {};
 
+  healingAfterFallOff = 0;
+
   constructor(...args) {
     super(...args);
     this.hotInfo = this._generateHotInfo(); // some HoT info depends on traits and so must be generated dynamically
@@ -42,6 +44,10 @@ class HotTracker extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const target = this._getTarget(event);
+
+    if(spellId === SPELLS.ENVELOPING_MIST.id){
+      console.log("data");
+    }
     if (!target) {
       return;
     }
@@ -54,6 +60,10 @@ class HotTracker extends Analyzer {
     const hot = this.hots[targetId][spellId];
     if (event.tick) { // direct healing (say from a PotA procced regrowth) still should be counted for attribution, but not part of tick tracking
       hot.ticks.push({ healing, timestamp: event.timestamp });
+    }
+
+    if(hot.originalEnd < event.timestamp){
+      this.healingAfterFallOff += healing;
     }
 
     hot.attributions.forEach(att => {
