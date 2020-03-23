@@ -1,10 +1,12 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import ExecuteRange from './Execute/ExecuteRange';
 import SpellUsable from '../features/SpellUsable';
 
@@ -15,7 +17,7 @@ class OverpowerAnalyzer extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  proc = 0;
+  overpowerCasts = 0;
   wastedProc = 0;
 
   constructor(...args) {
@@ -24,7 +26,7 @@ class OverpowerAnalyzer extends Analyzer {
   }
 
   _onOverpowerCast(event) {
-    this.proc += 1;
+    this.overpowerCasts += 1;
     const overpower = this.selectedCombatant.getBuff(SPELLS.OVERPOWER.id);
 
     if (!(overpower && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id))) {
@@ -42,7 +44,7 @@ class OverpowerAnalyzer extends Analyzer {
 
   get WastedOverpowerThresholds() {
     return {
-      actual: this.wastedProc / this.proc,
+      actual: this.wastedProc / this.overpowerCasts,
       isGreaterThan: {
         minor: 0,
         average: 0.05,
@@ -59,6 +61,28 @@ class OverpowerAnalyzer extends Analyzer {
         .actual(`${formatPercentage(actual)}% of Overpower stacks were wasted.`)
         .recommended(`${formatPercentage(recommended)}% is recommended.`);
     });
+  }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.OVERPOWER.id} />}
+        label="Overpower Buffs Wasted"
+        position={STATISTIC_ORDER.OPTIONAL(6)}
+        value={(
+          <>
+              {this.wastedProc} <small>Overpower buff(s) wasted</small><br />
+              {this.overpowerCasts} <small>total casts</small>
+          </>
+        )}
+        tooltip={(
+          <>
+            If Overpower is casted with two buffs applied 
+            then a buff is considered wasted, when not in execute phase
+          </>
+        )}
+      />
+    );
   }
 }
 
