@@ -5,12 +5,15 @@ import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Enemies from 'parser/shared/modules/Enemies';
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
 // This module looks at the relative amount of damage buffed rather than strict uptime to be more accurate for fights with high general downtime
+
+const PANDEMIC_FRACTION = 1.3;
+const MAX_TIME = 45 * 1000 * PANDEMIC_FRACTION;
 
 class Inquisition extends Analyzer {
   static dependencies = {
@@ -20,6 +23,10 @@ class Inquisition extends Analyzer {
   buffedDamage = 0;
   unbuffedDamage = 0;
 
+  duration = 0;
+  applied = 0;
+  casts = [];
+  
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INQUISITION_TALENT.id);
@@ -49,6 +56,20 @@ class Inquisition extends Analyzer {
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = inefficientCastReason;
     }
+  
+    const timeDifference = (this.applied + this.duration) - event.timestamp;
+    const newCalculation = event.classResources[0].cost * 15 * 1000;
+    if(timeDifference > 0){
+      this.duration = Math.min(MAX_TIME, timeDifference + newCalculation);
+    }else{
+      this.duration = newCalculation;
+    }
+    const one = {
+      holyPower: Math.floor(this.duration/(15*1000)),
+      timeRemaining: this.applied === 0 ? 0 : timeDifference/1000, 
+    };
+    this.applied = event.timestamp;
+    this.casts.push(one);
   }
 
   onAffectedDamage(event) {
@@ -58,6 +79,7 @@ class Inquisition extends Analyzer {
       this.unbuffedDamage += event.amount + (event.absorbed || 0);
     }
   }
+
 
   get efficiency() {
     return this.buffedDamage / (this.buffedDamage + this.unbuffedDamage);
@@ -80,6 +102,7 @@ class Inquisition extends Analyzer {
   }
 
   suggestions(when) {
+    console.log(this.casts);
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>Your <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon /> efficiency is low. You should aim to have it active as often as possible while dealing damage.</>)
         .icon(SPELLS.INQUISITION_TALENT.icon)
@@ -96,7 +119,26 @@ class Inquisition extends Analyzer {
         value={`${formatPercentage(this.efficiency)}%`}
         label="Damage Buffed"
         tooltip={`Relative amount of damage done while Inquisition was active. You had Inquisition active for ${formatPercentage(this.uptime)}% of the fight.`}
-      />
+      >
+        <table className="table table-condensed">
+          <thead>
+            <tr>
+              <th>Holy Power</th>
+              <th>Time Remaining</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.casts.map(id => (
+                <tr>
+                <td>{formatNumber(id.holyPower)}</td>
+                <td>{formatDuration(id.timeRemaining)}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </StatisticBox>
     );
   }
 }
