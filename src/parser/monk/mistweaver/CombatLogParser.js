@@ -75,6 +75,8 @@ import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
 
+import REMGraph from './modules/features/REMGraph';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -107,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
     essenceFontHealingBreakDown: EssenceFontHealingBreakdown,
     averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
+    rEMGraph: REMGraph,
 
     // Spells
     essenceFont: EssenceFont,
