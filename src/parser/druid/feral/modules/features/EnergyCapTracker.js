@@ -92,7 +92,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     return (
       <StatisticBox
         icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
-        value={this.missedRegenPerMinute.toFixed(1)}
+        value={(formatPercentage(this.percentCapped) + "%")}
         label="Wasted energy per minute from being capped"
         tooltip={(
           <>
