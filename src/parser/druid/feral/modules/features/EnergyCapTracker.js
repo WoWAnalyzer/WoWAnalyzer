@@ -59,15 +59,19 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     return Math.floor(max);
   }
 
+  get percentCapped(){
+    return (this.naturalRegen - this.missedRegen) / this.naturalRegen;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: this.missedRegenPerMinute,
-      isGreaterThan: {
-        minor: 20,
-        average: 40,
-        major: 60,
+      actual: this.percentCapped,
+      isLessThan: {
+        minor: .8,
+        average: .70,
+        major: .65,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 
@@ -79,8 +83,8 @@ class EnergyCapTracker extends RegenResourceCapTracker {
         </>,
       )
         .icon('spell_shadow_shadowworddominate')
-        .actual(`${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`)
-        .recommended(`<${recommended} is recommended.`);
+        .actual(`${formatPercentage(actual)}% regenerated energy lost per minute due to being capped.`)
+        .recommended(`<${recommended}% is recommended.`);
     });
   }
 
