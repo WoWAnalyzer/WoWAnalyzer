@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Anatta336 } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
