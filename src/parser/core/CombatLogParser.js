@@ -110,7 +110,7 @@ import Gutripper from '../shared/modules/spells/bfa/azeritetraits/Gutripper';
 import HeedMyCall from '../shared/modules/spells/bfa/azeritetraits/HeedMyCall';
 import LaserMatrix from '../shared/modules/spells/bfa/azeritetraits/LaserMatrix';
 import MeticulousScheming from '../shared/modules/spells/bfa/azeritetraits/MeticulousScheming';
-import OverWhelmingPower from '../shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
+import OverwhelmingPower from '../shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
 import ElementalWhirl from '../shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
 import BloodRite from '../shared/modules/spells/bfa/azeritetraits/BloodRite';
 import BondedSouls from '../shared/modules/spells/bfa/azeritetraits/BondedSouls';
@@ -138,6 +138,8 @@ import NullDynamo from '../shared/modules/spells/bfa/essences/NullDynamo';
 import BloodOfTheEnemy from '../shared/modules/spells/bfa/essences/BloodOfTheEnemy';
 import Strife from '../shared/modules/spells/bfa/essences/Strife';
 import TheFormlessVoid from '../shared/modules/spells/bfa/essences/TheFormlessVoid';
+import EssenceOfTheFocusingIris from '../shared/modules/spells/bfa/essences/EssenceOfTheFocusingIris';
+
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -186,6 +188,11 @@ import DeadlyMomentum from '../shared/modules/spells/bfa/corruptions/DeadlyMomen
 import VoidRitual from '../shared/modules/spells/bfa/corruptions/VoidRitual';
 import Siphoner from '../shared/modules/spells/bfa/corruptions/Siphoner';
 import FlashOfInsight from '../shared/modules/spells/bfa/corruptions/FlashOfInsight';
+import Versatile from '../shared/modules/spells/bfa/corruptions/Versatile';
+import Severe from '../shared/modules/spells/bfa/corruptions/Severe';
+import Masterful from '../shared/modules/spells/bfa/corruptions/Masterful';
+import Expedient from '../shared/modules/spells/bfa/corruptions/Expedient';
+
 // Legendaries
 import Ashjrakamas from '../shared/modules/items/bfa/Ashjrakamas';
 
@@ -319,7 +326,7 @@ class CombatLogParser {
     heedMyCall: HeedMyCall,
     laserMatrix: LaserMatrix,
     meticulousScheming: MeticulousScheming,
-    overwhelmingPower: OverWhelmingPower,
+    overwhelmingPower: OverwhelmingPower,
     elementalWhirl: ElementalWhirl,
     bloodRite: BloodRite,
     bondedSouls: BondedSouls,
@@ -348,6 +355,7 @@ class CombatLogParser {
     bloodOfTheEnemy: BloodOfTheEnemy,
     strife: Strife,
     theFormlessVoid: TheFormlessVoid,
+    essenceOfTheFocusingIris: EssenceOfTheFocusingIris,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
@@ -399,6 +407,10 @@ class CombatLogParser {
     voidRitual: VoidRitual,
     siphoner: Siphoner,
     flashOfInsight: FlashOfInsight,
+    versatile: Versatile,
+    severe: Severe,
+    masterful: Masterful,
+    expedient: Expedient,
 
     // Legendaries
     ashjrakamas: Ashjrakamas,

@@ -31,7 +31,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
         <div
           className="value"
         >
-          25.99 %
+          25.95 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "74.01010655359994%",
+                  "width": "74.05323650798718%",
                 }
               }
             >
@@ -258,7 +258,7 @@ exports[`Frost Death Knight integration test: example log BloodOfTheEnemy matche
               />
             </svg>
              
-            37
+            33
              
             <small>
               average Haste gained
@@ -3785,7 +3785,7 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
 </div>
 `;
 
-exports[`Frost Death Knight integration test: example log OverWhelmingPower matches the statistic snapshot 1`] = `
+exports[`Frost Death Knight integration test: example log OverwhelmingPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4011,7 +4011,7 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
         <div
           className="value"
         >
-          14.45 %
+          14.40 %
         </div>
       </div>
       <div
@@ -4063,11 +4063,11 @@ Array [
     "importance": "minor",
     "issue": <React.Fragment>
       You overcapped 
-      14.45
+      14.40
       % of your runes. Try to always have at least 3 runes on cooldown.
     </React.Fragment>,
     "stat": <React.Fragment>
-      14.45% runes overcapped
+      14.40% runes overcapped
        (
       &lt;10.00% is recommended
       )
@@ -5102,7 +5102,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  25.99%
+                  25.95%
                    
                    
                 </div>
@@ -5162,7 +5162,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "85.09499147698787%",
+                  "width": "85.2591597312744%",
                 }
               }
             />
@@ -5255,7 +5255,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  85.55%
+                  85.60%
                    
                    
                 </div>
@@ -5277,7 +5277,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "85.09499147698787%",
+                        "width": "85.2591597312744%",
                       }
                     }
                   />
