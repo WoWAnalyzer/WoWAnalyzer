@@ -187,6 +187,7 @@ import RacingPulse from '../shared/modules/spells/bfa/corruptions/RacingPulse';
 import DeadlyMomentum from '../shared/modules/spells/bfa/corruptions/DeadlyMomentum';
 import VoidRitual from '../shared/modules/spells/bfa/corruptions/VoidRitual';
 import Siphoner from '../shared/modules/spells/bfa/corruptions/Siphoner';
+import FlashOfInsight from '../shared/modules/spells/bfa/corruptions/FlashOfInsight';
 import Versatile from '../shared/modules/spells/bfa/corruptions/Versatile';
 import Severe from '../shared/modules/spells/bfa/corruptions/Severe';
 import Masterful from '../shared/modules/spells/bfa/corruptions/Masterful';
@@ -405,6 +406,7 @@ class CombatLogParser {
     deadlyMomentum: DeadlyMomentum,
     voidRitual: VoidRitual,
     siphoner: Siphoner,
+    flashOfInsight: FlashOfInsight,
     versatile: Versatile,
     severe: Severe,
     masterful: Masterful,
