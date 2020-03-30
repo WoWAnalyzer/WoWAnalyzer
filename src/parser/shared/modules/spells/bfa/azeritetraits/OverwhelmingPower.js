@@ -27,7 +27,7 @@ const overWhelmingPowerStats = traits => Object.values(traits).reduce((obj, rank
  *
  * Example report: https://www.warcraftlogs.com/reports/jBthQCZcWRNGyAk1#fight=29&type=auras&source=18
  */
-class OverWhelmingPower extends Analyzer {
+class OverwhelmingPower extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
@@ -129,4 +129,4 @@ class OverWhelmingPower extends Analyzer {
   }
 }
 
-export default OverWhelmingPower;
+export default OverwhelmingPower;
