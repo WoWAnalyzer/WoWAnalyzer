@@ -10,6 +10,14 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import ExecuteRange from './Execute/ExecuteRange';
 import SpellUsable from '../features/SpellUsable';
 
+/**
+ * Logs used to test:
+ * 
+ * 0 wasted buffs: https://www.warcraftlogs.com/reports/YF9MzcnWXd4ak7vC/#fight=1&source=25
+ * 4/15 wasted: https://www.warcraftlogs.com/reports/qAK2R8kZg9DL1YFm/#fight=27&source=1113&type=summary&graph=true
+ * 
+ */
+
 class OverpowerAnalyzer extends Analyzer {
   static dependencies = {
     executeRange: ExecuteRange,
@@ -24,7 +32,7 @@ class OverpowerAnalyzer extends Analyzer {
     super(...args);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.OVERPOWER), this._onOverpowerCast);
   }
-
+  
   _onOverpowerCast(event) {
     this.overpowerCasts += 1;
     const overpower = this.selectedCombatant.getBuff(SPELLS.OVERPOWER.id);
@@ -33,9 +41,10 @@ class OverpowerAnalyzer extends Analyzer {
       return;
     }
 
+    // if not in execute and stacks were at two when overpower was casted then a proc is considered wasted
     if (!this.executeRange.isTargetInExecuteRange(event)) {
       this.wastedProc += 1;
-
+      
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = 'This Overpower was used while already at 2 stacks and Mortal Strike was available';
@@ -71,7 +80,7 @@ class OverpowerAnalyzer extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(
           <>
-              {this.wastedProc} <small>Overpower buff(s) wasted</small><br />
+              {this.wastedProc} <small>wasted buffs</small><br />
               {this.overpowerCasts} <small>total casts</small>
           </>
         )}
