@@ -19,9 +19,8 @@ import Abilities from 'parser/core/modules/Abilities';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import { calculatePrimaryStat } from 'common/stats';
 
-const HASTE_PROC_AMOUNT = 548;
-const CRIT_PER_STACK = 8;
 const BOTE_DAMAGE_BONUS = 0.25;
 
 const MINOR_SPELL_IDS = {
@@ -49,7 +48,7 @@ class BloodOfTheEnemy extends Analyzer {
     abilities: Abilities,
     statTracker: StatTracker,
     enemies: EnemyInstances,
-  }
+  };
 
   constructor(...args) {
     super(...args);
@@ -59,12 +58,13 @@ class BloodOfTheEnemy extends Analyzer {
     }
 
     const rank = this.selectedCombatant.essenceRank(SPELLS.BLOOD_OF_THE_ENEMY.traitId);
+    this.haste = calculatePrimaryStat(505, 726, this.selectedCombatant.neck.itemLevel);
     this.statTracker.add(SPELLS.BLOOD_SOAKED_HASTE_BUFF.id, {
-      haste: 548,
+      haste: this.haste,
     });
-    
+
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.BLOOD_OF_THE_ENEMY.traitId);
-    if(this.hasMajor) {
+    if (this.hasMajor) {
       this.abilities.add({
         spell: SPELLS.BLOOD_OF_THE_ENEMY,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
@@ -78,12 +78,13 @@ class BloodOfTheEnemy extends Analyzer {
         },
       });
     }
-    
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_OF_THE_ENEMY), this.onMajorCastDamage);
 
     if (rank > 1) {
+      this.crit = calculatePrimaryStat(455, 7, this.selectedCombatant.neck.itemLevel);
       this.statTracker.add(SPELLS.BLOOD_SOAKED_STACKING_BUFF.id, {
-        crit: 8,
+        crit: this.crit,
       });
 
       this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_SOAKED_STACKING_BUFF), this.handleStacks);
@@ -91,7 +92,7 @@ class BloodOfTheEnemy extends Analyzer {
       this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_SOAKED_STACKING_BUFF), this.handleStacks);
     }
 
-    if (rank > 2 && this.hasMajor){
+    if (rank > 2 && this.hasMajor) {
       this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     }
   }
@@ -101,12 +102,14 @@ class BloodOfTheEnemy extends Analyzer {
   lastStackTimestamp = 0;
   totalCrit = 0;
   bonusDamage = 0;
+  crit = 0;
+  haste = 0;
 
-  onMajorCastDamage(event){
+  onMajorCastDamage(event) {
     this.majorCastDamage += event.amount + (event.absorbed || 0);
   }
 
-  onDamage(event){
+  onDamage(event) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
@@ -127,12 +130,12 @@ class BloodOfTheEnemy extends Analyzer {
 
   handleStacks(event) {
     const uptimeOnStack = event.timestamp - this.lastStackTimestamp;
-    this.totalCrit += this.currentStacks * CRIT_PER_STACK * uptimeOnStack;
+    this.totalCrit += this.currentStacks * this.crit * uptimeOnStack;
 
-    if (event.type === "applybuff") {
+    if (event.type === 'applybuff') {
       // when the R3 minor procs and only 30 stacks are consumed, an applybuff granting 10 stacks goes out after the removebuff but has the same timestamp as the removebuff event
       this.currentStacks = (uptimeOnStack === 0 ? 10 : 1);
-    } else if (event.type === "removebuff") {
+    } else if (event.type === 'removebuff') {
       this.currentStacks = 0;
     } else {
       this.currentStacks = event.stack;
@@ -146,7 +149,7 @@ class BloodOfTheEnemy extends Analyzer {
   }
 
   get averageHaste() {
-    return (HASTE_PROC_AMOUNT * this.uptime);
+    return (this.haste * this.uptime);
   }
 
   get averageCrit() {
@@ -168,15 +171,17 @@ class BloodOfTheEnemy extends Analyzer {
           </div>
         </ItemStatistic>
         {this.hasMajor && (
-          <ItemStatistic ultrawide 
+          <ItemStatistic
+            ultrawide
             tooltip={(
               <>
                 Damage done by AoE hit: {formatNumber(this.majorCastDamage)} {rankThreeTooltip}
               </>
-            )}>
+            )}
+          >
             <div className="pad">
               <label><SpellLink id={MAJOR_SPELL_IDS[rank]} /> - Major Rank {rank}</label>
-              <div className="value">                
+              <div className="value">
                 <ItemDamageDone amount={this.bonusDamage + this.majorCastDamage} />
               </div>
             </div>

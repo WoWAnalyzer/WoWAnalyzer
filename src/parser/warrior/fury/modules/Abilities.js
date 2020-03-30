@@ -2,9 +2,15 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
+//https://www.warcraftlogs.com/reports/9Vw8TvjHNfXgWyP7#fight=19&type=summary&source=21 2+ cold steel hot blood
+
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
+    let btThreashhold = .3;
+    if(this.selectedCombatant.hasTrait(SPELLS.COLD_STEEL_HOT_BLOOD.id)){
+      btThreashhold = this.selectedCombatant.traitsBySpellId[SPELLS.COLD_STEEL_HOT_BLOOD.id].length > 1 ? .85 : .3;
+    }
     return [
       // Rotational
       {
@@ -16,7 +22,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.3,
+          recommendedEfficiency: btThreashhold,
         },
       },
       {
