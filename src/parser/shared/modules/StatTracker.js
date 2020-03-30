@@ -7,6 +7,8 @@ import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
+const ARMOR_INT_BONUS = .05;
+
 const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
@@ -32,11 +34,12 @@ class StatTracker extends Analyzer {
     [SPELLS.BATTLE_POTION_OF_INTELLECT.id]: { intellect: 900 },
     [SPELLS.BATTLE_POTION_OF_AGILITY.id]: { agility: 900 },
     [SPELLS.BATTLE_POTION_OF_STAMINA.id]: { stamina: 1100 },
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id]: { strength: 1215 }, // Superior Battle Potion of Strength
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id]: { agility: 1215 }, // Superior Battle Potion of Agility
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id]: { intellect: 1215 }, // Superior Battle Potion of Intellect
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id]: { stamina: 1485 }, // Superior Battle Potion of Stamina
-    [SPELLS.SUPERIOR_STEELSKIN_POTION.id]: { armor: 1215 }, // Superior Steelskin Potion
+    [SPELLS.STEELSKIN_POTION.id]: { armor: 900 },
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id]: { strength: 1215 },
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id]: { agility: 1215 },
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id]: { intellect: 1215 },
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id]: { stamina: 1485 },
+    [SPELLS.SUPERIOR_STEELSKIN_POTION.id]: { armor: 1215 },
     // endregion
 
     // region Runes
@@ -103,8 +106,6 @@ class StatTracker extends Analyzer {
     [SPELLS.WELL_FED_SEASONED_STEAK_AND_POTATOES.id]: { stamina: 150 },
     //endregion
 
-    // region Dungeon Trinkets
-
     // BFA quests
     [SPELLS.DIEMETRADON_FRENZY.id]: {
       itemId: ITEMS.ENGRANGED_DIEMETRADON_FIN.id,
@@ -147,7 +148,7 @@ class StatTracker extends Analyzer {
 
     /****************************************\
      *                    BFA:                *
-     \****************************************/
+    \****************************************/
 
     // region Azerite Traits
     // region General
@@ -162,7 +163,7 @@ class StatTracker extends Analyzer {
     // endregion
     // region Warlock
     // endregion
-    //region Death Knight
+    // region Death Knight
     // endregion
     // region Monk
     // endregion
@@ -176,6 +177,9 @@ class StatTracker extends Analyzer {
     [SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id]: { haste: 50 },
     [SPELLS.QUICK_NAVIGATION_BUFF_BIG.id]: { haste: 600 },
     264878: { crit: 650 }, // Crow's Nest Scope
+    300693: { intellect: 264 }, // machinistts
+    298431: { crit: 170 },
+    300762: { mastery: 170 },
     //endregion
 
     // DEFINING STAT BUFFS HERE IS DEPRECATED.
@@ -306,37 +310,12 @@ class StatTracker extends Analyzer {
     // endregion
     // endregion
 
-    // region Consumables
-    //region Flasks
-    [SPELLS.FLASK_OF_THE_CURRENTS.id]: { agility: 238 },
-    [SPELLS.FLASK_OF_THE_UNDERTOW.id]: { strength: 238 },
-    [SPELLS.FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 238 },
-    [SPELLS.FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 357 },
-    [SPELLS.GREATER_FLASK_OF_THE_CURRENTS.id]: { agility: 360 },
-    [SPELLS.GREATER_FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 360 },
-    [SPELLS.GREATER_FLASK_OF_THE_UNDERTOW.id]: { strength: 360 },
-    [SPELLS.GREATER_FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 540 },
-    // endregion
-    // region Potions
-    [SPELLS.BATTLE_POTION_OF_STRENGTH.id]: { strength: 900 }, // Battle Potion of Strength
-    [SPELLS.BATTLE_POTION_OF_AGILITY.id]: { agility: 900 }, // Battle Potion of Agility
-    [SPELLS.BATTLE_POTION_OF_INTELLECT.id]: { intellect: 900 }, // Battle Potion of Intellect
-    [SPELLS.BATTLE_POTION_OF_STAMINA.id]: { stamina: 1100 }, // Battle Potion of Stamina
-    [SPELLS.STEELSKIN_POTION.id]: { armor: 900 }, // Steelskin Potion
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id]: { strength: 1215 }, // Superior Battle Potion of Strength
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id]: { agility: 1215 }, // Superior Battle Potion of Agility
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id]: { intellect: 1215 }, // Superior Battle Potion of Intellect
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id]: { stamina: 1485 }, // Superior Battle Potion of Stamina
-    [SPELLS.SUPERIOR_STEELSKIN_POTION.id]: { armor: 1215 }, // Superior Steelskin Potion
-    // endregion
-    // endregion
-
     // region Racials
     // Mag'har Orc
-    [SPELLS.RICTUS_OF_THE_LAUGHING_SKULL.id]: { crit: 102 }, // 411 stats at level 120
-    [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 102 },
-    [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 102 },
-    [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 102 },
+    [SPELLS.RICTUS_OF_THE_LAUGHING_SKULL.id]: { crit: 411 },
+    [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 411 },
+    [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 411 },
+    [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 411 },
     // endregion
   };
 
@@ -344,6 +323,27 @@ class StatTracker extends Analyzer {
 
   _pullStats = {};
   _currentStats = {};
+
+  statMultiplier = {
+    strength: 1,
+    agility: 1,
+    intellect: 1,
+    stamina: 1,
+    crit: 1,
+    haste: 1, // should usually be done through the haste module
+    mastery: 1,
+    versatility: 1,
+    avoidance: 1,
+    leech: 1,
+    speed: 1,
+    armor: 1,
+  };
+  statMultiplierBuffs = {
+    [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.1 },
+    [SPELLS.WARSCROLL_OF_INTELLECT.id]: { intellect: 1.07 },
+    [SPELLS.BATTLE_SHOUT.id]: { strength: 1.1, agility: 1.1 },
+    [SPELLS.WARSCROLL_OF_BATTLE_SHOUT.id]: { strength: 1.07, agility: 1.07 },
+  }
 
   constructor(...args) {
     super(...args);
@@ -373,6 +373,13 @@ class StatTracker extends Analyzer {
       ...this._pullStats,
     };
 
+    // Really hoping people don't run around with wrong armor types
+    this.addStatMultiplier({
+      intellect: 1 + ARMOR_INT_BONUS,
+      strength: 1 + ARMOR_INT_BONUS,
+      agility: 1 + ARMOR_INT_BONUS,
+    });
+
     debug && this._debugPrintStats(this._currentStats);
   }
 
@@ -398,6 +405,38 @@ class StatTracker extends Analyzer {
       throw new Error(`Stat buff ${buffId} uses item argument, but does not provide item ID`);
     }
     this.statBuffs[buffId] = stats;
+  }
+
+  addStatMultiplier(stats, changeCurrentStats = false) {
+    const delta = {};
+    for (const stat in stats) {
+      const before = this.statMultiplier[stat];
+      this.statMultiplier[stat] *= stats[stat];
+
+      debug && console.log(`StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.statMultiplier[stat].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`);
+
+      if (changeCurrentStats) {
+        delta[stat] = Math.round(this._currentStats[stat] * stats[stat] - this._currentStats[stat]);
+      }
+    }
+
+    changeCurrentStats && this.forceChangeStats(delta, null, true);
+  }
+
+  removeStatMultiplier(stats, changeCurrentStats = false) {
+    const delta = {};
+    for (const stat in stats) {
+      const before = this.statMultiplier[stat];
+      this.statMultiplier[stat] /= stats[stat];
+
+      debug && console.log(`StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.statMultiplier[stat].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`);
+
+      if (changeCurrentStats) {
+        delta[stat] = Math.round(this._currentStats[stat] / stats[stat] - this._currentStats[stat]);
+      }
+    }
+
+    changeCurrentStats && this.forceChangeStats(delta, null, true);
   }
 
   applySpecModifiers() {
@@ -643,7 +682,7 @@ class StatTracker extends Analyzer {
     if (currentIntellect !== actualIntellect) {
       debug && this.error(`Intellect rating calculated with StatTracker is different from actual Intellect from events! StatTracker: ${currentIntellect}, actual: ${actualIntellect}`);
       const delta = actualIntellect - currentIntellect;
-      this.forceChangeStats({ intellect: delta });
+      this.forceChangeStats({ intellect: delta }, null, true);
     }
   }
 
@@ -654,9 +693,9 @@ class StatTracker extends Analyzer {
    * eventReason is the WCL event object that caused this change, it is not required.
    */
   // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
-  forceChangeStats(change, eventReason) {
+  forceChangeStats(change, eventReason, withoutMultipliers = false) {
     const before = Object.assign({}, this._currentStats);
-    const delta = this._changeStats(change, 1);
+    const delta = this._changeStats(change, 1, withoutMultipliers);
     const after = Object.assign({}, this._currentStats);
     if (debug) {
       const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
@@ -669,6 +708,7 @@ class StatTracker extends Analyzer {
   _changeBuffStack(event) {
     const spellId = event.ability.guid;
     const statBuff = this.statBuffs[spellId];
+    const statMult = this.statMultiplierBuffs[spellId];
     if (statBuff) {
       // ignore prepull buff application, as they're already accounted for in combatantinfo
       // we have to check the stacks count because Entities incorrectly copies the prepull property onto changes and removal following the application
@@ -684,9 +724,24 @@ class StatTracker extends Analyzer {
       debug && this._debugPrintStats(this._currentStats);
       this._triggerChangeStats(event, before, delta, after);
     }
+    if (statMult) {
+      // ignore prepull buff application, as they're already accounted for in combatantinfo
+      // we have to check the stacks count because Entities incorrectly copies the prepull property onto changes and removal following the application
+      if (event.prepull && event.oldStacks === 0) {
+        debug && console.log(`StatTracker prepull application IGNORED for ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
+        this.addStatMultiplier(statMult);
+        return;
+      }
+      if (event.newStacks > event.oldStacks) {
+        this.addStatMultiplier(statMult, true);
+      } else if (event.newStacks < event.oldStacks) {
+        this.removeStatMultiplier(statMult, true);
+      }
+    }
   }
 
-  _changeStats(change, factor) {
+  // withoutMultipliers should be a rare exception where you have already buffed values
+  _changeStats(change, factor, withoutMultipliers = false) {
     const delta = {
       strength: this._getBuffValue(change, change.strength) * factor,
       agility: this._getBuffValue(change, change.agility) * factor,
@@ -703,7 +758,7 @@ class StatTracker extends Analyzer {
     };
 
     Object.keys(this._currentStats).forEach(key => {
-      this._currentStats[key] += delta[key];
+      this._currentStats[key] += withoutMultipliers ? delta[key] : Math.round(delta[key] * this.statMultiplier[key]);
     });
 
     return delta;
