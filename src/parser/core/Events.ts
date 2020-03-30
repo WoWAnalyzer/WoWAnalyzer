@@ -36,7 +36,6 @@ export enum EventType {
   BeaconTransfer = 'beacontransfer',
   ChangeStats = 'changestats',
 
-
   // Phases:
   PhaseStart = 'phasestart',
   PhaseEnd = 'phaseend',
@@ -447,14 +446,6 @@ export interface Stats {
 }
 
 export interface ChangeStatsEvent extends Event {
-  targetID: number
-  trigger: any
-  after: Stats
-  before: Stats
-  delta: Stats
-}
-
-export interface Changebuffstack extends Event {
   targetID: number
   trigger: any
   after: Stats

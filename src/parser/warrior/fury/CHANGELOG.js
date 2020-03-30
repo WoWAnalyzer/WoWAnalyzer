@@ -6,6 +6,9 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 3, 27), <>Changed Bloodthirst's threshold based on how many Cold Steel Hot Bloods you have.</>, Abelito75),
+  change(date(2020, 3, 13), <>Furious Slash uptime requirement changed to general not max stacks.</>, Abelito75),
+  change(date(2020, 2, 27), <>Removed Heroic Leap check as it wasn't important.</>, Abelito75),
   change(date(2020, 2, 27), <>Whirlwind checker for casting it at the correct times.</>, Abelito75),
   change(date(2020, 2, 26), <>Fixed typo.</>, Abelito75),
   change(date(2020, 2, 26), <>Removed missed rampage swings as its not important, add checks to only use Dragon Roar and Bladestorm during enrage.</>, Abelito75),

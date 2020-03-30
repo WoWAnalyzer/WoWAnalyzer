@@ -3733,7 +3733,7 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           >
             <b>
               = 
-              16.78
+              16.86
             </b>
           </td>
         </tr>
@@ -3774,7 +3774,7 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           <td
             className="text-right"
           >
-            16.78
+            16.86
           </td>
         </tr>
         <tr>
@@ -3817,7 +3817,7 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
             className="text-right"
           >
             <b>
-              399k
+              397k
             </b>
           </td>
           <td
@@ -3840,7 +3840,7 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           >
             <b>
               = 
-              75.48
+              75.89
             </b>
           </td>
         </tr>
@@ -3870,7 +3870,7 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           <td
             className="text-right"
           >
-            368k
+            367k
           </td>
           <td
             className="text-right"
@@ -3881,7 +3881,7 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           <td
             className="text-right"
           >
-            69.71
+            70.09
           </td>
         </tr>
         <tr>
@@ -3970,7 +3970,7 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           <td
             className="text-right"
           >
-            31k
+            30k
           </td>
           <td
             className="text-right"
@@ -3981,7 +3981,7 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           <td
             className="text-right"
           >
-            5.77
+            5.80
           </td>
         </tr>
         <tr>
