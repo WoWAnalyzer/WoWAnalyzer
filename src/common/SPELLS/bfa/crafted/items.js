@@ -16,4 +16,14 @@ export default {
     name: 'Blockades Deck',
     icon: 'Inv_inscription_80_deck_blockades',
   },
+  WARSCROLL_OF_INTELLECT: {
+    id: 264760,
+    name: 'War-Scroll of Intellect',
+    icon: 'spell_arcane_arcaneresilience',
+  },
+  WARSCROLL_OF_BATTLE_SHOUT: {
+    id: 264761,
+    name: 'War-Scroll of Battle Shout',
+    icon: 'spell_nature_strength',
+  },
 };
