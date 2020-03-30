@@ -9,8 +9,9 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
-  change(date(2020, 3, 16), <>Added <SpellLink id={SPELLS.SEVERE_T3.id} /> <SpellLink id={SPELLS.EXPEDIENT_T3.id} /> <SpellLink id={SPELLS.MASTERFUL_T3.id} /> <SpellLink id={SPELLS.VERSATILE_T3.id} />.</>, niseko),
-  change(date(2020, 3, 12), "Add the possibility to modify stat multipliers to be able to support some of the new corruption effects.", niseko),
+  change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.SEVERE_T3.id} /> <SpellLink id={SPELLS.EXPEDIENT_T3.id} /> <SpellLink id={SPELLS.MASTERFUL_T3.id} /> <SpellLink id={SPELLS.VERSATILE_T3.id} />.</>, niseko),
+  change(date(2020, 3, 29), "Add the possibility to modify stat multipliers to be able to support some of the new corruption effects.", niseko),
+  change(date(2020, 3, 16), <>Adjusted <ItemLink id={ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id} /> for hotfixes.</>, niseko),
   change(date(2020, 3, 6), 'Fixed an issue where Vantus Runes weren\'t working as intended.', niseko),
   change(date(2020, 3, 4), "Fix a bug where having multiple of the same corruption didn't count towards corruption total", Putro),
   change(date(2020, 2, 28), <>Added the primary stat proc of <ItemLink id={ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id} />.</>, niseko),

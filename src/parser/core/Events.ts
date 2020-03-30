@@ -36,7 +36,6 @@ export enum EventType {
   BeaconTransfer = 'beacontransfer',
   ChangeStats = 'changestats',
 
-
   // Phases:
   PhaseStart = 'phasestart',
   PhaseEnd = 'phaseend',

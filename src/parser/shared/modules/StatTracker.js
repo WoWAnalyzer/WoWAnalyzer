@@ -340,9 +340,9 @@ class StatTracker extends Analyzer {
   };
   statMultiplierBuffs = {
     [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.1 },
-    264760: { intellect: 1.07 }, // War-Scroll of Intellect
+    [SPELLS.WARSCROLL_OF_INTELLECT.id]: { intellect: 1.07 },
     [SPELLS.BATTLE_SHOUT.id]: { strength: 1.1, agility: 1.1 },
-    264761: { strength: 1.07, agility: 1.07 }, // War-Scroll of Battle Shout
+    [SPELLS.WARSCROLL_OF_BATTLE_SHOUT.id]: { strength: 1.07, agility: 1.07 },
   }
 
   constructor(...args) {
