@@ -3,8 +3,9 @@ import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
 
 const azeriteTraitStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -82,8 +83,6 @@ class InfernalArmor extends Analyzer {
   }
 
   statistic() {
-    const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
-    const dps = this.damage / this.owner.fightDuration * 1000;
     const buffUptimePercent = this.buffUptime / this.owner.fightDuration;
 
     return (
@@ -91,18 +90,15 @@ class InfernalArmor extends Analyzer {
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.INFERNAL_ARMOR}>
-          <img
-            src="/img/sword.png"
-            alt="Damage"
-            className="icon"
-          /> {formatNumber(dps)} DPS <small>{formatPercentage(damageThroughputPercent)} % of total</small>
+          <ItemDamageDone amount={this.damage} />
           <br />
           <img
             src="/img/shield.png"
             alt="Armor"
             className="icon"
-          /> {this.infernalArmorArmor} armor  <small>{formatPercentage(buffUptimePercent)} % uptime</small>
+          /> {this.infernalArmorArmor} Armor  <small>{formatPercentage(buffUptimePercent)} % uptime</small>
         </BoringSpellValueText>
+        
       </AzeritePowerStatistic>
     );
   }
