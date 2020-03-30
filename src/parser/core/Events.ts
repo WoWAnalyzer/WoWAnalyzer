@@ -34,6 +34,7 @@ export enum EventType {
   EndChannel = 'endchannel',
   UpdateSpellUsable = 'updatespellusable',
   BeaconTransfer = 'beacontransfer',
+  ChangeStats = 'changestats',
 
   // Phases:
   PhaseStart = 'phasestart',
@@ -429,6 +430,29 @@ export interface UpdateSpellUsableEvent extends Event {
   __fabricated: true;
 }
 
+export interface Stats {
+  agility: number
+  armor: number
+  avoidance: number
+  crit: number
+  haste: number
+  intellect: number
+  leech: number
+  mastery: number
+  speed: number
+  stamina: number
+  strength: number
+  versatility: number
+}
+
+export interface ChangeStatsEvent extends Event {
+  targetID: number
+  trigger: any
+  after: Stats
+  before: Stats
+  delta: Stats
+}
+
 export interface PhaseEvent extends Event {
   phase: PhaseConfig;
   __fabricated: true;
@@ -743,6 +767,9 @@ const Events = {
   },
   get EndChannel() {
     return new EventFilter(EventType.EndChannel);
+  },
+  get ChangeStats() {
+    return new EventFilter(EventType.ChangeStats);
   },
 };
 

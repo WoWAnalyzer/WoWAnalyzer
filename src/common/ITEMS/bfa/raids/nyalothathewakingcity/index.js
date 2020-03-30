@@ -3,6 +3,13 @@ import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
 export default {
   // Group by boss (with comments)
 
+  MARKOWA: {
+    id: 172198,
+    name: 'Mar\'kowa, the Mindpiercer',
+    icon: 'inv_axe_1h_nzothraid_d_02',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
+
   //Skitra the Prophet
   WHISPERING_ELDRITH_BOW: {
     id: 172193,
