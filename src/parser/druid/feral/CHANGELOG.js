@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Anatta336 } from 'CONTRIBUTORS';
+import { Anatta336, Abelito75 } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 3,27), <>Improved thresholds of wasted energy to be precentage based.</>, [Abelito75]),
   change(date(2019, 8, 10), <>Improved tracking of <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> energy use to account for <SpellLink id={SPELLS.BERSERK.id} />. Also highlights low energy bites on the timeline.</>, [Anatta336]),
   change(date(2019, 8, 9), <>Fixed tracking pre-pull use of <SpellLink id={SPELLS.BERSERK.id} /> and <SpellLink id={SPELLS.TIGERS_FURY.id} /> so they're properly counted when calculating cast efficiency.</>, [Anatta336]),
   change(date(2019, 6, 19), <>Improved how finisher combo point use is assessed, low-combo use of <SpellLink id={SPELLS.RIP.id} /> is recognised as correct in certain circumstances.</>, [Anatta336]),
