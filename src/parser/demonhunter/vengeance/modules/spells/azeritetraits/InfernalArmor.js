@@ -6,6 +6,7 @@ import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import { formatPercentage } from 'common/format';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import ArmorIcon from 'interface/icons/Armor';
 import React from 'react';
 
 const azeriteTraitStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -92,11 +93,7 @@ class InfernalArmor extends Analyzer {
         <BoringSpellValueText spell={SPELLS.INFERNAL_ARMOR}>
           <ItemDamageDone amount={this.damage} />
           <br />
-          <img
-            src="/img/shield.png"
-            alt="Armor"
-            className="icon"
-          /> {this.infernalArmorArmor} Armor  <small>{formatPercentage(buffUptimePercent)} % uptime</small>
+          <ArmorIcon /> {this.infernalArmorArmor} Armor  <small>{formatPercentage(buffUptimePercent)} % uptime</small>
         </BoringSpellValueText>
         
       </AzeritePowerStatistic>
