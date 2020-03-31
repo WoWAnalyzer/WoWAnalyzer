@@ -4,10 +4,11 @@ import Events from 'parser/core/Events';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import { formatNumber, formatPercentage } from 'common/format';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import React from 'react';
 
 /**
- * Infernal Armor Azerite Power
+ * Revel in Pain Azerite Power
  * Fiery Brand now lasts 10 sec. When Fiery Brand expires on your primary target, 
  * you gain a shield that absorbs up to 69512 damage for 15 sec, based on your 
  * damage dealt to them while Fiery Brand was active.
@@ -73,17 +74,13 @@ class RevelInPain extends Analyzer {
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.REVEL_IN_PAIN}>
-          <img
-            src="/img/healing.png"
-            alt="Heal"
-            className="icon"
-          /> {formatNumber(absorbhps)} HPS <small>{absorbThroughputPercent} % of total</small>
+          <ItemHealingDone amount={this.totalAbsorbed} />
           <br />
           <img
             src="/img/shield.png"
             alt="Armor"
             className="icon"
-          /> {usedAbsorbPossible} % <small>absorbs used</small>  
+          /> {usedAbsorbPossible}% <small>absorbs used</small>  
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );
