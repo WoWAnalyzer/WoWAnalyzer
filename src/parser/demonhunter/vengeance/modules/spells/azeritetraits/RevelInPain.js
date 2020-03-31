@@ -2,9 +2,10 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import Plus from 'interface/icons/Plus';
 import React from 'react';
 
 /**
@@ -61,11 +62,6 @@ class RevelInPain extends Analyzer {
 
   statistic() {
 
-    const absorbhps = this.totalAbsorbed / this.owner.fightDuration * 1000;
-
-    // a percentage of absorb hps over total hps
-    const absorbThroughputPercent = formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalAbsorbed));
-    
     // this is how effective the tank was at ensuring the bubble was consumed rather than expired
     const usedAbsorbPossible = formatPercentage(this.totalAbsorbed/this.totalAbsorbedPossible);
     
@@ -76,11 +72,7 @@ class RevelInPain extends Analyzer {
         <BoringSpellValueText spell={SPELLS.REVEL_IN_PAIN}>
           <ItemHealingDone amount={this.totalAbsorbed} />
           <br />
-          <img
-            src="/img/shield.png"
-            alt="Armor"
-            className="icon"
-          /> {usedAbsorbPossible}% <small>absorbs used</small>  
+          <Plus /> {usedAbsorbPossible}% <small>absorbs used</small>  
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );
