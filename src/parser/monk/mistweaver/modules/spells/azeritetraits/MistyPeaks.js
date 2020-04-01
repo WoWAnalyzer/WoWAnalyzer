@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import { calculateAzeriteEffects } from 'common/stats';
 import SpellLink from 'common/SpellLink';
@@ -54,7 +55,14 @@ class MistyPeaks extends Analyzer {
 
   statistic() {
     return (
-      <AzeritePowerStatistic size="flexible">
+      <AzeritePowerStatistic
+        size="flexible"
+        tooltip={(
+          <>
+            <b>{this.haste}</b> haste per proc at {formatPercentage(this.uptime)}% uptime.
+          </>
+        )}
+      >
         <div className="pad">
         <label><SpellLink id={SPELLS.MISTY_PEAKS.id} /></label>
         <div className="value">
