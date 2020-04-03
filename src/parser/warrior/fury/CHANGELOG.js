@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 3, 27), <>Removed Frothing Berserker suggestion.</>, Abelito75),
   change(date(2020, 3, 27), <>Changed Bloodthirst's threshold based on how many Cold Steel Hot Bloods you have.</>, Abelito75),
   change(date(2020, 3, 13), <>Furious Slash uptime requirement changed to general not max stacks.</>, Abelito75),
   change(date(2020, 2, 27), <>Removed Heroic Leap check as it wasn't important.</>, Abelito75),
