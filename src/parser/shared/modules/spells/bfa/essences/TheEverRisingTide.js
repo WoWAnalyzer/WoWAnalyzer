@@ -46,7 +46,7 @@ class TheEverRisingTide extends Analyzer {
       return;
     }
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.EVER_RISING_TIDE.traitId);
-    this.stat = calculatePrimaryStat(420, 1569, this.selectedCombatant.neck.itemLevel);
+    this.stat = calculatePrimaryStat(430, 1722, this.selectedCombatant.neck.itemLevel);
     if (this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE.traitId) < 2) {
       this.stat /= 0.8; // rank 2 grants 20% more stats
       OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK = 0.03;
