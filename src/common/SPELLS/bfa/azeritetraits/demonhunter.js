@@ -47,6 +47,21 @@ export default {
     icon: 'ability_demonhunter_chaosstrike',
   },
 
-  //Shared
 
+  //Shared
+  INFERNAL_ARMOR: {
+    id: 273236,
+    name: 'Infernal Armor',
+    icon: 'ability_demonhunter_immolation',
+  },
+  INFERNAL_ARMOR_BUFF: {
+    id: 273238,
+    name: 'Infernal Armor',
+    icon: 'ability_demonhunter_immolation',
+  },
+  INFERNAL_ARMOR_DAMAGE: {
+    id: 273239,
+    name: 'Infernal Armor',
+    icon: 'ability_demonhunter_immolation',
+  },
 };
