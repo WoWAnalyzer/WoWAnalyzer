@@ -36,6 +36,7 @@ import SigilOfFlame from './modules/spells/SigilOfFlame';
 import SoulCleaveSoulsConsumed from './modules/spells/SoulCleaveSoulsConsumed';
 
 // Azerite traits
+import RevelInPain from './modules/spells/azeritetraits/RevelInPain';
 import InfernalArmor from './modules/spells/azeritetraits/InfernalArmor';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulFragmentsConsume: SoulFragmentsConsume,
 
     // Azerite Traits
+    revelInPain: RevelInPain,
     infernalArmor: InfernalArmor,
   };
 
