@@ -8,7 +8,6 @@ import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 /*  Example log:
  *  https://www.warcraftlogs.com/reports/KhynM7v96cZkTBdg#fight=6&type=damage-done&source=78
@@ -65,16 +64,6 @@ class FrothingBerserker extends Analyzer {
   }
 
   suggestions(when) {
-    when(true).isTrue().addSuggestion((suggest) => {
-      return suggest(
-        <>
-          You are currently using <SpellLink id={SPELLS.FROTHING_BERSERKER_TALENT.id} />. It is highly recommended to talent into <SpellLink id={SPELLS.CARNAGE_TALENT.id} />, as there are currently no situations in which <SpellLink id={SPELLS.FROTHING_BERSERKER_TALENT.id} /> outperforms <SpellLink id={SPELLS.CARNAGE_TALENT.id} />.
-        </>,
-      )
-        .icon(SPELLS.CARNAGE_TALENT.icon)
-        .staticImportance(SUGGESTION_IMPORTANCE.REGULAR);
-    });
-
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</>)
