@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { Yajinni, Mamtooth } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Torothin } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 3, 20), <>Added <SpellLink id={SPELLS.REVEL_IN_PAIN.id} /> azerite trait.</>, [Torothin]),
+  change(date(2020, 3, 13), <>Added <SpellLink id={SPELLS.INFERNAL_ARMOR.id} /> azerite trait.</>, [Torothin]),
   change(date(2018, 11, 15), <>Improved tracking of <SpellLink id={SPELLS.FEED_THE_DEMON_TALENT.id} /> talent.</>, [Yajinni]),
   change(date(2018, 8, 5), <>Added stat box for <SpellLink id={SPELLS.FEED_THE_DEMON_TALENT.id} /> showing amount of CD reduction it provides.</>, [Yajinni]),
   change(date(2018, 8, 5), <>Added stat box for <SpellLink id={SPELLS.GLUTTONY_TALENT.id} /> showing number of procs.</>, [Yajinni]),
