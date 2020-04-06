@@ -86,8 +86,9 @@ class OverpowerAnalyzer extends Analyzer {
         )}
         tooltip={(
           <>
-            If Overpower is casted with two buffs applied 
-            then a buff is considered wasted, when not in execute phase
+            The overpower buff caps at two stacks.  When at cap, casting Overpower will waste a buff stack.
+            This is not important during execute phase as Mortal Strike is replaced with Execute which does not
+            consume Overpower buff stacks.
           </>
         )}
       />
