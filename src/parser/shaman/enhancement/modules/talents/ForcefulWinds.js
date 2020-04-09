@@ -5,7 +5,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 
@@ -44,7 +44,7 @@ class ForcefulWinds extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
         icon={<SpellIcon id={SPELLS.FORCEFUL_WINDS_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
