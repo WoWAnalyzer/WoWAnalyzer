@@ -15,25 +15,15 @@ class LightningShield extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id);
   }
 
-  isEventLightningShield(event) {
-    switch (event.ability.guid) {
-      case SPELLS.LIGHTNING_SHIELD_OVERCHARGE.id:
-      case SPELLS.LIGHTNING_SHIELD.id:
-        return true;
-      default:
-        return false;
-    }
-  }
-
   on_byPlayer_damage(event) {
-    if (this.isEventLightningShield(event) === false) {
+    if (event.ability.guid !== SPELLS.LIGHTNING_SHIELD.id) {
       return;
     }
     this.damageGained += event.amount;
   }
 
   on_byPlayer_energize(event) {
-    if (this.isEventLightningShield(event) === false) {
+    if (event.ability.guid !== SPELLS.LIGHTNING_SHIELD.id) {
       return;
     }
     this.maelstromGained += event.amount;
@@ -47,16 +37,29 @@ class LightningShield extends Analyzer {
     return this.damageGained / (this.owner.fightDuration / 1000);
   }
 
-  suggestions(when) {
-    const lightningUptime = this.selectedCombatant.getBuffUptime(SPELLS.LIGHTNING_SHIELD_TALENT.id) / this.owner.fightDuration;
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.LIGHTNING_SHIELD_TALENT.id) / this.owner.fightDuration;
+  }
 
-    when(lightningUptime).isLessThan(0.95)
+  get suggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 1,
+        average: 0.99,
+        major: 0.95,
+      },
+      style: 'decimal',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You should fully utilize your <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> by using it before combat.</span>)
           .icon(SPELLS.LIGHTNING_SHIELD_TALENT.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
-          .recommended(`${(formatPercentage(recommended, 0))}% is recommended`)
-          .major(recommended - 0.5);
+          .recommended(`${(formatPercentage(recommended, 0))}% is recommended`);
       });
   }
 

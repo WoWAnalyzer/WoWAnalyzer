@@ -8,10 +8,7 @@ import Analyzer from 'parser/core/Analyzer';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-
-const FORCEFUL_WINDS = {
-  INCREASE: 0.8,
-};
+const FORCEFUL_WINDS_INCREATE = 0.8;
 
 class ForcefulWinds extends Analyzer {
 
@@ -31,7 +28,7 @@ class ForcefulWinds extends Analyzer {
       return;
     }
     const stacks = buff.stacks || 0;
-    this.damageGained += calculateEffectiveDamage(event, stacks*FORCEFUL_WINDS.INCREASE);
+    this.damageGained += calculateEffectiveDamage(event, stacks * FORCEFUL_WINDS_INCREATE);
   }
 
   get damagePercent() {

@@ -627,11 +627,6 @@ export default {
     name: 'Landslide',
     icon: 'inv_ore_blackrock_nugget',
   },
-  LIGHTNING_SHIELD_OVERCHARGE:{
-    id: 273323,
-    name: 'Lightning Shield Overcharge',
-    icon: 'spell_nature_lightningshield',
-  },
   LIGHTNING_SHIELD:{
     id: 273324,
     name: 'Lightning Shield',
