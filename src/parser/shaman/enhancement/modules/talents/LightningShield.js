@@ -1,6 +1,5 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
@@ -21,8 +20,9 @@ class LightningShield extends Analyzer {
       case SPELLS.LIGHTNING_SHIELD_OVERCHARGE.id:
       case SPELLS.LIGHTNING_SHIELD.id:
         return true;
+      default:
+        return false;
     }
-    return false;
   }
 
   on_byPlayer_damage(event) {
