@@ -10,7 +10,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 
 const FORCEFUL_WINDS = {
-  INCREASE: 1,
+  INCREASE: 0.8,
 };
 
 class ForcefulWinds extends Analyzer {
