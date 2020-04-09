@@ -433,6 +433,10 @@ export const HawkCorrigan = {
   nickname: 'HawkCorrigan',
   github: 'HawkCorrigan',
 };
+export const Vetyst = {
+  nickname: 'Vetyst',
+  github: 'djanse',
+};
 export const Anatta336 = {
   nickname: 'Anatta336',
   github: 'Anatta336',

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { HawkCorrigan, niseko, mtblanton, Draenal } from 'CONTRIBUTORS';
+import { HawkCorrigan, niseko, mtblanton, Draenal, Vetyst } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 4, 9), <>Updated damage gained from <SpellLink id={SPELLS.FORCEFUL_WINDS_TALENT.id} />.</>, [niseko]),
-  change(date(2020, 4, 9), <>Fixed Not being loaded <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} />.</>, [niseko]),
+  change(date(2020, 4, 9), <>Updated damage gained from <SpellLink id={SPELLS.FORCEFUL_WINDS_TALENT.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 9), <>Fixed Not being loaded <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} />.</>, [Vetyst]),
   change(date(2020, 2, 28), <>Added a statistic for <SpellLink id={SPELLS.ANCESTRAL_RESONANCE.id} />.</>, [niseko]),
   change(date(2019, 11, 28), <>Added a statistic for <SpellLink id={SPELLS.NATURAL_HARMONY_TRAIT.id} /> to track avg crit, haste, mastery and uptime for each</>, [Draenal]),
   change(date(2019, 10, 31), <>Add a suggestion for Lightning Shield uptime</>, [HawkCorrigan]),
