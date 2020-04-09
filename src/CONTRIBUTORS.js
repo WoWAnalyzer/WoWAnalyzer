@@ -436,6 +436,13 @@ export const HawkCorrigan = {
 export const Vetyst = {
   nickname: 'Vetyst',
   github: 'djanse',
+  discord: 'vetyst#0001',
+  avatar: require('./interface/images/avatars/vetyst-avatar.png'),
+  mains: [{
+    name: 'Vetyst',
+    spec: SPECS.BALANCE_DRUID,
+    link: 'https://worldofwarcraft.com/en-gb/character/tarren-mill/vetyst',
+  }],
 };
 export const Anatta336 = {
   nickname: 'Anatta336',
