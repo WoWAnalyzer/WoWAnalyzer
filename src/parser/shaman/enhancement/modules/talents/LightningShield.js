@@ -50,13 +50,13 @@ class LightningShield extends Analyzer {
   suggestions(when) {
     const lightningUptime = this.selectedCombatant.getBuffUptime(SPELLS.LIGHTNING_SHIELD_TALENT.id) / this.owner.fightDuration;
 
-    when(lightningUptime).isLessThan(1.0)
+    when(lightningUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You should fully utilize your <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> by using it before combat.</span>)
           .icon(SPELLS.LIGHTNING_SHIELD_TALENT.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${(formatPercentage(recommended, 0))}% is recommended`)
-          .major(recommended);
+          .major(recommended - 0.5);
       });
   }
 
