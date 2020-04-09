@@ -16,6 +16,7 @@ import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Hailstorm from './modules/talents/Hailstorm';
 import HotHand from './modules/talents/HotHand';
 import Landslide from './modules/talents/Landslide';
+import LightningShield from './modules/talents/LightningShield';
 import SearingAssault from './modules/talents/SearingAssault';
 import Sundering from './modules/talents/Sundering';
 import TotemMastery from './modules/talents/TotemMastery';
@@ -56,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hailstorm: Hailstorm,
     hotHand: HotHand,
     landslide: Landslide,
+    lightningShield: LightningShield,
     searingAssault: SearingAssault,
     sundering: Sundering,
     totemMastery: TotemMastery,

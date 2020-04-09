@@ -632,6 +632,11 @@ export default {
     name: 'Lightning Shield Overcharge',
     icon: 'spell_nature_lightningshield',
   },
+  LIGHTNING_SHIELD:{
+    id: 273324,
+    name: 'Lightning Shield',
+    icon: 'spell_nature_lightningshield',
+  },
   FORCEFUL_WINDS_BUFF: {
     id: 262652,
     name: 'Forceful Winds Buff',
