@@ -313,7 +313,7 @@ export default {
     icon: 'spell_frost_frostshock',
   },
   FROST_SHOCK_ENERGIZE: {
-    icon: "spell_frost_frostshock.jpg",
+    icon: "spell_frost_frostshock",
     id: 289439,
     name: "Frost Shock",
   },
@@ -348,7 +348,7 @@ export default {
     icon: "ability_shaman_ascendance",
   },
   THUNDERSTORM: {
-    icon: "spell_shaman_thunderstorm.jpg",
+    icon: "spell_shaman_thunderstorm",
     id: 51490,
     name: "Thunderstorm",
   },
@@ -503,7 +503,7 @@ export default {
   LIGHTNING_BOLT_ENHANCE: {
     name: "Lightning Bolt",
     id: 187837,
-    abilityIcon: "spell_nature_lightning.jpg",
+    icon: "spell_nature_lightning",
   },
   FERAL_LUNGE: {
     id: 196881,
