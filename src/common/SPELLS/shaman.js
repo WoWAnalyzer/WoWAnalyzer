@@ -403,6 +403,7 @@ export default {
     id: 196834,
     name: 'Frostbrand',
     icon: 'spell_shaman_unleashweapon_frost',
+    maelstrom: 20,
   },
   FLAMETONGUE: {
     id: 193796,
@@ -449,7 +450,7 @@ export default {
     id: 17364,
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
-    maelstrom: 40,
+    maelstrom: 30,
   },
   STORMSTRIKE_BUFF: {
     id: 32175,
@@ -460,7 +461,7 @@ export default {
     id: 60103,
     name: 'Lava Lash',
     icon: 'ability_shaman_lavalash',
-    maelstrom: 30,
+    maelstrom: 40,
   },
   DOOM_WINDS: {
     id: 204945,
