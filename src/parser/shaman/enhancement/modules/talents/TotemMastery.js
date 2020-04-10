@@ -1,13 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 
 const BUFF_TOTEM_RESONANCE_SPELL_ID = 262419;
 const BUFF_TOTEM_EMBER_SPELL_ID = 262398;
@@ -58,8 +57,8 @@ class TotemMastery extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id} />}
+      <TalentStatisticBox
+        talent={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id}
         value={`${formatPercentage(this.minUptime)} %`}
         label="Uptime"
         tooltip={`With ${this.casts} infight cast${this.casts > 1 ? 's' : ''}.`}

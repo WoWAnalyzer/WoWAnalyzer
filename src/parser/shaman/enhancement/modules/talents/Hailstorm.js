@@ -1,6 +1,5 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
@@ -32,7 +31,7 @@ class Hailstorm extends Analyzer {
     const frostbrandUptime = this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.FROSTBRAND.id} />}
+        talent={SPELLS.FROSTBRAND.id}
         value={`${formatPercentage(frostbrandUptime)} %`}
         label="Frostbrand Uptime"
         tooltip="One of your highest priorities, get as close to 100% as possible"

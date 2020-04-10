@@ -1,6 +1,5 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
@@ -61,7 +60,7 @@ class FuryOfAir extends Analyzer {
     const furyofairUptime = this.selectedCombatant.getBuffUptime(FURY_ID) / this.owner.fightDuration;
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={FURY_ID} />}
+        talent={FURY_ID}
         value={`${formatPercentage(furyofairUptime)} %`}
         label="Fury of Air uptime"
         tooltip="One of your highest priorities, get as close to 100% as possible"

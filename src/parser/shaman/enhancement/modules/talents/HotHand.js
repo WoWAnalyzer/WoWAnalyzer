@@ -1,11 +1,10 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 const HOT_HAND = {
@@ -45,8 +44,8 @@ class HotHand extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HOT_HAND_TALENT.id} />}
+      <TalentStatisticBox
+        talent={SPELLS.HOT_HAND_TALENT.id}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
         tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
