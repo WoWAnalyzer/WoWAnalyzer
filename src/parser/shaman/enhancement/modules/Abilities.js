@@ -83,6 +83,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        isUndetectable: true,
       },
       {
         spell: SPELLS.WIND_SHEAR,
@@ -162,6 +163,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 60,
+        isUndetectable: true,
       },
       {
         spell: SPELLS.EARTHBIND_TOTEM,
@@ -170,6 +172,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 30,
+        isUndetectable: true,
       },
       {
         spell: SPELLS.TREMOR_TOTEM,
@@ -178,6 +181,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 60,
+        isUndetectable: true,
       },
       {
         spell: SPELLS.WIND_RUSH_TOTEM_TALENT,
@@ -194,6 +198,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        isUndetectable: true,
       },
       {
         spell: SPELLS.PURGE,
@@ -201,6 +206,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        isUndetectable: true,
       },
       {
         spell: SPELLS.HEX,
@@ -209,6 +215,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        isUndetectable: true,
       },
       {
         spell: SPELLS.CLEANSE_SPIRIT,
@@ -217,6 +224,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        isUndetectable: true,
       },
       {
         spell: SPELLS.ASTRAL_SHIFT,
@@ -251,6 +259,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0,
         },
+        isUndetectable: true,
       },
       {
         spell: SPELLS.REINCARNATION,
@@ -258,13 +267,14 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        isUndetectable: true,
       },
       {
         spell: [SPELLS.BLOODLUST, SPELLS.HEROISM],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: null,
+        isUndetectable: true,
       },
-
       {
         spell: SPELLS.BERSERKING,
         buffSpellId: SPELLS.BERSERKING.id,
