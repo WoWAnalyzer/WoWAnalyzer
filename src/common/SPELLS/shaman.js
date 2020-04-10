@@ -90,6 +90,11 @@ export default {
     name: 'Earth Elemental',
     icon: 'spell_nature_earthelemental_totem',
   },
+  CLEANSE_SPIRIT: {
+    id: 51886,
+    name: 'Cleanse Spirit',
+    icon: 'ability_shaman_cleansespirit',
+  },
   // Hex and its variations
   HEX: {
     id: 51514,
