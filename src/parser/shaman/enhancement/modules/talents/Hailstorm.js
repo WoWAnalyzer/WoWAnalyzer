@@ -5,7 +5,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 class Hailstorm extends Analyzer {
 
@@ -31,7 +31,7 @@ class Hailstorm extends Analyzer {
   statistic() {
     const frostbrandUptime = this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
     return (
-      <StatisticBox
+      <TalentStatisticBox
         icon={<SpellIcon id={SPELLS.FROSTBRAND.id} />}
         value={`${formatPercentage(frostbrandUptime)} %`}
         label="Frostbrand Uptime"
