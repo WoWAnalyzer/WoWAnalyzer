@@ -201,6 +201,14 @@ class Abilities extends CoreAbilities {
         isUndetectable: true,
       },
       {
+        spell: SPELLS.WINDSTRIKE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.PURGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
