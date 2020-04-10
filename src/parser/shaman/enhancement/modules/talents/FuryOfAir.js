@@ -5,7 +5,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 const FURY_OF_AIR_MAELSTROM_COST = SPELLS.FURY_OF_AIR_TALENT.maelstrom;
 const FURY_ID = SPELLS.FURY_OF_AIR_TALENT.id;
@@ -60,7 +60,7 @@ class FuryOfAir extends Analyzer {
   statistic() {
     const furyofairUptime = this.selectedCombatant.getBuffUptime(FURY_ID) / this.owner.fightDuration;
     return (
-      <StatisticBox
+      <TalentStatisticBox
         icon={<SpellIcon id={FURY_ID} />}
         value={`${formatPercentage(furyofairUptime)} %`}
         label="Fury of Air uptime"
