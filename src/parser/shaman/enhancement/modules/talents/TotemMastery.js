@@ -65,7 +65,7 @@ class TotemMastery extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  position = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default TotemMastery;

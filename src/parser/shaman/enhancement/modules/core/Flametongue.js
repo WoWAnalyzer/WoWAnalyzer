@@ -32,7 +32,7 @@ class Flametongue extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  position = STATISTIC_ORDER.CORE(3);
 }
 
 export default Flametongue;
