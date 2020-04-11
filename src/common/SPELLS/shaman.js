@@ -446,16 +446,37 @@ export default {
     name: 'Crackling Surge',
     icon: 'spell_beastmaster_wolf',
   },
-  STORMSTRIKE: {
+  STORMSTRIKE_CAST: {
     id: 17364,
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
     maelstrom: 30,
   },
-  STORMSTRIKE_BUFF: {
+  STORMSTRIKE_ATTACK: {
     id: 32175,
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
+  },
+  STORMSTRIKE_ATTACK_OFFHAND: {
+    id: 32176,
+    name: 'Stormstrike Off-Hand',
+    icon: 'ability_shaman_stormstrike',
+  },
+  WINDSTRIKE_CAST: {
+    id: 115356,
+    name: 'Windstrike',
+    icon: 'ability_skyreach_four_wind',
+    maelstrom: 30,
+  },
+  WINDSTRIKE_ATTACK: {
+    id: 115357,
+    name: 'Windstrike',
+    icon: 'ability_skyreach_four_wind',
+  },
+  WINDSTRIKE_ATTACK_OFFHAND: {
+    id: 115360,
+    name: 'Windstrike Off-Hand',
+    icon: 'ability_skyreach_four_wind',
   },
   LAVA_LASH: {
     id: 60103,
@@ -482,12 +503,6 @@ export default {
     id: 187890,
     name: 'Maelstrom Weapon',
     icon: 'spell_shaman_maelstromweapon',
-  },
-  WINDSTRIKE: {
-    id: 115356,
-    name: 'Windstrike',
-    icon: 'ability_skyreach_four_wind',
-    maelstrom: 10, // 30 Maelstrom - 66% (20) = 10
   },
   DOOM_VORTEX: {
     id: 199116,
@@ -583,25 +598,10 @@ export default {
     name: 'Flametongue Attack',
     icon: 'spell_shaman_unleashweapon_flame',
   },
-  WINDSTRIKE_OFFHAND: {
-    id: 115360,
-    name: 'Windstrike Off-Hand',
-    icon: 'ability_skyreach_four_wind',
-  },
-  STORMSTRIKE_OFFHAND: {
-    id: 32176,
-    name: 'Stormstrike Off-Hand',
-    icon: 'ability_shaman_stormstrike',
-  },
   CRASH_LIGHTNING_BUFF: {
     id: 195592,
     name: 'Crash Lightning',
     icon: 'spell_shaman_crashlightning',
-  },
-  WINDSTRIKE_BUFF: {
-    id: 115357,
-    name: 'Windstrike',
-    icon: 'ability_skyreach_four_wind',
   },
   SPIRIT_OF_THE_MAELSTROM: {
     id: 204880,

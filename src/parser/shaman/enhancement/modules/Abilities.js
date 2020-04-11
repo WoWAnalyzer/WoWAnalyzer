@@ -50,7 +50,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
           extraSuggestion: (
             <>
-              The total damage that it deals is equal to 2-3 GCDs. Additionally their attacks have a chance to trigger <SpellLink id={SPELLS.STORMBRINGER.id} />, weapon enchantments, azerite traits and essence effects. (Corruption effects have not been confirmed.)
+              The total damage that it deals is equal to 2-3 GCDs. Additionally their attacks have a chance to trigger <SpellLink id={SPELLS.STORMBRINGER_BUFF.id} />, weapon enchantments, azerite traits and essence effects. (Corruption effects have not been confirmed.)
             </>
           ),
         },
@@ -116,7 +116,7 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 12 / (1 + haste),
       },
       {
-        spell: SPELLS.STORMSTRIKE,
+        spell: SPELLS.STORMSTRIKE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 9 / (1 + haste),
         gcd: {
@@ -201,9 +201,10 @@ class Abilities extends CoreAbilities {
         isUndetectable: true,
       },
       {
-        spell: SPELLS.WINDSTRIKE,
+        spell: SPELLS.WINDSTRIKE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
+        cooldown: haste => 3 / (1 + haste),
         gcd: {
           base: 1500,
         },
