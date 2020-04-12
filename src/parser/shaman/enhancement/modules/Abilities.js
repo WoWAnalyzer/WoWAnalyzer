@@ -3,10 +3,12 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SpellLink from 'common/SpellLink';
 import React from 'react';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
+
     return [
       {
         spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
@@ -208,6 +210,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          maxCasts: cooldown => calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id)),
+        },
       },
       {
         spell: SPELLS.PURGE,
@@ -283,17 +290,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: null,
         isUndetectable: true,
-      },
-      {
-        spell: SPELLS.BERSERKING,
-        buffSpellId: SPELLS.BERSERKING.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        isUndetectable: true,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-        },
       },
       {
         spell: [SPELLS.BLOOD_FURY_PHYSICAL, SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL, SPELLS.BLOOD_FURY_SPELL],
