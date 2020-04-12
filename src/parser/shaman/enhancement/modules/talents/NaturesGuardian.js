@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import { formatThousands, formatNumber } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
@@ -23,6 +23,10 @@ class NaturesGuardian extends Analyzer {
     this.healthGained += event.amount;
   }
 
+  get healingPercent() {
+    return this.owner.getPercentageOfTotalHealingDone(this.healthGained);
+  }
+
   get healingPerSecond() {
     return this.healthGained / this.owner.fightDuration * 1000;
   }
@@ -31,10 +35,14 @@ class NaturesGuardian extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.NATURES_GUARDIAN_TALENT.id}
-        value={`${formatThousands(this.healingPerSecond)} HPS`}
-        label="Nature's Guardian healing"
+        value={`${formatPercentage(this.healingPercent)} %`}
+        label="Nature's Guardian Healing"
         tooltip={<>
-          Nature's Guardian was used <strong>{this.procCount}</strong> time(s) and healed you for a total of <strong>{formatNumber(this.healthGained)}</strong>.
+          Nature's Guardian was used <strong>{this.procCount}</strong> time(s) and healed you for:
+          <ul>
+            <li><strong>{formatNumber(this.healingPerSecond)}</strong> HPS</li>
+            <li><strong>{formatNumber(this.healthGained)}</strong></li>
+          </ul>
         </>}
       />
     );

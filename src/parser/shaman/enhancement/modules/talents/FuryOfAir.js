@@ -62,7 +62,7 @@ class FuryOfAir extends Analyzer {
       <TalentStatisticBox
         talent={FURY_ID}
         value={`${formatPercentage(furyofairUptime)} %`}
-        label="Fury of Air uptime"
+        label="Fury of Air Uptime"
         tooltip="One of your highest priorities, get as close to 100% as possible"
       />
     );

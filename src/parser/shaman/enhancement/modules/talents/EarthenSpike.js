@@ -51,7 +51,7 @@ class EarthenSpike extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.EARTHEN_SPIKE_TALENT.id}
         value={`${formatPercentage(this.damagePercent)} %`}
-        label="Of total damage"
+        label="Earthen Spike Damage"
         tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
       />
     );

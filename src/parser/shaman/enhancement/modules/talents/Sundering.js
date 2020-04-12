@@ -49,7 +49,7 @@ class Sundering extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.SUNDERING_TALENT.id}
         value={`${formatPercentage(this.damagePercent)} %`}
-        label="Of total damage"
+        label="Sundering Damage"
         tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage). Average Number of Targets hit: ${this.averageHitsPerCasts}.`}
       />
     );

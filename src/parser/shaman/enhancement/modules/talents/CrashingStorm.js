@@ -35,7 +35,7 @@ class CrashingStorm extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.CRASHING_STORM_TALENT.id}
         value={`${formatPercentage(this.damagePercent)} %`}
-        label="Of total damage"
+        label="Crashing Storm Damage"
         tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
       />
     );

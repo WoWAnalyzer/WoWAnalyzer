@@ -60,7 +60,7 @@ class TotemMastery extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id}
         value={`${formatPercentage(this.minUptime)} %`}
-        label="Uptime"
+        label="Totem Mastery Uptime"
         tooltip={`With ${this.casts} infight cast${this.casts > 1 ? 's' : ''}.`}
       />
     );

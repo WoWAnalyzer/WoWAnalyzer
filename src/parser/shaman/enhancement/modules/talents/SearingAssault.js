@@ -36,7 +36,7 @@ class SearingAssault extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.SEARING_ASSAULT_TALENT.id}
         value={`${formatPercentage(this.damagePercent)} %`}
-        label="Of total damage"
+        label="Searing Assualt Damage"
         tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
       />
     );

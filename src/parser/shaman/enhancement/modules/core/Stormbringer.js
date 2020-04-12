@@ -112,9 +112,9 @@ class Stormbringer extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.STORMBRINGER_BUFF.id} />}
         value={<>
-          {formatPercentage(this.damagePercent)} % / {formatNumber(this.damagePerSecond)} DPS
+          {formatPercentage(this.damagePercent)} %
         </>}
-        label="Stormbringer Contribution"
+        label="Stormbringer Damage"
         tooltip={<>
           Strombringer is a passive ability of the Enhancment Shaman. The chance for this to proc is increased by your Mastery. Stormbringer has contributed: <br />
           <ul>

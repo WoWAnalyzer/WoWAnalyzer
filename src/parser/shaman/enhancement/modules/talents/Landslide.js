@@ -74,7 +74,7 @@ class Landslide extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.LANDSLIDE_TALENT.id}
         value={`${formatPercentage(this.damagePercent)} %`}
-        label="Landslide Contribution"
+        label="Landslide Damage"
         tooltip={<>
           Contributed {formatNumber(this.damagePerSecond)} DPS ({formatNumber(this.damageGained)} total damage). <br />
           You've used <strong>{this.procUses}</strong> out of <strong>{this.procCount}</strong> total procs.

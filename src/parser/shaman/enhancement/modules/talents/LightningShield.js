@@ -68,7 +68,7 @@ class LightningShield extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.LIGHTNING_SHIELD_TALENT.id}
         value={`${formatPercentage(this.damagePercent)} %`}
-        label="Of total damage"
+        label="Lightning Shield Damage"
         tooltip={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).`}
       />
     );
