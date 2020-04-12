@@ -18,7 +18,6 @@ class Stormbringer extends Analyzer {
   damageGained = 0;
   procCount = 0;
   procUses = 0;
-  refreshCount = 0;
 
   resetCooldowns() {
     if(this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)){
@@ -30,11 +29,16 @@ class Stormbringer extends Analyzer {
     }
   }
 
-  on_byPlayer_cast() {
+  on_byPlayer_cast(event) {
+    if (event.ability.guid!==SPELLS.STORMSTRIKE_CAST.id && event.ability.guid !== SPELLS.WINDSTRIKE_CAST.id) {
+      return;
+    }
+
     if(!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER_BUFF.id)){
       return;
     }
 
+    this.procUses++;
     this.resetCooldowns();
   }
 
@@ -44,7 +48,6 @@ class Stormbringer extends Analyzer {
     }
 
     this.procCount++;
-    this.refreshCount++;
 
     this.resetCooldowns();
   }
@@ -71,8 +74,6 @@ class Stormbringer extends Analyzer {
       return;
     }
 
-    // Stormbringer will apply to both the main and off-hand attack.
-    this.procUses += 0.5;
     this.damageGained += calculateEffectiveDamage(event, STORMBRINGER_DAMAGE_MODIFIER);
   }
 
@@ -113,7 +114,7 @@ class Stormbringer extends Analyzer {
         value={<>
           {formatPercentage(this.damagePercent)} % / {formatNumber(this.damagePerSecond)} DPS
         </>}
-        label="Stormbringer contribution"
+        label="Stormbringer Contribution"
         tooltip={<>
           Strombringer is a passive ability of the Enhancment Shaman. The chance for this to proc is increased by your Mastery. Stormbringer has contributed: <br />
           <ul>
