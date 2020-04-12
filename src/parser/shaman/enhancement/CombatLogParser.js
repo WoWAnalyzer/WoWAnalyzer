@@ -20,6 +20,7 @@ import EarthShield from '../shared/talents/EarthShield';
 import StaticCharge from '../shared/talents/StaticCharge';
 import SearingAssault from './modules/talents/SearingAssault';
 import Hailstorm from './modules/talents/Hailstorm';
+import NaturesGuardian from './modules/talents/NaturesGuardian';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import FuryOfAir from './modules/talents/FuryOfAir';
 import Sundering from './modules/talents/Sundering';
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     staticCharge: StaticCharge,
     searingAssault: SearingAssault,
     hailstorm: Hailstorm,
+    naturesGuardian: NaturesGuardian,
     crashingStorm: CrashingStorm,
     furyOfAir: FuryOfAir,
     sundering: Sundering,
