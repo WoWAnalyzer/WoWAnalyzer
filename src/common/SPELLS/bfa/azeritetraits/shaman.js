@@ -147,4 +147,14 @@ export default {
     name: 'Turn of the Tide',
     icon: 'spell_shaman_tidalwaves',
   },
+  ANCESTRAL_RESONANCE: {
+    id: 277666,
+    name: 'Ancestral Resonance',
+    icon: 'spell_shaman_improvedreincarnation',
+  },
+  ANCESTRAL_RESONANCE_BUFF: {
+    id: 277943,
+    name: 'Ancestral Resonance',
+    icon: 'spell_shaman_improvedreincarnation',
+  },
 };

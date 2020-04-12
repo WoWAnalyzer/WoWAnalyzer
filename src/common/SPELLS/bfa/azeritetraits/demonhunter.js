@@ -36,7 +36,43 @@ export default {
     name: 'Revolving Blades',
     icon: 'ability_demonhunter_bladedance',
   },
+  THIRSTING_BLADES: {
+    id: 278493,
+    name: 'Thirsting Blades',
+    icon: 'ability_demonhunter_chaosstrike',
+  },
+  THIRSTING_BLADES_BUFF: {
+    id: 278736,
+    name: 'Thirsting Blades',
+    icon: 'ability_demonhunter_chaosstrike',
+  },
+
+  // Vengeance
+  REVEL_IN_PAIN: {
+    id: 272983,
+    name: 'Revel in Pain',
+    icon: 'ability_demonhunter_fierybrand',
+  },
+  REVEL_IN_PAIN_BUFF: {
+    id: 272987,
+    name: 'Revel in Pain',
+    icon: 'ability_demonhunter_fierybrand',
+  },
 
   //Shared
-
+  INFERNAL_ARMOR: {
+    id: 273236,
+    name: 'Infernal Armor',
+    icon: 'ability_demonhunter_immolation',
+  },
+  INFERNAL_ARMOR_BUFF: {
+    id: 273238,
+    name: 'Infernal Armor',
+    icon: 'ability_demonhunter_immolation',
+  },
+  INFERNAL_ARMOR_DAMAGE: {
+    id: 273239,
+    name: 'Infernal Armor',
+    icon: 'ability_demonhunter_immolation',
+  },
 };

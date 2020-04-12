@@ -52,6 +52,7 @@ import RefreshingJadeWind from './modules/talents/RefreshingJadeWind';
 import Lifecycles from './modules/talents/Lifecycles';
 import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
 import RisingMist from './modules/talents/RisingMist';
+import AverageTimeBetweenRSKSs from './modules/talents/AverageTimeBetweenRSKs';
 import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaTea';
 import Tier45Comparison from './modules/talents/Tier45Comparison';
 import Upwelling from './modules/talents/Upwelling';
@@ -60,6 +61,7 @@ import Upwelling from './modules/talents/Upwelling';
 import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
 import UpliftedSpirits from './modules/spells/azeritetraits/UpliftedSpirits';
 import SecretInfusion from './modules/spells/azeritetraits/SecretInfusion';
+import MistyPeaks from './modules/spells/azeritetraits/MistyPeaks';
 
 //essences
 import WayOfTheCrane from './modules/spells/essences/WayOfTheCrane';
@@ -105,6 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryStats: MasteryStats,
     buffs: Buffs,
     essenceFontHealingBreakDown: EssenceFontHealingBreakdown,
+    averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
 
     // Spells
     essenceFont: EssenceFont,
@@ -133,6 +136,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fontOfLife: FontOfLife,
     upliftedSpirits: UpliftedSpirits,
     secretInfusion: SecretInfusion,
+    mistyPeaks: MistyPeaks,
 
     // Essences
     lucidDreams: LucidDreams,

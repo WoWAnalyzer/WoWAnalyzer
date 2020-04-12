@@ -1,15 +1,16 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import ITEMS from 'common/ITEMS';
-
 import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+
+//https://www.warcraftlogs.com/reports/9Vw8TvjHNfXgWyP7#fight=19&type=summary&source=21 2+ cold steel hot blood
 
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
+    let btThreashhold = .3;
+    if(this.selectedCombatant.hasTrait(SPELLS.COLD_STEEL_HOT_BLOOD.id)){
+      btThreashhold = this.selectedCombatant.traitsBySpellId[SPELLS.COLD_STEEL_HOT_BLOOD.id].length > 1 ? .85 : .3;
+    }
     return [
       // Rotational
       {
@@ -21,7 +22,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.3,
+          recommendedEfficiency: btThreashhold,
         },
       },
       {
@@ -174,14 +175,8 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         buffSpellId: SPELLS.BOUNDING_STRIDE_BUFF.id,
         cooldown: 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
-        charges: 1 + (combatant.hasShoulder(ITEMS.TIMELESS_STRATAGEM.id) ? 2 : 0),
+        charges: 1,
         gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.1,
-          importance: ISSUE_IMPORTANCE.MINOR,
-          extraSuggestion: <>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</>,
-        },
       },
       {
         spell: SPELLS.STORM_BOLT_TALENT,

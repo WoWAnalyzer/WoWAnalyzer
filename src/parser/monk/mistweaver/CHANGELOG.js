@@ -6,6 +6,9 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 4, 1), <>Added average haste gained statistic from <SpellLink id={SPELLS.MISTY_PEAKS.id} /> azerite trait. </>,FraunchToost),
+  change(date(2020, 3, 22), <>Fixed <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> healing for hot extensions. </>,Abelito75),
+  change(date(2020, 3, 5), <>Added average time between <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> casts statistic when <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> is talented. </>,FraunchToost),
   change(date(2020, 2, 27), <>Bugfix to only show <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> cast efficiency suggestion when <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> is talented. </>,FraunchToost),
   change(date(2020, 1, 8), <>Updated for 8.3 </>,Abelito75),
   change(date(2020, 1, 8), <>Updated stat weight calculation for <SpellLink id={SPELLS.RISING_MIST_TALENT.id} />, added new essence font statistic, tft rsk with rm is a correct use of tft now. </>,Abelito75),

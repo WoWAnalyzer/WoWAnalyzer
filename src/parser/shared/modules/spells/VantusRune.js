@@ -12,6 +12,7 @@ import Analyzer from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 // https://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29:21;42:2;0:80100
 const VANTUS_RUNE_VERSATILITY = 277;
@@ -25,6 +26,7 @@ const runes = [
   ITEMS.VANTUS_RUNE_BATTLE_OF_DAZARALOR,
   ITEMS.VANTUS_RUNE_CRUCIBLE_OF_STORMS,
   ITEMS.VANTUS_RUNE_ETERNAL_PALACE,
+  ITEMS.VANTUS_RUNE_NYALOTHA,
 ];
 
 /**
@@ -37,6 +39,7 @@ class VantusRune extends Analyzer {
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,
+    statTracker: StatTracker,
   };
 
   activeRune = null;
@@ -60,11 +63,12 @@ class VantusRune extends Analyzer {
           that.masterRune = rune;
         }
       });
+      // StatTracker ignores the buff because its active on pull, but the stats aren't actually in the pull stats
+      this.statTracker.forceChangeStats({versatility: VANTUS_RUNE_VERSATILITY}, vantusRuneBuffId, true);
     }
     if(this.masterRune === null) {//default to the icon to current tier
       this.masterRune = runes[runes.length - 1];
     }
-
   }
 
   statistic() {

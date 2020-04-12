@@ -60,6 +60,7 @@ export default {
     name: 'The Ever-Rising Tide',
     icon: 'inv_elemental_mote_mana',
   },
+  //Well of Existence
   WELL_OF_EXISTENCE: {
     id: 299936,
     traitId: 19,
@@ -144,6 +145,11 @@ export default {
   WORLDVEIN_RESONANCE: {
     id: 295186,
     traitId: 4,
+    name: 'Worldvein Resonance',
+    icon: 'inv_misc_azerite_01',
+  },
+  WORLDVEIN_RESONANCE_BUFF: {
+    id: 313310,
     name: 'Worldvein Resonance',
     icon: 'inv_misc_azerite_01',
   },
@@ -420,5 +426,48 @@ export default {
     id: 312915,
     name: 'Symbiotic Presence',
     icon: 'ability_essence_replicaofknowledge',
+  },
+
+  // Essence of the Focusing Iris
+  ESSENCE_OF_THE_FOCUSING_IRIS: {
+    id: 295258,
+    traitId: 5,
+    name: 'Focused Azerite Beam',
+    icon: 'spell_azerite_essence12',
+  },
+  ESSENCE_OF_THE_FOCUSING_IRIS_RANK_TWO: {
+    id: 299336,
+    name: 'Focused Azerite Beam',
+    icon: 'spell_azerite_essence12',
+  },
+  ESSENCE_OF_THE_FOCUSING_IRIS_RANK_THREE_FOUR: {
+    id: 299338,
+    name: 'Focused Azerite Beam',
+    icon: 'spell_azerite_essence12',
+  },
+  FOCUSED_AZERITE_BEAM_DAMAGE: { //The major from Focusing Iris
+    id: 295261,
+    name: 'Focused Azerite Beam',
+    icon: 'spell_azerite_essence12',
+  },
+  FOCUSED_ENERGY_RANK_ONE: {
+    id: 295246,
+    name: 'Focused Energy',
+    icon: 'inv_azerite-area-denial',
+  },
+  FOCUSED_ENERGY_RANK_TWO: {
+    id: 299335,
+    name: 'Focused Energy',
+    icon: 'inv_azerite-area-denial',
+  },
+  FOCUSED_ENERGY_RANK_THREE_FOUR: {
+    id: 299337,
+    name: 'Focused Energy',
+    icon: 'inv_azerite-area-denial',
+  },
+  FOCUSED_ENERGY_BUFF: { //The buff from the minor of Focusing Iris
+    id: 295248,
+    name: 'Focused Energy',
+    icon: 'inv_azerite-area-denial',
   },
 };
