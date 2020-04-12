@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 4, 11), <>Added a statistic and suggestion for <SpellLink id={SPELLS.STORMBRINGER.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 10), 'Updated spell list to match 8.3 for Enhancement Shaman.', [Vetyst]),
   change(date(2020, 4, 9), <>Updated damage gained from <SpellLink id={SPELLS.FORCEFUL_WINDS_TALENT.id} />.</>, [Vetyst]),
   change(date(2020, 4, 9), <>Fixed <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> not showing up.</>, [Vetyst]),
   change(date(2020, 2, 28), <>Added a statistic for <SpellLink id={SPELLS.ANCESTRAL_RESONANCE.id} />.</>, [niseko]),
