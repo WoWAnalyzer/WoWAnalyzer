@@ -81,7 +81,7 @@ class Stormbringer extends Analyzer {
   }
 
   get damagePerSecond() {
-    return this.damageGained / (this.owner.fightDuration / 1000);
+    return this.damageGained / this.owner.fightDuration * 1000;
   }
 
   get suggestionThresholds() {
