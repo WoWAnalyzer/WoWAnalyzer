@@ -66,7 +66,7 @@ class HotHand extends Analyzer {
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Hot Hand contribution"
         tooltip={<>
-          Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage).<br />
+          Contributed {formatNumber(this.damagePerSecond)} DPS ({formatNumber(this.damageGained)} total damage).<br />
           You've used <strong>{this.procUses}</strong> out of <strong>{this.procCount}</strong> total procs.
         </>}
       />
