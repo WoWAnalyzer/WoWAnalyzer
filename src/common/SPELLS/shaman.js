@@ -602,7 +602,7 @@ export default {
     name: 'Spirit of the Maelstrom',
     icon: 'ability_shaman_freedomwolf',
   },
-  FURY_OF_AIR_BUFF: {
+  FURY_OF_AIR_DAMAGE: {
     id: 197385,
     name: 'Fury of Air',
     icon: 'ability_ironmaidens_swirlingvortex',

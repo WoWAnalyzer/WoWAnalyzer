@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {
@@ -63,7 +64,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WIND_SHEAR,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 12,
-        gcd: null,
+        gcd: undefined,
       },
       {
         spell: SPELLS.ROCKBITER,
@@ -193,12 +194,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLOODLUST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: null,
+        gcd: undefined,
       },
       {
         spell: SPELLS.HEROISM,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: null,
+        gcd: undefined,
       },
       {
         spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
@@ -216,7 +217,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,
-        gcd: null,
+        gcd: undefined,
         castEfficiency: {
           suggestion: true,
         },
@@ -226,7 +227,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         isUndetectable: true,
-        gcd: null,
+        gcd: undefined,
         castEfficiency: {
           suggestion: true,
         },
