@@ -11,12 +11,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.ASTRAL_SHIFT,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.ABSORBED,
-      ],
-    },
-    {
       spell: SPELLS.BERSERKING,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
