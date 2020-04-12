@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
