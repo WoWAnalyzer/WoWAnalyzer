@@ -13,6 +13,7 @@ export default [
   change(date(2020, 4, 10), 'Updated spell list to match 8.3 for Enhancement Shaman.', [Vetyst]),
   change(date(2020, 4, 9), <>Updated damage gained from <SpellLink id={SPELLS.FORCEFUL_WINDS_TALENT.id} />.</>, [Vetyst]),
   change(date(2020, 4, 9), <>Fixed <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> not showing up.</>, [Vetyst]),
+  change(date(2020, 3, 2), <>Updated all modules to typescript and modern Modules</>, [HawkCorrigan]),
   change(date(2020, 2, 28), <>Added a statistic for <SpellLink id={SPELLS.ANCESTRAL_RESONANCE.id} />.</>, [niseko]),
   change(date(2019, 11, 28), <>Added a statistic for <SpellLink id={SPELLS.NATURAL_HARMONY_TRAIT.id} /> to track avg crit, haste, mastery and uptime for each</>, [Draenal]),
   change(date(2019, 10, 31), <>Add a suggestion for Lightning Shield uptime</>, [HawkCorrigan]),

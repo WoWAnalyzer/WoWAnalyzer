@@ -1,14 +1,14 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SpellLink from 'common/SpellLink';
 import React from 'react';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
-
     return [
       {
         spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
@@ -91,7 +91,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WIND_SHEAR,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 12,
-        gcd: null,
+        gcd: undefined,
       },
       {
         spell: SPELLS.ROCKBITER,
@@ -269,7 +269,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHTNING_SHIELD_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: null,
+        gcd: undefined,
         enabled: combatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -288,7 +288,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.BLOODLUST, SPELLS.HEROISM],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: null,
+        gcd: undefined,
         isUndetectable: true,
       },
       {
@@ -296,7 +296,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         isUndetectable: true,
-        gcd: null,
+        gcd: undefined,
         castEfficiency: {
           suggestion: true,
         },
