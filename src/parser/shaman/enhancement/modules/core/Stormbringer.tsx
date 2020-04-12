@@ -19,26 +19,26 @@ class Stormbringer extends Analyzer {
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.STORMSTRIKE),
+        .spell(SPELLS.STORMSTRIKE_CAST),
       this.onNoCooldown,
     );
   }
 
   onReset() {
-    if (!this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE.id)) {
+    if (!this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
       return;
     }
-    this.spellUsable.endCooldown(SPELLS.STORMSTRIKE.id);
+    this.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id);
   }
 
   onNoCooldown() {
     if (!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER_BUFF.id)) {
       return;
     }
-    if (!this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE.id)) {
+    if (!this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
       return;
     }
-    this.spellUsable.endCooldown(SPELLS.STORMSTRIKE.id);
+    this.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id);
   }
 
 }

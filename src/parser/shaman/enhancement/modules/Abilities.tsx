@@ -25,13 +25,16 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FERAL_SPIRIT,
-        buffSpellId: [ //Feral Spirit isn't an actual buff, so we can only show the Elemental Spirits buffs
+        buffSpellId: [ //Feral Spirit isn't an actual buff, so we can only show the Elemental
+                       // Spirits buffs
           SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
           SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
           SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
         ],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT) ? 90 : 120,
+        cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT)
+          ? 90
+          : 120,
         gcd: {
           base: 1500,
         },
@@ -48,7 +51,6 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          minor: 0.9,
           recommendedEfficiency: 0.8,
           extraSuggestion: (
             <>
@@ -97,7 +99,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ROCKBITER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
-        cooldown: haste => (combatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id) ? 6 * 0.85 : 6) / (1 + haste),
+        cooldown: haste => (
+            combatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id) ? 6 * 0.85 : 6
+          ) /
+          (
+            1 + haste
+          ),
         gcd: {
           base: 1500,
         },
@@ -115,12 +122,18 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: haste => 12 /
+          (
+            1 + haste
+          ),
       },
       {
         spell: SPELLS.STORMSTRIKE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: haste => 9 /
+          (
+            1 + haste
+          ),
         gcd: {
           base: 1500,
         },
@@ -138,7 +151,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: haste => 6 /
+          (
+            1 + haste
+          ),
       },
       {
         spell: SPELLS.FERAL_LUNGE_TALENT,
@@ -206,14 +222,20 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WINDSTRIKE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
-        cooldown: haste => 3 / (1 + haste),
+        cooldown: haste => 3 /
+          (
+            1 + haste
+          ),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          maxCasts: cooldown => calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id)),
+          maxCasts: cooldown => calculateMaxCasts(
+            cooldown,
+            combatant.getBuffUptime(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
+          ),
         },
       },
       {
@@ -292,7 +314,11 @@ class Abilities extends CoreAbilities {
         isUndetectable: true,
       },
       {
-        spell: [SPELLS.BLOOD_FURY_PHYSICAL, SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL, SPELLS.BLOOD_FURY_SPELL],
+        spell: [
+          SPELLS.BLOOD_FURY_PHYSICAL,
+          SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL,
+          SPELLS.BLOOD_FURY_SPELL,
+        ],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         isUndetectable: true,
