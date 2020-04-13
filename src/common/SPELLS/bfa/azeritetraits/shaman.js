@@ -67,6 +67,16 @@ export default {
     name: 'Lightning Conduit',
     icon: 'inv_rod_enchantedcobalt',
   },
+  PRIMAL_PRIMER_TRAIT: {
+    id: 272992,
+    name: 'Primal Primer',
+    icon: 'ability_shaman_lavalash',
+  },
+  PRIMAL_PRIMER_DEBUFF: {
+    id: 273006,
+    name: 'Primal Primer',
+    icon: 'ability_shaman_lavalash',
+  },
   // Elemental
   LAVA_SHOCK: {
     id: 273448,

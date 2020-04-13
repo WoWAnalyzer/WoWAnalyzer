@@ -37,6 +37,7 @@ import SereneSpirit from '../shared/azerite/SereneSpirit';
 import NaturalHarmony from '../shared/azerite/NaturalHarmony';
 import AncestralResonance from '../shared/azerite/AncestralResonance';
 import LightningConduit from './modules/azerite/LightningConduit';
+import PrimalPrimer from './modules/azerite/PrimalPrimer';
 import RoilingStorm from './modules/azerite/RoilingStorm';
 import ThunderaansFury from './modules/azerite/ThunderaansFury';
 
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     naturalHarmony: NaturalHarmony,
     ancestralResonance: AncestralResonance,
     lightningConduit: LightningConduit,
+    primalPrimer: PrimalPrimer,
     roilingStorm: RoilingStorm,
     thunderaansFury: ThunderaansFury,
   };

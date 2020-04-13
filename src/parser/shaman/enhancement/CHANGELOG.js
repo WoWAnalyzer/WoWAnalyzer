@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 4, 13), <>Added damage statistiscs for <SpellLink id={SPELLS.PRIMAL_PRIMER_TRAIT.id} />.</>, [Vetyst]),
   change(date(2020, 4, 13), <>Added damage statistiscs for <SpellLink id={SPELLS.LIGHTNING_CONDUIT_TRAIT.id} />.</>, [Vetyst]),
   change(date(2020, 4, 13), <>Added Stormstrike statistiscs for <SpellLink id={SPELLS.THUNDERAANS_FURY.id} />.</>, [Vetyst]),
   change(date(2020, 4, 13), <>Added statistics for <SpellLink id={SPELLS.ROILING_STORM.id} />.</>, [Vetyst]),
