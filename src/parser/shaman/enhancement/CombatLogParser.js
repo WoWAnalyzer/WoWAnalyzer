@@ -16,6 +16,7 @@ import FlametongueRefresh from './modules/core/FlametongueRefresh';
 import Rockbiter from './modules/core/Rockbiter';
 import Stormbringer from './modules/core/Stormbringer';
 // Talents
+import BoulderFist from './modules/talents/Boulderfist';
 import HotHand from './modules/talents/HotHand';
 import LightningShield from './modules/talents/LightningShield';
 import Landslide from './modules/talents/Landslide';
@@ -64,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
 
     // Talents
+    boulderfist: BoulderFist,
     hotHand: HotHand,
     lightningShield: LightningShield,
     landslide: Landslide,

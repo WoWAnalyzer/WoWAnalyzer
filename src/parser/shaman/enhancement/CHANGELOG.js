@@ -6,11 +6,12 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 4, 13), <>Added damage statistiscs for <SpellLink id={SPELLS.BOULDERFIST_TALENT.id} />.</>, [Vetyst]),
   change(date(2020, 4, 13), <>Added damage statistiscs for <SpellLink id={SPELLS.PRIMAL_PRIMER_TRAIT.id} />.</>, [Vetyst]),
   change(date(2020, 4, 13), <>Added damage statistiscs for <SpellLink id={SPELLS.LIGHTNING_CONDUIT_TRAIT.id} />.</>, [Vetyst]),
-  change(date(2020, 4, 13), <>Added Stormstrike statistiscs for <SpellLink id={SPELLS.THUNDERAANS_FURY.id} />.</>, [Vetyst]),
-  change(date(2020, 4, 13), <>Added statistics for <SpellLink id={SPELLS.ROILING_STORM.id} />.</>, [Vetyst]),
-  change(date(2020, 4, 12), <>Added statistics for <SpellLink id={SPELLS.NATURES_GUARDIAN_TALENT.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 13), <>Added <SpellLink id={SPELLS.STORMSTRIKE_CAST.id} /> damage statistiscs for <SpellLink id={SPELLS.THUNDERAANS_FURY.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 13), <>Added damage statistics for <SpellLink id={SPELLS.ROILING_STORM.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 12), <>Added healing statistics for <SpellLink id={SPELLS.NATURES_GUARDIAN_TALENT.id} />.</>, [Vetyst]),
   change(date(2020, 4, 12), <>Added a proc counter for <SpellLink id={SPELLS.LANDSLIDE_TALENT.id} /> to the statistic tooltip.</>, [Vetyst]),
   change(date(2020, 4, 12), <>Added a proc counter for <SpellLink id={SPELLS.HOT_HAND_TALENT.id} /> to the statistic tooltip.</>, [Vetyst]),
   change(date(2020, 4, 11), <>Added a statistic and suggestion for <SpellLink id={SPELLS.STORMBRINGER.id} />.</>, [Vetyst]),
