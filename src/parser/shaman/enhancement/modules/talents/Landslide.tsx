@@ -9,15 +9,11 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import { STORMSTRIKE_DAMAGE_SPELLS } from '../core/Stormbringer';
 
 const LANDSLIDE = {
   INCREASE: 1.0,
 };
-
-const STORMSTRIKE_SPELLS = [
-  SPELLS.STORMSTRIKE_ATTACK,
-  SPELLS.STORMSTRIKE_ATTACK_OFFHAND,
-];
 
 class Landslide extends Analyzer {
   /**
@@ -48,7 +44,7 @@ class Landslide extends Analyzer {
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_SPELLS),
+        .spell(STORMSTRIKE_DAMAGE_SPELLS),
       this.onStormstrikeDamage,
     );
   }

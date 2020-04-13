@@ -9,7 +9,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { STORMBRINGER_DAMAGE_SPELLS } from 'parser/shaman/enhancement/modules/core/Stormbringer';
+import { STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/modules/core/Stormbringer';
 import { calculateAzeriteEffects } from '../../../../../common/stats';
 
 class ThunderaansFury extends Analyzer {
@@ -48,7 +48,7 @@ class ThunderaansFury extends Analyzer {
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMBRINGER_DAMAGE_SPELLS),
+        .spell(STORMSTRIKE_DAMAGE_SPELLS),
       this.onStrikeDamage,
     );
   }
@@ -63,7 +63,7 @@ class ThunderaansFury extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         category={'AZERITE_POWERS'}
-        tooltip={"Only Stormstrike statistics are shown."}
+        tooltip={'Only Stormstrike statistics are shown.'}
       >
         <BoringSpellValueText spell={SPELLS.THUNDERAANS_FURY}>
           <ItemDamageDone amount={this.damageGained} approximate />

@@ -14,7 +14,12 @@ import { formatPercentage } from 'common/format';
 
 const STORMBRINGER_DAMAGE_MODIFIER = 0.25;
 
-export const STORMBRINGER_DAMAGE_SPELLS = [
+export const STORMSTRIKE_CAST_SPELLS = [
+  SPELLS.STORMSTRIKE_CAST,
+  SPELLS.WINDSTRIKE_CAST,
+];
+
+export const STORMSTRIKE_DAMAGE_SPELLS = [
   SPELLS.STORMSTRIKE_ATTACK,
   SPELLS.STORMSTRIKE_ATTACK_OFFHAND,
   SPELLS.WINDSTRIKE_ATTACK,
@@ -33,39 +38,48 @@ class Stormbringer extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER)
         .spell(SPELLS.STORMBRINGER_BUFF),
-      this.onReset,
+      this.onStormstrikeUseWithStormbringerBuff,
     );
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.STORMSTRIKE_CAST),
-      this.onNoCooldown,
+        .spell(STORMSTRIKE_CAST_SPELLS),
+      this.onStormbringerApplied,
     );
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMBRINGER_DAMAGE_SPELLS),
+        .spell(STORMSTRIKE_DAMAGE_SPELLS),
       this.onStrikeDamage,
     );
   }
 
-  onReset() {
-    if (!this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
-      return;
+  onStormbringerApplied() {
+    if (this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
+      this.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id);
     }
-    this.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id);
+
+    if (this.spellUsable.isOnCooldown(SPELLS.WINDSTRIKE_CAST.id)) {
+      this.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id);
+    }
   }
 
-  onNoCooldown() {
+  onStormstrikeUseWithStormbringerBuff() {
     if (!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER_BUFF.id)) {
       return;
     }
-    if (!this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
-      return;
+
+    if (this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
+      this.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id);
     }
-    this.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id);
+
+    if (this.spellUsable.isOnCooldown(SPELLS.WINDSTRIKE_CAST.id)) {
+      this.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id);
+    }
   }
 
   onStrikeDamage(event: DamageEvent) {

@@ -9,7 +9,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { STORMBRINGER_DAMAGE_SPELLS } from 'parser/shaman/enhancement/modules/core/Stormbringer';
+import { STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/modules/core/Stormbringer';
 import { calculateAzeriteEffects } from '../../../../../common/stats';
 
 class RoilingStorm extends Analyzer {
@@ -44,7 +44,7 @@ class RoilingStorm extends Analyzer {
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMBRINGER_DAMAGE_SPELLS),
+        .spell(STORMSTRIKE_DAMAGE_SPELLS),
       this.onStrikeDamage,
     );
   }
