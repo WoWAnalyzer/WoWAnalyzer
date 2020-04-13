@@ -36,7 +36,6 @@ export default {
     name: 'Natural Harmony: Nature',
     icon: 'spell_nature_elementalprecision_1',
   },
-
   SYNAPSE_SHOCK: {
     id: 277671,
     name: 'Synapse Shock',
@@ -47,7 +46,12 @@ export default {
     name: 'Synapse Shock',
     icon: 'spell_nature_lightning',
   },
-
+  // Enhancement
+  ROILING_STORM: {
+    id: 278719,
+    name: 'Roiling Storm',
+    icon: 'ability_shaman_stormstrike',
+  },
   // Elemental
   LAVA_SHOCK: {
     id: 273448,

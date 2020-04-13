@@ -14,6 +14,13 @@ import { formatPercentage } from 'common/format';
 
 const STORMBRINGER_DAMAGE_MODIFIER = 0.25;
 
+export const STORMBRINGER_DAMAGE_SPELLS = [
+  SPELLS.STORMSTRIKE_ATTACK,
+  SPELLS.STORMSTRIKE_ATTACK_OFFHAND,
+  SPELLS.WINDSTRIKE_ATTACK,
+  SPELLS.WINDSTRIKE_ATTACK_OFFHAND,
+];
+
 class Stormbringer extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -39,12 +46,7 @@ class Stormbringer extends Analyzer {
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.STORMSTRIKE_ATTACK,
-          SPELLS.STORMSTRIKE_ATTACK_OFFHAND,
-          SPELLS.WINDSTRIKE_ATTACK,
-          SPELLS.WINDSTRIKE_ATTACK_OFFHAND,
-        ]),
+        .spell(STORMBRINGER_DAMAGE_SPELLS),
       this.onStrikeDamage,
     );
   }

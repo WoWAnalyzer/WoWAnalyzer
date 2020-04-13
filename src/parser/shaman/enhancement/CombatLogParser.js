@@ -1,15 +1,21 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/Abilities';
-import Stormbringer from './modules/core/Stormbringer';
-
+// Shared Shaman
+import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
+import AstralShift from '../shared/spells/AstralShift';
+// Resources
+import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
+import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
+// Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
+// Enhancement Core
 import Flametongue from './modules/core/Flametongue';
 import FlametongueRefresh from './modules/core/FlametongueRefresh';
 import Rockbiter from './modules/core/Rockbiter';
-
-
+import Stormbringer from './modules/core/Stormbringer';
+// Talents
 import HotHand from './modules/talents/HotHand';
 import LightningShield from './modules/talents/LightningShield';
 import Landslide from './modules/talents/Landslide';
@@ -25,24 +31,27 @@ import CrashingStorm from './modules/talents/CrashingStorm';
 import FuryOfAir from './modules/talents/FuryOfAir';
 import Sundering from './modules/talents/Sundering';
 import EarthenSpike from './modules/talents/EarthenSpike';
-
-import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
-import AstralShift from '../shared/spells/AstralShift';
+// Azerite
 import PackSpirit from '../shared/azerite/PackSpirit';
 import SereneSpirit from '../shared/azerite/SereneSpirit';
 import NaturalHarmony from '../shared/azerite/NaturalHarmony';
 import AncestralResonance from '../shared/azerite/AncestralResonance';
-
-//Resources
-import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
-import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
+import RoilingStorm from './modules/azerite/RoilingStorm';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    // ShamanCore
+    // Shaman Shared
+    ankhNormalizer: AnkhNormalizer,
+    astralShift: AstralShift,
+
+    // Resources
+    maelstromTracker: MaelstromTracker,
+    maelstromDetails: MaelstromDetails,
+
+    // Shaman Core
     flametongue: Flametongue,
-    rockbiter: Rockbiter,
     flametongueRefresh: FlametongueRefresh,
+    rockbiter: Rockbiter,
     stormbringer: Stormbringer,
 
     // Features
@@ -51,7 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
 
-    //Talents
+    // Talents
     hotHand: HotHand,
     lightningShield: LightningShield,
     landslide: Landslide,
@@ -68,16 +77,12 @@ class CombatLogParser extends CoreCombatLogParser {
     sundering: Sundering,
     earthenSpike: EarthenSpike,
 
-    ankhNormalizer: AnkhNormalizer,
-    astralShift: AstralShift,
+    // Azerite
     packSpirit: PackSpirit,
     sereneSpirit: SereneSpirit,
     naturalHarmony: NaturalHarmony,
     ancestralResonance: AncestralResonance,
-
-    maelstromTracker: MaelstromTracker,
-    maelstromDetails: MaelstromDetails,
-
+    roilingStorm: RoilingStorm,
   };
 }
 
