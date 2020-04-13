@@ -5,6 +5,49 @@
  */
 
 export default {
+  // COMMON
+  ANCESTRAL_RESONANCE: {
+    id: 277666,
+    name: 'Ancestral Resonance',
+    icon: 'spell_shaman_improvedreincarnation',
+  },
+  ANCESTRAL_RESONANCE_BUFF: {
+    id: 277943,
+    name: 'Ancestral Resonance',
+    icon: 'spell_shaman_improvedreincarnation',
+  },
+  NATURAL_HARMONY_TRAIT: {
+    id: 278697,
+    name: 'Natural Harmony',
+    icon: 'spell_nature_elementalprecision_1',
+  },
+  NATURAL_HARMONY_FIRE_BUFF: {
+    id: 279028,
+    name: 'Natural Harmony: Fire',
+    icon: 'spell_nature_elementalprecision_1',
+  },
+  NATURAL_HARMONY_FROST_BUFF: {
+    id: 279029,
+    name: 'Natural Harmony: Frost',
+    icon: 'spell_nature_elementalprecision_1',
+  },
+  NATURAL_HARMONY_NATURE_BUFF: {
+    id: 279033,
+    name: 'Natural Harmony: Nature',
+    icon: 'spell_nature_elementalprecision_1',
+  },
+
+  SYNAPSE_SHOCK: {
+    id: 277671,
+    name: 'Synapse Shock',
+    icon: 'spell_nature_lightning',
+  },
+  SYNAPSE_SHOCK_BUFF: {
+    id: 277960,
+    name: 'Synapse Shock',
+    icon: 'spell_nature_lightning',
+  },
+
   // Elemental
   LAVA_SHOCK: {
     id: 273448,
@@ -41,40 +84,10 @@ export default {
     name: 'Shocking Blast',
     icon: 'spell_nature_cyclone',
   },
-  SYNAPSE_SHOCK: {
-    id: 277671,
-    name: 'Synapse Shock',
-    icon: 'spell_nature_lightning',
-  },
-  SYNAPSE_SHOCK_BUFF: {
-    id: 277960,
-    name: 'Synapse Shock',
-    icon: 'spell_nature_lightning',
-  },
   IGNEOUS_POTENTIAL: {
     id: 279829,
     name: 'Igneous Potential',
     icon: 'spell_shaman_lavasurge',
-  },
-  NATURAL_HARMONY_TRAIT: {
-    id: 278697, 
-    name: 'Natural Harmony',
-    icon: 'spell_nature_elementalprecision_1',
-  },
-  NATURAL_HARMONY_FIRE_BUFF: {
-    id: 279028, 
-    name: 'Natural Harmony: Fire',
-    icon: 'spell_nature_elementalprecision_1',
-  },
-  NATURAL_HARMONY_FROST_BUFF: {
-    id: 279029, 
-    name: 'Natural Harmony: Frost',
-    icon: 'spell_nature_elementalprecision_1',
-  },
-  NATURAL_HARMONY_NATURE_BUFF: {
-    id: 279033, 
-    name: 'Natural Harmony: Nature',
-    icon: 'spell_nature_elementalprecision_1',
   },
   // Restoration
   OVERFLOWING_SHORES_TRAIT: {
@@ -146,15 +159,5 @@ export default {
     id: 287300,
     name: 'Turn of the Tide',
     icon: 'spell_shaman_tidalwaves',
-  },
-  ANCESTRAL_RESONANCE: {
-    id: 277666,
-    name: 'Ancestral Resonance',
-    icon: 'spell_shaman_improvedreincarnation',
-  },
-  ANCESTRAL_RESONANCE_BUFF: {
-    id: 277943,
-    name: 'Ancestral Resonance',
-    icon: 'spell_shaman_improvedreincarnation',
   },
 };
