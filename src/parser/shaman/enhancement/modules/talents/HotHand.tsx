@@ -7,11 +7,9 @@ import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import ResourceGenerated
-  from 'interface/others/ResourceGenerated';
+import ResourceGenerated from 'interface/others/ResourceGenerated';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const HOT_HAND = {
@@ -31,10 +29,23 @@ class HotHand extends Analyzer {
 
   protected damageGained=0;
   protected maelstromSaved=0;
+  protected hotHandCount=0;
+  protected hotHandUses=0;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id);
+
+    this.addEventListener(
+      Events.applybuff.spell(SPELLS.LANDSLIDE_BUFF),
+      this.onHotHandBuff,
+    );
+
+    this.addEventListener(
+      Events.refreshbuff.spell(SPELLS.LANDSLIDE_BUFF),
+      this.onHotHandBuff,
+    );
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
         .spell(SPELLS.LAVA_LASH),
@@ -42,15 +53,21 @@ class HotHand extends Analyzer {
     );
   }
 
+  onHotHandBuff() {
+    this.hotHandCount++;
+  }
+
   onLavaLashDamage(event: DamageEvent) {
     if(!this.selectedCombatant.hasBuff(SPELLS.HOT_HAND_BUFF.id)) {
       return;
     }
+
+    this.hotHandUses++;
     this.damageGained += calculateEffectiveDamage(event, HOT_HAND.INCREASE);
     this.maelstromSaved += HOT_HAND.COST_REDUCTION;
-
   }
 
+  // TODO: add uses/count to statistics
   statistic() {
     return (
       <Statistic

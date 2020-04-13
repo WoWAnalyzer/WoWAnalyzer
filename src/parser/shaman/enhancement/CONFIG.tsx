@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HawkCorrigan } from 'CONTRIBUTORS';
+import { HawkCorrigan, Vetyst } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import Warning from 'interface/Alert/Warning';
 
@@ -8,8 +8,8 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [HawkCorrigan],
-  patchCompatibility: '8.0.1',
+  contributors: [HawkCorrigan, Vetyst],
+  patchCompatibility: '8.3',
   isSupported: false,
   description: (
     <>
@@ -18,7 +18,7 @@ const config: Config = {
       </Warning>
     </>
   ),
-  exampleReport: '/report/67LHQfJjCFzgyXBr/8-Normal+Stormwall+Blockade+-+Kill+(7:17)/118-Scryd',
+  exampleReport: '/report/XCr9vJdmcKQtTWLz/4-Heroic+Maut+-+Kill+(4:04)/Part%C3%ADcle/standard',
 
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,

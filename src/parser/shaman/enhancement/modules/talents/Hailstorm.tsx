@@ -6,6 +6,8 @@ import Analyzer from 'parser/core/Analyzer';
 
 import Statistic from 'interface/statistics/Statistic';
 import { Trans } from '@lingui/macro';
+import STATISTIC_ORDER from '../../../../../interface/others/STATISTIC_ORDER';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 class Hailstorm extends Analyzer {
 
@@ -23,8 +25,7 @@ class Hailstorm extends Analyzer {
   }
 
   get frostBrandUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) /
-      this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
   }
 
   get NHRequirementTresholds() {
@@ -73,16 +74,31 @@ class Hailstorm extends Analyzer {
     );
   }
 
+  // statistic() {
+  //   const frostbrandUptime = this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
+  //   return (
+  //     <Statistic
+  //       spell={SPELLS.FROSTBRAND.id}
+  //       value={`${formatPercentage(frostbrandUptime)} %`}
+  //       label="Frostbrand Uptime"
+  //       tooltip="One of your highest priorities, get as close to 100% as possible"
+  //     />
+  //   );
+  // }
+
   statistic() {
-    const frostbrandUptime = this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) /
-      this.owner.fightDuration;
     return (
       <Statistic
-        spell={SPELLS.FROSTBRAND.id}
-        value={`${formatPercentage(frostbrandUptime)} %`}
-        label="Frostbrand Uptime"
-        tooltip="One of your highest priorities, get as close to 100% as possible"
-      />
+        category="TALENTS"
+        position={STATISTIC_ORDER.CORE(1)}
+        size="small"
+      >
+        <BoringSpellValue
+          spell={SPELLS.FROSTBRAND}
+          value={`${formatPercentage(this.frostBrandUptime)} %`}
+          label="Frostband Uptime"
+        />
+      </Statistic>
     );
   }
 }

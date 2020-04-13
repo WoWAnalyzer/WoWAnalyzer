@@ -6,11 +6,10 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 class LightningShield extends Analyzer {
@@ -32,12 +31,11 @@ class LightningShield extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.LIGHTNING_SHIELD_TALENT),
+        .spell(SPELLS.LIGHTNING_SHIELD),
       this.onDamage,
     );
 
@@ -54,7 +52,6 @@ class LightningShield extends Analyzer {
 
   onApplyBuff() {
     this.overchargeCount += 1;
-
   }
 
   get damagePercent() {
@@ -77,8 +74,7 @@ class LightningShield extends Analyzer {
 
   suggestions(when: any) {
     when(this.suggestionThresholds)
-      .addSuggestion(
-        (suggest: any, actual: any) => {
+      .addSuggestion((suggest: any, actual: any) => {
       return suggest(
         <Trans>
           You should fully utilize your <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> by using it before combat.

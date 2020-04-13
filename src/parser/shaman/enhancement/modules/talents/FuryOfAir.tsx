@@ -78,17 +78,15 @@ class FuryOfAir extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(15)}
-        size="flexible"
-        icon={<SpellIcon id={SPELLS.FURY_OF_AIR_TALENT.id} />}
-        category={STATISTIC_CATEGORY.TALENTS}
-        label="Fury Of Air"
+        category="TALENTS"
+        position={STATISTIC_ORDER.CORE(2)}
+        size="small"
       >
-        <BoringSpellValueText spell={SPELLS.FURY_OF_AIR_TALENT}>
-          <>
-            {formatPercentage(this.furyOfAirUptime)}% uptime
-          </>
-        </BoringSpellValueText>
+        <BoringSpellValue
+          spell={SPELLS.FURY_OF_AIR_TALENT}
+          value={`${formatPercentage(this.furyOfAirUptime)} %`}
+          label="Fury of Air Uptime"
+        />
       </Statistic>
     );
   }

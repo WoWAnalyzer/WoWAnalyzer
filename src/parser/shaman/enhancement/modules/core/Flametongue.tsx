@@ -7,8 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { Trans } from '@lingui/macro';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValue
-  from 'interface/statistics/components/BoringSpellValue';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 /**
  *
@@ -17,8 +16,7 @@ import BoringSpellValue
 class Flametongue extends Analyzer {
 
   get flametongueUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_BUFF.id) /
-      this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_BUFF.id) / this.owner.fightDuration;
   }
 
   get flametongueRefreshTreshold() {
@@ -64,7 +62,7 @@ class Flametongue extends Analyzer {
         size="small"
       >
         <BoringSpellValue
-          spell={SPELLS.FLAMETONGUE_BUFF.id}
+          spell={SPELLS.FLAMETONGUE}
           value={`${formatPercentage(this.flametongueUptime)} %`}
           label="Flametongue Uptime"
         />
