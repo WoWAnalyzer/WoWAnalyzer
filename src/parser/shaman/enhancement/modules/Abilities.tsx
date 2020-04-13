@@ -157,6 +157,12 @@ class Abilities extends CoreAbilities {
           ),
       },
       {
+        spell: SPELLS.FERAL_LUNGE,
+        enabled: combatant.hasTalent(SPELLS.FERAL_LUNGE_TALENT),
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+      },
+      {
         spell: SPELLS.FERAL_LUNGE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FERAL_LUNGE_TALENT),
         category: Abilities.SPELL_CATEGORIES.UTILITY,
