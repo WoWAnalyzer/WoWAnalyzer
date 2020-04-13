@@ -57,6 +57,16 @@ export default {
     name: 'Thunderaan\'s Fury',
     icon: 'spell_nature_invisibilitytotem',
   },
+  LIGHTNING_CONDUIT_TRAIT: {
+    id: 275388,
+    name: 'Lightning Conduit',
+    icon: 'inv_rod_enchantedcobalt',
+  },
+  LIGHTNING_CONDUIT_DAMAGE: {
+    id: 275394,
+    name: 'Lightning Conduit',
+    icon: 'inv_rod_enchantedcobalt',
+  },
   // Elemental
   LAVA_SHOCK: {
     id: 273448,
