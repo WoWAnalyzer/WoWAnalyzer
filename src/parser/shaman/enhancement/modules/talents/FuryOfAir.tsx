@@ -9,11 +9,6 @@ import { Trans } from '@lingui/macro';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValue
   from 'interface/statistics/components/BoringSpellValue';
-import STATISTIC_CATEGORY
-  from '../../../../../interface/others/STATISTIC_CATEGORY';
-import SpellIcon from '../../../../../common/SpellIcon';
-import BoringSpellValueText
-  from '../../../../../interface/statistics/components/BoringSpellValueText';
 
 class FuryOfAir extends Analyzer {
 

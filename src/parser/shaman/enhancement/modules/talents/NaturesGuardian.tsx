@@ -2,10 +2,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
-import Statistic from '../../../../../interface/statistics/Statistic';
-import STATISTIC_ORDER from '../../../../../interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ItemHealingDone from '../../../../../interface/ItemHealingDone';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 class NaturesGuardian extends Analyzer {
   /**

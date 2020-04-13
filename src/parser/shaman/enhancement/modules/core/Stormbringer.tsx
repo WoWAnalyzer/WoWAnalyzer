@@ -2,15 +2,15 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/shaman';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SpellLink from '../../../../../common/SpellLink';
-import { formatNumber, formatPercentage } from '../../../../../common/format';
 import React from 'react';
 import Statistic from 'interface/statistics/Statistic';
-import SpellIcon from '../../../../../common/SpellIcon';
-import calculateEffectiveDamage from '../../../../core/calculateEffectiveDamage';
-import STATISTIC_ORDER from '../../../../../interface/others/STATISTIC_ORDER';
-import ItemDamageDone from '../../../../../interface/ItemDamageDone';
-import BoringSpellValueText from '../../../../../interface/statistics/components/BoringSpellValueText';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import BoringSpellValueText
+  from 'interface/statistics/components/BoringSpellValueText';
+import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
 
 const STORMBRINGER_DAMAGE_MODIFIER = 0.25;
 
@@ -43,7 +43,7 @@ class Stormbringer extends Analyzer {
           SPELLS.STORMSTRIKE_ATTACK,
           SPELLS.STORMSTRIKE_ATTACK_OFFHAND,
           SPELLS.WINDSTRIKE_ATTACK,
-          SPELLS.WINDSTRIKE_ATTACK_OFFHAND
+          SPELLS.WINDSTRIKE_ATTACK_OFFHAND,
         ]),
       this.onStrikeDamage,
     );
@@ -67,11 +67,14 @@ class Stormbringer extends Analyzer {
   }
 
   onStrikeDamage(event: DamageEvent) {
-    if(!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER_BUFF.id)) {
       return;
     }
 
-    this.damage += calculateEffectiveDamage(event, STORMBRINGER_DAMAGE_MODIFIER);
+    this.damage += calculateEffectiveDamage(
+      event,
+      STORMBRINGER_DAMAGE_MODIFIER,
+    );
   }
 
   get suggestionThresholds() {
@@ -89,10 +92,13 @@ class Stormbringer extends Analyzer {
   suggestions(when: any) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<span>Cast <SpellLink id={SPELLS.STORMSTRIKE_CAST.id} /> or <SpellLink id={SPELLS.WINDSTRIKE_CAST.id} /> more often when <SpellLink id={SPELLS.STORMBRINGER.id} /> by using it before combat.</span>)
+        return suggest(
+          <span>Cast <SpellLink id={SPELLS.STORMSTRIKE_CAST.id} /> or <SpellLink id={SPELLS.WINDSTRIKE_CAST.id} /> more often when <SpellLink id={SPELLS.STORMBRINGER.id} /> by using it before combat.</span>)
           .icon(SPELLS.STORMBRINGER.icon)
           .actual(`${formatPercentage(actual)}% procs used`)
-          .recommended(`${(formatPercentage(recommended, 0))}% is recommended`);
+          .recommended(`${(
+            formatPercentage(recommended, 0)
+          )}% is recommended`);
       });
   }
 
@@ -102,10 +108,11 @@ class Stormbringer extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="small"
-        category={"GENERAL"}
+        category={'GENERAL'}
       >
         <BoringSpellValueText
-          spell={SPELLS.STORMBRINGER}>
+          spell={SPELLS.STORMBRINGER}
+        >
           <>
             <ItemDamageDone amount={this.damage} />
           </>

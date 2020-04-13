@@ -82,8 +82,8 @@ class LightningShield extends Analyzer {
         )
         .icon(SPELLS.LIGHTNING_SHIELD_TALENT.icon)
         .actual(
-          <Trans>You kept up <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} />
-          for ${formatPercentage(actual)}% of the fight.</Trans>
+          <Trans>
+            You kept up <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> for ${formatPercentage(actual)}% of the fight.</Trans>,
         )
         .recommended(<>It is possible to keep up <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> for 100% of the fight by casting it pre-combat.</>);
     });
