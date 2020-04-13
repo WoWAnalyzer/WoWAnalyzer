@@ -12,14 +12,14 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { STORMBRINGER_DAMAGE_SPELLS } from 'parser/shaman/enhancement/modules/core/Stormbringer';
 import { calculateAzeriteEffects } from '../../../../../common/stats';
 
-class RoilingStorm extends Analyzer {
+class ThunderaansFury extends Analyzer {
   /**
-   * Your Stormbringer-empowered Stormstrikes deal 2220 additional damage.
-   * Every 20 seconds, gain Stormbringer
    *
-   * Note: This does not appear as a buff.
-   * Every Stormstrike will deal extra damage as long as its under the effect
-   * of Stormbringer.
+   * Stormstrike deals additional damage, and has a 8% chance to summon
+   * Thunderaan's Fury Totem, doubling the chance to activate Windfury Weapon
+   * for 6 sec.
+   *
+   * TODO: Encount for the Thunderaan's Fury Totem effect.
    *
    * Example Log:
    *
@@ -30,15 +30,19 @@ class RoilingStorm extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.ROILING_STORM.id);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.THUNDERAANS_FURY.id);
 
     if (!this.active) {
       return;
     }
 
-    this.bonusDamage = this.selectedCombatant.traitsBySpellId[SPELLS.ROILING_STORM.id]
+    this.bonusDamage
+      = this.selectedCombatant.traitsBySpellId[SPELLS.THUNDERAANS_FURY.id]
       .reduce((total, rank) => {
-        const [ damage ] = calculateAzeriteEffects(SPELLS.ROILING_STORM.id, rank);
+        const [damage] = calculateAzeriteEffects(
+          SPELLS.THUNDERAANS_FURY.id,
+          rank,
+        );
         return total + damage;
       }, 0);
 
@@ -50,10 +54,6 @@ class RoilingStorm extends Analyzer {
   }
 
   onStrikeDamage() {
-    if (!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER_BUFF.id)) {
-      return;
-    }
-
     this.damageGained += this.bonusDamage;
   }
 
@@ -64,14 +64,12 @@ class RoilingStorm extends Analyzer {
         size="flexible"
         category={'AZERITE_POWERS'}
       >
-        <BoringSpellValueText spell={SPELLS.ROILING_STORM}>
-          <>
-            <ItemDamageDone amount={this.damageGained} />
-          </>
+        <BoringSpellValueText spell={SPELLS.THUNDERAANS_FURY}>
+          <ItemDamageDone amount={this.damageGained} />
         </BoringSpellValueText>
       </Statistic>
     );
   }
 }
 
-export default RoilingStorm;
+export default ThunderaansFury;

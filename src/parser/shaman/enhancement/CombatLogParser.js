@@ -37,6 +37,7 @@ import SereneSpirit from '../shared/azerite/SereneSpirit';
 import NaturalHarmony from '../shared/azerite/NaturalHarmony';
 import AncestralResonance from '../shared/azerite/AncestralResonance';
 import RoilingStorm from './modules/azerite/RoilingStorm';
+import ThunderaansFury from './modules/azerite/ThunderaansFury';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -83,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     naturalHarmony: NaturalHarmony,
     ancestralResonance: AncestralResonance,
     roilingStorm: RoilingStorm,
+    thunderaansFury: ThunderaansFury,
   };
 }
 

@@ -52,6 +52,11 @@ export default {
     name: 'Roiling Storm',
     icon: 'ability_shaman_stormstrike',
   },
+  THUNDERAANS_FURY: {
+    id: 287768,
+    name: 'Thunderaan\'s Fury',
+    icon: 'spell_nature_invisibilitytotem',
+  },
   // Elemental
   LAVA_SHOCK: {
     id: 273448,
