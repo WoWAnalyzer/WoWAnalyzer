@@ -26,7 +26,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FERAL_SPIRIT,
         buffSpellId: [ //Feral Spirit isn't an actual buff, so we can only show the Elemental
-                       // Spirits buffs
+          // Spirits buffs
           SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
           SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
           SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
@@ -83,7 +83,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHTNING_BOLT_ENHANCE,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: combatant.hasTalent(SPELLS.OVERCHARGE_TALENT) ? 7.5 : 0,
+        cooldown: haste => (
+          combatant.hasTalent(SPELLS.OVERCHARGE_TALENT) ? 9 *
+            (
+              1 + haste
+            ) : 0
+        ),
         gcd: {
           base: 1500,
         },
