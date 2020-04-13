@@ -63,9 +63,10 @@ class ThunderaansFury extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         category={'AZERITE_POWERS'}
+        tooltip={"Only Stormstrike statistics are shown."}
       >
         <BoringSpellValueText spell={SPELLS.THUNDERAANS_FURY}>
-          <ItemDamageDone amount={this.damageGained} />
+          <ItemDamageDone amount={this.damageGained} approximate />
         </BoringSpellValueText>
       </Statistic>
     );
