@@ -79,8 +79,6 @@ class Entity {
    * @returns {number} - Time (in ms) the specified buff has been active.
    */
   getBuffUptime(spellId, sourceID = null) {
-    console.log(spellId);
-    console.log(this.getBuffHistory(spellId, sourceID));
     return this.getBuffHistory(spellId, sourceID)
       .reduce((uptime, buff) => uptime + (buff.end !== null ? buff.end : this.owner.currentTimestamp) - buff.start, 0);
   }
