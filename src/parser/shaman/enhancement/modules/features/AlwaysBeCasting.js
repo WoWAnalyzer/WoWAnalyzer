@@ -29,7 +29,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(recommended + 0.2);
+          .regular(recommended + 0.15).major(recommended + 0.2)
+          .position(STATISTIC_ORDER.CORE(1));
       });
 
       if(!boss || !boss.fight.disableDowntimeSuggestion) {
@@ -42,8 +43,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           });
       }
   }
-
-  position = STATISTIC_ORDER.CORE(1);
 }
 
 export default AlwaysBeCasting;
