@@ -78,7 +78,7 @@ class ArcanicPulsar extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={'ITEMS'}
         tooltip={`Celestial Alignment was triggered ${this.celestialAlignmentCount} times.`}
       >
         <BoringSpellValueText spell={SPELLS.ARCANIC_PULSAR_TRAIT}>
