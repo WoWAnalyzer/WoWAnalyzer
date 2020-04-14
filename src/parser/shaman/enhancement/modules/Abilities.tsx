@@ -4,7 +4,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SpellLink from 'common/SpellLink';
 import React from 'react';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
+import { STORMSTRIKE_CAST_SPELLS } from '../constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -166,17 +166,24 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FERAL_LUNGE_TALENT),
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
+        gcd: {
+          base: 500,
+        },
       },
       {
         spell: SPELLS.FERAL_LUNGE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FERAL_LUNGE_TALENT),
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SPIRIT_WALK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
+        gcd: undefined,
       },
       {
         spell: SPELLS.GHOST_WOLF,
@@ -282,7 +289,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHTNING_SHIELD_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: undefined,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id),
         castEfficiency: {
           suggestion: true,
