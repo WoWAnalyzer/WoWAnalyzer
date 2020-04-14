@@ -9,7 +9,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/constants';
+import { STORMSTRIKE_CAST_SPELLS } from 'parser/shaman/enhancement/constants';
 import { calculateAzeriteEffects } from 'common/stats';
 
 class RoilingStorm extends Analyzer {
@@ -43,13 +43,14 @@ class RoilingStorm extends Analyzer {
       }, 0);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_DAMAGE_SPELLS),
-      this.onStrikeDamage,
+      Events.cast.by(SELECTED_PLAYER)
+        .spell(STORMSTRIKE_CAST_SPELLS),
+      this.onStrikeCast,
     );
   }
 
-  onStrikeDamage() {
+  // We do this on cast since the damage is split amongst the two hits.
+  onStrikeCast() {
     if (!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER_BUFF.id)) {
       return;
     }
