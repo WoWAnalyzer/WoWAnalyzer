@@ -22,13 +22,6 @@ class LightningShield extends Analyzer {
     this.damageGained += event.amount;
   }
 
-  on_byPlayer_energize(event) {
-    if (event.ability.guid !== SPELLS.LIGHTNING_SHIELD.id) {
-      return;
-    }
-    this.maelstromGained += event.amount;
-  }
-
   get damagePercent() {
     return this.owner.getPercentageOfTotalDamageDone(this.damageGained);
   }
