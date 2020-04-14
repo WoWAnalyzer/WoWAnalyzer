@@ -1,11 +1,14 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Buffs';
+import Channeling from 'parser/shared/modules/Channeling';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import UptimeIcon from 'interface/icons/Uptime';
 import { formatPercentage, formatNumber } from 'common/format';
@@ -23,6 +26,8 @@ class AzsharasFontofPower extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     abilities: Abilities,
+    buffs: Buffs,
+    channeling: Channeling,
   };
 
   constructor(...args) {
@@ -38,8 +43,23 @@ class AzsharasFontofPower extends Analyzer {
           suggestions: true,
         },
       });
+      this.buffs.add({
+        spellId: SPELLS.LATENT_ARCANA_BUFF.id,
+        timelineHightlight: true,
+      });
       this.statBuff = calculatePrimaryStat(400, 2203, this.selectedCombatant.getItem(ITEMS.AZSHARAS_FONT_OF_POWER.id).itemLevel);
     }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LATENT_ARCANA_CHANNEL), this.onChannelStart);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LATENT_ARCANA_CHANNEL), this.onChannelEnd);
+  }
+
+  onChannelStart(event) {
+    this.channeling.beginChannel(event);
+    console.log(event);
+  }
+
+  onChannelEnd(event) {
+    this.channeling.endChannel(event);
   }
 
   get buffUptime() {
