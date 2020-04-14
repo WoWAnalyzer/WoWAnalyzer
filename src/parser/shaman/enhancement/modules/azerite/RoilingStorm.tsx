@@ -30,9 +30,9 @@ class RoilingStorm extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.ROILING_STORM.id);
 
-    if (!this.active) {
+    if(!this.selectedCombatant.hasTrait(SPELLS.ROILING_STORM.id)) {
+      this.active = false;
       return;
     }
 

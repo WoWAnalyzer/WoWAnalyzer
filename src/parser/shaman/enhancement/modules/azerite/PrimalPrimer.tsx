@@ -33,10 +33,9 @@ class PrimalPrimer extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTrait(SPELLS.PRIMAL_PRIMER_TRAIT.id);
 
-    if (!this.active) {
+    if(!this.selectedCombatant.hasTrait(SPELLS.PRIMAL_PRIMER_TRAIT.id)) {
+      this.active = false;
       return;
     }
 

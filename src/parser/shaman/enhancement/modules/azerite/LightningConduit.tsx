@@ -24,8 +24,10 @@ class LightningConduit extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTrait(SPELLS.LIGHTNING_CONDUIT_TRAIT.id);
+    if(!this.selectedCombatant.hasTrait(SPELLS.LIGHTNING_CONDUIT_TRAIT.id)) {
+      this.active = false;
+      return;
+    }
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)

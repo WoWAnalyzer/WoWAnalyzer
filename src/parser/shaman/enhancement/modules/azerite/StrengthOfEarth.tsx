@@ -27,7 +27,11 @@ class StrengthOfEarth extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.STRENGTH_OF_EARTH_TRAIT.id);
+
+    if(!this.selectedCombatant.hasTrait(SPELLS.STRENGTH_OF_EARTH_TRAIT.id)) {
+      this.active = false;
+      return;
+    }
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
