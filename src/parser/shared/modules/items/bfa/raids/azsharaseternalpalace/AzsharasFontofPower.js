@@ -55,7 +55,6 @@ class AzsharasFontofPower extends Analyzer {
 
   onChannelStart(event) {
     this.channeling.beginChannel(event);
-    console.log(event);
   }
 
   onChannelEnd(event) {
