@@ -9,7 +9,7 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { STORMSTRIKE_DAMAGE_SPELLS } from '../core/Stormbringer';
+import { STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/constants';
 
 const LANDSLIDE = {
   INCREASE: 1.0,

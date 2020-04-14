@@ -11,20 +11,12 @@ import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import {
+  STORMSTRIKE_CAST_SPELLS,
+  STORMSTRIKE_DAMAGE_SPELLS,
+} from 'parser/shaman/enhancement/constants';
 
 const STORMBRINGER_DAMAGE_MODIFIER = 0.25;
-
-export const STORMSTRIKE_CAST_SPELLS = [
-  SPELLS.STORMSTRIKE_CAST,
-  SPELLS.WINDSTRIKE_CAST,
-];
-
-export const STORMSTRIKE_DAMAGE_SPELLS = [
-  SPELLS.STORMSTRIKE_ATTACK,
-  SPELLS.STORMSTRIKE_ATTACK_OFFHAND,
-  SPELLS.WINDSTRIKE_ATTACK,
-  SPELLS.WINDSTRIKE_ATTACK_OFFHAND,
-];
 
 class Stormbringer extends Analyzer {
   static dependencies = {

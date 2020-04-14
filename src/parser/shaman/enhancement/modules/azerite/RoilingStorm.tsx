@@ -9,8 +9,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/modules/core/Stormbringer';
-import { calculateAzeriteEffects } from '../../../../../common/stats';
+import { STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/constants';
+import { calculateAzeriteEffects } from 'common/stats';
 
 class RoilingStorm extends Analyzer {
   /**
