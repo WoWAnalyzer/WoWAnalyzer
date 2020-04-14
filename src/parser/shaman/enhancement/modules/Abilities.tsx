@@ -133,7 +133,7 @@ class Abilities extends CoreAbilities {
           ),
       },
       {
-        spell: SPELLS.STORMSTRIKE_CAST,
+        spell: STORMSTRIKE_CAST_SPELLS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 9 /
           (
@@ -228,26 +228,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         isUndetectable: true,
-      },
-      {
-        spell: SPELLS.WINDSTRIKE_CAST,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
-        cooldown: haste => 3 /
-          (
-            1 + haste
-          ),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          maxCasts: cooldown => calculateMaxCasts(
-            cooldown,
-            combatant.getBuffUptime(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
-          ),
-        },
       },
       {
         spell: SPELLS.PURGE,
