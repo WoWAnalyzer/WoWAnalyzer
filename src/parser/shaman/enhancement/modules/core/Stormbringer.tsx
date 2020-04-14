@@ -51,6 +51,10 @@ class Stormbringer extends Analyzer {
   }
 
   onStormbringerApplied() {
+    if (!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER_BUFF.id)) {
+      return;
+    }
+
     if (this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
       this.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id);
     }
