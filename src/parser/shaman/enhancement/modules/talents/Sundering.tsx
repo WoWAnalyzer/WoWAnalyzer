@@ -57,7 +57,7 @@ class Sundering extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
-        size="small"
+        size="flexible"
         category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.SUNDERING_TALENT}>
