@@ -43,7 +43,7 @@ class PrimalPrimer extends Analyzer {
       = this.selectedCombatant.traitsBySpellId[SPELLS.PRIMAL_PRIMER_TRAIT.id]
       .reduce((total, rank) => {
         const [damage] = calculateAzeriteEffects(
-          SPELLS.THUNDERAANS_FURY.id,
+          SPELLS.PRIMAL_PRIMER_TRAIT.id,
           rank,
         );
         return total + damage;
