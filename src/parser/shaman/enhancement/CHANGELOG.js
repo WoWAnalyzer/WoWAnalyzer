@@ -13,8 +13,6 @@ export default [
   change(date(2020, 4, 13), <>Added <SpellLink id={SPELLS.STORMSTRIKE_CAST.id} /> damage statistiscs for <SpellLink id={SPELLS.THUNDERAANS_FURY.id} />.</>, [Vetyst]),
   change(date(2020, 4, 13), <>Added damage statistics for <SpellLink id={SPELLS.ROILING_STORM.id} />.</>, [Vetyst]),
   change(date(2020, 4, 12), <>Added healing statistics for <SpellLink id={SPELLS.NATURES_GUARDIAN_TALENT.id} />.</>, [Vetyst]),
-  change(date(2020, 4, 12), <>Added a proc counter for <SpellLink id={SPELLS.LANDSLIDE_TALENT.id} /> to the statistic tooltip.</>, [Vetyst]),
-  change(date(2020, 4, 12), <>Added a proc counter for <SpellLink id={SPELLS.HOT_HAND_TALENT.id} /> to the statistic tooltip.</>, [Vetyst]),
   change(date(2020, 4, 11), <>Added a statistic and suggestion for <SpellLink id={SPELLS.STORMBRINGER.id} />.</>, [Vetyst]),
   change(date(2020, 4, 10), 'Updated spell list to match 8.3 for Enhancement Shaman.', [Vetyst]),
   change(date(2020, 4, 9), <>Updated damage gained from <SpellLink id={SPELLS.FORCEFUL_WINDS_TALENT.id} />.</>, [Vetyst]),
