@@ -22,6 +22,10 @@ class Buffs extends CoreBuffs {
         timelineHightlight: true,
       },
       {
+        spellId: SPELLS.STORMBRINGER_BUFF.id,
+        timelineHightlight: true,
+      },
+      {
         spellId: SPELLS.BERSERKING.id,
         timelineHightlight: true,
       },
@@ -31,7 +35,6 @@ class Buffs extends CoreBuffs {
       },
     ];
   }
-
 }
 
 export default Buffs;
