@@ -41,6 +41,7 @@ import LightningConduit from './modules/azerite/LightningConduit';
 import PrimalPrimer from './modules/azerite/PrimalPrimer';
 import RoilingStorm from './modules/azerite/RoilingStorm';
 import ThunderaansFury from './modules/azerite/ThunderaansFury';
+import StrengthOfEarth from './modules/azerite/StrengthOfEarth';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -90,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lightningConduit: LightningConduit,
     primalPrimer: PrimalPrimer,
     roilingStorm: RoilingStorm,
+    strengthOfEarth: StrengthOfEarth,
     thunderaansFury: ThunderaansFury,
   };
 }

@@ -47,16 +47,6 @@ export default {
     icon: 'spell_nature_lightning',
   },
   // Enhancement
-  ROILING_STORM: {
-    id: 278719,
-    name: 'Roiling Storm',
-    icon: 'ability_shaman_stormstrike',
-  },
-  THUNDERAANS_FURY: {
-    id: 287768,
-    name: 'Thunderaan\'s Fury',
-    icon: 'spell_nature_invisibilitytotem',
-  },
   LIGHTNING_CONDUIT_TRAIT: {
     id: 275388,
     name: 'Lightning Conduit',
@@ -76,6 +66,26 @@ export default {
     id: 273006,
     name: 'Primal Primer',
     icon: 'ability_shaman_lavalash',
+  },
+  ROILING_STORM: {
+    id: 278719,
+    name: 'Roiling Storm',
+    icon: 'ability_shaman_stormstrike',
+  },
+  STRENGTH_OF_EARTH_TRAIT: {
+    id: 273461,
+    name: 'Strength of Earth',
+    icon: 'spell_nature_rockbiter',
+  },
+  STRENGTH_OF_EARTH_DAMAGE: {
+    id: 273466,
+    name: 'Strength of Earth',
+    icon: 'spell_nature_rockbiter',
+  },
+  THUNDERAANS_FURY: {
+    id: 287768,
+    name: 'Thunderaan\'s Fury',
+    icon: 'spell_nature_invisibilitytotem',
   },
   // Elemental
   LAVA_SHOCK: {
