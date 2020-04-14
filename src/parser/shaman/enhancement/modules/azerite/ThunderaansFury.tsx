@@ -62,8 +62,8 @@ class ThunderaansFury extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={'AZERITE_POWERS'}
-        tooltip={'Only Stormstrike statistics are shown.'}
+        category={'ITEMS'}
+        tooltip={'Only Stormstrike statistics are currently shown.'}
       >
         <BoringSpellValueText spell={SPELLS.THUNDERAANS_FURY}>
           <ItemDamageDone amount={this.damageGained} approximate />

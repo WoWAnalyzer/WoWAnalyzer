@@ -55,8 +55,6 @@ class PrimalPrimer extends Analyzer {
         .spell(SPELLS.LAVA_LASH),
       this.onLavaLashDamage,
     );
-
-    console.log(this);
   }
 
   onLavaLashDamage(event: DamageEvent) {
@@ -75,7 +73,7 @@ class PrimalPrimer extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={'ITEMS'}
       >
         <BoringSpellValueText spell={SPELLS.PRIMAL_PRIMER_TRAIT}>
           <ItemDamageDone amount={this.damageGained} />

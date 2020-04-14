@@ -45,7 +45,7 @@ class LightningConduit extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={'ITEMS'}
       >
         <BoringSpellValueText spell={SPELLS.LIGHTNING_CONDUIT_TRAIT}>
           <>

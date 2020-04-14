@@ -62,7 +62,7 @@ class RoilingStorm extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={'ITEMS'}
       >
         <BoringSpellValueText spell={SPELLS.ROILING_STORM}>
           <>
