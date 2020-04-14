@@ -10,6 +10,7 @@ import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
+import Buffs from './modules/Buffs';
 // Enhancement Core
 import Flametongue from './modules/core/Flametongue';
 import FlametongueRefresh from './modules/core/FlametongueRefresh';
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    buffs: Buffs,
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
 
