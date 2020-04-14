@@ -184,6 +184,12 @@ class Abilities extends CoreAbilities {
         cooldown: 40,
       },
       {
+        spell: SPELLS.LIGHTNING_SHIELD_TALENT,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: null,
+        enabled: combatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id),
+      },
+      {
         spell: SPELLS.REINCARNATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
