@@ -8,6 +8,8 @@ import ItemLink from 'common/ItemLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 4, 14), <>Added a check for the number of <SpellLink id={SPELLS.SCORCH.id} /> casts that were cast outside of execute.</>,[Sharrq]),
+  change(date(2020, 4, 14), <>Updated <SpellLink id={SPELLS.HOT_STREAK.id} /> and <SpellLink id={SPELLS.HEATING_UP.id} /> wording and thresholds.</>,[Sharrq]),
   change(date(2019, 12, 19), <>Converted Fire Mage modules to Typescript.</>,[Sharrq]),
   change(date(2019, 11, 14), <>Added analysis for using <SpellLink id={SPELLS.METEOR_TALENT.id} /> during <SpellLink id={SPELLS.COMBUSTION.id} />. Also adjusted Meteor Efficiency target to account for holding it for Combustion.</>,[Sharrq]),
   change(date(2019, 10, 9), <>Added Statistic Boxes for <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> and <SpellLink id={SPELLS.KINDLING_TALENT.id} /> and fixed the <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> statistic box.</>,[Sharrq]),
