@@ -5,13 +5,10 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-
-const FORCEFUL_WINDS = {
-  INCREASE: 1,
-};
+const FORCEFUL_WINDS_DAMAGE_MODIFIER = 0.8;
 
 class ForcefulWinds extends Analyzer {
 
@@ -31,7 +28,7 @@ class ForcefulWinds extends Analyzer {
       return;
     }
     const stacks = buff.stacks || 0;
-    this.damageGained += calculateEffectiveDamage(event, stacks*FORCEFUL_WINDS.INCREASE);
+    this.damageGained += calculateEffectiveDamage(event, stacks * FORCEFUL_WINDS_DAMAGE_MODIFIER);
   }
 
   get damagePercent() {
@@ -44,7 +41,7 @@ class ForcefulWinds extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
         icon={<SpellIcon id={SPELLS.FORCEFUL_WINDS_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"
