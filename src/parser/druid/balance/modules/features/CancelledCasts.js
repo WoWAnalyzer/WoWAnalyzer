@@ -1,6 +1,5 @@
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class CancelledCasts extends CoreCancelledCasts {
   get suggestionThresholds() {
@@ -23,8 +22,6 @@ class CancelledCasts extends CoreCancelledCasts {
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(8);
 }
 
 export default CancelledCasts;

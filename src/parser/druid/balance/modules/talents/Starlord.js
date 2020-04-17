@@ -84,6 +84,7 @@ class Starlord extends Analyzer {
         icon={<SpellIcon id={SPELLS.STARLORD_TALENT.id} />}
         value={`${this.averageHaste} %`}
         label="Average haste gained"
+        position={STATISTIC_ORDER.OPTIONAL(5)}
       >
         <table className="table table-condensed">
           <thead>
@@ -106,7 +107,6 @@ class Starlord extends Analyzer {
       </StatisticBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
 }
 
 export default Starlord;

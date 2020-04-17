@@ -49,11 +49,10 @@ class StellarFlareUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.STELLAR_FLARE_TALENT.id} />}
         value={`${formatPercentage(stellarFlareUptime)} %`}
         label="Stellar Flare uptime"
+        position={STATISTIC_ORDER.OPTIONAL()}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default StellarFlareUptime;

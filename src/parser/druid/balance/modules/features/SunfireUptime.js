@@ -43,11 +43,10 @@ class SunfireUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.SUNFIRE.id} />}
         value={`${formatPercentage(sunfireUptime)} %`}
         label="Sunfire uptime"
+        position={STATISTIC_ORDER.CORE(7)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default SunfireUptime;

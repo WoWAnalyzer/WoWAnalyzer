@@ -43,11 +43,10 @@ class MoonfireUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
         value={`${formatPercentage(moonfireUptime)} %`}
         label="Moonfire uptime"
+        position={STATISTIC_ORDER.CORE(4)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default MoonfireUptime;
