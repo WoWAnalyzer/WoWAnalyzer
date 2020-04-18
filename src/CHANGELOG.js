@@ -9,7 +9,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
-  change(date(2020, 4, 16), <> Fixed a bug where the haste value gained <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS_RANK_THREE_FOUR} /> minor was extremely low if the buff never fell off. </>, Putro),
+  change(date(2020, 4, 16), <>Fixed a bug where the haste value gained <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS_RANK_THREE_FOUR.id} /> minor was extremely low if the buff never fell off.</>, Putro),
   change(date(2020, 4, 14), <>Using <ItemLink id={ITEMS.AZSHARAS_FONT_OF_POWER.id} /> no longer shows as downtime during the channel.</>, Sharrq),
   change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.FLASH_OF_INSIGHT.id} />.</>, niseko),
   change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.SEVERE_T3.id} /> <SpellLink id={SPELLS.EXPEDIENT_T3.id} /> <SpellLink id={SPELLS.MASTERFUL_T3.id} /> <SpellLink id={SPELLS.VERSATILE_T3.id} />.</>, niseko),
