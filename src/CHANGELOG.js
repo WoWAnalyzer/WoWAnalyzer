@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -9,6 +9,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 4, 19), 'Reduced avatar and article image file sizes', Vetyst),
   change(date(2020, 4, 16), <>Fixed a bug where the haste value gained <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS_RANK_THREE_FOUR.id} /> minor was extremely low if the buff never fell off.</>, Putro),
   change(date(2020, 4, 14), <>Using <ItemLink id={ITEMS.AZSHARAS_FONT_OF_POWER.id} /> no longer shows as downtime during the channel.</>, Sharrq),
   change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.FLASH_OF_INSIGHT.id} />.</>, niseko),
