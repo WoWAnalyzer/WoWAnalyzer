@@ -5,10 +5,10 @@ import { Zerotorescue } from 'CONTRIBUTORS';
 import RegularArticle from 'interface/news/RegularArticle';
 import makeNewsUrl from 'interface/news/makeUrl';
 
-import Report from './report.png';
-import Statistics from './statistics.png';
+import Report from './report.jpg';
+import Statistics from './statistics.jpg';
 import Timeline from './timeline.png';
-import PlayerSelection from './playerselection.png';
+import PlayerSelection from './playerselection.jpg';
 import Logo from './logo.png';
 
 export default (
