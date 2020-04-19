@@ -121,6 +121,10 @@ class EssenceOfTheFocusingIris extends Analyzer {
     this.handleStacks(event);
   }
 
+  on_fightend(event) {
+    this.handleStacks(event);
+  }
+
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FOCUSED_AZERITE_BEAM_DAMAGE.id) {
