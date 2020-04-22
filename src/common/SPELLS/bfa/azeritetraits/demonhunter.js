@@ -47,6 +47,32 @@ export default {
     icon: 'ability_demonhunter_chaosstrike',
   },
 
-  //Shared
+  // Vengeance
+  REVEL_IN_PAIN: {
+    id: 272983,
+    name: 'Revel in Pain',
+    icon: 'ability_demonhunter_fierybrand',
+  },
+  REVEL_IN_PAIN_BUFF: {
+    id: 272987,
+    name: 'Revel in Pain',
+    icon: 'ability_demonhunter_fierybrand',
+  },
 
+  //Shared
+  INFERNAL_ARMOR: {
+    id: 273236,
+    name: 'Infernal Armor',
+    icon: 'ability_demonhunter_immolation',
+  },
+  INFERNAL_ARMOR_BUFF: {
+    id: 273238,
+    name: 'Infernal Armor',
+    icon: 'ability_demonhunter_immolation',
+  },
+  INFERNAL_ARMOR_DAMAGE: {
+    id: 273239,
+    name: 'Infernal Armor',
+    icon: 'ability_demonhunter_immolation',
+  },
 };

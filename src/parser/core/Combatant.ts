@@ -433,6 +433,7 @@ class Combatant extends Entity {
           name: spell ? spell.name : undefined,
         },
         sourceID: buff.source,
+        targetID: this.id,
         start: timestamp,
       });
     });
