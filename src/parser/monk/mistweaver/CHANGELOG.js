@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 4, 22), <>Corrected cooldown for Rising Sun Kick and Blackout Kick. </>,Abelito75),
   change(date(2020, 3, 22), <>Fixed <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> healing for hot extensions. </>,Abelito75),
   change(date(2020, 3, 5), <>Added average time between <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> casts statistic when <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> is talented. </>,FraunchToost),
   change(date(2020, 2, 27), <>Bugfix to only show <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> cast efficiency suggestion when <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> is talented. </>,FraunchToost),
