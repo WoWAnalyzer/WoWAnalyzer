@@ -3820,29 +3820,25 @@ Array [
     "icon": "ability_mage_hotstreak",
     "importance": "major",
     "issue": <React.Fragment>
-      Unless you are guaranteed to crit (i.e. during 
+      When 
       <ForwardRef
         id={190319}
       />
+       is not active
+      
+       
+       and the target is over 30% health
       , 
       <ForwardRef
-        id={205026}
+        id={48108}
       />
-      , or 
-      <ForwardRef
-        id={269644}
-      />
-      ), you should always cast 
+       procs should be used immediately after casting 
       <ForwardRef
         id={133}
       />
        
       
-       alongside using your 
-      <ForwardRef
-        id={48108}
-      />
-       proc. This way, if one of the two abilities crit you will gain a new 
+      . This way, if one of the two abilities crit you will gain a new 
       <ForwardRef
         id={48107}
       />
@@ -3852,12 +3848,24 @@ Array [
       />
        proc. You failed to do this 
       10
-       times.
+       times. If you have a 
+      <ForwardRef
+        id={48108}
+      />
+       proc and need to move, you can hold the proc and cast 
+      <ForwardRef
+        id={2948}
+      />
+       once or twice until you are able to stop and cast 
+      <ForwardRef
+        id={133}
+      />
+       or you can use your procs while you move.
     </React.Fragment>,
     "stat": <React.Fragment>
       50.00% Utilization
        (
-      95.00% is recommended
+      85.00% is recommended
       )
     </React.Fragment>,
   },
@@ -4146,10 +4154,10 @@ exports[`Fire Mage integration test: example log SearingTouch matches the statis
         <div
           className="value"
         >
-          86
+          93
           % 
           <small>
-            Buff Utilization
+            Execute Utilization
           </small>
         </div>
       </div>
@@ -4199,7 +4207,7 @@ Array [
        always use Scorch instead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.
     </React.Fragment>,
     "stat": <React.Fragment>
-      86.21% Utilization
+      92.73% Utilization
        (
       95.00 is recommended
       )
@@ -5447,7 +5455,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "80.55%",
+                  "width": "81.40384615384615%",
                 }
               }
             />
@@ -5772,7 +5780,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.2%",
+                        "width": "25.615384615384617%",
                       }
                     }
                   />
@@ -5900,7 +5908,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "74.6325354969574%",
+                  "width": "80.0607486631016%",
                 }
               }
             />
@@ -6023,7 +6031,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  86.21%
+                  92.73%
                    
                    
                 </div>
@@ -6045,7 +6053,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "70.61896551724138%",
+                        "width": "92.33181818181819%",
                       }
                     }
                   />
