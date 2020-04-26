@@ -102,7 +102,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.FLANKING_STRIKE_TALENT, SPELLS.FLANKING_STRIKE_PLAYER],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 40,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
