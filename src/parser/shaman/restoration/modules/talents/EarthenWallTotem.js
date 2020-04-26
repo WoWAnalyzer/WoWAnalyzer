@@ -38,7 +38,7 @@ class EarthenWallTotem extends Analyzer {
   constructor(props) {
     super(props);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id);
-    this.isMaghar = this.selectedCombatant.race && this.selectedCombatant.race.name === "Mag'har orc";
+    this.isMaghar = this.selectedCombatant.race && this.selectedCombatant.race.name === "Mag'har Orc";
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EARTHEN_WALL_TOTEM_TALENT), this._onCast);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER_PET).spell(SPELLS.EARTHEN_WALL_TOTEM_SELF_DAMAGE), this._updateTotemHealth);
@@ -61,7 +61,7 @@ class EarthenWallTotem extends Analyzer {
   _updateTotemHealth(event) {
     if (this.prePullCast) {
       this.earthenWallTotems[this.castNumber] = {
-        potentialHealing: event.maxHitPoints, // this is taking the totems max HP, which is the same result as the players unless Mag'har orc
+        potentialHealing: event.maxHitPoints, // this is taking the totems max HP, which is the same result as the players unless Mag'har Orc
         effectiveHealing: (this.earthenWallTotems[this.castNumber] && this.earthenWallTotems[this.castNumber].effectiveHealing) || 0,
         timestamp: this.owner.fight.start_time,
       };
