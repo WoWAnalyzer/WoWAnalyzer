@@ -77,26 +77,6 @@ class Abilities extends CoreAbilities {
           extraSuggestion: <>Although you normally want to use this off CD, you can save it to line it up with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} icon />.  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.</>,
         },
       },
-      {
-        spell: SPELLS.BERSERKING,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        isUndetectable: true,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: [SPELLS.BLOOD_FURY_PHYSICAL, SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL, SPELLS.BLOOD_FURY_SPELL],
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        isUndetectable: true,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
       // ROTATIONAL
       {
         spell: SPELLS.OBLITERATE_CAST,
