@@ -180,7 +180,7 @@ export default {
     name: 'Pack Hobgoblin',
     icon: 'ability_racial_packhobgoblin',
   },
-  // Orc
+  // orc
   BLOOD_FURY_SPELL: {
     id: 33702,
     name: 'Blood Fury',
@@ -256,7 +256,7 @@ export default {
     name: 'Forge of Light',
     icon: 'ability_racial_forgeoflight',
   },
-  // Mag'har Orc
+  // Mag'har orc
   ANCESTRAL_CALL: {
     id: 274738,
     name: 'Ancestral Call',

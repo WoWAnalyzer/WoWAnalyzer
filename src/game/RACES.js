@@ -124,6 +124,6 @@ export default {
     id: 36,
     mask: 8,
     side: 'horde',
-    name: 'Mag\'har Orc',
+    name: 'Mag\'har orc',
   },
 };

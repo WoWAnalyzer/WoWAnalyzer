@@ -311,7 +311,7 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Racials
-    // Mag'har Orc
+    // Mag'har orc
     [SPELLS.RICTUS_OF_THE_LAUGHING_SKULL.id]: { crit: 411 },
     [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 411 },
     [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 411 },
