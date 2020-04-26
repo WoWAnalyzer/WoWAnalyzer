@@ -289,31 +289,6 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         gcd: null,
       },
-
-      /**
-       * Racials until we find a better solution
-       */
-      {
-        spell: SPELLS.BERSERKING,
-        buffSpellId: SPELLS.BERSERKING.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        isUndetectable: true,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: [SPELLS.BLOOD_FURY_PHYSICAL, SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL, SPELLS.BLOOD_FURY_SPELL],
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        isUndetectable: true,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
     ];
   }
 }
