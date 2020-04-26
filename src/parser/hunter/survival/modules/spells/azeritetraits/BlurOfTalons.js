@@ -17,8 +17,6 @@ const blurOfTalonsStats = traits => Object.values(traits).reduce((obj, rank) => 
   agility: 0,
 });
 
-//TODO implement speed when split scaling is possible
-
 /**
  * During Coordinated Assault, Mongoose Bite or Raptor Strike increases your Agility by X and your Speed by X for 6 sec. Stacks up to 5 times.
  *

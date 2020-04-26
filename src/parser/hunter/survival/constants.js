@@ -18,9 +18,9 @@ export const ALPHA_DAMAGE_KC_MODIFIER = 0.3;
 //Attack speed gain per bleeding enemy from Bloodseeker
 export const BLOODSEEKER_ATTACK_SPEED_GAIN = 0.1;
 //Hydra's Bite DOT damage increase
-export const HYDRAS_BITE_DOT_MODIFIER = 0.1;
+export const HYDRAS_BITE_DOT_MODIFIER = 0.2;
 //Tip of the Spear damage increase
-export const TIP_DAMAGE_INCREASE = 0.2;
+export const TIP_DAMAGE_INCREASE = 0.25;
 //Tip maximum stacks
 export const TIP_MAX_STACKS = 3;
 //Raptor Strike turns into Mongoose Bite when talented into it, and during Aspect of the Eagle they change spellIDs.

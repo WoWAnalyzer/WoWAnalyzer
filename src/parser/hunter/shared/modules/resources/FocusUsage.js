@@ -26,7 +26,6 @@ const LIST_OF_FOCUS_SPENDERS = [
   SPELLS.SERPENT_STING_TALENT.id,
   SPELLS.MULTISHOT_MM.id,
   SPELLS.BURSTING_SHOT.id,
-  SPELLS.PIERCING_SHOT_TALENT.id,
   SPELLS.EXPLOSIVE_SHOT_TALENT.id,
   //sv specific
   SPELLS.RAPTOR_STRIKE.id,
@@ -87,12 +86,6 @@ class FocusUsage extends Analyzer {
       focusUsed: 0,
       name: SPELLS.SERPENT_STING_TALENT.name,
       color: '#ecd1b6',
-    },
-    [SPELLS.PIERCING_SHOT_TALENT.id]: {
-      casts: 0,
-      focusUsed: 0,
-      name: SPELLS.PIERCING_SHOT_TALENT.name,
-      color: '#d440ec',
     },
     [SPELLS.MULTISHOT_MM.id]: {
       casts: 0,

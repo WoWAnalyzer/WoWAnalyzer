@@ -7,6 +7,7 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
+      //Baseline Rotational
       {
         spell: SPELLS.AIMED_SHOT,
         buffSpellId: [SPELLS.DOUBLE_TAP_TALENT.id, SPELLS.LOCK_AND_LOAD_BUFF.id],
@@ -61,6 +62,128 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.TRUESHOT,
+        buffSpellId: SPELLS.TRUESHOT.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+        },
+      },
+      {
+        spell: SPELLS.KILL_SHOT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        charges: combatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) ? 2 : 1,
+        cooldown: () => {
+          if (combatant.hasBuff(SPELLS.DEAD_EYE_BUFF.id)) {
+            return 10 / 3 * 2;
+          }
+          return 10;
+        },
+        gcd: {
+          base: 1500,
+        },
+      },
+
+      //Baseline Defensive
+      {
+        spell: SPELLS.EXHILARATION,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
+        cooldown: 120,
+        gcd: {
+          static: 1500,
+        },
+      },
+      {
+        spell: SPELLS.ASPECT_OF_THE_TURTLE,
+        buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
+        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
+        gcd: null,
+      },
+
+      //Baseline Utility
+      {
+        spell: SPELLS.DISENGAGE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 20,
+        gcd: {
+          static: 0,
+        },
+      },
+      {
+        spell: SPELLS.BURSTING_SHOT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 24,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.CONCUSSIVE_SHOT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 5,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.COUNTER_SHOT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 24,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.MISDIRECTION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.BINDING_SHOT_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.ASPECT_OF_THE_CHEETAH,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
+        gcd: null,
+      },
+      {
+        spell: SPELLS.FREEZING_TRAP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.TAR_TRAP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.FLARE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+      },
+
+      //Talents
+      {
         spell: SPELLS.EXPLOSIVE_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
@@ -72,15 +195,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-        },
-      },
-      {
-        spell: SPELLS.HUNTERS_MARK_TALENT,
-        buffSpellId: SPELLS.HUNTERS_MARK_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.HUNTERS_MARK_TALENT.id),
-        gcd: {
-          base: 1500,
         },
       },
       {
@@ -119,10 +233,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.PIERCING_SHOT_TALENT,
+        spell: SPELLS.VOLLEY_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
-        enabled: combatant.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id),
+        cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.VOLLEY_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -131,28 +245,8 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
-      {
-        spell: SPELLS.TRUESHOT,
-        buffSpellId: SPELLS.TRUESHOT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-      },
-      {
-        spell: SPELLS.EXHILARATION,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        isDefensive: true,
-        cooldown: 120,
-        gcd: {
-          static: 1500,
-        },
-      },
+
+      //Pets
       {
         spell: [SPELLS.SURVIVAL_OF_THE_FITTEST_LONE_WOLF, SPELLS.SURVIVAL_OF_THE_FITTEST],
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
@@ -167,92 +261,13 @@ class Abilities extends CoreAbilities {
         cooldown: 360,
         gcd: null,
       },
-
       {
         spell: SPELLS.MASTERS_CALL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
         gcd: null,
       },
-      {
-        spell: SPELLS.DISENGAGE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 20,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.BURSTING_SHOT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 24,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.CONCUSSIVE_SHOT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 5,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.COUNTER_SHOT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 24,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.MISDIRECTION,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.BINDING_SHOT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
-        gcd: null,
 
-      },
-      {
-        spell: SPELLS.ASPECT_OF_THE_CHEETAH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
-        gcd: null,
-      },
-      {
-        spell: SPELLS.ASPECT_OF_THE_TURTLE,
-        buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        isDefensive: true,
-        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
-        gcd: null,
-      },
-      {
-        spell: SPELLS.FREEZING_TRAP,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.TAR_TRAP,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.FLARE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 20,
-        gcd: {
-          base: 1500,
-        },
-      },
       {
         spell: SPELLS.INTIMIDATION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -262,7 +277,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.CALL_PET_1, SPELLS.CALL_PET_2, SPELLS.CALL_PET_3, SPELLS.CALL_PET_4, SPELLS.CALL_PET_5],
+        spell: [
+          SPELLS.CALL_PET_1,
+          SPELLS.CALL_PET_2,
+          SPELLS.CALL_PET_3,
+          SPELLS.CALL_PET_4,
+          SPELLS.CALL_PET_5,
+        ],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,

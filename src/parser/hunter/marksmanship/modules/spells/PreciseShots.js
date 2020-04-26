@@ -14,8 +14,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
  * Aimed Shot causes your next 1-2 Arcane Shots or Multi-Shots to deal 100% more damage.
  */
 
-//TODO: Add a suggestion for Aimed Shotting when Precise Shots is active + some conditionals, but wait for 8.1 for Marksmanship minor rework before doing so.
-
 const ASSUMED_PROCS = 2; //Logs give no indication whether we gain 1 or 2 stacks - we assume 2 and work from there.
 const PRECISE_SHOTS_MODIFIER = 0.75;
 const MAX_TRAVEL_TIME = 500;

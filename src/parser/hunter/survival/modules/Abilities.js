@@ -101,7 +101,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.FLANKING_STRIKE_TALENT, SPELLS.FLANKING_STRIKE_PLAYER],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 40,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -220,7 +220,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.FREEZING_TRAP,
