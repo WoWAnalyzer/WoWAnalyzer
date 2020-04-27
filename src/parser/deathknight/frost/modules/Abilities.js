@@ -21,7 +21,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          extraSuggestion: 'You should aim to use this off CD.  Only save it if Breath of Sindragosa will be available in less than 45 seconds.',
+          extraSuggestion: <>You should aim to use this off CD.  Only save it if <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> will be available in less than 30 seconds.</>,
         },
       },
       {
@@ -35,6 +35,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.80,
+          extraSuggestion: <>You should use this with every <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /></>,
         },
       },
       {
@@ -60,7 +61,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: 'You should only save this if you are about to move and would immediately lose the breath.',
+          extraSuggestion: 'You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase',
         },
       },
       {
