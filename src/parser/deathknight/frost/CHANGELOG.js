@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+    change(date(2020, 4, 28), 'Cleaned up old text and fixed a couple bugs', [Khazak]),
     change(date(2020, 2, 2), 'Switched Frost Death Knight modules to use new event listeners', [Khazak]),
     change(date(2020, 1, 25), 'Add integration test', [Khazak]),
     change(date(2020, 1, 18), 'Updated patch compatibility to 8.3', [Khazak]),

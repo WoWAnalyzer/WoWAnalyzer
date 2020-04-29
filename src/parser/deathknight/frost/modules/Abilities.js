@@ -23,6 +23,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.85,
           extraSuggestion: <>You should aim to use this off CD.  Only save it if <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> will be available in less than 30 seconds.</>,
         },
+        timelineSortIndex: 0,
       },
       {
         spell: SPELLS.EMPOWER_RUNE_WEAPON,
@@ -37,6 +38,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.80,
           extraSuggestion: <>You should use this with every <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /></>,
         },
+        timelineSortIndex: 1,
       },
       {
         spell: SPELLS.HORN_OF_WINTER_TALENT,
@@ -63,6 +65,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
           extraSuggestion: 'You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase',
         },
+        timelineSortIndex: 2,
       },
       {
         spell: SPELLS.FROSTWYRMS_FURY_TALENT,
@@ -115,7 +118,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FROSTSCYTHE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
@@ -129,6 +132,15 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.GLACIAL_ADVANCE_TALENT.id),
+      },
+      {
+        spell: SPELLS.CHILL_STREAK_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasMajor(32),
       },
       // DEFENSIVE
       {
