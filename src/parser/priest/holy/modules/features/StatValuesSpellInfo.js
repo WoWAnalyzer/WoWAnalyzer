@@ -28,7 +28,7 @@ export default {
     hasteHpm: false,
     hasteHpct: true,
     mastery: true,
-    vers: false,
+    vers: true,
   },
 
   // Spells
@@ -131,7 +131,7 @@ export default {
   [SPELLS.DIVINE_HYMN_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
