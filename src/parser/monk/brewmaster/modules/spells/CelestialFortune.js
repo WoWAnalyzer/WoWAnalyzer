@@ -99,13 +99,6 @@ class CelestialFortune extends Analyzer {
     sourceAbsorbs[event.ability.guid] = undefined;
   }
 
-  on_toPlayer_applybuff(event) {
-    if(event.absorb === undefined) {
-      return;
-    }
-    this._addAbsorb(event);
-  }
-
   _nextCFHeal = null;
   _queueHealing(event) {
     if(this._nextCFHeal !== null) {

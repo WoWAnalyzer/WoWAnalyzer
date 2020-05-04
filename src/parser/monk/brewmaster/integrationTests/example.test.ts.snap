@@ -2885,7 +2885,7 @@ exports[`Brewmaster Monk integration test: example log CelestialFortune matches 
         <div
           className="value"
         >
-          2,084 HPS
+          2,093 HPS
         </div>
       </div>
     </div>
@@ -3569,7 +3569,7 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
       <thead>
         <tr>
           <th
-            width="45%"
+            width="75%"
           >
             <b>
               Stat
@@ -3591,24 +3591,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
               onTouchStart={[Function]}
             >
               Per Rating (Normalized)
-            </b>
-          </th>
-          <th
-            className="text-right"
-          >
-            <b
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-            >
-              Rating — Last 5 ilvls
-            </b>
-          </th>
-          <th
-            className="text-right"
-          >
-            <b>
-              Value — Last 5 ilvls
             </b>
           </th>
         </tr>
@@ -3645,22 +3627,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
               1.00
             </b>
           </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              × 
-              79.56
-            </b>
-          </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              = 
-              79.56
-            </b>
-          </td>
         </tr>
         <tr>
           <td
@@ -3681,12 +3647,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
             className="text-right"
           >
             1.00
-          </td>
-          <td />
-          <td
-            className="text-right"
-          >
-            79.56
           </td>
         </tr>
         <tr>
@@ -3718,22 +3678,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           >
             <b>
               1.53
-            </b>
-          </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              × 
-              11.00
-            </b>
-          </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              = 
-              16.86
             </b>
           </td>
         </tr>
@@ -3769,12 +3713,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
             className="text-right"
           >
             1.53
-          </td>
-          <td />
-          <td
-            className="text-right"
-          >
-            16.86
           </td>
         </tr>
         <tr>
@@ -3827,22 +3765,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
               0.28
             </b>
           </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              × 
-              269.00
-            </b>
-          </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              = 
-              75.89
-            </b>
-          </td>
         </tr>
         <tr>
           <td
@@ -3877,12 +3799,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           >
             0.26
           </td>
-          <td />
-          <td
-            className="text-right"
-          >
-            70.09
-          </td>
         </tr>
         <tr>
           <td
@@ -3915,20 +3831,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
               NYL
             </dfn>
           </td>
-          <td
-            className="text-right"
-          >
-            <dfn
-              className=""
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={Object {}}
-            >
-              NYL
-            </dfn>
-          </td>
-          <td />
           <td
             className="text-right"
           >
@@ -3977,12 +3879,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           >
             0.02
           </td>
-          <td />
-          <td
-            className="text-right"
-          >
-            5.80
-          </td>
         </tr>
         <tr>
           <td
@@ -4022,22 +3918,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
               0.20
             </b>
           </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              × 
-              14.00
-            </b>
-          </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              = 
-              2.82
-            </b>
-          </td>
         </tr>
         <tr>
           <td
@@ -4071,12 +3951,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
             className="text-right"
           >
             0.20
-          </td>
-          <td />
-          <td
-            className="text-right"
-          >
-            2.82
           </td>
         </tr>
         <tr>
@@ -4123,20 +3997,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
               NYL
             </dfn>
           </td>
-          <td />
-          <td
-            className="text-right"
-          >
-            <dfn
-              className=""
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={Object {}}
-            >
-              NYL
-            </dfn>
-          </td>
         </tr>
         <tr>
           <td
@@ -4166,30 +4026,14 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
             className="text-right"
           >
             <b>
-              287k
+              239k
             </b>
           </td>
           <td
             className="text-right"
           >
             <b>
-              1.26
-            </b>
-          </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              × 
-              14.00
-            </b>
-          </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              = 
-              17.61
+              1.05
             </b>
           </td>
         </tr>
@@ -4206,18 +4050,12 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           <td
             className="text-right"
           >
-            230k
+            183k
           </td>
           <td
             className="text-right"
           >
-            1.01
-          </td>
-          <td />
-          <td
-            className="text-right"
-          >
-            14.16
+            0.80
           </td>
         </tr>
         <tr>
@@ -4239,12 +4077,6 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
             className="text-right"
           >
             0.25
-          </td>
-          <td />
-          <td
-            className="text-right"
-          >
-            3.45
           </td>
         </tr>
         <tr>
@@ -4280,30 +4112,14 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
             className="text-right"
           >
             <b>
-              621k
+              511k
             </b>
           </td>
           <td
             className="text-right"
           >
             <b>
-              1.28
-            </b>
-          </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              × 
-              29.00
-            </b>
-          </td>
-          <td
-            className="text-right"
-          >
-            <b>
-              = 
-              37.20
+              1.06
             </b>
           </td>
         </tr>
@@ -4333,18 +4149,12 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           <td
             className="text-right"
           >
-            500k
+            412k
           </td>
           <td
             className="text-right"
           >
-            1.03
-          </td>
-          <td />
-          <td
-            className="text-right"
-          >
-            29.95
+            0.85
           </td>
         </tr>
         <tr>
@@ -4360,18 +4170,12 @@ exports[`Brewmaster Monk integration test: example log MitigationSheet matches t
           <td
             className="text-right"
           >
-            121k
+            99k
           </td>
           <td
             className="text-right"
           >
-            0.25
-          </td>
-          <td />
-          <td
-            className="text-right"
-          >
-            7.24
+            0.20
           </td>
         </tr>
       </tbody>
