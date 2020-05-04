@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import SpellLink from 'common/SpellLink';
 import STAT, { getClassNameColor, getName } from 'parser/shared/modules/features/STAT';
-import { calculateSecondaryStatDefault } from 'common/stats';
 import CelestialFortune from '../spells/CelestialFortune';
 
 import MitigationSheet, { makeIcon } from '../features/MitigationSheet';
@@ -55,7 +54,6 @@ export default class CritValue extends Analyzer {
           { name: 'Critical Heals', amount: module.critBonusHealing },
         ];
       },
-      increment: this.sheet.increment(calculateSecondaryStatDefault, module.stats.startingCritRating),
     };
   }
 }
