@@ -41,8 +41,6 @@ class LucidDreams extends Analyzer {
           recommendedEfficiency: 0.9,
         },
       });
-      this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.LUCID_DREAMS_MAJOR), this.onMajorStart);
-      this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.LUCID_DREAMS_MAJOR), this.onMajorEnd);
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS), this.onCastSotR);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERAPHIM_TALENT), this.onCastSotR);
@@ -60,9 +58,6 @@ class LucidDreams extends Analyzer {
     [SPELLS.SERAPHIM_TALENT.id]: 0,
     [SPELLS.SHIELD_OF_THE_RIGHTEOUS.id]: 0,
   };
-
-  onMajorStart(event: ApplyBuffEvent) { }
-  onMajorEnd(event: RemoveBuffEvent) { }
 
   onCastSotR(event: CastEvent) {
     this.lastCast = event;
