@@ -84,8 +84,7 @@ class LucidDreams extends Analyzer {
       // fabricated events in the event view confirms that).
       //
       // it only happens once in that one log, so I'm going to just move on
-      console.error(e);
-      console.log(this.lastCast);
+        console.error(`Error reducing the cooldown of SotR due to Memory of Lucid Dreams: ${e}. Last Cast: ${this.lastCast}`);
     }
     this.refundedCD[this.lastCast!.ability.guid] += refund;
     this.refundCounts[this.lastCast!.ability.guid] += 1;
