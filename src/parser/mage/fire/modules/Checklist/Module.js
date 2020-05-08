@@ -67,7 +67,7 @@ class Checklist extends BaseChecklist {
           hotStreakWastedCrits: this.hotStreakWastedCrits.wastedCritsThresholds,
           hotStreakPreCasts: this.hotStreakPreCasts.castBeforeHotStreakThresholds,
           pyroclasmUtilization: this.pyroclasm.procUtilizationThresholds,
-          searingTouchUtilization: this.searingTouch.suggestionThreshold,
+          searingTouchUtilization: this.searingTouch.executeSuggestionThreshold,
           meteorEfficiency: this.meteor.meteorEfficiencySuggestionThresholds,
           meteorUtilization: this.meteorRune.meteorUtilSuggestionThresholds,
           meteorCombustionUtilization: this.meteorCombustion.meteorCombustionSuggestionThresholds,

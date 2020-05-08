@@ -59,7 +59,7 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
       </Rule>
       <Rule
         name="Avoid capping Runic Power"
-        description={(<>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 76 or more Runic Power to avoid overcapping.</>)}
+        description={(<>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 73+ Runic Power to avoid overcapping.</>)}
       >
         <Requirement name={'Runic Power Efficiency'} thresholds={thresholds.runicPowerEfficiency} />
       </Rule>

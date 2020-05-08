@@ -5,7 +5,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 class Sundering extends Analyzer {
 
@@ -47,7 +47,7 @@ class Sundering extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
         icon={<SpellIcon id={SPELLS.SUNDERING_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Of total damage"

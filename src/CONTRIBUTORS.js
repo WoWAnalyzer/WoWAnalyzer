@@ -433,6 +433,17 @@ export const HawkCorrigan = {
   nickname: 'HawkCorrigan',
   github: 'HawkCorrigan',
 };
+export const Vetyst = {
+  nickname: 'Vetyst',
+  github: 'djanse',
+  discord: 'vetyst#0001',
+  avatar: require('./interface/images/avatars/vetyst-avatar.png'),
+  mains: [{
+    name: 'Vetyst',
+    spec: SPECS.BALANCE_DRUID,
+    link: 'https://worldofwarcraft.com/en-gb/character/tarren-mill/vetyst',
+  }],
+};
 export const Anatta336 = {
   nickname: 'Anatta336',
   github: 'Anatta336',
@@ -474,12 +485,12 @@ export const niseko = {
   mains: [{
     name: 'Niseko',
     spec: SPECS.RESTORATION_SHAMAN,
-    link: 'https://worldofwarcraft.com/en-gb/character/stormscale/niseko',
+    link: 'https://worldofwarcraft.com/en-gb/character/draenor/niseko',
   },
     {
       name: 'Nisefy',
-      spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-gb/character/stormscale/nisefy',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-gb/character/draenor/furryweeb',
     }],
   links: {
     'Ancestral Guidance': 'https://ancestralguidance.com/',

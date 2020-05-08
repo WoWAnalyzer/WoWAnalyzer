@@ -264,6 +264,11 @@ export default {
     name: 'Breath of Sindragosa',
     icon: 'spell_deathknight_breathofsindragosa',
   },
+  CHILL_STREAK_TALENT: {
+    id: 305392,
+    name: 'Chill Streak',
+    icon: 'spell_frost_piercing-chill',
+  },
   // Buffs
   EMPOWER_RUNE_WEAPON: {
     id: 47568,

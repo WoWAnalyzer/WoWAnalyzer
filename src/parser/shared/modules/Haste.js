@@ -27,7 +27,7 @@ class Haste extends Analyzer {
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
     [SPELLS.HAVOC_T21_4PC_BUFF.id]: 0.25,
-    [SPELLS.DIRE_BEAST_BUFF.id]: 0.1,
+    [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
     [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior

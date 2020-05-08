@@ -8688,7 +8688,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              0.92
+              0.84
             </td>
             <td
               style={
@@ -8756,7 +8756,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
               className="text-right"
             >
               0.00 - 
-              1.01
+              0.92
             </td>
             <td
               style={
@@ -8815,7 +8815,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              0.79
+              0.72
             </td>
             <td
               style={
@@ -8874,7 +8874,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              0.82
+              0.75
             </td>
             <td
               style={
@@ -8941,7 +8941,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              1.01
+              0.92
             </td>
             <td
               style={
@@ -8995,7 +8995,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              1.11
+              1.01
             </td>
             <td
               style={
