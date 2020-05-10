@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
@@ -48,7 +48,7 @@ class Sundering extends Analyzer {
     this.damageGained += event.amount + (event.absorbed || 0);
   }
 
-  onCast() {
+  onCast(event: CastEvent) {
     this.casts += 1;
   }
 

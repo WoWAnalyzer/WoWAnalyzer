@@ -37,7 +37,7 @@ class LightningConduit extends Analyzer {
   }
 
   onLightningConduit(event: DamageEvent) {
-    this.damageGained += event.amount;
+    this.damageGained += event.amount + (event.absorbed || 0);
   }
 
   // TODO: Show statistics of amount of hits compared to stormstrike uses with

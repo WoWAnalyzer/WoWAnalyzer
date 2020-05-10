@@ -293,9 +293,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REINCARNATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        gcd: {
-          base: 1500,
-        },
+        gcd: undefined,
       },
       {
         spell: [SPELLS.BLOODLUST, SPELLS.HEROISM],

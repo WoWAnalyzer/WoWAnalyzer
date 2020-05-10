@@ -28,17 +28,6 @@ class Hailstorm extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
   }
 
-  get NHRequirementTresholds() {
-    return {
-      actual: this.selectedCombatant.traitsBySpellId[SPELLS.NATURAL_HARMONY_TRAIT.id].length,
-      isLessThan:
-        {
-          major: 2,
-        },
-      style: 'number',
-    };
-  }
-
   get frostBrandSuggestionTresholds() {
     return {
       actual: this.frostBrandUptime,
@@ -47,7 +36,7 @@ class Hailstorm extends Analyzer {
         average: 0.95,
         major: 0.85,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 
@@ -73,18 +62,6 @@ class Hailstorm extends Analyzer {
       },
     );
   }
-
-  // statistic() {
-  //   const frostbrandUptime = this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
-  //   return (
-  //     <Statistic
-  //       spell={SPELLS.FROSTBRAND.id}
-  //       value={`${formatPercentage(frostbrandUptime)} %`}
-  //       label="Frostbrand Uptime"
-  //       tooltip="One of your highest priorities, get as close to 100% as possible"
-  //     />
-  //   );
-  // }
 
   statistic() {
     return (

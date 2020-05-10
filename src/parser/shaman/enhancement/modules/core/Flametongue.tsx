@@ -27,7 +27,7 @@ class Flametongue extends Analyzer {
         average: 0.95,
         major: 0.9,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 

@@ -62,13 +62,18 @@ class LightningShield extends Analyzer {
     return this.damage / (this.owner.fightDuration / 1000);
   }
 
+
+  get getLightningShieldUptime () {
+    return this.selectedCombatant.getBuffUptime(SPELLS.LIGHTNING_SHIELD_TALENT.id) / this.owner.fightDuration;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: this.selectedCombatant.getBuffUptime(SPELLS.LIGHTNING_SHIELD_TALENT.id),
+      actual: this.getLightningShieldUptime,
       isLessThan: {
         major: 1,
       },
-      style: 'decimal',
+      style: 'percentage',
     };
   }
 

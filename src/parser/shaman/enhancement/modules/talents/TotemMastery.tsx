@@ -9,7 +9,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import Statistic from 'interface/statistics/Statistic';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 
 const BUFF_TOTEM_RESONANCE_SPELL_ID = 262419;
@@ -41,6 +41,10 @@ class TotemMastery extends Analyzer {
     );
   }
 
+  protected onCast(event: CastEvent) {
+    this.casts += 1;
+  }
+
   get uptimeSuggestionThresholds() {
     return {
       actual: this.minUptime,
@@ -59,10 +63,6 @@ class TotemMastery extends Analyzer {
       this.selectedCombatant.getBuffUptime(BUFF_TOTEM_EMBER_SPELL_ID),
       this.selectedCombatant.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID),
     ) / this.owner.fightDuration;
-  }
-
-  protected onCast() {
-    this.casts += 1;
   }
 
   suggestions(when: any) {
@@ -84,7 +84,6 @@ class TotemMastery extends Analyzer {
           );
       });
   }
-
 
   statistic() {
     return (

@@ -452,12 +452,12 @@ export default {
     icon: 'ability_shaman_stormstrike',
     maelstrom: 30,
   },
-  STORMSTRIKE_ATTACK: {
+  STORMSTRIKE_DAMAGE: {
     id: 32175,
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
   },
-  STORMSTRIKE_ATTACK_OFFHAND: {
+  STORMSTRIKE_DAMAGE_OFFHAND: {
     id: 32176,
     name: 'Stormstrike Off-Hand',
     icon: 'ability_shaman_stormstrike',
@@ -468,12 +468,12 @@ export default {
     icon: 'ability_skyreach_four_wind',
     maelstrom: 30,
   },
-  WINDSTRIKE_ATTACK: {
+  WINDSTRIKE_DAMAGE: {
     id: 115357,
     name: 'Windstrike',
     icon: 'ability_skyreach_four_wind',
   },
-  WINDSTRIKE_ATTACK_OFFHAND: {
+  WINDSTRIKE_DAMAGE_OFFHAND: {
     id: 115360,
     name: 'Windstrike Off-Hand',
     icon: 'ability_skyreach_four_wind',

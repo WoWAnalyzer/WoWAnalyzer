@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import Statistic from 'interface/statistics/Statistic';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
@@ -53,7 +53,7 @@ class ThunderaansFury extends Analyzer {
   }
 
   // We do this on cast since the damage is split amongst the two hits.
-  onStrikeCast() {
+  onStrikeCast(event: CastEvent) {
     this.damageGained += this.bonusDamage;
   }
 

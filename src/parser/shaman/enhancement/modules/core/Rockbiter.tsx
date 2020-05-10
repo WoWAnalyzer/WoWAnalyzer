@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 
 const MAELSTROM_THRESHOLD = 95;
@@ -29,7 +29,7 @@ class Rockbiter extends Analyzer {
     );
   }
 
-  onCast() {
+  onCast(event: CastEvent) {
     this.rockbiterTotalCasts += 1;
   }
 

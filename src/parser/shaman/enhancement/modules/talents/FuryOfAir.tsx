@@ -28,9 +28,7 @@ class FuryOfAir extends Analyzer {
   }
 
   get furyOfAirUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.FURY_OF_AIR_TALENT.id) /
-      this.owner.fightDuration;
-
+    return this.selectedCombatant.getBuffUptime(SPELLS.FURY_OF_AIR_TALENT.id) / this.owner.fightDuration;
   }
 
   get furyOfAirTresholds() {
@@ -42,7 +40,7 @@ class FuryOfAir extends Analyzer {
         average: 0.95,
         major: 0.9,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 

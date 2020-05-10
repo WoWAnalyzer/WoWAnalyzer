@@ -4,7 +4,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  ApplyBuffEvent,
+  ApplyBuffEvent, CastEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
@@ -38,17 +38,12 @@ class FlametongueRefresh extends Analyzer {
     );
   }
 
-  onCast() {
+  onCast(event: CastEvent) {
     this.flametongueCasts += 1;
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
     this.flametongueTimestamp = event.timestamp;
-
-  }
-
-  get refreshPercentageCast() {
-    return this.earlyRefresh / this.flametongueCasts;
   }
 
   onRefreshBuff(event: RefreshBuffEvent) {
@@ -58,6 +53,10 @@ class FlametongueRefresh extends Analyzer {
       }
     }
     this.flametongueTimestamp = event.timestamp;
+  }
+
+  get refreshPercentageCast() {
+    return this.earlyRefresh / this.flametongueCasts;
   }
 
   get suggestionTresholds() {
