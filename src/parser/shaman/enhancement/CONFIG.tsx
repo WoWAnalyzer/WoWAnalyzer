@@ -10,7 +10,7 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [HawkCorrigan, Vetyst],
   patchCompatibility: '8.3',
-  isSupported: true,
+  isSupported: false,
   description: (
     <>
       <Warning>
