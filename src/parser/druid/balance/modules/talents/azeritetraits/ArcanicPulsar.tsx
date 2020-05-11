@@ -10,6 +10,10 @@ import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { calculateAzeriteEffects } from 'common/stats';
+import calculateBonusAzeriteDamage
+  from '../../../../../core/calculateBonusAzeriteDamage';
+
+const STARSURGE_SP_COEFFICENT_MODIFIER = 2.3; // 230%
 
 class ArcanicPulsar extends Analyzer {
   /**
@@ -25,25 +29,20 @@ class ArcanicPulsar extends Analyzer {
   protected bonusDamage = 0;
   protected firstStarsurgeCast = true;
   protected celestialAlignmentCount = 0;
+  protected lastSpellPower = 0;
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTrait(SPELLS.ARCANIC_PULSAR_TRAIT.id);
 
-    if (!this.active) {
+    if (!this.selectedCombatant.hasTrait(SPELLS.ARCANIC_PULSAR_TRAIT.id)) {
+      this.active = false;
       return;
     }
 
     this.bonusDamage
       = this.selectedCombatant.traitsBySpellId[SPELLS.ARCANIC_PULSAR_TRAIT.id]
-      .reduce((total, rank) => {
-        const [damage] = calculateAzeriteEffects(
-          SPELLS.ARCANIC_PULSAR_TRAIT.id,
-          rank,
-        );
-        return total + damage;
-      }, 0);
+      .reduce((sum, rank) => sum +
+        calculateAzeriteEffects(SPELLS.ARCANIC_PULSAR_TRAIT.id, rank)[0], 0);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)
@@ -59,6 +58,12 @@ class ArcanicPulsar extends Analyzer {
   }
 
   onStarsurgeCast(event: CastEvent) {
+    // Store it for when the azerite trait damage has to be calculated.
+    // Starsurge has projectile travel time.
+    if (event.spellPower !== undefined && event.spellPower > 0) {
+      this.lastSpellPower = event.spellPower;
+    }
+
     if (this.firstStarsurgeCast) {
       this.firstStarsurgeCast = false;
       return;
@@ -70,7 +75,12 @@ class ArcanicPulsar extends Analyzer {
   }
 
   onStarsurgeDamage(event: DamageEvent) {
-    this.damageGained += this.bonusDamage;
+    this.damageGained += calculateBonusAzeriteDamage(
+      event,
+      [this.bonusDamage],
+      this.lastSpellPower,
+      STARSURGE_SP_COEFFICENT_MODIFIER
+    )[0];
   }
 
   statistic() {
