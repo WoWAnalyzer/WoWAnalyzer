@@ -8,7 +8,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { formatNumber, formatPercentage } from 'common/format';
 
 const WHITELIST = [
@@ -34,16 +34,16 @@ class BoneChilling extends Analyzer {
 
   totalDamage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BONE_CHILLING_TALENT.id);
     if (this.active) {
       this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(WHITELIST), this.onAffectedDamage);
     }
   }
 
-  onAffectedDamage(event) {
-    const buffInfo = this.selectedCombatant.getBuff(SPELLS.BONE_CHILLING_BUFF.id);
+  onAffectedDamage(event: DamageEvent) {
+    const buffInfo: any = this.selectedCombatant.getBuff(SPELLS.BONE_CHILLING_BUFF.id);
     if (!buffInfo) {
       return;
     }
