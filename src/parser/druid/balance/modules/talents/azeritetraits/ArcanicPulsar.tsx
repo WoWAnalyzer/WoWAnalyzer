@@ -4,7 +4,12 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import Statistic from 'interface/statistics/Statistic';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffStackEvent,
+  CastEvent,
+  DamageEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
@@ -25,11 +30,11 @@ class ArcanicPulsar extends Analyzer {
    *
    */
 
+  protected lastSpellPower = 0;
   protected damageGained = 0;
   protected bonusDamage = 0;
-  protected firstStarsurgeCast = true;
-  protected celestialAlignmentCount = 0;
-  protected lastSpellPower = 0;
+  protected celestialAlignmentTriggers = 0;
+  protected currentStacks = 0;
 
   constructor(options: any) {
     super(options);
@@ -45,6 +50,18 @@ class ArcanicPulsar extends Analyzer {
         calculateAzeriteEffects(SPELLS.ARCANIC_PULSAR_TRAIT.id, rank)[0], 0);
 
     this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER)
+        .spell(SPELLS.ARCANIC_PULSAR_BUFF),
+      this.onArcanicPulsarStackApplied,
+    );
+
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER)
+        .spell(SPELLS.ARCANIC_PULSAR_BUFF),
+      this.onRemoveArcanicPulsarBuff,
+    );
+
+    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)
         .spell(SPELLS.STARSURGE_MOONKIN),
       this.onStarsurgeCast,
@@ -57,20 +74,21 @@ class ArcanicPulsar extends Analyzer {
     );
   }
 
+  // We are only interested in the 8th stack. Range: [2-8]
+  onArcanicPulsarStackApplied(event: ApplyBuffStackEvent) {
+    this.currentStacks = event.stack;
+  }
+
+  // Triggered when the 9th stack should 'applied' or when the player dies.
+  onRemoveArcanicPulsarBuff(event: RemoveBuffEvent) {
+    this.currentStacks = 0;
+  }
+
   onStarsurgeCast(event: CastEvent) {
-    // Store it for when the azerite trait damage has to be calculated.
+    // Store spellpower for when the azerite trait damage has to be calculated.
     // Starsurge has projectile travel time.
     if (event.spellPower !== undefined && event.spellPower > 0) {
       this.lastSpellPower = event.spellPower;
-    }
-
-    if (this.firstStarsurgeCast) {
-      this.firstStarsurgeCast = false;
-      return;
-    }
-
-    if (!this.selectedCombatant.hasBuff(SPELLS.ARCANIC_PULSAR_BUFF.id)) {
-      this.celestialAlignmentCount++;
     }
   }
 
@@ -81,6 +99,13 @@ class ArcanicPulsar extends Analyzer {
       this.lastSpellPower,
       STARSURGE_SP_COEFFICENT_MODIFIER,
     )[0];
+
+    // A 9th stack is never applied, instead the buff is removed. The stack is
+    // always applied after damage has been dealth. Thus having 8th stacks
+    // should trigger Celestial Alignment.
+    if (this.currentStacks === 8) {
+      this.celestialAlignmentTriggers++;
+    }
   }
 
   statistic() {
@@ -89,7 +114,7 @@ class ArcanicPulsar extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         category={'ITEMS'}
-        tooltip={`Celestial Alignment was triggered ${this.celestialAlignmentCount} times.`}
+        tooltip={`Celestial Alignment was triggered ${this.celestialAlignmentTriggers} times.`}
       >
         <BoringSpellValueText spell={SPELLS.ARCANIC_PULSAR_TRAIT}>
           <ItemDamageDone amount={this.damageGained} />
