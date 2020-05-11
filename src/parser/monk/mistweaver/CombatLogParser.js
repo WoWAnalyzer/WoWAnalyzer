@@ -71,8 +71,6 @@ import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHea
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
-
-
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
 
