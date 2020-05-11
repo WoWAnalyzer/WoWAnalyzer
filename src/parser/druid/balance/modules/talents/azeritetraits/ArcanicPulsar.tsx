@@ -79,7 +79,7 @@ class ArcanicPulsar extends Analyzer {
       event,
       [this.bonusDamage],
       this.lastSpellPower,
-      STARSURGE_SP_COEFFICENT_MODIFIER
+      STARSURGE_SP_COEFFICENT_MODIFIER,
     )[0];
   }
 
