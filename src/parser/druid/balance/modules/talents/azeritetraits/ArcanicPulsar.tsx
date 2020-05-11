@@ -4,12 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import Statistic from 'interface/statistics/Statistic';
-import Events, {
-  ApplyBuffStackEvent,
-  CastEvent,
-  DamageEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
@@ -26,7 +21,7 @@ class ArcanicPulsar extends Analyzer {
    * Celestial Alignment for 6 sec.
    *
    * Example Log:
-   * https://www.warcraftlogs.com/reports/ZfcqAWCn7gHtp49G#fight=17&type=auras&ability=287790
+   * https://www.warcraftlogs.com/reports/ZfcqAWCn7gHtp49G#fight=1&type=auras&ability=287790
    *
    */
 
@@ -34,7 +29,6 @@ class ArcanicPulsar extends Analyzer {
   protected damageGained = 0;
   protected bonusDamage = 0;
   protected celestialAlignmentTriggers = 0;
-  protected currentStacks = 0;
 
   constructor(options: any) {
     super(options);
@@ -50,18 +44,6 @@ class ArcanicPulsar extends Analyzer {
         calculateAzeriteEffects(SPELLS.ARCANIC_PULSAR_TRAIT.id, rank)[0], 0);
 
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER)
-        .spell(SPELLS.ARCANIC_PULSAR_BUFF),
-      this.onArcanicPulsarStackApplied,
-    );
-
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.ARCANIC_PULSAR_BUFF),
-      this.onRemoveArcanicPulsarBuff,
-    );
-
-    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)
         .spell(SPELLS.STARSURGE_MOONKIN),
       this.onStarsurgeCast,
@@ -74,19 +56,11 @@ class ArcanicPulsar extends Analyzer {
     );
   }
 
-  // We are only interested in the 8th stack. Range: [2-8]
-  onArcanicPulsarStackApplied(event: ApplyBuffStackEvent) {
-    this.currentStacks = event.stack;
-  }
-
-  // Triggered when the 9th stack should 'applied' or when the player dies.
-  onRemoveArcanicPulsarBuff(event: RemoveBuffEvent) {
-    this.currentStacks = 0;
-  }
-
   onStarsurgeCast(event: CastEvent) {
     // Store spellpower for when the azerite trait damage has to be calculated.
-    // Starsurge has projectile travel time.
+    // Starsurge has projectile travel time so the actual value of spell power
+    // could be incorrect, thus marking the damage as approximate in the
+    // statistic box.
     if (event.spellPower !== undefined && event.spellPower > 0) {
       this.lastSpellPower = event.spellPower;
     }
@@ -103,7 +77,8 @@ class ArcanicPulsar extends Analyzer {
     // A 9th stack is never applied, instead the buff is removed. The stack is
     // always applied after damage has been dealth. Thus having 8th stacks
     // should trigger Celestial Alignment.
-    if (this.currentStacks === 8) {
+    const buff = this.selectedCombatant.getBuff(SPELLS.ARCANIC_PULSAR_BUFF.id) as any;
+    if (buff && buff.stacks === 8) {
       this.celestialAlignmentTriggers++;
     }
   }
@@ -117,7 +92,7 @@ class ArcanicPulsar extends Analyzer {
         tooltip={`Celestial Alignment was triggered ${this.celestialAlignmentTriggers} times.`}
       >
         <BoringSpellValueText spell={SPELLS.ARCANIC_PULSAR_TRAIT}>
-          <ItemDamageDone amount={this.damageGained} />
+          <ItemDamageDone amount={this.damageGained} approximate />
         </BoringSpellValueText>
       </Statistic>
     );
