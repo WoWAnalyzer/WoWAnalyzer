@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import Statistic from 'interface/statistics/Statistic';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
@@ -17,6 +17,7 @@ class ArcanicPulsar extends Analyzer {
    * Celestial Alignment for 6 sec.
    *
    * Example Log:
+   * https://www.warcraftlogs.com/reports/ZfcqAWCn7gHtp49G#fight=17&type=auras&ability=287790
    *
    */
 
@@ -57,19 +58,18 @@ class ArcanicPulsar extends Analyzer {
     );
   }
 
-  onStarsurgeCast() {
+  onStarsurgeCast(event: CastEvent) {
     if (this.firstStarsurgeCast) {
       this.firstStarsurgeCast = false;
       return;
     }
 
-    const buff = this.selectedCombatant.getBuff(SPELLS.ARCANIC_PULSAR_BUFF.id);
-    if (!buff) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.ARCANIC_PULSAR_BUFF.id)) {
       this.celestialAlignmentCount++;
     }
   }
 
-  onStarsurgeDamage() {
+  onStarsurgeDamage(event: DamageEvent) {
     this.damageGained += this.bonusDamage;
   }
 

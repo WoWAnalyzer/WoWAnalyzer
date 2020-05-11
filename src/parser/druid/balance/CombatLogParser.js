@@ -79,7 +79,7 @@ class CombatLogParser extends MainCombatLogParser {
     highNoon: HighNoon,
     powerOfTheMoon: PowerOfTheMoon,
     streakingStars: StreakingStars,
-    ArcanicPulsar: ArcanicPulsar,
+    arcanicPulsar: ArcanicPulsar,
   };
 }
 
