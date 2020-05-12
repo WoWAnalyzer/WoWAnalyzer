@@ -3,8 +3,8 @@ import React from 'react';
 import { Zeboot } from 'CONTRIBUTORS';
 import RegularArticle from 'interface/news/RegularArticle';
 
-import FilterExample from './filter.png';
-import ExampleResults from './exampleresults.png';
+import FilterExample from './filter.jpg';
+import ExampleResults from './exampleresults.jpg';
 
 export default (
   <RegularArticle title="Time Filtering" publishedAt="2019-07-23" publishedBy={Zeboot}>
