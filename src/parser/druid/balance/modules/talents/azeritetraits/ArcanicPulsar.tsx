@@ -6,24 +6,22 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { calculateAzeriteEffects } from 'common/stats';
-import calculateBonusAzeriteDamage
-  from '../../../../../core/calculateBonusAzeriteDamage';
+import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 
 const STARSURGE_SP_COEFFICENT_MODIFIER = 2.3; // 230%
 
+/**
+ * Starsurge's damage is increased by 2181. Every 9 Starsurges, gain
+ * Celestial Alignment for 6 sec.
+ *
+ * Example Log:
+ * https://www.warcraftlogs.com/reports/ZfcqAWCn7gHtp49G#fight=1&type=auras&ability=287790
+ *
+ */
 class ArcanicPulsar extends Analyzer {
-  /**
-   * Starsurge's damage is increased by 2181. Every 9 Starsurges, gain
-   * Celestial Alignment for 6 sec.
-   *
-   * Example Log:
-   * https://www.warcraftlogs.com/reports/ZfcqAWCn7gHtp49G#fight=1&type=auras&ability=287790
-   *
-   */
 
   protected lastSpellPower = 0;
   protected damageGained = 0;
