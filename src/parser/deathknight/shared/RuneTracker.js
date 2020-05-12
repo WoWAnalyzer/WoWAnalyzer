@@ -56,10 +56,11 @@ class RuneTracker extends ResourceTracker {
     this.addPassiveRuneRegeneration();
   }
   on_byPlayer_cast(event) {
-    super.on_byPlayer_cast(event);
-    if (!event.classResources) {
+    if (!event.classResources || event.prepull) {
       return;
     }
+    super.on_byPlayer_cast(event);
+    
     event.classResources
       .filter(resource => resource.type === this.resource.id)
       .forEach(({ amount, cost }) => {

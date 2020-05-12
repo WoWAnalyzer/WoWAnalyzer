@@ -485,12 +485,12 @@ export const niseko = {
   mains: [{
     name: 'Niseko',
     spec: SPECS.RESTORATION_SHAMAN,
-    link: 'https://worldofwarcraft.com/en-gb/character/stormscale/niseko',
+    link: 'https://worldofwarcraft.com/en-gb/character/draenor/niseko',
   },
     {
       name: 'Nisefy',
-      spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-gb/character/stormscale/nisefy',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-gb/character/draenor/furryweeb',
     }],
   links: {
     'Ancestral Guidance': 'https://ancestralguidance.com/',
