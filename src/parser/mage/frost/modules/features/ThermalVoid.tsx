@@ -49,27 +49,31 @@ class ThermalVoid extends Analyzer {
         size="flexible"
         category={'TALENTS'}
         tooltip="Extension times include the base 10 second increase from the talent."
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Cast</th>
+                <th>Duration</th>
+                <th>Extension</th>
+              </tr>
+            </thead>
+            <tbody>
+              {castRows}
+              <tr key="avg">
+                <th>Average</th>
+                <th>{formatDuration(totalDuration / hist.length)}</th>
+                <th>{formatDuration(totalIncrease / hist.length)}</th>
+              </tr>
+            </tbody>
+          </table>
+        </>
+      )}
       >
         <BoringSpellValueText spell={SPELLS.SPLITTING_ICE_TALENT}>
           <><SpellIcon id={SPELLS.ICY_VEINS.id} /> +{formatNumber(totalIncrease)} seconds</>
         </BoringSpellValueText>
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Cast</th>
-              <th>Duration</th>
-              <th>Extension</th>
-            </tr>
-          </thead>
-          <tbody>
-            {castRows}
-            <tr key="avg">
-              <th>Average</th>
-              <th>{formatDuration(totalDuration / hist.length)}</th>
-              <th>{formatDuration(totalIncrease / hist.length)}</th>
-            </tr>
-          </tbody>
-        </table>
       </Statistic>
     );
   }

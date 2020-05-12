@@ -26,6 +26,7 @@ class LonelyWinter extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_SPELLS), this.onAffectedDamage);
+    this.bonusDamage = {};
     AFFECTED_SPELLS.forEach(spell => { this.bonusDamage[spell.id] = 0; });
   }
 

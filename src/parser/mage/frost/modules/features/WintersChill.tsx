@@ -11,7 +11,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
-const debug = false;
+const debug = true;
 
 const HARDCAST_HITS = [
   SPELLS.FROSTBOLT_DAMAGE.id,
@@ -40,7 +40,7 @@ class WintersChill extends Analyzer {
     super(options);
     this.active = this.owner.build === undefined;
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([HARDCAST_HITS, SPELLS.ICE_LANCE_DAMAGE]), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.FROSTBOLT_DAMAGE,SPELLS.EBONBOLT_DAMAGE,SPELLS.GLACIAL_SPIKE_DAMAGE,SPELLS.ICE_LANCE_DAMAGE]), this.onDamage);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL), this.onDebuffApplied);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL), this.onDebuffRemoved);
   }
@@ -55,7 +55,7 @@ class WintersChill extends Analyzer {
     if (spellId === SPELLS.ICE_LANCE_DAMAGE.id) {
       this.iceLanceHits += 1;
       debug && console.log("Ice Lance into Winter's Chill");
-    } else if(HARDCAST_HITS.includes(spellId)) {
+    } else if (HARDCAST_HITS.includes(spellId)) {
       this.hardcastHits += 1;
       debug && console.log(`${event.ability.name} into Winter's Chill`);
     }
