@@ -17,7 +17,7 @@ const BASE_AGILITY_BUFF = 593;
 /**
  * Azerokk's Resonating Heart
  * Equip: Your attacks have a chance to harmonize with the shard, granting you X Agility for 15 sec.
- * 
+ *
  * Test log: http://wowanalyzer.com/report/PcaGB6n41NDMrbmA/1-Mythic+Champion+of+the+Light+-+Kill+(1:37)/Baboune/statistics
  */
 class AzerokksResonatingHeart extends Analyzer {
@@ -52,7 +52,7 @@ class AzerokksResonatingHeart extends Analyzer {
       return;
     }
 
-    this.procs++;
+    this.procs += 1;
   }
 
   get uptime() {

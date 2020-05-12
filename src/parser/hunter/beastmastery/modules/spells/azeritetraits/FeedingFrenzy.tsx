@@ -110,7 +110,7 @@ class FeedingFrenzy extends Analyzer {
     if (spellId !== SPELLS.BARBED_SHOT.id) {
       return;
     }
-    this.casts++;
+    this.casts += 1;
     if (!this.hasFrenzyUp ||
       event.timestamp <
       this.buffApplication +

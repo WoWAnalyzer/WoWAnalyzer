@@ -104,7 +104,7 @@ class AMurderOfCrows extends Analyzer {
     if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT.id) {
       return;
     }
-    this.casts++;
+    this.casts += 1;
     this.applicationTimestamp = 0;
     this.lastDamageTick = 0;
   }
@@ -136,7 +136,7 @@ class AMurderOfCrows extends Analyzer {
       return;
     }
     if (this.casts === 0) {
-      this.casts++;
+      this.casts += 1;
       this.spellUsable.beginCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, {
         timestamp: this.owner.fight.start_time,
       });

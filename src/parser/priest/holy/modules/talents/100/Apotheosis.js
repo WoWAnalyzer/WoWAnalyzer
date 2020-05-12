@@ -27,7 +27,7 @@ class Apotheosis extends Analyzer {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.APOTHEOSIS_TALENT.id) {
-      this.apotheosisCasts++;
+      this.apotheosisCasts += 1;
       this.apotheosisActive = true;
     }
   }

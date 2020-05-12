@@ -102,7 +102,7 @@ class LockAndLoad extends Analyzer {
       term = 0.3989422804 * Math.pow(-1, k) * Math.pow(z, k) / (2 * k + 1) /
         Math.pow(2, k) * Math.pow(z, k + 1) / factK;
       sum += term;
-      k++;
+      k += 1;
       factK *= k;
     }
     sum += 0.5;
