@@ -39,8 +39,8 @@ describe('retryingPromise', () => {
     expect.assertions(1);
     const returnValue = {};
     let call = 0;
-    const result = await retryingPromise(() => call === 0 ? Promise.reject() : Promise.resolve(returnValue));
-    call += 1;
+    // eslint-disable-next-line no-plusplus
+    const result = await retryingPromise(() => call++ === 0 ? Promise.reject() : Promise.resolve(returnValue));
     expect(result).toBe(returnValue);
   });
   it('gives up and returns the last error if it can\'t be resolved', async () => {
