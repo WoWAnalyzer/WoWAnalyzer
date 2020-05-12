@@ -136,6 +136,6 @@ module.exports = {
     // 'comma-spacing': ['warn', { before: false, after: true }],
 
     // enforce not using ++ and -- except in for loops
-    'no-plusplus': [2, {allowForLoopAfterthoughts: true }],
+    'no-plusplus': ['warn', {'allowForLoopAfterthoughts': true }],
   },
 };
