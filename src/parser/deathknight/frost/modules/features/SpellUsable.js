@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
-import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import HIT_TYPES from 'game/HIT_TYPES';
 
 /**
