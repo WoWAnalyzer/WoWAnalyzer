@@ -67,13 +67,13 @@ class WildfireBomb extends Analyzer {
         timestamp: this.owner.fight.start_time,
       });
     }
-    this.targetsHit++;
+    this.targetsHit += 1;
     const enemy = this.enemies.getEntity(event);
     if (this.acceptedCastDueToCapping || !enemy) {
       return;
     }
     if (enemy.hasBuff(SPELLS.WILDFIRE_BOMB_DOT.id) && event.timestamp > this.lastRefresh + MS_BUFFER) {
-      this.badRefreshes++;
+      this.badRefreshes += 1;
       this.lastRefresh = event.timestamp;
     }
   }

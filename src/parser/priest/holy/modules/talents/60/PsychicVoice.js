@@ -16,14 +16,14 @@ class PsychicVoice extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PSYCHIC_SCREAM.id) {
-      this.psychicScreamCasts++;
+      this.psychicScreamCasts += 1;
     }
   }
 
   on_byPlayer_applydebuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PSYCHIC_SCREAM.id) {
-      this.psychicScreamHits++;
+      this.psychicScreamHits += 1;
     }
   }
 

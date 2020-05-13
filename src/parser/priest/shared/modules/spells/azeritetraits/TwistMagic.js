@@ -30,7 +30,7 @@ class TwistMagic extends Analyzer {
 
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PURIFY.id || spellId === SPELLS.DISPEL_MAGIC.id || spellId === SPELLS.MASS_DISPEL.id) {
-      this.totalDispels++;
+      this.totalDispels += 1;
     }
   }
 

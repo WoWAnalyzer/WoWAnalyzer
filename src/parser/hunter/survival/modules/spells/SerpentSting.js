@@ -48,7 +48,7 @@ class SerpentSting extends Analyzer {
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
     }
-    this.casts++;
+    this.casts += 1;
 
     if (event.meta === undefined) {
       event.meta = {
@@ -117,7 +117,7 @@ class SerpentSting extends Analyzer {
     if (this.serpentStingTargets.length === 0) {
       return;
     }
-    this.timesRefreshed++;
+    this.timesRefreshed += 1;
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
@@ -127,7 +127,7 @@ class SerpentSting extends Analyzer {
       if (this.serpentStingTargets[i].targetID === serpentStingTarget.targetID && this.serpentStingTargets[i].targetInstance === serpentStingTarget.targetInstance) {
         const timeRemaining = this.serpentStingTargets[i].serpentStingDuration - (event.timestamp - this.serpentStingTargets[i].timestamp);
         if (timeRemaining > (hastedSerpentStingDuration * SERPENT_STING_SV_PANDEMIC) && !this.hasVV) {
-          this.badRefresh++;
+          this.badRefresh += 1;
         }
         const pandemicSerpentStingDuration = Math.min(hastedSerpentStingDuration * SERPENT_STING_SV_PANDEMIC, timeRemaining) + hastedSerpentStingDuration;
         if (!this.hasVV) {

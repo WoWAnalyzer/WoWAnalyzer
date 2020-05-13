@@ -31,7 +31,7 @@ class GatheringStorm extends Analyzer {
     if (!this.active) {
       return;
     }
-    
+
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GATHERING_STORM_TALENT_BUFF), this.onApplyBuff);
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.GATHERING_STORM_TALENT_BUFF), this.onApplyBuffStack);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.REMORSELESS_WINTER_DAMAGE), this.onDamage);
@@ -41,14 +41,14 @@ class GatheringStorm extends Analyzer {
 
   onApplyBuff(event) {
     this.currentStacks = 1;
-    this.totalCasts++;
-    this.totalStacks++;
+    this.totalCasts += 1;
+    this.totalStacks += 1;
     debug && console.log('applied buff');
   }
 
   onApplyBuffStack(event) {
-    this.currentStacks++;
-    this.totalStacks++;
+    this.currentStacks += 1;
+    this.totalStacks += 1;
     debug && console.log(`added buff stack, now at ${this.currentStacks}`);
   }
 

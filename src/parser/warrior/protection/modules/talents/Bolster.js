@@ -24,9 +24,9 @@ class Bolster extends Analyzer {
     if (!(spellId === SPELLS.LAST_STAND.id || spellId === SPELLS.SHIELD_BLOCK_BUFF.id)) {
       return;
     }
-     
+
     if (this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id) && this.selectedCombatant.hasBuff(SPELLS.LAST_STAND.id)) {
-      this.badBlocks++;
+      this.badBlocks += 1;
       this.buffStartTime += event.timestamp;
     }
   }

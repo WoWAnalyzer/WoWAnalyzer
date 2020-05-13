@@ -75,7 +75,7 @@ class BeastCleave extends Analyzer {
     }
     this.casts += 1;
     if (this.beastCleaveHits === 0) {
-      this.castsWithoutHits++;
+      this.castsWithoutHits += 1;
     }
     this.beastCleaveHits = 0;
     this.timestamp = event.timestamp;

@@ -39,7 +39,7 @@ class EverlastingLight extends Analyzer {
       this.currentMana = event.classResources[0].amount;
     }
     if (spellId === SPELLS.GREATER_HEAL.id) {
-      this.totalHealsCast++;
+      this.totalHealsCast += 1;
     }
   }
 

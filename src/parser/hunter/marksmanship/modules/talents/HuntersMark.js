@@ -54,7 +54,7 @@ class HuntersMark extends Analyzer {
     if (spellId !== SPELLS.HUNTERS_MARK_TALENT.id) {
       return;
     }
-    this.casts++;
+    this.casts += 1;
     this.timeOfCast = event.timestamp;
   }
 
@@ -92,7 +92,7 @@ class HuntersMark extends Analyzer {
       this.precastConfirmed = true;
     }
     if (!this.debuffRemoved) {
-      this.recasts++;
+      this.recasts += 1;
     }
     this.debuffRemoved = false;
     const enemyID = encodeTargetString(event.targetID, event.targetInstance);
@@ -125,7 +125,7 @@ class HuntersMark extends Analyzer {
     if (spellId !== SPELLS.HUNTERS_MARK_TALENT.id) {
       return;
     }
-    this.recasts++;
+    this.recasts += 1;
   }
 
   on_byPlayer_energize(event) {
@@ -133,7 +133,7 @@ class HuntersMark extends Analyzer {
     if (spellId !== SPELLS.HUNTERS_MARK_FOCUS.id) {
       return;
     }
-    this.refunds++;
+    this.refunds += 1;
   }
 
   on_byPlayer_damage(event) {

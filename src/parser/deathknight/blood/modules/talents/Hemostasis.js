@@ -41,20 +41,20 @@ class Hemostasis extends Analyzer {
 
     if (spellID === SPELLS.DEATH_STRIKE.id) {
       if(this.buffStack > 0){
-        this.buffedDeathStrikes++;
+        this.buffedDeathStrikes += 1;
         this.damage += calculateEffectiveDamage(event, PERCENT_BUFF * this.buffStack);
         this.buffStack = 0;
         return;
       }
-      this.unbuffedDeathStrikes++;
+      this.unbuffedDeathStrikes += 1;
     }
 
     if (spellID === SPELLS.BLOOD_BOIL.id) {
       if (this.buffStack === MAX_BUFF_STACKS) {
-        this.wastedBuffs++;
+        this.wastedBuffs += 1;
       } else {
-        this.buffStack++;
-        this.gainedBuffs++;
+        this.buffStack += 1;
+        this.gainedBuffs += 1;
       }
     }
   }

@@ -15,7 +15,7 @@ class Ironbark extends Analyzer {
 
   on_byPlayer_cast(event) {
     if(event.ability.guid === SPELLS.IRONBARK.id) {
-      this.ironbarkCount ++;
+      this.ironbarkCount += 1;
     }
   }
 
