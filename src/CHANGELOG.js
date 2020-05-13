@@ -9,7 +9,8 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
-  change(date(2020, 5, 12), 'Disallow use of ++ and -- to adhere to the style guide', Putro),
+  change(date(2020, 5, 13), 'Disallow use of ++ and -- to adhere to the style guide', Putro),
+  change(date(2020, 5, 12), 'Tweak JetBrains codeStyles file to better adhere to code style, while allowing for auto-formatting all files in the repository.', Vetyst),
   change(date(2020, 5, 12), 'Reduced avatar and article image file sizes', Vetyst),
   change(date(2020, 4, 26), <>Added <SpellLink id={SPELLS.BLOOD_FURY_PHYSICAL.id} /> to the core parser. </>, Putro),
   change(date(2020, 4, 16), <>Fixed a bug where the haste value gained <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS_RANK_THREE_FOUR.id} /> minor was extremely low if the buff never fell off.</>, Putro),
