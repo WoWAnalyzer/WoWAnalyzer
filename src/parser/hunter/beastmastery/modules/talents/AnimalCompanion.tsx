@@ -98,7 +98,7 @@ class AnimalCompanion extends Analyzer {
                       ? formatNumber(pet.damage / 0.65) +
                       ' / ' +
                       formatNumber((
-                          pet.damage / 0.6
+                          pet.damage / 0.65
                         ) /
                         (
                           this.owner.fightDuration / 1000
