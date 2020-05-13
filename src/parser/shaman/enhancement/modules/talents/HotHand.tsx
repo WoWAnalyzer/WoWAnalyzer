@@ -54,7 +54,7 @@ class HotHand extends Analyzer {
   }
 
   onHotHandBuff(event: BuffEvent) {
-    this.hotHandCount++;
+    this.hotHandCount += 1;
   }
 
   onLavaLashDamage(event: DamageEvent) {
@@ -62,7 +62,7 @@ class HotHand extends Analyzer {
       return;
     }
 
-    this.hotHandUses++;
+    this.hotHandUses += 1;
     this.damageGained += calculateEffectiveDamage(event, HOT_HAND.INCREASE);
     this.maelstromSaved += HOT_HAND.COST_REDUCTION;
   }

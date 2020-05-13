@@ -30,7 +30,7 @@ class NaturesGuardian extends Analyzer {
   }
 
   onNaturesGuardianHeal(event: HealEvent) {
-    this.procCount++;
+    this.procCount += 1;
     this.healthGained += event.amount;
   }
 

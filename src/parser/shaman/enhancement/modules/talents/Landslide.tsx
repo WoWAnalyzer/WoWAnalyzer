@@ -50,7 +50,7 @@ class Landslide extends Analyzer {
   }
 
   onLandslideBuff(event: BuffEvent) {
-    this.landslideCount++;
+    this.landslideCount += 1;
   }
 
   onStormstrikeDamage(event: DamageEvent) {
@@ -58,7 +58,7 @@ class Landslide extends Analyzer {
       return;
     }
 
-    this.landslideUses++;
+    this.landslideUses += 1;
     this.damage += calculateEffectiveDamage(event, LANDSLIDE.INCREASE);
   }
 
