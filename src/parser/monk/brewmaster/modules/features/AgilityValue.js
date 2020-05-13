@@ -6,7 +6,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
-import { calculatePrimaryStat } from 'common/stats';
 
 import { BASE_AGI } from '../../constants';
 import { diminish, lookupK } from '../constants/Mitigation';
@@ -135,7 +134,6 @@ export default class AgilityValue extends Analyzer {
           { name: <>Extra <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Effectiveness</>, amount: agiModule.totalAgiPurified },
         ]; 
       },
-      increment: this.sheet.increment(calculatePrimaryStat, this.stats.startingAgilityRating),
     };
   }
 }
