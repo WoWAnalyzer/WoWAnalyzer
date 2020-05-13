@@ -63,7 +63,7 @@ class SteadyAim extends Analyzer {
       return;
     }
     if (spellId === SPELLS.STEADY_SHOT.id) {
-      this.maxPossible++;
+      this.maxPossible += 1;
       if (this._stacks === MAX_STACKS) {
         this.wasted += 1;
       }

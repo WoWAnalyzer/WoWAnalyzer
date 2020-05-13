@@ -60,7 +60,7 @@ class LatentPoison extends Analyzer {
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
     }
-    this.maxPossible++;
+    this.maxPossible += 1;
     if (this._stacks === MAX_STACKS) {
       this.wasted += 1;
     }

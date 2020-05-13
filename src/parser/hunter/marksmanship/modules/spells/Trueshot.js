@@ -42,7 +42,7 @@ class Trueshot extends Analyzer {
       this.accumulatedFocusAtTSCast += event.classResources[0].amount || 0;
     }
     if (spellId === SPELLS.AIMED_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
-      this.aimedShotsPrTS++;
+      this.aimedShotsPrTS += 1;
     }
   }
 

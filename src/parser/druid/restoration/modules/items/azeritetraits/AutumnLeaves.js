@@ -71,7 +71,7 @@ class AutumnLeaves extends Analyzer {
     if (SPELLS.REJUVENATION.id !== spellId && SPELLS.REJUVENATION_GERMINATION.id !== spellId) {
       return;
     }
-    this.totalOneSecondValue++;
+    this.totalOneSecondValue += 1;
   }
 
   on_byPlayer_refreshbuff(event) {
@@ -79,7 +79,7 @@ class AutumnLeaves extends Analyzer {
     if (SPELLS.REJUVENATION.id !== spellId && SPELLS.REJUVENATION_GERMINATION.id !== spellId) {
       return;
     }
-    this.totalOneSecondValue++;
+    this.totalOneSecondValue += 1;
   }
 
   getSpellUptime(spellId) {

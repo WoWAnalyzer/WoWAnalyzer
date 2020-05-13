@@ -16,7 +16,7 @@ class FindWeakness extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-   
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FIND_WEAKNESS_TALENT.id);
@@ -47,7 +47,7 @@ class FindWeakness extends Analyzer {
 
     //For now does not support target switching, just makes sure that enough time has passed since the last application
     if(Math.max(...hasDebuff, this.latestTs) > event.timestamp - 8000) {
-      this.badVanishCasts++;
+      this.badVanishCasts += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = `Use Vanish only when Find Weakness is not up or is about to run out.`;
@@ -85,7 +85,7 @@ class FindWeakness extends Analyzer {
         value={`${formatPercentage(uptime)} %`}
         label={`${SPELLS.FIND_WEAKNESS_TALENT.name} uptime`}
       />
-    );  
+    );
   }
 }
 

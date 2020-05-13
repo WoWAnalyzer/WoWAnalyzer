@@ -71,11 +71,11 @@ class Stampede extends Analyzer {
         event.absorbed || 0
       );
 
-    this.hits++;
+    this.hits += 1;
     this.damage += damage;
 
     if (this.currentCast !== null) {
-      this.currentCast.hits++;
+      this.currentCast.hits += 1;
       this.currentCast.damage += damage;
     }
   }
@@ -86,7 +86,7 @@ class Stampede extends Analyzer {
       cast.averageHits = cast.hits / STAMPEDE_POTENTIAL_HITS;
 
       if (cast.averageHits < 1) {
-        this.inefficientCasts++;
+        this.inefficientCasts += 1;
       }
     });
   }

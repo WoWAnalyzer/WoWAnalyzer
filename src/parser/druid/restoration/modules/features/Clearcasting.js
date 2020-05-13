@@ -75,7 +75,7 @@ class Clearcasting extends Analyzer {
     if (spellId !== SPELLS.REGROWTH.id) {
       return;
     }
-  
+
     if(this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       return;
     }
@@ -104,7 +104,7 @@ class Clearcasting extends Analyzer {
     const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
     const healthPercentage = hitPointsBeforeHeal / event.maxHitPoints;
     if(healthPercentage<LOW_HEALTH_HEALING_THRESHOLD && !this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id, event.timestamp, MS_BUFFER)) {
-      this.lowHealthRegrowthsNoCC++;
+      this.lowHealthRegrowthsNoCC += 1;
     }
   }
 
