@@ -73,7 +73,7 @@ class MasterOfTheElements extends Analyzer {
     this.moteActivationTimestamp=null;
     event.meta = event.meta || {};
     event.meta.isEnhancedCast = true;
-    this.moteBuffedAbilities[event.ability.guid]++;
+    this.moteBuffedAbilities[event.ability.guid] += 1;
 
   }
 

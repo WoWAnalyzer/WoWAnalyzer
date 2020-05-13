@@ -25,7 +25,7 @@ class RighteousVerdict extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.TEMPLARS_VERDICT.id) {
-      this.totalSpenders++;
+      this.totalSpenders += 1;
     }
   }
 
@@ -35,7 +35,7 @@ class RighteousVerdict extends Analyzer {
       return;
     }
     if (spellId === SPELLS.TEMPLARS_VERDICT_DAMAGE.id) {
-      this.spendersInsideBuff++;
+      this.spendersInsideBuff += 1;
       this.damageDone += calculateEffectiveDamage(event, RIGHTEOUS_VERDICT_MODIFIER);
     }
   }

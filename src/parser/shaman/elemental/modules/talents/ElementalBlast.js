@@ -23,7 +23,7 @@ class ElementalBlast extends Analyzer {
 
   on_toPlayer_removebuff(event) {
     if (ELEMENTAL_BLAST_IDS.includes(event.ability.guid)){
-      this.currentBuffAmount--;
+      this.currentBuffAmount -= 1;
       if (this.currentBuffAmount===0) {
         this.resultDuration += event.timestamp - this.lastFreshApply;
       }
@@ -35,7 +35,7 @@ class ElementalBlast extends Analyzer {
       if (this.currentBuffAmount===0) {
         this.lastFreshApply = event.timestamp;
       }
-      this.currentBuffAmount++;
+      this.currentBuffAmount += 1;
     }
   }
 

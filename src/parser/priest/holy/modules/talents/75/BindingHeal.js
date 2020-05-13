@@ -36,7 +36,7 @@ class BindingHeal extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BINDING_HEAL_TALENT.id) {
-      this.bindingHealCasts++;
+      this.bindingHealCasts += 1;
     }
   }
 

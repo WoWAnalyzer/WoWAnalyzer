@@ -32,7 +32,7 @@ class Afterlife extends Analyzer {
     if (spellId === SPELLS.SPIRIT_OF_REDEMPTION_BUFF.id) {
       this.inSpiritOfRedemption = true;
       this.spiritOfRedemptionStartTime = event.timestamp;
-      this.sorCount++;
+      this.sorCount += 1;
     }
   }
 

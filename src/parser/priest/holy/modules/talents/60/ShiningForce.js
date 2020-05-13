@@ -16,14 +16,14 @@ class ShiningForce extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.SHINING_FORCE_TALENT.id) {
-      this.shiningForceCasts++;
+      this.shiningForceCasts += 1;
     }
   }
 
   on_byPlayer_applydebuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.SHINING_FORCE_TALENT.id) {
-      this.shiningForceHits++;
+      this.shiningForceHits += 1;
     }
   }
 

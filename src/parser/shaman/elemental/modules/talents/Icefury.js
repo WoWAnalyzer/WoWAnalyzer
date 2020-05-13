@@ -11,26 +11,26 @@ class Icefury extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
-  
+
   empoweredFrostShockCasts = 0;
-  
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ICEFURY_TALENT.id);
-    
+
     if (!this.active) {
       return;
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FROST_SHOCK), this.onFrostShockCast);
   }
-  
+
   onFrostShockCast(event) {
     if (this.selectedCombatant.hasBuff(SPELLS.ICEFURY_TALENT.id)) {
-      this.empoweredFrostShockCasts++;
+      this.empoweredFrostShockCasts += 1;
     }
   }
-  
+
   get suggestionThresholds() {
     return {
       actual: this.empoweredFrostShockCasts / this.abilityTracker.getAbility(SPELLS.ICEFURY_TALENT.id).casts,
@@ -42,7 +42,7 @@ class Icefury extends Analyzer {
       style: 'decimal',
     };
   }
-  
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) => {
       return suggest(<>You should fully utilize your <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> casts by casting 4 <SpellLink id={SPELLS.FROST_SHOCK.id} />s before the <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> buff expires. Pay attention to the remaining duration of the buff to ensure you have time to use all of the stacks.</>)

@@ -41,7 +41,7 @@ class Chakrams extends Analyzer {
       return;
     }
     this.uniqueTargets = [];
-    this.casts++;
+    this.casts += 1;
   }
 
   on_byPlayer_damage(event) {
@@ -50,14 +50,14 @@ class Chakrams extends Analyzer {
       return;
     }
     if (this.casts === 0) {
-      this.casts++;
+      this.casts += 1;
       this.spellUsable.beginCooldown(SPELLS.CHAKRAMS_TALENT.id, {
         timestamp: this.owner.fight.start_time,
       });
     }
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.uniqueTargets.includes(damageTarget)) {
-      this.targetsHit++;
+      this.targetsHit += 1;
       this.uniqueTargets.push(damageTarget);
     }
   }

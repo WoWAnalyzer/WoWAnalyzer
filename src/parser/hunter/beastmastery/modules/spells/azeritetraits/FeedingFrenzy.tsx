@@ -23,7 +23,7 @@ const MS = 1000;
 const MS_BUFFER = 100;
 const ORIGINAL_FRENZY_DURATION = 8000;
 
-const FEEDING_FRENZY_DAMAGE_COEFFICIENT = 0.1;
+const FEEDING_FRENZY_DAMAGE_COEFFICIENT = 0.216;
 const debug = false;
 
 /**
@@ -110,7 +110,7 @@ class FeedingFrenzy extends Analyzer {
     if (spellId !== SPELLS.BARBED_SHOT.id) {
       return;
     }
-    this.casts++;
+    this.casts += 1;
     if (!this.hasFrenzyUp ||
       event.timestamp <
       this.buffApplication +

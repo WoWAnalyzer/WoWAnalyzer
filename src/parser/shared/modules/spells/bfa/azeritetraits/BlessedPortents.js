@@ -29,8 +29,8 @@ class BlessedPortents extends Analyzer {
 
     this.healing += event.amount + (event.absorbed || 0);
 
-    this.proccedBuffs++;
-    this.expiredBuffs--;
+    this.proccedBuffs += 1;
+    this.expiredBuffs -= 1;
   }
 
   on_byPlayer_applybuff(event) {
@@ -40,7 +40,7 @@ class BlessedPortents extends Analyzer {
       return;
     }
 
-    this.activeBuffs++;
+    this.activeBuffs += 1;
   }
 
   on_byPlayer_removebuff(event) {
@@ -49,8 +49,8 @@ class BlessedPortents extends Analyzer {
       return;
     }
 
-    this.expiredBuffs++;
-    this.activeBuffs--;
+    this.expiredBuffs += 1;
+    this.activeBuffs -= 1;
   }
 
   on_byPlayer_refreshbuff(event) {
@@ -59,7 +59,7 @@ class BlessedPortents extends Analyzer {
       return;
     }
 
-    this.refreshedBuffs++;
+    this.refreshedBuffs += 1;
   }
   get totalBuffs() {
     return this.proccedBuffs + this.expiredBuffs + this.refreshedBuffs + this.activeBuffs;

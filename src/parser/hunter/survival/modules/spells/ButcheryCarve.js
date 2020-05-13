@@ -55,7 +55,7 @@ class ButcheryCarve extends Analyzer {
     if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
       return;
     }
-    this.casts++;
+    this.casts += 1;
     this.reductionAtCurrentCast = 0;
   }
 
@@ -64,12 +64,12 @@ class ButcheryCarve extends Analyzer {
     if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
       return;
     }
-    this.targetsHit++;
+    this.targetsHit += 1;
     this.damage += event.amount + (event.absorbed || 0);
     if (this.reductionAtCurrentCast === MAX_TARGETS_HIT) {
       return;
     }
-    this.reductionAtCurrentCast++;
+    this.reductionAtCurrentCast += 1;
     if (this.spellUsable.isOnCooldown(this.bombSpellKnown)) {
       this.checkCooldown(this.bombSpellKnown);
     } else {

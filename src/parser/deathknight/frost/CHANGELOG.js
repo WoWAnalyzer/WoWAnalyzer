@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+    change(date(2020, 5, 11), <>Fixed issue where <SpellLink id={SPELLS.ICECAP_TALENT.id} /> was not properly counting the internal cooldown</>, [Khazak]),
     change(date(2020, 4, 28), <>Added <SpellLink id={SPELLS.CHILL_STREAK_TALENT.id} /> to Abilities</>, [Khazak]),
     change(date(2020, 4, 28), 'Cleaned up old text and fixed a couple bugs', [Khazak]),
     change(date(2020, 2, 2), 'Switched Frost Death Knight modules to use new event listeners', [Khazak]),

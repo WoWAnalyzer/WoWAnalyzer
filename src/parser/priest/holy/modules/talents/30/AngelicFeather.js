@@ -17,7 +17,7 @@ class AngelicFeather extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.ANGELIC_FEATHER_TALENT.id) {
-      this.angelicFeatherCasts++;
+      this.angelicFeatherCasts += 1;
     }
   }
 
@@ -25,7 +25,7 @@ class AngelicFeather extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.ANGELIC_FEATHER_TALENT.id) {
-      this.angelicFeatherEffects++;
+      this.angelicFeatherEffects += 1;
     }
   }
 

@@ -55,7 +55,7 @@ class VipersVenom extends Analyzer {
       return;
     }
     if (RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
-      this.badRaptorsOrMBs++;
+      this.badRaptorsOrMBs += 1;
     }
   }
 
@@ -73,7 +73,7 @@ class VipersVenom extends Analyzer {
     if (spellId !== SPELLS.VIPERS_VENOM_BUFF.id) {
       return;
     }
-    this.procs++;
+    this.procs += 1;
     this.lastProcTimestamp = event.timestamp;
   }
 
@@ -82,7 +82,7 @@ class VipersVenom extends Analyzer {
     if (spellId !== SPELLS.VIPERS_VENOM_BUFF.id) {
       return;
     }
-    this.wastedProcs++;
+    this.wastedProcs += 1;
   }
 
   get averageTimeBetweenBuffAndUsage() {

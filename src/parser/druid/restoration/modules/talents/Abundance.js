@@ -39,7 +39,7 @@ class Abundance extends Analyzer {
 
     if (!this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       this.manaSavings.push(abundanceBuff.stacks * ABUNDANCE_MANA_REDUCTION > 1 ? 1 : abundanceBuff.stacks * ABUNDANCE_MANA_REDUCTION);
-      this.manaCasts++;
+      this.manaCasts += 1;
     }
 
     this.critGains.push((abundanceBuff.stacks * ABUNDANCE_INCREASED_CRIT) > 1 ? 1 : abundanceBuff.stacks * ABUNDANCE_INCREASED_CRIT);

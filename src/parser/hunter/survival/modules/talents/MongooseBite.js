@@ -52,7 +52,7 @@ class MongooseBite extends Analyzer {
       if (!this.mongooseBiteStacks[this.lastMongooseBiteStack]) {
         this.mongooseBiteStacks[this.lastMongooseBiteStack].push(this.lastMongooseBiteStack);
       } else {
-        this.mongooseBiteStacks[this.lastMongooseBiteStack]++;
+        this.mongooseBiteStacks[this.lastMongooseBiteStack] += 1;
       }
       if (this.aspectOfTheEagleFixed) {
         this.lastMongooseBiteStack += 1;
