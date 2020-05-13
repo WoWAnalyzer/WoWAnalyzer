@@ -32,9 +32,7 @@ class Abilities extends CoreAbilities {
           SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
         ],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT)
-          ? 90
-          : 120,
+        cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT) ? 90 : 120,
         gcd: {
           base: 1500,
         },
@@ -83,12 +81,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHTNING_BOLT_ENHANCE,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: haste => (
-          combatant.hasTalent(SPELLS.OVERCHARGE_TALENT) ? 9 *
-            (
-              1 + haste
-            ) : 0
-        ),
+        cooldown: haste => (combatant.hasTalent(SPELLS.OVERCHARGE_TALENT) ? 9 * (1 + haste) : 0),
         gcd: {
           base: 1500,
         },
@@ -103,12 +96,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ROCKBITER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
-        cooldown: haste => (
-            combatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id) ? 6 * 0.85 : 6
-          ) /
-          (
-            1 + haste
-          ),
+        cooldown: haste => (combatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id) ? 6 * 0.85 : 6) / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -126,18 +114,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 12 /
-          (
-            1 + haste
-          ),
+        cooldown: haste => 12 / (1 + haste),
       },
       {
         spell: STORMSTRIKE_CAST_SPELLS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 9 /
-          (
-            1 + haste
-          ),
+        cooldown: haste => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -155,10 +137,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 6 /
-          (
-            1 + haste
-          ),
+        cooldown: haste => 6 / (1 + haste),
       },
       {
         spell: SPELLS.FERAL_LUNGE,
@@ -300,20 +279,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: undefined,
         isUndetectable: true,
-      },
-      {
-        spell: [
-          SPELLS.BLOOD_FURY_PHYSICAL,
-          SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL,
-          SPELLS.BLOOD_FURY_SPELL,
-        ],
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        isUndetectable: true,
-        gcd: undefined,
-        castEfficiency: {
-          suggestion: true,
-        },
       },
     ];
   }

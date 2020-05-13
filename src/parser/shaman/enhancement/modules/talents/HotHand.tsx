@@ -27,10 +27,10 @@ class HotHand extends Analyzer {
    *
    */
 
-  protected damageGained=0;
-  protected maelstromSaved=0;
-  protected hotHandCount=0;
-  protected hotHandUses=0;
+  protected damageGained = 0;
+  protected maelstromSaved = 0;
+  protected hotHandCount = 0;
+  protected hotHandUses = 0;
 
   constructor(options: any) {
     super(options);
@@ -58,7 +58,7 @@ class HotHand extends Analyzer {
   }
 
   onLavaLashDamage(event: DamageEvent) {
-    if(!this.selectedCombatant.hasBuff(SPELLS.HOT_HAND_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.HOT_HAND_BUFF.id)) {
       return;
     }
 

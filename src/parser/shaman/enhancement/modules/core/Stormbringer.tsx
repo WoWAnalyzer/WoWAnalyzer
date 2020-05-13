@@ -1,9 +1,5 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  CastEvent,
-  DamageEvent,
-} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/shaman';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
@@ -11,12 +7,8 @@ import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
-import {
-  STORMSTRIKE_CAST_SPELLS,
-  STORMSTRIKE_DAMAGE_SPELLS,
-} from 'parser/shaman/enhancement/constants';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { STORMSTRIKE_CAST_SPELLS, STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/constants';
 
 const STORMBRINGER_DAMAGE_MODIFIER = 0.25;
 

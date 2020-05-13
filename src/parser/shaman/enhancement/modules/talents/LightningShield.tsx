@@ -63,7 +63,7 @@ class LightningShield extends Analyzer {
   }
 
 
-  get getLightningShieldUptime () {
+  get getLightningShieldUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.LIGHTNING_SHIELD_TALENT.id) / this.owner.fightDuration;
   }
 
@@ -80,18 +80,18 @@ class LightningShield extends Analyzer {
   suggestions(when: any) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest: any, actual: any) => {
-      return suggest(
-        <Trans>
-          You should fully utilize your <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> by using it before combat.
-        </Trans>,
-        )
-        .icon(SPELLS.LIGHTNING_SHIELD_TALENT.icon)
-        .actual(
+        return suggest(
           <Trans>
-            You kept up <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> for ${formatPercentage(actual)}% of the fight.</Trans>,
+            You should fully utilize your <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> by using it before combat.
+          </Trans>,
         )
-        .recommended(<>It is possible to keep up <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> for 100% of the fight by casting it pre-combat.</>);
-    });
+          .icon(SPELLS.LIGHTNING_SHIELD_TALENT.icon)
+          .actual(
+            <Trans>
+              You kept up <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> for ${formatPercentage(actual)}% of the fight.</Trans>,
+          )
+          .recommended(<>It is possible to keep up <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> for 100% of the fight by casting it pre-combat.</>);
+      });
   }
 
   statistic() {
@@ -100,9 +100,10 @@ class LightningShield extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="small"
         category={'TALENTS'}
-        >
+      >
         <BoringSpellValueText
-          spell={SPELLS.LIGHTNING_SHIELD_TALENT}>
+          spell={SPELLS.LIGHTNING_SHIELD_TALENT}
+        >
           <>
             <ItemDamageDone amount={this.damage} />
           </>

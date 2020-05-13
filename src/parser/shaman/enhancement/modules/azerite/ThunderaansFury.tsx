@@ -6,8 +6,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import Events, { CastEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { STORMSTRIKE_CAST_SPELLS } from 'parser/shaman/enhancement/constants';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -30,7 +29,7 @@ class ThunderaansFury extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    if(!this.selectedCombatant.hasTrait(SPELLS.THUNDERAANS_FURY.id)) {
+    if (!this.selectedCombatant.hasTrait(SPELLS.THUNDERAANS_FURY.id)) {
       this.active = false;
       return;
     }

@@ -7,8 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import { Trans } from '@lingui/macro';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValue
-  from 'interface/statistics/components/BoringSpellValue';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 class FuryOfAir extends Analyzer {
 

@@ -6,8 +6,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import Events, { DamageEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 class StrengthOfEarth extends Analyzer {
@@ -28,7 +27,7 @@ class StrengthOfEarth extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTrait(SPELLS.STRENGTH_OF_EARTH_TRAIT.id)) {
+    if (!this.selectedCombatant.hasTrait(SPELLS.STRENGTH_OF_EARTH_TRAIT.id)) {
       this.active = false;
       return;
     }

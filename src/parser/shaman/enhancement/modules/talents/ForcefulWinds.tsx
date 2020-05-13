@@ -7,11 +7,9 @@ import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import ResourceGenerated
-  from 'interface/others/ResourceGenerated';
+import ResourceGenerated from 'interface/others/ResourceGenerated';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**

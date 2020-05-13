@@ -3,10 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent, CastEvent,
-  RefreshBuffEvent,
-} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 
 const PANDEMIC_THRESHOLD = 11500;//don't refresh with more than 4.5 seconds

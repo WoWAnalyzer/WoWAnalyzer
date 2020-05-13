@@ -6,8 +6,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import Events, { CastEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { STORMSTRIKE_CAST_SPELLS } from 'parser/shaman/enhancement/constants';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -31,14 +30,14 @@ class RoilingStorm extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTrait(SPELLS.ROILING_STORM.id)) {
+    if (!this.selectedCombatant.hasTrait(SPELLS.ROILING_STORM.id)) {
       this.active = false;
       return;
     }
 
     this.bonusDamage = this.selectedCombatant.traitsBySpellId[SPELLS.ROILING_STORM.id]
       .reduce((total, rank) => {
-        const [ damage ] = calculateAzeriteEffects(SPELLS.ROILING_STORM.id, rank);
+        const [damage] = calculateAzeriteEffects(SPELLS.ROILING_STORM.id, rank);
         return total + damage;
       }, 0);
 

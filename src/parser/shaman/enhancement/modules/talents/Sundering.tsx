@@ -6,11 +6,9 @@ import Statistic from 'interface/statistics/Statistic';
 
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import AverageTargetsHit
-  from 'interface/others/AverageTargetsHit';
+import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 
 class Sundering extends Analyzer {
 
