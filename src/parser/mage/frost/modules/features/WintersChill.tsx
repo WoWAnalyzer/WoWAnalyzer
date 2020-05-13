@@ -11,7 +11,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
-const debug = true;
+const debug = false;
 
 const HARDCAST_HITS = [
   SPELLS.FROSTBOLT_DAMAGE.id,
