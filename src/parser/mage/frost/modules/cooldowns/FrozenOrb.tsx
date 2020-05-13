@@ -10,8 +10,9 @@ class FrozenOrb extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+  protected spellUsable!: SpellUsable;
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE), this._reduceCooldown);
   }

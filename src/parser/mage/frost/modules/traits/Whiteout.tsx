@@ -4,9 +4,10 @@ import {formatNumber} from 'common/format';
 import SPELLS from 'common/SPELLS';
 import {calculateAzeriteEffects} from 'common/stats';
 
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -21,7 +22,7 @@ const FO_REDUCTION_SEC = 0.5;
  * To update, see https://www.wowhead.com/spell=137020/frost-mage
  * AURA = 1 + (Damage modifier)
  */
-const FROST_MAGE_AURA = 1 + (-0.22);
+const FROST_MAGE_AURA = 1 + (-0.15);
 
 /**
  * Ice Lance deals an additional X1 (stacks and scales) damage and reduces the cooldown of Frozen Orb by 0.5 (does not stack or scale) sec.
@@ -35,18 +36,24 @@ class Whiteout extends Analyzer {
     spellUsable: SpellUsable,
     statTracker: StatTracker,
   };
+  protected enemies!: EnemyInstances;
+  protected spellUsable!: SpellUsable;
+  protected statTracker!: StatTracker;
 
   hadFingersProc = false;
   bonusDamagePerIceLance = 0;
   frozenOrbReductions = 0;
   totalWhiteoutDamage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     if (!this.selectedCombatant.hasTrait(SPELLS.WHITEOUT.id)) {
       this.active = false;
       return;
     }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE_DAMAGE), this.onDamage);
 
     const ranks = this.selectedCombatant.traitsBySpellId[SPELLS.WHITEOUT.id];
     for (const rank of ranks) {
@@ -57,10 +64,7 @@ class Whiteout extends Analyzer {
     this.bonusDamagePerIceLance *= FROST_MAGE_AURA;
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.ICE_LANCE.id) {
-      return;
-    }
+  onCast(event: CastEvent) {
     if (this.spellUsable.isOnCooldown(SPELLS.FROZEN_ORB.id)) {
       this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, FO_REDUCTION_SEC * 1000);
       this.frozenOrbReductions += 1;
@@ -69,17 +73,12 @@ class Whiteout extends Analyzer {
     this.hadFingersProc = this.selectedCombatant.hasBuff(SPELLS.FINGERS_OF_FROST.id);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ICE_LANCE_DAMAGE.id) {
-      return;
-    }
-
+  onDamage(event: DamageEvent) {
     // The Whiteout damage is affected by versatility no other stats
     let estimatedBonusDamage = this.bonusDamagePerIceLance * (1 + this.statTracker.currentVersatilityPercentage);
 
     // This is the damage modifier after personal player buffs (i.e. only external increases or reductions like chaos brand and boss phases)
-    const damageModifier = (event.amount / event.unmitigatedAmount) / (event.hitType === HIT_TYPES.CRIT ? 2 : 1);
+    const damageModifier = event.amount && event.unmitigatedAmount ? (event.amount / event.unmitigatedAmount) / (event.hitType === HIT_TYPES.CRIT ? 2 : 1) : 1;
 
     // Apply the damage modifier to the estimated Whiteout damage
     estimatedBonusDamage *= damageModifier;
@@ -99,25 +98,25 @@ class Whiteout extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.WHITEOUT.id}
-        value={(
-          <>
-            {formatNumber(this.totalWhiteoutDamage / this.owner.fightDuration * 1000)} DPS<br />
-            {(FO_REDUCTION_SEC * this.frozenOrbReductions).toFixed(1)} sec. CD reduction
-          </>
-        )}
+      <Statistic
+        size="flexible"
+        category={'ITEMS'}
         tooltip={(
           <>
             DPS value does not take into account any extra Frozen Orb casts from the lowered cooldown. Whiteout may have provided more DPS than totalled here if extra Frozen Orbs were cast effectively.<br />
             Bonus Ice Lance damage: <strong>{formatNumber(this.totalWhiteoutDamage)}</strong>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.WHITEOUT}>
+          <>
+            {formatNumber(this.totalWhiteoutDamage / this.owner.fightDuration * 1000)} <small>DPS</small><br />
+            {(FO_REDUCTION_SEC * this.frozenOrbReductions).toFixed(1)} <small>sec. CD reduction</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
 }
 
 export default Whiteout;
