@@ -8,7 +8,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
-const debug = false;
+const debug = true;
 
 // Brain Freeze appears to always fall after Flurry cast, but not always on same timestamp. Giving a margin here.
 const PROC_WINDOW_MS = 100;
@@ -28,7 +28,8 @@ class BrainFreezeNoIL extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.owner.builds.NO_IL.active;
-    this.glacialSpikeTalented = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
+    this.hasGlacialSpike = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
+    this.hasEbonbolt = this.selectedCombatant.hasTalent(SPELLS.EBONBOLT_TALENT.id);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE), this.onBrainFreezeApplied);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE), this.onBrainFreezeRefreshed);
@@ -43,13 +44,13 @@ class BrainFreezeNoIL extends Analyzer {
   onBrainFreezeRefreshed(event) {
     this.totalProcs += 1;
 
-    if (!this.glacialSpikeTalented || this.wasLastGeneratorEB) {
+    if (!this.hasGlacialSpike || this.wasLastGeneratorEB) {
       this.overwrittenProcs += 1;
-      debug && this.debug("Brain Freeze proc overwritten w/o GS talented or by EB");
+      debug && this.log("Brain Freeze proc overwritten w/o GS talented or by EB");
       return;
     } else {
       this.okOverwrittenProcs += 1;
-      debug && this.debug("Acceptable Brain Freeze proc overwritten w/ GS talented");
+      debug && this.log("Acceptable Brain Freeze proc overwritten w/ GS talented");
     }
   }
 
@@ -68,7 +69,7 @@ class BrainFreezeNoIL extends Analyzer {
   onBrainFreezeRemoved(event) {
     if (!this.lastFlurryTimestamp || this.lastFlurryTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
       this.expiredProcs += 1; // it looks like Brain Freeze is always removed after the cast, and always on same timestamp
-      debug && this.debug("Brain Freeze proc expired");
+      debug && this.log("Brain Freeze proc expired");
     }
   }
 
@@ -151,11 +152,8 @@ class BrainFreezeNoIL extends Analyzer {
 
     when(this.overwriteSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        let suggestBuilder;
-        if (!this.glacialSpikeTalented) {
-          suggestBuilder = suggest(<>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as possible to avoid this.</>);
-        }
-        return suggestBuilder.icon(SPELLS.BRAIN_FREEZE.icon)
+        return suggest(<>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as {this.hasGlacialSpike ? <><SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> is available</> : 'possible'} to avoid this. {this.hasEbonbolt ? <>Additionally, avoid casting <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /> when you already have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc.</> : ''}</>)
+          .icon(SPELLS.BRAIN_FREEZE.icon)
           .actual(`${formatPercentage(this.overwrittenPercent)}% overwritten`)
           .recommended(`Overwriting none is recommended`);
       });

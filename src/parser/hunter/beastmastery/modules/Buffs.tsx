@@ -15,7 +15,7 @@ class Buffs extends CoreBuffs {
       },
       {
         //shows pet buff, since that is what is interesting to see and the
-        // player buff is 5 different spellIDs
+        // player buff is 8 different spellIDs
         spellId: SPELLS.BARBED_SHOT_PET_BUFF.id,
         timelineHightlight: true,
       },

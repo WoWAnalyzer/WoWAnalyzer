@@ -23,6 +23,7 @@ import RighteousProtector from './modules/talents/RighteousProtector';
 
 //Azerite Traits
 import InspiringVanguard from './modules/spells/azeritetraits/InspiringVanguard';
+import LucidDreams from './modules/items/LucidDreams';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 
@@ -48,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     
     // Azerite Traits
     inspiringVanguard: InspiringVanguard,
+    lucidDreams: LucidDreams,
 
     // Talents
     righteousProtector: RighteousProtector,
