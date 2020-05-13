@@ -77,7 +77,7 @@ class ArcanicPulsar extends Analyzer {
     // should trigger Celestial Alignment.
     const buff = this.selectedCombatant.getBuff(SPELLS.ARCANIC_PULSAR_BUFF.id) as any;
     if (buff && buff.stacks === 8) {
-      this.celestialAlignmentTriggers++;
+      this.celestialAlignmentTriggers += 1;
     }
   }
 
