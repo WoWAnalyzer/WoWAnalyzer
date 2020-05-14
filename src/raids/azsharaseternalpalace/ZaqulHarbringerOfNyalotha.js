@@ -1,4 +1,5 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/ZaqulHarbringerOfNyalotha.jpg';
 import Headshot from './images/headshots/ZaqulHarbringerOfNyalotha.png';
@@ -24,7 +25,7 @@ export default {
         name: 'Stage 2: Grip of Fear',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 150859,
           health: 85,
           eventInstance: 0,
@@ -34,7 +35,7 @@ export default {
         name: 'Stage 3: Delirium\'s Descent',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 150859,
           health: 70,
           eventInstance: 0,
@@ -44,7 +45,7 @@ export default {
         name: 'Stage 4: All Pathways Open',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 150859,
           health: 50,
           eventInstance: 0,

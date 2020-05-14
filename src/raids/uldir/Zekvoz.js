@@ -1,4 +1,5 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/Backgrounds/Zekvoz.jpg';
 import Headshot from './images/Headshots/Zekvoz.png';
@@ -41,7 +42,7 @@ export default {
         name: 'Wave: Silithid Warriors',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'adds',
+          type: EventType.Adds,
           query: '(source.id = 134503 AND timestamp = source.firstSeen) OR (target.id = 134503 AND timestamp = target.firstSeen) OR (target.id = 134503 AND type = "death")',
           addCount: 6,
           guid: 134503,
@@ -51,7 +52,7 @@ export default {
         name: 'Wave: Nerubian Voidweavers',
         difficulties: [FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'adds',
+          type: EventType.Adds,
           query: '(source.id = 135824 AND timestamp IN(source.firstSeen, source.lastSeen)) OR (target.id = 135824 AND timestamp IN(target.firstSeen, target.lastSeen))',
           addCount: 3,
           guid: 135824,
@@ -61,7 +62,7 @@ export default {
         name: 'Stage Two: Deception',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: ENCOUNTER_EVENT.id,
           },
@@ -72,7 +73,7 @@ export default {
         name: 'Wave: Nerubian Voidweavers',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
         filter: {
-          type: 'adds',
+          type: EventType.Adds,
           query: '(source.id = 135824 AND timestamp IN(source.firstSeen, source.lastSeen)) OR (target.id = 135824 AND timestamp IN(target.firstSeen, target.lastSeen))',
           addCount: 3,
           guid: 135824,
@@ -82,7 +83,7 @@ export default {
         name: 'Stage Two: Corruption',
         difficulties: [FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: ENCOUNTER_EVENT.id,
           },
@@ -93,7 +94,7 @@ export default {
         name: 'Stage Three: Corruption',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: ENCOUNTER_EVENT.id,
           },

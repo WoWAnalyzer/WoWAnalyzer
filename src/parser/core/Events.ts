@@ -3,6 +3,8 @@ import { PhaseConfig } from 'raids';
 
 import EventFilter from './EventFilter';
 
+// TODO Some event types seam to be missing:
+
 export enum EventType {
   Heal = 'heal',
   HealAbsorbed = 'healabsorbed',
@@ -26,15 +28,29 @@ export enum EventType {
   Death = 'death',
   Resurrect = 'resurrect',
   CombatantInfo = 'combatantinfo',
+  Instakill = 'instakill',
 
   // Fabricated:
   FightEnd = 'fightend',
   GlobalCooldown = 'globalcooldown',
   BeginChannel = 'beginchannel',
   EndChannel = 'endchannel',
+  CancelChannel = 'cancelchannel',
   UpdateSpellUsable = 'updatespellusable',
   BeaconTransfer = 'beacontransfer',
+  BeaconTransferFailed = 'beacontransferfailed',
   ChangeStats = 'changestats',
+  ChangeHaste = 'changehaste',
+  BeginCooldown = 'begincooldown',
+  AddCooldownCharge = 'addcooldowncharge',
+  RefreshCooldown = 'refreshcooldown',
+  EndCooldown = 'endcooldown',
+  RestoreCharge = 'restorecharge',
+  Health = 'health',
+  Adds = 'adds',
+  Dispel = 'dispel',
+  Time = 'time',
+  Test = 'test',
 
   // Phases:
   PhaseStart = 'phasestart',
@@ -82,7 +98,7 @@ export interface BeginCastEvent extends Event {
   ability: Ability;
   castEvent: CastEvent;
   channel: {
-    type: 'beginchannel';
+    type: EventType.BeginChannel;
     timestamp: 858735;
     ability: Ability;
     sourceID: number;
@@ -410,7 +426,7 @@ export interface UpdateSpellUsableEvent extends Event {
   type: EventType.UpdateSpellUsable;
   ability: Ability;
   name: string
-  trigger: 'begincooldown' | 'endcooldown' | 'refreshcooldown' | 'addcooldowncharge' | 'restorecharge';
+  trigger: EventType.BeginCooldown | EventType.EndCooldown | EventType.RefreshCooldown | EventType.AddCooldownCharge | EventType.RestoreCharge;
   isOnCooldown: boolean
   isAvailable: boolean
   chargesAvailable: number

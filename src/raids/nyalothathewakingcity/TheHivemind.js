@@ -1,5 +1,6 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/TheHivemind.jpg';
 import Headshot from './images/headshots/TheHivemind.png';
@@ -22,7 +23,7 @@ export default {
         multiple: true,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: SPELLS.TEKRIS_HIVEMIND_CONTROL.id,
           },
@@ -33,7 +34,7 @@ export default {
         multiple: true,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: SPELLS.KAZIR_HIVEMIND_CONTROL.id,
           },

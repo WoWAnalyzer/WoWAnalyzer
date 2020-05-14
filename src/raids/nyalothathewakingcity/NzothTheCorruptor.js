@@ -1,4 +1,5 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/NzothTheCorruptor.jpg';
 import Headshot from './images/headshots/NzothTheCorruptor.png';
@@ -26,7 +27,7 @@ export default {
         multiple: false,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 158376,
           health: 0.1,
           eventInstance: 0,

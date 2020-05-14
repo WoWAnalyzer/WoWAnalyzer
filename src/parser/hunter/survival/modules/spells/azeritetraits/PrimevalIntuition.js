@@ -7,6 +7,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import CriticalStrike from 'interface/icons/CriticalStrike';
+import { EventType } from 'parser/core/Events';
 
 /**
  * Your maximum Focus is increased to 120, and Raptor Strike (or Mongoose bite) increases your Critical Strike by 52 for 12 sec, stacking up to 5 times.
@@ -47,10 +48,10 @@ class PrimevalIntuition extends Analyzer {
   }
 
   handleStacks(event, stack = null) {
-    if (event.type === 'removebuff' || isNaN(event.stack)) { //NaN check if player is dead during on_finish
+    if (event.type === EventType.RemoveBuff || isNaN(event.stack)) { //NaN check if player is dead during on_finish
       event.stack = 0;
     }
-    if (event.type === 'applybuff') {
+    if (event.type === EventType.ApplyBuff) {
       event.stack = 1;
     }
     if (stack) {

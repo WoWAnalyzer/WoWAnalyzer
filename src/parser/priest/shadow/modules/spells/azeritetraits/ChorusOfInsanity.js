@@ -9,6 +9,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import CritIcon from 'interface/icons/CriticalStrike';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { EventType } from 'parser/core/Events';
 
 const chorusOfInsanityStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.CHORUS_OF_INSANITY.id, rank);
@@ -64,7 +65,7 @@ class ChorusOfInsanity extends Analyzer {
     this.eventEmitter.fabricateEvent({
       ...event,
       timestamp: this.lastTimestamp,
-      type: 'applybuffstack',
+      type: EventType.ApplyBuffStack,
       currentStacks: event.currentStacks + 1,
     }, event);
   }

@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
+import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { captureException } from 'common/errorLogger';
 
@@ -98,7 +99,7 @@ class PrePullCooldowns extends EventsNormalizer {
       const event = events[i];
       const sourceId = event.sourceID;
 
-      if (event.type === 'applybuff') {
+      if (event.type === EventType.ApplyBuff) {
         // We rely on the ApplyBuff normalizer to set the prepull property
         if (!event.prepull) {
           continue;
@@ -123,7 +124,7 @@ class PrePullCooldowns extends EventsNormalizer {
         continue;
       }
 
-      if (event.type === 'cast') {
+      if (event.type === EventType.Cast) {
         /**
          * This will copy the first resource information to all precast events.
          * It's not pretty or 100% accurate, but it prevents errors on analyzers
@@ -149,7 +150,7 @@ class PrePullCooldowns extends EventsNormalizer {
         continue;
       }
 
-      if (event.type === 'damage') {
+      if (event.type === EventType.Damage) {
         // If a damage event already has a cast event, it shouldn't be in the array
         for (let i = 0; i < damageSpells.length; i += 1) {
           if (damageSpells[i].damageIds.some(id => id === event.ability.guid)) {
@@ -224,7 +225,7 @@ class PrePullCooldowns extends EventsNormalizer {
     }
 
     return {
-      type: 'cast',
+      type: EventType.Cast,
       ability: ability,
       sourceID: event.sourceID,
       sourceIsFriendly: event.sourceIsFriendly,

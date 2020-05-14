@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventType } from 'parser/core/Events';
 
 // the max delay between the heal and cast events never looks to be more than this.
 const MAX_DELAY = 100;
@@ -14,7 +15,7 @@ class DivinePurpose extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type !== 'cast') {
+      if (event.type !== EventType.Cast) {
         return;
       }
       const spellId = event.ability.guid;
@@ -36,7 +37,7 @@ class DivinePurpose extends EventsNormalizer {
         if ((castTimestamp - previousEvent.timestamp) > MAX_DELAY) {
           break;
         }
-        if (previousEvent.type === 'applybuff' && previousEvent.ability.guid === buffId && previousEvent.sourceID === event.sourceID) {
+        if (previousEvent.type === EventType.ApplyBuff && previousEvent.ability.guid === buffId && previousEvent.sourceID === event.sourceID) {
           // Remove the applybuff
           fixedEvents.splice(previousEventIndex, 1);
           // Insert it after the cast
@@ -58,7 +59,7 @@ class DivinePurpose extends EventsNormalizer {
         if ((castTimestamp - previousEvent.timestamp) > MAX_DELAY) {
           break;
         }
-        if (previousEvent.type === 'removebuff' && previousEvent.ability.guid === buffId && previousEvent.sourceID === event.sourceID) {
+        if (previousEvent.type === EventType.RemoveBuff && previousEvent.ability.guid === buffId && previousEvent.sourceID === event.sourceID) {
           fixedEvents.splice(previousEventIndex, 1);
           fixedEvents.splice(eventIndex, 0, previousEvent);
           previousEvent.__modified = true;

@@ -1,5 +1,6 @@
 import { formatMilliseconds } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
@@ -92,7 +93,7 @@ class GlobalCooldown extends Analyzer {
    */
   triggerGlobalCooldown(event) {
     return this.eventEmitter.fabricateEvent({
-      type: 'globalcooldown',
+      type: EventType.GlobalCooldown,
       ability: event.ability,
       sourceID: event.sourceID,
       targetID: event.sourceID, // no guarantees the original targetID is the player

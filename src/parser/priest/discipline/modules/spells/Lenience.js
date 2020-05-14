@@ -8,6 +8,7 @@ import { formatThousands, formatNumber } from 'common/format';
 import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 
 const LENIENCE_DR = 0.03;
 
@@ -27,7 +28,7 @@ class Lenience extends Analyzer {
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.selectedCombatant.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,
+      filter: `(IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.selectedCombatant.name}' TO type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,
     })
       .then(json => {
         console.log('Received LR damage taken', json);

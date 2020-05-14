@@ -1,12 +1,13 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 const MAX_DELAY = 17500;
 const CBT_DELAY = 15000;
 const debug = false;
 
 /*
-* Cloudburst Totem had some weird behaviour (even if it rarely happens), 
+* Cloudburst Totem had some weird behaviour (even if it rarely happens),
 * because of that you can have a cast event without heal events.
 * This happens if everyone in range is at 100% HP, it will just not heal at all.
 *
@@ -35,7 +36,7 @@ class CloudburstNormalizer extends EventsNormalizer {
       fixedEvents.push(event);
 
 
-      if (event.type === 'cast' && event.ability.guid === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
+      if (event.type === EventType.Cast && event.ability.guid === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
         const castTimestamp = event.timestamp;
         let recallTimestamp = null;
 
@@ -47,10 +48,10 @@ class CloudburstNormalizer extends EventsNormalizer {
             // No CLOUDBURST_TOTEM_HEAL found within the period, meaning this cast wasn't able to find targets and did not have any healing events -> create a 100% overheal event
             const newTimestamp = (recallTimestamp && (recallTimestamp - event.timestamp > CBT_DELAY ? event.timestamp + CBT_DELAY : recallTimestamp)) || (event.timestamp + CBT_DELAY);
 
-            debug && this.log(`No Cloudburst heal found for cast at ${this.owner.formatTimestamp(event.timestamp)}`); 
+            debug && this.log(`No Cloudburst heal found for cast at ${this.owner.formatTimestamp(event.timestamp)}`);
             this.fabricatedEvent = {
               timestamp: newTimestamp,
-              type: "heal",
+              type: EventType.Heal,
               sourceID: event.sourceID,
               targetID: event.sourceID,
               sourceIsFriendly: true,
@@ -69,10 +70,10 @@ class CloudburstNormalizer extends EventsNormalizer {
               __fabricated: true,
             };
             break;
-          } else if (nextEvent.type === 'cast' && (nextEvent.ability.guid === SPELLS.CLOUDBURST_TOTEM_RECALL.id || nextEvent.ability.guid === SPELLS.CLOUDBURST_TOTEM_TALENT.id)) {
+          } else if (nextEvent.type === EventType.Cast && (nextEvent.ability.guid === SPELLS.CLOUDBURST_TOTEM_RECALL.id || nextEvent.ability.guid === SPELLS.CLOUDBURST_TOTEM_TALENT.id)) {
             recallTimestamp = nextEvent.timestamp;
             continue;
-          } else if (nextEvent.type === 'heal' && nextEvent.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id) {
+          } else if (nextEvent.type === EventType.Heal && nextEvent.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id) {
             // CLOUDBURST_TOTEM_HEAL found, this was fine
             break;
           }

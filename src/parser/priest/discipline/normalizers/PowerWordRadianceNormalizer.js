@@ -1,6 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 const BUFFS_TO_MOVE = [
   SPELLS.ATONEMENT_BUFF.id,
@@ -24,7 +25,7 @@ class PowerWordRadianceNormalizer extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === "cast") {
+      if (event.type === EventType.Cast) {
         const spellId = event.ability.guid;
         if (spellId === SPELLS.POWER_WORD_RADIANCE.id) {
           lastRadianceTimestamp = event.timestamp;
@@ -32,7 +33,7 @@ class PowerWordRadianceNormalizer extends EventsNormalizer {
         }
       }
 
-      if (event.type === "applybuff" || event.type === "refreshbuff" || event.type === "applybuffstack") {
+      if (event.type === EventType.ApplyBuff || event.type === EventType.RefreshBuff || event.type === EventType.ApplyBuffStack) {
         const spellId = event.ability.guid;
         if ((event.timestamp - lastRadianceTimestamp) < MAX_TIME_SINCE_CAST && BUFFS_TO_MOVE.includes(spellId)) {
           event.timestamp = lastRadianceTimestamp;

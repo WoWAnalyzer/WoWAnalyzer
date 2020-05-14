@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -12,7 +13,7 @@ import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 /**
  * When your health is brought below 35%, you instantly heal for 20% of your maximum health.
  * Cannot occur more than once every 45 sec.
- * 
+ *
  * As this talent has no cast event, but you should still be able to see it on the timeline,
  * this module creates that event whenever this talent heals the player.
  */
@@ -37,7 +38,7 @@ class NaturesGuardian extends Analyzer {
 
     this.eventEmitter.fabricateEvent({
       ...event,
-      type: 'cast',
+      type: EventType.Cast,
       ability: {
         ...event.ability,
         guid: SPELLS.NATURES_GUARDIAN_TALENT.id,

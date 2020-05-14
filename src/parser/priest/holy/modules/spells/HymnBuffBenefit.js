@@ -8,6 +8,7 @@ import { formatNumber } from 'common/format';
 import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 
 const DIVINE_HYMN_HEALING_INCREASE = 0.1;
 
@@ -17,14 +18,14 @@ class HymnBuffBenefit extends Analyzer {
 
   get filter() {
     return `
-    IN RANGE 
-      FROM type='applybuff' 
-          AND ability.id=${SPELLS.DIVINE_HYMN_HEAL.id} 
-          AND source.name='${this.selectedCombatant.name}' 
-      TO type='removebuff' 
-          AND ability.id=${SPELLS.DIVINE_HYMN_HEAL.id} 
-          AND source.name='${this.selectedCombatant.name}' 
-      GROUP BY 
+    IN RANGE
+      FROM type='${EventType.ApplyBuff}'
+          AND ability.id=${SPELLS.DIVINE_HYMN_HEAL.id}
+          AND source.name='${this.selectedCombatant.name}'
+      TO type='${EventType.RemoveBuff}'
+          AND ability.id=${SPELLS.DIVINE_HYMN_HEAL.id}
+          AND source.name='${this.selectedCombatant.name}'
+      GROUP BY
         target ON target END`;
   }
 

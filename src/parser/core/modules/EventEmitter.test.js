@@ -1,6 +1,7 @@
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import EventEmitter from './EventEmitter';
+import { EventType } from 'parser/core/Events';
 
 describe('Core/EventEmitter', () => {
   let parser;
@@ -15,7 +16,7 @@ describe('Core/EventEmitter', () => {
       parser.currentTimestamp = timestamp;
 
       const fabricatedEvent = eventEmitter.fabricateEvent({
-        type: 'test',
+        type: EventType.Test,
       });
       expect(fabricatedEvent.timestamp).toBe(timestamp);
     });

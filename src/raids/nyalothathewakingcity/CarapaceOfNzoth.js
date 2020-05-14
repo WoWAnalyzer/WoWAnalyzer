@@ -1,4 +1,5 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/CarapaceOfNzoth.jpg';
 import Headshot from './images/headshots/CarapaceOfNzoth.png';
@@ -26,7 +27,7 @@ export default {
         multiple: false,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 157439,
           health: 50,
           eventInstance: 0,
@@ -37,7 +38,7 @@ export default {
         multiple: false,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 157439,
           health: 40,
           eventInstance: 0,

@@ -1,5 +1,6 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/Backgrounds/Mythrax.jpg';
 import Headshot from './images/Headshots/Mythrax.png';
@@ -27,7 +28,7 @@ export default {
         name: 'Stage One: Oblivion\'s Call',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'removebuff',
+          type: EventType.RemoveBuff,
           ability: {
             id: SPELLS.MYTHRAX_OBLIVION_VEIL.id,
           },
@@ -37,7 +38,7 @@ export default {
         name: 'Stage Two: Ancient Awakening',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'applybuff',
+          type: EventType.ApplyBuff,
           ability: {
             id: SPELLS.MYTHRAX_OBLIVION_VEIL.id,
           },

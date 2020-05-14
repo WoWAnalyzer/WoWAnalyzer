@@ -1,5 +1,6 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/UunatHarbingerOfTheVoid.jpg';
 import Headshot from './images/headshots/UunatHarbingerOfTheVoid.png';
@@ -27,7 +28,7 @@ export default {
         name: 'Intermission One',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'applybuff',
+          type: EventType.ApplyBuff,
           ability: {
             id: SPELLS.VOID_SHIELD.id,
           },
@@ -38,7 +39,7 @@ export default {
         name: 'Stage Two: His Dutiful Servants',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'removebuff',
+          type: EventType.RemoveBuff,
           ability: {
             id: SPELLS.VOID_SHIELD.id,
           },
@@ -49,7 +50,7 @@ export default {
         name: 'Intermission Two',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'applybuff',
+          type: EventType.ApplyBuff,
           ability: {
             id: SPELLS.VOID_SHIELD.id,
           },
@@ -60,7 +61,7 @@ export default {
         name: 'Stage Three: His Unwavering Gaze',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'removebuff',
+          type: EventType.RemoveBuff,
           ability: {
             id: SPELLS.VOID_SHIELD.id,
           },
