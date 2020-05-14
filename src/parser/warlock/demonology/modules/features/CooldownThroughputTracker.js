@@ -2,11 +2,9 @@ import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/sh
 
 import SPELLS from 'common/SPELLS';
 
-const debug = false;
-
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
-  // nether portal, grimoire, demonic tyrant,
   static castCooldowns = [
+    ...CoreCooldownThroughputTracker.castCooldowns,
     {
       spell: SPELLS.NETHER_PORTAL_TALENT,
       duration: 20,
@@ -30,43 +28,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
   ];
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    const cooldownSpell = this.constructor.castCooldowns.find(cooldownSpell => cooldownSpell.spell.id === spellId);
-    if (cooldownSpell) {
-      // adding the fixed cooldown, now we need to remove it from activeCooldowns too
-      const cooldown = this.addFixedCooldown(cooldownSpell, event.timestamp);
-      this.activeCooldowns.push(cooldown);
-      debug && console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
-    }
-    // super.on_byPlayer_cast(event) would call trackEvent anyway
-    this.trackEvent(event);
-  }
-
-  addFixedCooldown(cooldownSpell, timestamp) {
-    const cooldown = {
-      ...cooldownSpell,
-      start: timestamp,
-      end: timestamp + cooldownSpell.duration * 1000,
-      events: [],
-    };
-    this.pastCooldowns.push(cooldown);
-    return cooldown;
-  }
-
-  // on_event() might be more accurate but it would be most likely called much more
-  trackEvent(event) {
-    const finishedCooldowns = this.activeCooldowns.filter(cooldown => cooldown.end && cooldown.end < event.timestamp).map((_, index) => index);
-    finishedCooldowns.forEach((index) => {
-      debug && console.log(`%cCooldown ended: ${this.activeCooldowns[index].spell.name}`, 'color: red', this.activeCooldowns[index]);
-      this.activeCooldowns.splice(index, 1);
-    });
-    super.trackEvent(event);
-  }
-
-  on_byPlayerPet_damage(event) {
-    this.trackEvent(event);
-  }
+  static trackPlayerPetDamage = true;
 }
 
 export default CooldownThroughputTracker;

@@ -25,6 +25,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   ];
 
   static castCooldowns = [
+    ...CoreCooldownThroughputTracker.castCooldowns,
     {
       spell: SPELLS.WARBREAKER_TALENT,
       duration: 10,
@@ -40,32 +41,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
   ];
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    const cooldownSpell = this.constructor.castCooldowns.find(cooldownSpell => cooldownSpell.spell.id === spellId);
-    if (cooldownSpell) {
-      const cooldown = this._addFixedCooldown(cooldownSpell, event.timestamp);
-      this.activeCooldowns.push(cooldown);
-    }
-    super.on_byPlayer_cast && super.on_byPlayer_cast(event);
-  }
-
-  _addFixedCooldown(cooldownSpell, timestamp) {
-    const cooldown = {
-      ...cooldownSpell,
-      start: timestamp,
-      end: timestamp + cooldownSpell.duration * 1000,
-      events: [],
-    };
-    this.pastCooldowns.push(cooldown);
-    return cooldown;
-  }
-
-  trackEvent(event) {
-    this.activeCooldowns = this.activeCooldowns.filter(cooldown => !cooldown.end || event.timestamp < cooldown.end);
-    super.trackEvent(event);
-  }
 }
 
 export default CooldownThroughputTracker;

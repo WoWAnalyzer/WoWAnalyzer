@@ -18,13 +18,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
   ];
 
-  trackEvent(event) {
-    this.activeCooldowns.forEach((cooldown) => {
-      if (event.ability.guid !== SPELLS.DOOM_VORTEX.id) {
-        cooldown.events.push(event);
-      }
-    });
-  }
+  static ignoredSpells = [
+    ...CoreCooldownThroughputTracker.ignoredSpells,
+
+    SPELLS.DOOM_VORTEX.id, // Should we even support legon spells anymore?
+  ];
 }
 
 export default CooldownThroughputTracker;

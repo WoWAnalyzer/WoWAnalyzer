@@ -30,21 +30,36 @@ class CooldownThroughputTracker extends Analyzer {
     },
   ];
 
+  static castCooldowns = [
+    // Some cooldowns cannot be tracked by a buff such as the Destruction 'Summon Infernal'. This is usually because their are temporary pet summons.
+    // if you want to add some spells specific to your spec, redefine this array in your spec CooldownThroughputTracker similarly to cooldownSpells (see Destruction Warlock for example)
+  ]
+
   static ignoredSpells = [
     // general spells that you don't want to see in the Cooldown overview (could be boss mechanics etc.) should belong here
     // if you want to add some spells specific to your spec, redefine this array in your spec CooldownThroughputTracker similarly to cooldownSpells (see Marksmanship Hunter for example)
     ...CASTS_THAT_ARENT_CASTS,
   ];
 
+  static trackPlayerPetDamage = false;
+
   pastCooldowns = [];
   activeCooldowns = [];
 
-  startCooldown(event) {
+  startCooldown(event, castCooldown = false) {
     const spellId = event.ability.guid;
-    const cooldownSpell = this.constructor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    let cooldownSpell = null;
+
+    if (castCooldown) {
+      cooldownSpell = this.constructor.castCooldowns.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    } else {
+      cooldownSpell = this.constructor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    }
+
     if (!cooldownSpell) {
       return;
     }
+
     const cooldown = this.addCooldown(cooldownSpell, event.timestamp);
     this.activeCooldowns.push(cooldown);
     debug && console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
@@ -53,7 +68,7 @@ class CooldownThroughputTracker extends Analyzer {
     const cooldown = {
       ...cooldownSpell,
       start: timestamp,
-      end: null,
+      end: cooldownSpell.duration ? timestamp + cooldownSpell.duration * 1000 : null,
       events: [],
     };
     this.pastCooldowns.push(cooldown);
@@ -81,14 +96,25 @@ class CooldownThroughputTracker extends Analyzer {
 
   // region Event tracking
   trackEvent(event) {
+    if (this.constructor.castCooldowns.length) {
+      // Fixes cooldowns performed by CooldownThroughputTracker::castCooldowns
+      this.activeCooldowns = this.activeCooldowns.filter(cooldown => !cooldown.end || event.timestamp < cooldown.end);
+    }
+
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.events.push(event);
     });
   }
   on_byPlayer_cast(event) {
-    if (this.constructor.ignoredSpells.includes(event.ability.guid)) {
+    const spellID = event.ability.guid;
+    if (this.constructor.ignoredSpells.includes(spellID)) {
       return;
     }
+
+    if (this.constructor.castCooldowns.findIndex(cooldown => cooldown.spell.id === spellID) !== -1) {
+      this.startCooldown(event, true);
+    }
+
     this.trackEvent(event);
   }
   on_byPlayer_heal(event) {
@@ -114,6 +140,11 @@ class CooldownThroughputTracker extends Analyzer {
   }
   on_byPlayer_removedebuff(event) {
     this.endCooldown(event);
+  }
+  on_byPlayerPet_damage(event) {
+    if (this.constructor.trackPlayerPetDamage) {
+      this.trackEvent(event);
+    }
   }
   // endregion
 
