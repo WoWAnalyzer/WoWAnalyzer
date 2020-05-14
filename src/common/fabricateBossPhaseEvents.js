@@ -94,7 +94,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
               });
               break;
             }
-            case EventType.time: {
+            case EventType.Time: {
               const times = [fight.start_time + (phase.filter.time || 0) + (phase.filter.offset || 0)];
               if(times[0] > fight.end_time){ //if initial time is after fight end, stop here
                 break;
