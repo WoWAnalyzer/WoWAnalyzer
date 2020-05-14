@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import BeaconOfVirtue from './BeaconOfVirtue';
-import { EventType } from 'parser/core/Events';
 
 describe('Paladin/Holy/Normalizers/BeaconOfVirtue', () => {
   const reorderScenarios = [

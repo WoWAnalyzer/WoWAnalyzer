@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import LunarEmpowermentNormalizer from './LunarEmpowermentNormalizer';
 import { EventType } from 'parser/core/Events';
+import LunarEmpowermentNormalizer from './LunarEmpowermentNormalizer';
 
 describe('Druid/Balance/Normalizers/EmpowermentNormalizer', () => {
   const reorderScenarios = [

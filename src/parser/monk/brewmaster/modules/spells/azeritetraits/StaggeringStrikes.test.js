@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StaggeringStrikes from './StaggeringStrikes';
 import StaggerFabricator from '../../core/StaggerFabricator';
-import { EventType } from 'parser/core/Events';
 
 const PLAYER = 1;
 const ENEMY = 2;

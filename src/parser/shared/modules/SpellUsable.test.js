@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS/index';
+import { EventType } from 'parser/core/Events';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
 import SpellUsable from './SpellUsable';
-import { EventType } from 'parser/core/Events';
 
 describe('core/Modules/SpellUsable', () => {
   let module;

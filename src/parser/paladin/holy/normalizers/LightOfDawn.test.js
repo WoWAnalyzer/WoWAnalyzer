@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import LightOfDawn from './LightOfDawn';
-import { EventType } from 'parser/core/Events';
 
 describe('Paladin/Holy/Normalizers/LightOfDawn', () => {
   const reorderScenarios = [

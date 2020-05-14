@@ -1,7 +1,7 @@
+import { EventType } from 'parser/core/Events';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import EventEmitter from './EventEmitter';
-import { EventType } from 'parser/core/Events';
 
 describe('Core/EventEmitter', () => {
   let parser;
