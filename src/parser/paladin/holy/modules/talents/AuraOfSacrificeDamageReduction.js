@@ -6,7 +6,7 @@ import fetchWcl from 'common/fetchWclApi';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
 import makeWclUrl from 'common/makeWclUrl';
 import Tooltip from 'common/Tooltip';
@@ -50,7 +50,7 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     //   * This does work: https://www.warcraftlogs.com/reports/vTp9h8DAwZVWbRQM/#fight=5&type=damage-taken&pins=2%24Off%24%23244F4B%24expression%24(IN%20RANGE%20FROM%20target.name%3D%27Punisherlul%27%20AND%20resources.hpPercent%3E%3D75%20AND%20missType!%3D%27immune%27%20TO%20target.name%3D%27Punisherlul%27%20AND%20resources.hpPercent%3C75%20AND%20missType!%3D%27immune%27%20END)&view=events
     // and the damage isn't to him (because AoS transfers it to the Paladin, so he doesn't gain any DR)
     // and the mitigation percentage is greater than 29% (because health events are logged slower than damage events, and the game properly tracks this realtime, some events may slip through while we're <75% so we need to use this to reduce the false positives. We use DR-1% to account for rounding)
-    return `(IN RANGE FROM target.name='${playerName}' AND type='applybuff' AND ability.id=${SPELLS.AURA_MASTERY.id} TO target.name='${playerName}' AND type='removebuff' AND ability.id=${SPELLS.AURA_MASTERY.id} END)
+    return `(IN RANGE FROM target.name='${playerName}' AND type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.AURA_MASTERY.id} TO target.name='${playerName}' AND type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.AURA_MASTERY.id} END)
       AND (IN RANGE FROM target.name='${playerName}' AND resources.hpPercent>=${AURA_OF_SACRIFICE_HEALTH_REQUIREMENT * 100} AND missType!='immune' TO target.name='${playerName}' AND resources.hpPercent<${AURA_OF_SACRIFICE_HEALTH_REQUIREMENT * 100} AND missType!='immune' END)
       AND target.name!='${playerName}'
       AND (mitigatedDamage/rawDamage*100)>${AURA_OF_SACRIFICE_ACTIVE_DAMAGE_TRANSFER * 100 - 1}`;

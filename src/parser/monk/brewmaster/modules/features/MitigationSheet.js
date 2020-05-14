@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import safeMerge from 'common/safeMerge';
 import SPELLS from 'common/SPELLS';
@@ -110,7 +110,7 @@ export default class MitigationSheet extends Analyzer {
     this._lastStatUpdate = this.owner.fight.start_time;
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamageTaken);
-    this.addEventListener('changestats', this._updateStats);
+    this.addEventListener(EventType.ChangeStats, this._updateStats);
     this.addEventListener(Events.fightend, this._finalizeStats);
   }
 

@@ -1,3 +1,4 @@
+import { EventType } from 'parser/core/Events';
 import EventsNormalizer from "parser/core/EventsNormalizer";
 
 import isAtonement from "../modules/core/isAtonement";
@@ -14,7 +15,7 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
       fixedEvents.push(event);
 
       if (
-        event.type === "damage" &&
+        event.type === EventType.Damage &&
         event.sourceIsFriendly &&
         !event.targetIsFriendly &&
         ATONEMENT_DAMAGE_SOURCES[event.ability.guid]
@@ -24,7 +25,7 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
         return;
       }
 
-      if (event.type === "heal" && isAtonement(event)) {
+      if (event.type === EventType.Heal && isAtonement(event)) {
         // We encountered a targetID we already encountered since the last damage
         // event. We push down the last damage event here
         if (_encounteredTargetIDs.includes(event.targetID)) {

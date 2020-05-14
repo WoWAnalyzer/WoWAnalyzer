@@ -1,4 +1,5 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/ShadharTheInsatiable.jpg';
 import Headshot from './images/headshots/ShadharTheInsatiable.png';
@@ -26,7 +27,7 @@ export default {
         multiple: false,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 157231,
           health: 66,
           eventInstance: 0,
@@ -37,7 +38,7 @@ export default {
         multiple: false,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 157231,
           health: 33,
           eventInstance: 0,

@@ -9,7 +9,7 @@ import BoringSpellValueText
 import CriticalStrike from 'interface/icons/CriticalStrike';
 import {
   ApplyBuffEvent,
-  ApplyBuffStackEvent, FightEndEvent,
+  ApplyBuffStackEvent, EventType, FightEndEvent,
   RemoveBuffEvent,
 } from '../../../../core/Events';
 
@@ -42,13 +42,13 @@ class ThrillOfTheHunt extends Analyzer {
   handleStacks(
     event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent,
   ) {
-    if (event.type === 'removebuff') {
+    if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
-    } else if (event.type === 'applybuff') {
+    } else if (event.type === EventType.ApplyBuff) {
       this.currentStacks = 1;
-    } else if (event.type === 'applybuffstack') {
+    } else if (event.type === EventType.ApplyBuffStack) {
       this.currentStacks = event.stack;
-    } else if (event.type === 'fightend') {
+    } else if (event.type === EventType.FightEnd) {
       this.currentStacks = this.lastThrillStack;
     }
     this.thrillStacks[this.lastThrillStack].push(event.timestamp -

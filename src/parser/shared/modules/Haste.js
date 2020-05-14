@@ -5,6 +5,7 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import EventFilter from 'parser/core/EventFilter';
+import { EventType } from 'parser/core/Events';
 
 const debug = false;
 
@@ -44,7 +45,7 @@ class Haste extends Analyzer {
   };
 
   get changehaste() {
-    return new EventFilter('changehaste');
+    return new EventFilter(EventType.ChangeHaste);
   }
 
   current = null;
@@ -198,13 +199,13 @@ class Haste extends Analyzer {
   }
   _triggerChangeHaste(event, oldHaste, newHaste) {
     const fabricatedEvent = {
-      type: 'changehaste',
+      type: EventType.ChangeHaste,
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
       oldHaste,
       newHaste,
     };
-    debug && console.log('changehaste', fabricatedEvent);
+    debug && console.log(EventType.ChangeHaste, fabricatedEvent);
     this.eventEmitter.fabricateEvent(fabricatedEvent, event);
   }
 

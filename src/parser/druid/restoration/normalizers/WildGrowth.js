@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventType } from 'parser/core/Events';
 
 const MS_BUFFER=100;
 class WildGrowth extends EventsNormalizer {
@@ -18,7 +19,7 @@ class WildGrowth extends EventsNormalizer {
       _events.push(event);
 
       // for WG cast events we look backwards through the events and any applybuff events we push forward
-      if (event.type === 'cast' && event.ability.guid === SPELLS.WILD_GROWTH.id) {
+      if (event.type === EventType.Cast && event.ability.guid === SPELLS.WILD_GROWTH.id) {
         for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
           const _event = _events[_idx];
 
@@ -29,7 +30,7 @@ class WildGrowth extends EventsNormalizer {
             break;
           }
 
-          if (_event.type === 'applybuff' && _event.ability.guid === SPELLS.WILD_GROWTH.id && _event.targetID === this.owner.playerId) {
+          if (_event.type === EventType.ApplyBuff && _event.ability.guid === SPELLS.WILD_GROWTH.id && _event.targetID === this.owner.playerId) {
             _events.splice(_idx, 1);
             _newEvents.push(_event);
           }
@@ -42,7 +43,7 @@ class WildGrowth extends EventsNormalizer {
         }
       }
 
-      if (event.type === 'cast' && event.ability.guid === SPELLS.REJUVENATION.id) {
+      if (event.type === EventType.Cast && event.ability.guid === SPELLS.REJUVENATION.id) {
         for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
           const _event = _events[_idx];
 
@@ -53,7 +54,7 @@ class WildGrowth extends EventsNormalizer {
             break;
           }
 
-          if (_event.type === 'applybuff'
+          if (_event.type === EventType.ApplyBuff
             && [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id].includes(_event.ability.guid)
             && _event.targetID === event.targetID) {
             _events.splice(_idx, 1);
@@ -68,7 +69,7 @@ class WildGrowth extends EventsNormalizer {
         }
       }
       // for WG apply buff events we look backwards through the events and any events of flourish we push forward
-      if (event.type === 'applybuff' && event.ability.guid === SPELLS.WILD_GROWTH.id) {
+      if (event.type === EventType.ApplyBuff && event.ability.guid === SPELLS.WILD_GROWTH.id) {
         for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
           const _event = _events[_idx];
 
@@ -79,7 +80,7 @@ class WildGrowth extends EventsNormalizer {
             break;
           }
 
-          if ((_event.type === 'applybuff' || _event.type === 'cast') && _event.ability.guid === SPELLS.FLOURISH_TALENT.id) {
+          if ((_event.type === EventType.ApplyBuff || _event.type === EventType.Cast) && _event.ability.guid === SPELLS.FLOURISH_TALENT.id) {
             _events.splice(_idx, 1);
             _newEvents.push(_event);
           }

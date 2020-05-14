@@ -63,9 +63,9 @@ class Timeline extends React.PureComponent {
   isApplicableEvent(event) {
     switch (event.type) {
       case EventType.FilterCooldownInfo:
-      case 'cast':
+      case EventType.Cast:
         return this.isApplicableCastEvent(event);
-      case 'updatespellusable':
+      case EventType.UpdateSpellUsable:
         return this.isApplicableUpdateSpellUsableEvent(event);
       default:
         return false;
@@ -92,11 +92,11 @@ class Timeline extends React.PureComponent {
     return true;
   }
   isApplicableUpdateSpellUsableEvent(event) {
-    if (event.trigger !== 'endcooldown' && event.trigger !== 'restorecharge') {
+    if (event.trigger !== EventType.EndCooldown && event.trigger !== EventType.RestoreCharge) {
       // begincooldown is unnecessary since endcooldown includes the start time
       return false;
     }
-    if(event.trigger === "restorecharge" && event.timestamp < this.start){
+    if(event.trigger === EventType.RestoreCharge && event.timestamp < this.start){
       //ignore restore charge events if they happen before the phase
       return false;
     }

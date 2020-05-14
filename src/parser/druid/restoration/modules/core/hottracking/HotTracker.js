@@ -3,6 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Haste from 'parser/shared/modules/Haste';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import { EventType } from 'parser/core/Events';
 import Mastery from '../Mastery';
 
 const PANDEMIC_FACTOR = 1.3;
@@ -352,7 +353,7 @@ class HotTracker extends Analyzer {
       debug && console.log(`${event.ability.name} ${event.type} to target without ID @${this.owner.formatTimestamp(event.timestamp, 1)}... HoT will not be tracked.`);
       return null;
     } else {
-      if (event.type === 'heal') {
+      if (event.type === EventType.Heal) {
         healDebug && console.log(`${event.ability.name} ${event.type} to ID ${targetId} @${this.owner.formatTimestamp(event.timestamp, 1)}`);
       } else {
         applyRemoveDebug && console.log(`${event.ability.name} ${event.type} to ID ${targetId} @${this.owner.formatTimestamp(event.timestamp, 1)}`);
@@ -370,11 +371,11 @@ class HotTracker extends Analyzer {
       return false; // we only care about the listed HoTs
     }
 
-    if (['removebuff', 'refreshbuff', 'heal'].includes(event.type) &&
+    if ([EventType.RemoveBuff, EventType.RefreshBuff, EventType.Heal].includes(event.type) &&
       (!this.hots[targetId] || !this.hots[targetId][spellId])) {
       console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of that HoT being added...`);
       return false;
-    } else if (event.type === 'applybuff' && this.hots[targetId] && this.hots[targetId][spellId]) {
+    } else if (event.type === EventType.ApplyBuff && this.hots[targetId] && this.hots[targetId][spellId]) {
       console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that HoT is recorded as already added...`);
       return false;
     }

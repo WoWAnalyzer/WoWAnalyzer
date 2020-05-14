@@ -6,6 +6,7 @@ import { formatDuration } from 'common/format';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import BuffsModule from 'parser/core/modules/Buffs';
+import { EventType } from 'parser/core/Events';
 import Tooltip from 'common/Tooltip';
 
 import './Buffs.scss';
@@ -52,19 +53,19 @@ class Buffs extends React.PureComponent {
 
   renderEvent(event) {
     switch (event.type) {
-      case 'applybuff':
+      case EventType.ApplyBuff:
         if (this.isApplicableBuffEvent(event)) {
           return this.renderApplyBuff(event);
         } else {
           return null;
         }
-      case 'removebuff':
+      case EventType.RemoveBuff:
         if (this.isApplicableBuffEvent(event)) {
           return this.renderRemoveBuff(event);
         } else {
           return null;
         }
-      case 'fightend':
+      case EventType.FightEnd:
         return this.renderLeftOverBuffs(event);
       default:
         return null;

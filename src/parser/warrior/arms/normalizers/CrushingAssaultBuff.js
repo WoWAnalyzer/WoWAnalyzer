@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventType } from 'parser/core/Events';
 
 class CrushingAssaultNormalizer extends EventsNormalizer {
 
@@ -10,7 +11,7 @@ class CrushingAssaultNormalizer extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === 'damage' && event.ability.guid === SPELLS.SLAM.id) {
+      if (event.type === EventType.Damage && event.ability.guid === SPELLS.SLAM.id) {
         const castTimestamp = event.timestamp;
 
         for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
@@ -19,7 +20,7 @@ class CrushingAssaultNormalizer extends EventsNormalizer {
             break;
           }
 
-          if (previousEvent.type === 'removebuff') {
+          if (previousEvent.type === EventType.RemoveBuff) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;
