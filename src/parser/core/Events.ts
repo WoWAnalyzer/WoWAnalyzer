@@ -3,8 +3,6 @@ import { PhaseConfig } from 'raids';
 
 import EventFilter from './EventFilter';
 
-// TODO Some event types seam to be missing:
-
 export enum EventType {
   Heal = 'heal',
   HealAbsorbed = 'healabsorbed',
