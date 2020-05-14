@@ -549,6 +549,8 @@ class StatTracker extends Analyzer {
         return critChance + 0.05; //baseline +5%
       case SPECS.SURVIVAL_HUNTER:
         return critChance + 0.06; //baseline +6%
+      case SPECS.BREWMASTER_MONK:
+        return critChance + 0.05; //baseline +5%
       case SPECS.WINDWALKER_MONK:
         return critChance + 0.05; //baseline +5%
       case SPECS.HAVOC_DEMON_HUNTER:

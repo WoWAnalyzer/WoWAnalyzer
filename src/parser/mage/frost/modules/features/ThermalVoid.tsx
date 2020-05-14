@@ -1,7 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNumber } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer from 'parser/core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
 
@@ -13,8 +14,8 @@ const BASE_DUR = 20; // The standard duration of IV
  */
 class ThermalVoid extends Analyzer {
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
   }
 
@@ -26,7 +27,7 @@ class ThermalVoid extends Analyzer {
 
     let totalIncrease = 0;
     let totalDuration = 0; // We could use getBuffUptime but we are doing the math anyway
-    const castRows = hist.map((buff, idx) => {
+    const castRows = hist.map((buff: any, idx: any) => {
       const end = buff.end || this.owner.currentTimestamp;
       const castTime = (buff.start - this.owner.fight.start_time) / 1000;
       const duration = (end - buff.start) / 1000;
@@ -44,29 +45,36 @@ class ThermalVoid extends Analyzer {
     });
 
     return (
-      <TalentStatisticBox
-        talent={SPELLS.THERMAL_VOID_TALENT.id}
-        value={<><SpellIcon id={SPELLS.ICY_VEINS.id} /> +{formatNumber(totalIncrease)} seconds</>}
+      <Statistic
+        size="flexible"
+        category={'TALENTS'}
         tooltip="Extension times include the base 10 second increase from the talent."
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Cast</th>
+                <th>Duration</th>
+                <th>Extension</th>
+              </tr>
+            </thead>
+            <tbody>
+              {castRows}
+              <tr key="avg">
+                <th>Average</th>
+                <th>{formatDuration(totalDuration / hist.length)}</th>
+                <th>{formatDuration(totalIncrease / hist.length)}</th>
+              </tr>
+            </tbody>
+          </table>
+        </>
+      )}
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Cast</th>
-              <th>Duration</th>
-              <th>Extension</th>
-            </tr>
-          </thead>
-          <tbody>
-            {castRows}
-            <tr key="avg">
-              <th>Average</th>
-              <th>{formatDuration(totalDuration / hist.length)}</th>
-              <th>{formatDuration(totalIncrease / hist.length)}</th>
-            </tr>
-          </tbody>
-        </table>
-      </TalentStatisticBox>
+        <BoringSpellValueText spell={SPELLS.SPLITTING_ICE_TALENT}>
+          <><SpellIcon id={SPELLS.ICY_VEINS.id} /> +{formatNumber(totalIncrease)} seconds</>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

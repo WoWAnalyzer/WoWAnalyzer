@@ -38,11 +38,11 @@ class PrayerOfMending extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.PRAYER_OF_MENDING_CAST.id) {
-      this.pomCasts++;
+      this.pomCasts += 1;
     }
     if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
       this.lastSalvCastTime = event.timestamp;
-      this.salvCasts++;
+      this.salvCasts += 1;
     }
   }
 
@@ -50,7 +50,7 @@ class PrayerOfMending extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.PRAYER_OF_MENDING_HEAL.id) {
-      this.pomHealTicks++;
+      this.pomHealTicks += 1;
       this.totalPoMHealing += event.amount || 0;
       this.totalPoMOverhealing += event.overheal || 0;
       this.totalPoMAbsorption += event.absorbed || 0;
@@ -64,8 +64,8 @@ class PrayerOfMending extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PRAYER_OF_MENDING_BUFF.id) {
       if (event.prepull) {
-        this.prepullPomBuffs++;
-        this.pomCasts++;
+        this.prepullPomBuffs += 1;
+        this.pomCasts += 1;
       }
     }
   }
@@ -74,9 +74,9 @@ class PrayerOfMending extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PRAYER_OF_MENDING_BUFF.id) {
       if (event.stacksGained > 0) {
-        this.pomBuffCount++;
+        this.pomBuffCount += 1;
       } else {
-        this.pomRemovalCount++;
+        this.pomRemovalCount += 1;
       }
     }
   }

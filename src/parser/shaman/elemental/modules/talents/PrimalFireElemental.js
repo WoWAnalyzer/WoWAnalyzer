@@ -48,7 +48,7 @@ class PrimalFireElemental extends Analyzer {
   on_cast(event) {
     switch(event.ability.guid) {
       case SPELLS.FIRE_ELEMENTAL.id:
-        this.PFEcasts++;
+        this.PFEcasts += 1;
         break;
       case SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id:
         this.usedCasts['Fire Blast']=true;
@@ -58,7 +58,7 @@ class PrimalFireElemental extends Analyzer {
         break;
       case SPELLS.FIRE_ELEMENTAL_METEOR.id:
         this.usedCasts.Meteor=true;
-        this.meteorCasts++;
+        this.meteorCasts += 1;
         break;
       default:
         break;

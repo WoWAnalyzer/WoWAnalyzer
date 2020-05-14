@@ -6,7 +6,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 const debug = true;
 
@@ -14,8 +14,11 @@ const debug = true;
 const PROC_WINDOW_MS = 100;
 
 class BrainFreezeNoIL extends Analyzer {
-  lastFlurryTimestamp = null;
+  
+  hasGlacialSpike: boolean;
+  hasEbonbolt: boolean;
 
+  lastFlurryTimestamp = 0;
   overwrittenProcs = 0;
   okOverwrittenProcs = 0;
   expiredProcs = 0;
@@ -25,8 +28,8 @@ class BrainFreezeNoIL extends Analyzer {
   // Tracks whether the last brain freeze generator to be cast was Ebonbolt or Frostbolt
   wasLastGeneratorEB = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.owner.builds.NO_IL.active;
     this.hasGlacialSpike = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
     this.hasEbonbolt = this.selectedCombatant.hasTalent(SPELLS.EBONBOLT_TALENT.id);
@@ -37,11 +40,11 @@ class BrainFreezeNoIL extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FROSTBOLT,SPELLS.EBONBOLT_TALENT,SPELLS.FLURRY]), this.onCast);
   }
 
-  onBrainFreezeApplied(event) {
+  onBrainFreezeApplied(event: ApplyBuffEvent) {
     this.totalProcs += 1;
   }
 
-  onBrainFreezeRefreshed(event) {
+  onBrainFreezeRefreshed(event: RefreshBuffEvent) {
     this.totalProcs += 1;
 
     if (!this.hasGlacialSpike || this.wasLastGeneratorEB) {
@@ -54,7 +57,7 @@ class BrainFreezeNoIL extends Analyzer {
     }
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if(spellId === SPELLS.FROSTBOLT.id || spellId === SPELLS.EBONBOLT_TALENT.id) {
       this.wasLastGeneratorEB = spellId === SPELLS.EBONBOLT_TALENT.id;
@@ -66,19 +69,11 @@ class BrainFreezeNoIL extends Analyzer {
     }
   }
 
-  onBrainFreezeRemoved(event) {
+  onBrainFreezeRemoved(event: RemoveBuffEvent) {
     if (!this.lastFlurryTimestamp || this.lastFlurryTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
       this.expiredProcs += 1; // it looks like Brain Freeze is always removed after the cast, and always on same timestamp
       debug && this.log("Brain Freeze proc expired");
     }
-  }
-
-  get overwrittenPercent() {
-    return (this.overwrittenProcs / this.totalProcs) || 0;
-  }
-
-  get expiredPercent() {
-    return (this.expiredProcs / this.totalProcs) || 0;
   }
 
   get wastedProcs() {
@@ -98,7 +93,7 @@ class BrainFreezeNoIL extends Analyzer {
     return 1 - this.wastedPercent;
   }
 
-  get utilSuggestionThresholds() {
+  get brainFreezeUtilizationThresholds() {
     return {
       actual: this.utilPercent,
       isLessThan: {
@@ -111,9 +106,9 @@ class BrainFreezeNoIL extends Analyzer {
   }
 
   // Percentages lowered from .00, .08, .16; with the addition of the forgiveness window it is almost as bad as letting BF expire when you waste a proc
-  get overwriteSuggestionThresholds() {
+  get brainFreezeOverwritenThresholds() {
     return {
-      actual: this.overwrittenPercent,
+      actual: (this.overwrittenProcs / this.totalProcs) || 0,
       isGreaterThan: {
         minor: 0.00,
         average: 0.05,
@@ -124,9 +119,9 @@ class BrainFreezeNoIL extends Analyzer {
   }
 
   // there's almost never an excuse to let BF expire
-  get expiredSuggestionThresholds() {
+  get brainFreezeExpiredThresholds() {
     return {
-      actual: this.expiredPercent,
+      actual: (this.expiredProcs / this.totalProcs) || 0,
       isGreaterThan: {
         minor: 0.00,
         average: 0.03,
@@ -136,7 +131,7 @@ class BrainFreezeNoIL extends Analyzer {
     };
   }
 
-  get flurryWithoutProcSuggestionThresholds() {
+  get flurryWithoutBrainFreezeThresholds() {
     return {
       actual: this.flurryWithoutProc,
       isGreaterThan: {
@@ -148,26 +143,25 @@ class BrainFreezeNoIL extends Analyzer {
     };
   }
 
-  suggestions(when) {
-
-    when(this.overwriteSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as {this.hasGlacialSpike ? <><SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> is available</> : 'possible'} to avoid this. {this.hasEbonbolt ? <>Additionally, avoid casting <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /> when you already have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc.</> : ''}</>)
+  suggestions(when: any) {
+    when(this.brainFreezeOverwritenThresholds)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+        return suggest(<>You overwrote {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as {this.hasGlacialSpike ? <><SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> is available</> : 'possible'} to avoid this. {this.hasEbonbolt ? <>Additionally, avoid casting <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /> when you already have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc.</> : ''}</>)
           .icon(SPELLS.BRAIN_FREEZE.icon)
-          .actual(`${formatPercentage(this.overwrittenPercent)}% overwritten`)
+          .actual(`${formatPercentage(actual)}% overwritten`)
           .recommended(`Overwriting none is recommended`);
       });
 
-    when(this.expiredSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You allowed {formatPercentage(this.expiredPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</>)
+    when(this.brainFreezeExpiredThresholds)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+        return suggest(<>You allowed {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</>)
           .icon(SPELLS.BRAIN_FREEZE.icon)
-          .actual(`${formatPercentage(this.expiredPercent)}% expired`)
+          .actual(`${formatPercentage(actual)}% expired`)
           .recommended(`Letting none expire is recommended`);
       });
 
-    when(this.flurryWithoutProcSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+    when(this.flurryWithoutBrainFreezeThresholds)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {this.flurryWithoutProc} times.</>)
           .icon(SPELLS.FLURRY.icon)
           .actual(`${formatNumber(this.flurryWithoutProc)} casts`)

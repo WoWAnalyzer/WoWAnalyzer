@@ -56,12 +56,12 @@ class PurgeTheWicked extends Analyzer {
   }
 
   onDotCast(event) {
-    this.ptwCasts++;
+    this.ptwCasts += 1;
     this.lastCastTarget = event.targetID;
   }
 
   onDotApply(event) {
-    this.ptwApplications++;
+    this.ptwApplications += 1;
 
     if (event.targetID !== this.lastCastTarget) {
       this.ptwCleaveTracker[event.targetID] = 1;

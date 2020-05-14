@@ -16,6 +16,7 @@ export enum EventType {
   ApplyDebuffStack = 'applydebuffstack',
   RemoveBuffStack = 'removebuffstack',
   RemoveDebuffStack = 'removedebuffstack',
+  ChangeBuffStack = 'changebuffstack',
   RefreshBuff = 'refreshbuff',
   RefreshDebuff = 'refreshdebuff',
   RemoveBuff = 'removebuff',
@@ -144,6 +145,7 @@ export interface CastEvent extends Event {
   spellPower?: number;
   target?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   targetID?: number;
+  targetInstance?: number;
   targetIsFriendly: boolean;
   x?: number;
   y?: number;
@@ -324,6 +326,40 @@ export interface RemoveBuffStackEvent extends BuffEvent {
   targetIsFriendly: boolean;
   ability: Ability;
   stack: number;
+}
+export interface ChangeBuffStackEvent extends BuffEvent {
+  type: EventType.ChangeBuffStack;
+
+  ability: Ability;
+  end?: number;
+  isDebuff?: boolean;
+  newStacks: number;
+  oldStacks: number;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  stack?: number;
+  stackHistory: {
+    stacks: number;
+    timestamp: number;
+  };
+  stacks: number;
+  stacksGained: number;
+  start: number;
+  targetID: string;
+  targetIsFriendly: boolean;
+  trigger: {
+    end?: number;
+    isDebuff?: boolean;
+    prepull: boolean;
+    sourceID: number;
+    sourceIsFriendly: boolean;
+    stacks: number;
+    start: number;
+    targetID: number;
+    targetIsFriendly: boolean;
+    timestamp: number;
+    type: string;
+  };
 }
 export interface RemoveDebuffStackEvent extends BuffEvent {
   type: EventType.RemoveBuffStack;
@@ -696,6 +732,9 @@ const Events = {
   },
   get applybuffstack() {
     return new EventFilter(EventType.ApplyBuffStack);
+  },
+  get changebuffstack() {
+    return new EventFilter(EventType.ChangeBuffStack);
   },
   get applydebuffstack() {
     return new EventFilter(EventType.ApplyDebuffStack);

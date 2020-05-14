@@ -15,8 +15,9 @@ class ColdSnap extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+  protected spellUsable!: SpellUsable;
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COLD_SNAP), this._resetCooldowns);
   }

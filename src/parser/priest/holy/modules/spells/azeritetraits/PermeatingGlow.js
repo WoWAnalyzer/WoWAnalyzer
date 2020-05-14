@@ -28,7 +28,7 @@ class PermeatingGlow extends Analyzer {
 
     if (spellId === SPELLS.FLASH_HEAL.id) {
       if (this.permiatingGlowBuffs[event.targetID.toString()]) {
-        this.permiatingGlowProcCount++;
+        this.permiatingGlowProcCount += 1;
         let eventHealing = this.permiatingGlowProcAmount;
         let eventOverhealing = 0;
 

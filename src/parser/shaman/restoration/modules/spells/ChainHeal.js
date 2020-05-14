@@ -53,7 +53,7 @@ class ChainHeal extends Analyzer {
     if (this.buffer.length === 0) {
       return;
     }
-    this.castIndex++;
+    this.castIndex += 1;
     this.chainHealHistory[this.castIndex] = {};
     const currentCast = this.buffer.find(event => event.type === EventType.Cast);
     if (!currentCast) {

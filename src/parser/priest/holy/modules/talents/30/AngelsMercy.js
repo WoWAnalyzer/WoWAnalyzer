@@ -26,7 +26,7 @@ class AngelsMercy extends Analyzer {
           this.desperatePrayerTimeReduced += DESPERATE_PRAYER_BASE_COOLDOWN - timeSinceLastDP;
         }
       }
-      this.desperatePrayersCast++;
+      this.desperatePrayersCast += 1;
       this.lastDesperatePrayerTimestamp = event.timestamp;
     }
   }

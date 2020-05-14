@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent, ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -23,14 +23,15 @@ class WintersChillNoIL extends Analyzer {
   static dependencies = {
     enemies: EnemyInstances,
   };
+  protected enemies!: EnemyInstances;
 
   totalProcs = 0;
   hardcastHits = 0;
   missedHardcasts = 0;
   singleHardcasts = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.owner.builds.NO_IL.active;
 
     if (!this.active) {
@@ -42,7 +43,7 @@ class WintersChillNoIL extends Analyzer {
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL), this.onWintersChillRemoved);
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
     const enemy = this.enemies.getEntity(event);
     if (!enemy || !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
@@ -55,11 +56,11 @@ class WintersChillNoIL extends Analyzer {
     }
   }
 
-  onWintersChillApplied(event) {
+  onWintersChillApplied(event: ApplyDebuffEvent) {
     this.hardcastHits = 0;
 	}
 
-  onWintersChillRemoved(event) {
+  onWintersChillRemoved(event: RemoveDebuffEvent) {
     this.totalProcs += 1;
 
     if (this.hardcastHits === 0) {
@@ -81,7 +82,7 @@ class WintersChillNoIL extends Analyzer {
 
   // less strict than the ice lance suggestion both because it's less important,
   // and also because using a Brain Freeze after being forced to move is a good excuse for missing the hardcast.
-  get hardcastUtilSuggestionThresholds() {
+  get wintersChillHardCastThresholds() {
     return {
       actual: this.hardcastUtil,
       isLessThan: {
@@ -93,9 +94,9 @@ class WintersChillNoIL extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.hardcastUtilSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.wintersChillHardCastThresholds)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>You failed to <SpellLink id={SPELLS.FROSTBOLT.id} />, <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> or <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /> into <SpellLink id={SPELLS.WINTERS_CHILL.id} /> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%). Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id} /> to benefit from <SpellLink id={SPELLS.SHATTER.id} />.</>)
         .icon(SPELLS.FROSTBOLT.icon)
         .actual(`${formatPercentage(this.hardcastMissedPercent)}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt`)
