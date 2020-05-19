@@ -37,15 +37,16 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }) =
             <a href="https://www.wowhead.com/enhancement-shaman-rotation-guide#offensive-defensive-cooldowns" target="_blank" rel="noopener noreferrer">More info.</a>
           </>
         )}
-       >
+      >
         <AbilityRequirement spell={SPELLS.FERAL_SPIRIT.id} />
+        <AbilityRequirement spell={SPELLS.EARTH_ELEMENTAL.id} />
         {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) &&
-          <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />}
+        <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />}
         {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) &&
-          <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT.id} />}
+        <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id) &&
-          <AbilityRequirement spell={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id} />}
-       </Rule>
+        <AbilityRequirement spell={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id} />}
+      </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
