@@ -1,13 +1,14 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 import { GIFT_OF_THE_OX_SPELL_IDS } from '../constants';
 
 function isGotOxHeal(event) {
-  return event.type === 'heal' && GIFT_OF_THE_OX_SPELL_IDS.includes(event.ability.guid);
+  return event.type === EventType.Heal && GIFT_OF_THE_OX_SPELL_IDS.includes(event.ability.guid);
 }
 
 function isCFHeal(event) {
-  return event.type === 'heal' && event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id;
+  return event.type === EventType.Heal && event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id;
 }
 
 const BUFFER_WINDOW = 50; // don't allow any larger gaps than this
@@ -22,7 +23,7 @@ export default class ExpelHarm extends EventsNormalizer {
     //
     // inb4 this introduces tons of bugs
     events.forEach((event, idx) => {
-      if(event.type !== 'cast' || event.ability.guid !== SPELLS.EXPEL_HARM.id) {
+      if(event.type !== EventType.Cast || event.ability.guid !== SPELLS.EXPEL_HARM.id) {
         return;
       }
 

@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventType } from 'parser/core/Events';
 
 class PyroclasmBuff extends EventsNormalizer {
   /**
@@ -13,7 +14,7 @@ class PyroclasmBuff extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === 'cast' && event.ability.guid === SPELLS.PYROBLAST.id) {
+      if (event.type === EventType.Cast && event.ability.guid === SPELLS.PYROBLAST.id) {
         const castTimestamp = event.timestamp;
 
         for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
@@ -21,7 +22,7 @@ class PyroclasmBuff extends EventsNormalizer {
           if ((castTimestamp - previousEvent.timestamp) > 50) {
             break;
           }
-          if ((previousEvent.type === 'removebuff' || previousEvent.type === 'applybuff' || previousEvent.type === 'refreshbuff' || previousEvent.type === 'applybuffstack' || previousEvent.type === 'removebuffstack') && previousEvent.ability.guid === SPELLS.PYROCLASM_BUFF.id && previousEvent.sourceID === event.sourceID) {
+          if ((previousEvent.type === EventType.RemoveBuff || previousEvent.type === EventType.ApplyBuff || previousEvent.type === EventType.RefreshBuff || previousEvent.type === EventType.ApplyBuffStack || previousEvent.type === EventType.RemoveBuffStack) && previousEvent.ability.guid === SPELLS.PYROCLASM_BUFF.id && previousEvent.sourceID === event.sourceID) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;

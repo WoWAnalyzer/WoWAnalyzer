@@ -38,11 +38,11 @@ class SpellHistory extends Analyzer {
   } = {
     // This contains the raw event to have all information one might ever need and so that we don't construct additional objects that take their own memory.
     // [spellId]: [
-    //   {type: 'cast', timestamp, ...},
-    //   {type: 'updatespellusable', trigger: 'begincooldown', timestamp, ...},
-    //   {type: 'applybuff', timestamp, ...},
-    //   {type: 'removebuff', timestamp, ...},
-    //   {type: 'updatespellusable', trigger: 'endcooldown', timestamp, ...},
+    //   {type: EventType.Cast, timestamp, ...},
+    //   {type: EventType.UpdateSpellUsable, trigger: EventType.BeginCooldown', timestamp, ...},
+    //   {type: EventType.ApplyBuff, timestamp, ...},
+    //   {type: EventType.RemoveBuff, timestamp, ...},
+    //   {type: EventType.UpdateSpellUsable, trigger: EventType.EndCooldown', timestamp, ...},
     //   ...
     // ]
   };

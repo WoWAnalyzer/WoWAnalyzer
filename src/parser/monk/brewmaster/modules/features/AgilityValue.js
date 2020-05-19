@@ -1,12 +1,11 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import STAT, { getClassNameColor, getName } from 'parser/shared/modules/features/STAT';
-import Events from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
-import { calculatePrimaryStat } from 'common/stats';
 
 import { BASE_AGI } from '../../constants';
 import { diminish, lookupK } from '../constants/Mitigation';
@@ -83,7 +82,7 @@ export default class AgilityValue extends Analyzer {
   }
 
   _onPurify(event) {
-    if(event.trigger.type !== 'death' && event.trigger.ability.guid === SPELLS.STAGGER_TAKEN.id) {
+    if(event.trigger.type !== EventType.Death && event.trigger.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
 
@@ -93,7 +92,7 @@ export default class AgilityValue extends Analyzer {
   }
 
   _onStaggerTick(event) {
-    if(event.trigger.type !== 'death' && event.trigger.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
+    if(event.trigger.type !== EventType.Death && event.trigger.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
       return;
     }
 
@@ -121,7 +120,7 @@ export default class AgilityValue extends Analyzer {
       name: getName(STAT.AGILITY),
       className: getClassNameColor(STAT.AGILITY),
       statName: STAT.AGILITY,
-      get gain() { 
+      get gain() {
         return [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: agiModule.totalAgiHealing },
           {
@@ -133,9 +132,8 @@ export default class AgilityValue extends Analyzer {
             isLoaded: agiModule.masteryValue._loaded,
           },
           { name: <>Extra <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Effectiveness</>, amount: agiModule.totalAgiPurified },
-        ]; 
+        ];
       },
-      increment: this.sheet.increment(calculatePrimaryStat, this.stats.startingAgilityRating),
     };
   }
 }

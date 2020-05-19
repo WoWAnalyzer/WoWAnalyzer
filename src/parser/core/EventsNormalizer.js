@@ -1,3 +1,5 @@
+import { EventType } from 'parser/core/Events';
+
 import Module from './Module';
 
 class EventsNormalizer extends Module {
@@ -15,7 +17,7 @@ class EventsNormalizer extends Module {
   getFightStartIndex(events) {
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
-      if (event.type !== 'combatantinfo') {
+      if (event.type !== EventType.CombatantInfo) {
         return i;
       }
     }

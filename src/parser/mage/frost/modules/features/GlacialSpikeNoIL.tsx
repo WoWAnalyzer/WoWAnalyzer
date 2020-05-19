@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
@@ -16,14 +16,18 @@ class GlacialSpikeNoIL extends Analyzer {
   static dependencies = {
     enemies: EnemyInstances,
   };
+  protected enemies!: EnemyInstances;
 
-  lastCastEvent = null;
+  hasIncantersFlow: boolean;
+  hasSplittingIce: boolean;
+  lastCastEvent?: CastEvent;
+
   lastCastDidDamage = false;
   goodCasts = 0;
   totalCasts = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && this.owner.builds.NO_IL.active;
     this.hasIncantersFlow = this.selectedCombatant.hasTalent(SPELLS.INCANTERS_FLOW_TALENT.id);
     this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
@@ -33,7 +37,7 @@ class GlacialSpikeNoIL extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onGlacialDamage(event) {
+  onGlacialDamage(event: DamageEvent) {
     if (this.lastCastEvent === null) {
       return;
     }
@@ -44,36 +48,39 @@ class GlacialSpikeNoIL extends Analyzer {
     const enemy = this.enemies.getEntity(event);
     if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect, event.timestamp))) {
       this.goodCasts += 1;
-      this.lastCastEvent = null;
+      this.lastCastEvent = undefined;
     }
   }
 
-  onGlacialCast(event) {
-    this.invalidateCast();
+  onGlacialCast(event: CastEvent) {
+    if (this.lastCastEvent) {
+      this.flagTimeline(this.lastCastEvent);
+    }
+
     this.totalCasts += 1;
     this.lastCastEvent = event;
     this.lastCastDidDamage = false;
   }
 
-  onFightEnd() {
-    this.invalidateCast();
+  onFightEnd(event: FightEndEvent) {
+    if (this.lastCastEvent) {
+      this.flagTimeline(this.lastCastEvent);
+    }
   }
 
-  invalidateCast() {
-    if (this.lastCastEvent === null) {
-      // Cast was good!
+  flagTimeline(event: CastEvent) {
+    if (!this.lastCastEvent) {
       return;
     }
 
-    this.lastCastEvent.meta = this.lastCastEvent.meta || {};
-    this.lastCastEvent.meta.isInefficientCast = true;
+    event.meta = event.meta || {};
+    event.meta.isInefficientCast = true;
     if (this.lastCastDidDamage) {
-      this.lastCastEvent.meta.inefficientCastReason = `You cast Glacial Spike without shattering it. You should wait until you are able to use a Brain Freeze proc${this.hasIncantersFlow ? ' or cast it so it hits the target while you have 5 stacks of Incanter\'s Flow' : ''} to maximize its damage.`;
+      event.meta.inefficientCastReason = `You cast Glacial Spike without shattering${this.hasSplittingIce ? ' or cleaving' : ''} it. You should wait until you are able to use a Brain Freeze proc${this.hasSplittingIce ? ' or for a second target to be in cleave range' : ''} to maximize its damage.`;
     } else {
-      this.lastCastEvent.meta.inefficientCastReason = 'The target died before Glacial Spike hit it. You should avoid this by casting faster spells on very low-health targets, it is important to not waste potential Glacial Spike damage.';
-
+      event.meta.inefficientCastReason = 'The target died before Glacial Spike hit it. You should avoid this by casting faster spells on very low-health targets, it is important to not waste potential Glacial Spike damage.';
     }
-    this.lastCastEvent = null;
+    this.lastCastEvent = undefined;
   }
 
   get utilPercentage() {
@@ -84,7 +91,7 @@ class GlacialSpikeNoIL extends Analyzer {
     return this.totalCasts - this.goodCasts;
   }
 
-  get utilSuggestionThresholds() {
+  get glacialSpikeUtilizationThresholds() {
     return {
       actual: this.utilPercentage,
       isLessThan: {
@@ -96,9 +103,9 @@ class GlacialSpikeNoIL extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.utilSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.glacialSpikeUtilizationThresholds)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(
           <>
             You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> inefficiently {this.badCasts} times. Because it is such a potent ability, it is important to maximize its damage by only casting it when at least one of the following is true:
@@ -120,7 +127,7 @@ class GlacialSpikeNoIL extends Analyzer {
             </ul>
           </>)
           .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
-          .actual(`${formatPercentage(this.utilPercentage, 1)}% utilization`)
+          .actual(`${formatPercentage(actual, 1)}% utilization`)
           .recommended(`${formatPercentage(recommended, 1)}% is recommended`);
       });
   }

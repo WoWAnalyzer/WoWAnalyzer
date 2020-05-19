@@ -36,7 +36,7 @@ class SteelTrap extends Analyzer {
     if (spellId !== SPELLS.STEEL_TRAP_TALENT.id) {
       return;
     }
-    this.casts++;
+    this.casts += 1;
   }
 
   on_byPlayer_damage(event) {

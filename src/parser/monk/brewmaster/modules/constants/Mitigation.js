@@ -32,6 +32,16 @@ export const EP_K = [
   14282.1,
 ];
 
+const NYALOTHA_FIRST_BOSS = 2327;
+export const NYALOTHA_K = [
+  null,
+  12782.7,
+  null,
+  14282.1,
+  16002.0,
+  17986.5,
+];
+
 export function diminish(stat, K) {
   return stat / (stat + K);
 }
@@ -39,6 +49,8 @@ export function diminish(stat, K) {
 export function lookupK(fight) {
     if(fight.size === 5) {
       return MPLUS_K;
+    } else if (fight.boss >= NYALOTHA_FIRST_BOSS) {
+      return NYALOTHA_K[fight.difficulty];
     } else if (fight.boss >= EP_FIRST_BOSS) {
       return EP_K[fight.difficulty];
     } else if (fight.boss >= BOD_FIRST_BOSS) {

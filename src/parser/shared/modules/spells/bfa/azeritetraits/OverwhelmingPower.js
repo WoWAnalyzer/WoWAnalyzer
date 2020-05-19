@@ -9,6 +9,7 @@ import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { EventType } from 'parser/core/Events';
 
 const MAX_OVERWHELMING_POWER_STACKS = 25;
 
@@ -84,9 +85,9 @@ class OverwhelmingPower extends Analyzer {
       this.totalHaste += this.currentStacks * this.haste * uptimeOnStack;
     }
 
-    if (event.type === "applybuff") {
+    if (event.type === EventType.ApplyBuff) {
       this.currentStacks = MAX_OVERWHELMING_POWER_STACKS;
-    } else if (event.type === "removebuff") {
+    } else if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
     } else {
       this.currentStacks = event.stack;

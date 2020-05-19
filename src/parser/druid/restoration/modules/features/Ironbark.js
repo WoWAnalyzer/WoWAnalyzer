@@ -6,6 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 
 const IRONBARK_BASE_DR = 0.20;
 
@@ -15,7 +16,7 @@ class Ironbark extends Analyzer {
 
   on_byPlayer_cast(event) {
     if(event.ability.guid === SPELLS.IRONBARK.id) {
-      this.ironbarkCount ++;
+      this.ironbarkCount += 1;
     }
   }
 
@@ -27,7 +28,7 @@ class Ironbark extends Analyzer {
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.selectedCombatant.name}' TO type='removebuff' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,
+      filter: `(IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.selectedCombatant.name}' TO type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,
     })
       .then((json) => {
         if (json.status === 400 || json.status === 401) {

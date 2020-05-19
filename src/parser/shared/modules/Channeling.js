@@ -2,6 +2,7 @@ import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 const debug = false;
 
@@ -20,7 +21,7 @@ class Channeling extends Analyzer {
     }
 
     const channelingEvent = {
-      type: 'beginchannel',
+      type: EventType.BeginChannel,
       timestamp: event.timestamp,
       ability,
       sourceID: event.sourceID,
@@ -44,7 +45,7 @@ class Channeling extends Analyzer {
     const ability = currentChannel ? currentChannel.ability : event.ability;
     debug && this.log('Ending channel of', ability.name);
     return this.eventEmitter.fabricateEvent({
-      type: 'endchannel',
+      type: EventType.EndChannel,
       timestamp: event.timestamp,
       ability,
       sourceID: event.sourceID,
@@ -61,7 +62,7 @@ class Channeling extends Analyzer {
       return;
     }
     this.eventEmitter.fabricateEvent({
-      type: 'cancelchannel',
+      type: EventType.CancelChannel,
       ability,
       sourceID: event.sourceID,
       timestamp: null, // unknown, we can only know when the next cast started so passing the timestamp would be a poor guess

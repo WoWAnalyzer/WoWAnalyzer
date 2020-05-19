@@ -1,5 +1,6 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/Vexiona.jpg';
 import Headshot from './images/headshots/Vexiona.png';
@@ -27,7 +28,7 @@ export default {
         multiple: false,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: SPELLS.POWER_OF_THE_CHOSEN.id,
           },
@@ -38,7 +39,7 @@ export default {
         multiple: false,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 157354,
           health: 40,
           eventInstance: 0,

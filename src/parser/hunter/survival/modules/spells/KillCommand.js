@@ -33,7 +33,7 @@ class KillCommand extends Analyzer {
     if (spellId !== SPELLS.KILL_COMMAND_CAST_SV.id) {
       return;
     }
-    this.casts++;
+    this.casts += 1;
   }
 
   on_byPlayer_applybuff(event) {
@@ -44,7 +44,7 @@ class KillCommand extends Analyzer {
     if (!this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_SV.id)) {
       return;
     }
-    this.resets++;
+    this.resets += 1;
     this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_SV.id, this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_CAST_SV.id, this.spellUsable.cooldownTriggerEvent(SPELLS.KILL_COMMAND_CAST_SV.id)));
   }
 

@@ -8,21 +8,25 @@ import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyI
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
 class IceLanceNoIL extends Analyzer {
   static dependencies = {
     enemies: EnemyInstances,
     abilityTracker: AbilityTracker,
   };
+  protected enemies!: EnemyInstances;
+  protected abilityTracker!: AbilityTracker;
+
+  hasSplittingIce: boolean;
 
   iceLanceCastTimestamp = 0;
-  iceLanceCastTarget = 0;
+  iceLanceCastTarget = "";
   hadFingersFrostProc = false;
   goodIceLance = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.owner.builds.NO_IL.active;
     this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
 
@@ -30,7 +34,7 @@ class IceLanceNoIL extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE_DAMAGE), this.onIceLanceDamage);
   }
 
-  onIceLanceCast(event) {
+  onIceLanceCast(event: CastEvent) {
     this.iceLanceCastTimestamp = event.timestamp;
     if (event.targetID) {
       this.iceLanceCastTarget = encodeTargetString(event.targetID, event.targetInstance);
@@ -41,7 +45,7 @@ class IceLanceNoIL extends Analyzer {
     }
   }
 
-  onIceLanceDamage(event) {
+  onIceLanceDamage(event: DamageEvent) {
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     
     if (this.hasSplittingIce && this.hadFingersFrostProc && this.iceLanceCastTarget !== damageTarget) {
@@ -61,7 +65,7 @@ class IceLanceNoIL extends Analyzer {
     return this.totalIceLanceCasts - this.goodIceLance;
   }
 
-  get iceLanceNoILSuggestionThresholds() {
+  get iceLanceEfficiencyThresholds() {
     return {
       actual: this.iceLanceEfficiency,
       isLessThan: {
@@ -73,9 +77,9 @@ class IceLanceNoIL extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.iceLanceNoILSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.iceLanceEfficiencyThresholds)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.badIceLance} times improperly. The only time you should be casting Ice Lance is if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc and it will cleave via <SpellLink id={SPELLS.SPLITTING_ICE_TALENT.id} />. It is also acceptable to cast Ice Lance if you are moving and cannot cast anything else instead, but if you are doing this a lot then you are likely moving too much.</>)
           .icon(SPELLS.ICE_LANCE.icon)
           .actual(`${formatPercentage(this.iceLanceEfficiency)}% efficiency`)

@@ -3,7 +3,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
 import EventFilter from 'parser/core/EventFilter';
-import Events from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 
 import BeaconTargets from './BeaconTargets';
 import BeaconTransferFactor from './BeaconTransferFactor';
@@ -30,10 +30,10 @@ class BeaconHealSource extends Analyzer {
   };
 
   get beacontransfer() {
-    return new EventFilter('beacontransfer');
+    return new EventFilter(EventType.BeaconTransfer);
   }
   get beacontransferfailed() {
-    return new EventFilter('beacontransferfailed');
+    return new EventFilter(EventType.BeaconTransferFailed);
   }
 
   constructor(options) {
@@ -117,7 +117,7 @@ class BeaconHealSource extends Analyzer {
     // Fabricate a new event to make it easy to listen to just beacon heal events while being away of the original heals. While we could also modify the original heal event and add a reference to the original heal, this would be less clean as mutating objects makes things harder and more confusing to use, and may lead to conflicts.
     this.eventEmitter.fabricateEvent({
       ...beaconTransferEvent,
-      type: 'beacontransfer',
+      type: EventType.BeaconTransfer,
       originalHeal: matchedHeal,
     }, beaconTransferEvent);
 

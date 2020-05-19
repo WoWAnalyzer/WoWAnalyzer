@@ -32,7 +32,7 @@ class Sanctum extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.FADE.id) {
-      this.fadeCount++;
+      this.fadeCount += 1;
     }
   }
 

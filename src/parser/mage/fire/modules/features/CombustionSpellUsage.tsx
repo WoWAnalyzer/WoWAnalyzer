@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, BeginCastEvent } from 'parser/core/Events';
+import Events, { CastEvent, BeginCastEvent, EventType } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
@@ -43,7 +43,7 @@ class CombustionSpellUsage extends Analyzer {
       return;
     }
 
-    if (event.type === "cast") {
+    if (event.type === EventType.Cast) {
       this.fireballCastsCompleted += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
@@ -65,7 +65,7 @@ class CombustionSpellUsage extends Analyzer {
       return;
     }
 
-    if (event.type === "cast" && (fireBlastCharges > 0 || phoenixFlamesCharges > 0)) {
+    if (event.type === EventType.Cast && (fireBlastCharges > 0 || phoenixFlamesCharges > 0)) {
       this.scorchCastsCompleted += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
@@ -73,11 +73,11 @@ class CombustionSpellUsage extends Analyzer {
       debug && this.log("Cast completed with instants available");
     }
 
-    if (event.type === "begincast" && (fireBlastCharges > 0 || phoenixFlamesCharges > 0)) {
+    if (event.type === EventType.BeginCast && (fireBlastCharges > 0 || phoenixFlamesCharges > 0)) {
       this.scorchCastsStarted += 1;
       debug && this.log("Cast started with instants available");
     }
-  } 
+  }
 
   get badScorchesPerCombustion() {
     return this.scorchCastsStarted / this.combustionCasts;

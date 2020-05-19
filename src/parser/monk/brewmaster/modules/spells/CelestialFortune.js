@@ -36,14 +36,8 @@ class CelestialFortune extends Analyzer {
   critBonusHealing = 0;
   _totalHealing = 0;
   _overhealing = 0;
-  _healingByEntityBySpell = {
-    /*
-     * spellId: {
-     *   logged: Number,
-     *   absorb: Boolean,
-     * },
-     */
-  };
+  _healingByEntityBySpell = {};
+  _currentAbsorbs = {};
 
   _lastMaxHp = 0;
 
@@ -75,11 +69,34 @@ class CelestialFortune extends Analyzer {
     }
   }
 
-  on_toPlayer_applybuff(event) {
-    if(event.absorb === undefined) {
+  // track damage being absorbed
+  on_toPlayer_absorbed(event) {
+    if(event.ability.guid === SPELLS.STAGGER.id) {
       return;
     }
-    this._addAbsorb(event);
+
+    if(!this._currentAbsorbs[event.sourceID]) {
+      this._currentAbsorbs[event.sourceID] = {};
+    }
+
+    const sourceAbsorbs = this._currentAbsorbs[event.sourceID];
+    sourceAbsorbs[event.ability.guid] = sourceAbsorbs[event.ability.guid] ? sourceAbsorbs[event.ability.guid] + event.amount : event.amount;
+  }
+
+  on_toPlayer_removebuff(event) {
+    if(!this._currentAbsorbs[event.sourceID]) {
+      return; // no absorbs from this source
+    }
+
+    const sourceAbsorbs = this._currentAbsorbs[event.sourceID];
+
+    if(!sourceAbsorbs[event.ability.guid]) {
+      return; // no absorbs from this (source, ability) pair
+    }
+
+    this._addAbsorb(sourceAbsorbs[event.ability.guid], event);
+
+    sourceAbsorbs[event.ability.guid] = undefined;
   }
 
   _nextCFHeal = null;
@@ -122,14 +139,16 @@ class CelestialFortune extends Analyzer {
     this._nextCFHeal = null;
   }
 
-  _addAbsorb(event) {
+  _addAbsorb(amountAbsorbed, event) {
     const crit = this.stats.currentCritPercentage;
     const sourceId = event.sourceID;
     const spellId = event.ability.guid;
     this._initHealing(sourceId, spellId, true);
-    const amount = event.absorb * crit / (1 + crit);
-    // assuming 0 overhealing by absorbs, which isn't a *huge*
-    // assumption, but less than ideal.
+    const totalAbsorb = amountAbsorbed + event.absorb;
+    const cfBonus = totalAbsorb * crit / (1 + crit);
+    // any absorb overhealing is taken from the cf bonus *first*
+    const amount = Math.max(0, cfBonus - event.absorb);
+
     this._healingByEntityBySpell[sourceId][spellId].amount += amount;
     this._healingByEntityBySpell[sourceId]._totalHealing += amount;
     this._totalHealing += amount;

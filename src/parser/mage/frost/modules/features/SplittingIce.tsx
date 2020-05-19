@@ -1,8 +1,10 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatPercentage } from 'common/format';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import Analyzer from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
@@ -11,37 +13,48 @@ const debug = false;
 const DAMAGE_BONUS = 0.05;
 const GLACIAL_SPIKE_BONUS_PORTION = 0.65; // GS benefits from Icicles in it, but totals less than the full 5%. This number currently a guess.
 
+const SPLIT_CAST_SPELLS = [
+  SPELLS.FROSTBOLT,
+  SPELLS.ICE_LANCE,
+  SPELLS.GLACIAL_SPIKE_TALENT,
+  SPELLS.EBONBOLT_TALENT,
+];
+
+const SPLIT_DAMAGE_SPELLS = [
+  SPELLS.ICE_LANCE_DAMAGE,
+  SPELLS.ICICLE_DAMAGE,
+  SPELLS.GLACIAL_SPIKE_DAMAGE,
+  SPELLS.EBONBOLT_DAMAGE,
+];
+
 class SplittingIce extends Analyzer {
+
+  hasGlacialSpike: boolean;
+  hasEbonbolt: boolean;
+
   cleaveDamage = 0; // all damage to secondary target
   boostDamage = 0; // damage to primary target attributable to boost
 
-  castTarget; // player's last directly targeted foe, used to tell which hit was on primary target
+  castTarget = ""; // player's last directly targeted foe, used to tell which hit was on primary target
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
 	   this.active = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
      this.hasGlacialSpike = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
      this.hasEbonbolt = this.selectedCombatant.hasTalent(SPELLS.EBONBOLT_TALENT.id);
+
+     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPLIT_CAST_SPELLS), this.onCast);
+     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPLIT_DAMAGE_SPELLS), this.onDamage);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    // we check Frostbolt cast even though it doesn't split because it can launch overcapped icicles.
-    if(spellId !== SPELLS.ICE_LANCE.id && spellId !== SPELLS.FROSTBOLT.id && spellId !== SPELLS.GLACIAL_SPIKE_TALENT.id && spellId !== SPELLS.EBONBOLT_TALENT.id) {
-      return;
-    }
-
+  onCast(event: CastEvent) {
     if(event.targetID) {
       this.castTarget = encodeTargetString(event.targetID, event.targetInstance);
     }
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
-    if(spellId !== SPELLS.ICE_LANCE_DAMAGE.id && spellId !== SPELLS.ICICLE_DAMAGE.id && spellId !== SPELLS.GLACIAL_SPIKE_DAMAGE.id && spellId !== SPELLS.EBONBOLT_DAMAGE.id) {
-      return;
-    }
-
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     if(this.castTarget === damageTarget) {
       let damageBonus = DAMAGE_BONUS;
@@ -73,11 +86,9 @@ class SplittingIce extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.SPLITTING_ICE_TALENT.id}
-        position={STATISTIC_ORDER.CORE(100)}
-        value={`${this.hasGlacialSpike ? '≈' : ''}${formatPercentage(this.damagePercent)} %`}
-        label="Splitting Ice damage"
+      <Statistic
+        size="flexible"
+        category={'TALENTS'}
         tooltip={(
           <>
             This is all the secondary target damage summed with the portion of primary target damage attributable to Splitting Ice.{this.hasGlacialSpike && ' Because only the icicles inside each Glacial Spike are boosted, the damage bonus to Glacial Spike is estimated.'}
@@ -87,10 +98,15 @@ class SplittingIce extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SPLITTING_ICE_TALENT}>
+          <>
+            {this.hasGlacialSpike ? '≈' : ''}${formatPercentage(this.damagePercent)} %
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
 }
 
 export default SplittingIce;

@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventType } from 'parser/core/Events';
 
 class Scorch extends EventsNormalizer {
   /**
@@ -13,7 +14,7 @@ class Scorch extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === 'removebuff' && event.ability.guid === SPELLS.HOT_STREAK.id) {
+      if (event.type === EventType.RemoveBuff && event.ability.guid === SPELLS.HOT_STREAK.id) {
         const castTimestamp = event.timestamp;
 
         for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
@@ -21,7 +22,7 @@ class Scorch extends EventsNormalizer {
           if ((castTimestamp - previousEvent.timestamp) > 50) {
             break;
           }
-          if (previousEvent.type === 'damage' && previousEvent.ability.guid === SPELLS.SCORCH.id && previousEvent.sourceID === event.sourceID) {
+          if (previousEvent.type === EventType.Damage && previousEvent.ability.guid === SPELLS.SCORCH.id && previousEvent.sourceID === event.sourceID) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;

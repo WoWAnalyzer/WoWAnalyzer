@@ -38,7 +38,7 @@ class DireConsequences extends Analyzer {
     if (spellId !== SPELLS.DIRE_BEAST_BUFF.id) {
       return;
     }
-    this.procs++;
+    this.procs += 1;
   }
 
   statistic() {

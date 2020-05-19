@@ -6,6 +6,7 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import { EventType } from 'parser/core/Events';
 
 const ARMOR_INT_BONUS = .05;
 
@@ -548,6 +549,8 @@ class StatTracker extends Analyzer {
         return critChance + 0.05; //baseline +5%
       case SPECS.SURVIVAL_HUNTER:
         return critChance + 0.06; //baseline +6%
+      case SPECS.BREWMASTER_MONK:
+        return critChance + 0.05; //baseline +5%
       case SPECS.WINDWALKER_MONK:
         return critChance + 0.05; //baseline +5%
       case SPECS.HAVOC_DEMON_HUNTER:
@@ -769,7 +772,7 @@ class StatTracker extends Analyzer {
    */
   _triggerChangeStats(event, before, delta, after) {
     this.eventEmitter.fabricateEvent({
-      type: 'changestats',
+      type: EventType.ChangeStats,
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
       before,

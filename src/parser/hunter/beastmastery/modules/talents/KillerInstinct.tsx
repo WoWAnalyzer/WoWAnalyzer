@@ -39,12 +39,12 @@ class KillerInstinct extends Analyzer {
     if (!event.hitPoints || !event.maxHitPoints) {
       return;
     }
-    this.casts++;
+    this.casts += 1;
     const enemyHealthPercent = (
       event.hitPoints / event.maxHitPoints
     );
     if (enemyHealthPercent <= KILLER_INSTINCT_TRESHOLD) {
-      this.castsWithExecute++;
+      this.castsWithExecute += 1;
 
       const traitDamage = calculateEffectiveDamage(
         event,

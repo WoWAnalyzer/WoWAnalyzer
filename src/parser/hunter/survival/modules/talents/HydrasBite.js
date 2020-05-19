@@ -36,7 +36,7 @@ class HydrasBite extends Analyzer {
     }
     const target = encodeTargetString(event.targetID, event.targetInstance);
     this.mainTargets.push(target);
-    this.casts++;
+    this.casts += 1;
   }
 
   on_byPlayer_damage(event) {

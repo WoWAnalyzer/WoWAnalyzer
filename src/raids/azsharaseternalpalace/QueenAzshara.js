@@ -1,5 +1,6 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/QueenAzshara.jpg';
 import Headshot from './images/headshots/QueenAzshara.png';
@@ -25,7 +26,7 @@ export default {
         name: 'Intermission 2',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'begincast',
+          type: EventType.BeginCast,
           ability: {
             id: SPELLS.QUEENS_DECREE.id,
           },
@@ -35,7 +36,7 @@ export default {
         name: 'Stage 2: Hearts Unleashed',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 152910,
           health: 99.9,
           eventInstance: 0,
@@ -45,7 +46,7 @@ export default {
         name: 'Intermission 2',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 152910,
           health: 70,
           eventInstance: 0,
@@ -55,7 +56,7 @@ export default {
         name: 'Stage 3: Song of the Tides',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 154565,
           health: 99.9,
           eventInstance: 0,
@@ -65,7 +66,7 @@ export default {
         name: 'Stage 4: My Palace Is a Prison',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 152910,
           health: 45,
           eventInstance: 0,
