@@ -5,6 +5,88 @@
  */
 
 export default {
+  // COMMON
+  ANCESTRAL_RESONANCE: {
+    id: 277666,
+    name: 'Ancestral Resonance',
+    icon: 'spell_shaman_improvedreincarnation',
+  },
+  ANCESTRAL_RESONANCE_BUFF: {
+    id: 277943,
+    name: 'Ancestral Resonance',
+    icon: 'spell_shaman_improvedreincarnation',
+  },
+  NATURAL_HARMONY_TRAIT: {
+    id: 278697,
+    name: 'Natural Harmony',
+    icon: 'spell_nature_elementalprecision_1',
+  },
+  NATURAL_HARMONY_FIRE_BUFF: {
+    id: 279028,
+    name: 'Natural Harmony: Fire',
+    icon: 'spell_nature_elementalprecision_1',
+  },
+  NATURAL_HARMONY_FROST_BUFF: {
+    id: 279029,
+    name: 'Natural Harmony: Frost',
+    icon: 'spell_nature_elementalprecision_1',
+  },
+  NATURAL_HARMONY_NATURE_BUFF: {
+    id: 279033,
+    name: 'Natural Harmony: Nature',
+    icon: 'spell_nature_elementalprecision_1',
+  },
+  SYNAPSE_SHOCK: {
+    id: 277671,
+    name: 'Synapse Shock',
+    icon: 'spell_nature_lightning',
+  },
+  SYNAPSE_SHOCK_BUFF: {
+    id: 277960,
+    name: 'Synapse Shock',
+    icon: 'spell_nature_lightning',
+  },
+  // Enhancement
+  LIGHTNING_CONDUIT_TRAIT: {
+    id: 275388,
+    name: 'Lightning Conduit',
+    icon: 'inv_rod_enchantedcobalt',
+  },
+  LIGHTNING_CONDUIT_DAMAGE: {
+    id: 275394,
+    name: 'Lightning Conduit',
+    icon: 'inv_rod_enchantedcobalt',
+  },
+  PRIMAL_PRIMER_TRAIT: {
+    id: 272992,
+    name: 'Primal Primer',
+    icon: 'ability_shaman_lavalash',
+  },
+  PRIMAL_PRIMER_DEBUFF: {
+    id: 273006,
+    name: 'Primal Primer',
+    icon: 'ability_shaman_lavalash',
+  },
+  ROILING_STORM: {
+    id: 278719,
+    name: 'Roiling Storm',
+    icon: 'ability_shaman_stormstrike',
+  },
+  STRENGTH_OF_EARTH_TRAIT: {
+    id: 273461,
+    name: 'Strength of Earth',
+    icon: 'spell_nature_rockbiter',
+  },
+  STRENGTH_OF_EARTH_DAMAGE: {
+    id: 273466,
+    name: 'Strength of Earth',
+    icon: 'spell_nature_rockbiter',
+  },
+  THUNDERAANS_FURY: {
+    id: 287768,
+    name: 'Thunderaan\'s Fury',
+    icon: 'spell_nature_invisibilitytotem',
+  },
   // Elemental
   LAVA_SHOCK: {
     id: 273448,
@@ -41,40 +123,10 @@ export default {
     name: 'Shocking Blast',
     icon: 'spell_nature_cyclone',
   },
-  SYNAPSE_SHOCK: {
-    id: 277671,
-    name: 'Synapse Shock',
-    icon: 'spell_nature_lightning',
-  },
-  SYNAPSE_SHOCK_BUFF: {
-    id: 277960,
-    name: 'Synapse Shock',
-    icon: 'spell_nature_lightning',
-  },
   IGNEOUS_POTENTIAL: {
     id: 279829,
     name: 'Igneous Potential',
     icon: 'spell_shaman_lavasurge',
-  },
-  NATURAL_HARMONY_TRAIT: {
-    id: 278697, 
-    name: 'Natural Harmony',
-    icon: 'spell_nature_elementalprecision_1',
-  },
-  NATURAL_HARMONY_FIRE_BUFF: {
-    id: 279028, 
-    name: 'Natural Harmony: Fire',
-    icon: 'spell_nature_elementalprecision_1',
-  },
-  NATURAL_HARMONY_FROST_BUFF: {
-    id: 279029, 
-    name: 'Natural Harmony: Frost',
-    icon: 'spell_nature_elementalprecision_1',
-  },
-  NATURAL_HARMONY_NATURE_BUFF: {
-    id: 279033, 
-    name: 'Natural Harmony: Nature',
-    icon: 'spell_nature_elementalprecision_1',
   },
   // Restoration
   OVERFLOWING_SHORES_TRAIT: {
@@ -146,15 +198,5 @@ export default {
     id: 287300,
     name: 'Turn of the Tide',
     icon: 'spell_shaman_tidalwaves',
-  },
-  ANCESTRAL_RESONANCE: {
-    id: 277666,
-    name: 'Ancestral Resonance',
-    icon: 'spell_shaman_improvedreincarnation',
-  },
-  ANCESTRAL_RESONANCE_BUFF: {
-    id: 277943,
-    name: 'Ancestral Resonance',
-    icon: 'spell_shaman_improvedreincarnation',
   },
 };

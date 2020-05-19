@@ -6,8 +6,19 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 4, 14), <>Showing primary buffs on the timeline.</>, [Vetyst]),
+  change(date(2020, 4, 14), <>Added damage statistiscs for <SpellLink id={SPELLS.STRENGTH_OF_EARTH_TRAIT.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 13), <>Added damage statistiscs for <SpellLink id={SPELLS.BOULDERFIST_TALENT.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 13), <>Added damage statistiscs for <SpellLink id={SPELLS.PRIMAL_PRIMER_TRAIT.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 13), <>Added damage statistiscs for <SpellLink id={SPELLS.LIGHTNING_CONDUIT_TRAIT.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 13), <>Added <SpellLink id={SPELLS.STORMSTRIKE_CAST.id} /> damage statistiscs for <SpellLink id={SPELLS.THUNDERAANS_FURY.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 13), <>Added damage statistics for <SpellLink id={SPELLS.ROILING_STORM.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 12), <>Added healing statistics for <SpellLink id={SPELLS.NATURES_GUARDIAN_TALENT.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 11), <>Added a statistic and suggestion for <SpellLink id={SPELLS.STORMBRINGER.id} />.</>, [Vetyst]),
+  change(date(2020, 4, 10), 'Updated spell list to match 8.3 for Enhancement Shaman.', [Vetyst]),
   change(date(2020, 4, 9), <>Updated damage gained from <SpellLink id={SPELLS.FORCEFUL_WINDS_TALENT.id} />.</>, [Vetyst]),
   change(date(2020, 4, 9), <>Fixed <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> not showing up.</>, [Vetyst]),
+  change(date(2020, 3, 2), <>Updated all modules to typescript and modern Modules</>, [HawkCorrigan]),
   change(date(2020, 2, 28), <>Added a statistic for <SpellLink id={SPELLS.ANCESTRAL_RESONANCE.id} />.</>, [niseko]),
   change(date(2019, 11, 28), <>Added a statistic for <SpellLink id={SPELLS.NATURAL_HARMONY_TRAIT.id} /> to track avg crit, haste, mastery and uptime for each</>, [Draenal]),
   change(date(2019, 10, 31), <>Add a suggestion for Lightning Shield uptime</>, [HawkCorrigan]),

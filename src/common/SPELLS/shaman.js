@@ -90,6 +90,11 @@ export default {
     name: 'Earth Elemental',
     icon: 'spell_nature_earthelemental_totem',
   },
+  CLEANSE_SPIRIT: {
+    id: 51886,
+    name: 'Cleanse Spirit',
+    icon: 'ability_shaman_cleansespirit',
+  },
   // Hex and its variations
   HEX: {
     id: 51514,
@@ -398,6 +403,7 @@ export default {
     id: 196834,
     name: 'Frostbrand',
     icon: 'spell_shaman_unleashweapon_frost',
+    maelstrom: 20,
   },
   FLAMETONGUE: {
     id: 193796,
@@ -440,22 +446,43 @@ export default {
     name: 'Crackling Surge',
     icon: 'spell_beastmaster_wolf',
   },
-  STORMSTRIKE: {
+  STORMSTRIKE_CAST: {
     id: 17364,
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
-    maelstrom: 40,
+    maelstrom: 30,
   },
-  STORMSTRIKE_BUFF: {
+  STORMSTRIKE_DAMAGE: {
     id: 32175,
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
+  },
+  STORMSTRIKE_DAMAGE_OFFHAND: {
+    id: 32176,
+    name: 'Stormstrike Off-Hand',
+    icon: 'ability_shaman_stormstrike',
+  },
+  WINDSTRIKE_CAST: {
+    id: 115356,
+    name: 'Windstrike',
+    icon: 'ability_skyreach_four_wind',
+    maelstrom: 30,
+  },
+  WINDSTRIKE_DAMAGE: {
+    id: 115357,
+    name: 'Windstrike',
+    icon: 'ability_skyreach_four_wind',
+  },
+  WINDSTRIKE_DAMAGE_OFFHAND: {
+    id: 115360,
+    name: 'Windstrike Off-Hand',
+    icon: 'ability_skyreach_four_wind',
   },
   LAVA_LASH: {
     id: 60103,
     name: 'Lava Lash',
     icon: 'ability_shaman_lavalash',
-    maelstrom: 30,
+    maelstrom: 40,
   },
   DOOM_WINDS: {
     id: 204945,
@@ -476,12 +503,6 @@ export default {
     id: 187890,
     name: 'Maelstrom Weapon',
     icon: 'spell_shaman_maelstromweapon',
-  },
-  WINDSTRIKE: {
-    id: 115356,
-    name: 'Windstrike',
-    icon: 'ability_skyreach_four_wind',
-    maelstrom: 10, // 30 Maelstrom - 66% (20) = 10
   },
   DOOM_VORTEX: {
     id: 199116,
@@ -577,32 +598,17 @@ export default {
     name: 'Flametongue Attack',
     icon: 'spell_shaman_unleashweapon_flame',
   },
-  WINDSTRIKE_OFFHAND: {
-    id: 115360,
-    name: 'Windstrike Off-Hand',
-    icon: 'ability_skyreach_four_wind',
-  },
-  STORMSTRIKE_OFFHAND: {
-    id: 32176,
-    name: 'Stormstrike Off-Hand',
-    icon: 'ability_shaman_stormstrike',
-  },
   CRASH_LIGHTNING_BUFF: {
     id: 195592,
     name: 'Crash Lightning',
     icon: 'spell_shaman_crashlightning',
-  },
-  WINDSTRIKE_BUFF: {
-    id: 115357,
-    name: 'Windstrike',
-    icon: 'ability_skyreach_four_wind',
   },
   SPIRIT_OF_THE_MAELSTROM: {
     id: 204880,
     name: 'Spirit of the Maelstrom',
     icon: 'ability_shaman_freedomwolf',
   },
-  FURY_OF_AIR_BUFF: {
+  FURY_OF_AIR_DAMAGE: {
     id: 197385,
     name: 'Fury of Air',
     icon: 'ability_ironmaidens_swirlingvortex',
