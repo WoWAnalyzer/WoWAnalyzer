@@ -9,6 +9,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2020, 5, 24), <>Fixed a bug where <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} /> showed as having done 0 healing </>, Putro),
   change(date(2020, 5, 13), 'Disallow use of ++ and -- to adhere to the style guide', Putro),
   change(date(2020, 5, 12), 'Tweak JetBrains codeStyles file to better adhere to code style, while allowing for auto-formatting all files in the repository.', Vetyst),
   change(date(2020, 5, 12), 'Reduced avatar and article image file sizes', Vetyst),
