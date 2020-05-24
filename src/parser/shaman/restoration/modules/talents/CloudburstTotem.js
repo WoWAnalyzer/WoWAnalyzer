@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -15,7 +16,7 @@ const DELAY_MS = 200;
 /**
  * Cloudburst Totem has no buff events in the combatlog, so we're fabricating it on cast and
  * removing it when its done, so we can track the buff and have it show up on the timeline.
- * 
+ *
  * Also sums up the healing it does and feeds for the Talents module.
  */
 
@@ -39,7 +40,7 @@ class CloudburstTotem extends Analyzer {
       return;
     }
     if(this.cbtActive) {
-      this._createFabricatedEvent(event, 'removebuff');
+      this._createFabricatedEvent(event, EventType.RemoveBuff);
       this.cbtActive = false;
     }
 
@@ -54,13 +55,13 @@ class CloudburstTotem extends Analyzer {
     }
 
     // Patch 7.3.5 added a buffer before CBT can collect healing after casting,
-    // this turns out to be around 200ms and causes it to not collect healing from 
+    // this turns out to be around 200ms and causes it to not collect healing from
     // spells casted right before it, essentially removing pre-feeding.
     // This adds those 200ms to it so you can visually see that the feeding starts later.
     const manipulatedEvent = {...event};
     manipulatedEvent.timestamp = manipulatedEvent.timestamp + DELAY_MS;
 
-    this._createFabricatedEvent(manipulatedEvent, 'applybuff');
+    this._createFabricatedEvent(manipulatedEvent, EventType.ApplyBuff);
     this.cbtActive = true;
   }
 

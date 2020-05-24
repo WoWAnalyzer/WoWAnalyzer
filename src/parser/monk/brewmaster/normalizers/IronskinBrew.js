@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventType } from 'parser/core/Events';
 
 const debug = false;
 
@@ -15,7 +16,7 @@ class IronskinBrew extends EventsNormalizer {
   _getFirstEventIndex(events) {
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
-      if (event.type !== 'combatantinfo') {
+      if (event.type !== EventType.CombatantInfo) {
         return i;
       }
     }
@@ -38,7 +39,7 @@ class IronskinBrew extends EventsNormalizer {
       const targetID = event.targetID;
       const spellId = event.ability ? event.ability.guid : null;
 
-      if(event.type === "cast" && spellId === SPELLS.IRONSKIN_BREW.id) {
+      if(event.type === EventType.Cast && spellId === SPELLS.IRONSKIN_BREW.id) {
         isbCasts[sourceID] = isbCasts[sourceID] ? isbCasts[sourceID] : [];
         isbCasts[sourceID].push(event);
       } else if(["applybuff", "refreshbuff", "removebuff"].includes(event.type) && spellId === SPELLS.IRONSKIN_BREW_BUFF.id) {

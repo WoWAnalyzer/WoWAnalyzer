@@ -60,14 +60,14 @@ export function fabricateBossPhaseEvents(events, report, fight) {
         const phase = bossConfig.fight.phases[key];
         if (phase.filter && phase.filter.type) {
           switch (phase.filter.type) {
-            case 'removebuff':
-            case 'applybuff':
-            case 'removedebuff':
-            case 'applydebuff':
-            case 'begincast':
-            case 'interrupt':
-            case 'dispel':
-            case 'cast': {
+            case EventType.RemoveBuff:
+            case EventType.ApplyBuff:
+            case EventType.RemoveDebuff:
+            case EventType.ApplyDebuff:
+            case EventType.BeginCast:
+            case EventType.Interrupt:
+            case EventType.Dispel:
+            case EventType.Cast: {
               let bossEvents = events.filter(e => e.type === phase.filter.type &&
                 (
                   (e.ability && e.ability.guid === phase.filter.ability.id) ||
@@ -94,7 +94,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
               });
               break;
             }
-            case 'time': {
+            case EventType.Time: {
               const times = [fight.start_time + (phase.filter.time || 0) + (phase.filter.offset || 0)];
               if(times[0] > fight.end_time){ //if initial time is after fight end, stop here
                 break;
@@ -116,7 +116,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
 
               break;
             }
-            case 'health': {
+            case EventType.Health: {
               const enemy = report.enemies.find(enemy => enemy.guid === phase.filter.guid);
               if(enemy){
                 const healthEvent = events.find(e => e.targetID === enemy.id && (100 * e.hitPoints / e.maxHitPoints) <= phase.filter.health);
@@ -131,12 +131,12 @@ export function fabricateBossPhaseEvents(events, report, fight) {
               }
               break;
             }
-            case 'adds': {
+            case EventType.Adds: {
               const enemy = report.enemies.find(enemy => enemy.guid === phase.filter.guid);
               if (enemy) {
                 const addEvents = events.filter(e => e.sourceID === enemy.id || e.targetID === enemy.id);
 
-                const spawns = addEvents.filter(e => e.type !== 'death');
+                const spawns = addEvents.filter(e => e.type !== EventType.Death);
                 const firstSpawnOfWaveEvents = spawns.reduce((addWaves, spawn) => {
                   const instance = (spawn.targetID === enemy.id ? spawn.targetInstance : spawn.sourceInstance) - 1;
                   const wave = Math.floor(instance / phase.filter.addCount);
@@ -155,7 +155,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
                   });
                 });
 
-                const deaths = addEvents.filter(e => e.type === 'death').reverse();
+                const deaths = addEvents.filter(e => e.type === EventType.Death).reverse();
                 const lastDeathOfWaveEvents = deaths.reduce((addWaves, death) => {
                   const instance = (death.targetID === enemy.id ? death.targetInstance : death.sourceInstance) - 1;
                   const wave = Math.floor(instance / phase.filter.addCount);

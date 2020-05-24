@@ -7,7 +7,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import CriticalStrike from 'interface/icons/CriticalStrike';
-import { ApplyBuffEvent, ApplyBuffStackEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 /**
  * Your maximum Focus is increased to 120, and Raptor Strike (or Mongoose bite) increases your Critical Strike by 52 for 12 sec, stacking up to 5 times.
@@ -62,19 +62,19 @@ class PrimevalIntuition extends Analyzer {
     return avgAgi;
   }
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent, stack = 0) {
-    if (event.type === 'removebuff') {
+    if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
-    } else if (event.type === 'applybuff') {
+    } else if (event.type === EventType.ApplyBuff) {
       this.currentStacks = 1;
-    } else if (event.type === 'applybuffstack') {
+    } else if (event.type === EventType.ApplyBuffStack) {
       this.currentStacks = event.stack;
-    } else if (event.type === 'fightend') {
+    } else if (event.type === EventType.FightEnd) {
       this.currentStacks = stack;
-    }
 
-    this.intuitionStacks[this.lastIntuitionStack].push(event.timestamp - this.lastIntuitionUpdate);
-    this.lastIntuitionUpdate = event.timestamp;
-    this.lastIntuitionStack = this.currentStacks;
+      this.intuitionStacks[this.lastIntuitionStack].push(event.timestamp - this.lastIntuitionUpdate);
+      this.lastIntuitionUpdate = event.timestamp;
+      this.lastIntuitionStack = this.currentStacks;
+    }
   }
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;

@@ -24,10 +24,10 @@ class Checklist extends BaseChecklist {
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{
-        ...this.preparationRuleAnalyzer.thresholds,
+          ...this.preparationRuleAnalyzer.thresholds,
 
-        alwaysBeCasting: this.alwaysBeCasting.suggestionThresholds,
-      }}
+          alwaysBeCasting: this.alwaysBeCasting.suggestionThresholds,
+        }}
       />
     );
   }

@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventType } from 'parser/core/Events';
 
 /**
- * Shuriken Storm Energize events reporting overcaping of CPs. 
- * 
+ * Shuriken Storm Energize events reporting overcaping of CPs.
+ *
  * @param {Array} events
  * @returns {Array} Events possibly with some reordered.
  */
@@ -14,7 +15,7 @@ class ShurikenStormNormalizer extends EventsNormalizer {
    * If less then 3 CPs were generated, it most likely was a mistake to cast this spell.
    * We will remove all waste from casts that generated at least 3 CPs, because under normal circumstances you never finish with 3CP deficit.
    * In some cases it may be better to use a different builder, but even if it is a damage or proc loss to Shuriken Storm in these situations, its still not a CP waste.
-   * 
+   *
    * If less the 3CPs were generated, we can consider anything up to the Max CP cap as waste.
    * Logic behind this: If finisher was used instead, next Shuriken Storm would generate CPs up to the max CP pool.
    */
@@ -33,7 +34,7 @@ class ShurikenStormNormalizer extends EventsNormalizer {
       fixedEvents.push(event);
 
       // Find Shuriken Storm CP Events
-      if(event.type === 'energize' && event.ability.guid === SPELLS.SHURIKEN_STORM_CP.id) {
+      if(event.type === EventType.Energize && event.ability.guid === SPELLS.SHURIKEN_STORM_CP.id) {
         //Remove excess waste from Shuriken Storm.
         if(event.waste > 0) {
           if(event.resourceChange - event.waste >= this.minCPs) {
@@ -49,7 +50,7 @@ class ShurikenStormNormalizer extends EventsNormalizer {
         }
       }
     });
-    
+
     return fixedEvents;
   }
 }

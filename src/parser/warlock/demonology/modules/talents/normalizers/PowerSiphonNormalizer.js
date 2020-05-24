@@ -1,3 +1,4 @@
+import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
@@ -6,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import { isWildImp } from '../../pets/helpers';
 
 const debug = false;
-const CHECKED_EVENT_TYPES = ['begincast', 'cast'];
+const CHECKED_EVENT_TYPES = [EventType.BeginCast, EventType.Cast];
 
 class PowerSiphonNormalizer extends EventsNormalizer {
   // Power Siphon sacrifices up to 2 Wild Imps to gain Demonic Core stacks from them
@@ -52,7 +53,7 @@ class PowerSiphonNormalizer extends EventsNormalizer {
     // modify the last PS cast
     lastPowerSiphonCast.activeImpsAfterCast = [...activeImpsAfterCast];
     lastPowerSiphonCast.__modified = true;
-    debug && console.log('PS casts after normalizing', events.filter(event => event.type === 'cast' && event.ability.guid === SPELLS.POWER_SIPHON_TALENT.id));
+    debug && console.log('PS casts after normalizing', events.filter(event => event.type === EventType.Cast && event.ability.guid === SPELLS.POWER_SIPHON_TALENT.id));
     return events;
   }
 

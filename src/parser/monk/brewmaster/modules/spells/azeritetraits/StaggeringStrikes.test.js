@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StaggeringStrikes from './StaggeringStrikes';
@@ -8,20 +9,20 @@ const PLAYER = 1;
 const ENEMY = 2;
 const INITIAL_STAGGER = 25000;
 const testEvents = [
-  { timestamp: 0, type: 'absorbed', sourceID: PLAYER, targetID: PLAYER, ability: { guid: SPELLS.STAGGER.id }, amount: INITIAL_STAGGER },
-  { timestamp: 1000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
-  { timestamp: 4000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
-  { timestamp: 7000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
-  { timestamp: 10000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { timestamp: 0, type: EventType.Absorbed, sourceID: PLAYER, targetID: PLAYER, ability: { guid: SPELLS.STAGGER.id }, amount: INITIAL_STAGGER },
+  { timestamp: 1000, type: EventType.Cast, sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { timestamp: 4000, type: EventType.Cast, sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { timestamp: 7000, type: EventType.Cast, sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { timestamp: 10000, type: EventType.Cast, sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
 ];
 
 const overhealEvents = [
   ...testEvents,
-  { timestamp: 13000, type: 'cast', sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id }},
+  { timestamp: 13000, type: EventType.Cast, sourceID: PLAYER, targetID: ENEMY, ability: { guid: SPELLS.BLACKOUT_STRIKE.id }},
 ];
 
 function bocCasts(events) {
-  return events.filter(event => event.type === 'cast' && event.ability.guid === SPELLS.BLACKOUT_STRIKE.id).length;
+  return events.filter(event => event.type === EventType.Cast && event.ability.guid === SPELLS.BLACKOUT_STRIKE.id).length;
 }
 
 const RANKS = [300, 325, 375];

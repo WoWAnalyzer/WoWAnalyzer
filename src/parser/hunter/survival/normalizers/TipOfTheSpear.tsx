@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { CastEvent } from '../../../core/Events';
+import { EventType, CastEvent } from 'parser/core/Events';
 
 class TipOfTheSpearNormalizer extends EventsNormalizer {
   /**
@@ -15,7 +15,7 @@ class TipOfTheSpearNormalizer extends EventsNormalizer {
   normalize(events: any) {
     const fixedEvents: CastEvent[] = [];
     events.forEach((event: any) => {
-      if (event.type === 'cast' && event.ability.guid === SPELLS.TIP_OF_THE_SPEAR_CAST.id) {
+      if (event.type === EventType.Cast && event.ability.guid === SPELLS.TIP_OF_THE_SPEAR_CAST.id) {
         event.type = 'tick';
         event.__modified = true;
       }

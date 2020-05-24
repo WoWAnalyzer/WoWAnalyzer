@@ -6,7 +6,7 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Agility from 'interface/icons/Agility';
-import { ApplyBuffEvent, ApplyBuffStackEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 
 const blurOfTalonsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
@@ -66,18 +66,18 @@ class BlurOfTalons extends Analyzer {
     return avgAgi;
   }
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent, stack: number = 0) {
-    if (event.type === 'removebuff') {
+    if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
-    } else if (event.type === 'applybuff') {
+    } else if (event.type === EventType.ApplyBuff) {
       this.currentStacks = 1;
-    } else if (event.type === 'applybuffstack') {
+    } else if (event.type === EventType.ApplyBuffStack) {
       this.currentStacks = event.stack;
-    } else if (event.type === 'fightend') {
+    } else if (event.type === EventType.FightEnd) {
       this.currentStacks = stack;
+      this.blurOfTalonStacks[this.lastBlurStack].push(event.timestamp - this.lastBlurUpdate);
+      this.lastBlurUpdate = event.timestamp;
+      this.lastBlurStack = this.currentStacks;
     }
-    this.blurOfTalonStacks[this.lastBlurStack].push(event.timestamp - this.lastBlurUpdate);
-    this.lastBlurUpdate = event.timestamp;
-    this.lastBlurStack = this.currentStacks;
   }
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;

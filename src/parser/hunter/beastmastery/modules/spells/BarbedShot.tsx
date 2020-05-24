@@ -8,7 +8,8 @@ import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { ApplyBuffEvent, ApplyBuffStackEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for [(10%
@@ -32,6 +33,7 @@ class BarbedShot extends Analyzer {
     super(options);
     this.barbedShotStacks = Array.from({ length: MAX_FRENZY_STACKS + 1 }, x => []);
   }
+
   get barbedShotTimesByStacks() {
     return this.barbedShotStacks;
   }
@@ -85,13 +87,13 @@ class BarbedShot extends Analyzer {
     }
   }
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
-    if (event.type === 'removebuff') {
+    if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
-    } else if (event.type === 'applybuff') {
+    } else if (event.type === EventType.ApplyBuff) {
       this.currentStacks = 1;
-    } else if (event.type === 'applybuffstack') {
+    } else if (event.type === EventType.ApplyBuffStack) {
       this.currentStacks = event.stack;
-    } else if (event.type === 'fightend') {
+    } else if (event.type === EventType.FightEnd) {
       this.currentStacks = this.lastBarbedShotStack;
     }
 
@@ -100,6 +102,7 @@ class BarbedShot extends Analyzer {
     this.lastBarbedShotUpdate = event.timestamp;
     this.lastBarbedShotStack = this.currentStacks;
   }
+
   getAverageBarbedShotStacks() {
     let avgStacks = 0;
     this.barbedShotStacks.forEach((elem: Array<number>, index: number) => {

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS/index';
+import { EventType } from 'parser/core/Events';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
@@ -27,7 +28,7 @@ describe('core/Modules/SpellUsable', () => {
     });
     triggerCast = (spellId, extra) => {
       eventEmitter.triggerEvent({
-        type: 'cast',
+        type: EventType.Cast,
         ability: {
           guid: spellId,
         },
@@ -37,14 +38,14 @@ describe('core/Modules/SpellUsable', () => {
     };
     triggerHasteChange = () => {
       eventEmitter.triggerEvent({
-        type: 'changehaste',
+        type: EventType.ChangeHaste,
         // We don't need more; the new Haste is pulled straight from the Haste module
         timestamp: parser.currentTimestamp,
       });
     };
   });
   const triggerTestEvent = () => eventEmitter.triggerEvent({
-    type: 'test',
+    type: EventType.Test,
     timestamp: parser.currentTimestamp,
   });
 
@@ -206,7 +207,7 @@ describe('core/Modules/SpellUsable', () => {
       expect(eventEmitter.fabricateEvent).toHaveBeenCalledTimes(1);
       const call = eventEmitter.fabricateEvent.mock.calls[0];
       expect(call[0]).toEqual({
-        type: 'updatespellusable',
+        type: EventType.UpdateSpellUsable,
         ability: {
           abilityIcon: SPELLS.FAKE_SPELL.icon,
           guid: SPELLS.FAKE_SPELL.id,
@@ -216,7 +217,7 @@ describe('core/Modules/SpellUsable', () => {
         start: 0,
         expectedDuration: 7500,
         totalReductionTime: 0,
-        trigger: 'begincooldown',
+        trigger: EventType.BeginCooldown,
         isOnCooldown: true,
         isAvailable: false,
         chargesAvailable: 0,
@@ -226,7 +227,7 @@ describe('core/Modules/SpellUsable', () => {
             guid: SPELLS.FAKE_SPELL.id,
           },
           timestamp: 0,
-          type: 'cast',
+          type: EventType.Cast,
         },
         maxCharges: 1,
         timePassed: 0,
@@ -243,7 +244,7 @@ describe('core/Modules/SpellUsable', () => {
       {
         const call = eventEmitter.fabricateEvent.mock.calls[0];
         expect(call[0]).toEqual({
-          type: 'updatespellusable',
+          type: EventType.UpdateSpellUsable,
           ability: {
             abilityIcon: SPELLS.FAKE_SPELL.icon,
             guid: SPELLS.FAKE_SPELL.id,
@@ -254,7 +255,7 @@ describe('core/Modules/SpellUsable', () => {
           end: 0,
           expectedDuration: 7500,
           totalReductionTime: 0,
-          trigger: 'endcooldown',
+          trigger: EventType.EndCooldown,
           isOnCooldown: false,
           isAvailable: true,
           chargesAvailable: 1,
@@ -264,7 +265,7 @@ describe('core/Modules/SpellUsable', () => {
               guid: SPELLS.FAKE_SPELL.id,
             },
             timestamp: 0,
-            type: 'cast',
+            type: EventType.Cast,
           },
           maxCharges: 1,
           sourceID: parser.playerId,
@@ -274,7 +275,7 @@ describe('core/Modules/SpellUsable', () => {
       {
         const call = eventEmitter.fabricateEvent.mock.calls[1];
         expect(call[0]).toEqual({
-          type: 'updatespellusable',
+          type: EventType.UpdateSpellUsable,
           ability: {
             abilityIcon: SPELLS.FAKE_SPELL.icon,
             guid: SPELLS.FAKE_SPELL.id,
@@ -284,7 +285,7 @@ describe('core/Modules/SpellUsable', () => {
           start: 0,
           expectedDuration: 7500,
           totalReductionTime: 0,
-          trigger: 'begincooldown',
+          trigger: EventType.BeginCooldown,
           isOnCooldown: true,
           isAvailable: false,
           chargesAvailable: 0,
@@ -294,7 +295,7 @@ describe('core/Modules/SpellUsable', () => {
               guid: SPELLS.FAKE_SPELL.id,
             },
             timestamp: 0,
-            type: 'cast',
+            type: EventType.Cast,
           },
           maxCharges: 1,
           timePassed: 0,
@@ -312,7 +313,7 @@ describe('core/Modules/SpellUsable', () => {
       expect(eventEmitter.fabricateEvent).toHaveBeenCalledTimes(1);
       const call = eventEmitter.fabricateEvent.mock.calls[0];
       expect(call[0]).toEqual({
-        type: 'updatespellusable',
+        type: EventType.UpdateSpellUsable,
         ability: {
           abilityIcon: SPELLS.FAKE_SPELL.icon,
           guid: SPELLS.FAKE_SPELL.id,
@@ -322,7 +323,7 @@ describe('core/Modules/SpellUsable', () => {
         start: 0,
         expectedDuration: 7500,
         totalReductionTime: 0,
-        trigger: 'addcooldowncharge',
+        trigger: EventType.AddCooldownCharge,
         isOnCooldown: true,
         isAvailable: false,
         chargesAvailable: 0,
@@ -332,7 +333,7 @@ describe('core/Modules/SpellUsable', () => {
             guid: SPELLS.FAKE_SPELL.id,
           },
           timestamp: 0,
-          type: 'cast',
+          type: EventType.Cast,
         },
         maxCharges: 2,
         timePassed: 0,
@@ -350,7 +351,7 @@ describe('core/Modules/SpellUsable', () => {
       expect(eventEmitter.fabricateEvent).toHaveBeenCalledTimes(1);
       const call = eventEmitter.fabricateEvent.mock.calls[0];
       expect(call[0]).toEqual({
-        type: 'updatespellusable',
+        type: EventType.UpdateSpellUsable,
         ability: {
           abilityIcon: SPELLS.FAKE_SPELL.icon,
           guid: SPELLS.FAKE_SPELL.id,
@@ -361,7 +362,7 @@ describe('core/Modules/SpellUsable', () => {
         end: 7500,
         expectedDuration: 7500,
         totalReductionTime: 0,
-        trigger: 'endcooldown',
+        trigger: EventType.EndCooldown,
         isOnCooldown: false,
         isAvailable: true,
         chargesAvailable: 1,
@@ -371,7 +372,7 @@ describe('core/Modules/SpellUsable', () => {
             guid: SPELLS.FAKE_SPELL.id,
           },
           timestamp: 0,
-          type: 'cast',
+          type: EventType.Cast,
         },
         maxCharges: 1,
         sourceID: parser.playerId,
@@ -391,7 +392,7 @@ describe('core/Modules/SpellUsable', () => {
       {
         const call = eventEmitter.fabricateEvent.mock.calls[0];
         expect(call[0]).toEqual({
-          type: 'updatespellusable',
+          type: EventType.UpdateSpellUsable,
           ability: {
             abilityIcon: SPELLS.FAKE_SPELL.icon,
             guid: SPELLS.FAKE_SPELL.id,
@@ -401,7 +402,7 @@ describe('core/Modules/SpellUsable', () => {
           start: 0,
           expectedDuration: 7500,
           totalReductionTime: 0,
-          trigger: 'restorecharge',
+          trigger: EventType.RestoreCharge,
           isOnCooldown: true,
           isAvailable: true,
           chargesAvailable: 1,
@@ -411,7 +412,7 @@ describe('core/Modules/SpellUsable', () => {
               guid: SPELLS.FAKE_SPELL.id,
             },
             timestamp: 0,
-            type: 'cast',
+            type: EventType.Cast,
           },
           maxCharges: 2,
           timePassed: 7500,
@@ -422,7 +423,7 @@ describe('core/Modules/SpellUsable', () => {
       {
         const call = eventEmitter.fabricateEvent.mock.calls[1];
         expect(call[0]).toEqual({
-          type: 'updatespellusable',
+          type: EventType.UpdateSpellUsable,
           ability: {
             abilityIcon: SPELLS.FAKE_SPELL.icon,
             guid: SPELLS.FAKE_SPELL.id,
@@ -432,7 +433,7 @@ describe('core/Modules/SpellUsable', () => {
           start: 7500,
           expectedDuration: 7500,
           totalReductionTime: 0,
-          trigger: 'refreshcooldown',
+          trigger: EventType.RefreshCooldown,
           isOnCooldown: true,
           isAvailable: true,
           chargesAvailable: 1,
@@ -442,7 +443,7 @@ describe('core/Modules/SpellUsable', () => {
               guid: SPELLS.FAKE_SPELL.id,
             },
             timestamp: 0,
-            type: 'cast',
+            type: EventType.Cast,
           },
           maxCharges: 2,
           timePassed: 0,

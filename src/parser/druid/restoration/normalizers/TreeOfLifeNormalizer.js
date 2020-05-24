@@ -1,6 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 const MAX_DELAY = 200;
 
@@ -23,7 +24,7 @@ class TreeOfLifeNormalizer extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === 'cast' && event.ability.guid === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
+      if (event.type === EventType.Cast && event.ability.guid === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
         const castTimestamp = event.timestamp;
 
         // Look ahead through the events to see if there is an INCARNATION_TOL_ALLOWED application within a brief buffer period
@@ -33,7 +34,7 @@ class TreeOfLifeNormalizer extends EventsNormalizer {
             // No INCARNATION_TOL_ALLOWED application found within buffer, meaining this is a form reassumption: delete the event
             fixedEvents.pop();
             break;
-          } else if (nextEvent.type === 'applybuff' && nextEvent.ability.guid === SPELLS.INCARNATION_TOL_ALLOWED.id) {
+          } else if (nextEvent.type === EventType.ApplyBuff && nextEvent.ability.guid === SPELLS.INCARNATION_TOL_ALLOWED.id) {
             // INCARNATION_TOL_ALLOWED application found, this cast event stays
             break;
           }

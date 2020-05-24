@@ -7,6 +7,7 @@ import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
+import { EventType } from 'parser/core/Events';
 
 import './SpellTimeline.css';
 import DeathEvents from './DeathEvents';
@@ -94,11 +95,11 @@ class PetTimeline extends React.PureComponent {
           .forEach(historyArray => {
             // filter casts and only those, that fall into any Nether Portal window
             const casts = historyArray
-              .filter(event => event.type === 'cast'
+              .filter(event => event.type === EventType.Cast
                 && netherPortalWindows.some(window => window.timestamp <= event.timestamp
                                                   && event.timestamp <= window.endTimestamp))
               .map(event => ({
-                type: 'cast',
+                type: EventType.Cast,
                 timestamp: event.timestamp,
                 abilityId: event.ability.guid,
                 abilityName: event.ability.name,
@@ -115,7 +116,7 @@ class PetTimeline extends React.PureComponent {
     // iterate through each cast, look if there are another casts very nearby, if so, save their names
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
-      if (event.type !== 'cast') {
+      if (event.type !== EventType.Cast) {
         continue;
       }
       // check N surrounding casts on both sides, if they are within BUFFER, save their names
@@ -124,7 +125,7 @@ class PetTimeline extends React.PureComponent {
       const leftLimit = event.timestamp - NEARBY_CASTS_BUFFER;
       const rightLimit = event.timestamp + NEARBY_CASTS_BUFFER;
       for (let j = minI; j <= maxI; j += 1) {
-        if (j === i || events[j].type !== 'cast') {
+        if (j === i || events[j].type !== EventType.Cast) {
           continue;
         }
         if (leftLimit <= events[j].timestamp && events[j].timestamp <= rightLimit) {
@@ -138,7 +139,7 @@ class PetTimeline extends React.PureComponent {
 
   decorateImplosionCasts(events) {
     const { petTimeline } = this.props;
-    events.filter(event => event.type === 'cast' && event.abilityId === SPELLS.IMPLOSION_CAST.id)
+    events.filter(event => event.type === EventType.Cast && event.abilityId === SPELLS.IMPLOSION_CAST.id)
       .forEach(cast => {
         const impCount = petTimeline.getPetsAtTimestamp(cast.timestamp).filter(pet => isWildImp(pet.guid)).length;
         cast.extraInfo = `Imploded ${impCount} Wild Imp${impCount > 1 ? 's' : ''}`;
@@ -152,9 +153,9 @@ class PetTimeline extends React.PureComponent {
       return [];
     }
     return historyBySpellId[id]
-      .filter(event => event.type === 'cast')
+      .filter(event => event.type === EventType.Cast)
       .map(event => ({
-        type: 'cast',
+        type: EventType.Cast,
         important: true,
         timestamp: event.timestamp,
         abilityId: event.ability.guid,

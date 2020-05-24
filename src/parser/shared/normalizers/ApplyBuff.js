@@ -57,7 +57,7 @@ class ApplyBuff extends EventsNormalizer {
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
           timestamp: (event.type === EventType.FilterBuffInfo) ? firstStartTimestamp - this.owner.fight.offset_time : firstStartTimestamp,
-          type: 'applybuff',
+          type: EventType.ApplyBuff,
           ability: event.ability,
           sourceID: sourceId,
           sourceIsFriendly: event.sourceIsFriendly,
@@ -102,7 +102,7 @@ class ApplyBuff extends EventsNormalizer {
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
           timestamp: firstStartTimestamp,
-          type: 'applybuff',
+          type: EventType.ApplyBuff,
           ability: {
             guid: spellId,
             name: SPELLS[spellId] ? SPELLS[spellId].name : 'Unknown',

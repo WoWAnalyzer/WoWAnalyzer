@@ -12,6 +12,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import makeWclUrl from 'common/makeWclUrl';
 import SpellLink from 'common/SpellLink';
+import { EventType } from 'parser/core/Events';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
 const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = n => Math.max(3, (2.25 + 7.75 / n)) / 100;
@@ -130,7 +131,7 @@ class DevotionAuraDamageReduction extends Analyzer {
     const playerName = this.owner.player.name;
     // Include any damage while selected player has AM, and is above the health requirement,
     // and the mitigation percentage is greater than 19% (we use this to reduce the false positives. We use DR-1% to account for rounding)
-    return `(IN RANGE FROM target.name='${playerName}' AND type='applybuff' AND ability.id=${SPELLS.AURA_MASTERY.id} TO target.name='${playerName}' AND type='removebuff' AND ability.id=${SPELLS.AURA_MASTERY.id} END)
+    return `(IN RANGE FROM target.name='${playerName}' AND type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.AURA_MASTERY.id} TO target.name='${playerName}' AND type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.AURA_MASTERY.id} END)
       AND (mitigatedDamage/rawDamage*100)>${DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION * 100 - 1}`;
   }
 
