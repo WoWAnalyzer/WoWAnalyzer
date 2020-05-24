@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 3, 29), <>Added support for <SpellLink id={SPELLS.LUCID_DREAMS.id} /> minor. Note that the major is still unsupported.</>, emallson),
   change(date(2019, 5, 17), <>Fixed an issue with <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> having its cooldown reset too often when using <SpellLink id={SPELLS.CRUSADERS_JUDGMENT_TALENT.id} />. Special thanks to Woliance for helping me work it out.</>, [emallson]),
   {
     date: new Date('16 February 2019'),

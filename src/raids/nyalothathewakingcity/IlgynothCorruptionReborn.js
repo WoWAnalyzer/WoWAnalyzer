@@ -1,5 +1,6 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/IlgynothCorruptionReborn.jpg';
 import Headshot from './images/headshots/IlgynothCorruptionReborn.png';
@@ -22,7 +23,7 @@ export default {
         multiple: true,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: SPELLS.ILGYNOTHS_MORASS.id,
           },
@@ -33,7 +34,7 @@ export default {
         multiple: true,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'adds',
+          type: EventType.Adds,
           guid: 158328,
           health: 0.1,
         },

@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import safeMerge from 'common/safeMerge';
 import SPELLS from 'common/SPELLS';
@@ -9,7 +9,6 @@ import { formatNumber } from 'common/format';
 import Panel from 'interface/statistics/Panel';
 import SpellLink from 'common/SpellLink';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
-import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 
@@ -75,10 +74,6 @@ export function makeIcon(stat) {
   );
 }
 
-function calculateLeatherArmorScaling(ilvl, amount, targetIlvl) {
-  return amount * Math.pow(1.0327, (targetIlvl - ilvl) / 5);
-}
-
 export default class MitigationSheet extends Analyzer {
   static dependencies = {
     masteryValue: MasteryValue,
@@ -105,11 +100,6 @@ export default class MitigationSheet extends Analyzer {
     return this.gotox.wdpsBonusHealing;
   }
 
-  get avgIlvl() {
-    const gear = this.selectedCombatant._combatantInfo.gear.filter(({id, itemLevel}) => id !== 0 && itemLevel > 1);
-    return gear.reduce((sum, {itemLevel}) => sum + itemLevel, 0) / gear.length;
-  }
-
   get K() {
     return lookupK(this.owner.fight);
   }
@@ -120,7 +110,7 @@ export default class MitigationSheet extends Analyzer {
     this._lastStatUpdate = this.owner.fight.start_time;
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamageTaken);
-    this.addEventListener('changestats', this._updateStats);
+    this.addEventListener(EventType.ChangeStats, this._updateStats);
     this.addEventListener(Events.fightend, this._finalizeStats);
   }
 
@@ -181,10 +171,6 @@ export default class MitigationSheet extends Analyzer {
     return this.armorDamageMitigated / this._avgStats.armor;
   }
 
-  increment(fn, amount) {
-    return amount - fn(Math.floor(this.avgIlvl), amount, Math.floor(this.avgIlvl)-5);
-  }
-
   /**
    * Results that haven't yet been moved to other modules.
    *
@@ -210,7 +196,6 @@ export default class MitigationSheet extends Analyzer {
         gain: [
           { name: 'Physical Damage Mitigated', amount: this.armorDamageMitigated },
         ],
-        increment: this.increment(calculateLeatherArmorScaling, this.stats.startingArmorRating),
       },
       wdps: {
         priority: 1,
@@ -230,7 +215,6 @@ export default class MitigationSheet extends Analyzer {
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.wdpsHealing },
         ],
-        increment: calculatePrimaryStat(this.selectedCombatant.mainHand.itemLevel, this.gotox._wdps, this.selectedCombatant.mainHand.itemLevel+5) - this.gotox._wdps,
       },
       [STAT.MASTERY]: {
         priority: 3,
@@ -249,7 +233,6 @@ export default class MitigationSheet extends Analyzer {
             isLoaded: this.masteryValue._loaded,
           },
         ],
-        increment: this.increment(calculateSecondaryStatDefault, this.stats.startingMasteryRating),
       },
     };
   }
@@ -281,7 +264,7 @@ export default class MitigationSheet extends Analyzer {
     return Object.entries(this.results)
       .sort(([_keyA, resultA], [_keyB, resultB]) => resultA.priority - resultB.priority)
       .map(([stat, result]) => {
-        const { increment, icon, className, name, statName, statAmount, gain, tooltip } = result;
+        const { icon, className, name, statName, statAmount, gain, tooltip } = result;
 
         // some stats are fixed (WDPS). others are calculated via
         // averaging
@@ -309,13 +292,6 @@ export default class MitigationSheet extends Analyzer {
             perPointEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
           }
 
-          let valueEl;
-          if(isLoaded !== false) {
-            valueEl = formatWeight(gain, avg, this.normalizer, increment);
-          } else {
-            valueEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
-          }
-
           return (
             <tr key={`${stat}-${i}`}>
               <td style={{paddingLeft: '5em'}}>
@@ -326,10 +302,6 @@ export default class MitigationSheet extends Analyzer {
               </td>
               <td className="text-right">
                 {perPointEl}
-              </td>
-              <td />
-              <td className="text-right">
-                {valueEl}
               </td>
             </tr>
           );
@@ -348,12 +320,6 @@ export default class MitigationSheet extends Analyzer {
             <td className="text-right">
               <b>{formatWeight(totalGain, avg, this.normalizer, 1)}</b>
             </td>
-            <td className="text-right">
-              <b>&times; {increment.toFixed(2)}</b>
-            </td>
-            <td className="text-right">
-              <b>= {formatWeight(totalGain, avg, this.normalizer, increment)}</b>
-            </td>
           </tr>
           {rows}
       </>
@@ -366,7 +332,7 @@ export default class MitigationSheet extends Analyzer {
       <>
       <thead>
         <tr>
-          <th width="45%">
+          <th width="75%">
             <b>Stat</b>
           </th>
           <th className="text-right">
@@ -374,12 +340,6 @@ export default class MitigationSheet extends Analyzer {
           </th>
           <th className="text-right">
             <Tooltip content={<>The <em>average</em> stat value throughout a fight, including buffs and debuffs, is used here. The value is normalized so that Armor is always 1, and other stats are relative to this.</>}><b>Per Rating (Normalized)</b></Tooltip>
-          </th>
-          <th className="text-right">
-            <Tooltip content="Amount of rating gained from the last 5 average ilvls of your gear. For secondary stats, this assumes the relative amounts of each stat don't change (as if you upgraded each piece by 5 ilvls without actually changing any of them)."><b>Rating &mdash; Last 5 ilvls</b></Tooltip>
-          </th>
-          <th className="text-right">
-            <b>Value &mdash; Last 5 ilvls</b>
           </th>
         </tr>
       </thead>

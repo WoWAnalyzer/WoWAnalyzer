@@ -5,6 +5,7 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import EventFilter from 'parser/core/EventFilter';
+import { EventType } from 'parser/core/Events';
 
 const debug = false;
 
@@ -27,7 +28,7 @@ class Haste extends Analyzer {
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
     [SPELLS.HAVOC_T21_4PC_BUFF.id]: 0.25,
-    [SPELLS.DIRE_BEAST_BUFF.id]: 0.1,
+    [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
     [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
@@ -44,7 +45,7 @@ class Haste extends Analyzer {
   };
 
   get changehaste() {
-    return new EventFilter('changehaste');
+    return new EventFilter(EventType.ChangeHaste);
   }
 
   current = null;
@@ -198,13 +199,13 @@ class Haste extends Analyzer {
   }
   _triggerChangeHaste(event, oldHaste, newHaste) {
     const fabricatedEvent = {
-      type: 'changehaste',
+      type: EventType.ChangeHaste,
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
       oldHaste,
       newHaste,
     };
-    debug && console.log('changehaste', fabricatedEvent);
+    debug && console.log(EventType.ChangeHaste, fabricatedEvent);
     this.eventEmitter.fabricateEvent(fabricatedEvent, event);
   }
 

@@ -72,9 +72,9 @@ class Photosynthesis extends Analyzer {
     if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id){
       if(this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > BLOOM_BUFFER_MS) {
         this.lifebloomIncrease += event.amount;
-        this.randomProccs++;
+        this.randomProccs += 1;
       } else {
-        this.naturalProccs++;
+        this.naturalProccs += 1;
       }
     }
 

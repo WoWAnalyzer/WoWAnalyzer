@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
 import Tooltip from 'common/Tooltip';
+import { EventType } from 'parser/core/Events';
 
 const KeyCastsRow = props => {
   const { className, events, start, totalWidth, secondWidth } = props;
   return (
     <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
       {events.map((event, index) => {
-        if (event.type === 'cast') {
+        if (event.type === EventType.Cast) {
           const left = (event.timestamp - start) / 1000 * secondWidth;
           const tooltipInfo = [];
           if (event.extraInfo) {

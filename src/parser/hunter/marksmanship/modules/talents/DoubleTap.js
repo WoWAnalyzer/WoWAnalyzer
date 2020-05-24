@@ -30,7 +30,7 @@ class DoubleTap extends Analyzer {
     if (spellId !== SPELLS.DOUBLE_TAP_TALENT.id) {
       return;
     }
-    this.activations++;
+    this.activations += 1;
   }
 
   on_byPlayer_cast(event) {
@@ -39,10 +39,10 @@ class DoubleTap extends Analyzer {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
-      this.aimedUsage++;
+      this.aimedUsage += 1;
     }
     if (spellId === SPELLS.RAPID_FIRE.id) {
-      this.RFUsage++;
+      this.RFUsage += 1;
     }
   }
 

@@ -60,7 +60,7 @@ class Tradewinds extends Analyzer {
 
   handleBuff(event) {
     if (event.ability.guid === SPELLS.TRADEWINDS_BUFF.id) {
-      this.procs++;
+      this.procs += 1;
     }
   }
 

@@ -1,6 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 const MAX_DELAY = 50;
 
@@ -19,7 +20,7 @@ class HotApplicationNormalizer extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === 'applybuff' && this.instantTickHotIds.includes(event.ability.guid)) {
+      if (event.type === EventType.ApplyBuff && this.instantTickHotIds.includes(event.ability.guid)) {
         const spellId = event.ability.guid;
         const castTimestamp = event.timestamp;
         if (!event.targetID) {
@@ -32,7 +33,7 @@ class HotApplicationNormalizer extends EventsNormalizer {
           if ((castTimestamp - previousEvent.timestamp) > MAX_DELAY) {
             break;
           }
-          if (previousEvent.type === 'heal' && previousEvent.ability.guid === spellId && previousEvent.targetID === event.targetID) {
+          if (previousEvent.type === EventType.Heal && previousEvent.ability.guid === spellId && previousEvent.targetID === event.targetID) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;

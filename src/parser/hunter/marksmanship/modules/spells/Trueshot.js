@@ -17,7 +17,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
  * Reduces the cooldown of your Aimed Shot and Rapid Fire by 60%, and causes Aimed Shot to cast 50% faster for 15 sec.
  * Lasts 15 sec.
  *
- * TODO: Verify if this is still bugged so that it reduces the cooldown of Aimed Shot by equivalent to 325% haste and Rapid Fire by the equivalent to 340% haste.
+ * TODO: Verify going into Shadowlands if this is still bugged so that it reduces the cooldown of Aimed Shot by equivalent to 325% haste and Rapid Fire by the equivalent to 340% haste.
  *
  * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
  */
@@ -42,7 +42,7 @@ class Trueshot extends Analyzer {
       this.accumulatedFocusAtTSCast += event.classResources[0].amount || 0;
     }
     if (spellId === SPELLS.AIMED_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
-      this.aimedShotsPrTS++;
+      this.aimedShotsPrTS += 1;
     }
   }
 

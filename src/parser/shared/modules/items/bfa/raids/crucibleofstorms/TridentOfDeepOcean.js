@@ -49,7 +49,7 @@ class TridentOfDeepOcean extends Analyzer {
   }
 
   _applyShield(event){
-    this.shieldCount++;
+    this.shieldCount += 1;
   }
 
   _absorbDamage(event){

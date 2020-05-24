@@ -13,6 +13,7 @@ import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
+import { EventType } from 'parser/core/Events';
 
 import 'react-virtualized/styles.css';
 import './EventsTab.css';
@@ -329,7 +330,7 @@ class EventsTab extends React.Component {
                     label="Effective"
                     className="effect"
                     cellRenderer={({ rowData }) => {
-                      if (rowData.type === 'damage') {
+                      if (rowData.type === EventType.Damage) {
                         return (
                           <>
                             <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
@@ -344,7 +345,7 @@ class EventsTab extends React.Component {
                           </>
                         );
                       }
-                      if (rowData.type === 'heal') {
+                      if (rowData.type === EventType.Heal) {
                         return (
                           <>
                             <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
@@ -359,7 +360,7 @@ class EventsTab extends React.Component {
                           </>
                         );
                       }
-                      if (rowData.type === 'absorbed') {
+                      if (rowData.type === EventType.Absorbed) {
                         return (
                           <>
                             <span className={rowData.type}>
@@ -373,7 +374,7 @@ class EventsTab extends React.Component {
                           </>
                         );
                       }
-                      if (rowData.type === 'applybuff' && rowData.absorb !== undefined) {
+                      if (rowData.type === EventType.ApplyBuff && rowData.absorb !== undefined) {
                         return (
                           <>
                             Applied an absorb of{' '}
@@ -388,7 +389,7 @@ class EventsTab extends React.Component {
                           </>
                         );
                       }
-                      if (rowData.type === 'energize') {
+                      if (rowData.type === EventType.Energize) {
                         const resource = RESOURCE_TYPES[rowData.resourceChangeType];
                         if (resource) {
                           return (
@@ -412,14 +413,14 @@ class EventsTab extends React.Component {
                     label="Rest"
                     className="effect"
                     cellRenderer={({ rowData }) => {
-                      if (rowData.type === 'damage') {
+                      if (rowData.type === EventType.Damage) {
                         return (
                           <span className={rowData.type}>
                             {rowData.blocked ? <span className="overheal">B: {formatThousands(rowData.blocked)}</span> : null}
                           </span>
                         );
                       }
-                      if (rowData.type === 'heal') {
+                      if (rowData.type === EventType.Heal) {
                         return (
                           <span className={rowData.type}>
                             {rowData.overheal ? <span className="overheal">O: {formatThousands(rowData.overheal)}</span> : null}

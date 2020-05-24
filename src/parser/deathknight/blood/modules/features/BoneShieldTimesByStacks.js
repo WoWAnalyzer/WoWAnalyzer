@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 
 const MAX_BONE_SHIELD_STACKS = 10;
 
@@ -17,10 +18,10 @@ class BoneShieldStacksBySeconds extends Analyzer {
   }
 
   handleStacks(event, stack = null) {
-    if (event.type === 'removebuff' || isNaN(event.stack)) { //NaN check if player is dead during on_finish
+    if (event.type === EventType.RemoveBuff || isNaN(event.stack)) { //NaN check if player is dead during on_finish
       event.stack = 0;
     }
-    if (event.type === 'applybuff') {
+    if (event.type === EventType.ApplyBuff) {
       event.stack = 1;
     }
 

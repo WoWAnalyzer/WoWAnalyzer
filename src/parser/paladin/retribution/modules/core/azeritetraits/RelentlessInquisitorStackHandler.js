@@ -1,5 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 /*  this.selectedCombatant.getStackWeightedBuffUptime() gives a lower than expected average of stacks if the buff persists through combat end
  *  Inspired by UnlimitedPower module in Elemental Shaman
@@ -20,10 +21,10 @@ class RelentlessInquisitorStackHandler extends Analyzer {
   }
 
   handleStacks(event, stack = null) {
-    if (event.type === 'removebuff' || isNaN(event.stack)) { //NaN check if player is dead during on_finish
+    if (event.type === EventType.RemoveBuff || isNaN(event.stack)) { //NaN check if player is dead during on_finish
       event.stack = 0;
     }
-    if (event.type === 'applybuff') {
+    if (event.type === EventType.ApplyBuff) {
       event.stack = 1;
     }
 

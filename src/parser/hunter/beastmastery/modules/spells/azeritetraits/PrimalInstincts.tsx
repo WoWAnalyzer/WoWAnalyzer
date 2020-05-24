@@ -75,9 +75,9 @@ class PrimalInstincts extends Analyzer {
 
     const hasTwoBarbedCharges = this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id) === 2;
     if (hasTwoBarbedCharges) {
-      this.wastedBarbedShots++;
+      this.wastedBarbedShots += 1;
     } else {
-      this.chargesGained++;
+      this.chargesGained += 1;
     }
   }
 

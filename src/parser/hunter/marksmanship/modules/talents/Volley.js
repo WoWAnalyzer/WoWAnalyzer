@@ -40,7 +40,7 @@ class Volley extends Analyzer {
     if (spellId === SPELLS.VOLLEY_DAMAGE.id) {
       this.damage += event.amount + (event.absorbed || 0);
       if (event.timestamp > (this.lastVolleyHit + BUFFER_MS)) {
-        this.procs++;
+        this.procs += 1;
         this.lastVolleyHit = event.timestamp;
       }
     }
@@ -75,7 +75,7 @@ class Volley extends Analyzer {
       term = 0.3989422804 * Math.pow(-1, k) * Math.pow(z, k) / (2 * k + 1) /
         Math.pow(2, k) * Math.pow(z, k + 1) / factK;
       sum += term;
-      k++;
+      k += 1;
       factK *= k;
     }
     sum += 0.5;

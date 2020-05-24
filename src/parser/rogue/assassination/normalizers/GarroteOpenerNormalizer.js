@@ -1,12 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventType } from 'parser/core/Events';
 
 const CAST_WINDOW = 100;
 
 /**
  * During the opener garrote casts seems to sometimes appear after the damage and energize event, as well as stealth being removed.
  * Moving the cast even to just before the damage event should ensure that we are able to correctly track if the cast happened during stealth.
- * 
+ *
  * @param {Array} events
  * @returns {Array} Events possibly with some reordered.
  */
@@ -17,7 +18,7 @@ class GarroteNormalizer extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === 'cast' && event.ability.guid === SPELLS.GARROTE.id) {
+      if (event.type === EventType.Cast && event.ability.guid === SPELLS.GARROTE.id) {
         const castTimestamp = event.timestamp;
 
         for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
@@ -25,7 +26,7 @@ class GarroteNormalizer extends EventsNormalizer {
           if ((castTimestamp - previousEvent.timestamp) > CAST_WINDOW) {
             break;
           }
-          if (previousEvent.type === 'energize' && previousEvent.ability.guid === SPELLS.GARROTE.id) {
+          if (previousEvent.type === EventType.Energize && previousEvent.ability.guid === SPELLS.GARROTE.id) {
             event.timestamp = previousEvent.timestamp;
             fixedEvents.splice(eventIndex, 1);
             fixedEvents.splice(previousEventIndex, 0, event);
@@ -35,7 +36,7 @@ class GarroteNormalizer extends EventsNormalizer {
         }
       }
     });
-    
+
     return fixedEvents;
   }
 }

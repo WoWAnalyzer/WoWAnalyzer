@@ -8,7 +8,7 @@ import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
 import { formatNth, formatDuration } from 'common/format';
 
-import Events from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -53,9 +53,9 @@ class ChainHeal extends Analyzer {
     if (this.buffer.length === 0) {
       return;
     }
-    this.castIndex++;
+    this.castIndex += 1;
     this.chainHealHistory[this.castIndex] = {};
-    const currentCast = this.buffer.find(event => event.type === "cast");
+    const currentCast = this.buffer.find(event => event.type === EventType.Cast);
     if (!currentCast) {
       return;
     }
@@ -72,7 +72,7 @@ class ChainHeal extends Analyzer {
 
     this.chainHealHistory[this.castIndex].timestamp = currentCast.timestamp;
     this.chainHealHistory[this.castIndex].castNo = this.castIndex;
-    this.chainHealHistory[this.castIndex].hits = this.buffer.filter(event => event.type === "heal").length;
+    this.chainHealHistory[this.castIndex].hits = this.buffer.filter(event => event.type === EventType.Heal).length;
     this.buffer = [];
   }
 

@@ -4,7 +4,6 @@ import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { calculateSecondaryStatDefault } from 'common/stats';
 
 import MitigationSheet, { makeIcon } from './MitigationSheet';
 
@@ -40,6 +39,9 @@ export default class VersatilityValue extends Analyzer {
     if(event.hitType === HIT_TYPES.DODGE) {
       return; // no damage taken, can't do anything
     }
+    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
+      return; // vers doesn't reduce stagger damage taken
+    }
     if(event.unmitigatedAmount === undefined) {
       this.log('Missing unmitigated amount', event);
       return;
@@ -65,7 +67,6 @@ export default class VersatilityValue extends Analyzer {
           { name: 'Additional Healing', amount: vers.healing },
         ];
       },
-      increment: this.sheet.increment(calculateSecondaryStatDefault, this.stats.startingVersatilityRating),
     };
   }
 }

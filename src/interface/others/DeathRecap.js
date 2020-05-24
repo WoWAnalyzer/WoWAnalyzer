@@ -9,6 +9,7 @@ import Icon from 'common/Icon';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
+import { EventType } from 'parser/core/Events';
 
 const SHOW_SECONDS_BEFORE_DEATH = 10;
 const AMOUNT_THRESHOLD = 0;
@@ -130,7 +131,7 @@ class DeathRecap extends React.PureComponent {
               <tbody>
                 {death.events
                   .filter(e => e.timestamp <= death.deathtime && e.timestamp >= death.deathtime - (SHOW_SECONDS_BEFORE_DEATH * 1000))
-                  .filter(e => ((e.amount + (e.absorbed || 0)) / e.maxHitPoints > this.state.amountThreshold) || e.type === 'instakill')
+                  .filter(e => ((e.amount + (e.absorbed || 0)) / e.maxHitPoints > this.state.amountThreshold) || e.type === EventType.Instakill)
                   .map((event, eventIndex) => {
                     if (event.hitPoints && event.maxHitPoints) {
                       lastHitPoints = event.hitPoints;
@@ -142,17 +143,17 @@ class DeathRecap extends React.PureComponent {
                     let output = null;
                     //name = either NPC-Name > sourceID-Name > Ability-Name as fallback
                     let sourceName = event.source && event.source.type === 'NPC' ? event.source.name : null;
-                    if (!sourceName && event.type === 'heal') {
+                    if (!sourceName && event.type === EventType.Heal) {
                       sourceName = this.props.combatants[event.sourceID] ? this.props.combatants[event.sourceID]._combatantInfo.name : null;
                     }
-                    if (!sourceName && event.type === 'damage') {
+                    if (!sourceName && event.type === EventType.Damage) {
                       sourceName = this.props.enemies[event.sourceID] ? this.props.enemies[event.sourceID]._baseInfo.name : null;
                     }
-                    if (!sourceName && event.type !== 'instakill') {
+                    if (!sourceName && event.type !== EventType.Instakill) {
                       sourceName = event.ability.name;
                     }
 
-                    if (event.type === 'heal') {
+                    if (event.type === EventType.Heal) {
                       percent = (lastHitPoints - event.amount) / lastMaxHitPoints;
                       output = (
                         <TooltipElement
@@ -171,7 +172,7 @@ class DeathRecap extends React.PureComponent {
                           +{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''} {event.overheal > 0 ? `(O: ${formatNumber(event.overheal)} )` : ''}
                         </TooltipElement>
                       );
-                    } else if (event.type === 'damage') {
+                    } else if (event.type === EventType.Damage) {
                       percent = lastHitPoints / lastMaxHitPoints;
                       output = (
                         <TooltipElement
@@ -189,7 +190,7 @@ class DeathRecap extends React.PureComponent {
                           -{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''}
                         </TooltipElement>
                       );
-                    } else if (event.type === 'instakill') {
+                    } else if (event.type === EventType.Instakill) {
                       percent = 0;
                       output = '1-Shot';
                     }
@@ -216,9 +217,9 @@ class DeathRecap extends React.PureComponent {
                             <div
                               className="flex-sub performance-bar"
                               style={{
-                                backgroundColor: event.type === 'heal' ? 'green' : 'red',
+                                backgroundColor: event.type === EventType.Heal ? 'green' : 'red',
                                 width: formatPercentage(hitPercent) + '%',
-                                opacity: event.type === 'heal' ? .8 : .4,
+                                opacity: event.type === EventType.Heal ? .8 : .4,
                               }}
                             />
                           </div>
