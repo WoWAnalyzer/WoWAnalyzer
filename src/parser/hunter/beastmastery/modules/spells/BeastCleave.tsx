@@ -7,7 +7,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyBuffEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from '../../../../core/Events';
+import { ApplyBuffEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 const MS_BUFFER = 100;
 

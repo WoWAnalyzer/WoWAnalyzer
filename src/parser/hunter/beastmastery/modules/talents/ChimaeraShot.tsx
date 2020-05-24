@@ -6,7 +6,7 @@ import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent, DamageEvent } from '../../../../core/Events';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  * A two-headed shot that hits your primary target and another nearby target,

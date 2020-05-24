@@ -6,7 +6,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CriticalStrike from 'interface/icons/CriticalStrike';
-import { ApplyBuffEvent, ApplyBuffStackEvent, FightEndEvent, RemoveBuffEvent } from '../../../../core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 /**
  * Barbed Shot increases your critical strike chance by 3% for 8 sec, stacking

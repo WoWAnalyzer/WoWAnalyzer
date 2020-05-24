@@ -11,7 +11,7 @@ import ResourceIcon from 'common/ResourceIcon';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { CastEvent } from '../../../../core/Events';
+import { CastEvent } from 'parser/core/Events';
 
 const COOLDOWN_REDUCTION_MS = 12000;
 const BESTIAL_WRATH_BASE_CD = 90000;

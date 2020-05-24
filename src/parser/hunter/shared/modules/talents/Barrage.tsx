@@ -11,7 +11,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent, DamageEvent } from '../../../../core/Events';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  * Rapidly fires a spray of shots for 3 sec, dealing an average of (80% * 10)

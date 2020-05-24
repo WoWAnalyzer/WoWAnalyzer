@@ -149,6 +149,8 @@ export interface CastEvent extends Event {
   meta?: {
     isInefficientCast?: boolean;
     inefficientCastReason?: React.ReactNode;
+    isEnhancedCast?: boolean;
+    enhancedCastReason?: React.ReactNode;
   };
 }
 export interface FilterCooldownInfoEvent extends CastEvent{
@@ -374,6 +376,7 @@ export interface RefreshDebuffEvent extends BuffEvent {
   sourceID?: number;
   sourceIsFriendly: boolean;
   targetID: number;
+  targetInstance: number;
   targetIsFriendly: boolean;
   ability: Ability;
 }

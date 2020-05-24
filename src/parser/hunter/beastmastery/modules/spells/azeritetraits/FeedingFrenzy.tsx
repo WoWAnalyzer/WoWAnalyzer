@@ -9,8 +9,8 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import { calculateAzeriteEffects } from 'common/stats';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { ApplyBuffEvent, CastEvent, DamageEvent, RemoveBuffEvent } from '../../../../../core/Events';
-import Statistic from '../../../../../../interface/statistics/Statistic';
+import { ApplyBuffEvent, CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
 
 const MS = 1000;
 const MS_BUFFER = 100;

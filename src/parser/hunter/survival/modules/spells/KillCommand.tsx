@@ -8,6 +8,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import { ApplyBuffEvent } from 'parser/core/Events';
 
 /**
  * Give the command to kill, causing your pet to savagely deal [Attack power * 0.6 * (1 + Versatility)] Physical damage to the enemy.
@@ -26,19 +27,12 @@ class KillCommand extends Analyzer {
     abilities: Abilities,
     globalCooldown: GlobalCooldown,
   };
-
   resets = 0;
   resetWhileNotOnCD = 0;
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.KILL_COMMAND_CAST_SV.id) {
-      return;
-    }
-    this.casts += 1;
-  }
-
-  on_byPlayer_applybuff(event) {
+  protected spellUsable!: SpellUsable;
+  protected abilities!: Abilities;
+  protected globalCooldown!: GlobalCooldown;
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FLANKERS_ADVANTAGE.id) {
       return;
@@ -49,7 +43,9 @@ class KillCommand extends Analyzer {
     this.resets += 1;
     const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(
       spellId);
-    this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_SV.id, this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_CAST_SV.id, this.spellUsable.cooldownTriggerEvent(SPELLS.KILL_COMMAND_CAST_SV.id)) - globalCooldown);
+    const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_CAST_SV.id, this.spellUsable.cooldownTriggerEvent(SPELLS.KILL_COMMAND_CAST_SV.id));
+
+    this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_SV.id, (expectedCooldownDuration && expectedCooldownDuration - globalCooldown) || 0);
   }
 
   statistic() {

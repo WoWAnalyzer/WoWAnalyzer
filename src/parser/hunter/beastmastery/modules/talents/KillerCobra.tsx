@@ -8,7 +8,7 @@ import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldo
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent } from '../../../../core/Events';
+import { CastEvent } from 'parser/core/Events';
 
 /**
  * While Bestial Wrath is active, Cobra Shot resets the cooldown on Kill

@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import AgilityIcon from 'interface/icons/Agility';
 import UptimeIcon from 'interface/icons/Uptime';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from '../../../../../../interface/statistics/Statistic';
+import Statistic from 'interface/statistics/Statistic';
 import Combatant from '../../../../../core/Combatant';
 
 const hazeOfRageStats = (traits: number[]) => Object.values(traits).reduce((

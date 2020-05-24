@@ -5,7 +5,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent, EnergizeEvent } from '../../../../core/Events';
+import { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 
 /**
  *

@@ -5,15 +5,16 @@ import { calculateAzeriteEffects } from 'common/stats';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import Statistic from 'interface/statistics/Statistic';
 import CriticalStrike from 'interface/icons/CriticalStrike';
+import { ApplyBuffEvent, ApplyBuffStackEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 /**
  * Your maximum Focus is increased to 120, and Raptor Strike (or Mongoose bite) increases your Critical Strike by 52 for 12 sec, stacking up to 5 times.
  */
 const MAX_INTUITION_STACKS = 5;
 
-const primevalIntuitionStats = traits => Object.values(traits).reduce((obj, rank) => {
+const primevalIntuitionStats = (traits: number[]) => Object.values(traits).reduce((obj: { crit: number }, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.PRIMEVAL_INTUITION.id, rank);
   obj.crit += crit;
   return obj;
@@ -26,13 +27,16 @@ class PrimevalIntuition extends Analyzer {
     statTracker: StatTracker,
   };
 
-  crit = 0;
-  intuitionStacks = [];
-  lastIntuitionStack = 0;
-  lastIntuitionUpdate = this.owner.fight.start_time;
+  crit: number = 0;
+  intuitionStacks: Array<Array<number>> = [];
+  lastIntuitionStack: number = 0;
+  lastIntuitionUpdate: number = this.owner.fight.start_time;
+  currentStacks: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  protected statTracker!: StatTracker;
+
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.PRIMEVAL_INTUITION.id);
     if (!this.active) {
       return;
@@ -45,68 +49,60 @@ class PrimevalIntuition extends Analyzer {
       crit,
     });
   }
-
-  handleStacks(event, stack = null) {
-    if (event.type === 'removebuff' || isNaN(event.stack)) { //NaN check if player is dead during on_finish
-      event.stack = 0;
-    }
-    if (event.type === 'applybuff') {
-      event.stack = 1;
-    }
-    if (stack) {
-      event.stack = stack;
-    }
-    this.intuitionStacks[this.lastIntuitionStack].push(event.timestamp - this.lastIntuitionUpdate);
-    this.lastIntuitionUpdate = event.timestamp;
-    this.lastIntuitionStack = event.stack;
-  }
-
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_fightend(event) {
-    this.handleStacks(event, this.lastIntuitionStack);
-  }
-
   get intuitionTimesByStacks() {
     return this.intuitionStacks;
   }
-
   get uptime() {
     return (this.selectedCombatant.getBuffUptime(SPELLS.PRIMEVAL_INTUITION_BUFF.id) / 1000).toFixed(1);
   }
-
   get avgCrit() {
     const avgAgi = this.intuitionStacks.reduce((sum, innerArray, outerArrayIndex) => {
       return sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.crit) / this.owner.fightDuration), 0);
     }, 0);
     return avgAgi;
   }
+  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent, stack = 0) {
+    if (event.type === 'removebuff') {
+      this.currentStacks = 0;
+    } else if (event.type === 'applybuff') {
+      this.currentStacks = 1;
+    } else if (event.type === 'applybuffstack') {
+      this.currentStacks = event.stack;
+    } else if (event.type === 'fightend') {
+      this.currentStacks = stack;
+    }
 
+    this.intuitionStacks[this.lastIntuitionStack].push(event.timestamp - this.lastIntuitionUpdate);
+    this.lastIntuitionUpdate = event.timestamp;
+    this.lastIntuitionStack = this.currentStacks;
+  }
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+  on_fightend(event: FightEndEvent) {
+    this.handleStacks(event, this.lastIntuitionStack);
+  }
   statistic() {
     return (
-      <AzeritePowerStatistic
+      <Statistic
         size="flexible"
         tooltip={(
           <>
@@ -144,7 +140,7 @@ class PrimevalIntuition extends Analyzer {
             <CriticalStrike /> {formatNumber(this.avgCrit)} <small>average Critical Strike chance</small>
           </>
         </BoringSpellValueText>
-      </AzeritePowerStatistic>
+      </Statistic>
     );
   }
 }

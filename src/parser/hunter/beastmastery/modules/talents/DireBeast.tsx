@@ -8,7 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
-import { DamageEvent, SummonEvent } from '../../../../core/Events';
+import { DamageEvent, SummonEvent } from 'parser/core/Events';
 
 /**
  * Summons a powerful wild beast that attacks the target and roars, increasing

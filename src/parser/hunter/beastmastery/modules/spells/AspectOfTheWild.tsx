@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { CastEvent, DamageEvent } from '../../../../core/Events';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  * Grants you and your pet 5 Focus per sec and 10% increased critical strike

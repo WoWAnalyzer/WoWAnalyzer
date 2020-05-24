@@ -8,7 +8,7 @@ import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { ApplyBuffEvent, ApplyBuffStackEvent, FightEndEvent, RemoveBuffEvent } from '../../../../core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for [(10%
@@ -25,7 +25,7 @@ const MAX_FRENZY_STACKS: number = 3;
 class BarbedShot extends Analyzer {
   barbedShotStacks: Array<Array<number>> = [];
   lastBarbedShotStack: number = 0;
-  lastBarbedShotUpdate = this.owner.fight.start_time;
+  lastBarbedShotUpdate: number = this.owner.fight.start_time;
   currentStacks: number = 0;
 
   constructor(options: any) {
@@ -141,11 +141,11 @@ class BarbedShot extends Analyzer {
       });
     when(this.frenzy3StackThreshold)
       .addSuggestion((suggest: any, actual: any, recommended: any) => {
-      return suggest(<>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </>)
-        .icon(SPELLS.BARBED_SHOT.icon)
-        .actual(`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
-        .recommended(`${formatPercentage(recommended)}% is recommended`);
-    });
+        return suggest(<>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </>)
+          .icon(SPELLS.BARBED_SHOT.icon)
+          .actual(`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
+          .recommended(`${formatPercentage(recommended)}% is recommended`);
+      });
   }
 
   statistic() {

@@ -3,7 +3,8 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import Statistic from 'interface/statistics/Statistic';
+import { ApplyDebuffEvent, ApplyDebuffStackEvent, CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 
 /**
  * Serpent Sting damage applies Latent Poison, stacking up to 10 times. Your Mongoose Bite or Raptor Strike consumes all applications of Latent Poison to deal 451 Nature damage per stack.
@@ -23,12 +24,15 @@ class LatentPoison extends Analyzer {
   casts = 0;
   spellKnown = null;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.LATENT_POISON.id);
     this.spellKnown = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? SPELLS.MONGOOSE_BITE_TALENT.name : SPELLS.RAPTOR_STRIKE.name;
   }
-  on_byPlayer_applydebuff(event) {
+  get averageStacksPerRaptorOrMongoose() {
+    return (this.utilised / this.casts).toFixed(2);
+  }
+  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LATENT_POISON_DEBUFF.id) {
       return;
@@ -36,8 +40,7 @@ class LatentPoison extends Analyzer {
     this.applications += 1;
     this._stacks = 1;
   }
-
-  on_byPlayer_applydebuffstack(event) {
+  on_byPlayer_applydebuffstack(event: ApplyDebuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LATENT_POISON_DEBUFF.id) {
       return;
@@ -45,17 +48,14 @@ class LatentPoison extends Analyzer {
     this.applications += 1;
     this._stacks = event.stack;
   }
-
-  on_byPlayer_removedebuff(event) {
+  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LATENT_POISON_DEBUFF.id) {
       return;
     }
-    this.removeDebuffTimestamp = event.timestamp;
     this._stacks = 0;
   }
-
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
@@ -65,8 +65,7 @@ class LatentPoison extends Analyzer {
       this.wasted += 1;
     }
   }
-
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (!RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
       return;
@@ -74,14 +73,9 @@ class LatentPoison extends Analyzer {
     this.utilised += this._stacks;
     this.casts += 1;
   }
-
-  get averageStacksPerRaptorOrMongoose() {
-    return (this.utilised / this.casts).toFixed(2);
-  }
-
   statistic() {
     return (
-      <AzeritePowerStatistic
+      <Statistic
         size="flexible"
         category={'AZERITE_POWERS'}
         tooltip={(
@@ -96,7 +90,7 @@ class LatentPoison extends Analyzer {
             {this.averageStacksPerRaptorOrMongoose} <small>stacks per {this.spellKnown}</small>
           </>
         </BoringSpellValueText>
-      </AzeritePowerStatistic>
+      </Statistic>
     );
   }
 }

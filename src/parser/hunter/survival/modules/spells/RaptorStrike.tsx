@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
+import { CastEvent } from 'parser/core/Events';
 
 /**
  * A vicious slash dealing (70% of Attack power) Physical damage.
@@ -9,21 +10,19 @@ import Analyzer from 'parser/core/Analyzer';
 
 class RaptorStrike extends Analyzer {
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) && this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.RAPTOR_STRIKE.id) {
       return;
     }
     if (event.meta === undefined) {
       event.meta = {
-        isEnhancedCast: false,
         isInefficientCast: false,
-        enhancedCastReason: '',
         inefficientCastReason: '',
       };
     }

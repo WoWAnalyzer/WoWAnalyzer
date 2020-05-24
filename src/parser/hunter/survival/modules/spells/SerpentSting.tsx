@@ -13,6 +13,7 @@ import { SERPENT_STING_SV_BASE_DURATION, SERPENT_STING_SV_PANDEMIC } from 'parse
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
+import { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 
 /**
  * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12/(1+haste) sec.
@@ -25,25 +26,75 @@ class SerpentSting extends Analyzer {
     enemies: Enemies,
     statTracker: StatTracker,
   };
+  /**
+   *     const serpentStingTarget = { targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp, serpentStingDuration: hastedSerpentStingDuration };
 
-  badRefresh = 0;
-  timesRefreshed = 0;
-  casts = 0;
-  bonusDamage = 0;
-  serpentStingTargets = [];
-  accumulatedTimeBetweenRefresh = 0;
-  accumulatedPercentRemainingOnRefresh = 0;
-  hasVV = false;
-  hasBoP = false;
-  uptimeRequired = 0.95;
+   */
 
-  constructor(...args) {
-    super(...args);
+  serpentStingTargets: { targetID: number, targetInstance: number, timestamp: number, serpentStingDuration: number }[] = [];
+  badRefresh: number = 0;
+  timesRefreshed: number = 0;
+  casts: number = 0;
+  bonusDamage: number = 0;
+  accumulatedTimeBetweenRefresh: number = 0;
+  accumulatedPercentRemainingOnRefresh: number = 0;
+  hasVV: boolean = false;
+  hasBoP: boolean = false;
+  uptimeRequired: number = 0.95;
+  protected enemies!: Enemies;
+  protected statTracker!: StatTracker;
+  constructor(options: any) {
+    super(options);
     this.hasBoP = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
-    this.hasVVSelected = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
+    this.hasVV = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
   }
-
-  on_byPlayer_cast(event) {
+  get averageTimeBetweenRefresh() {
+    const avgTime = (this.accumulatedTimeBetweenRefresh / this.timesRefreshed) || 0;
+    return (avgTime / 1000).toFixed(2);
+  }
+  get averagePercentRemainingOnRefresh() {
+    return (this.accumulatedPercentRemainingOnRefresh / this.timesRefreshed) || 0;
+  }
+  get uptimePercentage() {
+    return this.enemies.getBuffUptime(SPELLS.SERPENT_STING_SV.id) / this.owner.fightDuration;
+  }
+  get refreshingThreshold() {
+    return {
+      actual: this.badRefresh,
+      isGreaterThan: {
+        minor: 1,
+        average: 3,
+        major: 5,
+      },
+      style: 'number',
+    };
+  }
+  get uptimeThreshold() {
+    if (this.hasBoP && !this.hasVV) {
+      return {
+        actual: this.uptimePercentage,
+        isGreaterThan: {
+          minor: 0.35,
+          average: 0.425,
+          major: 0.50,
+        },
+        style: 'percentage',
+      };
+    }
+    if (this.hasBoP && this.hasVV) {
+      this.uptimeRequired -= 0.3;
+    }
+    return {
+      actual: this.uptimePercentage,
+      isLessThan: {
+        minor: this.uptimeRequired,
+        average: this.uptimeRequired - 0.05,
+        major: this.uptimeRequired - 0.1,
+      },
+      style: 'percentage',
+    };
+  }
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
@@ -52,9 +103,7 @@ class SerpentSting extends Analyzer {
 
     if (event.meta === undefined) {
       event.meta = {
-        isEnhancedCast: false,
         isInefficientCast: false,
-        enhancedCastReason: '',
         inefficientCastReason: '',
       };
     }
@@ -66,16 +115,14 @@ class SerpentSting extends Analyzer {
     event.meta.isInefficientCast = this.serpentStingDuringCA();
     event.meta.inefficientCastReason = 'Serpent String cast during Coordinated Assault with Birds of Prey talent used.';
   }
-
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
     }
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }
-
-  on_byPlayer_applydebuff(event) {
+  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
     let targetInstance = event.targetInstance;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
@@ -90,8 +137,7 @@ class SerpentSting extends Analyzer {
 
     this.hasVV = false;
   }
-
-  on_byPlayer_removedebuff(event) {
+  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
@@ -102,8 +148,7 @@ class SerpentSting extends Analyzer {
       }
     }
   }
-
-  on_byPlayer_refreshdebuff(event) {
+  on_byPlayer_refreshdebuff(event: RefreshDebuffEvent) {
     const spellId = event.ability.guid;
     let targetInstance = event.targetInstance;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
@@ -140,80 +185,27 @@ class SerpentSting extends Analyzer {
       }
     }
   }
-
-  get averageTimeBetweenRefresh() {
-    const avgTime = (this.accumulatedTimeBetweenRefresh / this.timesRefreshed) || 0;
-    return (avgTime / 1000).toFixed(2);
-  }
-
-  get averagePercentRemainingOnRefresh() {
-    return ((this.accumulatedPercentRemainingOnRefresh / this.timesRefreshed) || 0).toFixed(4);
-  }
-
-  get uptimePercentage() {
-    return this.enemies.getBuffUptime(SPELLS.SERPENT_STING_SV.id) / this.owner.fightDuration;
-  }
-
-  get refreshingThreshold() {
-    return {
-      actual: this.badRefresh,
-      isGreaterThan: {
-        minor: 1,
-        average: 3,
-        major: 5,
-      },
-      style: 'number',
-    };
-  }
-
   serpentStingDuringCA() {
     return this.hasBoP && this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id) && !this.hasVV;
   }
-
-  get uptimeThreshold() {
-    if (this.hasBoP && !this.hasVV) {
-      return {
-        actual: this.uptimePercentage,
-        isGreaterThan: {
-          minor: 0.35,
-          average: 0.425,
-          major: 0.50,
-        },
-        style: 'percentage',
-      };
-    }
-    if (this.hasBoP && this.hasVV) {
-      this.uptimeRequired -= 0.3;
-    }
-    return {
-      actual: this.uptimePercentage,
-      isLessThan: {
-        minor: this.uptimeRequired,
-        average: this.uptimeRequired - 0.05,
-        major: this.uptimeRequired - 0.1,
-      },
-      style: 'percentage',
-    };
-  }
-
-  suggestions(when) {
-    if (this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id) && !this.hasVVSelected) {
-      when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    if (this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id) && !this.hasVV) {
+      when(this.uptimeThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>With <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} /> talented and without <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> talented, you don't want to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> during <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} /> at all, which is a majority of the fight, as thus a low uptime of <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> is better than a high uptime. </>)
           .icon(SPELLS.SERPENT_STING_SV.icon)
           .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
     } else {
-      when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(SERPENT_STING_SV_PANDEMIC)}% duration remaining{this.hasVVSelected ? <>, or you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff</> : ''}. During <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />, you shouldn't be refreshing <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> at all{this.hasVVSelected ? <> unless there's less than 50% remaining of the debuff and you have <SpellLink id={SPELLS.VIPERS_VENOM_BUFF.id} /> active</> : ''}.</>)
+      when(this.uptimeThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+        return suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(SERPENT_STING_SV_PANDEMIC)}% duration remaining{this.hasVV ? <>, or you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff</> : ''}. During <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />, you shouldn't be refreshing <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> at all{this.hasVV ? <> unless there's less than 50% remaining of the debuff and you have <SpellLink id={SPELLS.VIPERS_VENOM_BUFF.id} /> active</> : ''}.</>)
           .icon(SPELLS.SERPENT_STING_SV.icon)
           .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
     }
-    when(this.refreshingThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_SV_PANDEMIC)}% of the debuffs duration remaining{this.hasVVSelected ? <> unless you get a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc.</> : ''}. </>)
+    when(this.refreshingThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+      return suggest(<>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_SV_PANDEMIC)}% of the debuffs duration remaining{this.hasVV ? <> unless you get a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc.</> : ''}. </>)
         .icon(SPELLS.SERPENT_STING_SV.icon)
         .actual(`${actual} Serpent Sting cast(s) were cast too early`)
         .recommended(`<${recommended} is recommended`);

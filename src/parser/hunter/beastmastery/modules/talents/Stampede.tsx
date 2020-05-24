@@ -8,7 +8,7 @@ import { formatMilliseconds, formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyBuffEvent, DamageEvent } from '../../../../core/Events';
+import { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 
 // The potential amount of hits per target per stampede cast.
 // By checking through various Zek'voz logs, it seems to consistently hit the
@@ -96,11 +96,11 @@ class Stampede extends Analyzer {
   }
   suggestions(when: any) {
     when(this.stampedeInefficientCastsThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you've placed <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to deal it's full damage, or the enemy moved out of it. Avoid using <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will be moving out of it.</>)
-          .icon(SPELLS.STAMPEDE_TALENT.icon)
-          .actual(`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`)
-          .recommended(`${recommended} is recommended`);
-      });
+      return suggest(<>You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you've placed <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to deal it's full damage, or the enemy moved out of it. Avoid using <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will be moving out of it.</>)
+        .icon(SPELLS.STAMPEDE_TALENT.icon)
+        .actual(`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`)
+        .recommended(`${recommended} is recommended`);
+    });
   }
 
   statistic() {

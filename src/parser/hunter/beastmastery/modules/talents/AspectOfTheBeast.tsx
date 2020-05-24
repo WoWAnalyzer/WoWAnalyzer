@@ -6,7 +6,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from '../../../../core/Events';
+import { DamageEvent } from 'parser/core/Events';
 
 /**
  * Increases the damage of your pet's abilities by 30%.

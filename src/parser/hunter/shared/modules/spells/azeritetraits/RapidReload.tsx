@@ -1,18 +1,18 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { CastEvent, DamageEvent } from '../../../../../core/Events';
-import SPECS from '../../../../../../game/SPECS';
-import SpellUsable from '../../../../../shared/modules/SpellUsable';
-import Statistic from '../../../../../../interface/statistics/Statistic';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
+import SPECS from 'game/SPECS';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText
-  from '../../../../../../interface/statistics/components/BoringSpellValueText';
-import ItemDamageDone from '../../../../../../interface/ItemDamageDone';
+  from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import {
   formatDuration,
   formatPercentage,
-} from '../../../../../../common/format';
-import SpellLink from '../../../../../../common/SpellLink';
+} from 'common/format';
+import SpellLink from 'common/SpellLink';
 
 const MULTI_SHOTS = [SPELLS.MULTISHOT_BM.id, SPELLS.MULTISHOT_MM.id];
 const COOLDOWN_REDUCTION_MS = 1000;

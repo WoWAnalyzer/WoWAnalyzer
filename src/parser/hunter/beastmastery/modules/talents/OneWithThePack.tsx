@@ -6,7 +6,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from '../../../../core/Events';
+import { DamageEvent } from 'parser/core/Events';
 
 /**
  * Wild Call has a 20% increased chance to reset the cooldown of Barbed Shot.

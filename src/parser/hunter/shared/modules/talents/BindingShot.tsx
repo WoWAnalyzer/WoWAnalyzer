@@ -5,7 +5,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyDebuffEvent } from '../../../../core/Events';
+import { ApplyDebuffEvent } from 'parser/core/Events';
 
 /**
  * Fires a magical projectile, tethering the enemy and any other enemies within

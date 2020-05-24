@@ -5,10 +5,11 @@ import { calculateAzeriteEffects } from 'common/stats';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import Agility from 'interface/icons/Agility';
+import { ApplyBuffEvent, ApplyBuffStackEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
 
-const blurOfTalonsStats = traits => Object.values(traits).reduce((obj, rank) => {
+const blurOfTalonsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.BLUR_OF_TALONS.id, rank);
   obj.agility += agility;
   return obj;
@@ -31,13 +32,15 @@ class BlurOfTalons extends Analyzer {
     statTracker: StatTracker,
   };
 
-  agility = 0;
-  blurOfTalonStacks = [];
-  lastBlurStack = 0;
-  lastBlurUpdate = this.owner.fight.start_time;
+  agility: number = 0;
+  blurOfTalonStacks: Array<Array<number>> = [];
+  lastBlurStack: number = 0;
+  lastBlurUpdate: number = this.owner.fight.start_time;
+  currentStacks: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  protected statTracker!: StatTracker;
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.BLUR_OF_TALONS.id);
     if (!this.active) {
       return;
@@ -50,67 +53,59 @@ class BlurOfTalons extends Analyzer {
       agility: this.agility,
     });
   }
-
-  handleStacks(event, stack = null) {
-    if (event.type === 'removebuff' || isNaN(event.stack)) { //NaN check if player is dead during on_finish
-      event.stack = 0;
-    }
-    if (event.type === 'applybuff') {
-      event.stack = 1;
-    }
-    if (stack) {
-      event.stack = stack;
-    }
-    this.blurOfTalonStacks[this.lastBlurStack].push(event.timestamp - this.lastBlurUpdate);
-    this.lastBlurUpdate = event.timestamp;
-    this.lastBlurStack = event.stack;
-  }
-
   get blurOfTalonsTimesByStacks() {
     return this.blurOfTalonStacks;
   }
-
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLUR_OF_TALONS_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLUR_OF_TALONS_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLUR_OF_TALONS_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_fightend(event) {
-    this.handleStacks(event, this.lastBlurStack);
-  }
-
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.BLUR_OF_TALONS_BUFF.id) / this.owner.fightDuration;
   }
-
   get avgAgility() {
     const avgAgi = this.blurOfTalonStacks.reduce((sum, innerArray, outerArrayIndex) => {
       return sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.agility) / this.owner.fightDuration), 0);
     }, 0);
     return avgAgi;
   }
+  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent, stack: number = 0) {
+    if (event.type === 'removebuff') {
+      this.currentStacks = 0;
+    } else if (event.type === 'applybuff') {
+      this.currentStacks = 1;
+    } else if (event.type === 'applybuffstack') {
+      this.currentStacks = event.stack;
+    } else if (event.type === 'fightend') {
+      this.currentStacks = stack;
+    }
+    this.blurOfTalonStacks[this.lastBlurStack].push(event.timestamp - this.lastBlurUpdate);
+    this.lastBlurUpdate = event.timestamp;
+    this.lastBlurStack = this.currentStacks;
+  }
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BLUR_OF_TALONS_BUFF.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BLUR_OF_TALONS_BUFF.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BLUR_OF_TALONS_BUFF.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+  on_fightend(event: FightEndEvent) {
+    this.handleStacks(event, this.lastBlurStack);
+  }
   statistic() {
     return (
-      <AzeritePowerStatistic
+      <Statistic
         size="flexible"
         category={'AZERITE_POWERS'}
         tooltip={(
@@ -134,8 +129,8 @@ class BlurOfTalons extends Analyzer {
                 {Object.values(this.blurOfTalonsTimesByStacks).map((e, i) => (
                   <tr key={i}>
                     <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                    <td>{formatDuration(e.reduce((a: number, b: number) => a + b, 0) / 1000)}</td>
+                    <td>{formatPercentage(e.reduce((a: number, b: number) => a + b, 0) / this.owner.fightDuration)}%</td>
                     <td>{formatNumber(this.agility * i)}</td>
                   </tr>
                 ))}
@@ -149,7 +144,7 @@ class BlurOfTalons extends Analyzer {
             <Agility /> {formatNumber(this.avgAgility)} <small>average Agility</small>
           </>
         </BoringSpellValueText>
-      </AzeritePowerStatistic>
+      </Statistic>
     );
   }
 }

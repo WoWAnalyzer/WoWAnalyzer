@@ -8,7 +8,7 @@ import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent } from '../../../../core/Events';
+import { CastEvent } from 'parser/core/Events';
 
 /**
  * Cobra Shot reduces the cooldown of Bestial Wrath by 1 sec.

@@ -1,19 +1,18 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import Statistic from 'interface/statistics/Statistic';
 import React from 'react';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { DamageEvent } from 'parser/core/Events';
 
 class WildfireCluster extends Analyzer {
-  constructor(...args) {
-    super(...args);
+  damage = 0;
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.WILDFIRE_CLUSTER.id);
   }
-
-  damage = 0;
-
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.WILDFIRE_CLUSTER_DAMAGE.id) {
       return;
@@ -23,7 +22,7 @@ class WildfireCluster extends Analyzer {
 
   statistic() {
     return (
-      <AzeritePowerStatistic
+      <Statistic
         size="flexible"
         category={'AZERITE_POWERS'}
       >
@@ -32,7 +31,7 @@ class WildfireCluster extends Analyzer {
             <ItemDamageDone amount={this.damage} />
           </>
         </BoringSpellValueText>
-      </AzeritePowerStatistic>
+      </Statistic>
     );
   }
 }

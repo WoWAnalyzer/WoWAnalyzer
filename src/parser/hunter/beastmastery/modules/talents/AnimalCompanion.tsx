@@ -5,7 +5,7 @@ import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from '../../../../core/Events';
+import { DamageEvent } from 'parser/core/Events';
 import { isPermanentPet } from '../../../../warlock/demonology/modules/pets/helpers';
 
 /**

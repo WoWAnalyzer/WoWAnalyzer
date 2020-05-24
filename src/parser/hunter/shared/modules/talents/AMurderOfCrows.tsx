@@ -14,7 +14,7 @@ import {
   ApplyBuffEvent, ApplyBuffStackEvent,
   CastEvent, DamageEvent,
   EnergizeEvent, RemoveBuffEvent,
-} from '../../../../core/Events';
+} from 'parser/core/Events';
 
 /**
  * Summons a flock of crows to attack your target over the next 15 sec. If the

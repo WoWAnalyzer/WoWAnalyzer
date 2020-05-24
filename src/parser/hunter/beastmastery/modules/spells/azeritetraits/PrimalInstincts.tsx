@@ -8,20 +8,21 @@ import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from '../../../../../../interface/statistics/Statistic';
+import Statistic from 'interface/statistics/Statistic';
 import { ApplyBuffEvent } from '../../../../../core/Events';
 
 
 const primalInstinctsStats = (traits: number[]) => Object.values(traits)
-  .reduce((obj, rank) => {
-    const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
-    obj.mastery += mastery;
-    return obj;
-  },
-  {
-    mastery: 0,
-  },
-);
+  .reduce(
+    (obj, rank) => {
+      const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
+      obj.mastery += mastery;
+      return obj;
+    },
+    {
+      mastery: 0,
+    },
+  );
 
 /**
  * Aspect of the Wild increases your Mastery by X, and grants you a charge of

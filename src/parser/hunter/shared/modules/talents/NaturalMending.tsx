@@ -9,7 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent } from '../../../../core/Events';
+import { CastEvent } from 'parser/core/Events';
 
 /**
  * Every 20 (MM/SV) or 30 (BM) focus you spend reducxes the remaining cooldown

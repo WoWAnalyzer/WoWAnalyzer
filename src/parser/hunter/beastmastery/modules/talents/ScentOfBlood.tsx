@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { EnergizeEvent } from '../../../../core/Events';
+import { EnergizeEvent } from 'parser/core/Events';
 
 /**
  * Barbed Shot generates 8 additional Focus over its duration.

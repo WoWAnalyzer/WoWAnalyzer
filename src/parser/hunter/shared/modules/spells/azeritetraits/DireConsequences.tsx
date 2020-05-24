@@ -6,10 +6,9 @@ import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
 import UptimeIcon from 'interface/icons/Uptime';
-import { HASTE_PERCENT } from '../../../../beastmastery/modules/talents/DireBeast';
-import { ApplyBuffEvent } from '../../../../../core/Events';
-import Statistic from '../../../../../../interface/statistics/Statistic';
-
+import { ApplyBuffEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import { HASTE_PERCENT } from 'parser/hunter/beastmastery/modules/talents/DireBeast';
 /**
  * Kill Command deals n additional damage, and has a chance to summon a Dire
  * Beast.

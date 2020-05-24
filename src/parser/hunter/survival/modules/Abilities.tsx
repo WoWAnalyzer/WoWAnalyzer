@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from '../../../core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {
@@ -158,13 +159,17 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_EAGLE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
@@ -172,7 +177,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
         cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.EXHILARATION,
@@ -188,39 +195,51 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
         cooldown: 180,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: [SPELLS.PRIMAL_RAGE_1, SPELLS.PRIMAL_RAGE_2],
         buffSpellId: [SPELLS.PRIMAL_RAGE_1.id, SPELLS.PRIMAL_RAGE_2.id],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 360,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
 
       {
         spell: SPELLS.MASTERS_CALL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.HARPOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
         cooldown: 20,
       },
       {
         spell: SPELLS.MUZZLE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: SPELLS.FREEZING_TRAP,
@@ -287,7 +306,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.MISDIRECTION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
     ];
   }

@@ -7,7 +7,7 @@ import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent, DamageEvent } from '../../../../core/Events';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  * When you cast Barbed Shot, your pet stomps the ground, dealing [((50% of

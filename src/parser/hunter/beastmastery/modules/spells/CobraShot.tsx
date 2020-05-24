@@ -8,7 +8,7 @@ import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldo
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { CastEvent } from '../../../../core/Events';
+import { CastEvent } from 'parser/core/Events';
 
 /**
  * A quick shot causing Physical damage.

@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from '../../../../core/Events';
+import { DamageEvent } from 'parser/core/Events';
 
 const KILLER_INSTINCT_TRESHOLD = 0.35;
 const KILLER_INSTINCT_CONTRIBUTION = 0.5;

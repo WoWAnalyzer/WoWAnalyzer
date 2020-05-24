@@ -7,9 +7,9 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Agility from 'interface/icons/Agility';
 import UptimeIcon from 'interface/icons/Uptime';
-import Statistic from '../../../../../../interface/statistics/Statistic';
+import Statistic from 'interface/statistics/Statistic';
 
-const danceOfDeathStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
+const danceOfDeathStats = (traits: number[]) => Object.values(traits).reduce((obj: { agility: number }, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.DANCE_OF_DEATH.id, rank);
   obj.agility += agility;
   return obj;
@@ -28,8 +28,11 @@ class DanceOfDeath extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
+
   agility = 0;
+
   protected statTracker!: StatTracker;
+
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.DANCE_OF_DEATH.id);

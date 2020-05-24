@@ -8,6 +8,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -24,33 +25,40 @@ class ButcheryCarve extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  reductionAtCurrentCast = 0;
-  effectiveReductionMs = 0;
-  wastedReductionMs = 0;
-  targetsHit = 0;
-  casts = 0;
-  spellKnown = null;
-  damage = 0;
-  hasButchery = false;
-  hasWFI = false;
-  bombSpellKnown = SPELLS.WILDFIRE_BOMB.id;
-
-  constructor(...args) {
-    super(...args);
+  reductionAtCurrentCast: number = 0;
+  effectiveReductionMs: number = 0;
+  wastedReductionMs: number = 0;
+  targetsHit: number = 0;
+  casts: number = 0;
+  spellKnown: any = SPELLS.CARVE;
+  damage: number = 0;
+  hasButchery: boolean = false;
+  hasWFI: boolean = false;
+  bombSpellKnown: number = SPELLS.WILDFIRE_BOMB.id;
+  protected spellUsable!: SpellUsable;
+  constructor(options: any) {
+    super(options);
     this.hasButchery = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id);
     if (this.hasButchery) {
       this.spellKnown = SPELLS.BUTCHERY_TALENT;
-    } else {
-      this.spellKnown = SPELLS.CARVE;
     }
     if (this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id)) {
       this.hasWFI = true;
       this.bombSpellKnown = SPELLS.WILDFIRE_INFUSION_TALENT.id;
     }
   }
-
-  on_byPlayer_cast(event) {
+  get avgTargetsHitThreshold() {
+    return {
+      actual: (this.targetsHit / this.casts).toFixed(1),
+      isLessThan: {
+        minor: 2,
+        average: 2,
+        major: 2,
+      },
+      style: 'decimal',
+    };
+  }
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
       return;
@@ -58,8 +66,7 @@ class ButcheryCarve extends Analyzer {
     this.casts += 1;
     this.reductionAtCurrentCast = 0;
   }
-
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
       return;
@@ -77,33 +84,19 @@ class ButcheryCarve extends Analyzer {
     }
 
   }
-
-  checkCooldown(spellId) {
+  checkCooldown(spellId: number) {
     if (this.spellUsable.cooldownRemaining(spellId) < COOLDOWN_REDUCTION_MS) {
       const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS);
       this.effectiveReductionMs += effectiveReductionMs;
       this.wastedReductionMs += (COOLDOWN_REDUCTION_MS - effectiveReductionMs);
     } else {
-      this.effectiveWSReductionMs += this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS);
+      this.effectiveReductionMs += this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS);
     }
   }
-
-  get avgTargetsHitThreshold() {
-    return {
-      actual: (this.targetsHit / this.casts).toFixed(1),
-      isLessThan: {
-        minor: 2,
-        average: 2,
-        major: 2,
-      },
-      style: 'decimal',
-    };
-  }
-
-  suggestions(when) {
+  suggestions(when: any) {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
-      when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => {
+      when(this.avgTargetsHitThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
           .icon(this.spellKnown.icon)
           .actual(`${actual} average targets hit per cast`)
