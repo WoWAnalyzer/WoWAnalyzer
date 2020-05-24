@@ -6,13 +6,9 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
-import {
-  DamageEvent,
-  SummonEvent,
-} from '../../../../core/Events';
+import { DamageEvent, SummonEvent } from '../../../../core/Events';
 
 /**
  * Summons a powerful wild beast that attacks the target and roars, increasing
@@ -44,10 +40,7 @@ class DireBeast extends Analyzer {
   on_byPlayerPet_damage(event: DamageEvent) {
     const sourceId: string = encodeTargetString(event.sourceID);
     if (this.activeDireBeasts.includes(sourceId)) {
-      this.damage += event.amount +
-        (
-          event.absorbed || 0
-        );
+      this.damage += event.amount + (event.absorbed || 0);
     }
   }
 

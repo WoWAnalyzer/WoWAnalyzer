@@ -4,11 +4,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { formatNumber, formatMilliseconds } from 'common/format';
+import { formatMilliseconds, formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ApplyBuffEvent, DamageEvent } from '../../../../core/Events';
 
 // The potential amount of hits per target per stampede cast.
@@ -46,7 +45,17 @@ class Stampede extends Analyzer {
 
     return this.casts[this.casts.length - 1];
   }
-
+  get stampedeInefficientCastsThreshold() {
+    return {
+      actual: this.inefficientCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STAMPEDE_TALENT.id) {
@@ -60,16 +69,12 @@ class Stampede extends Analyzer {
       averageHits: 0,
     });
   }
-
   on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STAMPEDE_DAMAGE.id) {
       return;
     }
-    const damage = event.amount +
-      (
-        event.absorbed || 0
-      );
+    const damage = event.amount + (event.absorbed || 0);
 
     this.hits += 1;
     this.damage += damage;
@@ -79,7 +84,6 @@ class Stampede extends Analyzer {
       this.currentCast.damage += damage;
     }
   }
-
   on_fightend() {
     this.averageHits = this.hits / this.casts.length / STAMPEDE_POTENTIAL_HITS;
     this.casts.forEach((cast: { averageHits: number, hits: number }) => {
@@ -90,26 +94,9 @@ class Stampede extends Analyzer {
       }
     });
   }
-
-  get stampedeInefficientCastsThreshold() {
-    return {
-      actual: this.inefficientCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 1,
-      },
-      style: 'number',
-    };
-  }
-
   suggestions(when: any) {
-    when(this.stampedeInefficientCastsThreshold)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual} {actual >
-        1
-          ? 'times'
-          : 'time'} throughout the fight. This means you've placed <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to deal it's full damage, or the enemy moved out of it. Avoid using <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will be moving out of it.</>)
+    when(this.stampedeInefficientCastsThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+        return suggest(<>You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you've placed <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to deal it's full damage, or the enemy moved out of it. Avoid using <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will be moving out of it.</>)
           .icon(SPELLS.STAMPEDE_TALENT.icon)
           .actual(`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`)
           .recommended(`${recommended} is recommended`);
@@ -119,9 +106,7 @@ class Stampede extends Analyzer {
   statistic() {
     if (this.casts.length > 0) {
       const averageHit = this.damage / this.hits;
-      const stampedePlural = this.casts.length === 1
-        ? `1 Stampede`
-        : `a total of ${this.casts.length} Stampedes`;
+      const stampedePlural = this.casts.length === 1 ? `1 Stampede` : `a total of ${this.casts.length} Stampedes`;
       return (
         <Statistic
           position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -162,9 +147,7 @@ class Stampede extends Analyzer {
           <BoringSpellValueText spell={SPELLS.STAMPEDE_TALENT}>
             <>
               <ItemDamageDone amount={this.damage} /> <br />
-              {this.casts.length} {this.casts.length > 1
-              ? 'casts'
-              : 'cast'} / {this.hits} hits
+              {this.casts.length} {this.casts.length > 1 ? 'casts' : 'cast'} / {this.hits} hits
             </>
           </BoringSpellValueText>
         </Statistic>

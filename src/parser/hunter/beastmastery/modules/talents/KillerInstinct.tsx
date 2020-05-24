@@ -7,8 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from '../../../../core/Events';
 
 const KILLER_INSTINCT_TRESHOLD = 0.35;
@@ -27,8 +26,7 @@ class KillerInstinct extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.KILLER_INSTINCT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.KILLER_INSTINCT_TALENT.id);
   }
 
   on_byPlayerPet_damage(event: DamageEvent) {
@@ -40,16 +38,11 @@ class KillerInstinct extends Analyzer {
       return;
     }
     this.casts += 1;
-    const enemyHealthPercent = (
-      event.hitPoints / event.maxHitPoints
-    );
+    const enemyHealthPercent = (event.hitPoints / event.maxHitPoints);
     if (enemyHealthPercent <= KILLER_INSTINCT_TRESHOLD) {
       this.castsWithExecute += 1;
 
-      const traitDamage = calculateEffectiveDamage(
-        event,
-        KILLER_INSTINCT_CONTRIBUTION,
-      );
+      const traitDamage = calculateEffectiveDamage(event, KILLER_INSTINCT_CONTRIBUTION);
       this.damage += traitDamage;
     }
   }

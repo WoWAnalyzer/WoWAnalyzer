@@ -6,8 +6,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { CastEvent, DamageEvent } from '../../../../core/Events';
 
 /**
@@ -30,10 +29,7 @@ class Stomp extends Analyzer {
 
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId !==
-      SPELLS.BARBED_SHOT.id &&
-      spellId !==
-      SPELLS.DIRE_BEAST_TALENT.id) {
+    if (spellId !== SPELLS.BARBED_SHOT.id && spellId !== SPELLS.DIRE_BEAST_TALENT.id) {
       return;
     }
     this.casts += 1;
@@ -45,10 +41,7 @@ class Stomp extends Analyzer {
       return;
     }
     this.hits += 1;
-    this.damage += event.amount +
-      (
-        event.absorbed || 0
-      );
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {

@@ -14,11 +14,8 @@ class AspectOfTheWild extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
-
   casts = 0;
-
+  protected spellUsable!: SpellUsable;
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ASPECT_OF_THE_WILD.id) {
@@ -34,9 +31,7 @@ class AspectOfTheWild extends Analyzer {
     }
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(SPELLS.ASPECT_OF_THE_WILD.id, {
-        timestamp: this.owner.fight.start_time,
-      });
+      this.spellUsable.beginCooldown(SPELLS.ASPECT_OF_THE_WILD.id, { timestamp: this.owner.fight.start_time });
     }
   }
 
@@ -52,8 +47,7 @@ class AspectOfTheWild extends Analyzer {
 
     if (hasPrimalInstincts && hasTwoBarbedStacks) {
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason
-        = 'Aspect of the Wild was cast while having two charges of Barbed Shot and using Primal Instincts.';
+      event.meta.inefficientCastReason = 'Aspect of the Wild was cast while having two charges of Barbed Shot and using Primal Instincts.';
       return;
     }
   }

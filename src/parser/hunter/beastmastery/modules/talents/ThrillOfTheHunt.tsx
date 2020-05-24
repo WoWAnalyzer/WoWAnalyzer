@@ -4,14 +4,9 @@ import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CriticalStrike from 'interface/icons/CriticalStrike';
-import {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent, FightEndEvent,
-  RemoveBuffEvent,
-} from '../../../../core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, FightEndEvent, RemoveBuffEvent } from '../../../../core/Events';
 
 /**
  * Barbed Shot increases your critical strike chance by 3% for 8 sec, stacking
@@ -38,10 +33,17 @@ class ThrillOfTheHunt extends Analyzer {
     }
     this.thrillStacks = Array.from({ length: MAX_THRILL_STACKS + 1 }, x => []);
   }
-
-  handleStacks(
-    event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent,
-  ) {
+  get thrillOfTheHuntTimesByStacks() {
+    return this.thrillStacks;
+  }
+  get averageCritPercent() {
+    let averageCrit = 0;
+    this.thrillStacks.forEach((elem, index) => {
+      averageCrit += elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration * index * CRIT_PER_STACK;
+    });
+    return formatPercentage(averageCrit);
+  }
+  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
     if (event.type === 'removebuff') {
       this.currentStacks = 0;
     } else if (event.type === 'applybuff') {
@@ -56,11 +58,6 @@ class ThrillOfTheHunt extends Analyzer {
     this.lastThrillUpdate = event.timestamp;
     this.lastThrillStack = this.currentStacks;
   }
-
-  get thrillOfTheHuntTimesByStacks() {
-    return this.thrillStacks;
-  }
-
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.THRILL_OF_THE_HUNT_BUFF.id) {
@@ -68,7 +65,6 @@ class ThrillOfTheHunt extends Analyzer {
     }
     this.handleStacks(event);
   }
-
   on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.THRILL_OF_THE_HUNT_BUFF.id) {
@@ -76,7 +72,6 @@ class ThrillOfTheHunt extends Analyzer {
     }
     this.handleStacks(event);
   }
-
   on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.THRILL_OF_THE_HUNT_BUFF.id) {
@@ -84,32 +79,15 @@ class ThrillOfTheHunt extends Analyzer {
     }
     this.handleStacks(event);
   }
-
   on_fightend(event: FightEndEvent) {
     this.handleStacks(event);
   }
-
-  get averageCritPercent() {
-    let averageCrit = 0;
-    this.thrillStacks.forEach((elem, index) => {
-      averageCrit += elem.reduce((a, b) => a + b, 0) /
-        this.owner.fightDuration *
-        index *
-        CRIT_PER_STACK;
-    });
-    return formatPercentage(averageCrit);
-  }
-
   statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={(
-          <>
-          </>
-        )}
         dropdown={(
           <>
             <table className="table table-condensed">

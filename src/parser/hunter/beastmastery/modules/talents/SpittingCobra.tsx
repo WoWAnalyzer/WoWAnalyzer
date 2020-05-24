@@ -4,8 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent, EnergizeEvent } from '../../../../core/Events';
 
 /**
@@ -53,10 +52,7 @@ class SpittingCobra extends Analyzer {
     if (spellId !== SPELLS.SPITTING_COBRA_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount +
-      (
-        event.absorbed || 0
-      );
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {

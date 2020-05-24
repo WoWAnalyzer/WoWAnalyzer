@@ -7,14 +7,13 @@ import MasteryIcon from 'interface/icons/Mastery';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from '../../../../../../interface/statistics/Statistic';
 import { ApplyBuffEvent } from '../../../../../core/Events';
 
 
-const primalInstinctsStats = (traits: number[]) => Object.values(traits).reduce(
-  (obj, rank) => {
+const primalInstinctsStats = (traits: number[]) => Object.values(traits)
+  .reduce((obj, rank) => {
     const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
     obj.mastery += mastery;
     return obj;
@@ -36,14 +35,11 @@ class PrimalInstincts extends Analyzer {
     statTracker: StatTracker,
     spellUsable: SpellUsable,
   };
-
-  protected statTracker!: StatTracker;
-  protected spellUsable!: SpellUsable;
-
   mastery = 0;
   wastedBarbedShots = 0;
   chargesGained = 0;
-
+  protected statTracker!: StatTracker;
+  protected spellUsable!: SpellUsable;
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.PRIMAL_INSTINCTS.id);
@@ -54,7 +50,7 @@ class PrimalInstincts extends Analyzer {
     this.mastery = mastery;
 
     options.statTracker.add(SPELLS.PRIMAL_INSTINCTS_BUFF.id, {
-      mastery,
+      mastery: this.mastery,
     });
   }
 
@@ -88,8 +84,7 @@ class PrimalInstincts extends Analyzer {
         category={'AZERITE_POWERS'}
         tooltip={(
           <>
-            Primal Instincts granted <strong>{this.mastery}</strong> Mastery for <strong>{formatPercentage(
-            this.uptime)}%</strong> of the fight. <br />
+            Primal Instincts granted <strong>{formatNumber(this.mastery)}</strong> Mastery for <strong>{formatPercentage(this.uptime)}%</strong> of the fight. <br />
             Wasted Barbed Shot charges: {this.wastedBarbedShots}
           </>
         )}

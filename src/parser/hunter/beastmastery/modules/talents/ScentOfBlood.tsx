@@ -3,8 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { EnergizeEvent } from '../../../../core/Events';
 
 /**
@@ -49,9 +48,7 @@ class ScentOfBlood extends Analyzer {
       this.focusWastedFromBS += SCENT_OF_BLOOD_INCREASE_PER_TICK;
       return;
     }
-    this.focusGained += event.resourceChange -
-      BASELINE_BARBED_REGEN_PER_TICK -
-      event.waste;
+    this.focusGained += event.resourceChange - BASELINE_BARBED_REGEN_PER_TICK - event.waste;
     this.focusWastedFromBS += event.waste;
   }
 

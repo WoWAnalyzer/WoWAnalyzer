@@ -4,8 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from '../../../../core/Events';
 import { isPermanentPet } from '../../../../warlock/demonology/modules/pets/helpers';
 
@@ -26,20 +25,15 @@ class AnimalCompanion extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.ANIMAL_COMPANION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ANIMAL_COMPANION_TALENT.id);
   }
 
   on_byPlayerPet_damage(event: DamageEvent) {
-    const foundPet = this.pets.find((pet: { sourceID: number | undefined }) => pet.sourceID ===
-      event.sourceID);
+    const foundPet = this.pets.find((pet: { sourceID: number | undefined }) => pet.sourceID === event.sourceID);
     const damage = event.amount +
-      (
-        event.absorbed || 0
-      );
+      (event.absorbed || 0);
     if (!foundPet) {
-      const sourcePet = this.owner.playerPets.find((pet: { id: number | undefined; }) => pet.id ===
-        event.sourceID);
+      const sourcePet = this.owner.playerPets.find((pet: { id: number | undefined; }) => pet.id === event.sourceID);
       if (!isPermanentPet(sourcePet.guid)) {
         return;
       }
@@ -65,10 +59,7 @@ class AnimalCompanion extends Analyzer {
 
   statistic() {
     const totalDamage = this.pets.map((pet: { damage: number; }) => pet.damage)
-      .reduce((
-        total: number,
-        current: number,
-      ) => total + current, 0);
+      .reduce((total: number, current: number) => total + current, 0);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -114,10 +105,7 @@ class AnimalCompanion extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.ANIMAL_COMPANION_TALENT}>
           <>
-            {formatNumber(totalDamage)} / {formatNumber(totalDamage /
-            (
-              this.owner.fightDuration / 1000
-            ))} DPS
+            {formatNumber(totalDamage)} / {formatNumber(totalDamage / (this.owner.fightDuration / 1000))} DPS
           </>
         </BoringSpellValueText>
       </Statistic>

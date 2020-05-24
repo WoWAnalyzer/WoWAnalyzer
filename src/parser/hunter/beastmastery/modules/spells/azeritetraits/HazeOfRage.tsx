@@ -5,8 +5,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 import AgilityIcon from 'interface/icons/Agility';
 import UptimeIcon from 'interface/icons/Uptime';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from '../../../../../../interface/statistics/Statistic';
 import Combatant from '../../../../../core/Combatant';
 
@@ -45,8 +44,7 @@ class HazeOfRage extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.HAZE_OF_RAGE_BUFF.id) /
-      this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.HAZE_OF_RAGE_BUFF.id) / this.owner.fightDuration;
   }
 
   get avgAgility() {
@@ -60,8 +58,7 @@ class HazeOfRage extends Analyzer {
         category={'AZERITE_POWERS'}
         tooltip={(
           <>
-            Haze of Rage granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(
-            this.uptime)}%</strong> of the fight.
+            Haze of Rage granted <strong>{formatNumber(this.agility)}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
           </>
         )}
       >

@@ -3,14 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import GlobalCooldown
-  from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
+import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { CastEvent } from '../../../../core/Events';
 
 /**
@@ -27,19 +24,25 @@ class KillerCobra extends Analyzer {
     spellUsable: SpellUsable,
     globalCooldown: GlobalCooldown,
   };
-
-  protected spellUsable!: SpellUsable;
-  protected globalCooldown!: GlobalCooldown;
-
   effectiveKillCommandResets = 0;
   wastedKillerCobraCobraShots = 0;
-
+  protected spellUsable!: SpellUsable;
+  protected globalCooldown!: GlobalCooldown;
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id);
   }
-
+  get wastedKillerCobraThreshold() {
+    return {
+      actual: this.wastedKillerCobraCobraShots,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.9,
+        major: 1.9,
+      },
+      style: 'number',
+    };
+  }
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
@@ -50,16 +53,11 @@ class KillerCobra extends Analyzer {
     }
     const killCommandIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_BM.id);
     if (killCommandIsOnCooldown) {
-      const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(
-        spellId);
-      const cooldownToReduceWith = this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND_CAST_BM.id) -
-        globalCooldown;
+      const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
+      const cooldownToReduceWith = this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND_CAST_BM.id) - globalCooldown;
       //using this instead of endCooldown to ensure it doesn't negatively
       // affect cast efficiency when resetting with Killer Cobra
-      this.spellUsable.reduceCooldown(
-        SPELLS.KILL_COMMAND_CAST_BM.id,
-        cooldownToReduceWith,
-      );
+      this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, cooldownToReduceWith);
       this.effectiveKillCommandResets += 1;
     } else {
       this.wastedKillerCobraCobraShots += 1;
@@ -71,35 +69,15 @@ class KillerCobra extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={(
-          <>
-            You wasted {formatNumber(this.wastedKillerCobraCobraShots)} Cobra Shots in Bestial Wrath by using them while Kill Command wasn't on cooldown.
-          </>
-        )}
       >
         <BoringSpellValueText spell={SPELLS.KILLER_COBRA_TALENT}>
           <>
-            {this.effectiveKillCommandResets}
-            <small>{this.effectiveKillCommandResets ===
-            0 ||
-            this.effectiveKillCommandResets >
-            1 ? 'resets' : 'reset'}</small>
+            {this.effectiveKillCommandResets}/{this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots}
+            <small>{this.effectiveKillCommandResets === 0 || this.effectiveKillCommandResets > 1 ? 'resets' : 'reset'}</small>
           </>
         </BoringSpellValueText>
       </Statistic>
     );
-  }
-
-  get wastedKillerCobraThreshold() {
-    return {
-      actual: this.wastedKillerCobraCobraShots,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.9,
-        major: 1.9,
-      },
-      style: 'number',
-    };
   }
   suggestions(when: any) {
     when(this.wastedKillerCobraThreshold).addSuggestion((

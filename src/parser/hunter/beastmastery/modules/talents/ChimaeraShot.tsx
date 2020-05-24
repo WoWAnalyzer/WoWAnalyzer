@@ -5,8 +5,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { CastEvent, DamageEvent } from '../../../../core/Events';
 
 /**
@@ -24,8 +23,7 @@ class ChimaeraShot extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id);
   }
 
   on_byPlayer_cast(event: CastEvent) {
@@ -38,17 +36,11 @@ class ChimaeraShot extends Analyzer {
 
   on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
-    if (spellId !==
-      SPELLS.CHIMAERA_SHOT_FROST_DAMAGE.id &&
-      spellId !==
-      SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE.id) {
+    if (spellId !== SPELLS.CHIMAERA_SHOT_FROST_DAMAGE.id && spellId !== SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE.id) {
       return;
     }
     this.hits += 1;
-    this.damage += event.amount +
-      (
-        event.absorbed || 0
-      );
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {

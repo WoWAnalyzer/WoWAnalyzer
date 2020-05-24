@@ -4,19 +4,14 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS/index';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Agility from 'interface/icons/Agility';
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from '../../../../../../interface/statistics/Statistic';
 
-const danceOfDeathStats = (traits: number[]) => Object.values(traits).reduce((
-  obj,
-  rank,
-) => {
+const danceOfDeathStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.DANCE_OF_DEATH.id, rank);
   obj.agility += agility;
-  obj.agility *= 1.2; //Hotfix from 26th September
   return obj;
 }, {
   agility: 0,
@@ -33,11 +28,8 @@ class DanceOfDeath extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
-
-  protected statTracker!: StatTracker;
-
   agility = 0;
-
+  protected statTracker!: StatTracker;
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.DANCE_OF_DEATH.id);
@@ -48,7 +40,7 @@ class DanceOfDeath extends Analyzer {
     this.agility = agility;
 
     options.statTracker.add(SPELLS.DANCE_OF_DEATH_BUFF.id, {
-      agility,
+      agility: this.agility,
     });
   }
 
@@ -68,7 +60,7 @@ class DanceOfDeath extends Analyzer {
         category={'AZERITE_POWERS'}
         tooltip={(
           <>
-            Dance of Death granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(
+            Dance of Death granted <strong>{formatNumber(this.agility)}</strong> Agility for <strong>{formatPercentage(
             this.uptime)}%</strong> of the fight.
           </>
         )}

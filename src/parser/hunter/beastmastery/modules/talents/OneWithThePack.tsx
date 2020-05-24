@@ -5,8 +5,7 @@ import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from '../../../../core/Events';
 
 /**
@@ -26,8 +25,7 @@ class OneWithThePack extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id);
   }
 
   on_byPlayer_damage(event: DamageEvent) {
@@ -55,9 +53,7 @@ class OneWithThePack extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.ONE_WITH_THE_PACK_TALENT}>
           <>
-            ≈{(
-            this.procChances * WILD_CALL_RESET_PERCENT
-          ).toFixed(1)} <small>resets</small>
+            ≈{(this.procChances * WILD_CALL_RESET_PERCENT).toFixed(1)} <small>resets</small>
           </>
         </BoringSpellValueText>
       </Statistic>
