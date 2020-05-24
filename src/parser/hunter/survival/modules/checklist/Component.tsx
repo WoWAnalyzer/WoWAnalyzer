@@ -10,8 +10,8 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = props => (
+const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+  const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -51,7 +51,7 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }) => {
             </>
           )}
         >
-          <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Average focus on <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> opening window </>} thresholds={thresholds.mongooseBiteAverageFocusThreshold} />
+          <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> Average focus on <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> opening window </>} thresholds={thresholds.mongooseBiteAverageFocusThreshold} />
           <Requirement name={<><SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> hits on max stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> </>} thresholds={thresholds.mongooseBite5StackHitPercentageThreshold} />
         </Rule>
       ) : null}
@@ -67,7 +67,7 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }) => {
         {combatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id) ? <Requirement name={<><SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} /> Effectiveness </>} thresholds={thresholds.birdPercentEffectiveness} /> : null}
       </Rule>
       <Rule
-        name={<>Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> focus capping</>}
+        name={<>Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> focus capping</>}
         description={(
           <>
             As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use {combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> : <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />} to stay off the focus cap and do some damage.

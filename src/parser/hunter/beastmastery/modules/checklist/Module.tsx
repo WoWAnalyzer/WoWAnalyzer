@@ -4,14 +4,14 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import FocusDetails from 'parser/hunter/shared/modules/resources/FocusDetails';
 
-import Component from 'parser/hunter/beastmastery/modules/checklist/Component';
+import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import BestialWrath from '../spells/BestialWrath';
 import KillerCobra from '../talents/KillerCobra';
 import CobraShot from '../spells/CobraShot';
 import BarbedShot from '../spells/BarbedShot';
-import FocusDetails from '../../../shared/modules/resources/FocusDetails';
 import BeastMasteryFocusCapTracker from '../core/BeastMasteryFocusCapTracker';
 import BeastCleave from '../spells/BeastCleave';
 

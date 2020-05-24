@@ -5,7 +5,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
-import Component from './Component';
+import Component from 'parser/hunter/survival/modules/checklist/Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import MongooseBite from '../../modules/talents/MongooseBite';
 import BirdOfPrey from '../../modules/talents/BirdOfPrey';
@@ -19,6 +19,14 @@ class Checklist extends BaseChecklist {
     mongooseBite: MongooseBite,
     birdOfPrey: BirdOfPrey,
   };
+
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected mongooseBite!: MongooseBite;
+  protected birdOfPrey!: BirdOfPrey;
+
   render() {
     return (
       <Component

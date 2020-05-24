@@ -7,6 +7,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 /**
  * Give the command to kill, causing your pet to savagely deal [Attack power * 0.6 * (1 + Versatility)] Physical damage to the enemy.
@@ -23,6 +24,7 @@ class KillCommand extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
+    globalCooldown: GlobalCooldown,
   };
 
   resets = 0;
@@ -45,7 +47,9 @@ class KillCommand extends Analyzer {
       return;
     }
     this.resets += 1;
-    this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_SV.id, this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_CAST_SV.id, this.spellUsable.cooldownTriggerEvent(SPELLS.KILL_COMMAND_CAST_SV.id)));
+    const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(
+      spellId);
+    this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_SV.id, this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_CAST_SV.id, this.spellUsable.cooldownTriggerEvent(SPELLS.KILL_COMMAND_CAST_SV.id)) - globalCooldown);
   }
 
   statistic() {

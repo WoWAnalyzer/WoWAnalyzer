@@ -17,7 +17,6 @@ class Focus extends Analyzer {
 
   protected focusTracker!: FocusTracker;
 
-
   suggestions(when: any) {
     resourceSuggest(when, this.focusTracker, {
       spell: SPELLS.ASPECT_OF_THE_WILD,

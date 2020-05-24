@@ -11,7 +11,9 @@ class Focus extends Analyzer {
     focusTracker: FocusTracker,
   };
 
-  suggestions(when) {
+  protected focusTracker!: FocusTracker;
+
+  suggestions(when: any) {
     resourceSuggest(when, this.focusTracker, {
       spell: SPELLS.KILL_COMMAND_CAST_SV,
       minor: 0.025,

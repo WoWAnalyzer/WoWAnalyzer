@@ -11,7 +11,6 @@ import Agility from 'interface/icons/Agility';
 const blurOfTalonsStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.BLUR_OF_TALONS.id, rank);
   obj.agility += agility;
-  obj.agility *= 1.65; //Hotfix from 26th September
   return obj;
 }, {
   agility: 0,
@@ -48,7 +47,7 @@ class BlurOfTalons extends Analyzer {
     this.blurOfTalonStacks = Array.from({ length: MAX_BLUR_STACKS + 1 }, x => []);
 
     this.statTracker.add(SPELLS.BLUR_OF_TALONS_BUFF.id, {
-      agility,
+      agility: this.agility,
     });
   }
 
@@ -100,7 +99,7 @@ class BlurOfTalons extends Analyzer {
   }
 
   get uptime() {
-    return (this.selectedCombatant.getBuffUptime(SPELLS.BLUR_OF_TALONS_BUFF.id) / 1000).toFixed(1);
+    return this.selectedCombatant.getBuffUptime(SPELLS.BLUR_OF_TALONS_BUFF.id) / this.owner.fightDuration;
   }
 
   get avgAgility() {
@@ -116,7 +115,8 @@ class BlurOfTalons extends Analyzer {
         category={'AZERITE_POWERS'}
         tooltip={(
           <>
-            Blur of Talons was up for a total of {this.uptime} seconds
+            Blur of Talons granted <strong>{formatNumber(this.agility)}</strong> Agility for <strong>{formatPercentage(
+            this.uptime)}%</strong> of the fight.
           </>
         )}
         dropdown={(
