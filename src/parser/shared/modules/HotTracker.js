@@ -4,6 +4,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
+import { EventType } from 'parser/core/Events';
 
 const PANDEMIC_FACTOR = 1.3;
 const PANDEMIC_EXTRA = 0.3;
