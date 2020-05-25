@@ -10,6 +10,8 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ApplyBuff from '../../../../shared/normalizers/ApplyBuff';
+import { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from '../../../../core/Events';
 
 const RAMP_INTERVAL = 6000;
 const INCREASE_PER_RAMP = 0.01;
@@ -46,12 +48,12 @@ class LoneWolf extends Analyzer {
   loneWolfModifier = 0;
   lwAppliedOrRemoved = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.owner.playerPets.length === 0;
   }
 
-  on_byPlayer_applybuff(event) {
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LONE_WOLF_BUFF.id) {
       return;
@@ -60,7 +62,7 @@ class LoneWolf extends Analyzer {
     this.lwAppliedOrRemoved = true;
   }
 
-  on_byPlayer_removebuff(event) {
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LONE_WOLF_BUFF.id) {
       return;
@@ -69,7 +71,7 @@ class LoneWolf extends Analyzer {
     this.lwAppliedOrRemoved = true;
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     if (this.lwAppliedOrRemoved && !this.selectedCombatant.hasBuff(SPELLS.LONE_WOLF_BUFF.id)) {
       return;
     }
@@ -104,20 +106,6 @@ class LoneWolf extends Analyzer {
       </Statistic>
     );
   }
-
-  /**
-   * @deprecated
-   * @returns {*}
-   */
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.LONE_WOLF_BUFF.id} />}
-        value={<ItemDamageDone amount={this.damage} />}
-      />
-    );
-  }
-
 }
 
 export default LoneWolf;

@@ -2,13 +2,13 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import Statistic from 'interface/statistics/Statistic';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SpellUsable from 'parser/hunter/marksmanship/modules/core/SpellUsable';
 
-const surgingShotsStats = traits => Object.values(traits).reduce((obj, rank) => {
+const surgingShotsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [damage] = calculateAzeriteEffects(SPELLS.SURGING_SHOTS.id, rank);
   obj.damage += damage;
   return obj;
@@ -36,12 +36,14 @@ class SurgingShots extends Analyzer {
     spellUsable: SpellUsable,
   };
 
+  protected spellUsable!: SpellUsable;
+
   initialDamage = 0;
   damage = 0;
   damagePotential = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.SURGING_SHOTS.id);
     if (!this.active) {
       return;
@@ -59,7 +61,7 @@ class SurgingShots extends Analyzer {
 
   statistic() {
     return (
-      <AzeritePowerStatistic
+      <Statistic
         size="flexible"
         category={'AZERITE_POWERS'}
       >
@@ -69,7 +71,7 @@ class SurgingShots extends Analyzer {
             <small>Up to</small> {formatNumber(this.damagePotential)} <small> damage per <SpellLink id={SPELLS.RAPID_FIRE.id} /></small>
           </>
         </BoringSpellValueText>
-      </AzeritePowerStatistic>
+      </Statistic>
     );
   }
 

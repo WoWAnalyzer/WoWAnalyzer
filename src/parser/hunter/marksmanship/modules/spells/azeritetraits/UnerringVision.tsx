@@ -3,12 +3,12 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CriticalStrike from 'interface/icons/CriticalStrike';
-import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import Statistic from 'interface/statistics/Statistic';
 import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatNumber } from 'common/format';
 
-const unerringVisionStats = traits => Object.values(traits).reduce((obj, rank) => {
+const unerringVisionStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.UNERRING_VISION.id, rank);
   obj.crit += crit;
   return obj;
@@ -29,8 +29,8 @@ class UnerringVision extends Analyzer {
   };
   crit = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.UNERRING_VISION.id);
     if (!this.active) {
       return;
@@ -38,8 +38,8 @@ class UnerringVision extends Analyzer {
     const { crit } = unerringVisionStats(this.selectedCombatant.traitsBySpellId[SPELLS.UNERRING_VISION.id]);
     this.crit = crit;
 
-    this.statTracker.add(SPELLS.UNERRING_VISION_BUFF.id, {
-      crit,
+    options.statTracker.add(SPELLS.UNERRING_VISION_BUFF.id, {
+      crit: this.crit,
     });
   }
 
@@ -53,7 +53,7 @@ class UnerringVision extends Analyzer {
 
   statistic() {
     return (
-      <AzeritePowerStatistic
+      <Statistic
         size="flexible"
         category={'AZERITE_POWERS'}
       >
@@ -68,7 +68,7 @@ class UnerringVision extends Analyzer {
             <small> Crit gained</small>
           </>
         </BoringSpellValueText>
-      </AzeritePowerStatistic>
+      </Statistic>
     );
   }
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { ApplyDebuffEvent, ApplyDebuffStackEvent, CastEvent, RemoveDebuffEvent } from '../../../../../core/Events';
 
 /**
  * Steady Shot increases the damage of your next Aimed Shot against the target by X, stacking up to 5 times.
@@ -15,8 +16,8 @@ const MS_BUFFER = 100;
 
 class SteadyAim extends Analyzer {
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.STEADY_AIM.id);
   }
 
@@ -27,9 +28,9 @@ class SteadyAim extends Analyzer {
   maxPossible = 0;
   wasted = 0;
   utilised = 0;
-  removeDebuffTimestamp = null;
+  removeDebuffTimestamp: number = 0;
 
-  on_byPlayer_applydebuff(event) {
+  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STEADY_AIM_DEBUFF.id) {
       return;
@@ -38,7 +39,7 @@ class SteadyAim extends Analyzer {
     this._stacks = 1;
   }
 
-  on_byPlayer_applydebuffstack(event) {
+  on_byPlayer_applydebuffstack(event: ApplyDebuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STEADY_AIM_DEBUFF.id) {
       return;
@@ -47,7 +48,7 @@ class SteadyAim extends Analyzer {
     this._stacks = event.stack;
   }
 
-  on_byPlayer_removedebuff(event) {
+  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STEADY_AIM_DEBUFF.id) {
       return;
@@ -57,7 +58,7 @@ class SteadyAim extends Analyzer {
     this._stacks = 0;
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STEADY_SHOT.id && spellId !== SPELLS.AIMED_SHOT.id) {
       return;
@@ -83,7 +84,7 @@ class SteadyAim extends Analyzer {
 
   statistic() {
     return (
-      <AzeritePowerStatistic
+      <Statistic
         size="flexible"
         category={'AZERITE_POWERS'}
         tooltip={(
@@ -97,7 +98,7 @@ class SteadyAim extends Analyzer {
             {this.averageStacksPerAimed} <small>Stacks / Aimed</small>
           </>
         </BoringSpellValueText>
-      </AzeritePowerStatistic>
+      </Statistic>
     );
   }
 }

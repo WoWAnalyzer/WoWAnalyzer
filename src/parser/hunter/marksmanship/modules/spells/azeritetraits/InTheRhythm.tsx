@@ -4,12 +4,13 @@ import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import HasteIcon from 'interface/icons/Haste';
-import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import Statistic from 'interface/statistics/Statistic';
 import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage, formatNumber } from 'common/format';
+import { ApplyBuffEvent, ApplyDebuffEvent, RefreshBuffEvent } from '../../../../../core/Events';
 
-const inTheRhythmStats = traits => Object.values(traits).reduce((obj, rank) => {
+const inTheRhythmStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.IN_THE_RHYTHM.id, rank);
   obj.haste += haste;
   return obj;
@@ -29,14 +30,17 @@ class InTheRhythm extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
+
+  protected statTracker!: StatTracker;
+
   applications = 0;
   lastApplicationTimestamp = 0;
   possibleApplications = 0;
   haste = 0;
   wastedUptime = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.IN_THE_RHYTHM.id);
     if (!this.active) {
       return;
@@ -44,12 +48,12 @@ class InTheRhythm extends Analyzer {
     const { haste } = inTheRhythmStats(this.selectedCombatant.traitsBySpellId[SPELLS.IN_THE_RHYTHM.id]);
     this.haste = haste;
 
-    this.statTracker.add(SPELLS.IN_THE_RHYTHM_BUFF.id, {
-      haste,
+    options.statTracker.add(SPELLS.IN_THE_RHYTHM_BUFF.id, {
+      haste: this.haste,
     });
   }
 
-  on_byPlayer_applydebuff(event) {
+  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.RAPID_FIRE.id) {
       return;
@@ -57,7 +61,7 @@ class InTheRhythm extends Analyzer {
     this.possibleApplications += 1;
   }
 
-  on_byPlayer_applybuff(event) {
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.IN_THE_RHYTHM_BUFF.id) {
       return;
@@ -66,7 +70,7 @@ class InTheRhythm extends Analyzer {
     this.lastApplicationTimestamp = event.timestamp;
   }
 
-  on_byPlayer_refreshbuff(event) {
+  on_byPlayer_refreshbuff(event: RefreshBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.IN_THE_RHYTHM_BUFF.id) {
       return;
@@ -86,7 +90,7 @@ class InTheRhythm extends Analyzer {
 
   statistic() {
     return (
-      <AzeritePowerStatistic
+      <Statistic
         size="flexible"
         tooltip={(
           <>
@@ -103,7 +107,7 @@ class InTheRhythm extends Analyzer {
             <HasteIcon /> {formatNumber(this.avgHaste)} <small>average Haste gained</small>
           </>
         </BoringSpellValueText>
-      </AzeritePowerStatistic>
+      </Statistic>
     );
   }
 

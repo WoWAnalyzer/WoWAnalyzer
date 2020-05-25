@@ -12,6 +12,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { CastEvent } from '../../../../core/Events';
 
 /**
  * Reduces the cooldown of your Aimed Shot and Rapid Fire by 60%, and causes Aimed Shot to cast 50% faster for 15 sec.
@@ -32,14 +33,14 @@ class Trueshot extends Analyzer {
   aimedShotsPrTS = 0;
   startFocusForCombatant = 0;
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.TRUESHOT.id && spellId !== SPELLS.AIMED_SHOT.id) {
       return;
     }
     if (spellId === SPELLS.TRUESHOT.id) {
       this.trueshotCasts += 1;
-      this.accumulatedFocusAtTSCast += event.classResources[0].amount || 0;
+      this.accumulatedFocusAtTSCast += (event.classResources && event.classResources[0].amount) || 0;
     }
     if (spellId === SPELLS.AIMED_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       this.aimedShotsPrTS += 1;
@@ -79,6 +80,7 @@ class Trueshot extends Analyzer {
                 height: '1.3em',
                 marginTop: '-.1em',
               }}
+              noLink={false}
             />
           </>
         </BoringSpellValueText>
@@ -107,8 +109,8 @@ class Trueshot extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.aimedShotThreshold).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.aimedShotThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         <>
           You only cast {actual} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.

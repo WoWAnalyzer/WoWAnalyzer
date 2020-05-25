@@ -4,11 +4,10 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/hunter';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from '../../../../core/Events';
 
 /**
  * Aimed Shot causes your next 1-2 Arcane Shots or Multi-Shots to deal 100% more damage.
@@ -27,9 +26,9 @@ class PreciseShots extends Analyzer {
   buffsGained = 0;
   minOverwrittenProcs = 0;
   maxOverwrittenProcs = 0;
-  buffedShotInFlight = null;
+  buffedShotInFlight: number | null = null;
 
-  on_byPlayer_applybuff(event) {
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PRECISE_SHOTS.id) {
       return;
@@ -37,7 +36,7 @@ class PreciseShots extends Analyzer {
     this.buffsActive = ASSUMED_PROCS;
   }
 
-  on_byPlayer_removebuff(event) {
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PRECISE_SHOTS.id) {
       return;
@@ -46,7 +45,7 @@ class PreciseShots extends Analyzer {
     this.buffsActive = 0;
   }
 
-  on_byPlayer_applybuffstack(event) {
+  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PRECISE_SHOTS.id) {
       return;
@@ -56,7 +55,7 @@ class PreciseShots extends Analyzer {
     this.buffsActive = ASSUMED_PROCS;
   }
 
-  on_byPlayer_removebuffstack(event) {
+  on_byPlayer_removebuffstack(event: RemoveBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PRECISE_SHOTS.id) {
       return;
@@ -65,7 +64,7 @@ class PreciseShots extends Analyzer {
     this.buffsActive -= 1;
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (!this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS.id) || (spellId !== SPELLS.ARCANE_SHOT.id && spellId !== SPELLS.MULTISHOT_MM.id)) {
       return;
@@ -73,7 +72,7 @@ class PreciseShots extends Analyzer {
     this.buffedShotInFlight = event.timestamp;
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (this.buffedShotInFlight && this.buffedShotInFlight > event.timestamp + MAX_TRAVEL_TIME) {
       this.buffedShotInFlight = null;
@@ -107,18 +106,6 @@ class PreciseShots extends Analyzer {
           </>
         </BoringSpellValueText>
       </Statistic>
-    );
-  }
-  /**
-   * @Deprecated
-   * @returns {*}
-   */
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.PRECISE_SHOTS.id} />}
-        value={<ItemDamageDone amount={this.damage} />}
-      />
     );
   }
 }
