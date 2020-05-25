@@ -56,7 +56,7 @@ class FelBarrage extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Try to cast <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> during SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.</>)
+        return suggest(<>Try to cast <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.</>)
           .icon(SPELLS.FEL_BARRAGE_TALENT.icon)
           .actual(<>{actual} bad <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.</>)
           .recommended(`No bad casts is recommended.`);
