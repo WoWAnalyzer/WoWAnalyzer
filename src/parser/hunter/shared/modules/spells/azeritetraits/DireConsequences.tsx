@@ -2,13 +2,14 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
 import UptimeIcon from 'interface/icons/Uptime';
 import { ApplyBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import { HASTE_PERCENT } from 'parser/hunter/beastmastery/modules/talents/DireBeast';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+
 /**
  * Kill Command deals n additional damage, and has a chance to summon a Dire
  * Beast.
@@ -44,7 +45,7 @@ class DireConsequences extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
       >
         <BoringSpellValueText spell={SPELLS.DIRE_CONSEQUENCES}>
           <>

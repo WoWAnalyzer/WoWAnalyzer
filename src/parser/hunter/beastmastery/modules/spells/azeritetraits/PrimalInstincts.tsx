@@ -10,6 +10,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import { ApplyBuffEvent } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 
 const primalInstinctsStats = (traits: number[]) => Object.values(traits)
@@ -82,7 +83,7 @@ class PrimalInstincts extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
             Primal Instincts granted <strong>{formatNumber(this.mastery)}</strong> Mastery for <strong>{formatPercentage(this.uptime)}%</strong> of the fight. <br />

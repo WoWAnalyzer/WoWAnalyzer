@@ -11,6 +11,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 import { ApplyBuffEvent, CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const MS = 1000;
 const MS_BUFFER = 100;
@@ -56,9 +57,9 @@ class FeedingFrenzy extends Analyzer {
 
   extraBSUptime(timestamp: number, lastCast: number) {
     const delta = timestamp - lastCast;
-    if (delta > (ORIGINAL_FRENZY_DURATION)) {
+    if (delta > ORIGINAL_FRENZY_DURATION) {
       this.timesExtended += 1;
-      return Math.min(delta - (ORIGINAL_FRENZY_DURATION), MS);
+      return Math.min(delta - ORIGINAL_FRENZY_DURATION, MS);
     } else {
       return 0;
     }
@@ -128,8 +129,7 @@ class FeedingFrenzy extends Analyzer {
 
   on_fightend() {
     if (this.lastBSCast !== null) {
-      this.extraBuffUptime += this.extraBSUptime(this.owner.fight.end_time, this.lastBSCast,
-      );
+      this.extraBuffUptime += this.extraBSUptime(this.owner.fight.end_time, this.lastBSCast);
     }
   }
   statistic() {
@@ -139,7 +139,7 @@ class FeedingFrenzy extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
             This only accounts for the added uptime granted when casting Barbed Shot after 8 seconds had passed, so each cast can potentially be worth up to 1 second. <br />

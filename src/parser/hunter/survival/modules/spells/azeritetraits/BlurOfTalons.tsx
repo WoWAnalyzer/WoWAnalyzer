@@ -8,6 +8,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Agility from 'interface/icons/Agility';
 import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const blurOfTalonsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.BLUR_OF_TALONS.id, rank);
@@ -107,7 +108,7 @@ class BlurOfTalons extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
             Blur of Talons granted <strong>{formatNumber(this.agility)}</strong> Agility for <strong>{formatPercentage(

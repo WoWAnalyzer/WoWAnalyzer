@@ -41,8 +41,7 @@ class KillCommand extends Analyzer {
       return;
     }
     this.resets += 1;
-    const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(
-      spellId);
+    const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
     const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_CAST_SV.id, this.spellUsable.cooldownTriggerEvent(SPELLS.KILL_COMMAND_CAST_SV.id));
     if (expectedCooldownDuration) {
       this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_SV.id, expectedCooldownDuration - globalCooldown);

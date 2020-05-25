@@ -8,11 +8,9 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import {
-  formatDuration,
-  formatPercentage,
-} from 'common/format';
+import { formatDuration, formatPercentage} from 'common/format';
 import SpellLink from 'common/SpellLink';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const MULTI_SHOTS = [SPELLS.MULTISHOT_BM.id, SPELLS.MULTISHOT_MM.id];
 const COOLDOWN_REDUCTION_MS = 1000;
@@ -146,7 +144,7 @@ class RapidReload extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <> {formatPercentage(
             (

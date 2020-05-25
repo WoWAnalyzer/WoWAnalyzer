@@ -7,6 +7,7 @@ import Statistic from 'interface/statistics/Statistic';
 import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatNumber } from 'common/format';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const unerringVisionStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.UNERRING_VISION.id, rank);
@@ -55,7 +56,7 @@ class UnerringVision extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
       >
         <BoringSpellValueText spell={SPELLS.UNERRING_VISION}>
           <>

@@ -5,6 +5,7 @@ import React from 'react';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 class WildfireCluster extends Analyzer {
   damage = 0;
@@ -24,7 +25,7 @@ class WildfireCluster extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
       >
         <BoringSpellValueText spell={SPELLS.WILDFIRE_CLUSTER}>
           <>

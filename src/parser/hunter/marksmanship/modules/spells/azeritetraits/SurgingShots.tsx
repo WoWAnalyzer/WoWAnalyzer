@@ -7,6 +7,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SpellUsable from 'parser/hunter/marksmanship/modules/core/SpellUsable';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const surgingShotsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [damage] = calculateAzeriteEffects(SPELLS.SURGING_SHOTS.id, rank);
@@ -63,7 +64,7 @@ class SurgingShots extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
       >
         <BoringSpellValueText spell={SPELLS.SURGING_SHOTS}>
           <>

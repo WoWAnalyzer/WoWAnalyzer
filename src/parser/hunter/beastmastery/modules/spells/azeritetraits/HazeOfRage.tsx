@@ -8,6 +8,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import Combatant from 'parser/core/Combatant';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const hazeOfRageStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.HAZE_OF_RAGE.id, rank);
@@ -52,7 +53,7 @@ class HazeOfRage extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
             Haze of Rage granted <strong>{formatNumber(this.agility)}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.

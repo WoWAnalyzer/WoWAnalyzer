@@ -8,6 +8,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Statistic from 'interface/statistics/Statistic';
 import CriticalStrike from 'interface/icons/CriticalStrike';
 import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 /**
  * Your maximum Focus is increased to 120, and Raptor Strike (or Mongoose bite) increases your Critical Strike by 52 for 12 sec, stacking up to 5 times.
@@ -109,7 +110,7 @@ class PrimevalIntuition extends Analyzer {
             Primeval Intuition was up for a total of {this.uptime} seconds.
           </>
         )}
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         dropdown={(
           <>
             <table className="table table-condensed">

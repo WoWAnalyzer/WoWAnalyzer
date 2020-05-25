@@ -81,20 +81,9 @@ class AnimalCompanion extends Analyzer {
                   <tr key={idx}>
                     <td>{pet.petName}</td>
                     <td>{formatNumber(pet.damage)}</td>
-                    <td>{formatNumber(pet.damage /
-                      (
-                        this.owner.fightDuration / 1000
-                      ))}</td>
-                    <td>{pet.petName === this.mainPetName
-                      ? formatNumber(pet.damage / 0.65) +
-                      ' / ' +
-                      formatNumber((
-                          pet.damage / 0.65
-                        ) /
-                        (
-                          this.owner.fightDuration / 1000
-                        )) +
-                      ' DPS'
+                    <td>{formatNumber(pet.damage / (this.owner.fightDuration / 1000))}</td>
+                    <td>{pet.petName === this.mainPetName ?
+                      formatNumber(pet.damage / 0.65) + ' / ' + formatNumber((pet.damage / 0.65) / (this.owner.fightDuration / 1000)) + ' DPS'
                       : ''}</td>
                   </tr>
                 ))}

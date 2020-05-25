@@ -8,13 +8,8 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Abilities from 'parser/core/modules/Abilities';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
-import {
-  ApplyBuffEvent, ApplyBuffStackEvent,
-  CastEvent, DamageEvent,
-  EnergizeEvent, RemoveBuffEvent,
-} from 'parser/core/Events';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, EnergizeEvent, RemoveBuffEvent} from 'parser/core/Events';
 
 /**
  * Summons a flock of crows to attack your target over the next 15 sec. If the

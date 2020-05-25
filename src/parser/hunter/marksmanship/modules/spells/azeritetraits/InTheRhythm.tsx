@@ -9,6 +9,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage, formatNumber } from 'common/format';
 import { ApplyBuffEvent, ApplyDebuffEvent, RefreshBuffEvent } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const inTheRhythmStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.IN_THE_RHYTHM.id, rank);
@@ -98,7 +99,7 @@ class InTheRhythm extends Analyzer {
             You lost out on {formatNumber(this.wastedUptime / 1000)} seconds of uptime from refreshing the buff before it expired.
           </>
         )}
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
       >
         <BoringSpellValueText spell={SPELLS.IN_THE_RHYTHM}>
           <>
