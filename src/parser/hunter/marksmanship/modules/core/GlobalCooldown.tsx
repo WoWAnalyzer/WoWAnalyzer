@@ -17,7 +17,9 @@ class GlobalCooldown extends CoreGlobalCooldown {
     steadyFocus: SteadyFocus,
   };
 
-  on_byPlayer_cast(event) {
+  protected steadyFocus!: SteadyFocus;
+
+  on_byPlayer_cast(event: any) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.RAPID_FIRE.id) {
       // This GCD gets handled by the `beginchannel` event
@@ -26,7 +28,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
     super.on_byPlayer_cast(event);
   }
 
-  getGlobalCooldownDuration(spellId) {
+  getGlobalCooldownDuration(spellId: number) {
     const gcd = super.getGlobalCooldownDuration(spellId);
 
     if (!gcd) {
