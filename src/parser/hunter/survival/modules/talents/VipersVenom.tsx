@@ -11,7 +11,7 @@ import { RAPTOR_MONGOOSE_VARIANTS, VIPERS_VENOM_DAMAGE_MODIFIER } from 'parser/h
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from '../../../../core/Events';
+import { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
 
 /**
  * Raptor Strike (or Mongoose Bite) has a chance to make your next

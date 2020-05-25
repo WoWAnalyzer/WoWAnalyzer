@@ -8,7 +8,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent, ChangeBuffStackEvent, DamageEvent } from '../../../../core/Events';
+import { CastEvent, ChangeBuffStackEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  * Kill Command increases the damage of your next Raptor Strike by 20%, stacking up to 3 times.

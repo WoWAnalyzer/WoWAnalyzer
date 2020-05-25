@@ -8,7 +8,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent, DamageEvent } from '../../../../core/Events';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  * Kill Command causes the target to bleed for X damage over 8 sec.

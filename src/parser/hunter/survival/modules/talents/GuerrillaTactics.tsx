@@ -7,7 +7,7 @@ import React from 'react';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from '../../../../core/Events';
+import { DamageEvent } from 'parser/core/Events';
 
 /**
  * Wildfire Bomb now has 2 charges, and the initial explosion deals 100% increased damage.

@@ -9,7 +9,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from '../../../../core/Events';
+import { DamageEvent } from 'parser/core/Events';
 
 const EXTENSION_PER_CAST = 1500;
 const MS_BUFFER = 100;

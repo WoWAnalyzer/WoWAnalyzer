@@ -6,7 +6,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent, EnergizeEvent } from '../../../../core/Events';
+import { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 
 /**
  * You and your pet leap to the target and strike it as one, dealing a total of X Physical damage.
