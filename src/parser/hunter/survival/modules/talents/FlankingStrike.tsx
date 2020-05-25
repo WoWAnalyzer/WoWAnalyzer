@@ -6,6 +6,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { DamageEvent, EnergizeEvent } from '../../../../core/Events';
 
 /**
  * You and your pet leap to the target and strike it as one, dealing a total of X Physical damage.
@@ -21,10 +22,10 @@ class FlankingStrike extends Analyzer {
 
   damage = 0;
 
-  flankingStrikes = [];
+  flankingStrikes: {name: string, sourceID: number, damage: number, effectiveFocus: number, possibleFocus: number}[] = [];
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLANKING_STRIKE_TALENT.id);
     this.flankingStrikes.push({
       name: this.selectedCombatant.name,
@@ -36,13 +37,13 @@ class FlankingStrike extends Analyzer {
   }
 
   get flankingStrikesPlayer() {
-    return this.flankingStrikes.find(item => item.sourceID === this.owner.playerId);
+    return this.flankingStrikes.find((item: {sourceID: number}) => item.sourceID === this.owner.playerId) || this.flankingStrikes[0];
   }
 
-  getOrInitializePet(petId) {
-    const foundPet = this.flankingStrikes.find(pet => pet.sourceID === petId);
+  getOrInitializePet(petId: number) {
+    const foundPet = this.flankingStrikes.find((pet: {sourceID: number}) => pet.sourceID === petId);
     if (!foundPet) {
-      const sourcePet = this.owner.playerPets.find(pet => pet.id === petId);
+      const sourcePet = this.owner.playerPets.find((pet: {id: number}) => pet.id === petId);
       const pet = {
         name: sourcePet.name,
         sourceID: petId,
@@ -56,17 +57,17 @@ class FlankingStrike extends Analyzer {
     return foundPet;
   }
 
-  on_byPlayerPet_damage(event) {
+  on_byPlayerPet_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FLANKING_STRIKE_PET.id) {
       return;
     }
     const damage = event.amount + (event.absorbed || 0);
-    const pet = this.getOrInitializePet(event.sourceID);
+    const pet = this.getOrInitializePet(event.sourceID as number);
     pet.damage += damage;
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FLANKING_STRIKE_PLAYER.id) {
       return;
@@ -74,7 +75,7 @@ class FlankingStrike extends Analyzer {
     this.flankingStrikesPlayer.damage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayerPet_energize(event) {
+  on_byPlayerPet_energize(event: EnergizeEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FLANKING_STRIKE_PET.id) {
       return;
@@ -85,7 +86,7 @@ class FlankingStrike extends Analyzer {
     pet.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;
   }
 
-  on_byPlayer_energize(event) {
+  on_byPlayer_energize(event: EnergizeEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FLANKING_STRIKE_PLAYER.id) {
       return;
@@ -96,7 +97,7 @@ class FlankingStrike extends Analyzer {
   }
 
   statistic() {
-    const totalDamage = this.flankingStrikes.map(source => source.damage).reduce((total, current) => total + current, 0);
+    const totalDamage = this.flankingStrikes.map((source: {damage: number}) => source.damage).reduce((total: number, current: number) => total + current, 0);
 
     return (
       <Statistic
@@ -113,7 +114,7 @@ class FlankingStrike extends Analyzer {
                 </tr>
               </thead>
               <tbody>
-                {this.flankingStrikes.map((source, idx) => (
+                {this.flankingStrikes.map((source: { name: string; damage: number; effectiveFocus: number; possibleFocus: number; }, idx: number) => (
                   <tr key={idx}>
                     <td>{source.name}</td>
                     <td><ItemDamageDone amount={source.damage} /></td>

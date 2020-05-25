@@ -2,15 +2,15 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { EventType } from 'parser/core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
 
-const MAX_STACKS = 5;
+const MAX_STACKS: number = 5;
 
 const MAX_TRAVEL_TIME = 700;
 
@@ -24,23 +24,23 @@ const MAX_TRAVEL_TIME = 700;
 class MongooseBite extends Analyzer {
 
   damage = 0;
-  mongooseBiteStacks = [];
-  lastMongooseBiteStack = 0;
+  mongooseBiteStacks: number[] = [];
+  lastMongooseBiteStack: number = 0;
   totalWindowsStarted = 0;
   fiveBiteWindows = 0;
   aspectOfTheEagleFixed = false;
-  buffApplicationTimestamp = null;
-  accumulatedFocusAtWindow = [];
+  buffApplicationTimestamp: number = 0;
+  accumulatedFocusAtWindow: any[] = [];
   focusAtMomentOfCast = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id);
-    this.mongooseBiteStacks = Array.from({ length: MAX_STACKS + 1 }, x => []);
+    this.mongooseBiteStacks = Array.from({ length: MAX_STACKS + 1 }, x => 0);
   }
 
-  handleStacks(event) {
-    if (event.type === EventType.RemoveBuff || (isNaN(event.stack) && event.type !== EventType.Damage)) { //NaN check if player is dead during on_finish
+  handleStacks(event: DamageEvent | ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent) {
+    if (event.type === EventType.RemoveBuff) {
       this.lastMongooseBiteStack = 0;
     }
     if (event.type === EventType.Damage) {
@@ -51,7 +51,7 @@ class MongooseBite extends Analyzer {
         this.aspectOfTheEagleFixed = true;
       }
       if (!this.mongooseBiteStacks[this.lastMongooseBiteStack]) {
-        this.mongooseBiteStacks[this.lastMongooseBiteStack].push(this.lastMongooseBiteStack);
+        this.mongooseBiteStacks[this.lastMongooseBiteStack] = 1;
       } else {
         this.mongooseBiteStacks[this.lastMongooseBiteStack] += 1;
       }
@@ -79,8 +79,7 @@ class MongooseBite extends Analyzer {
   }
 
   get totalMongooseBites() {
-    const flattenArray = this.mongooseBiteStacks.reduce((acc, val) => acc.concat(val), []);
-    return flattenArray.reduce((totalHits, stackHits) => totalHits + stackHits, 0);
+    return this.mongooseBiteStacks.flat().reduce((totalHits: number, stackHits: number) => totalHits + stackHits, 0);
   }
 
   get fiveStackMongooseBites() {
@@ -119,7 +118,7 @@ class MongooseBite extends Analyzer {
     };
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MONGOOSE_BITE_TALENT.id && spellId !== SPELLS.MONGOOSE_BITE_TALENT_AOTE.id) {
       return;
@@ -127,12 +126,12 @@ class MongooseBite extends Analyzer {
     this.handleStacks(event);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MONGOOSE_BITE_TALENT.id) {
       return;
     }
-    this.focusAtMomentOfCast = event.classResources[0].amount;
+    this.focusAtMomentOfCast = event.classResources ? event.classResources[0].amount : 0;
 
     // this is for the timeline highlighting
     if (event.meta === undefined) {
@@ -153,7 +152,7 @@ class MongooseBite extends Analyzer {
     }
   }
 
-  on_byPlayer_applybuff(event) {
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MONGOOSE_FURY.id) {
       return;
@@ -162,7 +161,7 @@ class MongooseBite extends Analyzer {
     this.buffApplicationTimestamp = event.timestamp;
   }
 
-  on_byPlayer_applybuffstack(event) {
+  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MONGOOSE_FURY.id) {
       return;
@@ -170,7 +169,7 @@ class MongooseBite extends Analyzer {
     this.handleStacks(event);
   }
 
-  on_byPlayer_removebuff(event) {
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MONGOOSE_FURY.id) {
       return;
@@ -178,6 +177,8 @@ class MongooseBite extends Analyzer {
     this.handleStacks(event);
   }
   statistic() {
+    console.log(this.fiveStackMongooseBites);
+    console.log(this.mongooseBiteStacks);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
@@ -199,11 +200,11 @@ class MongooseBite extends Analyzer {
                 </tr>
               </thead>
               <tbody>
-                {Object.values(this.mongooseBiteByStacks).map((e, i) => (
+                {Object.values(this.mongooseBiteByStacks).map((e, i: string | number) => (
                   <tr key={i}>
                     <th>{i}</th>
                     <td>{e}</td>
-                    <td>{formatPercentage(e / this.totalMongooseBites)}%</td>
+                    <td>{formatPercentage(+e / this.totalMongooseBites)}%</td>
                   </tr>
                 ))}
               </tbody>
@@ -214,21 +215,21 @@ class MongooseBite extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.MONGOOSE_BITE_TALENT}>
           <ItemDamageDone amount={this.damage} /> <br />
-          {//{this.fiveStackMongooseBites}/{this.totalMongooseBites} <small>5 stack bites</small>
-          }
+          {this.fiveStackMongooseBites}/{this.totalMongooseBites} <small>5 stack bites</small>
+
         </BoringSpellValueText>
       </Statistic>
     );
   }
 
-  suggestions(when) {
-    when(this.focusOnMongooseWindowThreshold).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.focusOnMongooseWindowThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>When talented into <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, it's important to have accumulated a good amount of focus before you open a <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> window in order to maximize the number of <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s at high stacks.</>)
         .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
         .actual(`${formatNumber(actual)} average focus on new window.`)
         .recommended(`>${formatNumber(recommended)} is recommended`);
     });
-    when(this.mongoose5StackHitThreshold).addSuggestion((suggest, actual, recommended) => {
+    when(this.mongoose5StackHitThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>It's important to cast as much <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s as possible when having max(5) stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} />.</>)
         .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
         .actual(`${formatPercentage(actual)}% casts on max stacks.`)

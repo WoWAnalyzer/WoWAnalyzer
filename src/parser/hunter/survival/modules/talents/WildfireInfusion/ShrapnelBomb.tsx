@@ -8,6 +8,7 @@ import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { ApplyDebuffEvent, ApplyDebuffStackEvent, DamageEvent } from '../../../../../core/Events';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -23,17 +24,19 @@ class ShrapnelBomb extends Analyzer {
     enemies: Enemies,
   };
 
+  protected enemies!: Enemies;
+
   damage = 0;
   bleedDamage = 0;
   stacks = 0;
   applications = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SHRAPNEL_BOMB_WFI_DOT.id && spellId !== SPELLS.SHRAPNEL_BOMB_WFI_IMPACT.id && spellId !== SPELLS.INTERNAL_BLEEDING_SV.id) {
       return;
@@ -44,7 +47,7 @@ class ShrapnelBomb extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_applydebuff(event) {
+  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.INTERNAL_BLEEDING_SV.id) {
       return;
@@ -53,7 +56,7 @@ class ShrapnelBomb extends Analyzer {
     this.applications += 1;
   }
 
-  on_byPlayer_applydebuffstack(event) {
+  on_byPlayer_applydebuffstack(event: ApplyDebuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.INTERNAL_BLEEDING_SV.id) {
       return;

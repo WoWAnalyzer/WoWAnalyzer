@@ -11,6 +11,7 @@ import { RAPTOR_MONGOOSE_VARIANTS, VIPERS_VENOM_DAMAGE_MODIFIER } from 'parser/h
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from '../../../../core/Events';
 
 /**
  * Raptor Strike (or Mongoose Bite) has a chance to make your next
@@ -25,6 +26,10 @@ class VipersVenom extends Analyzer {
     globalCooldown: GlobalCooldown,
   };
 
+  protected statTracker!: StatTracker;
+  protected globalCooldown!: GlobalCooldown;
+
+
   buffedSerpentSting = false;
   bonusDamage = 0;
   procs = 0;
@@ -33,17 +38,17 @@ class VipersVenom extends Analyzer {
   currentGCD = 0;
   wastedProcs = 0;
   badRaptorsOrMBs = 0;
-  spellKnown = null;
+  spellKnown = SPELLS.RAPTOR_STRIKE;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
-    if (this.active) {
-      this.spellKnown = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? SPELLS.MONGOOSE_BITE_TALENT : SPELLS.RAPTOR_STRIKE;
+    if (this.active && this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id)) {
+      this.spellKnown = SPELLS.MONGOOSE_BITE_TALENT;
     }
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if ((!RAPTOR_MONGOOSE_VARIANTS.includes(spellId) && spellId !== SPELLS.SERPENT_STING_SV.id) || !this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
       return;
@@ -59,7 +64,7 @@ class VipersVenom extends Analyzer {
     }
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_SV.id || !this.buffedSerpentSting) {
       return;
@@ -68,7 +73,7 @@ class VipersVenom extends Analyzer {
     this.buffedSerpentSting = false;
   }
 
-  on_byPlayer_applybuff(event) {
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.VIPERS_VENOM_BUFF.id) {
       return;
@@ -77,7 +82,7 @@ class VipersVenom extends Analyzer {
     this.lastProcTimestamp = event.timestamp;
   }
 
-  on_byPlayer_refreshbuff(event) {
+  on_byPlayer_refreshbuff(event: RefreshBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.VIPERS_VENOM_BUFF.id) {
       return;
@@ -112,14 +117,14 @@ class VipersVenom extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.raptorWithBuffThresholds).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.raptorWithBuffThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>Remember to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> after proccing <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> before you cast <SpellLink id={this.spellKnown.id} /> again.</>)
         .icon(SPELLS.VIPERS_VENOM_TALENT.icon)
         .actual(`${actual} raptor casts with Viper's Venom buff active`)
         .recommended(`<${recommended} casts is recommended`);
     });
-    when(this.wastedProcsThresholds).addSuggestion((suggest, actual, recommended) => {
+    when(this.wastedProcsThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>Remember to utilise all your <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> procs, and to not cast <SpellLink id={this.spellKnown.id} /> before you've spent the <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff.</>)
         .icon(SPELLS.VIPERS_VENOM_TALENT.icon)
         .actual(`${actual} wasted procs of Viper's Venom`)

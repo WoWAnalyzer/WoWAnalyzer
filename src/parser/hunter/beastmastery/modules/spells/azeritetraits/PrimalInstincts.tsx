@@ -9,7 +9,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import { ApplyBuffEvent } from '../../../../../core/Events';
+import { ApplyBuffEvent } from 'parser/core/Events';
 
 
 const primalInstinctsStats = (traits: number[]) => Object.values(traits)

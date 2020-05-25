@@ -8,6 +8,7 @@ import { ALPHA_DAMAGE_KC_MODIFIER } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { DamageEvent } from '../../../../core/Events';
 
 /**
  * Kill Command now has 2 charges, and deals 30% increased damage.
@@ -19,12 +20,12 @@ class AlphaPredator extends Analyzer {
 
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id);
   }
 
-  on_byPlayerPet_damage(event) {
+  on_byPlayerPet_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.KILL_COMMAND_DAMAGE_SV.id) {
       return;

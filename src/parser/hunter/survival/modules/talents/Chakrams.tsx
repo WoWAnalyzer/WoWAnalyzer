@@ -8,6 +8,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { CastEvent, DamageEvent } from '../../../../core/Events';
 
 /**
  * Throw a pair of chakrams at your target, slicing all enemies in the chakrams' path for (40% of Attack power) Physical damage. The chakrams will return to you, damaging enemies again.
@@ -15,7 +16,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
  * Example log: https://www.warcraftlogs.com/reports/hYwpkJ41FG7cazWA#fight=3&type=damage-done
  */
 
-const CHAKRAMS = [
+const CHAKRAM_TYPES = [
   SPELLS.CHAKRAMS_TO_MAINTARGET.id,
   SPELLS.CHAKRAMS_BACK_FROM_MAINTARGET.id,
   SPELLS.CHAKRAMS_NOT_MAINTARGET.id,
@@ -26,16 +27,18 @@ class Chakrams extends Analyzer {
     spellUsable: SpellUsable,
   };
 
+  protected spellUsable!: SpellUsable;
+
   casts = 0;
   targetsHit = 0;
-  uniqueTargets = [];
+  uniqueTargets: string[] = [];
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHAKRAMS_TALENT.id);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.CHAKRAMS_TALENT.id) {
       return;
@@ -44,9 +47,9 @@ class Chakrams extends Analyzer {
     this.casts += 1;
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
-    if (!CHAKRAMS.includes(spellId)) {
+    if (!CHAKRAM_TYPES.includes(spellId)) {
       return;
     }
     if (this.casts === 0) {
@@ -55,7 +58,7 @@ class Chakrams extends Analyzer {
         timestamp: this.owner.fight.start_time,
       });
     }
-    const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
+    const damageTarget: string = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.uniqueTargets.includes(damageTarget)) {
       this.targetsHit += 1;
       this.uniqueTargets.push(damageTarget);

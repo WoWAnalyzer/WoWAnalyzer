@@ -8,6 +8,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { CastEvent, DamageEvent } from '../../../../core/Events';
 
 /**
  * Hurls a Steel Trap to the target location that snaps shut on the
@@ -23,15 +24,17 @@ class SteelTrap extends Analyzer {
     spellUsable: SpellUsable,
   };
 
+  protected spellUsable!: SpellUsable;
+
   damage = 0;
   casts = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STEEL_TRAP_TALENT.id) {
       return;
@@ -39,7 +42,7 @@ class SteelTrap extends Analyzer {
     this.casts += 1;
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STEEL_TRAP_DEBUFF.id) {
       return;

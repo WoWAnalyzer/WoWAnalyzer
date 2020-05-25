@@ -43,8 +43,7 @@ class BarbedShot extends Analyzer {
   }
   get percentUptimePet() {
     //this removes the time spent without the pet having the frenzy buff
-    const flattenArray = this.barbedShotStacks.slice(1).reduce((acc, val) => acc.concat(val), []);
-    const petUptime = flattenArray.reduce((totalUptime: number, stackUptime: number) => totalUptime + stackUptime, 0);
+    const petUptime = this.barbedShotStacks.slice(1).flat().reduce((totalUptime: number, stackUptime: number) => totalUptime + stackUptime, 0);
     return petUptime / this.owner.fightDuration;
   }
   get percentPlayerUptime() {

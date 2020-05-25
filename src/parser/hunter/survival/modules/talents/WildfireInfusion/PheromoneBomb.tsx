@@ -7,6 +7,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -25,18 +26,20 @@ class PheromoneBomb extends Analyzer {
     enemies: Enemies,
   };
 
+  protected enemies!: Enemies;
+
   damage = 0;
   casts = 0;
   kcCastTimestamp = 0;
   focusGained = 0;
   resets = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
   }
 
-  on_byPlayerPet_damage(event) {
+  on_byPlayerPet_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.KILL_COMMAND_DAMAGE_SV.id) {
       return;
@@ -51,7 +54,7 @@ class PheromoneBomb extends Analyzer {
     }
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PHEROMONE_BOMB_WFI_DOT.id && spellId !== SPELLS.PHEROMONE_BOMB_WFI_IMPACT.id) {
       return;
@@ -59,7 +62,7 @@ class PheromoneBomb extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PHEROMONE_BOMB_WFI.id && spellId !== SPELLS.KILL_COMMAND_CAST_SV.id) {
       return;

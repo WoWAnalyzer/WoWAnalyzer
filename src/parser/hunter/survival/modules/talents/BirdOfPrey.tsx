@@ -9,6 +9,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { DamageEvent } from '../../../../core/Events';
 
 const EXTENSION_PER_CAST = 1500;
 const MS_BUFFER = 100;
@@ -26,23 +27,23 @@ const BOP_ABILITIES = [
 
 class BirdOfPrey extends Analyzer {
 
-  petTarget = null;
-  playerTarget = null;
+  petTarget: string = "";
+  playerTarget: string = "";
   coordinatedAssaultExtended = 0;
   wastedExtension = 0;
   timestampAoE = 0;
-  targetsHitAoE = [];
+  targetsHitAoE: string[] = [];
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
   }
 
-  on_byPlayerPet_damage(event) {
+  on_byPlayerPet_damage(event: DamageEvent) {
     this.petTarget = encodeTargetString(event.targetID, event.targetInstance);
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (!BOP_ABILITIES.includes(spellId) || !this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
@@ -91,8 +92,8 @@ class BirdOfPrey extends Analyzer {
     return this.coordinatedAssaultExtended / (this.coordinatedAssaultExtended + this.wastedExtension);
   }
 
-  suggestions(when) {
-    when(this.birdPercentEffectiveness).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.birdPercentEffectiveness).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>When talented into <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} />, it's important to cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />, <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, <SpellLink id={SPELLS.CARVE.id} /> or <SpellLink id={SPELLS.BUTCHERY_TALENT.id} /> on the same target as your pet is attacking.</>)
         .icon(SPELLS.BIRDS_OF_PREY_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of abilities extending CA were used on your pets target`)

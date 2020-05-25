@@ -12,6 +12,7 @@ import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from '../../../../../core/Events';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -29,6 +30,10 @@ class VolatileBomb extends Analyzer {
     enemies: Enemies,
     statTracker: StatTracker,
   };
+
+  protected enemies!: Enemies;
+  protected statTracker!: StatTracker;
+
   damage = 0;
   casts = 0;
   extendedSerpentStings = 0;
@@ -36,7 +41,7 @@ class VolatileBomb extends Analyzer {
   focusSaved = 0;
   missedSerpentResets = 0;
 
-  activeSerpentStings = {
+  activeSerpentStings: {[key: string]: {targetName: string, cast: number, expectedEnd: number, extendStart: number, extendExpectedEnd: number}} = {
     /*
     [encodedTargetString]: {
         targetName: name,
@@ -48,12 +53,12 @@ class VolatileBomb extends Analyzer {
      */
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
   }
 
-  _serpentApplication(event) {
+  _serpentApplication(event: ApplyDebuffEvent | RefreshDebuffEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
@@ -64,12 +69,12 @@ class VolatileBomb extends Analyzer {
       targetName: enemy.name,
       cast: event.timestamp,
       expectedEnd: event.timestamp + hastedSerpentStingDuration,
-      extendStart: null,
-      extendExpectedEnd: null,
+      extendStart: 0,
+      extendExpectedEnd: 0,
     };
   }
 
-  _maybeSerpentStingExtend(event) {
+  _maybeSerpentStingExtend(event: ApplyDebuffEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
@@ -87,7 +92,7 @@ class VolatileBomb extends Analyzer {
     }
   }
 
-  on_byPlayer_applydebuff(event) {
+  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.VOLATILE_BOMB_WFI_DOT.id && spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
@@ -100,7 +105,7 @@ class VolatileBomb extends Analyzer {
     }
   }
 
-  on_byPlayer_refreshdebuff(event) {
+  on_byPlayer_refreshdebuff(event: RefreshDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.VOLATILE_BOMB_WFI_DOT.id && spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
@@ -110,7 +115,7 @@ class VolatileBomb extends Analyzer {
     }
   }
 
-  on_byPlayer_removedebuff(event) {
+  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
@@ -119,7 +124,7 @@ class VolatileBomb extends Analyzer {
     delete this.activeSerpentStings[encoded];
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.VOLATILE_BOMB_WFI_DOT.id && spellId !== SPELLS.VOLATILE_BOMB_WFI_IMPACT.id) {
       return;
@@ -127,7 +132,7 @@ class VolatileBomb extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event:CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.VOLATILE_BOMB_WFI.id) {
       return;
@@ -187,9 +192,9 @@ class VolatileBomb extends Analyzer {
     );
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     const serpentSting = <SpellLink id={SPELLS.SERPENT_STING_SV.id} />;
-    when(this.missedResetsThresholds).addSuggestion((suggest, actual, recommended) => {
+    when(this.missedResetsThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>You shouldn't cast <SpellLink id={SPELLS.VOLATILE_BOMB_WFI.id} /> if your target doesn't have <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on.</>)
         .icon(SPELLS.VOLATILE_BOMB_WFI.icon)
         .actual(`${actual} casts without ${serpentSting} on`)

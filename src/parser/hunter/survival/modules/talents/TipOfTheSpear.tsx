@@ -8,6 +8,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { CastEvent, ChangeBuffStackEvent, DamageEvent } from '../../../../core/Events';
 
 /**
  * Kill Command increases the damage of your next Raptor Strike by 20%, stacking up to 3 times.
@@ -26,12 +27,12 @@ class TipOfTheSpear extends Analyzer {
   damage = 0;
   lastApplicationTimestamp = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TIP_OF_THE_SPEAR_TALENT.id);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.KILL_COMMAND_CAST_SV.id && !RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
       return;
@@ -49,7 +50,7 @@ class TipOfTheSpear extends Analyzer {
     }
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (!RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
       return;
@@ -58,7 +59,7 @@ class TipOfTheSpear extends Analyzer {
     this.usedStacks += this.stacks;
   }
 
-  on_byPlayer_changebuffstack(event) {
+  on_byPlayer_changebuffstack(event: ChangeBuffStackEvent) {
     if (event.ability.guid !== SPELLS.TIP_OF_THE_SPEAR_CAST.id) {
       return;
     }

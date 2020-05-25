@@ -8,6 +8,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { CastEvent, DamageEvent } from '../../../../core/Events';
 
 /**
  * Kill Command causes the target to bleed for X damage over 8 sec.
@@ -20,16 +21,16 @@ const MS_BUFFER = 100;
 
 class Bloodseeker extends Analyzer {
 
-  averageStacks = 0;
-  kcCastTimestamp = null;
-  damage = 0;
+  averageStacks: number = 0;
+  kcCastTimestamp: number = 0;
+  damage: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODSEEKER_TALENT.id);
   }
 
-  on_byPlayerPet_damage(event) {
+  on_byPlayerPet_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.KILL_COMMAND_DAMAGE_SV.id) {
       return;
@@ -39,7 +40,7 @@ class Bloodseeker extends Analyzer {
     }
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.KILL_COMMAND_CAST_SV.id) {
       return;
