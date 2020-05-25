@@ -1,6 +1,7 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
+import { EnergizeEvent } from 'parser/core/Events';
 
 const BARBED_SHOT_SPELLS = [SPELLS.BARBED_SHOT_BUFF.id, SPELLS.BARBED_SHOT_BUFF_STACK_2.id, SPELLS.BARBED_SHOT_BUFF_STACK_3.id, SPELLS.BARBED_SHOT_BUFF_STACK_4.id, SPELLS.BARBED_SHOT_BUFF_STACK_5.id, SPELLS.BARBED_SHOT_BUFF_STACK_6.id, SPELLS.BARBED_SHOT_BUFF_STACK_7, SPELLS.BARBED_SHOT_BUFF_STACK_8];
 const SPELLS_WITHOUT_WASTE = [SPELLS.ASPECT_OF_THE_WILD.id, SPELLS.CHIMAERA_SHOT_FOCUS.id, ...BARBED_SHOT_SPELLS];
@@ -9,8 +10,8 @@ const AOTW_REGEN = 5;
 const CHIM_REGEN = 10;
 
 class FocusTracker extends ResourceTracker {
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.resource = RESOURCE_TYPES.FOCUS;
     if (this.selectedCombatant.hasTalent(SPELLS.SCENT_OF_BLOOD_TALENT.id)) {
       BARBED_SHOT_REGEN += 2;
@@ -18,7 +19,7 @@ class FocusTracker extends ResourceTracker {
   }
 
   //Because energize events associated with certain spells don't provide a waste number, but instead a lower resourceChange number we can calculate the waste ourselves.
-  on_toPlayer_energize(event) {
+  on_toPlayer_energize(event: EnergizeEvent) {
     if (event.resourceChangeType !== this.resource.id) {
       return;
     }

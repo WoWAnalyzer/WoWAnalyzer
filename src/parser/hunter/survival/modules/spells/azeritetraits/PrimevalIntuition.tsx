@@ -45,7 +45,7 @@ class PrimevalIntuition extends Analyzer {
     this.crit = crit;
     this.intuitionStacks = Array.from({ length: MAX_INTUITION_STACKS + 1 }, x => []);
 
-    this.statTracker.add(SPELLS.PRIMEVAL_INTUITION_BUFF.id, {
+    options.statTracker.add(SPELLS.PRIMEVAL_INTUITION_BUFF.id, {
       crit,
     });
   }

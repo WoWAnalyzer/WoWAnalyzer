@@ -29,6 +29,8 @@ class FocusCapTracker extends RegenResourceCapTracker {
     spellResourceCost: SpellFocusCost,
   };
 
+  protected spellResourceCost!: SpellFocusCost;
+
   static resourceType = RESOURCE_TYPES.FOCUS;
   static baseRegenRate = BASE_FOCUS_REGEN;
   static isRegenHasted = true;
@@ -112,7 +114,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
             <div className="flex-main chart">
               {this.missedRegen > 0 && (
                 <AutoSizer>
-                  {({ width, height }) => (
+                  {({ width, height}) => (
                     <XYPlot
                       margin={0}
                       width={width}
@@ -123,6 +125,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
                           x: +x / width,
                           y: groupedData[x],
                         }))}
+                        className="primary"
                       />
                     </XYPlot>
                   )}

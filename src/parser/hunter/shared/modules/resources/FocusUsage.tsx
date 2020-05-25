@@ -7,6 +7,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
+import { CastEvent } from 'parser/core/Events';
 
 /**
  * Tracks the focus usage of all 3 hunter specs and creates a piechart with the breakdown.
@@ -177,7 +178,7 @@ class FocusUsage extends Analyzer {
   };
   lastVolleyHit = 0;
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     let spellId = event.ability.guid;
     if (!LIST_OF_FOCUS_SPENDERS.includes(spellId) && !RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
       return;
@@ -199,8 +200,8 @@ class FocusUsage extends Analyzer {
   }
 
   get focusUsageChart() {
-    const items = [];
-    const makeTooltip = (spell) => (
+    const items: { color: string; label: string; spellId: number; value: number; valueTooltip: JSX.Element; }[] = [];
+    const makeTooltip = (spell: { casts: number; focusUsed: number }) => (
       <>
         {spell.casts} casts <br />
         {Math.round(spell.focusUsed)} Focus used

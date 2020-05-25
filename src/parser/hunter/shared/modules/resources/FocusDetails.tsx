@@ -20,6 +20,9 @@ class FocusDetails extends Analyzer {
     focusTracker: FocusTracker,
   };
 
+  protected focusTracker!: FocusTracker;
+
+
   get wasted() {
     return this.focusTracker.wasted || 0;
   }

@@ -49,7 +49,7 @@ class BlurOfTalons extends Analyzer {
     this.agility = agility;
     this.blurOfTalonStacks = Array.from({ length: MAX_BLUR_STACKS + 1 }, x => []);
 
-    this.statTracker.add(SPELLS.BLUR_OF_TALONS_BUFF.id, {
+    options.statTracker.add(SPELLS.BLUR_OF_TALONS_BUFF.id, {
       agility: this.agility,
     });
   }
