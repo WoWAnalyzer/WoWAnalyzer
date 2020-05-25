@@ -373,6 +373,7 @@ declare module 'react-vis' {
 
   export interface AreaSeriesProps extends AbstractSeriesProps<AreaSeriesPoint> {
     getNull?: RVGetNull<AreaSeriesPoint>;
+    className?: string;
   }
   export class AreaSeries extends AbstractSeries<AreaSeriesProps> {}
 
