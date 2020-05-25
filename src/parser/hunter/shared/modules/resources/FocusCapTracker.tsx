@@ -11,6 +11,7 @@ import StatisticBar from 'interface/statistics/StatisticBar';
 import { AutoSizer } from 'react-virtualized';
 import { XYPlot, AreaSeries } from 'react-vis';
 import groupDataForChart from 'common/groupDataForChart';
+import { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 
 const BASE_FOCUS_REGEN = 3;
 
@@ -40,20 +41,20 @@ class FocusCapTracker extends RegenResourceCapTracker {
     return (this.missedRegen / this.naturalRegen) || 0;
   }
 
-  bySecond = {};
+  bySecond: {[key: number]: number} = {};
 
-  on_byPlayer_energize(event) {
+  on_byPlayer_energize(event: EnergizeEvent) {
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     super.on_byPlayer_cast(event);
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     super.on_byPlayer_damage(event);
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
@@ -71,8 +72,8 @@ class FocusCapTracker extends RegenResourceCapTracker {
     };
   }
 
-  suggestions(when) {
-    when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         <>
           You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.
@@ -85,12 +86,14 @@ class FocusCapTracker extends RegenResourceCapTracker {
   }
 
   statistic() {
-    const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const groupedData: any = groupDataForChart(this.bySecond, this.owner.fightDuration);
     return (
       <StatisticBar
         position={STATISTIC_ORDER.CORE(1)}
         wide
         style={{ marginBottom: 20, overflow: 'hidden' }} // since this is in a group, reducing margin should be fine
+        large={false}
+        ultrawide={false}
       >
         <Tooltip content={<>Natural Focus regen lost: <strong>{formatThousands(this.missedRegen)}</strong> <br /> That is <strong>{formatPercentage(this.wastedPercent)}%</strong> of natural regenerated focus over the course of the encounter.</>}>
           <div className="flex">
@@ -117,10 +120,9 @@ class FocusCapTracker extends RegenResourceCapTracker {
                     >
                       <AreaSeries
                         data={Object.keys(groupedData).map(x => ({
-                          x: x / width,
+                          x: +x / width,
                           y: groupedData[x],
                         }))}
-                        className="primary"
                       />
                     </XYPlot>
                   )}
