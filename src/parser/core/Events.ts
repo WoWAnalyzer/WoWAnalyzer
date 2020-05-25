@@ -296,6 +296,7 @@ export interface RemoveDebuffEvent extends BuffEvent {
   sourceID?: number;
   sourceIsFriendly: boolean;
   targetID: number;
+  targetInstance: number;
   targetIsFriendly: boolean;
   absorb?: number;
 }
