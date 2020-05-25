@@ -4,10 +4,11 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -99,7 +100,7 @@ class LightningShield extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="small"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText
           spell={SPELLS.LIGHTNING_SHIELD_TALENT}

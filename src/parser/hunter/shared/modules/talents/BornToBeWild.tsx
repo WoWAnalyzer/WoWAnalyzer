@@ -4,6 +4,7 @@ import React from 'react';
 import SPECS from 'game/SPECS';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
@@ -87,7 +88,7 @@ class BornToBeWild extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(14)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             Effective CDR constitutes the time that was left of the original CD (before reduction from Born To Be Wild) when you cast it again as that is the effective cooldown reduction it provided for you.

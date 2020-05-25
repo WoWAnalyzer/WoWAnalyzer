@@ -6,7 +6,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
-export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
 
 /**
  * @deprecated Use `interface/statistics/*` instead (add a component to display dual spell values and use that instead).

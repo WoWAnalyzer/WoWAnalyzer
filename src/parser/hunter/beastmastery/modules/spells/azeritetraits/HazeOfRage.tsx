@@ -7,7 +7,8 @@ import AgilityIcon from 'interface/icons/Agility';
 import UptimeIcon from 'interface/icons/Uptime';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from '../../../../../../interface/statistics/Statistic';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Combatant from '../../../../../core/Combatant';
 
 const hazeOfRageStats = (traits: number[]) => Object.values(traits).reduce((
@@ -57,7 +58,7 @@ class HazeOfRage extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
             Haze of Rage granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(

@@ -4,6 +4,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS/index';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import Agility from 'interface/icons/Agility';
@@ -65,7 +66,7 @@ class DanceOfDeath extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
             Dance of Death granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(

@@ -9,8 +9,8 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import PrimaryStatIcon from 'interface/icons/PrimaryStat';
-import { STATISTIC_CATEGORY } from 'interface/others/StatisticBox';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 
 // https://www.warcraftlogs.com/reports/tq3D9ajfr24nbHFX#fight=3&type=auras&source=18&view=events

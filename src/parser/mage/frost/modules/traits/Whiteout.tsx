@@ -7,6 +7,7 @@ import {calculateAzeriteEffects} from 'common/stats';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
@@ -100,7 +101,7 @@ class Whiteout extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'ITEMS'}
+        category={STATISTIC_CATEGORY.ITEMS}
         tooltip={(
           <>
             DPS value does not take into account any extra Frozen Orb casts from the lowered cooldown. Whiteout may have provided more DPS than totalled here if extra Frozen Orbs were cast effectively.<br />
