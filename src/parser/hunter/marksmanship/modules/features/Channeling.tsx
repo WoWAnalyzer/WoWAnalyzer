@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS/index';
 import CoreChanneling from 'parser/shared/modules/Channeling';
+import { ApplyDebuffEvent, CastEvent, RemoveBuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 
 const debug = false;
 
 class Channeling extends CoreChanneling {
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.RAPID_FIRE.id) {
       return;
@@ -17,7 +18,7 @@ class Channeling extends CoreChanneling {
     super.on_byPlayer_cast(event);
   }
 
-  cancelChannel(event, ability) {
+  cancelChannel(event: any, ability: any) {
     if (this.isChannelingSpell(SPELLS.BARRAGE_TALENT.id) || this.isChannelingSpell(SPELLS.RAPID_FIRE.id)) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
       debug && this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');
@@ -27,14 +28,14 @@ class Channeling extends CoreChanneling {
     }
   }
 
-  on_byPlayer_applydebuff(event) {
+  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     if (event.ability.guid !== SPELLS.RAPID_FIRE.id) {
       return;
     }
     this.beginChannel(event);
   }
 
-  on_byPlayer_removedebuff(event) {
+  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
     if (event.ability.guid !== SPELLS.RAPID_FIRE.id) {
       return;
     }
@@ -45,7 +46,7 @@ class Channeling extends CoreChanneling {
     this.endChannel(event);
   }
 
-  on_byPlayer_removebuff(event) {
+  on_byPlayer_removebuff(event:RemoveBuffEvent) {
     if (event.ability.guid !== SPELLS.BARRAGE_TALENT.id) {
       return;
     }
