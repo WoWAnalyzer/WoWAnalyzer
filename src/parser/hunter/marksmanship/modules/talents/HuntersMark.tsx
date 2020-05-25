@@ -3,17 +3,16 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
+import { ApplyDebuffEvent, CastEvent, DamageEvent, EnergizeEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
@@ -34,6 +33,8 @@ class HuntersMark extends Analyzer {
     enemies: Enemies,
   };
 
+  protected enemies!: Enemies;
+
   casts = 0;
   damage = 0;
   recasts = 0;
@@ -41,15 +42,16 @@ class HuntersMark extends Analyzer {
   debuffRemoved = false;
   timeOfCast = 0;
   precastConfirmed = false;
-  markWindow = [];
-  damageToTarget = [];
+  markWindow: { [key: string]: { status: string; start: number } } = {};
+  damageToTarget: { [key: string]: number } = {};
+  enemyID: string = '';
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HUNTERS_MARK_TALENT.id);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HUNTERS_MARK_TALENT.id) {
       return;
@@ -58,7 +60,7 @@ class HuntersMark extends Analyzer {
     this.timeOfCast = event.timestamp;
   }
 
-  on_byPlayer_removedebuff(event) {
+  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
     const spellID = event.ability.guid;
     if (spellID !== SPELLS.HUNTERS_MARK_TALENT.id) {
       return;
@@ -66,24 +68,19 @@ class HuntersMark extends Analyzer {
     if (event.timestamp > this.timeOfCast + MS_BUFFER) {
       this.debuffRemoved = true;
     }
-    const enemyID = encodeTargetString(event.targetID, event.targetInstance);
-    if (this.precastConfirmed === false) {
+    this.enemyID = encodeTargetString(event.targetID, event.targetInstance);
+    if (!this.precastConfirmed) {
       this.precastConfirmed = true;
-      this.damage = this.damageToTarget[enemyID];
+      this.damage = this.damageToTarget[this.enemyID];
       return;
     }
-    if (!this.markWindow[enemyID]) {
+    if (!this.markWindow[this.enemyID]) {
       return;
     }
-    this.markWindow[enemyID].forEach(window => {
-      if (window.status === 'active') {
-        window.status = 'inactive';
-      }
-    });
-
+    this.markWindow[this.enemyID].status = 'inactive';
   }
 
-  on_byPlayer_applydebuff(event) {
+  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellID = event.ability.guid;
     if (spellID !== SPELLS.HUNTERS_MARK_TALENT.id) {
       return;
@@ -95,32 +92,28 @@ class HuntersMark extends Analyzer {
       this.recasts += 1;
     }
     this.debuffRemoved = false;
-    const enemyID = encodeTargetString(event.targetID, event.targetInstance);
-    if (!this.markWindow[enemyID]) {
-      this.markWindow[enemyID] = [];
-    }
-    this.markWindow[enemyID].push({ status: 'active', start: event.timestamp });
+    this.enemyID = encodeTargetString(event.targetID, event.targetInstance);
+    this.markWindow[this.enemyID].status = 'active';
+    this.markWindow[this.enemyID].start = event.timestamp;
   }
 
-  calculateMarkDamage(event) {
-    const enemyID = encodeTargetString(event.targetID, event.targetInstance);
+  calculateMarkDamage(event: DamageEvent) {
+    this.enemyID = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.precastConfirmed) {
-      if (!this.damageToTarget[enemyID]) {
-        this.damageToTarget[enemyID] = 0;
+      if (!this.damageToTarget[this.enemyID]) {
+        this.damageToTarget[this.enemyID] = 0;
       }
-      this.damageToTarget[enemyID] += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
+      this.damageToTarget[this.enemyID] += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
     }
-    if (!this.markWindow[enemyID]) {
+    if (!this.markWindow[this.enemyID]) {
       return;
     }
-    this.markWindow[enemyID].forEach(window => {
-      if (window.start < event.timestamp && window.status === 'active') {
-        this.damage += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
-      }
-    });
+    if (this.markWindow[this.enemyID].status === 'active' && this.markWindow[this.enemyID].start < event.timestamp) {
+      this.damage += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
+    }
   }
 
-  on_byPlayer_refreshdebuff(event) {
+  on_byPlayer_refreshdebuff(event: RefreshDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HUNTERS_MARK_TALENT.id) {
       return;
@@ -128,7 +121,7 @@ class HuntersMark extends Analyzer {
     this.recasts += 1;
   }
 
-  on_byPlayer_energize(event) {
+  on_byPlayer_energize(event: EnergizeEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HUNTERS_MARK_FOCUS.id) {
       return;
@@ -136,7 +129,7 @@ class HuntersMark extends Analyzer {
     this.refunds += 1;
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
@@ -176,19 +169,6 @@ class HuntersMark extends Analyzer {
           </>
         </BoringSpellValueText>
       </Statistic>
-    );
-  }
-
-  /**
-   * @deprecated
-   * @returns {*}
-   */
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.HUNTERS_MARK_TALENT.id} />}
-        value={<ItemDamageDone amount={this.damage} />}
-      />
     );
   }
 }

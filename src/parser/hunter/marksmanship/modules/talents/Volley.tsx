@@ -4,12 +4,13 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellLink from 'common/SpellLink';
+import { DamageEvent } from 'parser/core/Events';
 
 /**
  * Your auto-shots have a 25% chance to cause a volley of arrows to rain down around the target, dealing Physical damage to each enemy within 8 yards.
@@ -27,12 +28,12 @@ class Volley extends Analyzer {
   procs = 0;
   lastVolleyHit = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VOLLEY_TALENT.id);
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.VOLLEY_DAMAGE.id && spellId !== SPELLS.AUTO_SHOT.id) {
       return;
@@ -50,10 +51,10 @@ class Volley extends Analyzer {
   }
 
   get expectedProcs() {
-    return (this.autoShots * PROC_CHANCE).toFixed(2);
+    return this.autoShots * PROC_CHANCE;
   }
 
-  GetZPercent(z) {
+  GetZPercent(z: number) {
     // If z is greater than 6.5 standard deviations from the mean
     // the number of significant digits will be outside of a reasonable
     // range.
@@ -83,7 +84,7 @@ class Volley extends Analyzer {
     return sum;
   }
 
-  binomialCalculation(procs, tries, procChance) {
+  binomialCalculation(procs: number, tries: number, procChance: number) {
     //Correcting for continuity we add 0.5 to procs, because we're looking for the probability of getting at most the amount of procs we received
     // if P(X <= a), then P(X<a+0.5)
     const correctedProcs = procs + 0.5;
@@ -118,7 +119,7 @@ class Volley extends Analyzer {
           <>
             You had {this.procs} {this.procs > 1 ? `procs` : `proc`}. <br />
             You had {formatPercentage(this.procs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
-            You had a total of {this.procs} procs, and your expected amount of procs was {this.expectedProcs}. <br />
+            You had a total of {this.procs} procs, and your expected amount of procs was {formatNumber(this.expectedProcs)}. <br />
             <ul>
               <li>You have a ~{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks.</li>
               {/*these two will probably NEVER happen, but it'd be fun if they ever did.*/}
@@ -141,19 +142,6 @@ class Volley extends Analyzer {
           </>
         </BoringSpellValueText>
       </Statistic>
-    );
-  }
-
-  /**
-   * @deprecated
-   * @returns {*}
-   */
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.VOLLEY_TALENT.id} />}
-        value={<ItemDamageDone amount={this.damage} />}
-      />
     );
   }
 }

@@ -7,6 +7,7 @@ import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { CastEvent } from 'parser/core/Events';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
@@ -20,15 +21,17 @@ class CallingTheShots extends Analyzer {
     spellUsable: SpellUsable,
   };
 
+  protected spellUsable!: SpellUsable;
+
   effectiveTrueshotReductionMs = 0;
   wastedTrueshotReductionMs = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CALLING_THE_SHOTS_TALENT.id);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ARCANE_SHOT.id && spellId !== SPELLS.MULTISHOT_MM.id) {
       return;

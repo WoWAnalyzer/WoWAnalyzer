@@ -8,7 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage, formatNumber } from 'common/format';
-import { ApplyBuffEvent, ApplyDebuffEvent, RefreshBuffEvent } from '../../../../../core/Events';
+import { ApplyBuffEvent, ApplyDebuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 
 const inTheRhythmStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.IN_THE_RHYTHM.id, rank);

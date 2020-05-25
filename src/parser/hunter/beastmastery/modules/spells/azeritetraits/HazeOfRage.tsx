@@ -7,12 +7,9 @@ import AgilityIcon from 'interface/icons/Agility';
 import UptimeIcon from 'interface/icons/Uptime';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import Combatant from '../../../../../core/Combatant';
+import Combatant from 'parser/core/Combatant';
 
-const hazeOfRageStats = (traits: number[]) => Object.values(traits).reduce((
-  obj,
-  rank,
-) => {
+const hazeOfRageStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.HAZE_OF_RAGE.id, rank);
   obj.agility += agility;
   return obj;

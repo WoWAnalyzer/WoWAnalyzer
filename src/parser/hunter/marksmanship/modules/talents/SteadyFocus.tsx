@@ -1,6 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
+import { CastEvent } from 'parser/core/Events';
 
 /**
  * Using Steady Shot reduces the cast time of Steady Shot by 20%, stacking up to 2 times.  Using any other shot removes this effect. *
@@ -12,8 +13,8 @@ const MAX_STACKS = 2;
 //TODO: Add a statistic to this module
 class SteadyFocus extends Analyzer {
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STEADY_FOCUS_TALENT.id);
   }
 
@@ -23,7 +24,7 @@ class SteadyFocus extends Analyzer {
     return this.stacks;
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STEADY_SHOT.id) {
       this.stacks = 0;

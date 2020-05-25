@@ -11,6 +11,7 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { DamageEvent } from 'parser/core/Events';
 
 /**
  * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12 sec.
@@ -23,14 +24,16 @@ class SerpentSting extends Analyzer {
     enemies: Enemies,
   };
 
+  protected enemies!: Enemies;
+
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id);
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_TALENT.id) {
       return;
@@ -55,19 +58,6 @@ class SerpentSting extends Analyzer {
           </>
         </BoringSpellValueText>
       </Statistic>
-    );
-  }
-
-  /**
-   * @deprecated
-   * @returns {*}
-   */
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.SERPENT_STING_TALENT.id} />}
-        value={<ItemDamageDone amount={this.damage} />}
-      />
     );
   }
 }

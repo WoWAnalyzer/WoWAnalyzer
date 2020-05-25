@@ -3,41 +3,43 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
- * Fires a slow-moving munition directly forward.
- * Activating this ability a second time detonates the Shot, dealing up to (1000% of Attack power) Fire damage to all enemies within 8 yds, damage based on proximity.
+ * A powerful shot which deals (112.5% of Attack power)% Physical damage to the target and up to [(112.5% of Attack power)% / (3)] Physical damage to all enemies between you and the target.
  *
- * Example log: https://www.warcraftlogs.com/reports/Bc984AfRjXQYgxCz#fight=7&type=damage-done
+ * Example log: https://www.warcraftlogs.com/reports/b9cpJyHBntAdaVLR#fight=6&type=damage-done
  */
 
-class ExplosiveShot extends Analyzer {
+class PiercingShot extends Analyzer {
 
-  hits = 0;
   damage = 0;
   casts = 0;
+  hits = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id);
+  constructor(options: any) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EXPLOSIVE_SHOT_TALENT.id) {
+    if (spellId !== SPELLS.PIERCING_SHOT_TALENT.id) {
       return;
     }
     this.casts += 1;
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EXPLOSIVE_SHOT_DAMAGE.id) {
+    if (spellId !== SPELLS.PIERCING_SHOT_TALENT.id) {
       return;
     }
     this.hits += 1;
@@ -51,9 +53,9 @@ class ExplosiveShot extends Analyzer {
         size="flexible"
         category={'TALENTS'}
       >
-        <BoringSpellValueText spell={SPELLS.EXPLOSIVE_SHOT_TALENT}>
+        <BoringSpellValueText spell={SPELLS.PIERCING_SHOT_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /> <br />
+            <ItemDamageDone amount={this.damage} /><br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} />
           </>
         </BoringSpellValueText>
@@ -62,4 +64,4 @@ class ExplosiveShot extends Analyzer {
   }
 }
 
-export default ExplosiveShot;
+export default PiercingShot;

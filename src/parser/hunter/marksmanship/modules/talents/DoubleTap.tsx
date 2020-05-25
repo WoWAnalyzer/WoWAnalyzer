@@ -7,6 +7,7 @@ import SpellIcon from 'common/SpellIcon';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 
 /**
  * Your next Aimed Shot will fire a second time instantly at 100% power without consuming Focus, or your next Rapid Fire will shoot 100% additional shots during its channel.
@@ -20,12 +21,12 @@ class DoubleTap extends Analyzer {
   aimedUsage = 0;
   RFUsage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DOUBLE_TAP_TALENT.id);
   }
 
-  on_byPlayer_applybuff(event) {
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DOUBLE_TAP_TALENT.id) {
       return;
@@ -33,7 +34,7 @@ class DoubleTap extends Analyzer {
     this.activations += 1;
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE.id) || !this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
       return;

@@ -11,7 +11,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ApplyBuff from '../../../../shared/normalizers/ApplyBuff';
-import { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from '../../../../core/Events';
+import { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 const RAMP_INTERVAL = 6000;
 const INCREASE_PER_RAMP = 0.01;

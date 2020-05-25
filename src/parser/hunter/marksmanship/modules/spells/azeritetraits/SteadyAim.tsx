@@ -3,7 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyDebuffEvent, ApplyDebuffStackEvent, CastEvent, RemoveDebuffEvent } from '../../../../../core/Events';
+import { ApplyDebuffEvent, ApplyDebuffStackEvent, CastEvent, RemoveDebuffEvent } from 'parser/core/Events';
 
 /**
  * Steady Shot increases the damage of your next Aimed Shot against the target by X, stacking up to 5 times.

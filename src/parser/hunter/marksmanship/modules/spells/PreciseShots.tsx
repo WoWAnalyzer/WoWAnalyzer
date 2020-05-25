@@ -7,7 +7,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from '../../../../core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 
 /**
  * Aimed Shot causes your next 1-2 Arcane Shots or Multi-Shots to deal 100% more damage.

@@ -8,6 +8,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { DamageEvent } from 'parser/core/Events';
 
 const HIGHER_HP_THRESHOLD = 0.8;
 const LOWER_HP_THRESHOLD = 0.2;
@@ -24,10 +25,13 @@ class CarefulAim extends Analyzer {
     enemies: Enemies,
   };
 
+  protected statTracker!: StatTracker;
+  protected enemies!: Enemies;
+
   caProcs = 0;
   damageContribution = 0;
-  bossIDs = [];
-  carefulAimPeriods = {
+  bossIDs: number[] = [];
+  carefulAimPeriods: { [key: string]: { timestampSub20: number; aimedShotsInCA: number; bossName: string; timestampSub100: number; caDamage: number; timestampSub80: number; timestampDead: number } } = {
     /*
     [bossID]: {
           bossName: name,
@@ -44,41 +48,43 @@ class CarefulAim extends Analyzer {
       bossName: 'Adds',
       caDamage: 0,
       aimedShotsInCA: 0,
-      timestampSub100: null,
-      timestampSub80: null,
-      timestampSub20: null,
-      timestampDead: null,
+      timestampSub100: 0,
+      timestampSub80: 0,
+      timestampSub20: 0,
+      timestampDead: 0,
     },
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
-    this.owner.report.enemies.forEach(enemy => {
+    this.owner.report.enemies.forEach((enemy: { fights: any[]; type: string; id: number; }) => {
       enemy.fights.forEach(fight => {
-        if (fight.id === this.owner.fight.id && enemy.type === 'Boss') this.bossIDs.push(enemy.id);
+        if (fight.id === this.owner.fight.id && enemy.type === 'Boss') {
+          this.bossIDs.push(enemy.id);
+        }
       });
     });
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
-    const healthPercent = event.hitPoints / event.maxHitPoints;
+    const healthPercent = event.hitPoints && event.maxHitPoints && event.hitPoints / event.maxHitPoints;
     const targetID = event.targetID;
     let target;
-    const outsideCarefulAim = healthPercent < HIGHER_HP_THRESHOLD && healthPercent > LOWER_HP_THRESHOLD; //True if target is below 80% and above 20%
+    const outsideCarefulAim = healthPercent && healthPercent < HIGHER_HP_THRESHOLD && healthPercent > LOWER_HP_THRESHOLD; //True if target is below 80% and above 20%
     if (event.maxHitPoints && this.bossIDs.includes(targetID)) {
-      target = targetID;
+      const enemy = this.enemies.getEntity(event);
+      target = enemy && enemy.name;
       if (!this.carefulAimPeriods[target]) {
-        const enemy = this.enemies.getEntity(event);
         this.carefulAimPeriods[target] = {
-          bossName: enemy.name,
+          bossName: target,
           caDamage: 0,
           aimedShotsInCA: 0,
-          timestampSub100: null,
-          timestampSub80: null,
-          timestampSub20: null,
-          timestampDead: null,
+          timestampSub100: 0,
+          timestampSub80: 0,
+          timestampSub20: 0,
+          timestampDead: 0,
         };
       }
       if (healthPercent && healthPercent > HIGHER_HP_THRESHOLD) {
@@ -97,13 +103,8 @@ class CarefulAim extends Analyzer {
       return;
     }
     const damageFromCA = calculateEffectiveDamage(event, CA_MODIFIER);
-    if (this.carefulAimPeriods[target]) {
-      this.carefulAimPeriods[target].caDamage += damageFromCA;
-      this.carefulAimPeriods[target].aimedShotsInCA += 1;
-    } else {
-      this.carefulAimPeriods.others.caDamage += damageFromCA;
-      this.carefulAimPeriods.others.aimedShotsInCA += 1;
-    }
+    this.carefulAimPeriods[target].caDamage += damageFromCA;
+    this.carefulAimPeriods[target].aimedShotsInCA += 1;
     this.caProcs += 1;
     this.damageContribution += damageFromCA;
   }
