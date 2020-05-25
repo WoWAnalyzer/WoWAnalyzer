@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 4, 25), <>Converted remaining Enhancement Shaman files to typescript.</>, [Vetyst]),
   change(date(2020, 4, 14), <>Showing primary buffs on the timeline.</>, [Vetyst]),
   change(date(2020, 4, 14), <>Added damage statistiscs for <SpellLink id={SPELLS.STRENGTH_OF_EARTH_TRAIT.id} />.</>, [Vetyst]),
   change(date(2020, 4, 13), <>Added damage statistiscs for <SpellLink id={SPELLS.BOULDERFIST_TALENT.id} />.</>, [Vetyst]),
