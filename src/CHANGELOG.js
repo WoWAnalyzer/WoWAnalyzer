@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 export default [
   change(date(2020, 5, 25), 'Replaced hard-coded statistic categories with STATISTIC_CATEGORY.', Vetyst),
+  change(date(2020, 5, 18), 'Replaced duplicate FIGHT_DIFFICULTIES with DIFFICULTIES.', Vetyst),
   change(date(2020, 5, 18), 'Updated patchlist.', Vetyst),
   change(date(2020, 5, 14), 'Replaced hardcoded event type strings with EventType equivalent.', Vetyst),
   change(date(2020, 5, 13), 'Disallow use of ++ and -- to adhere to the style guide.', Putro),

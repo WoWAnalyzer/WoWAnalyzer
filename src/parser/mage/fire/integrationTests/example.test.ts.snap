@@ -289,7 +289,6 @@ exports[`Fire Mage integration test: example log BlasterMaster matches the stati
   <div
     category="AZERITE_POWERS"
     className="panel statistic flexible "
-    position={1001}
   >
     <div
       className="panel-body"
@@ -5908,7 +5907,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "80.0607486631016%",
+                  "width": "79.98582366310161%",
                 }
               }
             />
@@ -6143,7 +6142,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "96.57000000000002%",
+                        "width": "96.2703%",
                       }
                     }
                   />
