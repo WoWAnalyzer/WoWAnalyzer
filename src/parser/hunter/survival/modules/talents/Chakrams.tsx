@@ -54,7 +54,7 @@ class Chakrams extends Analyzer {
     }
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(SPELLS.CHAKRAMS_TALENT.id, { timestamp: this.owner.fight.start_time, });
+      this.spellUsable.beginCooldown(SPELLS.CHAKRAMS_TALENT.id, { timestamp: this.owner.fight.start_time });
     }
     const damageTarget: string = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.uniqueTargets.includes(damageTarget)) {

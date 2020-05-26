@@ -80,7 +80,7 @@ class RapidReload extends Analyzer {
     Object.keys(this._aspects).forEach(spell => {
       const spellId = parseInt(spell);
       if (this.spellUsable.isOnCooldown(spellId)) {
-        const reductionMs = this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS,);
+        const reductionMs = this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS);
         this._aspects[spellId].effectiveCdr += reductionMs;
         this._aspects[spellId].wastedCdr += COOLDOWN_REDUCTION_MS - reductionMs;
       } else {

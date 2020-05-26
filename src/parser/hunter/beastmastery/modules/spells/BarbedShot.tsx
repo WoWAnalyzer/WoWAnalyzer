@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { formatDuration, formatNumber, formatPercentage } from 'common/format';
+import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -40,8 +40,7 @@ class BarbedShot extends Analyzer {
   }
 
   get percentUptimeMaxStacks() {
-    return (
-      this.barbedShotStacks[MAX_FRENZY_STACKS].reduce((a: number, b: number) => a + b, 0)) / this.owner.fightDuration;
+    return (this.barbedShotStacks[MAX_FRENZY_STACKS].reduce((a: number, b: number) => a + b, 0)) / this.owner.fightDuration;
   }
 
   get percentUptimePet() {
