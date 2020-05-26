@@ -16,22 +16,25 @@ const LANDSLIDE = {
   INCREASE: 1.0,
 };
 
+/**
+ * Rockbiter has a 40% chance to increase the damage
+ * of your next Stormstrike by 100%.
+ *
+ * Example Log:
+ *
+ */
 class Landslide extends Analyzer {
-  /**
-   * Rockbiter has a 40% chance to increase the damage
-   * of your next Stormstrike by 100%.
-   *
-   * Example Log:
-   *
-   */
-
-  protected damage = 0;
-  protected landslideCount = 0;
-  protected landslideUses = 0;
+  protected damageGained: number = 0;
+  protected landslideCount: number = 0;
+  protected landslideUses: number = 0;
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LANDSLIDE_TALENT.id);
+
+    if(!this.selectedCombatant.hasTalent(SPELLS.LANDSLIDE_TALENT.id)) {
+      this.active = false;
+      return;
+    }
 
     this.addEventListener(
       Events.applybuff.spell(SPELLS.LANDSLIDE_BUFF),
@@ -60,7 +63,7 @@ class Landslide extends Analyzer {
     }
 
     this.landslideUses += 1;
-    this.damage += calculateEffectiveDamage(event, LANDSLIDE.INCREASE);
+    this.damageGained += calculateEffectiveDamage(event, LANDSLIDE.INCREASE);
   }
 
   // TODO: add uses/count to statistics
@@ -73,7 +76,7 @@ class Landslide extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.LANDSLIDE_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} />
+            <ItemDamageDone amount={this.damageGained} />
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -21,9 +21,9 @@ class ArcaneIntellect extends Analyzer {
     };
   }
 
-	suggestions(when) {
+	suggestions(when: any) {
 		when(this.suggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
+			.addSuggestion((suggest: any, actual: any, recommended: any) => {
 				return suggest(<><SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> was up for {formatPercentage(this.uptime)}% of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.</>)
 					.icon(SPELLS.ARCANE_INTELLECT.icon)
 					.actual(`${formatPercentage(this.uptime)}% Uptime`)

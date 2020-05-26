@@ -25,7 +25,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/DPwyKpWBZ6F947mx/2-Normal+Mekkatorque+-+Kill+(7:19)/14-Shano',
+  exampleReport: '/report/dhPc7Z3VaHkfKrTj/3-Heroic+Maut+-+Kill+(2:35)/Playwow/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

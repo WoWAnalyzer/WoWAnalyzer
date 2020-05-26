@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 export default [
   change(date(2020, 5, 18), 'Replaced hard-coded statistic categories with STATISTIC_CATEGORY.', Vetyst),
+  change(date(2020, 5, 18), 'Replaced duplicate FIGHT_DIFFICULTIES with DIFFICULTIES.', Vetyst),
   change(date(2020, 5, 18), 'Updated patchlist.', Vetyst),
   change(date(2020, 5, 14), 'Replaced hardcoded event type strings with EventType equivalent.', Vetyst),
   change(date(2020, 5, 13), 'Disallow use of ++ and -- to adhere to the style guide.', Putro),
@@ -34,7 +35,7 @@ export default [
   change(date(2020, 2, 12), 'Implemented a corruption overview on the character page.', Putro),
   change(date(2020, 2, 12), 'Fixed a bug that breaks the player selection when there is incomplete information from warcraftlogs.', niseko),
   change(date(2020, 2, 9), 'Added statistics for the 8.3 Alchemist Stones.', niseko),
-  change(date(2020, 2, 5), <> Implemented <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} />, <ItemLink id={ITEMS.VITA_CHARGED_TITANSHARD.id} /> as well as an individual statistic for the set bonus <SpellLink id={SPELLS.TITANIC_EMPOWERMENT.id} />. </>, Putro),
+  change(date(2020, 2, .5), <> Implemented <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} />, <ItemLink id={ITEMS.VITA_CHARGED_TITANSHARD.id} /> as well as an individual statistic for the set bonus <SpellLink id={SPELLS.TITANIC_EMPOWERMENT.id} />. </>, Putro),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.HONED_MIND_BUFF.id} />, <SpellLink id={SPELLS.SURGING_VITALITY_BUFF.id} />, <SpellLink id={SPELLS.RACING_PULSE_BUFF.id} /> and <SpellLink id={SPELLS.DEADLY_MOMENTUM_BUFF.id} />.</>, niseko),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} />.</>, niseko),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.SIPHONER_T3.id} /> and fixed leech stat values in parses using this corruption.</>, niseko),
