@@ -92,7 +92,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 8 / (1 + haste),
+        cooldown: (haste: any) => 8 / (1 + haste),
         timelineSortIndex: 7,
         damageSpellIds: [SPELLS.BLIZZARD_DAMAGE.id],
       },

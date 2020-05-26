@@ -46,6 +46,26 @@ class Checklist extends BaseChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
+  protected combatants!: Combatants;
+  protected combustionCharges!: CombustionCharges;
+  protected combustionFirestarter!: CombustionFirestarter;
+  protected combustionSpellUsage!: CombustionSpellUsage;
+  protected heatingUp!: HeatingUp;
+  protected hotStreak!: HotStreak;
+  protected hotStreakWastedCrits!: HotStreakWastedCrits;
+  protected hotStreakPreCasts!: HotStreakPreCasts;
+  protected pyroclasm!: Pyroclasm;
+  protected searingTouch!: SearingTouch;
+  protected meteor!: Meteor;
+  protected meteorRune!: MeteorRune;
+  protected meteorCombustion!: MeteorCombustion;
+  protected castEfficiency!: CastEfficiency;
+  protected arcaneIntellect!: ArcaneIntellect;
+  protected cancelledCasts!: CancelledCasts;
+  protected runeOfPower!: RuneOfPower;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+
 
   render() {
     return (
