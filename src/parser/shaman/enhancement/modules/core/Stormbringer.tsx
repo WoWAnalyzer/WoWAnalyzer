@@ -16,9 +16,10 @@ class Stormbringer extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
   protected spellUsable!: SpellUsable;
 
-  private damage = 0;
+  protected damageGained: number = 0;
 
   constructor(options: any) {
     super(options);
@@ -71,10 +72,7 @@ class Stormbringer extends Analyzer {
       return;
     }
 
-    this.damage += calculateEffectiveDamage(
-      event,
-      STORMBRINGER_DAMAGE_MODIFIER,
-    );
+    this.damageGained += calculateEffectiveDamage(event, STORMBRINGER_DAMAGE_MODIFIER);
   }
 
   statistic() {
@@ -88,7 +86,7 @@ class Stormbringer extends Analyzer {
           spell={SPELLS.STORMBRINGER}
         >
           <>
-            <ItemDamageDone amount={this.damage} />
+            <ItemDamageDone amount={this.damageGained} />
           </>
         </BoringSpellValueText>
       </Statistic>

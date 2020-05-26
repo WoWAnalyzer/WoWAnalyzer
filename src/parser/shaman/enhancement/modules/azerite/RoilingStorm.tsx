@@ -11,21 +11,20 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { STORMSTRIKE_CAST_SPELLS } from 'parser/shaman/enhancement/constants';
 import { calculateAzeriteEffects } from 'common/stats';
 
+/**
+ * Your Stormbringer-empowered Stormstrikes deal 2220 additional damage.
+ * Every 20 seconds, gain Stormbringer
+ *
+ * Note: This does not appear as a buff.
+ * Every Stormstrike will deal extra damage as long as its under the effect
+ * of Stormbringer.
+ *
+ * Example Log:
+ *
+ */
 class RoilingStorm extends Analyzer {
-  /**
-   * Your Stormbringer-empowered Stormstrikes deal 2220 additional damage.
-   * Every 20 seconds, gain Stormbringer
-   *
-   * Note: This does not appear as a buff.
-   * Every Stormstrike will deal extra damage as long as its under the effect
-   * of Stormbringer.
-   *
-   * Example Log:
-   *
-   */
-
-  protected damageGained = 0;
-  protected bonusDamage = 0;
+  protected damageGained: number = 0;
+  protected bonusDamage: number = 0;
 
   constructor(options: any) {
     super(options);
@@ -37,8 +36,7 @@ class RoilingStorm extends Analyzer {
 
     this.bonusDamage = this.selectedCombatant.traitsBySpellId[SPELLS.ROILING_STORM.id]
       .reduce((total, rank) => {
-        const [damage] = calculateAzeriteEffects(SPELLS.ROILING_STORM.id, rank);
-        return total + damage;
+        return total + calculateAzeriteEffects(SPELLS.ROILING_STORM.id, rank)[0];
       }, 0);
 
     this.addEventListener(
