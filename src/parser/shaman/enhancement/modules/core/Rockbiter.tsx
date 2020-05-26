@@ -3,6 +3,7 @@ import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
 
@@ -35,7 +36,13 @@ class Rockbiter extends Analyzer {
   }
 
   onEnergize(event: EnergizeEvent) {
-    if (event.classResources && event.classResources[0].amount >= MAELSTROM_THRESHOLD) {
+    const maelstromResource = event.classResources && event.classResources.find(classResource => classResource.type === RESOURCE_TYPES.MAELSTROM.id);
+
+    if (!maelstromResource) {
+      return;
+    }
+
+    if (maelstromResource.amount >= MAELSTROM_THRESHOLD) {
       this.rockbiterOveruse += 1;
     }
 
