@@ -8,7 +8,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
@@ -28,12 +28,13 @@ class RuneOfPower extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
   hasROP = false;
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
 
     if (this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id)) {
       this.hasROP = true;
@@ -41,7 +42,7 @@ class RuneOfPower extends Analyzer {
     }
   }
 
-  onPlayerDamage(event) {
+  onPlayerDamage(event: DamageEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
       this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
     }
@@ -60,7 +61,7 @@ class RuneOfPower extends Analyzer {
   }
 
   get roundedSecondsPerCast() {
-    return ((this.uptimeMS / this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts) / 1000).toFixed(1);
+    return ((this.uptimeMS / this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts) / 1000);
   }
 
   get damageSuggestionThresholds() {
@@ -88,10 +89,10 @@ class RuneOfPower extends Analyzer {
   }
 
   showSuggestion = true;
-  suggestions(when) {
+  suggestions(when: any) {
     if (!this.hasROP) {
       when(SUGGEST_ROP[this.selectedCombatant.specId]).isTrue()
-        .addSuggestion((suggest) => {
+        .addSuggestion((suggest: any) => {
           return suggest(
             <>
             It is highly recommended to talent into <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> when playing this spec.
@@ -108,7 +109,7 @@ class RuneOfPower extends Analyzer {
     }
 
     when(this.damageSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
           .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
           .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`)
@@ -117,7 +118,7 @@ class RuneOfPower extends Analyzer {
 
     if (this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts > 0) {
       when(this.roundedSecondsSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
+        .addSuggestion((suggest: any, actual: any, recommended: any) => {
           return suggest(<>You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.</>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
             .actual(`Average ${this.roundedSecondsPerCast}s standing in each Rune of Power`)

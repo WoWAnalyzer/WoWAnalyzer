@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FIRE_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: null,
-        cooldown: haste => (combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 10 : 12) / (1 + haste),
+        cooldown: (haste: any) => (combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 10 : 12) / (1 + haste),
         charges: combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 3 : 2,
         castEfficiency: {
           suggestion: true,
@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: (haste: any) => 12 / (1 + haste),
         enabled: combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id),
       },
       {
