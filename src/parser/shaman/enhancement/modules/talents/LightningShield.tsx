@@ -7,6 +7,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import Events, { DamageEvent } from 'parser/core/Events';
+import DeathTracker from 'parser/shared/modules/DeathTracker';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -21,9 +22,15 @@ import ItemDamageDone from 'interface/ItemDamageDone';
  * At 20 charges, the shield overcharges, causing you to deal an additional
  * (6% of Attack power) Nature damage with each attack for 10 sec.
  *
- * Example Log:
+ * Example Log: https://www.warcraftlogs.com/reports/Qwr8AWzHx6XJfy4p#fight=4&type=auras&ability=192106
  */
 class LightningShield extends Analyzer {
+  static dependencies = {
+    deathTracker: DeathTracker,
+  };
+
+  protected deathTracker!: DeathTracker;
+
   protected damageGained: number = 0;
   protected overchargeCount: number = 0;
 
@@ -38,42 +45,25 @@ class LightningShield extends Analyzer {
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
         .spell(SPELLS.LIGHTNING_SHIELD),
-      this.onDamage,
-    );
-
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.LIGHTNING_SHIELD_TALENT),
-      this.onApplyBuff,
+      this.onLightningShieldDamage,
     );
   }
 
-  onDamage(event: DamageEvent) {
+  onLightningShieldDamage(event: DamageEvent) {
     this.damageGained += event.amount + (event.absorbed || 0);
   }
 
-  onApplyBuff() {
-    this.overchargeCount += 1;
-  }
-
-  get damagePercent() {
-    return this.owner.getPercentageOfTotalDamageDone(this.damageGained);
-  }
-
-  get damagePerSecond() {
-    return this.damageGained / (this.owner.fightDuration / 1000);
-  }
-
-
   get getLightningShieldUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.LIGHTNING_SHIELD_TALENT.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.LIGHTNING_SHIELD_TALENT.id) / (this.owner.fightDuration - this.deathTracker.totalTimeDead);
   }
 
   get suggestionThresholds() {
     return {
       actual: this.getLightningShieldUptime,
       isLessThan: {
-        major: 1,
+        minor: 1,
+        average: 0.98,
+        major: 0.95,
       },
       style: 'percentage',
     };
@@ -81,25 +71,25 @@ class LightningShield extends Analyzer {
 
   suggestions(when: any) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest: any, actual: any) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(
           <Trans>
-            You should fully utilize your <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> by using it before combat.
+            Your <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> uptime can be improved.
+            You can benefit from the full passive damage increase by casting it before combat.
+            {this.deathTracker.totalTimeDead ? <>Your time spent death has already been deducted from the required uptime.</> : ''}
           </Trans>,
         )
           .icon(SPELLS.LIGHTNING_SHIELD_TALENT.icon)
-          .actual(
-            <Trans>
-              You kept up <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> for ${formatPercentage(actual)}% of the fight.</Trans>,
+          .actual(<Trans>{formatPercentage(actual)}% uptime</Trans>,
           )
-          .recommended(<>It is possible to keep up <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> for 100% of the fight by casting it pre-combat.</>);
+          .recommended(<Trans>{formatPercentage(recommended)}% is recommended.</Trans>);
       });
   }
 
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL()}
+        position={STATISTIC_ORDER.CORE()}
         size="small"
         category={'TALENTS'}
       >
