@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 5, 25), <>Updated Integration Tests and Example Logs.</>,[Sharrq]),
   change(date(2020, 5, 25), <>Updated remaining files to Typescript.</>,[Sharrq]),
   change(date(2020, 5, 12), <>Updated modules to Typescript and Event Listeners.</>,[Sharrq]),
   change(date(2020, 4, 24), <>Fixed a bug in <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> for the No Ice Lance Build that resulted in the module being disabled.</>,[Sharrq]),
