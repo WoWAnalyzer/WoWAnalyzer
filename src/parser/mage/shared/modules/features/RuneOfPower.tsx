@@ -121,7 +121,7 @@ class RuneOfPower extends Analyzer {
         .addSuggestion((suggest: any, actual: any, recommended: any) => {
           return suggest(<>You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.</>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
-            .actual(`Average ${this.roundedSecondsPerCast}s standing in each Rune of Power`)
+            .actual(`Average ${this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power`)
             .recommended(`the full duration of ${formatNumber(RUNE_DURATION)}s is recommended`);
         });
     }
