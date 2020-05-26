@@ -1,4 +1,5 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -7,20 +8,23 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
+/**
+ * When your health is brought below 35%, you instantly heal for 20% of your maximum health.
+ * Cannot occur more than once every 45 sec.
+ *
+ * Example log:
+ */
 class NaturesGuardian extends Analyzer {
-  /**
-   * When your health is brought below 35%, you instantly heal for 20% of your maximum health.
-   * Cannot occur more than once every 45 sec.
-   *
-   * Example log:
-   */
-
-  protected healthGained = 0;
-  protected procCount = 0;
+  protected healthGained: number = 0;
+  protected procCount: number = 0;
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id);
+
+    if(!this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id)) {
+      this.active = false;
+      return;
+    }
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER)
