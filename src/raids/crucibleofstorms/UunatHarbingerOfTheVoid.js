@@ -1,4 +1,4 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 
@@ -22,11 +22,11 @@ export default {
     phases: {
       P1: {
         name: 'Stage One: His All-Seeing Eyes',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       I1: {
         name: 'Intermission One',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
           type: EventType.ApplyBuff,
           ability: {
@@ -37,7 +37,7 @@ export default {
       },
       P2: {
         name: 'Stage Two: His Dutiful Servants',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
           type: EventType.RemoveBuff,
           ability: {
@@ -48,7 +48,7 @@ export default {
       },
       I2: {
         name: 'Intermission Two',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
           type: EventType.ApplyBuff,
           ability: {
@@ -59,7 +59,7 @@ export default {
       },
       P3: {
         name: 'Stage Three: His Unwavering Gaze',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
           type: EventType.RemoveBuff,
           ability: {

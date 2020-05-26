@@ -1,4 +1,4 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 
@@ -33,11 +33,11 @@ export default {
     phases: {
       P1: {
         name: 'Stage One: My Minions Are Endless!',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       P2: {
         name: 'Stage Two: Behold the Power of Ghuun!',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
           type: EventType.RemoveDebuff,
           ability: {
@@ -48,7 +48,7 @@ export default {
       },
       P3: {
         name: 'Stage Three: Your Destruction is Assured!',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
           type: EventType.ApplyBuff,
           ability: {

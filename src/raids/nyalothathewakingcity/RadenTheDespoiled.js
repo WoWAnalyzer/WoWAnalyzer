@@ -1,4 +1,4 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/RadenTheDespoiled.jpg';
@@ -20,12 +20,12 @@ export default {
       P1: {
         name: 'Stage 1: Gathering Power',
         multiple: false,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       P2: {
         name: 'Stage 2: Unleashed Wrath',
         multiple: false,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
           type: EventType.Health,
           guid: 156866,
