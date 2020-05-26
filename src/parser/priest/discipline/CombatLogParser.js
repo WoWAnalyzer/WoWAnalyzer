@@ -40,6 +40,7 @@ import Schism from './modules/spells/Schism';
 
 import DeathThroes from './modules/azeritetraits/DeathThroes';
 import DepthOfTheShadows from './modules/azeritetraits/DepthOfTheShadows';
+import EnduringLuminescence from './modules/azeritetraits/EnduringLuminescence';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lucidDreams: LucidDreams,
 
     // Azerite Traits
+    enduringLuminescence: EnduringLuminescence,
     depthOfTheShadows: DepthOfTheShadows,
     deathThroes: DeathThroes,
   };

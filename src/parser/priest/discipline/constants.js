@@ -26,7 +26,8 @@ export const ATONEMENT_DAMAGE_SOURCES = {
   [SPELLS.HOLY_NOVA.id]: true,
 };
 
-export const ATONEMENT_COEFFICIENT = 0.55;
+export const ATONEMENT_COEFFICIENT = 0.50;
+export const POWER_WORD_RADIANCE_COEFFICIENT = 0.625;
 
 // https://www.wowhead.com/spell=137032/discipline-priest
 export const DISC_PRIEST_DAMAGE_REDUCTION = 0.67;

@@ -859,3 +859,14 @@ export const FraunchToost = {
     link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Azamia',
   }],
 };
+export const Tiphess = {
+  nickname: 'Tiphess',
+  github: 'Tiphess',
+  discord: 'Tiphess#0324',
+  avatar: require('./interface/images/avatars/Tiphess-avatar.jpeg'),
+  mains: [{
+    name: 'Tjphess',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/tjphess',
+  }],
+};
