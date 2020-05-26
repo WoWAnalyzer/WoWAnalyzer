@@ -3,6 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
@@ -58,7 +59,7 @@ class FocusedFire extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
       >
         <BoringSpellValueText spell={SPELLS.FOCUSED_FIRE}>
           <>

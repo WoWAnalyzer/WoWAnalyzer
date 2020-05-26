@@ -6,6 +6,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { RAPTOR_MONGOOSE_VARIANTS, TIP_DAMAGE_INCREASE, TIP_MAX_STACKS } from 'parser/hunter/survival/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
@@ -77,7 +78,7 @@ class TipOfTheSpear extends Analyzer {
             You consumed {this.usedStacks}/{this.usedStacks + this.wastedStacks} possible stacks.
           </>
         )}
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.TIP_OF_THE_SPEAR_TALENT}>
           <>

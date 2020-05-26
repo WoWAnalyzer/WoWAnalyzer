@@ -6,6 +6,7 @@ import { formatNumber } from 'common/format';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 class GlacialAssault extends Analyzer {
@@ -26,7 +27,7 @@ class GlacialAssault extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'ITEMS'}
+        category={STATISTIC_CATEGORY.ITEMS}
         tooltip={`Total damage: ${formatNumber(this.totalDamage)}`}
       >
         <BoringSpellValueText spell={SPELLS.GLACIAL_ASSAULT_TRAIT}>

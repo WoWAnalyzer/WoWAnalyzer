@@ -6,6 +6,7 @@ import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber, formatMilliseconds } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
@@ -126,7 +127,7 @@ class Stampede extends Analyzer {
         <Statistic
           position={STATISTIC_ORDER.OPTIONAL(13)}
           size="flexible"
-          category={'TALENTS'}
+          category={STATISTIC_CATEGORY.TALENTS}
           tooltip={(
             <>
               You cast {stampedePlural} in the fight, which hit enemies {this.hits} times for an average of {formatNumber(

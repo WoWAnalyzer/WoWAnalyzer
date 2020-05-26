@@ -4,8 +4,9 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { EventType } from 'parser/core/Events';
@@ -210,7 +211,7 @@ class MongooseBite extends Analyzer {
             </table>
           </>
         )}
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.MONGOOSE_BITE_TALENT}>
           <ItemDamageDone amount={this.damage} /> <br />

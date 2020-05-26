@@ -2,11 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events, { DamageEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -85,7 +86,7 @@ class EarthenSpike extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.EARTHEN_SPIKE_TALENT}>
           <>
