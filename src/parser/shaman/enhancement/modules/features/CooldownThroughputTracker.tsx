@@ -17,14 +17,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
   ];
-
-  trackEvent(event) {
-    this.activeCooldowns.forEach((cooldown) => {
-      if (event.ability.guid !== SPELLS.DOOM_VORTEX.id) {
-        cooldown.events.push(event);
-      }
-    });
-  }
 }
 
 export default CooldownThroughputTracker;

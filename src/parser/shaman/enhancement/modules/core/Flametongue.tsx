@@ -1,18 +1,20 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-
 import Analyzer from 'parser/core/Analyzer';
-
-import { Trans } from '@lingui/macro';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 /**
+ * Scorches your target, dealing (14.742% of Attack power) Fire damage,
+ * and enhances your weapons with fire for 16 sec, causing each weapon attack
+ * to deal up to (0 * Attack power) Fire damage.
  *
+ * Warcraft Log: https://www.warcraftlogs.com/reports/Yq7wP2WTX1DLjVd9#fight=3&type=damage-done&ability=193796
  */
-
 class Flametongue extends Analyzer {
 
   get flametongueUptime() {

@@ -1,9 +1,9 @@
-import SPELLS from 'common/SPELLS';
+import React from 'react';
 
+import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SpellLink from 'common/SpellLink';
-import React from 'react';
 import { STORMSTRIKE_CAST_SPELLS } from '../constants';
 
 class Abilities extends CoreAbilities {
