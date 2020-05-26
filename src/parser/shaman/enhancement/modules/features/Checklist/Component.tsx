@@ -9,14 +9,15 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
-const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }) => {
-  const AbilityRequirement = props => (
+const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: any) => {
+  const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       isMaxCasts
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
+
   AbilityRequirement.propTypes = {
     spell: PropTypes.number.isRequired,
   };
@@ -53,12 +54,12 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }) =
 };
 
 EnhancementShamanChecklist.propTypes = {
+  castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
     hasTrinket: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
-  castEfficiency: PropTypes.object.isRequired,
 };
 
 export default EnhancementShamanChecklist;
