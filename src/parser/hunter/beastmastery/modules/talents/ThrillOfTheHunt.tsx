@@ -34,9 +34,11 @@ class ThrillOfTheHunt extends Analyzer {
     }
     this.thrillStacks = Array.from({ length: MAX_THRILL_STACKS + 1 }, x => []);
   }
+
   get thrillOfTheHuntTimesByStacks() {
     return this.thrillStacks;
   }
+
   get averageCritPercent() {
     let averageCrit = 0;
     this.thrillStacks.forEach((elem, index) => {
@@ -60,6 +62,7 @@ class ThrillOfTheHunt extends Analyzer {
     this.lastThrillUpdate = event.timestamp;
     this.lastThrillStack = this.currentStacks;
   }
+
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.THRILL_OF_THE_HUNT_BUFF.id) {
@@ -67,6 +70,7 @@ class ThrillOfTheHunt extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.THRILL_OF_THE_HUNT_BUFF.id) {
@@ -74,6 +78,7 @@ class ThrillOfTheHunt extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.THRILL_OF_THE_HUNT_BUFF.id) {
@@ -81,9 +86,11 @@ class ThrillOfTheHunt extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_fightend(event: FightEndEvent) {
     this.handleStacks(event);
   }
+
   statistic() {
     return (
       <Statistic
@@ -102,16 +109,11 @@ class ThrillOfTheHunt extends Analyzer {
                 </tr>
               </thead>
               <tbody>
-                {Object.values(this.thrillOfTheHuntTimesByStacks).map((
-                  e,
-                  i,
-                ) => (
+                {Object.values(this.thrillOfTheHuntTimesByStacks).map((e, i) => (
                   <tr key={i}>
                     <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) /
-                      1000)}</td>
-                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) /
-                      this.owner.fightDuration)}%
+                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
                     </td>
                     <td>{formatPercentage(CRIT_PER_STACK * i, 0)}%</td>
                   </tr>

@@ -4,8 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 
 /**
@@ -19,14 +18,12 @@ class Trailblazer extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.TRAILBLAZER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TRAILBLAZER_TALENT.id);
   }
 
   get percentUptime() {
     //This calculates the uptime over the course of the encounter of Trailblazer
-    return this.selectedCombatant.getBuffUptime(SPELLS.TRAILBLAZER_BUFF.id) /
-      this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.TRAILBLAZER_BUFF.id) / this.owner.fightDuration;
   }
 
   statistic() {

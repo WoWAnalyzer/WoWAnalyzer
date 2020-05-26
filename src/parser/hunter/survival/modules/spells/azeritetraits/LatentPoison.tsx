@@ -30,9 +30,11 @@ class LatentPoison extends Analyzer {
     this.active = this.selectedCombatant.hasTrait(SPELLS.LATENT_POISON.id);
     this.spellKnown = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? SPELLS.MONGOOSE_BITE_TALENT.name : SPELLS.RAPTOR_STRIKE.name;
   }
+
   get averageStacksPerRaptorOrMongoose() {
     return (this.utilised / this.casts).toFixed(2);
   }
+
   on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LATENT_POISON_DEBUFF.id) {
@@ -41,6 +43,7 @@ class LatentPoison extends Analyzer {
     this.applications += 1;
     this._stacks = 1;
   }
+
   on_byPlayer_applydebuffstack(event: ApplyDebuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LATENT_POISON_DEBUFF.id) {
@@ -49,6 +52,7 @@ class LatentPoison extends Analyzer {
     this.applications += 1;
     this._stacks = event.stack;
   }
+
   on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LATENT_POISON_DEBUFF.id) {
@@ -56,6 +60,7 @@ class LatentPoison extends Analyzer {
     }
     this._stacks = 0;
   }
+
   on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
@@ -66,6 +71,7 @@ class LatentPoison extends Analyzer {
       this.wasted += 1;
     }
   }
+
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (!RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
@@ -74,6 +80,7 @@ class LatentPoison extends Analyzer {
     this.utilised += this._stacks;
     this.casts += 1;
   }
+
   statistic() {
     return (
       <Statistic

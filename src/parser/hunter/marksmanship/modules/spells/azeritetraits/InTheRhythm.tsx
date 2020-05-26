@@ -95,7 +95,8 @@ class InTheRhythm extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            In The Rhythm granted <strong>{this.haste}</strong> Haste for <strong>{formatPercentage(this.uptime)}%</strong> of the fight. <br />
+            In The Rhythm granted <strong>{this.haste}</strong> Haste for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
+            <br />
             You lost out on {formatNumber(this.wastedUptime / 1000)} seconds of uptime from refreshing the buff before it expired.
           </>
         )}
@@ -103,8 +104,10 @@ class InTheRhythm extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.IN_THE_RHYTHM}>
           <>
-            {this.applications}/{this.possibleApplications} <small>applications</small><br />
-            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small> <br />
+            {this.applications}/{this.possibleApplications} <small>applications</small>
+            <br />
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
+            <br />
             <HasteIcon /> {formatNumber(this.avgHaste)} <small>average Haste gained</small>
           </>
         </BoringSpellValueText>

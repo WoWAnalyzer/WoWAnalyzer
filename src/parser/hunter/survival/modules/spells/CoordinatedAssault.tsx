@@ -30,25 +30,31 @@ class CoordinatedAssault extends Analyzer {
   casts = 0;
   playerDamage = 0;
   petDamage = 0;
+
   protected spellUsable!: SpellUsable;
+
   get totalDamage() {
     return this.playerDamage + this.petDamage;
   }
+
   get percentUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / this.owner.fightDuration;
   }
+
   on_byPlayerPet_damage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
     }
     this.petDamage += calculateEffectiveDamage(event, CA_DMG_MODIFIER);
   }
+
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.COORDINATED_ASSAULT.id) {
       this.casts += 1;
     }
   }
+
   on_byPlayer_damage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
@@ -61,6 +67,7 @@ class CoordinatedAssault extends Analyzer {
     }
     this.playerDamage += calculateEffectiveDamage(event, CA_DMG_MODIFIER);
   }
+
   statistic() {
     return (
       <Statistic

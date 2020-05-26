@@ -40,6 +40,7 @@ class BlurOfTalons extends Analyzer {
   currentStacks: number = 0;
 
   protected statTracker!: StatTracker;
+
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.BLUR_OF_TALONS.id);
@@ -54,18 +55,22 @@ class BlurOfTalons extends Analyzer {
       agility: this.agility,
     });
   }
+
   get blurOfTalonsTimesByStacks() {
     return this.blurOfTalonStacks;
   }
+
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.BLUR_OF_TALONS_BUFF.id) / this.owner.fightDuration;
   }
+
   get avgAgility() {
     const avgAgi = this.blurOfTalonStacks.reduce((sum, innerArray, outerArrayIndex) => {
       return sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.agility) / this.owner.fightDuration), 0);
     }, 0);
     return avgAgi;
   }
+
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent, stack: number = 0) {
     if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
@@ -80,6 +85,7 @@ class BlurOfTalons extends Analyzer {
       this.lastBlurStack = this.currentStacks;
     }
   }
+
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BLUR_OF_TALONS_BUFF.id) {
@@ -87,6 +93,7 @@ class BlurOfTalons extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BLUR_OF_TALONS_BUFF.id) {
@@ -94,6 +101,7 @@ class BlurOfTalons extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BLUR_OF_TALONS_BUFF.id) {
@@ -101,9 +109,11 @@ class BlurOfTalons extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_fightend(event: FightEndEvent) {
     this.handleStacks(event, this.lastBlurStack);
   }
+
   statistic() {
     return (
       <Statistic
@@ -111,8 +121,7 @@ class BlurOfTalons extends Analyzer {
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
-            Blur of Talons granted <strong>{formatNumber(this.agility)}</strong> Agility for <strong>{formatPercentage(
-            this.uptime)}%</strong> of the fight.
+            Blur of Talons granted <strong>{formatNumber(this.agility)}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
           </>
         )}
         dropdown={(

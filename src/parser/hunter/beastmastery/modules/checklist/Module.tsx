@@ -29,6 +29,7 @@ class Checklist extends BaseChecklist {
     focusCapTracker: BeastMasteryFocusCapTracker,
     beastCleave: BeastCleave,
   };
+
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
@@ -40,6 +41,7 @@ class Checklist extends BaseChecklist {
   protected focusGeneratorDetails!: FocusDetails;
   protected focusCapTracker!: BeastMasteryFocusCapTracker;
   protected beastCleave!: BeastCleave;
+
   render() {
     return (
       <Component

@@ -14,8 +14,11 @@ class AspectOfTheWild extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
   casts = 0;
+
   protected spellUsable!: SpellUsable;
+
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ASPECT_OF_THE_WILD.id) {

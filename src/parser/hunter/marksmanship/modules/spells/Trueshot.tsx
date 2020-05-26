@@ -72,8 +72,7 @@ class Trueshot extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-            {'  '}
-            {this.averageFocus}{' '}
+            {'  '}{this.averageFocus}{' '}
             <ResourceIcon
               id={RESOURCE_TYPES.FOCUS.id}
               style={{
@@ -90,7 +89,7 @@ class Trueshot extends Analyzer {
 
   get averageAimedShots() {
     const averageAimedShots = (this.aimedShotsPrTS / this.trueshotCasts);
-    return isNaN(averageAimedShots) ? 0 : averageAimedShots.toFixed(1);
+    return isNaN(averageAimedShots) ? 0 : averageAimedShots;
   }
 
   get averageFocus() {
@@ -113,11 +112,11 @@ class Trueshot extends Analyzer {
     when(this.aimedShotThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         <>
-          You only cast {actual} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.
+          You only cast {actual.toFixed(1)} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.
         </>,
       )
         .icon(SPELLS.TRUESHOT.icon)
-        .actual(`Average of ${actual} Aimed Shots per Trueshot.`)
+        .actual(`Average of ${actual.toFixed(1)} Aimed Shots per Trueshot.`)
         .recommended(`>${recommended} is recommended`);
     });
   }

@@ -23,12 +23,14 @@ const MS_BUFFER = 100;
  * https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=last&type=damage-done
  */
 class BeastCleave extends Analyzer {
+
   damage = 0;
   cleaveUp = false;
   beastCleaveHits = 0;
   casts = 0;
   castsWithoutHits = 0;
   timestamp = 0;
+
   get beastCleavesWithoutHits() {
     return {
       actual: this.castsWithoutHits,
@@ -40,6 +42,7 @@ class BeastCleave extends Analyzer {
       style: 'number',
     };
   }
+
   on_toPlayerPet_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
@@ -53,6 +56,7 @@ class BeastCleave extends Analyzer {
     this.beastCleaveHits = 0;
     this.timestamp = event.timestamp;
   }
+
   on_toPlayerPet_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
@@ -67,6 +71,7 @@ class BeastCleave extends Analyzer {
     this.cleaveUp = false;
     this.timestamp = event.timestamp;
   }
+
   on_toPlayerPet_refreshbuff(event: RefreshBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
@@ -82,6 +87,7 @@ class BeastCleave extends Analyzer {
     this.beastCleaveHits = 0;
     this.timestamp = event.timestamp;
   }
+
   on_byPlayerPet_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BEAST_CLEAVE_DAMAGE.id) {
@@ -90,6 +96,7 @@ class BeastCleave extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
     this.beastCleaveHits += 1;
   }
+
   suggestions(when: any) {
     if (this.casts > 0) {
       when(this.beastCleavesWithoutHits).addSuggestion((suggest: any, actual: any, recommended: any) => {

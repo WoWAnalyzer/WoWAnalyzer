@@ -49,10 +49,6 @@ class CallingTheShots extends Analyzer {
     }
   }
 
-  averageEffectiveCDR() {
-    return (this.effectiveTrueshotReductionMs / ((this.wastedTrueshotReductionMs + this.effectiveTrueshotReductionMs) / (COOLDOWN_REDUCTION_MS / 1000)));
-  }
-
   statistic() {
     return (
       <Statistic

@@ -64,7 +64,8 @@ class FocusedFire extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.FOCUSED_FIRE}>
           <>
-            {this.focusGained}/{this.focusWasted + this.focusGained}<small> gained Focus</small><br />
+            {this.focusGained}/{this.focusWasted + this.focusGained}<small> gained Focus</small>
+            <br />
             <small>Up to</small> {formatNumber(this.damagePotential)} <small> damage per <SpellLink id={SPELLS.RAPID_FIRE.id} /></small>
           </>
         </BoringSpellValueText>

@@ -157,8 +157,7 @@ class LockAndLoad extends Analyzer {
               {/*this two first tooltipText additions will probably NEVER happen, but it'd be fun if they ever did*/}
               {binomCalc === 0 && <li>You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.</li>}
               {binomCalc === 1 && <li>You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.</li>}
-              {/* eslint-disable-next-line yoda */}
-              {(0 < binomCalc && binomCalc < 1) && (
+              {(binomCalc > 0 && binomCalc < 1) && (
                 (this.pn > 10 || this.qn > 10) ?
                   <li>Due to normal approximation these results are within 2% margin of error.</li> :
                   <li>Because you had under {10 / PROC_CHANCE} auto attacks and due to normal approximation these results have a margin of error of over 2%.</li>

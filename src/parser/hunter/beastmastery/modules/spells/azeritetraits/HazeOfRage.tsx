@@ -29,6 +29,7 @@ export const STAT_TRACKER = {
  * https://www.warcraftlogs.com/reports/9mWQv1XZJT8M6GBV#fight=1&type=damage-done
  */
 class HazeOfRage extends Analyzer {
+
   agility = 0;
 
   constructor(options: any) {

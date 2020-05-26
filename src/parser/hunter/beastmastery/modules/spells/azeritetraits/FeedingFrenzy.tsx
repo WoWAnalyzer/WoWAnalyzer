@@ -32,6 +32,7 @@ class FeedingFrenzy extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
+
   extraBuffUptime = 0;
   lastBSCast = 0;
   hasFrenzyUp = false;
@@ -41,7 +42,9 @@ class FeedingFrenzy extends Analyzer {
   traitBonus = 0;
   traitDamageContribution = 0;
   lastAttackPower = 0;
+
   protected statTracker!: StatTracker;
+
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.FEEDING_FRENZY.id);
@@ -64,6 +67,7 @@ class FeedingFrenzy extends Analyzer {
       return 0;
     }
   }
+
   on_toPlayerPet_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
@@ -145,22 +149,17 @@ class FeedingFrenzy extends Analyzer {
             This only accounts for the added uptime granted when casting Barbed Shot after 8 seconds had passed, so each cast can potentially be worth up to 1 second. <br />
             This happened a total of {this.timesExtended} {this.timesExtended > 1 ? 'times' : 'time'}.
             <ul>
-              <li>This means that you gained an average extra uptime of {(
-                this.extraBuffUptime / this.timesExtended / 1000).toFixed(2)}s per cast of Barbed Shot that was cast more than 8 seconds after the last one.
-              </li>
-              <li>Out of all your Barbed Shot casts, you gained an extra {(
-                this.extraBuffUptime / this.casts / 1000).toFixed(2)}s of uptime per cast.
-              </li>
+              <li>This means that you gained an average extra uptime of {(this.extraBuffUptime / this.timesExtended / 1000).toFixed(2)}s per cast of Barbed Shot that was cast more than 8 seconds after the last one.</li>
+              <li>Out of all your Barbed Shot casts, you gained an extra {(this.extraBuffUptime / this.casts / 1000).toFixed(2)}s of uptime per cast.</li>
             </ul>
             <br />
-            The damage portion of this trait did an additional ~ {formatNumber(dps)} DPS, {formatPercentage(damageThroughputPercent)} % of your overall damage.
+            The damage portion of this trait did an additional ~{formatNumber(dps)} DPS, {formatPercentage(damageThroughputPercent)} % of your overall damage.
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.FEEDING_FRENZY}>
           <>
-            <UptimeIcon /> {formatNumber(this.extraBuffUptime /
-            MS)}s <small>added Frenzy Uptime</small> <br />
+            <UptimeIcon /> {formatNumber(this.extraBuffUptime / MS)}s <small>added Frenzy Uptime</small><br />
             {formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS
           </>
         </BoringSpellValueText>

@@ -5,8 +5,7 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
 import SPECS from 'game/SPECS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatDuration, formatPercentage} from 'common/format';
 import SpellLink from 'common/SpellLink';
@@ -76,18 +75,12 @@ class RapidReload extends Analyzer {
     if (spellId !== SPELLS.RAPID_RELOAD_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount +
-      (
-        event.absorbed || 0
-      );
+    this.damage += event.amount + (event.absorbed || 0);
     this.currentCastHits += 1;
     Object.keys(this._aspects).forEach(spell => {
       const spellId = parseInt(spell);
       if (this.spellUsable.isOnCooldown(spellId)) {
-        const reductionMs = this.spellUsable.reduceCooldown(
-          spellId,
-          COOLDOWN_REDUCTION_MS,
-        );
+        const reductionMs = this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS,);
         this._aspects[spellId].effectiveCdr += reductionMs;
         this._aspects[spellId].wastedCdr += COOLDOWN_REDUCTION_MS - reductionMs;
       } else {
@@ -123,18 +116,15 @@ class RapidReload extends Analyzer {
   suggestions(when: any) {
     when(this.multiShotsWithoutRRProcs).addSuggestion((
       suggest: any, actual: any, recommended: any) => {
-      return suggest(
-        <>When using <SpellLink id={SPELLS.RAPID_RELOAD.id} />, remember to try to hit 3 or more targets every time you cast <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>,
-      ).icon(SPELLS.RAPID_RELOAD.icon)
-        .actual(`${actual} cast${actual === 1
-          ? ''
-          : 's'} without a Rapid Reload proc`)
+      return suggest(<>When using <SpellLink id={SPELLS.RAPID_RELOAD.id} />, remember to try to hit 3 or more targets every time you cast <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
+        .icon(SPELLS.RAPID_RELOAD.icon)
+        .actual(`${actual} ${actual === 1 ? 'cast' : 'casts'} without a Rapid Reload proc`)
         .recommended(`${recommended} is recommended`);
     });
     when(this.multiShotCasts).addSuggestion((
       suggest: any) => {
-      return suggest(<>When using <SpellLink id={SPELLS.RAPID_RELOAD.id} /> it is important to remember to cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> in order to gain value from the azerite trait - however you should never cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> on single-target regardless. </>,
-      ).icon(SPELLS.RAPID_RELOAD.icon)
+      return suggest(<>When using <SpellLink id={SPELLS.RAPID_RELOAD.id} /> it is important to remember to cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> in order to gain value from the azerite trait - however you should never cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> on single-target regardless. </>)
+        .icon(SPELLS.RAPID_RELOAD.icon)
         .actual('You cast Multi-Shot 0 times')
         .recommended('>0 is recommended');
     });
@@ -146,12 +136,7 @@ class RapidReload extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
-          <> {formatPercentage(
-            (
-              this.casts - this.multiShotsNoRR
-            ) / this.casts,
-            1,
-          )}% of your Multi-Shot casts procced Rapid Reload. </>
+          <> {formatPercentage((this.casts - this.multiShotsNoRR) / this.casts, 1)}% of your Multi-Shot casts procced Rapid Reload. </>
         )}
         dropdown={(
           <>
@@ -164,14 +149,8 @@ class RapidReload extends Analyzer {
                 </tr>
               </thead>
               <tbody>
-                {
-                  // @ts-ignore
-                }
                 {Object.entries(this._aspects)
-                  .map((
-                    aspect,
-                    idx: number,
-                  ) => (
+                  .map((aspect, idx: number) => (
                     <tr key={idx}>
                       <th><SpellLink id={parseInt(aspect[0])} /></th>
                       <td>{formatDuration(aspect[1].effectiveCdr / 1000)}</td>
@@ -185,9 +164,7 @@ class RapidReload extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.RAPID_RELOAD}>
           <ItemDamageDone amount={this.damage} /><br />
-          {(
-            this.casts - this.multiShotsNoRR
-          )}/{this.casts} <small>procs</small>
+          {(this.casts - this.multiShotsNoRR)}/{this.casts} <small>procs</small>
         </BoringSpellValueText>
       </Statistic>
     );

@@ -77,7 +77,6 @@ class FocusDetails extends Analyzer {
       ),
     };
   }
-
 }
 
 export default FocusDetails;

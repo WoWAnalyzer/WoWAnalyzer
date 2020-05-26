@@ -28,6 +28,7 @@ class UnerringVision extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
+
   crit = 0;
 
   constructor(options: any) {
@@ -60,13 +61,9 @@ class UnerringVision extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.UNERRING_VISION}>
           <>
-            <CriticalStrike /> {formatNumber(this.avgCrit)}
-            <small> average Crit gained</small>
+            <CriticalStrike /> {formatNumber(this.avgCrit)}<small> average Crit gained</small>
             <br />
-            <CriticalStrike />
-            <small> up to</small>
-            {formatNumber(this.crit * MAX_STACKS)}
-            <small> Crit gained</small>
+            <CriticalStrike /><small> up to</small>{formatNumber(this.crit * MAX_STACKS)}<small> Crit gained</small>
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -38,6 +38,7 @@ class SerpentSting extends Analyzer {
     }
     this.damage += event.amount + (event.absorbed || 0);
   }
+
   get uptimePercentage() {
     return this.enemies.getBuffUptime(SPELLS.SERPENT_STING_TALENT.id) / this.owner.fightDuration;
   }

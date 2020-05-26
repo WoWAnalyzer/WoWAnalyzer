@@ -54,7 +54,8 @@ class ExplosiveShot extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.EXPLOSIVE_SHOT_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /> <br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} />
           </>
         </BoringSpellValueText>

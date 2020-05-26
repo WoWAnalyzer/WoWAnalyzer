@@ -164,7 +164,8 @@ class HuntersMark extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.HUNTERS_MARK_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             <UptimeIcon /> {formatPercentage(this.uptimePercentage)}% <small>uptime</small>
           </>
         </BoringSpellValueText>

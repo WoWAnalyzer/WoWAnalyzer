@@ -35,8 +35,7 @@ class ScentOfBlood extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.SCENT_OF_BLOOD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SCENT_OF_BLOOD_TALENT.id);
   }
 
   on_toPlayer_energize(event: EnergizeEvent) {

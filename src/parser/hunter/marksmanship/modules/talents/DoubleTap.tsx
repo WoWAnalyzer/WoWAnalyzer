@@ -77,8 +77,7 @@ class DoubleTap extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-            {'  '}
-            {this.RFUsage}{'  '}
+            {'  '}{this.RFUsage}{'  '}
             <SpellIcon
               id={SPELLS.RAPID_FIRE.id}
               style={{

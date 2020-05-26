@@ -19,8 +19,6 @@ class AimedShot extends Analyzer {
       event.meta = {
         isEnhancedCast: false,
         isInefficientCast: false,
-        enhancedCastReason: '',
-        inefficientCastReason: '',
       };
     }
 

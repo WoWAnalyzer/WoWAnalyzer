@@ -28,8 +28,7 @@ class SpittingCobra extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
   }
 
   on_byPlayer_energize(event: EnergizeEvent) {
@@ -69,7 +68,8 @@ class SpittingCobra extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SPITTING_COBRA_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /> <br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             {this.focusGained} <small>focus gained</small>
           </>
         </BoringSpellValueText>

@@ -25,6 +25,7 @@ class ButcheryCarve extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
   reductionAtCurrentCast: number = 0;
   effectiveReductionMs: number = 0;
   wastedReductionMs: number = 0;
@@ -35,7 +36,9 @@ class ButcheryCarve extends Analyzer {
   hasButchery: boolean = false;
   hasWFI: boolean = false;
   bombSpellKnown: number = SPELLS.WILDFIRE_BOMB.id;
+
   protected spellUsable!: SpellUsable;
+
   constructor(options: any) {
     super(options);
     this.hasButchery = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id);
@@ -47,6 +50,7 @@ class ButcheryCarve extends Analyzer {
       this.bombSpellKnown = SPELLS.WILDFIRE_INFUSION_TALENT.id;
     }
   }
+
   get avgTargetsHitThreshold() {
     return {
       actual: (this.targetsHit / this.casts).toFixed(1),
@@ -58,6 +62,7 @@ class ButcheryCarve extends Analyzer {
       style: 'decimal',
     };
   }
+
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
@@ -66,6 +71,7 @@ class ButcheryCarve extends Analyzer {
     this.casts += 1;
     this.reductionAtCurrentCast = 0;
   }
+
   on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
@@ -82,8 +88,8 @@ class ButcheryCarve extends Analyzer {
     } else {
       this.wastedReductionMs += COOLDOWN_REDUCTION_MS;
     }
-
   }
+
   checkCooldown(spellId: number) {
     if (this.spellUsable.cooldownRemaining(spellId) < COOLDOWN_REDUCTION_MS) {
       const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS);
@@ -93,6 +99,7 @@ class ButcheryCarve extends Analyzer {
       this.effectiveReductionMs += this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS);
     }
   }
+
   suggestions(when: any) {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.

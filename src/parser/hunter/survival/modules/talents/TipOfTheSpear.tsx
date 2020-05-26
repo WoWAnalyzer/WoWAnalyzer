@@ -68,6 +68,7 @@ class TipOfTheSpear extends Analyzer {
       this.lastApplicationTimestamp = event.timestamp;
     }
   }
+
   statistic() {
     return (
       <Statistic

@@ -91,7 +91,7 @@ class VipersVenom extends Analyzer {
   }
 
   get averageTimeBetweenBuffAndUsage() {
-    return (this.accumulatedTimeFromBuffToCast / this.procs / 1000).toFixed(2);
+    return this.accumulatedTimeFromBuffToCast / this.procs / 1000;
   }
 
   get raptorWithBuffThresholds() {
@@ -105,6 +105,7 @@ class VipersVenom extends Analyzer {
       style: 'number',
     };
   }
+
   get wastedProcsThresholds() {
     return {
       actual: this.wastedProcs,
@@ -140,7 +141,7 @@ class VipersVenom extends Analyzer {
         tooltip={(
           <>
             <ul>
-              <li>Average time between gaining Viper's Venom buff and using it was <b>{this.averageTimeBetweenBuffAndUsage}</b> seconds.
+              <li>Average time between gaining Viper's Venom buff and using it was <b>{this.averageTimeBetweenBuffAndUsage.toFixed(2)}</b> seconds.
                 <ul>
                   <li>Note: This accounts for the GCD after the {this.spellKnown.name} proccing Viper's Venom.</li>
                   {this.wastedProcs > 0 && <li>You wasted {this.wastedProcs} procs by gaining a new proc, whilst your current proc was still active.</li>}

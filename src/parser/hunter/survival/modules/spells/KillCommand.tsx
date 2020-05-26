@@ -27,11 +27,14 @@ class KillCommand extends Analyzer {
     abilities: Abilities,
     globalCooldown: GlobalCooldown,
   };
+
   resets = 0;
   resetWhileNotOnCD = 0;
+
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
   protected globalCooldown!: GlobalCooldown;
+
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FLANKERS_ADVANTAGE.id) {

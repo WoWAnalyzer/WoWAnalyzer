@@ -20,16 +20,12 @@ class BindingShot extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id);
   }
 
   on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
-    if (spellId !==
-      SPELLS.BINDING_SHOT_ROOT.id &&
-      spellId !==
-      SPELLS.BINDING_SHOT_TETHER.id) {
+    if (spellId !== SPELLS.BINDING_SHOT_ROOT.id && spellId !== SPELLS.BINDING_SHOT_TETHER.id) {
       return;
     }
     if (spellId === SPELLS.BINDING_SHOT_ROOT.id) {
@@ -49,8 +45,7 @@ class BindingShot extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.BINDING_SHOT_TALENT}>
           <>
-            {this._roots} <small>roots</small> / {this._applications}
-            <small>possible</small>
+            {this._roots} <small>roots</small> / {this._applications}<small>possible</small>
           </>
         </BoringSpellValueText>
       </Statistic>

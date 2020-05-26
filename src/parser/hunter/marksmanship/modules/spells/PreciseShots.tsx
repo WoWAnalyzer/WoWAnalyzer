@@ -101,7 +101,8 @@ class PreciseShots extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.PRECISE_SHOTS}>
           <>
-            <ItemDamageDone amount={this.damage} /> <br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             {this.buffsGained} <small>buffs used</small>
           </>
         </BoringSpellValueText>

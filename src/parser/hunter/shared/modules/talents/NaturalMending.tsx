@@ -35,11 +35,8 @@ class NaturalMending extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.NATURAL_MENDING_TALENT.id);
-    if (this.active &&
-      this.selectedCombatant.spec ===
-      SPECS.BEAST_MASTERY_HUNTER) {
+    this.active = this.selectedCombatant.hasTalent(SPELLS.NATURAL_MENDING_TALENT.id);
+    if (this.active && this.selectedCombatant.spec === SPECS.BEAST_MASTERY_HUNTER) {
       this.cdrPerFocus = BM_CDR_PER_FOCUS;
     }
   }
@@ -56,21 +53,12 @@ class NaturalMending extends Analyzer {
     }
     if (this.spellUsable.cooldownRemaining(SPELLS.EXHILARATION.id) <
       cooldownReductionMS) {
-      const effectiveReductionMs = this.spellUsable.reduceCooldown(
-        SPELLS.EXHILARATION.id,
-        cooldownReductionMS,
-      );
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMS);
       this.effectiveExhilReductionMs += effectiveReductionMs;
-      this.wastedExhilReductionMs += (
-        cooldownReductionMS - effectiveReductionMs
-      );
+      this.wastedExhilReductionMs += (cooldownReductionMS - effectiveReductionMs);
       return;
     }
-    this.effectiveExhilReductionMs
-      += this.spellUsable.reduceCooldown(
-      SPELLS.EXHILARATION.id,
-      cooldownReductionMS,
-    );
+    this.effectiveExhilReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMS);
   }
 
   statistic() {
@@ -81,17 +69,13 @@ class NaturalMending extends Analyzer {
         category={'TALENTS'}
         tooltip={(
           <>
-            You wasted {formatNumber(this.wastedExhilReductionMs /
-            1000)} seconds of CDR by spending focus whilst Exhilaration wasn't on cooldown.
+            You wasted {formatNumber(this.wastedExhilReductionMs / 1000)} seconds of CDR by spending focus whilst Exhilaration wasn't on cooldown.
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.NATURAL_MENDING_TALENT}>
           <>
-            {formatNumber(this.effectiveExhilReductionMs /
-              1000)}s/{formatNumber((
-            this.wastedExhilReductionMs + this.effectiveExhilReductionMs
-          ) / 1000)}s <small>CDR</small>
+            {formatNumber(this.effectiveExhilReductionMs / 1000)}s/{formatNumber((this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000)}s <small>CDR</small>
           </>
         </BoringSpellValueText>
       </Statistic>

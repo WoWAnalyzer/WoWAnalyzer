@@ -34,11 +34,13 @@ class WildernessSurvival extends Analyzer {
   }
 
   get effectiveCDRInSeconds() {
-    return (this.effectiveWSReductionMs / 1000).toFixed(1);
+    return this.effectiveWSReductionMs / 1000;
   }
+
   get totalPossibleCDR() {
-    return ((this.effectiveWSReductionMs + this.wastedWSReductionMs) / 1000).toFixed(1);
+    return (this.effectiveWSReductionMs + this.wastedWSReductionMs) / 1000;
   }
+
   checkCooldown(spellId: number) {
     if (this.spellUsable.cooldownRemaining(spellId) < MS_REDUCTION) {
       const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, MS_REDUCTION);
@@ -48,6 +50,7 @@ class WildernessSurvival extends Analyzer {
       this.effectiveWSReductionMs += this.spellUsable.reduceCooldown(spellId, MS_REDUCTION);
     }
   }
+
   on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (!RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
@@ -67,20 +70,21 @@ class WildernessSurvival extends Analyzer {
       }
     }
   }
+
   statistic() {
     return (
       <Statistic
         size="flexible"
         tooltip={(
           <>
-            Wilderness Survival reduced {this.hasWFI ? SPELLS.WILDFIRE_INFUSION_TALENT.name : SPELLS.WILDFIRE_BOMB.name} by {this.effectiveCDRInSeconds} seconds out of {this.totalPossibleCDR} possible.
+            Wilderness Survival reduced {this.hasWFI ? SPELLS.WILDFIRE_INFUSION_TALENT.name : SPELLS.WILDFIRE_BOMB.name} by {this.effectiveCDRInSeconds.toFixed(1)} seconds out of {this.totalPossibleCDR.toFixed(1)} possible.
           </>
         )}
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
       >
         <BoringSpellValueText spell={SPELLS.WILDERNESS_SURVIVAL}>
           <>
-            {this.effectiveCDRInSeconds}/{this.totalPossibleCDR}s <small>effective CDR</small>
+            {this.effectiveCDRInSeconds.toFixed(1)}/{this.totalPossibleCDR.toFixed(1)}s <small>effective CDR</small>
           </>
         </BoringSpellValueText>
       </Statistic>

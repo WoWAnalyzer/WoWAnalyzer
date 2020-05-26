@@ -21,7 +21,7 @@ import { isPermanentPet } from '../../../../warlock/demonology/modules/pets/help
 class AnimalCompanion extends Analyzer {
   damage = 0;
   pets: { petName: string, sourceID: number | undefined, damage: number }[] = [];
-  mainPetName = '';
+  mainPetName: string = '';
 
   constructor(options: any) {
     super(options);

@@ -41,7 +41,6 @@ class KillerInstinct extends Analyzer {
     const enemyHealthPercent = (event.hitPoints / event.maxHitPoints);
     if (enemyHealthPercent <= KILLER_INSTINCT_TRESHOLD) {
       this.castsWithExecute += 1;
-
       const traitDamage = calculateEffectiveDamage(event, KILLER_INSTINCT_CONTRIBUTION);
       this.damage += traitDamage;
     }
@@ -56,16 +55,15 @@ class KillerInstinct extends Analyzer {
         tooltip={(
           <>
             You cast a total of {this.casts} Kill Commands, of which {this.castsWithExecute} were on enemies with less than 35% of their health remaining.
-            These {this.castsWithExecute} casts provided you a total of {formatNumber(
-            this.damage)} extra damage throughout the fight.
+            These {this.castsWithExecute} casts provided you a total of {formatNumber(this.damage)} extra damage throughout the fight.
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.KILLER_INSTINCT_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /> <br />
-            {formatNumber(this.castsWithExecute)}
-            <small>casts at &lt; 35% health</small>
+            <ItemDamageDone amount={this.damage} />
+            <br />
+            {formatNumber(this.castsWithExecute)}<small>casts at &lt; 35% health</small>
           </>
         </BoringSpellValueText>
       </Statistic>

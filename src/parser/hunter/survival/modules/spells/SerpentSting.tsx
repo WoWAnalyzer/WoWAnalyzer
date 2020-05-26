@@ -41,23 +41,29 @@ class SerpentSting extends Analyzer {
   hasVV: boolean = false;
   hasBoP: boolean = false;
   uptimeRequired: number = 0.95;
+
   protected enemies!: Enemies;
   protected statTracker!: StatTracker;
+
   constructor(options: any) {
     super(options);
     this.hasBoP = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
     this.hasVV = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
   }
+
   get averageTimeBetweenRefresh() {
     const avgTime = (this.accumulatedTimeBetweenRefresh / this.timesRefreshed) || 0;
     return (avgTime / 1000).toFixed(2);
   }
+
   get averagePercentRemainingOnRefresh() {
     return (this.accumulatedPercentRemainingOnRefresh / this.timesRefreshed) || 0;
   }
+
   get uptimePercentage() {
     return this.enemies.getBuffUptime(SPELLS.SERPENT_STING_SV.id) / this.owner.fightDuration;
   }
+
   get refreshingThreshold() {
     return {
       actual: this.badRefresh,
@@ -69,6 +75,7 @@ class SerpentSting extends Analyzer {
       style: 'number',
     };
   }
+
   get uptimeThreshold() {
     if (this.hasBoP && !this.hasVV) {
       return {
@@ -94,6 +101,7 @@ class SerpentSting extends Analyzer {
       style: 'percentage',
     };
   }
+
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
@@ -104,7 +112,9 @@ class SerpentSting extends Analyzer {
     if (event.meta === undefined) {
       event.meta = {
         isInefficientCast: false,
+        isEnhancedCast: false,
         inefficientCastReason: '',
+        enhancedCastReason: '',
       };
     }
     if (this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
@@ -115,6 +125,7 @@ class SerpentSting extends Analyzer {
     event.meta.isInefficientCast = this.serpentStingDuringCA();
     event.meta.inefficientCastReason = 'Serpent String cast during Coordinated Assault with Birds of Prey talent used.';
   }
+
   on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
@@ -122,6 +133,7 @@ class SerpentSting extends Analyzer {
     }
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }
+
   on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
     let targetInstance = event.targetInstance;
@@ -137,6 +149,7 @@ class SerpentSting extends Analyzer {
 
     this.hasVV = false;
   }
+
   on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SERPENT_STING_SV.id) {
@@ -148,6 +161,7 @@ class SerpentSting extends Analyzer {
       }
     }
   }
+
   on_byPlayer_refreshdebuff(event: RefreshDebuffEvent) {
     const spellId = event.ability.guid;
     let targetInstance = event.targetInstance;
@@ -185,9 +199,11 @@ class SerpentSting extends Analyzer {
       }
     }
   }
+
   serpentStingDuringCA() {
     return this.hasBoP && this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id) && !this.hasVV;
   }
+
   suggestions(when: any) {
     if (this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id) && !this.hasVV) {
       when(this.uptimeThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {

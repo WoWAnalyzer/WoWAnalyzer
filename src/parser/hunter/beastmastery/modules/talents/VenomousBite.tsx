@@ -24,24 +24,28 @@ class VenomousBite extends Analyzer {
     spellUsable: SpellUsable,
     globalCooldown: GlobalCooldown,
   };
+
   effectiveBWReductionMs = 0;
   wastedBWReductionMs = 0;
   wastedCasts = 0;
   casts = 0;
+
   protected spellUsable!: SpellUsable;
   protected globalCooldown!: GlobalCooldown;
+
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VENOMOUS_BITE_TALENT.id);
   }
+
   get totalPossibleCDR() {
     return this.casts * COOLDOWN_REDUCTION_MS;
   }
+
   get wastedCDR() {
-    return (
-      this.wastedBWReductionMs / 1000
-    ).toFixed(2);
+    return this.wastedBWReductionMs / 1000;
   }
+
   get cdrEfficiencyCobraShotThreshold() {
     return {
       actual: this.effectiveBWReductionMs / this.totalPossibleCDR,
@@ -53,6 +57,7 @@ class VenomousBite extends Analyzer {
       style: 'percentage',
     };
   }
+
   get wastedCobraShotsThreshold() {
     return {
       actual: this.wastedCasts,
@@ -64,6 +69,7 @@ class VenomousBite extends Analyzer {
       style: 'number',
     };
   }
+
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.COBRA_SHOT.id) {
@@ -86,6 +92,7 @@ class VenomousBite extends Analyzer {
     }
     this.effectiveBWReductionMs += this.spellUsable.reduceCooldown(SPELLS.BESTIAL_WRATH.id, COOLDOWN_REDUCTION_MS);
   }
+
   suggestions(when: any) {
     when(this.cdrEfficiencyCobraShotThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>When talented into <SpellLink id={SPELLS.VENOMOUS_BITE_TALENT.id} />, it's very important to utilise the cooldown reduction of <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> provided by <SpellLink id={SPELLS.COBRA_SHOT.id} /> effectively. If the cooldown of <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is lower than your GCD + 1s, you'll only want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} />, if you'd be focus capping otherwise.</>)
@@ -113,7 +120,7 @@ class VenomousBite extends Analyzer {
             <>You had {this.wastedCasts} {this.wastedCasts > 1 ? `casts` : `cast`} of Cobra Shot when Bestial Wrath wasn't on cooldown. </>}
             {this.wastedCasts > 0 && this.wastedBWReductionMs > 0 && <br />}
             {this.wastedBWReductionMs > 0 &&
-            `You wasted ${this.wastedCDR} seconds of potential cooldown reduction by casting Cobra Shot while Bestial Wrath had less than 1 + GCD seconds remaining on its CD.`}
+            `You wasted ${this.wastedCDR.toFixed(1)} seconds of potential cooldown reduction by casting Cobra Shot while Bestial Wrath had less than 1 + GCD seconds remaining on its CD.`}
           </>
         )}
       >

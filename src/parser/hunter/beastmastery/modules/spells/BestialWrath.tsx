@@ -28,29 +28,36 @@ class BestialWrath extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
   effectiveBWReduction = 0;
   wastedBWReduction = 0;
   casts = 0;
   accumulatedFocusAtBWCast = 0;
+
   protected spellUsable!: SpellUsable;
+
   get percentUptime() {
-    return formatPercentage(this.selectedCombatant.getBuffUptime(SPELLS.BESTIAL_WRATH.id) /
-      this.owner.fightDuration);
+    return formatPercentage(this.selectedCombatant.getBuffUptime(SPELLS.BESTIAL_WRATH.id) / this.owner.fightDuration);
   }
+
   get gainedBestialWraths() {
-    return (this.effectiveBWReduction / BESTIAL_WRATH_BASE_CD).toFixed(1);
+    return this.effectiveBWReduction / BESTIAL_WRATH_BASE_CD;
   }
+
   get averageFocusAtBestialWrathCast() {
     return formatNumber(this.accumulatedFocusAtBWCast / this.casts);
   }
+
   get totalPossibleCDR() {
     return (
       this.wastedBWReduction + this.effectiveBWReduction
     );
   }
+
   get effectiveBestialWrathCDRPercent() {
     return this.effectiveBWReduction / this.totalPossibleCDR;
   }
+
   get focusOnBestialWrathCastThreshold() {
     return {
       actual: this.averageFocusAtBestialWrathCast,
@@ -62,6 +69,7 @@ class BestialWrath extends Analyzer {
       style: 'number',
     };
   }
+
   get cdrEfficiencyBestialWrathThreshold() {
     return {
       actual: this.effectiveBWReduction / this.totalPossibleCDR,
@@ -73,6 +81,7 @@ class BestialWrath extends Analyzer {
       style: 'percentage',
     };
   }
+
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BESTIAL_WRATH.id) {
@@ -84,9 +93,11 @@ class BestialWrath extends Analyzer {
       }
       return;
     }
+
     if (spellId !== SPELLS.BARBED_SHOT.id) {
       return;
     }
+
     const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
     if (bestialWrathIsOnCooldown) {
       const reductionMs = this.spellUsable.reduceCooldown(SPELLS.BESTIAL_WRATH.id, COOLDOWN_REDUCTION_MS);
@@ -96,6 +107,7 @@ class BestialWrath extends Analyzer {
       this.wastedBWReduction += COOLDOWN_REDUCTION_MS;
     }
   }
+
   suggestions(when: any) {
     when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {this.averageFocusAtBestialWrathCast} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</>)
@@ -134,7 +146,7 @@ class BestialWrath extends Analyzer {
                 </tr>
                 <tr>
                   <td className={'text-left'}>Gained Bestial Wraths</td>
-                  <td><>{this.gainedBestialWraths}
+                  <td><>{this.gainedBestialWraths.toFixed(1)}
                     <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /></>
                   </td>
                 </tr>

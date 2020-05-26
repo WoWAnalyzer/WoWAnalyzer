@@ -30,11 +30,9 @@ class GlobalCooldown extends CoreGlobalCooldown {
 
   getGlobalCooldownDuration(spellId: number) {
     const gcd = super.getGlobalCooldownDuration(spellId);
-
     if (!gcd) {
       return 0;
     }
-
     if (spellId && spellId === SPELLS.STEADY_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.STEADY_FOCUS_BUFF.id)) {
       const steadyFocusMultiplier = 1 - STEADY_FOCUS_GCD_REDUCTION_PER_STACK * this.steadyFocus.steadyFocusStacks;
       return Math.max(MIN_GCD, (gcd * steadyFocusMultiplier));

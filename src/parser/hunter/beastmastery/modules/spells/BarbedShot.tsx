@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { formatDuration, formatPercentage } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -24,6 +24,7 @@ import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBu
 const MAX_FRENZY_STACKS: number = 3;
 
 class BarbedShot extends Analyzer {
+
   barbedShotStacks: Array<Array<number>> = [];
   lastBarbedShotStack: number = 0;
   lastBarbedShotUpdate: number = this.owner.fight.start_time;
@@ -37,20 +38,24 @@ class BarbedShot extends Analyzer {
   get barbedShotTimesByStacks() {
     return this.barbedShotStacks;
   }
+
   get percentUptimeMaxStacks() {
     return (
       this.barbedShotStacks[MAX_FRENZY_STACKS].reduce((a: number, b: number) => a + b, 0)) / this.owner.fightDuration;
   }
+
   get percentUptimePet() {
     //this removes the time spent without the pet having the frenzy buff
     const petUptime = this.barbedShotStacks.slice(1).flat().reduce((totalUptime: number, stackUptime: number) => totalUptime + stackUptime, 0);
     return petUptime / this.owner.fightDuration;
   }
+
   get percentPlayerUptime() {
     //This calculates the uptime over the course of the encounter of Barbed
     // Shot for the player
     return this.selectedCombatant.getBuffUptime(SPELLS.BARBED_SHOT_BUFF.id) / this.owner.fightDuration;
   }
+
   get frenzyUptimeThreshold() {
     return {
       actual: this.percentUptimePet,
@@ -62,6 +67,7 @@ class BarbedShot extends Analyzer {
       style: 'percentage',
     };
   }
+
   get frenzy3StackThreshold() {
     if (this.selectedCombatant.hasTrait(SPELLS.FEEDING_FRENZY.id)) {
       return {
@@ -85,6 +91,7 @@ class BarbedShot extends Analyzer {
       };
     }
   }
+
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
     if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
@@ -107,8 +114,9 @@ class BarbedShot extends Analyzer {
     this.barbedShotStacks.forEach((elem: Array<number>, index: number) => {
       avgStacks += elem.reduce((a: number, b: number) => a + b, 0) / this.owner.fightDuration * index;
     });
-    return avgStacks.toFixed(2);
+    return avgStacks;
   }
+
   on_toPlayerPet_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
@@ -116,6 +124,7 @@ class BarbedShot extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
@@ -123,6 +132,7 @@ class BarbedShot extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
@@ -130,9 +140,11 @@ class BarbedShot extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_fightend(event: FightEndEvent) {
     this.handleStacks(event);
   }
+
   suggestions(when: any) {
     when(this.frenzyUptimeThreshold)
       .addSuggestion((suggest: any, actual: any, recommended: any) => {
@@ -158,7 +170,7 @@ class BarbedShot extends Analyzer {
         tooltip={(
           <>
             <ul>
-              <li>Your pet had an average of {this.getAverageBarbedShotStacks()} stacks active throughout the fight.</li>
+              <li>Your pet had an average of {this.getAverageBarbedShotStacks().toFixed(2)} stacks active throughout the fight.</li>
               <li>Your pet had an overall uptime of {formatPercentage(this.percentUptimePet)}% on the increased attack speed buff</li>
               <li>You had an uptime of {formatPercentage(this.percentPlayerUptime)}% on the focus regen buff.</li>
             </ul>
@@ -178,12 +190,8 @@ class BarbedShot extends Analyzer {
                 {Object.values(this.barbedShotTimesByStacks).map((e, i) => (
                   <tr key={i}>
                     <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a: number, b: number) => a +
-                      b, 0) /
-                      1000)}</td>
-                    <td>{formatPercentage(e.reduce((a: number, b: number) => a +
-                      b, 0) /
-                      this.owner.fightDuration)}%
+                    <td>{formatDuration(e.reduce((a: number, b: number) => a + b, 0) / 1000)}</td>
+                    <td>{formatPercentage(e.reduce((a: number, b: number) => a + b, 0) / this.owner.fightDuration)}%
                     </td>
                   </tr>
                 ))}

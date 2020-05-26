@@ -37,11 +37,14 @@ class PrimalInstincts extends Analyzer {
     statTracker: StatTracker,
     spellUsable: SpellUsable,
   };
+
   mastery = 0;
   wastedBarbedShots = 0;
   chargesGained = 0;
+
   protected statTracker!: StatTracker;
   protected spellUsable!: SpellUsable;
+
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.PRIMAL_INSTINCTS.id);

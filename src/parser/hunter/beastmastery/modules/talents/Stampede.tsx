@@ -42,9 +42,9 @@ class Stampede extends Analyzer {
     if (this.casts.length === 0) {
       return null;
     }
-
     return this.casts[this.casts.length - 1];
   }
+
   get stampedeInefficientCastsThreshold() {
     return {
       actual: this.inefficientCasts,
@@ -56,12 +56,12 @@ class Stampede extends Analyzer {
       style: 'number',
     };
   }
+
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STAMPEDE_TALENT.id) {
       return;
     }
-
     this.casts.push({
       timestamp: event.timestamp,
       damage: 0,
@@ -69,13 +69,13 @@ class Stampede extends Analyzer {
       averageHits: 0,
     });
   }
+
   on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STAMPEDE_DAMAGE.id) {
       return;
     }
     const damage = event.amount + (event.absorbed || 0);
-
     this.hits += 1;
     this.damage += damage;
 
@@ -84,16 +84,17 @@ class Stampede extends Analyzer {
       this.currentCast.damage += damage;
     }
   }
+
   on_fightend() {
     this.averageHits = this.hits / this.casts.length / STAMPEDE_POTENTIAL_HITS;
     this.casts.forEach((cast: { averageHits: number, hits: number }) => {
       cast.averageHits = cast.hits / STAMPEDE_POTENTIAL_HITS;
-
       if (cast.averageHits < 1) {
         this.inefficientCasts += 1;
       }
     });
   }
+
   suggestions(when: any) {
     when(this.stampedeInefficientCastsThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you've placed <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to deal it's full damage, or the enemy moved out of it. Avoid using <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will be moving out of it.</>)
@@ -114,8 +115,7 @@ class Stampede extends Analyzer {
           category={'TALENTS'}
           tooltip={(
             <>
-              You cast {stampedePlural} in the fight, which hit enemies {this.hits} times for an average of {formatNumber(
-              averageHit)} damage per hit.
+              You cast {stampedePlural} in the fight, which hit enemies {this.hits} times for an average of {formatNumber(averageHit)} damage per hit.
             </>
           )}
           dropdown={(
@@ -132,8 +132,7 @@ class Stampede extends Analyzer {
                 <tbody>
                   {this.casts.map((cast, idx) => (
                     <tr key={idx}>
-                      <td>{formatMilliseconds(cast.timestamp -
-                        this.owner.fight.start_time)}</td>
+                      <td>{formatMilliseconds(cast.timestamp - this.owner.fight.start_time)}</td>
                       <td>{formatNumber(cast.damage)}</td>
                       <td>{cast.hits}</td>
                       <td>{formatNumber(cast.damage / cast.hits)}</td>
@@ -146,7 +145,8 @@ class Stampede extends Analyzer {
         >
           <BoringSpellValueText spell={SPELLS.STAMPEDE_TALENT}>
             <>
-              <ItemDamageDone amount={this.damage} /> <br />
+              <ItemDamageDone amount={this.damage} />
+              <br />
               {this.casts.length} {this.casts.length > 1 ? 'casts' : 'cast'} / {this.hits} hits
             </>
           </BoringSpellValueText>

@@ -50,18 +50,22 @@ class PrimevalIntuition extends Analyzer {
       crit,
     });
   }
+
   get intuitionTimesByStacks() {
     return this.intuitionStacks;
   }
+
   get uptime() {
     return (this.selectedCombatant.getBuffUptime(SPELLS.PRIMEVAL_INTUITION_BUFF.id) / 1000).toFixed(1);
   }
+
   get avgCrit() {
     const avgAgi = this.intuitionStacks.reduce((sum, innerArray, outerArrayIndex) => {
       return sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.crit) / this.owner.fightDuration), 0);
     }, 0);
     return avgAgi;
   }
+
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent, stack = 0) {
     if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
@@ -77,6 +81,7 @@ class PrimevalIntuition extends Analyzer {
       this.lastIntuitionStack = this.currentStacks;
     }
   }
+
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
@@ -84,6 +89,7 @@ class PrimevalIntuition extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
@@ -91,6 +97,7 @@ class PrimevalIntuition extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
@@ -98,9 +105,11 @@ class PrimevalIntuition extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   on_fightend(event: FightEndEvent) {
     this.handleStacks(event, this.lastIntuitionStack);
   }
+
   statistic() {
     return (
       <Statistic

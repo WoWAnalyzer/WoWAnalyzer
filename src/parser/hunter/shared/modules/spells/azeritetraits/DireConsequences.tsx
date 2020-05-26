@@ -29,8 +29,7 @@ class DireConsequences extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) /
-      this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
   }
 
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
@@ -49,10 +48,8 @@ class DireConsequences extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.DIRE_CONSEQUENCES}>
           <>
-            <Haste /> {formatPercentage(HASTE_PERCENT *
-            this.uptime)}% <small>Haste</small><br />
-            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
-            <br />
+            <Haste /> {formatPercentage(HASTE_PERCENT * this.uptime)}% <small>Haste</small><br />
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small><br />
             {this.procs} <small>procs</small>
           </>
         </BoringSpellValueText>

@@ -24,18 +24,23 @@ class CobraShot extends Analyzer {
     spellUsable: SpellUsable,
     globalCooldown: GlobalCooldown,
   };
+
   effectiveKCReductionMs = 0;
   wastedKCReductionMs = 0;
   wastedCasts = 0;
   casts = 0;
+
   protected spellUsable!: SpellUsable;
   protected globalCooldown!: GlobalCooldown;
+
   get totalPossibleCDR() {
     return this.casts * COOLDOWN_REDUCTION_MS;
   }
+
   get wastedCDR() {
-    return (this.wastedKCReductionMs / 1000).toFixed(2);
+    return this.wastedKCReductionMs / 1000;
   }
+
   get cdrEfficiencyCobraShotThreshold() {
     return {
       actual: this.effectiveKCReductionMs / this.totalPossibleCDR,
@@ -47,6 +52,7 @@ class CobraShot extends Analyzer {
       style: 'percentage',
     };
   }
+
   get wastedCobraShotsThreshold() {
     return {
       actual: this.wastedCasts,
@@ -117,7 +123,7 @@ class CobraShot extends Analyzer {
             <>You had {this.wastedCasts} {this.wastedCasts > 1 ? 'casts' : 'cast'} of Cobra Shot when Kill Command wasn't on cooldown. </>}
             {this.wastedCasts > 0 && this.wastedKCReductionMs > 0 && <br />}
             {this.wastedKCReductionMs > 0 &&
-            `You wasted ${this.wastedCDR} seconds of potential cooldown reduction by casting Cobra Shot while Kill Command had less than 1 + GCD seconds remaining on its CD.`}
+            `You wasted ${this.wastedCDR.toFixed(2)} seconds of potential cooldown reduction by casting Cobra Shot while Kill Command had less than 1 + GCD seconds remaining on its CD.`}
           </>
         )}
       >

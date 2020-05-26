@@ -32,23 +32,28 @@ class WildfireBomb extends Analyzer {
     statTracker: StatTracker,
     globalCooldown: GlobalCooldown,
   };
+
   acceptedCastDueToCapping = false;
   currentGCD = 0;
   badRefreshes = 0;
   lastRefresh = 0;
   casts = 0;
   targetsHit = 0;
+
   protected enemies!: Enemies;
   protected spellUsable!: SpellUsable;
   protected statTracker!: StatTracker;
   protected globalCooldown!: GlobalCooldown;
+
   constructor(options: any) {
     super(options);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
   }
+
   get uptimePercentage() {
     return this.enemies.getBuffUptime(SPELLS.WILDFIRE_BOMB_DOT.id) / this.owner.fightDuration;
   }
+
   get badWFBThresholds() {
     return {
       actual: this.badRefreshes,
@@ -60,6 +65,7 @@ class WildfireBomb extends Analyzer {
       style: 'number',
     };
   }
+
   get uptimeThresholds() {
     return {
       actual: this.uptimePercentage,
@@ -71,9 +77,11 @@ class WildfireBomb extends Analyzer {
       style: 'percent',
     };
   }
+
   get averageTargetsHit() {
-    return (this.targetsHit / this.casts).toFixed(2);
+    return this.targetsHit / this.casts;
   }
+
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.WILDFIRE_BOMB.id) {
@@ -85,6 +93,7 @@ class WildfireBomb extends Analyzer {
       this.acceptedCastDueToCapping = true;
     }
   }
+
   on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.WILDFIRE_BOMB_IMPACT.id) {
@@ -106,6 +115,7 @@ class WildfireBomb extends Analyzer {
       this.lastRefresh = event.timestamp;
     }
   }
+
   suggestions(when: any) {
     when(this.badWFBThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>You shouldn't refresh <SpellLink id={SPELLS.WILDFIRE_BOMB.id} /> since it doesn't pandemic. It's generally better to cast something else and wait for the DOT to drop off before reapplying.</>)
@@ -120,6 +130,7 @@ class WildfireBomb extends Analyzer {
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
+
   statistic() {
     return (
       <Statistic
@@ -130,7 +141,7 @@ class WildfireBomb extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.WILDFIRE_BOMB}>
           <>
-            {this.averageTargetsHit} <small>average targets hit</small>
+            {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small>
           </>
         </BoringSpellValueText>
       </Statistic>

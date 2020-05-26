@@ -24,14 +24,18 @@ class KillerCobra extends Analyzer {
     spellUsable: SpellUsable,
     globalCooldown: GlobalCooldown,
   };
+
   effectiveKillCommandResets = 0;
   wastedKillerCobraCobraShots = 0;
+
   protected spellUsable!: SpellUsable;
   protected globalCooldown!: GlobalCooldown;
+
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id);
   }
+
   get wastedKillerCobraThreshold() {
     return {
       actual: this.wastedKillerCobraCobraShots,
@@ -43,6 +47,7 @@ class KillerCobra extends Analyzer {
       style: 'number',
     };
   }
+
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
@@ -63,6 +68,7 @@ class KillerCobra extends Analyzer {
       this.wastedKillerCobraCobraShots += 1;
     }
   }
+
   statistic() {
     return (
       <Statistic
@@ -79,12 +85,9 @@ class KillerCobra extends Analyzer {
       </Statistic>
     );
   }
+
   suggestions(when: any) {
-    when(this.wastedKillerCobraThreshold).addSuggestion((
-      suggest: any,
-      actual: any,
-      recommended: any,
-    ) => {
+    when(this.wastedKillerCobraThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>Avoid casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> whilst <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> isn't on cooldown, when you have <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up. Utilize the reset effect of <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> by only casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to reset <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> when <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up. </>)
         .icon(SPELLS.KILLER_COBRA_TALENT.icon)
         .actual(`You cast Cobra Shot while Kill Command wasn't on cooldown, whilst Bestial Wrath was up ${actual} times.`)
