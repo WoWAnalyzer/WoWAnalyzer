@@ -8,6 +8,7 @@ import ItemLink from 'common/ItemLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 5, 25), <>Updated remaining files to Typescript.</>,[Sharrq]),
   change(date(2020, 4, 14), <>Added a check for the number of <SpellLink id={SPELLS.SCORCH.id} /> casts that were cast outside of execute.</>,[Sharrq]),
   change(date(2020, 4, 14), <>Updated <SpellLink id={SPELLS.HOT_STREAK.id} /> and <SpellLink id={SPELLS.HEATING_UP.id} /> wording and thresholds.</>,[Sharrq]),
   change(date(2019, 12, 19), <>Converted Fire Mage modules to Typescript.</>,[Sharrq]),
