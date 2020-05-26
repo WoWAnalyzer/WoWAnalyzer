@@ -1,27 +1,29 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 
+import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
+
+// 120 is threshold, but energize event values are after the 25 Maelstrom increase is applied
 const MAELSTROM_THRESHOLD = 95;
-// 120 is threshold, but energize event values
-// are after the 25 Maelstrom increase is applied
 
 class Rockbiter extends Analyzer {
-  protected rockbiterOveruse = 0;
-  protected rockbiterTotalCasts = 0;
-  protected maelstromWasted = 0;
+  protected rockbiterOveruse: number = 0;
+  protected rockbiterTotalCasts: number = 0;
+  protected maelstromWasted: number = 0;
 
   constructor(options: any) {
     super(options);
+
     this.addEventListener(
       Events.energize.by(SELECTED_PLAYER)
         .spell(SPELLS.ROCKBITER),
       this.onEnergize,
     );
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)
         .spell(SPELLS.ROCKBITER),
@@ -34,9 +36,13 @@ class Rockbiter extends Analyzer {
   }
 
   onEnergize(event: EnergizeEvent) {
-    if (event.classResources &&
-      event.classResources[0].amount >=
-      MAELSTROM_THRESHOLD) {
+    const maelstromResource = event.classResources && event.classResources.find(classResource => classResource.type === RESOURCE_TYPES.MAELSTROM.id);
+
+    if (!maelstromResource) {
+      return;
+    }
+
+    if (maelstromResource.amount >= MAELSTROM_THRESHOLD) {
       this.rockbiterOveruse += 1;
     }
 

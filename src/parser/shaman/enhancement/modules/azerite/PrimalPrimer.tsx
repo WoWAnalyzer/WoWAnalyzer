@@ -1,31 +1,30 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS/index';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import Statistic from 'interface/statistics/Statistic';
-import Events, { DamageEvent } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { calculateAzeriteEffects } from 'common/stats';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
+/**
+ *
+ * Melee attacks with Flametongue active increase the damage the target takes
+ * from your next Lava Lash by ..., stacking up to 10 times.
+ *
+ * Example Log: https://www.warcraftlogs.com/reports/xpmYarXB3Afn26LG#fight=28&type=summary&source=10
+ *
+ */
 class PrimalPrimer extends Analyzer {
   static dependencies = {
     enemies: EnemyInstances,
   };
 
-  protected readonly enemies!: EnemyInstances;
-  /**
-   *
-   * Melee attacks with Flametongue active increase the damage the target takes
-   * from your next Lava Lash by ..., stacking up to 10 times.
-   *
-   * Example Log:
-   * https://www.warcraftlogs.com/reports/xpmYarXB3Afn26LG#fight=28&type=summary&source=10
-   *
-   */
+  protected enemies!: EnemyInstances;
 
   protected damageGained = 0;
   protected bonusDamagePerStack = 0;
@@ -38,14 +37,9 @@ class PrimalPrimer extends Analyzer {
       return;
     }
 
-    this.bonusDamagePerStack
-      = this.selectedCombatant.traitsBySpellId[SPELLS.PRIMAL_PRIMER_TRAIT.id]
+    this.bonusDamagePerStack= this.selectedCombatant.traitsBySpellId[SPELLS.PRIMAL_PRIMER_TRAIT.id]
       .reduce((total, rank) => {
-        const [damage] = calculateAzeriteEffects(
-          SPELLS.PRIMAL_PRIMER_TRAIT.id,
-          rank,
-        );
-        return total + damage;
+        return total + calculateAzeriteEffects(SPELLS.PRIMAL_PRIMER_TRAIT.id, rank)[0];
       }, 0);
 
     this.addEventListener(
@@ -71,7 +65,7 @@ class PrimalPrimer extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={'ITEMS'}
+        category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringSpellValueText spell={SPELLS.PRIMAL_PRIMER_TRAIT}>
           <ItemDamageDone amount={this.damageGained} />

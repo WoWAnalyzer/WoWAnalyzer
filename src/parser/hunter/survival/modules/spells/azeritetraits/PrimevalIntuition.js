@@ -6,6 +6,7 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import CriticalStrike from 'interface/icons/CriticalStrike';
 import { EventType } from 'parser/core/Events';
 
@@ -114,7 +115,7 @@ class PrimevalIntuition extends Analyzer {
             Primeval Intuition was up for a total of {this.uptime} seconds.
           </>
         )}
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         dropdown={(
           <>
             <table className="table table-condensed">

@@ -1,33 +1,36 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 
-const PANDEMIC_THRESHOLD = 11500;//don't refresh with more than 4.5 seconds
-                                 // left on Flametongue buff
+import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
+
+// Don't refresh with more than 4.5 seconds left on Flametongue buff
+const PANDEMIC_THRESHOLD = 11500;
 
 class FlametongueRefresh extends Analyzer {
-  protected flametongueTimestamp = 0;
-  protected flametongueCasts = 0;
-  protected earlyRefresh = 0;
+  protected flametongueTimestamp: number = 0;
+  protected flametongueCasts: number = 0;
+  protected earlyRefresh: number = 0;
 
   constructor(options: any) {
     super(options);
-    this.active
-      = !this.selectedCombatant.hasTalent(SPELLS.SEARING_ASSAULT_TALENT.id);
+
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.SEARING_ASSAULT_TALENT.id);
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)
         .spell(SPELLS.FLAMETONGUE),
       this.onCast,
     );
+
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER)
         .spell(SPELLS.FLAMETONGUE_BUFF),
       this.onApplyBuff,
     );
+
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER)
         .spell(SPELLS.FLAMETONGUE_BUFF),

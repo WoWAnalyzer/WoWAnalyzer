@@ -6,9 +6,10 @@ import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
 import UptimeIcon from 'interface/icons/Uptime';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { HASTE_PERCENT } from '../../../../beastmastery/modules/talents/DireBeast';
 import { ApplyBuffEvent } from '../../../../../core/Events';
-import Statistic from '../../../../../../interface/statistics/Statistic';
 
 /**
  * Kill Command deals n additional damage, and has a chance to summon a Dire
@@ -45,7 +46,7 @@ class DireConsequences extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
       >
         <BoringSpellValueText spell={SPELLS.DIRE_CONSEQUENCES}>
           <>

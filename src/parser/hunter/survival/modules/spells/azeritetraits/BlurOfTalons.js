@@ -6,6 +6,7 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Agility from 'interface/icons/Agility';
 import { EventType } from 'parser/core/Events';
 
@@ -114,7 +115,7 @@ class BlurOfTalons extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
             Blur of Talons was up for a total of {this.uptime} seconds
