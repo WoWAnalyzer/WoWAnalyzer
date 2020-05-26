@@ -30,7 +30,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/67LHQfJjCFzgyXBr/8-Normal+Stormwall+Blockade+-+Kill+(7:17)/84-Tueri',
+  exampleReport: '/report/BTmaxzd4vKy2GXD1/5-Heroic+Maut+-+Kill+(3:24)/Sareo/standard',
   builds: {
     NO_IL: {
       url: "noil",
