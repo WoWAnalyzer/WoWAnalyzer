@@ -1,4 +1,4 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/ZaqulHarbringerOfNyalotha.jpg';
@@ -19,11 +19,11 @@ export default {
     phases: {
       P1: {
         name: 'Stage 1: The Harbringer',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       P2: {
         name: 'Stage 2: Grip of Fear',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
           type: EventType.Health,
           guid: 150859,
@@ -33,7 +33,7 @@ export default {
       },
       P3: {
         name: 'Stage 3: Delirium\'s Descent',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
           type: EventType.Health,
           guid: 150859,
@@ -43,7 +43,7 @@ export default {
       },
       P4: {
         name: 'Stage 4: All Pathways Open',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
           type: EventType.Health,
           guid: 150859,
