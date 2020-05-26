@@ -62,8 +62,8 @@ class LightningShield extends Analyzer {
       actual: this.getLightningShieldUptime,
       isLessThan: {
         minor: 1,
+        average: 0.98,
         major: 0.95,
-        recommended: 1.00,
       },
       style: 'percentage',
     };
