@@ -11,7 +11,8 @@ import { CastEvent } from 'parser/core/Events';
 /**
  * Aimed Shot has a 100% chance to reduce the focus cost of your next Arcane Shot or Multi-Shot by 100%.
  *
- * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
+ * Example log:
+ * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=summary&source=25
  */
 
 const FOCUS_COST = 15;

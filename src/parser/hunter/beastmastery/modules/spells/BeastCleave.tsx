@@ -12,15 +12,13 @@ import { ApplyBuffEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from '
 const MS_BUFFER = 100;
 
 /**
- * After you Multi-Shot, your pet's melee attacks also strike all other nearby
- * enemy targets for 100% as much for the next 4 sec.
- *
+ * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
  * Example log:
- * https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=last&type=damage-done
+ * https://www.warcraftlogs.com/reports/MnzYCvDHdLGZJkAg#fight=7&type=damage-done&source=24&ability=118459
  *
- * This module also tracks the amount of multi-shot casts that did not trigger
- * any beast cleave damage Example:
- * https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=last&type=damage-done
+ * This module also tracks the amount of multi-shot casts that did not trigger any beast cleave damage
+ * Example log:
+ * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1
  */
 class BeastCleave extends Analyzer {
 

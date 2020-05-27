@@ -14,7 +14,8 @@ import { DamageEvent } from 'parser/core/Events';
 /**
  * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12 sec.
  *
- * Example log: https://www.warcraftlogs.com/reports/P9G8VRYNTn3Xpv21#fight=8&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/GWwtNLVQD8adn6q9#fight=5&type=damage-done&source=18&ability=271788
  */
 
 class SerpentSting extends Analyzer {

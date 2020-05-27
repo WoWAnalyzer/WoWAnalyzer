@@ -13,7 +13,8 @@ import { CastEvent, ChangeBuffStackEvent, DamageEvent } from 'parser/core/Events
 /**
  * Kill Command increases the damage of your next Raptor Strike by 20%, stacking up to 3 times.
  *
- * Example log: https://www.warcraftlogs.com/reports/BjmyHd9zt8RYJrWA/#fight=3&source=1
+ * Example log:
+ * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=auras&source=329&translate=true&ability=260286
  */
 
 const MS_BUFFER = 100;
@@ -74,17 +75,12 @@ class TipOfTheSpear extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
-        tooltip={(
-          <>
-            You consumed {this.usedStacks}/{this.usedStacks + this.wastedStacks} possible stacks.
-          </>
-        )}
         category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.TIP_OF_THE_SPEAR_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
-            {(this.usedStacks / this.spenderCasts).toFixed(2)} <small>avg stacks</small>
+            <small>Used </small>{this.usedStacks}/{this.usedStacks + this.wastedStacks} <small>possible stacks</small>
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -22,7 +22,8 @@ const MAX_STACKS = 10;
 /** Unerring Vision
  * While Trueshot is active you gain 158 Critical Strike rating every sec, stacking up to 10 times.
  *
- * Example log: https://www.warcraftlogs.com/reports/47LJvZ9BgdhR8TXf#fight=43&type=summary&source=16
+ * Example log:
+ * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=auras&source=25&ability=274447
  */
 class UnerringVision extends Analyzer {
   static dependencies = {
@@ -61,9 +62,8 @@ class UnerringVision extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.UNERRING_VISION}>
           <>
-            <CriticalStrike /> {formatNumber(this.avgCrit)}<small> average Crit gained</small>
-            <br />
-            <CriticalStrike /><small> up to</small>{formatNumber(this.crit * MAX_STACKS)}<small> Crit gained</small>
+            <CriticalStrike /> {formatNumber(this.avgCrit)}<small> average Crit gained</small><br />
+            <CriticalStrike /><small> up to</small> {formatNumber(this.crit * MAX_STACKS)}<small> Crit gained</small>
           </>
         </BoringSpellValueText>
       </Statistic>

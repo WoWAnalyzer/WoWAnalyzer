@@ -10,9 +10,10 @@ import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBu
 
 
 /**
- * Barbed Shot increases your critical strike chance by 3% for 8 sec, stacking
- * up to 3 times. Example log:
- * https://www.warcraftlogs.com/reports/yg6PFb8NKz71MRWY#fight=20&type=damage-done
+ * Barbed Shot increases your critical strike chance by 3% for 8 sec, stacking up to 3 times.
+ *
+ * Example log:
+ * https://www.warcraftlogs.com/reports/Q9LghKR7ZPnAwFaH#fight=48&type=auras&source=280&ability=257946
  */
 
 const MAX_THRILL_STACKS = 3;
@@ -27,8 +28,7 @@ class ThrillOfTheHunt extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.THRILL_OF_THE_HUNT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.THRILL_OF_THE_HUNT_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -57,8 +57,7 @@ class ThrillOfTheHunt extends Analyzer {
     } else if (event.type === EventType.FightEnd) {
       this.currentStacks = this.lastThrillStack;
     }
-    this.thrillStacks[this.lastThrillStack].push(event.timestamp -
-      this.lastThrillUpdate);
+    this.thrillStacks[this.lastThrillStack].push(event.timestamp - this.lastThrillUpdate);
     this.lastThrillUpdate = event.timestamp;
     this.lastThrillStack = this.currentStacks;
   }
@@ -113,8 +112,7 @@ class ThrillOfTheHunt extends Analyzer {
                   <tr key={i}>
                     <th>{i}</th>
                     <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
-                    </td>
+                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
                     <td>{formatPercentage(CRIT_PER_STACK * i, 0)}%</td>
                   </tr>
                 ))}

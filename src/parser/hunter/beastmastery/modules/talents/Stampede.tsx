@@ -11,19 +11,15 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 
 // The potential amount of hits per target per stampede cast.
-// By checking through various Zek'voz logs, it seems to consistently hit the
-// boss 18 times, except if the boss was moved. By using this number, we can
-// calculate the average amount of targets hit per cast.
+// By checking through various Zek'voz logs, it seems to consistently hit the boss 18 times, except if the boss was moved.
+// By using this number, we can calculate the average amount of targets hit per cast.
 const STAMPEDE_POTENTIAL_HITS = 18;
 
 /**
- * Summon a herd of stampeding animals from the wilds around you that deal
- * damage to your enemies for 12 sec.
+ * Summon a herd of stampeding animals from the wilds around you that deal damage to your enemies for 12 sec.
  *
- * Example log:
- * https://www.warcraftlogs.com/reports/Z6GjqpNcvw3kBAL2#fight=3&type=damage-done
- * Example log with suggestion triggered:
- * https://www.warcraftlogs.com/reports/z3TH89XagA1hcP7G/#fight=20&source=238
+ * Example log that triggers the warning for one cast, but also has 1 good cast:
+ * https://www.warcraftlogs.com/reports/1xBcaN8kyADHdhjG#fight=9&type=damage-done&source=176&ability=201594
  */
 class Stampede extends Analyzer {
 
@@ -145,8 +141,7 @@ class Stampede extends Analyzer {
         >
           <BoringSpellValueText spell={SPELLS.STAMPEDE_TALENT}>
             <>
-              <ItemDamageDone amount={this.damage} />
-              <br />
+              <ItemDamageDone amount={this.damage} /><br />
               {this.casts.length} {this.casts.length > 1 ? 'casts' : 'cast'} / {this.hits} hits
             </>
           </BoringSpellValueText>

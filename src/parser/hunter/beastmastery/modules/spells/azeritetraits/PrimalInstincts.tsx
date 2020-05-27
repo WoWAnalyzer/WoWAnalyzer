@@ -13,9 +13,7 @@ import { ApplyBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 
-const primalInstinctsStats = (traits: number[]) => Object.values(traits)
-  .reduce(
-    (obj, rank) => {
+const primalInstinctsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
       const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
       obj.mastery += mastery;
       return obj;
@@ -29,7 +27,7 @@ const primalInstinctsStats = (traits: number[]) => Object.values(traits)
  * Aspect of the Wild increases your Mastery by X, and grants you a charge of
  * Barbed Shot.
  *
- * Example report:
+ * Example log:
  * https://www.warcraftlogs.com/reports/9mWQv1XZJT8M6GBV#fight=1&type=damage-done
  */
 class PrimalInstincts extends Analyzer {

@@ -11,9 +11,10 @@ import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, RemoveBuff
 
 /**
  * Aimed Shot causes your next 1-2 Arcane Shots or Multi-Shots to deal 100% more damage.
+ *
+ * Example log:
+ * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=auras&source=25&ability=260242
  */
-
-//TODO: Add a suggestion for Aimed Shotting when Precise Shots is active + some conditionals, but wait for 8.1 for Marksmanship minor rework before doing so.
 
 const ASSUMED_PROCS = 2; //Logs give no indication whether we gain 1 or 2 stacks - we assume 2 and work from there.
 const PRECISE_SHOTS_MODIFIER = 0.75;
@@ -101,8 +102,7 @@ class PreciseShots extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.PRECISE_SHOTS}>
           <>
-            <ItemDamageDone amount={this.damage} />
-            <br />
+            <ItemDamageDone amount={this.damage} /><br />
             {this.buffsGained} <small>buffs used</small>
           </>
         </BoringSpellValueText>

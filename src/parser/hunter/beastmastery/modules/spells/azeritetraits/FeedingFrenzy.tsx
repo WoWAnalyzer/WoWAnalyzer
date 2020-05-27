@@ -24,8 +24,8 @@ const debug = false;
  * Barbed Shot deals X additional damage over its duration,
  * and Frenzy's duration is increased to 9 seconds.
  *
- * Example report:
- * https://www.warcraftlogs.com/reports/9mWQv1XZJT8M6GBV#fight=1&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/1fjYdCm7JybBLagM#fight=5&type=damage-done&source=7
  */
 
 class FeedingFrenzy extends Analyzer {
@@ -153,7 +153,7 @@ class FeedingFrenzy extends Analyzer {
               <li>Out of all your Barbed Shot casts, you gained an extra {(this.extraBuffUptime / this.casts / 1000).toFixed(2)}s of uptime per cast.</li>
             </ul>
             <br />
-            The damage portion of this trait did an additional ~{formatNumber(dps)} DPS, {formatPercentage(damageThroughputPercent)} % of your overall damage.
+            The damage portion of this trait did approx. an additional {formatNumber(dps)} DPS, {formatPercentage(damageThroughputPercent)} % of your overall damage.
           </>
         )}
       >

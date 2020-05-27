@@ -22,13 +22,6 @@ class Focus extends Analyzer {
       extraSuggestion: <>Try to keep focus below max by using <SpellLink id={SPELLS.AIMED_SHOT.id} />, <SpellLink id={SPELLS.ARCANE_SHOT.id} /> and <SpellLink id={SPELLS.MULTISHOT_MM.id} />.</>,
     });
     resourceSuggest(when, this.focusTracker, {
-      spell: SPELLS.HUNTERS_MARK_FOCUS,
-      minor: 0.025,
-      avg: 0.05,
-      major: 0.1,
-      extraSuggestion: <>Try to keep focus below max by using <SpellLink id={SPELLS.AIMED_SHOT.id} />, <SpellLink id={SPELLS.ARCANE_SHOT.id} /> and <SpellLink id={SPELLS.MULTISHOT_MM.id} />.</>,
-    });
-    resourceSuggest(when, this.focusTracker, {
       spell: SPELLS.RAPID_FIRE_FOCUS,
       minor: 0.025,
       avg: 0.05,

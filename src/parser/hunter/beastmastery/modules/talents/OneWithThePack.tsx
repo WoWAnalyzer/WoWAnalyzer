@@ -12,10 +12,9 @@ import { DamageEvent } from 'parser/core/Events';
  * Wild Call has a 20% increased chance to reset the cooldown of Barbed Shot.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/GcHh14BkrTtZRCKM#fight=1&type=damage-done
+ * https://www.warcraftlogs.com/reports/y8RkxqLapwWhBAjT#fight=6&type=damage-done&source=142
  *
- * Wild Call: Your auto shot critical strikes have a 20% chance to reset the
- * cooldown of Barbed Shot.
+ * Wild Call: Your auto shot critical strikes have a 20% chance to reset the cooldown of Barbed Shot.
  */
 const WILD_CALL_RESET_PERCENT = 0.2;
 

@@ -20,7 +20,8 @@ import { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDeb
  * Volatile Bomb:
  * Reacts violently with poison, causing an extra explosion against enemies suffering from your Serpent Sting and refreshes your Serpent Stings.
  *
- * Example log: https://www.warcraftlogs.com/reports/n8AHdKCL9k3rtRDb#fight=36&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=summary&source=329
  */
 
 const SERPENT_STING_FOCUS_COST = 20;
@@ -193,11 +194,10 @@ class VolatileBomb extends Analyzer {
   }
 
   suggestions(when: any) {
-    const serpentSting = <SpellLink id={SPELLS.SERPENT_STING_SV.id} />;
     when(this.missedResetsThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>You shouldn't cast <SpellLink id={SPELLS.VOLATILE_BOMB_WFI.id} /> if your target doesn't have <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on.</>)
         .icon(SPELLS.VOLATILE_BOMB_WFI.icon)
-        .actual(`${actual} casts without ${serpentSting} on`)
+        .actual(`${actual} casts without ${<SpellLink id={SPELLS.SERPENT_STING_SV.id} />} on`)
         .recommended(`<${recommended} is recommended`);
     });
 

@@ -31,6 +31,9 @@ const debug = false;
  * Spell Data will say a 415 piece increases damage by 356, tooltip will say 534. 356 is the value at the 5th tick.
  * See more here: https://github.com/simulationcraft/simc/blob/bfa-dev/engine/class_modules/sc_hunter.cpp#L2724
  *
+ * Example log:
+ * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=damage-done&source=25
+ *
  */
 class SurgingShots extends Analyzer {
   static dependencies = {

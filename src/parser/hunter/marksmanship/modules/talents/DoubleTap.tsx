@@ -12,7 +12,8 @@ import { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 /**
  * Your next Aimed Shot will fire a second time instantly at 100% power without consuming Focus, or your next Rapid Fire will shoot 100% additional shots during its channel.
  *
- * Example log: https://www.warcraftlogs.com/reports/aqRc7Fnvf2dmPMD3#fight=75&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/ZMGCRkA29PcrmJhx#fight=5&type=auras&ability=260402&source=4
  */
 
 class DoubleTap extends Analyzer {

@@ -9,6 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from 'parser/core/Events';
+import ItemDamageDone from '../../../../../interface/ItemDamageDone';
 
 const HIGHER_HP_THRESHOLD = 0.8;
 const LOWER_HP_THRESHOLD = 0.2;
@@ -17,7 +18,8 @@ const CA_MODIFIER = .5;
 /**
  * Aimed Shot deals 50% bonus damage to targets who are above 80% health or below 20% health.
  *
- * Example log: https://www.warcraftlogs.com/reports/aqRc7Fnvf2dmPMD3#fight=75&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=damage-done&source=25&ability=-19434
  */
 class CarefulAim extends Analyzer {
   static dependencies = {
@@ -121,11 +123,6 @@ class CarefulAim extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={(
-          <>
-            Total damage contribution: {formatNumber(this.damageContribution)}
-          </>
-        )}
         dropdown={(
           <>
             <table className="table table-condensed">
@@ -135,7 +132,6 @@ class CarefulAim extends Analyzer {
                   <th>Dmg</th>
                   <th>Hits</th>
                   <th>Dur</th>
-                  <th>Interval</th>
                 </tr>
               </thead>
               <tbody>
@@ -147,10 +143,6 @@ class CarefulAim extends Analyzer {
                     <td>{boss.bossName === 'Adds' ?
                       'N/A' :
                       formatDuration((boss.timestampSub80 - boss.timestampSub100 + boss.timestampDead - boss.timestampSub20) / 1000)}</td>
-                    <td>{(boss.bossName === 'Adds' ?
-                      this.owner.fightDuration / 1000 / boss.aimedShotsInCA :
-                      (boss.timestampSub80 - boss.timestampSub100 + boss.timestampDead - boss.timestampSub20) / 1000 / boss.aimedShotsInCA).toFixed(1)}s
-                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -160,7 +152,8 @@ class CarefulAim extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.CAREFUL_AIM_TALENT}>
           <>
-            {this.caProcs} <small>hits for</small> ~{formatNumber(this.damageContribution / this.caProcs)} <small>each</small>
+            <ItemDamageDone amount={this.damageContribution} /><br />
+            {this.caProcs} <small>hits for</small> ≈ {formatNumber(this.damageContribution / this.caProcs)} <small>each</small>
           </>
         </BoringSpellValueText>
       </Statistic>

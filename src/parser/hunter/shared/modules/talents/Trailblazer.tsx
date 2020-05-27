@@ -12,7 +12,7 @@ import UptimeIcon from 'interface/icons/Uptime';
  * attacked for 3 seconds.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
+ * https://www.warcraftlogs.com/reports/1YZkWvbFGNgTA7L4#fight=3&type=summary&source=97
  */
 class Trailblazer extends Analyzer {
 
@@ -22,7 +22,6 @@ class Trailblazer extends Analyzer {
   }
 
   get percentUptime() {
-    //This calculates the uptime over the course of the encounter of Trailblazer
     return this.selectedCombatant.getBuffUptime(SPELLS.TRAILBLAZER_BUFF.id) / this.owner.fightDuration;
   }
 

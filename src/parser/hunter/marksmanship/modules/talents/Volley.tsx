@@ -13,7 +13,8 @@ import { DamageEvent } from 'parser/core/Events';
 /**
  * Your auto-shots have a 25% chance to cause a volley of arrows to rain down around the target, dealing Physical damage to each enemy within 8 yards.
  *
- * example log: https://www.warcraftlogs.com/reports/aqRc7Fnvf2dmPMD3#fight=75&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/qxZ674PKakR1rjTA#fight=21&type=damage-done&source=119&ability=260247
  */
 
 const PROC_CHANCE = 0.25;

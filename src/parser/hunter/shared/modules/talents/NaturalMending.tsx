@@ -15,7 +15,7 @@ import { CastEvent } from 'parser/core/Events';
  * of Exhilaration by 1 sec.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/8jJqDcrGK1xM3Wn6#fight=2&type=damage-done
+ * https://www.warcraftlogs.com/reports/GWwtNLVQD8adn6q9#fight=5&type=summary&source=18
  */
 
 const MM_SV_CDR_PER_FOCUS = 1000 / 20;
@@ -67,15 +67,10 @@ class NaturalMending extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(14)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={(
-          <>
-            You wasted {formatNumber(this.wastedExhilReductionMs / 1000)} seconds of CDR by spending focus whilst Exhilaration wasn't on cooldown.
-          </>
-        )}
       >
         <BoringSpellValueText spell={SPELLS.NATURAL_MENDING_TALENT}>
           <>
-            {formatNumber(this.effectiveExhilReductionMs / 1000)}s/{formatNumber((this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000)}s <small>CDR</small>
+            {formatNumber(this.effectiveExhilReductionMs / 1000)}s/{formatNumber((this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000)}s <small> cooldown reduction</small>
           </>
         </BoringSpellValueText>
       </Statistic>

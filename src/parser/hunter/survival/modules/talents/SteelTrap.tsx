@@ -15,7 +15,8 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
  * first enemy that approaches, immobilizing them for 20 sec and
  * causing them to bleed for (120% of Attack power) damage over 20 sec.
  *
- * Example log: https://www.warcraftlogs.com/reports/dZ8AJaYvj23qG4WB#fight=16&type=damage-done&source=9
+ * Example log:
+ * https://www.warcraftlogs.com/reports/K8chFdJvxfywkPRG#fight=92&type=damage-done&source=988&translate=true&ability=162487
  */
 
 class SteelTrap extends Analyzer {

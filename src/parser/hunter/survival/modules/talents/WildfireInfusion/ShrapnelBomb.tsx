@@ -16,7 +16,8 @@ import { ApplyDebuffEvent, ApplyDebuffStackEvent, DamageEvent } from 'parser/cor
  * Shrapnel Bomb:
  * Shrapnel pierces the targets, causing Mongoose Bite, Raptor Strike, Butchery and Carve to apply a bleed for 9 sec that stacks up to 3 times.
  *
- * Example log: https://www.warcraftlogs.com/reports/n8AHdKCL9k3rtRDb#fight=36&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=summary&source=329
  */
 
 class ShrapnelBomb extends Analyzer {

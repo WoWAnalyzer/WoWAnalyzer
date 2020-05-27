@@ -12,6 +12,9 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 /**
  * Your maximum Focus is increased to 120, and Raptor Strike (or Mongoose bite) increases your Critical Strike by 52 for 12 sec, stacking up to 5 times.
+ *
+ * Example log:
+ * https://www.warcraftlogs.com/reports/NTvPJdrFgYchAX1R#fight=6&type=auras&source=27&ability=288573
  */
 const MAX_INTUITION_STACKS = 5;
 
@@ -47,7 +50,7 @@ class PrimevalIntuition extends Analyzer {
     this.intuitionStacks = Array.from({ length: MAX_INTUITION_STACKS + 1 }, x => []);
 
     options.statTracker.add(SPELLS.PRIMEVAL_INTUITION_BUFF.id, {
-      crit,
+      crit: this.crit,
     });
   }
 
@@ -56,14 +59,14 @@ class PrimevalIntuition extends Analyzer {
   }
 
   get uptime() {
-    return (this.selectedCombatant.getBuffUptime(SPELLS.PRIMEVAL_INTUITION_BUFF.id) / 1000).toFixed(1);
+    return this.selectedCombatant.getBuffUptime(SPELLS.PRIMEVAL_INTUITION_BUFF.id) / 1000;
   }
 
   get avgCrit() {
-    const avgAgi = this.intuitionStacks.reduce((sum, innerArray, outerArrayIndex) => {
+    const avgCrit = this.intuitionStacks.reduce((sum, innerArray, outerArrayIndex) => {
       return sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.crit) / this.owner.fightDuration), 0);
     }, 0);
-    return avgAgi;
+    return avgCrit;
   }
 
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent, stack = 0) {
@@ -75,11 +78,10 @@ class PrimevalIntuition extends Analyzer {
       this.currentStacks = event.stack;
     } else if (event.type === EventType.FightEnd) {
       this.currentStacks = stack;
-
-      this.intuitionStacks[this.lastIntuitionStack].push(event.timestamp - this.lastIntuitionUpdate);
-      this.lastIntuitionUpdate = event.timestamp;
-      this.lastIntuitionStack = this.currentStacks;
     }
+    this.intuitionStacks[this.lastIntuitionStack].push(event.timestamp - this.lastIntuitionUpdate);
+    this.lastIntuitionUpdate = event.timestamp;
+    this.lastIntuitionStack = this.currentStacks;
   }
 
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
@@ -116,7 +118,7 @@ class PrimevalIntuition extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            Primeval Intuition was up for a total of {this.uptime} seconds.
+            Primeval Intuition was up for a total of {formatNumber(this.uptime)} seconds.
           </>
         )}
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
@@ -135,8 +137,8 @@ class PrimevalIntuition extends Analyzer {
                 {Object.values(this.intuitionTimesByStacks).map((e, i) => (
                   <tr key={i}>
                     <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                    <td>{formatDuration(e.reduce((a: number, b: number) => a + b, 0) / 1000)}</td>
+                    <td>{formatPercentage(e.reduce((a: number, b: number) => a + b, 0) / this.owner.fightDuration)}%</td>
                     <td>{formatNumber(this.crit * i)}</td>
                   </tr>
                 ))}

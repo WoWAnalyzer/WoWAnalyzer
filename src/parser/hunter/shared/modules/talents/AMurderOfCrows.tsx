@@ -12,11 +12,10 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, EnergizeEvent, RemoveBuffEvent} from 'parser/core/Events';
 
 /**
- * Summons a flock of crows to attack your target over the next 15 sec. If the
- * target dies while under attack, A Murder of Crows' cooldown is reset.
+ * Summons a flock of crows to attack your target over the next 15 sec. If the target dies while under attack, A Murder of Crows' cooldown is reset.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/A4yncd1vX9YG8BNH#fight=3&type=damage-done
+ * https://www.warcraftlogs.com/reports/GFM9qZQy63zbxh7L#fight=49&type=damage-done&source=299&ability=131900
  */
 
 const CROWS_TICK_RATE = 1000;

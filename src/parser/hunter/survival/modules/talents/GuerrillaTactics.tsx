@@ -12,7 +12,8 @@ import { DamageEvent } from 'parser/core/Events';
 /**
  * Wildfire Bomb now has 2 charges, and the initial explosion deals 100% increased damage.
  *
- * Example log: https://www.warcraftlogs.com/reports/WBkTFfP6G4VcxjLz/#fight=1&source=8
+ * Example log:
+ * https://www.warcraftlogs.com/reports/Kk4nL12CDJVQ6Yyf#fight=34&type=damage-done&source=799
  */
 class GuerrillaTactics extends Analyzer {
 

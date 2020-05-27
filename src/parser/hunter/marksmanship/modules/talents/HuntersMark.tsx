@@ -21,7 +21,8 @@ import { ApplyDebuffEvent, CastEvent, DamageEvent, EnergizeEvent, RefreshDebuffE
  *
  * Only one Hunter's Mark can be applied at a time.
  *
- * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&hostility=1&spells=debuffs&target=6
+ * Example log:
+ * https://www.warcraftlogs.com/reports/Rn9XxCYLm1q7KFNW#fight=3&type=damage-done&source=15&ability=212680
  */
 
 const HUNTERS_MARK_MODIFIER = 0.05;
@@ -93,6 +94,12 @@ class HuntersMark extends Analyzer {
     }
     this.debuffRemoved = false;
     this.enemyID = encodeTargetString(event.targetID, event.targetInstance);
+    if (!this.markWindow[this.enemyID]) {
+      this.markWindow[this.enemyID] = {
+        status: '',
+        start: 0,
+      };
+    }
     this.markWindow[this.enemyID].status = 'active';
     this.markWindow[this.enemyID].start = event.timestamp;
   }

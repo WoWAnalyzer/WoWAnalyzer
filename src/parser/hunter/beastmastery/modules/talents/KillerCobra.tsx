@@ -15,7 +15,7 @@ import { CastEvent } from 'parser/core/Events';
  * Command.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/GZnVxKyjkJNzh6bB#fight=2&type=damage-done
+ * https://www.warcraftlogs.com/reports/M8dWYrRvmbnADCcZ#fight=11&type=damage-done&source=169
  *
  */
 
@@ -60,8 +60,7 @@ class KillerCobra extends Analyzer {
     if (killCommandIsOnCooldown) {
       const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
       const cooldownToReduceWith = this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND_CAST_BM.id) - globalCooldown;
-      //using this instead of endCooldown to ensure it doesn't negatively
-      // affect cast efficiency when resetting with Killer Cobra
+      //using this instead of endCooldown to ensure it doesn't negatively affect cast efficiency when resetting with Killer Cobra
       this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, cooldownToReduceWith);
       this.effectiveKillCommandResets += 1;
     } else {
@@ -78,8 +77,7 @@ class KillerCobra extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.KILLER_COBRA_TALENT}>
           <>
-            {this.effectiveKillCommandResets}/{this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots}
-            <small>{this.effectiveKillCommandResets === 0 || this.effectiveKillCommandResets > 1 ? 'resets' : 'reset'}</small>
+            {this.effectiveKillCommandResets}/{this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots} <small>{this.effectiveKillCommandResets === 1 ? 'reset' : 'resets'}</small>
           </>
         </BoringSpellValueText>
       </Statistic>

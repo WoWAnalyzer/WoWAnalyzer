@@ -7,7 +7,8 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
  * Grants you and your pet 5 Focus per sec and 10% increased critical strike
  * chance for 20 sec. Reduces GCD by 200ms before haste.
  *
- * Example report: https://www.warcraftlogs.com/reports/gnM3RY6QWKwa2tGF#fight=18&type=damage-done&source=10
+ * Example log:
+ * https://www.warcraftlogs.com/reports/39yhq8VLFrm7J4wR#fight=17&type=auras&source=8&ability=193530
  */
 
 class AspectOfTheWild extends Analyzer {

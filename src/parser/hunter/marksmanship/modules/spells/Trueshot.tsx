@@ -20,7 +20,8 @@ import { CastEvent } from 'parser/core/Events';
  *
  * TODO: Verify going into Shadowlands if this is still bugged so that it reduces the cooldown of Aimed Shot by equivalent to 325% haste and Rapid Fire by the equivalent to 340% haste.
  *
- * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
+ * Example log:
+ * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=auras&source=25&ability=288613
  */
 class Trueshot extends Analyzer {
   static dependencies = {
@@ -57,14 +58,14 @@ class Trueshot extends Analyzer {
             Information regarding your average Trueshot window:
             <ul>
               <li>You started your Trueshot windows with an average of {this.averageFocus} Focus.</li>
-              <li>You hit an average of {this.averageAimedShots} Aimed Shots inside each Trueshot window.</li>
+              <li>You hit an average of {this.averageAimedShots.toFixed(1)} Aimed Shots inside each Trueshot window.</li>
             </ul>
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.TRUESHOT}>
           <>
-            {this.averageAimedShots}{' '}
+            {this.averageAimedShots.toFixed(1)}{' '}
             <SpellIcon
               id={SPELLS.AIMED_SHOT.id}
               style={{
@@ -72,7 +73,7 @@ class Trueshot extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-            {'  '}{this.averageFocus}{' '}
+            {' '}{this.averageFocus}{' '}
             <ResourceIcon
               id={RESOURCE_TYPES.FOCUS.id}
               style={{
@@ -110,11 +111,7 @@ class Trueshot extends Analyzer {
 
   suggestions(when: any) {
     when(this.aimedShotThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
-      return suggest(
-        <>
-          You only cast {actual.toFixed(1)} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.
-        </>,
-      )
+      return suggest(<>You only cast {actual.toFixed(1)} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.</>)
         .icon(SPELLS.TRUESHOT.icon)
         .actual(`Average of ${actual.toFixed(1)} Aimed Shots per Trueshot.`)
         .recommended(`>${recommended} is recommended`);

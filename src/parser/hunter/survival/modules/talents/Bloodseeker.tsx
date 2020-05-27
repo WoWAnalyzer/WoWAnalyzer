@@ -14,7 +14,8 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
  * Kill Command causes the target to bleed for X damage over 8 sec.
  * You and your pet gain 10% attack speed for every bleeding enemy within 12 yds.
  *
- * Example log: https://www.warcraftlogs.com/reports/WBkTFfP6G4VcxjLz#fight=1&type=auras&source=8&ability=260249
+ * Example log:
+ * https://www.warcraftlogs.com/reports/6GjD12YkQCnJqPTz#fight=25&type=auras&translate=true&source=19&ability=260249
  */
 
 const MS_BUFFER = 100;

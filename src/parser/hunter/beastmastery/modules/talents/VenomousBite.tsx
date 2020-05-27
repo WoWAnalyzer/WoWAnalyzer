@@ -14,7 +14,7 @@ import { CastEvent } from 'parser/core/Events';
  * Cobra Shot reduces the cooldown of Bestial Wrath by 1 sec.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/gdwaDBYN4jbJCAKv#fight=1&type=damage-done
+ * https://www.warcraftlogs.com/reports/MaCwBZmpKXGk9N6V#fight=1&type=damage-done&source=27
  */
 
 const COOLDOWN_REDUCTION_MS = 1000;
@@ -126,8 +126,7 @@ class VenomousBite extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.VENOMOUS_BITE_TALENT}>
           <>
-            {formatNumber(this.effectiveBWReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s
-            <br />
+            {formatNumber(this.effectiveBWReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s<br />
             {formatPercentage(this.effectiveBWReductionMs / this.totalPossibleCDR)}%
           </>
         </BoringSpellValueText>

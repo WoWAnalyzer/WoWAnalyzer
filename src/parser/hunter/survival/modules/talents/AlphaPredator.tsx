@@ -13,7 +13,8 @@ import { DamageEvent } from 'parser/core/Events';
 /**
  * Kill Command now has 2 charges, and deals 30% increased damage.
  *
- * Example log: https://www.warcraftlogs.com/reports/yNwk89Rt1HprGdXJ#fight=2&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/ayK6THQGAB4Y8h9N#fight=15&type=summary&source=1415&translate=true
  */
 
 class AlphaPredator extends Analyzer {

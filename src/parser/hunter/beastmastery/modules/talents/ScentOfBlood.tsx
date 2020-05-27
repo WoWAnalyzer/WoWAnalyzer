@@ -10,7 +10,7 @@ import { EnergizeEvent } from 'parser/core/Events';
  * Barbed Shot generates 8 additional Focus over its duration.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/DFZVfmhkj9bYa6rn#fight=1&type=damage-done
+ * https://www.warcraftlogs.com/reports/mzL4dhMRbwtXaBJf#fight=15&type=resources&spell=102&source=114
  */
 
 const SCENT_OF_BLOOD_INCREASE_PER_TICK = 2;
@@ -57,17 +57,10 @@ class ScentOfBlood extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={(
-          <>
-            <ul>
-              <li>You wasted {this.focusWastedFromBS} focus by being too close to focus cap when Barbed Shot gave you focus.</li>
-            </ul>
-          </>
-        )}
       >
         <BoringSpellValueText spell={SPELLS.SCENT_OF_BLOOD_TALENT}>
           <>
-            {this.focusGained} <small>focus gained</small>
+            {this.focusGained}/{this.focusWastedFromBS + this.focusGained} <small>focus gained</small>
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -13,7 +13,8 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
 /**
  * A powerful shot which deals (112.5% of Attack power)% Physical damage to the target and up to [(112.5% of Attack power)% / (3)] Physical damage to all enemies between you and the target.
  *
- * Example log: https://www.warcraftlogs.com/reports/b9cpJyHBntAdaVLR#fight=6&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/fpgqv29ktHrcnTz3#fight=49&type=damage-done&source=241&ability=198670
  */
 
 class PiercingShot extends Analyzer {
@@ -54,7 +55,7 @@ class PiercingShot extends Analyzer {
         <BoringSpellValueText spell={SPELLS.PIERCING_SHOT_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /><br />
-            <AverageTargetsHit casts={this.casts} hits={this.hits} />
+            <AverageTargetsHit casts={this.casts} hits={this.hits} unique />
           </>
         </BoringSpellValueText>
       </Statistic>

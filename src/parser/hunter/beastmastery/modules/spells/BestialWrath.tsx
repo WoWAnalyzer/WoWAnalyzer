@@ -22,7 +22,7 @@ const BESTIAL_WRATH_BASE_CD = 90000;
  * time you use Barbed Shot
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/pdm6qYNZ2ktMXDRr#fight=7&type=damage-done&source=8
+ * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=auras&source=1&ability=19574
  */
 class BestialWrath extends Analyzer {
   static dependencies = {

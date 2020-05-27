@@ -20,7 +20,8 @@ const focusedFireStats = (traits: number[]) => Object.values(traits).reduce((obj
 /** Focused Fire
  * Rapid Fire deals an additional 5903.1765 damage over its duration, and each shot has a 30% chance to generate 2 additional Focus.
  *
- * Example log: https://www.warcraftlogs.com/reports/CMFw3NLR6dHbXcJ2#fight=1&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/8P3rRNyQhJnbLkHX#fight=6&type=damage-done&source=1
  */
 
 const TICKS_PER_CAST = 10;

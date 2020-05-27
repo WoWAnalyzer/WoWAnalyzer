@@ -5,7 +5,8 @@ import { CastEvent } from 'parser/core/Events';
 /**
  * A vicious slash dealing (70% of Attack power) Physical damage.
  *
- * Example log: https://www.warcraftlogs.com/reports/BjmyHd9zt8RYJrWA/#fight=3&source=1
+ * Example log with timeline warning:
+ * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=summary&source=329
  */
 
 class RaptorStrike extends Analyzer {

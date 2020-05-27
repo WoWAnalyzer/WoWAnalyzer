@@ -15,7 +15,8 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
  * Pheromone Bomb:
  * Kill Command has a 100% chance to reset against targets coated with Pheromones.
  *
- * Example log: https://www.warcraftlogs.com/reports/n8AHdKCL9k3rtRDb#fight=36&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=summary&source=329
  */
 
 const KILL_COMMAND_FOCUS_GAIN = 15;

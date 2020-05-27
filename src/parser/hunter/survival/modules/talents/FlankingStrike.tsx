@@ -10,10 +10,10 @@ import { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 
 /**
  * You and your pet leap to the target and strike it as one, dealing a total of X Physical damage.
- *
  * Generates 30 Focus for you and your pet.
  *
- * Example log: https://www.warcraftlogs.com/reports/zm8bfNxH9FWTajYV#fight=1&type=summary&source=12&translate=true
+ * Example log:
+ * https://www.warcraftlogs.com/reports/QMJcFAdTXKhgpnbx#fight=2&type=damage-done&source=16&ability=259516
  */
 
 const FLANKING_STRIKE_FOCUS_GAIN = 30;

@@ -11,7 +11,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 /**
  * Raptor Strike (or Mongoose Bite) deals an additional 27 damage and reduces the remaining cooldown of Wildfire Bomb by 1.0 sec.
  *
- * Example report: https://www.warcraftlogs.com/reports/Xr7Nxjd1KnMT9QBf/#fight=1&source=13&type=summary
+ * Example report:
+ * https://www.warcraftlogs.com/reports/NTvPJdrFgYchAX1R#fight=6&type=summary&source=27
  */
 
 const MS_REDUCTION = 1000;
@@ -21,10 +22,13 @@ class WildernessSurvival extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
   effectiveWSReductionMs = 0;
   wastedWSReductionMs = 0;
   hasWFI = false;
+
   protected spellUsable!: SpellUsable;
+
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.WILDERNESS_SURVIVAL.id);
@@ -84,7 +88,7 @@ class WildernessSurvival extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.WILDERNESS_SURVIVAL}>
           <>
-            {this.effectiveCDRInSeconds.toFixed(1)}/{this.totalPossibleCDR.toFixed(1)}s <small>effective CDR</small>
+            {this.effectiveCDRInSeconds.toFixed(1)}/{this.totalPossibleCDR}s <small>effective CDR</small>
           </>
         </BoringSpellValueText>
       </Statistic>

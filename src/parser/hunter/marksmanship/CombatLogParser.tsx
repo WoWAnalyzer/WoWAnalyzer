@@ -50,6 +50,7 @@ import SteadyAim from './modules/spells/azeritetraits/SteadyAim';
 import SurgingShots from './modules/spells/azeritetraits/SurgingShots';
 import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
 import UnerringVision from './modules/spells/azeritetraits/UnerringVision';
+import RapidReload from '../shared/modules/spells/azeritetraits/RapidReload';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -103,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     surgingShots: SurgingShots,
     inTheRhythm: InTheRhythm,
     unerringVision: UnerringVision,
+    rapidReload: RapidReload,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

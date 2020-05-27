@@ -45,7 +45,7 @@ class BindingShot extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.BINDING_SHOT_TALENT}>
           <>
-            {this._roots} <small>roots</small> / {this._applications}<small>possible</small>
+            {this._roots} <small>roots</small> / {this._applications} <small>possible</small>
           </>
         </BoringSpellValueText>
       </Statistic>

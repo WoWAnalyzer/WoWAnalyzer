@@ -22,7 +22,8 @@ const BOP_ABILITIES = [
 /** Bird of Prey
  * Attacking your pet's target with Mongoose Bite, Raptor Strike, Butchery or Carve extends the duration of Coordinated Assault by  1.5 sec.
  *
- * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
+ * Example log:
+ * https://www.warcraftlogs.com/reports/6GjD12YkQCnJqPTz#fight=25&type=summary&source=19&translate=true
  */
 
 class BirdOfPrey extends Analyzer {

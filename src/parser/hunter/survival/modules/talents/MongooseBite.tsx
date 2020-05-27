@@ -177,8 +177,6 @@ class MongooseBite extends Analyzer {
     this.handleStacks(event);
   }
   statistic() {
-    console.log(this.fiveStackMongooseBites);
-    console.log(this.mongooseBiteStacks);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}

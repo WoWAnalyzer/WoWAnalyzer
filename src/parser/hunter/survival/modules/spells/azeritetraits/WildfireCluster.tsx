@@ -7,6 +7,13 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { DamageEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
+/**
+ * Wildfire Bomb drops a small cluster of bombs around the target, each exploding for 960 damage.
+ *
+ * Example report:
+ * https://www.warcraftlogs.com/reports/ayK6THQGAB4Y8h9N#fight=15&type=damage-done&source=1415&translate=true&ability=272745
+ */
+
 class WildfireCluster extends Analyzer {
   damage = 0;
   constructor(options: any) {

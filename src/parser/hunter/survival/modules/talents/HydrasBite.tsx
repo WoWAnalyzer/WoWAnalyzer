@@ -124,7 +124,7 @@ class HydrasBite extends Analyzer {
         <BoringSpellValueText spell={SPELLS.HYDRAS_BITE_TALENT}>
           <>
             <ItemDamageDone amount={this.increasedMainTargetDamage + this.spreadDamage} /> <br />
-            {this.extraApplications / this.casts} <small>extra dots/cast</small>
+            {(this.extraApplications / this.casts).toFixed(1)} <small>extra dots/cast</small>
           </>
         </BoringSpellValueText>
       </Statistic>

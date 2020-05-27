@@ -14,7 +14,8 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
  * Fires a slow-moving munition directly forward.
  * Activating this ability a second time detonates the Shot, dealing up to (1000% of Attack power) Fire damage to all enemies within 8 yds, damage based on proximity.
  *
- * Example log: https://www.warcraftlogs.com/reports/Bc984AfRjXQYgxCz#fight=7&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/Rn9XxCYLm1q7KFNW#fight=3&type=damage-done&source=15&ability=212680
  */
 
 class ExplosiveShot extends Analyzer {
@@ -54,9 +55,8 @@ class ExplosiveShot extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.EXPLOSIVE_SHOT_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} />
-            <br />
-            <AverageTargetsHit casts={this.casts} hits={this.hits} />
+            <ItemDamageDone amount={this.damage} /><br />
+            <AverageTargetsHit casts={this.casts} hits={this.hits} unique />
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -14,10 +14,10 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
 
 /**
- * Raptor Strike (or Mongoose Bite) has a chance to make your next
- * Serpent Sting cost no Focus and deal an additional 250% initial damage.
+ * Raptor Strike (or Mongoose Bite) has a chance to make your next Serpent Sting cost no Focus and deal an additional 250% initial damage.
  *
- * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
+ * Example log:
+ * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=auras&source=329&translate=true&ability=268552
  */
 
 class VipersVenom extends Analyzer {

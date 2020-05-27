@@ -14,7 +14,8 @@ const COOLDOWN_REDUCTION_MS = 3000;
 /**
  * Casting Arcane Shot or Multi-Shot reduces the cooldown of Trueshot by 3.0 sec.
  *
- * Example log: https://www.warcraftlogs.com/reports/vXcAzCyFKrm4Jdw1#fight=3&type=damage-done&source=6
+ * Example log:
+ * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=summary&source=25
  */
 class CallingTheShots extends Analyzer {
   static dependencies = {
@@ -55,15 +56,10 @@ class CallingTheShots extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={(
-          <>
-            You wasted {formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR by using Arcane Shot or Multi Shot when Trueshot wasn't on cooldown or had less than 3 seconds remaining on CD.
-          </>
-        )}
       >
         <BoringSpellValueText spell={SPELLS.CALLING_THE_SHOTS_TALENT}>
           <>
-            {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s <small>CDR</small>
+            {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s / {formatNumber((this.effectiveTrueshotReductionMs + this.wastedTrueshotReductionMs) / 1000)}s <small>CDR</small>
           </>
         </BoringSpellValueText>
       </Statistic>

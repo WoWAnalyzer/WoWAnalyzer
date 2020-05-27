@@ -17,7 +17,7 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
  * Physical damage to all enemies in front of you. Usable while moving.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/A4yncd1vX9YG8BNH#fight=3&type=damage-done
+ * https://www.warcraftlogs.com/reports/wPdQLfFnhTVYRyJm#fight=12&type=damage-done&source=640&ability=120361
  */
 
 const BARRAGE_HITS_PER_CAST = 10;
@@ -112,8 +112,7 @@ class Barrage extends Analyzer {
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             <AverageTargetsHit casts={this.casts.length} hits={this.hits} /><br />
-            <AverageTargetsHit casts={this.casts.length} hits={this.uniqueTargetsHit} />
-            <small>unique approximate</small>
+            <AverageTargetsHit casts={this.casts.length} hits={this.uniqueTargetsHit} unique />
           </>
         </BoringSpellValueText>
       </Statistic>

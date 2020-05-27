@@ -14,11 +14,11 @@ import UptimeIcon from 'interface/icons/Uptime';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
- * You and your pet attack as one, increasing all damage you both deal by
- * 20% for 20 sec. While Coordinated Assault is active, Kill Command's
- * chance to reset is increased by 25%.
+ * You and your pet attack as one, increasing all damage you both deal by 20% for 20 sec.
+ * While Coordinated Assault is active, Kill Command's chance to reset is increased by 25%.
  *
- * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
+ * Example log:
+ * https://www.warcraftlogs.com/reports/dHcVrvbMX39xNAC8#fight=3&type=auras&source=66&ability=266779
  */
 
 const CA_DMG_MODIFIER = 0.2;

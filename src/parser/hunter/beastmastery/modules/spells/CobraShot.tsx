@@ -14,7 +14,8 @@ import { CastEvent } from 'parser/core/Events';
  * A quick shot causing Physical damage.
  * Reduces the cooldown of Kill Command by 1 sec.
  *
- * Example log: https://www.warcraftlogs.com/reports/gnM3RY6QWKwa2tGF#fight=18&type=damage-done&source=10
+ * Example log:
+ * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1&ability=193455
  */
 
 const COOLDOWN_REDUCTION_MS = 1000;
@@ -129,8 +130,7 @@ class CobraShot extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.COBRA_SHOT}>
           <>
-            {formatNumber(this.effectiveKCReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s
-            <br />
+            {formatNumber(this.effectiveKCReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s <br />
             {formatPercentage(this.effectiveKCReductionMs / this.totalPossibleCDR)}% <small>effectiveness</small>
           </>
         </BoringSpellValueText>

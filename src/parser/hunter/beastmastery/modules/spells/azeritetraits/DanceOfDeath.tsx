@@ -19,11 +19,10 @@ const danceOfDeathStats = (traits: number[]) => Object.values(traits).reduce((ob
 });
 
 /**
- * Barbed Shot has a chance equal to your critical strike chance to grant you
- * 314 agility for 8 sec.
+ * Barbed Shot has a chance equal to your critical strike chance to grant you 314 agility for 8 sec.
  *
- * Example report:
- * https://www.warcraftlogs.com/reports/9mWQv1XZJT8M6GBV#fight=1&type=damage-done
+ * Example log:
+ * https://www.warcraftlogs.com/reports/dhvBkQtHmJ23bYA4#fight=6&type=auras&source=10&ability=274443
  */
 class DanceOfDeath extends Analyzer {
   static dependencies = {
@@ -49,8 +48,7 @@ class DanceOfDeath extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.DANCE_OF_DEATH_BUFF.id) /
-      this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.DANCE_OF_DEATH_BUFF.id) / this.owner.fightDuration;
   }
 
   get avgAgility() {

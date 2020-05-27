@@ -5,8 +5,8 @@ import { CastEvent } from 'parser/core/Events';
 /**
  * A powerful aimed shot that deals [(248.4% of Attack power) * ((max(0, min(Level - 10, 10)) * 8 + 130) / 210)] Physical damage.
  *
- * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
- *
+ * Example log with timeline warnings:
+ * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=damage-done&source=25&ability=-19434
  */
 class AimedShot extends Analyzer {
 

@@ -18,12 +18,11 @@ const blurOfTalonsStats = (traits: number[]) => Object.values(traits).reduce((ob
   agility: 0,
 });
 
-//TODO implement speed when split scaling is possible
-
 /**
  * During Coordinated Assault, Mongoose Bite or Raptor Strike increases your Agility by X and your Speed by X for 6 sec. Stacks up to 5 times.
  *
- * Example: https://www.warcraftlogs.com/reports/X7JRkvr1DbP9VGpW#fight=1&type=damage-done&source=18
+ * Example:
+ * https://www.warcraftlogs.com/reports/NTvPJdrFgYchAX1R#fight=6&type=auras&source=27&ability=277969
  */
 
 const MAX_BLUR_STACKS = 5;
@@ -80,10 +79,10 @@ class BlurOfTalons extends Analyzer {
       this.currentStacks = event.stack;
     } else if (event.type === EventType.FightEnd) {
       this.currentStacks = stack;
-      this.blurOfTalonStacks[this.lastBlurStack].push(event.timestamp - this.lastBlurUpdate);
-      this.lastBlurUpdate = event.timestamp;
-      this.lastBlurStack = this.currentStacks;
     }
+    this.blurOfTalonStacks[this.lastBlurStack].push(event.timestamp - this.lastBlurUpdate);
+    this.lastBlurUpdate = event.timestamp;
+    this.lastBlurStack = this.currentStacks;
   }
 
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
@@ -121,7 +120,7 @@ class BlurOfTalons extends Analyzer {
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
-            Blur of Talons granted <strong>{formatNumber(this.agility)}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
+            Blur of Talons granted <strong>{formatNumber(this.agility)}</strong> Agility per stack for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
           </>
         )}
         dropdown={(

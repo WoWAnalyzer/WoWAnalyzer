@@ -9,11 +9,10 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
- * A two-headed shot that hits your primary target and another nearby target,
- * dealing 720% Nature damage to one and 720% Frost damage to the other.
+ * A two-headed shot that hits your primary target and another nearby target, dealing 720% Nature damage to one and 720% Frost damage to the other.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/qZRdFv9Apg74wmMV#fight=3&type=damage-done
+ * https://www.warcraftlogs.com/reports/3hpLckCDdjWXqFyT#fight=5&type=damage-done&source=2&ability=-53209
  */
 class ChimaeraShot extends Analyzer {
 

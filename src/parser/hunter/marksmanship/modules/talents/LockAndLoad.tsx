@@ -14,7 +14,8 @@ import { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from 'parser
 /**
  * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
  *
- * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
+ * Example log:
+ * https://www.warcraftlogs.com/reports/wPdQLfFnhTVYRyJm#fight=12&type=auras&source=640&ability=194594
  */
 
 const PROC_CHANCE = 0.05;
@@ -88,9 +89,7 @@ class LockAndLoad extends Analyzer {
   }
 
   GetZPercent(z: number) {
-    // If z is greater than 6.5 standard deviations from the mean
-    // the number of significant digits will be outside of a reasonable
-    // range.
+    // If z is greater than 6.5 standard deviations from the mean the number of significant digits will be outside of a reasonable range.
     if (z < -6.5) {
       return 0.0;
     }
@@ -118,8 +117,7 @@ class LockAndLoad extends Analyzer {
   }
 
   binomialCalculation(procs: number, tries: number, procChance: number) {
-    //Correcting for continuity we add 0.5 to procs, because we're looking for the probability of getting at most the amount of procs we received
-    // if P(X <= a), then P(X<a+0.5)
+    //Correcting for continuity we add 0.5 to procs, because we're looking for the probability of getting at most the amount of procs we received if P(X <= a), then P(X<a+0.5)
     const correctedProcs = procs + 0.5;
     const nonProcChance = 1 - procChance;
 
@@ -154,7 +152,7 @@ class LockAndLoad extends Analyzer {
             You had a total of {this.totalProcs} procs, and your expected amount of procs was {formatNumber(this.expectedProcs)}. <br />
             <ul>
               <li>You have a ~{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks.</li>
-              {/*this two first tooltipText additions will probably NEVER happen, but it'd be fun if they ever did*/}
+              {/*these two first tooltipText additions will probably NEVER happen, but it'd be fun if they ever did*/}
               {binomCalc === 0 && <li>You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.</li>}
               {binomCalc === 1 && <li>You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.</li>}
               {(binomCalc > 0 && binomCalc < 1) && (

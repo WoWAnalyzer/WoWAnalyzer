@@ -9,8 +9,11 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { CastEvent } from 'parser/core/Events';
 
 /**
- * Reduces the cooldowns of Aspect of the Cheetah and Aspect of the Turtle by
- * 20%. For Survival it also reduces the cooldown of Aspect of the Eagle
+ * Reduces the cooldowns of Aspect of the Cheetah and Aspect of the Turtle by 20%.
+ * For Survival it also reduces the cooldown of Aspect of the Eagle.
+ *
+ * Example log:
+ * https://www.warcraftlogs.com/reports/1YZkWvbFGNgTA7L4#fight=3&type=summary&source=97
  */
 
 const BASELINE_TURTLE_CHEETAH_CD = 180000;

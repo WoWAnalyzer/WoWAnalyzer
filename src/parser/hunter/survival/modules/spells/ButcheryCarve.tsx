@@ -15,7 +15,9 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
  * Butchery: Strike all nearby enemies in a flurry of strikes, inflicting Phsyical damage to each. Has 3 charges.
  * Both: Reduces the remaining cooldown on Wildfire Bomb by 1 sec for each target hit, up to 5.
  *
- * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
+ * Example logs:
+ * Carve: https://www.warcraftlogs.com/reports/dHcVrvbMX39xNAC8#fight=3&type=damage-done&source=66&ability=187708
+ * Butchery: https://www.warcraftlogs.com/reports/6GjD12YkQCnJqPTz#fight=25&type=damage-done&source=19&translate=true&ability=212436
  */
 
 const COOLDOWN_REDUCTION_MS = 1000;

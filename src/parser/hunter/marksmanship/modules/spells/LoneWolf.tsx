@@ -10,15 +10,16 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 
-const RAMP_INTERVAL = 6000;
+const RAMP_INTERVAL = 2000;
 const INCREASE_PER_RAMP = 0.01;
 const MAX_LONE_WOLF_MODIFIER = 0.10;
-const START_LONE_WOLF_MODIFIER = 0.01;
+const START_LONE_WOLF_MODIFIER = 0;
 /**
  * Increases your damage by 10% when you do not have an active pet.
  * After dismissing pet it takes 1 minute to reach full efficiency.
  *
- * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
+ * Example log:
+ * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=auras&source=25&ability=155228
  */
 const AFFECTED_SPELLS = [
   SPELLS.AUTO_SHOT.id,
@@ -44,11 +45,6 @@ class LoneWolf extends Analyzer {
   lwApplicationTimestamp = 0;
   loneWolfModifier = 0;
   lwAppliedOrRemoved = false;
-
-  constructor(options: any) {
-    super(options);
-    this.active = this.owner.playerPets.length === 0;
-  }
 
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;

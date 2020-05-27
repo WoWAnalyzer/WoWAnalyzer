@@ -15,7 +15,7 @@ import { isPermanentPet } from '../../../../warlock/demonology/modules/pets/help
  * Additionally this talent baseline reduces all pet damage by 40%.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=2&type=damage-done
+ * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1
  */
 
 class AnimalCompanion extends Analyzer {

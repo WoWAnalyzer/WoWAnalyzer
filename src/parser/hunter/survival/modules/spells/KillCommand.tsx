@@ -13,13 +13,10 @@ import { ApplyBuffEvent } from 'parser/core/Events';
 /**
  * Give the command to kill, causing your pet to savagely deal [Attack power * 0.6 * (1 + Versatility)] Physical damage to the enemy.
  * Has a 25% chance to immediately reset its cooldown.
- *
  * Generates 15 Focus
  *
- * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
- *
- * @property {SpellUsable} spellUsable
- * @property {Abilities} abilities
+ * Example log:
+ * https://www.warcraftlogs.com/reports/dHcVrvbMX39xNAC8#fight=3&type=auras&source=66&ability=259285
  */
 class KillCommand extends Analyzer {
   static dependencies = {
@@ -29,7 +26,6 @@ class KillCommand extends Analyzer {
   };
 
   resets = 0;
-  resetWhileNotOnCD = 0;
 
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
@@ -59,7 +55,7 @@ class KillCommand extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.KILL_COMMAND_CAST_SV}>
           <>
-            {this.resets} <small>{this.resets === 0 || this.resets > 1 ? 'resets' : 'reset'}</small>
+            {this.resets} <small>{this.resets === 1 ? 'reset' : 'resets'}</small>
           </>
         </BoringSpellValueText>
       </Statistic>

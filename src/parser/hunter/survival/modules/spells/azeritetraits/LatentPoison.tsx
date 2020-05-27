@@ -10,7 +10,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 /**
  * Serpent Sting damage applies Latent Poison, stacking up to 10 times. Your Mongoose Bite or Raptor Strike consumes all applications of Latent Poison to deal 451 Nature damage per stack.
  *
- * Example: https://www.warcraftlogs.com/reports/2vJyCmRVKgQWLHcY/#fight=9&source=3
+ * Example log:
+ * https://www.warcraftlogs.com/reports/nYXazkPpFwDrK3mh#fight=75&type=damage-done&source=692&translate=true&ability=273289
  */
 
 const MAX_STACKS = 10;
@@ -32,7 +33,7 @@ class LatentPoison extends Analyzer {
   }
 
   get averageStacksPerRaptorOrMongoose() {
-    return (this.utilised / this.casts).toFixed(2);
+    return this.utilised / this.casts;
   }
 
   on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
@@ -82,20 +83,22 @@ class LatentPoison extends Analyzer {
   }
 
   statistic() {
+    this.wasted = this.maxPossible - this.utilised;
     return (
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
-            {this.utilised} stacks consumed / {this.maxPossible} possible.<br />
-            {this.wasted > 0 && <> You wasted {this.wasted} stacks by not casting {this.spellKnown} at the target with {MAX_STACKS} stacks on.</>}
+            {this.wasted > 0 &&
+            <> You wasted {this.wasted} stacks by not casting {this.spellKnown} at the target with {MAX_STACKS} stacks on them, or if the mob died while it had stacks on it.</>}
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.LATENT_POISON}>
           <>
-            {this.averageStacksPerRaptorOrMongoose} <small>stacks per {this.spellKnown}</small>
+            {this.utilised} / {this.maxPossible} <small>possible stack consumes</small><br />
+            {this.averageStacksPerRaptorOrMongoose.toFixed(1)} <small>stacks per {this.spellKnown}</small>
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -9,7 +9,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 /**
  * Steady Shot increases the damage of your next Aimed Shot against the target by X, stacking up to 5 times.
  *
- * Example:https://www.warcraftlogs.com/reports/ravLTdG6MVm3CXkQ#fight=62&type=damage-done
+ * Example:
+ * https://www.warcraftlogs.com/reports/wPdQLfFnhTVYRyJm#fight=12&type=damage-done&source=640
  */
 
 const MAX_STACKS = 5;
@@ -80,7 +81,7 @@ class SteadyAim extends Analyzer {
   }
 
   get averageStacksPerAimed() {
-    return (this.utilised / this.aimedShots).toFixed(2);
+    return this.utilised / this.aimedShots;
   }
 
   statistic() {
@@ -88,15 +89,11 @@ class SteadyAim extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
-        tooltip={(
-          <>
-            {this.utilised} debuffs utilised / {this.maxPossible} possible
-          </>
-        )}
       >
         <BoringSpellValueText spell={SPELLS.STEADY_AIM}>
           <>
-            {this.averageStacksPerAimed} <small>Stacks / Aimed</small>
+            {this.utilised} / {this.maxPossible} <small>possible</small> <br />
+            {this.averageStacksPerAimed.toFixed(1)} <small>average stacks</small>
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -10,11 +10,10 @@ import { DamageEvent } from 'parser/core/Events';
 
 /**
  * Increases the damage of your pet's abilities by 30%.
- * Increases the effectiveness of your pet's Predator's Thirst, Endurance
- * Training, and Pathfinding passives by 50%.
+ * Increases the effectiveness of your pet's Predator's Thirst, Endurance Training, and Pathfinding passives by 50%.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/qZRdFv9Apg74wmMV#fight=3&type=damage-done
+ * https://www.warcraftlogs.com/reports/a4KVj37kTNbyxG1Y#fight=10&type=summary&source=8
  */
 
 const ASPECT_MULTIPLIER = 0.3;
