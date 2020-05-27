@@ -3,8 +3,9 @@ import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Even
 import SPELLS from 'common/SPELLS/shaman';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
-import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -16,9 +17,10 @@ class Stormbringer extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
   protected spellUsable!: SpellUsable;
 
-  private damage = 0;
+  protected damageGained: number = 0;
 
   constructor(options: any) {
     super(options);
@@ -71,10 +73,7 @@ class Stormbringer extends Analyzer {
       return;
     }
 
-    this.damage += calculateEffectiveDamage(
-      event,
-      STORMBRINGER_DAMAGE_MODIFIER,
-    );
+    this.damageGained += calculateEffectiveDamage(event, STORMBRINGER_DAMAGE_MODIFIER);
   }
 
   statistic() {
@@ -82,13 +81,13 @@ class Stormbringer extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="small"
-        category={'GENERAL'}
+        category={STATISTIC_CATEGORY.GENERAL}
       >
         <BoringSpellValueText
           spell={SPELLS.STORMBRINGER}
         >
           <>
-            <ItemDamageDone amount={this.damage} />
+            <ItemDamageDone amount={this.damageGained} />
           </>
         </BoringSpellValueText>
       </Statistic>

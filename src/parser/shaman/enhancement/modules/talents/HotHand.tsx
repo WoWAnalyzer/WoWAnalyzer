@@ -1,12 +1,12 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS/index';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { BuffEvent, DamageEvent } from 'parser/core/Events';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import ResourceGenerated from 'interface/others/ResourceGenerated';
@@ -17,24 +17,26 @@ const HOT_HAND = {
   COST_REDUCTION: SPELLS.LAVA_LASH.maelstrom,
 };
 
+/**
+ * Melee attacks with Flametongue active have a chance to make your next
+ * Lava Lash cost no Maelstrom and deal 100% increased damage.
+ *
+ * Example Log:
+ *
+ */
 class HotHand extends Analyzer {
-
-  /**
-   * Melee attacks with Flametongue active have a chance to make your next
-   * Lava Lash cost no Maelstrom and deal 100% increased damage.
-   *
-   * Example Log:
-   *
-   */
-
-  protected damageGained = 0;
-  protected maelstromSaved = 0;
-  protected hotHandCount = 0;
-  protected hotHandUses = 0;
+  protected damageGained: number = 0;
+  protected maelstromSaved: number = 0;
+  protected hotHandCount: number = 0;
+  protected hotHandUses: number = 0;
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id);
+
+    if(!this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id)) {
+      this.active = false;
+      return;
+    }
 
     this.addEventListener(
       Events.applybuff.spell(SPELLS.LANDSLIDE_BUFF),
@@ -73,7 +75,7 @@ class HotHand extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.HOT_HAND_TALENT}>
           <>

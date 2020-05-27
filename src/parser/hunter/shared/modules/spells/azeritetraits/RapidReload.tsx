@@ -1,10 +1,11 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { CastEvent, DamageEvent } from '../../../../../core/Events';
 import SPECS from '../../../../../../game/SPECS';
 import SpellUsable from '../../../../../shared/modules/SpellUsable';
-import Statistic from '../../../../../../interface/statistics/Statistic';
 import BoringSpellValueText
   from '../../../../../../interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from '../../../../../../interface/ItemDamageDone';
@@ -146,7 +147,7 @@ class RapidReload extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <> {formatPercentage(
             (

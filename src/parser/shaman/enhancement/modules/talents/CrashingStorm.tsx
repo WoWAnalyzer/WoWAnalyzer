@@ -1,11 +1,11 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS/index';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import Statistic from 'interface/statistics/Statistic';
-import Events, { DamageEvent } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
@@ -19,13 +19,16 @@ import ItemDamageDone from 'interface/ItemDamageDone';
  */
 
 class CrashingStorm extends Analyzer {
-  protected damage = 0;
+  protected damageGained: number = 0;
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      SPELLS.CRASHING_STORM_TALENT.id,
-    );
+
+    if(!this.selectedCombatant.hasTalent(SPELLS.CRASHING_STORM_TALENT.id)) {
+      this.active = false;
+      return;
+    }
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
         .spell(SPELLS.CRASHING_STORM_TALENT),
@@ -34,7 +37,7 @@ class CrashingStorm extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
+    this.damageGained += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
@@ -42,11 +45,11 @@ class CrashingStorm extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.CRASHING_STORM_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} />
+            <ItemDamageDone amount={this.damageGained} />
           </>
         </BoringSpellValueText>
       </Statistic>

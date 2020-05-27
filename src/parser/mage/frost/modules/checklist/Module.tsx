@@ -45,6 +45,25 @@ class Checklist extends BaseChecklist {
     wintersChillNoIL: WintersChillNoIL,
 
   };
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected brainFreeze!: BrainFreeze;
+  protected glacialSpike!: GlacialSpike;
+  protected iceLance!: IceLance;
+  protected thermalVoid!: ThermalVoid;
+  protected wintersChill!: WintersChill;
+  protected arcaneIntellect!: ArcaneIntellect;
+  protected cancelledCasts!: CancelledCasts;
+  protected runeOfPower!: RuneOfPower;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected waterElemental!: WaterElemental;
+
+  //NoIL
+  protected brainFreezeNoIL!: BrainFreezeNoIL;
+  protected glacialSpikeNoIL!: GlacialSpikeNoIL;
+  protected iceLanceNoIL!: IceLanceNoIL;
+  protected wintersChillNoIL!: WintersChillNoIL;
 
   render() {
     return (

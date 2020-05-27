@@ -1,24 +1,21 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
-
 import Analyzer from 'parser/core/Analyzer';
-
 import Statistic from 'interface/statistics/Statistic';
-import { Trans } from '@lingui/macro';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
+/**
+ * Frostbrand now also enhances your weapon's damage,
+ * causing each of your weapon attacks to also deal
+ * (3.159% of Attack power)% Frost damage.
+ *
+ * Example Log:
+ */
 class Hailstorm extends Analyzer {
-
-  /**
-   * Frostbrand now also enhances your weapon's damage,
-   * causing each of your weapon attacks to also deal
-   * (3.159% of Attack power)% Frost damage.
-   *
-   * Example Log:
-   */
-
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);

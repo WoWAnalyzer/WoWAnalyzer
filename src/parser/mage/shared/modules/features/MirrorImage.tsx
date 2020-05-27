@@ -2,29 +2,31 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { SummonEvent, DamageEvent } from 'parser/core/Events';
 
 const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 
 class MirrorImage extends Analyzer {
   // all images summoned by player seem to have the same sourceID, and vary only by instanceID
-  mirrorImagesId;
+  mirrorImagesId = 0;
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
 	   this.active = this.selectedCombatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id);
   }
 
-  on_byPlayer_summon(event) {
+  on_byPlayer_summon(event: SummonEvent) {
     // there are a dozen different Mirror Image summon IDs which is used where or why... this is the easy way out
     if(event.ability.name === SPELLS.MIRROR_IMAGE_SUMMON.name) {
       this.mirrorImagesId = event.targetID;
     }
   }
 
-  on_byPlayerPet_damage(event) {
+  on_byPlayerPet_damage(event: DamageEvent) {
     if(this.mirrorImagesId === event.sourceID) {
       this.damage += event.amount + (event.absorbed || 0);
     }
@@ -50,9 +52,9 @@ class MirrorImage extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.damageSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>Your <SpellLink id={SPELLS.MIRROR_IMAGE_TALENT.id} /> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
           .icon(SPELLS.MIRROR_IMAGE_TALENT.icon)
           .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Mirror Image`)
@@ -62,13 +64,17 @@ class MirrorImage extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.MIRROR_IMAGE_TALENT.id}
-        position={STATISTIC_ORDER.CORE(100)}
-        value={`${formatPercentage(this.damagePercent)} %`}
-        label="Mirror Image damage"
+      <Statistic
+        size="flexible"
+        category={'TALENTS'}
         tooltip={<>This is the portion of your total damage attributable to Mirror Image. Expressed as an increase vs never using Mirror Image, this is a <strong>{formatPercentage(this.damageIncreasePercent)}% damage increase</strong></>}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.MIRROR_IMAGE_TALENT}>
+          <>
+          {formatPercentage(this.damagePercent)}% <small> damage contribution</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
