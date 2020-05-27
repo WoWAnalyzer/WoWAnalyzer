@@ -136,7 +136,7 @@ class HotTracker extends Analyzer {
       att.healing += calculateEffectiveHealing(event, att.boost); 
     });
 
-    if(event.hitType === HIT_TYPES.CRIT && hot.effectOnCrit){//if the heal crits and it does something fancy on crits do that 
+    if(event.hitType === HIT_TYPES.CRIT && this.hotInfo[spellId].effectOnCrit){//if the heal crits and it does something fancy on crits do that 
       hot.effectOnCrit(event);
     }
     // extensions handled when HoT falls, using ticks list
