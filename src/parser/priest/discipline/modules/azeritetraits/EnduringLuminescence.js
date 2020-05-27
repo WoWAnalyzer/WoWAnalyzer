@@ -7,10 +7,9 @@ import { formatPercentage } from 'common/format';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
-
-import isAtonement from '../core/isAtonement';
+import Events from 'parser/core/Events';
 
 import { POWER_WORD_RADIANCE_COEFFICIENT } from '../../constants';
 
@@ -35,7 +34,6 @@ class EnduringLuminescense extends Analyzer {
 
     constructor(...args) {
         super(...args);
-        this._maxTargets = 5;
         this.active = this.selectedCombatant.hasTrait(SPELLS.ENDURING_LUMINESCENCE.id);
 
         if (!this.active) {
@@ -44,65 +42,18 @@ class EnduringLuminescense extends Analyzer {
 
         this._rawBonusHealingPerHit = this.selectedCombatant.traitsBySpellId[SPELLS.ENDURING_LUMINESCENCE.id]
             .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.ENDURING_LUMINESCENCE.id, rank)[0], 0);
+
+        this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT), this.handleEvangelismCasts);
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.handleAtonementsApplications);
+        this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE), this.handleRadianceHits);
+        this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_HEAL_NON_CRIT), this.handleAtonementsHits);
+        this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_HEAL_CRIT), this.handleAtonementsHits);
     }
 
-    on_byPlayer_cast(event){
-        const spellId = event.ability.guid;
 
-        if(spellId !== SPELLS.POWER_WORD_RADIANCE.id && spellId !== SPELLS.EVANGELISM_TALENT.id) {
-            return;
-        }
-
-        if (spellId === SPELLS.POWER_WORD_RADIANCE.id) {
-            console.log('Last cast is radiance');
-            this._lastCastIsPowerWordRadiance = true;
-        }
-
-        if (spellId === SPELLS.EVANGELISM_TALENT.id){
-            this._atonementsAppliedByRadiances.forEach((atonement, index) => {
-                //Atonements in their normal duration when Evangelism is cast
-                if(event.timestamp > atonement.applyBuff.timestamp
-                && event.timestamp < atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration){
-                    this._atonementsAppliedByRadiances[index].wasExtendedByEvangelismPreEnduringWindow = true;
-                }
-                //Atonements in their Enduring Luminescence window when Evangelism is cast
-                if(event.timestamp > atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration
-                && event.timestamp < atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration + ENDURING_LUMINESCENCE_BONUS_MS){
-                    this._atonementsAppliedByRadiances[index].wasExtendedByEvangelismInEnduringWindow = true;
-                }
-            });
-        }
-    }
-
-    on_byPlayer_applybuff(event){
-        const spellId = event.ability.guid;
-
-        if(spellId !== SPELLS.ATONEMENT_BUFF.id){
-            return;
-        }
-
-        if (this._lastCastIsPowerWordRadiance) {
-
-            //Any atonement that is applied by Power Word: Radiance will have its corresponding
-            //applybuff event assigned a new property __modified set to true, indicating it comes from a Power Word: Radiance cast
-            if(event.__modified !== true){
-                this._lastCastIsPowerWordRadiance = false;
-                return;
-            }
-      
-            this._atonementsAppliedByRadiances.push({
-              "applyBuff": event,
-              "atonementEvents": [],
-              "wasExtendedByEvangelismPreEnduringWindow": false,
-              "wasExtendedByEvangelismInEnduringWindow": false,
-            });
-        }
-    }
-
-    calculateBonusAtonement(event) {
-
-        if(!isAtonement(event)) { return; }
-
+    handleAtonementsHits(event){
+        //Same situation as for Depth of the Shadows
+        //Atonements in their Enduring window are fully counted since they would not be there otherwise
         this._atonementsAppliedByRadiances.forEach((atonement, index) => {
             const lowerBound = atonement.applyBuff.timestamp
                              + (atonement.wasExtendedByEvangelismPreDepthWindow ? EVANGELISM_BONUS_MS : 0)
@@ -120,11 +71,40 @@ class EnduringLuminescense extends Analyzer {
         });
     }
 
-    on_byPlayer_heal(event){
-        if(event.ability.guid === SPELLS.POWER_WORD_RADIANCE.id){
-            this._bonusFromDirectHeal += calculateTraitHealing(this.statTracker.currentIntellectRating, POWER_WORD_RADIANCE_COEFFICIENT, this._rawBonusHealingPerHit, event).healing;
+    handleEvangelismCasts(event){
+
+        this._atonementsAppliedByRadiances.forEach((atonement, index) => {
+            //Atonements in their normal duration window when Evangelism is cast
+            if(event.timestamp > atonement.applyBuff.timestamp
+            && event.timestamp < atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration){
+                this._atonementsAppliedByRadiances[index].wasExtendedByEvangelismPreEnduringWindow = true;
+            }
+            //Atonements in their Enduring Luminescence duration window when Evangelism is cast
+            if(event.timestamp > atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration
+            && event.timestamp < atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration + ENDURING_LUMINESCENCE_BONUS_MS){
+                this._atonementsAppliedByRadiances[index].wasExtendedByEvangelismInEnduringWindow = true;
+            }
+        });
+    }
+
+    handleAtonementsApplications(event){
+
+        //Any atonement that is applied by Power Word: Radiance will have its corresponding
+        //applybuff event assigned a new property __modified set to true, indicating it comes from a Power Word: Radiance cast
+        if(event.__modified !== true){
+            return;
         }
-        this.calculateBonusAtonement(event);
+    
+        this._atonementsAppliedByRadiances.push({
+            "applyBuff": event,
+            "atonementEvents": [],
+            "wasExtendedByEvangelismPreEnduringWindow": false,
+            "wasExtendedByEvangelismInEnduringWindow": false,
+        });
+    }
+
+    handleRadianceHits(event){
+        this._bonusFromDirectHeal += calculateTraitHealing(this.statTracker.currentIntellectRating, POWER_WORD_RADIANCE_COEFFICIENT, this._rawBonusHealingPerHit, event).healing;
     }
 
     statistic() {
