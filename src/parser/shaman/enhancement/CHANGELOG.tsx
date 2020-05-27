@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 5, 27), <>Corrected damage gains of <SpellLink id={SPELLS.ROILING_STORM.id} /> and <SpellLink id={SPELLS.THUNDERAANS_FURY.id} />, they now scale with stats.</>, [Vetyst]),
   change(date(2020, 5, 25), <>Converted remaining Enhancement Shaman files to typescript and cleaned its modules.</>, [Vetyst]),
   change(date(2020, 4, 20), <>Updated <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> suggestion and damage display.</>, [Vetyst]),
   change(date(2020, 4, 14), <>Showing primary buffs on the timeline.</>, [Vetyst]),
