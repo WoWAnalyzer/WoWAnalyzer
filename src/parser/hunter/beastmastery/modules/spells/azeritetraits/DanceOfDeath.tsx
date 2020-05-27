@@ -5,10 +5,10 @@ import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS/index';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Agility from 'interface/icons/Agility';
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const danceOfDeathStats = (traits: number[]) => Object.values(traits).reduce((obj: { agility: number }, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.DANCE_OF_DEATH.id, rank);

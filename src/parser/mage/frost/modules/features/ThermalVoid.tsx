@@ -2,6 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer from 'parser/core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
@@ -47,7 +48,7 @@ class ThermalVoid extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip="Extension times include the base 10 second increase from the talent."
         dropdown={(
           <>

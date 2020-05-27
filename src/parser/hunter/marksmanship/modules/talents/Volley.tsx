@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS/index';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from 'parser/core/Events';
@@ -113,7 +114,7 @@ class Volley extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             You had {this.procs} {this.procs > 1 ? `procs` : `proc`}. <br />

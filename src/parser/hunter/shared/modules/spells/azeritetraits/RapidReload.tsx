@@ -11,6 +11,7 @@ import { formatDuration, formatPercentage} from 'common/format';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
+
 const MULTI_SHOTS = [SPELLS.MULTISHOT_BM.id, SPELLS.MULTISHOT_MM.id];
 const COOLDOWN_REDUCTION_MS = 1000;
 

@@ -5,6 +5,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { ApplyBuffEvent, RemoveBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -86,7 +87,7 @@ class BlasterMaster extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={`Blaster Master is a somewhat complicated trait to get the full effect from and may involve adjusting your rotation during Combustion. In order to get the most out of this trait, you should aim to get to ${TRAIT_STACK_THRESHOLD} stacks of the Blaster Master during Combustion. For additional information on how to accomplish this, refer to the Mage Discord or the link in the Suggestion.`}
       >
         <BoringSpellValueText spell={SPELLS.BLASTER_MASTER}>

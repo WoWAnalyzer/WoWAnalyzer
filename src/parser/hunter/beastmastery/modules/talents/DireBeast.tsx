@@ -5,6 +5,7 @@ import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
@@ -57,7 +58,7 @@ class DireBeast extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff.</>}
       >
         <BoringSpellValueText spell={SPELLS.DIRE_BEAST_TALENT}>

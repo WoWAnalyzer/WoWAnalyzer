@@ -8,9 +8,10 @@ import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SpellLink from 'common/SpellLink';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
 
@@ -135,6 +136,7 @@ class WildfireBomb extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(20)}
         size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.WILDFIRE_BOMB}>
           <>

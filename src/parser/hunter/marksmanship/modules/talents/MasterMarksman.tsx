@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { CastEvent } from 'parser/core/Events';
@@ -60,7 +61,7 @@ class MasterMarksman extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(10)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             You gained a total of {this.totalProcs} procs, and utilised {this.usedProcs} of them.

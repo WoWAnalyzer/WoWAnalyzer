@@ -7,6 +7,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
@@ -144,7 +145,7 @@ class LockAndLoad extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(10)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             You had {this.noGainLNLProcs} {this.noGainLNLProcs > 1 || this.noGainLNLProcs === 0 ? `procs` : `proc`} with LnL already active. <br />

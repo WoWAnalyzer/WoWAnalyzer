@@ -4,6 +4,7 @@ import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
@@ -133,7 +134,7 @@ class RuneOfPower extends Analyzer {
       return (
         <Statistic
           size="flexible"
-          category={'TALENTS'}
+          category={STATISTIC_CATEGORY.TALENTS}
           tooltip={<>This is the portion of your total damage attributable to Rune of Power's boost. Expressed as an increase vs never using Rune of Power, this is a <strong>{formatPercentage(this.damageIncreasePercent)}% damage increase</strong>. Note that this number does <em>not</em> factor in the opportunity cost of casting Rune of Power instead of another damaging spell.</>}
         >
           <BoringSpellValueText spell={SPELLS.RUNE_OF_POWER_TALENT}>

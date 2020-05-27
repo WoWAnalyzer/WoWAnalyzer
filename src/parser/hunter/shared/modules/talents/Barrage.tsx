@@ -8,6 +8,7 @@ import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -106,7 +107,7 @@ class Barrage extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(20)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.BARRAGE_TALENT}>
           <>

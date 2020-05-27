@@ -16,6 +16,11 @@ export default {
     name: 'Depth of the Shadows',
     icon: 'spell_shadow_shadowmend',
   },
+  ENDURING_LUMINESCENCE:{
+    id: 278643,
+    name: 'Enduring Luminescence',
+    icon: 'spell_priest_power-word',
+  },
   // Holy
   BLESSED_SANCTUARY: {
     id: 273313,

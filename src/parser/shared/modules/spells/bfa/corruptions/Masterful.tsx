@@ -7,7 +7,7 @@ import MasteryIcon from 'interface/icons/Mastery';
 import ArrowIcon from 'interface/icons/UpArrow';
 import Events, { ChangeStatsEvent, FightEndEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_CATEGORY } from 'interface/others/StatisticBox';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const T1_MULTIPLIER = .06;

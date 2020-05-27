@@ -8,6 +8,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Events, { CastEvent } from 'parser/core/Events';
 
 const BUFF_TOTEM_RESONANCE_SPELL_ID = 262419;
@@ -89,7 +90,7 @@ class TotemMastery extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValue
           spell={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT}

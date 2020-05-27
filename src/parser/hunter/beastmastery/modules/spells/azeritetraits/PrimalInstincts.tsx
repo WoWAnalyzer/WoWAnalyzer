@@ -12,7 +12,6 @@ import Statistic from 'interface/statistics/Statistic';
 import { ApplyBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-
 const primalInstinctsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
       const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
       obj.mastery += mastery;

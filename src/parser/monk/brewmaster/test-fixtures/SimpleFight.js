@@ -72,9 +72,9 @@ export const refreshBuff = [
 ];
 
 export const removebuff = [
-  { type: EventType.RemoveDebuff, sourceID: thisPlayer, targetid: thisPlayer, timestamp: 4500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
-  { type: EventType.RemoveDebuff, sourceID: thisPlayer, targetid: thisPlayer, timestamp: 8200, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
-  { type: EventType.RemoveDebuff, sourceID: thisPlayer, targetid: thisPlayer, timestamp: 9700, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+  { type: EventType.RemoveBuff, sourceID: thisPlayer, targetid: thisPlayer, timestamp: 4500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+  { type: EventType.RemoveBuff, sourceID: thisPlayer, targetid: thisPlayer, timestamp: 8200, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+  { type: EventType.RemoveBuff, sourceID: thisPlayer, targetid: thisPlayer, timestamp: 9700, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
 ];
 
 // This absorb is used from the damage line

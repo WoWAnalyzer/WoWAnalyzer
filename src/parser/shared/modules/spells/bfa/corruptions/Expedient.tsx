@@ -5,7 +5,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Events, { ChangeStatsEvent, FightEndEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_CATEGORY } from 'interface/others/StatisticBox';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import HasteIcon from 'interface/icons/Haste';
 import ArrowIcon from 'interface/icons/UpArrow';

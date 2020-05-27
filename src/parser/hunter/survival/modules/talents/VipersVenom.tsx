@@ -9,6 +9,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { RAPTOR_MONGOOSE_VARIANTS, VIPERS_VENOM_DAMAGE_MODIFIER } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
@@ -150,7 +151,7 @@ class VipersVenom extends Analyzer {
             </ul>
           </>
         )}
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.VIPERS_VENOM_TALENT}>
           <>

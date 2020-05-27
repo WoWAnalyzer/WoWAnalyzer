@@ -6,6 +6,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { CastEvent } from 'parser/core/Events';
@@ -73,7 +74,7 @@ class KillerCobra extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.KILLER_COBRA_TALENT}>
           <>

@@ -5,6 +5,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
@@ -44,7 +45,7 @@ class NaturesGuardian extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(999)}
         size="small"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.NATURES_GUARDIAN_TALENT}>
           <>

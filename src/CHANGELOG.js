@@ -9,13 +9,14 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
-  change(date(2020, 5, 24), <>Fixed a bug where <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} /> showed as having done 0 healing </>, Putro),
+  change(date(2020, 5, 27), <>Fixed a bug where <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} /> showed as having done 0 healing </>, Putro),
   change(date(2020, 5, 18), 'Replaced duplicate FIGHT_DIFFICULTIES with DIFFICULTIES', Vetyst),
   change(date(2020, 5, 18), 'Updated patchlist', Vetyst),
   change(date(2020, 5, 14), 'Replaced hardcoded event type strings with EventType equivalent', Vetyst),
   change(date(2020, 5, 13), 'Disallow use of ++ and -- to adhere to the style guide', Putro),
+  change(date(2020, 5, 25), 'Replaced hard-coded statistic categories with STATISTIC_CATEGORY.', Vetyst),
   change(date(2020, 5, 12), 'Tweak JetBrains codeStyles file to better adhere to code style, while allowing for auto-formatting all files in the repository.', Vetyst),
-  change(date(2020, 5, 12), 'Reduced avatar and article image file sizes', Vetyst),
+  change(date(2020, 5, 12), 'Reduced avatar and article image file sizes.', Vetyst),
   change(date(2020, 4, 26), <>Added <SpellLink id={SPELLS.BLOOD_FURY_PHYSICAL.id} /> to the core parser. </>, Putro),
   change(date(2020, 4, 16), <>Fixed a bug where the haste value gained <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS_RANK_THREE_FOUR.id} /> minor was extremely low if the buff never fell off.</>, Putro),
   change(date(2020, 4, 14), <>Using <ItemLink id={ITEMS.AZSHARAS_FONT_OF_POWER.id} /> no longer shows as downtime during the channel.</>, Sharrq),
@@ -35,7 +36,7 @@ export default [
   change(date(2020, 2, 12), 'Implemented a corruption overview on the character page.', Putro),
   change(date(2020, 2, 12), 'Fixed a bug that breaks the player selection when there is incomplete information from warcraftlogs.', niseko),
   change(date(2020, 2, 9), 'Added statistics for the 8.3 Alchemist Stones.', niseko),
-  change(date(2020, 2, 5), <> Implemented <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} />, <ItemLink id={ITEMS.VITA_CHARGED_TITANSHARD.id} /> as well as an individual statistic for the set bonus <SpellLink id={SPELLS.TITANIC_EMPOWERMENT.id} />. </>, Putro),
+  change(date(2020, 2, .5), <> Implemented <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} />, <ItemLink id={ITEMS.VITA_CHARGED_TITANSHARD.id} /> as well as an individual statistic for the set bonus <SpellLink id={SPELLS.TITANIC_EMPOWERMENT.id} />. </>, Putro),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.HONED_MIND_BUFF.id} />, <SpellLink id={SPELLS.SURGING_VITALITY_BUFF.id} />, <SpellLink id={SPELLS.RACING_PULSE_BUFF.id} /> and <SpellLink id={SPELLS.DEADLY_MOMENTUM_BUFF.id} />.</>, niseko),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} />.</>, niseko),
   change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.SIPHONER_T3.id} /> and fixed leech stat values in parses using this corruption.</>, niseko),
