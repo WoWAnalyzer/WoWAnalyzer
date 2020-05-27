@@ -48,6 +48,23 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
         {combatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id) &&
         <AbilityRequirement spell={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id} />}
       </Rule>
+
+      <Rule
+        name="Maintain your buffs"
+        description={"You should maintain your buffs in order to passivly increase your damage done to targets without refreshing them to early."}
+      >
+        <Requirement name={<> <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> uptime</>} thresholds={thresholds.lightningShieldUptime} />
+
+        {combatant.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id) &&
+        <Requirement name={<> <SpellLink id={SPELLS.FURY_OF_AIR_TALENT.id} /> uptime</>} thresholds={thresholds.furyOfAirUptime} />}
+
+        <Requirement name={<> <SpellLink id={SPELLS.FLAMETONGUE.id} /> uptime</>} thresholds={thresholds.flametongueUptime} />
+        {!combatant.hasTalent(SPELLS.SUNDERING_TALENT.id) &&
+        <Requirement name={<> <SpellLink id={SPELLS.FLAMETONGUE.id} /> early refreshes</>} thresholds={thresholds.flametongueEarlyRefreshes} />}
+
+        {combatant.hasTalent(SPELLS.HAILSTORM_TALENT.id) &&
+        <Requirement name={<> <SpellLink id={SPELLS.HAILSTORM_TALENT.id} /> uptime</>} thresholds={thresholds.frostbrandUptime} />}
+      </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

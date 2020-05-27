@@ -25,7 +25,7 @@ class Hailstorm extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
   }
 
-  get frostBrandSuggestionTresholds() {
+  get frostBrandUptimeThresholds() {
     return {
       actual: this.frostBrandUptime,
       isLessThan: {
@@ -38,7 +38,7 @@ class Hailstorm extends Analyzer {
   }
 
   suggestions(when: any) {
-    when(this.frostBrandSuggestionTresholds).addSuggestion(
+    when(this.frostBrandUptimeThresholds).addSuggestion(
       (suggest: any, actual: any, recommended: any) => {
         return suggest(
           <Trans>

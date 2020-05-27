@@ -26,7 +26,7 @@ class FuryOfAir extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.FURY_OF_AIR_TALENT.id) / this.owner.fightDuration;
   }
 
-  get furyOfAirTresholds() {
+  get furyOfAirUptimeThresholds() {
     return {
       actual:
       this.furyOfAirUptime,
@@ -40,7 +40,7 @@ class FuryOfAir extends Analyzer {
   }
 
   suggestions(when: any) {
-    when(this.furyOfAirTresholds)
+    when(this.furyOfAirUptimeThresholds)
       .addSuggestion(
         (suggest: any, actual: any, recommended: any) => {
           return suggest(

@@ -58,7 +58,7 @@ class LightningShield extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.LIGHTNING_SHIELD_TALENT.id) / (this.owner.fightDuration - this.deathTracker.totalTimeDead);
   }
 
-  get suggestionThresholds() {
+  get lightningShieldUptimeThreshold() {
     return {
       actual: this.getLightningShieldUptime,
       isLessThan: {
@@ -71,7 +71,7 @@ class LightningShield extends Analyzer {
   }
 
   suggestions(when: any) {
-    when(this.suggestionThresholds)
+    when(this.lightningShieldUptimeThreshold)
       .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(
           <Trans>
