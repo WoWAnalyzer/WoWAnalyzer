@@ -165,7 +165,7 @@ class HeatingUp extends Analyzer {
   suggestions(when: any) {
 		when(this.fireBlastUtilSuggestionThresholds)
 			.addSuggestion((suggest: any, actual: any, recommended: any) => {
-				return suggest(<>You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.fireBlastWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak.</>)
+				return suggest(<>You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.fireBlastWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak or if you are going to cap on charges.</>)
 					.icon(SPELLS.FIRE_BLAST.icon)
 					.actual(`${formatPercentage(this.fireBlastUtil)}% Utilization`)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`);

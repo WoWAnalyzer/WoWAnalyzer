@@ -147,7 +147,7 @@ class PlayerLoader extends React.PureComponent {
         // Gear may be null for broken combatants
         this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
         if (characterData && characterData.heartOfAzeroth) {
-          numberOfCombatantsWithLoadedHeart++;
+          numberOfCombatantsWithLoadedHeart += 1;
           this.heartLvl += characterData.heartOfAzeroth.azeriteItemLevel;
         }
       });

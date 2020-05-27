@@ -9,6 +9,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { RAPTOR_MONGOOSE_VARIANTS, VIPERS_VENOM_DAMAGE_MODIFIER } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
@@ -55,7 +56,7 @@ class VipersVenom extends Analyzer {
       return;
     }
     if (RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
-      this.badRaptorsOrMBs++;
+      this.badRaptorsOrMBs += 1;
     }
   }
 
@@ -73,7 +74,7 @@ class VipersVenom extends Analyzer {
     if (spellId !== SPELLS.VIPERS_VENOM_BUFF.id) {
       return;
     }
-    this.procs++;
+    this.procs += 1;
     this.lastProcTimestamp = event.timestamp;
   }
 
@@ -82,7 +83,7 @@ class VipersVenom extends Analyzer {
     if (spellId !== SPELLS.VIPERS_VENOM_BUFF.id) {
       return;
     }
-    this.wastedProcs++;
+    this.wastedProcs += 1;
   }
 
   get averageTimeBetweenBuffAndUsage() {
@@ -144,7 +145,7 @@ class VipersVenom extends Analyzer {
             </ul>
           </>
         )}
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.VIPERS_VENOM_TALENT}>
           <>

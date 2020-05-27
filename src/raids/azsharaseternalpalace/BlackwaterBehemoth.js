@@ -1,5 +1,6 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/BlackwaterBehemoth.jpg';
 import Headshot from './images/headshots/BlackwaterBehemoth.png';
@@ -19,9 +20,9 @@ export default {
     phases: {
       P: {
         name: 'Platform',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'interrupt',
+          type: EventType.Interrupt,
           ability: {
             id: SPELLS.CAVITATION_BEGIN_CAST.id,
           },
@@ -30,9 +31,9 @@ export default {
       },
       I: {
         name: 'Intermission',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'begincast',
+          type: EventType.BeginCast,
           ability: {
             id: SPELLS.CAVITATION_BEGIN_CAST.id,
           },

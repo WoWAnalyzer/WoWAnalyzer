@@ -65,7 +65,7 @@ class PrayerfulLitany extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PRAYER_OF_HEALING.id) {
       this.lastPoHCast = event.timestamp;
-      this.prayerOfHealingCasts++;
+      this.prayerOfHealingCasts += 1;
 
       // If you hit yourself with prayer of healing, the heal event will fire before the cast event. This compensates for that.
       if (this.numberOfHeals > 1) {

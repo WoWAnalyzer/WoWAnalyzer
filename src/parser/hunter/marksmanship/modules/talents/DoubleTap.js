@@ -5,6 +5,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
@@ -30,7 +31,7 @@ class DoubleTap extends Analyzer {
     if (spellId !== SPELLS.DOUBLE_TAP_TALENT.id) {
       return;
     }
-    this.activations++;
+    this.activations += 1;
   }
 
   on_byPlayer_cast(event) {
@@ -39,10 +40,10 @@ class DoubleTap extends Analyzer {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
-      this.aimedUsage++;
+      this.aimedUsage += 1;
     }
     if (spellId === SPELLS.RAPID_FIRE.id) {
-      this.RFUsage++;
+      this.RFUsage += 1;
     }
   }
 
@@ -55,7 +56,7 @@ class DoubleTap extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             You used Double Tap a total of {this.activations} times, and utilised {this.totalUsage} of them.

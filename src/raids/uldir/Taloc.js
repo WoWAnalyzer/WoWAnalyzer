@@ -1,5 +1,6 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/Backgrounds/Taloc.jpg';
 import Headshot from './images/Headshots/Taloc.png';
@@ -24,13 +25,13 @@ export default {
     phases: {
       P1: {
         name: 'Stage One: The Corrupted Construct',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       P2: {
         name: 'Stage Two: Ruin\'s Descent',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'applybuff',
+          type: EventType.ApplyBuff,
           ability: {
             id: SPELLS.TALOC_POWERED_DOWN.id,
           },
@@ -38,9 +39,9 @@ export default {
       },
       P3: {
         name: 'Stage Three: The Bottom Floor',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'removebuff',
+          type: EventType.RemoveBuff,
           ability: {
             id: SPELLS.TALOC_POWERED_DOWN.id,
           },

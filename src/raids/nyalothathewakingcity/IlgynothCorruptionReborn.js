@@ -1,5 +1,6 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/IlgynothCorruptionReborn.jpg';
 import Headshot from './images/headshots/IlgynothCorruptionReborn.png';
@@ -20,9 +21,9 @@ export default {
       P1: {
         name: 'Stage 1: The Corruptor, Reborn',
         multiple: true,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: SPELLS.ILGYNOTHS_MORASS.id,
           },
@@ -31,9 +32,9 @@ export default {
       P2: {
         name: 'Stage 2: The Organs of Corruption',
         multiple: true,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'adds',
+          type: EventType.Adds,
           guid: 158328,
           health: 0.1,
         },

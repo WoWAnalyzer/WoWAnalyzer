@@ -1,5 +1,6 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/UunatHarbingerOfTheVoid.jpg';
 import Headshot from './images/headshots/UunatHarbingerOfTheVoid.png';
@@ -21,13 +22,13 @@ export default {
     phases: {
       P1: {
         name: 'Stage One: His All-Seeing Eyes',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       I1: {
         name: 'Intermission One',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'applybuff',
+          type: EventType.ApplyBuff,
           ability: {
             id: SPELLS.VOID_SHIELD.id,
           },
@@ -36,9 +37,9 @@ export default {
       },
       P2: {
         name: 'Stage Two: His Dutiful Servants',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'removebuff',
+          type: EventType.RemoveBuff,
           ability: {
             id: SPELLS.VOID_SHIELD.id,
           },
@@ -47,9 +48,9 @@ export default {
       },
       I2: {
         name: 'Intermission Two',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'applybuff',
+          type: EventType.ApplyBuff,
           ability: {
             id: SPELLS.VOID_SHIELD.id,
           },
@@ -58,9 +59,9 @@ export default {
       },
       P3: {
         name: 'Stage Three: His Unwavering Gaze',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'removebuff',
+          type: EventType.RemoveBuff,
           ability: {
             id: SPELLS.VOID_SHIELD.id,
           },

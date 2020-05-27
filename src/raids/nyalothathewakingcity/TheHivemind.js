@@ -1,5 +1,6 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/TheHivemind.jpg';
 import Headshot from './images/headshots/TheHivemind.png';
@@ -20,9 +21,9 @@ export default {
       P1: {
         name: 'Tek\'ris Controlled',
         multiple: true,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: SPELLS.TEKRIS_HIVEMIND_CONTROL.id,
           },
@@ -31,9 +32,9 @@ export default {
       P2: {
         name: 'Ka\'zir Controlled',
         multiple: true,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: SPELLS.KAZIR_HIVEMIND_CONTROL.id,
           },

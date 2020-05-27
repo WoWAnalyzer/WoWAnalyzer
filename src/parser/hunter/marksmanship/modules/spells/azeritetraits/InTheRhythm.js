@@ -5,6 +5,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 import HasteIcon from 'interface/icons/Haste';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage, formatNumber } from 'common/format';
@@ -94,7 +95,7 @@ class InTheRhythm extends Analyzer {
             You lost out on {formatNumber(this.wastedUptime / 1000)} seconds of uptime from refreshing the buff before it expired.
           </>
         )}
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
       >
         <BoringSpellValueText spell={SPELLS.IN_THE_RHYTHM}>
           <>

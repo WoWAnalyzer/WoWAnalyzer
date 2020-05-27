@@ -4,10 +4,12 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { EventType } from 'parser/core/Events';
 
 const MAX_STACKS = 5;
 
@@ -39,10 +41,10 @@ class MongooseBite extends Analyzer {
   }
 
   handleStacks(event) {
-    if (event.type === 'removebuff' || (isNaN(event.stack) && event.type !== 'damage')) { //NaN check if player is dead during on_finish
+    if (event.type === EventType.RemoveBuff || (isNaN(event.stack) && event.type !== EventType.Damage)) { //NaN check if player is dead during on_finish
       this.lastMongooseBiteStack = 0;
     }
-    if (event.type === 'damage') {
+    if (event.type === EventType.Damage) {
       // Because Aspect of the Eagle applies a traveltime to Mongoose Bite, it sometimes applies the buff before it hits, despite not increasing the damage.
       // This fixes that, ensuring we reduce by 1, and later increasing it by one.
       if (this.lastMongooseBiteStack === 1 && event.timestamp < this.buffApplicationTimestamp + MAX_TRAVEL_TIME) {
@@ -52,7 +54,7 @@ class MongooseBite extends Analyzer {
       if (!this.mongooseBiteStacks[this.lastMongooseBiteStack]) {
         this.mongooseBiteStacks[this.lastMongooseBiteStack].push(this.lastMongooseBiteStack);
       } else {
-        this.mongooseBiteStacks[this.lastMongooseBiteStack]++;
+        this.mongooseBiteStacks[this.lastMongooseBiteStack] += 1;
       }
       if (this.aspectOfTheEagleFixed) {
         this.lastMongooseBiteStack += 1;
@@ -60,12 +62,12 @@ class MongooseBite extends Analyzer {
       }
       this.damage += event.amount + (event.absorbed || 0);
     }
-    if (event.type === 'applybuff') {
+    if (event.type === EventType.ApplyBuff) {
       this.lastMongooseBiteStack = 1;
       this.accumulatedFocusAtWindow[this.totalWindowsStarted] = this.focusAtMomentOfCast;
       this.totalWindowsStarted += 1;
     }
-    if (event.type === 'applybuffstack') {
+    if (event.type === EventType.ApplyBuffStack) {
       this.lastMongooseBiteStack = event.stack;
       if (this.lastMongooseBiteStack === MAX_STACKS) {
         this.fiveBiteWindows += 1;
@@ -209,7 +211,7 @@ class MongooseBite extends Analyzer {
             </table>
           </>
         )}
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.MONGOOSE_BITE_TALENT}>
           <ItemDamageDone amount={this.damage} /> <br />

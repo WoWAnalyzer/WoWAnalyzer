@@ -7,6 +7,7 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { HYDRAS_BITE_DOT_MODIFIER } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
@@ -36,7 +37,7 @@ class HydrasBite extends Analyzer {
     }
     const target = encodeTargetString(event.targetID, event.targetInstance);
     this.mainTargets.push(target);
-    this.casts++;
+    this.casts += 1;
   }
 
   on_byPlayer_damage(event) {
@@ -118,7 +119,7 @@ class HydrasBite extends Analyzer {
             </table>
           </>
         )}
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.HYDRAS_BITE_TALENT}>
           <>

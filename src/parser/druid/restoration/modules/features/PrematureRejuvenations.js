@@ -51,7 +51,7 @@ class PrematureRejuvenations extends Analyzer {
 
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.REJUVENATION.id) {
-      this.totalRejuvsCasts++;
+      this.totalRejuvsCasts += 1;
 
       const oldRejuv = this.rejuvenations.find(e => e.targetId === event.targetID);
       if (oldRejuv == null) {
@@ -61,7 +61,7 @@ class PrematureRejuvenations extends Analyzer {
 
       const pandemicTimestamp = oldRejuv.timestamp + ((REJUV_DURATION * PANDEMIC_THRESHOLD) + MS_BUFFER);
       if (pandemicTimestamp > event.timestamp) {
-        this.earlyRefreshments++;
+        this.earlyRefreshments += 1;
         this.timeLost += pandemicTimestamp - event.timestamp;
       }
 

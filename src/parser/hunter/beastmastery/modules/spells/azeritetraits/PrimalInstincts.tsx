@@ -9,7 +9,8 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from '../../../../../../interface/statistics/Statistic';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { ApplyBuffEvent } from '../../../../../core/Events';
 
 
@@ -75,9 +76,9 @@ class PrimalInstincts extends Analyzer {
 
     const hasTwoBarbedCharges = this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id) === 2;
     if (hasTwoBarbedCharges) {
-      this.wastedBarbedShots++;
+      this.wastedBarbedShots += 1;
     } else {
-      this.chargesGained++;
+      this.chargesGained += 1;
     }
   }
 
@@ -85,7 +86,7 @@ class PrimalInstincts extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
             Primal Instincts granted <strong>{this.mastery}</strong> Mastery for <strong>{formatPercentage(

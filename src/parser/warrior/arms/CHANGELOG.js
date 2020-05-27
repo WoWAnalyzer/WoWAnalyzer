@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { Aelexe, Zerotorescue, Sharrq, Matardarix, Korebian } from 'CONTRIBUTORS';
+import { Aelexe, Zerotorescue, Sharrq, Matardarix, Korebian, Torothin } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+
+  change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.OVERPOWER.id} /> wasted statistic to the statisitcs tab</>, [Torothin]),
   change(date(2019, 2, 3), <>Added a suggestion to not use <SpellLink id={SPELLS.SWEEPING_STRIKES.id} /> during <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> / <SpellLink id={SPELLS.WARBREAKER_TALENT.id} />.</>, [Korebian]),
   change(date(2019, 2, 2), <>Added more information to the <SpellLink id={SPELLS.CRUSHING_ASSAULT_TRAIT.id} /> module. Added <SpellLink id={SPELLS.LORD_OF_WAR.id} /> module.</>, [Korebian]),
   change(date(2018, 12, 12), <>Updated for patch 8.1, <SpellLink id={SPELLS.CHARGE.id} /> is no longer on the GCD and <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} /> have been replaced by <SpellLink id={SPELLS.STRIKING_THE_ANVIL.id} />.</>, [Matardarix]),

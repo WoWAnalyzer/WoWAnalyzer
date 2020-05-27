@@ -8,6 +8,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { getIcon } from 'parser/shared/modules/features/STAT';
+import { EventType } from 'parser/core/Events';
 
 const archiveOfTheTitansStats = traits => Object.values(traits).reduce((total, rank) => {
   const [stat] = calculateAzeriteEffects(SPELLS.ARCHIVE_OF_THE_TITANS.id, rank);
@@ -69,7 +70,7 @@ class ArchiveOfTheTitans extends Analyzer {
       this.totalPrimary += this.currentStacks * this.primaryPerStack * uptimeOnStack;
     }
 
-    if (event.type === "removebuff") {
+    if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
     } else {
       this.currentStacks = (event.stack || 1);

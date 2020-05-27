@@ -16,6 +16,7 @@ export enum EventType {
   ApplyDebuffStack = 'applydebuffstack',
   RemoveBuffStack = 'removebuffstack',
   RemoveDebuffStack = 'removedebuffstack',
+  ChangeBuffStack = 'changebuffstack',
   RefreshBuff = 'refreshbuff',
   RefreshDebuff = 'refreshdebuff',
   RemoveBuff = 'removebuff',
@@ -26,14 +27,29 @@ export enum EventType {
   Death = 'death',
   Resurrect = 'resurrect',
   CombatantInfo = 'combatantinfo',
+  Instakill = 'instakill',
 
   // Fabricated:
   FightEnd = 'fightend',
   GlobalCooldown = 'globalcooldown',
   BeginChannel = 'beginchannel',
   EndChannel = 'endchannel',
+  CancelChannel = 'cancelchannel',
   UpdateSpellUsable = 'updatespellusable',
   BeaconTransfer = 'beacontransfer',
+  BeaconTransferFailed = 'beacontransferfailed',
+  ChangeStats = 'changestats',
+  ChangeHaste = 'changehaste',
+  BeginCooldown = 'begincooldown',
+  AddCooldownCharge = 'addcooldowncharge',
+  RefreshCooldown = 'refreshcooldown',
+  EndCooldown = 'endcooldown',
+  RestoreCharge = 'restorecharge',
+  Health = 'health',
+  Adds = 'adds',
+  Dispel = 'dispel',
+  Time = 'time',
+  Test = 'test',
 
   // Phases:
   PhaseStart = 'phasestart',
@@ -81,7 +97,7 @@ export interface BeginCastEvent extends Event {
   ability: Ability;
   castEvent: CastEvent;
   channel: {
-    type: 'beginchannel';
+    type: EventType.BeginChannel;
     timestamp: 858735;
     ability: Ability;
     sourceID: number;
@@ -129,6 +145,7 @@ export interface CastEvent extends Event {
   spellPower?: number;
   target?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   targetID?: number;
+  targetInstance?: number;
   targetIsFriendly: boolean;
   x?: number;
   y?: number;
@@ -310,6 +327,40 @@ export interface RemoveBuffStackEvent extends BuffEvent {
   ability: Ability;
   stack: number;
 }
+export interface ChangeBuffStackEvent extends BuffEvent {
+  type: EventType.ChangeBuffStack;
+
+  ability: Ability;
+  end?: number;
+  isDebuff?: boolean;
+  newStacks: number;
+  oldStacks: number;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  stack?: number;
+  stackHistory: {
+    stacks: number;
+    timestamp: number;
+  };
+  stacks: number;
+  stacksGained: number;
+  start: number;
+  targetID: string;
+  targetIsFriendly: boolean;
+  trigger: {
+    end?: number;
+    isDebuff?: boolean;
+    prepull: boolean;
+    sourceID: number;
+    sourceIsFriendly: boolean;
+    stacks: number;
+    start: number;
+    targetID: number;
+    targetIsFriendly: boolean;
+    timestamp: number;
+    type: string;
+  };
+}
 export interface RemoveDebuffStackEvent extends BuffEvent {
   type: EventType.RemoveBuffStack;
 
@@ -409,7 +460,7 @@ export interface UpdateSpellUsableEvent extends Event {
   type: EventType.UpdateSpellUsable;
   ability: Ability;
   name: string
-  trigger: 'begincooldown' | 'endcooldown' | 'refreshcooldown' | 'addcooldowncharge' | 'restorecharge';
+  trigger: EventType.BeginCooldown | EventType.EndCooldown | EventType.RefreshCooldown | EventType.AddCooldownCharge | EventType.RestoreCharge;
   isOnCooldown: boolean
   isAvailable: boolean
   chargesAvailable: number
@@ -427,6 +478,29 @@ export interface UpdateSpellUsableEvent extends Event {
   timeWaitingOnGCD?: number;
 
   __fabricated: true;
+}
+
+export interface Stats {
+  agility: number
+  armor: number
+  avoidance: number
+  crit: number
+  haste: number
+  intellect: number
+  leech: number
+  mastery: number
+  speed: number
+  stamina: number
+  strength: number
+  versatility: number
+}
+
+export interface ChangeStatsEvent extends Event {
+  targetID: number
+  trigger: any
+  after: Stats
+  before: Stats
+  delta: Stats
 }
 
 export interface PhaseEvent extends Event {
@@ -659,6 +733,9 @@ const Events = {
   get applybuffstack() {
     return new EventFilter(EventType.ApplyBuffStack);
   },
+  get changebuffstack() {
+    return new EventFilter(EventType.ChangeBuffStack);
+  },
   get applydebuffstack() {
     return new EventFilter(EventType.ApplyDebuffStack);
   },
@@ -743,6 +820,9 @@ const Events = {
   },
   get EndChannel() {
     return new EventFilter(EventType.EndChannel);
+  },
+  get ChangeStats() {
+    return new EventFilter(EventType.ChangeStats);
   },
 };
 

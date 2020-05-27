@@ -3,13 +3,14 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
 import CriticalStrike from 'interface/icons/CriticalStrike';
 import {
   ApplyBuffEvent,
-  ApplyBuffStackEvent, FightEndEvent,
+  ApplyBuffStackEvent, EventType, FightEndEvent,
   RemoveBuffEvent,
 } from '../../../../core/Events';
 
@@ -42,13 +43,13 @@ class ThrillOfTheHunt extends Analyzer {
   handleStacks(
     event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent,
   ) {
-    if (event.type === 'removebuff') {
+    if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
-    } else if (event.type === 'applybuff') {
+    } else if (event.type === EventType.ApplyBuff) {
       this.currentStacks = 1;
-    } else if (event.type === 'applybuffstack') {
+    } else if (event.type === EventType.ApplyBuffStack) {
       this.currentStacks = event.stack;
-    } else if (event.type === 'fightend') {
+    } else if (event.type === EventType.FightEnd) {
       this.currentStacks = this.lastThrillStack;
     }
     this.thrillStacks[this.lastThrillStack].push(event.timestamp -
@@ -105,7 +106,7 @@ class ThrillOfTheHunt extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
           </>

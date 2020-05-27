@@ -1,5 +1,6 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/Backgrounds/Vectis.jpg';
 import Headshot from './images/Headshots/Vectis.png';
@@ -23,9 +24,9 @@ export default {
     phases: {
       P1: {
         name: 'Stage One: Probing Its Hosts',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'removebuff',
+          type: EventType.RemoveBuff,
           ability: {
             id: SPELLS.VECTIS_LIQUEFY.id,
           },
@@ -33,9 +34,9 @@ export default {
       },
       P2: {
         name: 'Stage Two: Spreading Pandemic',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'applybuff',
+          type: EventType.ApplyBuff,
           ability: {
             id: SPELLS.VECTIS_LIQUEFY.id,
           },

@@ -7,6 +7,7 @@ import { formatDuration } from 'common/format';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import { EventType } from 'parser/core/Events';
 
 import './Casts.scss';
 
@@ -50,21 +51,21 @@ class Casts extends React.PureComponent {
 
   renderEvent(event) {
     switch (event.type) {
-      case 'cast':
+      case EventType.Cast:
         if (this.isApplicableCastEvent(event)) {
           return this.renderCast(event);
         } else {
           return null;
         }
-      case 'beginchannel':
+      case EventType.BeginChannel:
         if (this.isApplicableCastEvent(event)) {
           return this.renderBeginChannel(event);
         } else {
           return null;
         }
-      case 'endchannel':
+      case EventType.EndChannel:
         return this.renderChannel(event);
-      case 'globalcooldown':
+      case EventType.GlobalCooldown:
         return this.renderGlobalCooldown(event);
       default:
         return null;
@@ -134,7 +135,7 @@ class Casts extends React.PureComponent {
     // If the trigger doesn't have a meta prop, and it's a begincast event, use the cast event's instead. We need to do this since often we can only determine if something was a bad cast on cast finish, e.g. if a player should only cast something while a buff is up on finish.
     // Using the cast event's meta works here since the timeline is only ever called when parsing has finished, so it doesn't matter that it's not chronological.
     // This is kind of an ugly hack, but it's the only way to render an icon on the beginchannel event while allowing maintainers to mark the cast events bad. We could have forced everyone to modify meta on the beginchannel/begincast event instead, but that would be inconvenient and unexpected with no real gain.
-    const meta = event.meta || (event.trigger && event.trigger.meta) || (event.trigger && event.trigger.type === 'begincast' && event.trigger.castEvent && event.trigger.castEvent.meta);
+    const meta = event.meta || (event.trigger && event.trigger.meta) || (event.trigger && event.trigger.type === EventType.BeginCast && event.trigger.castEvent && event.trigger.castEvent.meta);
     if (meta) {
       if (meta.isInefficientCast) {
         className += ' inefficient';

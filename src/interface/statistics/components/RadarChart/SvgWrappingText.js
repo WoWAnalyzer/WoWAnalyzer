@@ -40,7 +40,8 @@ class SvgWrappingText extends React.PureComponent {
         line.pop();
         tspan.text(line.join(' '));
         line = [word];
-        tspan = text.append('tspan').attr('x', x).attr('y', y).attr('dy', ++lineNumber * lineHeight + dy + 'em').text(word);
+        lineNumber += 1;
+        tspan = text.append('tspan').attr('x', x).attr('y', y).attr('dy', lineNumber * lineHeight + dy + 'em').text(word);
       }
     });
   }

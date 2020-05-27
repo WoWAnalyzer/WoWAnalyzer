@@ -21,13 +21,13 @@ class TwinMoons extends Analyzer {
     if (event.ability.guid !== SPELLS.MOONFIRE_BEAR.id || event.tick === true) {
       return;
     }
-      this.moonfireHits++;
+      this.moonfireHits += 1;
   }
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.MOONFIRE.id) {
       return;
     }
-      this.moonfireCasts++;
+      this.moonfireCasts += 1;
   }
 
   get percentTwoHits() {

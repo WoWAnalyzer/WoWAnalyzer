@@ -2,6 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
@@ -23,6 +24,9 @@ const BARBED_SHOT_GENERATORS = [
   SPELLS.BARBED_SHOT_BUFF_STACK_3.id,
   SPELLS.BARBED_SHOT_BUFF_STACK_4.id,
   SPELLS.BARBED_SHOT_BUFF_STACK_5.id,
+  SPELLS.BARBED_SHOT_BUFF_STACK_6.id,
+  SPELLS.BARBED_SHOT_BUFF_STACK_7.id,
+  SPELLS.BARBED_SHOT_BUFF_STACK_8.id,
 ];
 
 class ScentOfBlood extends Analyzer {
@@ -57,7 +61,7 @@ class ScentOfBlood extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             <ul>

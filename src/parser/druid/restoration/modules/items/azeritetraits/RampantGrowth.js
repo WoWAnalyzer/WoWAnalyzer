@@ -65,7 +65,7 @@ class RampantGrowth extends Analyzer{
 
     // If regrowth was cast on the LB target, disregard regrowth base HoT/mastery healing on that target for 12 seconds.
     if(combatant.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 200, null, this.owner.playerId)) {
-      this.directRegrowthCastsOnLB++;
+      this.directRegrowthCastsOnLB += 1;
       this.banPeriod = event.timestamp + REGROWTH_DURATION;
     } else {
       this.banPeriod = 0;

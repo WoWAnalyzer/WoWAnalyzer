@@ -6,7 +6,9 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Agility from 'interface/icons/Agility';
+import { EventType } from 'parser/core/Events';
 
 const blurOfTalonsStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.BLUR_OF_TALONS.id, rank);
@@ -53,10 +55,10 @@ class BlurOfTalons extends Analyzer {
   }
 
   handleStacks(event, stack = null) {
-    if (event.type === 'removebuff' || isNaN(event.stack)) { //NaN check if player is dead during on_finish
+    if (event.type === EventType.RemoveBuff || isNaN(event.stack)) { //NaN check if player is dead during on_finish
       event.stack = 0;
     }
-    if (event.type === 'applybuff') {
+    if (event.type === EventType.ApplyBuff) {
       event.stack = 1;
     }
     if (stack) {
@@ -113,7 +115,7 @@ class BlurOfTalons extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
             Blur of Talons was up for a total of {this.uptime} seconds

@@ -117,7 +117,7 @@ export default {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaCost: 2800,
+    manaCost: 2500,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -129,16 +129,6 @@ export default {
     name: 'Revival',
     icon: 'spell_monk_revival',
     manaCost: 4374,
-  },
-  SHEILUNS_GIFT: {
-    id: 205406,
-    name: 'Sheilun\'s Gift',
-    icon: 'inv_staff_2h_artifactshaohao_d_01',
-  },
-  SHEILUNS_GIFT_BUFF: {
-    id: 214502,
-    name: 'Sheilun\'s Gift',
-    icon: 'inv_staff_2h_artifactshaohao_d_01',
   },
   THUNDER_FOCUS_TEA: {
     id: 116680,
@@ -161,11 +151,6 @@ export default {
     id: 198533,
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
-  },
-  UPLIFTING_TRANCE_BUFF: {
-    id: 197206,
-    name: 'Uplifting Trance',
-    icon: 'ability_monk_vivify',
   },
   SPIRIT_OF_THE_CRANE_BUFF: {
     id: 210803,

@@ -7,6 +7,7 @@ import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import DamageValue from 'parser/shared/modules/DamageValue';
@@ -21,9 +22,6 @@ import STAT, { getClassNameColor, getIcon, getName } from './STAT';
 import QELiveLogo from './images/QE-Logo-New-Small.png';
 
 const DEBUG = false;
-
-// 5% int bonus from wearing all of the highest armor rating (Leather, Mail, Plate) means each new point of int worth 1.05 vs character sheet int
-export const ARMOR_INT_BONUS = .05;
 
 /**
  * This is currently completely focussed on Healer stat weights but it should be relatively easy to modify it to work for a DPS, it just requires some work. The only reason no effort was put towards this is that we currently have no DPS interested in implementing this so it would be wasted time. If you do want to implement stat weights for a DPS this should provide you with a very good basis.
@@ -181,7 +179,7 @@ class BaseHealerStatValues extends Analyzer {
     return this.scaleWeightsWithHealth ? gain * mult : gain;
   }
   _leech(event, healVal, spellInfo) {
-    if (event.type !== 'heal') {
+    if (event.type !== EventType.Heal) {
       return 0; // leech doesn't proc from absorbs
     }
 
@@ -214,7 +212,7 @@ class BaseHealerStatValues extends Analyzer {
       return 0; // Leech doesn't proc from multipliers such as Velen's Future Sight
     }
     if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
-      const healIncreaseFromOneLeech = 1 / this.statTracker.leechRatingPerPercent;
+      const healIncreaseFromOneLeech = this.statTracker.statMultiplier.leech / this.statTracker.leechRatingPerPercent;
       return healVal.raw * healIncreaseFromOneLeech;
     }
     return 0;
@@ -224,9 +222,7 @@ class BaseHealerStatValues extends Analyzer {
       // If a spell overheals, it could not have healed for more. Seeing as Int only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
       return 0;
     }
-    const currInt = this.statTracker.currentIntellectRating;
-    // noinspection PointlessArithmeticExpressionJS
-    const healIncreaseFromOneInt = (1 + ARMOR_INT_BONUS) / currInt;
+    const healIncreaseFromOneInt = this.statTracker.statMultiplier.intellect / this.statTracker.currentIntellectRating;
     return healVal.effective * healIncreaseFromOneInt;
   }
   _getCritChance(event) {
@@ -257,19 +253,20 @@ class BaseHealerStatValues extends Analyzer {
       const rawBaseHealing = healVal.raw / critMult;
       const effectiveCritHealing = Math.max(0, healVal.effective - rawBaseHealing);
       const rating = this.statTracker.currentCritRating;
+      const healIncreaseFromOneCrit = this.statTracker.statMultiplier.crit * ratingCritChanceContribution / rating;
 
-      return effectiveCritHealing * ratingCritChanceContribution / rating;
+      return effectiveCritHealing * healIncreaseFromOneCrit;
     }
     return 0;
   }
   _hasteHpct(event, healVal) {
     const currHastePerc = this.statTracker.currentHastePercentage;
-    const healIncreaseFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
+    const healIncreaseFromOneHaste = this.statTracker.statMultiplier.haste / this.statTracker.hasteRatingPerPercent;
     const baseHeal = healVal.effective / (1 + currHastePerc);
     return baseHeal * healIncreaseFromOneHaste;
   }
   _hasteHpm(event, healVal) {
-    const healIncreaseFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
+    const healIncreaseFromOneHaste = this.statTracker.statMultiplier.haste / this.statTracker.hasteRatingPerPercent;
     const noHasteHealing = healVal.effective / (1 + this.statTracker.currentHastePercentage);
     return noHasteHealing * healIncreaseFromOneHaste;
   }
@@ -282,7 +279,7 @@ class BaseHealerStatValues extends Analyzer {
       return 0;
     }
     const currVersPerc = this.statTracker.currentVersatilityPercentage;
-    const healIncreaseFromOneVers = 1 / this.statTracker.versatilityRatingPerPercent;
+    const healIncreaseFromOneVers = this.statTracker.statMultiplier.versatility / this.statTracker.versatilityRatingPerPercent;
     const baseHeal = healVal.effective / (1 + currVersPerc);
     return baseHeal * healIncreaseFromOneVers;
   }
@@ -299,7 +296,7 @@ class BaseHealerStatValues extends Analyzer {
   _versatilityDamageReduction(event, damageVal) {
     const amount = damageVal.effective;
     const currentVersDamageReductionPercentage = this.statTracker.currentVersatilityPercentage / 2;
-    const damageReductionIncreaseFromOneVers = 1 / this.statTracker.versatilityRatingPerPercent / 2; // the DR part is only 50% of the Versa percentage
+    const damageReductionIncreaseFromOneVers = this.statTracker.statMultiplier.versatility / this.statTracker.versatilityRatingPerPercent / 2; // the DR part is only 50% of the Versa percentage
 
     const noVersDamage = amount / (1 - currentVersDamageReductionPercentage);
     return noVersDamage * damageReductionIncreaseFromOneVers;

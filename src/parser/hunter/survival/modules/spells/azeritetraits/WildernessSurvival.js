@@ -5,6 +5,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 /**
  * Raptor Strike (or Mongoose Bite) deals an additional 27 damage and reduces the remaining cooldown of Wildfire Bomb by 1.0 sec.
@@ -78,7 +79,7 @@ class WildernessSurvival extends Analyzer {
             Wilderness Survival reduced {this.hasWFI ? SPELLS.WILDFIRE_INFUSION_TALENT.name : SPELLS.WILDFIRE_BOMB.name} by {this.effectiveCDRInSeconds} seconds out of {this.totalPossibleCDR} possible.
           </>
         )}
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
       >
         <BoringSpellValueText spell={SPELLS.WILDERNESS_SURVIVAL}>
           <>

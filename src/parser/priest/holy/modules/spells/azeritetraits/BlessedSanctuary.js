@@ -51,7 +51,7 @@ class BlessedSanctuary extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.HOLY_WORD_SANCTIFY.id) {
-      this.blessedSanctuaryProcCount++;
+      this.blessedSanctuaryProcCount += 1;
     }
   }
 

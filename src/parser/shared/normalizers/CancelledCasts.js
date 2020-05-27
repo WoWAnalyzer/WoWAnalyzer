@@ -1,6 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import CASTABLE_WHILE_CASTING_SPELLS from 'parser/core/CASTABLE_WHILE_CASTING_SPELLS';
+import { EventType } from 'parser/core/Events';
 
 const MS_BUFFER = 100;
 
@@ -52,9 +53,9 @@ class CancelledCasts extends EventsNormalizer {
         return;
       }
 
-      if (event.type === 'begincast') {
+      if (event.type === EventType.BeginCast) {
         this.handleBeginCast(event);
-      } else if (event.type === 'cast') {
+      } else if (event.type === EventType.Cast) {
         this.handleCast(event);
       }
     });

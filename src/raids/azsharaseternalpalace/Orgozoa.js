@@ -1,5 +1,6 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/Orgozoa.jpg';
 import Headshot from './images/headshots/Orgozoa.png';
@@ -19,13 +20,13 @@ export default {
     phases: {
       P1: {
         name: 'Stage 1: Egg Chamber',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       I1: {
         name: 'Intermission: The Moulting Hatchery',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 152128,
           health: 40,
           eventInstance: 0,
@@ -33,9 +34,9 @@ export default {
       },
       P2: {
         name: 'Stage 2: Naga Chamber',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'removebuff',
+          type: EventType.RemoveBuff,
           ability: {
             id: SPELLS.MASSIVE_INCUBATOR_BUFF.id,
           },

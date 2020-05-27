@@ -6,6 +6,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
@@ -66,7 +67,7 @@ class ShrapnelBomb extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         dropdown={(
           <>
             <table className="table table-condensed">

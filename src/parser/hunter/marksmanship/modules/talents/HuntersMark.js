@@ -11,6 +11,7 @@ import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -54,7 +55,7 @@ class HuntersMark extends Analyzer {
     if (spellId !== SPELLS.HUNTERS_MARK_TALENT.id) {
       return;
     }
-    this.casts++;
+    this.casts += 1;
     this.timeOfCast = event.timestamp;
   }
 
@@ -92,7 +93,7 @@ class HuntersMark extends Analyzer {
       this.precastConfirmed = true;
     }
     if (!this.debuffRemoved) {
-      this.recasts++;
+      this.recasts += 1;
     }
     this.debuffRemoved = false;
     const enemyID = encodeTargetString(event.targetID, event.targetInstance);
@@ -125,7 +126,7 @@ class HuntersMark extends Analyzer {
     if (spellId !== SPELLS.HUNTERS_MARK_TALENT.id) {
       return;
     }
-    this.recasts++;
+    this.recasts += 1;
   }
 
   on_byPlayer_energize(event) {
@@ -133,7 +134,7 @@ class HuntersMark extends Analyzer {
     if (spellId !== SPELLS.HUNTERS_MARK_FOCUS.id) {
       return;
     }
-    this.refunds++;
+    this.refunds += 1;
   }
 
   on_byPlayer_damage(event) {
@@ -157,7 +158,7 @@ class HuntersMark extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             <ul>

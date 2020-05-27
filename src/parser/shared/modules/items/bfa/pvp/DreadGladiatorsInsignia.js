@@ -51,7 +51,7 @@ class DreadGladiatorsInsignia extends Analyzer {
       return;
     }
 
-    this.procs++;
+    this.procs += 1;
   }
 
   get uptime() {
