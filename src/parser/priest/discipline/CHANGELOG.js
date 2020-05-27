@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Oratio, Reglitch, Zerotorescue, niseko, Khadaj, blazyb, Adoraci } from 'CONTRIBUTORS';
+import { Oratio, Reglitch, Zerotorescue, niseko, Khadaj, blazyb, Adoraci, Tiphess } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
@@ -8,6 +8,7 @@ import ITEMS from 'common/ITEMS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 5, 26), <>Added a <SpellLink id={SPELLS.ENDURING_LUMINESCENCE.id} /> analyzer and fixed the <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> coefficient to 50% to match the 8.3 nerf.</>, [Tiphess]),
   change(date(2019, 11, 10), <>Fixed minor inaccuracies with <SpellLink id={SPELLS.DEATH_THROES.id} /> analyzer.</>, [Reglitch]),
   change(date(2019, 9, 17), <>Added more information to the <SpellLink id={SPELLS.PURGE_THE_WICKED_BUFF.id} /> module.</>, [Khadaj]),
   change(date(2019, 8, 17), <>Updated cooldown of <SpellLink id={SPELLS.POWER_WORD_RADIANCE.id} /> from 18 seconds to 20.</>, [Adoraci]),
