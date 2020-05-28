@@ -47,8 +47,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
     if (!gcd) {
       return 0;
     }
-    if (ASPECT_AFFECTED_ABILTIES.includes(spellId) &&
-      this.selectedCombatant.hasBuff(SPELLS.ASPECT_OF_THE_WILD.id)) {
+    if (ASPECT_AFFECTED_ABILTIES.includes(spellId) && this.selectedCombatant.hasBuff(SPELLS.ASPECT_OF_THE_WILD.id)) {
       const unhastedAspectGCD = MAX_GCD - ASPECT_GCD_REDUCTION;
       const hastepercent = 1 + this.haste.current;
       return Math.max(MIN_GCD, unhastedAspectGCD / hastepercent);

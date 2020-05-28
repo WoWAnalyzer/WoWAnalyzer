@@ -33,7 +33,7 @@ class Upwelling extends Analyzer {
   totalOverhealing = 0;
   totalAbsorbs = 0;
 
-  castEF = 0;//casts of ef 
+  castEF = 0;//casts of ef
   extraHots = 0;//number of extra hots
   extraBolts = 0;//number of extra bolts
   efHotHeal = 0;//healing from hots
@@ -87,19 +87,19 @@ class Upwelling extends Analyzer {
   boltHeal(event){
     const targetID = event.targetID;//short hand
 
-    this.totalBolts++;//told number of bolts
+    this.totalBolts += 1;//told number of bolts
     if (this.boltCount > BASE_BOLTS){//only get bolts that are from upwelling
       this.totalHealing += event.amount || 0;
       this.totalOverhealing += event.overheal || 0;
       this.totalAbsorbs += event.absorbed || 0;
-      this.extraBolts++;
+      this.extraBolts += 1;
     }
     const holder = {
       fullCount: this.boltCount > BASE_BOLTS,//if its an extra bolt or not
       applicationTime: event.timestamp,//time when casted for nonextra damage
     };
     this.hotMap.set(targetID, holder);//overriding is okay and actually desired if it want to
-    this.boltCount++;//increase current bolt
+    this.boltCount += 1;//increase current bolt
   }
 
   efcast(event) {

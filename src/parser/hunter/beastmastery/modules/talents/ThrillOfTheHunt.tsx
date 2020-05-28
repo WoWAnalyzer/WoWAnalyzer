@@ -3,20 +3,18 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CriticalStrike from 'interface/icons/CriticalStrike';
-import {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent, FightEndEvent,
-  RemoveBuffEvent,
-} from '../../../../core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+
 
 /**
- * Barbed Shot increases your critical strike chance by 3% for 8 sec, stacking
- * up to 3 times. Example log:
- * https://www.warcraftlogs.com/reports/yg6PFb8NKz71MRWY#fight=20&type=damage-done
+ * Barbed Shot increases your critical strike chance by 3% for 8 sec, stacking up to 3 times.
+ *
+ * Example log:
+ * https://www.warcraftlogs.com/reports/Q9LghKR7ZPnAwFaH#fight=48&type=auras&source=280&ability=257946
  */
 
 const MAX_THRILL_STACKS = 3;
@@ -31,34 +29,38 @@ class ThrillOfTheHunt extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.THRILL_OF_THE_HUNT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.THRILL_OF_THE_HUNT_TALENT.id);
     if (!this.active) {
       return;
     }
     this.thrillStacks = Array.from({ length: MAX_THRILL_STACKS + 1 }, x => []);
   }
 
-  handleStacks(
-    event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent,
-  ) {
-    if (event.type === 'removebuff') {
-      this.currentStacks = 0;
-    } else if (event.type === 'applybuff') {
-      this.currentStacks = 1;
-    } else if (event.type === 'applybuffstack') {
-      this.currentStacks = event.stack;
-    } else if (event.type === 'fightend') {
-      this.currentStacks = this.lastThrillStack;
-    }
-    this.thrillStacks[this.lastThrillStack].push(event.timestamp -
-      this.lastThrillUpdate);
-    this.lastThrillUpdate = event.timestamp;
-    this.lastThrillStack = this.currentStacks;
-  }
-
   get thrillOfTheHuntTimesByStacks() {
     return this.thrillStacks;
+  }
+
+  get averageCritPercent() {
+    let averageCrit = 0;
+    this.thrillStacks.forEach((elem, index) => {
+      averageCrit += elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration * index * CRIT_PER_STACK;
+    });
+    return formatPercentage(averageCrit);
+  }
+
+  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
+    if (event.type === EventType.RemoveBuff) {
+      this.currentStacks = 0;
+    } else if (event.type === EventType.ApplyBuff) {
+      this.currentStacks = 1;
+    } else if (event.type === EventType.ApplyBuffStack) {
+      this.currentStacks = event.stack;
+    } else if (event.type === EventType.FightEnd) {
+      this.currentStacks = this.lastThrillStack;
+    }
+    this.thrillStacks[this.lastThrillStack].push(event.timestamp - this.lastThrillUpdate);
+    this.lastThrillUpdate = event.timestamp;
+    this.lastThrillStack = this.currentStacks;
   }
 
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
@@ -89,27 +91,12 @@ class ThrillOfTheHunt extends Analyzer {
     this.handleStacks(event);
   }
 
-  get averageCritPercent() {
-    let averageCrit = 0;
-    this.thrillStacks.forEach((elem, index) => {
-      averageCrit += elem.reduce((a, b) => a + b, 0) /
-        this.owner.fightDuration *
-        index *
-        CRIT_PER_STACK;
-    });
-    return formatPercentage(averageCrit);
-  }
-
   statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
-        tooltip={(
-          <>
-          </>
-        )}
+        category={STATISTIC_CATEGORY.TALENTS}
         dropdown={(
           <>
             <table className="table table-condensed">
@@ -122,17 +109,11 @@ class ThrillOfTheHunt extends Analyzer {
                 </tr>
               </thead>
               <tbody>
-                {Object.values(this.thrillOfTheHuntTimesByStacks).map((
-                  e,
-                  i,
-                ) => (
+                {Object.values(this.thrillOfTheHuntTimesByStacks).map((e, i) => (
                   <tr key={i}>
                     <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) /
-                      1000)}</td>
-                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) /
-                      this.owner.fightDuration)}%
-                    </td>
+                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
                     <td>{formatPercentage(CRIT_PER_STACK * i, 0)}%</td>
                   </tr>
                 ))}

@@ -14,6 +14,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
+import { EventType } from 'parser/core/Events';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
@@ -62,15 +63,15 @@ class AncestralVigor extends Analyzer {
       end: this.owner.fight.end_time,
       filter: `(
         IN RANGE
-        WHEN type='damage'
+        WHEN type='${EventType.Damage}'
           AND target.disposition='friendly'
           AND resources.hitPoints>0
           AND 100*resources.hpPercent<=${Math.ceil(10000 * HP_THRESHOLD)}
           AND 10000*(resources.hitPoints+effectiveDamage)/resources.maxHitPoints>=${Math.floor(10000 * HP_THRESHOLD)}
-        FROM type='applybuff'
+        FROM type='${EventType.ApplyBuff}'
           AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
           AND source.name='${this.selectedCombatant.name}'
-        TO type='removebuff'
+        TO type='${EventType.RemoveBuff}'
           AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
           AND source.name='${this.selectedCombatant.name}'
         END

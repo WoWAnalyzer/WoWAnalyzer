@@ -23,7 +23,7 @@ class ScourgeStrikeEfficiency extends Analyzer {
 
   totalScourgeStrikeCasts = 0;
   scourgeStrikeCastsZeroWounds = 0;
-  
+
   on_byPlayer_applydebuffstack(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.FESTERING_WOUND.id){
@@ -48,14 +48,14 @@ class ScourgeStrikeEfficiency extends Analyzer {
   on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.SCOURGE_STRIKE.id){
-		this.totalScourgeStrikeCasts++;
+		this.totalScourgeStrikeCasts += 1;
 		if(this.targets.hasOwnProperty(encodeTargetString(event.targetID, event.targetInstance))) {
 			const currentTargetWounds = this.targets[encodeTargetString(event.targetID, event.targetInstance)];
 			if(currentTargetWounds < 1){
-				this.scourgeStrikeCastsZeroWounds++;
+				this.scourgeStrikeCastsZeroWounds += 1;
 			}
 		} else {
-			this.scourgeStrikeCastsZeroWounds++;
+			this.scourgeStrikeCastsZeroWounds += 1;
 		}
 	}
   }

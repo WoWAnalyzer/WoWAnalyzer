@@ -15,7 +15,7 @@ import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHe
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import CoreChanneling from './modules/core/Channeling';
-import HotTracker from './modules/core/HotTracker';
+import HotTrackerMW from './modules/core/HotTrackerMW';
 import SpellUsable from './modules/core/SpellUsable';
 
 // Normalizers
@@ -87,7 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lowHealthHealing: LowHealthHealing,
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
-    hotTracker: HotTracker,
+    hotTrackerMW: HotTrackerMW,
     spellUsable: SpellUsable,
 
     // Generic healer things

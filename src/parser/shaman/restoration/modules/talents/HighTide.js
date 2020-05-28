@@ -68,11 +68,11 @@ class HighTide extends Analyzer {
     this.currentHighTideBuff = 0;
   }
 
-  // on a chain heal cast and buff counter is greater than 0, adds one to used counter 
+  // on a chain heal cast and buff counter is greater than 0, adds one to used counter
   // and reduces buff counter by one.
   onChainHealCast(event) {
     if (this.currentHighTideBuff > 0) {
-      this.usedHighTides++;
+      this.usedHighTides += 1;
       this.currentHighTideBuff -= 1;
     }
   }
@@ -95,18 +95,18 @@ class HighTide extends Analyzer {
      * 1. The healing events are backwards [4,3,2,1]
      * 2. If the Shaman heals himself, his healing event is always first [3,4,2,1] (3 = Shaman)
      * 3. If 2. happens, the heal on the shaman is also happening before the cast event, which the lines above already deal with.
-     * 
+     *
      * Calculating out High Tide requires us to know the exact jump order, as High Tide affects each jump differently.
      * https://ancestralguidance.com/hidden-spell-mechanics/
      * The solution is to reorder the events into the correct hit order, which could be done since each consecutive heal is weaker
      * than the one beforehand (by 30%), except, you have the Shaman mastery which will result in random healing numbers
      * as each hit has a different mastery effectiveness - the higher the Shamans mastery, the more rapidly different the numbers end up.
      * With traits like https://www.wowhead.com/spell=277942/ancestral-resonance existing, shamans mastery can randomly double or triple mid combat.
-     * 
+     *
      * So we take 1 cast of chain heal at a time (4 hits maximum), calculate out crits and the mastery bonus, reorder them according to the new values
      * (High healing to Low healing or [4,3,2,1] to [1,2,3,4]) and get the High Tide contribution by comparing the original heal values against
      * what a non-High Tide Chain Heal would have done each bounce.
-     * 
+     *
      * Things that are able to break the sorting: Deluge (Pls don't take it) as its undetectable, random player-based heal increases
      * (possibly encounter mechanics) if not accounted for.
      */

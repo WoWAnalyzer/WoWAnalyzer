@@ -29,7 +29,7 @@ class DispelTracker extends Analyzer {
     if (!this.dispelEvents[abilityDispelled.guid]) {
       this.dispelEvents[abilityDispelled.guid] = 1;
     } else {
-      this.dispelEvents[abilityDispelled.guid]++;
+      this.dispelEvents[abilityDispelled.guid] += 1;
     }
 
     if (!SPELLS[abilityDispelled.guid]) {
@@ -41,7 +41,7 @@ class DispelTracker extends Analyzer {
       };
     }
 
-    this.dispelCount++;
+    this.dispelCount += 1;
   }
 
   statistic() {

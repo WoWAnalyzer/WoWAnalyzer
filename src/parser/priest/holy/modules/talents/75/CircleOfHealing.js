@@ -32,14 +32,14 @@ class CircleOfHealing extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.CIRCLE_OF_HEALING_TALENT.id) {
-      this.circleOfHealingCasts++;
+      this.circleOfHealingCasts += 1;
     }
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.CIRCLE_OF_HEALING_TALENT.id) {
-      this.circleOfHealingTargetsHit++;
+      this.circleOfHealingTargetsHit += 1;
       this.circleOfHealingHealing += event.amount || 0;
       this.circleOfHealingOverhealing += event.overheal || 0;
     }

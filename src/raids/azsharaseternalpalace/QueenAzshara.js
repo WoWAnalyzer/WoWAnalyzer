@@ -1,5 +1,6 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/QueenAzshara.jpg';
 import Headshot from './images/headshots/QueenAzshara.png';
@@ -19,13 +20,13 @@ export default {
     phases: {
       P1: {
         name: 'Stage 1: Cursed Lovers',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       I1: {
         name: 'Intermission 2',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'begincast',
+          type: EventType.BeginCast,
           ability: {
             id: SPELLS.QUEENS_DECREE.id,
           },
@@ -33,9 +34,9 @@ export default {
       },
       P2: {
         name: 'Stage 2: Hearts Unleashed',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 152910,
           health: 99.9,
           eventInstance: 0,
@@ -43,9 +44,9 @@ export default {
       },
       I2: {
         name: 'Intermission 2',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 152910,
           health: 70,
           eventInstance: 0,
@@ -53,9 +54,9 @@ export default {
       },
       P3: {
         name: 'Stage 3: Song of the Tides',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 154565,
           health: 99.9,
           eventInstance: 0,
@@ -63,9 +64,9 @@ export default {
       },
       P4: {
         name: 'Stage 4: My Palace Is a Prison',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 152910,
           health: 45,
           eventInstance: 0,

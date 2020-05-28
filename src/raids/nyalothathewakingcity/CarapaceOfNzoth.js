@@ -1,4 +1,5 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/CarapaceOfNzoth.jpg';
 import Headshot from './images/headshots/CarapaceOfNzoth.png';
@@ -19,14 +20,14 @@ export default {
       P1: {
         name: 'Stage 1: Exterior Carapace',
         multiple: false,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       P2: {
         name: 'Stage 2: Subcutaneous Tunnel',
         multiple: false,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 157439,
           health: 50,
           eventInstance: 0,
@@ -35,9 +36,9 @@ export default {
       P3: {
         name: 'Stage 3: Locus of Infinite Truth',
         multiple: false,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 157439,
           health: 40,
           eventInstance: 0,

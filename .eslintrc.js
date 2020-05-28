@@ -134,5 +134,8 @@ module.exports = {
 
     // // enforce spacing before and after comma
     // 'comma-spacing': ['warn', { before: false, after: true }],
+
+    // enforce not using ++ and -- except in for loops
+    'no-plusplus': ['warn', {'allowForLoopAfterthoughts': true }],
   },
 };

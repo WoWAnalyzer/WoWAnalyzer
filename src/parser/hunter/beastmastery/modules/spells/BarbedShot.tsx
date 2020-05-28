@@ -6,14 +6,10 @@ import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import {
-  ApplyBuffEvent, ApplyBuffStackEvent,
-  FightEndEvent,
-  RemoveBuffEvent,
-} from '../../../../core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for [(10%
@@ -21,115 +17,41 @@ import {
  * increasing attack speed by 30% for 8 sec, stacking up to 3 times.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/qP3Vn4rXp6ytHxzd#fight=18&type=damage-done
+ * https://www.warcraftlogs.com/reports/39yhq8VLFrm7J4wR#fight=17&type=casts&source=8&ability=-217200
  */
 
 //max stacks your pet can have of the Frenzy buff
 const MAX_FRENZY_STACKS: number = 3;
 
 class BarbedShot extends Analyzer {
+
   barbedShotStacks: Array<Array<number>> = [];
   lastBarbedShotStack: number = 0;
-  lastBarbedShotUpdate = this.owner.fight.start_time;
+  lastBarbedShotUpdate: number = this.owner.fight.start_time;
   currentStacks: number = 0;
 
   constructor(options: any) {
     super(options);
-    this.barbedShotStacks = Array.from(
-      { length: MAX_FRENZY_STACKS + 1 },
-      x => [],
-    );
-  }
-
-
-  handleStacks(
-    event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent,
-  ) {
-    if (event.type === 'removebuff') {
-      this.currentStacks = 0;
-    } else if (event.type === 'applybuff') {
-      this.currentStacks = 1;
-    } else if (event.type === 'applybuffstack') {
-      this.currentStacks = event.stack;
-    } else if (event.type === 'fightend') {
-      this.currentStacks = this.lastBarbedShotStack;
-    }
-
-    this.barbedShotStacks[this.lastBarbedShotStack].push(event.timestamp -
-      this.lastBarbedShotUpdate);
-    this.lastBarbedShotUpdate = event.timestamp;
-    this.lastBarbedShotStack = this.currentStacks;
+    this.barbedShotStacks = Array.from({ length: MAX_FRENZY_STACKS + 1 }, x => []);
   }
 
   get barbedShotTimesByStacks() {
     return this.barbedShotStacks;
   }
 
-  getAverageBarbedShotStacks() {
-    let avgStacks = 0;
-    this.barbedShotStacks.forEach((elem: Array<number>, index: number) => {
-      avgStacks += elem.reduce((a: number, b: number) => a + b, 0) /
-        this.owner.fightDuration *
-        index;
-    });
-    return avgStacks.toFixed(2);
-  }
-
-  on_toPlayerPet_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_fightend(event: FightEndEvent) {
-    this.handleStacks(event);
-  }
-
   get percentUptimeMaxStacks() {
-    return (
-      this.barbedShotStacks[MAX_FRENZY_STACKS].reduce((
-        a: number,
-        b: number,
-      ) => a + b, 0)
-    ) / this.owner.fightDuration;
+    return (this.barbedShotStacks[MAX_FRENZY_STACKS].reduce((a: number, b: number) => a + b, 0)) / this.owner.fightDuration;
   }
 
   get percentUptimePet() {
     //this removes the time spent without the pet having the frenzy buff
-    const flattenArray = this.barbedShotStacks.slice(1).reduce((
-      acc,
-      val,
-    ) => acc.concat(val), []);
-    const petUptime = flattenArray.reduce((
-      totalUptime: number,
-      stackUptime: number,
-    ) => totalUptime + stackUptime, 0);
+    const petUptime = this.barbedShotStacks.slice(1).flat().reduce((totalUptime: number, stackUptime: number) => totalUptime + stackUptime, 0);
     return petUptime / this.owner.fightDuration;
   }
 
   get percentPlayerUptime() {
-    //This calculates the uptime over the course of the encounter of Barbed
-    // Shot for the player
-    return this.selectedCombatant.getBuffUptime(SPELLS.BARBED_SHOT_BUFF.id) /
-      this.owner.fightDuration;
+    //This calculates the uptime over the course of the encounter of Barbed Shot for the player
+    return this.selectedCombatant.getBuffUptime(SPELLS.BARBED_SHOT_BUFF.id) / this.owner.fightDuration;
   }
 
   get frenzyUptimeThreshold() {
@@ -168,26 +90,71 @@ class BarbedShot extends Analyzer {
     }
   }
 
+  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
+    if (event.type === EventType.RemoveBuff) {
+      this.currentStacks = 0;
+    } else if (event.type === EventType.ApplyBuff) {
+      this.currentStacks = 1;
+    } else if (event.type === EventType.ApplyBuffStack) {
+      this.currentStacks = event.stack;
+    } else if (event.type === EventType.FightEnd) {
+      this.currentStacks = this.lastBarbedShotStack;
+    }
+
+    this.barbedShotStacks[this.lastBarbedShotStack].push(event.timestamp - this.lastBarbedShotUpdate);
+    this.lastBarbedShotUpdate = event.timestamp;
+    this.lastBarbedShotStack = this.currentStacks;
+  }
+
+  getAverageBarbedShotStacks() {
+    let avgStacks = 0;
+    this.barbedShotStacks.forEach((elem: Array<number>, index: number) => {
+      avgStacks += elem.reduce((a: number, b: number) => a + b, 0) / this.owner.fightDuration * index;
+    });
+    return avgStacks;
+  }
+
+  on_toPlayerPet_removebuff(event: RemoveBuffEvent) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+
+  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
+      return;
+    }
+    this.handleStacks(event);
+  }
+
+  on_fightend(event: FightEndEvent) {
+    this.handleStacks(event);
+  }
+
   suggestions(when: any) {
-    when(this.frenzyUptimeThreshold)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.frenzyUptimeThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell, if you've chosen this talent, it's your most important spell to continously be casting. </>)
           .icon(SPELLS.BARBED_SHOT.icon)
-          .actual(`Your pet had the buff from Barbed Shot for ${formatPercentage(
-            actual)}% of the fight`)
+          .actual(`Your pet had the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
-    when(this.frenzy3StackThreshold).addSuggestion((
-      suggest: any,
-      actual: any,
-      recommended: any,
-    ) => {
-      return suggest(<>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </>)
-        .icon(SPELLS.BARBED_SHOT.icon)
-        .actual(`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(
-          actual)}% of the fight`)
-        .recommended(`${formatPercentage(recommended)}% is recommended`);
-    });
+    when(this.frenzy3StackThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+        return suggest(<>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </>)
+          .icon(SPELLS.BARBED_SHOT.icon)
+          .actual(`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
+          .recommended(`${formatPercentage(recommended)}% is recommended`);
+      });
   }
 
   statistic() {
@@ -198,7 +165,7 @@ class BarbedShot extends Analyzer {
         tooltip={(
           <>
             <ul>
-              <li>Your pet had an average of {this.getAverageBarbedShotStacks()} stacks active throughout the fight.</li>
+              <li>Your pet had an average of {this.getAverageBarbedShotStacks().toFixed(2)} stacks active throughout the fight.</li>
               <li>Your pet had an overall uptime of {formatPercentage(this.percentUptimePet)}% on the increased attack speed buff</li>
               <li>You had an uptime of {formatPercentage(this.percentPlayerUptime)}% on the focus regen buff.</li>
             </ul>
@@ -218,12 +185,8 @@ class BarbedShot extends Analyzer {
                 {Object.values(this.barbedShotTimesByStacks).map((e, i) => (
                   <tr key={i}>
                     <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a: number, b: number) => a +
-                      b, 0) /
-                      1000)}</td>
-                    <td>{formatPercentage(e.reduce((a: number, b: number) => a +
-                      b, 0) /
-                      this.owner.fightDuration)}%
+                    <td>{formatDuration(e.reduce((a: number, b: number) => a + b, 0) / 1000)}</td>
+                    <td>{formatPercentage(e.reduce((a: number, b: number) => a + b, 0) / this.owner.fightDuration)}%
                     </td>
                   </tr>
                 ))}

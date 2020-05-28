@@ -8,6 +8,7 @@ import { formatThousands, formatNumber } from 'common/format';
 import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 
 const POWER_WORD_BARRIER_REDUCTION = 0.25;
 
@@ -32,7 +33,7 @@ class PowerWordBarrier extends Analyzer {
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} TO type='removebuff' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} GROUP BY target ON target END`,
+      filter: `IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} TO type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} GROUP BY target ON target END`,
     })
       .then(json => {
         this.totalDamageTakenDuringPWB = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);

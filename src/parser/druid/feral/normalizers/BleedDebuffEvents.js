@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS/index';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventType } from 'parser/core/Events';
 
 const CAST_WINDOW = 300;
 const CAST_DEBUFF_PAIRS = [
-  { 
+  {
     cast: SPELLS.RIP,
     debuff: SPELLS.RIP,
   },
@@ -36,12 +37,12 @@ class BleedDebuffEvents extends EventsNormalizer {
    * Normally this isn't a problem but if another module relies on the result of that cast event analysis it will
    * also have to wait for future events before it can trust the result from the module it relies on. This can lead
    * to some messy coupling between modules.
-   * 
+   *
    * This normalizer attempts to link specified cast events with appropriate debuff apply/refresh events. This way
    * a module that needs to know about the debuff event caused by a cast event can directly access that event through
    * the cast event. It's important that the module design is aware that when doing so the debuff event will have not
    * yet been processed by anything else. e.g. an entity.hasDebuff query will not yet see the debuff.
-   * 
+   *
    * @param {Array} events
    * @returns {Array} Events with some cast events having gained a .debuffEvents property, which is an array of applydebuff and/or refreshdebuff events.
    */
@@ -50,7 +51,7 @@ class BleedDebuffEvents extends EventsNormalizer {
     for (let castEventIndex = 0; castEventIndex < events.length; castEventIndex += 1) {
       const castEvent = events[castEventIndex];
       fixedEvents.push(castEvent);
-      if (castEvent.type !== 'cast') {
+      if (castEvent.type !== EventType.Cast) {
         continue;
       }
       const pair = CAST_DEBUFF_PAIRS.find(item => item.cast.id === castEvent.ability.guid);
@@ -67,7 +68,7 @@ class BleedDebuffEvents extends EventsNormalizer {
           // if this event is past the time limit then can assume any future events will also be past the time limit, so stop looking.
           break;
         }
-        if (debuffEvent.type !== 'applydebuff' && debuffEvent.type !== 'refreshdebuff') {
+        if (debuffEvent.type !== EventType.ApplyDebuff && debuffEvent.type !== EventType.RefreshDebuff) {
           continue;
         }
         if (debuffEvent.ability.guid !== pair.debuff.id) {

@@ -2,16 +2,16 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
-import { EnergizeEvent } from '../../../../core/Events';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { EnergizeEvent } from 'parser/core/Events';
 
 /**
  * Barbed Shot generates 8 additional Focus over its duration.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/DFZVfmhkj9bYa6rn#fight=1&type=damage-done
+ * https://www.warcraftlogs.com/reports/mzL4dhMRbwtXaBJf#fight=15&type=resources&spell=102&source=114
  */
 
 const SCENT_OF_BLOOD_INCREASE_PER_TICK = 2;
@@ -36,8 +36,7 @@ class ScentOfBlood extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.SCENT_OF_BLOOD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SCENT_OF_BLOOD_TALENT.id);
   }
 
   on_toPlayer_energize(event: EnergizeEvent) {
@@ -49,9 +48,7 @@ class ScentOfBlood extends Analyzer {
       this.focusWastedFromBS += SCENT_OF_BLOOD_INCREASE_PER_TICK;
       return;
     }
-    this.focusGained += event.resourceChange -
-      BASELINE_BARBED_REGEN_PER_TICK -
-      event.waste;
+    this.focusGained += event.resourceChange - BASELINE_BARBED_REGEN_PER_TICK - event.waste;
     this.focusWastedFromBS += event.waste;
   }
 
@@ -60,18 +57,11 @@ class ScentOfBlood extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
-        tooltip={(
-          <>
-            <ul>
-              <li>You wasted {this.focusWastedFromBS} focus by being too close to focus cap when Barbed Shot gave you focus.</li>
-            </ul>
-          </>
-        )}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.SCENT_OF_BLOOD_TALENT}>
           <>
-            {this.focusGained} <small>focus gained</small>
+            {this.focusGained}/{this.focusWastedFromBS + this.focusGained} <small>focus gained</small>
           </>
         </BoringSpellValueText>
       </Statistic>

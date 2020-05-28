@@ -1,5 +1,6 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 class ReincarnationNormalizer extends EventsNormalizer {
 
@@ -10,10 +11,10 @@ class ReincarnationNormalizer extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
 
 
-      if (event.type === 'cast' && event.ability.guid === SPELLS.REINCARNATION.id) {
+      if (event.type === EventType.Cast && event.ability.guid === SPELLS.REINCARNATION.id) {
             this.fabricatedEvent = {
               timestamp: event.timestamp,
-              type: "resurrect",
+              type: EventType.Resurrect,
               sourceID: event.sourceID,
               targetID: event.sourceID,
               sourceIsFriendly: true,

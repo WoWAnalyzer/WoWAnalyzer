@@ -7,28 +7,26 @@ import MasteryIcon from 'interface/icons/Mastery';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from '../../../../../../interface/statistics/Statistic';
-import { ApplyBuffEvent } from '../../../../../core/Events';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+import { ApplyBuffEvent } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-
-const primalInstinctsStats = (traits: number[]) => Object.values(traits).reduce(
-  (obj, rank) => {
-    const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
-    obj.mastery += mastery;
-    return obj;
-  },
-  {
-    mastery: 0,
-  },
-);
+const primalInstinctsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
+      const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
+      obj.mastery += mastery;
+      return obj;
+    },
+    {
+      mastery: 0,
+    },
+  );
 
 /**
  * Aspect of the Wild increases your Mastery by X, and grants you a charge of
  * Barbed Shot.
  *
- * Example report:
+ * Example log:
  * https://www.warcraftlogs.com/reports/9mWQv1XZJT8M6GBV#fight=1&type=damage-done
  */
 class PrimalInstincts extends Analyzer {
@@ -37,12 +35,12 @@ class PrimalInstincts extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  protected statTracker!: StatTracker;
-  protected spellUsable!: SpellUsable;
-
   mastery = 0;
   wastedBarbedShots = 0;
   chargesGained = 0;
+
+  protected statTracker!: StatTracker;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: any) {
     super(options);
@@ -54,7 +52,7 @@ class PrimalInstincts extends Analyzer {
     this.mastery = mastery;
 
     options.statTracker.add(SPELLS.PRIMAL_INSTINCTS_BUFF.id, {
-      mastery,
+      mastery: this.mastery,
     });
   }
 
@@ -75,9 +73,9 @@ class PrimalInstincts extends Analyzer {
 
     const hasTwoBarbedCharges = this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id) === 2;
     if (hasTwoBarbedCharges) {
-      this.wastedBarbedShots++;
+      this.wastedBarbedShots += 1;
     } else {
-      this.chargesGained++;
+      this.chargesGained += 1;
     }
   }
 
@@ -85,11 +83,10 @@ class PrimalInstincts extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
-            Primal Instincts granted <strong>{this.mastery}</strong> Mastery for <strong>{formatPercentage(
-            this.uptime)}%</strong> of the fight. <br />
+            Primal Instincts granted <strong>{formatNumber(this.mastery)}</strong> Mastery for <strong>{formatPercentage(this.uptime)}%</strong> of the fight. <br />
             Wasted Barbed Shot charges: {this.wastedBarbedShots}
           </>
         )}

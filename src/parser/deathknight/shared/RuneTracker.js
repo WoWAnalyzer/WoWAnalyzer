@@ -11,6 +11,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
 import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
+import { EventType } from 'parser/core/Events';
 
 const MAX_RUNES = 6;
 const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption
@@ -60,7 +61,7 @@ class RuneTracker extends ResourceTracker {
       return;
     }
     super.on_byPlayer_cast(event);
-    
+
     event.classResources
       .filter(resource => resource.type === this.resource.id)
       .forEach(({ amount, cost }) => {
@@ -109,9 +110,9 @@ class RuneTracker extends ResourceTracker {
       return;
     }
     let change = 0;
-    if (event.trigger === 'endcooldown' || event.trigger === 'restorecharge') { //gained a rune
+    if (event.trigger === EventType.EndCooldown || event.trigger === EventType.RestoreCharge) { //gained a rune
       change += 1;
-    } else if (event.trigger === 'begincooldown' || event.trigger === 'addcooldowncharge') { //spent a rune
+    } else if (event.trigger === EventType.BeginCooldown || event.trigger === EventType.AddCooldownCharge) { //spent a rune
       change -= 1;
     } else { //no change
       return;

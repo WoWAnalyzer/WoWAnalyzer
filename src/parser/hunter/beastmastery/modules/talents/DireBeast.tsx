@@ -5,21 +5,17 @@ import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
-import {
-  DamageEvent,
-  SummonEvent,
-} from '../../../../core/Events';
+import { DamageEvent, SummonEvent } from 'parser/core/Events';
 
 /**
- * Summons a powerful wild beast that attacks the target and roars, increasing
- * your Haste by 5% for 8 sec.
+ * Summons a powerful wild beast that attacks the target and roars, increasing your Haste by 5% for 8 sec.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/qZRdFv9Apg74wmMV#fight=3&type=damage-done
+ * https://www.warcraftlogs.com/reports/TY846VxkCwAfPLbG#fight=46&type=damage-done&source=411
  */
 
 export const HASTE_PERCENT = 0.05;
@@ -32,22 +28,17 @@ class DireBeast extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) /
-      this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
   }
 
   on_byPlayerPet_damage(event: DamageEvent) {
     const sourceId: string = encodeTargetString(event.sourceID);
     if (this.activeDireBeasts.includes(sourceId)) {
-      this.damage += event.amount +
-        (
-          event.absorbed || 0
-        );
+      this.damage += event.amount + (event.absorbed || 0);
     }
   }
 
@@ -67,14 +58,13 @@ class DireBeast extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff.</>}
       >
         <BoringSpellValueText spell={SPELLS.DIRE_BEAST_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
-            <Haste /> {formatPercentage(HASTE_PERCENT *
-            this.uptime)}% Haste<br />
+            <Haste /> {formatPercentage(HASTE_PERCENT * this.uptime)}% Haste<br />
           </>
         </BoringSpellValueText>
       </Statistic>

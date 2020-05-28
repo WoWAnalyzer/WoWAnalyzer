@@ -1,5 +1,6 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 const MS_BUFFER = 100;
 
@@ -32,13 +33,13 @@ class SummonOrderNormalizer extends EventsNormalizer {
 
   // helper
   isSharpenedDreadfangs(previousEvent, event) {
-    return previousEvent.type === 'cast' && previousEvent.ability.guid === SPELLS.SHARPENED_DREADFANGS.id && previousEvent.sourceInstance === event.targetInstance;
+    return previousEvent.type === EventType.Cast && previousEvent.ability.guid === SPELLS.SHARPENED_DREADFANGS.id && previousEvent.sourceInstance === event.targetInstance;
   }
   isTyrantSummon(event) {
-    return event.type === 'summon' && event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id;
+    return event.type === EventType.Summon && event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id;
   }
   isDogSummon(event) {
-    return event.type === 'summon' && (event.ability.guid === SPELLS.DREADSTALKER_SUMMON_1.id || event.ability.guid === SPELLS.DREADSTALKER_SUMMON_2.id);
+    return event.type === EventType.Summon && (event.ability.guid === SPELLS.DREADSTALKER_SUMMON_1.id || event.ability.guid === SPELLS.DREADSTALKER_SUMMON_2.id);
   }
 
   swapEvents(_events, previousEventIndex, previousEvent) {
@@ -48,11 +49,11 @@ class SummonOrderNormalizer extends EventsNormalizer {
   }
 
   isDemonFire(previousEvent, event) {
-    return previousEvent.type === 'begincast' && previousEvent.ability.guid === SPELLS.DEMONIC_TYRANT_DAMAGE.id && previousEvent.sourceInstance === event.targetInstance;
+    return previousEvent.type === EventType.BeginCast && previousEvent.ability.guid === SPELLS.DEMONIC_TYRANT_DAMAGE.id && previousEvent.sourceInstance === event.targetInstance;
   }
 
   isDemonicConsumption(previousEvent, event) {
-    return previousEvent.type === 'cast' && previousEvent.ability.guid === SPELLS.DEMONIC_CONSUMPTION_CAST.id && previousEvent.sourceInstance === event.targetInstance;
+    return previousEvent.type === EventType.Cast && previousEvent.ability.guid === SPELLS.DEMONIC_CONSUMPTION_CAST.id && previousEvent.sourceInstance === event.targetInstance;
   }
 }
 

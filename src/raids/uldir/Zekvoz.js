@@ -1,4 +1,5 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/Backgrounds/Zekvoz.jpg';
 import Headshot from './images/Headshots/Zekvoz.png';
@@ -31,17 +32,17 @@ export default {
     phases: {
       P1: {
         name: 'Stage One: Chaos',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID],
       },
       P1_M: {
         name: 'Stage One: Chaos and Deception',
-        difficulties: [FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.MYTHIC_RAID],
       },
       SW: {
         name: 'Wave: Silithid Warriors',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'adds',
+          type: EventType.Adds,
           query: '(source.id = 134503 AND timestamp = source.firstSeen) OR (target.id = 134503 AND timestamp = target.firstSeen) OR (target.id = 134503 AND type = "death")',
           addCount: 6,
           guid: 134503,
@@ -49,9 +50,9 @@ export default {
       },
       NW_M: {
         name: 'Wave: Nerubian Voidweavers',
-        difficulties: [FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'adds',
+          type: EventType.Adds,
           query: '(source.id = 135824 AND timestamp IN(source.firstSeen, source.lastSeen)) OR (target.id = 135824 AND timestamp IN(target.firstSeen, target.lastSeen))',
           addCount: 3,
           guid: 135824,
@@ -59,9 +60,9 @@ export default {
       },
       P2: {
         name: 'Stage Two: Deception',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: ENCOUNTER_EVENT.id,
           },
@@ -70,9 +71,9 @@ export default {
       },
       NW: {
         name: 'Wave: Nerubian Voidweavers',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID],
         filter: {
-          type: 'adds',
+          type: EventType.Adds,
           query: '(source.id = 135824 AND timestamp IN(source.firstSeen, source.lastSeen)) OR (target.id = 135824 AND timestamp IN(target.firstSeen, target.lastSeen))',
           addCount: 3,
           guid: 135824,
@@ -80,9 +81,9 @@ export default {
       },
       P2_M: {
         name: 'Stage Two: Corruption',
-        difficulties: [FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: ENCOUNTER_EVENT.id,
           },
@@ -91,9 +92,9 @@ export default {
       },
       P3: {
         name: 'Stage Three: Corruption',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: ENCOUNTER_EVENT.id,
           },

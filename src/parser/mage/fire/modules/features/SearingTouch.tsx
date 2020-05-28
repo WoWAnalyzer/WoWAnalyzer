@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -50,7 +51,7 @@ class SearingTouch extends Analyzer {
       this.healthPercent = event.hitPoints / event.maxHitPoints;
       this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD ? this.totalExecuteCasts += 1 : this.totalNonExecuteCasts += 1;
     }
-    
+
     if (spellId === SPELLS.SCORCH.id && this.healthPercent > SEARING_TOUCH_HEALTH_THRESHOLD && !this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) && event.timestamp > this.combustionEnded + COMBUSTION_END_BUFFER) {
       this.nonExecuteScorchCasts += 1;
     } else if (spellId === SPELLS.FIREBALL.id && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD) {
@@ -117,7 +118,7 @@ class SearingTouch extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             When the target is under 30% health, you should cast Scorch as your filler ability instead of Fireball so that you can take advantage of the damage buff that gets applied to Scorch. You cast Fireball instead of Scorch {this.fireballExecuteCasts} times.

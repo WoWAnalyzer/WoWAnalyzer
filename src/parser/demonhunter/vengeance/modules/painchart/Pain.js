@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import fetchWcl from 'common/fetchWclApi';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 import ManaStyles from 'interface/others/ManaStyles';
 
 import PainComponent from './PainComponent';
@@ -133,7 +134,7 @@ class Pain extends React.PureComponent {
     let lastSecFight = start;
     this.state.pain.series[0].events.forEach((event) => {
       const secIntoFight = Math.floor((event.timestamp - start) / 1000);
-      if (event.type === 'cast') {
+      if (event.type === EventType.Cast) {
         const spell = SPELLS[event.ability.guid];
         if (!abilitiesAll[`${event.ability.guid}_spend`]) {
           abilitiesAll[`${event.ability.guid}_spend`] = {
@@ -153,7 +154,7 @@ class Pain extends React.PureComponent {
         const spendResource = spell !== undefined ? ((spell.painCost !== undefined) ? spell.painCost : (spell.max_pain < lastPain ? spell.max_pain : lastPain)) : 0;
         abilitiesAll[`${event.ability.guid}_spend`].spent += spendResource;
         abilitiesAll[`${event.ability.guid}_spend`].wasted += spell.max_pain !== undefined ? spell.max_pain - spendResource : 0;
-      } else if (event.type === 'energize') {
+      } else if (event.type === EventType.Energize) {
         if (!abilitiesAll[`${event.ability.guid}_gen`]) {
           const spell = SPELLS[event.ability.guid];
           abilitiesAll[`${event.ability.guid}_gen`] = {

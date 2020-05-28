@@ -133,6 +133,10 @@ class StatWeights extends BaseHealerStatValues {
     }
     return super._hasteHpm(event, healVal);
   }
+  
+  // _hasteHpct(event, healVal) {
+  //   return super._hasteHpct(event, healVal) + this._hasteHpm(event, healVal);
+  // }
 
   _mastery(event, healVal) {
     if (healVal.overheal) {
@@ -152,13 +156,18 @@ class StatWeights extends BaseHealerStatValues {
     return [
       STAT.INTELLECT,
       STAT.CRITICAL_STRIKE,
-      // STAT.HASTE_HPCT, // TODO implement
+      STAT.HASTE_HPCT, // TODO implement
       STAT.HASTE_HPM,
       STAT.MASTERY,
       STAT.VERSATILITY,
       STAT.VERSATILITY_DR,
       STAT.LEECH,
     ];
+  }
+
+  statistic(){
+    this.totalOneHasteHpct = this.totalOneHasteHpm + this.totalOneHasteHpct;
+    return super.statistic();
   }
 
 }

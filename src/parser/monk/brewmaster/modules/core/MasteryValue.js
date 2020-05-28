@@ -2,6 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 import SpellIcon from 'common/SpellIcon';
@@ -215,7 +216,7 @@ class MasteryValue extends Analyzer {
   // events that either (a) add a stack or (b) can be dodged according
   // to the data we have
   get relevantTimeline() {
-    return this._timeline.filter(event => event.type === 'cast' || this._dodgeableSpells[event.ability.guid]);
+    return this._timeline.filter(event => event.type === EventType.Cast || this._dodgeableSpells[event.ability.guid]);
   }
 
   _expectedValues = {
@@ -245,14 +246,14 @@ class MasteryValue extends Analyzer {
     // timeline replay is expensive, compute several things here and
     // provide individual getters for each of the values
     this.relevantTimeline.forEach(event => {
-      if (event.type === 'cast') {
+      if (event.type === EventType.Cast) {
         const eventStacks = this._stacksApplied(event);
         for(let i = 0; i < eventStacks; i++) {
           stacks.guaranteeStack();
           noMasteryStacks.guaranteeStack();
           noAgiStacks.guaranteeStack();
         }
-      } else if (event.type === 'damage') {
+      } else if (event.type === EventType.Damage) {
         const noMasteryDodgeChance = this.dodgeChance(noMasteryStacks.expected, 0, event._agility, event.sourceID, event.timestamp);
         const noAgiDodgeChance = this.dodgeChance(noAgiStacks.expected, event._masteryRating,
                                                   MONK_DODGE_COEFFS.base_agi, event.sourceID, event.timestamp);
@@ -320,12 +321,12 @@ class MasteryValue extends Analyzer {
 
   get averageMasteryRating() {
     return this.relevantTimeline.reduce((sum, event) => {
-      if (event.type === 'damage') {
+      if (event.type === EventType.Damage) {
         return event._masteryRating + sum;
       } else {
         return sum;
       }
-    }, 0) / this.relevantTimeline.filter(event => event.type === 'damage').length;
+    }, 0) / this.relevantTimeline.filter(event => event.type === EventType.Damage).length;
   }
 
   get noMasteryExpectedMitigation() {

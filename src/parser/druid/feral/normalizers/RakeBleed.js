@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS/index';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventType } from 'parser/core/Events';
 
 const CAST_WINDOW = 100;
 class RakeBleed extends EventsNormalizer {
@@ -8,10 +9,10 @@ class RakeBleed extends EventsNormalizer {
    * applydebuff event that it causes. (Possibly this misordering has something to do with Rake
    * from stealth also attempting to apply a stun debuff.)
    * This normalizes events so the bleed applydebuff always comes after cast.
-   * 
+   *
    * Example log: https://www.warcraftlogs.com/reports/bt2x7pkqJ6XBjPam#fight=last
    * Player Anatta at times: 0:00.900, 0:33.296, 3:35.127
-   * 
+   *
    * @param {Array} events
    * @returns {Array} Events possibly with some rake debuff events reordered and their timestamp altered.
    */
@@ -21,7 +22,7 @@ class RakeBleed extends EventsNormalizer {
       const castEvent = events[eventIndex];
       fixedEvents.push(castEvent);
 
-      if (castEvent.type !== 'cast' || castEvent.ability.guid !== SPELLS.RAKE.id) {
+      if (castEvent.type !== EventType.Cast || castEvent.ability.guid !== SPELLS.RAKE.id) {
         continue;
       }
 
@@ -32,7 +33,7 @@ class RakeBleed extends EventsNormalizer {
           // looked far enough back that we're outside the cast's time window, so give up
           break;
         }
-        if ((previousEvent.type === 'applydebuff' || previousEvent.type === 'refreshdebuff') &&
+        if ((previousEvent.type === EventType.ApplyDebuff || previousEvent.type === EventType.RefreshDebuff) &&
             previousEvent.ability.guid === SPELLS.RAKE_BLEED.id &&
             previousEvent.targetID === castEvent.targetID &&
             previousEvent.targetInstance === castEvent.targetInstance &&
@@ -48,13 +49,13 @@ class RakeBleed extends EventsNormalizer {
         }
       }
     }
-    
+
     /*
     events.forEach((event, eventIndex) => {
     fixedEvents.push(event);
 
     // find a cast event for rake
-    if(event.type === 'cast' && event.ability.guid === SPELLS.RAKE.id) {
+    if(event.type === EventType.Cast && event.ability.guid === SPELLS.RAKE.id) {
       const castTimestamp = event.timestamp;
 
       // look for matching recent applydebuff or refreshdebuff of RAKE_BLEED
@@ -63,14 +64,14 @@ class RakeBleed extends EventsNormalizer {
         if ((castTimestamp - previousEvent.timestamp) > CAST_WINDOW) {
           break;
         }
-        if ((previousEvent.type === 'applydebuff' || previousEvent.type === 'refreshdebuff') &&
+        if ((previousEvent.type === EventType.ApplyDebuff || previousEvent.type === EventType.RefreshDebuff) &&
             previousEvent.ability.guid === SPELLS.RAKE_BLEED.id &&
             previousEvent.targetID === event.targetID &&
             previousEvent.targetInstance === event.targetInstance &&
             previousEvent.sourceID === event.sourceID) {
           fixedEvents.splice(previousEventIndex, 1);
           fixedEvents.push(previousEvent);
-          // adjust timestamp so the event stream doesn't have 
+          // adjust timestamp so the event stream doesn't have
           previousEvent.timestamp = castTimestamp;
           previousEvent.__modified = true;
           break;
@@ -78,7 +79,7 @@ class RakeBleed extends EventsNormalizer {
       }
     }
     */
-    
+
     return fixedEvents;
   }
 }

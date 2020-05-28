@@ -1,3 +1,4 @@
+import { EventType } from 'parser/core/Events';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
@@ -68,7 +69,7 @@ describe('Core/Analyzer', () => {
       }
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
-        type: 'test',
+        type: EventType.Test,
       });
       expect(on_event).toBeCalled();
     });
@@ -93,7 +94,7 @@ describe('Core/Analyzer', () => {
       }
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
-        type: 'test',
+        type: EventType.Test,
       });
       expect(on_byPlayer_test).toBeCalled();
       expect(on_toPlayer_test).toBeCalled();
@@ -122,7 +123,7 @@ describe('Core/Analyzer', () => {
       parser.byPlayer = jest.fn(() => false);
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
-        type: 'test',
+        type: EventType.Test,
       });
       expect(on_byPlayer_test).not.toBeCalled();
       expect(on_toPlayer_test).toBeCalled();
@@ -151,7 +152,7 @@ describe('Core/Analyzer', () => {
       parser.toPlayer = jest.fn(() => false);
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
-        type: 'test',
+        type: EventType.Test,
       });
       expect(on_byPlayer_test).toBeCalled();
       expect(on_toPlayer_test).not.toBeCalled();
@@ -180,7 +181,7 @@ describe('Core/Analyzer', () => {
       parser.byPlayerPet = jest.fn(() => false);
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
-        type: 'test',
+        type: EventType.Test,
       });
       expect(on_byPlayer_test).toBeCalled();
       expect(on_toPlayer_test).toBeCalled();
@@ -209,7 +210,7 @@ describe('Core/Analyzer', () => {
       parser.toPlayerPet = jest.fn(() => false);
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
-        type: 'test',
+        type: EventType.Test,
       });
       expect(on_byPlayer_test).toBeCalled();
       expect(on_toPlayer_test).toBeCalled();
