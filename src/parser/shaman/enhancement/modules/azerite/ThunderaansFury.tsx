@@ -9,10 +9,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { STORMSTRIKE_CAST_SPELLS, STORMSTRIKE_COEFFICINIENT, STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/constants';
+import { STORMSTRIKE_CAST_SPELLS, STORMSTRIKE_COEFFICIENT, STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/constants';
 import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import calculateBonusAzeriteDamage from '../../../../core/calculateBonusAzeriteDamage';
+import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 
 /**
  *
@@ -67,13 +67,10 @@ class ThunderaansFury extends Analyzer {
   }
 
   onStrikeDamage(event: DamageEvent) {
-    let scale = 2/3;
+    // Determine between off-hand or main hand attack.
+    const scale = (event.ability.guid === SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id || event.ability.guid === SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id) ? 1/3 : 2/3;
 
-    if (event.ability.guid === SPELLS.STORMSTRIKE_DAMAGE_OFFHAND || event.ability.guid === SPELLS.WINDSTRIKE_DAMAGE_OFFHAND) {
-      scale = 1/3;
-    }
-
-    const [damage] = calculateBonusAzeriteDamage(event,[this.bonusDamage * scale], this.lastAttackPower, STORMSTRIKE_COEFFICINIENT);
+    const [damage] = calculateBonusAzeriteDamage(event,[this.bonusDamage * scale], this.lastAttackPower, STORMSTRIKE_COEFFICIENT);
     this.damageGained += damage;
   }
 
