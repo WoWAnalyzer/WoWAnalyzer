@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SpellUsable from 'parser/hunter/beastmastery/modules/core/SpellUsable';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
