@@ -35,6 +35,7 @@ import DawningSun from './modules/talents/azeritetraits/DawningSun';
 import HighNoon from './modules/talents/azeritetraits/HighNoon';
 import PowerOfTheMoon from './modules/talents/azeritetraits/PowerOfTheMoon';
 import StreakingStars from './modules/talents/azeritetraits/StreakingStars';
+import ArcanicPulsar from './modules/talents/azeritetraits/ArcanicPulsar';
 
 //Items
 
@@ -78,6 +79,7 @@ class CombatLogParser extends MainCombatLogParser {
     highNoon: HighNoon,
     powerOfTheMoon: PowerOfTheMoon,
     streakingStars: StreakingStars,
+    arcanicPulsar: ArcanicPulsar,
   };
 }
 
