@@ -81,7 +81,7 @@ class HyperthreadWristwraps extends Analyzer {
   suggestions(when: any) {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest: any, actual: any, recommended: any) => {
-				return suggest(<>You used your <ItemLink id={ITEMS.HYPERTHREAD_WRISTWRAPS.id} /> improperly {this.badWristUse} times. In order to get the most out of the item, you should ensure that you are reducing <SpellLink id={SPELLS.FIRE_BLAST.id} /> twice per use. To accomplish this, you should cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> > <SpellLink id={SPELLS.PYROBLAST.id} /> > <SpellLink id={SPELLS.FIRE_BLAST.id} /> > <ItemLink id={ITEMS.HYPERTHREAD_WRISTWRAPS.id} />. That way <SpellLink id={SPELLS.FIRE_BLAST.id} /> gets reduced twice.</>)
+				return suggest(<>You used your <ItemLink id={ITEMS.HYPERTHREAD_WRISTWRAPS.id} /> improperly {this.badWristUse} times. In order to get the most out of the item, you should ensure that you are reducing <SpellLink id={SPELLS.FIRE_BLAST.id} /> twice per use. To accomplish this, you should cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {'>'} <SpellLink id={SPELLS.PYROBLAST.id} /> {'>'} <SpellLink id={SPELLS.FIRE_BLAST.id} /> {'>'} <ItemLink id={ITEMS.HYPERTHREAD_WRISTWRAPS.id} />. That way <SpellLink id={SPELLS.FIRE_BLAST.id} /> gets reduced twice.</>)
 					.icon(ITEMS.HYPERTHREAD_WRISTWRAPS.icon)
 					.actual(`${formatPercentage(this.wristEfficiency)}% Utilization`)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`);

@@ -29,7 +29,7 @@ class TitanicEmpowerment extends Analyzer {
     this.active = !!this._vitaItem && !!this._voidItem;
 
     if (this.active) {
-      this.statBuff = calculatePrimaryStat(445, 1091, Math.floor(this._voidItem.itemLevel + this._vitaItem.itemLevel) / 2);
+      this.statBuff = calculatePrimaryStat(445, 1091, Math.floor((this._voidItem.itemLevel + this._vitaItem.itemLevel) / 2));
       this.statTracker.add(SPELLS.TITANIC_EMPOWERMENT.id, {
         strength: this.statBuff,
         intellect: this.statBuff,
