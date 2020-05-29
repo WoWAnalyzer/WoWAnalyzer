@@ -44,7 +44,7 @@ class FightSelection extends React.PureComponent {
     const { report, refreshReport } = this.props;
     const { killsOnly } = this.state;
 
-    const logDuration = report.end - report.start;
+    const reportDuration = report.end - report.start;
 
     return (
       <div className="container offset fight-selection">
@@ -88,8 +88,8 @@ class FightSelection extends React.PureComponent {
           </div>
         </div>
 
-        {logDuration > MAX_REPORT_DURATION &&
-        <ReportDurationWarning duration={logDuration} />}
+        {reportDuration > MAX_REPORT_DURATION &&
+        <ReportDurationWarning duration={reportDuration} />}
 
         <FightSelectionPanel
           report={report}
