@@ -1,0 +1,14 @@
+name: 'Delete old artifacts'
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # every 5 minutes - Should be set to something like 0 0 */14 * * for every 14 days, or maybe every 7 days?
+
+jobs:
+  delete-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kolpav/purge-artifacts-action@v1
+        with:
+          token: ${{ secrets.TOKEN_GITHUB }}
+          expire-in: 0 # Setting this to 0 will delete all artifacts - https://github.com/jkroso/parse-duration for information on usage
