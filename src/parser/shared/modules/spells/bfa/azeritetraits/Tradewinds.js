@@ -3,11 +3,8 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const tradewindsStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [mastery] = calculateAzeriteEffects(SPELLS.TRADEWINDS.id, rank);
@@ -69,23 +66,17 @@ class Tradewinds extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
+      <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
-        category={STATISTIC_CATEGORY.AZERITE_POWERS}
-        size="flexible"
+        trait={SPELLS.TRADEWINDS.id}
+        value={`${this.averageMastery} average Mastery`}
         tooltip={(
           <>
             {SPELLS.TRADEWINDS.name} grants <strong>{this.mastery} mastery</strong> while active.<br />
             You had <strong>{this.procs} {SPELLS.TRADEWINDS.name} procs</strong> resulting in {formatPercentage(this.uptime)}% uptime.
           </>
         )}
-      >
-        <BoringSpellValueText spell={SPELLS.TRADEWINDS}>
-          <>
-            {this.averageMastery} <small>average Mastery</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
+      />
     );
   }
 }

@@ -55,14 +55,19 @@ class VoidTwistedTitanshard extends Analyzer {
       return;
     }
     this.procs += 1;
+    this.healing += event.absorb;
   }
 
-  on_byPlayer_absorbed(event) {
+  on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.VOID_SHROUD.id) {
+    if (spellId !== SPELLS.LUMINOUS_BARRIER_TALENT.id) {
       return;
     }
-    this.healing += event.amount;
+
+    if (event.absorb > 0) {
+      this.wastedAbsorb += event.absorb;
+      this.healing -= event.absorb;
+    }
   }
 
   statistic() {

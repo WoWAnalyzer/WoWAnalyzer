@@ -30,6 +30,7 @@ class SpellUsable extends CoreSpellUsable {
         this.endCooldown(spellId, undefined, this.lastPotentialTriggerForRapidFireReset ? this.lastPotentialTriggerForRapidFireReset.timestamp : undefined);
       }
     }
+
     super.beginCooldown(spellId, cooldownTriggerEvent);
   }
 }

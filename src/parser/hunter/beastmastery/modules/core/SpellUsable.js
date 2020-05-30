@@ -26,6 +26,7 @@ class SpellUsable extends CoreSpellUsable {
         this.endCooldown(spellId, undefined, this.lastPotentialTriggerForBarbedShotReset ? this.lastPotentialTriggerForBarbedShotReset.timestamp : undefined);
       }
     }
+
     super.beginCooldown(spellId, cooldownTriggerEvent);
   }
 }

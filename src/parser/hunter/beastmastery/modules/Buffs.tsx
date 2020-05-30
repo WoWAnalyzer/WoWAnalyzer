@@ -14,7 +14,8 @@ class Buffs extends CoreBuffs {
         timelineHightlight: true,
       },
       {
-        //shows pet buff, since that is what is interesting to see and the player buff is 8 different spellIDs
+        //shows pet buff, since that is what is interesting to see and the
+        // player buff is 8 different spellIDs
         spellId: SPELLS.BARBED_SHOT_PET_BUFF.id,
         timelineHightlight: true,
       },
@@ -28,7 +29,9 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
-        timelineHightlight: true, // showing because it's relevant to know when we couldn't attack (this could explain some downtime)
+        timelineHightlight: true, // showing because it's relevant to know when
+                                  // we couldn't attack (this could explain
+                                  // some downtime)
       },
       {
         spellId: SPELLS.BERSERKING.id,

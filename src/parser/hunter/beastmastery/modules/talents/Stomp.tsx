@@ -7,36 +7,34 @@ import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent, DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText
+  from 'interface/statistics/components/BoringSpellValueText';
+import { CastEvent, DamageEvent } from '../../../../core/Events';
 
 /**
- * When you cast Barbed Shot, your pet stomps the ground, dealing [((50% of Attack power)) * (1 + Versatility)] Physical damage to all nearby enemies.
+ * When you cast Barbed Shot, your pet stomps the ground, dealing [((50% of
+ * Attack power)) * (1 + Versatility)] Physical damage to all nearby enemies.
  *
- * Example log without Animal Companion:
- * https://www.warcraftlogs.com/reports/Q9LghKR7ZPnAwFaH#fight=48&type=damage-done&ability=201754&source=280
- *
- * Example log with Animal Companion (on ST, so only 1 avg target hit expected):
- * https://www.warcraftlogs.com/reports/aRZTcf4Gh6n7xmKq#fight=9&type=damage-done&source=10&ability=201754
- *
+ * Example log:
+ * https://www.warcraftlogs.com/reports/yg6PFb8NKz71MRWY#fight=20&type=damage-done
  */
 
-const AMOUNT_OF_PETS_WITH_AC = 2;
 class Stomp extends Analyzer {
   damage = 0;
   hits = 0;
   casts = 0;
-  hasAC = false;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STOMP_TALENT.id);
-    this.hasAC = this.selectedCombatant.hasTalent(SPELLS.ANIMAL_COMPANION_TALENT.id);
   }
 
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BARBED_SHOT.id && spellId !== SPELLS.DIRE_BEAST_TALENT.id) {
+    if (spellId !==
+      SPELLS.BARBED_SHOT.id &&
+      spellId !==
+      SPELLS.DIRE_BEAST_TALENT.id) {
       return;
     }
     this.casts += 1;
@@ -48,7 +46,10 @@ class Stomp extends Analyzer {
       return;
     }
     this.hits += 1;
-    this.damage += event.amount + (event.absorbed || 0);
+    this.damage += event.amount +
+      (
+        event.absorbed || 0
+      );
   }
 
   statistic() {
@@ -61,7 +62,7 @@ class Stomp extends Analyzer {
         <BoringSpellValueText spell={SPELLS.STOMP_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /><br />
-            <AverageTargetsHit casts={this.casts} hits={this.hasAC ? this.hits/AMOUNT_OF_PETS_WITH_AC : this.hits} />
+            <AverageTargetsHit casts={this.casts} hits={this.hits} />
           </>
         </BoringSpellValueText>
       </Statistic>

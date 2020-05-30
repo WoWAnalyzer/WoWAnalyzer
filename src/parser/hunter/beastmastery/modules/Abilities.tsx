@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import { SpellbookAbility } from 'parser/core/modules/Ability';
+import { SpellbookAbility } from '../../../core/modules/Ability';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -226,7 +226,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
+        cooldown: 180 *
+          (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
         gcd: {
           static: 0,
         },
@@ -235,7 +236,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
-        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
+        cooldown: 180 *
+          (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
         gcd: {
           static: 0,
         },

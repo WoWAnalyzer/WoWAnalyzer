@@ -4,8 +4,9 @@ import React from 'react';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyDebuffEvent } from 'parser/core/Events';
+import BoringSpellValueText
+  from 'interface/statistics/components/BoringSpellValueText';
+import { ApplyDebuffEvent } from '../../../../core/Events';
 
 /**
  * Fires a magical projectile, tethering the enemy and any other enemies within
@@ -21,12 +22,16 @@ class BindingShot extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id);
+    this.active
+      = this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id);
   }
 
   on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BINDING_SHOT_ROOT.id && spellId !== SPELLS.BINDING_SHOT_TETHER.id) {
+    if (spellId !==
+      SPELLS.BINDING_SHOT_ROOT.id &&
+      spellId !==
+      SPELLS.BINDING_SHOT_TETHER.id) {
       return;
     }
     if (spellId === SPELLS.BINDING_SHOT_ROOT.id) {
@@ -46,7 +51,8 @@ class BindingShot extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.BINDING_SHOT_TALENT}>
           <>
-            {this._roots} <small>roots</small> / {this._applications} <small>possible</small>
+            {this._roots} <small>roots</small> / {this._applications}
+            <small>possible</small>
           </>
         </BoringSpellValueText>
       </Statistic>

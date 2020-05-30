@@ -115,7 +115,7 @@ class GlacialSpikeNoIL extends Analyzer {
                 <TooltipElement
                   content={(
                     <>
-                      <em>Glacial Spike {'>'} (empowered) Flurry {'>'} Ice Lance</em><br />
+                      <em>Glacial Spike > (empowered) Flurry > Ice Lance</em><br />
                       Because of Flurry's extremely fast travel time, using a Brain Freeze proc immediately following a slower spell like Glacial Spike will apply Winter's Chill to the target before the slower spell hits.
                     </>
                   )}
