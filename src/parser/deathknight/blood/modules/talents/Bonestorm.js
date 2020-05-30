@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 
@@ -23,7 +24,7 @@ class Bonestorm extends Analyzer {
     }
 
     this.bsCasts.push({
-      cost: event.classResources[0].cost,
+      cost: event && event.classResources && event.classResources.find(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER.id).cost,
       hits: [],
     });
   }
