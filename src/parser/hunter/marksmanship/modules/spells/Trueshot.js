@@ -31,6 +31,7 @@ class Trueshot extends Analyzer {
   accumulatedFocusAtTSCast = 0;
   aimedShotsPrTS = 0;
   startFocusForCombatant = 0;
+  amountAtCurrentCast = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -40,8 +41,9 @@ class Trueshot extends Analyzer {
 
     if (spellId === SPELLS.TRUESHOT.id) {
       this.trueshotCasts += 1;
-      if (event && event.classResources) {
-        this.accumulatedFocusAtTSCast += event.classResources.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id).amount || 0;
+      this.amountAtCurrentCast = event.classResources.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id).amount;
+      if(this.amountAtCurrentCast) {
+        this.accumulatedFocusAtTSCast += this.amountAtCurrentCast;
       }
     }
     if (spellId === SPELLS.AIMED_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {

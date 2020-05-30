@@ -12,6 +12,7 @@ const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 class Bonestorm extends Analyzer {
   bsCasts = [];
   totalBonestormDamage = 0;
+  currentCost = 0;
 
   constructor(...args) {
     super(...args);
@@ -22,9 +23,9 @@ class Bonestorm extends Analyzer {
     if (event.ability.guid !== SPELLS.BONESTORM_TALENT.id) {
       return;
     }
-
+    this.currentCost = event.classResources && event.classResources.find(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER.id);
     this.bsCasts.push({
-      cost: event && event.classResources && event.classResources.find(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER.id).cost,
+      cost: this.currentCost ? this.currentCost : 0,
       hits: [],
     });
   }
