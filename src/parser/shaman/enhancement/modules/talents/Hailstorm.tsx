@@ -21,13 +21,13 @@ class Hailstorm extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);
   }
 
-  get frostBrandUptime() {
+  get frostbrandUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
   }
 
-  get frostBrandUptimeThresholds() {
+  get frostbrandUptimeThresholds() {
     return {
-      actual: this.frostBrandUptime,
+      actual: this.frostbrandUptime,
       isLessThan: {
         minor: 0.95,
         average: 0.95,
@@ -38,7 +38,7 @@ class Hailstorm extends Analyzer {
   }
 
   suggestions(when: any) {
-    when(this.frostBrandUptimeThresholds).addSuggestion(
+    when(this.frostbrandUptimeThresholds).addSuggestion(
       (suggest: any, actual: any, recommended: any) => {
         return suggest(
           <Trans>
@@ -69,8 +69,8 @@ class Hailstorm extends Analyzer {
       >
         <BoringSpellValue
           spell={SPELLS.FROSTBRAND}
-          value={`${formatPercentage(this.frostBrandUptime)} %`}
-          label="Frostband Uptime"
+          value={`${formatPercentage(this.frostbrandUptime)} %`}
+          label="Frostbrand Uptime"
         />
       </Statistic>
     );
