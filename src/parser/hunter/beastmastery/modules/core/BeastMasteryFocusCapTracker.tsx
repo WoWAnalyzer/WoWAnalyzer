@@ -1,5 +1,4 @@
-import FocusCapTracker
-  from 'parser/hunter/shared/modules/resources/FocusCapTracker';
+import FocusCapTracker from 'parser/hunter/shared/modules/resources/FocusCapTracker';
 
 const BASE_FOCUS_REGEN = 10;
 const BASE_FOCUS_MAX = 120;

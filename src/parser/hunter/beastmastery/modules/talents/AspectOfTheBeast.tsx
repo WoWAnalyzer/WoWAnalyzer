@@ -6,17 +6,15 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from '../../../../core/Events';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { DamageEvent } from 'parser/core/Events';
 
 /**
  * Increases the damage of your pet's abilities by 30%.
- * Increases the effectiveness of your pet's Predator's Thirst, Endurance
- * Training, and Pathfinding passives by 50%.
+ * Increases the effectiveness of your pet's Predator's Thirst, Endurance Training, and Pathfinding passives by 50%.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/qZRdFv9Apg74wmMV#fight=3&type=damage-done
+ * https://www.warcraftlogs.com/reports/a4KVj37kTNbyxG1Y#fight=10&type=summary&source=8
  */
 
 const ASPECT_MULTIPLIER = 0.3;
@@ -32,8 +30,7 @@ class AspectOfTheBeast extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.ASPECT_OF_THE_BEAST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ASPECT_OF_THE_BEAST_TALENT.id);
   }
 
   on_byPlayerPet_damage(event: DamageEvent) {

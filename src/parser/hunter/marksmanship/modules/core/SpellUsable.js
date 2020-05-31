@@ -13,7 +13,6 @@ class SpellUsable extends CoreSpellUsable {
     if (super.on_byPlayer_cast) {
       super.on_byPlayer_cast(event);
     }
-
     const spellId = event.ability.guid;
     if (this.selectedCombatant.hasTrait(SPELLS.SURGING_SHOTS.id)) {
       if (spellId === SPELLS.AIMED_SHOT.id) {
@@ -31,7 +30,6 @@ class SpellUsable extends CoreSpellUsable {
         this.endCooldown(spellId, undefined, this.lastPotentialTriggerForRapidFireReset ? this.lastPotentialTriggerForRapidFireReset.timestamp : undefined);
       }
     }
-
     super.beginCooldown(spellId, cooldownTriggerEvent);
   }
 }
