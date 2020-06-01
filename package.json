@@ -66,8 +66,6 @@
     "react-app-rewired": "^2.1.6",
     "react-scripts": "^3.4.1",
     "react-test-renderer": "^16.8.6",
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.7",
     "typescript": "^3.7.3"
   },
   "scripts": {
