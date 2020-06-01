@@ -59,7 +59,7 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
         <Requirement name={<> <SpellLink id={SPELLS.FURY_OF_AIR_TALENT.id} /> uptime</>} thresholds={thresholds.furyOfAirUptime} />}
 
         <Requirement name={<> <SpellLink id={SPELLS.FLAMETONGUE.id} /> uptime</>} thresholds={thresholds.flametongueUptime} />
-        {!combatant.hasTalent(SPELLS.SUNDERING_TALENT.id) &&
+        {!combatant.hasTalent(SPELLS.SEARING_ASSAULT_TALENT.id) &&
         <Requirement name={<> <SpellLink id={SPELLS.FLAMETONGUE.id} /> early refreshes</>} thresholds={thresholds.flametongueEarlyRefreshes} />}
 
         {combatant.hasTalent(SPELLS.HAILSTORM_TALENT.id) &&
