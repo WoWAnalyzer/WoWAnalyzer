@@ -39,6 +39,7 @@ import DegradedExperience from './DegradedExperience';
 import ItemWarning from './ItemWarning';
 import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
+import ReportDurationWarning, { MAX_REPORT_DURATION } from '../ReportDurationWarning';
 import ScrollToTop from './ScrollToTop';
 import TABS from './TABS';
 
@@ -78,6 +79,8 @@ class Results extends React.PureComponent {
     build: PropTypes.string,
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
+      start: PropTypes.number.isRequired,
+      end: PropTypes.number.isRequired,
     }).isRequired,
     fight: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -351,6 +354,8 @@ class Results extends React.PureComponent {
 
     const contributorinfo = <ReadableListing>{(config.contributors.length !== 0) ? config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED'}</ReadableListing>;
 
+    const reportDuration = report.end - report.start;
+
     return (
       <div className={`results boss-${fight.boss}`}>
         <Header
@@ -371,6 +376,10 @@ class Results extends React.PureComponent {
           build={build}
           isLoading={this.isLoading}
         />
+
+        {fight.end_time > MAX_REPORT_DURATION &&
+        <ReportDurationWarning duration={reportDuration} />}
+
         {parser && parser.disabledModules && <DegradedExperience disabledModules={parser.disabledModules} />}
         {boss && boss.fight.resultsWarning && (
           <div className="container">

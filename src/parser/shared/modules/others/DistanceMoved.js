@@ -30,6 +30,9 @@ class DistanceMoved extends Analyzer {
   }
 
   timeSinceLastMovement() {
+    if (!this.lastPositionChange) {
+      return null;
+    }
     return this.owner.currentTimestamp - this.lastPositionChange.timestamp;
   }
 
