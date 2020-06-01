@@ -623,7 +623,7 @@ export default {
     name: 'Crashing Storm',
     icon: 'spell_nature_unrelentingstorm',
   },
-  HAILSTORM_BUFF: {
+  HAILSTORM_ATTACK: {
     id: 210854,
     name: 'Hailstorm',
     icon: 'spell_frost_frostbrand',

@@ -75,21 +75,10 @@ class FlametongueRefresh extends Analyzer {
     when(this.flametongueEarlyRefreshThreshold)
       .addSuggestion(
         (suggest: any, actual: any, recommended: any) => {
-          return suggest(
-            <>Avoid refreshing Flametongue with more then 4.5 sec left on the buff.
-              Some early refreshes are unavoidable.</>)
+          return suggest(<Trans>Avoid refreshing Flametongue with more then 4.5 sec left on the buff. Some early refreshes are unavoidable.</Trans>)
             .icon(SPELLS.FLAMETONGUE_BUFF.icon)
-            .actual(
-              <Trans>
-                {actual} of {this.flametongueCasts} ({formatPercentage(
-                this.refreshPercentageCast,
-                0,
-              )}%) early refreshes
-              </Trans>,
-            )
-            .recommended(
-              <Trans>{recommended} recommended</Trans>,
-            );
+            .actual(<Trans>{actual} of {this.flametongueCasts} ({formatPercentage(this.refreshPercentageCast,0)}%) early refreshes</Trans>)
+            .recommended(<Trans>{recommended} recommended</Trans>);
         },
       );
   }

@@ -3,10 +3,13 @@ import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import UptimeIcon from 'interface/icons/Uptime';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Scorches your target, dealing (14.742% of Attack power) Fire damage,
@@ -16,6 +19,20 @@ import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
  * Warcraft Log: https://www.warcraftlogs.com/reports/Yq7wP2WTX1DLjVd9#fight=3&type=damage-done&ability=193796
  */
 class Flametongue extends Analyzer {
+  protected damageGained: number = 0;
+
+  constructor(options: any) {
+    super(options);
+
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER)
+        .spell([SPELLS.FLAMETONGUE, SPELLS.FLAMETONGUE_ATTACK]),
+      this.onDamage);
+  }
+
+  onDamage(event: DamageEvent) {
+    this.damageGained += event.amount + (event.absorbed || 0);
+  }
 
   get flametongueUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_BUFF.id) / this.owner.fightDuration;
@@ -61,13 +78,14 @@ class Flametongue extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
-        size="small"
+        size="flexible"
       >
-        <BoringSpellValue
-          spell={SPELLS.FLAMETONGUE}
-          value={`${formatPercentage(this.flametongueUptime)} %`}
-          label="Flametongue Uptime"
-        />
+        <BoringSpellValueText spell={SPELLS.FLAMETONGUE}>
+          <>
+            <ItemDamageDone amount={this.damageGained} /><br />
+            <UptimeIcon /> {formatPercentage(this.flametongueUptime, 2)}% <small>buff uptime</small>
+          </>
+        </BoringSpellValueText>
       </Statistic>
     );
   }
