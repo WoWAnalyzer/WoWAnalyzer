@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Sharrq, Juko8 } from 'CONTRIBUTORS';
+import { Sharrq, Juko8, Dambroda } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,7 @@ import ItemLink from 'common/ItemLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 6, 1), <>Fixed <SpellLink id={SPELLS.COMBUSTION.id} /> pre-pull detection</>, [Dambroda]),
   change(date(2020, 5, 25), <>Updated Integration Tests and Example Logs.</>,[Sharrq]),
   change(date(2020, 5, 25), <>Updated remaining files to Typescript.</>,[Sharrq]),
   change(date(2020, 4, 14), <>Added a check for the number of <SpellLink id={SPELLS.SCORCH.id} /> casts that were cast outside of execute.</>,[Sharrq]),
