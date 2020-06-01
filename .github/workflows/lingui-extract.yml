@@ -34,7 +34,10 @@ jobs:
             ${{ runner.os }}-node_modules-
       - run: yarn --frozen-lockfile --production=false
       - name: Extract messages
-        run: yarn extract
+        # We need to run extraction twice as Lingui has a bug where the second pass removes the default for messages with the same id as the default
+        run: |
+          yarn extract
+          yarn extract
       - name: Has changes
         id: has-changes
         run: echo "::set-output name=changed::$(if [[ `git status --porcelain` ]]; then echo "true"; else echo "false"; fi)"
