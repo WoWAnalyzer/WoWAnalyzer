@@ -6,15 +6,12 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { FLAMETONGUE_BUFF_REFRESH_THRESHOLD } from '../../constants';
-
-// Don't refresh with more than 4.5 seconds left on Flametongue buff
-const PANDEMIC_THRESHOLD = 11500;
+import { FLAMETONGUE_BUFF_DURATION_MS, FLAMETONGUE_BUFF_REFRESH_THRESHOLD, FLAMETONGUE_BUFF_REFRESH_THRESHOLD_MS } from '../../constants';
 
 class FlametongueRefresh extends Analyzer {
-  protected flametongueTimestamp: number = 0;
-  protected flametongueCasts: number = 0;
-  protected earlyRefresh: number = 0;
+  protected casts: number = 0;
+  protected earlyRefreshes: number = 0;
+  protected flametongueEndTimestamp: number = 0;
 
   constructor(options: any) {
     super(options);
@@ -47,29 +44,32 @@ class FlametongueRefresh extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    this.flametongueCasts += 1;
+    this.casts += 1;
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
-    this.flametongueTimestamp = event.timestamp;
+    this.flametongueEndTimestamp = event.timestamp + FLAMETONGUE_BUFF_DURATION_MS;
   }
 
   onRefreshBuff(event: RefreshBuffEvent) {
-    if (this.flametongueTimestamp !== 0) {
-      if (event.timestamp - this.flametongueTimestamp < PANDEMIC_THRESHOLD) {
-        this.earlyRefresh += 1;
-      }
+    const timeRemaining = this.flametongueEndTimestamp - event.timestamp;
+
+    if (this.flametongueEndTimestamp - event.timestamp > FLAMETONGUE_BUFF_REFRESH_THRESHOLD_MS) {
+      this.earlyRefreshes += 1;
     }
-    this.flametongueTimestamp = event.timestamp;
+
+    const extendedDuration = timeRemaining > FLAMETONGUE_BUFF_REFRESH_THRESHOLD_MS ? FLAMETONGUE_BUFF_REFRESH_THRESHOLD_MS : timeRemaining;
+
+    this.flametongueEndTimestamp = event.timestamp + FLAMETONGUE_BUFF_DURATION_MS + extendedDuration;
   }
 
   get refreshPercentageCast() {
-    return this.earlyRefresh / this.flametongueCasts;
+    return this.earlyRefreshes / this.casts;
   }
 
   get flametongueEarlyRefreshThreshold() {
     return {
-      actual: this.earlyRefresh,
+      actual: this.earlyRefreshes,
       isGreaterThan: {
         minor: 0,
         average: 3,
@@ -85,7 +85,7 @@ class FlametongueRefresh extends Analyzer {
         (suggest: any, actual: any, recommended: any) => {
           return suggest(<Trans>Avoid refreshing <SpellLink id={SPELLS.FLAMETONGUE.id} /> too early. You can optimally refresh it with less than {FLAMETONGUE_BUFF_REFRESH_THRESHOLD} seconds remaining on the buff.</Trans>)
             .icon(SPELLS.FLAMETONGUE_BUFF.icon)
-            .actual(<Trans>{actual} of {this.flametongueCasts} ({formatPercentage(this.refreshPercentageCast,0)}%) early refreshes</Trans>)
+            .actual(<Trans>{actual} of {this.casts} ({formatPercentage(this.refreshPercentageCast,0)}%) early refreshes</Trans>)
             .recommended(<Trans>{recommended} recommended</Trans>);
         },
       );

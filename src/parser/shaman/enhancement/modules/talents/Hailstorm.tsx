@@ -11,23 +11,20 @@ import Events, { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { FROSTBRAND_BUFF_REFRESH_THRESHOLD } from '../../constants';
-
-// Don't refresh with more than 4.5 seconds left on Flametongue buff
-const PANDEMIC_THRESHOLD = 11500;
+import { FROSTBRAND_BUFF_DURATION_MS, FROSTBRAND_BUFF_REFRESH_THRESHOLD, FROSTBRAND_BUFF_REFRESH_THRESHOLD_MS } from '../../constants';
 
 /**
  * Frostbrand now also enhances your weapon's damage,
  * causing each of your weapon attacks to also deal
  * (3.159% of Attack power)% Frost damage.
  *
- * Example Log:
+ * Example Log: https://www.warcraftlogs.com/reports/t347bkRxBDTjYF2v#fight=3&type=damage-done&ability=-196834
  */
 class Hailstorm extends Analyzer {
   protected damageGained: number = 0;
   protected casts: number = 0;
-  protected earlyRefresh: number = 0;
-  protected lastTimestamp: number = 0;
+  protected earlyRefreshes: number = 0;
+  protected frostbrandEndTimestamp: number = 0;
 
   constructor(options: any) {
     super(options);
@@ -67,17 +64,19 @@ class Hailstorm extends Analyzer {
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
-    this.lastTimestamp = event.timestamp;
+    this.frostbrandEndTimestamp = event.timestamp + FROSTBRAND_BUFF_DURATION_MS;
   }
 
   onRefreshBuff(event: RefreshBuffEvent) {
-    if (this.lastTimestamp !== 0) {
-      if (event.timestamp - this.lastTimestamp < PANDEMIC_THRESHOLD) {
-        this.earlyRefresh += 1;
-      }
+    const timeRemaining = this.frostbrandEndTimestamp - event.timestamp;
+
+    if (this.frostbrandEndTimestamp - event.timestamp > FROSTBRAND_BUFF_REFRESH_THRESHOLD_MS) {
+      this.earlyRefreshes += 1;
     }
 
-    this.lastTimestamp = event.timestamp;
+    const extendedDuration = timeRemaining > FROSTBRAND_BUFF_REFRESH_THRESHOLD_MS ? FROSTBRAND_BUFF_REFRESH_THRESHOLD_MS : timeRemaining;
+
+    this.frostbrandEndTimestamp = event.timestamp + FROSTBRAND_BUFF_DURATION_MS + extendedDuration;
   }
 
   get frostbrandUptime() {
@@ -98,7 +97,7 @@ class Hailstorm extends Analyzer {
 
   get frostbrandEarlyRefreshThreshold() {
     return {
-      actual: this.earlyRefresh,
+      actual: this.earlyRefreshes,
       isGreaterThan: {
         minor: 0,
         average: 3,
@@ -109,7 +108,7 @@ class Hailstorm extends Analyzer {
   }
 
   get refreshPercentageCast() {
-    return this.earlyRefresh / this.casts;
+    return this.earlyRefreshes / this.casts;
   }
 
   suggestions(when: any) {
