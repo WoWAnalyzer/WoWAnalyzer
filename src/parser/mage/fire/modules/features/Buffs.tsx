@@ -19,6 +19,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.COMBUSTION.id,
+        triggeredBySpellId: SPELLS.COMBUSTION.id,
         timelineHightlight: true,
       },
       {
@@ -28,10 +29,12 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.BLAZING_BARRIER.id,
+        triggeredBySpellId: SPELLS.BLAZING_BARRIER.id,
         timelineHightlight: true,
       },
       {
         spellId: SPELLS.ICE_BLOCK.id,
+        triggeredBySpellId: SPELLS.ICE_BLOCK.id,
         timelineHightlight: true,
       },
       {
