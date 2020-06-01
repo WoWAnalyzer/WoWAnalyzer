@@ -19,10 +19,12 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.ARCANE_POWER.id,
+        triggeredBySpellId: SPELLS.ARCANE_POWER.id,
         timelineHightlight: true,
       },
       {
         spellId: SPELLS.PRESENCE_OF_MIND.id,
+        triggeredBySpellId: SPELLS.PRESENCE_OF_MIND.id,
         timelineHightlight: true,
       },
       {
@@ -32,10 +34,12 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.PRISMATIC_BARRIER.id,
+        triggeredBySpellId: SPELLS.PRISMATIC_BARRIER.id,
         timelineHightlight: true,
       },
       {
         spellId: SPELLS.ICE_BLOCK.id,
+        triggeredBySpellId: SPELLS.ICE_BLOCK.id,
         timelineHightlight: true,
       },
       {
