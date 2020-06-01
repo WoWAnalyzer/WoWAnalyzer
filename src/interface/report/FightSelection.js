@@ -12,6 +12,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { getFightId } from 'interface/selectors/url/report';
 import { getFightFromReport } from 'interface/selectors/fight';
 import DocumentTitle from 'interface/DocumentTitle';
+import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 
 import FightSelectionPanel from './FightSelectionPanel';
 
@@ -21,6 +22,8 @@ class FightSelection extends React.PureComponent {
       code: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       fights: PropTypes.array.isRequired,
+      start: PropTypes.number.isRequired,
+      end: PropTypes.number.isRequired,
     }).isRequired,
     refreshReport: PropTypes.func.isRequired,
     children: PropTypes.func.isRequired,
@@ -40,6 +43,8 @@ class FightSelection extends React.PureComponent {
   renderFightSelection() {
     const { report, refreshReport } = this.props;
     const { killsOnly } = this.state;
+
+    const reportDuration = report.end - report.start;
 
     return (
       <div className="container offset fight-selection">
@@ -82,6 +87,9 @@ class FightSelection extends React.PureComponent {
             </div>
           </div>
         </div>
+
+        {reportDuration > MAX_REPORT_DURATION &&
+        <ReportDurationWarning duration={reportDuration} />}
 
         <FightSelectionPanel
           report={report}

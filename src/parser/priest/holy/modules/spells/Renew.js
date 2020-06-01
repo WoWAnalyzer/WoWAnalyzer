@@ -180,7 +180,7 @@ class Renew extends Analyzer {
     const timeSinceCast = event.timestamp - this.lastGCD.timestamp;
     const timeSinceLastMovement = this.distanceMoved.timeSinceLastMovement();
 
-    if (timeSinceLastMovement < timeSinceCast) {
+    if (timeSinceLastMovement !== null && timeSinceLastMovement < timeSinceCast) {
       return true;
     }
     return false;

@@ -19,6 +19,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.ICY_VEINS.id,
+        triggeredBySpellId: SPELLS.ICY_VEINS.id,
         timelineHightlight: true,
       },
       {
@@ -28,10 +29,12 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.ICE_BARRIER.id,
+        triggeredBySpellId: SPELLS.ICE_BARRIER.id,
         timelineHightlight: true,
       },
       {
         spellId: SPELLS.ICE_BLOCK.id,
+        triggeredBySpellId: SPELLS.ICE_BLOCK.id,
         timelineHightlight: true,
       },
       {
