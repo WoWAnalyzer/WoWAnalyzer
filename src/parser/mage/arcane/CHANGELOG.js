@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Sharrq, fluffels } from 'CONTRIBUTORS';
+import { Sharrq, fluffels, Dambroda } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 6, 1), <>Fixed <SpellLink id={SPELLS.ARCANE_POWER.id} /> pre-pull detection</>, [Dambroda]),
   change(date(2020, 1, 15), 'Updated Spec Compatibility to 8.3',[Sharrq]),
   change(date(2019, 10, 1), <>Removed the check to see if <SpellLink id={SPELLS.ARCANE_POWER.id} /> was available when the fight ended.</>,[Sharrq]),
   change(date(2019, 9, 30), 'Updated Spec Compatibility to 8.2.5.',[Sharrq]),
