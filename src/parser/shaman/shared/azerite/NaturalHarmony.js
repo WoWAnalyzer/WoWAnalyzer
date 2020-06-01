@@ -81,8 +81,8 @@ class NaturalHarmony extends Analyzer {
         tooltip={(
           <div>
             Grants {this.naturalHarmonyStatValue} critical strike via <SpellLink id={SPELLS.NATURAL_HARMONY_FIRE_BUFF.id} /> for 12 seconds after casting a fire spell.<br />
-            Grants {this.naturalHarmonyStatValue} haste via <SpellLink id={SPELLS.NATURAL_HARMONY_NATURE_BUFF.id} /> for 12 seconds after casting a nature spell.<br />
-            Grants {this.naturalHarmonyStatValue} mastery via <SpellLink id={SPELLS.NATURAL_HARMONY_FROST_BUFF.id} /> for 12 seconds after casting a frost spell.
+            Grants {this.naturalHarmonyStatValue} mastery via <SpellLink id={SPELLS.NATURAL_HARMONY_FROST_BUFF.id} /> for 12 seconds after casting a frost spell.<br />
+            Grants {this.naturalHarmonyStatValue} haste via <SpellLink id={SPELLS.NATURAL_HARMONY_NATURE_BUFF.id} /> for 12 seconds after casting a nature spell.
           </div>
         )}
       >
@@ -93,18 +93,18 @@ class NaturalHarmony extends Analyzer {
             </div>
           )}
           > {this.averageCrit} <small>average Crit gained</small></TooltipElement><br />
-          <HasteIcon /> <TooltipElement content={(
-            <div>
-              <UptimeIcon /> {formatPercentage(this.hasteBuffUptime, 2)}% uptime
-            </div>
-          )}
-          >{this.averageHaste} <small>average Haste gained</small></TooltipElement><br />
           <MasteryIcon /> <TooltipElement content={(
             <div>
               <UptimeIcon /> {formatPercentage(this.masteryBuffUptime, 2)}% uptime
             </div>
           )}
-          >{this.averageMastery} <small>average Mastery gained</small></TooltipElement>
+          >{this.averageMastery} <small>average Mastery gained</small></TooltipElement><br />
+          <HasteIcon /> <TooltipElement content={(
+          <div>
+            <UptimeIcon /> {formatPercentage(this.hasteBuffUptime, 2)}% uptime
+          </div>
+        )}
+        >{this.averageHaste} <small>average Haste gained</small></TooltipElement>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );
