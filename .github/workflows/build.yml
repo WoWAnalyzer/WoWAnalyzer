@@ -1,4 +1,4 @@
-name: Build
+name: 'Build'
 
 on: [push, pull_request]
 
@@ -33,19 +33,6 @@ jobs:
         with:
           name: dependencies
           path: dependencies.tar.gz
-  require-changelog-entry:
-    name: 'Has new changelog entry'
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    env:
-      YARN_CACHE_FOLDER: .yarn-cache
-    steps:
-      - uses: actions/checkout@v2
-      - run: git fetch --no-tags --depth=1 origin master:master
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - run: node scripts/require-changelog-entry.js
 
   # TODO: Update this when possible to include the node_modules folder. GH is updating artifact action soon to make this
   #  easier (https://github.com/actions/upload-artifact/issues/7#issuecomment-566114993), and cache action multiple path
