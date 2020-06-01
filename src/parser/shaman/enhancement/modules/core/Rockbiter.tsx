@@ -55,7 +55,7 @@ class Rockbiter extends Analyzer {
     return this.rockbiterOveruse / this.rockbiterTotalCasts;
   }
 
-  get rockbiterSuggestionsTreshold() {
+  get rockbiterSuggestionsThreshold() {
     return {
       actual: this.maelstromWasted,
       isGreaterThan: {
@@ -68,7 +68,7 @@ class Rockbiter extends Analyzer {
   }
 
   suggestions(when: any) {
-    when(this.rockbiterSuggestionsTreshold)
+    when(this.rockbiterSuggestionsThreshold)
       .addSuggestion(
         (suggest: any, actual: any, recommended: any) => {
           return suggest(

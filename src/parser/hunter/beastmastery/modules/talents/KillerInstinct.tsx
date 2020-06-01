@@ -11,7 +11,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from 'parser/core/Events';
 
-const KILLER_INSTINCT_TRESHOLD = 0.35;
+const KILLER_INSTINCT_THRESHOLD = 0.35;
 const KILLER_INSTINCT_CONTRIBUTION = 0.5;
 
 /**
@@ -40,7 +40,7 @@ class KillerInstinct extends Analyzer {
     }
     this.casts += 1;
     const enemyHealthPercent = (event.hitPoints / event.maxHitPoints);
-    if (enemyHealthPercent <= KILLER_INSTINCT_TRESHOLD) {
+    if (enemyHealthPercent <= KILLER_INSTINCT_THRESHOLD) {
       this.castsWithExecute += 1;
       const traitDamage = calculateEffectiveDamage(event, KILLER_INSTINCT_CONTRIBUTION);
       this.damage += traitDamage;

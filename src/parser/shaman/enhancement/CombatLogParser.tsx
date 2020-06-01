@@ -9,7 +9,7 @@ import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 // Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
+import Checklist from './modules/checklist/Module';
 import Buffs from './modules/Buffs';
 // Enhancement Core
 import Flametongue from './modules/core/Flametongue';
