@@ -1,8 +1,9 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 
-import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
+import SpellLink from 'common/SpellLink';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
@@ -10,6 +11,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import UptimeIcon from 'interface/icons/Uptime';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { FLAMETONGUE_BUFF_REFRESH_THRESHOLD } from '../../constants';
 
 /**
  * Scorches your target, dealing (14.742% of Attack power) Fire damage,
@@ -54,22 +56,10 @@ class Flametongue extends Analyzer {
     when(this.flametongueUptimeThreshold)
       .addSuggestion(
         (suggest: any, actual: any, recommended: any) => {
-          return suggest(
-            <Trans>
-              Your Flametongue uptime of {formatPercentage(this.flametongueUptime)}% is below 95%, try to get as close to 100% as possible
-            </Trans>,
-          )
-            .icon(SPELLS.FLAMETONGUE_BUFF.icon)
-            .actual(
-              <Trans>
-                {formatPercentage(actual)}% uptime
-              </Trans>,
-            )
-            .recommended(
-              <Trans>
-                {formatPercentage(recommended, 0)}% is recommended
-              </Trans>,
-            );
+          return suggest(<Trans>Maintain <SpellLink id={SPELLS.FLAMETONGUE.id} /> as long as possible. You can refresh this as early as {FLAMETONGUE_BUFF_REFRESH_THRESHOLD} seconds remaining on the buff.</Trans>)
+            .icon(SPELLS.FLAMETONGUE.icon)
+            .actual(<Trans>{formatPercentage(actual)}% uptime</Trans>)
+            .recommended(<Trans>{formatPercentage(recommended, 0)}% is recommended</Trans>);
         },
       );
   }

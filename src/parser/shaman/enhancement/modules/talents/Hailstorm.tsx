@@ -11,6 +11,7 @@ import Events, { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
+import { FROSTBRAND_BUFF_REFRESH_THRESHOLD } from '../../constants';
 
 // Don't refresh with more than 4.5 seconds left on Flametongue buff
 const PANDEMIC_THRESHOLD = 11500;
@@ -114,7 +115,7 @@ class Hailstorm extends Analyzer {
   suggestions(when: any) {
     when(this.frostbrandUptimeThresholds)
       .addSuggestion((suggest: any, actual: any, recommended: any) => {
-          return suggest(<Trans>Try to make sure the <SpellLink id={SPELLS.FROSTBRAND.id} /> is always up, when it drops you should refresh it as soon as possible</Trans>)
+          return suggest(<Trans>Maintain <SpellLink id={SPELLS.FROSTBRAND.id} /> as long as possible. You can refresh this as early as {FROSTBRAND_BUFF_REFRESH_THRESHOLD} seconds remaining on the buff.</Trans>)
             .icon(SPELLS.FROSTBRAND.icon)
             .actual(<Trans>{formatPercentage(actual)}% uptime</Trans>)
             .recommended(<Trans>{formatPercentage(recommended, 0)}% is recommended</Trans>);
@@ -124,7 +125,7 @@ class Hailstorm extends Analyzer {
     when(this.frostbrandEarlyRefreshThreshold)
       .addSuggestion(
         (suggest: any, actual: any, recommended: any) => {
-          return suggest(<Trans>Avoid refreshing <SpellLink id={SPELLS.FROSTBRAND.id} /> with more then 4.5 sec left on the buff. Some early refreshes are unavoidable.</Trans>)
+          return suggest(<Trans>Avoid refreshing <SpellLink id={SPELLS.FROSTBRAND.id} /> too early. You can optimally refresh it with less than {FROSTBRAND_BUFF_REFRESH_THRESHOLD} seconds remaining on the buff.</Trans>)
             .icon(SPELLS.FROSTBRAND.icon)
             .actual(<Trans>{actual} of {this.casts} ({formatPercentage(this.refreshPercentageCast, 0)}%) early refreshes</Trans>)
             .recommended(<Trans>{recommended} recommended</Trans>);

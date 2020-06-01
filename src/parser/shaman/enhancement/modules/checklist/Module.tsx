@@ -51,6 +51,7 @@ class Checklist extends BaseChecklist {
           flametongueUptime: this.flametongue.flametongueUptimeThreshold,
           flametongueEarlyRefreshes: this.flametongueRefresh.flametongueEarlyRefreshThreshold,
           frostbrandUptime: this.hailstorm.frostbrandUptimeThresholds,
+          frostbrandEarlyRefreshes: this.hailstorm.frostbrandEarlyRefreshThreshold,
           furyOfAirUptime: this.furyOfAir.furyOfAirUptimeThresholds,
         }}
       />

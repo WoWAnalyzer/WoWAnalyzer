@@ -64,6 +64,8 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
 
         {combatant.hasTalent(SPELLS.HAILSTORM_TALENT.id) &&
         <Requirement name={<> <SpellLink id={SPELLS.FROSTBRAND.id} /> uptime</>} thresholds={thresholds.frostbrandUptime} />}
+        {combatant.hasTalent(SPELLS.HAILSTORM_TALENT.id) &&
+        <Requirement name={<> <SpellLink id={SPELLS.FROSTBRAND.id} /> early refreshes</>} thresholds={thresholds.frostbrandEarlyRefreshes} />}
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

@@ -55,8 +55,8 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromDetails: MaelstromDetails,
 
     // Shaman Core
-    flametongue: Flametongue,
     flametongueRefresh: FlametongueRefresh,
+    flametongue: Flametongue,
     rockbiter: Rockbiter,
     stormbringer: Stormbringer,
 
