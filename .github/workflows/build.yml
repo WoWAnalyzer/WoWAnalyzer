@@ -1,10 +1,9 @@
-name: Build
+name: 'Build'
 
 on: [push, pull_request]
 
 env:
   CI: true
-  NODE_ENV: production
 
 jobs:
   prepare:
@@ -17,31 +16,22 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - uses: actions/cache@v1
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v2
         with:
-          path: .yarn-cache
-          key: ${{ runner.OS }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
+          path: node_modules
+          # path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.OS }}-yarn-cache-
+            ${{ runner.os }}-node_modules-
       - run: yarn --frozen-lockfile --production=false
       - run: tar -czf dependencies.tar.gz node_modules
       - uses: actions/upload-artifact@v1
         with:
           name: dependencies
           path: dependencies.tar.gz
-  require-changelog-entry:
-    name: 'Has new changelog entry'
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    env:
-      YARN_CACHE_FOLDER: .yarn-cache
-    steps:
-      - uses: actions/checkout@v2
-      - run: git fetch --no-tags --depth=1 origin master:master
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - run: node scripts/require-changelog-entry.js
 
   # TODO: Update this when possible to include the node_modules folder. GH is updating artifact action soon to make this
   #  easier (https://github.com/actions/upload-artifact/issues/7#issuecomment-566114993), and cache action multiple path
@@ -137,6 +127,11 @@ jobs:
           name: dependencies
           path: .
       - run: tar -xzf dependencies.tar.gz
+      - name: Extract messages
+        # We need to run extraction twice as Lingui has a bug where the second pass removes the default for messages with the same id as the default
+        run: |
+          yarn extract
+          yarn extract
       - name: Production build
         run: |
           # Needed to ignore the mini-css-extract-plugin warnings which can not be fixed with a good solution
