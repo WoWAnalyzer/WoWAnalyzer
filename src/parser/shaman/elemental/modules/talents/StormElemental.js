@@ -122,7 +122,7 @@ class StormElemental extends Analyzer {
     );
   }
 
-  get suggestionTresholds() {
+  get suggestionThresholds() {
     return {
       actual: this.numCasts.others,
       isGreaterThan: {
@@ -135,7 +135,7 @@ class StormElemental extends Analyzer {
 
   suggestions(when) {
     const abilities = `Lightning Bolt/Chain Lightning and Earth Shock/Earthquake`;
-    when(this.suggestionTresholds)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
           .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)

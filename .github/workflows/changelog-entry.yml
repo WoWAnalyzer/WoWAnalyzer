@@ -1,0 +1,22 @@
+name: 'Has new changelog entry'
+
+on: [pull_request]
+
+env:
+  CI: true
+  NODE_ENV: production
+
+jobs:
+  require-changelog-entry:
+    name: 'Has new changelog entry'
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    env:
+      YARN_CACHE_FOLDER: .yarn-cache
+    steps:
+      - uses: actions/checkout@v2
+      - run: git fetch --no-tags --depth=1 origin master:master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: node scripts/require-changelog-entry.js

@@ -1937,7 +1937,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "46.39521558183666%",
+                      "width": "57.99436745185192%",
                     }
                   }
                 />
@@ -1952,7 +1952,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              46.40%
+              57.99%
             </td>
             <td
               style={

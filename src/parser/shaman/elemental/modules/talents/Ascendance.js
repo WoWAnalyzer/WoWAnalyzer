@@ -119,7 +119,7 @@ class Ascendance extends Analyzer {
     );
   }
 
-  get suggestionTresholds() {
+  get suggestionThresholds() {
     return {
       actual: this.numCasts.others,
       isGreaterThan: {
@@ -131,7 +131,7 @@ class Ascendance extends Analyzer {
 
   suggestions(when) {
     const abilities = `Lava Burst${this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id) ? `, Elemental Blast ` : ``} and Earth Shock`;
-    when(this.suggestionTresholds)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Maximize your damage during ascendance by only using ${this.abilites}.</span>)
           .icon(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.icon)

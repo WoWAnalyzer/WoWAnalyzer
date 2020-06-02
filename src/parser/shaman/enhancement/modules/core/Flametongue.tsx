@@ -21,7 +21,7 @@ class Flametongue extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_BUFF.id) / this.owner.fightDuration;
   }
 
-  get flametongueRefreshTreshold() {
+  get flametongueUptimeThreshold() {
     return {
       actual: this.flametongueUptime,
       isLessThan: {
@@ -34,7 +34,7 @@ class Flametongue extends Analyzer {
   }
 
   suggestions(when: any) {
-    when(this.flametongueRefreshTreshold)
+    when(this.flametongueUptimeThreshold)
       .addSuggestion(
         (suggest: any, actual: any, recommended: any) => {
           return suggest(

@@ -37,7 +37,7 @@ class Checklist extends BaseChecklist {
           cancelledCasts: this.cancelledCasts.cancelledCastSuggestionThresholds,
           downtime: this.alwaysBeCasting.downtimeSuggestionThresholds,
           icefuryEfficiency: this.icefury.suggestionThresholds,
-          ascendanceEfficiency: this.ascendance.suggestionTresholds,
+          ascendanceEfficiency: this.ascendance.suggestionThresholds,
           flameShockUptime: this.flameshock.uptimeThreshold,
           flameShockRefreshes: this.flameshock.refreshThreshold,
           totemMasteryUptime: this.totemMastery.uptimeSuggestionThresholds,

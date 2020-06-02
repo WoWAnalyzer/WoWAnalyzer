@@ -59,7 +59,7 @@ class FlametongueRefresh extends Analyzer {
     return this.earlyRefresh / this.flametongueCasts;
   }
 
-  get suggestionTresholds() {
+  get flametongueEarlyRefreshThreshold() {
     return {
       actual: this.earlyRefresh,
       isGreaterThan: {
@@ -72,7 +72,7 @@ class FlametongueRefresh extends Analyzer {
   }
 
   suggestions(when: any) {
-    when(this.suggestionTresholds)
+    when(this.flametongueEarlyRefreshThreshold)
       .addSuggestion(
         (suggest: any, actual: any, recommended: any) => {
           return suggest(
