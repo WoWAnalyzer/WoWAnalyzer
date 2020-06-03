@@ -61,9 +61,7 @@ class CoordinatedAssault extends Analyzer {
     }
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(SPELLS.COORDINATED_ASSAULT.id, {
-        timestamp: this.owner.fight.start_time,
-      });
+      this.spellUsable.beginCooldown(SPELLS.COORDINATED_ASSAULT.id, event);
     }
     this.playerDamage += calculateEffectiveDamage(event, CA_DMG_MODIFIER);
   }
