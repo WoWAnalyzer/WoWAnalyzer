@@ -80,7 +80,7 @@ class MongooseBite extends Analyzer {
   }
 
   get totalMongooseBites() {
-    return this.mongooseBiteStacks.flat().reduce((totalHits: number, stackHits: number) => totalHits + stackHits, 0);
+    return this.mongooseBiteStacks.reduce((totalHits: number, stackHits: number) => totalHits + stackHits, 0);
   }
 
   get fiveStackMongooseBites() {
