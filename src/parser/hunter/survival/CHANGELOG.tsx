@@ -6,7 +6,9 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 5,26), 'Converted all hunter modules to Typescript and cleaned up the entire hunter codebase in preparation for Shadowlands', Putro),
+  change(date(2020, 6, 4), <> Updated the death tracking module to not say that you died, when you used <SpellLink id={SPELLS.FEIGN_DEATH.id} />.</>, Putro),
+  change(date(2020, 6, 3), <> Updated <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> and <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> to only allow refreshes in pandemic window regardless, and to require <SpellLink id={SPELLS.VIPERS_VENOM_BUFF.id} /> buff to be active for it to be worth casting in <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} /> if you are talented into <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} />. </>, Putro),
+  change(date(2020, 5, 26), 'Converted all hunter modules to Typescript and cleaned up the entire hunter codebase in preparation for Shadowlands', Putro),
   change(date(2020, 2, 15), <> Added a <SpellLink id={SPELLS.WILDFIRE_CLUSTER.id} /> module </>, Putro),
   change(date(2020, 1, 28), <> Completely reworked the Focus modules for Hunter. A new tab, chart and statistic has been added for Focus metrics. </>, Putro),
   change(date(2020, 1, 27), <> Updated the shared hunter talent modules for 8.3. </>, Putro),

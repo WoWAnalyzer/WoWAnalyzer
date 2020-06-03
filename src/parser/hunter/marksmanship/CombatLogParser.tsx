@@ -12,6 +12,9 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import FocusUsage from '../shared/modules/resources/FocusUsage';
 
+//Death Tracker
+import DeathTracker from '../shared/modules/core/DeathTracker';
+
 //Focus
 import FocusTracker from '../shared/modules/resources/FocusTracker';
 import FocusDetails from '../shared/modules/resources/FocusDetails';
@@ -72,6 +75,9 @@ class CombatLogParser extends CoreCombatLogParser {
     spellFocusCost: SpellFocusCost,
     focusCapTracker: FocusCapTracker,
     focus: Focus,
+
+    //DeathTracker
+    deathTracker: DeathTracker,
 
     //Spells
     trueshot: Trueshot,

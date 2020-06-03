@@ -8,6 +8,8 @@ import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import FocusUsage from '../shared/modules/resources/FocusUsage';
+//Death Tracker
+import DeathTracker from '../shared/modules/core/DeathTracker';
 //Talents
 import KillerInstinct from './modules/talents/KillerInstinct';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
@@ -67,6 +69,9 @@ class CombatLogParser extends CoreCombatLogParser {
     spellFocusCost: SpellFocusCost,
     beastMasteryFocusCapTracker: BeastMasteryFocusCapTracker,
     focus: Focus,
+
+    //DeathTracker
+    deathTracker: DeathTracker,
 
     //Spells
     bestialWrath: BestialWrath,
