@@ -1,15 +1,16 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
+import { CastEvent } from 'parser/core/Events';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
   };
 
-  lastPotentialTriggerForRapidFireReset = null;
+  lastPotentialTriggerForRapidFireReset: CastEvent | null = null;
   rapidFireResets = 0;
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     if (super.on_byPlayer_cast) {
       super.on_byPlayer_cast(event);
     }
@@ -23,7 +24,7 @@ class SpellUsable extends CoreSpellUsable {
     }
   }
 
-  beginCooldown(spellId, cooldownTriggerEvent) {
+  beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent) {
     if (spellId === SPELLS.RAPID_FIRE.id && this.selectedCombatant.hasTrait(SPELLS.SURGING_SHOTS.id)) {
       if (this.isOnCooldown(spellId)) {
         this.rapidFireResets += 1;
