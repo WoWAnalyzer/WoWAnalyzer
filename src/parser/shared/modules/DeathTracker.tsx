@@ -38,7 +38,6 @@ class DeathTracker extends Analyzer {
     this.die(event);
   }
   on_toPlayer_resurrect(event: any) {
-    console.log(event);
     this.resurrect(event);
   }
   on_byPlayer_cast(event: CastEvent) {
