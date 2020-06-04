@@ -2,14 +2,16 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
-
 //Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import FocusUsage from '../shared/modules/resources/FocusUsage';
+import Buffs from './modules/Buffs';
+
 //Normalizer
 import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';
-
+//Death Tracker
+import DeathTracker from '../shared/modules/core/DeathTracker';
 //Spells
 import KillCommand from './modules/spells/KillCommand';
 import ButcheryCarve from './modules/spells/ButcheryCarve';
@@ -17,14 +19,12 @@ import SerpentSting from './modules/spells/SerpentSting';
 import CoordinatedAssault from './modules/spells/CoordinatedAssault';
 import WildfireBomb from './modules/spells/WildfireBomb';
 import RaptorStrike from './modules/spells/RaptorStrike';
-
 //Focus
 import FocusTracker from '../shared/modules/resources/FocusTracker';
 import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
 import SurvivalFocusCapTracker from './modules/core/SurvivalFocusCapTracker';
 import Focus from './modules/core/Focus';
-
 //Talents
 import Trailblazer from '../shared/modules/talents/Trailblazer';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
@@ -45,6 +45,7 @@ import Bloodseeker from './modules/talents/Bloodseeker';
 import HydrasBite from './modules/talents/HydrasBite';
 import FlankingStrike from './modules/talents/FlankingStrike';
 import TipOfTheSpear from './modules/talents/TipOfTheSpear';
+
 //Azerite Traits
 import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
 import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
@@ -63,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     focusUsage: FocusUsage,
+    buffs: Buffs,
 
     //Resources
     focusTracker: FocusTracker,
@@ -73,6 +75,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     tipOfTheSpearNormalizer: TipOfTheSpearNormalizer,
+
+    //DeathTracker
+    deathTracker: DeathTracker,
 
     //Spells
     killCommand: KillCommand,
