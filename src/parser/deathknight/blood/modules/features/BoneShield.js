@@ -6,7 +6,7 @@ import { formatDuration, formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import BoneShieldTimesByStacks from './/BoneShieldTimesByStacks';
+import BoneShieldTimesByStacks from './BoneShieldTimesByStacks';
 
 
 class BoneShield extends Analyzer {
