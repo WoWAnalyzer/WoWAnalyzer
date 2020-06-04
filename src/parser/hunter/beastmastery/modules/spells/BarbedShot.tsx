@@ -44,9 +44,12 @@ class BarbedShot extends Analyzer {
   }
 
   get percentUptimePet() {
-    //this removes the time spent without the pet having the frenzy buff
-    const petUptime = this.barbedShotStacks.slice(1).flat().reduce((totalUptime: number, stackUptime: number) => totalUptime + stackUptime, 0);
-    return petUptime / this.owner.fightDuration;
+    //This removes the time spent without the pet having the frenzy buff
+    const withoutNoBuff = this.barbedShotStacks.slice(1);
+    //Because .flat doesn't work in Microsoft Edge (non-chromium versions), we use this alternate option that is equivalent
+    const alternativeFlatten = withoutNoBuff.reduce((acc, val) => acc.concat(val), []);
+    //After flattening the array, we can reduce it normally. 
+    return alternativeFlatten.reduce((totalUptime: number, stackUptime: number) => totalUptime + stackUptime, 0) / this.owner.fightDuration;
   }
 
   get percentPlayerUptime() {
@@ -144,17 +147,17 @@ class BarbedShot extends Analyzer {
 
   suggestions(when: any) {
     when(this.frenzyUptimeThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell, if you've chosen this talent, it's your most important spell to continously be casting. </>)
-          .icon(SPELLS.BARBED_SHOT.icon)
-          .actual(`Your pet had the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`);
-      });
+      return suggest(<>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell, if you've chosen this talent, it's your most important spell to continously be casting. </>)
+        .icon(SPELLS.BARBED_SHOT.icon)
+        .actual(`Your pet had the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
+        .recommended(`${formatPercentage(recommended)}% is recommended`);
+    });
     when(this.frenzy3StackThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </>)
-          .icon(SPELLS.BARBED_SHOT.icon)
-          .actual(`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`);
-      });
+      return suggest(<>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </>)
+        .icon(SPELLS.BARBED_SHOT.icon)
+        .actual(`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`)
+        .recommended(`${formatPercentage(recommended)}% is recommended`);
+    });
   }
 
   statistic() {
