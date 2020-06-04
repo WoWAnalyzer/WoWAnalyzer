@@ -80,7 +80,7 @@ class MongooseBite extends Analyzer {
   }
 
   get totalMongooseBites() {
-    return this.mongooseBiteStacks.flat().reduce((totalHits: number, stackHits: number) => totalHits + stackHits, 0);
+    return this.mongooseBiteStacks.reduce((totalHits: number, stackHits: number) => totalHits + stackHits, 0);
   }
 
   get fiveStackMongooseBites() {
@@ -138,14 +138,8 @@ class MongooseBite extends Analyzer {
     if (event.meta === undefined) {
       event.meta = {
         isEnhancedCast: false,
-        isInefficientCast: false,
         enhancedCastReason: '',
-        inefficientCastReason: '',
       };
-    }
-    if (this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'Viper\'s Venom buff still active.';
     }
     if (this.lastMongooseBiteStack === 5 && this.selectedCombatant.hasBuff(SPELLS.MONGOOSE_FURY.id)) {
       event.meta.isEnhancedCast = true;

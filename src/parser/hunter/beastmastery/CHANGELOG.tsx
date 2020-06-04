@@ -6,7 +6,9 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 5,26), 'Converted all hunter modules to Typescript and cleaned up the entire hunter codebase in preparation for Shadowlands.', Putro),
+  change(date(2020, 6, 4), <> Added a module to track <SpellLink id={SPELLS.CLAW_BASIC_ATTACK.id} />, <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />, and <SpellLink id={SPELLS.SMACK_BASIC_ATTACK.id} /> and see the average delay between them and how much DPS you could have gained if you macroed it, and if it was cast at 0 delay. </>, Putro),
+  change(date(2020, 6, 4), <> Updated the death tracking module to not say that you died, when you used <SpellLink id={SPELLS.FEIGN_DEATH.id} />.</>, Putro),
+  change(date(2020, 5, 26), 'Converted all hunter modules to Typescript and cleaned up the entire hunter codebase in preparation for Shadowlands.', Putro),
   change(date(2020, 5, 24), <> Fixed an issue where <SpellLink id={SPELLS.DANCE_OF_DEATH.id} /> agility buff was being overvalued. </>, Putro),
   change(date(2020, 5, 13), <> Fixed part of <SpellLink id={SPELLS.ANIMAL_COMPANION_TALENT.id} /> module to properly show damage without it talented.</>, Putro),
   change(date(2020, 2, 24), <> Updated the <SpellLink id={SPELLS.BARBED_SHOT.id} /> module to allow for up to 8 simultaneous buffs running, which reflects behaviour in-game.</>, Putro),

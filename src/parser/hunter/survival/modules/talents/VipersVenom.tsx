@@ -2,12 +2,11 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import { RAPTOR_MONGOOSE_VARIANTS, VIPERS_VENOM_DAMAGE_MODIFIER } from 'parser/hunter/survival/constants';
+import { VIPERS_VENOM_DAMAGE_MODIFIER } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -30,7 +29,6 @@ class VipersVenom extends Analyzer {
   protected statTracker!: StatTracker;
   protected globalCooldown!: GlobalCooldown;
 
-
   buffedSerpentSting = false;
   bonusDamage = 0;
   procs = 0;
@@ -38,7 +36,6 @@ class VipersVenom extends Analyzer {
   accumulatedTimeFromBuffToCast = 0;
   currentGCD = 0;
   wastedProcs = 0;
-  badRaptorsOrMBs = 0;
   spellKnown = SPELLS.RAPTOR_STRIKE;
 
   constructor(options: any) {
@@ -51,18 +48,12 @@ class VipersVenom extends Analyzer {
 
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if ((!RAPTOR_MONGOOSE_VARIANTS.includes(spellId) && spellId !== SPELLS.SERPENT_STING_SV.id) || !this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
+    if (spellId !== SPELLS.SERPENT_STING_SV.id || !this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
       return;
     }
-    if (spellId === SPELLS.SERPENT_STING_SV.id) {
-      this.buffedSerpentSting = true;
-      this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(spellId);
-      this.accumulatedTimeFromBuffToCast += event.timestamp - this.lastProcTimestamp - this.currentGCD;
-      return;
-    }
-    if (RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
-      this.badRaptorsOrMBs += 1;
-    }
+    this.buffedSerpentSting = true;
+    this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(spellId);
+    this.accumulatedTimeFromBuffToCast += event.timestamp - this.lastProcTimestamp - this.currentGCD;
   }
 
   on_byPlayer_damage(event: DamageEvent) {
@@ -95,45 +86,6 @@ class VipersVenom extends Analyzer {
     return this.accumulatedTimeFromBuffToCast / this.procs / 1000;
   }
 
-  get raptorWithBuffThresholds() {
-    return {
-      actual: this.badRaptorsOrMBs,
-      isGreaterThan: {
-        minor: 1,
-        average: 2,
-        major: 3,
-      },
-      style: 'number',
-    };
-  }
-
-  get wastedProcsThresholds() {
-    return {
-      actual: this.wastedProcs,
-      isGreaterThan: {
-        minor: 0,
-        average: 2,
-        major: 4,
-      },
-      style: 'number',
-    };
-  }
-
-  suggestions(when: any) {
-    when(this.raptorWithBuffThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
-      return suggest(<>Remember to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> after proccing <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> before you cast <SpellLink id={this.spellKnown.id} /> again.</>)
-        .icon(SPELLS.VIPERS_VENOM_TALENT.icon)
-        .actual(`${actual} raptor casts with Viper's Venom buff active`)
-        .recommended(`<${recommended} casts is recommended`);
-    });
-    when(this.wastedProcsThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
-      return suggest(<>Remember to utilise all your <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> procs, and to not cast <SpellLink id={this.spellKnown.id} /> before you've spent the <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff.</>)
-        .icon(SPELLS.VIPERS_VENOM_TALENT.icon)
-        .actual(`${actual} wasted procs of Viper's Venom`)
-        .recommended(`<${recommended} is recommended`);
-    });
-  }
-
   statistic() {
     return (
       <Statistic
@@ -142,11 +94,8 @@ class VipersVenom extends Analyzer {
         tooltip={(
           <>
             <ul>
-              <li>Average time between gaining Viper's Venom buff and using it was <b>{this.averageTimeBetweenBuffAndUsage.toFixed(2)}</b> seconds.
-                <ul>
-                  <li>Note: This accounts for the GCD after the {this.spellKnown.name} proccing Viper's Venom.</li>
-                  {this.wastedProcs > 0 && <li>You wasted {this.wastedProcs} procs by gaining a new proc, whilst your current proc was still active.</li>}
-                </ul>
+              <li>Average time between gaining Viper's Venom buff and using it was <b>{this.averageTimeBetweenBuffAndUsage.toFixed(2)}</b> seconds. This accounts for the GCD after the {this.spellKnown.name} proccing Viper's Venom.
+                {this.wastedProcs > 0 && <li>You wasted {this.wastedProcs} procs by gaining a new proc, whilst your current proc was still active.</li>}
               </li>
             </ul>
           </>
