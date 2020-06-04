@@ -101,9 +101,7 @@ class WildfireBomb extends Analyzer {
     }
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(SPELLS.WILDFIRE_BOMB.id, {
-        timestamp: this.owner.fight.start_time,
-      });
+      this.spellUsable.beginCooldown(SPELLS.WILDFIRE_BOMB.id, event);
     }
     this.targetsHit += 1;
     const enemy = this.enemies.getEntity(event);

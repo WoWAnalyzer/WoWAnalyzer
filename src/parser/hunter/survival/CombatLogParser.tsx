@@ -6,6 +6,8 @@ import Checklist from './modules/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import FocusUsage from '../shared/modules/resources/FocusUsage';
+import Buffs from './modules/Buffs';
+
 //Normalizer
 import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';
 //Death Tracker
@@ -43,6 +45,7 @@ import Bloodseeker from './modules/talents/Bloodseeker';
 import HydrasBite from './modules/talents/HydrasBite';
 import FlankingStrike from './modules/talents/FlankingStrike';
 import TipOfTheSpear from './modules/talents/TipOfTheSpear';
+
 //Azerite Traits
 import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
 import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
@@ -61,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     focusUsage: FocusUsage,
+    buffs: Buffs,
 
     //Resources
     focusTracker: FocusTracker,
