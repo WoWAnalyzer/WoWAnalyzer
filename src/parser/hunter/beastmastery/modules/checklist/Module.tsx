@@ -14,6 +14,7 @@ import CobraShot from '../spells/CobraShot';
 import BarbedShot from '../spells/BarbedShot';
 import BeastMasteryFocusCapTracker from '../core/BeastMasteryFocusCapTracker';
 import BeastCleave from '../spells/BeastCleave';
+import BasicAttacks from '../pets/basicAttacksTracker';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -28,6 +29,7 @@ class Checklist extends BaseChecklist {
     focusGeneratorDetails: FocusDetails,
     focusCapTracker: BeastMasteryFocusCapTracker,
     beastCleave: BeastCleave,
+    basicAttacks: BasicAttacks,
   };
 
   protected combatants!: Combatants;
@@ -41,6 +43,7 @@ class Checklist extends BaseChecklist {
   protected focusGeneratorDetails!: FocusDetails;
   protected focusCapTracker!: BeastMasteryFocusCapTracker;
   protected beastCleave!: BeastCleave;
+  protected basicAttacks!: BasicAttacks;
 
   render() {
     return (
@@ -64,6 +67,8 @@ class Checklist extends BaseChecklist {
           downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
           focusGeneratorWasteThresholds: this.focusGeneratorDetails.focusGeneratorWasteThresholds,
           focusNaturalRegenWasteThresholds: this.focusCapTracker.focusNaturalRegenWasteThresholds,
+          //Pets
+          basicAttackThresholds: this.basicAttacks.additionalAttacksFromMacroing,
         }}
       />
     );
