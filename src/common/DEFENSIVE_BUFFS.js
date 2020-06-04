@@ -19,9 +19,6 @@ const DEFENSIVE_BUFFS = [
     spell: SPELLS.GUARDIAN_SPIRIT,
   },
   {
-    spell: SPELLS.GUARDIAN_SPIRIT,
-  },
-  {
     spell: SPELLS.PAIN_SUPPRESSION,
   },
   {
