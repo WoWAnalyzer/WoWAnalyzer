@@ -24,7 +24,8 @@ class AtonementApplicatorBreakdown extends Analyzer{
     _shadowmendsCasts = [];
     _powerWordShieldsCasts = [];
 
-    _castsAplyBuffsMap = new Map(); // Keys = Cast, Values = Atonement buff associated to the cast
+    _castsApplyBuffsMap = new Map(); // Keys = Cast, Values = Atonement buff associated to the cast
+    _lastRadianceCastTimestamp = 0; // Setting a dummy timestamp to 0
 
     _atonementHealingFromShadowMends = 0;
     _atonementHealingFromPowerWordRadiances = 0;
@@ -43,6 +44,7 @@ class AtonementApplicatorBreakdown extends Analyzer{
         this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT), this.handleEvangelismCasts);
         this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_MEND), this.storeShadowMendsCasts);
         this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD), this.storePowerWordShieldsCasts);
+        this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE), this.storePowerWordRadiancesCastTimestamp);
         this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.assignAtonementBuffToApplicator);
         this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.assignAtonementBuffToApplicator);
         this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_HEAL_NON_CRIT), this.handleAtonementsHits);
@@ -50,22 +52,29 @@ class AtonementApplicatorBreakdown extends Analyzer{
     }
 
     storeShadowMendsCasts(event){
-        this._castsAplyBuffsMap.set({
+        this._castsApplyBuffsMap.set({
             "event": event,
             "applicatorId": SPELLS.SHADOW_MEND.id,
         }, null);
     }
     
     storePowerWordShieldsCasts(event){
-        this._castsAplyBuffsMap.set({
+        this._castsApplyBuffsMap.set({
             "event": event,
             "applicatorId": SPELLS.POWER_WORD_SHIELD.id,
         }, null);
-
+    }
+    
+    storePowerWordRadiancesCastTimestamp(event){
+        this._lastRadianceCastTimestamp = event.timestamp;
     }
 
     assignAtonementBuffToApplicator(event){
-        if(event.__modified === true){ // Power Word: Radiance
+        if(event.__fabricated === true){
+            return;
+        }
+
+        if(event.timestamp === this._lastRadianceCastTimestamp){ // Power Word: Radiance
 
             //Set the wasRefreshed property of the old atonement on the same target to true
             //so we can stop attributing atonement healing to the old atonement
@@ -74,9 +83,9 @@ class AtonementApplicatorBreakdown extends Analyzer{
             }
 
             //Putting a custom event object for Radiances since there it's only 1 cast for 5 buffs
-            this._castsAplyBuffsMap.set({
+            this._castsApplyBuffsMap.set({
                 "event": {
-                    "targetID": event.targetID,
+                    "timestamp": this._lastRadianceCastTimestamp,
                 },
                 "applicatorId": SPELLS.POWER_WORD_RADIANCE.id,
             }, 
@@ -91,22 +100,17 @@ class AtonementApplicatorBreakdown extends Analyzer{
                 this.setWasRefreshedProperty(event, true);
             }
 
-            //Iterate the casts in reverse to break out at the most recent appearance of the corresponding targetID
+            //Get the latest cast with the corresponding targetID
             const playerWithAtonement = event.targetID;
-            const reversedMapKeys = Array.from(this._castsAplyBuffsMap.keys()).slice().reverse();
-
-            for(const cast of reversedMapKeys) {
-                if(cast.event !== null){
-                    if(cast.event.targetID === playerWithAtonement){
-                        this._castsAplyBuffsMap.set(cast, {
-                            "applyBuff": event,
-                            "atonementEvents": [],
-                            "extendedByEvangelism": false,
-                            "wasRefreshed": false,
-                        });
-                        break;
-                    }
-                }
+            const reversedMapKeys = Array.from(this._castsApplyBuffsMap.keys()).slice().reverse();
+            const mostRecentCastApplyBuff = reversedMapKeys.find(cast => cast.event && cast.event.targetID === playerWithAtonement);
+            if (mostRecentCastApplyBuff) {
+                this._castsApplyBuffsMap.set(mostRecentCastApplyBuff, {
+                    "applyBuff": event,
+                    "atonementEvents": [],
+                    "extendedByEvangelism": false,
+                    "wasRefreshed": false,
+                });
             }
         }
     }
@@ -114,65 +118,68 @@ class AtonementApplicatorBreakdown extends Analyzer{
     handleAtonementsHits(event){
         //Healing from atonements pre-applied before entering combat
         //will assume PW:S as the applicator since it's usually the most common one used pre-pull,
-        const values = this._castsAplyBuffsMap.values();
-        if(Array.from(values).find(atonement => atonement.applyBuff.targetID === event.targetID) === undefined){
+        const atonementBuffs = this._castsApplyBuffsMap.values();
+        if(Array.from(atonementBuffs).find(atonement => atonement === null || atonement.applyBuff.targetID === event.targetID) === undefined){
             this._prepullApplicatorHealing += event.amount;
         }
 
-        for(const [cast, atonement] of this._castsAplyBuffsMap){
+        for(const [cast, atonement] of this._castsApplyBuffsMap){
             //Sometimes an atonement heal event from the already active atonements happens after an applicator cast and before the next atonement buff is applied
             //so this null check is necessary
-            if(atonement !== null){
-                if(cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id){
-                    const lowerBound = atonement.applyBuff.timestamp;
-                    const upperBound = atonement.applyBuff.timestamp
-                                    + (atonement.extendedByEvangelism ? EVANGELISM_BONUS_MS : 0)
-                                    + SPELLS.POWER_WORD_RADIANCE.atonementDuration
-                                    + (this._hasEL ? ENDURING_LUMINESCENCE_BONUS_MS : 0)
-                                    + FAIL_SAFE_MS;
-    
-                    if(event.targetID === atonement.applyBuff.targetID && event.timestamp > lowerBound && event.timestamp < upperBound){
-                        if(atonement.wasRefreshed === false){
-                            this._atonementHealingFromPowerWordRadiances += event.amount;
-                            atonement.atonementEvents.push(event);
-                        }
+            if(atonement === null){
+                return;
+            }
+
+            if(cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id){
+                const lowerBound = atonement.applyBuff.timestamp;
+                const upperBound = atonement.applyBuff.timestamp
+                                + (atonement.extendedByEvangelism ? EVANGELISM_BONUS_MS : 0)
+                                + SPELLS.POWER_WORD_RADIANCE.atonementDuration
+                                + (this._hasEL ? ENDURING_LUMINESCENCE_BONUS_MS : 0)
+                                + FAIL_SAFE_MS;
+
+                if(event.targetID === atonement.applyBuff.targetID && event.timestamp > lowerBound && event.timestamp < upperBound){
+                    if(!atonement.wasRefreshed){
+                        this._atonementHealingFromPowerWordRadiances += event.amount;
+                        atonement.atonementEvents.push(event);
                     }
-                } else if (cast.applicatorId === SPELLS.POWER_WORD_SHIELD.id){
-                    const lowerBound = atonement.applyBuff.timestamp;
-                    const upperBound = atonement.applyBuff.timestamp
-                                    + (atonement.extendedByEvangelism ? EVANGELISM_BONUS_MS : 0)
-                                    + SPELLS.POWER_WORD_SHIELD.atonementDuration
-                                    + FAIL_SAFE_MS;
-                        
-                    if(event.targetID === atonement.applyBuff.targetID && event.timestamp > lowerBound && event.timestamp < upperBound){
-                        if(atonement.wasRefreshed === false){
-                            this._atonementHealingFromPowerWordShields += event.amount;
-                            atonement.atonementEvents.push(event);
-                        }
+                }
+            } else if (cast.applicatorId === SPELLS.POWER_WORD_SHIELD.id){
+                const lowerBound = atonement.applyBuff.timestamp;
+                const upperBound = atonement.applyBuff.timestamp
+                                + (atonement.extendedByEvangelism ? EVANGELISM_BONUS_MS : 0)
+                                + SPELLS.POWER_WORD_SHIELD.atonementDuration
+                                + FAIL_SAFE_MS;
+                    
+                if(event.targetID === atonement.applyBuff.targetID && event.timestamp > lowerBound && event.timestamp < upperBound){
+                    if(!atonement.wasRefreshed){
+                        this._atonementHealingFromPowerWordShields += event.amount;
+                        atonement.atonementEvents.push(event);
                     }
-                } else if (cast.applicatorId === SPELLS.SHADOW_MEND.id){
-                    const lowerBound = atonement.applyBuff.timestamp;
-                    const upperBound = atonement.applyBuff.timestamp
-                                    + (atonement.extendedByEvangelism ? EVANGELISM_BONUS_MS : 0)
-                                    + SPELLS.SHADOW_MEND.atonementDuration
-                                    + (this._hasDepth ? DEPTH_OF_THE_SHADOWS_BONUS_MS : 0)
-                                    + FAIL_SAFE_MS;
-                                    
-    
-                    if(event.targetID === atonement.applyBuff.targetID && event.timestamp > lowerBound && event.timestamp < upperBound){
-                        if(atonement.wasRefreshed === false){
-                            this._atonementHealingFromShadowMends += event.amount;
-                            atonement.atonementEvents.push(event);
-                        }
+                }
+            } else if (cast.applicatorId === SPELLS.SHADOW_MEND.id){
+                const lowerBound = atonement.applyBuff.timestamp;
+                const upperBound = atonement.applyBuff.timestamp
+                                + (atonement.extendedByEvangelism ? EVANGELISM_BONUS_MS : 0)
+                                + SPELLS.SHADOW_MEND.atonementDuration
+                                + (this._hasDepth ? DEPTH_OF_THE_SHADOWS_BONUS_MS : 0)
+                                + FAIL_SAFE_MS;
+                                
+
+                if(event.targetID === atonement.applyBuff.targetID && event.timestamp > lowerBound && event.timestamp < upperBound){
+                    if(!atonement.wasRefreshed){
+                        this._atonementHealingFromShadowMends += event.amount;
+                        atonement.atonementEvents.push(event);
                     }
                 }
             }
         }
+        
     }
     
     handleEvangelismCasts(event){
 
-        for(const [cast, atonement] of this._castsAplyBuffsMap){
+        for(const [cast, atonement] of this._castsApplyBuffsMap){
             if(cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id){
                 if(event.timestamp > atonement.applyBuff.timestamp 
                 && event.timestamp < atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration + (this._hasEL ? ENDURING_LUMINESCENCE_BONUS_MS : 0)){
@@ -194,12 +201,12 @@ class AtonementApplicatorBreakdown extends Analyzer{
 
     setWasRefreshedProperty(applyBuffEvent, isRefreshed){
         const playerWithAtonement = applyBuffEvent.targetID;
-        const reversedMapKeys = Array.from(this._castsAplyBuffsMap.keys()).slice().reverse();
+        const reversedMapKeys = Array.from(this._castsApplyBuffsMap.keys()).slice().reverse();
 
         for(const cast of reversedMapKeys){
             if(cast.event !== null){
                 if(cast.event.targetID === playerWithAtonement){
-                    const atonementBuff = this._castsAplyBuffsMap.get(cast);
+                    const atonementBuff = this._castsApplyBuffsMap.get(cast);
                     if(atonementBuff !== null){
                         atonementBuff.wasRefreshed = isRefreshed;
                         break;
