@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -6,9 +6,9 @@ import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber } from 'common/format';
-import { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 
-const BASIC_ATTACK_SPELLS = [SPELLS.BITE_BASIC_ATTACK.id, SPELLS.CLAW_BASIC_ATTACK.id, SPELLS.SMACK_BASIC_ATTACK.id];
+const BASIC_ATTACK_SPELLS = [SPELLS.BITE_BASIC_ATTACK, SPELLS.CLAW_BASIC_ATTACK, SPELLS.SMACK_BASIC_ATTACK];
 const MAX_TIME_BETWEEN_BASIC_ATK = 3500; //The actual current delay without macros is ~300ms on top of the 3 second cooldown, but adding 200 ms to act as a buffer.
 const MACRO_TIME_BETWEEN_BASIC_ATK = 3150; //The delay is reduced to ~100-200ms depending on latency when you macro the abilities
 const NO_DELAY_TIME_BETWEEN_BASIC_ATK = 3000; //This is what the optimal scenario would look like, if pet cast it instantly after it came off cooldown
@@ -27,11 +27,12 @@ class BasicAttacks extends Analyzer {
   usedBasicAttack: { id: number, name: string, icon: string } = { id: 0, name: '', icon: '' };
   basicAttackChecked: boolean = false;
 
-  on_byPlayerPet_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (!BASIC_ATTACK_SPELLS.includes(spellId)) {
-      return;
-    }
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(BASIC_ATTACK_SPELLS), this.onPetBasicAttackDamage);
+  }
+
+  onPetBasicAttackDamage(event: DamageEvent) {
     if (!this.basicAttackChecked) {
       this.usedBasicAttack = { id: event.ability.guid, name: event.ability.name, icon: event.ability.abilityIcon };
       this.basicAttackChecked = true;
