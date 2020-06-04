@@ -97,7 +97,7 @@ class StatWeights extends BaseHealerStatValues {
 
   spellInfo = DRUID_HEAL_INFO;
   qeLive = true;
-
+  done = false;
 
   _getCritChance(event) {
     const spellId = event.ability.guid;
@@ -166,7 +166,10 @@ class StatWeights extends BaseHealerStatValues {
   }
 
   statistic(){
-    this.totalOneHasteHpct = this.totalOneHasteHpm + this.totalOneHasteHpct;
+    if(!this.done){
+      this.totalOneHasteHpct = this.totalOneHasteHpm + this.totalOneHasteHpct;
+      this.done = true;
+    }
     return super.statistic();
   }
 
