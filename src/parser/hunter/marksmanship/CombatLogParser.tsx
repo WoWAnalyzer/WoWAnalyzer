@@ -11,6 +11,10 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import FocusUsage from '../shared/modules/resources/FocusUsage';
+import Buffs from './modules/Buffs';
+
+//Death Tracker
+import DeathTracker from '../shared/modules/core/DeathTracker';
 
 //Focus
 import FocusTracker from '../shared/modules/resources/FocusTracker';
@@ -65,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     cancelledCasts: CancelledCasts,
     focusUsage: FocusUsage,
+    buffs: Buffs,
 
     //Resources
     focusTracker: FocusTracker,
@@ -72,6 +77,9 @@ class CombatLogParser extends CoreCombatLogParser {
     spellFocusCost: SpellFocusCost,
     focusCapTracker: FocusCapTracker,
     focus: Focus,
+
+    //DeathTracker
+    deathTracker: DeathTracker,
 
     //Spells
     trueshot: Trueshot,
