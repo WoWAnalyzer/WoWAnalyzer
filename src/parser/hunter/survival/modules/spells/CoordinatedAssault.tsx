@@ -11,7 +11,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { CastEvent, DamageEvent } from 'parser/core/Events';
+import { DamageEvent } from 'parser/core/Events';
 
 /**
  * You and your pet attack as one, increasing all damage you both deal by 20% for 20 sec.
@@ -27,7 +27,7 @@ class CoordinatedAssault extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-  casts = 0;
+
   playerDamage = 0;
   petDamage = 0;
 
@@ -48,20 +48,9 @@ class CoordinatedAssault extends Analyzer {
     this.petDamage += calculateEffectiveDamage(event, CA_DMG_MODIFIER);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.COORDINATED_ASSAULT.id) {
-      this.casts += 1;
-    }
-  }
-
   on_byPlayer_damage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
-    }
-    if (this.casts === 0) {
-      this.casts += 1;
-      this.spellUsable.beginCooldown(SPELLS.COORDINATED_ASSAULT.id, event);
     }
     this.playerDamage += calculateEffectiveDamage(event, CA_DMG_MODIFIER);
   }

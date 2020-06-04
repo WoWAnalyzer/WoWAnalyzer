@@ -11,9 +11,6 @@ class SpellUsable extends CoreSpellUsable {
   rapidFireResets = 0;
 
   on_byPlayer_cast(event: CastEvent) {
-    if (super.on_byPlayer_cast) {
-      super.on_byPlayer_cast(event);
-    }
     const spellId = event.ability.guid;
     if (this.selectedCombatant.hasTrait(SPELLS.SURGING_SHOTS.id)) {
       if (spellId === SPELLS.AIMED_SHOT.id) {
@@ -21,6 +18,9 @@ class SpellUsable extends CoreSpellUsable {
       } else if (spellId === SPELLS.RAPID_FIRE.id) {
         this.lastPotentialTriggerForRapidFireReset = null;
       }
+    }
+    if (super.on_byPlayer_cast) {
+      super.on_byPlayer_cast(event);
     }
   }
 
