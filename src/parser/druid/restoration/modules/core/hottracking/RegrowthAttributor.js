@@ -45,7 +45,7 @@ class RegrowthAttributor extends Analyzer {
       this.totalNonCCRegrowthOverhealing += event.overheal || 0;
       this.totalNonCCRegrowthAbsorbs += event.absorbed || 0;
       if(event.tick) {
-        this.totalNonCCRegrowthHealingTicks++;
+        this.totalNonCCRegrowthHealingTicks += 1;
       }
     }
   }

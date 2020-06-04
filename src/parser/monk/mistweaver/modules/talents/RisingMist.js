@@ -11,7 +11,7 @@ import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HIT_TYPES from 'game/HIT_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import HotTracker from '../core/HotTracker';
+import HotTrackerMW from '../core/HotTrackerMW';
 
 const debug = false;
 
@@ -26,7 +26,7 @@ const UNAFFECTED_SPELLS = [
 
 class RisingMist extends Analyzer {
   static dependencies = {
-    hotTracker: HotTracker,
+    hotTracker: HotTrackerMW,
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
   };
@@ -121,8 +121,8 @@ class RisingMist extends Analyzer {
     if(!this.hotTracker.hots[targetId] || !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]){
       return;
     }
-    const object = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
-    if(object.originalEnd < event.timestamp){
+    const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
+    if(hot.originalEnd < event.timestamp && event.timestamp < hot.end){
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
@@ -162,7 +162,7 @@ class RisingMist extends Analyzer {
         const spellId = Number(spellIdString);
 
         const attribution = newRisingMist;
-        this.hotTracker.addExtension(attribution, RISING_MIST_EXTENSION, playerId, spellId);
+        this.hotTracker.addExtension(attribution, RISING_MIST_EXTENSION, playerId, spellId, event.timestamp);
 
         if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
           foundEf = true;
@@ -190,7 +190,12 @@ class RisingMist extends Analyzer {
     return this.risingMistCount === 0 ? 0 : (this.risingMists.reduce((acc, risingMist) => acc + risingMist.duration, 0) / this.risingMistCount) / 1000;
   }
   get hotHealing() {
-    return this.hotTracker.healingAfterFallOff;
+    const array = this.hotTracker.hotHistory;
+    let value = 0;
+    for (let i = 0; i < array.length; i++) {
+      value += (array[i].healingAfterOriginalEnd || 0);
+    }
+    return value;
   }
 
   get directHealing() {

@@ -24,7 +24,7 @@ class DivinePurpose extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id);
-  
+
     // event listeners
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(HOLY_POWER_SPENDERS), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF), this.onApplyDivinePurpose);
@@ -34,7 +34,7 @@ class DivinePurpose extends Analyzer {
     const spellId = event.ability.guid;
     if (!this.selectedCombatant.hasBuff(SPELLS.DIVINE_PURPOSE_BUFF.id)) {
       return;
-    }  
+    }
     switch (spellId) {
       case SPELLS.TEMPLARS_VERDICT.id:
         this.templarsVerdictConsumptions += 1;
@@ -56,7 +56,7 @@ class DivinePurpose extends Analyzer {
   }
 
   onApplyDivinePurpose(event){
-    this.divinePurposeProcs++;
+    this.divinePurposeProcs += 1;
     const timeSinceLastDPconsumption = event.timestamp - this.lastDivinePurposeConsumption;
     if (timeSinceLastDPconsumption < CHAIN_PROC_BUFFER) {
       if (this.currentProcChain === 0) {

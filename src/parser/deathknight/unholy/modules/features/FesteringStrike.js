@@ -48,11 +48,11 @@ class FesteringStrike extends Analyzer {
   on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.FESTERING_STRIKE.id){
-      this.totalFesteringStrikeCasts++;
+      this.totalFesteringStrikeCasts += 1;
       if(this.targets.hasOwnProperty(event.targetID)){
         const currentTargetWounds = this.targets[event.targetID];
         if(currentTargetWounds > 3){
-          this.festeringStrikeCastsOverThreeStacks++;
+          this.festeringStrikeCastsOverThreeStacks += 1;
         }
       }
     }

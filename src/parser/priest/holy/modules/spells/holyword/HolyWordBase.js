@@ -120,12 +120,12 @@ class HolyWordBase extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === this.spellId) {
-      this.holyWordCasts++;
+      this.holyWordCasts += 1;
       this.remainingCooldown = this.baseCooldown;
 
       if (this.apotheosisActive) {
         this.apotheosisManaReduction += this.manaCost;
-        this.holyWordApotheosisCasts++;
+        this.holyWordApotheosisCasts += 1;
       }
 
     } else if (this.serendipityProccers[spellId] != null) {
@@ -182,7 +182,7 @@ class HolyWordBase extends Analyzer {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.APOTHEOSIS_TALENT.id) {
-      this.apotheosisCasts++;
+      this.apotheosisCasts += 1;
       this.apotheosisActive = true;
     }
   }

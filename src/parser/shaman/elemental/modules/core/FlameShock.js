@@ -64,7 +64,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
 
     const target = this.enemies.getEntity(event);
     if(target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)){
-      this.badLavaBursts++;
+      this.badLavaBursts += 1;
     }
   }
 

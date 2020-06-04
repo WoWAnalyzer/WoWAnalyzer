@@ -1,5 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import Events, {
+  EventType,
   GlobalCooldownEvent,
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
@@ -36,7 +37,7 @@ class SpellTimeWaitingOnGlobalCooldown extends Analyzer {
     // check if the ability was reset early. If the reset was less than a percentage of the GCD don't consider it as a reset.
     // check if the reset happened as a result of the previous cast
     if (
-      event.trigger === 'endcooldown' &&
+      event.trigger === EventType.EndCooldown &&
       resetBufferMS < earlyByMS &&
       event.timestamp < this.lastGlobalCooldown.timestamp + GCD_MATCH_BUFFER_MS
     ) {

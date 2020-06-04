@@ -26,10 +26,10 @@ class CosmicRipple extends Analyzer {
     }
     this.overhealing += event.overheal || 0;
     this.totalHealing += (event.amount || 0) + (event.absorbed || 0);
-    this.totalHits++;
+    this.totalHits += 1;
 
     if (event.timestamp - this.lastRippleTimeStamp > 1000) {
-      this.totalRipples++;
+      this.totalRipples += 1;
       this.lastRippleTimeStamp = event.timestamp;
     }
   }

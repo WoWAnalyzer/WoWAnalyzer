@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
@@ -103,7 +104,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   // Due to how the Shaman CooldonwThroughputTracker works, these events will be bunched together at the very end of the events list.
   generateFeedEvents(cooldown, feedingFactor, percentOverheal){
     cooldown.events.forEach((event) => {
-      if (event.type !== 'heal' || !cooldown.feed[event.ability.guid]) {
+      if (event.type !== EventType.Heal || !cooldown.feed[event.ability.guid]) {
         return;
       }
 

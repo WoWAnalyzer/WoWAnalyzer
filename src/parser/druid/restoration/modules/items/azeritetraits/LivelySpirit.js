@@ -68,7 +68,7 @@ class LivelySpirit extends Analyzer {
       && this.ABILITIES_BUFFING_LIVELY_SPIRIT.includes(spellId)
       && this.innervateTimestamp !== 0
       && (this.innervateTimestamp + INNERVATE_DURATION) >= event.timestamp) {
-      this.castsDuringInnervate++;
+      this.castsDuringInnervate += 1;
     }
   }
 

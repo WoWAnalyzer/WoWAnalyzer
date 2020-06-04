@@ -42,14 +42,14 @@ export const Dummy = {
   nickname: 'Dummy',
   github: 'DummyHub',
   twitter: '@Dummy',
-  avatar: require('./interface/images/avatars/zerotorescue-avatar.png'),
+  avatar: require('./interface/images/avatars/zerotorescue-avatar.jpg'),
 };
 export const Zerotorescue = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
   twitter: 'Zerotorescue',
   discord: 'Zerotorescue#0724',
-  avatar: require('./interface/images/avatars/zerotorescue-avatar.png'),
+  avatar: require('./interface/images/avatars/zerotorescue-avatar.jpg'),
   desc: 'WoWAnalyzer founder, Holy Paladin theorycrafter',
   mains: [{
     name: 'Zerotorescue',
@@ -85,12 +85,12 @@ export const Qbz = {
 export const sref = {
   nickname: 'sref',
   github: 'kfinch',
-  avatar: require('./interface/images/avatars/sref-avatar.png'),
+  avatar: require('./interface/images/avatars/sref-avatar.jpg'),
 };
 export const Iskalla = {
   nickname: 'Iskalla',
   github: 'Iskalla',
-  avatar: require('./interface/images/avatars/iskalla-avatar.png'),
+  avatar: require('./interface/images/avatars/iskalla-avatar.jpg'),
 };
 export const enragednuke = {
   nickname: 'enragednuke',
@@ -143,7 +143,7 @@ export const Sharrq = {
 export const Khazak = {
   nickname: 'Khazak',
   github: 'jjs451',
-  avatar: require('./interface/images/avatars/khazak-avatar.png'),
+  avatar: require('./interface/images/avatars/khazak-avatar.jpg'),
   discord: 'Khazak#3360',
   mains: [{
     name: 'Khazakk',
@@ -331,7 +331,7 @@ export const Gebuz = {
   nickname: 'Gebuz',
   github: 'Gebuz',
   discord: 'Gebuz#5801',
-  avatar: require('./interface/images/avatars/gebuz-avatar.png'),
+  avatar: require('./interface/images/avatars/gebuz-avatar.jpg'),
   desc: 'Balance Druid theorycrafter and top end mythic raider.',
   mains: [{
     name: 'Gebuz',
@@ -412,7 +412,7 @@ export const Zeboot = {
   nickname: 'Zeboot',
   github: 'Zeboot',
   discord: 'Zeboot#0001',
-  avatar: require('./interface/images/avatars/Zeboot-avatar.png'),
+  avatar: require('./interface/images/avatars/Zeboot-avatar.jpg'),
   mains: [
     {
       name: 'Zebeer',
@@ -455,7 +455,7 @@ export const Herusx = {
 export const Scaleable = {
   nickname: 'Scaleable',
   github: 'wkrueger',
-  avatar: require('./interface/images/avatars/scaleable-avatar.png'),
+  avatar: require('./interface/images/avatars/scaleable-avatar.jpg'),
 };
 export const Cloake = {
   nickname: 'Cloake',
@@ -485,12 +485,12 @@ export const niseko = {
   mains: [{
     name: 'Niseko',
     spec: SPECS.RESTORATION_SHAMAN,
-    link: 'https://worldofwarcraft.com/en-gb/character/stormscale/niseko',
+    link: 'https://worldofwarcraft.com/en-gb/character/draenor/niseko',
   },
     {
       name: 'Nisefy',
-      spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-gb/character/stormscale/nisefy',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-gb/character/draenor/furryweeb',
     }],
   links: {
     'Ancestral Guidance': 'https://ancestralguidance.com/',
@@ -524,7 +524,7 @@ export const ackwell = {
   nickname: 'ackwell',
   github: 'ackwell',
   discord: 'ackwell#3835',
-  avatar: require('./interface/images/avatars/ackwell-avatar.png'),
+  avatar: require('./interface/images/avatars/ackwell-avatar.jpg'),
 };
 export const regret = {
   nickname: 'regret',
@@ -758,7 +758,7 @@ export const Adoraci = {
   nickname: 'Adoraci',
   github: 'DylanDirlam',
   discord: 'Adoraci#0001',
-  avatar: require('./interface/images/avatars/Adoraci-avatar.png'),
+  avatar: require('./interface/images/avatars/Adoraci-avatar.jpg'),
   mains: [{
     name: 'Adoraci',
     spec: SPECS.DISCIPLINE_PRIEST,
@@ -817,7 +817,7 @@ export const JeremyDwayne = {
 export const Taleria = {
   nickname: 'Taleria',
   github: 'bramdevries',
-  avatar: require('./interface/images/avatars/taleria-avatar.png'),
+  avatar: require('./interface/images/avatars/taleria-avatar.jpg'),
   mains: [{
     name: 'Taleria',
     spec: SPECS.HOLY_PALADIN,
@@ -857,5 +857,16 @@ export const FraunchToost = {
     name: 'Azamia',
     spec: SPECS.MISTWEAVER_MONK,
     link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Azamia',
+  }],
+};
+export const Tiphess = {
+  nickname: 'Tiphess',
+  github: 'Tiphess',
+  discord: 'Tiphess#0324',
+  avatar: require('./interface/images/avatars/Tiphess-avatar.jpeg'),
+  mains: [{
+    name: 'Tjphess',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/tjphess',
   }],
 };

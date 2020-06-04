@@ -3,20 +3,12 @@ import PropTypes from 'prop-types';
 
 const AverageTargetsHit = props => {
   const { casts, hits, unique, approximate } = props;
-  const averageHits = ((hits / casts) || 0).toFixed(1);
-  if (!unique) {
-    return (
-      <>
-        {approximate && '≈'}{averageHits} <small>average {averageHits > 1 ? 'targets hit per cast' : 'target hit per cast'}</small>
-      </>
-    );
-  } else {
-    return (
-      <>
-        {approximate && '≈'}{averageHits} <small>unique {averageHits > 1 ? 'targets per cast' : 'target per cast'}</small>
-      </>
-    );
-  }
+  const averageHits = (hits / casts) || 0;
+  return (
+    <>
+      {approximate && '≈'}{averageHits.toFixed(1)} <small> {unique ? 'unique targets hit' : 'average'} {unique ? '' : averageHits === 1 ? 'hit' : 'hits'} per cast</small>
+    </>
+  );
 };
 
 AverageTargetsHit.propTypes = {
@@ -30,5 +22,6 @@ export default AverageTargetsHit;
 
 AverageTargetsHit.defaultProps = {
   approximate: false,
+  unique: false,
 };
 

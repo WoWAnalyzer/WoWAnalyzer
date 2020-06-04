@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS/index';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import HIT_TYPES from 'game/HIT_TYPES';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventType } from 'parser/core/Events';
 
 const debug = false;
 
@@ -62,18 +63,18 @@ class ComboPointsFromAoE extends EventsNormalizer {
     events.forEach(event => {
       const eventComboResource = this.getResource(event, RESOURCE_TYPES.COMBO_POINTS.id);
 
-      if ((event.type === 'energize') && (event.targetID === this.playerId) &&
+      if ((event.type === EventType.Energize) && (event.targetID === this.playerId) &&
           (event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id)) {
         // Gained combo points.
         combo = Math.min(MAX_COMBO, combo + (event.resourceChange - event.waste));
       }
-      if ((event.type === 'cast') && (event.sourceID === this.playerId) &&
+      if ((event.type === EventType.Cast) && (event.sourceID === this.playerId) &&
           eventComboResource && eventComboResource.cost) {
         // Spent combo points, which always puts a Feral druid back to 0
         combo = 0;
       }
 
-      if ((event.type === 'cast') && (event.sourceID === this.playerId) &&
+      if ((event.type === EventType.Cast) && (event.sourceID === this.playerId) &&
           INVISIBLE_ENERGIZE_ATTACKS.includes(event.ability.guid)) {
         // Cast an ability that may have generated a combo point, but we don't know until it does damage.
         castEvent = event;
@@ -82,7 +83,7 @@ class ComboPointsFromAoE extends EventsNormalizer {
         debug && console.log('invisible combo generator cast, awaiting confirmation of it hitting..');
       }
 
-      if ((event.type === 'energize') && (event.sourceID === this.playerId) &&
+      if ((event.type === EventType.Energize) && (event.sourceID === this.playerId) &&
           (event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id) &&
           INVISIBLE_ENERGIZE_ATTACKS.includes(event.ability.guid) && !event.__fabricated &&
           castEvent && (castEvent.ability.guid === event.ability.guid) &&
@@ -94,14 +95,14 @@ class ComboPointsFromAoE extends EventsNormalizer {
         castEvent = null;
       }
 
-      if ((event.type === 'damage') && (event.sourceID === this.playerId) &&
+      if ((event.type === EventType.Damage) && (event.sourceID === this.playerId) &&
           castEvent && (castEvent.ability.guid === event.ability.guid) &&
           ((event.timestamp - castEvent.timestamp) < ABILITY_DAMAGE_WINDOW) &&
           !event.tick && !HIT_TYPES_THAT_DONT_ENERGIZE.includes(event.hitType)) {
         // We now know that the last castEvent hit and so did produce a combo point.
         const fabricatedEnergize = {
           __fabricated: true,
-          type: 'energize',
+          type: EventType.Energize,
           timestamp: castEvent.timestamp,
           ability: castEvent.ability,
           sourceID: this.playerId,

@@ -61,7 +61,7 @@ import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
 import MightOfTheMountain from '../shared/modules/racials/dwarf/MightOfTheMountain';
 import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
 import Berserking from '../shared/modules/racials/troll/Berserking';
-import BloodFury from '../shared/modules/racials/Orc/BloodFury';
+import BloodFury from '../shared/modules/racials/orc/BloodFury';
 // Shared Buffs
 import VantusRune from '../shared/modules/spells/VantusRune';
 // BFA

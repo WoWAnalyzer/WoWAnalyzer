@@ -12,11 +12,11 @@ import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 for DIVINE_PURPOSE testing (A):
 
-    A1: 100% uptime with precast: 
+    A1: 100% uptime with precast:
         https://www.warcraftlogs.com/reports/wgfFpV4zrckHdhYt#fight=4&type=auras&sourceclass=Any&target=1&ability=53563
         Results Expected: 100%, precasted BoL: true, precasted BoF: null
         Passed: true
-    A2: < 100% uptime with precast: 
+    A2: < 100% uptime with precast:
         https://www.warcraftlogs.com/reports/wgfFpV4zrckHdhYt#fight=6&type=auras&source=1&by=target&ability=53563
         Results Expected: 92%, precasted BoL: true, precasted BoF: null
         passed: true
@@ -24,15 +24,15 @@ for DIVINE_PURPOSE testing (A):
         https://www.warcraftlogs.com/reports/MPFA4THXv6gmG1VD#fight=30&type=auras&source=3&by=target&ability=53563
         Results Expected: 88%, precasted BoL: true, precasted BoF: null
         Passed: true
-    A4: 100% uptime with precast with BoL swap: 
+    A4: 100% uptime with precast with BoL swap:
         https://www.warcraftlogs.com/reports/MPFA4THXv6gmG1VD#fight=12&type=auras&source=3&by=target&ability=53563
         Results Expected: 100%, precasted BoL: true, precasted BoF: null
         Passed: true
-    A5: < 100% uptime with precast with BoL swap: 
+    A5: < 100% uptime with precast with BoL swap:
         https://www.warcraftlogs.com/reports/MPFA4THXv6gmG1VD#fight=12&type=auras&source=3&by=target&ability=53563
         Results Expected: 100%, precasted BoL: true, precasted BoF: null
         Passed: true
-    A6: < 100% without precast with BoL swap: 
+    A6: < 100% without precast with BoL swap:
 
         Results Expected: %, precasted BoL: , precasted BoF: null
         Passed:
@@ -44,44 +44,44 @@ for BEACON_OF_FAITH testing (B):
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=2&source=7&type=auras&by=target&ability=53563
             Results Expected: BoL uptime 100%, BoF uptime 100%, precasted BoL: true, precasted BoF: true
             Passed: true
-        B12: < 100% uptime with precast: 
+        B12: < 100% uptime with precast:
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=13&source=7&type=auras&by=target&ability=156910
             Results Expected: BoL uptime 95%, BoF uptime 94%, precasted BoL: true, precasted BoF: true
             Passed: true
-        B13: < 100% without precast: 
+        B13: < 100% without precast:
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=10&source=7&type=auras&by=target&ability=156910
             Results Expected: BoL uptime 46%, BoF uptime 74%, precasted BoL: false, precasted BoF: false
             Passed: true
-        B14: 100% uptime with precast with BoF swap: 
+        B14: 100% uptime with precast with BoF swap:
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=11&source=7&type=auras&by=target&ability=156910
             Results Expected: BoL uptime 100%, BoF uptime 100%, precasted BoL: true, precasted BoF: true
             Passed: true
-        B15: < 100% uptime with precast with BoF swap: 
+        B15: < 100% uptime with precast with BoF swap:
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=8&source=7&type=auras&by=target&ability=156910
             Results Expected: BoL uptime 100%, BoF uptime 82%, precasted BoL: true, precasted BoF: true
             Passed: true
-        B16: < 100% without precast with BoF swap: 
+        B16: < 100% without precast with BoF swap:
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=14&source=7&type=auras&by=target&ability=156910
             Results Expected: BoL uptime 73%, BoF uptime 99%, precasted BoL: false, precasted BoF: false
             Passed: true
     BoL uptime (B2*):
-        B21: 100% uptime with precast: 
+        B21: 100% uptime with precast:
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=2&source=7&type=auras&by=target&ability=53563
             Results Expected: BoL uptime 100%, BoF uptime 100%, precasted BoL: true, precasted BoF: true
             Passed: true
-        B22: < 100% uptime with precast: 
+        B22: < 100% uptime with precast:
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=9&source=7&type=auras&by=target&ability=53563
             Results Expected: BoL uptime 83%, BoF uptime 90%, precasted BoL: true, precasted BoF: true
             Passed: true
-        B23: < 100% without precast: 
+        B23: < 100% without precast:
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=14&source=7&type=auras&by=target&ability=53563
             Results Expected: BoL uptime 73%, BoF uptime 99%, precasted BoL: false, precasted BoF: false
             Passed: true
-        B24: 100% uptime with precast with BoL swap: 
+        B24: 100% uptime with precast with BoL swap:
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=8&source=7&type=auras&by=target&ability=53563
             Results Expected: BoL uptime 100%, BoF uptime 82%, precasted BoL: true, precasted BoF: true
             Passed: true
-        B25: < 100% uptime with precast with BoL swap: 
+        B25: < 100% uptime with precast with BoL swap:
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=19&source=7&type=auras&by=target&ability=53563
             Results Expected: BoL uptime 97%, BoF uptime 98%, precasted BoL: true, precasted BoF: true
             Passed: true
@@ -108,13 +108,13 @@ class BeaconUptime extends Analyzer {
 
         // Due to getBuffHistory for BoV, uptime is calculated at the end of the fight
         this.addEventListener(Events.fightend, this._endOfFight);
-        
+
         // this is really has divine purpose talent
         this.hasBoL = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
 
         this.hasBoF = this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id);
         this.hasBoV = this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id);
-        
+
         this.idBoL = SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id;
         this.idBoF = SPELLS.BEACON_OF_FAITH_TALENT.id;
         this.idBoV = SPELLS.BEACON_OF_VIRTUE_TALENT.id;
@@ -122,7 +122,7 @@ class BeaconUptime extends Analyzer {
         this.BuffEventType = Object.freeze({REMOVEBUFF: 0, PREPULL: 1, POSTPULL: 2, UPDATE: 3, ENDOFFIGHT: 4});
 
     }
-    
+
     missingBoLPrepull = true;
     missingBoFPrepull = true;
     missingBoL = true;
@@ -132,7 +132,7 @@ class BeaconUptime extends Analyzer {
     fightStart = this.owner.fight.start_time;
     fightEnd = this.owner.fight.end_time;
     fightLength = this.fightEnd - this.fightStart;
-    
+
     lastBoLtimestamp = null;
     lastBoFtimestamp = null;
     lastBoVtimestamp = null;
@@ -197,7 +197,7 @@ class BeaconUptime extends Analyzer {
         style: 'percentage',
       };
     }
-    
+
     _updateBoL(event,type) {
       const {REMOVEBUFF,PREPULL,POSTPULL,UPDATE, ENDOFFIGHT} = this.BuffEventType;
 
@@ -206,13 +206,13 @@ class BeaconUptime extends Analyzer {
         this.missingBoL = true;
         this.uptimeBoL += event.timestamp - this.lastBoLtimestamp;
         this.lastBoLtimestamp = event.timestamp;
-        this.countBoL--;
+        this.countBoL -= 1;
         return;
       }
       // checks for overlap of beacon application with beacon removal
       // should never be >2 but just in case
       if(type === REMOVEBUFF && this.countBoL >= 2) {
-        this.countBoL--;
+        this.countBoL -= 1;
         return;
       }
       //buff applied prepull
@@ -220,20 +220,20 @@ class BeaconUptime extends Analyzer {
         this.missingBoLPrepull = false;
         this.missingBoL = false;
         this.lastBoLtimestamp = this.fightStart;
-        this.countBoL++;
+        this.countBoL += 1;
         return;
       }
-      // buff applied post pull, if death occurs and reapply happens before old buff goes away 
+      // buff applied post pull, if death occurs and reapply happens before old buff goes away
       // wont override lastBoLtimestamp if countBoL > 0
       if(type === POSTPULL && this.countBoL === 0) {
         this.lastBoLtimestamp = event.timestamp;
         this.missingBoL = false;
-        this.countBoL++;
+        this.countBoL += 1;
         return;
       }
       // increases count without overriding lastBoLtimestamp to track double applications
       if(type === POSTPULL && this.countBoL > 0) {
-        this.countBoL++;
+        this.countBoL += 1;
         return;
       }
       //buff not changed but updated
@@ -246,18 +246,18 @@ class BeaconUptime extends Analyzer {
 
     _updateBoF(event,type) {
       const {REMOVEBUFF,PREPULL,POSTPULL,UPDATE, ENDOFFIGHT} = this.BuffEventType;
-      
+
       // buff removed
       if(type === REMOVEBUFF && this.countBoF < 2) {
         this.missingBoF = true;
         this.uptimeBoF += event.timestamp - this.lastBoFtimestamp;
         this.lastBoFtimestamp = event.timestamp;
-        this.countBoF--;
+        this.countBoF -= 1;
       }
       // checks for overlap of beacon application with beacon removal
       // should never be >2 but just in case
       if(type === REMOVEBUFF && this.countBoF >= 2) {
-        this.countBoF--;
+        this.countBoF -= 1;
         return;
       }
       // buff applied prepull
@@ -265,20 +265,20 @@ class BeaconUptime extends Analyzer {
         this.missingBoFPrepull = false;
         this.missingBoF = false;
         this.lastBoFtimestamp = this.fightStart;
-        this.countBoF++;
+        this.countBoF += 1;
         return;
       }
-      // buff applied post pull, if death occurs and reapply happens before old buff goes away 
+      // buff applied post pull, if death occurs and reapply happens before old buff goes away
       // wont override lastBoFtimestamp if countBoF > 0
       if(type === POSTPULL && this.countBoF === 0) {
         this.lastBoFtimestamp = event.timestamp;
         this.missingBoF = false;
-        this.countBoF++;
+        this.countBoF += 1;
         return;
       }
       // increases count without overriding lastBoFtimestamp to track double applications
       if(type === POSTPULL && this.countBoF > 0) {
-        this.countBoF++;
+        this.countBoF += 1;
         return;
       }
       //buff not changed but updated
@@ -374,12 +374,12 @@ class BeaconUptime extends Analyzer {
       }
     }
 
-    _offBuff(event) {   
-      
+    _offBuff(event) {
+
       const {REMOVEBUFF} = this.BuffEventType;
 
-      if(event.ability.guid !== this.idBoL && 
-        event.ability.guid !== this.idBoF && 
+      if(event.ability.guid !== this.idBoL &&
+        event.ability.guid !== this.idBoF &&
         event.ability.guid !== this.idBoV) {
         return;
       }
@@ -396,7 +396,7 @@ class BeaconUptime extends Analyzer {
 
     _onPrepull(event) {
       const {PREPULL} = this.BuffEventType;
-      
+
       // prepull check for BoL active
       if(this.hasBoL && event.ability.guid === this.idBoL) {
         this._updateBoL(event,PREPULL);
@@ -416,8 +416,8 @@ class BeaconUptime extends Analyzer {
 
     _onBuff(event) {
 
-      if(event.ability.guid !== this.idBoL && 
-        event.ability.guid !== this.idBoF && 
+      if(event.ability.guid !== this.idBoL &&
+        event.ability.guid !== this.idBoF &&
         event.ability.guid !== this.idBoV) {
         return;
       }
@@ -440,25 +440,25 @@ class BeaconUptime extends Analyzer {
         return;
       }
     }
-    
+
 
 statistic() {
 
   const boringSpellValueContainer = {display: "flex", flexDirection: "row" };
-  const missingPrepullContainer = ( 
+  const missingPrepullContainer = (
       <div style={{color: "red", margin: "auto", textAlign: "center"}}>
-      <Trans>Not<br />casted<br />prepull</Trans></div> 
+      <Trans>Not<br />casted<br />prepull</Trans></div>
     );
-    
+
   return (
     <Statistic
       position={STATISTIC_ORDER.CORE(60)}
       size={'flexible'}
       >
       <label style={{margin: "10px"}}><Trans>Beacon Uptime</Trans></label>
-      
+
       {/*  adds a section for BoL stats if BoV talent is not taken */}
-      {!this.hasBoV && 
+      {!this.hasBoV &&
       (
         <div style={boringSpellValueContainer}>
         <BoringSpellValue
@@ -466,24 +466,24 @@ statistic() {
           value={`${this.uptimeBoLPerc}%`}
           label={<Trans>BoL Uptime</Trans>} />
         {this.missingBoLPrepull && missingPrepullContainer}
-        </div> 
+        </div>
       )}
-        
+
       {/* adds a section for BoF stats if BoF talent taken */}
-      {this.hasBoF && 
+      {this.hasBoF &&
       (
         <div style={boringSpellValueContainer}>
         <BoringSpellValue
           spell={SPELLS.BEACON_OF_FAITH_TALENT}
           value={`${this.uptimeBoFPerc}%`}
           label={<Trans>BoF Uptime</Trans>} />
-        
+
         {this.missingBoFPrepull && missingPrepullContainer}
         </div>
       )}
 
       {/* adds a section for BoV stats if BoV talent taken */}
-      {this.hasBoV && 
+      {this.hasBoV &&
       (
         <div style={boringSpellValueContainer}>
         <BoringSpellValue

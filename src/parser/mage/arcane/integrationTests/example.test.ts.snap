@@ -4928,7 +4928,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "88.29500000000002%",
+                  "width": "88.78478750000001%",
                 }
               }
             />
@@ -5163,7 +5163,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "76.59000000000003%",
+                        "width": "77.56957500000001%",
                       }
                     }
                   />

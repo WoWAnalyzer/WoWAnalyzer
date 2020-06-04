@@ -13,6 +13,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
+import { EventType } from 'parser/core/Events';
 
 //RQXjBJ1kG9pAC2DV/21-Mythic++Atal'Dazar+-+Kill+(51:52)/Koorshaman/
 
@@ -49,11 +50,11 @@ class AncestralProtectionTotem extends Analyzer {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(
-        (type='cast' AND ability.id=${SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id})
-        OR 
-        (type='applydebuff' AND ability.id=${SPELLS.TOTEMIC_REVIVAL_DEBUFF.id})
-        OR 
-        (type='cast' AND ability.id=${SPELLS.TOTEMIC_REVIVAL_CAST.id})
+        (type='${EventType.Cast}' AND ability.id=${SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id})
+        OR
+        (type='${EventType.ApplyDebuff}' AND ability.id=${SPELLS.TOTEMIC_REVIVAL_DEBUFF.id})
+        OR
+        (type='${EventType.Cast}' AND ability.id=${SPELLS.TOTEMIC_REVIVAL_CAST.id})
       )`,
     };
     return this.fetchAll(`report/events/${this.owner.report.code}`, query);

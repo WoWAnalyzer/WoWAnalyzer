@@ -25,7 +25,7 @@ exports[`ContributorDetails matches snapshot 1`] = `
           >
             <img
               alt="Avatar"
-              src="zerotorescue-avatar.png"
+              src="zerotorescue-avatar.jpg"
               style={
                 Object {
                   "borderRadius": "50%",

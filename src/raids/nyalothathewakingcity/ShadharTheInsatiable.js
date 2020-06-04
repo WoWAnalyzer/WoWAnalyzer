@@ -1,4 +1,5 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/ShadharTheInsatiable.jpg';
 import Headshot from './images/headshots/ShadharTheInsatiable.png';
@@ -19,14 +20,14 @@ export default {
       P1: {
         name: 'Stage 1: Shadowy Carapace',
         multiple: false,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       P2: {
         name: 'Stage 2: Void-Tinged Carapace',
         multiple: false,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 157231,
           health: 66,
           eventInstance: 0,
@@ -35,9 +36,9 @@ export default {
       P3: {
         name: 'Stage 3: Noxious Carapace',
         multiple: false,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 157231,
           health: 33,
           eventInstance: 0,

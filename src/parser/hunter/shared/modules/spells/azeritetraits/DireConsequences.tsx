@@ -2,13 +2,13 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
 import UptimeIcon from 'interface/icons/Uptime';
-import { HASTE_PERCENT } from '../../../../beastmastery/modules/talents/DireBeast';
-import { ApplyBuffEvent } from '../../../../../core/Events';
-import Statistic from '../../../../../../interface/statistics/Statistic';
+import { ApplyBuffEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import { HASTE_PERCENT } from 'parser/hunter/beastmastery/modules/talents/DireBeast';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 /**
  * Kill Command deals n additional damage, and has a chance to summon a Dire
@@ -29,8 +29,7 @@ class DireConsequences extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) /
-      this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
   }
 
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
@@ -38,21 +37,19 @@ class DireConsequences extends Analyzer {
     if (spellId !== SPELLS.DIRE_BEAST_BUFF.id) {
       return;
     }
-    this.procs++;
+    this.procs += 1;
   }
 
   statistic() {
     return (
       <Statistic
         size="flexible"
-        category={'AZERITE_POWERS'}
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
       >
         <BoringSpellValueText spell={SPELLS.DIRE_CONSEQUENCES}>
           <>
-            <Haste /> {formatPercentage(HASTE_PERCENT *
-            this.uptime)}% <small>Haste</small><br />
-            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
-            <br />
+            <Haste /> {formatPercentage(HASTE_PERCENT * this.uptime)}% <small>Haste</small><br />
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small><br />
             {this.procs} <small>procs</small>
           </>
         </BoringSpellValueText>

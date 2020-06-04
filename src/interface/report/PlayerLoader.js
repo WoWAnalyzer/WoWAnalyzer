@@ -20,6 +20,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import Tooltip from 'common/Tooltip';
 import PlayerSelection from 'interface/report/PlayerSelection';
 import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
+import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
 import handleApiError from './handleApiError';
@@ -48,6 +49,8 @@ class PlayerLoader extends React.PureComponent {
         name: PropTypes.string.isRequired,
       })),
       exportedCharacters: PropTypes.any,
+      start: PropTypes.number.isRequired,
+      end: PropTypes.number.isRequired,
     }).isRequired,
     fight: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -147,7 +150,7 @@ class PlayerLoader extends React.PureComponent {
         // Gear may be null for broken combatants
         this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
         if (characterData && characterData.heartOfAzeroth) {
-          numberOfCombatantsWithLoadedHeart++;
+          numberOfCombatantsWithLoadedHeart += 1;
           this.heartLvl += characterData.heartOfAzeroth.azeriteItemLevel;
         }
       });
@@ -209,6 +212,7 @@ class PlayerLoader extends React.PureComponent {
       return this.renderLoading();
     }
 
+    const reportDuration = report.end - report.start;
 
     const players = playerId ? report.friendlies.filter(friendly => friendly.id === playerId) : report.friendlies.filter(friendly => friendly.name === playerName);
     const player = players[0];
@@ -255,6 +259,10 @@ class PlayerLoader extends React.PureComponent {
               </div>
             </div>
           </div>
+
+          {fight.end_time > MAX_REPORT_DURATION &&
+          <ReportDurationWarning duration={reportDuration} />}
+
           <PlayerSelection
             players={report.friendlies.map(friendly => {
               const combatant = combatants.find(combatant => combatant.sourceID === friendly.id);

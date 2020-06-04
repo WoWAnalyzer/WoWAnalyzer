@@ -7,6 +7,7 @@ import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import DamageValue from 'parser/shared/modules/DamageValue';
@@ -178,7 +179,7 @@ class BaseHealerStatValues extends Analyzer {
     return this.scaleWeightsWithHealth ? gain * mult : gain;
   }
   _leech(event, healVal, spellInfo) {
-    if (event.type !== 'heal') {
+    if (event.type !== EventType.Heal) {
       return 0; // leech doesn't proc from absorbs
     }
 

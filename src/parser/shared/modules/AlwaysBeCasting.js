@@ -3,6 +3,7 @@ import React from 'react';
 import Icon from 'common/Icon';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
 
@@ -44,7 +45,7 @@ class AlwaysBeCasting extends Analyzer {
       // Ignore prepull casts for active time since active time should only include casts during the
       return false;
     }
-    if (event.trigger.type === 'beginchannel') {
+    if (event.trigger.type === EventType.BeginChannel) {
       // Only add active time for this channel, we do this when the channel is finished and use the highest of the GCD and channel time
       return false;
     }

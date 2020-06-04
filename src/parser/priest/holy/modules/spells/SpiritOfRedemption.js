@@ -6,6 +6,7 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import DeathDowntime from 'parser/shared/modules/downtime/DeathDowntime';
 import SpellLink from 'common/SpellLink';
 import { isItAprilFoolDay } from 'common/aprilFools';
+import { EventType } from 'parser/core/Events';
 
 class SpiritOfRedemption extends Analyzer {
   static dependencies = {
@@ -35,7 +36,7 @@ class SpiritOfRedemption extends Analyzer {
       this.sorStartTime = event.timestamp;
       this.eventEmitter.fabricateEvent({
         ...event,
-        type: 'cast',
+        type: EventType.Cast,
       }, event);
     }
   }

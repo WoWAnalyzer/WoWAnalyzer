@@ -95,7 +95,7 @@ class ShieldBlock extends Analyzer {
     };
 
     this.shieldBlocksOffensive.push(offensive);
-    
+
     const defensive = {
       shieldBlock: this.shieldBlocksDefensive.length + 1,
       blockAbleEvents: 0,
@@ -111,7 +111,7 @@ class ShieldBlock extends Analyzer {
   }
 
   shieldSlamCast(event){
-    this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].shieldSlamCasts++;
+    this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].shieldSlamCasts += 1;
 
     if(this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].shieldSlamCasts > this.ssNeeded){
       this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].good = true;
@@ -122,7 +122,7 @@ class ShieldBlock extends Analyzer {
     const bonusDamage = Math.round(eventDamage - eventDamage / 1.3);
 
     this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].bonusDamage = beforeDamage + bonusDamage;
-    
+
   }
 
 
@@ -209,7 +209,7 @@ class ShieldBlock extends Analyzer {
           <br /><br />
             Some casts may be good both offensively and defensively.
           <br /><br />
-            Try to maximize the efficiency of your <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> casts by ensuring that you take advantage of the offensive or defensive effects each time. 
+            Try to maximize the efficiency of your <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> casts by ensuring that you take advantage of the offensive or defensive effects each time.
           </>
         )}
       >

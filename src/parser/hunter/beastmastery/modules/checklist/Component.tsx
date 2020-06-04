@@ -5,21 +5,21 @@ import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
-import PreparationRule
-  from 'parser/shared/modules/features/Checklist/PreparationRule';
-import GenericCastEfficiencyRequirement
-  from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellIcon from 'common/SpellIcon';
 
 const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+
   const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
+
   AbilityRequirement.propTypes = {
     spell: PropTypes.number.isRequired,
   };
@@ -63,10 +63,7 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       >
         <Requirement name={<>Uptime of <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> </>} thresholds={thresholds.frenzyUptimeSuggestionThreshold} />
         <Requirement name={<>3 stack uptime of <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> </>} thresholds={thresholds.frenzy3StackSuggestionThreshold} />
-        <Requirement
-          name={<>
-            <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> CDR Efficiency</>} thresholds={thresholds.bestialWrathCDREfficiencyThreshold}
-        />
+        <Requirement name={<><SpellLink id={SPELLS.BESTIAL_WRATH.id} /> CDR Efficiency</>} thresholds={thresholds.bestialWrathCDREfficiencyThreshold} />
       </Rule>
       <Rule
         name="Talent, cooldown and spell efficiency"
@@ -76,24 +73,12 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
           </>
         )}
       >
-        <Requirement
-          name={<>
-            <SpellIcon id={SPELLS.COBRA_SHOT.id} /><SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} icon={false} /> CDR efficiency</>} thresholds={thresholds.cobraShotCDREfficiencyThreshold}
-        />
-        <Requirement
-          name={<>
-            <SpellLink id={SPELLS.COBRA_SHOT.id} /> casts when <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> wasn't on cd</>} thresholds={thresholds.wastedCobraShotsThreshold}
-        />
-        <Requirement
-          name={<>
-            <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> Average focus on <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /> cast </>} thresholds={thresholds.bestialWrathFocusThreshold}
-        />
-        <Requirement
-          name={<>
-            <SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} /> applications with 0 cleaves</>} thresholds={thresholds.beastCleaveThresholds}
-        />
-        {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) &&
-        <Requirement name={<> Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets </>} thresholds={thresholds.wastedKillerCobraThreshold} />}
+        <Requirement name={<><SpellIcon id={SPELLS.COBRA_SHOT.id} /><SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} icon={false} /> CDR efficiency</>} thresholds={thresholds.cobraShotCDREfficiencyThreshold} />
+        <Requirement name={<><SpellLink id={SPELLS.COBRA_SHOT.id} /> casts when <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> wasn't on cd</>} thresholds={thresholds.wastedCobraShotsThreshold} />
+        <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> Average focus on <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /> cast </>} thresholds={thresholds.bestialWrathFocusThreshold} />
+        <Requirement name={<> Lost pet Basic Attacks </>} thresholds={thresholds.basicAttackThresholds} />
+        <Requirement name={<><SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} /> applications with 0 cleaves</>} thresholds={thresholds.beastCleaveThresholds} />
+        {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && <Requirement name={<> Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets </>} thresholds={thresholds.wastedKillerCobraThreshold} />}
       </Rule>
       <Rule
         name={<>Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> focus capping</>}

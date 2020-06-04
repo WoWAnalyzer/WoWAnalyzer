@@ -3,17 +3,15 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent, DamageEvent } from '../../../../core/Events';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  *
- * When Bestial Wrath ends, summon a Spitting Cobra to aid you in combat for 15
- * sec.
- * Each Cobra Shot used during Bestial Wrath increases the damage this
- * Spitting Cobra deals by 10%.
+ * When Bestial Wrath ends, summon a Spitting Cobra to aid you in combat for 15 sec.
+ * Each Cobra Shot used during Bestial Wrath increases the damage this Spitting Cobra deals by 10%.
  *
  * Example log:
  *
@@ -29,8 +27,7 @@ class SpittingCobra extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
   }
 
   on_byPlayer_cast(event: CastEvent) {
@@ -62,10 +59,7 @@ class SpittingCobra extends Analyzer {
     if (spellId !== SPELLS.SPITTING_COBRA_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount +
-      (
-        event.absorbed || 0
-      );
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   get averageIncrease() {
@@ -77,7 +71,7 @@ class SpittingCobra extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.SPITTING_COBRA_TALENT}>
           <>

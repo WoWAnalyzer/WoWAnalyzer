@@ -8,6 +8,7 @@ import { formatThousands, formatNumber, formatPercentage, formatDuration } from 
 import { TooltipElement } from 'common/Tooltip';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
+import { EventType } from 'parser/core/Events';
 import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 import './Cooldown.css';
@@ -62,9 +63,9 @@ class Cooldown extends React.Component {
   groupHeals(events) {
     let lastHeal = null;
     return events.reduce((results, event) => {
-      if (event.type === 'cast') {
+      if (event.type === EventType.Cast) {
         results.push(event);
-      } else if (event.type === 'heal') {
+      } else if (event.type === EventType.Heal) {
         const spellId = event.ability.guid;
         if (lastHeal && lastHeal.event.ability.guid === spellId) {
           lastHeal.count += 1;
@@ -90,7 +91,7 @@ class Cooldown extends React.Component {
   calculateHealingStatistics(cooldown) {
     let healingDone = 0;
     let overhealingDone = 0;
-    cooldown.events.filter(event => event.type === 'heal' || event.type === 'absorbed').forEach((event) => {
+    cooldown.events.filter(event => event.type === EventType.Heal || event.type === EventType.Absorbed).forEach((event) => {
       healingDone += event.amount + (event.absorbed || 0);
       overhealingDone += event.overheal || 0;
     });
@@ -102,7 +103,7 @@ class Cooldown extends React.Component {
   }
 
   calculateDamageStatistics(cooldown) {
-    const damageDone = cooldown.events.reduce((acc, event) => event.type === 'damage' ? acc + ((event.amount || 0) + (event.absorbed || 0)) : acc, 0);
+    const damageDone = cooldown.events.reduce((acc, event) => event.type === EventType.Damage ? acc + ((event.amount || 0) + (event.absorbed || 0)) : acc, 0);
 
     return { damageDone };
   }
@@ -140,7 +141,7 @@ class Cooldown extends React.Component {
               <div>
                 {
                   cooldown.events
-                    .filter(event => event.type === 'cast' && event.ability.guid !== 1)
+                    .filter(event => event.type === EventType.Cast && event.ability.guid !== 1)
                     .map((event, i) => (
                       <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid} icon={false}>
                         <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} />
@@ -160,7 +161,7 @@ class Cooldown extends React.Component {
               <div className="container-fluid">
                 {
                   cooldown.events
-                    .filter(event => event.type === 'cast' && event.ability.guid !== 1)
+                    .filter(event => event.type === EventType.Cast && event.ability.guid !== 1)
                     .map((event, i) => (
                       <div className="row" key={i}>
                         <div className="col-xs-2 text-right" style={{ padding: 0 }}>
@@ -184,24 +185,24 @@ class Cooldown extends React.Component {
             )}
             {this.state.showCastEvents && this.state.showAllEvents && (
               <div className="container-fluid">
-                {this.groupHeals(cooldown.events.filter(event => (event.type === 'cast' || event.type === 'heal') && event.ability.guid !== 1)).map((heal, i) => {
+                {this.groupHeals(cooldown.events.filter(event => (event.type === EventType.Cast || event.type === EventType.Heal) && event.ability.guid !== 1)).map((heal, i) => {
                   const event = heal.event || heal;
                   return (
                     <div className="row" key={i}>
                       <div className="col-xs-1 text-right" style={{ padding: 0 }}>
                         +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
                       </div>
-                      <div className={`col-xs-4 ${event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
+                      <div className={`col-xs-4 ${event.type === EventType.Heal ? 'col-xs-offset-1' : ''}`}>
                         <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid} icon={false}>
                           <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
                         </SpellLink>
-                        {event.type === 'heal' && (
+                        {event.type === EventType.Heal && (
                           <span>
                           <span className="grouped-heal-meta amount"> x {heal.count}</span>
                           </span>
                         )}
                       </div>
-                      {event.type === 'heal' && (
+                      {event.type === EventType.Heal && (
                         <div className="col-xs-4">
                           <span className="grouped-heal-meta healing"> +{formatThousands(heal.amount + heal.absorbed)}</span>
                           <span className="grouped-heal-meta overhealing"> (O: {formatThousands(heal.overheal)})</span>
@@ -241,7 +242,7 @@ class Cooldown extends React.Component {
                         </div>
                       );
                     case BUILT_IN_SUMMARY_TYPES.ABSORBED: {
-                      const total = cooldown.events.filter(event => event.type === 'absorbed').reduce((total, event) => total + (event.amount || 0), 0);
+                      const total = cooldown.events.filter(event => event.type === EventType.Absorbed).reduce((total, event) => total + (event.amount || 0), 0);
                       return (
                         <div className="col-md-4 text-center" key="absorbed">
                           <div style={{ fontSize: '2em' }}>{formatNumber(total)}</div>
@@ -252,7 +253,7 @@ class Cooldown extends React.Component {
                       );
                     }
                     case BUILT_IN_SUMMARY_TYPES.ABSORBS_APPLIED: {
-                      const total = cooldown.events.filter(event => event.type === 'applybuff').reduce((total, event) => total + (event.absorb || 0), 0);
+                      const total = cooldown.events.filter(event => event.type === EventType.ApplyBuff).reduce((total, event) => total + (event.absorb || 0), 0);
                       return (
                         <div className="col-md-4 text-center" key="absorbs-applied">
                           <div style={{ fontSize: '2em' }}>{formatNumber(total)}</div>
@@ -265,9 +266,9 @@ class Cooldown extends React.Component {
                     case BUILT_IN_SUMMARY_TYPES.MANA: {
                       let manaUsed = 0;
                       if(cooldown.spell.id === SPELLS.INNERVATE.id) {
-                        manaUsed = cooldown.events.filter(event => event.type === 'cast').reduce((total, event) => total + (event.rawResourceCost[RESOURCE_TYPES.MANA.id] || 0), 0);
+                        manaUsed = cooldown.events.filter(event => event.type === EventType.Cast).reduce((total, event) => total + (event.rawResourceCost[RESOURCE_TYPES.MANA.id] || 0), 0);
                       } else {
-                        manaUsed = cooldown.events.filter(event => event.type === 'cast').reduce((total, event) => total + (event.resourceCost[RESOURCE_TYPES.MANA.id] || 0), 0);
+                        manaUsed = cooldown.events.filter(event => event.type === EventType.Cast).reduce((total, event) => total + (event.resourceCost[RESOURCE_TYPES.MANA.id] || 0), 0);
                       }
                       return (
                         <div className="col-md-4 text-center" key="mana">

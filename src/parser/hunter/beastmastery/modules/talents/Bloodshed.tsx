@@ -4,10 +4,10 @@ import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from '../../../../core/Events';
-import { isPermanentPet } from '../../../../warlock/demonology/modules/pets/helpers';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { DamageEvent } from 'parser/core/Events';
+import { isPermanentPet } from 'parser/warlock/demonology/modules/pets/helpers';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 /**
  * Command your pet to tear into your target, causing your target to bleed for
@@ -23,8 +23,7 @@ class Bloodshed extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.BLOODSHED_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODSHED_TALENT.id);
   }
 
   on_byPlayer_damage(event: DamageEvent) {
@@ -38,10 +37,7 @@ class Bloodshed extends Analyzer {
   on_byPlayerPet_damage(event: DamageEvent) {
     const foundPet = this.pets.find((pet: { sourceID: number | undefined }) => pet.sourceID ===
       event.sourceID);
-    const damage = event.amount +
-      (
-        event.absorbed || 0
-      );
+    const damage = event.amount + (event.absorbed || 0);
     if (!foundPet) {
       const sourcePet = this.owner.playerPets.find((pet: { id: number | undefined; }) => pet.id ===
         event.sourceID);
@@ -73,7 +69,7 @@ class Bloodshed extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.ASPECT_OF_THE_BEAST_TALENT}>
           <>

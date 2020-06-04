@@ -12,6 +12,7 @@ import HasteIcon from 'interface/icons/Haste';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Abilities from 'parser/core/modules/Abilities';
 import { calculatePrimaryStat } from 'common/stats';
+import { EventType } from 'parser/core/Events';
 
 const MINOR_SPELL_IDS = {
   1: SPELLS.FOCUSED_ENERGY_RANK_ONE.id,
@@ -85,10 +86,10 @@ class EssenceOfTheFocusingIris extends Analyzer {
     const uptimeOnStack = event.timestamp - this.lastStackTimestamp;
     this.totalHaste += this.currentStacks * this.hasteBuff * uptimeOnStack;
 
-    if (event.type === 'applybuff') {
+    if (event.type === EventType.ApplyBuff) {
       // With Rank two or above the buff application grants you three stacks instead of 1.
       this.currentStacks = (this.rank >= 2 ? 3 : 1);
-    } else if (event.type === 'removebuff') {
+    } else if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
     } else {
       this.currentStacks = event.stack;

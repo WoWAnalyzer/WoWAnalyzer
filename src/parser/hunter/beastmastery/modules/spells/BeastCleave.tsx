@@ -6,35 +6,40 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
-import {
-  ApplyBuffEvent,
-  DamageEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-} from '../../../../core/Events';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { ApplyBuffEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 const MS_BUFFER = 100;
 
 /**
- * After you Multi-Shot, your pet's melee attacks also strike all other nearby
- * enemy targets for 100% as much for the next 4 sec.
- *
+ * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
  * Example log:
- * https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=last&type=damage-done
+ * https://www.warcraftlogs.com/reports/MnzYCvDHdLGZJkAg#fight=7&type=damage-done&source=24&ability=118459
  *
- * This module also tracks the amount of multi-shot casts that did not trigger
- * any beast cleave damage Example:
- * https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=last&type=damage-done
+ * This module also tracks the amount of multi-shot casts that did not trigger any beast cleave damage
+ * Example log:
+ * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1
  */
 class BeastCleave extends Analyzer {
+
   damage = 0;
   cleaveUp = false;
   beastCleaveHits = 0;
   casts = 0;
   castsWithoutHits = 0;
   timestamp = 0;
+
+  get beastCleavesWithoutHits() {
+    return {
+      actual: this.castsWithoutHits,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 3,
+      },
+      style: 'number',
+    };
+  }
 
   on_toPlayerPet_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
@@ -75,7 +80,7 @@ class BeastCleave extends Analyzer {
     }
     this.casts += 1;
     if (this.beastCleaveHits === 0) {
-      this.castsWithoutHits++;
+      this.castsWithoutHits += 1;
     }
     this.beastCleaveHits = 0;
     this.timestamp = event.timestamp;
@@ -86,40 +91,16 @@ class BeastCleave extends Analyzer {
     if (spellId !== SPELLS.BEAST_CLEAVE_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount +
-      (
-        event.absorbed || 0
-      );
+    this.damage += event.amount + (event.absorbed || 0);
     this.beastCleaveHits += 1;
-  }
-
-  get beastCleavesWithoutHits() {
-    return {
-      actual: this.castsWithoutHits,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 3,
-      },
-      style: 'number',
-    };
   }
 
   suggestions(when: any) {
     if (this.casts > 0) {
-      when(this.beastCleavesWithoutHits).addSuggestion((
-        suggest: any,
-        actual: any,
-        recommended: any,
-      ) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} time{actual ===
-        1
-          ? ''
-          : 's'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
+      when(this.beastCleavesWithoutHits).addSuggestion((suggest: any, actual: any, recommended: any) => {
+        return suggest(<>You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} {actual === 1 ? 'time' : 'times'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
           .icon(SPELLS.MULTISHOT_BM.icon)
-          .actual(`${actual} cast${actual === 1
-            ? ''
-            : 's'} without any Beast Cleave damage`)
+          .actual(`${actual} ${actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage`)
           .recommended(`${recommended} is recommended`);
       });
     }
