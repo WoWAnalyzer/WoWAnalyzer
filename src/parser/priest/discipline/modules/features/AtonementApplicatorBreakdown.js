@@ -174,7 +174,6 @@ class AtonementApplicatorBreakdown extends Analyzer{
                 }
             }
         }
-        
     }
     
     handleEvangelismCasts(event){
