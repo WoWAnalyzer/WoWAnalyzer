@@ -1,12 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { isPermanentPet } from '../../../../warlock/demonology/modules/pets/helpers';
 
 /**
@@ -27,9 +27,11 @@ class AnimalCompanion extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANIMAL_COMPANION_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  on_byPlayerPet_damage(event: DamageEvent) {
+  onPetDamage(event: DamageEvent) {
     const foundPet = this.pets.find((pet: { sourceID: number | undefined }) => pet.sourceID === event.sourceID);
     const damage = event.amount +
       (event.absorbed || 0);
@@ -48,7 +50,7 @@ class AnimalCompanion extends Analyzer {
     }
   }
 
-  on_fightend() {
+  onFightEnd() {
     let max = 0;
     this.pets.forEach((pet: { damage: number; petName: string; }) => {
       if (pet.damage > max) {
