@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 6, 7), 'Moved some helper functions from class/specialization folders to a shared folder', Putro),
   change(date(2020, 6, 6), <> Added uptime to to the <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS.id} /> module. </>, Putro),
   change(date(2020, 6, 3), <>Updated death recap suggestion for <SpellLink id={SPELLS.HEALTHSTONE.id} />. This will only show if a Warlock participated in the selected fight.</>, Vetyst),
   change(date(2020, 6, 3), <>Removed duplicate entry of <SpellLink id={SPELLS.GUARDIAN_SPIRIT.id} /> in defensive buffs.</>, [Vetyst]),
