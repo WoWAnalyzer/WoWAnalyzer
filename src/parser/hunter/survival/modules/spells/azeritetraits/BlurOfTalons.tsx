@@ -9,6 +9,7 @@ import Agility from 'interface/icons/Agility';
 import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 const blurOfTalonsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.BLUR_OF_TALONS.id, rank);
@@ -36,7 +37,6 @@ class BlurOfTalons extends Analyzer {
   blurOfTalonStacks: Array<Array<number>> = [];
   lastBlurStack: number = 0;
   lastBlurUpdate: number = this.owner.fight.start_time;
-  currentStacks: number = 0;
 
   protected statTracker!: StatTracker;
 
@@ -71,18 +71,12 @@ class BlurOfTalons extends Analyzer {
   }
 
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent, stack: number = 0) {
-    if (event.type === EventType.RemoveBuff) {
-      this.currentStacks = 0;
-    } else if (event.type === EventType.ApplyBuff) {
-      this.currentStacks = 1;
-    } else if (event.type === EventType.ApplyBuffStack) {
-      this.currentStacks = event.stack;
-    } else if (event.type === EventType.FightEnd) {
-      this.currentStacks = stack;
-    }
     this.blurOfTalonStacks[this.lastBlurStack].push(event.timestamp - this.lastBlurUpdate);
+    if (event.type === EventType.FightEnd) {
+      return;
+    }
     this.lastBlurUpdate = event.timestamp;
-    this.lastBlurStack = this.currentStacks;
+    this.lastBlurStack = currentStacks(event);
   }
 
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
