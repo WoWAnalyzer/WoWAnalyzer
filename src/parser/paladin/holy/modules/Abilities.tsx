@@ -25,7 +25,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           extraSuggestion: (
-            <Trans>Casting Holy Shock regularly is very important for performing well.</Trans>
+            <Trans id="paladin.holy.abilities.holyShock.castEfficiency">Casting Holy Shock regularly is very important for performing well.</Trans>
           ),
         },
         timelineSortIndex: 0,
@@ -81,7 +81,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.7,
           extraSuggestion: (
-            <Trans>
+            <Trans id="paladin.holy.abilities.bestowFaith.castEfficiency">
               If you can't or don't want to cast it more consider using{' '}
               <SpellLink id={SPELLS.LIGHTS_HAMMER_TALENT.id} /> or{' '}
               <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> instead.
@@ -125,7 +125,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           extraSuggestion: (
-            <Trans>
+            <Trans id="paladin.holy.abilities.crusaderStrike.castEfficiency">
               When you are using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> it is important
               to use <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> often enough to benefit from the
               talent. Use a different talent if you are unable to.
