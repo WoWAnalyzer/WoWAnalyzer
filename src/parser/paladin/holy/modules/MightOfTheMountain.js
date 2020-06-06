@@ -1,5 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import BaseMightOfTheMountain, { CRIT_EFFECT } from 'parser/shared/modules/racials/dwarf/MightOfTheMountain';
+import BaseMightOfTheMountain, {
+  CRIT_EFFECT,
+} from 'parser/shared/modules/racials/dwarf/MightOfTheMountain';
 
 import BeaconHealSource from './beacons/BeaconHealSource';
 
