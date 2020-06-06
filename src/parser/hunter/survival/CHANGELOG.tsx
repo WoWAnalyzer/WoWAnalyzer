@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 6, 6), 'Bump support to 8.3', Putro),
   change(date(2020, 6, 6), <> Added support for <SpellLink id={SPELLS.LUCID_DREAMS.id} />. </>, Putro),
   change(date(2020, 6, 4), 'Added integration tests for multiple scenarios to decrease chance of any breaking change making it live.', Putro),
   change(date(2020, 6, 4), <> Updated the death tracking module to not say that you died, when you used <SpellLink id={SPELLS.FEIGN_DEATH.id} />.</>, Putro),
