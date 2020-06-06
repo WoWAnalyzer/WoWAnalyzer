@@ -43,11 +43,7 @@ class LightOfDawn extends Analyzer {
         <BoringSpellValue
           spell={SPELLS.LIGHT_OF_DAWN_CAST}
           value={playersHitPerCast.toFixed(2)}
-          label={
-            <Trans id="paladin.holy.lightOfDawn.averageTargetsHit">
-              Average targets hit per cast
-            </Trans>
-          }
+          label={<Trans>Average targets hit per cast</Trans>}
           className="light-of-dawn-hits-per-cast"
           extra={<PlayerHits performance={performance} />}
         />

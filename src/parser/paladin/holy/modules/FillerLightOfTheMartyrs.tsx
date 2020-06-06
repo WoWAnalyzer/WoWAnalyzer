@@ -79,7 +79,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
     when(this.cpmSuggestionThresholds).addSuggestion(
       (suggest: any, actual: any, recommended: any) => {
         return suggest(
-          <Trans id="paladin.holy.fillerLightOfTheMartyrs.cpmSuggestion">
+          <Trans>
             You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />
             s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the
             Martyr when it will save someone's life or when moving and all other instant cast spells
@@ -88,26 +88,22 @@ class FillerLightOfTheMartyrs extends Analyzer {
         )
           .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
           .actual(
-            <Trans id="paladin.holy.fillterLightOfTheMartyrs.cpmSuggestion.actual">
+            <Trans>
               {this.cpm.toFixed(2)} casts per minute - {this.casts} casts total
             </Trans>,
           )
-          .recommended(
-            <Trans id="paladin.holy.fillerLightOfTheMartyrs.cpmSuggestion.recommended">
-              &lt;{recommended} casts per minute is recommended
-            </Trans>,
-          );
+          .recommended(<Trans>&lt;{recommended} casts per minute is recommended</Trans>);
       },
     );
 
     when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest: any, actual: any) => {
       return suggest(
-        <Trans id="paladin.holy.fillerLightOfTheMartyrs.inefficientCastsSuggestion">
+        <Trans>
           You cast {this.inefficientCasts.length} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s
           while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was{' '}
           <TooltipElement
             content={
-              <Trans id="paladin.holy.fillerLightOfTheMartyrs.inefficientCastsSuggestion.availableTooltip">
+              <Trans>
                 It was either already available or going to be available within{' '}
                 {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.
               </Trans>
@@ -123,7 +119,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
           something else is available
           <TooltipElement
             content={
-              <Trans id="paladin.holy.fillerLightOfTheMartyrs.inefficientCastsSuggestion.exceptionsTooltip">
+              <Trans>
                 There are very rare exceptions to this. For example it may be worth saving Holy
                 Shock when you know you're going to be moving soon and you may have to heal
                 yourself.
@@ -136,16 +132,8 @@ class FillerLightOfTheMartyrs extends Analyzer {
         </Trans>,
       )
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
-        .actual(
-          <Trans id="paladin.holy.fillerLightOfTheMartyrs.inefficientCastsSuggestion.actual">
-            {this.inefficientCasts.length} casts while Holy Shock was available
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="paladin.holy.fillerLightOfTheMartyrs.inefficientCastsSuggestion.recommended">
-            No inefficient casts is recommended
-          </Trans>,
-        );
+        .actual(<Trans>{this.inefficientCasts.length} casts while Holy Shock was available</Trans>)
+        .recommended(<Trans>No inefficient casts is recommended</Trans>);
     });
   }
 }
