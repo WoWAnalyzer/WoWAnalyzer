@@ -107,7 +107,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey AlwaysBe
         <div
           className="value"
         >
-          13.38 %
+          12.68 %
         </div>
         <div
           style={
@@ -126,7 +126,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey AlwaysBe
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "86.62053567737387%",
+                  "width": "87.31971897744741%",
                 }
               }
             >
@@ -189,7 +189,7 @@ Array [
        if selected) to stay off the focus cap and do some damage.
     </React.Fragment>,
     "stat": <React.Fragment>
-      13.38% downtime
+      12.68% downtime
        (
       &lt;12.50% is recommended
       )
@@ -804,7 +804,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey CastEffi
               }
             >
               126
-              /221
+              /269
                
               casts
             </td>
@@ -823,7 +823,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey CastEffi
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "57.319062497458496%",
+                      "width": "47.01676266423495%",
                     }
                   }
                 />
@@ -838,7 +838,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey CastEffi
                 }
               }
             >
-              57.32%
+              47.02%
             </td>
             <td
               style={
@@ -1364,6 +1364,152 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey CastEffi
             >
               Can be improved.
             </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                Item
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                CPM
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                Casts
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                Time on Cooldown
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=298357"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_azerite_essence05.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Memory of Lucid Dreams
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.50
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              3
+              /3
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "93.63698793323336%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              93.64%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
           </tr>
         </tbody>
         <tbody>
@@ -3671,7 +3817,7 @@ Array [
   Object {
     "details": null,
     "icon": "ability_hunter_killcommand",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <React.Fragment>
       <WithI18n
         components={
@@ -3692,8 +3838,8 @@ Array [
         values={
           Object {
             "0": 126,
-            "1": 221,
-            "2": "57",
+            "1": 269,
+            "2": "47",
           }
         }
       />
@@ -4290,6 +4436,24 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey EssenceO
             <small>
               average Haste gained
             </small>
+             
+            <br />
+            <svg
+              className="icon"
+              viewBox="10 10 80 80"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+              />
+            </svg>
+             
+            93.45
+            % 
+            <small>
+              uptime
+            </small>
+                        
           </div>
         </div>
       </div>
@@ -4844,11 +5008,185 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey KillComm
         <div
           className="value"
         >
-          59
+          56
            
           <small>
             resets
           </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Survival Hunter integration test: Multi Target - Birds of Prey MemoryOfLucidDreams matches the statistic snapshot 1`] = `
+<div
+  category="ITEMS"
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "padding": 0,
+    }
+  }
+>
+  <div
+    className="col-md-12"
+  >
+    <div
+      category="ITEMS"
+      className="panel statistic flexible "
+      position={1000}
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="pad"
+        >
+          <label>
+            <a
+              href="http://wowhead.com/spell=299058"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_radientazeritematrix.jpg"
+              />
+               
+              Lucid Dreams
+            </a>
+             - Minor Rank 
+            4
+          </label>
+          <div
+            className="value"
+          >
+            26.4
+            /
+            28.5
+            s 
+            <small>
+               
+              <a
+                href="http://wowhead.com/spell=259489"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_killcommand.jpg"
+                />
+                 
+                Kill Command
+              </a>
+               CDR 
+            </small>
+             
+            <br />
+            525
+            /
+            525
+             
+            <small>
+               focus gained 
+            </small>
+            <br />
+            <svg
+              className="icon"
+              version="1.1"
+              viewBox="16 16 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polygon
+                points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774 39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143 26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749 21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096 23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03 45.85,42.051 37.229,33.419"
+              />
+            </svg>
+             
+            272
+             
+            <small>
+              average versatility gained
+            </small>
+          </div>
+        </div>
+      </div>
+      <div
+        className="detail-corner"
+        data-place="top"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+      >
+        <svg
+          className="icon"
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-md-12"
+  >
+    <div
+      category="ITEMS"
+      className="panel statistic flexible "
+      position={1000}
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="pad"
+        >
+          <label>
+            <a
+              href="http://wowhead.com/spell=298357"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_azerite_essence05.jpg"
+              />
+               
+              Memory of Lucid Dreams
+            </a>
+             - Major Rank 
+            4
+          </label>
+          <div
+            className="value"
+          >
+            33.5
+            /
+            45
+            s 
+            <small>
+               effective CDR 
+            </small>
+            <br />
+            <img
+              alt=""
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_lifedrain02.jpg"
+            />
+             
+            198
+             
+            <small>
+              average leech gained
+            </small>
+          </div>
         </div>
       </div>
     </div>
@@ -6245,7 +6583,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey matches 
   className="checklist"
 >
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -6269,8 +6607,8 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey matches 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "78.74707766192117%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "54.19627675268986%",
                 }
               }
             />
@@ -6383,7 +6721,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey matches 
                   }
                 >
                    
-                  57.32%
+                  47.02%
                    
                    
                 </div>
@@ -6403,9 +6741,9 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey matches 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "82.04495623307362%",
+                        "width": "40.015819671902406%",
                       }
                     }
                   />
@@ -7074,7 +7412,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey matches 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "94.14276761130995%",
+                  "width": "98.7993283897997%",
                 }
               }
             />
@@ -7181,7 +7519,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey matches 
                   }
                 >
                    
-                  13.38%
+                  12.68%
                    
                    
                 </div>
@@ -7203,7 +7541,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey matches 
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "94.14276761130995%",
+                        "width": "98.7993283897997%",
                       }
                     }
                   />
@@ -8359,7 +8697,7 @@ exports[`Survival Hunter integration test: Multi Target - Wildfire Infusion Cast
               }
             >
               48
-              /78
+              /85
                
               casts
             </td>
@@ -8378,7 +8716,7 @@ exports[`Survival Hunter integration test: Multi Target - Wildfire Infusion Cast
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "61.35347759260067%",
+                      "width": "55.777596578255505%",
                     }
                   }
                 />
@@ -8393,7 +8731,7 @@ exports[`Survival Hunter integration test: Multi Target - Wildfire Infusion Cast
                 }
               }
             >
-              61.35%
+              55.78%
             </td>
             <td
               style={
@@ -11391,8 +11729,8 @@ Array [
         values={
           Object {
             "0": 48,
-            "1": 78,
-            "2": "61",
+            "1": 85,
+            "2": "56",
           }
         }
       />
@@ -11729,6 +12067,24 @@ exports[`Survival Hunter integration test: Multi Target - Wildfire Infusion Esse
             <small>
               average Haste gained
             </small>
+             
+            <br />
+            <svg
+              className="icon"
+              viewBox="10 10 80 80"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+              />
+            </svg>
+             
+            98.41
+            % 
+            <small>
+              uptime
+            </small>
+                        
           </div>
         </div>
       </div>
@@ -12508,6 +12864,122 @@ exports[`Survival Hunter integration test: Multi Target - Wildfire Infusion Late
           d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
         />
       </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Survival Hunter integration test: Multi Target - Wildfire Infusion MemoryOfLucidDreams matches the statistic snapshot 1`] = `
+<div
+  category="ITEMS"
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "padding": 0,
+    }
+  }
+>
+  <div
+    className="col-md-12"
+  >
+    <div
+      category="ITEMS"
+      className="panel statistic flexible "
+      position={1000}
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="pad"
+        >
+          <label>
+            <a
+              href="http://wowhead.com/spell=299058"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_radientazeritematrix.jpg"
+              />
+               
+              Lucid Dreams
+            </a>
+             - Minor Rank 
+            4
+          </label>
+          <div
+            className="value"
+          >
+            8.9
+            /
+            12.4
+            s 
+            <small>
+               
+              <a
+                href="http://wowhead.com/spell=259489"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_killcommand.jpg"
+                />
+                 
+                Kill Command
+              </a>
+               CDR 
+            </small>
+             
+            <br />
+            155
+            /
+            155
+             
+            <small>
+               focus gained 
+            </small>
+            <br />
+            <svg
+              className="icon"
+              version="1.1"
+              viewBox="16 16 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polygon
+                points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774 39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143 26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749 21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096 23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03 45.85,42.051 37.229,33.419"
+              />
+            </svg>
+             
+            287
+             
+            <small>
+              average versatility gained
+            </small>
+          </div>
+        </div>
+      </div>
+      <div
+        className="detail-corner"
+        data-place="top"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+      >
+        <svg
+          className="icon"
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </div>
@@ -14286,7 +14758,7 @@ exports[`Survival Hunter integration test: Multi Target - Wildfire Infusion matc
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "72.6179717113588%",
+                  "width": "71.66578279967833%",
                 }
               }
             />
@@ -14399,7 +14871,7 @@ exports[`Survival Hunter integration test: Multi Target - Wildfire Infusion matc
                   }
                 >
                    
-                  61.35%
+                  55.78%
                    
                    
                 </div>
@@ -14421,7 +14893,7 @@ exports[`Survival Hunter integration test: Multi Target - Wildfire Infusion matc
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "31.431858520516958%",
+                        "width": "28.575291785475514%",
                       }
                     }
                   />
@@ -19931,6 +20403,24 @@ exports[`Survival Hunter integration test: Single Target - Birds of Prey Essence
             <small>
               average Haste gained
             </small>
+             
+            <br />
+            <svg
+              className="icon"
+              viewBox="10 10 80 80"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+              />
+            </svg>
+             
+            99.61
+            % 
+            <small>
+              uptime
+            </small>
+                        
           </div>
         </div>
       </div>
@@ -21064,7 +21554,6 @@ exports[`Survival Hunter integration test: Single Target - Birds of Prey Strife 
   <div
     category="ITEMS"
     className="panel statistic flexible "
-    position={1001}
   >
     <div
       className="panel-body"
