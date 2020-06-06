@@ -51,7 +51,7 @@ class EventParser extends React.PureComponent {
     applyTimeFilter: PropTypes.func.isRequired,
     applyPhaseFilter: PropTypes.func.isRequired,
     parserClass: PropTypes.func.isRequired,
-    build: PropTypes.object,
+    build: PropTypes.string,
     builds: PropTypes.object,
     characterProfile: PropTypes.object,
     events: PropTypes.array.isRequired,
