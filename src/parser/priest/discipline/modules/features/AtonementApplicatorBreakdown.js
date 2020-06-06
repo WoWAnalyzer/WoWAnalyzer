@@ -20,7 +20,6 @@ const EVANGELISM_BONUS_MS = 6000;
 const FAIL_SAFE_MS = 300;
 
 class AtonementApplicatorBreakdown extends Analyzer{
-
     _shadowmendsCasts = [];
     _powerWordShieldsCasts = [];
 
@@ -115,6 +114,35 @@ class AtonementApplicatorBreakdown extends Analyzer{
         }
     }
 
+    getAtonementDuration(cast){
+        let duration = 0;
+        if(cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id){
+            duration += SPELLS.POWER_WORD_RADIANCE.atonementDuration
+                     + (this._hasEL ? ENDURING_LUMINESCENCE_BONUS_MS : 0);
+        } else if (cast.applicatorId === SPELLS.POWER_WORD_SHIELD.id){
+            duration += SPELLS.POWER_WORD_SHIELD.atonementDuration;
+        } else if (cast.applicatorId === SPELLS.SHADOW_MEND.id){
+            duration += SPELLS.SHADOW_MEND.atonementDuration
+                     + (this._hasDepth ? DEPTH_OF_THE_SHADOWS_BONUS_MS : 0);
+        }
+        return (duration + FAIL_SAFE_MS);
+    }
+
+    assignAtonementHit(cast, atonement, healEvent){
+        const lowerBound = atonement.applyBuff.timestamp;
+        const upperBound = atonement.applyBuff.timestamp
+                        + (atonement.extendedByEvangelism ? EVANGELISM_BONUS_MS : 0)
+                        + this.getAtonementDuration(cast);
+        if(healEvent.targetID === atonement.applyBuff.targetID && healEvent.timestamp > lowerBound && healEvent.timestamp < upperBound){
+            if(!atonement.wasRefreshed){
+                atonement.atonementEvents.push(healEvent);
+                return healEvent.amount;
+            }
+        }
+        
+        return 0;
+    }
+
     handleAtonementsHits(event){
         //Healing from atonements pre-applied before entering combat
         //will assume PW:S as the applicator since it's usually the most common one used pre-pull,
@@ -123,7 +151,7 @@ class AtonementApplicatorBreakdown extends Analyzer{
             this._prepullApplicatorHealing += event.amount;
         }
 
-        for(const [cast, atonement] of this._castsApplyBuffsMap){
+        this._castsApplyBuffsMap.forEach((atonement, cast) => {
             //Sometimes an atonement heal event from the already active atonements happens after an applicator cast and before the next atonement buff is applied
             //so this null check is necessary
             if(atonement === null){
@@ -131,54 +159,18 @@ class AtonementApplicatorBreakdown extends Analyzer{
             }
 
             if(cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id){
-                const lowerBound = atonement.applyBuff.timestamp;
-                const upperBound = atonement.applyBuff.timestamp
-                                + (atonement.extendedByEvangelism ? EVANGELISM_BONUS_MS : 0)
-                                + SPELLS.POWER_WORD_RADIANCE.atonementDuration
-                                + (this._hasEL ? ENDURING_LUMINESCENCE_BONUS_MS : 0)
-                                + FAIL_SAFE_MS;
-
-                if(event.targetID === atonement.applyBuff.targetID && event.timestamp > lowerBound && event.timestamp < upperBound){
-                    if(!atonement.wasRefreshed){
-                        this._atonementHealingFromPowerWordRadiances += event.amount;
-                        atonement.atonementEvents.push(event);
-                    }
-                }
+                this._atonementHealingFromPowerWordRadiances += this.assignAtonementHit(cast, atonement, event);
             } else if (cast.applicatorId === SPELLS.POWER_WORD_SHIELD.id){
-                const lowerBound = atonement.applyBuff.timestamp;
-                const upperBound = atonement.applyBuff.timestamp
-                                + (atonement.extendedByEvangelism ? EVANGELISM_BONUS_MS : 0)
-                                + SPELLS.POWER_WORD_SHIELD.atonementDuration
-                                + FAIL_SAFE_MS;
-                    
-                if(event.targetID === atonement.applyBuff.targetID && event.timestamp > lowerBound && event.timestamp < upperBound){
-                    if(!atonement.wasRefreshed){
-                        this._atonementHealingFromPowerWordShields += event.amount;
-                        atonement.atonementEvents.push(event);
-                    }
-                }
+                this._atonementHealingFromPowerWordShields += this.assignAtonementHit(cast, atonement, event);
             } else if (cast.applicatorId === SPELLS.SHADOW_MEND.id){
-                const lowerBound = atonement.applyBuff.timestamp;
-                const upperBound = atonement.applyBuff.timestamp
-                                + (atonement.extendedByEvangelism ? EVANGELISM_BONUS_MS : 0)
-                                + SPELLS.SHADOW_MEND.atonementDuration
-                                + (this._hasDepth ? DEPTH_OF_THE_SHADOWS_BONUS_MS : 0)
-                                + FAIL_SAFE_MS;
-                                
-
-                if(event.targetID === atonement.applyBuff.targetID && event.timestamp > lowerBound && event.timestamp < upperBound){
-                    if(!atonement.wasRefreshed){
-                        this._atonementHealingFromShadowMends += event.amount;
-                        atonement.atonementEvents.push(event);
-                    }
-                }
+                this._atonementHealingFromShadowMends += this.assignAtonementHit(cast, atonement, event);
             }
-        }
+        });
     }
     
     handleEvangelismCasts(event){
 
-        for(const [cast, atonement] of this._castsApplyBuffsMap){
+        this._castsApplyBuffsMap.forEach((atonement, cast) => {
             if(cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id){
                 if(event.timestamp > atonement.applyBuff.timestamp 
                 && event.timestamp < atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration + (this._hasEL ? ENDURING_LUMINESCENCE_BONUS_MS : 0)){
@@ -195,22 +187,18 @@ class AtonementApplicatorBreakdown extends Analyzer{
                     atonement.extendedByEvangelism = true;
                 }
             }
-        }
+        });
     }
 
     setWasRefreshedProperty(applyBuffEvent, isRefreshed){
         const playerWithAtonement = applyBuffEvent.targetID;
         const reversedMapKeys = Array.from(this._castsApplyBuffsMap.keys()).slice().reverse();
 
-        for(const cast of reversedMapKeys){
-            if(cast.event !== null){
-                if(cast.event.targetID === playerWithAtonement){
-                    const atonementBuff = this._castsApplyBuffsMap.get(cast);
-                    if(atonementBuff !== null){
-                        atonementBuff.wasRefreshed = isRefreshed;
-                        break;
-                    }
-                }
+        const mostRecentCastApplyBuff = reversedMapKeys.find(cast => cast.event && cast.event.targetID === playerWithAtonement);
+        if (mostRecentCastApplyBuff) {
+            const atonementBuff = this._castsApplyBuffsMap.get(mostRecentCastApplyBuff);
+            if(atonementBuff !== null){
+                atonementBuff.wasRefreshed = isRefreshed;
             }
         }
     }
