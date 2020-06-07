@@ -26,6 +26,7 @@ import Tracker from './Tracker';
 import Hotkeys from './Hotkeys';
 
 const CharacterPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterPage' */ 'interface/CharacterPage').then(exports => exports.default)));
+const GuildPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'GuildPage' */ 'interface/GuildPage').then(exports => exports.default)));
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();
@@ -160,6 +161,16 @@ class App extends React.Component {
           path="/character/:region/:realm/:name"
           render={({ match }) => (
             <CharacterPage
+              region={decodeURI(match.params.region.replace(/\+/g, ' ')).toUpperCase()}
+              realm={decodeURI(match.params.realm.replace(/\+/g, ' '))}
+              name={decodeURI(match.params.name.replace(/\+/g, ' '))}
+            />
+          )}
+        />
+        <Route
+          path="/guild/:region/:realm/:name"
+          render={({ match }) => (
+            <GuildPage
               region={decodeURI(match.params.region.replace(/\+/g, ' ')).toUpperCase()}
               realm={decodeURI(match.params.realm.replace(/\+/g, ' '))}
               name={decodeURI(match.params.name.replace(/\+/g, ' '))}
