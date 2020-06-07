@@ -10,7 +10,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 
-
 /**
  * Shatters a line of earth in front of you with your main hand weapon,
  * causing (187.2% of Attack power) Flamestrike damage

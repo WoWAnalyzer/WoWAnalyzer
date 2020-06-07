@@ -90,7 +90,7 @@ class LightningShield extends Analyzer {
         size="small"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.LIGHTNING_SHIELD_TALENT} >
+        <BoringSpellValueText spell={SPELLS.LIGHTNING_SHIELD_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

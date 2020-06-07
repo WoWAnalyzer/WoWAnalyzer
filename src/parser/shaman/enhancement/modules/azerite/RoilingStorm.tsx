@@ -56,9 +56,9 @@ class RoilingStorm extends Analyzer {
     }
 
     // Determine between off-hand or main hand attack.
-    const scale = (event.ability.guid === SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id || event.ability.guid === SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id) ? 1/3 : 2/3;
+    const scale = (event.ability.guid === SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id || event.ability.guid === SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id) ? 1 / 3 : 2 / 3;
 
-    const [damage] = calculateBonusAzeriteDamage(event,[this.bonusDamage * scale], this.lastAttackPower, STORMSTRIKE_COEFFICIENT);
+    const [damage] = calculateBonusAzeriteDamage(event, [this.bonusDamage * scale], this.lastAttackPower, STORMSTRIKE_COEFFICIENT);
     this.damageGained += damage;
   }
 

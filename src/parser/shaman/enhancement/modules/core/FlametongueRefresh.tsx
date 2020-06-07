@@ -71,7 +71,7 @@ class FlametongueRefresh extends Analyzer {
         (suggest: any, actual: any, recommended: any) => {
           return suggest(<Trans>Avoid refreshing <SpellLink id={SPELLS.FLAMETONGUE.id} /> too early. You can optimally refresh it with less than {FLAMETONGUE_BUFF_REFRESH_THRESHOLD} seconds remaining on the buff.</Trans>)
             .icon(SPELLS.FLAMETONGUE_BUFF.icon)
-            .actual(<Trans>{actual} of {this.casts} ({formatPercentage(this.refreshPercentageCast,0)}%) early refreshes</Trans>)
+            .actual(<Trans>{actual} of {this.casts} ({formatPercentage(this.refreshPercentageCast, 0)}%) early refreshes</Trans>)
             .recommended(<Trans>{recommended} recommended</Trans>);
         },
       );

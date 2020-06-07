@@ -26,14 +26,13 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
  *
  */
 class ThunderaansFury extends Analyzer {
-  protected damageGained: number = 0;
-  protected bonusDamage: number = 0;
-  protected lastAttackPower: number = 0;
-
   static dependencies = {
     statTracker: StatTracker,
   };
 
+  protected damageGained: number = 0;
+  protected bonusDamage: number = 0;
+  protected lastAttackPower: number = 0;
   protected statTracker!: StatTracker;
 
   constructor(options: any) {
@@ -59,9 +58,9 @@ class ThunderaansFury extends Analyzer {
 
   onStrikeDamage(event: DamageEvent) {
     // Determine between off-hand or main hand attack.
-    const scale = (event.ability.guid === SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id || event.ability.guid === SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id) ? 1/3 : 2/3;
+    const scale = (event.ability.guid === SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id || event.ability.guid === SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id) ? 1 / 3 : 2 / 3;
 
-    const [damage] = calculateBonusAzeriteDamage(event,[this.bonusDamage * scale], this.lastAttackPower, STORMSTRIKE_COEFFICIENT);
+    const [damage] = calculateBonusAzeriteDamage(event, [this.bonusDamage * scale], this.lastAttackPower, STORMSTRIKE_COEFFICIENT);
     this.damageGained += damage;
   }
 
