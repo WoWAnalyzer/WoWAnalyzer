@@ -25,23 +25,9 @@ class Stormbringer extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.STORMBRINGER_BUFF),
-      this.onStormbringerApplied,
-    );
-
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_CAST_SPELLS),
-      this.onStormstrikeUseWithStormbringerBuff,
-    );
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_DAMAGE_SPELLS),
-      this.onStrikeDamage,
-    );
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STORMBRINGER_BUFF), this.onStormbringerApplied);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(STORMSTRIKE_CAST_SPELLS), this.onStormstrikeUseWithStormbringerBuff);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS), this.onStrikeDamage);
   }
 
   onStormbringerApplied(event: ApplyBuffEvent) {

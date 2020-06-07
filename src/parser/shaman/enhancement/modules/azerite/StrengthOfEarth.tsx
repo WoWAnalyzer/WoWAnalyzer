@@ -31,11 +31,7 @@ class StrengthOfEarth extends Analyzer {
       return;
     }
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.STRENGTH_OF_EARTH_DAMAGE),
-      this.onStrengthOfEarthDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STRENGTH_OF_EARTH_DAMAGE), this.onStrengthOfEarthDamage);
   }
 
   onStrengthOfEarthDamage(event: DamageEvent) {

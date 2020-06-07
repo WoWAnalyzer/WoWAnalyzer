@@ -42,11 +42,7 @@ class PrimalPrimer extends Analyzer {
         return total + calculateAzeriteEffects(SPELLS.PRIMAL_PRIMER_TRAIT.id, rank)[0];
       }, 0);
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.LAVA_LASH),
-      this.onLavaLashDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_LASH), this.onLavaLashDamage);
   }
 
   onLavaLashDamage(event: DamageEvent) {

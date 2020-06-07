@@ -33,26 +33,14 @@ class HotHand extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id)) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(
-      Events.applybuff.spell(SPELLS.LANDSLIDE_BUFF),
-      this.onHotHandBuff,
-    );
-
-    this.addEventListener(
-      Events.refreshbuff.spell(SPELLS.LANDSLIDE_BUFF),
-      this.onHotHandBuff,
-    );
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.LAVA_LASH),
-      this.onLavaLashDamage,
-    );
+    this.addEventListener(Events.applybuff.spell(SPELLS.LANDSLIDE_BUFF), this.onHotHandBuff);
+    this.addEventListener(Events.refreshbuff.spell(SPELLS.LANDSLIDE_BUFF), this.onHotHandBuff);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_LASH), this.onLavaLashDamage);
   }
 
   onHotHandBuff(event: BuffEvent) {

@@ -18,17 +18,8 @@ class Rockbiter extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER)
-        .spell(SPELLS.ROCKBITER),
-      this.onEnergize,
-    );
-
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.ROCKBITER),
-      this.onCast,
-    );
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ROCKBITER), this.onEnergize);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROCKBITER), this.onCast);
   }
 
   onCast(event: CastEvent) {

@@ -38,16 +38,12 @@ class LightningShield extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id)) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.LIGHTNING_SHIELD),
-      this.onLightningShieldDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIGHTNING_SHIELD), this.onLightningShieldDamage);
   }
 
   onLightningShieldDamage(event: DamageEvent) {

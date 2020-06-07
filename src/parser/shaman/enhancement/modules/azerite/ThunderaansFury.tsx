@@ -49,17 +49,8 @@ class ThunderaansFury extends Analyzer {
         return total + calculateAzeriteEffects(SPELLS.THUNDERAANS_FURY.id, rank)[0];
       }, 0);
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_CAST_SPELLS),
-      this.onStrikeCast,
-    );
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_DAMAGE_SPELLS),
-      this.onStrikeDamage,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(STORMSTRIKE_CAST_SPELLS), this.onStrikeCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS), this.onStrikeDamage);
   }
 
   onStrikeCast(event: CastEvent) {

@@ -24,23 +24,9 @@ class FlametongueRefresh extends Analyzer {
       return;
     }
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.FLAMETONGUE),
-      this.onCast,
-    );
-
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.FLAMETONGUE_BUFF),
-      this.onApplyBuff,
-    );
-
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.FLAMETONGUE_BUFF),
-      this.onRefreshBuff,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLAMETONGUE), this.onCast);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMETONGUE_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMETONGUE_BUFF), this.onRefreshBuff);
   }
 
   onCast(event: CastEvent) {

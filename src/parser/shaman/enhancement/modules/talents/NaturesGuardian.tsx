@@ -22,16 +22,12 @@ class NaturesGuardian extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id)) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER)
-        .spell(SPELLS.NATURES_GUARDIAN_HEAL),
-      this.onNaturesGuardianHeal,
-    );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.NATURES_GUARDIAN_HEAL), this.onNaturesGuardianHeal);
   }
 
   onNaturesGuardianHeal(event: HealEvent) {

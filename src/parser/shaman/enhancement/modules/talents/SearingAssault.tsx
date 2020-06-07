@@ -21,16 +21,12 @@ class SearingAssault extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.SEARING_ASSAULT_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.SEARING_ASSAULT_TALENT.id)) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.SEARING_ASSAULT_DAMAGE),
-      this.onDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEARING_ASSAULT_DAMAGE), this.onDamage);
   }
 
   onDamage(event: DamageEvent) {

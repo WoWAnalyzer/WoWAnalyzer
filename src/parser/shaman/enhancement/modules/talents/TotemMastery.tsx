@@ -28,17 +28,12 @@ class TotemMastery extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id)) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(
-        SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT,
-      ),
-      this.onCast,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT), this.onCast);
   }
 
   protected onCast(event: CastEvent) {

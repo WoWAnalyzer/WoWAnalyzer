@@ -26,10 +26,7 @@ class Flametongue extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell([SPELLS.FLAMETONGUE, SPELLS.FLAMETONGUE_ATTACK]),
-      this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.FLAMETONGUE, SPELLS.FLAMETONGUE_ATTACK]), this.onDamage);
   }
 
   onDamage(event: DamageEvent) {

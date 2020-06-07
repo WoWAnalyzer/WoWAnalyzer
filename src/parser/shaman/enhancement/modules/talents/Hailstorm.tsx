@@ -28,31 +28,16 @@ class Hailstorm extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.FROSTBRAND),
-      this.onCast,
-    );
+    if (!this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id)) {
+      this.active = false;
+      return;
+    }
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell([SPELLS.FROSTBRAND, SPELLS.HAILSTORM_ATTACK]),
-      this.onDamage,
-    );
-
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.FROSTBRAND),
-      this.onApplyBuff,
-    );
-
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.FROSTBRAND),
-      this.onRefreshBuff,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FROSTBRAND), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.FROSTBRAND, SPELLS.HAILSTORM_ATTACK]), this.onDamage);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FROSTBRAND), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FROSTBRAND), this.onRefreshBuff);
   }
 
   onCast(event: CastEvent) {
