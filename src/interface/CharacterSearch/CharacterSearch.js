@@ -84,7 +84,7 @@ class CharacterSearch extends React.PureComponent {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className="character-selector">
+      <form onSubmit={this.handleSubmit} className="character-guild-selector">
         <select
           className="form-control region"
           ref={this.regionInput}
@@ -110,7 +110,7 @@ class CharacterSearch extends React.PureComponent {
           type="text"
           name="code"
           ref={this.charInput}
-          className="character form-control"
+          className="name form-control"
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck="false"

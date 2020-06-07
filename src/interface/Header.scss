@@ -54,7 +54,7 @@ header.report-selection .about {
     padding-top: 40px;
   }
 }
-.character-selector {
+.character-guild-selector {
   display: flex;
   width: 100%;
   margin-bottom: 10px;
@@ -66,7 +66,7 @@ header.report-selection .about {
   .realm {
     width: 30%;
   }
-  .character {
+  .name {
     width: 40%;
   }
   > .realm--select, > input[name=code], > button {
