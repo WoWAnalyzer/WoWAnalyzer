@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/hunter/beastmastery/modules/core/SpellUsable';
-import { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 
 /**
  * Grants you and your pet 5 Focus per sec and 10% increased critical strike
@@ -18,12 +18,9 @@ class AspectOfTheWild extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ASPECT_OF_THE_WILD.id) {
-      return;
-    }
-    this.markCastAsInefficient(event);
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_THE_WILD), this.markCastAsInefficient);
   }
 
   markCastAsInefficient(event: CastEvent) {

@@ -6022,7 +6022,7 @@ Array [
           />,
         ]
       }
-      id="You started casting {0} filler <0/>s while <1/> was <2>available</2> (at {1}). <3/> is a much more efficient spell and should be prioritized<4>*</4>."
+      id="You started casting {0} filler <0/>s while <1/> was <2>available</2> (at {1} ). <3/> is a much more efficient spell and should be prioritized<4>*</4>."
       values={
         Object {
           "0": 20,
@@ -6135,7 +6135,7 @@ Array [
           />,
         ]
       }
-      id="You cast {0} <0/>s while <1/> was <2>available</2> (at {1}). Try to <3>never</3> cast <4/> when something else is available<5>*</5>."
+      id="You cast {0} <0/>s while <1/> was <2>available</2> (at {1} ). Try to <3>never</3> cast <4/> when something else is available<5>*</5>."
       values={
         Object {
           "0": 4,
@@ -11636,7 +11636,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            Beacon of Light and Beacon of Faith, if talented, should be applied prior to the fight starting and maintained active for as long as the paladin is alive.  Any beacon downtime will result in lost healing and efficiency.
+            Beacon of Light and Beacon of Faith, if talented, should be applied prior to the fight starting and maintained active for as long as the paladin is alive. Any beacon downtime will result in lost healing and efficiency.
           </div>
         </div>
         <div

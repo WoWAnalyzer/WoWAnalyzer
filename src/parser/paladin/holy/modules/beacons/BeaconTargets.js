@@ -34,15 +34,29 @@ class BeaconTargets extends Analyzer {
     const targetId = event.targetID;
     if (!this.currentBeaconTargets.includes(targetId)) {
       this.currentBeaconTargets.push(targetId);
-      debug && console.log(`%c${this.combatants.players[targetId].name} gained a beacon`, 'color:green', this.currentBeaconTargets);
-      this.eventEmitter.fabricateEvent({
-        type: 'beacon_applied',
-        timestamp: event.timestamp,
-        sourceID: event.sourceID,
-        targetID: event.targetID,
-      }, event);
+      debug &&
+        console.log(
+          `%c${this.combatants.players[targetId].name} gained a beacon`,
+          'color:green',
+          this.currentBeaconTargets,
+        );
+      this.eventEmitter.fabricateEvent(
+        {
+          type: 'beacon_applied',
+          timestamp: event.timestamp,
+          sourceID: event.sourceID,
+          targetID: event.targetID,
+        },
+        event,
+      );
     } else {
-      debug && console.error(`Trying to assign a beacon to ${this.combatants.players[event.sourceID].name}, but he already has one.`, this.currentBeaconTargets);
+      debug &&
+        console.error(
+          `Trying to assign a beacon to ${
+            this.combatants.players[event.sourceID].name
+          }, but he already has one.`,
+          this.currentBeaconTargets,
+        );
     }
   }
   on_byPlayer_removebuff(event) {
@@ -52,13 +66,21 @@ class BeaconTargets extends Analyzer {
     }
     const targetId = event.targetID;
     this.currentBeaconTargets = this.currentBeaconTargets.filter(id => id !== targetId);
-    debug && console.log(`%c${this.combatants.players[targetId].name} lost a beacon`, 'color:red', this.currentBeaconTargets);
-    this.eventEmitter.fabricateEvent({
-      type: 'beacon_removed',
-      timestamp: event.timestamp,
-      sourceID: event.sourceID,
-      targetID: event.targetID,
-    }, event);
+    debug &&
+      console.log(
+        `%c${this.combatants.players[targetId].name} lost a beacon`,
+        'color:red',
+        this.currentBeaconTargets,
+      );
+    this.eventEmitter.fabricateEvent(
+      {
+        type: 'beacon_removed',
+        timestamp: event.timestamp,
+        sourceID: event.sourceID,
+        targetID: event.targetID,
+      },
+      event,
+    );
   }
 }
 

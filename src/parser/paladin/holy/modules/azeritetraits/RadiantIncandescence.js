@@ -8,7 +8,6 @@ import Events from 'parser/core/Events';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';
 
-
 /**
  * Radiant Incandescence
  * Your Holy Shock criticals deal an additional 1725 damage, or an additional 2715 healing, over 3 sec.
@@ -31,19 +30,37 @@ class RadiantIncandescence extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_CAST), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_INCANDESCENCE), this.onCrit);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_INCANDESCENCE_DAMAGE), this.onCrit);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_INCANDESCENCE), this.onHeal);
-    this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_INCANDESCENCE_DAMAGE), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_CAST),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_INCANDESCENCE),
+      this.onCrit,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_INCANDESCENCE_DAMAGE),
+      this.onCrit,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_INCANDESCENCE),
+      this.onHeal,
+    );
+    this.addEventListener(
+      this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER),
+      this.onBeaconTransfer,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_INCANDESCENCE_DAMAGE),
+      this.onDamage,
+    );
   }
 
   onCast(event) {
     this.casts += 1;
   }
 
-  onCrit(event){
+  onCrit(event) {
     this.crits += 1;
   }
 
@@ -60,12 +77,12 @@ class RadiantIncandescence extends Analyzer {
     this.healingTransfered += event.amount + (event.absorbed || 0);
   }
 
-  onDamage(event){
+  onDamage(event) {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
   get critRate() {
-    return (this.crits / this.casts) || 0;
+    return this.crits / this.casts || 0;
   }
   get totalHealing() {
     return this.healing + this.healingTransfered;
@@ -76,18 +93,21 @@ class RadiantIncandescence extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.RADIANT_INCANDESCENCE.id}
-        value={(
+        value={
           <>
-            <ItemHealingDone amount={this.totalHealing} /><br />
+            <ItemHealingDone amount={this.totalHealing} />
+            <br />
             {formatPercentage(this.critRate)}% Crit Rate
           </>
-        )}
-        tooltip={(
+        }
+        tooltip={
           <>
-            Damage Done: <b>{formatNumber(this.damage)}</b><br />
-            Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
+            Damage Done: <b>{formatNumber(this.damage)}</b>
+            <br />
+            Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b>
+            <br />
           </>
-        )}
+        }
       />
     );
   }
