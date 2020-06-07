@@ -17,6 +17,17 @@ export function makeCharacterApiUrl(characterId = null, region = null, realm = n
   return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
 }
 
+export function makeGuildApiUrl(region = null, realm = null, name = null) {
+  const parts = ['guild'];
+  if (region && realm && name) {
+    parts.push(region);
+    parts.push(realm);
+    parts.push(name);
+  }
+
+  return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
+}
+
 export function makeItemApiUrl(itemId) {
   const parts = ['item', itemId];
   return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
