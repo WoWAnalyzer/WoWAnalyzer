@@ -1,17 +1,12 @@
-import React from 'react';
-import { Trans } from '@lingui/macro';
-
-import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { FLAMETONGUE_BUFF_DURATION_MS, FLAMETONGUE_BUFF_REFRESH_THRESHOLD, FLAMETONGUE_BUFF_REFRESH_THRESHOLD_MS } from '../../constants';
+import EarlyBuffRefreshes from 'parser/shared/modules/earlybuffrefreshes/EarlyBuffRefreshes';
+import countSuggestion from 'parser/shared/modules/earlybuffrefreshes/EarlyBuffRefreshesCountSuggestion';
+import { FLAMETONGUE_BUFF_DURATION_MS } from '../../constants';
 
-class FlametongueRefresh extends Analyzer {
-  protected casts: number = 0;
-  protected earlyRefreshes: number = 0;
-  protected flametongueEndTimestamp: number = 0;
+class FlametongueRefresh extends EarlyBuffRefreshes {
+  public spell = SPELLS.FLAMETONGUE;
+  public buff = SPELLS.FLAMETONGUE_BUFF;
+  protected duration = FLAMETONGUE_BUFF_DURATION_MS;
 
   constructor(options: any) {
     super(options);
@@ -23,34 +18,6 @@ class FlametongueRefresh extends Analyzer {
       this.active = false;
       return;
     }
-
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLAMETONGUE), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMETONGUE_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMETONGUE_BUFF), this.onRefreshBuff);
-  }
-
-  onCast(event: CastEvent) {
-    this.casts += 1;
-  }
-
-  onApplyBuff(event: ApplyBuffEvent) {
-    this.flametongueEndTimestamp = event.timestamp + FLAMETONGUE_BUFF_DURATION_MS;
-  }
-
-  onRefreshBuff(event: RefreshBuffEvent) {
-    const timeRemaining = this.flametongueEndTimestamp - event.timestamp;
-
-    if (this.flametongueEndTimestamp - event.timestamp > FLAMETONGUE_BUFF_REFRESH_THRESHOLD_MS) {
-      this.earlyRefreshes += 1;
-    }
-
-    const extendedDuration = timeRemaining > FLAMETONGUE_BUFF_REFRESH_THRESHOLD_MS ? FLAMETONGUE_BUFF_REFRESH_THRESHOLD_MS : timeRemaining;
-
-    this.flametongueEndTimestamp = event.timestamp + FLAMETONGUE_BUFF_DURATION_MS + extendedDuration;
-  }
-
-  get refreshPercentageCast() {
-    return this.earlyRefreshes / this.casts;
   }
 
   get flametongueEarlyRefreshThreshold() {
@@ -66,15 +33,7 @@ class FlametongueRefresh extends Analyzer {
   }
 
   suggestions(when: any) {
-    when(this.flametongueEarlyRefreshThreshold)
-      .addSuggestion(
-        (suggest: any, actual: any, recommended: any) => {
-          return suggest(<Trans>Avoid refreshing <SpellLink id={SPELLS.FLAMETONGUE.id} /> too early. You can optimally refresh it with less than {FLAMETONGUE_BUFF_REFRESH_THRESHOLD} seconds remaining on the buff.</Trans>)
-            .icon(SPELLS.FLAMETONGUE_BUFF.icon)
-            .actual(<Trans>{actual} of {this.casts} ({formatPercentage(this.refreshPercentageCast, 0)}%) early refreshes</Trans>)
-            .recommended(<Trans>{recommended} recommended</Trans>);
-        },
-      );
+    countSuggestion(when, this.flametongueEarlyRefreshThreshold, this);
   }
 }
 

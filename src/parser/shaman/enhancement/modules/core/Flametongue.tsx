@@ -11,7 +11,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import UptimeIcon from 'interface/icons/Uptime';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { FLAMETONGUE_BUFF_REFRESH_THRESHOLD } from '../../constants';
 
 /**
  * Scorches your target, dealing (14.742% of Attack power) Fire damage,
@@ -53,7 +52,7 @@ class Flametongue extends Analyzer {
     when(this.flametongueUptimeThreshold)
       .addSuggestion(
         (suggest: any, actual: any, recommended: any) => {
-          return suggest(<Trans>Maintain <SpellLink id={SPELLS.FLAMETONGUE.id} /> as long as possible. You can refresh this as early as {FLAMETONGUE_BUFF_REFRESH_THRESHOLD} seconds remaining on the buff.</Trans>)
+          return suggest(<Trans>Maintain <SpellLink id={SPELLS.FLAMETONGUE.id} /> as long as possible. You can refresh this as early as 4.8 seconds remaining on the buff.</Trans>)
             .icon(SPELLS.FLAMETONGUE.icon)
             .actual(<Trans>{formatPercentage(actual)}% uptime</Trans>)
             .recommended(<Trans>{formatPercentage(recommended, 0)}% is recommended</Trans>);
