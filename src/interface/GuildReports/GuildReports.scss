@@ -1,0 +1,40 @@
+@import '../layout/Theme.scss';
+
+.charparse .filter {
+  margin: 0;
+}
+
+.charparse div.form-control {
+  padding: 10px 12px 11px 12px;
+  cursor: pointer;
+}
+.charparse .form-control {
+  margin-bottom: 6px;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.charparse .form-control.selected {
+  background-color: #F6C6CE;//$primaryColor;
+}
+
+.reports-list {
+  > li {
+    padding: 0 15px; // to counter the negative .row margin introducing a scrollbar
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .row {
+      padding: 10px;
+      line-height: 25px;
+    }
+  }
+}
+
+.charparse h2 {
+  opacity: .9;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
