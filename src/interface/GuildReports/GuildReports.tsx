@@ -185,17 +185,13 @@ class GuildReports extends React.Component<Props, State> {
     const urlEncodedName = encodeURIComponent(this.props.name);
     const urlEncodedRealm = encodeURIComponent(realm);
 
-    const now = new Date();
+    const filterStart = new Date();
     // TODO allow selection of a date range?
-    now.setMonth(now.getMonth() - 3);
+    filterStart.setMonth(filterStart.getMonth() - 3);
     return fetchWcl(
       `reports/guild/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`,
       {
-        start: now.getTime(),
-        // TODO I don't really understand what these were for, should they be in?
-        //_: refresh ? +new Date() : undefined,
-        // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
-        // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
+        start: filterStart.getTime(),
       },
     )
       .then(reports => {
@@ -344,9 +340,11 @@ class GuildReports extends React.Component<Props, State> {
       );
     }
 
-    let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/guild/${this.props.region}/${this.state.realmSlug}/${this.props.name}`;
+    // Name slug for battle.net armory, standard name for WCL & wipefest
+    const nameSlug = this.props.name.replace(/\s/g, "-").toLowerCase();
+    let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/guild/${this.props.region}/${this.state.realmSlug}/${nameSlug}`;
     if (this.props.region === 'CN') {
-      battleNetUrl = `https://www.wowchina.com/zh-cn/guild/${this.state.realmSlug}/${this.props.name}`;
+      battleNetUrl = `https://www.wowchina.com/zh-cn/guild/${this.state.realmSlug}/${nameSlug}`;
     }
 
     return (
