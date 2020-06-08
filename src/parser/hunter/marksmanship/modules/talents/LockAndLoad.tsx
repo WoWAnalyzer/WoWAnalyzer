@@ -11,7 +11,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { singleProbabilityBinomialCalculation } from 'parser/shared/modules/helpers/Probabilities';
+import { binProbabilitySingleProcChance, plotOneVariableBinomChart, singleProbabilityPN } from 'parser/shared/modules/helpers/Probabilities';
+import SpellLink from 'common/SpellLink';
 
 /**
  * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
@@ -87,11 +88,27 @@ class LockAndLoad extends Analyzer {
   }
 
   get expectedProcs() {
-    return this.autoShots * PROC_CHANCE;
+    return singleProbabilityPN(PROC_CHANCE, this.autoShots);
   }
 
   statistic() {
-    const binomCalc = singleProbabilityBinomialCalculation(this.totalProcs, this.autoShots, PROC_CHANCE);
+    const binomCalc = binProbabilitySingleProcChance(this.totalProcs, this.autoShots, PROC_CHANCE);
+    const yDomain = [0, 0.4];
+    const xAxis = {
+      title: 'Procs',
+      tickFormat: (value: number) => formatNumber(value),
+      style: {
+        fill: 'white',
+      },
+    };
+    const yAxis = {
+      title: 'Likelihood',
+      tickFormat: (value: number) => `${formatPercentage(value, 0)}%`,
+      style: {
+        fill: 'white',
+      },
+    };
+    const tooltip = 'Estimated procs: ';
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(10)}
@@ -105,6 +122,17 @@ class LockAndLoad extends Analyzer {
             <ul>
               <li>You have a ~{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks.</li>
             </ul>
+          </>
+        )}
+        dropdown={(
+          <>
+            <div style={{ padding: '8px' }}>
+              {plotOneVariableBinomChart(
+                this.totalProcs, this.autoShots, PROC_CHANCE,
+                yDomain, xAxis, yAxis, tooltip,
+              )}
+              <p>Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given your number of <SpellLink id={SPELLS.AUTO_SHOT.id} /> hits.</p>
+            </div>
           </>
         )}
       >

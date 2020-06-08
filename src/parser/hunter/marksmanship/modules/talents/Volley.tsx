@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from 'parser/core/Events';
-import { singleProbabilityBinomialCalculation } from 'parser/shared/modules/helpers/Probabilities';
+import { binProbabilitySingleProcChance, singleProbabilityPN } from 'parser/shared/modules/helpers/Probabilities';
 
 /**
  * Your auto-shots have a 25% chance to cause a volley of arrows to rain down around the target, dealing Physical damage to each enemy within 8 yards.
@@ -52,11 +52,11 @@ class Volley extends Analyzer {
   }
 
   get expectedProcs() {
-    return this.autoShots * PROC_CHANCE;
+    return singleProbabilityPN(PROC_CHANCE, this.autoShots);
   }
 
   statistic() {
-    const binomCalc = singleProbabilityBinomialCalculation(this.procs, this.autoShots, PROC_CHANCE);
+    const binomCalc = binProbabilitySingleProcChance(this.procs, this.autoShots, PROC_CHANCE);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
