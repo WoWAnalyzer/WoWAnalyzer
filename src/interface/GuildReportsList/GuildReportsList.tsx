@@ -27,7 +27,6 @@ class GuildReportsList extends React.PureComponent<Props> {
         </li>
         {reports.map(report => {
           const url = makePlainUrl(report.id);
-          console.log(url);
           return (
             <li key={url}>
               <Link to={url}>
