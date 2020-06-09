@@ -21,12 +21,12 @@ const loadRealms = () =>
     import('common/REALMS').then(exports => exports.default as RealmList),
   );
 
-// TODO still maybe limit? or keep to filtering via date?
-// const RENDER_LIMIT = 100;
 const ALLIANCE_PICTURE = 'https://i.imgur.com/Ed5OplO.jpg'; // TODO need to update these and put them on server
 const HORDE_PICTURE = 'https://i.imgur.com/1rMGcwU.jpg';
-const ZONE_DEFAULT_NYALOTHA = 24;
 const ZONE_ALL = -1;
+const ZONE_DEFAULT = ZONE_ALL;
+const REPORTS_TO_SHOW = [25, 50, 100];
+const REPORTS_TO_SHOW_DEFAULT = 25;
 
 const ERRORS = {
   GUILD_NOT_FOUND: t`We couldn't find your guild on Warcraft Logs`,
@@ -56,6 +56,7 @@ interface Props {
 interface State {
   activeZoneID: number,
   reports: Array<WCLGuildReportsResponse>,
+  reportsToShow: number,
   isLoading: boolean,
   error: any, // TODO MessageDescriptor? convert to enum?
   errorMessage: any | null,
@@ -67,8 +68,9 @@ class GuildReports extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      activeZoneID: ZONE_DEFAULT_NYALOTHA,
+      activeZoneID: ZONE_DEFAULT,
       reports: [],
+      reportsToShow: REPORTS_TO_SHOW_DEFAULT,
       isLoading: true,
       error: null,
       errorMessage: null,
@@ -148,7 +150,7 @@ class GuildReports extends React.Component<Props, State> {
       .sort((a, b) => {
         return b.start - a.start;
       });
-    return filteredReports;//.slice(0, RENDER_LIMIT);
+    return filteredReports.slice(0, this.state.reportsToShow);
   }
 
   async findRealm() {
@@ -400,20 +402,39 @@ class GuildReports extends React.Component<Props, State> {
           </div>
           <nav>
             <div className="container">
-              <select
-                className="form-control"
-                value={this.state.activeZoneID}
-                onChange={e => this.setState({ activeZoneID: Number(e.target.value) })}
-              >
-                <option key={ZONE_ALL} value={ZONE_ALL}>All</option>
-                {Object.values(ZONES)
-                  .reverse()
-                  .map(elem => (
-                    <option key={elem.id} value={elem.id}>
-                      {elem.name}
-                    </option>
-                  ))}
-              </select>
+              <ul>
+                <li style={{ height: 'auto' }}>
+                  <select
+                    className="form-control"
+                    value={this.state.activeZoneID}
+                    onChange={e => this.setState({ activeZoneID: Number(e.target.value) })}
+                  >
+                    <option key={ZONE_ALL} value={ZONE_ALL}>All Zones</option>
+                    {Object.values(ZONES)
+                      .reverse()
+                      .map(elem => (
+                        <option key={elem.id} value={elem.id}>
+                          {elem.name}
+                        </option>
+                      ))}
+                  </select>
+                </li>
+                <li style={{ height: 'auto' }}>
+                  <select
+                    className="form-control"
+                    value={this.state.reportsToShow}
+                    onChange={e => this.setState({ reportsToShow: Number(e.target.value) })}
+                    style={{ width: 'auto', float: 'right' }}
+                  >
+                    {REPORTS_TO_SHOW
+                      .map(elem => (
+                        <option key={elem} value={elem}>
+                          {elem} reports
+                        </option>
+                      ))}
+                  </select>
+                </li>
+              </ul>
             </div>
           </nav>
         </header>
