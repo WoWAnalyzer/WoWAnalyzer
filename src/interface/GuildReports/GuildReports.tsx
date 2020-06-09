@@ -50,7 +50,6 @@ interface Props {
   region: string,
   realm: string,
   name: string,
-  //appendReportHistory: (payload: object) => void, TODO add to history?
 }
 
 interface State {
@@ -99,10 +98,13 @@ class GuildReports extends React.Component<Props, State> {
       );
       return;
     }
-    // fetch character image and active spec from battle-net
+    // fetch guild faction
     const response = await fetch(
       makeGuildApiUrl(region, realm, name),
     );
+
+    // TODO do we care about these errors just for faction? we could
+    //  let blizzard api fail silently and use WCL response for any real errors
     if (response.status === 500) {
       this.setState({
         isLoading: false,
@@ -126,6 +128,7 @@ class GuildReports extends React.Component<Props, State> {
     const data = await response.json();
 
     if (!data.faction) {
+      // We definitely want to see this error I think so that we know if response format has changed
       this.setState({
         isLoading: false,
         error: ERRORS.UNEXPECTED,
@@ -146,10 +149,9 @@ class GuildReports extends React.Component<Props, State> {
     if (this.state.activeZoneID !== ZONE_ALL) {
       filteredReports = filteredReports.filter(elem => this.state.activeZoneID === elem.zone);
     }
-    filteredReports = filteredReports
-      .sort((a, b) => {
-        return b.start - a.start;
-      });
+    filteredReports.sort((a, b) => {
+      return b.start - a.start;
+    });
     return filteredReports.slice(0, this.state.reportsToShow);
   }
 
