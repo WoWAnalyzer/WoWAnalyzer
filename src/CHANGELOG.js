@@ -9,7 +9,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
-  change(date(2020, 6, /*TODO change when ready for review */8), <>Added a new search option to the homepage to view a list of reports for a guild.</>, Dambroda),
+  change(date(2020, 6, /*TODO change when ready for review */8), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),
   change(date(2020, 6, 3), <>Updated death recap suggestion for <SpellLink id={SPELLS.HEALTHSTONE.id} />. This will only show if a Warlock participated in the selected fight.</>, Vetyst),
   change(date(2020, 6, 3), <>Removed duplicate entry of <SpellLink id={SPELLS.GUARDIAN_SPIRIT.id} /> in defensive buffs.</>, Vetyst),
   change(date(2020, 5, 29), 'Add a warning when the log exceeds our supported duration.', Vetyst),
