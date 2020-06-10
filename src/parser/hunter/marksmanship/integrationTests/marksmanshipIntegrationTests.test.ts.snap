@@ -5051,7 +5051,6 @@ exports[`Marksmanship Hunter integration test: Multi Target Strife matches the s
   <div
     category="ITEMS"
     className="panel statistic flexible "
-    position={1001}
   >
     <div
       className="panel-body"
@@ -10677,7 +10676,6 @@ exports[`Marksmanship Hunter integration test: Single Target Strife matches the 
   <div
     category="ITEMS"
     className="panel statistic flexible "
-    position={1001}
   >
     <div
       className="panel-body"

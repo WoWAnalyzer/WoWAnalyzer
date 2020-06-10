@@ -1,9 +1,10 @@
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
+import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 import DemoPets from './index';
-import { isPermanentPet, isWildImp } from '../helpers';
+import { isWildImp } from '../helpers';
 import { TimelinePet } from '../TimelinePet';
 import PETS from '../PETS';
 import { SUMMON_TO_SPELL_MAP } from '../CONSTANTS';

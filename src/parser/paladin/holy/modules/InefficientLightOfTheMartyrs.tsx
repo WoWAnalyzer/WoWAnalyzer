@@ -17,9 +17,7 @@ class InefficientLightOfTheMartyrs extends Analyzer {
       this.handleHeal,
     );
     this.addEventListener(
-      Events.damage
-        .to(SELECTED_PLAYER)
-        .spell(SPELLS.LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN),
+      Events.damage.to(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN),
       this.handleDamage,
     );
   }

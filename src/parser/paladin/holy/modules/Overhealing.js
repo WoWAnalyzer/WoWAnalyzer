@@ -89,7 +89,8 @@ class Overhealing extends Analyzer {
     when(this.lightOfDawnSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <Trans>
-          Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for when people are missing health.
+          Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for
+          when people are missing health.
         </Trans>,
       )
         .icon(SPELLS.LIGHT_OF_DAWN_CAST.icon)
@@ -100,7 +101,8 @@ class Overhealing extends Analyzer {
     when(this.holyShockSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <Trans>
-          Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for when people are missing health.
+          Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for
+          when people are missing health.
         </Trans>,
       )
         .icon(SPELLS.HOLY_SHOCK_HEAL.icon)
@@ -111,7 +113,9 @@ class Overhealing extends Analyzer {
     when(this.flashOfLightSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <Trans>
-          Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of Light would overheal it is generally advisable to cast a <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead.
+          Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of
+          Light would overheal it is generally advisable to cast a{' '}
+          <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead.
         </Trans>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
@@ -122,7 +126,9 @@ class Overhealing extends Analyzer {
     when(this.bestowFaithSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <Trans>
-          Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it just before someone is about to take damage and consider casting it on targets other than tanks.
+          Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it
+          just before someone is about to take damage and consider casting it on targets other than
+          tanks.
         </Trans>,
       )
         .icon(SPELLS.BESTOW_FAITH_TALENT.icon)
