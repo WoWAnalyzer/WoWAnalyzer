@@ -25,10 +25,13 @@ class AuraOfMercy extends Analyzer {
     const abilityTracker = this.abilityTracker;
     const getAbility = (spellId: number) => abilityTracker.getAbility(spellId);
 
-    return (getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingEffective + getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingAbsorbed);
+    return (
+      getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingEffective +
+      getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingAbsorbed
+    );
   }
   get hps() {
-    return this.healing / this.owner.fightDuration * 1000;
+    return (this.healing / this.owner.fightDuration) * 1000;
   }
 
   get suggestionThresholds() {
@@ -46,7 +49,10 @@ class AuraOfMercy extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         <Trans>
-          The healing done by your <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable and generally offers more throughput.
+          The healing done by your <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> is low. Try to
+          find a better moment to cast it or consider changing to{' '}
+          <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable and generally
+          offers more throughput.
         </Trans>,
       )
         .icon(SPELLS.AURA_OF_MERCY_TALENT.icon)
@@ -56,10 +62,7 @@ class AuraOfMercy extends Analyzer {
   }
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(60)}
-        size="small"
-      >
+      <Statistic position={STATISTIC_ORDER.OPTIONAL(60)} size="small">
         <BoringSpellValue
           spell={SPELLS.AURA_OF_MERCY_TALENT}
           value={<Trans>{formatNumber(this.hps)} HPS</Trans>}

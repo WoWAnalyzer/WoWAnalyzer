@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -8,7 +8,8 @@ import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldo
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**
  * A quick shot causing Physical damage.
@@ -19,7 +20,7 @@ import { CastEvent } from 'parser/core/Events';
  */
 
 const COOLDOWN_REDUCTION_MS = 1000;
-
+const FOCUS_THRESHOLD_TO_WAIT = 50; //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 class CobraShot extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -33,6 +34,11 @@ class CobraShot extends Analyzer {
 
   protected spellUsable!: SpellUsable;
   protected globalCooldown!: GlobalCooldown;
+
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COBRA_SHOT), this.onCobraShotCast);
+  }
 
   get totalPossibleCDR() {
     return this.casts * COOLDOWN_REDUCTION_MS;
@@ -65,11 +71,8 @@ class CobraShot extends Analyzer {
       style: 'number',
     };
   }
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.COBRA_SHOT.id) {
-      return;
-    }
+
+  onCobraShotCast(event: CastEvent) {
     if (event.meta === undefined) {
       event.meta = {
         isInefficientCast: false,
@@ -84,7 +87,7 @@ class CobraShot extends Analyzer {
       event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command is not on cooldown.';
       return;
     }
-    const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
+    const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(SPELLS.COBRA_SHOT.id);
     const killCommandCooldownRemaining = this.spellUsable.cooldownRemaining(
       SPELLS.KILL_COMMAND_CAST_BM.id);
     if (killCommandCooldownRemaining < COOLDOWN_REDUCTION_MS + globalCooldown) {
@@ -92,12 +95,20 @@ class CobraShot extends Analyzer {
         globalCooldown;
       this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, effectiveReductionMs);
       this.wastedKCReductionMs += COOLDOWN_REDUCTION_MS - effectiveReductionMs;
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command\'s cooldown was under ' + (killCommandCooldownRemaining / 1000).toFixed(1) + 's remaining.';
-      return;
+
+      const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+      if (!resource) {
+        return;
+      }
+      if (resource.amount < FOCUS_THRESHOLD_TO_WAIT) {
+        event.meta.isInefficientCast = true;
+        event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command\'s cooldown was under ' + (globalCooldown + COOLDOWN_REDUCTION_MS / 1000).toFixed(1) + 's remaining and you were not close to capping focus as you only had ' + (resource.amount) + ' focus.';
+      }
+    } else {
+      this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, COOLDOWN_REDUCTION_MS);
     }
-    this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, COOLDOWN_REDUCTION_MS);
   }
+
   suggestions(when: any) {
     when(this.cdrEfficiencyCobraShotThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>A crucial part of <SpellLink id={SPELLS.COBRA_SHOT.id} /> is the cooldown reduction of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> it provides. When the cooldown of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is larger than the duration of your GCD + 1s, you'll want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to maximize the amount of casts of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />. If the cooldown of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is lower than GCD + 1s, you'll only want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} />, if you'd be capping focus otherwise.</>)

@@ -8,7 +8,6 @@ import Events from 'parser/core/Events';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';
 
-
 /**
  * Avenging Crusader
  *
@@ -34,33 +33,45 @@ class AvengingCrusader extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.AVENGING_CRUSADER_HEAL_NORMAL), this.onHit);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.AVENGING_CRUSADER_HEAL_CRIT), this.onCrit);
-    this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.AVENGING_CRUSADER_HEAL_NORMAL),
+      this.onHit,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.AVENGING_CRUSADER_HEAL_CRIT),
+      this.onCrit,
+    );
+    this.addEventListener(
+      this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER),
+      this.onBeaconTransfer,
+    );
   }
 
   onHit(event) {
     this.hits += 1;
     this.healing += event.amount + (event.absorbed || 0);
-    this.overHealing += (event.overheal || 0);
+    this.overHealing += event.overheal || 0;
   }
 
-  onCrit(event){
+  onCrit(event) {
     this.crits += 1;
     this.onHit(event);
   }
 
   onBeaconTransfer(event) {
     const spellId = event.originalHeal.ability.guid;
-    if (spellId !== SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id && spellId !== SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id) {
+    if (
+      spellId !== SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id &&
+      spellId !== SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id
+    ) {
       return;
     }
     this.healingTransfered += event.amount + (event.absorbed || 0);
-    this.beaconOverhealing += (event.overheal || 0);
+    this.beaconOverhealing += event.overheal || 0;
   }
 
   get critRate() {
-    return (this.crits / this.hits) || 0;
+    return this.crits / this.hits || 0;
   }
   get totalHealing() {
     return this.healing + this.healingTransfered;
@@ -71,20 +82,32 @@ class AvengingCrusader extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.AVENGING_CRUSADER_TALENT.id}
-        value={(
+        value={
           <>
-            <ItemHealingDone amount={this.totalHealing} /><br />
+            <ItemHealingDone amount={this.totalHealing} />
+            <br />
             {formatPercentage(this.critRate)}% Crit Rate
           </>
-        )}
-        tooltip={(
+        }
+        tooltip={
           <>
-            Hits: <b>{this.hits}</b> Crits: <b>{this.crits}</b><br />
-            Overhealed: <b>{formatPercentage(this.overHealing / (this.healing + this.overHealing))}%</b><br />
-            Beacon healing: <b>{formatNumber(this.healingTransfered)}</b><br />
-            Beacon overhealed: <b>{formatPercentage(this.beaconOverhealing / (this.beaconOverhealing + this.healingTransfered))}%</b><br />
+            Hits: <b>{this.hits}</b> Crits: <b>{this.crits}</b>
+            <br />
+            Overhealed:{' '}
+            <b>{formatPercentage(this.overHealing / (this.healing + this.overHealing))}%</b>
+            <br />
+            Beacon healing: <b>{formatNumber(this.healingTransfered)}</b>
+            <br />
+            Beacon overhealed:{' '}
+            <b>
+              {formatPercentage(
+                this.beaconOverhealing / (this.beaconOverhealing + this.healingTransfered),
+              )}
+              %
+            </b>
+            <br />
           </>
-        )}
+        }
       />
     );
   }

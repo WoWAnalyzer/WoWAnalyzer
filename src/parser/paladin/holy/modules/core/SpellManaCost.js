@@ -17,10 +17,16 @@ class SpellManaCost extends CoreSpellManaCost {
       return cost;
     }
 
-    if (spellId === SPELLS.HOLY_SHOCK_CAST.id && this.combatants.selected.hasBuff(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id, event.timestamp)) {
+    if (
+      spellId === SPELLS.HOLY_SHOCK_CAST.id &&
+      this.combatants.selected.hasBuff(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id, event.timestamp)
+    ) {
       return 0;
     }
-    if (spellId === SPELLS.LIGHT_OF_DAWN_CAST.id && this.combatants.selected.hasBuff(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id, event.timestamp)) {
+    if (
+      spellId === SPELLS.LIGHT_OF_DAWN_CAST.id &&
+      this.combatants.selected.hasBuff(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id, event.timestamp)
+    ) {
       return 0;
     }
 

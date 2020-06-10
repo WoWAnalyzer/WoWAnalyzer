@@ -8,6 +8,8 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ApplyBuffEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { formatPercentage } from 'common/format';
+import UptimeIcon from 'interface/icons/Uptime';
 
 const MS_BUFFER = 100;
 
@@ -39,6 +41,10 @@ class BeastCleave extends Analyzer {
       },
       style: 'number',
     };
+  }
+
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.BEAST_CLEAVE_BUFF.id) / this.owner.fightDuration;
   }
 
   on_toPlayerPet_applybuff(event: ApplyBuffEvent) {
@@ -115,7 +121,8 @@ class BeastCleave extends Analyzer {
         >
           <BoringSpellValueText spell={SPELLS.BEAST_CLEAVE_BUFF}>
             <>
-              <ItemDamageDone amount={this.damage} />
+              <ItemDamageDone amount={this.damage} /> <br />
+              <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
             </>
           </BoringSpellValueText>
         </Statistic>

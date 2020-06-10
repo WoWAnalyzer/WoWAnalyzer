@@ -35,16 +35,11 @@ class LightOfDawn extends Analyzer {
   }
 
   statistic() {
-    const playersHitPerCast = (
-      this.heals / this.casts
-    ) || 0;
+    const playersHitPerCast = this.heals / this.casts || 0;
     const performance = playersHitPerCast / 5;
 
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(60)}
-        size="small"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(60)} size="small">
         <BoringSpellValue
           spell={SPELLS.LIGHT_OF_DAWN_CAST}
           value={playersHitPerCast.toFixed(2)}

@@ -9,6 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import CriticalStrike from 'interface/icons/CriticalStrike';
 import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 /**
  * Your maximum Focus is increased to 120, and Raptor Strike (or Mongoose bite) increases your Critical Strike by 52 for 12 sec, stacking up to 5 times.
@@ -35,7 +36,6 @@ class PrimevalIntuition extends Analyzer {
   intuitionStacks: Array<Array<number>> = [];
   lastIntuitionStack: number = 0;
   lastIntuitionUpdate: number = this.owner.fight.start_time;
-  currentStacks: number = 0;
 
   protected statTracker!: StatTracker;
 
@@ -69,19 +69,13 @@ class PrimevalIntuition extends Analyzer {
     return avgCrit;
   }
 
-  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent, stack = 0) {
-    if (event.type === EventType.RemoveBuff) {
-      this.currentStacks = 0;
-    } else if (event.type === EventType.ApplyBuff) {
-      this.currentStacks = 1;
-    } else if (event.type === EventType.ApplyBuffStack) {
-      this.currentStacks = event.stack;
-    } else if (event.type === EventType.FightEnd) {
-      this.currentStacks = stack;
-    }
+  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
     this.intuitionStacks[this.lastIntuitionStack].push(event.timestamp - this.lastIntuitionUpdate);
+    if (event.type === EventType.FightEnd) {
+      return;
+    }
     this.lastIntuitionUpdate = event.timestamp;
-    this.lastIntuitionStack = this.currentStacks;
+    this.lastIntuitionStack = currentStacks(event);
   }
 
   on_byPlayer_applybuff(event: ApplyBuffEvent) {
@@ -109,7 +103,7 @@ class PrimevalIntuition extends Analyzer {
   }
 
   on_fightend(event: FightEndEvent) {
-    this.handleStacks(event, this.lastIntuitionStack);
+    this.handleStacks(event);
   }
 
   statistic() {

@@ -14,7 +14,6 @@ import UptimeIcon from 'interface/icons/Uptime';
 
 import StatValues from '../StatValues';
 
-
 const LIGHTS_DECREE_BASE_DURATION = 5;
 const AVENGING_WRATH_BASE_DURATION = 20;
 const AVENGING_WRATH_CRIT_BONUS = 0.3;
@@ -22,7 +21,6 @@ const AVENGING_WRATH_CRIT_BONUS = 0.3;
 // this will have to be replaced when corrupted gear adds more crit damage/healing //
 const CRIT_HEALING_DAMAGE = 2;
 const CRIT_HEALING_BONUS = 2;
-
 
 /**
  * Spending Holy Power during Avenging Wrath causes you to explode with Holy light for 508 damage per Holy Power spent to nearby enemies.
@@ -56,15 +54,27 @@ class LightsDecree extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AVENGING_WRATH), this.onAvengingWrathCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AVENGING_WRATH),
+      this.onAvengingWrathCast,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_CAST), this.onHolyShock);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_HEAL), this.onHolyShock);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_DAMAGE), this.onHolyShock);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_CAST),
+      this.onHolyShock,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_HEAL),
+      this.onHolyShock,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_DAMAGE),
+      this.onHolyShock,
+    );
 
-    if(this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id)){
+    if (this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id)) {
       this.avengingWrathDuration += this.avengingWrathDuration * 0.25;
       this.lightsDecreeDuration += this.lightsDecreeDuration * 0.25;
     }
@@ -76,9 +86,12 @@ class LightsDecree extends Analyzer {
       return false;
     }
 
-    if (event.timestamp >= buff.start + (this.avengingWrathDuration * 1000)
-      && event.timestamp < buff.start + (this.avengingWrathDuration * 1000) + this.lightsDecreeDuration * 1000){
-        return true;
+    if (
+      event.timestamp >= buff.start + this.avengingWrathDuration * 1000 &&
+      event.timestamp <
+        buff.start + this.avengingWrathDuration * 1000 + this.lightsDecreeDuration * 1000
+    ) {
+      return true;
     }
 
     return false;
@@ -89,27 +102,27 @@ class LightsDecree extends Analyzer {
     this.lastAvengingWrath = event.timestamp;
   }
 
-  onHeal(event){
-    if (!this.avengingWrathBuffViaLightsDecree(event)){
+  onHeal(event) {
+    if (!this.avengingWrathBuffViaLightsDecree(event)) {
       return;
     }
 
-    const healing = (event.amount + (event.absorbed || 0));
-    const overHeal = (event.overheal || 0);
+    const healing = event.amount + (event.absorbed || 0);
+    const overHeal = event.overheal || 0;
     const totalHealing = healing + overHeal;
-    const extraHealing = totalHealing - (totalHealing / 1.2);
-    if (extraHealing > overHeal){
+    const extraHealing = totalHealing - totalHealing / 1.2;
+    if (extraHealing > overHeal) {
       this.bonusHealing += extraHealing - overHeal;
     }
 
     const isCrit = event.hitType === HIT_TYPES.CRIT;
-    if (!isCrit){
+    if (!isCrit) {
       return;
     }
 
     this.critHeals += 1;
     const baseHeal = totalHealing / CRIT_HEALING_BONUS;
-    if (overHeal > totalHealing - baseHeal){
+    if (overHeal > totalHealing - baseHeal) {
       return;
     }
 
@@ -118,16 +131,16 @@ class LightsDecree extends Analyzer {
     this.bonusCritHealing += critContribution * (healing - baseHeal);
   }
 
-  onDamage(event){
-    if (!this.avengingWrathBuffViaLightsDecree(event)){
+  onDamage(event) {
+    if (!this.avengingWrathBuffViaLightsDecree(event)) {
       return;
     }
 
-    const damage = (event.amount + (event.absorbed || 0));
-    this.bonusDamage += damage - (damage / 1.2);
+    const damage = event.amount + (event.absorbed || 0);
+    this.bonusDamage += damage - damage / 1.2;
 
     const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
-    if (!isCrit){
+    if (!isCrit) {
       return;
     }
 
@@ -137,44 +150,61 @@ class LightsDecree extends Analyzer {
     this.bonusCritDamage += critContribution * (damage / CRIT_HEALING_DAMAGE);
   }
 
-  onHolyShock(event){
-    if (this.avengingWrathBuffViaLightsDecree(event)){
+  onHolyShock(event) {
+    if (this.avengingWrathBuffViaLightsDecree(event)) {
       this.bonusHolyShocks += 1;
     }
   }
 
-get durationIncrease(){
-  return this.casts * this.lightsDecreeDuration;
-}
+  get durationIncrease() {
+    return this.casts * this.lightsDecreeDuration;
+  }
 
-get additionalUptime(){
-  return this.durationIncrease / (this.owner.fightDuration / 60000);
-}
+  get additionalUptime() {
+    return this.durationIncrease / (this.owner.fightDuration / 60000);
+  }
 
   statistic() {
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.LIGHTS_DECREE.id}
-        value={(
+        value={
           <>
-            <ItemHealingDone amount={this.bonusHealing + this.bonusCritHealing} /><br />
-            <ItemDamageDone amount={this.bonusDamage + this.bonusCritDamage} /><br />
-            <UptimeIcon /> {this.additionalUptime.toFixed(1)}% <small>uptime {this.durationIncrease} seconds</small><br />
+            <ItemHealingDone amount={this.bonusHealing + this.bonusCritHealing} />
+            <br />
+            <ItemDamageDone amount={this.bonusDamage + this.bonusCritDamage} />
+            <br />
+            <UptimeIcon /> {this.additionalUptime.toFixed(1)}%{' '}
+            <small>uptime {this.durationIncrease} seconds</small>
+            <br />
           </>
-        )}
-        tooltip={(
+        }
+        tooltip={
           <>
-          You cast Avenging Wrath <b>{this.casts}</b> time(s) for <b>{this.durationIncrease.toFixed(1)}</b> seconds of increased duration.<br />
-          Critical heals hit <b>{this.critHeals}</b> time(s), Avenging Wrath's 30% critical bonus contributed <b>+{formatNumber(this.bonusCritHealing)}</b> healing. <br />
-          Critical damage hit <b>{this.critDamage}</b> time(s), Avenging Wrath's 30% critical bonus contributed <b>+{formatNumber(this.bonusCritDamage)}</b> damage. <br />
-          20% flat healing increase from Avenging Wrath granted <b>+{formatNumber(this.bonusHealing)}</b> additional healing.<br />
-          20% flat damage increase from Avenging Wrath granted <b>+{formatNumber(this.bonusDamage)}</b> additional damage.<br />
-          {(this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id)
-            ? `You cast ` + this.bonusHolyShocks + ` Holy Shock(s) during the 50% cooldown reduction for ` + (this.bonusHolyShocks / 2).toFixed(1) + ` extra casts.`: '')}
-          <br />
+            You cast Avenging Wrath <b>{this.casts}</b> time(s) for{' '}
+            <b>{this.durationIncrease.toFixed(1)}</b> seconds of increased duration.
+            <br />
+            Critical heals hit <b>{this.critHeals}</b> time(s), Avenging Wrath's 30% critical bonus
+            contributed <b>+{formatNumber(this.bonusCritHealing)}</b> healing. <br />
+            Critical damage hit <b>{this.critDamage}</b> time(s), Avenging Wrath's 30% critical
+            bonus contributed <b>+{formatNumber(this.bonusCritDamage)}</b> damage. <br />
+            20% flat healing increase from Avenging Wrath granted{' '}
+            <b>+{formatNumber(this.bonusHealing)}</b> additional healing.
+            <br />
+            20% flat damage increase from Avenging Wrath granted{' '}
+            <b>+{formatNumber(this.bonusDamage)}</b> additional damage.
+            <br />
+            {this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id)
+              ? `You cast ` +
+                this.bonusHolyShocks +
+                ` Holy Shock(s) during the 50% cooldown reduction for ` +
+                (this.bonusHolyShocks / 2).toFixed(1) +
+                ` extra casts.`
+              : ''}
+            <br />
           </>
-        )}
+        }
       />
     );
   }

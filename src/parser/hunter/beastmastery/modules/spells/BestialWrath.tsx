@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -11,7 +11,7 @@ import ResourceIcon from 'common/ResourceIcon';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 
 const COOLDOWN_REDUCTION_MS = 12000;
 const BESTIAL_WRATH_BASE_CD = 90000;
@@ -35,6 +35,12 @@ class BestialWrath extends Analyzer {
   accumulatedFocusAtBWCast = 0;
 
   protected spellUsable!: SpellUsable;
+
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BESTIAL_WRATH), this.onBestialWrathCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT), this.onBarbedShotCast);
+  }
 
   get percentUptime() {
     return formatPercentage(this.selectedCombatant.getBuffUptime(SPELLS.BESTIAL_WRATH.id) / this.owner.fightDuration);
@@ -82,22 +88,16 @@ class BestialWrath extends Analyzer {
     };
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.BESTIAL_WRATH.id) {
-      this.casts += 1;
-      if (event.classResources) {
-        event.classResources.forEach(resource => {
-          this.accumulatedFocusAtBWCast += resource.amount || 0;
-        });
-      }
-      return;
+  onBestialWrathCast(event: CastEvent) {
+    this.casts += 1;
+    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+    if (resource) {
+      this.accumulatedFocusAtBWCast += resource.amount || 0;
     }
 
-    if (spellId !== SPELLS.BARBED_SHOT.id) {
-      return;
-    }
+  }
 
+  onBarbedShotCast(event: CastEvent) {
     const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
     if (bestialWrathIsOnCooldown) {
       const reductionMs = this.spellUsable.reduceCooldown(SPELLS.BESTIAL_WRATH.id, COOLDOWN_REDUCTION_MS);

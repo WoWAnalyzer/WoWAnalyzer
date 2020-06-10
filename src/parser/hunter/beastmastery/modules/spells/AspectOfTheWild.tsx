@@ -1,7 +1,13 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/hunter/beastmastery/modules/core/SpellUsable';
-import { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import UptimeIcon from 'interface/icons/Uptime';
+import { formatPercentage } from 'common/format';
+import React from 'react';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Grants you and your pet 5 Focus per sec and 10% increased critical strike
@@ -18,12 +24,13 @@ class AspectOfTheWild extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ASPECT_OF_THE_WILD.id) {
-      return;
-    }
-    this.markCastAsInefficient(event);
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_THE_WILD), this.markCastAsInefficient);
+  }
+
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.ASPECT_OF_THE_WILD.id) / this.owner.fightDuration;
   }
 
   markCastAsInefficient(event: CastEvent) {
@@ -42,6 +49,22 @@ class AspectOfTheWild extends Analyzer {
       return;
     }
   }
+
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.ASPECT_OF_THE_WILD}>
+          <>
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
+  }
+
 }
 
 export default AspectOfTheWild;

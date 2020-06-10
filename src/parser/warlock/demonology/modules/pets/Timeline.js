@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
+import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 import { DESPAWN_REASONS } from './TimelinePet';
-import { isPermanentPet, isWarlockPet } from './helpers';
+import { isWarlockPet } from './helpers';
 
 const debug = false;
 

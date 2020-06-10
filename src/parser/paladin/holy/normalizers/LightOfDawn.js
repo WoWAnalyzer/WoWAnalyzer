@@ -21,12 +21,20 @@ class LightOfDawn extends EventsNormalizer {
         const castTimestamp = event.timestamp;
 
         // Loop through the event history in reverse to detect if there was a `heal` event on the same player that was the result of this cast and thus misordered
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
+        for (
+          let previousEventIndex = eventIndex;
+          previousEventIndex >= 0;
+          previousEventIndex -= 1
+        ) {
           const previousEvent = fixedEvents[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > MAX_DELAY) {
+          if (castTimestamp - previousEvent.timestamp > MAX_DELAY) {
             break;
           }
-          if (previousEvent.type === EventType.Heal && previousEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && previousEvent.sourceID === event.sourceID) {
+          if (
+            previousEvent.type === EventType.Heal &&
+            previousEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id &&
+            previousEvent.sourceID === event.sourceID
+          ) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;
