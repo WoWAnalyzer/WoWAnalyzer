@@ -45,8 +45,10 @@ class Bonestorm extends Analyzer {
         hits: [],
       });
     }
-    this.bsCasts[this.bsCasts.length - 1].hits.push(event.amount + event.absorbed);
-    this.totalBonestormDamage += event.amount + event.absorbed;
+
+    const totalDamage = event.amount + (event.absorbed || 0);
+    this.bsCasts[this.bsCasts.length - 1].hits.push(totalDamage);
+    this.totalBonestormDamage += totalDamage;
   }
 
   get goodBonestormCasts() {
