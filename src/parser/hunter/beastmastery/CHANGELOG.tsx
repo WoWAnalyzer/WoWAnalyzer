@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 6, 7), 'Moved some helper functions from class/specialization folders to a shared folder', Putro),
   change(date(2020, 6, 4), 'Added integration tests for multiple scenarios to decrease chance of any breaking changes making it live.', Putro),
   change(date(2020, 6, 4), <> Added a module to track <SpellLink id={SPELLS.CLAW_BASIC_ATTACK.id} />, <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />, and <SpellLink id={SPELLS.SMACK_BASIC_ATTACK.id} /> and see the average delay between them and how much DPS you could have gained if you macroed it, and if it was cast at 0 delay. </>, Putro),
   change(date(2020, 6, 4), <> Updated the death tracking module to not say that you died, when you used <SpellLink id={SPELLS.FEIGN_DEATH.id} />.</>, Putro),
