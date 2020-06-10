@@ -8,7 +8,9 @@ import Warning from 'interface/Alert/Warning';
 import { getReportHistory } from 'interface/selectors/reportHistory';
 import CharacterSearch from 'interface/CharacterSearch';
 import GuildSearch from 'interface/GuildSearch';
-
+import ReportIcon from 'interface/icons/Events';
+import CharacterIcon from 'interface/icons/Person';
+import GuildIcon from 'interface/icons/People';
 import ReportSelecter from '../others/ReportSelecter';
 import ReportHistory from './ReportHistory';
 
@@ -59,10 +61,7 @@ class ReportSelectionHeader extends React.PureComponent {
       case STATE_SEARCH_CHAR:
         return (<>
           <CharacterSearch />
-          <Trans>
-            Alternatively, <a href="/" onClick={this.handleReportSearchClick}>enter a report link</a> or search for a <a href="/" onClick={this.handleGuildSearchClick}>guild</a>.
-          </Trans>
-          <br /><br />
+          <br />
           <Warning>
             <Trans>
               The character page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. You can still analyze these fights by manually finding the report on Warcraft Logs and using the report link.
@@ -70,21 +69,10 @@ class ReportSelectionHeader extends React.PureComponent {
           </Warning>
         </>);
       case STATE_SEARCH_GUILD:
-        return (<>
-          <GuildSearch />
-          <Trans>
-            Alternatively, <a href="/" onClick={this.handleReportSearchClick}>enter a report link</a> or search for a <a href="/" onClick={this.handleCharacterSearchClick}>character</a>.
-          </Trans>
-        </>);
+        return <GuildSearch />;
       case STATE_SEARCH_REPORT:
       default:
-        return (<>
-          <ReportSelecter />
-          <Trans>
-            Alternatively, search for a <a href="/" onClick={this.handleCharacterSearchClick}>character</a> or <a href="/" onClick={this.handleGuildSearchClick}>guild</a>.
-          </Trans>
-        </>);
-
+        return <ReportSelecter />;
     }
   }
 
@@ -101,8 +89,21 @@ class ReportSelectionHeader extends React.PureComponent {
                 <Logo />
                 <h1>WoWAnalyzer</h1>
               </a>
-              <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report:</Trans>
+              <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report below.<br />Alternatively, you can search for a Character's parses or a Guild's recent reports.</Trans>
               <div style={{ margin: '30px auto', maxWidth: 700, textAlign: 'left' }}>
+                <nav>
+                  <ul>
+                    <li key="report" className={this.state.searchType === STATE_SEARCH_REPORT ? "active" : undefined}>
+                      <a href="/" onClick={this.handleReportSearchClick}><ReportIcon />Report</a>
+                    </li>
+                    <li key="character" className={this.state.searchType === STATE_SEARCH_CHAR ? "active" : undefined}>
+                      <a href="/" onClick={this.handleCharacterSearchClick}><CharacterIcon />Character</a>
+                    </li>
+                    <li key="guild" className={this.state.searchType === STATE_SEARCH_GUILD ? "active" : undefined}>
+                      <a href="/" onClick={this.handleGuildSearchClick}><GuildIcon />Guild</a>
+                    </li>
+                  </ul>
+                </nav>
                 {this.renderSearch()}
               </div>
             </div>
