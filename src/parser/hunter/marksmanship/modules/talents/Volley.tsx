@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from 'parser/core/Events';
-import { probabilityPN, binomialCDF } from 'parser/shared/modules/helpers/Probabilities';
+import { binomialCDF, probabilityPN } from 'parser/shared/modules/helpers/Probability';
 
 /**
  * Your auto-shots have a 25% chance to cause a volley of arrows to rain down around the target, dealing Physical damage to each enemy within 8 yards.

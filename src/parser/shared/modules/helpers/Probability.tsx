@@ -20,43 +20,6 @@ export function probabilityQN(procChance: number, procAttempts: number) {
   return (1 - procChance) * procAttempts;
 }
 
-export function plotOneVariableBinomChart(
-  actualProcs: number,
-  procAttempts: number,
-  procChance: number,
-  trackedName: string = 'Procs',
-  tooltip: string = `Estimated ${trackedName}: `,
-  yDomain: number[] = [0, 0.4],
-  xAxis: any = {
-    title: trackedName,
-    tickFormat: (value: number) => formatNumber(value),
-    style: {
-      fill: 'white',
-    },
-  },
-  yAxis: any = {
-    title: 'Likelihood',
-    tickFormat: (value: number) => `${formatPercentage(value, 0)}%`,
-    style: {
-      fill: 'white',
-    },
-  },
-  curve: string = 'curveMonotoneX',
-) {
-  const { procProbabilities, rangeMin, rangeMax } = setMinMaxProbabilities(actualProcs, procAttempts, procChance);
-  return (
-    <OneVariableBinomialChart
-      probabilities={procProbabilities.slice(rangeMin, rangeMax + 1)}
-      actualEvent={{ x: actualProcs, y: binomialPMF(actualProcs, procAttempts, procChance) }}
-      yDomain={yDomain}
-      xAxis={xAxis}
-      yAxis={yAxis}
-      curve={curve}
-      tooltip={(point: { x: number; }) => `${tooltip} ${formatNumber(point.x)}`}
-    />
-  );
-}
-
 /**
  * Calculates the probability that out of n tries with probability p, we get exactly k positive outcomes
  * @param k {Number} Number of desired positive outcomes
@@ -122,14 +85,19 @@ function binomialDistribution(n: number, k: number) {
   return numerator / denominator;
 }
 
-function resetProbabilityArray(actualProcs: number, procAttempts: number, procChance: number) {
-  const procProbabilities = Array.from({ length: procAttempts }, (_x, i: number) => {
-    return { x: i, y: binomialPMF(i, procAttempts, procChance) };
+function resetProbabilityArray(actualProcs: number, procAttempts: number, procChance: number | number[]) {
+  const procProbabilities: { x: number; y: number; }[] = Array.from({ length: procAttempts }, (_x, i: number) => {
+    if (typeof procChance === 'number') {
+      return { x: i, y: binomialPMF(i, procAttempts, procChance) };
+    } else {
+      return { x: i, y: poissonBinomialPMF(i, procAttempts, procChance) };
+    }
   });
+
   return procProbabilities;
 }
 
-function setMinMaxProbabilities(actualProcs: number, procAttempts: number, procChance: number, threshold: number = 0.001) {
+function setMinMaxProbabilities(actualProcs: number, procAttempts: number, procChance: number | number[], threshold: number = 0.001) {
   const procProbabilities = resetProbabilityArray(actualProcs, procAttempts, procChance);
   const rangeMin = procProbabilities.findIndex(({ y }) => y >= threshold);
   const rangeMax = rangeMin + procProbabilities.slice(rangeMin).findIndex(({ y }) => y < threshold);
@@ -197,7 +165,7 @@ export function poissonBinomialPMF(k: number, n: number, p: any[]) {
  * @param n {Number} Number of total tries
  * @param p {[Number]} Probability vector
  */
-export function poissonBinomialCDF(k: number, n: number, p: any[]) {
+export function poissonBinomialCDF(k: number, n: number, p: number[]) {
   // While technically equal to summing Ei from i = 0 to k, since we use recursion, a better solution is a lookup table
   if (p.length !== n) {
     throw new Error('You must supply a probability vector with the same length as the number of total tries into Poisson Binomial CDF');
@@ -211,4 +179,43 @@ export function poissonBinomialCDF(k: number, n: number, p: any[]) {
     probability += Ekj(i, n, p, lookup);
   }
   return probability;
+}
+
+export function plotOneVariableBinomChart(
+  actualProcs: number,
+  procAttempts: number,
+  procChance: number | number[],
+  trackedName: string = 'Procs',
+  tooltip: string = `${trackedName}: `,
+  yDomain: number[] = [0, 0.4],
+  xAxis: any = {
+    title: trackedName,
+    tickFormat: (value: number) => formatNumber(value),
+    style: {
+      fill: 'white',
+    },
+  },
+  yAxis: any = {
+    title: 'Likelihood',
+    tickFormat: (value: number) => `${formatPercentage(value, 0)}%`,
+    style: {
+      fill: 'white',
+    },
+  },
+  curve: string = 'curveMonotoneX',
+) {
+
+  const { procProbabilities, rangeMin, rangeMax } = setMinMaxProbabilities(actualProcs, procAttempts, procChance);
+  const actualEventY = typeof procChance === 'number' ? binomialPMF(actualProcs, procAttempts, procChance) : poissonBinomialPMF(actualProcs, procAttempts, procChance);
+  return (
+    <OneVariableBinomialChart
+      probabilities={procProbabilities.slice(rangeMin, rangeMax + 1)}
+      actualEvent={{ x: actualProcs, y: actualEventY }}
+      yDomain={yDomain}
+      xAxis={xAxis}
+      yAxis={yAxis}
+      curve={curve}
+      tooltip={(point: { x: number; }) => `${tooltip} ${formatNumber(point.x)}`}
+    />
+  );
 }

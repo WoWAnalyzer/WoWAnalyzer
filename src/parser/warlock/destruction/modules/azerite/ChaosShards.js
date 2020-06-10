@@ -11,7 +11,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probabilities';
+import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 

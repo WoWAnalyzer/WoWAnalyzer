@@ -11,7 +11,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { plotOneVariableBinomChart, probabilityPN, binomialCDF } from 'parser/shared/modules/helpers/Probabilities';
+import { binomialCDF, plotOneVariableBinomChart, probabilityPN } from 'parser/shared/modules/helpers/Probability';
 import SpellLink from 'common/SpellLink';
 
 /**
@@ -104,7 +104,7 @@ class LockAndLoad extends Analyzer {
             You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
             You had a total of {this.totalProcs} procs, and your expected amount of procs was {formatNumber(this.expectedProcs)}. <br />
             <ul>
-              <li>You have a ≈{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks.</li>
+              <li>You have a ≈{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of auto attacks.</li>
             </ul>
           </>
         )}

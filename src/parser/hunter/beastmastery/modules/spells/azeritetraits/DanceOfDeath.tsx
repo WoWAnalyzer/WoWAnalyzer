@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS/index';
@@ -9,6 +9,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Agility from 'interface/icons/Agility';
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'interface/statistics/Statistic';
+import Events from 'parser/core/Events';
+import ThrillOfTheHunt from 'parser/hunter/beastmastery/modules/talents/ThrillOfTheHunt';
+import SpellLink from 'common/SpellLink';
+import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 
 const danceOfDeathStats = (traits: number[]) => Object.values(traits).reduce((obj: { agility: number }, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.DANCE_OF_DEATH.id, rank);
@@ -27,11 +31,16 @@ const danceOfDeathStats = (traits: number[]) => Object.values(traits).reduce((ob
 class DanceOfDeath extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
+    thrillOfTheHunt: ThrillOfTheHunt,
   };
 
   agility = 0;
+  procChances: number = 0;
+  procProbabilities: number[] = [];
+  procAmounts: number = 0;
 
   protected statTracker!: StatTracker;
+  protected thrillOfTheHunt!: ThrillOfTheHunt;
 
   constructor(options: any) {
     super(options);
@@ -45,6 +54,10 @@ class DanceOfDeath extends Analyzer {
     options.statTracker.add(SPELLS.DANCE_OF_DEATH_BUFF.id, {
       agility: this.agility,
     });
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT), this.onBarbedCast);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DANCE_OF_DEATH_BUFF), this.onDanceOfDeathProc);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DANCE_OF_DEATH_BUFF), this.onDanceOfDeathProc);
   }
 
   get uptime() {
@@ -55,6 +68,16 @@ class DanceOfDeath extends Analyzer {
     return this.uptime * this.agility;
   }
 
+  onBarbedCast() {
+    const procChance = this.statTracker.currentCritPercentage + this.thrillOfTheHunt.currentThrillCritPercentage;
+    this.procChances += 1;
+    this.procProbabilities.push(procChance);
+  }
+
+  onDanceOfDeathProc() {
+    this.procAmounts += 1;
+  }
+
   statistic() {
     return (
       <Statistic
@@ -63,6 +86,14 @@ class DanceOfDeath extends Analyzer {
         tooltip={(
           <>
             Dance of Death granted <strong>{formatNumber(this.agility)}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
+          </>
+        )}
+        dropdown={(
+          <>
+            <div style={{ padding: '8px' }}>
+              {plotOneVariableBinomChart(this.procAmounts, this.procChances, this.procProbabilities)}
+              <p>Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given your number of <SpellLink id={SPELLS.BARBED_SHOT.id} /> casts.</p>
+            </div>
           </>
         )}
       >

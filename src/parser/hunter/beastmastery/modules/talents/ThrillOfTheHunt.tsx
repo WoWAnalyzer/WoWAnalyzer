@@ -43,6 +43,10 @@ class ThrillOfTheHunt extends Analyzer {
     return this.thrillStacks;
   }
 
+  get currentThrillCritPercentage() {
+    return this.lastThrillStack * CRIT_PER_STACK;
+  }
+
   get averageCritPercent() {
     let averageCrit = 0;
     this.thrillStacks.forEach((elem, index) => {

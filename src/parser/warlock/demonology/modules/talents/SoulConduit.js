@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probabilities';
+import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 

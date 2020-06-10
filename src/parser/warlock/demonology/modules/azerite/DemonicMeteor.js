@@ -12,7 +12,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { findMax, poissonBinomialPMF } from 'parser/shared/modules/helpers/Probabilities';
+import { findMax, poissonBinomialPMF } from 'parser/shared/modules/helpers/Probability';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
