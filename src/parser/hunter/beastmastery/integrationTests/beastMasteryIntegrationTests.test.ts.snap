@@ -4443,6 +4443,11 @@ exports[`Beast Mastery Hunter integration test: Multi Target DanceOfDeath matche
   <div
     category="AZERITE_POWERS"
     className="panel statistic flexible "
+    style={
+      Object {
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
@@ -4520,6 +4525,25 @@ exports[`Beast Mastery Hunter integration test: Multi Target DanceOfDeath matche
             uptime
           </small>
         </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
       </div>
     </div>
     <div
@@ -12356,6 +12380,11 @@ exports[`Beast Mastery Hunter integration test: Single Target DanceOfDeath match
   <div
     category="AZERITE_POWERS"
     className="panel statistic flexible "
+    style={
+      Object {
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
@@ -12433,6 +12462,25 @@ exports[`Beast Mastery Hunter integration test: Single Target DanceOfDeath match
             uptime
           </small>
         </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
       </div>
     </div>
     <div
