@@ -90,11 +90,11 @@ class BestialWrath extends Analyzer {
 
   onBestialWrathCast(event: CastEvent) {
     this.casts += 1;
-    if (event.classResources) {
-      event.classResources.forEach(resource => {
-        this.accumulatedFocusAtBWCast += resource.amount || 0;
-      });
+    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+    if (resource) {
+      this.accumulatedFocusAtBWCast += resource.amount || 0;
     }
+
   }
 
   onBarbedShotCast(event: CastEvent) {
