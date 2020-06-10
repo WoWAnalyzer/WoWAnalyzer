@@ -186,7 +186,8 @@ export function plotOneVariableBinomChart(
   procAttempts: number,
   procChance: number | number[],
   trackedName: string = 'Procs',
-  tooltip: string = `${trackedName}: `,
+  tooltipText: string = `${trackedName}: `,
+  tooltipFormula: (point: { x: number }) => string = (point: { x: number; }) => `${tooltipText} ${formatNumber(point.x)}`,
   yDomain: number[] = [0, 0.4],
   xAxis: any = {
     title: trackedName,
@@ -215,7 +216,7 @@ export function plotOneVariableBinomChart(
       xAxis={xAxis}
       yAxis={yAxis}
       curve={curve}
-      tooltip={(point: { x: number; }) => `${tooltip} ${formatNumber(point.x)}`}
+      tooltip={tooltipFormula}
     />
   );
 }
