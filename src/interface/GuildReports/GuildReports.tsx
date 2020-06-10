@@ -6,7 +6,6 @@ import ZONES from 'game/ZONES';
 import fetchWcl, { GuildNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
 import retryingPromise from 'common/retryingPromise';
-import RealmList from 'common/RealmList';
 import { makeGuildApiUrl } from 'common/makeApiUrl';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
@@ -18,7 +17,7 @@ import ReportsList from '../GuildReportsList';
 
 const loadRealms = () =>
   retryingPromise(() =>
-    import('common/REALMS').then(exports => exports.default as RealmList),
+    import('common/RealmList').then(exports => exports.default),
   );
 
 const ALLIANCE_PICTURE = 'https://i.imgur.com/Ed5OplO.jpg'; // TODO need to update these and put them on server
