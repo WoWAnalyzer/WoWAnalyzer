@@ -4,8 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
 import { Trans, t } from '@lingui/macro';
 
-import REALMS from 'common/REALMS';
-import RealmList from 'common/RealmList';
+import REALMS from 'common/RealmList';
 
 import { makeGuildApiUrl } from 'common/makeApiUrl';
 import { i18n } from 'interface/RootLocalizationProvider';
@@ -32,6 +31,7 @@ class GuildSearch extends React.PureComponent<RouteComponentProps, State> {
     this.regionInput = React.createRef();
     this.guildInput = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeRegion = this.changeRegion.bind(this);
   }
 
   componentDidMount() {
@@ -84,6 +84,18 @@ class GuildSearch extends React.PureComponent<RouteComponentProps, State> {
     this.props.history.push(makeGuildPageUrl(region, realm, guild));
   }
 
+  changeRegion(targetRegion: string) {
+    let newRealm = this.state.currentRealm;
+    // If the new region doesn't have a realm by the same name, clear the input
+    if (!REALMS[targetRegion].some(realm => realm.name === newRealm)) {
+      newRealm = '';
+    }
+    this.setState({
+      currentRegion: targetRegion,
+      currentRealm: newRealm,
+    });
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit} className="character-guild-selector">
@@ -91,22 +103,24 @@ class GuildSearch extends React.PureComponent<RouteComponentProps, State> {
           className="form-control region"
           ref={this.regionInput}
           defaultValue={this.state.currentRegion}
-          onChange={e => this.setState({ currentRegion: e.target.value })}
+          onChange={e => this.changeRegion(e.target.value)}
         >
           {Object.keys(REALMS).map(elem =>
             <option key={elem} value={elem}>{elem}</option>,
           )}
         </select>
         <SelectSearch
-          options={(REALMS as RealmList)[this.state.currentRegion].map((elem) => ({
+          options={REALMS[this.state.currentRegion].map((elem) => ({
             value: elem.name,
             name: elem.name,
           }))}
           className="realm"
+          value={this.state.currentRealm}
           onChange={(value: any) => {
             this.setState({ currentRealm: value.value });
           }}
           placeholder={i18n._(t`Realm`)}
+          key={this.state.currentRegion}
         />
         <input
           type="text"
