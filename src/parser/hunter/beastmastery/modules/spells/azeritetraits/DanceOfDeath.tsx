@@ -12,7 +12,7 @@ import Statistic from 'interface/statistics/Statistic';
 import Events from 'parser/core/Events';
 import ThrillOfTheHunt from 'parser/hunter/beastmastery/modules/talents/ThrillOfTheHunt';
 import SpellLink from 'common/SpellLink';
-import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
+import { findMax, plotOneVariableBinomChart, poissonBinomialCDF, poissonBinomialPMF } from 'parser/shared/modules/helpers/Probability';
 
 const danceOfDeathStats = (traits: number[]) => Object.values(traits).reduce((obj: { agility: number }, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.DANCE_OF_DEATH.id, rank);
@@ -79,13 +79,20 @@ class DanceOfDeath extends Analyzer {
   }
 
   statistic() {
+    const { max } = findMax(this.procProbabilities.length, (k, n) => poissonBinomialPMF(k, n, this.procProbabilities));
+
     return (
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
         tooltip={(
           <>
-            Dance of Death granted <strong>{formatNumber(this.agility)}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
+            Dance of Death granted <strong>{formatNumber(this.agility)}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight. <br />
+            You had {formatPercentage(this.procAmounts / max)}% procs of what you could expect to get over the encounter. <br />
+            You had a total of {this.procAmounts} procs, and your expected amount of procs was {formatNumber(max)}. <br />
+            <ul>
+              <li>You have a ≈{formatPercentage(poissonBinomialCDF(this.procAmounts, this.procChances, this.procProbabilities))}% chance of getting this amount of procs or fewer in the future with this amount of auto attacks.</li>
+            </ul>
           </>
         )}
         dropdown={(

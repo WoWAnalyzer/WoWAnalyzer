@@ -92,7 +92,6 @@ class LockAndLoad extends Analyzer {
   }
 
   statistic() {
-    const binomCalc = binomialCDF(this.totalProcs, this.autoShots, PROC_CHANCE);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(10)}
@@ -104,7 +103,7 @@ class LockAndLoad extends Analyzer {
             You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
             You had a total of {this.totalProcs} procs, and your expected amount of procs was {formatNumber(this.expectedProcs)}. <br />
             <ul>
-              <li>You have a ≈{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of auto attacks.</li>
+              <li>You have a ≈{formatPercentage(binomialCDF(this.totalProcs, this.autoShots, PROC_CHANCE))}% chance of getting this amount of procs or fewer in the future with this amount of auto attacks.</li>
             </ul>
           </>
         )}

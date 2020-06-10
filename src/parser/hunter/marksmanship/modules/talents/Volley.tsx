@@ -10,7 +10,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from 'parser/core/Events';
-import { binomialCDF, probabilityPN } from 'parser/shared/modules/helpers/Probability';
+import { binomialCDF, plotOneVariableBinomChart, probabilityPN } from 'parser/shared/modules/helpers/Probability';
+import SpellLink from 'common/SpellLink';
 
 /**
  * Your auto-shots have a 25% chance to cause a volley of arrows to rain down around the target, dealing Physical damage to each enemy within 8 yards.
@@ -56,7 +57,6 @@ class Volley extends Analyzer {
   }
 
   statistic() {
-    const binomCalc = binomialCDF(this.procs, this.autoShots, PROC_CHANCE);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -65,11 +65,19 @@ class Volley extends Analyzer {
         tooltip={(
           <>
             You had {this.procs} {this.procs > 1 ? `procs` : `proc`}. <br />
-            You had {formatPercentage(this.procs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
+            You had {formatPercentage(this.procs / this.expectedProcs)}% procs of what you could expect to get over the encounter. <br />
             You had a total of {this.procs} procs, and your expected amount of procs was {formatNumber(this.expectedProcs)}. <br />
             <ul>
-              <li>You have a ~{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks.</li>
+              <li>You have a ≈{formatPercentage(binomialCDF(this.procs, this.autoShots, PROC_CHANCE))}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks.</li>
             </ul>
+          </>
+        )}
+        dropdown={(
+          <>
+            <div style={{ padding: '8px' }}>
+              {plotOneVariableBinomChart(this.procs, this.autoShots, PROC_CHANCE)}
+              <p>Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given your number of <SpellLink id={SPELLS.AUTO_SHOT.id} /> hits.</p>
+            </div>
           </>
         )}
       >
