@@ -105,6 +105,7 @@ class CharacterSearch extends React.PureComponent {
             this.setState({ currentRealm: value.name });
           }}
           placeholder={i18n._(t`Realm`)}
+          key={this.state.currentRegion}
         />
         <input
           type="text"
