@@ -22,7 +22,10 @@ class FailedBeaconTransfers extends Analyzer {
   lostBeaconHealing = 0;
   constructor(options) {
     super(options);
-    this.addEventListener(this.beaconHealSource.beacontransferfailed.by(SELECTED_PLAYER), this._onBeaconTransferFailed);
+    this.addEventListener(
+      this.beaconHealSource.beacontransferfailed.by(SELECTED_PLAYER),
+      this._onBeaconTransferFailed,
+    );
   }
 
   _onBeaconTransferFailed(event) {
@@ -41,13 +44,18 @@ class FailedBeaconTransfers extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.UNIMPORTANT(0)}
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
-        value={<span style={{ fontSize: '75%' }}><Trans>Up to {lostBeaconHealing}</Trans></span>}
+        value={
+          <span style={{ fontSize: '75%' }}>
+            <Trans>Up to {lostBeaconHealing}</Trans>
+          </span>
+        }
         label={<Trans>Beacon healing lost (line of sight)</Trans>}
-        tooltip={(
+        tooltip={
           <Trans>
-            The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon targets due to an issue such as Line of Sight or phasing.
+            The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon
+            targets due to an issue such as Line of Sight or phasing.
           </Trans>
-        )}
+        }
       />
     );
   }

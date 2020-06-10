@@ -25,9 +25,11 @@ class MissingBeacons extends Analyzer {
       return;
     }
 
-    const numMissingBeacons = this.beaconTargets.numMaxBeacons - this.beaconTargets.numBeaconsActive;
+    const numMissingBeacons =
+      this.beaconTargets.numMaxBeacons - this.beaconTargets.numBeaconsActive;
     if (numMissingBeacons > 0) {
-      this.lostBeaconHealing += this.beaconTransferFactor.getExpectedTransfer(event) * numMissingBeacons;
+      this.lostBeaconHealing +=
+        this.beaconTransferFactor.getExpectedTransfer(event) * numMissingBeacons;
     }
   }
 
@@ -43,9 +45,18 @@ class MissingBeacons extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.UNIMPORTANT(0)}
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
-        value={<span style={{ fontSize: '75%' }}><Trans>Up to {lostBeaconHealing}</Trans></span>}
+        value={
+          <span style={{ fontSize: '75%' }}>
+            <Trans>Up to {lostBeaconHealing}</Trans>
+          </span>
+        }
         label={<Trans>Beacon healing lost (missing beacon)</Trans>}
-        tooltip={<Trans>The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon targets due to a missing beacon. When a beacon drops, re-apply it quickly.</Trans>}
+        tooltip={
+          <Trans>
+            The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon
+            targets due to a missing beacon. When a beacon drops, re-apply it quickly.
+          </Trans>
+        }
       />
     );
   }

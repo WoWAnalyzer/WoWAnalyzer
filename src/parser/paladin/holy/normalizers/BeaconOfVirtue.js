@@ -29,9 +29,13 @@ class BeaconOfVirtue extends EventsNormalizer {
     const timestamp = event.timestamp;
     // Loop through the event history in reverse to detect if there was a `cast` event by the same source
     let lastBeaconOfVirtueCastIndex = null;
-    for (let previousEventIndex = previousEvents.length - 1; previousEventIndex >= 0; previousEventIndex -= 1) {
+    for (
+      let previousEventIndex = previousEvents.length - 1;
+      previousEventIndex >= 0;
+      previousEventIndex -= 1
+    ) {
       const previousEvent = previousEvents[previousEventIndex];
-      if ((timestamp - previousEvent.timestamp) > MAX_DELAY) {
+      if (timestamp - previousEvent.timestamp > MAX_DELAY) {
         break;
       }
       // The reason we check for both cast and applybuff is that we don't want to re-order applybuffs, so if the order is "cast, applybuff1, applybuff2", we want it to stay the way. If we moved everything to just the cast, the applybuff order would be reversed resulting it "cast, applybuff2, applybuff1".
@@ -53,7 +57,10 @@ class BeaconOfVirtue extends EventsNormalizer {
   normalize(events) {
     const fixedEvents = [];
     events.forEach((event, eventIndex) => {
-      if (event.type === EventType.ApplyBuff && event.ability.guid === SPELLS.BEACON_OF_VIRTUE_TALENT.id) {
+      if (
+        event.type === EventType.ApplyBuff &&
+        event.ability.guid === SPELLS.BEACON_OF_VIRTUE_TALENT.id
+      ) {
         const lastBeaconOfVirtueCastIndex = this.findPreviousCast(fixedEvents, event);
 
         if (lastBeaconOfVirtueCastIndex !== null) {

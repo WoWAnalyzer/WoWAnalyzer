@@ -8,11 +8,9 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber } from 'common/format';
 
-
 const JUDGEMENT_HEALS = 25;
 
 class JudgmentOfLight extends Analyzer {
-
   counter = JUDGEMENT_HEALS;
   wasted = 0;
   casts = 0;
@@ -23,24 +21,30 @@ class JudgmentOfLight extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_HOLY), this.resetCounter);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_OF_LIGHT_HEAL), this.handleHeals);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_HOLY),
+      this.resetCounter,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_OF_LIGHT_HEAL),
+      this.handleHeals,
+    );
   }
 
-  resetCounter(event){
-    this.wasted += (JUDGEMENT_HEALS - this.counter);
+  resetCounter(event) {
+    this.wasted += JUDGEMENT_HEALS - this.counter;
     this.casts += 1;
     this.counter = 0;
   }
 
-  handleHeals(event){
-    if(this.counter < JUDGEMENT_HEALS){
+  handleHeals(event) {
+    if (this.counter < JUDGEMENT_HEALS) {
       this.counter += 1;
     }
   }
 
   statistic() {
-    this.wasted += (JUDGEMENT_HEALS - this.counter);
+    this.wasted += JUDGEMENT_HEALS - this.counter;
     return (
       <TalentStatisticBox
         talent={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id}
@@ -50,8 +54,6 @@ class JudgmentOfLight extends Analyzer {
       />
     );
   }
-
-
 }
 
 export default JudgmentOfLight;
