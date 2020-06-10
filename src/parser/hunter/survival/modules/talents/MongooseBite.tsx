@@ -9,7 +9,9 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const MAX_STACKS: number = 5;
 
@@ -31,8 +33,7 @@ class MongooseBite extends Analyzer {
   fiveBiteWindows = 0;
   aspectOfTheEagleFixed = false;
   buffApplicationTimestamp: number = 0;
-  accumulatedFocusAtWindow: any[] = [];
-  focusAtMomentOfCast = 0;
+  accumulatedFocusAtMomentOfCast = 0;
 
   constructor(options: any) {
     super(options);
@@ -40,38 +41,29 @@ class MongooseBite extends Analyzer {
     this.mongooseBiteStacks = Array.from({ length: MAX_STACKS + 1 }, x => 0);
   }
 
+  handleDamage(event: DamageEvent) {
+    // Because Aspect of the Eagle applies a traveltime to Mongoose Bite, it sometimes applies the buff before it hits, despite not increasing the damage.
+    // This fixes that, ensuring we reduce by 1, and later increasing it by one.
+    if (this.lastMongooseBiteStack === 1 && event.timestamp < this.buffApplicationTimestamp + MAX_TRAVEL_TIME) {
+      this.lastMongooseBiteStack -= 1;
+      this.aspectOfTheEagleFixed = true;
+    }
+    if (!this.mongooseBiteStacks[this.lastMongooseBiteStack]) {
+      this.mongooseBiteStacks[this.lastMongooseBiteStack] = 1;
+    } else {
+      this.mongooseBiteStacks[this.lastMongooseBiteStack] += 1;
+    }
+    if (this.aspectOfTheEagleFixed) {
+      this.lastMongooseBiteStack += 1;
+      this.aspectOfTheEagleFixed = false;
+    }
+    this.damage += event.amount + (event.absorbed || 0);
+  }
+
   handleStacks(event: DamageEvent | ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent) {
-    if (event.type === EventType.RemoveBuff) {
-      this.lastMongooseBiteStack = 0;
-    }
-    if (event.type === EventType.Damage) {
-      // Because Aspect of the Eagle applies a traveltime to Mongoose Bite, it sometimes applies the buff before it hits, despite not increasing the damage.
-      // This fixes that, ensuring we reduce by 1, and later increasing it by one.
-      if (this.lastMongooseBiteStack === 1 && event.timestamp < this.buffApplicationTimestamp + MAX_TRAVEL_TIME) {
-        this.lastMongooseBiteStack -= 1;
-        this.aspectOfTheEagleFixed = true;
-      }
-      if (!this.mongooseBiteStacks[this.lastMongooseBiteStack]) {
-        this.mongooseBiteStacks[this.lastMongooseBiteStack] = 1;
-      } else {
-        this.mongooseBiteStacks[this.lastMongooseBiteStack] += 1;
-      }
-      if (this.aspectOfTheEagleFixed) {
-        this.lastMongooseBiteStack += 1;
-        this.aspectOfTheEagleFixed = false;
-      }
-      this.damage += event.amount + (event.absorbed || 0);
-    }
-    if (event.type === EventType.ApplyBuff) {
-      this.lastMongooseBiteStack = 1;
-      this.accumulatedFocusAtWindow[this.totalWindowsStarted] = this.focusAtMomentOfCast;
-      this.totalWindowsStarted += 1;
-    }
-    if (event.type === EventType.ApplyBuffStack) {
-      this.lastMongooseBiteStack = event.stack;
-      if (this.lastMongooseBiteStack === MAX_STACKS) {
-        this.fiveBiteWindows += 1;
-      }
+    this.lastMongooseBiteStack = currentStacks(event);
+    if (this.lastMongooseBiteStack === MAX_STACKS) {
+      this.fiveBiteWindows += 1;
     }
   }
 
@@ -88,7 +80,7 @@ class MongooseBite extends Analyzer {
   }
 
   get averageFocusOnMongooseWindowStart() {
-    return formatNumber(this.accumulatedFocusAtWindow.reduce((a, b) => a + b, 0) / this.totalWindowsStarted);
+    return this.accumulatedFocusAtMomentOfCast / this.totalWindowsStarted;
   }
 
   get percentMaxStacksHit() {
@@ -97,11 +89,11 @@ class MongooseBite extends Analyzer {
 
   get focusOnMongooseWindowThreshold() {
     return {
-      actual: this.averageFocusOnMongooseWindowStart,
+      actual: formatNumber(this.averageFocusOnMongooseWindowStart),
       isLessThan: {
         minor: 65,
-        average: 62,
-        major: 60,
+        average: 60,
+        major: 55,
       },
       style: 'number',
     };
@@ -124,7 +116,7 @@ class MongooseBite extends Analyzer {
     if (spellId !== SPELLS.MONGOOSE_BITE_TALENT.id && spellId !== SPELLS.MONGOOSE_BITE_TALENT_AOTE.id) {
       return;
     }
-    this.handleStacks(event);
+    this.handleDamage(event);
   }
 
   on_byPlayer_cast(event: CastEvent) {
@@ -132,9 +124,12 @@ class MongooseBite extends Analyzer {
     if (spellId !== SPELLS.MONGOOSE_BITE_TALENT.id) {
       return;
     }
-    this.focusAtMomentOfCast = event.classResources ? event.classResources[0].amount : 0;
-
-    // this is for the timeline highlighting
+    if (!this.selectedCombatant.hasBuff(SPELLS.MONGOOSE_FURY.id)) {
+      const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+      if (resource) {
+        this.accumulatedFocusAtMomentOfCast += resource.amount || 0;
+      }
+    }
     if (event.meta === undefined) {
       event.meta = {
         isEnhancedCast: false,
@@ -152,6 +147,7 @@ class MongooseBite extends Analyzer {
     if (spellId !== SPELLS.MONGOOSE_FURY.id) {
       return;
     }
+    this.totalWindowsStarted += 1;
     this.handleStacks(event);
     this.buffApplicationTimestamp = event.timestamp;
   }
@@ -171,6 +167,7 @@ class MongooseBite extends Analyzer {
     }
     this.handleStacks(event);
   }
+
   statistic() {
     return (
       <Statistic

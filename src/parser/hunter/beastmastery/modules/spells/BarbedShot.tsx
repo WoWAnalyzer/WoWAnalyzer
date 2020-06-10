@@ -9,7 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
-
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for [(10%
@@ -28,7 +28,6 @@ class BarbedShot extends Analyzer {
   barbedShotStacks: Array<Array<number>> = [];
   lastBarbedShotStack: number = 0;
   lastBarbedShotUpdate: number = this.owner.fight.start_time;
-  currentStacks: number = 0;
 
   constructor(options: any) {
     super(options);
@@ -48,7 +47,7 @@ class BarbedShot extends Analyzer {
     const withoutNoBuff = this.barbedShotStacks.slice(1);
     //Because .flat doesn't work in Microsoft Edge (non-chromium versions), we use this alternate option that is equivalent
     const alternativeFlatten = withoutNoBuff.reduce((acc, val) => acc.concat(val), []);
-    //After flattening the array, we can reduce it normally. 
+    //After flattening the array, we can reduce it normally.
     return alternativeFlatten.reduce((totalUptime: number, stackUptime: number) => totalUptime + stackUptime, 0) / this.owner.fightDuration;
   }
 
@@ -94,19 +93,12 @@ class BarbedShot extends Analyzer {
   }
 
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
-    if (event.type === EventType.RemoveBuff) {
-      this.currentStacks = 0;
-    } else if (event.type === EventType.ApplyBuff) {
-      this.currentStacks = 1;
-    } else if (event.type === EventType.ApplyBuffStack) {
-      this.currentStacks = event.stack;
-    } else if (event.type === EventType.FightEnd) {
-      this.currentStacks = this.lastBarbedShotStack;
-    }
-
     this.barbedShotStacks[this.lastBarbedShotStack].push(event.timestamp - this.lastBarbedShotUpdate);
+    if (event.type === EventType.FightEnd) {
+      return;
+    }
     this.lastBarbedShotUpdate = event.timestamp;
-    this.lastBarbedShotStack = this.currentStacks;
+    this.lastBarbedShotStack = currentStacks(event);
   }
 
   getAverageBarbedShotStacks() {

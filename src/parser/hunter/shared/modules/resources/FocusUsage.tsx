@@ -8,6 +8,7 @@ import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import { CastEvent } from 'parser/core/Events';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**
  * Tracks the focus usage of all 3 hunter specs and creates a piechart with the breakdown.
@@ -183,8 +184,9 @@ class FocusUsage extends Analyzer {
     if (!LIST_OF_FOCUS_SPENDERS.includes(spellId) && !RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
       return;
     }
-    //shouldn't really happen unless something messed up in the log where the cast event doesn't have any class resource information so we skip those.
-    if (!event.classResources) {
+    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+
+    if (!resource) {
       return;
     }
 
@@ -196,7 +198,7 @@ class FocusUsage extends Analyzer {
     }
 
     this.focusSpenderCasts[spellId].casts += 1;
-    this.focusSpenderCasts[spellId].focusUsed += event.classResources[0].cost || 0;
+    this.focusSpenderCasts[spellId].focusUsed += resource.cost || 0;
   }
 
   get focusUsageChart() {

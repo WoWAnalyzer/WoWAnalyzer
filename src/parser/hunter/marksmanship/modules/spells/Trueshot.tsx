@@ -41,7 +41,11 @@ class Trueshot extends Analyzer {
     }
     if (spellId === SPELLS.TRUESHOT.id) {
       this.trueshotCasts += 1;
-      this.accumulatedFocusAtTSCast += (event.classResources && event.classResources[0].amount) || 0;
+      const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+      if (!resource) {
+        return;
+      }
+      this.accumulatedFocusAtTSCast += resource.amount || 0;
     }
     if (spellId === SPELLS.AIMED_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       this.aimedShotsPrTS += 1;

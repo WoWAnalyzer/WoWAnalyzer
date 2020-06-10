@@ -9,6 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events, { CastEvent } from 'parser/core/Events';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**
  * A quick shot causing Physical damage.
@@ -19,7 +20,7 @@ import Events, { CastEvent } from 'parser/core/Events';
  */
 
 const COOLDOWN_REDUCTION_MS = 1000;
-
+const FOCUS_THRESHOLD_TO_WAIT = 50; //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 class CobraShot extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -94,11 +95,18 @@ class CobraShot extends Analyzer {
         globalCooldown;
       this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, effectiveReductionMs);
       this.wastedKCReductionMs += COOLDOWN_REDUCTION_MS - effectiveReductionMs;
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command\'s cooldown was under ' + (killCommandCooldownRemaining / 1000).toFixed(1) + 's remaining.';
-      return;
+
+      const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+      if (!resource) {
+        return;
+      }
+      if (resource.amount < FOCUS_THRESHOLD_TO_WAIT) {
+        event.meta.isInefficientCast = true;
+        event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command\'s cooldown was under ' + (globalCooldown + COOLDOWN_REDUCTION_MS / 1000).toFixed(1) + 's remaining and you were not close to capping focus as you only had ' + (resource.amount) + ' focus.';
+      }
+    } else {
+      this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, COOLDOWN_REDUCTION_MS);
     }
-    this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, COOLDOWN_REDUCTION_MS);
   }
 
   suggestions(when: any) {
