@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 6, 11), 'Added a warning to N\'zoth fight due to the different realm phases, and the combat log errors they come with.', Putro),
   change(date(2020, 6, 10), 'Fix a crash when changing your region after selecting a realm during character search.', Dambroda),
   change(date(2020, 6, 9), <> Added debuff uptime to to the <SpellLink id={SPELLS.BLOOD_OF_THE_ENEMY.id} /> module. </>, Putro),
   change(date(2020, 6, 7), 'Moved some helper functions from class/specialization folders to a shared folder', Putro),
