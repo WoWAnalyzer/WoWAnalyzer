@@ -6,8 +6,7 @@ import { Trans } from '@lingui/macro';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import Warning from 'interface/Alert/Warning';
 import { getReportHistory } from 'interface/selectors/reportHistory';
-import CharacterSearch from 'interface/CharacterSearch';
-import GuildSearch from 'interface/GuildSearch';
+import NameSearch, { SearchType } from 'interface/NameSearch';
 import ReportIcon from 'interface/icons/Events';
 import CharacterIcon from 'interface/icons/Person';
 import GuildIcon from 'interface/icons/People';
@@ -60,7 +59,7 @@ class ReportSelectionHeader extends React.PureComponent {
     switch (this.state.searchType) {
       case STATE_SEARCH_CHAR:
         return (<>
-          <CharacterSearch />
+          <NameSearch type={SearchType.CHARACTER} />
           <br />
           <Warning>
             <Trans>
@@ -69,7 +68,7 @@ class ReportSelectionHeader extends React.PureComponent {
           </Warning>
         </>);
       case STATE_SEARCH_GUILD:
-        return <GuildSearch />;
+        return <NameSearch type={SearchType.GUILD} />;
       case STATE_SEARCH_REPORT:
       default:
         return <ReportSelecter />;
