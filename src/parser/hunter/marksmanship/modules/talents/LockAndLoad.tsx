@@ -11,7 +11,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { binomialCDF, plotOneVariableBinomChart, probabilityPN } from 'parser/shared/modules/helpers/Probability';
+import { binomialCDF, plotOneVariableBinomChart, expectedProcCount } from 'parser/shared/modules/helpers/Probability';
 import SpellLink from 'common/SpellLink';
 
 /**
@@ -88,7 +88,7 @@ class LockAndLoad extends Analyzer {
   }
 
   get expectedProcs() {
-    return probabilityPN(PROC_CHANCE, this.autoShots);
+    return expectedProcCount(PROC_CHANCE, this.autoShots);
   }
 
   statistic() {

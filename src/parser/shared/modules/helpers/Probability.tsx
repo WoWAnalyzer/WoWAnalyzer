@@ -7,17 +7,8 @@ import { formatNumber, formatPercentage } from 'common/format';
  * @param procChance
  * @param procAttempts
  */
-export function probabilityPN(procChance: number, procAttempts: number) {
+export function expectedProcCount(procChance: number, procAttempts: number) {
   return procChance * procAttempts;
-}
-
-/**
- * qn is the mean value of non procs
- * @param procChance
- * @param procAttempts
- */
-export function probabilityQN(procChance: number, procAttempts: number) {
-  return (1 - procChance) * procAttempts;
 }
 
 /**
