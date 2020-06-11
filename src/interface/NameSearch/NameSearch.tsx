@@ -7,7 +7,7 @@ import REALMS from 'common/RealmList';
 import { makeGuildApiUrl, makeCharacterApiUrl } from 'common/makeApiUrl';
 import { i18n } from 'interface/RootLocalizationProvider';
 import makeGuildPageUrl from 'common/makeGuildPageUrl';
-import makeCharacterPageUrl from 'common/makeGuildPageUrl';
+import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 
 export enum SearchType {
   CHARACTER = "Character",
@@ -66,8 +66,12 @@ class NameSearch extends React.PureComponent<Props, State> {
     this.setState({ loading: true });
     // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
     if (region !== 'CN') {
-      const makeApiUrl = this.props.type === SearchType.CHARACTER ? makeCharacterApiUrl : makeGuildApiUrl;
-      const response = await fetch(makeApiUrl(region, realm, name));
+      let response;
+      if (this.props.type === SearchType.GUILD) {
+        response = await fetch(makeGuildApiUrl(region, realm, name));
+      } else {
+        response = await fetch(makeCharacterApiUrl(null, region, realm, name));
+      }
       if (response.status === 500) {
         alert(i18n._(t`It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`));
         this.setState({
