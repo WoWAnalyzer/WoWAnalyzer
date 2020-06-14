@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 6, 12), <> Add a graph to show how (un)lucky you were with <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} /> and <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> procs. </>, Putro),
   change(date(2020, 6, 4), 'Added integration tests for multiple scenarios to decrease chance of any breaking change making it live.', Putro),
   change(date(2020, 6, 4), <> Updated the death tracking module to not say that you died, when you used <SpellLink id={SPELLS.FEIGN_DEATH.id} />. </>, Putro),
   change(date(2020, 5, 26), 'Converted all hunter modules to Typescript and cleaned up the entire hunter codebase in preparation for Shadowlands.', Putro),
