@@ -88,18 +88,19 @@ class ReportSelectionHeader extends React.PureComponent {
                 <Logo />
                 <h1>WoWAnalyzer</h1>
               </a>
-              <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report below.<br />Alternatively, you can search for a Character's parses or a Guild's recent reports.</Trans>
-              <div style={{ margin: '30px auto', maxWidth: 700, textAlign: 'left' }}>
-                <nav>
+              <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report below.</Trans>
+              <div style={{ margin: '15px auto', maxWidth: 700 }}>
+
+                <nav style={{margin: '0px', maxWidth:450}}>
                   <ul>
                     <li key="report" className={this.state.searchType === STATE_SEARCH_REPORT ? "active" : undefined}>
-                      <a href="/" onClick={this.handleReportSearchClick}><ReportIcon />Report</a>
+                      <a href="/" style={{padding:'2px'}} onClick={this.handleReportSearchClick}><ReportIcon /><Trans>Report</Trans></a>
                     </li>
                     <li key="character" className={this.state.searchType === STATE_SEARCH_CHAR ? "active" : undefined}>
-                      <a href="/" onClick={this.handleCharacterSearchClick}><CharacterIcon />Character</a>
+                      <a href="/" style={{padding:'2px'}} onClick={this.handleCharacterSearchClick}><CharacterIcon /><Trans>Character</Trans></a>
                     </li>
                     <li key="guild" className={this.state.searchType === STATE_SEARCH_GUILD ? "active" : undefined}>
-                      <a href="/" onClick={this.handleGuildSearchClick}><GuildIcon />Guild</a>
+                      <a href="/" style={{padding:'2px'}} onClick={this.handleGuildSearchClick}><GuildIcon /><Trans>Guild</Trans></a>
                     </li>
                   </ul>
                 </nav>
