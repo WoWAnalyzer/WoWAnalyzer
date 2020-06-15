@@ -1,9 +1,7 @@
 import React from 'react';
-import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
