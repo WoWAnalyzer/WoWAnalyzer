@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Chizu } from 'CONTRIBUTORS';
+import { Chizu, Putro } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 6, 12), 'Moved probability helpers to a shared folder.', Putro),
   change(date(2019, 3, 18), 'Updated the visuals to match new WoWAnalyzer look!', [Chizu]),
   change(date(2018, 12, 23), <>Added <SpellLink id={SPELLS.CHAOS_SHARDS.id} /> trait.</>, [Chizu]),
   change(date(2018, 12, 23), 'Changed display of damage in various places. Now shows % of total damage done and DPS with raw values in tooltip.', [Chizu]),

@@ -21,7 +21,7 @@ declare module 'react-vis' {
   export type RVTouchEventHandler = TouchEventHandler<HTMLElement>;
   export type RVWheelEventHandler = WheelEventHandler<HTMLElement>;
 
-  export type RVItemEventHandler  = (item: any, index: number, event: MouseEvent<HTMLElement>) => void;
+  export type RVItemEventHandler = (item: any, index: number, event: MouseEvent<HTMLElement>) => void;
 
   export type RVValueEventHandler<T extends AbstractSeriesPoint> = (datapoint: T, event: MouseEvent<HTMLElement>) => void;
 

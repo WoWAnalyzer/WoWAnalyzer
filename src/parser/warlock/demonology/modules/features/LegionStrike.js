@@ -9,8 +9,7 @@ import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
 import StatisticBox from 'interface/others/StatisticBox';
-
-import { isPermanentPet } from '../pets/helpers';
+import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 class LegionStrike extends Analyzer {
   casts = 0;

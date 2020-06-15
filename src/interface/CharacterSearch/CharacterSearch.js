@@ -27,6 +27,7 @@ class CharacterSearch extends React.PureComponent {
     this.regionInput = React.createRef();
     this.charInput = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeRegion = this.changeRegion.bind(this);
   }
 
   componentDidMount() {
@@ -82,6 +83,18 @@ class CharacterSearch extends React.PureComponent {
     this.props.history.push(makeCharacterPageUrl(region, realm, char));
   }
 
+  changeRegion(targetRegion) {
+    let newRealm = this.state.currentRealm;
+    // If the new region doesn't have a realm by the same name, clear the input
+    if (!REALMS[targetRegion].some(realm => realm.name === newRealm)) {
+      newRealm = '';
+    }
+    this.setState({
+      currentRegion: targetRegion,
+      currentRealm: newRealm,
+    });
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit} className="character-selector">
@@ -89,7 +102,7 @@ class CharacterSearch extends React.PureComponent {
           className="form-control region"
           ref={this.regionInput}
           defaultValue={this.state.currentRegion}
-          onChange={e => this.setState({ currentRegion: e.target.value })}
+          onChange={e => this.changeRegion(e.target.value)}
         >
           {Object.keys(REALMS).map(elem =>
             <option key={elem} value={elem}>{elem}</option>,
@@ -101,10 +114,12 @@ class CharacterSearch extends React.PureComponent {
             name: elem.name,
           }))}
           className="realm"
+          value={this.state.currentRealm}
           onChange={value => {
             this.setState({ currentRealm: value.name });
           }}
           placeholder={i18n._(t`Realm`)}
+          key={this.state.currentRegion}
         />
         <input
           type="text"

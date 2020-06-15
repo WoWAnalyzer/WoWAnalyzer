@@ -87,9 +87,9 @@ class BasicAttacks extends Analyzer {
             <table className="table table-condensed">
               <thead>
                 <tr>
-                  <th>Potential extra</th>
-                  <th>150ms delay (macro)</th>
-                  <th>0 Delay</th>
+                  <th>Potential</th>
+                  <th>150ms delay</th>
+                  <th>0ms delay</th>
                 </tr>
               </thead>
               <tbody>

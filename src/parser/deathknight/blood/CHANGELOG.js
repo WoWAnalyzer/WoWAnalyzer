@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 6, 10), <>Fixed an issue with <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> not counting damage properly.</>, [joshinator]),
   change(date(2019, 12, 4), <>Fixed an issue for some logs where <SpellLink id={SPELLS.BONE_SHIELD.id} /> wouldn't be counted properly, resulting in wrong bad <SpellLink id={SPELLS.MARROWREND.id} />-metrics</>, [joshinator]),
   change(date(2019, 2, 14), <>Updated <SpellLink id={SPELLS.BONE_SHIELD.id} />-suggestion to account for different types of bad <SpellLink id={SPELLS.MARROWREND.id} />s</>, [joshinator]),
   change(date(2019, 2, 3), <>Added <SpellLink id={SPELLS.BLOODY_RUNEBLADE.id} /> azerite trait and marked patch 8.1 compatible.</>, [Yajinni]),

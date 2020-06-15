@@ -7,7 +7,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { isPermanentPet } from '../../../../warlock/demonology/modules/pets/helpers';
+import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 /**
  * Your Call Pet additionally summons the first pet from your stable.

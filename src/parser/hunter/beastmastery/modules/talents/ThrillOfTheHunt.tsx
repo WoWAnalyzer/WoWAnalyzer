@@ -8,7 +8,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CriticalStrike from 'interface/icons/CriticalStrike';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
-
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 /**
  * Barbed Shot increases your critical strike chance by 3% for 8 sec, stacking up to 3 times.
@@ -25,7 +25,6 @@ class ThrillOfTheHunt extends Analyzer {
   thrillStacks: Array<Array<number>> = [];
   lastThrillStack = 0;
   lastThrillUpdate = this.owner.fight.start_time;
-  currentStacks: number = 0;
 
   constructor(options: any) {
     super(options);
@@ -44,6 +43,10 @@ class ThrillOfTheHunt extends Analyzer {
     return this.thrillStacks;
   }
 
+  get currentThrillCritPercentage() {
+    return this.lastThrillStack * CRIT_PER_STACK;
+  }
+
   get averageCritPercent() {
     let averageCrit = 0;
     this.thrillStacks.forEach((elem, index) => {
@@ -53,18 +56,12 @@ class ThrillOfTheHunt extends Analyzer {
   }
 
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
-    if (event.type === EventType.RemoveBuff) {
-      this.currentStacks = 0;
-    } else if (event.type === EventType.ApplyBuff) {
-      this.currentStacks = 1;
-    } else if (event.type === EventType.ApplyBuffStack) {
-      this.currentStacks = event.stack;
-    } else if (event.type === EventType.FightEnd) {
-      this.currentStacks = this.lastThrillStack;
-    }
     this.thrillStacks[this.lastThrillStack].push(event.timestamp - this.lastThrillUpdate);
+    if (event.type === EventType.FightEnd) {
+      return;
+    }
     this.lastThrillUpdate = event.timestamp;
-    this.lastThrillStack = this.currentStacks;
+    this.lastThrillStack = currentStacks(event);
   }
 
   statistic() {
