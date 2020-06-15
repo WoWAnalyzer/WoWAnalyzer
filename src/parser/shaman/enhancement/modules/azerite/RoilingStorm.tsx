@@ -42,17 +42,8 @@ class RoilingStorm extends Analyzer {
         return total + calculateAzeriteEffects(SPELLS.ROILING_STORM.id, rank)[0];
       }, 0);
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_CAST_SPELLS),
-      this.onStrikeCast,
-    );
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_DAMAGE_SPELLS),
-      this.onStrikeDamage,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(STORMSTRIKE_CAST_SPELLS), this.onStrikeCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS), this.onStrikeDamage);
   }
 
   onStrikeCast(event: CastEvent) {
@@ -65,9 +56,9 @@ class RoilingStorm extends Analyzer {
     }
 
     // Determine between off-hand or main hand attack.
-    const scale = (event.ability.guid === SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id || event.ability.guid === SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id) ? 1/3 : 2/3;
+    const scale = (event.ability.guid === SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id || event.ability.guid === SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id) ? 1 / 3 : 2 / 3;
 
-    const [damage] = calculateBonusAzeriteDamage(event,[this.bonusDamage * scale], this.lastAttackPower, STORMSTRIKE_COEFFICIENT);
+    const [damage] = calculateBonusAzeriteDamage(event, [this.bonusDamage * scale], this.lastAttackPower, STORMSTRIKE_COEFFICIENT);
     this.damageGained += damage;
   }
 

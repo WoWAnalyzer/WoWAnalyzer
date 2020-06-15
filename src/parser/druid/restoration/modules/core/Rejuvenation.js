@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
-import Mastery from './/Mastery';
+import Mastery from './Mastery';
 
 const BASE_MANA = 20000;
 const REJUV_COST = 0.105; // % of base mana

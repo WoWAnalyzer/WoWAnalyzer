@@ -3,13 +3,13 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 const KILLER_INSTINCT_THRESHOLD = 0.35;
 const KILLER_INSTINCT_CONTRIBUTION = 0.5;
@@ -28,13 +28,10 @@ class KillerInstinct extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.KILLER_INSTINCT_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_BM), this.onPetKillCmdDamage);
   }
 
-  on_byPlayerPet_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.KILL_COMMAND_DAMAGE_BM.id) {
-      return;
-    }
+  onPetKillCmdDamage(event: DamageEvent) {
     if (!event.hitPoints || !event.maxHitPoints) {
       return;
     }

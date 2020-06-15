@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -9,7 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 
 /**
  * Cobra Shot reduces the cooldown of Bestial Wrath by 1 sec.
@@ -37,6 +37,7 @@ class VenomousBite extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VENOMOUS_BITE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COBRA_SHOT), this.onCobraCast);
   }
 
   get totalPossibleCDR() {
@@ -71,18 +72,14 @@ class VenomousBite extends Analyzer {
     };
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.COBRA_SHOT.id) {
-      return;
-    }
+  onCobraCast(event: CastEvent) {
     this.casts += 1;
     if (!this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id)) {
       this.wastedCasts += 1;
       this.wastedBWReductionMs += COOLDOWN_REDUCTION_MS;
       return;
     }
-    const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
+    const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(SPELLS.COBRA_SHOT.id);
     const bestialWrathCooldownRemaining = this.spellUsable.cooldownRemaining(
       SPELLS.BESTIAL_WRATH.id);
     if (bestialWrathCooldownRemaining < COOLDOWN_REDUCTION_MS + globalCooldown) {

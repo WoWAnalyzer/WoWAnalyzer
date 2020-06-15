@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -7,7 +7,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 /**
  * Increases the damage of your pet's abilities by 30%.
@@ -31,9 +31,10 @@ class AspectOfTheBeast extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ASPECT_OF_THE_BEAST_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
   }
 
-  on_byPlayerPet_damage(event: DamageEvent) {
+  onPetDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (ABILITIES_NOT_AFFECTED.includes(spellId)) {
       return;

@@ -2,7 +2,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { BuffEvent, DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
@@ -31,26 +30,14 @@ class Landslide extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.LANDSLIDE_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.LANDSLIDE_TALENT.id)) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(
-      Events.applybuff.spell(SPELLS.LANDSLIDE_BUFF),
-      this.onLandslideBuff,
-    );
-
-    this.addEventListener(
-      Events.refreshbuff.spell(SPELLS.LANDSLIDE_BUFF),
-      this.onLandslideBuff,
-    );
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_DAMAGE_SPELLS),
-      this.onStormstrikeDamage,
-    );
+    this.addEventListener(Events.applybuff.spell(SPELLS.LANDSLIDE_BUFF), this.onLandslideBuff);
+    this.addEventListener(Events.refreshbuff.spell(SPELLS.LANDSLIDE_BUFF), this.onLandslideBuff);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS), this.onStormstrikeDamage);
   }
 
   onLandslideBuff(event: BuffEvent) {

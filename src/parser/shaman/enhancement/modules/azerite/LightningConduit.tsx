@@ -21,16 +21,13 @@ class LightningConduit extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     if (!this.selectedCombatant.hasTrait(SPELLS.LIGHTNING_CONDUIT_TRAIT.id)) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.LIGHTNING_CONDUIT_DAMAGE),
-      this.onLightningConduit,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIGHTNING_CONDUIT_DAMAGE), this.onLightningConduit);
   }
 
   onLightningConduit(event: DamageEvent) {

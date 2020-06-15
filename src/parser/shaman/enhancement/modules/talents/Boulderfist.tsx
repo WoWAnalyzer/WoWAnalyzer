@@ -25,16 +25,12 @@ class Boulderfist extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id)) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.ROCKBITER),
-      this.onRockbiterDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ROCKBITER), this.onRockbiterDamage);
   }
 
   onRockbiterDamage(event: DamageEvent) {

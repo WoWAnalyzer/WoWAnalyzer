@@ -36,7 +36,8 @@ class CastBehavior extends Analyzer {
     const totalIolUsages = iolFlashOfLights + iolHolyLights;
 
     const holyShockCasts = holyShockCast.casts || 0;
-    const holyShockCrits = (holyShockHeal.healingCriticalHits || 0) + (holyShockDamage.damageCriticalHits || 0);
+    const holyShockCrits =
+      (holyShockHeal.healingCriticalHits || 0) + (holyShockDamage.damageCriticalHits || 0);
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
     const totalIolProcs = holyShockCrits * iolProcsPerHolyShockCrit;
     const unusedProcs = totalIolProcs - totalIolUsages;
@@ -57,16 +58,19 @@ class CastBehavior extends Analyzer {
       {
         color: '#A93226',
         label: <Trans>Wasted procs</Trans>,
-        tooltip: <Trans>The amount of Infusion of Lights you did not use out of the total available. You cast {holyShockCasts} Holy Shocks with a {formatPercentage(holyShockCrits / holyShockCasts)}% crit ratio. This gave you {totalIolProcs} Infusion of Light procs, of which you used {totalIolUsages}.</Trans>,
+        tooltip: (
+          <Trans>
+            The amount of Infusion of Lights you did not use out of the total available. You cast{' '}
+            {holyShockCasts} Holy Shocks with a {formatPercentage(holyShockCrits / holyShockCasts)}%
+            crit ratio. This gave you {totalIolProcs} Infusion of Light procs, of which you used{' '}
+            {totalIolUsages}.
+          </Trans>
+        ),
         value: unusedProcs,
       },
     ];
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   fillerCastRatioChart() {
@@ -107,11 +111,7 @@ class CastBehavior extends Analyzer {
       },
     ];
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   statistic() {
@@ -119,14 +119,20 @@ class CastBehavior extends Analyzer {
       <StatisticGroup position={STATISTIC_ORDER.CORE(40)}>
         <Statistic ultrawide>
           <div className="pad">
-            <label><Trans><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> usage</Trans></label>
+            <label>
+              <Trans>
+                <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> usage
+              </Trans>
+            </label>
 
             {this.iolCastRatioChart()}
           </div>
         </Statistic>
         <Statistic ultrawide>
           <div className="pad">
-            <label><Trans>Fillers</Trans></label>
+            <label>
+              <Trans>Fillers</Trans>
+            </label>
 
             {this.fillerCastRatioChart()}
           </div>

@@ -9,7 +9,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import { getSpellInfo } from '../../../SpellInfo';
 import StatWeights from '../../features/StatWeights';
 import Mastery from '../../core/Mastery';
-import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from './/common';
+import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from './common';
 
 const CRIT_EFFECT = 2;
 const REGROWTH_DURATION = 12000;

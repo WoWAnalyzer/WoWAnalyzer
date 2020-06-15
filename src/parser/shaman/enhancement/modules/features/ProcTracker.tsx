@@ -15,7 +15,7 @@ class ProcTracker extends CoreCooldownThroughputTracker {
     },
   ];
 
-  tab() : any {
+  tab(): any {
     return {
       title: 'Procs',
       url: 'procs',

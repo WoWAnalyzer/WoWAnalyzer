@@ -25,49 +25,70 @@ class BeaconHealingBreakdown extends React.Component {
   }
 
   renderTableBody() {
-    const { totalHealingDone, totalBeaconHealing, beaconHealingBySource, fightDuration } = this.props;
+    const {
+      totalHealingDone,
+      totalBeaconHealing,
+      beaconHealingBySource,
+      fightDuration,
+    } = this.props;
 
-    const currentTotal = this.state.absolute ? totalHealingDone.effective : totalBeaconHealing.effective;
+    const currentTotal = this.state.absolute
+      ? totalHealingDone.effective
+      : totalBeaconHealing.effective;
     const highestHealing = Object.keys(beaconHealingBySource)
       .map(key => beaconHealingBySource[key])
       .reduce((highest, source) => Math.max(highest, source.healing.effective), 1);
 
     return (
       <tbody>
-        {beaconHealingBySource && Object.keys(beaconHealingBySource)
-          .sort((a, b) => beaconHealingBySource[b].healing.effective - beaconHealingBySource[a].healing.effective)
-          .map(spellId => {
-            const { ability, healing } = beaconHealingBySource[spellId];
+        {beaconHealingBySource &&
+          Object.keys(beaconHealingBySource)
+            .sort(
+              (a, b) =>
+                beaconHealingBySource[b].healing.effective -
+                beaconHealingBySource[a].healing.effective,
+            )
+            .map(spellId => {
+              const { ability, healing } = beaconHealingBySource[spellId];
 
-            return (
-              <tr key={ability.guid}>
-                <td style={{ width: '30%' }}>
-                  <SpellLink id={ability.guid} icon={false}>
-                    <Icon icon={ability.abilityIcon} />{' '}
-                    {ability.name}
-                  </SpellLink>
-                </td>
-                <td style={{ paddingRight: 5, textAlign: 'right', whiteSpace: 'nowrap' }}>
-                  {formatPercentage(healing.effective / currentTotal)} %
-                </td>
-                <td style={{ width: '70%' }}>
-                  {/* TODO: Color the bar based on the damage type, physical = yellow, chaos = gradient, etc. idk */}
-                  <div
-                    className="performance-bar"
-                    style={{ width: `${healing.effective / highestHealing * 100}%` }}
-                  />
-                </td>
-                <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                  <TooltipElement content={<Trans>Total: {formatNumber(healing.effective)}</Trans>}>
-                    <Trans>{formatNumber(healing.effective / fightDuration * 1000)} HPS</Trans>
-                  </TooltipElement>
-                </td>
-                <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                  {formatPercentage(healing.overheal / healing.raw)} %
-                </td>
-              </tr>
-            );
-          })}
+              return (
+                <tr key={ability.guid}>
+                  <td style={{ width: '30%' }}>
+                    <SpellLink id={ability.guid} icon={false}>
+                      <Icon icon={ability.abilityIcon} /> {ability.name}
+                    </SpellLink>
+                  </td>
+                  <td
+                    style={{
+                      paddingRight: 5,
+                      textAlign: 'right',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {formatPercentage(healing.effective / currentTotal)} %
+                  </td>
+                  <td style={{ width: '70%' }}>
+                    {/* TODO: Color the bar based on the damage type, physical = yellow, chaos = gradient, etc. idk */}
+                    <div
+                      className="performance-bar"
+                      style={{
+                        width: `${(healing.effective / highestHealing) * 100}%`,
+                      }}
+                    />
+                  </td>
+                  <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                    <TooltipElement
+                      content={<Trans>Total: {formatNumber(healing.effective)}</Trans>}
+                    >
+                      <Trans>{formatNumber((healing.effective / fightDuration) * 1000)} HPS</Trans>
+                    </TooltipElement>
+                  </td>
+                  <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                    {formatPercentage(healing.overheal / healing.raw)} %
+                  </td>
+                </tr>
+              );
+            })}
       </tbody>
     );
   }
@@ -77,9 +98,13 @@ class BeaconHealingBreakdown extends React.Component {
       <table className="data-table">
         <thead>
           <tr>
-            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}><Trans>Name</Trans></th>
+            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>
+              <Trans>Name</Trans>
+            </th>
             <th colSpan="3">
-              <span style={{ fontWeight: 700, textTransform: 'uppercase' }}><Trans>Beacon healing caused</Trans></span>
+              <span style={{ fontWeight: 700, textTransform: 'uppercase' }}>
+                <Trans>Beacon healing caused</Trans>
+              </span>
               <div className="pull-right toggle-control">
                 <Toggle
                   defaultChecked={false}
@@ -92,7 +117,9 @@ class BeaconHealingBreakdown extends React.Component {
                 </label>
               </div>
             </th>
-            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}><Trans>Overheal</Trans></th>
+            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>
+              <Trans>Overheal</Trans>
+            </th>
           </tr>
         </thead>
         {this.renderTableBody()}

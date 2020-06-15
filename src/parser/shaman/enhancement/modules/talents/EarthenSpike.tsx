@@ -36,21 +36,13 @@ class EarthenSpike extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id)) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.EARTHEN_SPIKE_TALENT),
-      this.onEarthenSpikeDamage,
-    );
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER),
-      this.onAnyDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTHEN_SPIKE_TALENT), this.onEarthenSpikeDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onAnyDamage);
   }
 
   onEarthenSpikeDamage(event: DamageEvent) {

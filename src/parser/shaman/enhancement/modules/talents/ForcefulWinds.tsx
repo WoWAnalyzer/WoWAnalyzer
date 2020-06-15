@@ -29,21 +29,13 @@ class ForcefulWinds extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.FORCEFUL_WINDS_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.FORCEFUL_WINDS_TALENT.id)) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.WINDFURY_ATTACK),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER)
-        .spell(SPELLS.MAELSTROM_WEAPON),
-      this.onEnergize,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WINDFURY_ATTACK), this.onDamage);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON), this.onEnergize);
   }
 
   onDamage(event: DamageEvent) {

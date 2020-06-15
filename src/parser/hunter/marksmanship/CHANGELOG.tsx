@@ -6,7 +6,8 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 6, 4), <> Updated the death tracking module to not say that you died, when you used <SpellLink id={SPELLS.FEIGN_DEATH.id} />.</>, Putro),
+  change(date(2020, 6, 4), 'Added integration tests for multiple scenarios to decrease chance of any breaking change making it live.', Putro),
+  change(date(2020, 6, 4), <> Updated the death tracking module to not say that you died, when you used <SpellLink id={SPELLS.FEIGN_DEATH.id} />. </>, Putro),
   change(date(2020, 5, 26), 'Converted all hunter modules to Typescript and cleaned up the entire hunter codebase in preparation for Shadowlands.', Putro),
   change(date(2020, 2, 21), 'Correct an issue that caused the analyzer to think you had wasted more natural focus regen than you actually had.', Putro),
   change(date(2020, 2, 15), <> Updated condition of determining an inefficient <SpellLink id={SPELLS.AIMED_SHOT.id} /> while under the effect of <SpellLink id={SPELLS.TRUESHOT.id} /></>, LeoZhekov),

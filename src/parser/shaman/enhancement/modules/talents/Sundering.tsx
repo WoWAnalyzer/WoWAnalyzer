@@ -10,7 +10,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 
-
 /**
  * Shatters a line of earth in front of you with your main hand weapon,
  * causing (187.2% of Attack power) Flamestrike damage
@@ -26,22 +25,13 @@ class Sundering extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id)) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.SUNDERING_TALENT),
-      this.onCast,
-    );
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.SUNDERING_TALENT),
-      this.onDamage,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUNDERING_TALENT), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SUNDERING_TALENT), this.onDamage);
   }
 
   onDamage(event: DamageEvent) {

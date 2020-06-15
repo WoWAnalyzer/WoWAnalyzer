@@ -1,11 +1,11 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { EnergizeEvent } from 'parser/core/Events';
+import Events, { EnergizeEvent } from 'parser/core/Events';
 
 /**
  * Barbed Shot generates 8 additional Focus over its duration.
@@ -18,14 +18,14 @@ const SCENT_OF_BLOOD_INCREASE_PER_TICK = 2;
 const BASELINE_BARBED_REGEN_PER_TICK = 5;
 
 const BARBED_SHOT_GENERATORS = [
-  SPELLS.BARBED_SHOT_BUFF.id,
-  SPELLS.BARBED_SHOT_BUFF_STACK_2.id,
-  SPELLS.BARBED_SHOT_BUFF_STACK_3.id,
-  SPELLS.BARBED_SHOT_BUFF_STACK_4.id,
-  SPELLS.BARBED_SHOT_BUFF_STACK_5.id,
-  SPELLS.BARBED_SHOT_BUFF_STACK_6.id,
-  SPELLS.BARBED_SHOT_BUFF_STACK_7.id,
-  SPELLS.BARBED_SHOT_BUFF_STACK_8.id,
+  SPELLS.BARBED_SHOT_BUFF,
+  SPELLS.BARBED_SHOT_BUFF_STACK_2,
+  SPELLS.BARBED_SHOT_BUFF_STACK_3,
+  SPELLS.BARBED_SHOT_BUFF_STACK_4,
+  SPELLS.BARBED_SHOT_BUFF_STACK_5,
+  SPELLS.BARBED_SHOT_BUFF_STACK_6,
+  SPELLS.BARBED_SHOT_BUFF_STACK_7,
+  SPELLS.BARBED_SHOT_BUFF_STACK_8,
 ];
 
 class ScentOfBlood extends Analyzer {
@@ -37,13 +37,10 @@ class ScentOfBlood extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SCENT_OF_BLOOD_TALENT.id);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(BARBED_SHOT_GENERATORS), this.onBarbEnergize);
   }
 
-  on_toPlayer_energize(event: EnergizeEvent) {
-    const spellId = event.ability.guid;
-    if (!BARBED_SHOT_GENERATORS.includes(spellId)) {
-      return;
-    }
+  onBarbEnergize(event: EnergizeEvent) {
     if (event.waste >= SCENT_OF_BLOOD_INCREASE_PER_TICK) {//No focus gain from the talent
       this.focusWastedFromBS += SCENT_OF_BLOOD_INCREASE_PER_TICK;
       return;
