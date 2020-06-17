@@ -75,14 +75,22 @@ class StatValues extends BaseHealerStatValues {
     return event.hitType === HIT_TYPES.CRIT;
   }
   _criticalStrike(event, healVal) {
-    return super._criticalStrike(event, healVal) + this._criticalStrikeInfusionOfLightProcs(event, healVal);
+    return (
+      super._criticalStrike(event, healVal) +
+      this._criticalStrikeInfusionOfLightProcs(event, healVal)
+    );
   }
   _criticalStrikeInfusionOfLightProcs(event, healVal) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id && spellId !== SPELLS.HOLY_LIGHT.id) {
       return 0;
     }
-    const hasIol = this.selectedCombatant.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
+    const hasIol = this.selectedCombatant.hasBuff(
+      SPELLS.INFUSION_OF_LIGHT.id,
+      event.timestamp,
+      INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER,
+      INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME,
+    );
     if (!hasIol) {
       return 0;
     }
@@ -94,13 +102,15 @@ class StatValues extends BaseHealerStatValues {
       const { baseCritChance, ratingCritChance } = this._getCritChance(event);
 
       const totalCritChance = baseCritChance + ratingCritChance;
-      if (totalCritChance > (1 + 1 / this.statTracker.critRatingPerPercent)) {
+      if (totalCritChance > 1 + 1 / this.statTracker.critRatingPerPercent) {
         // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
         return 0;
       }
       const ratingCritChanceContribution = 1 - baseCritChance / totalCritChance;
 
-      return effectiveIolHealing * ratingCritChanceContribution / this.statTracker.currentCritRating;
+      return (
+        (effectiveIolHealing * ratingCritChanceContribution) / this.statTracker.currentCritRating
+      );
     }
     if (spellId === SPELLS.HOLY_LIGHT.id) {
       // TODO: We might be able to use the Haste stat value to value the CDR
@@ -114,18 +124,26 @@ class StatValues extends BaseHealerStatValues {
       return 0;
     }
     if (event.masteryEffectiveness === undefined) {
-      console.error('This spell does not have a known masteryEffectiveness:', event.ability.guid, event.ability.name);
+      console.error(
+        'This spell does not have a known masteryEffectiveness:',
+        event.ability.guid,
+        event.ability.name,
+      );
       return 0;
     }
 
     const masteryEffectiveness = event.masteryEffectiveness;
-    const healIncreaseFromOneMastery = this.statTracker.statMultiplier.mastery / this.statTracker.masteryRatingPerPercent * masteryEffectiveness;
-    const baseHeal = healVal.effective / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);
+    const healIncreaseFromOneMastery =
+      (this.statTracker.statMultiplier.mastery / this.statTracker.masteryRatingPerPercent) *
+      masteryEffectiveness;
+    const baseHeal =
+      healVal.effective / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);
 
     return baseHeal * healIncreaseFromOneMastery;
   }
 
-  moreInformationLink = 'https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/paladin/holy/modules/StatValues.md';
+  moreInformationLink =
+    'https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/paladin/holy/modules/StatValues.md';
   _prepareResults() {
     return [
       STAT.INTELLECT,
@@ -134,13 +152,28 @@ class StatValues extends BaseHealerStatValues {
         stat: STAT.HASTE_HPCT,
         tooltip: (
           <Trans>
-            HPCT stands for "Healing per Cast Time". This is the max value that Haste would be worth if you would cast everything you are already casting (that scales with Haste) faster. Mana and overhealing are not accounted for in any way.<br /><br />
-
-            The real value of Haste (HPCT) will be between 0 and the shown value. It depends on various things, such as if you have the mana left to spend, if the gained casts would overheal, and how well you are at casting spells end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast fewer bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.<br /><br />
-
-            Haste can also help you safe lives during intense damage phases. If you notice you're GCD capped when people are dying, Haste might help you land more heals. This may contribute more towards actually getting the kill.<br /><br />
-
-            <b>The easiest advice here is to get Haste to a point you're comfortable at. Experiment with different Haste levels, and don't drop a lot of item level for it.</b>
+            HPCT stands for "Healing per Cast Time". This is the max value that Haste would be worth
+            if you would cast everything you are already casting (that scales with Haste) faster.
+            Mana and overhealing are not accounted for in any way.
+            <br />
+            <br />
+            The real value of Haste (HPCT) will be between 0 and the shown value. It depends on
+            various things, such as if you have the mana left to spend, if the gained casts would
+            overheal, and how well you are at casting spells end-to-end. If you are going OOM before
+            the end of the fight you might instead want to drop some Haste or cast fewer bad heals.
+            If you had mana left-over, Haste could help you convert that into healing. If your Haste
+            usage is optimal Haste will then be worth the shown max value.
+            <br />
+            <br />
+            Haste can also help you safe lives during intense damage phases. If you notice you're
+            GCD capped when people are dying, Haste might help you land more heals. This may
+            contribute more towards actually getting the kill.
+            <br />
+            <br />
+            <b>
+              The easiest advice here is to get Haste to a point you're comfortable at. Experiment
+              with different Haste levels, and don't drop a lot of item level for it.
+            </b>
           </Trans>
         ),
       },

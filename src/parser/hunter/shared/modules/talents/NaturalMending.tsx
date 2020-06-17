@@ -10,6 +10,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { CastEvent } from 'parser/core/Events';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**
  * Every 20 (MM/SV) or 30 (BM) focus you spend reducxes the remaining cooldown
@@ -43,10 +44,12 @@ class NaturalMending extends Analyzer {
   }
 
   on_byPlayer_cast(event: CastEvent) {
-    if (!event || !event.classResources || event.classResources[0].cost === 0) {
+    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+    if (!resource) {
       return;
+
     }
-    this.lastFocusCost = event.classResources[0].cost || 0;
+    this.lastFocusCost = resource.cost || 0;
     const cooldownReductionMS = this.cdrPerFocus * this.lastFocusCost;
     if (!this.spellUsable.isOnCooldown(SPELLS.EXHILARATION.id)) {
       this.wastedExhilReductionMs += cooldownReductionMS;

@@ -7,10 +7,9 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
+import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import DamageTaken from './DamageTaken';
 import GiftOfTheOx from '../spells/GiftOfTheOx';
-
 
 // coefficients to calculate dodge chance from agility
 const MONK_DODGE_COEFFS = {
@@ -143,7 +142,6 @@ class MasteryValue extends Analyzer {
   _hitCounts = {};
   _dodgeCounts = {};
 
-
   dodgePenalty(_source) {
     return 0.045; // 1.5% per level, bosses are three levels over players. not sure how to get trash levels yet -- may not matter
   }
@@ -193,13 +191,13 @@ class MasteryValue extends Analyzer {
   // returns true of the event represents a cast that applies a stack of
   // mastery
   _stacksApplied(event) {
-    if(event.ability.guid !== SPELLS.BLACKOUT_STRIKE.id) {
+    if (event.ability.guid !== SPELLS.BLACKOUT_STRIKE.id) {
       return 0;
     }
 
     let stacks = 1;
     // account for elusive footwork
-    if(this.selectedCombatant.hasTrait(SPELLS.ELUSIVE_FOOTWORK.id) && event.hitType === HIT_TYPES.CRIT) {
+    if (this.selectedCombatant.hasTrait(SPELLS.ELUSIVE_FOOTWORK.id) && event.hitType === HIT_TYPES.CRIT) {
       stacks += 1;
     }
 
@@ -227,6 +225,7 @@ class MasteryValue extends Analyzer {
     noMasteryMeanExpectedDodge: 0,
     noAgiExpectedDamageMitigated: 0,
   };
+
   _calculateExpectedValues() {
     // expected damage mitigated according to the markov chain
     let expectedDamageMitigated = 0;
@@ -248,7 +247,7 @@ class MasteryValue extends Analyzer {
     this.relevantTimeline.forEach(event => {
       if (event.type === EventType.Cast) {
         const eventStacks = this._stacksApplied(event);
-        for(let i = 0; i < eventStacks; i++) {
+        for (let i = 0; i < eventStacks; i++) {
           stacks.guaranteeStack();
           noMasteryStacks.guaranteeStack();
           noAgiStacks.guaranteeStack();
@@ -256,11 +255,10 @@ class MasteryValue extends Analyzer {
       } else if (event.type === EventType.Damage) {
         const noMasteryDodgeChance = this.dodgeChance(noMasteryStacks.expected, 0, event._agility, event.sourceID, event.timestamp);
         const noAgiDodgeChance = this.dodgeChance(noAgiStacks.expected, event._masteryRating,
-                                                  MONK_DODGE_COEFFS.base_agi, event.sourceID, event.timestamp);
+          MONK_DODGE_COEFFS.base_agi, event.sourceID, event.timestamp);
         const expectedDodgeChance = this.dodgeChance(stacks.expected, event._masteryRating, event._agility, event.sourceID, event.timestamp);
         const baseDodgeChance = this.dodgeChance(0, 0, event._agility, event.sourceID, event.timestamp);
         const noAgiBaseDodgeChance = this.dodgeChance(0, 0, MONK_DODGE_COEFFS.base_agi, event.sourceID, event.timestamp);
-
 
         const damage = (event.amount + event.absorbed) || this.meanHitByAbility(event.ability.guid);
         expectedDamageMitigated += expectedDodgeChance * damage;
@@ -306,9 +304,10 @@ class MasteryValue extends Analyzer {
   get totalDodges() {
     return Object.keys(this._dodgeableSpells).reduce((sum, spellId) => sum + this._dodgeCounts[spellId], 0);
   }
+
   get totalDodgeableHits() {
     return Object.keys(this._dodgeableSpells).reduce((sum, spellId) => sum + (this._hitCounts[spellId] || 0), 0)
-     + this.totalDodges;
+      + this.totalDodges;
   }
 
   get actualDodgeRate() {
@@ -349,47 +348,6 @@ class MasteryValue extends Analyzer {
     return this.gotox.masteryBonusHealing;
   }
 
-  get plot() {
-    // not the most efficient, but close enough and pretty safe
-    function binom(n, k) {
-      if(k > n) {
-        return null;
-      }
-      if(k === 0) {
-        return 1;
-      }
-
-      return n / k * binom(n-1, k-1);
-    }
-
-    // pmf of the binomial distribution with n = totalDodgeableHits and
-    // p = expectedMeanDodge
-    const dodgeProb = (i) => binom(this.totalDodgeableHits, i) * Math.pow(this.expectedMeanDodge, i) * Math.pow(1 - this.expectedMeanDodge, this.totalDodgeableHits - i);
-
-    // probability of having dodge exactly k of the n incoming hits
-    // assuming the expected mean dodge % is the true mean dodge %
-    const dodgeProbs = Array.from({length: this.totalDodgeableHits}, (_x, i) => {
-      return { x: i, y: dodgeProb(i) };
-    });
-    const actualDodge = {
-      x: this.totalDodges,
-      y: dodgeProb(this.totalDodges),
-    };
-
-    return (
-      <OneVariableBinomialChart
-        probabilities={dodgeProbs}
-        actualEvent={actualDodge}
-        yDomain={[0, 0.4]}
-        xAxis={{
-          title: 'Dodge %',
-          tickFormat: (value) => `${formatPercentage(value / this.totalDodgeableHits, 0)}%`,
-        }}
-        tooltip={(point) => `Actual Dodge: ${formatPercentage(point.x / this.totalDodgeableHits, 2)}%`}
-      />
-    );
-  }
-
   load() {
     this._loaded = true;
     this._expectedValues = this._calculateExpectedValues();
@@ -397,6 +355,11 @@ class MasteryValue extends Analyzer {
   }
 
   statistic() {
+    const tooltipFormula = (point) => `Actual Dodge: ${formatPercentage(point.x / this.totalDodgeableHits, 2)}%`;
+    const binomXAxis = {
+      title: 'Dodge %',
+      tickFormat: (value) => `${formatPercentage(value / this.totalDodgeableHits, 0)}%`,
+    };
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
@@ -415,9 +378,9 @@ class MasteryValue extends Analyzer {
             An ability is considered <strong>dodgeable</strong> if you dodged it at least once.
           </>
         ) : null}
-        >
-        <div style={{padding: '8px'}}>
-          {this._loaded ? this.plot : null}
+      >
+        <div style={{ padding: '8px' }}>
+          {this._loaded ? plotOneVariableBinomChart(this.totalDodges, this.totalDodgeableHits, this.expectedMeanDodge, 'Dodge %', 'Actual Dodge :', tooltipFormula, [0, 0.4], binomXAxis) : null}
           <p>Likelihood of dodging <em>exactly</em> as much as you did with your level of Mastery.</p>
         </div>
       </LazyLoadStatisticBox>

@@ -54,6 +54,9 @@ import PrimevalIntuition from './modules/spells/azeritetraits/PrimevalIntuition'
 import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
 import WildfireCluster from './modules/spells/azeritetraits/WildfireCluster';
 
+//Azerite Essences
+import MemoryOfLucidDreams from './modules/items/MemoryOfLucidDreams';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -116,6 +119,9 @@ class CombatLogParser extends CoreCombatLogParser {
     primevalIntuition: PrimevalIntuition,
     direConsequences: DireConsequences,
     wildfireCluster: WildfireCluster,
+
+    //Azerite Essences
+    memoryOfLucidDreams: MemoryOfLucidDreams,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }],

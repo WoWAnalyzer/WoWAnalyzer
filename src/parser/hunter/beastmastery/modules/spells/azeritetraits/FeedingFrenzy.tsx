@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, {SELECTED_PLAYER, SELECTED_PLAYER_PET} from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -9,7 +9,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import { calculateAzeriteEffects } from 'common/stats';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { ApplyBuffEvent, CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
@@ -53,6 +53,13 @@ class FeedingFrenzy extends Analyzer {
       return;
     }
 
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.petLostFrenzy);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.petGainedFrenzy);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.trackAttackPower);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT), this.onBarbedShotCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT), this.onBarbedShotDamage);
+    this.addEventListener(Events.fightend, this.onFightEnd);
+
     this.traitBonus = this.selectedCombatant.traitsBySpellId[SPELLS.FEEDING_FRENZY.id]
       .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.FEEDING_FRENZY.id, rank)[0], 0);
     debug && console.log(`feeding frenzy bonus from items: ${this.traitBonus}`);
@@ -68,32 +75,22 @@ class FeedingFrenzy extends Analyzer {
     }
   }
 
-  on_toPlayerPet_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
-      return;
-    }
+  petLostFrenzy(event: RemoveBuffEvent) {
     this.hasFrenzyUp = false;
   }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
-      return;
-    }
+  petGainedFrenzy(event: ApplyBuffEvent) {
     this.hasFrenzyUp = true;
     this.buffApplication = event.timestamp;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  trackAttackPower(event: CastEvent) {
     if (event.attackPower !== undefined && event.attackPower > 0) {
       this.lastAttackPower = event.attackPower;
     }
+  }
 
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BARBED_SHOT.id) {
-      return;
-    }
+  onBarbedShotCast(event: CastEvent) {
     this.casts += 1;
     if (!this.hasFrenzyUp || event.timestamp < this.buffApplication + MS_BUFFER) {
       return;
@@ -102,12 +99,7 @@ class FeedingFrenzy extends Analyzer {
     this.lastBSCast = event.timestamp;
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BARBED_SHOT.id) {
-      return;
-    }
-
+  onBarbedShotDamage(event: DamageEvent) {
     const [traitDamageContribution] = calculateBonusAzeriteDamage(event, [this.traitBonus], this.lastAttackPower, FEEDING_FRENZY_DAMAGE_COEFFICIENT);
     this.traitDamageContribution += traitDamageContribution;
 
@@ -131,11 +123,12 @@ class FeedingFrenzy extends Analyzer {
     }
   }
 
-  on_fightend() {
+  onFightEnd() {
     if (this.lastBSCast !== null) {
       this.extraBuffUptime += this.extraBSUptime(this.owner.fight.end_time, this.lastBSCast);
     }
   }
+
   statistic() {
     const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(
       this.traitDamageContribution);

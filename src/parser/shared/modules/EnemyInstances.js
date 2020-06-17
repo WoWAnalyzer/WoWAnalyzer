@@ -1,7 +1,7 @@
 import Enemies from './Enemies';
 import EnemyInstance from '../../core/EnemyInstance';
 
-const debug = true;
+const debug = false;
 
 class EnemyInstances extends Enemies {
   getEntity(event) {

@@ -77,7 +77,7 @@
     "test:parser": "yarn test --testPathIgnorePatterns integrationTests ./src/parser",
     "test:integration": "yarn test integrationTests",
     "typecheck": "tsc",
-    "lint": "eslint .",
+    "lint": "eslint . --ext .js,.ts,.tsx",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node"
   },

@@ -1,7 +1,7 @@
 import Entities from './Entities';
 import Enemy from '../../core/Enemy';
 
-const debug = true;
+const debug = false;
 
 class Enemies extends Entities {
   enemies = {};

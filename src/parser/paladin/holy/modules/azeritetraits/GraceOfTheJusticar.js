@@ -8,7 +8,6 @@ import Events from 'parser/core/Events';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';
 
-
 /**
  * Grace of the Justicar
  * Judging a foe heals up to 10 allies within 8 yards of that enemy for 899. (@iLvl 400)
@@ -30,9 +29,18 @@ class GraceOfTheJusticar extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_HOLY), this.onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GRACE_OF_THE_JUSTICAR), this.onHeal);
-    this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_HOLY),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GRACE_OF_THE_JUSTICAR),
+      this.onHeal,
+    );
+    this.addEventListener(
+      this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER),
+      this.onBeaconTransfer,
+    );
   }
 
   onBeaconTransfer(event) {
@@ -53,7 +61,7 @@ class GraceOfTheJusticar extends Analyzer {
   }
 
   get playersHitPerCast() {
-    return (this.targetsHit / this.casts) || 0;
+    return this.targetsHit / this.casts || 0;
   }
   get totalHealing() {
     return this.healing + this.healingTransfered;
@@ -64,18 +72,21 @@ class GraceOfTheJusticar extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.GRACE_OF_THE_JUSTICAR.id}
-        value={(
+        value={
           <>
-            <ItemHealingDone amount={this.totalHealing} /><br />
+            <ItemHealingDone amount={this.totalHealing} />
+            <br />
             {this.playersHitPerCast.toFixed(1)} Hit/Cast
           </>
-        )}
-        tooltip={(
+        }
+        tooltip={
           <>
-            Total healing done: <b>{formatNumber(this.totalHealing)}</b><br />
-            Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
+            Total healing done: <b>{formatNumber(this.totalHealing)}</b>
+            <br />
+            Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b>
+            <br />
           </>
-        )}
+        }
       />
     );
   }

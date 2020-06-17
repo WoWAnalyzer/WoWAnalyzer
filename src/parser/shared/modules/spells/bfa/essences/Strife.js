@@ -7,14 +7,14 @@ import SpellLink from 'common/SpellLink';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
-import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import VersatilityIcon from 'interface/icons/Versatility';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatNumber, formatDuration, formatPercentage } from 'common/format';
-
 
 class Strife extends Analyzer {
   static dependencies = {
@@ -41,7 +41,7 @@ class Strife extends Analyzer {
     this.statTracker.add(SPELLS.STRIFE_BUFF.id, {
       versatility: this.vers,
     });
-    
+
     this.array[0] = 0;
     this.lastApplication = this.owner.fight.start_time;
 
@@ -50,38 +50,37 @@ class Strife extends Analyzer {
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STRIFE_BUFF), this.lostStacks);
   }
 
-  oneStack(event){
+  oneStack(event) {
     this.updateUptime(event);
     this.currentStack = 1;
 
-    if(!this.array[this.currentStack]){
+    if (!this.array[this.currentStack]) {
       this.array[this.currentStack] = 0;
     }
 
     this.lastApplication = event.timestamp;
   }
 
-  multiStack(event){
+  multiStack(event) {
     this.updateUptime(event);
 
     this.currentStack += 1;
 
-    if(!this.array[this.currentStack]){
+    if (!this.array[this.currentStack]) {
       this.array[this.currentStack] = 0;
     }
   }
 
-  lostStacks(event){
+  lostStacks(event) {
     this.updateUptime(event);
     this.currentStack = 0;
   }
 
-  updateUptime(event){
+  updateUptime(event) {
     const timeDifference = event.timestamp - this.lastApplication;
     this.array[this.currentStack] += timeDifference;
     this.lastApplication = event.timestamp;
   }
-  
 
   statistic() {
     const rank = this.selectedCombatant.essenceRank(SPELLS.CONFLICT.traitId);
@@ -96,45 +95,46 @@ class Strife extends Analyzer {
     let averageVers = 0;
     this.array.forEach((stacks) => {//aka vers * % uptime
       // eslint-disable-next-line no-restricted-syntax
-      averageVers += (this.array.indexOf(stacks)*this.vers) * (stacks/fightDuration);
+      averageVers += (this.array.indexOf(stacks) * this.vers) * (stacks / fightDuration);
     });
 
     return (
-      <AzeritePowerStatistic
+      <Statistic
         size="flexible"
+        category={STATISTIC_CATEGORY.ITEMS}
         tooltip={(
           <div>
             <table className="table table-condensed">
-          <tr>
-            <th>Stacks</th>
-            <th>Vers</th>
-            <th>Uptime</th>
-            <th>% Uptime</th>
-          </tr>
-            {
-              this.array.map((stacks) =>(
-                  <tr>
-                  <td>{// eslint-disable-next-line no-restricted-syntax
-                  this.array.indexOf(stacks)}</td>
-                  <td>{// eslint-disable-next-line no-restricted-syntax
-                  this.array.indexOf(stacks) * this.vers}</td>
-                  <td>{formatDuration(stacks/1000)}</td>
-                  <td>{formatPercentage(stacks/fightDuration)}%</td>
-                </tr>
-                
-              ))
-            }
-        </table>
+              <tr>
+                <th>Stacks</th>
+                <th>Vers</th>
+                <th>Uptime</th>
+                <th>% Uptime</th>
+              </tr>
+              {
+                this.array.map((stacks) => (
+                  <tr key={stacks}>
+                    <td>{// eslint-disable-next-line no-restricted-syntax
+                      this.array.indexOf(stacks)}</td>
+                    <td>{// eslint-disable-next-line no-restricted-syntax
+                      this.array.indexOf(stacks) * this.vers}</td>
+                    <td>{formatDuration(stacks / 1000)}</td>
+                    <td>{formatPercentage(stacks / fightDuration)}%</td>
+                  </tr>
+
+                ))
+              }
+            </table>
           </div>
         )}
       >
-      <div className="pad">
-        <label><SpellLink id={SPELLS.STRIFE_BUFF.id} /> - Minor Rank {rank}</label>
-        <div className="value">
-          <VersatilityIcon /> {formatNumber(averageVers)} <small>average Versatility gained</small>
+        <div className="pad">
+          <label><SpellLink id={SPELLS.STRIFE_BUFF.id} /> - Minor Rank {rank}</label>
+          <div className="value">
+            <VersatilityIcon /> {formatNumber(averageVers)} <small>average Versatility gained</small>
+          </div>
         </div>
-      </div>
-      </AzeritePowerStatistic>
+      </Statistic>
     );
   }
 }

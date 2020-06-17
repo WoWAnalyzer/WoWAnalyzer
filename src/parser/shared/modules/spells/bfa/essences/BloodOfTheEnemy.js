@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
 
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -20,6 +20,7 @@ import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { calculatePrimaryStat } from 'common/stats';
+import UptimeIcon from 'interface/icons/Uptime';
 
 const BOTE_DAMAGE_BONUS = 0.25;
 
@@ -109,6 +110,10 @@ class BloodOfTheEnemy extends Analyzer {
     this.majorCastDamage += event.amount + (event.absorbed || 0);
   }
 
+  get debuffUptime() {
+    return this.enemies.getBuffUptime(SPELLS.BLOOD_OF_THE_ENEMY.id) / this.owner.fightDuration;
+  }
+
   onDamage(event) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
@@ -182,7 +187,8 @@ class BloodOfTheEnemy extends Analyzer {
             <div className="pad">
               <label><SpellLink id={MAJOR_SPELL_IDS[rank]} /> - Major Rank {rank}</label>
               <div className="value">
-                <ItemDamageDone amount={this.bonusDamage + this.majorCastDamage} />
+                <ItemDamageDone amount={this.bonusDamage + this.majorCastDamage} /> <br />
+                <UptimeIcon /> {formatPercentage(this.debuffUptime)}% <small>debuff uptime</small>
               </div>
             </div>
           </ItemStatistic>

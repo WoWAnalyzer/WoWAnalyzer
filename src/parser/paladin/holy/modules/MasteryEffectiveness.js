@@ -70,7 +70,10 @@ class MasteryEffectiveness extends Analyzer {
    * @return {number} The mastery effectiveness based on your range to the target being healed and the amount healed. Smaller heals weigh less than bigger heals (linearly).
    */
   get masteryEffectivenessMasteryHealingGainAverage() {
-    return this.masteryEffectivenessRawMasteryGainSum / this.masteryEffectivenessRawPotentialMasteryGainSum;
+    return (
+      this.masteryEffectivenessRawMasteryGainSum /
+      this.masteryEffectivenessRawPotentialMasteryGainSum
+    );
   }
   /**
    * @type {number} The total amount of healing done by just the mastery gain. Precisely calculated for every spell.
@@ -108,7 +111,10 @@ class MasteryEffectiveness extends Analyzer {
 
   processForMasteryEffectiveness(event) {
     if (!this._lastPlayerPositionUpdate) {
-      console.error('Received a heal before we know the player location. Can\'t process since player location is still unknown.', event);
+      console.error(
+        "Received a heal before we know the player location. Can't process since player location is still unknown.",
+        event,
+      );
       return;
     }
     const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.includes(event.ability.guid);
@@ -117,18 +123,25 @@ class MasteryEffectiveness extends Analyzer {
     }
 
     const distance = this.getPlayerDistance(event);
-    const isRuleOfLawActive = this.selectedCombatant.hasBuff(SPELLS.RULE_OF_LAW_TALENT.id, event.timestamp);
+    const isRuleOfLawActive = this.selectedCombatant.hasBuff(
+      SPELLS.RULE_OF_LAW_TALENT.id,
+      event.timestamp,
+    );
 
     this.distanceSum += distance;
     this.distanceCount += 1;
 
-    const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
+    const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(
+      distance,
+      isRuleOfLawActive,
+    );
     // Raw is the mastery effectiveness regardless of health pool and heal amount.
     this.rawMasteryEffectivenessSum += masteryEffectiveness;
     this.rawMasteryEffectivenessCount += 1;
 
     const heal = new HealingValue(event.amount, event.absorbed, event.overheal);
-    const applicableMasteryPercentage = this.statTracker.currentMasteryPercentage * masteryEffectiveness;
+    const applicableMasteryPercentage =
+      this.statTracker.currentMasteryPercentage * masteryEffectiveness;
 
     // The base healing of the spell (excluding any healing added by mastery)
     const baseHealing = heal.raw / (1 + applicableMasteryPercentage);
@@ -163,16 +176,35 @@ class MasteryEffectiveness extends Analyzer {
     if (!event.x || !event.y || !lastPositionUpdate) {
       return;
     }
-    const distance = this.constructor.calculateDistance(lastPositionUpdate.x, lastPositionUpdate.y, event.x, event.y);
+    const distance = this.constructor.calculateDistance(
+      lastPositionUpdate.x,
+      lastPositionUpdate.y,
+      event.x,
+      event.y,
+    );
     const timeSince = event.timestamp - lastPositionUpdate.timestamp;
-    const maxDistance = Math.max(1, timeSince / 1000 * 10 * 1.5); // 10 yards per second + 50% margin of error
+    const maxDistance = Math.max(1, (timeSince / 1000) * 10 * 1.5); // 10 yards per second + 50% margin of error
     if (distance > maxDistance) {
-      debug && console.warn(forWho, `distance since previous event (${Math.round(timeSince / 100) / 10}s ago) was ${Math.round(distance * 10) / 10} yards:`, event.type, event, lastPositionUpdate.type, lastPositionUpdate);
+      debug &&
+        console.warn(
+          forWho,
+          `distance since previous event (${Math.round(timeSince / 100) /
+            10}s ago) was ${Math.round(distance * 10) / 10} yards:`,
+          event.type,
+          event,
+          lastPositionUpdate.type,
+          lastPositionUpdate,
+        );
     }
   }
 
   getPlayerDistance(event) {
-    return this.constructor.calculateDistance(this._lastPlayerPositionUpdate.x, this._lastPlayerPositionUpdate.y, event.x, event.y);
+    return this.constructor.calculateDistance(
+      this._lastPlayerPositionUpdate.x,
+      this._lastPlayerPositionUpdate.y,
+      event.x,
+      event.y,
+    );
   }
   static calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) / 100;
@@ -182,7 +214,13 @@ class MasteryEffectiveness extends Analyzer {
     const fullEffectivenessRadius = isRuleOfLawActive ? 15 : 10;
     const falloffRadius = isRuleOfLawActive ? 60 : 40;
 
-    return Math.min(1, Math.max(0, 1 - (distance - fullEffectivenessRadius) / (falloffRadius - fullEffectivenessRadius)));
+    return Math.min(
+      1,
+      Math.max(
+        0,
+        1 - (distance - fullEffectivenessRadius) / (falloffRadius - fullEffectivenessRadius),
+      ),
+    );
   }
 
   get report() {
@@ -214,47 +252,56 @@ class MasteryEffectiveness extends Analyzer {
     // console.log('total mastery healing done', this.owner.formatItemHealingDone(this.totalMasteryHealingDone));
 
     return [
-      (
-        <Statistic position={STATISTIC_ORDER.CORE(10)}>
-          <div className="pad" style={{ position: 'relative' }}>
-            <label><Trans>Mastery effectiveness</Trans></label>
-            <div className="value">
-              {formatPercentage(this.masteryEffectivenessMasteryHealingGainAverage, 0)}%
-            </div>
+      <Statistic position={STATISTIC_ORDER.CORE(10)}>
+        <div className="pad" style={{ position: 'relative' }}>
+          <label>
+            <Trans>Mastery effectiveness</Trans>
+          </label>
+          <div className="value">
+            {formatPercentage(this.masteryEffectivenessMasteryHealingGainAverage, 0)}%
+          </div>
 
+          <div
+            style={{
+              position: 'absolute',
+              top: 12,
+              right: 0,
+              textAlign: 'center',
+            }}
+          >
+            <Radar
+              distance={this.distanceSum / this.distanceCount}
+              style={{
+                display: 'inline-block',
+              }}
+              playerColor="#f58cba" // Paladin color
+            />
             <div
               style={{
-                position: 'absolute',
-                top: 12,
-                right: 0,
-                textAlign: 'center',
+                opacity: 0.5,
+                lineHeight: 1,
+                marginTop: -4,
+                fontSize: 13,
               }}
             >
-              <Radar
-                distance={this.distanceSum / this.distanceCount}
-                style={{
-                  display: 'inline-block',
-                }}
-                playerColor="#f58cba" // Paladin color
-              />
-              <div style={{ opacity: 0.5, lineHeight: 1, marginTop: -4, fontSize: 13 }}><Trans>Average distance</Trans></div>
+              <Trans>Average distance</Trans>
             </div>
           </div>
-        </Statistic>
-      ),
-      (
-        <Panel
-          title={<Trans>Mastery effectiveness breakdown</Trans>}
-          explanation={<Trans>This shows you your mastery effectiveness on each individual player and the amount of healing done to those players.</Trans>}
-          position={200}
-          pad={false}
-        >
-          <PlayerBreakdown
-            report={this.report}
-            players={this.owner.players}
-          />
-        </Panel>
-      ),
+        </div>
+      </Statistic>,
+      <Panel
+        title={<Trans>Mastery effectiveness breakdown</Trans>}
+        explanation={
+          <Trans>
+            This shows you your mastery effectiveness on each individual player and the amount of
+            healing done to those players.
+          </Trans>
+        }
+        position={200}
+        pad={false}
+      >
+        <PlayerBreakdown report={this.report} players={this.owner.players} />
+      </Panel>,
     ];
   }
 
@@ -271,7 +318,12 @@ class MasteryEffectiveness extends Analyzer {
   }
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Trans>Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.</Trans>)
+      return suggest(
+        <Trans>
+          Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by
+          sticking with melee.
+        </Trans>,
+      )
         .icon('inv_hammer_04')
         .actual(i18n._(t`${formatPercentage(actual)}% mastery effectiveness`))
         .recommended(i18n._(t`>${formatPercentage(recommended)}% is recommended`));

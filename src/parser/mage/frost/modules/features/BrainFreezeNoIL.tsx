@@ -8,13 +8,13 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
-const debug = true;
+const debug = false;
 
 // Brain Freeze appears to always fall after Flurry cast, but not always on same timestamp. Giving a margin here.
 const PROC_WINDOW_MS = 100;
 
 class BrainFreezeNoIL extends Analyzer {
-  
+
   hasGlacialSpike: boolean;
   hasEbonbolt: boolean;
 

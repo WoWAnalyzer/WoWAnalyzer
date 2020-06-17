@@ -20,11 +20,18 @@ class BeaconHealingDone extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this._onBeaconTransfer);
+    this.addEventListener(
+      this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER),
+      this._onBeaconTransfer,
+    );
   }
 
   _onBeaconTransfer(event) {
-    this._totalBeaconHealing = this._totalBeaconHealing.add(event.amount, event.absorbed, event.overheal);
+    this._totalBeaconHealing = this._totalBeaconHealing.add(
+      event.amount,
+      event.absorbed,
+      event.overheal,
+    );
 
     const source = event.originalHeal;
     const spellId = source.ability.guid;
@@ -42,11 +49,13 @@ class BeaconHealingDone extends Analyzer {
     return (
       <Panel
         title={<Trans>Beacon healing sources</Trans>}
-        explanation={(
+        explanation={
           <Trans>
-            Beacon healing is triggered by the <b>raw</b> healing done of your primary spells. This breakdown shows the amount of effective beacon healing replicated by each beacon transfering heal.
+            Beacon healing is triggered by the <b>raw</b> healing done of your primary spells. This
+            breakdown shows the amount of effective beacon healing replicated by each beacon
+            transfering heal.
           </Trans>
-        )}
+        }
         position={120}
         pad={false}
       >

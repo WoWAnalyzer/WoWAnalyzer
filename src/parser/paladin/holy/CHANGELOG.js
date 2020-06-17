@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
+// prettier-ignore
 export default [
   change(date(2020, 1, 18), <>Added <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> major essence statistic to track procs, uptime and haste gained.</>, [HolySchmidt]),
   change(date(2020, 1, 18), <>Added <SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> minor essence statistic to track versitility, healing, and <SpellLink id={SPELLS.AVENGING_WRATH.id} /> cooldown reduction.</> , [HolySchmidt]),

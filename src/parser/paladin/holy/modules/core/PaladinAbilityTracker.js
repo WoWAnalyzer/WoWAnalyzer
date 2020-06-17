@@ -20,7 +20,12 @@ class PaladinAbilityTracker extends AbilityTracker {
     const cast = this.getAbility(spellId, event.ability);
 
     if (spellId === SPELLS.FLASH_OF_LIGHT.id || spellId === SPELLS.HOLY_LIGHT.id) {
-      const hasIol = this.selectedCombatant.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
+      const hasIol = this.selectedCombatant.hasBuff(
+        SPELLS.INFUSION_OF_LIGHT.id,
+        event.timestamp,
+        INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER,
+        INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME,
+      );
 
       if (hasIol) {
         cast.healingIolHits = (cast.healingIolHits || 0) + 1;
