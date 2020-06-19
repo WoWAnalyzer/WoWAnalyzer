@@ -22,34 +22,35 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
-            href="http://wowhead.com/spell=12042"
+            href="http://wowhead.com/spell=205022"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Arcane Power"
+              alt="Arcane Familiar"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_nature_lightning.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_socererking_arcanemines.jpg"
             />
           </a>
            
-          Arcane Power Utilization
+          <a
+            href="http://wowhead.com/spell=205022"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Arcane Familiar
+          </a>
         </label>
         <div
           className="value"
@@ -73,7 +74,10 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           </a>
            
           100
-           %
+          % 
+          <small>
+             Arcane Power utilization
+          </small>
           <br />
           <a
             href="http://wowhead.com/spell=30451"
@@ -94,7 +98,10 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           </a>
            
           0
-           %
+          % 
+          <small>
+            Arcane Blast Cast utilization
+          </small>
         </div>
       </div>
     </div>

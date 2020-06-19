@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 6, 19), 'Updated Arcane for TypeScript, Event Listeners, Statistic Boxes, and Constants', [Sharrq]),
   change(date(2020, 6, 1), <>Fixed <SpellLink id={SPELLS.ARCANE_POWER.id} /> pre-pull detection</>, [Dambroda]),
   change(date(2020, 1, 15), 'Updated Spec Compatibility to 8.3',[Sharrq]),
   change(date(2019, 10, 1), <>Removed the check to see if <SpellLink id={SPELLS.ARCANE_POWER.id} /> was available when the fight ended.</>,[Sharrq]),
