@@ -385,7 +385,7 @@ export interface RefreshBuffEvent extends BuffEvent {
   ability: Ability;
 }
 export interface RefreshDebuffEvent extends BuffEvent {
-  type: EventType.RefreshBuff;
+  type: EventType.RefreshDebuff;
 
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceID?: number;
