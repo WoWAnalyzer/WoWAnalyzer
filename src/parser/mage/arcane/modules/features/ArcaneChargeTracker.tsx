@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, EnergizeEvent, DeathEvent } from 'parser/core/Events';
 
 const debug = false;
 
@@ -7,7 +8,14 @@ class ArcaneChargeTracker extends Analyzer {
 
 	charges = 0;
 
-	on_energize(event) {
+	constructor(options: any) {
+    super(options);
+			this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
+			this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE), this.onBarrage);
+			this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
+  }
+
+	onEnergize(event: EnergizeEvent) {
 		const resourceType = event.resourceChangeType;
 		if (resourceType !== 16) {
 			return;
@@ -25,16 +33,12 @@ class ArcaneChargeTracker extends Analyzer {
 			}
 	}
 
-	on_byPlayer_cast(event) {
-		const spellId = event.ability.guid;
-		if (spellId !== SPELLS.ARCANE_BARRAGE.id) {
-			return;
-		}
+	onBarrage(event: CastEvent) {
 		debug && this.log("Arcane Barrage cast with " + this.charges + " charges. Reset Charges to 0");
 		this.charges = 0;
 	}
 
-	on_toPlayer_death(event) {
+	onDeath(event: DeathEvent) {
 		this.charges = 0;
 		debug && this.log("Player Died. Reset Charges to 0.");
 	}

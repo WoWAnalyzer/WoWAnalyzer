@@ -38,6 +38,21 @@ class Checklist extends BaseChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected arcaneFamiliar!: ArcaneFamiliar;
+  protected arcaneOrb!: ArcaneOrb;
+  protected arcanePower!: ArcanePower;
+  protected ruleOfThrees!: RuleOfThrees;
+  protected timeAnomaly!: TimeAnomaly;
+  protected arcaneMissiles!: ArcaneMissiles;
+  protected manaValues!: ManaValues;
+  protected arcaneIntellect!: ArcaneIntellect;
+  protected cancelledCasts!: CancelledCasts;
+  protected mirrorImage!: MirrorImage;
+  protected runeOfPower!: RuneOfPower;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
 
   render() {
     return (
@@ -48,14 +63,14 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          arcaneFamiliarUptime: this.arcaneFamiliar.suggestionThresholds,
-          arcaneOrbAverageHits: this.arcaneOrb.averageHitThresholds,
-          arcanePowerCooldown: this.arcanePower.cooldownSuggestionThresholds,
-          arcanePowerManaUtilization: this.arcanePower.manaUtilizationThresholds,
-          arcanePowerCasts: this.arcanePower.castSuggestionThresholds,
-          ruleOfThreesUsage: this.ruleOfThrees.suggestionThresholds,
-          timeAnomalyManaUtilization: this.timeAnomaly.manaUtilizationThresholds,
-          arcaneMissilesUtilization: this.arcaneMissiles.missilesSuggestionThresholds,
+          arcaneFamiliarUptime: this.arcaneFamiliar.arcaneFamiliarUptimeThresholds,
+          arcaneOrbAverageHits: this.arcaneOrb.arcaneOrbHitThresholds,
+          arcanePowerCooldown: this.arcanePower.arcanePowerCooldownThresholds,
+          arcanePowerManaUtilization: this.arcanePower.arcanePowerManaUtilization,
+          arcanePowerCasts: this.arcanePower.arcanePowerCastThresholds,
+          ruleOfThreesUsage: this.ruleOfThrees.ruleOfThreesUtilizationThresholds,
+          timeAnomalyManaUtilization: this.timeAnomaly.timeAnomalyManaThresholds,
+          arcaneMissilesUtilization: this.arcaneMissiles.arcaneMissileUsageThresholds,
           manaOnKill: this.manaValues.suggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,

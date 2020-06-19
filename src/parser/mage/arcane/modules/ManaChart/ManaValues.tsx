@@ -6,10 +6,11 @@ class ArcaneManaValues extends ManaValues {
   static dependencies = {
 		deathTracker: DeathTracker,
   };
+  protected deathTracker!: DeathTracker;
 
-  constructor(...args) {
-    super(...args);
-    this.active = true;
+  constructor(options: any) {
+    super(options);
+      this.active = true;
   }
 
   deadOnKill = false;
@@ -32,10 +33,10 @@ class ArcaneManaValues extends ManaValues {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     if (!this.deadOnKill) {
       when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest('You had mana left at the end of the fight. You should be aiming to complete the fight with as little mana as possible regardless of whether your cooldowns will be coming up or not. So dont be afraid to burn your mana before the boss dies.')
           .icon('inv_elemental_mote_mana')
           .actual(`${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) mana left`)
