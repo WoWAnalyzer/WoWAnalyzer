@@ -10,14 +10,9 @@ import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { WINTERS_CHILL_HARDCASTS } from '../../constants';
 
 const debug = false;
-
-const HARDCAST_HITS = [
-  SPELLS.FROSTBOLT_DAMAGE.id,
-  SPELLS.EBONBOLT_DAMAGE.id,
-  SPELLS.GLACIAL_SPIKE_DAMAGE.id,
-];
 
 class WintersChill extends Analyzer {
   static dependencies = {
@@ -46,16 +41,16 @@ class WintersChill extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    const spellId = event.ability.guid;
+    const spell = event.ability;
     const enemy = this.enemies.getEntity(event);
     if (!enemy || !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
       return;
     }
 
-    if (spellId === SPELLS.ICE_LANCE_DAMAGE.id) {
+    if (spell.guid === SPELLS.ICE_LANCE_DAMAGE.id) {
       this.iceLanceHits += 1;
       debug && console.log("Ice Lance into Winter's Chill");
-    } else if (HARDCAST_HITS.includes(spellId)) {
+    } else if (WINTERS_CHILL_HARDCASTS.includes(spell)) {
       this.hardcastHits += 1;
       debug && console.log(`${event.ability.name} into Winter's Chill`);
     }

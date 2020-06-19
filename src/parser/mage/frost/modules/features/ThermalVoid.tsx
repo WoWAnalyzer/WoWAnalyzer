@@ -6,8 +6,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer from 'parser/core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
-
-const BASE_DUR = 20; // The standard duration of IV
+import { ICY_VEINS_BASE_DURATION } from '../../constants';
 
 /*
  * Icy Veins' duration is increased by 10 sec.
@@ -34,7 +33,7 @@ class ThermalVoid extends Analyzer {
       const duration = (end - buff.start) / 1000;
       totalDuration += duration;
       // If the buff ended early because of death or fight end, don't blame the talent
-      const increase = Math.max(0, duration - BASE_DUR);
+      const increase = Math.max(0, duration - ICY_VEINS_BASE_DURATION);
       totalIncrease += increase;
       return (
         <tr key={idx}>
