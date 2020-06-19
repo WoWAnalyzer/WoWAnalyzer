@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -13,7 +13,7 @@ import { SERPENT_STING_SV_BASE_DURATION, SERPENT_STING_SV_PANDEMIC } from 'parse
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 /**
@@ -53,6 +53,12 @@ class SerpentSting extends Analyzer {
     super(options);
     this.hasBoP = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
     this.hasVV = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDamage);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onApplyDebuff);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onRemoveDebuff);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onRefreshDebuff);
   }
 
   get uptimePercentage() {
@@ -106,6 +112,7 @@ class SerpentSting extends Analyzer {
       };
     }
   }
+
   get uptimeThresholdNonBoP() {
     return {
       actual: this.uptimePercentage,
@@ -126,11 +133,7 @@ class SerpentSting extends Analyzer {
     return SERPENT_STING_SV_BASE_DURATION / (1 + this.statTracker.currentHastePercentage);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
+  onCast(event: CastEvent) {
     this.casts += 1;
 
     if (event.meta === undefined) {
@@ -152,19 +155,11 @@ class SerpentSting extends Analyzer {
     }
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
+  onDamage(event: DamageEvent) {
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
+  onApplyDebuff(event: ApplyDebuffEvent) {
     let targetInstance = event.targetInstance;
     if (targetInstance === undefined) {
       targetInstance = 1;
@@ -176,11 +171,7 @@ class SerpentSting extends Analyzer {
     }
   }
 
-  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
+  onRemoveDebuff(event: RemoveDebuffEvent) {
     let targetInstance = event.targetInstance;
     if (targetInstance === undefined) {
       targetInstance = 1;
@@ -189,11 +180,7 @@ class SerpentSting extends Analyzer {
     this.serpentStingTargets.splice(serpentStingTarget, 1);
   }
 
-  on_byPlayer_refreshdebuff(event: RefreshDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
+  onRefreshDebuff(event: RefreshDebuffEvent) {
     let targetInstance = event.targetInstance;
     if (targetInstance === undefined) {
       targetInstance = 1;

@@ -1,14 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import { ApplyBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent } from 'parser/core/Events';
 
 /**
  * Give the command to kill, causing your pet to savagely deal [Attack power * 0.6 * (1 + Versatility)] Physical damage to the enemy.
@@ -31,16 +31,17 @@ class KillCommand extends Analyzer {
   protected abilities!: Abilities;
   protected globalCooldown!: GlobalCooldown;
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FLANKERS_ADVANTAGE.id) {
-      return;
-    }
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLANKERS_ADVANTAGE), this.onFlankersProc);
+  }
+
+  onFlankersProc(event: ApplyBuffEvent) {
     if (!this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_SV.id)) {
       return;
     }
     this.resets += 1;
-    const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
+    const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
     const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_CAST_SV.id, this.spellUsable.cooldownTriggerEvent(SPELLS.KILL_COMMAND_CAST_SV.id));
     if (expectedCooldownDuration) {
       this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_SV.id, expectedCooldownDuration - globalCooldown);

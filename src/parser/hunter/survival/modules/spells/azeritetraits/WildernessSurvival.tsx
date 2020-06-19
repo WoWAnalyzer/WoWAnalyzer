@@ -25,7 +25,7 @@ class WildernessSurvival extends Analyzer {
 
   effectiveWSReductionMs = 0;
   wastedWSReductionMs = 0;
-  hasWFI = false;
+  bombSpellKnown = SPELLS.WILDFIRE_BOMB;
 
   protected spellUsable!: SpellUsable;
 
@@ -33,7 +33,7 @@ class WildernessSurvival extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.WILDERNESS_SURVIVAL.id);
     if (this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id)) {
-      this.hasWFI = true;
+      this.bombSpellKnown = SPELLS.WILDFIRE_INFUSION_TALENT;
     }
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onDamage);
   }
@@ -57,18 +57,10 @@ class WildernessSurvival extends Analyzer {
   }
 
   onDamage() {
-    if (this.hasWFI) {
-      if (this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_INFUSION_TALENT.id)) {
-        this.checkCooldown(SPELLS.WILDFIRE_INFUSION_TALENT.id);
-      } else {
-        this.wastedWSReductionMs += MS_REDUCTION;
-      }
+    if (this.spellUsable.isOnCooldown(this.bombSpellKnown.id)) {
+      this.checkCooldown(this.bombSpellKnown.id);
     } else {
-      if (this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id)) {
-        this.checkCooldown(SPELLS.WILDFIRE_BOMB.id);
-      } else {
-        this.wastedWSReductionMs += MS_REDUCTION;
-      }
+      this.wastedWSReductionMs += MS_REDUCTION;
     }
   }
 
@@ -78,7 +70,7 @@ class WildernessSurvival extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            Wilderness Survival reduced {this.hasWFI ? SPELLS.WILDFIRE_INFUSION_TALENT.name : SPELLS.WILDFIRE_BOMB.name} by {this.effectiveCDRInSeconds.toFixed(1)} seconds out of {this.totalPossibleCDR.toFixed(1)} possible.
+            Wilderness Survival reduced {this.bombSpellKnown.name} by {this.effectiveCDRInSeconds.toFixed(1)} seconds out of {this.totalPossibleCDR.toFixed(1)} possible.
           </>
         )}
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
