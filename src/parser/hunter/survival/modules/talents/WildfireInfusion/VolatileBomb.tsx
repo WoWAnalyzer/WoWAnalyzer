@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -13,7 +13,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -43,7 +43,7 @@ class VolatileBomb extends Analyzer {
   focusSaved = 0;
   missedSerpentResets = 0;
 
-  activeSerpentStings: {[key: string]: {targetName: string, cast: number, expectedEnd: number, extendStart: number, extendExpectedEnd: number}} = {
+  activeSerpentStings: { [key: string]: { targetName: string, cast: number, expectedEnd: number, extendStart: number, extendExpectedEnd: number } } = {
     /*
     [encodedTargetString]: {
         targetName: name,
@@ -58,6 +58,12 @@ class VolatileBomb extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this._serpentApplication);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this._serpentApplication);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDebuffRemoval);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VOLATILE_BOMB_WFI_DOT), this._maybeSerpentStingExtend);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOLATILE_BOMB_WFI), this.onBombCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VOLATILE_BOMB_WFI_DOT, SPELLS.VOLATILE_BOMB_WFI_IMPACT]), this.onBombCast);
   }
 
   _serpentApplication(event: ApplyDebuffEvent | RefreshDebuffEvent) {
@@ -94,51 +100,16 @@ class VolatileBomb extends Analyzer {
     }
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.VOLATILE_BOMB_WFI_DOT.id && spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
-    if (spellId === SPELLS.SERPENT_STING_SV.id) {
-      this._serpentApplication(event);
-    }
-    if (spellId === SPELLS.VOLATILE_BOMB_WFI_DOT.id) {
-      this._maybeSerpentStingExtend(event);
-    }
-  }
-
-  on_byPlayer_refreshdebuff(event: RefreshDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.VOLATILE_BOMB_WFI_DOT.id && spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
-    if (spellId === SPELLS.SERPENT_STING_SV.id) {
-      this._serpentApplication(event);
-    }
-  }
-
-  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
+  onDebuffRemoval(event: RemoveDebuffEvent) {
     const encoded = encodeTargetString(event.targetID, event.targetInstance);
     delete this.activeSerpentStings[encoded];
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.VOLATILE_BOMB_WFI_DOT.id && spellId !== SPELLS.VOLATILE_BOMB_WFI_IMPACT.id) {
-      return;
-    }
+  onBombDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_cast(event:CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.VOLATILE_BOMB_WFI.id) {
-      return;
-    }
+  onBombCast() {
     this.casts += 1;
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Enemies from 'parser/shared/modules/Enemies';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -9,7 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyDebuffEvent, ApplyDebuffStackEvent, DamageEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, ApplyDebuffStackEvent, DamageEvent, EventType } from 'parser/core/Events';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -36,32 +36,21 @@ class ShrapnelBomb extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SHRAPNEL_BOMB_WFI_DOT, SPELLS.SHRAPNEL_BOMB_WFI_IMPACT, SPELLS.INTERNAL_BLEEDING_SV]), this.onDamage);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV), this.onDebuffApplication);
+    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV), this.onDebuffApplication);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SHRAPNEL_BOMB_WFI_DOT.id && spellId !== SPELLS.SHRAPNEL_BOMB_WFI_IMPACT.id && spellId !== SPELLS.INTERNAL_BLEEDING_SV.id) {
-      return;
-    }
-    if (spellId === SPELLS.INTERNAL_BLEEDING_SV.id) {
+  onDamage(event: DamageEvent) {
+    if (event.ability.guid === SPELLS.INTERNAL_BLEEDING_SV.id) {
       this.bleedDamage += event.amount + (event.absorbed || 0);
     }
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.INTERNAL_BLEEDING_SV.id) {
-      return;
-    }
-    this.stacks += 1;
-    this.applications += 1;
-  }
-
-  on_byPlayer_applydebuffstack(event: ApplyDebuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.INTERNAL_BLEEDING_SV.id) {
-      return;
+  onDebuffApplication(event: ApplyDebuffEvent | ApplyDebuffStackEvent) {
+    if (event.type === EventType.ApplyDebuff) {
+      this.applications += 1;
     }
     this.stacks += 1;
   }
