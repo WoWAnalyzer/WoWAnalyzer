@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SpellLink from 'common/SpellLink';
@@ -9,9 +9,10 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 
 const MAX_STACKS: number = 5;
 
@@ -39,6 +40,11 @@ class MongooseBite extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id);
     this.mongooseBiteStacks = Array.from({ length: MAX_STACKS + 1 }, x => 0);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.handleDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onCast);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), this.handleStacks);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), this.handleStacks);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), this.handleStacks);
   }
 
   handleDamage(event: DamageEvent) {
@@ -64,6 +70,10 @@ class MongooseBite extends Analyzer {
     this.lastMongooseBiteStack = currentStacks(event);
     if (this.lastMongooseBiteStack === MAX_STACKS) {
       this.fiveBiteWindows += 1;
+    }
+    if (event.type === EventType.ApplyBuff) {
+      this.buffApplicationTimestamp = event.timestamp;
+      this.totalWindowsStarted += 1;
     }
   }
 
@@ -111,19 +121,7 @@ class MongooseBite extends Analyzer {
     };
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MONGOOSE_BITE_TALENT.id && spellId !== SPELLS.MONGOOSE_BITE_TALENT_AOTE.id) {
-      return;
-    }
-    this.handleDamage(event);
-  }
-
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MONGOOSE_BITE_TALENT.id) {
-      return;
-    }
+  onCast(event: CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.MONGOOSE_FURY.id)) {
       const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
       if (resource) {
@@ -140,32 +138,6 @@ class MongooseBite extends Analyzer {
       event.meta.isEnhancedCast = true;
       event.meta.enhancedCastReason = 'Mongoose Bite at 5 stacks of Mongoose Fury';
     }
-  }
-
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MONGOOSE_FURY.id) {
-      return;
-    }
-    this.totalWindowsStarted += 1;
-    this.handleStacks(event);
-    this.buffApplicationTimestamp = event.timestamp;
-  }
-
-  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MONGOOSE_FURY.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MONGOOSE_FURY.id) {
-      return;
-    }
-    this.handleStacks(event);
   }
 
   statistic() {

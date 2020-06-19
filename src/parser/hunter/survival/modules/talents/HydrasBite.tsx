@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -10,7 +10,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 
 /**
  * Serpent Sting fires arrows at 2 additional enemies near your target, and its damage over time is increased by 10%.
@@ -29,36 +29,29 @@ class HydrasBite extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HYDRAS_BITE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDamage);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDebuffApplication);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDebuffApplication);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onRemoveDebuff);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
+  onCast(event: CastEvent) {
     const target = encodeTargetString(event.targetID, event.targetInstance);
     this.mainTargets.push(target);
     this.casts += 1;
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
+  onDamage(event: DamageEvent) {
     const target = encodeTargetString(event.targetID, event.targetInstance);
     if (this.mainTargets.includes(target)) {
       this.increasedMainTargetDamage += calculateEffectiveDamage(event, HYDRAS_BITE_DOT_MODIFIER);
-      return;
+    } else {
+      this.spreadDamage += event.amount + (event.absorbed || 0);
     }
-    this.spreadDamage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
+  onDebuffApplication(event: ApplyDebuffEvent | RefreshDebuffEvent) {
     const target = encodeTargetString(event.targetID, event.targetInstance);
     if (this.mainTargets.includes(target)) {
       return;
@@ -66,23 +59,7 @@ class HydrasBite extends Analyzer {
     this.extraApplications += 1;
   }
 
-  on_byPlayer_refreshdebuff(event: RefreshDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
-    const target = encodeTargetString(event.targetID, event.targetInstance);
-    if (this.mainTargets.includes(target)) {
-      return;
-    }
-    this.extraApplications += 1;
-  }
-
-  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
+  onRemoveDebuff(event: RemoveDebuffEvent) {
     const target = encodeTargetString(event.targetID, event.targetInstance);
     const index = this.mainTargets.indexOf(target);
     if (index !== -1) {

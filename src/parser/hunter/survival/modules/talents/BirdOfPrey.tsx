@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
@@ -10,15 +10,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 const EXTENSION_PER_CAST = 1500;
 const MS_BUFFER = 100;
-const BOP_ABILITIES = [
-  SPELLS.CARVE.id,
-  SPELLS.BUTCHERY_TALENT.id,
-  ...RAPTOR_MONGOOSE_VARIANTS,
-];
 
 /** Bird of Prey
  * Attacking your pet's target with Mongoose Bite, Raptor Strike, Butchery or Carve extends the duration of Coordinated Assault by  1.5 sec.
@@ -29,8 +24,8 @@ const BOP_ABILITIES = [
 
 class BirdOfPrey extends Analyzer {
 
-  petTarget: string = "";
-  playerTarget: string = "";
+  petTarget: string = '';
+  playerTarget: string = '';
   coordinatedAssaultExtended = 0;
   wastedExtension = 0;
   timestampAoE = 0;
@@ -39,37 +34,49 @@ class BirdOfPrey extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onPlayerDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]), this.onPlayerDamageAOE);
+
   }
 
-  on_byPlayerPet_damage(event: DamageEvent) {
+  onPetDamage(event: DamageEvent) {
     this.petTarget = encodeTargetString(event.targetID, event.targetInstance);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (!BOP_ABILITIES.includes(spellId) || !this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
+  onPlayerDamage(event: DamageEvent) {
+    this.aoeCheck(event);
+    if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
     }
     this.playerTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (spellId === SPELLS.CARVE.id || spellId === SPELLS.BUTCHERY_TALENT.id) {
-      if (this.timestampAoE !== 0 && event.timestamp > this.timestampAoE + MS_BUFFER) {
-        if (!this.targetsHitAoE.includes(this.petTarget)) {
-          this.wastedExtension += EXTENSION_PER_CAST;
-        } else {
-          this.coordinatedAssaultExtended += EXTENSION_PER_CAST;
-        }
-        this.targetsHitAoE = [];
-        this.timestampAoE = event.timestamp;
-      }
-      this.targetsHitAoE.push(this.playerTarget);
-      return;
-    }
-    if (this.playerTarget !== this.petTarget) {
+    if (this.playerTarget === this.petTarget) {
+      this.coordinatedAssaultExtended += EXTENSION_PER_CAST;
+    } else {
       this.wastedExtension += EXTENSION_PER_CAST;
+    }
+  }
+
+  onPlayerDamageAOE(event: DamageEvent) {
+    this.aoeCheck(event);
+    if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
     }
-    this.coordinatedAssaultExtended += EXTENSION_PER_CAST;
+    this.targetsHitAoE.push(this.playerTarget);
+    this.timestampAoE = event.timestamp;
   }
+
+  aoeCheck(event: DamageEvent) {
+    if (this.timestampAoE !== 0 && event.timestamp > this.timestampAoE + MS_BUFFER) {
+      if (this.targetsHitAoE.includes(this.petTarget)) {
+        this.coordinatedAssaultExtended += EXTENSION_PER_CAST;
+      } else {
+        this.wastedExtension += EXTENSION_PER_CAST;
+      }
+      this.targetsHitAoE = [];
+    }
+  }
+
   get birdPercentEffectiveness() {
     return {
       actual: this.percentExtension,
