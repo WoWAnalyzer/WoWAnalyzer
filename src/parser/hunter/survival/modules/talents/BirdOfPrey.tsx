@@ -29,15 +29,20 @@ class BirdOfPrey extends Analyzer {
   coordinatedAssaultExtended = 0;
   wastedExtension = 0;
   timestampAoE = 0;
-  targetsHitAoE: string[] = [];
+  targetsHitAoE: boolean[] = [];
+  aoeChecked = false;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onPlayerDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]), this.onPlayerDamageAOE);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([...RAPTOR_MONGOOSE_VARIANTS, SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]), this.onPlayerDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]), this.onAoECast);
+    this.addEventListener(Events.fightend, this.aoeCheck);
+  }
 
+  onAoECast() {
+    this.aoeChecked = false;
   }
 
   onPetDamage(event: DamageEvent) {
@@ -45,36 +50,34 @@ class BirdOfPrey extends Analyzer {
   }
 
   onPlayerDamage(event: DamageEvent) {
-    this.aoeCheck(event);
+    if (!this.aoeChecked && this.timestampAoE > 0 && event.timestamp > this.timestampAoE + MS_BUFFER) {
+      this.aoeCheck();
+    }
     if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
     }
+    const spellId = event.ability.guid;
     this.playerTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (this.playerTarget === this.petTarget) {
-      this.coordinatedAssaultExtended += EXTENSION_PER_CAST;
+    if (spellId === SPELLS.CARVE.id || spellId === SPELLS.BUTCHERY_TALENT.id) {
+      this.targetsHitAoE.push(this.playerTarget === this.petTarget);
+      this.timestampAoE = event.timestamp;
     } else {
-      this.wastedExtension += EXTENSION_PER_CAST;
-    }
-  }
-
-  onPlayerDamageAOE(event: DamageEvent) {
-    this.aoeCheck(event);
-    if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
-      return;
-    }
-    this.targetsHitAoE.push(this.playerTarget);
-    this.timestampAoE = event.timestamp;
-  }
-
-  aoeCheck(event: DamageEvent) {
-    if (this.timestampAoE !== 0 && event.timestamp > this.timestampAoE + MS_BUFFER) {
-      if (this.targetsHitAoE.includes(this.petTarget)) {
+      if (this.playerTarget === this.petTarget) {
         this.coordinatedAssaultExtended += EXTENSION_PER_CAST;
       } else {
         this.wastedExtension += EXTENSION_PER_CAST;
       }
-      this.targetsHitAoE = [];
     }
+  }
+
+  aoeCheck() {
+    if (this.targetsHitAoE.includes(true)) {
+      this.coordinatedAssaultExtended += EXTENSION_PER_CAST;
+    } else {
+      this.wastedExtension += EXTENSION_PER_CAST;
+    }
+    this.targetsHitAoE = [];
+    this.aoeChecked = true;
   }
 
   get birdPercentEffectiveness() {

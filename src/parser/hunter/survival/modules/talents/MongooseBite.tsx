@@ -35,6 +35,7 @@ class MongooseBite extends Analyzer {
   aspectOfTheEagleFixed = false;
   buffApplicationTimestamp: number = 0;
   accumulatedFocusAtMomentOfCast = 0;
+  windowCheckedForFocus: boolean = false;
 
   constructor(options: any) {
     super(options);
@@ -74,6 +75,9 @@ class MongooseBite extends Analyzer {
     if (event.type === EventType.ApplyBuff) {
       this.buffApplicationTimestamp = event.timestamp;
       this.totalWindowsStarted += 1;
+    }
+    if (event.type === EventType.RemoveBuff) {
+      this.windowCheckedForFocus = false;
     }
   }
 
@@ -122,11 +126,12 @@ class MongooseBite extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.MONGOOSE_FURY.id)) {
+    if (!this.windowCheckedForFocus) {
       const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
       if (resource) {
         this.accumulatedFocusAtMomentOfCast += resource.amount || 0;
       }
+      this.windowCheckedForFocus = true;
     }
     if (event.meta === undefined) {
       event.meta = {

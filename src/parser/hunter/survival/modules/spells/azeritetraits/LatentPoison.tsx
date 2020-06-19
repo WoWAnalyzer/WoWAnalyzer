@@ -52,9 +52,6 @@ class LatentPoison extends Analyzer {
 
   onDamage() {
     this.maxPossible += 1;
-    if (this._stacks === MAX_STACKS) {
-      this.wasted += 1;
-    }
   }
 
   onCast() {

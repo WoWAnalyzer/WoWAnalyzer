@@ -12,7 +12,6 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 
 /**
  * You and your pet attack as one, increasing all damage you both deal by 20% for 20 sec.
@@ -36,8 +35,8 @@ class CoordinatedAssault extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onPlayerDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(RAPTOR_MONGOOSE_VARIANTS), this.onPetDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
   }
 
   get totalDamage() {
@@ -53,7 +52,6 @@ class CoordinatedAssault extends Analyzer {
       return;
     }
     this.petDamage += calculateEffectiveDamage(event, CA_DMG_MODIFIER);
-
   }
 
   onPlayerDamage(event: DamageEvent) {

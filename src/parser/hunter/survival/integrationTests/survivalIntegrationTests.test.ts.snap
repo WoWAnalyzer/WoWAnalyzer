@@ -5303,6 +5303,37 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey Mongoose
 </div>
 `;
 
+exports[`Survival Hunter integration test: Multi Target - Birds of Prey MongooseBite matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_hunter_mongoosebite",
+    "importance": "major",
+    "issue": <React.Fragment>
+      When talented into 
+      <ForwardRef
+        id={259387}
+      />
+      , it's important to have accumulated a good amount of focus before you open a 
+      <ForwardRef
+        id={259388}
+      />
+       window in order to maximize the number of 
+      <ForwardRef
+        id={259387}
+      />
+      s at high stacks.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      0 average focus on new window.
+       (
+      &gt;65 is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Survival Hunter integration test: Multi Target - Birds of Prey OverwhelmingPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -7086,7 +7117,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey matches 
                   }
                 >
                    
-                  75
+                  81
                    
                    
                 </div>
@@ -7233,7 +7264,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey matches 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "84.1149350649351%",
+                  "width": "70.74047619047622%",
                 }
               }
             />
@@ -7339,7 +7370,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey matches 
                   }
                 >
                    
-                  90.26%
+                  86.24%
                    
                    
                 </div>
@@ -7361,7 +7392,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey matches 
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "84.1149350649351%",
+                        "width": "70.74047619047622%",
                       }
                     }
                   />
@@ -15236,7 +15267,7 @@ exports[`Survival Hunter integration test: Multi Target - Wildfire Infusion matc
                   }
                 >
                    
-                  79
+                  93
                    
                    
                 </div>
@@ -22638,8 +22669,8 @@ exports[`Survival Hunter integration test: Single Target - Birds of Prey matches
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "89.96%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -22800,7 +22831,7 @@ exports[`Survival Hunter integration test: Single Target - Birds of Prey matches
                   }
                 >
                    
-                  62
+                  67
                    
                    
                 </div>
@@ -22820,9 +22851,9 @@ exports[`Survival Hunter integration test: Single Target - Birds of Prey matches
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "79.92%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -23053,7 +23084,7 @@ exports[`Survival Hunter integration test: Single Target - Birds of Prey matches
                   }
                 >
                    
-                  100.00%
+                  98.46%
                    
                    
                 </div>
