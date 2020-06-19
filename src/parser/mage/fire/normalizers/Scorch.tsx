@@ -3,17 +3,18 @@ import SPELLS from 'common/SPELLS';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { EventType } from 'parser/core/Events';
 
-class Flamestrike extends EventsNormalizer {
+class Scorch extends EventsNormalizer {
   /**
    * @param {Array} events
    * @returns {Array}
    */
-  normalize(events) {
-    const fixedEvents = [];
-    events.forEach((event, eventIndex) => {
+  //Because Scorch has no travel time, ensures that the Scorch Damage event happens after Hot Streak is removed so the Scorch doesnt count as a direct damage crit during Hot Streak
+  normalize(events: any) {
+    const fixedEvents: any = [];
+    events.forEach((event: any, eventIndex: any) => {
       fixedEvents.push(event);
 
-      if (event.type === EventType.Cast && event.ability.guid === SPELLS.FLAMESTRIKE.id) {
+      if (event.type === EventType.RemoveBuff && event.ability.guid === SPELLS.HOT_STREAK.id) {
         const castTimestamp = event.timestamp;
 
         for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
@@ -21,7 +22,7 @@ class Flamestrike extends EventsNormalizer {
           if ((castTimestamp - previousEvent.timestamp) > 50) {
             break;
           }
-          if (previousEvent.type === EventType.RemoveBuff && previousEvent.ability.guid === SPELLS.HOT_STREAK.id && previousEvent.sourceID === event.sourceID) {
+          if (previousEvent.type === EventType.Damage && previousEvent.ability.guid === SPELLS.SCORCH.id && previousEvent.sourceID === event.sourceID) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;
@@ -35,4 +36,4 @@ class Flamestrike extends EventsNormalizer {
   }
 }
 
-export default Flamestrike;
+export default Scorch;

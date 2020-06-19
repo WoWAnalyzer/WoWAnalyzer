@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -11,7 +11,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 /**
  * You and your pet attack as one, increasing all damage you both deal by 20% for 20 sec.
@@ -33,6 +33,12 @@ class CoordinatedAssault extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
+  }
+
   get totalDamage() {
     return this.playerDamage + this.petDamage;
   }
@@ -41,18 +47,19 @@ class CoordinatedAssault extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / this.owner.fightDuration;
   }
 
-  on_byPlayerPet_damage(event: DamageEvent) {
+  onPetDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
     }
     this.petDamage += calculateEffectiveDamage(event, CA_DMG_MODIFIER);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
+  onPlayerDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
     }
     this.playerDamage += calculateEffectiveDamage(event, CA_DMG_MODIFIER);
+
   }
 
   statistic() {

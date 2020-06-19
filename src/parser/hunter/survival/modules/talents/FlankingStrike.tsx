@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 
 /**
  * You and your pet leap to the target and strike it as one, dealing a total of X Physical damage.
@@ -35,6 +35,10 @@ class FlankingStrike extends Analyzer {
       effectiveFocus: 0,
       possibleFocus: 0,
     });
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.FLANKING_STRIKE_PET), this.onPetDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLANKING_STRIKE_PLAYER), this.onPlayerDamage);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER_PET).spell(SPELLS.FLANKING_STRIKE_PET), this.onPetEnergize);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FLANKING_STRIKE_PLAYER), this.onPlayerEnergize);
   }
 
   get flankingStrikesPlayer() {
@@ -58,40 +62,24 @@ class FlankingStrike extends Analyzer {
     return foundPet;
   }
 
-  on_byPlayerPet_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FLANKING_STRIKE_PET.id) {
-      return;
-    }
+  onPetDamage(event: DamageEvent) {
     const damage = event.amount + (event.absorbed || 0);
     const pet = this.getOrInitializePet(event.sourceID as number);
     pet.damage += damage;
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FLANKING_STRIKE_PLAYER.id) {
-      return;
-    }
+  onPlayerDamage(event: DamageEvent) {
     this.flankingStrikesPlayer.damage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayerPet_energize(event: EnergizeEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FLANKING_STRIKE_PET.id) {
-      return;
-    }
+  onPetEnergize(event: EnergizeEvent) {
     const effectiveFocus = (event.resourceChange - event.waste) || 0;
     const pet = this.getOrInitializePet(event.sourceID);
     pet.effectiveFocus += effectiveFocus;
     pet.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;
   }
 
-  on_byPlayer_energize(event: EnergizeEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FLANKING_STRIKE_PLAYER.id) {
-      return;
-    }
+  onPlayerEnergize(event: EnergizeEvent) {
     const foundPlayer = this.flankingStrikesPlayer;
     foundPlayer.effectiveFocus += (event.resourceChange - event.waste) || 0;
     foundPlayer.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;
