@@ -7,11 +7,9 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { PROC_BUFFER } from '../../constants';
 
 const debug = false;
-
-// Brain Freeze appears to always fall after Flurry cast, but not always on same timestamp. Giving a margin here.
-const PROC_WINDOW_MS = 100;
 
 class BrainFreezeNoIL extends Analyzer {
 
@@ -70,7 +68,7 @@ class BrainFreezeNoIL extends Analyzer {
   }
 
   onBrainFreezeRemoved(event: RemoveBuffEvent) {
-    if (!this.lastFlurryTimestamp || this.lastFlurryTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
+    if (!this.lastFlurryTimestamp || this.lastFlurryTimestamp + PROC_BUFFER < this.owner.currentTimestamp) {
       this.expiredProcs += 1; // it looks like Brain Freeze is always removed after the cast, and always on same timestamp
       debug && this.log("Brain Freeze proc expired");
     }
