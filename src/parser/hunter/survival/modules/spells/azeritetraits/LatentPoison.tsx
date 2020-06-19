@@ -1,11 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import { ApplyDebuffEvent, ApplyDebuffStackEvent, CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, ApplyDebuffStackEvent, EventType, RemoveDebuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 /**
  * Serpent Sting damage applies Latent Poison, stacking up to 10 times. Your Mongoose Bite or Raptor Strike consumes all applications of Latent Poison to deal 451 Nature damage per stack.
@@ -30,54 +31,33 @@ class LatentPoison extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.LATENT_POISON.id);
     this.spellKnown = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? SPELLS.MONGOOSE_BITE_TALENT.name : SPELLS.RAPTOR_STRIKE.name;
+
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.LATENT_POISON_DEBUFF), this.handleStacks);
+    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.LATENT_POISON_DEBUFF), this.handleStacks);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.LATENT_POISON_DEBUFF), this.handleStacks);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onCast);
   }
 
   get averageStacksPerRaptorOrMongoose() {
     return this.utilised / this.casts;
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LATENT_POISON_DEBUFF.id) {
-      return;
+  handleStacks(event: ApplyDebuffEvent | ApplyDebuffStackEvent | RemoveDebuffEvent) {
+    if (event.type !== EventType.RemoveDebuff) {
+      this.applications += 1;
     }
-    this.applications += 1;
-    this._stacks = 1;
+    this._stacks = currentStacks(event);
   }
 
-  on_byPlayer_applydebuffstack(event: ApplyDebuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LATENT_POISON_DEBUFF.id) {
-      return;
-    }
-    this.applications += 1;
-    this._stacks = event.stack;
-  }
-
-  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LATENT_POISON_DEBUFF.id) {
-      return;
-    }
-    this._stacks = 0;
-  }
-
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
+  onDamage() {
     this.maxPossible += 1;
     if (this._stacks === MAX_STACKS) {
       this.wasted += 1;
     }
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (!RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
-      return;
-    }
+  onCast() {
     this.utilised += this._stacks;
     this.casts += 1;
   }

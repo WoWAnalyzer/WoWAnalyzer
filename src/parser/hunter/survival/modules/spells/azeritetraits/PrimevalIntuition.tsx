@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
@@ -7,7 +7,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import CriticalStrike from 'interface/icons/CriticalStrike';
-import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
@@ -52,6 +52,10 @@ class PrimevalIntuition extends Analyzer {
     options.statTracker.add(SPELLS.PRIMEVAL_INTUITION_BUFF.id, {
       crit: this.crit,
     });
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), this.handleStacks);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), this.handleStacks);
+    this.addEventListener(Events.fightend, this.handleStacks);
   }
 
   get intuitionTimesByStacks() {
@@ -76,34 +80,6 @@ class PrimevalIntuition extends Analyzer {
     }
     this.lastIntuitionUpdate = event.timestamp;
     this.lastIntuitionStack = currentStacks(event);
-  }
-
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PRIMEVAL_INTUITION_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_fightend(event: FightEndEvent) {
-    this.handleStacks(event);
   }
 
   statistic() {
