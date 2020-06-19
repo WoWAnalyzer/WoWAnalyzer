@@ -331,7 +331,7 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey BirdOfPr
             Extended CA by
           </small>
            
-          208.5
+          244.5
           s
         </div>
       </div>
@@ -387,7 +387,7 @@ Array [
        on the same target as your pet is attacking.
     </React.Fragment>,
     "stat": <React.Fragment>
-      90.26% of abilities extending CA were used on your pets target
+      86.24% of abilities extending CA were used on your pets target
        (
       95.00% is recommended
       )
@@ -5301,37 +5301,6 @@ exports[`Survival Hunter integration test: Multi Target - Birds of Prey Mongoose
     </div>
   </div>
 </div>
-`;
-
-exports[`Survival Hunter integration test: Multi Target - Birds of Prey MongooseBite matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "ability_hunter_mongoosebite",
-    "importance": "major",
-    "issue": <React.Fragment>
-      When talented into 
-      <ForwardRef
-        id={259387}
-      />
-      , it's important to have accumulated a good amount of focus before you open a 
-      <ForwardRef
-        id={259388}
-      />
-       window in order to maximize the number of 
-      <ForwardRef
-        id={259387}
-      />
-      s at high stacks.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      0 average focus on new window.
-       (
-      &gt;65 is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Survival Hunter integration test: Multi Target - Birds of Prey OverwhelmingPower matches the statistic snapshot 1`] = `
@@ -21014,37 +20983,6 @@ exports[`Survival Hunter integration test: Single Target - Birds of Prey Mongoos
     </div>
   </div>
 </div>
-`;
-
-exports[`Survival Hunter integration test: Single Target - Birds of Prey MongooseBite matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "ability_hunter_mongoosebite",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      When talented into 
-      <ForwardRef
-        id={259387}
-      />
-      , it's important to have accumulated a good amount of focus before you open a 
-      <ForwardRef
-        id={259388}
-      />
-       window in order to maximize the number of 
-      <ForwardRef
-        id={259387}
-      />
-      s at high stacks.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      62 average focus on new window.
-       (
-      &gt;65 is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Survival Hunter integration test: Single Target - Birds of Prey NaturalMending matches the statistic snapshot 1`] = `
