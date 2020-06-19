@@ -7,10 +7,9 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatNumber, formatPercentage } from 'common/format';
+import { PYROCLASM_DAMAGE_MODIFIER, CAST_BUFFER } from '../../constants';
 
-const CAST_BUFFER = 250;
 const FIGHT_END_BUFFER = 5000;
-const PYROCLASM_DAMAGE_MODIFIER = 225;
 
 const debug = false;
 
