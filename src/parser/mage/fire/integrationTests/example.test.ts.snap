@@ -3961,6 +3961,33 @@ Array [
 ]
 `;
 
+exports[`Fire Mage integration test: example log HotStreakWastedCrits matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_mage_hotstreak",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You crit with 
+      2
+       (
+      1
+       Per Minute) direct damage abilities while 
+      <ForwardRef
+        id={48108}
+      />
+       was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      2 crits wasted
+       (
+      0 is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Fire Mage integration test: example log HyperthreadWristwraps matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -5753,7 +5780,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "89.82742109038738%",
+                  "width": "82.30691455575969%",
                 }
               }
             />
@@ -5966,7 +5993,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  0
+                  1
                    
                    
                 </div>
@@ -5986,9 +6013,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "73.52853499387234%",
                       }
                     }
                   />

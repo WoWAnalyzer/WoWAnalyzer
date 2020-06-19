@@ -4,21 +4,9 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD, HOT_STREAK_CONTRIBUTORS, PROC_BUFFER, COMBUSTION_BUFFER } from '../../constants';
 
 const debug = false;
-
-const PROC_WINDOW_MS = 200;
-const FIRESTARTER_HEALTH_THRESHOLD = 0.90;
-const SEARING_TOUCH_HEALTH_THRESHOLD = 0.30;
-const COMBUSTION_END_BUFFER = 3000;
-
-const HOT_STREAK_CONTRIBUTORS = [
-  SPELLS.FIREBALL,
-  SPELLS.PYROBLAST,
-  SPELLS.FIRE_BLAST,
-  SPELLS.SCORCH,
-  SPELLS.PHOENIX_FLAMES_TALENT,
-];
 
 class HotStreakPreCasts extends Analyzer {
   hasPyroclasm: boolean;
@@ -79,12 +67,12 @@ class HotStreakPreCasts extends Analyzer {
   //Compares timestamps to determine if an ability was hard casted immediately before using Hot Streak.
   //If Combustion is active or they are in the Firestarter or Searing Touch execute windows, then this check is ignored.
   checkForHotStreakPreCasts(event: RemoveBuffEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || event.timestamp < this.combustionEnded + COMBUSTION_END_BUFFER || (this.hasFirestarter && this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || event.timestamp < this.combustionEnded + COMBUSTION_BUFFER || (this.hasFirestarter && this.healthPercent > FIRESTARTER_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_THRESHOLD)) {
       debug && this.log('Pre Cast Ignored');
       return;
     }
 
-    if (this.hotStreakRemoved - PROC_WINDOW_MS < this.castTimestamp || this.hotStreakRemoved - PROC_WINDOW_MS < this.pyroclasmProcRemoved) {
+    if (this.hotStreakRemoved - PROC_BUFFER < this.castTimestamp || this.hotStreakRemoved - PROC_BUFFER < this.pyroclasmProcRemoved) {
       this.castedBeforeHotStreak += 1;
     } else {
       this.noCastBeforeHotStreak += 1;
