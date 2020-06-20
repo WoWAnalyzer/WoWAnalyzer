@@ -11,7 +11,7 @@ import { formatDuration, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-const MULTI_SHOTS = [SPELLS.MULTISHOT_BM.id, SPELLS.MULTISHOT_MM.id];
+const MULTI_SHOTS = [SPELLS.MULTISHOT_BM, SPELLS.MULTISHOT_MM];
 const COOLDOWN_REDUCTION_MS = 1000;
 
 /**
@@ -56,7 +56,7 @@ class RapidReload extends Analyzer {
         this.multishotSpell = SPELLS.MULTISHOT_BM.id;
       }
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(MULTI_SHOTS), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...MULTI_SHOTS]), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_RELOAD_DAMAGE), this.onDamage);
 
   }
