@@ -18,8 +18,8 @@ class ColdSnap extends Analyzer {
 
   _resetCooldowns() {
     COLD_SNAP_RESETS.forEach(spell => {
-      if (this.spellUsable.isOnCooldown(spell.guid)) {
-        this.spellUsable.endCooldown(spell.guid);
+      if (this.spellUsable.isOnCooldown(spell.id)) {
+        this.spellUsable.endCooldown(spell.id);
       }
     });
   }
