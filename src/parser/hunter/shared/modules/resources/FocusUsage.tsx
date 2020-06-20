@@ -2,11 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
-import { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**
@@ -176,26 +176,24 @@ class FocusUsage extends Analyzer {
       color: '#ec5c58',
     },
   };
-  lastVolleyHit = 0;
 
-  on_byPlayer_cast(event: CastEvent) {
-    let spellId = event.ability.guid;
-    if (!LIST_OF_FOCUS_SPENDERS.includes(spellId) && spellId !== SPELLS.MONGOOSE_BITE_TALENT_AOTE.id && spellId !== SPELLS.RAPTOR_STRIKE_AOTE.id) {
-      return;
-    }
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...LIST_OF_FOCUS_SPENDERS, SPELLS.MONGOOSE_BITE_TALENT_AOTE, SPELLS.RAPTOR_STRIKE_AOTE]), this.onCast);
+  }
+
+  onCast(event: CastEvent) {
     const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
-
     if (!resource) {
       return;
     }
-
+    let spellId = event.ability.guid;
     //Aspect of the Eagle changes the spellID of the spells, so we readjust to the original versions of the spell for the purpose of the chart
     if (spellId === SPELLS.MONGOOSE_BITE_TALENT_AOTE.id) {
       spellId = SPELLS.MONGOOSE_BITE_TALENT.id;
     } else if (spellId === SPELLS.RAPTOR_STRIKE_AOTE.id) {
       spellId = SPELLS.RAPTOR_STRIKE.id;
     }
-
     this.focusSpenderCasts[spellId].casts += 1;
     this.focusSpenderCasts[spellId].focusUsed += resource.cost || 0;
   }
