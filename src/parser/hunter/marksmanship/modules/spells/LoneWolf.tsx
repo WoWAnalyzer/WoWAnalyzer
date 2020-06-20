@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -8,7 +8,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 
 const RAMP_INTERVAL = 2000;
 const INCREASE_PER_RAMP = 0.01;
@@ -44,31 +44,25 @@ class LoneWolf extends Analyzer {
   damage = 0;
   lwApplicationTimestamp = 0;
   loneWolfModifier = 0;
-  lwAppliedOrRemoved = false;
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LONE_WOLF_BUFF.id) {
-      return;
-    }
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LONE_WOLF_BUFF), this.onLoneWolfApplication);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LONE_WOLF_BUFF), this.onLoneWolfRemoval);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_SPELLS), this.onLoneWolfRemoval);
+    this.addEventListener(Events.fightend, this.deactivateIfNoDamage);
+  }
+
+  onLoneWolfApplication(event: ApplyBuffEvent) {
     this.lwApplicationTimestamp = event.timestamp;
-    this.lwAppliedOrRemoved = true;
   }
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LONE_WOLF_BUFF.id) {
-      return;
-    }
+  onLoneWolfRemoval() {
     this.loneWolfModifier = 0;
-    this.lwAppliedOrRemoved = true;
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    if (this.lwAppliedOrRemoved && !this.selectedCombatant.hasBuff(SPELLS.LONE_WOLF_BUFF.id)) {
-      return;
-    }
-    if (!AFFECTED_SPELLS.includes(event.ability.guid)) {
+  onDamage(event: DamageEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.LONE_WOLF_BUFF.id)) {
       return;
     }
     if (this.lwApplicationTimestamp > 0) {
@@ -79,7 +73,7 @@ class LoneWolf extends Analyzer {
     this.damage += calculateEffectiveDamage(event, this.loneWolfModifier);
   }
 
-  on_fightend() {
+  deactivateIfNoDamage() {
     if (this.damage === 0) {
       this.active = false;
     }
