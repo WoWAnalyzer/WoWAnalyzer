@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -8,7 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
+import Events from 'parser/core/Events';
 
 /**
  * Your next Aimed Shot will fire a second time instantly at 100% power without consuming Focus, or your next Rapid Fire will shoot 100% additional shots during its channel.
@@ -26,27 +26,27 @@ class DoubleTap extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DOUBLE_TAP_TALENT.id);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DOUBLE_TAP_TALENT), this.onDoubleTapApplication);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.onRapidFireCast);
   }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DOUBLE_TAP_TALENT.id) {
-      return;
-    }
+  onDoubleTapApplication() {
     this.activations += 1;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if ((spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.RAPID_FIRE.id) || !this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
+  onAimedCast() {
+    if (!this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
       return;
     }
-    if (spellId === SPELLS.AIMED_SHOT.id) {
-      this.aimedUsage += 1;
+    this.aimedUsage += 1;
+  }
+
+  onRapidFireCast() {
+    if (!this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
+      return;
     }
-    if (spellId === SPELLS.RAPID_FIRE.id) {
-      this.RFUsage += 1;
-    }
+    this.RFUsage += 1;
   }
 
   get totalUsage() {

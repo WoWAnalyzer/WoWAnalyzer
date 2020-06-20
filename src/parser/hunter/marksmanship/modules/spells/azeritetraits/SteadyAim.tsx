@@ -27,7 +27,6 @@ class SteadyAim extends Analyzer {
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), this.onDebuffChange);
     this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), this.onDebuffChange);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), this.onDebuffChange);
-
   }
 
   applications = 0;

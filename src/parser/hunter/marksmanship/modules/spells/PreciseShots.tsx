@@ -33,9 +33,10 @@ class PreciseShots extends Analyzer {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsApplication);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsRemoval);
-    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsRemoval);
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsStackRemoval);
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsStackApplication);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]), this.onPreciseCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.checkForBuff);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]), this.onPreciseDamage);
   }
 
@@ -67,13 +68,24 @@ class PreciseShots extends Analyzer {
   }
 
   onPreciseDamage(event: DamageEvent) {
+    this.checkForBuff(event);
+    if (!this.buffedShotInFlight) {
+      return;
+    }
+    if (this.buffedShotInFlight < event.timestamp + MAX_TRAVEL_TIME) {
+      this.damage += calculateEffectiveDamage(event, PRECISE_SHOTS_MODIFIER);
+    }
+    if (event.ability.guid === SPELLS.ARCANE_SHOT.id) {
+      this.buffedShotInFlight = null;
+    }
+  }
+
+  checkForBuff(event: DamageEvent) {
     if (!this.buffedShotInFlight) {
       return;
     }
     if (this.buffedShotInFlight > event.timestamp + MAX_TRAVEL_TIME) {
       this.buffedShotInFlight = null;
-    } else {
-      this.damage += calculateEffectiveDamage(event, PRECISE_SHOTS_MODIFIER);
     }
   }
 
