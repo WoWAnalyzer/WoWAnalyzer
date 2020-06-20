@@ -25,7 +25,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/2aNkx7nAR6Pj4yMf/5-Heroic+Grong+-+Kill+(4:58)/17-Nespaux',
+  exampleReport: '/report/bhyKzta1c9gPfZJk/7-Heroic+Maut+-+Kill+(3:37)/Thysera/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
