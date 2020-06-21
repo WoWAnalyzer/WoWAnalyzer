@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Enemies from 'parser/shared/modules/Enemies';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -8,7 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -39,13 +39,13 @@ class PheromoneBomb extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV), this.onPetDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.PHEROMONE_BOMB_WFI_DOT, SPELLS.PHEROMONE_BOMB_WFI_IMPACT]), this.onPlayerDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHEROMONE_BOMB_WFI), this.onBombCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.onKillCommandCast);
   }
 
-  on_byPlayerPet_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.KILL_COMMAND_DAMAGE_SV.id) {
-      return;
-    }
+  onPetDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy || !enemy.hasBuff(SPELLS.PHEROMONE_BOMB_WFI_DOT.id)) {
       return;
@@ -56,27 +56,15 @@ class PheromoneBomb extends Analyzer {
     }
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PHEROMONE_BOMB_WFI_DOT.id && spellId !== SPELLS.PHEROMONE_BOMB_WFI_IMPACT.id) {
-      return;
-    }
+  onPlayerDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PHEROMONE_BOMB_WFI.id && spellId !== SPELLS.KILL_COMMAND_CAST_SV.id) {
-      return;
-    }
-    if (spellId === SPELLS.PHEROMONE_BOMB_WFI.id) {
-      this.casts += 1;
-      return;
-    }
-    //Because the talent Bloodseeker applies a bleed dot that has the same damage tick as the regular damage event, we log the cast timestamp to check it at a later time
-    if (spellId === SPELLS.KILL_COMMAND_CAST_SV.id) {
-      this.kcCastTimestamp = event.timestamp;
-    }
+  onBombCast() {
+    this.casts += 1;
+  }
+  onKillCommandCast(event:CastEvent) {
+    this.kcCastTimestamp = event.timestamp;
   }
 
   statistic() {

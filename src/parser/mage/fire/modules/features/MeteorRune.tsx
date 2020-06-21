@@ -6,8 +6,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
-
-const RUNE_OF_POWER_DELAY_BUFFER = 100;
+import { RUNE_OF_POWER_DELAY } from '../../constants';
 
 class MeteorRune extends Analyzer {
   static dependencies = {
@@ -43,7 +42,7 @@ class MeteorRune extends Analyzer {
 
   onMeteor(event: CastEvent) {
     console.log(event.timestamp - this.lastRuneCast);
-    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id) && event.timestamp - this.lastRuneCast > RUNE_OF_POWER_DELAY_BUFFER) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id) && event.timestamp - this.lastRuneCast > RUNE_OF_POWER_DELAY) {
       this.badMeteor += 1;
     }
   }

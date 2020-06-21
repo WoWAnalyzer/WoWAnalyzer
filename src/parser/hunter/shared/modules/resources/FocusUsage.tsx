@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import { CastEvent } from 'parser/core/Events';
@@ -181,7 +180,7 @@ class FocusUsage extends Analyzer {
 
   on_byPlayer_cast(event: CastEvent) {
     let spellId = event.ability.guid;
-    if (!LIST_OF_FOCUS_SPENDERS.includes(spellId) && !RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
+    if (!LIST_OF_FOCUS_SPENDERS.includes(spellId) && spellId !== SPELLS.MONGOOSE_BITE_TALENT_AOTE.id && spellId !== SPELLS.RAPTOR_STRIKE_AOTE.id) {
       return;
     }
     const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);

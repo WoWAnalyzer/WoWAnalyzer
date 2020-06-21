@@ -6,11 +6,16 @@ import { EventType } from 'parser/core/Events';
  */
 export function currentStacks(event: any) {
   switch (event.type) {
-    case EventType.RemoveBuff || EventType.RemoveDebuff:
+    case EventType.RemoveBuff:
+    case EventType.RemoveDebuff:
       return 0;
-    case EventType.ApplyBuff || EventType.ApplyDebuff:
+    case EventType.ApplyBuff:
+    case EventType.ApplyDebuff:
       return 1;
-    case EventType.ApplyBuffStack || EventType.RemoveBuffStack || EventType.ApplyDebuffStack || EventType.RemoveDebuffStack:
+    case EventType.ApplyBuffStack:
+    case EventType.RemoveBuffStack:
+    case EventType.ApplyDebuffStack:
+    case EventType.RemoveDebuffStack:
       return event.stack;
     default:
       return null;

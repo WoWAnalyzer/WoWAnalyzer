@@ -13,17 +13,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { SHATTER_DEBUFFS } from '../../constants';
-
-// The number of seconds of cooldown reduction given to Frozen Orb per Ice Lance
-const FO_REDUCTION_SEC = 0.5;
-
-/**
- * See known issue below, this is a temporary fix
- * To update, see https://www.wowhead.com/spell=137020/frost-mage
- * AURA = 1 + (Damage modifier)
- */
-const FROST_MAGE_AURA = 1 + (-0.15);
+import { SHATTER_DEBUFFS, FROST_MAGE_AURA, FROZEN_ORB_REDUCTION } from '../../constants';
 
 /**
  * Ice Lance deals an additional X1 (stacks and scales) damage and reduces the cooldown of Frozen Orb by 0.5 (does not stack or scale) sec.
@@ -67,7 +57,7 @@ class Whiteout extends Analyzer {
 
   onCast(event: CastEvent) {
     if (this.spellUsable.isOnCooldown(SPELLS.FROZEN_ORB.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, FO_REDUCTION_SEC * 1000);
+      this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, FROZEN_ORB_REDUCTION);
       this.frozenOrbReductions += 1;
     }
 
@@ -112,7 +102,7 @@ class Whiteout extends Analyzer {
         <BoringSpellValueText spell={SPELLS.WHITEOUT}>
           <>
             {formatNumber(this.totalWhiteoutDamage / this.owner.fightDuration * 1000)} <small>DPS</small><br />
-            {(FO_REDUCTION_SEC * this.frozenOrbReductions).toFixed(1)} <small>sec. CD reduction</small>
+            {((FROZEN_ORB_REDUCTION / 1000) * this.frozenOrbReductions).toFixed(1)} <small>sec. CD reduction</small>
           </>
         </BoringSpellValueText>
       </Statistic>

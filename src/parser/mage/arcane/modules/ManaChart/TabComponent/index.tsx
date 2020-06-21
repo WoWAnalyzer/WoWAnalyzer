@@ -6,7 +6,7 @@ import Panel from 'interface/others/Panel';
 
 import ManaLevelGraph from './ManaLevelGraph';
 
-const Mana = ({ parser }) => (
+const Mana = ({ parser }: any) => (
   <Panel style={{ padding: '15px 22px' }}>
     <h1>Mana pool</h1>
     <ManaLevelGraph

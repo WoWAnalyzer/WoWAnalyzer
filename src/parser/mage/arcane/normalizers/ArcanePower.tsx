@@ -7,9 +7,9 @@ class ArcanePowerNormalizer extends EventsNormalizer {
 
   //Ensures that the apply buff event for Arcane Power is sorted after the Arcane Power cast.
 
-  normalize(events) {
-    const fixedEvents = [];
-    events.forEach((event, eventIndex) => {
+  normalize(events: any) {
+    const fixedEvents: any = [];
+    events.forEach((event: any, eventIndex: any) => {
       fixedEvents.push(event);
 
       if (event.type === EventType.Cast && event.ability.guid === SPELLS.ARCANE_POWER.id) {

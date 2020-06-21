@@ -123,7 +123,6 @@ class MemoryOfLucidDreams extends Analyzer {
     this.minorFocusGain += event.resourceChange - event.waste;
     this.minorFocusWaste += event.waste;
     this.minorProcs += 1;
-    console.log(event);
   }
 
   get minorBuffUptime() {

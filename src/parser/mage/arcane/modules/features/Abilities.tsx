@@ -95,7 +95,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ARCANE_FAMILIAR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWN,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
         },
