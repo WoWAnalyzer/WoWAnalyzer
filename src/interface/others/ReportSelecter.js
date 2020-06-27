@@ -113,6 +113,7 @@ class ReportSelecter extends React.PureComponent {
   render() {
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
+        <label for="report-selector-input"><Trans><a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report:</Trans></label>
         <div className="report-selector">
           <Tooltip
             content={(
@@ -130,6 +131,7 @@ class ReportSelecter extends React.PureComponent {
             {/*the div needs to be there (previously the tooltip was on input directly) because input sets its own ref and Tooltip would overwrite it*/}
             <div style={{ flex: '1 1', cursor: 'help', padding: 0 }}>
               <input
+                id="report-selector-input"
                 data-delay-show="200"
                 type="text"
                 name="code"
