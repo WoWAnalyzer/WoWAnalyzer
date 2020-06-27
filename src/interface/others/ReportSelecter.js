@@ -113,7 +113,7 @@ class ReportSelecter extends React.PureComponent {
   render() {
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
-        <label for="report-selector-input"><Trans><a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report:</Trans></label>
+        <label for="report-selector-input"><Trans>Warcraft Logs report:</Trans></label>
         <div className="report-selector">
           <Tooltip
             content={(
