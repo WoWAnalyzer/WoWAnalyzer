@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
 import SPECS from 'game/SPECS';
@@ -9,7 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**
@@ -41,9 +41,10 @@ class NaturalMending extends Analyzer {
     if (this.active && this.selectedCombatant.spec === SPECS.BEAST_MASTERY_HUNTER) {
       this.cdrPerFocus = BM_CDR_PER_FOCUS;
     }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
     if (!resource) {
       return;
@@ -55,8 +56,7 @@ class NaturalMending extends Analyzer {
       this.wastedExhilReductionMs += cooldownReductionMS;
       return;
     }
-    if (this.spellUsable.cooldownRemaining(SPELLS.EXHILARATION.id) <
-      cooldownReductionMS) {
+    if (this.spellUsable.cooldownRemaining(SPELLS.EXHILARATION.id) < cooldownReductionMS) {
       const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMS);
       this.effectiveExhilReductionMs += effectiveReductionMs;
       this.wastedExhilReductionMs += (cooldownReductionMS - effectiveReductionMs);

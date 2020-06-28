@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -13,7 +13,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { ApplyDebuffEvent, CastEvent, DamageEvent, EnergizeEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
@@ -51,22 +51,20 @@ class HuntersMark extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HUNTERS_MARK_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK_TALENT), this.onCast);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK_TALENT), this.onDebuffRemoval);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK_TALENT), this.onDebuffApplication);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK_TALENT), this.onDebuffRefresh);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK_FOCUS), this.onDebuffEnergize);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.calculateMarkDamage);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HUNTERS_MARK_TALENT.id) {
-      return;
-    }
+  onCast(event: CastEvent) {
     this.casts += 1;
     this.timeOfCast = event.timestamp;
   }
 
-  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
-    const spellID = event.ability.guid;
-    if (spellID !== SPELLS.HUNTERS_MARK_TALENT.id) {
-      return;
-    }
+  onDebuffRemoval(event: RemoveDebuffEvent) {
     if (event.timestamp > this.timeOfCast + MS_BUFFER) {
       this.debuffRemoved = true;
     }
@@ -82,11 +80,7 @@ class HuntersMark extends Analyzer {
     this.markWindow[this.enemyID].status = 'inactive';
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    const spellID = event.ability.guid;
-    if (spellID !== SPELLS.HUNTERS_MARK_TALENT.id) {
-      return;
-    }
+  onDebuffApplication(event: ApplyDebuffEvent) {
     if (!this.precastConfirmed) {
       this.precastConfirmed = true;
     }
@@ -105,7 +99,19 @@ class HuntersMark extends Analyzer {
     this.markWindow[this.enemyID].start = event.timestamp;
   }
 
+  onDebuffRefresh() {
+    this.recasts += 1;
+  }
+
+  onDebuffEnergize() {
+    this.refunds += 1;
+  }
+
   calculateMarkDamage(event: DamageEvent) {
+    const enemy = this.enemies.getEntity(event);
+    if (!enemy) {
+      return;
+    }
     this.enemyID = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.precastConfirmed) {
       if (!this.damageToTarget[this.enemyID]) {
@@ -119,30 +125,6 @@ class HuntersMark extends Analyzer {
     if (this.markWindow[this.enemyID].status === 'active' && this.markWindow[this.enemyID].start < event.timestamp) {
       this.damage += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
     }
-  }
-
-  on_byPlayer_refreshdebuff(event: RefreshDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HUNTERS_MARK_TALENT.id) {
-      return;
-    }
-    this.recasts += 1;
-  }
-
-  on_byPlayer_energize(event: EnergizeEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HUNTERS_MARK_FOCUS.id) {
-      return;
-    }
-    this.refunds += 1;
-  }
-
-  on_byPlayer_damage(event: DamageEvent) {
-    const enemy = this.enemies.getEntity(event);
-    if (!enemy) {
-      return;
-    }
-    this.calculateMarkDamage(event);
   }
 
   get uptimePercentage() {
