@@ -50,7 +50,7 @@ class WintersChill extends Analyzer {
     if (spell.guid === SPELLS.ICE_LANCE_DAMAGE.id) {
       this.iceLanceHits += 1;
       debug && console.log("Ice Lance into Winter's Chill");
-    } else if (WINTERS_CHILL_HARDCASTS.includes(spell)) {
+    } else if (WINTERS_CHILL_HARDCASTS.some(acceptable => acceptable.id === spell.guid)) {
       this.hardcastHits += 1;
       debug && console.log(`${event.ability.name} into Winter's Chill`);
     }

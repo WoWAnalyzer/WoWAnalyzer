@@ -45,7 +45,7 @@ class WintersChillNoIL extends Analyzer {
       return;
     }
 
-    if(WINTERS_CHILL_HARDCASTS.includes(spell)) {
+    if(WINTERS_CHILL_HARDCASTS.some(acceptable => acceptable.id === spell.guid)) {
       this.hardcastHits += 1;
       debug && console.log(`${event.ability.name} into Winter's Chill`);
     }
