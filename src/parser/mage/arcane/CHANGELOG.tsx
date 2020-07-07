@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 7, 7), <>Adjusted the Cooldowns page to show the 4 seconds before <SpellLink id={SPELLS.ARCANE_POWER.id} />.</>, [Sharrq]),
   change(date(2020, 6, 19), 'Updated integration tests', [Sharrq]),
   change(date(2020, 6, 19), 'Updated Arcane for TypeScript, Event Listeners, Statistic Boxes, and Constants', [Sharrq]),
   change(date(2020, 6, 1), <>Fixed <SpellLink id={SPELLS.ARCANE_POWER.id} /> pre-pull detection</>, [Dambroda]),
