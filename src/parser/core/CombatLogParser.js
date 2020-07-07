@@ -70,6 +70,7 @@ import FirstMatesSpyglass from '../shared/modules/items/bfa/FirstMatesSpyglass';
 import SeaGiantsTidestone from '../shared/modules/items/bfa/SeaGiantsTidestone';
 import AncientKnotOfWisdom from '../shared/modules/items/bfa/AncientKnotOfWisdom';
 // Dungeons
+import SubroutineRecalibration from '../shared/modules/items/bfa/dungeons/SubroutineRecalibration';
 import CyclotronicBlast from '../shared/modules/items/bfa/dungeons/CyclotronicBlast';
 import MydasTalisman from '../shared/modules/items/bfa/dungeons/MydasTalisman';
 import RevitalizingVoodooTotem from '../shared/modules/items/bfa/dungeons/RevitalizingVoodooTotem';
@@ -287,6 +288,7 @@ class CombatLogParser {
     ancientKnotOfWisdom: AncientKnotOfWisdom,
     // Dungeons
     cyclotronicBlast: CyclotronicBlast,
+    subroutineRecalibration: SubroutineRecalibration,
     mydasTalisman: MydasTalisman,
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
