@@ -39,13 +39,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     const cooldownSpell = this.constructor.castCooldowns.find(cooldownSpell => cooldownSpell.spell.id === spellId);
 
     //Keep 4 Seconds worth of events
-    if (spellId !== SPELLS.COMBUSTION.id) {
-      this.previousCasts.forEach(cast => {
-        if (cast.timestamp < event.timestamp - 4000) {
-          this.previousCasts.shift();
-        }
-      });
-    }
+    this.previousCasts.forEach(cast => {
+      if (cast.timestamp < event.timestamp - 4000) {
+        this.previousCasts.shift();
+      }
+    });
     this.previousCasts.push(event);
 
     if (cooldownSpell) {
