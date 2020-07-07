@@ -206,6 +206,17 @@ export default {
     name: 'Cyclotronic Blast',
     icon: 'ability_siege_engineer_purification_beam',
   },
+  SUBROUTINE_RECALIBRATION_BUFF: {
+    id: 299064,
+    name: 'Subroutine: Recalibration',
+    icon: 'inv_misc_pocketwatch_02',
+  },
+
+  SUBROUTINE_RECALIBRATION_DEBUFF: {
+    id: 299065,
+    name: 'Recalibrating',
+    icon: 'inv_misc_pocketwatch_02',
+  },
   //Eternal Palace Raid
   //Azshara's Font of Power Trinket Channel and Spell Buff
   LATENT_ARCANA_CHANNEL: {
