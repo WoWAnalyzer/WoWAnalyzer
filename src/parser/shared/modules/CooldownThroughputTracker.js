@@ -5,6 +5,7 @@ import Panel from 'interface/others/Panel';
 import CooldownIcon from 'interface/icons/Cooldown';
 import CooldownOverview from 'interface/others/CooldownOverview';
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
 const debug = false;
@@ -52,10 +53,19 @@ class CooldownThroughputTracker extends Analyzer {
   addCooldown(cooldownSpell, timestamp) {
     const cooldown = {
       ...cooldownSpell,
-      start: timestamp,
+      start: timestamp - (cooldownSpell.startBufferMS || 0),
       end: null,
       events: [],
     };
+    if (cooldown.startBufferMS) {
+      const combatantCasts = this.owner.eventHistory.filter(event => event.type === EventType.Cast && event.sourceID === this.selectedCombatant._combatantInfo.sourceID);
+      const preCasts = combatantCasts.filter(event => event.timestamp >= timestamp - cooldown.startBufferMS && event.timestamp <= timestamp);
+      preCasts.reverse().forEach(event => cooldown.events.unshift(event));
+    } else if (cooldown.startBufferSpells) {
+      const combatantCasts = this.owner.eventHistory.filter(event => event.type === EventType.Cast && event.sourceID === this.selectedCombatant._combatantInfo.sourceID);
+      const preCasts = combatantCasts.slice(-cooldown.startBufferSpells,combatantCasts.length);
+      preCasts.reverse().forEach(event => cooldown.events.unshift(event));
+    }
     this.pastCooldowns.push(cooldown);
     return cooldown;
   }
