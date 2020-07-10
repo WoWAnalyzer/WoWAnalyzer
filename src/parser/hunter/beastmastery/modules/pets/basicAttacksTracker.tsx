@@ -50,7 +50,7 @@ class BasicAttacks extends Analyzer {
 
   potentialExtraCasts(dreamScenario: boolean = false) {
     const usedTimeBetween = dreamScenario ? NO_DELAY_TIME_BETWEEN_BASIC_ATK : MACRO_TIME_BETWEEN_BASIC_ATK;
-    return Math.floor((this.timeBetweenAttacks - (usedTimeBetween * this.chainCasts)) / usedTimeBetween);
+    return Math.max(Math.floor((this.timeBetweenAttacks - (usedTimeBetween * this.chainCasts)) / usedTimeBetween), 0);
   }
 
   potentialExtraDamage(dreamScenario: boolean = false) {
