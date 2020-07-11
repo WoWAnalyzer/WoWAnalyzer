@@ -9,6 +9,7 @@ import { change, date } from 'common/changelog';
 
 export default [
   change(date(2020, 6, 20), <>Updated spell calculation tests to reflect <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> coefficent adjustment for 8.3.</>, Putro),
+  change(date(2020, 6, 3), <>Added an <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> applicator breakdown chart.</>, [Tiphess]),
   change(date(2020, 5, 26), <>Added a <SpellLink id={SPELLS.ENDURING_LUMINESCENCE.id} /> analyzer and fixed the <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> coefficient to 50% to match the 8.3 nerf.</>, [Tiphess]),
   change(date(2019, 11, 10), <>Fixed minor inaccuracies with <SpellLink id={SPELLS.DEATH_THROES.id} /> analyzer.</>, [Reglitch]),
   change(date(2019, 9, 17), <>Added more information to the <SpellLink id={SPELLS.PURGE_THE_WICKED_BUFF.id} /> module.</>, [Khadaj]),
