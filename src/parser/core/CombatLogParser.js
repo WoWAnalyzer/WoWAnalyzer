@@ -3,7 +3,7 @@ import React from 'react';
 import { findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
-import MODULE_ERROR from 'parser/core/MODULE_ERROR';
+import MODULE_ERROR from 'parser/core/ModuleError';
 // Normalizers
 import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
