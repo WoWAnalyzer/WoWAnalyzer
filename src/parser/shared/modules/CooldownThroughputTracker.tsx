@@ -4,22 +4,46 @@ import SPELLS from 'common/SPELLS/index';
 import Panel from 'interface/others/Panel';
 import CooldownIcon from 'interface/icons/Cooldown';
 import CooldownOverview from 'interface/others/CooldownOverview';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import EventHistory from 'parser/shared/modules/EventHistory';
+import Events, { Event, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import EventFilter from 'parser/core/EventFilter';
 
 const debug = false;
 
-export const BUILT_IN_SUMMARY_TYPES = {
-  HEALING: 'HEALING',
-  OVERHEALING: 'OVERHEALING',
-  ABSORBED: 'ABSORBED',
-  ABSORBS_APPLIED: 'ABSORBS_APPLIED',
-  MANA: 'MANA',
-  DAMAGE: 'DAMAGE',
+export enum BUILT_IN_SUMMARY_TYPES {
+  HEALING = 'HEALING',
+  OVERHEALING = 'OVERHEALING',
+  ABSORBED = 'ABSORBED',
+  ABSORBS_APPLIED = 'ABSORBS_APPLIED',
+  MANA = 'MANA',
+  DAMAGE = 'DAMAGE',
+}
+
+type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
+
+export type CooldownSpell = {
+  spell: any,
+  summary: Array<BUILT_IN_SUMMARY_TYPES>,
+  startBufferFilter?: EventFilter<any>,
+  startBufferMS?: number,
+  startBufferEvents?: number,
+};
+
+type TrackedCooldown = CooldownSpell & {
+  start: number,
+  end: number | null,
+  events: Array<Event>,
 };
 
 class CooldownThroughputTracker extends Analyzer {
-  static cooldownSpells = [
+  static dependencies = {
+    eventHistory: EventHistory,
+  };
+  protected eventHistory!: EventHistory;
+
+  static cooldownSpells: Array<CooldownSpell> = [
     {
       spell: SPELLS.INNERVATE,
       summary: [
@@ -36,12 +60,13 @@ class CooldownThroughputTracker extends Analyzer {
     ...CASTS_THAT_ARENT_CASTS,
   ];
 
-  pastCooldowns = [];
-  activeCooldowns = [];
+  pastCooldowns: Array<TrackedCooldown> = [];
+  activeCooldowns: Array<TrackedCooldown> = [];
 
-  startCooldown(event) {
+  startCooldown(event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent) {
     const spellId = event.ability.guid;
-    const cooldownSpell = this.constructor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    const ctor = this.constructor as typeof CooldownThroughputTracker;
+    const cooldownSpell = ctor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
     if (!cooldownSpell) {
       return;
     }
@@ -49,17 +74,34 @@ class CooldownThroughputTracker extends Analyzer {
     this.activeCooldowns.push(cooldown);
     debug && console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
   }
-  addCooldown(cooldownSpell, timestamp) {
+
+  addCooldown(cooldownSpell: CooldownSpell, timestamp: number): TrackedCooldown {
+    let events: Array<Event> = [];
+    let start = timestamp;
+    const startBufferMS = cooldownSpell.startBufferMS;
+    if (startBufferMS || cooldownSpell.startBufferEvents) {
+      // Default to only including cast events by the player
+      const filter = cooldownSpell.startBufferFilter || Events.cast.by(SELECTED_PLAYER);
+      events = this.eventHistory.last(cooldownSpell.startBufferEvents, startBufferMS, filter);
+      if(startBufferMS) {
+        start = timestamp - startBufferMS;
+      } else {
+        // If filtering by only event count, set the start timestamp to the oldest event found
+        start = (events[0] && events[0].timestamp) || start;
+      }
+    }
     const cooldown = {
       ...cooldownSpell,
-      start: timestamp,
+      start: start,
       end: null,
-      events: [],
+      events: events,
     };
+
     this.pastCooldowns.push(cooldown);
     return cooldown;
   }
-  endCooldown(event) {
+
+  endCooldown(event: RemoveDebuffEvent | RemoveBuffEvent) {
     const spellId = event.ability.guid;
     const index = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === spellId);
     if (index === -1) {
@@ -71,6 +113,7 @@ class CooldownThroughputTracker extends Analyzer {
     this.activeCooldowns.splice(index, 1);
     debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
   }
+
   on_fightend() {
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.end = this.owner.fight.end_time;
@@ -80,41 +123,52 @@ class CooldownThroughputTracker extends Analyzer {
   }
 
   // region Event tracking
-  trackEvent(event) {
+  trackEvent(event: TrackedEvent) {
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.events.push(event);
     });
   }
-  on_byPlayer_cast(event) {
-    if (this.constructor.ignoredSpells.includes(event.ability.guid)) {
+
+  on_byPlayer_cast(event: CastEvent) {
+    const ctor = this.constructor as typeof CooldownThroughputTracker;
+    if (ctor.ignoredSpells.includes(event.ability.guid)) {
       return;
     }
     this.trackEvent(event);
   }
-  on_byPlayer_heal(event) {
+
+  on_byPlayer_heal(event: HealEvent) {
     this.trackEvent(event);
   }
-  on_byPlayer_absorbed(event) {
+
+  on_byPlayer_absorbed(event: AbsorbedEvent) {
     this.trackEvent(event);
   }
-  on_byPlayer_damage(event) {
+
+  on_byPlayer_damage(event: DamageEvent) {
     this.trackEvent(event);
   }
-  on_byPlayer_applybuff(event) {
+
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
     this.trackEvent(event);
   }
-  on_toPlayer_applybuff(event) {
+
+  on_toPlayer_applybuff(event: ApplyBuffEvent) {
     this.startCooldown(event);
   }
-  on_toPlayer_removebuff(event) {
+
+  on_toPlayer_removebuff(event: RemoveBuffEvent) {
     this.endCooldown(event);
   }
-  on_byPlayer_applydebuff(event) {
+
+  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     this.startCooldown(event);
   }
-  on_byPlayer_removedebuff(event) {
+
+  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
     this.endCooldown(event);
   }
+
   // endregion
 
   tab() {
