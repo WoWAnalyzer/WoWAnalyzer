@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EventSubscriber from './EventSubscriber';
+import EventSubscriber, { EventListener } from './EventSubscriber';
 import EventFilter, {
   SELECTED_PLAYER,
   SELECTED_PLAYER_PET,
@@ -84,7 +84,7 @@ class Analyzer extends EventSubscriber {
   }
   addEventListener<T extends Event>(
     eventFilter: T['type'] | EventFilter<T['type']>,
-    listener: (event: T) => void,
+    listener: EventListener<T>,
   ) {
     if (this.hasLegacyEventListener) {
       throw new Error(
