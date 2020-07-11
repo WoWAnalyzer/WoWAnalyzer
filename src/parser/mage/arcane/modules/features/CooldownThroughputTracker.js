@@ -8,7 +8,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.ARCANE_POWER,
-      buffer: 4000,
+      startBufferMS: 4000,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
@@ -31,20 +31,9 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
   ];
 
-  previousCasts = [];
-
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const cooldownSpell = this.constructor.castCooldowns.find(cooldownSpell => cooldownSpell.spell.id === spellId);
-
-    //Keep 4 Seconds worth of events
-    this.previousCasts.forEach(cast => {
-      if (cast.timestamp < event.timestamp - 4000) {
-        this.previousCasts.shift();
-      }
-    });
-    this.previousCasts.push(event);
-
     if (cooldownSpell) {
       // adding the fixed cooldown, now we need to remove it from activeCooldowns too
       const cooldown = this._addFixedCooldown(cooldownSpell, event.timestamp);
@@ -53,19 +42,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     }
     // super.on_byPlayer_cast(event) would call trackEvent anyway
     super.on_byPlayer_cast && super.on_byPlayer_cast(event);
-  }
-
-  addCooldown(cooldownSpell, timestamp) {
-    const cooldown = {
-      ...cooldownSpell,
-      start: timestamp - (cooldownSpell.buffer || 0),
-      end: null,
-      events: [],
-    };
-    //this.cooldownPreSpells = this.previousCasts.reverse();
-    this.previousCasts.reverse().forEach(event => cooldown.events.unshift(event));
-    this.pastCooldowns.push(cooldown);
-    return cooldown;
   }
 
   _addFixedCooldown(cooldownSpell, timestamp) {
