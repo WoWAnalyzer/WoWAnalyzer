@@ -30,6 +30,7 @@ import Buffs from './modules/Buffs';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import CastEfficiency from '../shared/modules/CastEfficiency';
 import SpellUsable from '../shared/modules/SpellUsable';
+import EventHistory from '../shared/modules/EventHistory';
 import SpellHistory from '../shared/modules/SpellHistory';
 import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import Enemies from '../shared/modules/Enemies';
@@ -201,7 +202,6 @@ import Ashjrakamas from '../shared/modules/items/bfa/Ashjrakamas';
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
 import EventEmitter from './modules/EventEmitter';
-import EventHistory from 'parser/shared/modules/EventHistory';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
