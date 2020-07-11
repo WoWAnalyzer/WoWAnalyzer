@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 7, 10), <> Fix an issue where the <SpellLink id={SPELLS.CLAW_BASIC_ATTACK.id} /> tracker could return a negative number. </>, Putro),
   change(date(2020, 6, 19), 'Updated player cast handlers to use an improved architecture with the help of Dambroda.', Putro),
   change(date(2020, 6, 12), <> Add a graph to show how (un)lucky you were with <SpellLink id={SPELLS.DANCE_OF_DEATH.id} /> procs. </>, Putro),
   change(date(2020, 6, 10), <> Improved registration of inefficient <SpellLink id={SPELLS.COBRA_SHOT.id} /> casts to also take into account your current focus, so an inefficient cast will only be registered if you are under 50 focus. </>, Putro),

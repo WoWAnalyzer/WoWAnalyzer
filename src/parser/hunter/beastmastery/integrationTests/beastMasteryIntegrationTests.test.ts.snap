@@ -5715,15 +5715,14 @@ Array [
     "icon": "ability_upgrademoonglaive",
     "importance": "major",
     "issue": <React.Fragment>
-      When using 
       <ForwardRef
         id={278530}
       />
-      , remember to try to hit 3 or more targets every time you cast 
+       only has an effect on 3+ targets, if an encounter doesn't have enough scenarios where you can reliably hit 3 targets with 
       <ForwardRef
         id={2643}
       />
-      .
+      , you might want to consider a different azerite trait.
     </React.Fragment>,
     "stat": <React.Fragment>
       14 casts without a Rapid Reload proc
