@@ -11,7 +11,7 @@ class EventHistory extends Module {
    * @param filterDef an optional EventFilter to apply to all events
    * @returns the last `count` events that match the given filters, with the oldest events first
    */
-  public last(count: number | null = null, maxTime: number | null = null, filterDef: EventFilter<string> | null = null): Array<Event> {
+  public last(count?: number, maxTime?: number, filterDef?: EventFilter<string>): Array<Event> {
     let filter = (event: any) => {
       return true;
     };
