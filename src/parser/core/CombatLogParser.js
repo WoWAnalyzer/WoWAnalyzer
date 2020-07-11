@@ -201,6 +201,7 @@ import Ashjrakamas from '../shared/modules/items/bfa/Ashjrakamas';
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
 import EventEmitter from './modules/EventEmitter';
+import EventHistory from 'parser/shared/modules/EventHistory';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -240,6 +241,7 @@ class CombatLogParser {
     pets: Pets,
     spellManaCost: SpellManaCost,
     channeling: Channeling,
+    eventHistory: EventHistory,
     abilityTracker: AbilityTracker,
     haste: Haste,
     statTracker: StatTracker,
