@@ -2,6 +2,9 @@ export const SELECTED_PLAYER = 1;
 export const SELECTED_PLAYER_PET = 2;
 const VALID_BY_FLAGS = SELECTED_PLAYER | SELECTED_PLAYER_PET;
 
+export type SpellInfo = { id: number };
+export type SpellFilter = SpellInfo | Array<SpellInfo>;
+
 class EventFilter<T extends string> {
   eventType: T;
   constructor(eventType: T) {
@@ -30,8 +33,8 @@ class EventFilter<T extends string> {
   getTo() {
     return this._to;
   }
-  private _spell: object | undefined;
-  spell(value: object) {
+  private _spell: SpellFilter | undefined;
+  spell(value: SpellFilter) {
     // TODO: Use spell id instead
     if (typeof value !== 'object') {
       throw new Error(
