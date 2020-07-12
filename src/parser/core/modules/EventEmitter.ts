@@ -292,13 +292,11 @@ class EventEmitter extends Module {
     console.error('Disabling', name, 'and child dependencies because an error occured:', err);
     // Disable this module and all active modules that have this as a dependency
     this.owner.deepDisable(module, ModuleError.EVENTS, err);
-    // @ts-ignore Sentry does not exist on window, need Sentry types
-    window.Sentry && window.Sentry.withScope(scope => {
+    Sentry && Sentry.withScope(scope => {
       scope.setTag('type', 'module_error');
       scope.setTag('spec', `${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}`);
       scope.setExtra('module', name);
-      // @ts-ignore Sentry does not exist on window, need Sentry types
-      window.Sentry.captureException(err);
+      Sentry.captureException(err);
     });
   }
 }
