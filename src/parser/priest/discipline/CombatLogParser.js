@@ -26,6 +26,7 @@ import AtonementHealingDone from './modules/features/AtonementHealingDone';
 import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import Lenience from './modules/spells/Lenience';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
+import AtonementApplicatorBreakdown from './modules/features/AtonementApplicatorBreakdown';
 
 import TwistOfFate from './modules/spells/TwistOfFate';
 import Castigation from './modules/spells/Castigation';
@@ -81,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     powerWordBarrier: PowerWordBarrier,
     lenience: Lenience,
     purgeTheWicked: PurgeTheWicked,
+    atonementApplicatorBreakdown: AtonementApplicatorBreakdown,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,

@@ -32,6 +32,8 @@ class EnduringLuminescense extends Analyzer {
     _lastCastIsPowerWordRadiance = false;
     _atonementsAppliedByRadiances = [];
 
+    _lastRadianceCastTimestamp = 0; // Setting a dummy timestamp to 0
+
     constructor(...args) {
         super(...args);
         this.active = this.selectedCombatant.hasTrait(SPELLS.ENDURING_LUMINESCENCE.id);
@@ -44,10 +46,15 @@ class EnduringLuminescense extends Analyzer {
             .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.ENDURING_LUMINESCENCE.id, rank)[0], 0);
 
         this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT), this.handleEvangelismCasts);
+        this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE), this.storePowerWordRadiancesCastTimestamp);
         this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.handleAtonementsApplications);
         this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE), this.handleRadianceHits);
         this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_HEAL_NON_CRIT), this.handleAtonementsHits);
         this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_HEAL_CRIT), this.handleAtonementsHits);
+    }
+
+    storePowerWordRadiancesCastTimestamp(event){
+        this._lastRadianceCastTimestamp = event.timestamp;
     }
 
 
@@ -89,9 +96,7 @@ class EnduringLuminescense extends Analyzer {
 
     handleAtonementsApplications(event){
 
-        //Any atonement that is applied by Power Word: Radiance will have its corresponding
-        //applybuff event assigned a new property __modified set to true, indicating it comes from a Power Word: Radiance cast
-        if(event.__modified !== true){
+        if(event.timestamp !== this._lastRadianceCastTimestamp){
             return;
         }
     
