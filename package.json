@@ -43,6 +43,7 @@
     "@lingui/core": "^2.9.0",
     "@lingui/loader": "^2.9.0",
     "@lingui/macro": "^2.9.0",
+    "@sentry/browser": "^5.19.1",
     "@types/jest": "^24.0.23",
     "@types/lingui__core": "^2.7.0",
     "@types/lingui__macro": "^2.7.3",
