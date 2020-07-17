@@ -1,4 +1,5 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Abilities from 'parser/core/modules/Abilities';
 import Channeling from 'parser/shared/modules/Channeling';
 import Events, {
   ApplyBuffEvent,
@@ -11,7 +12,6 @@ import Events, {
 } from 'parser/core/Events';
 
 import SpellUsable from './SpellUsable';
-import Abilities from '../../core/modules/Abilities';
 
 class SpellHistory extends Analyzer {
   static dependencies = {
