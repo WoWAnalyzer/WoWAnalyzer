@@ -15,6 +15,20 @@ export interface Contributor {
   alts?: Array<{ name: string; spec: any; link: string }>;
 }
 
+export type Build = {
+  url: string;
+  name: string;
+  icon: ReactNode;
+  /**
+   * Whether the build should be visible. Using `false` can allow you to
+   * incrementally add support to modules, without having to bundle
+   * everything in a single giant PR or release it incomplete.
+   */
+  visible: boolean;
+  active?: boolean;
+}
+export type Builds = { [name: string]: Build };
+
 interface Config {
   /**
    * The people that have contributed to this spec recently. People don't have
@@ -52,19 +66,7 @@ interface Config {
    * on the homepage.
    */
   exampleReport: string;
-  builds?: {
-    [id: string]: {
-      url: string;
-      name: string;
-      icon: ReactNode;
-      /**
-       * Whether the build should be visible. Using `false` can allow you to
-       * incrementally add support to modules, without having to bundle
-       * everything in a single giant PR or release it incomplete.
-       */
-      visible: boolean;
-    };
-  };
+  builds?: Builds;
   // Don't change values for props below this line;
   /**
    * The spec this config is for . This is the only place (in code) that
