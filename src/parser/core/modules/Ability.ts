@@ -415,7 +415,7 @@ class Ability {
   };
   charges = 1;
   enabled = true;
-  timelineSortIndex = null;
+  timelineSortIndex: number | null = null;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
   buffSpellId = null;
   shownSpell = null;
