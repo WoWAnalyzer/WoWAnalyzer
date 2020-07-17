@@ -82,9 +82,9 @@ class Analyzer extends EventSubscriber {
     super(options);
     addLegacyEventListenerSupport(this);
   }
-  addEventListener<T extends Event>(
-    eventFilter: T['type'] | EventFilter<T['type']>,
-    listener: EventListener<T>,
+  addEventListener<ET extends string, E extends Event<ET>>(
+    eventFilter: ET | EventFilter<ET>,
+    listener: EventListener<ET, E>,
   ) {
     if (this.hasLegacyEventListener) {
       throw new Error(
@@ -101,7 +101,7 @@ class Analyzer extends EventSubscriber {
   /**
    * @deprecated Set the `position` property on the Statistic component instead.
    */
-  statisticOrder = undefined;
+  statisticOrder?: number = undefined;
   suggestions(when: (actual: object | any) => SuggestionAssertion) {}
   /**
    * @deprecated Return a `Panel` from the statistic method instead.
