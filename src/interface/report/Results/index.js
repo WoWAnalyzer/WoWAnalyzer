@@ -54,6 +54,7 @@ class Results extends React.PureComponent {
           resultsWarning: PropTypes.any,
         }),
       }),
+      getOptionalModule: PropTypes.func.isRequired,
       getModule: PropTypes.func.isRequired,
       selectedCombatant: PropTypes.any,
       fight: PropTypes.shape({
