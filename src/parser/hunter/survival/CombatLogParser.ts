@@ -124,7 +124,7 @@ class CombatLogParser extends CoreCombatLogParser {
     memoryOfLucidDreams: MemoryOfLucidDreams,
 
     // Survival's throughput benefit isn't as big as for other classes
-    arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }],
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };
 }
 
