@@ -1,5 +1,5 @@
 import ModuleError from 'parser/core/ModuleError';
-import Events, { Event } from '../Events';
+import Events, { Event, HasAbility } from '../Events';
 import Module from '../Module';
 import { EventListener } from '../EventSubscriber';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from '../Analyzer';
@@ -9,10 +9,10 @@ const CATCH_ALL_EVENT = 'event';
 
 const PROFILE = false;
 
-type BoundListener = {
-  eventFilter: EventFilter<string> | string;
+type BoundListener<ET extends string, E extends Event<ET>> = {
+  eventFilter: ET | EventFilter<ET>;
   module: Module;
-  listener: EventListener<Event>;
+  listener: EventListener<ET, E>;
 }
 
 /**
@@ -34,14 +34,14 @@ class EventEmitter extends Module {
     }
   }
 
-  _eventListenersByEventType: {[eventType: string]: BoundListener[]} = {};
+  _eventListenersByEventType: { [eventType: string]: BoundListener<any, any>[] } = {};
   numEventListeners = 0;
   /**
    * @param {string|EventFilter} eventFilter
    * @param {function} listener
    * @param {Module} module
    */
-  addEventListener(eventFilter: EventFilter<string>|string, listener: EventListener<Event>, module: Module) {
+  addEventListener<ET extends string, T extends Event<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, T>, module: Module) {
     const eventType = eventFilter instanceof EventFilter ? eventFilter.eventType : eventFilter;
     this._eventListenersByEventType[eventType] = this._eventListenersByEventType[eventType] || [];
     this._eventListenersByEventType[eventType].push({
@@ -51,7 +51,7 @@ class EventEmitter extends Module {
     });
     this.numEventListeners += 1;
   }
-  _compileListener(eventFilter: EventFilter<any>|string, listener: EventListener<Event>, module: Module) {
+  _compileListener<ET extends string, E extends Event<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, E>, module: Module): EventListener<ET, E> {
     listener = this._prependCounter(listener);
     if (eventFilter instanceof EventFilter) {
       listener = this._prependFilters(eventFilter, listener);
@@ -60,21 +60,22 @@ class EventEmitter extends Module {
     listener = this._prependActiveCheck(listener, module);
     return listener;
   }
+
   numActualExecutions = 0;
-  _prependCounter<T extends Event>(listener: EventListener<T>): EventListener<T> {
+  _prependCounter<ET extends string, E extends Event<ET>>(listener: EventListener<ET, E>): EventListener<ET, E> {
     return event => {
       this.numActualExecutions += 1;
       listener(event);
     };
   }
-  _prependActiveCheck<T extends Event>(listener: EventListener<T>, module: Module): EventListener<T> {
-    return function(event) {
+  _prependActiveCheck<ET extends string, E extends Event<ET>>(listener: EventListener<ET, E>, module: Module): EventListener<ET, E> {
+    return function(event: E) {
       if (module.active) {
         listener(event);
       }
     };
   }
-  _prependFilters<T extends Event>(eventFilter: EventFilter<string>, listener: EventListener<T>): EventListener<T> {
+  _prependFilters<ET extends string, E extends Event<ET>>(eventFilter: EventFilter<ET>, listener: EventListener<ET, E>): EventListener<ET, E> {
     const by = eventFilter.getBy();
     if (by) {
       listener = this._prependByCheck(listener, by);
@@ -90,7 +91,7 @@ class EventEmitter extends Module {
     return listener;
   }
 
-  createByCheck<T extends Event>(by: number): ((event: Event) => boolean) | null {
+  createByCheck<ET extends string, E extends Event<ET>>(by: number): ((event: E) => boolean) | null {
     const requiresSelectedPlayer = by & SELECTED_PLAYER;
     const requiresSelectedPlayerPet = by & SELECTED_PLAYER_PET;
 
@@ -104,7 +105,7 @@ class EventEmitter extends Module {
       return null;
     }
   }
-  _prependByCheck<T extends Event>(listener: EventListener<T>, by: number): EventListener<T> {
+  _prependByCheck<ET extends string, E extends Event<ET>>(listener: EventListener<ET, E>, by: number): EventListener<ET, E> {
     const check = this.createByCheck(by);
     if (!check) {
       return listener;
@@ -117,7 +118,7 @@ class EventEmitter extends Module {
     };
   }
 
-  createToCheck(to: number): ((event: Event) => boolean) | null {
+  createToCheck<ET extends string>(to: number): ((event: Event<ET>) => boolean) | null {
     const requiresSelectedPlayer = to & SELECTED_PLAYER;
     const requiresSelectedPlayerPet = to & SELECTED_PLAYER_PET;
     if (requiresSelectedPlayer && requiresSelectedPlayerPet) {
@@ -130,31 +131,29 @@ class EventEmitter extends Module {
       return null;
     }
   }
-  _prependToCheck<T extends Event>(listener: EventListener<T>, to: number): EventListener<T> {
+  _prependToCheck<ET extends string, E extends Event<ET>>(listener: EventListener<ET, E>, to: number): EventListener<ET, E> {
     const check = this.createToCheck(to);
     if (!check) {
       return listener;
     }
-    return function(event: T) {
+    return function(event: E) {
       if (check(event)) {
         listener(event);
       }
     };
   }
 
-  createSpellCheck(spell: SpellFilter): ((event: Event) => boolean) {
+  createSpellCheck<ET extends string, E extends Event<ET>>(spell: SpellFilter): ((event: E) => boolean) {
     if (spell instanceof Array) {
-      // @ts-ignore adding typechecking to <generic> event properties will be a lot of work
-      return event => event.ability && spell.some(s => s.id === event.ability.guid);
+      return event => HasAbility(event) && spell.some(s => s.id === event.ability.guid);
     }
     const spellId = spell.id;
-    // @ts-ignore adding typechecking to <generic> event properties will be a lot of work
-    return event => event.ability && event.ability.guid === spellId;
+    return event => HasAbility(event) && event.ability.guid === spellId;
   }
 
-  _prependSpellCheck<T extends Event>(listener: EventListener<T>, spell: SpellFilter): EventListener<T> {
+  _prependSpellCheck<ET extends string, E extends Event<ET>>(listener: EventListener<ET, E>, spell: SpellFilter): EventListener<ET, E> {
     const check = this.createSpellCheck(spell);
-    return function(event: T) {
+    return function(event: E) {
       if (check(event)) {
         listener(event);
       }
@@ -164,7 +163,7 @@ class EventEmitter extends Module {
   numTriggeredEvents = 0;
   numListenersCalled = 0;
   _isHandlingEvent = false;
-  triggerEvent(event: Event) {
+  triggerEvent<ET extends string, E extends Event<ET>>(event: E) {
     if (process.env.NODE_ENV === 'development') {
       this._validateEvent(event);
     }
@@ -178,7 +177,7 @@ class EventEmitter extends Module {
       this.owner._timestamp = event.timestamp;
     }
 
-    let run = (options: BoundListener) => {
+    let run = (options: BoundListener<ET, E>) => {
       try {
         this.numListenersCalled += 1;
         options.listener(event);
@@ -217,8 +216,8 @@ class EventEmitter extends Module {
   }
 
   timePerModule!: Map<Module, number>;
-  profile(run: (options: BoundListener) => void) {
-    return (options: BoundListener) => {
+  profile<ET extends string, E extends Event<ET>>(run: (options: BoundListener<ET, E>) => void) {
+    return (options: BoundListener<ET, E>) => {
       const start = performance.now();
       run(options);
       const duration = performance.now() - start;
@@ -227,7 +226,7 @@ class EventEmitter extends Module {
     };
   }
   reportModuleTimes() {
-    const table: Array<{module: Module, duration: number, ofTotal: string}> = [];
+    const table: Array<{ module: Module, duration: number, ofTotal: string }> = [];
     const totalDuration = Array.from(this.timePerModule).reduce((sum, [, value]) => sum + value, 0);
     this.timePerModule.forEach((value, key) => {
       table.push({
@@ -241,7 +240,7 @@ class EventEmitter extends Module {
     console.log('Total module time:', totalDuration, 'ms');
     console.groupEnd();
   }
-  _finally: Function[]|null = null;
+  _finally: Function[] | null = null;
   finally(func: Function) {
     this._finally = this._finally || [];
     this._finally.push(func);
@@ -254,12 +253,8 @@ class EventEmitter extends Module {
       currentBatch.forEach(item => item());
     }
   }
-  /**
-   * @param {object} event
-   * @param {object|null} trigger
-   * @returns {object} The event that was triggered.
-   */
-  fabricateEvent(event: { type: EventFilter<any>|string }, trigger = null) {
+  // todo double check this 'event' shape... seems wrong
+  fabricateEvent(event: { type: EventFilter<any> | string }, trigger = null) {
     const fabricatedEvent = {
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
       timestamp: this.owner.currentTimestamp,
