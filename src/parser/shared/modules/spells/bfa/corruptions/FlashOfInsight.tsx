@@ -40,7 +40,7 @@ class FlashOfInsight extends Analyzer {
     this.timestamp = this.owner.fight.start_time;
   }
 
-  stackChange(event: ApplyBuffStackEvent | RemoveBuffStackEvent) {
+  stackChange(event: ApplyBuffStackEvent & RemoveBuffStackEvent) {
     if (this.stack === 0) {
       this.statTracker.addStatMultiplier({ intellect: (1 + event.stack / 100) }, false);
       this.stack = event.stack;
