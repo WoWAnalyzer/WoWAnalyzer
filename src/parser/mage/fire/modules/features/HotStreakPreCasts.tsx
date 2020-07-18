@@ -60,7 +60,7 @@ class HotStreakPreCasts extends Analyzer {
 
   //Get the timestamp that Pyroclasm was removed. Because using Hot Streak involves casting Pyroblast, it isnt possible to tell if they hard casted Pyroblast immediately before using their Hot Streak Pyroblast.
   //So this is to check to see if the Pyroclasm proc was removed right before Hot Streak was removed.
-  onPyroclasmRemoved(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  onPyroclasmRemoved(event: RemoveBuffEvent & RemoveBuffStackEvent) {
     this.pyroclasmProcRemoved = event.timestamp;
   }
 

@@ -51,7 +51,7 @@ class HydrasBite extends Analyzer {
     }
   }
 
-  onDebuffApplication(event: ApplyDebuffEvent | RefreshDebuffEvent) {
+  onDebuffApplication(event: ApplyDebuffEvent & RefreshDebuffEvent) {
     const target = encodeTargetString(event.targetID, event.targetInstance);
     if (this.mainTargets.includes(target)) {
       return;

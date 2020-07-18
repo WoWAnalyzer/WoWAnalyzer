@@ -43,7 +43,7 @@ class LatentPoison extends Analyzer {
     return this.utilised / this.casts;
   }
 
-  handleStacks(event: ApplyDebuffEvent | ApplyDebuffStackEvent | RemoveDebuffEvent) {
+  handleStacks(event: ApplyDebuffEvent & ApplyDebuffStackEvent & RemoveDebuffEvent) {
     if (event.type !== EventType.RemoveDebuff) {
       this.applications += 1;
     }
