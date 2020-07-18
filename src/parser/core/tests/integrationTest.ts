@@ -1,4 +1,5 @@
 import renderer from 'react-test-renderer';
+import { ReactElement } from 'react';
 
 import ParseResults from 'parser/core/ParseResults';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
@@ -8,7 +9,6 @@ import Module from '../Module';
 import Analyzer from '../Analyzer';
 import { loadLog, parseLog } from './log-tools';
 import { statistic } from './snapshotTest';
-import { ReactElement } from 'react';
 
 function integrationStatistic(analyzer: Analyzer, parser: CombatLogParser) {
   if (!analyzer.active) {
