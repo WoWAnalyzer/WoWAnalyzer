@@ -3,7 +3,7 @@ import React from 'react';
 import { findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
-import MODULE_ERROR from 'parser/core/MODULE_ERROR';
+import MODULE_ERROR from 'parser/core/ModuleError';
 // Normalizers
 import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
@@ -30,6 +30,7 @@ import Buffs from './modules/Buffs';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import CastEfficiency from '../shared/modules/CastEfficiency';
 import SpellUsable from '../shared/modules/SpellUsable';
+import EventHistory from '../shared/modules/EventHistory';
 import SpellHistory from '../shared/modules/SpellHistory';
 import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import Enemies from '../shared/modules/Enemies';
@@ -240,6 +241,7 @@ class CombatLogParser {
     pets: Pets,
     spellManaCost: SpellManaCost,
     channeling: Channeling,
+    eventHistory: EventHistory,
     abilityTracker: AbilityTracker,
     haste: Haste,
     statTracker: StatTracker,
