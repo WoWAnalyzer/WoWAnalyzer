@@ -79,7 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lucidDreamsRage: LucidDreamsRage,
 
     // Doesn't generate enough rage to be a valid cast
-    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
 }
 
