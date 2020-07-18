@@ -74,13 +74,13 @@ class SpellHistory extends Analyzer {
 
   private append(
     event:
-      | BeginCastEvent
-      | CastEvent
-      | BeginChannelEvent
-      | EndChannelEvent
-      | ApplyBuffEvent
-      | RemoveBuffEvent
-      | UpdateSpellUsableEvent,
+      & BeginCastEvent
+      & CastEvent
+      & BeginChannelEvent
+      & EndChannelEvent
+      & ApplyBuffEvent
+      & RemoveBuffEvent
+      & UpdateSpellUsableEvent,
   ) {
     const spellId = event.ability.guid;
     const history = this.getAbility(spellId);
