@@ -1,9 +1,16 @@
 import React from 'react';
 
-import { findByBossId } from 'raids';
+import { Boss, findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ModuleError from 'parser/core/ModuleError';
+import { CombatantInfoEvent, Event, HasSource, HasTarget } from 'parser/core/Events';
+import Module from './Module';
+import Fight from './Fight';
+import Analyzer from './Analyzer';
+import EventFilter from './EventFilter';
+import { EventListener } from './EventSubscriber';
+import { Builds } from '../Config';
 // Normalizers
 import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
@@ -207,18 +214,20 @@ const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
 const isMinified = process.env.NODE_ENV === 'production';
 
+type DependencyDefinition = typeof Module | readonly [typeof Module, {[option: string]: any}];
+export type DependenciesDefinition = {[desiredName: string]: DependencyDefinition};
 class CombatLogParser {
-  static abilitiesAffectedByHealingIncreases = [];
-  static abilitiesAffectedByDamageIncreases = [];
+  static abilitiesAffectedByHealingIncreases: Array<number> = [];
+  static abilitiesAffectedByDamageIncreases: Array<number> = [];
 
-  static internalModules = {
+  static internalModules: DependenciesDefinition = {
     fightEndNormalizer: FightEndNormalizer,
     eventEmitter: EventEmitter,
     combatants: Combatants,
     deathDowntime: DeathDowntime,
     totalDowntime: TotalDowntime,
   };
-  static defaultModules = {
+  static defaultModules: DependenciesDefinition = {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
     cancelledCastsNormalizer: CancelledCastsNormalizer,
@@ -422,29 +431,36 @@ class CombatLogParser {
     ashjrakamas: Ashjrakamas,
   };
   // Override this with spec specific modules when extending
-  static specModules = {};
+  static specModules: DependenciesDefinition = {};
 
-  applyTimeFilter = (start, end) => null; //dummy function gets filled in by event parser
-  applyPhaseFilter = (phase, instance) => null; //dummy function gets filled in by event parser
+  applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
+  applyPhaseFilter = (phase: any, instance: any) => null; //dummy function gets filled in by event parser
 
-  report = null;
-  // Player info from WCL - required
-  player = null;
-  playerPets = null;
-  fight = null;
-  combatantInfoEvents = null;
+  // TODO create report type
+  report: any;
   // Character info from the Battle.net API (optional)
-  characterProfile = null;
+  // TODO create profile type
+  characterProfile: any;
+
+  // Player info from WCL - required
+  player: SelectedPlayer;
+  playerPets: Array<any>;
+  fight: Fight;
+  build: string;
+  builds: Builds;
+  boss: Boss | null;
+  combatantInfoEvents: Array<CombatantInfoEvent>;
+
 
   //Disabled Modules
-  disabledModules = null;
+  disabledModules!: {[state in ModuleError]: any[]};
 
   adjustForDowntime = true;
   get hasDowntime() {
     return this.getModule(TotalDowntime).totalBaseDowntime > 0;
   }
 
-  _modules = {};
+  _modules: {[name: string]: Module} = {};
   get activeModules() {
     return Object.values(this._modules).filter(module => module.active);
   }
@@ -456,7 +472,7 @@ class CombatLogParser {
     return this.fight.id;
   }
 
-  _timestamp = null;
+  _timestamp: number;
   get currentTimestamp() {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
@@ -473,10 +489,10 @@ class CombatLogParser {
     return this.getModule(Combatants).selected;
   }
 
-  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile, build, builds) {
+  constructor(report: any, selectedPlayer: SelectedPlayer, selectedFight: Fight, combatantInfoEvents: Array<CombatantInfoEvent>, characterProfile: any, build: string, builds: Builds) {
     this.report = report;
     this.player = selectedPlayer;
-    this.playerPets = report.friendlyPets.filter(pet => pet.petOwner === selectedPlayer.id);
+    this.playerPets = report.friendlyPets.filter((pet: { petOwner: any; }) => pet.petOwner === selectedPlayer.id);
     this.fight = selectedFight;
     this.build = build;
     this.builds = builds;
@@ -486,15 +502,17 @@ class CombatLogParser {
     this.characterProfile = characterProfile;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
+    // @ts-ignore populated dynamically but object keys still strongly typed
     this.disabledModules = {};
     //initialize disabled modules for each state
     Object.values(ModuleError).forEach(key => {
       this.disabledModules[key] = [];
     });
+    const ctor = this.constructor as typeof CombatLogParser;
     this.initializeModules({
-      ...this.constructor.internalModules,
-      ...this.constructor.defaultModules,
-      ...this.constructor.specModules,
+      ...ctor.internalModules,
+      ...ctor.defaultModules,
+      ...ctor.specModules,
     });
   }
   finish() {
@@ -510,7 +528,7 @@ class CombatLogParser {
     );
   }
 
-  _getModuleClass(config) {
+  _getModuleClass(config: DependencyDefinition): [typeof Module, any] {
     let moduleClass;
     let options;
     if (config instanceof Array) {
@@ -522,14 +540,14 @@ class CombatLogParser {
     }
     return [moduleClass, options];
   }
-  _resolveDependencies(dependencies) {
-    const availableDependencies = {};
-    const missingDependencies = [];
+  _resolveDependencies(dependencies: { [desiredName: string]: typeof Module }) {
+    const availableDependencies: {[name: string]: Module} = {};
+    const missingDependencies: Array<typeof Module> = [];
     if (dependencies) {
       Object.keys(dependencies).forEach(desiredDependencyName => {
         const dependencyClass = dependencies[desiredDependencyName];
 
-        const dependencyModule = this.getModule(dependencyClass, true);
+        const dependencyModule = this.getOptionalModule(dependencyClass);
         if (dependencyModule) {
           availableDependencies[desiredDependencyName] = dependencyModule;
         } else {
@@ -537,14 +555,14 @@ class CombatLogParser {
         }
       });
     }
-    return [availableDependencies, missingDependencies];
+    return [availableDependencies, missingDependencies] as const;
   }
   /**
    * @param {Module} moduleClass
    * @param {object} [options]
    * @param {string} [desiredModuleName]  Deprecated: will be removed Soon™.
    */
-  loadModule(moduleClass, options, desiredModuleName = `module${Object.keys(this._modules).length}`) {
+  loadModule<T extends typeof Module>(moduleClass: T, options: {[prop: string]: any; priority: number}, desiredModuleName = `module${Object.keys(this._modules).length}`) {
     // eslint-disable-next-line new-cap
     const module = new moduleClass({
       ...options,
@@ -554,6 +572,7 @@ class CombatLogParser {
       // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
       // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
       Object.keys(options).forEach(key => {
+        // @ts-ignore
         module[key] = options[key];
       });
     }
@@ -562,9 +581,9 @@ class CombatLogParser {
     this._modules[desiredModuleName] = module;
     return module;
   }
-  initializeModules(modules, iteration = 1) {
+  initializeModules(modules: DependenciesDefinition, iteration = 1) {
     // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
-    const failedModules = [];
+    const failedModules: Array<string> = [];
     Object.keys(modules).forEach(desiredModuleName => {
       const moduleConfig = modules[desiredModuleName];
       if (!moduleConfig) {
@@ -618,8 +637,15 @@ class CombatLogParser {
     });
 
     if (failedModules.length !== 0) {
-      debugDependencyInjection && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
-      const newBatch = {};
+      debugDependencyInjection && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => {
+        const def = modules[key];
+        if (def instanceof Array) {
+          return def[0].name;
+        } else {
+          return (def as typeof Module).name;
+        }
+      }));
+      const newBatch: DependenciesDefinition = {};
       failedModules.forEach(key => {
         newBatch[key] = modules[key];
       });
@@ -638,29 +664,32 @@ class CombatLogParser {
     // Executed when module initialization is complete
   }
   _moduleCache = new Map();
-  getModule(type, optional = false) {
+  getOptionalModule<T extends Module>(type: { new(options: any): T }): T|undefined {
     // We need to use a cache and can't just set this on initialization because we sometimes search by the inheritance chain.
     const cacheEntry = this._moduleCache.get(type);
     if (cacheEntry !== undefined) {
       return cacheEntry;
     }
-
     // Search for a specific module by its type, accepting any modules that have the type somewhere in the inheritance chain
     const module = Object.values(this._modules).find(module => module instanceof type);
-    if (optional === false && module === undefined) {
+    this._moduleCache.set(type, module);
+    return module as T;
+  }
+  getModule<T extends Module>(type: { new(options: any): T }): T {
+    const module = this.getOptionalModule(type);
+    if (module === undefined) {
       throw new Error(`Module not found: ${type.name}`);
     }
-    this._moduleCache.set(type, module);
     return module;
   }
-
-  normalize(events) {
+  normalize(events: Array<Event<any>>) {
     this.activeModules
       .filter(module => module instanceof EventsNormalizer)
+      .map(module => module as EventsNormalizer)
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => {
-        if (module.normalize) {
-          events = module.normalize(events);
+      .forEach(normalizer => {
+        if (normalizer.normalize) {
+          events = normalizer.normalize(events);
         }
       });
     return events;
@@ -668,12 +697,12 @@ class CombatLogParser {
 
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
-  eventHistory = [];
-  addEventListener(...args) {
-    this.getModule(EventEmitter).addEventListener(...args);
+  eventHistory: Array<Event<any>> = [];
+  addEventListener<ET extends string, E extends Event<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, E>, module: Module) {
+    this.getModule(EventEmitter).addEventListener(eventFilter, listener, module);
   }
 
-  deepDisable(module, state, error = undefined) {
+  deepDisable(module: Module, state: ModuleError, error: Error|undefined = undefined) {
     if (!module.active) {
       return; //return early
     }
@@ -681,7 +710,9 @@ class CombatLogParser {
     this.disabledModules[state].push({ key: isMinified ? module.key : module.constructor.name, module: module.constructor, ...(error && { error: error }) });
     module.active = false;
     this.activeModules.forEach(active => {
-        const deps = active.constructor.dependencies;
+        const ctor = active.constructor as typeof Module;
+        const deps = ctor.dependencies;
+        // Inspectors may light up `module instanceof depClass` because of the constructor cast
         if (deps && Object.values(deps).find(depClass => module instanceof depClass)) {
           this.deepDisable(active, ModuleError.DEPENDENCY);
         }
@@ -689,49 +720,51 @@ class CombatLogParser {
     );
   }
 
-  byPlayer(event, playerId = this.player.id) {
-    return event.sourceID === playerId;
+  byPlayer<ET extends string>(event: Event<ET>, playerId = this.player.id) {
+      return HasSource(event) && event.sourceID === playerId;
   }
-  toPlayer(event, playerId = this.player.id) {
-    return (event.targetID === playerId);
+  toPlayer<ET extends string>(event: Event<ET>, playerId = this.player.id) {
+    return HasTarget(event) && (event.targetID === playerId);
   }
-  byPlayerPet(event) {
-    return this.playerPets.some(pet => pet.id === event.sourceID);
+  byPlayerPet<ET extends string>(event: Event<ET>) {
+    return HasSource(event) && this.playerPets.some(pet => pet.id === event.sourceID);
   }
-  toPlayerPet(event) {
-    return this.playerPets.some(pet => pet.id === event.targetID);
+  toPlayerPet<ET extends string>(event: Event<ET>) {
+    return HasTarget(event) && this.playerPets.some(pet => pet.id === event.targetID);
   }
 
-  getPercentageOfTotalHealingDone(healingDone) {
+  getPercentageOfTotalHealingDone(healingDone: number) {
     return healingDone / this.getModule(HealingDone).total.effective;
   }
-  formatItemHealingDone(healingDone) {
+  formatItemHealingDone(healingDone: number) {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
   }
-  formatItemAbsorbDone(absorbDone) {
+  formatItemAbsorbDone(absorbDone: number) {
     return `${formatNumber(absorbDone)}`;
   }
-  getPercentageOfTotalDamageDone(damageDone) {
+  getPercentageOfTotalDamageDone(damageDone: number) {
     return damageDone / this.getModule(DamageDone).total.effective;
   }
-  formatItemDamageDone(damageDone) {
+  formatItemDamageDone(damageDone: number) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;
   }
-  getPercentageOfTotalDamageTaken(damageTaken) {
+  getPercentageOfTotalDamageTaken(damageTaken: number) {
     return damageTaken / this.getModule(DamageTaken).total.effective;
   }
-  formatTimestamp(timestamp, precision = 0) {
+  formatTimestamp(timestamp: number, precision = 0) {
     return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
   }
 
-  generateResults({ i18n, adjustForDowntime }) {
+  generateResults(adjustForDowntime: boolean): ParseResults {
     this.adjustForDowntime = adjustForDowntime;
 
-    let results;
+    let results: ParseResults = new ParseResults();
 
-    const addStatistic = (statistic, basePosition, key) => {
+    const addStatistic = (statistic: any, basePosition: number, key: string) => {
+      if(!statistic) {
+        return;
+      }
       const position = statistic.props.position !== undefined ? statistic.props.position : basePosition;
-
       results.statistics.push(
         React.cloneElement(statistic, {
           key,
@@ -748,32 +781,36 @@ class CombatLogParser {
           const module = this._modules[key];
 
           try {
-            if (module.statistic) {
-              let basePosition = index;
-              if (module.statisticOrder !== undefined) {
-                basePosition = module.statisticOrder;
-                console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d', module);
-              }
+            if(module instanceof Analyzer) {
+              const analyzer = module as Analyzer;
+              if (analyzer.statistic) {
+                let basePosition = index;
+                if (analyzer.statisticOrder !== undefined) {
+                  basePosition = analyzer.statisticOrder;
+                  console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d', module);
+                }
 
-              const statistic = module.statistic({ i18n });
-              if (statistic) {
-                if (Array.isArray(statistic)) {
-                  statistic.forEach((statistic, statisticIndex) => {
-                    addStatistic(statistic, basePosition, `${key}-statistic-${statisticIndex}`);
-                  });
-                } else {
-                  addStatistic(statistic, basePosition, `${key}-statistic`);
+                // TODO - confirm removing i18n doesn't actually change anything here
+                const statistic = analyzer.statistic();
+                if (statistic) {
+                  if (Array.isArray(statistic)) {
+                    statistic.forEach((statistic, statisticIndex) => {
+                      addStatistic(statistic, basePosition, `${key}-statistic-${statisticIndex}`);
+                    });
+                  } else {
+                    addStatistic(statistic, basePosition, `${key}-statistic`);
+                  }
                 }
               }
-            }
-            if (module.tab) {
-              const tab = module.tab();
-              if (tab) {
-                results.tabs.push(tab);
+              if (analyzer.tab) {
+                const tab = analyzer.tab();
+                if (tab) {
+                  results.tabs.push(tab);
+                }
               }
-            }
-            if (module.suggestions) {
-              module.suggestions(results.suggestions.when);
+              if (analyzer.suggestions) {
+                analyzer.suggestions(results.suggestions.when);
+              }
             }
           } catch (e) { //error occured during results generation of module, disable module and all modules depending on it
             if (process.env.NODE_ENV !== 'production') {
@@ -798,6 +835,12 @@ class CombatLogParser {
 
     return results;
   }
+}
+export type SelectedPlayer = {
+  name: string,
+  id: number,
+  guid: number,
+  type: string,
 }
 
 export default CombatLogParser;
