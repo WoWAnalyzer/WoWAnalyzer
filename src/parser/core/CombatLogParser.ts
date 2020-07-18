@@ -3,7 +3,7 @@ import React from 'react';
 import { findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
-import MODULE_ERROR from 'parser/core/ModuleError';
+import ModuleError from 'parser/core/ModuleError';
 // Normalizers
 import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
@@ -488,7 +488,7 @@ class CombatLogParser {
     this.boss = findByBossId(selectedFight.boss);
     this.disabledModules = {};
     //initialize disabled modules for each state
-    Object.values(MODULE_ERROR).forEach(key => {
+    Object.values(ModuleError).forEach(key => {
       this.disabledModules[key] = [];
     });
     this.initializeModules({
@@ -594,7 +594,7 @@ class CombatLogParser {
           if (process.env.NODE_ENV !== 'production') {
             throw e;
           }
-          this.disabledModules[MODULE_ERROR.INITIALIZATION].push({ key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass, error: e });
+          this.disabledModules[ModuleError.INITIALIZATION].push({ key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass, error: e });
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization: ', e);
         }
 
@@ -602,13 +602,13 @@ class CombatLogParser {
         const disabledDependencies = missingDependencies
           .map(d => d.name)
           .filter(x =>
-            this.disabledModules[MODULE_ERROR.INITIALIZATION]
+            this.disabledModules[ModuleError.INITIALIZATION]
               .map(d => d.module.name)
               .includes(x),
           ); // see if a dependency was previously disabled due to an error
         if (disabledDependencies.length !== 0) {
           // if a dependency was already marked as disabled due to an error, mark this module as disabled
-          this.disabledModules[MODULE_ERROR.DEPENDENCY].push({ key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass });
+          this.disabledModules[ModuleError.DEPENDENCY].push({ key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass });
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization of a dependency.');
         } else {
           debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
@@ -683,7 +683,7 @@ class CombatLogParser {
     this.activeModules.forEach(active => {
         const deps = active.constructor.dependencies;
         if (deps && Object.values(deps).find(depClass => module instanceof depClass)) {
-          this.deepDisable(active, MODULE_ERROR.DEPENDENCY);
+          this.deepDisable(active, ModuleError.DEPENDENCY);
         }
       },
     );
@@ -779,7 +779,7 @@ class CombatLogParser {
             if (process.env.NODE_ENV !== 'production') {
               throw e;
             }
-            this.deepDisable(module, MODULE_ERROR.RESULTS, e);
+            this.deepDisable(module, ModuleError.RESULTS, e);
             //break loop and start again with inaccurate modules now disabled (in case of modules being rendered before their dependencies' errors are encountered)
             return false;
           }
