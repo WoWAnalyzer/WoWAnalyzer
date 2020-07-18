@@ -83,7 +83,8 @@ export interface SpellbookAbility {
         base?: number | ((combatant: Combatant) => number);
         minimum?: number | ((combatant: Combatant) => number);
       }
-    | ((combatant: Combatant) => number);
+    | ((combatant: Combatant) => number)
+    | null;
   castEfficiency?: {
     name?: string;
     /**
