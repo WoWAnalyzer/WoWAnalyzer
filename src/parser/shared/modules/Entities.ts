@@ -63,7 +63,7 @@ class Entities extends Analyzer {
 
     this._triggerChangeBuffStack(buff, event.timestamp, 0, 1);
 
-    if (event.prepull && event.__fromCombatantinfo) {
+    if (event.prepull && (event as any).__fromCombatantinfo) {
       // Prepull buffs were already applied in the Combatant constructor
       return;
     }
