@@ -104,6 +104,7 @@ export function HasTarget<T extends string>(event: Event<T>): event is Targetted
 export interface Event<T extends string> {
   type: T;
   timestamp: number;
+  prepull?: boolean;
 }
 export interface BeginCastEvent extends Event<EventType.BeginCast> {
   ability: Ability;
