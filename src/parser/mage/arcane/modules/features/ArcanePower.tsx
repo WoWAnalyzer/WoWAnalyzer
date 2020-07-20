@@ -54,7 +54,7 @@ class ArcanePower extends Analyzer {
     super(options);
     this.hasRuneOfPower = this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id);
     this.hasOverpowered = this.selectedCombatant.hasTalent(SPELLS.OVERPOWERED_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_POWER,SPELLS.RUNE_OF_POWER_TALENT]), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.ARCANE_POWER), this.onApplyBuff);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.ARCANE_POWER), this.onRemoveBuff);
   }
@@ -63,7 +63,9 @@ class ArcanePower extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.RUNE_OF_POWER_TALENT.id) {
       this.runeTimestamp = event.timestamp;
-    } else if (spellId === SPELLS.ARCANE_POWER.id) {
+      return;
+    }
+    if (spellId === SPELLS.ARCANE_POWER.id) {
       const manaResource: any = event.classResources && event.classResources.find(classResource => classResource.type === RESOURCE_TYPES.MANA.id);
       const currentManaPercent = manaResource.amount / manaResource.max;
       this.arcanePowerCasted = true;
@@ -98,29 +100,34 @@ class ArcanePower extends Analyzer {
         debug && !this.hasOverpowered && this.log('Mana Percent: ' + currentManaPercent);
         this.lowManaCast += 1;
       }
-    } else {
-      this.totalCastsDuringAP += 1;
-      if (ARCANE_POWER_SPELL_BLACKLIST.includes(event.ability)) {
-        debug && this.log('Cast ' + event.ability.name + ' during Arcane Power');
-        this.badCastsDuringAP += 1;
-      } else if (spellId === SPELLS.ARCANE_BLAST.id || spellId === SPELLS.ARCANE_EXPLOSION.id) {
-        event.classResources && event.classResources.forEach(resource => {
-          if (resource.type !== RESOURCE_TYPES.MANA.id) {
-            return;
-          }
-          const currentMana = resource.amount;
-          const manaCost: any = event.resourceCost && (event.resourceCost[RESOURCE_TYPES.MANA.id] + (event.resourceCost[RESOURCE_TYPES.MANA.id] * this.arcaneChargeTracker.charges));
-          const manaRemaining = currentMana - manaCost;
-          const buffTimeRemaining = this.buffEndTimestamp - event.timestamp;
-          if (manaRemaining < this.estimatedManaCost(spellId) && buffTimeRemaining > 1000) {
-            debug && this.log('Ran Out of Mana during Arcane Power');
-            debug && this.log('Mana Remaining: ' + manaRemaining);
-            debug && this.log('Estimated Mana Cost: ' + this.estimatedManaCost(spellId));
-            debug && this.log('Time left on Arcane Power: ' + buffTimeRemaining);
-            this.outOfMana += 1;
-          }
-        });
-      }
+      return;
+    }
+    if(!this.selectedCombatant.hasBuff(SPELLS.ARCANE_POWER.id)) {
+      return;
+    }
+    // Any spell except arcane power or rune of power that was cast during Arcane Power
+    this.totalCastsDuringAP += 1;
+    if (ARCANE_POWER_SPELL_BLACKLIST.includes(event.ability)) {
+      debug && this.log('Cast ' + event.ability.name + ' during Arcane Power');
+      this.badCastsDuringAP += 1;
+    } else if (spellId === SPELLS.ARCANE_BLAST.id || spellId === SPELLS.ARCANE_EXPLOSION.id) {
+      event.classResources && event.classResources.forEach(resource => {
+        if (resource.type !== RESOURCE_TYPES.MANA.id) {
+          return;
+        }
+        const currentMana = resource.amount;
+        const manaCost: any = event.resourceCost && (event.resourceCost[RESOURCE_TYPES.MANA.id] + (event.resourceCost[RESOURCE_TYPES.MANA.id] * this.arcaneChargeTracker.charges));
+        const manaRemaining = currentMana - manaCost;
+        const buffTimeRemaining = this.buffEndTimestamp - event.timestamp;
+        if (manaRemaining < this.estimatedManaCost(spellId) && buffTimeRemaining > 1000) {
+          debug && this.log('Ran Out of Mana during Arcane Power');
+          debug && this.log('Mana Remaining: ' + manaRemaining);
+          debug && this.log('Estimated Mana Cost: ' + this.estimatedManaCost(spellId));
+          debug && this.log('Time left on Arcane Power: ' + buffTimeRemaining);
+          this.outOfMana += 1;
+        }
+      });
+
     }
   }
 
