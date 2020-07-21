@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { EventType } from 'parser/core/Events';
+import { Event, ApplyBuffEvent, CombatantInfoEvent, EventType, HasAbility, HasTarget, HasSource } from 'parser/core/Events';
 
 const debug = false;
 
@@ -10,18 +10,18 @@ const debug = false;
  */
 class ApplyBuff extends EventsNormalizer {
   // We need to track `combatantinfo` events this way since they aren't included in the `events` passed to `normalize` due to technical reasons (it's a different API call). We still need `combatantinfo` for all players, so cache it manually.
-  _combatantInfoEvents = [];
-  constructor(...args) {
-    super(...args);
+  _combatantInfoEvents: Array<CombatantInfoEvent> | undefined = [];
+  constructor(options: any) {
+    super(options);
     this._combatantInfoEvents = this.owner.combatantInfoEvents;
   }
 
-  _buffsAppliedByPlayerId = {};
+  _buffsAppliedByPlayerId: {[playerid: number]: Array<number>} = {};
 
-  normalize(events) {
+  normalize(events: Array<Event<any>>) {
     const firstEventIndex = this.getFightStartIndex(events);
     const firstStartTimestamp = this.owner.fight.start_time;
-    const playersById = this.owner.players.reduce((obj, player) => {
+    const playersById = this.owner.players.reduce((obj: {[id: number]: any}, player: any) => {
       obj[player.id] = player;
       return obj;
     }, {});
@@ -31,8 +31,11 @@ class ApplyBuff extends EventsNormalizer {
     // This catches most relevant buffs and is most accurate. If a player is good at juggling certain buffs they can achieve 100% uptime, if that happens `removebuff` is never called, so we also check for other indicators that are just as reliable, such as `applybuffstack`, `removebuffstack` and `refreshbuff`.
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
+      if(!HasAbility(event) || !HasTarget(event)) {
+        continue;
+      }
       const targetId = event.targetID;
-      const sourceId = event.sourceID;
+      const sourceId = HasSource(event) ? event.sourceID : undefined;
 
       // A player can have the same buff twice given that the buff was applied by someone else. Because we only want to fabricate buffs once, we use `_buffsAppliedByPlayerId` to ensure we don't do it twice, but because it doesn't track a source we can't track other people's buffs. And that's fine too since we only care about stuff by/to the player.
       if (![targetId, sourceId].includes(playerId)) {
@@ -53,16 +56,16 @@ class ApplyBuff extends EventsNormalizer {
         }
 
         debug && this.warn('Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'that was applied before the pull:', event.ability.name, spellId, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
-        const targetInfo = this._combatantInfoEvents.find(combatantInfoEvent => combatantInfoEvent.sourceID === targetId);
+        const targetInfo = this._combatantInfoEvents && this._combatantInfoEvents.find(combatantInfoEvent => combatantInfoEvent.sourceID === targetId);
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
           timestamp: (event.type === EventType.FilterBuffInfo) ? firstStartTimestamp - this.owner.fight.offset_time : firstStartTimestamp,
           type: EventType.ApplyBuff,
           ability: event.ability,
           sourceID: sourceId,
-          sourceIsFriendly: event.sourceIsFriendly,
+          sourceIsFriendly: (event as any).sourceIsFriendly,
           targetID: targetId,
-          targetIsFriendly: event.targetIsFriendly,
+          targetIsFriendly: (event as any).targetIsFriendly,
           // Custom properties:
           prepull: true,
           __fabricated: true,
@@ -78,6 +81,9 @@ class ApplyBuff extends EventsNormalizer {
     // endregion
 
     // region `combatantinfo` based detection
+    if(!this._combatantInfoEvents) {
+      return events;
+    }
     // This catches buffs that never drop, such as Flasks and more importantly Atonements, Beacons and Vantus runes.
     this._combatantInfoEvents.forEach(event => {
       const targetId = event.sourceID;
@@ -99,7 +105,7 @@ class ApplyBuff extends EventsNormalizer {
         }
 
         debug && console.warn('Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'in the combatantinfo that was applied before the pull and never dropped:', (SPELLS[spellId] && SPELLS[spellId].name) || '???', spellId, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
-        const applybuff = {
+        const applybuff: ApplyBuffEvent = {
           // These are all the properties a normal `applybuff` event would have.
           timestamp: firstStartTimestamp,
           type: EventType.ApplyBuff,
@@ -107,6 +113,7 @@ class ApplyBuff extends EventsNormalizer {
             guid: spellId,
             name: SPELLS[spellId] ? SPELLS[spellId].name : 'Unknown',
             abilityIcon: aura.icon,
+            type: 0,
           },
           sourceID: sourceId,
           sourceIsFriendly: true,
