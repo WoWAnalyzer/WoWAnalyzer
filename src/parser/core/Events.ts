@@ -105,6 +105,7 @@ export interface Event<T extends string> {
   type: T;
   timestamp: number;
   prepull?: boolean;
+  __fabricated?: boolean;
 }
 export interface BeginCastEvent extends Event<EventType.BeginCast> {
   ability: Ability;
@@ -268,6 +269,7 @@ export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {
   targetIsFriendly: boolean;
   targetInstance?: number;
   absorb?: number;
+  __fromCombatantinfo?: boolean;
 }
 export interface ApplyDebuffEvent extends BuffEvent<EventType.ApplyDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
