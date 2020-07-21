@@ -165,7 +165,7 @@ export interface ICastEvent<T extends string> extends Event<T> {
     [resourceType: number]: number;
   };
   // Added by the GlobalCooldown module
-  globalCooldown: GlobalCooldownEvent;
+  globalCooldown?: GlobalCooldownEvent;
   // Added by any module, used in the timeline
   meta?: {
     isInefficientCast?: boolean;
