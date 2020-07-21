@@ -109,7 +109,7 @@ export interface Event<T extends string> {
 }
 export interface BeginCastEvent extends Event<EventType.BeginCast> {
   ability: Ability;
-  castEvent: CastEvent;
+  castEvent: CastEvent | null;
   channel: {
     type: EventType.BeginChannel;
     timestamp: 858735;
