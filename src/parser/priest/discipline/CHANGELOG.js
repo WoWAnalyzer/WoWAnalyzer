@@ -8,6 +8,7 @@ import ITEMS from 'common/ITEMS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 7, 20), <>Fixed a bug where the <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> Applicator Breakdown chart would sometimes not load due to an error.</>, [Tiphess]),
   change(date(2020, 6, 20), <>Updated spell calculation tests to reflect <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> coefficent adjustment for 8.3.</>, Putro),
   change(date(2020, 6, 3), <>Added an <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> applicator breakdown chart.</>, [Tiphess]),
   change(date(2020, 5, 26), <>Added a <SpellLink id={SPELLS.ENDURING_LUMINESCENCE.id} /> analyzer and fixed the <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> coefficient to 50% to match the 8.3 nerf.</>, [Tiphess]),
