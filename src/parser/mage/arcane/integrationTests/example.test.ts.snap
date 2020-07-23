@@ -177,7 +177,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
             />
           </a>
            
-          0
+          100
           % 
           <small>
             Arcane Blast Cast utilization
@@ -4484,7 +4484,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  0.00%
+                  100.00%
                    
                    
                 </div>
