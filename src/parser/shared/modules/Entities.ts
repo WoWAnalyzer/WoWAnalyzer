@@ -16,20 +16,20 @@ class Entities extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.addEventListener(Events.applybuff, this.applyBuff);
-    this.addEventListener(Events.applydebuff, this.applyBuff);
-    this.addEventListener(Events.removebuff, this.removeBuff);
-    this.addEventListener(Events.removedebuff, this.removeBuff);
+    this.addEventListener(Events.applybuff, (event: ApplyBuffEvent) => this.applyBuff(event));
+    this.addEventListener(Events.applydebuff, (event: ApplyDebuffEvent) => this.applyBuff(event));
+    this.addEventListener(Events.removebuff, (event: RemoveBuffEvent) => this.removeBuff(event));
+    this.addEventListener(Events.removedebuff, (event: RemoveDebuffEvent) => this.removeBuff(event));
     // TODO: Add a sanity check to the `refreshbuff` event that checks if a buff that's being refreshed was applied, if it wasn't it might be a broken pre-combat applied buff not shown in the combatantinfo event
     // We don't store/use durations, so refreshing buff is useless. Removing the buff actually interferes with the `minimalActiveTime` parameter of `getBuff`.
     // on_refreshbuff(event) {
     //   this.removeActiveBuff(event);
     //   this.applyActiveBuff(event);
     // }
-    this.addEventListener(Events.applybuffstack, this.updateBuffStack);
-    this.addEventListener(Events.applydebuffstack, this.updateBuffStack);
-    this.addEventListener(Events.removebuffstack, this.updateBuffStack);
-    this.addEventListener(Events.removedebuffstack, this.updateBuffStack);
+    this.addEventListener(Events.applybuffstack, (event: ApplyBuffStackEvent) => this.updateBuffStack(event));
+    this.addEventListener(Events.applydebuffstack, (event: ApplyDebuffStackEvent) => this.updateBuffStack(event));
+    this.addEventListener(Events.removebuffstack, (event: RemoveBuffStackEvent) => this.updateBuffStack(event));
+    this.addEventListener(Events.removedebuffstack, (event: RemoveDebuffStackEvent) => this.updateBuffStack(event));
   }
 
   getEntities(): Array<Entity> {
@@ -40,7 +40,7 @@ class Entities extends Analyzer {
     throw new Error('Not implemented');
   }
 
-  applyBuff(event: ApplyBuffEvent & ApplyDebuffEvent) {
+  applyBuff(event: ApplyBuffEvent | ApplyDebuffEvent) {
     if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
@@ -71,7 +71,7 @@ class Entities extends Analyzer {
     entity.applyBuff(buff);
   }
 
-  updateBuffStack(event: ApplyBuffStackEvent & ApplyDebuffStackEvent & RemoveBuffStackEvent & RemoveDebuffStackEvent) {
+  updateBuffStack(event: ApplyBuffStackEvent | ApplyDebuffStackEvent | RemoveBuffStackEvent | RemoveDebuffStackEvent) {
     if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
@@ -95,7 +95,7 @@ class Entities extends Analyzer {
     }
   }
 
-  removeBuff(event: RemoveBuffEvent & RemoveDebuffEvent) {
+  removeBuff(event: RemoveBuffEvent | RemoveDebuffEvent) {
     if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
