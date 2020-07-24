@@ -42,7 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     spellUsable: SpellUsable,
-    
+
     //Normalizers
     shurikenStormNormalizer: ShurikenStormNormalizer,
 
@@ -82,9 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     perforate: Perforate,
 
     // Racials
-    arcaneTorrent: [ArcaneTorrent, {
-      gcd: 1000,
-    }],
+    arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
   };
 }
 

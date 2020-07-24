@@ -53,7 +53,7 @@ class SteadyAim extends Analyzer {
     }
   }
 
-  onDebuffChange(event: ApplyDebuffEvent | ApplyDebuffStackEvent | RemoveDebuffEvent) {
+  onDebuffChange(event: ApplyDebuffEvent & ApplyDebuffStackEvent & RemoveDebuffEvent) {
     if (event.type === EventType.RemoveDebuff) {
       this.removeDebuffTimestamp = event.timestamp;
       this.aimedShotStacks = this._stacks;

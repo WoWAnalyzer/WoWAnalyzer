@@ -66,7 +66,7 @@ class VolatileBomb extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.VOLATILE_BOMB_WFI_DOT, SPELLS.VOLATILE_BOMB_WFI_IMPACT]), this.onBombDamage);
   }
 
-  _serpentApplication(event: ApplyDebuffEvent | RefreshDebuffEvent) {
+  _serpentApplication(event: ApplyDebuffEvent & RefreshDebuffEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;

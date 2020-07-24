@@ -34,7 +34,7 @@ export type CooldownSpell = {
 type TrackedCooldown = CooldownSpell & {
   start: number,
   end: number | null,
-  events: Array<Event>,
+  events: Array<Event<any>>,
 };
 
 class CooldownThroughputTracker extends Analyzer {
@@ -76,7 +76,7 @@ class CooldownThroughputTracker extends Analyzer {
   }
 
   addCooldown(cooldownSpell: CooldownSpell, timestamp: number): TrackedCooldown {
-    let events: Array<Event> = [];
+    let events: Array<Event<any>> = [];
     let start = timestamp;
     const startBufferMS = cooldownSpell.startBufferMS;
     if (startBufferMS || cooldownSpell.startBufferEvents) {

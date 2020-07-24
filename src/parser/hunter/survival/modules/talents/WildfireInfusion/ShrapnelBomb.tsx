@@ -48,7 +48,7 @@ class ShrapnelBomb extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  onDebuffApplication(event: ApplyDebuffEvent | ApplyDebuffStackEvent) {
+  onDebuffApplication(event: ApplyDebuffEvent & ApplyDebuffStackEvent) {
     if (event.type === EventType.ApplyDebuff) {
       this.applications += 1;
     }

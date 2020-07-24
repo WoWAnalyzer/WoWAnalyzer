@@ -5,7 +5,7 @@ import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import traitIdMap from 'common/TraitIdMap';
 import corruptionIdMap from 'common/corruptionIdMap';
 import SPELLS from 'common/SPELLS';
-import { findByBossId } from 'raids/index';
+import { findByBossId } from 'raids';
 import { CombatantInfoEvent, Item, Trait } from 'parser/core/Events';
 import Entity from './Entity';
 
@@ -39,6 +39,13 @@ type Player = {
   auras: any;
 };
 
+export type Race = {
+  id: number,
+  mask: number,
+  side: string,
+  name: string,
+}
+
 type Talent = {
   id: number;
 };
@@ -66,12 +73,15 @@ class Combatant extends Entity {
   get spec() {
     return SPECS[this.specId];
   }
-  get race() {
+  get race(): Race | null {
     if (!this.owner.characterProfile) {
       return null;
     }
     const raceId = this.owner.characterProfile.race;
     let race = Object.values(RACES).find(race => race.id === raceId);
+    if(race === undefined) {
+      throw new Error(`Unknown race id ${raceId}`);
+    }
     if (!this.owner.boss) {
       return race;
     }
@@ -144,8 +154,12 @@ class Combatant extends Entity {
     return this._getTalent(TALENT_ROWS.LV100);
   }
 
-  hasTalent(spell: Spell) {
-    const spellId = spell instanceof Object ? spell.id : spell;
+  hasTalent(spell: number | Spell) {
+    let spellId = spell;
+    const spellObj = spell as Spell;
+    if (spellObj.id) {
+      spellId = spellObj.id;
+    }
     return Boolean(
       Object.keys(this._talentsByRow).find(
         (row: string) => this._talentsByRow[Number(row)] === spellId,

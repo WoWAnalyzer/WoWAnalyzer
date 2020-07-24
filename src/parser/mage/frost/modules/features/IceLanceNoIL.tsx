@@ -27,7 +27,7 @@ class IceLanceNoIL extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.owner.builds.NO_IL.active;
+    this.active = !!this.owner.builds.NO_IL.active;
     this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE), this.onIceLanceCast);
@@ -47,7 +47,7 @@ class IceLanceNoIL extends Analyzer {
 
   onIceLanceDamage(event: DamageEvent) {
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    
+
     if (this.hasSplittingIce && this.hadFingersFrostProc && this.iceLanceCastTarget !== damageTarget) {
       this.goodIceLance += 1;
     }

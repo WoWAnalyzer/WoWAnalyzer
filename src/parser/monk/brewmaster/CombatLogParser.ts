@@ -68,7 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mitigationCheck: MitigationCheck,
     spellUsable: SpellUsable,
     // There's no throughput benefit from casting Arcane Torrent on cooldown
-    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
 
     // Features
     checklist: Checklist,

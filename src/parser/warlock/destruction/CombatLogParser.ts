@@ -87,7 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     chaosShards: ChaosShards,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
-    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
 }
 
