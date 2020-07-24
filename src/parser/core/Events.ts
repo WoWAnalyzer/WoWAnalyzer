@@ -277,6 +277,7 @@ export interface ApplyDebuffEvent extends BuffEvent<EventType.ApplyDebuff> {
   targetIsFriendly: boolean;
   targetInstance?: number;
   absorb?: number;
+  __fromCombatantinfo?: boolean;
 }
 export interface RemoveBuffEvent extends BuffEvent<EventType.RemoveBuff> {
   sourceID: number;
