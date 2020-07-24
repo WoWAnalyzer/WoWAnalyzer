@@ -46,7 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     consecration: Consecration,
     mitigationcheck: MitigationCheck,
     //cooldownTracker: CooldownTracker,
-    
+
     // Azerite Traits
     inspiringVanguard: InspiringVanguard,
     lucidDreams: LucidDreams,
@@ -57,7 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     seraphim: Seraphim,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
-    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
 }
 

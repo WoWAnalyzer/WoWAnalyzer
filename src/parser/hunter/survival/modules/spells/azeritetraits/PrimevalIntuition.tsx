@@ -73,7 +73,7 @@ class PrimevalIntuition extends Analyzer {
     return avgCrit;
   }
 
-  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
+  handleStacks(event: RemoveBuffEvent & ApplyBuffEvent & ApplyBuffStackEvent & FightEndEvent) {
     this.intuitionStacks[this.lastIntuitionStack].push(event.timestamp - this.lastIntuitionUpdate);
     if (event.type === EventType.FightEnd) {
       return;

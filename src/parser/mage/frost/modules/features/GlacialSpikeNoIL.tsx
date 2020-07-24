@@ -28,7 +28,7 @@ class GlacialSpikeNoIL extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && this.owner.builds.NO_IL.active;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && !!this.owner.builds.NO_IL.active;
     this.hasIncantersFlow = this.selectedCombatant.hasTalent(SPELLS.INCANTERS_FLOW_TALENT.id);
     this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
 

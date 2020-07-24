@@ -47,14 +47,14 @@ class Pyroclasm extends Analyzer {
   }
 
   //Counts the number of times Pyroclasm was applied
-  onPyroclasmApplied(event: ApplyBuffEvent | ApplyBuffStackEvent) {
+  onPyroclasmApplied(event: ApplyBuffEvent & ApplyBuffStackEvent) {
     this.totalProcs += 1;
     this.buffAppliedEvent = event;
     debug && this.log("Buff Applied");
   }
 
   //Checks to see if Pyroclasm was removed because it was used (there was a non instant pyroblast within 250ms) or because it expired.
-  onPyroclasmRemoved(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  onPyroclasmRemoved(event: RemoveBuffEvent & RemoveBuffStackEvent) {
     if (!this.castEvent || !this.beginCastEvent) {
       return;
     }

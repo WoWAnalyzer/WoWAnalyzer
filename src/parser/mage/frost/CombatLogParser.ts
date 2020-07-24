@@ -30,7 +30,7 @@ import WaterElemental from './modules/features/WaterElemental';
 import LonelyWinter from './modules/talents/LonelyWinter';
 
 class CombatLogParser extends CoreCombatLogParser {
-  static specModules = {
+   static specModules = {
     checklist: Checklist,
     buffs: Buffs,
 
@@ -79,7 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     coldSnap: ColdSnap,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
-    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
 }
 

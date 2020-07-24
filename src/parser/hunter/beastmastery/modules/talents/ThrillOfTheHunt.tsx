@@ -55,7 +55,7 @@ class ThrillOfTheHunt extends Analyzer {
     return formatPercentage(averageCrit);
   }
 
-  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
+  handleStacks(event: RemoveBuffEvent & ApplyBuffEvent & ApplyBuffStackEvent & FightEndEvent) {
     this.thrillStacks[this.lastThrillStack].push(event.timestamp - this.lastThrillUpdate);
     if (event.type === EventType.FightEnd) {
       return;

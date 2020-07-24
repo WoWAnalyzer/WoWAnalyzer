@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events, { BuffEvent, DamageEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -53,7 +53,7 @@ class Landslide extends Analyzer {
     );
   }
 
-  onLandslideBuff(event: BuffEvent) {
+  onLandslideBuff(event: ApplyBuffEvent & RefreshBuffEvent) {
     this.landslideCount += 1;
   }
 

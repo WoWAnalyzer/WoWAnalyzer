@@ -67,7 +67,7 @@ class MongooseBite extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  handleStacks(event: DamageEvent | ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent) {
+  handleStacks(event: DamageEvent & ApplyBuffEvent & ApplyBuffStackEvent & RemoveBuffEvent) {
     this.lastMongooseBiteStack = currentStacks(event);
     if (this.lastMongooseBiteStack === MAX_STACKS) {
       this.fiveBiteWindows += 1;

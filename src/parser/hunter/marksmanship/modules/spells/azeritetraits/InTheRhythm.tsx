@@ -62,7 +62,7 @@ class InTheRhythm extends Analyzer {
     this.possibleApplications += 1;
   }
 
-  itrApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
+  itrApplication(event: ApplyBuffEvent & RefreshBuffEvent) {
     this.applications += 1;
     if(event.type === EventType.RefreshBuff) {
       this.wastedUptime += DURATION - (event.timestamp - this.lastApplicationTimestamp);

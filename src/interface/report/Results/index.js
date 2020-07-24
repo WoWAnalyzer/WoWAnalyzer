@@ -54,6 +54,7 @@ class Results extends React.PureComponent {
           resultsWarning: PropTypes.any,
         }),
       }),
+      getOptionalModule: PropTypes.func.isRequired,
       getModule: PropTypes.func.isRequired,
       selectedCombatant: PropTypes.any,
       fight: PropTypes.shape({
@@ -181,7 +182,7 @@ class Results extends React.PureComponent {
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
-        const checklist = parser.getModule(Checklist, true);
+        const checklist = parser.getOptionalModule(Checklist);
         return (
           <Overview
             checklist={checklist && checklist.render()}

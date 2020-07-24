@@ -96,7 +96,7 @@ class BarbedShot extends Analyzer {
     }
   }
 
-  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
+  handleStacks(event: RemoveBuffEvent & ApplyBuffEvent & ApplyBuffStackEvent & FightEndEvent) {
     this.barbedShotStacks[this.lastBarbedShotStack].push(event.timestamp - this.lastBarbedShotUpdate);
     if (event.type === EventType.FightEnd) {
       return;

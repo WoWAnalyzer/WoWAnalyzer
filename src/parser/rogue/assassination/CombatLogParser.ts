@@ -9,7 +9,7 @@ import SpellUsable from '../shared/SpellUsable';
 
 //Normalizers
 import GarroteNormalizer from './normalizers/GarroteNormalizer';
-import GarroteOpenerNormalizer from './normalizers/GarroteOpenerNormalizer'; 
+import GarroteOpenerNormalizer from './normalizers/GarroteOpenerNormalizer';
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
 import ComboPointTracker from '../shared/resources/ComboPointTracker';
@@ -90,9 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Traits
 
     // Racials
-    arcaneTorrent: [ArcaneTorrent, {
-      gcd: 1000,
-    }],
+    arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
   };
 }
 

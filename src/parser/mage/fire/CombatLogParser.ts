@@ -68,7 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     mirrorImage: MirrorImage,
     arcaneIntellect: ArcaneIntellect,
-    runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }],
+    runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }] as const,
     kindling: Kindling,
     meteor: Meteor,
     meteorRune: MeteorRune,
@@ -81,7 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lucidDreams: LucidDreams,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
-    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
 }
 

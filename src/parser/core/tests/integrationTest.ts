@@ -1,9 +1,10 @@
 import renderer from 'react-test-renderer';
+import { ReactElement } from 'react';
 
 import ParseResults from 'parser/core/ParseResults';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
-import CombatLogParser from '../CombatLogParser';
+import CombatLogParser, { DependenciesDefinition } from '../CombatLogParser';
 import Module from '../Module';
 import Analyzer from '../Analyzer';
 import { loadLog, parseLog } from './log-tools';
@@ -33,19 +34,23 @@ function integrationSuggestions(analyzer: Analyzer) {
 }
 
 function checklist(parser: CombatLogParser) {
-  const checklistModule = Object.values(
-    (parser.constructor as typeof CombatLogParser).specModules,
-  ).find(m => m.prototype instanceof BaseChecklist);
+  const checklistModule = Object.values((parser.constructor as typeof CombatLogParser).specModules)
+    .map(dep => {
+      if (dep instanceof Array) {
+        return dep[0] as typeof Module;
+      } else {
+        return dep as typeof Module;
+      }
+    })
+    .find(m => {
+      return m.prototype instanceof BaseChecklist;
+    });
   if (checklistModule === undefined) {
     return 'no checklist';
   }
-  const result = parser.getModule(checklistModule).render();
-  return renderer.create(result).toJSON();
+  const result = (parser.getModule(checklistModule) as BaseChecklist).render();
+  return renderer.create(result as unknown as ReactElement).toJSON();
 }
-
-type ModuleConfig = {
-  [key: string]: typeof Module | Array<typeof Module>;
-};
 
 /**
  * Generates an integration test for a spec's CombatLogParser instance.
@@ -96,7 +101,7 @@ export default function integrationTest(
 
     // TODO: Test Abilities, Buffs and other classes extending Module
 
-    const getAnalyzers = (moduleConfig: ModuleConfig) =>
+    const getAnalyzers = (moduleConfig: DependenciesDefinition) =>
       Object.values(moduleConfig)
         .map(moduleClass => {
           if (moduleClass instanceof Array) {
@@ -109,7 +114,7 @@ export default function integrationTest(
         // Normalizers have no output, their effects are irrelevant so long as the
         // results of analyzers stay the same
         .filter(moduleClass => moduleClass.prototype instanceof Analyzer);
-    const testAnalyzers = (moduleConfig: ModuleConfig) =>
+    const testAnalyzers = (moduleConfig: DependenciesDefinition) =>
       getAnalyzers(moduleConfig).forEach(moduleClass => {
         describe(moduleClass.name, () => {
           // We skip anything without output so that adding a new analyzer will

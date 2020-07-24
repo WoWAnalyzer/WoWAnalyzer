@@ -49,9 +49,9 @@ class CombatLogParser extends CoreCombatLogParser {
     spellEnergyCost: SpellEnergyCost,
 
     //Core
-    restlessBlades: RestlessBlades,    
+    restlessBlades: RestlessBlades,
     rollTheBonesCastTracker: RollTheBonesCastTracker,
-    
+
     //Items
 
     //Casts
@@ -73,7 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
       gcd: 1000,
       castEfficiency: 0.5,
       extraSuggestion: 'You should be using Arcane Torrent whenever you have a free GCD for it.',
-    }],
+    }] as const,
   };
 }
 
