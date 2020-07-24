@@ -31,8 +31,8 @@ class HydrasBite extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.HYDRAS_BITE_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDamage);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDebuffApplication);
-    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDebuffApplication);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), (event: ApplyDebuffEvent) => this.onDebuffApplication(event));
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), (event: RefreshDebuffEvent) => this.onDebuffApplication(event));
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onRemoveDebuff);
   }
 
@@ -51,7 +51,7 @@ class HydrasBite extends Analyzer {
     }
   }
 
-  onDebuffApplication(event: ApplyDebuffEvent & RefreshDebuffEvent) {
+  onDebuffApplication(event: ApplyDebuffEvent | RefreshDebuffEvent) {
     const target = encodeTargetString(event.targetID, event.targetInstance);
     if (this.mainTargets.includes(target)) {
       return;
