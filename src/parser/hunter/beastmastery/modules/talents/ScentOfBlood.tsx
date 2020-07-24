@@ -15,7 +15,7 @@ import SpellUsable from '../core/SpellUsable';
  * Example log:
  */
 
-const CHARGE_RECHARGE = 2;
+const CHARGES_RECHARGED = 2;
 
 class ScentOfBlood extends Analyzer {
 
@@ -38,8 +38,8 @@ class ScentOfBlood extends Analyzer {
     if (spellId !== SPELLS.BESTIAL_WRATH.id) {
       return;
     }
-    this.chargesGained += CHARGE_RECHARGE - this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id);
-    this.chargesWasted += Math.max(this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id) - CHARGE_RECHARGE, 0);
+    this.chargesGained += CHARGES_RECHARGED - this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id);
+    this.chargesWasted += Math.max(this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id) - CHARGES_RECHARGED, 0);
   }
 
   statistic() {

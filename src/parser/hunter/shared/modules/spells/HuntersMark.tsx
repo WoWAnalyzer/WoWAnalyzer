@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -11,13 +11,12 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import UptimeIcon from 'interface/icons/Uptime';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
- * If the target dies while affected by Hunter's Mark, you instantly gain 20 Focus.
  * The target can always be seen and tracked by the Hunter.
  *
  * Only one Hunter's Mark can be applied at a time.
@@ -50,12 +49,11 @@ class HuntersMark extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HUNTERS_MARK_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK_TALENT), this.onCast);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK_TALENT), this.onDebuffRemoval);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK_TALENT), this.onDebuffApplication);
-    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK_TALENT), this.onDebuffRefresh);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK_FOCUS), this.onDebuffEnergize);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onCast);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffRemoval);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffApplication);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffRefresh);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffEnergize);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.calculateMarkDamage);
   }
 
@@ -128,7 +126,7 @@ class HuntersMark extends Analyzer {
   }
 
   get uptimePercentage() {
-    return this.enemies.getBuffUptime(SPELLS.HUNTERS_MARK_TALENT.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SPELLS.HUNTERS_MARK.id) / this.owner.fightDuration;
   }
 
   get potentialPrecastConfirmation() {
@@ -140,7 +138,7 @@ class HuntersMark extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.GENERAL}
         tooltip={(
           <>
             <ul>
@@ -152,7 +150,7 @@ class HuntersMark extends Analyzer {
           </>
         )}
       >
-        <BoringSpellValueText spell={SPELLS.HUNTERS_MARK_TALENT}>
+        <BoringSpellValueText spell={SPELLS.HUNTERS_MARK}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

@@ -57,11 +57,6 @@ export default {
     name: 'Dire Beast',
     icon: 'ability_hunter_longevity',
   },
-  DIRE_BEAST_GENERATOR: {
-    id: 120694,
-    name: 'Dire Beast',
-    icon: 'ability_hunter_longevity',
-  },
   DIRE_BEAST_SUMMON: {
     id: 306229,
     name: 'Dire Beast',
@@ -77,8 +72,6 @@ export default {
     name: 'Cobra Spit',
     icon: 'ability_creature_poison_02',
   },
-
-  //Beast Mastery Buffs
   BEAST_CLEAVE_BUFF: {
     id: 268877,
     name: 'Beast Cleave',
@@ -156,16 +149,6 @@ export default {
     name: 'Aimed Shot',
     icon: 'inv_spear_07',
   },
-  ARCANE_SHOT: {
-    id: 185358,
-    name: 'Arcane Shot',
-    icon: 'ability_impalingbolt',
-  },
-  STEADY_SHOT: {
-    id: 56641,
-    name: 'Steady Shot',
-    icon: 'ability_hunter_steadyshot',
-  },
   STEADY_SHOT_FOCUS: {
     id: 77443,
     name: 'Steady Shot',
@@ -211,18 +194,6 @@ export default {
     name: 'Multi-Shot',
     icon: 'ability_upgrademoonglaive',
   },
-
-  //Marksmanship Buffs
-  MASTER_MARKSMAN_BUFF: {
-    id: 269576,
-    name: 'Master Marksman',
-    icon: 'ability_hunter_mastermarksman',
-  },
-  TRAILBLAZER_BUFF: {
-    id: 231390,
-    name: 'Trailblazer',
-    icon: 'ability_hunter_aspectmastery',
-  },
   STEADY_FOCUS_BUFF: {
     id: 193534,
     name: 'Steady Focus',
@@ -262,11 +233,6 @@ export default {
     id: 164273,
     name: 'Lone Wolf',
     icon: 'spell_hunter_lonewolf',
-  },
-  HUNTERS_MARK_FOCUS: {
-    id: 259558,
-    name: 'Hunter\'s Mark',
-    icon: 'ability_hunter_markedfordeath',
   },
   DEAD_EYE_BUFF: {
     id: 321461,
@@ -477,6 +443,11 @@ export default {
     name: 'Kill Shot',
     icon: 'ability_hunter_assassinate2',
   },
+  ARCANE_SHOT: {
+    id: 185358,
+    name: 'Arcane Shot',
+    icon: 'ability_impalingbolt',
+  },
   POSTHASTE_BUFF: {
     id: 118922,
     name: 'Posthaste',
@@ -577,12 +548,47 @@ export default {
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
   },
+  HUNTERS_MARK: {
+    id: 257284,
+    name: 'Hunter\'s Mark',
+    icon: 'ability_hunter_markedfordeath',
+  },
+  TRANQUILIZING_SHOT: {
+    id: 19801,
+    name: 'Tranquilizing Shot',
+    icon: 'spell_nature_drowsy',
+  },
+  TRAILBLAZER_BUFF: {
+    id: 231390,
+    name: 'Trailblazer',
+    icon: 'ability_hunter_aspectmastery',
+  },
+  STEADY_SHOT: {
+    id: 56641,
+    name: 'Steady Shot',
+    icon: 'ability_hunter_steadyshot',
+  },
 
   //Covenants
   RESONATING_ARROW: {
     id: 308491,
     name: 'Resonating Arrow',
     icon: 'ability_bastion_hunter',
+  },
+  FLAYED_SHOT: {
+    id: 324149,
+    name: 'Flayed Shot',
+    icon : 'ability_revendreth_hunter',
+  },
+  DEATH_CHAKRAM: {
+    id: 325028,
+    name: 'Death Chakram',
+    icon: 'ability_maldraxxus_hunter',
+  },
+  WILD_SPIRITS: {
+    id: 328231,
+    name: 'Wild Spirits',
+    icon: 'ability_ardenweald_hunter',
   },
 
   //Pet utility
