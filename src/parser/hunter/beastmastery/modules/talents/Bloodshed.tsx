@@ -6,8 +6,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText
   from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from '../../../../core/Events';
-import { isPermanentPet } from '../../../../warlock/demonology/modules/pets/helpers';
+import { DamageEvent } from 'parser/core/Events';
+import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 /**
  * Command your pet to tear into your target, causing your target to bleed for

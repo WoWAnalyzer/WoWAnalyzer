@@ -7,6 +7,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
+import { formatPercentage } from 'common/format';
 
 /**
  *
@@ -63,7 +64,7 @@ class SpittingCobra extends Analyzer {
   }
 
   get averageIncrease() {
-    return (this.totalIncrease / this.casts).toFixed(1);
+    return formatPercentage(this.totalIncrease / this.casts);
   }
 
   statistic() {
@@ -76,7 +77,7 @@ class SpittingCobra extends Analyzer {
         <BoringSpellValueText spell={SPELLS.SPITTING_COBRA_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
-            Average Damage Increase: {this.averageIncrease}%
+            {this.averageIncrease}% <small>average damage increase </small>
           </>
         </BoringSpellValueText>
       </Statistic>

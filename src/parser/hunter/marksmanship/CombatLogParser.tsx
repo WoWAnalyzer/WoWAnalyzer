@@ -28,6 +28,7 @@ import Trueshot from './modules/spells/Trueshot';
 import LoneWolf from './modules/spells/LoneWolf';
 import PreciseShots from './modules/spells/PreciseShots';
 import AimedShot from './modules/spells/AimedShot';
+import HuntersMark from '../shared/modules/spells/HuntersMark';
 
 //Talents
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
@@ -35,11 +36,9 @@ import Barrage from '../shared/modules/talents/Barrage';
 import Volley from './modules/talents/Volley';
 import ExplosiveShot from './modules/talents/ExplosiveShot';
 import LockAndLoad from './modules/talents/LockAndLoad';
-import PiercingShot from './modules/talents/PiercingShot';
 import MasterMarksman from './modules/talents/MasterMarksman';
 import DoubleTap from './modules/talents/DoubleTap';
 import CallingTheShots from './modules/talents/CallingTheShots';
-import HuntersMark from './modules/talents/HuntersMark';
 import SerpentSting from './modules/talents/SerpentSting';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
 import Trailblazer from '../shared/modules/talents/Trailblazer';
@@ -92,7 +91,6 @@ class CombatLogParser extends CoreCombatLogParser {
     explosiveShot: ExplosiveShot,
     aMurderOfCrows: AMurderOfCrows,
     lockAndLoad: LockAndLoad,
-    piercingShot: PiercingShot,
     barrage: Barrage,
     masterMarksman: MasterMarksman,
     doubleTap: DoubleTap,
