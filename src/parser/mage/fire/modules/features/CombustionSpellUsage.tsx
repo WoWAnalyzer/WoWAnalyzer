@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, BeginCastEvent, EventType } from 'parser/core/Events';
+import Events, { BeginCastEvent, CastEvent, EventType } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
@@ -29,14 +29,14 @@ class CombustionSpellUsage extends Analyzer {
     super(options);
     this.hasBlasterMaster = this.selectedCombatant.hasTrait(SPELLS.BLASTER_MASTER.id);
     this.hasPhoenixFlames = this.selectedCombatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.fireballCasts);
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.fireballCasts);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), this.scorchCasts);
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), this.scorchCasts);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), (event: CastEvent) => this.fireballCasts(event));
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), (event: BeginCastEvent) => this.fireballCasts(event));
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), (event: CastEvent) => this.scorchCasts(event));
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), (event: BeginCastEvent) => this.scorchCasts(event));
   }
 
   //Because Fireball has a longer cast time than Scorch, the player should never cast Fireball during Combustion.
-  fireballCasts(event: CastEvent & BeginCastEvent) {
+  fireballCasts(event: CastEvent | BeginCastEvent) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
 
     if (!hasCombustion) {
@@ -50,12 +50,12 @@ class CombustionSpellUsage extends Analyzer {
       event.meta.inefficientCastReason = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
     }
 
-    if (event.type ==="begincast") {
+    if (event.type === EventType.BeginCast) {
       this.fireballCastsStarted += 1;
     }
   }
 
-  scorchCasts(event: CastEvent & BeginCastEvent) {
+  scorchCasts(event: CastEvent | BeginCastEvent) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
     const phoenixFlamesCharges = (this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES_TALENT.id) || 0);
