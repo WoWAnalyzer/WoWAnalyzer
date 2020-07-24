@@ -10,7 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
-  change(date(2020, 7, 23), 'Converted core log parser to TypeScript and added strict event typechecking to event listeners.', Dambroda),
+  change(date(2020, 7, 23), 'Converted core log parser to TypeScript and added strict event type checking to event listeners.', Dambroda),
   change(date(2020, 7, 11), 'Added shared functionality to get an array of filtered events previous to the currently processing event.', Dambroda),
   change(date(2020, 7, 6), <> Added support for <ItemLink id={ITEMS.SUBROUTINE_RECALIBRATION.id} />. </>, Putro),
   change(date(2020, 6, 27), 'Initial page load performance enhancements.', Stui),

@@ -80,7 +80,8 @@ class Combatant extends Entity {
     const raceId = this.owner.characterProfile.race;
     let race = Object.values(RACES).find(race => race.id === raceId);
     if(race === undefined) {
-      throw new Error(`Unknown race id ${raceId}`);
+      return null;
+      // throw new Error(`Unknown race id ${raceId}`);
     }
     if (!this.owner.boss) {
       return race;
