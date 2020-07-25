@@ -19,6 +19,7 @@ class BindingShot extends Analyzer {
   _roots = 0;
   _applications = 0;
   _casts = 0;
+  category = STATISTIC_CATEGORY.TALENTS;
 
   constructor(options: any) {
     super(options);
@@ -45,7 +46,7 @@ class BindingShot extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(14)}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={this.category}
       >
         <BoringSpellValueText spell={SPELLS.BINDING_SHOT_TALENT}>
           <>

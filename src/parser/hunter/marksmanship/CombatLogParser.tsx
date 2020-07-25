@@ -33,7 +33,7 @@ import PreciseShots from './modules/spells/PreciseShots';
 import AimedShot from './modules/spells/AimedShot';
 import HuntersMark from '../shared/modules/spells/HuntersMark';
 import KillShot from '../shared/modules/spells/KillShot';
-import BindingShot from '../shared/modules/talents/BindingShot';
+import BindingShot from './modules/spells/BindingShot';
 
 //Talents
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
