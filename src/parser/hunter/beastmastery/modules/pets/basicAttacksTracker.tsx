@@ -1,5 +1,5 @@
 import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import React from 'react';

@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
         gcd: {
-          static: 0,
+          base: 1500,
         },
       },
       {

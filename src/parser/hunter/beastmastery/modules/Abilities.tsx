@@ -220,6 +220,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BINDING_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id),
         gcd: {
           base: 1500,
         },
