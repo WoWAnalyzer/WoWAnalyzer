@@ -76,20 +76,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.KILL_SHOT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: combatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) ? 2 : 1,
-        cooldown: () => {
-          if (combatant.hasBuff(SPELLS.DEAD_EYE_BUFF.id)) {
-            return 10 / 3 * 2;
-          }
-          return 10;
-        },
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.HUNTERS_MARK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
