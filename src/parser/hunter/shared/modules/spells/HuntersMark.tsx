@@ -26,7 +26,6 @@ import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RemoveDebuffEvent } f
  */
 
 const HUNTERS_MARK_MODIFIER = 0.05;
-const FOCUS_PER_REFUND = 20;
 const MS_BUFFER = 100;
 
 class HuntersMark extends Analyzer {
@@ -144,7 +143,6 @@ class HuntersMark extends Analyzer {
             <ul>
               <li>You had a total of {this.casts} casts of Hunter's Mark.</li>
               <li>You cast Hunter's Mark {this.recasts} times, whilst it was active on the target or another target.</li>
-              <li>You received up to {this.refunds * FOCUS_PER_REFUND} Focus from a total of {this.refunds} refunds from targets with Hunter's Mark active dying.</li>
               {this.potentialPrecastConfirmation}
             </ul>
           </>
