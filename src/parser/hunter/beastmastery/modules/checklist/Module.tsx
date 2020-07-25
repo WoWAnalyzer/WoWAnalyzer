@@ -12,7 +12,7 @@ import BestialWrath from '../spells/BestialWrath';
 import KillerCobra from '../talents/KillerCobra';
 import CobraShot from '../spells/CobraShot';
 import BarbedShot from '../spells/BarbedShot';
-import BeastMasteryFocusCapTracker from '../core/BeastMasteryFocusCapTracker';
+import BeastMasteryFocusCapTracker from '../resources/BeastMasteryFocusCapTracker';
 import BeastCleave from '../spells/BeastCleave';
 import BasicAttacks from '../pets/basicAttacksTracker';
 

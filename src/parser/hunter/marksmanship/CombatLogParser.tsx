@@ -1,16 +1,18 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
+//Overridden Racial
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
+//Overridden Core modules
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import Channeling from './modules/features/Channeling';
-import Abilities from './modules/Abilities';
 import SpellUsable from './modules/core/SpellUsable';
 
 //Features
+import Abilities from './modules/Abilities';
+import Channeling from './modules/features/Channeling';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
-import FocusUsage from '../shared/modules/resources/FocusUsage';
 import Buffs from './modules/Buffs';
 
 //Death Tracker
@@ -21,7 +23,8 @@ import FocusTracker from '../shared/modules/resources/FocusTracker';
 import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
 import FocusCapTracker from '../shared/modules/resources/FocusCapTracker';
-import Focus from './modules/core/Focus';
+import Focus from './modules/resources/Focus';
+import FocusUsage from '../shared/modules/resources/FocusUsage';
 
 //Spells
 import Trueshot from './modules/spells/Trueshot';
@@ -29,6 +32,8 @@ import LoneWolf from './modules/spells/LoneWolf';
 import PreciseShots from './modules/spells/PreciseShots';
 import AimedShot from './modules/spells/AimedShot';
 import HuntersMark from '../shared/modules/spells/HuntersMark';
+import KillShot from '../shared/modules/spells/KillShot';
+import BindingShot from '../shared/modules/talents/BindingShot';
 
 //Talents
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
@@ -44,8 +49,8 @@ import NaturalMending from '../shared/modules/talents/NaturalMending';
 import Trailblazer from '../shared/modules/talents/Trailblazer';
 import SteadyFocus from './modules/talents/SteadyFocus';
 import BornToBeWild from '../shared/modules/talents/BornToBeWild';
-import BindingShot from '../shared/modules/talents/BindingShot';
 import CarefulAim from './modules/talents/CarefulAim';
+import ChimaeraShot from '../shared/modules/talents/ChimaeraShot';
 
 //Azerite Traits
 import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
@@ -85,6 +90,9 @@ class CombatLogParser extends CoreCombatLogParser {
     loneWolf: LoneWolf,
     preciseShots: PreciseShots,
     aimedShot: AimedShot,
+    bindingShot: BindingShot,
+    huntersMark: HuntersMark,
+    killShot: KillShot,
 
     //Talents
     volley: Volley,
@@ -95,14 +103,13 @@ class CombatLogParser extends CoreCombatLogParser {
     masterMarksman: MasterMarksman,
     doubleTap: DoubleTap,
     callingTheShots: CallingTheShots,
-    huntersMark: HuntersMark,
     serpentSting: SerpentSting,
     steadyFocus: SteadyFocus,
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
     bornToBeWild: BornToBeWild,
-    bindingShot: BindingShot,
     carefulAim: CarefulAim,
+    chimaeraShot: ChimaeraShot,
 
     //Azerite Traits
     focusedFire: FocusedFire,

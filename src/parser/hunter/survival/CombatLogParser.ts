@@ -2,16 +2,18 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
+
 //Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import FocusUsage from '../shared/modules/resources/FocusUsage';
 import Buffs from './modules/Buffs';
 
 //Normalizer
 import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';
+
 //Death Tracker
 import DeathTracker from '../shared/modules/core/DeathTracker';
+
 //Spells
 import KillCommand from './modules/spells/KillCommand';
 import ButcheryCarve from './modules/spells/ButcheryCarve';
@@ -19,12 +21,17 @@ import SerpentSting from './modules/spells/SerpentSting';
 import CoordinatedAssault from './modules/spells/CoordinatedAssault';
 import WildfireBomb from './modules/spells/WildfireBomb';
 import RaptorStrike from './modules/spells/RaptorStrike';
+import HuntersMark from '../shared/modules/spells/HuntersMark';
+import KillShot from '../shared/modules/spells/KillShot';
+
 //Focus
 import FocusTracker from '../shared/modules/resources/FocusTracker';
 import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
-import SurvivalFocusCapTracker from './modules/core/SurvivalFocusCapTracker';
-import Focus from './modules/core/Focus';
+import SurvivalFocusCapTracker from './modules/resources/SurvivalFocusCapTracker';
+import Focus from './modules/resources/Focus';
+import FocusUsage from '../shared/modules/resources/FocusUsage';
+
 //Talents
 import Trailblazer from '../shared/modules/talents/Trailblazer';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
@@ -89,6 +96,8 @@ class CombatLogParser extends CoreCombatLogParser {
     coordinatedAssault: CoordinatedAssault,
     wildfireBomb: WildfireBomb,
     raptorStrike: RaptorStrike,
+    huntersMark: HuntersMark,
+    killShot: KillShot,
 
     //Talents
     naturalMending: NaturalMending,
@@ -107,7 +116,6 @@ class CombatLogParser extends CoreCombatLogParser {
     hydrasBite: HydrasBite,
     flankingStrike: FlankingStrike,
     tipOfTheSpear: TipOfTheSpear,
-    /** Wildfire Infusion */
     pheromoneBomb: PheromoneBomb,
     shrapnelBomb: ShrapnelBomb,
     volatileBomb: VolatileBomb,
