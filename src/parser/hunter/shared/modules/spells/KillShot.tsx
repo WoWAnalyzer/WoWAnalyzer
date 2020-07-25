@@ -6,7 +6,7 @@ import { KILL_SHOT_EXECUTE_RANGE, OVER_1_GCD_BUFFER } from 'parser/hunter/shared
 import { formatDuration } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const debug = true;
+const debug = false;
 
 class KillShot extends Analyzer {
 
