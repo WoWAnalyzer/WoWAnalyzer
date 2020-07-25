@@ -1,13 +1,15 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { BLOODSHED_DAMAGE_AMP } from 'parser/hunter/beastmastery/constants';
+import Enemies from 'parser/shared/modules/Enemies';
 
 /**
  * Command your pet to tear into your target, causing your target to bleed for
@@ -16,6 +18,11 @@ import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
  */
 
 class Bloodshed extends Analyzer {
+  static dependencies = {
+    enemies: Enemies,
+  };
+
+  protected enemies!: Enemies;
 
   bleedDamage = 0;
   increasedDamage = 0;
@@ -25,26 +32,24 @@ class Bloodshed extends Analyzer {
     super(options);
     this.active
       = this.selectedCombatant.hasTalent(SPELLS.BLOODSHED_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLOODSHED_DEBUFF), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLOODSHED_DEBUFF.id) {
-      return;
-    }
+  onDamage(event: DamageEvent) {
     this.bleedDamage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayerPet_damage(event: DamageEvent) {
-    const foundPet = this.pets.find((pet: { sourceID: number | undefined }) => pet.sourceID ===
-      event.sourceID);
-    const damage = event.amount +
-      (
-        event.absorbed || 0
-      );
+  onPetDamage(event: DamageEvent) {
+    const enemy = this.enemies.getEntity(event);
+    if (!enemy || !enemy.hasBuff(SPELLS.BLOODSHED_DEBUFF.id)) {
+      return;
+    }
+    const foundPet = this.pets.find((pet: { sourceID: number | undefined }) => pet.sourceID === event.sourceID);
+    const damage = calculateEffectiveDamage(event, BLOODSHED_DAMAGE_AMP);
     if (!foundPet) {
-      const sourcePet = this.owner.playerPets.find((pet: { id: number | undefined; }) => pet.id ===
-        event.sourceID);
+      const sourcePet = this.owner.playerPets.find((pet: { id: number | undefined; }) => pet.id === event.sourceID);
       if (!isPermanentPet(sourcePet.guid)) {
         return;
       }
@@ -58,7 +63,7 @@ class Bloodshed extends Analyzer {
     }
   }
 
-  on_fightend() {
+  onFightEnd() {
     let max = 0;
     this.pets.forEach((pet: { damage: number; petName: string; }) => {
       if (pet.damage > max) {
@@ -75,7 +80,7 @@ class Bloodshed extends Analyzer {
         size="flexible"
         category={'TALENTS'}
       >
-        <BoringSpellValueText spell={SPELLS.ASPECT_OF_THE_BEAST_TALENT}>
+        <BoringSpellValueText spell={SPELLS.BLOODSHED_TALENT}>
           <>
             <ItemDamageDone amount={this.bleedDamage} /> <small>bleed damage</small>
             <ItemDamageDone amount={this.increasedDamage} /> <small>damage amp</small>
