@@ -249,6 +249,19 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
+      {
+        spell: SPELLS.CHIMAERA_SHOT_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 15 / (1 + haste),
+        enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+        },
+      },
 
       //Pets
       {
