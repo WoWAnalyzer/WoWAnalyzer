@@ -8,7 +8,6 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import FocusUsage from '../shared/modules/resources/FocusUsage';
 
 //Death Tracker
 import DeathTracker from '../shared/modules/core/DeathTracker';
@@ -18,7 +17,7 @@ import KillerInstinct from './modules/talents/KillerInstinct';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
 import Trailblazer from '../shared/modules/talents/Trailblazer';
 import Barrage from '../shared/modules/talents/Barrage';
-import ChimaeraShot from './modules/talents/ChimaeraShot';
+import ChimaeraShot from '../shared/modules/talents/ChimaeraShot';
 import DireBeast from './modules/talents/DireBeast';
 import KillerCobra from './modules/talents/KillerCobra';
 import Stampede from './modules/talents/Stampede';
@@ -42,13 +41,16 @@ import CobraShot from './modules/spells/CobraShot';
 import BarbedShot from './modules/spells/BarbedShot';
 import AspectOfTheWild from './modules/spells/AspectOfTheWild';
 import BestialWrath from './modules/spells/BestialWrath';
+import HuntersMark from '../shared/modules/spells/HuntersMark';
+import KillShot from '../shared/modules/spells/KillShot';
 
 //Focus
 import FocusTracker from '../shared/modules/resources/FocusTracker';
 import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
-import BeastMasteryFocusCapTracker from './modules/core/BeastMasteryFocusCapTracker';
-import Focus from './modules/core/Focus';
+import BeastMasteryFocusCapTracker from './modules/resources/BeastMasteryFocusCapTracker';
+import Focus from './modules/resources/Focus';
+import FocusUsage from '../shared/modules/resources/FocusUsage';
 
 //Azerite Traits
 import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
@@ -90,6 +92,8 @@ class CombatLogParser extends CoreCombatLogParser {
     cobraShot: CobraShot,
     barbedShot: BarbedShot,
     aspectOfTheWild: AspectOfTheWild,
+    huntersMark: HuntersMark,
+    killShot: KillShot,
 
     //Talents
     killerInstinct: KillerInstinct,
