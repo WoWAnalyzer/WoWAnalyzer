@@ -9,9 +9,9 @@
  export const NICKNAME: Contributor = {
     nickname: 'NICKNAME',
     github: 'GITHUB_NAME',
-    discord: 'DISCORD_NAME INCL #xxxx',
+    discord: 'DISCORD_NAME#xxxx',
     avatar: require('./images/IMAGE'),
-    desc: 'DESC',
+    about: 'DESCRIPTION',
     mains: [{
       name: 'CHARNAME',
       spec: SPECS.BLOOD_DEATH_KNIGHT,
