@@ -6,7 +6,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events, { ApplyBuffEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import ResourceGenerated from 'interface/others/ResourceGenerated';
@@ -55,7 +55,7 @@ class HotHand extends Analyzer {
     );
   }
 
-  onHotHandBuff(event: RefreshBuffEvent & ApplyBuffEvent) {
+  onHotHandBuff() {
     this.hotHandCount += 1;
   }
 

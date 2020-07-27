@@ -33,10 +33,10 @@ class ThrillOfTheHunt extends Analyzer {
       return;
     }
     this.thrillStacks = Array.from({ length: MAX_THRILL_STACKS + 1 }, x => []);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF), this.handleStacks);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF), this.handleStacks);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF), this.handleStacks);
-    this.addEventListener(Events.fightend, this.handleStacks);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF), (event: ApplyBuffEvent) => this.handleStacks(event));
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF), (event: ApplyBuffStackEvent) => this.handleStacks(event));
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF), (event: RemoveBuffEvent) => this.handleStacks(event));
+    this.addEventListener(Events.fightend, (event: FightEndEvent) => this.handleStacks(event));
   }
 
   get thrillOfTheHuntTimesByStacks() {
@@ -55,7 +55,7 @@ class ThrillOfTheHunt extends Analyzer {
     return formatPercentage(averageCrit);
   }
 
-  handleStacks(event: RemoveBuffEvent & ApplyBuffEvent & ApplyBuffStackEvent & FightEndEvent) {
+  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
     this.thrillStacks[this.lastThrillStack].push(event.timestamp - this.lastThrillUpdate);
     if (event.type === EventType.FightEnd) {
       return;

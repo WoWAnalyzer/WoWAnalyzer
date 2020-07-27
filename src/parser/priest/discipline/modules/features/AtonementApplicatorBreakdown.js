@@ -81,7 +81,7 @@ class AtonementApplicatorBreakdown extends Analyzer{
                 this.setWasRefreshedProperty(event, true);
             }
 
-            //Putting a custom event object for Radiances since there it's only 1 cast for 5 buffs
+            //Putting a custom event object for Radiances since there is only 1 cast for 5 buffs
             this._castsApplyBuffsMap.set({
                 "event": {
                     "timestamp": this._lastRadianceCastTimestamp,
@@ -169,8 +169,11 @@ class AtonementApplicatorBreakdown extends Analyzer{
     }
     
     handleEvangelismCasts(event){
-
         this._castsApplyBuffsMap.forEach((atonement, cast) => {
+            if(atonement === null){
+                return;
+            }
+            
             if(cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id){
                 if(event.timestamp > atonement.applyBuff.timestamp 
                 && event.timestamp < atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration + (this._hasEL ? ENDURING_LUMINESCENCE_BONUS_MS : 0)){

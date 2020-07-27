@@ -112,7 +112,7 @@ export interface BeginCastEvent extends Event<EventType.BeginCast> {
   castEvent: CastEvent | null;
   channel: {
     type: EventType.BeginChannel;
-    timestamp: 858735;
+    timestamp: number;
     ability: Ability;
     sourceID: number;
     isCancelled: boolean;
@@ -277,6 +277,7 @@ export interface ApplyDebuffEvent extends BuffEvent<EventType.ApplyDebuff> {
   targetIsFriendly: boolean;
   targetInstance?: number;
   absorb?: number;
+  __fromCombatantinfo?: boolean;
 }
 export interface RemoveBuffEvent extends BuffEvent<EventType.RemoveBuff> {
   sourceID: number;

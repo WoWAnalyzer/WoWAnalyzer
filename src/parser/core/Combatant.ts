@@ -38,7 +38,7 @@ type Player = {
 
 export type Race = {
   id: number,
-  mask: number,
+  mask?: number,
   side: string,
   name: string,
 }
