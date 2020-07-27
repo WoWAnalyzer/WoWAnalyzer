@@ -104,10 +104,12 @@ export function HasTarget<T extends string>(event: Event<T>): event is Targetted
 export interface Event<T extends string> {
   type: T;
   timestamp: number;
+  prepull?: boolean;
+  __fabricated?: boolean;
 }
 export interface BeginCastEvent extends Event<EventType.BeginCast> {
   ability: Ability;
-  castEvent: CastEvent;
+  castEvent: CastEvent | null;
   channel: {
     type: EventType.BeginChannel;
     timestamp: number;
@@ -163,7 +165,7 @@ export interface ICastEvent<T extends string> extends Event<T> {
     [resourceType: number]: number;
   };
   // Added by the GlobalCooldown module
-  globalCooldown: GlobalCooldownEvent;
+  globalCooldown?: GlobalCooldownEvent;
   // Added by any module, used in the timeline
   meta?: {
     isInefficientCast?: boolean;
@@ -256,41 +258,37 @@ export interface DamageEvent extends Event<EventType.Damage> {
   tick?: boolean;
   overkill?: number;
 }
-export interface BuffEvent<T extends string> extends Event<T> {}
-export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {
+export interface BuffEvent<T extends string> extends Event<T> {
   ability: Ability;
+  targetID: number;
+  sourceID?: number;
+}
+export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {
   sourceID: number;
   sourceIsFriendly: boolean;
-  targetID: number;
   targetIsFriendly: boolean;
   targetInstance?: number;
   absorb?: number;
+  __fromCombatantinfo?: boolean;
 }
 export interface ApplyDebuffEvent extends BuffEvent<EventType.ApplyDebuff> {
-  ability: Ability;
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
-  sourceID?: number;
   sourceIsFriendly: boolean;
-  targetID: number;
   targetIsFriendly: boolean;
   targetInstance?: number;
   absorb?: number;
+  __fromCombatantinfo?: boolean;
 }
 export interface RemoveBuffEvent extends BuffEvent<EventType.RemoveBuff> {
-  ability: Ability;
   sourceID: number;
   sourceIsFriendly: boolean;
-  targetID: number;
   targetIsFriendly: boolean;
   targetInstance?: number;
   absorb?: number;
 }
 export interface RemoveDebuffEvent extends BuffEvent<EventType.RemoveDebuff> {
-  ability: Ability;
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
-  sourceID?: number;
   sourceIsFriendly: boolean;
-  targetID: number;
   targetInstance: number;
   targetIsFriendly: boolean;
   absorb?: number;
@@ -298,29 +296,22 @@ export interface RemoveDebuffEvent extends BuffEvent<EventType.RemoveDebuff> {
 export interface ApplyBuffStackEvent extends BuffEvent<EventType.ApplyBuffStack> {
   sourceID: number;
   sourceIsFriendly: boolean;
-  targetID: number;
   targetIsFriendly: boolean;
-  ability: Ability;
   stack: number;
 }
 export interface ApplyDebuffStackEvent extends BuffEvent<EventType.ApplyDebuffStack> {
   sourceID: number;
   sourceIsFriendly: boolean;
-  targetID: number;
   targetIsFriendly: boolean;
-  ability: Ability;
   stack: number;
 }
 export interface RemoveBuffStackEvent extends BuffEvent<EventType.RemoveBuffStack> {
   sourceID: number;
   sourceIsFriendly: boolean;
-  targetID: number;
   targetIsFriendly: boolean;
-  ability: Ability;
   stack: number;
 }
 export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStack> {
-  ability: Ability;
   end?: number;
   isDebuff?: boolean;
   newStacks: number;
@@ -335,7 +326,6 @@ export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStac
   stacks: number;
   stacksGained: number;
   start: number;
-  targetID: string;
   targetIsFriendly: boolean;
   trigger: {
     end?: number;
@@ -354,27 +344,19 @@ export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStac
 export interface RemoveDebuffStackEvent extends BuffEvent<EventType.RemoveDebuffStack> {
   sourceID: number;
   sourceIsFriendly: boolean;
-  targetID: number;
   targetIsFriendly: boolean;
-  ability: Ability;
   stack: number;
 }
 export interface RefreshBuffEvent extends BuffEvent<EventType.RefreshBuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
-  sourceID?: number;
   sourceIsFriendly: boolean;
-  targetID: number;
   targetIsFriendly: boolean;
-  ability: Ability;
 }
 export interface RefreshDebuffEvent extends BuffEvent<EventType.RefreshDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
-  sourceID?: number;
   sourceIsFriendly: boolean;
-  targetID: number;
   targetInstance: number;
   targetIsFriendly: boolean;
-  ability: Ability;
 }
 export interface EnergizeEvent extends Event<EventType.Energize> {
   ability: Ability;

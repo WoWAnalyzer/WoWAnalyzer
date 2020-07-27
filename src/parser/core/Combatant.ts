@@ -6,7 +6,8 @@ import traitIdMap from 'common/TraitIdMap';
 import corruptionIdMap from 'common/corruptionIdMap';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids';
-import { CombatantInfoEvent, Item, Trait } from 'parser/core/Events';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import { Buff, CombatantInfoEvent, EventType, Item, Trait } from 'parser/core/Events';
 import Entity from './Entity';
 
 export interface CombatantInfo extends CombatantInfoEvent {
@@ -23,10 +24,6 @@ type Essence = {
 
 type Spell = {
   id: number;
-};
-
-type Parser = {
-  players: Array<Player>;
 };
 
 type Player = {
@@ -96,7 +93,7 @@ class Combatant extends Entity {
   }
 
   _combatantInfo: CombatantInfo;
-  constructor(parser: Parser, combatantInfo: CombatantInfoEvent) {
+  constructor(parser: CombatLogParser, combatantInfo: CombatantInfoEvent) {
     super(parser);
 
     const playerInfo = parser.players.find(
@@ -432,19 +429,22 @@ class Combatant extends Entity {
   }
   // endregion
 
-  _parsePrepullBuffs(buffs: any) {
+  _parsePrepullBuffs(buffs: Array<Buff>) {
     // TODO: We only apply prepull buffs in the `auras` prop of combatantinfo,
     // but not all prepull buffs are in there and ApplyBuff finds more. We
     // should update ApplyBuff to add the other buffs to the auras prop of the
     // combatantinfo too (or better yet, make a new normalizer for that).
     const timestamp = this.owner.fight.start_time;
-    buffs.forEach((buff: any) => {
+    buffs.forEach((buff) => {
       const spell = SPELLS[buff.ability];
       this.applyBuff({
+        type: EventType.ApplyBuff,
+        timestamp: timestamp,
         ability: {
           abilityIcon: buff.icon.replace('.jpg', ''),
           guid: buff.ability,
           name: spell ? spell.name : undefined,
+          type: 0,
         },
         sourceID: buff.source,
         targetID: this.id,
