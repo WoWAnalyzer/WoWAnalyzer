@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import * as contributors from 'CONTRIBUTORS';
 import CoreChangelog from 'CHANGELOG';
@@ -32,7 +32,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
     return (
       <div>
         <a href={character.link} className={this.removeWhiteSpaces(character.spec.className)}>
-          <SpecIcon id={character.spec.id} /> {name}
+          <SpecIcon id={character.spec.id} /> {character.name}
         </a>
       </div>
     );
@@ -60,12 +60,12 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
     );
   }
 
-  links(object: { [name: string]: string }) {
+  links(object: { [name: string]: string } | undefined) {
     if (!object) {
       return null;
     }
 
-    const value = [];
+    const value: Array<ReactNode> = [];
     Object.keys(object).forEach((key) => {
       value.push(
         <div>
@@ -91,7 +91,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
     const value: Array<React.ReactNode> = [];
     Object.keys(object).forEach((key) => {
       if (Array.isArray(object[key])) {
-        const subvalue: Array<React.ReactNode>  = [];
+        const subvalue: Array<React.ReactNode> = [];
         object[key].forEach((elem: any) => {
           subvalue.push(<div>{elem}</div>);
         });
@@ -154,7 +154,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
     );
   }
 
-  text(text: string, title: string) {
+  text(text: string | undefined, title: string) {
     if (!text) {
       return null;
     }
@@ -255,8 +255,8 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
                   {this.maintainer}
                   {this.links(contributor.links)}
                   {this.additionalInfo(contributor.others)}
-                  {this.chars(contributor, 'mains')}
-                  {this.chars(contributor, 'alts')}
+                  {this.chars(contributor, true)}
+                  {this.chars(contributor, false)}
                 </div>
               </Panel>
             </div>
@@ -267,7 +267,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
                 pad={false}
               >
                 <ul className="list">
-                  {Object.keys(contributions).map((type, index) => (
+                  {Object.keys(contributions).map(Number).map((type, index) => (
                     <Expandable
                       key={index}
                       element="li"
