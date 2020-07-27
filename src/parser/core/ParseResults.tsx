@@ -1,39 +1,57 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
-const ASSERTION_MODES = {
-  IS_GREATER_THAN: '>',
-  IS_GREATER_THAN_OR_EQUAL: '>=',
-  IS_LESS_THAN: '<',
-  IS_LESS_THAN_OR_EQUAL: '<=',
-  IS_TRUE: '==true',
-  IS_FALSE: '==false',
-  IS_EQUAL: '===',
-};
+enum AssertionMode {
+  IS_GREATER_THAN = '>',
+  IS_GREATER_THAN_OR_EQUAL = '>=',
+  IS_LESS_THAN = '<',
+  IS_LESS_THAN_OR_EQUAL = '<=',
+  IS_TRUE = '==true',
+  IS_FALSE = '==false',
+  IS_EQUAL = '===',
+}
+
+type AllowedValues = number | string | boolean;
+type ThresholdDef = {
+  actual: AllowedValues,
+  isLessThan?: ThresholdValue,
+  isGreaterThan?: ThresholdValue,
+  isLessThanOrEqual?: ThresholdValue,
+  isGreaterThanOrEqual?: ThresholdValue,
+  isTrue?: ThresholdValue,
+  isFalse?: ThresholdValue,
+}
+
+type ThresholdValue = {
+  minor: number,
+  average: number,
+  major: number,
+}
 export class SuggestionAssertion {
-  _actual = null;
-  _addIssue = null;
+  _actual: AllowedValues;
+  _addIssue: (issue: Issue) => void;
 
-  _mode = null;
-  _threshold = null;
+  _mode: AssertionMode | null = null;
+  _threshold: ThresholdValue | null = null;
 
-  constructor(options, addIssue) {
+  constructor(options: ThresholdDef | AllowedValues, addIssue: (issue: Issue) => void) {
     if (typeof options === 'object') {
-      this._actual = options.actual;
-      if (options.isGreaterThan !== undefined) {
-        this.isGreaterThan(options.isGreaterThan);
-      } else if (options.isGreaterThanOrEqual !== undefined) {
-        this.isGreaterThanOrEqual(options.isGreaterThanOrEqual);
-      } else if (options.isLessThan !== undefined) {
-        this.isLessThan(options.isLessThan);
-      } else if (options.isLessThanOrEqual !== undefined) {
-        this.isLessThanOrEqual(options.isLessThanOrEqual);
-      } else if (options.isTrue !== undefined) {
-        this.isTrue(options.isTrue);
-      } else if (options.isFalse !== undefined) {
-        this.isFalse(options.isFalse);
-      } else if (options.isEqual !== undefined) {
-        this.isEqual(options.isEqual);
+      const def = options as ThresholdDef;
+      this._actual = def.actual;
+      if (def.isGreaterThan !== undefined) {
+        this.isGreaterThan(def.isGreaterThan);
+      } else if (def.isGreaterThanOrEqual !== undefined) {
+        this.isGreaterThanOrEqual(def.isGreaterThanOrEqual);
+      } else if (def.isLessThan !== undefined) {
+        this.isLessThan(def.isLessThan);
+      } else if (def.isLessThanOrEqual !== undefined) {
+        this.isLessThanOrEqual(def.isLessThanOrEqual);
+      } else if (def.isTrue !== undefined) {
+        this.isTrue();
+      } else if (def.isFalse !== undefined) {
+        this.isFalse();
+      } else if (def.isEqual !== undefined) {
+        this.isEqual(def.isEqual);
       }
     } else {
       this._actual = options;
@@ -41,36 +59,36 @@ export class SuggestionAssertion {
     this._addIssue = addIssue;
   }
 
-  isGreaterThan(value) {
-    this._mode = ASSERTION_MODES.IS_GREATER_THAN;
+  isGreaterThan(value: ThresholdValue) {
+    this._mode = AssertionMode.IS_GREATER_THAN;
     this._threshold = value;
     return this;
   }
-  isGreaterThanOrEqual(value) {
-    this._mode = ASSERTION_MODES.IS_GREATER_THAN_OR_EQUAL;
+  isGreaterThanOrEqual(value: ThresholdValue) {
+    this._mode = AssertionMode.IS_GREATER_THAN_OR_EQUAL;
     this._threshold = value;
     return this;
   }
-  isLessThan(value) {
-    this._mode = ASSERTION_MODES.IS_LESS_THAN;
+  isLessThan(value: ThresholdValue) {
+    this._mode = AssertionMode.IS_LESS_THAN;
     this._threshold = value;
     return this;
   }
-  isLessThanOrEqual(value) {
-    this._mode = ASSERTION_MODES.IS_LESS_THAN_OR_EQUAL;
+  isLessThanOrEqual(value: ThresholdValue) {
+    this._mode = AssertionMode.IS_LESS_THAN_OR_EQUAL;
     this._threshold = value;
     return this;
   }
   isTrue() {
-    this._mode = ASSERTION_MODES.IS_TRUE;
+    this._mode = AssertionMode.IS_TRUE;
     return this;
   }
   isFalse() {
-    this._mode = ASSERTION_MODES.IS_FALSE;
+    this._mode = AssertionMode.IS_FALSE;
     return this;
   }
-  isEqual(value) {
-    this._mode = ASSERTION_MODES.IS_EQUAL;
+  isEqual(value: ThresholdValue) {
+    this._mode = AssertionMode.IS_EQUAL;
     this._threshold = value;
     return this;
   }
@@ -108,18 +126,18 @@ export class SuggestionAssertion {
   }
   _compare(actual, breakpoint) {
     switch (this._mode) {
-      case ASSERTION_MODES.IS_GREATER_THAN: return actual > breakpoint;
-      case ASSERTION_MODES.IS_GREATER_THAN_OR_EQUAL: return actual >= breakpoint;
-      case ASSERTION_MODES.IS_LESS_THAN: return actual < breakpoint;
-      case ASSERTION_MODES.IS_LESS_THAN_OR_EQUAL: return actual <= breakpoint;
-      case ASSERTION_MODES.IS_TRUE: return !!actual;
-      case ASSERTION_MODES.IS_FALSE: return !actual;
-      case ASSERTION_MODES.IS_EQUAL: return actual === breakpoint;
+      case AssertionMode.IS_GREATER_THAN: return actual > breakpoint;
+      case AssertionMode.IS_GREATER_THAN_OR_EQUAL: return actual >= breakpoint;
+      case AssertionMode.IS_LESS_THAN: return actual < breakpoint;
+      case AssertionMode.IS_LESS_THAN_OR_EQUAL: return actual <= breakpoint;
+      case AssertionMode.IS_TRUE: return !!actual;
+      case AssertionMode.IS_FALSE: return !actual;
+      case AssertionMode.IS_EQUAL: return actual === breakpoint;
       default: throw new Error('Assertion mode not set.');
     }
   }
 
-  addSuggestion(func) {
+  addSuggestion(func: (suggest, actual, recommened) => Suggestion) {
     if (this._isApplicable()) {
       const suggestion = func(suggestionText => new Suggestion(suggestionText), this._actual, this.triggerThreshold);
 
@@ -177,16 +195,24 @@ class Suggestion {
   }
 }
 
+export type Issue = {
+  issue: suggestion._text,
+  // stat is a string and not a React node on purpose: this is quicker and we don't want the stats to become complicated
+  stat: string | null,
+  icon: suggestion._icon,
+  importance: keyof typeof ISSUE_IMPORTANCE,
+  details: suggestion._details,
+}
 class ParseResults {
   tabs = [];
   statistics = [];
-  issues = [];
+  issues: Array<Issue> = [];
 
   constructor() {
     this.addIssue = this.addIssue.bind(this);
   }
 
-  addIssue(issue) {
+  addIssue(issue: Issue) {
     this.issues.push(issue);
   }
 
