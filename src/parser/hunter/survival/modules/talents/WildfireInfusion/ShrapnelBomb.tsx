@@ -37,8 +37,8 @@ class ShrapnelBomb extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SHRAPNEL_BOMB_WFI_DOT, SPELLS.SHRAPNEL_BOMB_WFI_IMPACT, SPELLS.INTERNAL_BLEEDING_SV]), this.onDamage);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV), this.onDebuffApplication);
-    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV), this.onDebuffApplication);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV), (event: ApplyDebuffEvent) => this.onDebuffApplication(event));
+    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV), (event: ApplyDebuffStackEvent) => this.onDebuffApplication(event));
   }
 
   onDamage(event: DamageEvent) {
@@ -48,7 +48,7 @@ class ShrapnelBomb extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  onDebuffApplication(event: ApplyDebuffEvent & ApplyDebuffStackEvent) {
+  onDebuffApplication(event: ApplyDebuffEvent | ApplyDebuffStackEvent) {
     if (event.type === EventType.ApplyDebuff) {
       this.applications += 1;
     }

@@ -1,5 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, ApplyDebuffEvent, ApplyDebuffStackEvent, Event, EventType, RemoveBuffEvent, RemoveBuffStackEvent, RemoveDebuffEvent, RemoveDebuffStackEvent } from 'parser/core/Events';
+import Entity, { TrackedBuffEvent } from 'parser/core/Entity';
 
 const debug = false;
 
@@ -10,51 +12,35 @@ class Entities extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
   };
+  readonly eventEmitter!: EventEmitter;
 
-  getEntities() {
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.applybuff, (event: ApplyBuffEvent) => this.applyBuff(event));
+    this.addEventListener(Events.applydebuff, (event: ApplyDebuffEvent) => this.applyBuff(event));
+    this.addEventListener(Events.removebuff, (event: RemoveBuffEvent) => this.removeBuff(event));
+    this.addEventListener(Events.removedebuff, (event: RemoveDebuffEvent) => this.removeBuff(event));
+    // TODO: Add a sanity check to the `refreshbuff` event that checks if a buff that's being refreshed was applied, if it wasn't it might be a broken pre-combat applied buff not shown in the combatantinfo event
+    // We don't store/use durations, so refreshing buff is useless. Removing the buff actually interferes with the `minimalActiveTime` parameter of `getBuff`.
+    // on_refreshbuff(event) {
+    //   this.removeActiveBuff(event);
+    //   this.applyActiveBuff(event);
+    // }
+    this.addEventListener(Events.applybuffstack, (event: ApplyBuffStackEvent) => this.updateBuffStack(event));
+    this.addEventListener(Events.applydebuffstack, (event: ApplyDebuffStackEvent) => this.updateBuffStack(event));
+    this.addEventListener(Events.removebuffstack, (event: RemoveBuffStackEvent) => this.updateBuffStack(event));
+    this.addEventListener(Events.removedebuffstack, (event: RemoveDebuffStackEvent) => this.updateBuffStack(event));
+  }
+
+  getEntities(): Array<Entity> {
     throw new Error('Not implemented');
   }
-  /**
-   * @param event
-   * @return {Entity}
-   */
-  getEntity(event) {
+
+  getEntity(event: Event<any>): Entity | null {
     throw new Error('Not implemented');
   }
 
-  on_applybuff(event) {
-    this.applyBuff(event);
-  }
-  // TODO: Add a sanity check to the `refreshbuff` event that checks if a buff that's being refreshed was applied, if it wasn't it might be a broken pre-combat applied buff not shown in the combatantinfo event
-  // We don't store/use durations, so refreshing buff is useless. Removing the buff actually interferes with the `minimalActiveTime` parameter of `getBuff`.
-  // on_refreshbuff(event) {
-  //   this.removeActiveBuff(event);
-  //   this.applyActiveBuff(event);
-  // }
-  on_applybuffstack(event) {
-    this.updateBuffStack(event);
-  }
-  on_removebuffstack(event) {
-    this.updateBuffStack(event);
-  }
-  on_removebuff(event) {
-    this.removeBuff(event);
-  }
-
-  on_applydebuff(event) {
-    this.applyBuff(event, true);
-  }
-  on_applydebuffstack(event) {
-    this.updateBuffStack(event, true);
-  }
-  on_removedebuffstack(event) {
-    this.updateBuffStack(event, true);
-  }
-  on_removedebuff(event) {
-    this.removeBuff(event, true);
-  }
-
-  applyBuff(event, isDebuff) {
+  applyBuff(event: ApplyBuffEvent | ApplyDebuffEvent) {
     if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
@@ -65,7 +51,7 @@ class Entities extends Analyzer {
     }
 
     debug && this.log(`Apply buff ${event.ability.name} to ${entity.name}`);
-
+    const isDebuff = event.type === EventType.ApplyDebuff;
     const buff = {
       ...event,
       start: event.timestamp,
@@ -85,7 +71,7 @@ class Entities extends Analyzer {
     entity.applyBuff(buff);
   }
 
-  updateBuffStack(event) {
+  updateBuffStack(event: ApplyBuffStackEvent | ApplyDebuffStackEvent | RemoveBuffStackEvent | RemoveDebuffStackEvent) {
     if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
@@ -109,7 +95,7 @@ class Entities extends Analyzer {
     }
   }
 
-  removeBuff(event, isDebuff) {
+  removeBuff(event: RemoveBuffEvent | RemoveDebuffEvent) {
     if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
@@ -120,7 +106,7 @@ class Entities extends Analyzer {
     }
 
     debug && this.log(`Remove buff ${event.ability.name} from ${entity.name}`);
-    
+
     const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null && event.sourceID === item.sourceID);
     if (existingBuff) {
       existingBuff.end = event.timestamp;
@@ -131,13 +117,14 @@ class Entities extends Analyzer {
       // The only possible legit way this could occur that I can imagine is if the log was bugged and had more removebuff events than applybuff events. This might be caused by range or phasing issues.
       // TODO: throw new Error(`Buff ${event.ability.name} wasn't correctly applied in the ApplyBuff normalizer.`);
       // TODO: Remove below and add above. http://localhost:3000/report/YcbxZv1hKX4GVr82/33-Mythic+Grong+-+Wipe+23+(4:26)/45-Teish has issues due to Tricks of the Trade being applied twice at the start by different people. Need to change ApplyBuff to fix this, probably not super complicated but too late to do now.
-
+      const isDebuff = event.type === EventType.RemoveDebuff;
       const buff = {
         ...event,
         start: this.owner.fight.start_time,
         end: event.timestamp,
         stackHistory: [{ stacks: 1, timestamp: this.owner.fight.start_time }, { stacks: 0, timestamp: event.timestamp }],
         isDebuff,
+        stacks: 0,
       };
       entity.buffs.push(buff);
 
@@ -150,7 +137,7 @@ class Entities extends Analyzer {
    * This event is also fired for `applybuff` where `oldStacks` will be 0 and `newStacks` will be 1. NOTE: This event is usually fired before the `applybuff` event!
    * This event is also fired for `removebuff` where `oldStacks` will be either the old stacks (if there were multiple) or 1 and `newStacks` will be 0. NOTE: This event is usually fired before the `removebuff` event!
    */
-  _triggerChangeBuffStack(buff, timestamp, oldStacks, newStacks) {
+  _triggerChangeBuffStack(buff: any, timestamp: number, oldStacks: number, newStacks: number) {
     this.eventEmitter.fabricateEvent({
       ...buff,
       type: buff.isDebuff ? 'changedebuffstack' : 'changebuffstack',
@@ -163,14 +150,14 @@ class Entities extends Analyzer {
   }
 
   // Surely this can be done with a couple less loops???
-  getBuffUptime(spellId, sourceID = this.owner.playerId) {
-    const events = [];
+  getBuffUptime(spellId: number, sourceID = this.owner.playerId) {
+    const events: Array<{timestamp: number, type: string, buff: TrackedBuffEvent}> = [];
 
     const entities = this.getEntities();
     Object.values(entities)
       .forEach(enemy => {
         enemy.getBuffHistory(spellId, sourceID)
-          .forEach(buff => {
+          .forEach((buff: TrackedBuffEvent) => {
             events.push({
               timestamp: buff.start,
               type: APPLY,
@@ -185,7 +172,7 @@ class Entities extends Analyzer {
       });
 
     let active = 0;
-    let start = null;
+    let start: number;
     return events
       .sort((a, b) => a.timestamp - b.timestamp)
       .reduce((uptime, event) => {

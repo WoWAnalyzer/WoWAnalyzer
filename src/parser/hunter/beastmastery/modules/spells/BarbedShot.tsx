@@ -32,10 +32,10 @@ class BarbedShot extends Analyzer {
   constructor(options: any) {
     super(options);
     this.barbedShotStacks = Array.from({ length: MAX_FRENZY_STACKS + 1 }, x => []);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
-    this.addEventListener(Events.fightend, this.handleStacks);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), (event: ApplyBuffEvent) => this.handleStacks(event));
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), (event: ApplyBuffStackEvent) => this.handleStacks(event));
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BARBED_SHOT_PET_BUFF), (event: RemoveBuffEvent) => this.handleStacks(event));
+    this.addEventListener(Events.fightend, (event: FightEndEvent) => this.handleStacks(event));
   }
 
   get barbedShotTimesByStacks() {
@@ -96,7 +96,7 @@ class BarbedShot extends Analyzer {
     }
   }
 
-  handleStacks(event: RemoveBuffEvent & ApplyBuffEvent & ApplyBuffStackEvent & FightEndEvent) {
+  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
     this.barbedShotStacks[this.lastBarbedShotStack].push(event.timestamp - this.lastBarbedShotUpdate);
     if (event.type === EventType.FightEnd) {
       return;

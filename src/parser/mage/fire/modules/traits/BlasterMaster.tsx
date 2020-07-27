@@ -7,7 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Events, { ApplyBuffEvent, RemoveBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
+import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
 const debug = false;
@@ -34,14 +34,14 @@ class BlasterMaster extends Analyzer {
     this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.BLASTER_MASTER_BUFF), this.onTraitStack);
   }
 
-  onCombustionStart(event: ApplyBuffEvent) {
+  onCombustionStart() {
     const buff: any = this.selectedCombatant.getBuff(SPELLS.BLASTER_MASTER_BUFF.id);
     if (buff) {
       this.stackCount = buff.stacks;
     }
   }
 
-  onCombustionEnd(event: RemoveBuffEvent) {
+  onCombustionEnd() {
     if (this.stackCount < TRAIT_STACK_THRESHOLD) {
       this.badCombustion += 1;
     }
@@ -49,8 +49,8 @@ class BlasterMaster extends Analyzer {
     debug && this.log("Combustion Ended: " + this.stackCount + " stacks");
   }
 
-  onTraitStack(event: ApplyBuffEvent & ApplyBuffStackEvent) {
-    const buff: any = this.selectedCombatant.getBuff(SPELLS.BLASTER_MASTER_BUFF.id);
+  onTraitStack() {
+    const buff = this.selectedCombatant.getBuff(SPELLS.BLASTER_MASTER_BUFF.id);
     if (buff && buff.stacks > this.stackCount) {
       this.stackCount = buff.stacks;
       debug && this.log("Gained Blaster Master Stack. " + this.stackCount + " Stacks Total");
