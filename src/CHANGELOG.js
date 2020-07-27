@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 7, 27), 'Updated contributor details to TypeScript and fixed contributor description not appearing when viewing those details.', Dambroda),
   change(date(2020, 7, 27), 'Converted core log parser and other modules to TypeScript and added strict event typechecking to event listeners.', Dambroda),
   change(date(2020, 7, 24), 'Added missing allied races to race definitions', Dambroda),
   change(date(2020, 7, 11), 'Added shared functionality to get an array of filtered events previous to the currently processing event.', Dambroda),
