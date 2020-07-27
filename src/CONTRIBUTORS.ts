@@ -6,12 +6,12 @@
  *
  EXAMPLE
 
- export const NICKNAME = {
+ export const NICKNAME: Contributor = {
     nickname: 'NICKNAME',
     github: 'GITHUB_NAME',
-    discord: 'DISCORD_NAME INCL #xxxx',
+    discord: 'DISCORD_NAME#xxxx',
     avatar: require('./images/IMAGE'),
-    desc: 'DESC',
+    about: 'DESCRIPTION',
     mains: [{
       name: 'CHARNAME',
       spec: SPECS.BLOOD_DEATH_KNIGHT,
@@ -36,21 +36,22 @@
 */
 
 import SPECS from 'game/SPECS';
+import { Contributor } from 'common/changelog';
 
 // For testing purposes because I am too lazy to work out a solution for testing that does not involve adding regular code
-export const Dummy = {
+export const Dummy: Contributor = {
   nickname: 'Dummy',
   github: 'DummyHub',
   twitter: '@Dummy',
   avatar: require('./interface/images/avatars/zerotorescue-avatar.jpg'),
 };
-export const Zerotorescue = {
+export const Zerotorescue: Contributor = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
   twitter: 'Zerotorescue',
   discord: 'Zerotorescue#0724',
   avatar: require('./interface/images/avatars/zerotorescue-avatar.jpg'),
-  desc: 'WoWAnalyzer founder, Holy Paladin theorycrafter',
+  about: 'WoWAnalyzer founder, Holy Paladin theorycrafter',
   mains: [{
     name: 'Zerotorescue',
     spec: SPECS.HOLY_PALADIN,
@@ -74,15 +75,15 @@ export const Zerotorescue = {
     link: 'https://worldofwarcraft.com/en-gb/character/alakir/Zerotohunt',
   }],
 };
-export const blazyb = {
+export const blazyb: Contributor = {
   nickname: 'blazyb',
   github: 'buimichael',
 };
-export const Qbz = {
+export const Qbz: Contributor = {
   nickname: 'Qbz',
   github: 'Qbz23',
 };
-export const Stui = {
+export const Stui: Contributor = {
   nickname: 'Stui',
   github: 'vpicone',
   twitter: '@vppicone',
@@ -93,40 +94,41 @@ export const Stui = {
     link: 'https://www.warcraftlogs.com/character/id/45514247',
   }],
 };
-export const sref = {
+export const sref: Contributor = {
   nickname: 'sref',
   github: 'kfinch',
   avatar: require('./interface/images/avatars/sref-avatar.jpg'),
 };
-export const Iskalla = {
+export const Iskalla: Contributor = {
   nickname: 'Iskalla',
   github: 'Iskalla',
   avatar: require('./interface/images/avatars/iskalla-avatar.jpg'),
 };
-export const enragednuke = {
+export const enragednuke: Contributor = {
   nickname: 'enragednuke',
   github: 'enragednuke',
 };
-export const Skamer = {
+export const Skamer: Contributor = {
   nickname: 'Skamer',
   github: 'Skamer',
 };
-export const Salarissia = {
+export const Salarissia: Contributor = {
   nickname: 'Salarissia',
   github: 'Salarissia',
 };
-export const WOPR = {
+export const WOPR: Contributor = {
   nickname: 'WOPR',
   github: 'shighman',
 };
-export const Yajinni = {
+export const Yajinni: Contributor = {
   nickname: 'Yajinni',
   github: 'yajinni',
 };
-export const Bonebasher = {
+export const Bonebasher: Contributor = {
   nickname: 'Bonebasher',
+  github: 'Bonebasher',
 };
-export const Sharrq = {
+export const Sharrq: Contributor = {
   nickname: 'Sharrq',
   github: 'Sharrq',
   discord: 'Sharrq#7530',
@@ -151,7 +153,7 @@ export const Sharrq = {
       link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/fraqture',
     }],
 };
-export const Khazak = {
+export const Khazak: Contributor = {
   nickname: 'Khazak',
   github: 'jjs451',
   avatar: require('./interface/images/avatars/khazak-avatar.jpg'),
@@ -162,20 +164,20 @@ export const Khazak = {
     link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/khazakk',
   }],
 };
-export const Bicepspump = {
+export const Bicepspump: Contributor = {
   nickname: 'Bicepspump',
   github: 'Bicepspump',
 };
-export const Mamtooth = {
+export const Mamtooth: Contributor = {
   nickname: 'Mamtooth',
   github: 'ronaldpereira',
   avatar: require('./interface/images/avatars/mamtooth-avatar.png'),
 };
-export const Thieseract = {
+export const Thieseract: Contributor = {
   nickname: 'Thieseract',
   github: 'Thieseract',
 };
-export const Putro = {
+export const Putro: Contributor = {
   nickname: 'Putro',
   github: 'Pewtro',
   discord: 'Putro#6093',
@@ -188,16 +190,16 @@ export const Putro = {
     },
   ],
 };
-export const Blazballs = {
+export const Blazballs: Contributor = {
   nickname: 'Blazballs',
   github: 'leapis',
 };
-export const faide = {
+export const faide: Contributor = {
   nickname: 'faide',
   github: 'FaideWW',
   avatar: require('./interface/images/avatars/faide-avatar.png'),
 };
-export const Fyruna = {
+export const Fyruna: Contributor = {
   nickname: 'Fyruna',
   github: 'Fyruna',
   avatar: require('./interface/images/avatars/Fyruna_avatar.jpg'),
@@ -220,97 +222,92 @@ export const Fyruna = {
     link: 'https://worldofwarcraft.com/en-gb/character/sporeggar/seiralia',
   }],
 };
-export const Anomoly = {
+export const Anomoly: Contributor = {
   nickname: 'Anomoly',
   github: 'anom0ly',
   avatar: require('./interface/images/avatars/anomoly-avatar.jpg'),
 };
-export const Juko8 = {
+export const Juko8: Contributor = {
   nickname: 'Juko8',
   github: 'Juko8',
   avatar: require('./interface/images/avatars/juko8-avatar.jpg'),
 };
-export const Noichxd = {
+export const Noichxd: Contributor = {
   nickname: 'Noichxd',
   github: 'Noichxd',
 };
-export const Hewhosmites = {
+export const Hewhosmites: Contributor = {
   nickname: 'Hewhosmites',
   github: 'CollCrom',
   avatar: require('./interface/images/avatars/hewhosmites-avatar.png'),
 };
-export const Reglitch = {
+export const Reglitch: Contributor = {
   nickname: 'Reglitch',
   github: 'rp4rk',
 };
-export const Gao = {
+export const Gao: Contributor = {
   nickname: 'Gao',
   github: 'awlego',
 };
-export const Oratio = {
+export const Oratio: Contributor = {
   nickname: 'Oratio',
   github: 'karlpralow',
 };
-export const hassebewlen = {
+export const hassebewlen: Contributor = {
   nickname: 'hassebewlen',
   github: 'hasseboulen',
 };
-export const tsabo = {
+export const tsabo: Contributor = {
   nickname: 'tsabo',
   github: 'TsaboTavok',
 };
-export const zealk = {
+export const zealk: Contributor = {
   nickname: 'zealk',
   github: 'zealk',
 };
-export const fasib = {
+export const fasib: Contributor = {
   nickname: 'fasib',
   github: 'fasib',
 };
-export const janvavra = {
+export const janvavra: Contributor = {
   nickname: 'janvavra',
   github: 'janvavra',
 };
-export const Nighteyez07 = {
+export const Nighteyez07: Contributor = {
   nickname: 'Nighteyez07',
   github: 'Nighteyez07',
 };
-export const Versaya = {
+export const Versaya: Contributor = {
   nickname: 'Versaya',
   github: 'versaya',
 };
-export const Chizu = {
+export const Chizu: Contributor = {
   nickname: 'Chizu',
   github: 'sMteX',
   avatar: require('./interface/images/avatars/Chizu_avatar.jpg'),
 };
-export const Gwelican = {
+export const Gwelican: Contributor = {
   nickname: 'Gwelican',
   github: 'gwelican',
 };
-export const Hordehobbs = {
+export const Hordehobbs: Contributor = {
   nickname: 'Hordehobbs',
   github: 'hpabst',
 };
-export const TheBadBossy = {
+export const TheBadBossy: Contributor = {
   nickname: 'TheBadBossy',
+  github: 'BadBossy',
   avatar: require('./interface/images/avatars/thebadbossy_avatar.jpg'),
 };
-export const JLassie82 = {
+export const JLassie82: Contributor = {
   nickname: 'JLassie82',
   github: 'JLassie82',
 };
-export const aryu = {
+export const aryu: Contributor = {
   nickname: 'aryu',
   github: 'Yuyz0112',
 };
-export const Dyspho = {
-  nickname: 'Dyspho',
-};
-export const Gurupitka = {
-  nickname: 'Gurupitka',
-};
-export const Hartra344 = {
+export const Hartra344: Contributor = {
   nickname: 'Hartra344',
   github: 'Hartra344',
   discord: 'Erlaris#8483',
@@ -322,28 +319,29 @@ export const Hartra344 = {
     },
   ],
 };
-export const strel = {
+export const strel: Contributor = {
   nickname: 'strel',
+  github: 'unknown',
 };
-export const Maldark = {
+export const Maldark: Contributor = {
   nickname: 'Maldark',
   github: 'Maldark',
 };
-export const hatra344 = {
+export const hatra344: Contributor = {
   nickname: 'hatra344',
   github: 'hatra344',
 };
-export const emallson = {
+export const emallson: Contributor = {
   nickname: 'emallson',
   github: 'emallson',
   avatar: require('./interface/images/avatars/emallson-avatar.jpg'),
 };
-export const Gebuz = {
+export const Gebuz: Contributor = {
   nickname: 'Gebuz',
   github: 'Gebuz',
   discord: 'Gebuz#5801',
   avatar: require('./interface/images/avatars/gebuz-avatar.jpg'),
-  desc: 'Balance Druid theorycrafter and top end mythic raider.',
+  about: 'Balance Druid theorycrafter and top end mythic raider.',
   mains: [{
     name: 'Gebuz',
     spec: SPECS.BALANCE_DRUID,
@@ -367,59 +365,59 @@ export const Gebuz = {
     link: 'http://eu.battle.net/wow/character/nagrand/Gebuzroll/',
   }],
 };
-export const milesoldenburg = {
+export const milesoldenburg: Contributor = {
   nickname: 'milesoldenburg',
   github: 'milesoldenburg',
 };
-export const mwwscott0 = {
+export const mwwscott0: Contributor = {
   nickname: 'mwwscott0',
   github: 'mwwscott0',
 };
-export const Talby = {
+export const Talby: Contributor = {
   nickname: 'Talby',
   github: 'Talby223',
 };
-export const Coryn = {
+export const Coryn: Contributor = {
   nickname: 'Coryn',
   github: 'terndrup',
 };
-export const AttilioLH = {
+export const AttilioLH: Contributor = {
   nickname: 'AttilioLH',
   github: 'AttilioLH',
 };
-export const poneria = {
+export const poneria: Contributor = {
   nickname: 'poneria',
   github: 'poneria',
 };
-export const Nekorsis = {
+export const Nekorsis: Contributor = {
   nickname: 'Nekorsis',
   github: 'Nekorsis',
 };
-export const greatman = {
+export const greatman: Contributor = {
   nickname: 'greatman',
   github: 'greatman',
 };
-export const rubensayshi = {
+export const rubensayshi: Contributor = {
   nickname: 'rubensayshi',
   github: 'rubensayshi',
 };
-export const nutspanther = {
+export const nutspanther: Contributor = {
   nickname: 'nutspanther',
   github: 'nutspanther',
 };
-export const Riglerr = {
+export const Riglerr: Contributor = {
   nickname: 'Riglerr',
   github: 'Riglerr',
 };
-export const BlokyKappa = {
+export const BlokyKappa: Contributor = {
   nickname: 'BlokyKappa',
   github: 'BlokyKappa',
 };
-export const kyleglick = {
+export const kyleglick: Contributor = {
   nickname: 'kyle-glick',
   github: 'kyle-glick',
 };
-export const Zeboot = {
+export const Zeboot: Contributor = {
   nickname: 'Zeboot',
   github: 'Zeboot',
   discord: 'Zeboot#0001',
@@ -440,11 +438,11 @@ export const Zeboot = {
       link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/zelightsneak',
     }],
 };
-export const HawkCorrigan = {
+export const HawkCorrigan: Contributor = {
   nickname: 'HawkCorrigan',
   github: 'HawkCorrigan',
 };
-export const Vetyst = {
+export const Vetyst: Contributor = {
   nickname: 'Vetyst',
   github: 'djanse',
   discord: 'vetyst#0001',
@@ -455,20 +453,17 @@ export const Vetyst = {
     link: 'https://worldofwarcraft.com/en-gb/character/tarren-mill/vetyst',
   }],
 };
-export const Anatta336 = {
+export const Anatta336: Contributor = {
   nickname: 'Anatta336',
   github: 'Anatta336',
   discord: 'Anatta#5878',
 };
-export const Herusx = {
-  nickname: 'Herusx',
-};
-export const Scaleable = {
+export const Scaleable: Contributor = {
   nickname: 'Scaleable',
   github: 'wkrueger',
   avatar: require('./interface/images/avatars/scaleable-avatar.jpg'),
 };
-export const Cloake = {
+export const Cloake: Contributor = {
   nickname: 'Cloake',
   github: 'adilasif',
   discord: 'Cloake#9930',
@@ -478,7 +473,7 @@ export const Cloake = {
     link: 'https://worldofwarcraft.com/en-us/character/kelthuzad/Trixx',
   }],
 };
-export const joshinator = {
+export const joshinator: Contributor = {
   nickname: 'joshinator',
   github: 'joshinat0r',
   discord: 'joshinator#7267',
@@ -488,7 +483,7 @@ export const joshinator = {
     link: 'https://worldofwarcraft.com/en-gb/character/eredar/Êxtêndêd',
   }],
 };
-export const niseko = {
+export const niseko: Contributor = {
   nickname: 'niseko',
   github: 'niseko',
   discord: 'niseko#4130',
@@ -507,20 +502,17 @@ export const niseko = {
     'Ancestral Guidance': 'https://ancestralguidance.com/',
   },
 };
-export const Aelexe = {
+export const Aelexe: Contributor = {
   nickname: 'Aelexe',
   github: 'Aelexe',
   avatar: require('./interface/images/avatars/Aelexe-avatar.jpg'),
-  maintainer: [
-    SPECS.ARMS_WARRIOR,
-  ],
   mains: [{
     name: 'Aelexe',
     spec: SPECS.HOLY_PALADIN,
     link: 'https://worldofwarcraft.com/en-us/character/frostmourne/aelexe',
   }],
 };
-export const CubeLuke = {
+export const CubeLuke: Contributor = {
   nickname: 'CubeLuke',
   github: 'CubeLuke',
   discord: 'CubeLuke#8595',
@@ -531,13 +523,13 @@ export const CubeLuke = {
     link: 'https://worldofwarcraft.com/en-us/character/bleeding-hollow/monachi',
   }],
 };
-export const ackwell = {
+export const ackwell: Contributor = {
   nickname: 'ackwell',
   github: 'ackwell',
   discord: 'ackwell#3835',
   avatar: require('./interface/images/avatars/ackwell-avatar.jpg'),
 };
-export const regret = {
+export const regret: Contributor = {
   nickname: 'regret',
   github: 'remyaraya',
   discord: "regret#8633",
@@ -547,7 +539,7 @@ export const regret = {
     link: 'https://worldofwarcraft.com/en-us/character/thrall/ratchrat',
   }],
 };
-export const Khadaj = {
+export const Khadaj: Contributor = {
   nickname: 'Khadaj',
   github: 'tjmoats',
   discord: "Khadaj#3519",
@@ -558,7 +550,7 @@ export const Khadaj = {
     link: 'https://worldofwarcraft.com/en-us/character/firetree/khadaj',
   }],
 };
-export const fel1ne = {
+export const fel1ne: Contributor = {
   nickname: 'fel1ne',
   github: 'fel1n3',
   discord: 'Dr. fel1ne#5614',
@@ -569,7 +561,7 @@ export const fel1ne = {
     link: 'https://www.worldofwarcraft.com/en-us/character/khazgoroth/Felerai',
   }],
 };
-export const Dambroda = {
+export const Dambroda: Contributor = {
   nickname: 'Dambroda',
   github: 'Dambroda',
   discord: 'Dambroda#1290',
@@ -580,7 +572,7 @@ export const Dambroda = {
     link: 'https://worldofwarcraft.com/en-us/character/stormrage/dambroma',
   }],
 };
-export const Nalhan = {
+export const Nalhan: Contributor = {
   nickname: 'Nalhan',
   github: 'Nalhan',
   discord: 'rye bread#9105',
@@ -590,7 +582,7 @@ export const Nalhan = {
     link: 'http://us.battle.net/wow/character/arthas/Doughmaker',
   }],
 };
-export const Satyric = {
+export const Satyric: Contributor = {
   nickname: 'Satyric',
   github: 'kujan',
   discord: 'Satyric#9107',
@@ -600,12 +592,12 @@ export const Satyric = {
     link: 'https://worldofwarcraft.com/en-gb/character/ragnaros/Satyric',
   }],
 };
-export const jos3p = {
+export const jos3p: Contributor = {
   nickname: 'jos3p',
   github: 'jos3p',
   discord: 'jos3p#9746',
 };
-export const Matardarix = {
+export const Matardarix: Contributor = {
   nickname: 'Matardarix',
   github: 'matardarix',
   discord: 'Matardarix#9847',
@@ -616,7 +608,7 @@ export const Matardarix = {
     link: 'https://worldofwarcraft.com/en-gb/character/hyjal/M%C3%A2t%C3%A2rdarix',
   }],
 };
-export const mtblanton = {
+export const mtblanton: Contributor = {
   nickname: 'mtblanton',
   github: 'mtblanton',
   mains: [{
@@ -625,21 +617,21 @@ export const mtblanton = {
     link: 'https://worldofwarcraft.com/en-us/character/turalyon/Harzwaz',
   }],
 };
-export const Streammz = {
+export const Streammz: Contributor = {
   nickname: 'Streammz',
   github: 'Streammz',
   discord: 'Streammz#9999',
 };
-export const Eylwen = {
+export const Eylwen: Contributor = {
   nickname: 'Eylwen',
   github: 'Alastair-Scott',
   discord: 'Eylwen#0287',
 };
-export const Korebian = {
+export const Korebian: Contributor = {
   nickname: 'Korebian',
   github: 'Asamsig',
 };
-export const _4Ply = {
+export const _4Ply: Contributor = {
   nickname: '4Ply',
   github: '4Ply',
   discord: '4Ply#9270',
@@ -649,7 +641,7 @@ export const _4Ply = {
     link: 'https://worldofwarcraft.com/en-gb/character/sylvanas/Uzdrowiciela',
   }],
 };
-export const Dorixius = {
+export const Dorixius: Contributor = {
   nickname: 'Dorixius',
   github: 'florianschut',
   avatar: require('./interface/images/avatars/dorixius-avatar.jpeg'),
@@ -660,7 +652,7 @@ export const Dorixius = {
     link: 'https://worldofwarcraft.com/en-gb/character/steamwheedle-cartel/Dorixius',
   }],
 };
-export const Skeletor = {
+export const Skeletor: Contributor = {
   nickname: 'Skeletor',
   github: 'LordSkeletor',
   discord: 'Skeletor#0001',
@@ -674,11 +666,11 @@ export const Skeletor = {
     'RetPaladin.XYZ': 'https://www.retpaladin.xyz/ret-paladin-8-1-0-pve-guide',
   },
 };
-export const Abelito75 = {
+export const Abelito75: Contributor = {
   nickname: 'Abelito75',
   github: 'abelito75',
   avatar: require('./interface/images/avatars/Abelito75-avatar.png'),
-  desc: 'MW Vet in Peak of Serenity discord, MW Theorycrafter',
+  about: 'MW Vet in Peak of Serenity discord, MW Theorycrafter',
   mains:[{
     name: 'Magnapinna',
     spec: SPECS.MISTWEAVER_MONK,
@@ -690,18 +682,18 @@ export const Abelito75 = {
     link: 'https://raider.io/characters/us/malganis/Barreleye',
   }],
 };
-export const HolySchmidt = {
+export const HolySchmidt: Contributor = {
   nickname: 'HolySchmidt',
   github: '5chmidt',
   avatar: require('./interface/images/avatars/holyschmidt-avatar.jpg'),
-  desc: 'Holy Paladin, Tinkerer',
+  about: 'Holy Paladin, Tinkerer',
   mains: [{
     name: 'HolySchmidt',
     spec: SPECS.HOLY_PALADIN,
     link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/holyschmidt',
   }],
 };
-export const Coywolf = {
+export const Coywolf: Contributor = {
   nickname: 'Coywolf',
   github: 'Coywolf',
   discord: 'Coywolf#3500',
@@ -711,7 +703,7 @@ export const Coywolf = {
     link: 'https://worldofwarcraft.com/en-us/character/us/arthas/coywolf',
   }],
 };
-export const Scotsoo = {
+export const Scotsoo: Contributor = {
   nickname: 'Scotsoo',
   github: 'Scotsoo',
   discord: 'Scotsoo#5328',
@@ -722,7 +714,7 @@ export const Scotsoo = {
     link: 'https://worldofwarcraft.com/en-us/character/eu/tarren-mill/scotsoodh',
   }],
 };
-export const LeoZhekov = {
+export const LeoZhekov: Contributor = {
   nickname: 'LeoZhekov',
   github: 'LeoZhekov',
   discord: 'LeoZhekov#6641',
@@ -733,16 +725,16 @@ export const LeoZhekov = {
     link: 'https://worldofwarcraft.com/en-gb/character/Zenedar/Lisossa',
   }],
 };
-export const Amrux = {
+export const Amrux: Contributor = {
   nickname: 'Amrux',
   github: 'grantjoshua1995',
 };
-export const Viridis = {
+export const Viridis: Contributor = {
   nickname: 'Viridis',
   github: 'viridis',
   discord: 'Viridis#2748',
 };
-export const Wing5wong = {
+export const Wing5wong: Contributor = {
   nickname: 'wing5wong',
   github: 'wing5wong',
   mains: [{
@@ -751,7 +743,7 @@ export const Wing5wong = {
     link: 'https://worldofwarcraft.com/en-us/character/us/frostmourne/shrom',
   }],
 };
-export const Draenal = {
+export const Draenal: Contributor = {
   nickname: 'Draenal',
   github: 'MikeCook9994',
   mains: [{
@@ -765,7 +757,7 @@ export const Draenal = {
     link: 'https://worldofwarcraft.com/en-us/character/us/malganis/magiceraser',
   }],
 };
-export const Adoraci = {
+export const Adoraci: Contributor = {
   nickname: 'Adoraci',
   github: 'DylanDirlam',
   discord: 'Adoraci#0001',
@@ -776,7 +768,7 @@ export const Adoraci = {
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
   }],
 };
-export const TheJigglr = {
+export const TheJigglr: Contributor = {
   nickname: 'TheJigglr',
   github: 'myran2',
   discord: 'Henry#4712',
@@ -786,17 +778,17 @@ export const TheJigglr = {
     link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/thejigglr',
   }],
 };
-export const fluffels = {
+export const fluffels: Contributor = {
   nickname: 'fluffels',
   github: 'fluffels',
   discord: 'fluffels#4322',
-  main: [{
+  mains: [{
     name: 'Micheladaw',
     spec: SPECS.AFFLICTION_WARLOCK,
     link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/micheladaw',
   }],
 };
-export const JeremyDwayne = {
+export const JeremyDwayne: Contributor = {
   nickname: 'JeremyDwayne',
   github: 'jeremydwayne',
   discord: 'jeremydwayne#3717',
@@ -825,7 +817,7 @@ export const JeremyDwayne = {
     },
   ],
 };
-export const Taleria = {
+export const Taleria: Contributor = {
   nickname: 'Taleria',
   github: 'bramdevries',
   avatar: require('./interface/images/avatars/taleria-avatar.jpg'),
@@ -835,11 +827,11 @@ export const Taleria = {
     link: 'https://worldofwarcraft.com/en-gb/character/eu/eonar/Taleria',
   }],
 };
-export const axelkic = {
+export const axelkic: Contributor = {
   nickname: 'axelkic',
   github: 'axelkic',
 };
-export const soloxcx = {
+export const soloxcx: Contributor = {
   nickname: 'soloxcx',
   github: 'soloxcx',
   discord: 'Connor#7037',
@@ -850,16 +842,16 @@ export const soloxcx = {
     link: 'https://worldofwarcraft.com/en-us/character/us/thrall/Vaermin%C3%A0',
   }],
 };
-export const Torothin = {
+export const Torothin: Contributor = {
   nickname: 'Brad',
   github: 'Torothin',
   discord: 'Torothin#9751',
 };
-export const layday = {
+export const layday: Contributor = {
   nickname: 'layday',
   github: 'layday',
 };
-export const FraunchToost = {
+export const FraunchToost: Contributor = {
   nickname: 'FraunchToost',
   github: 'FraunchToost',
   discord: 'FraunchToost#1207',
@@ -870,7 +862,7 @@ export const FraunchToost = {
     link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Azamia',
   }],
 };
-export const Tiphess = {
+export const Tiphess: Contributor = {
   nickname: 'Tiphess',
   github: 'Tiphess',
   discord: 'Tiphess#0324',

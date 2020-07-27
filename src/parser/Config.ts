@@ -1,19 +1,8 @@
 import { ReactNode } from 'react';
 
-import { change } from 'common/changelog';
+import { change, Contributor } from 'common/changelog';
 import { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
-
-export interface Contributor {
-  nickname: string;
-  github: string;
-  discord?: string;
-  twitter?: string;
-  avatar?: string;
-  desc?: string;
-  mains?: Array<{ name: string; spec: any; link: string }>;
-  alts?: Array<{ name: string; spec: any; link: string }>;
-}
 
 export type Build = {
   url: string;
