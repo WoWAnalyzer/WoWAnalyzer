@@ -11,15 +11,14 @@ enum AssertionMode {
   IS_EQUAL = '===',
 }
 
-type AllowedValues = number | string | boolean;
+type AllowedValue = number | string | boolean;
 type ThresholdDef = {
-  actual: AllowedValues,
+  actual: AllowedValue,
+  isEqual?: AllowedValue,
   isLessThan?: ThresholdValue,
   isGreaterThan?: ThresholdValue,
   isLessThanOrEqual?: ThresholdValue,
   isGreaterThanOrEqual?: ThresholdValue,
-  isTrue?: ThresholdValue,
-  isFalse?: ThresholdValue,
 }
 
 type ThresholdValue = {
@@ -28,13 +27,13 @@ type ThresholdValue = {
   major: number,
 }
 export class SuggestionAssertion {
-  _actual: AllowedValues;
+  _actual: AllowedValue;
   _addIssue: (issue: Issue) => void;
 
   _mode: AssertionMode | null = null;
-  _threshold: ThresholdValue | null = null;
+  _threshold: ThresholdValue | AllowedValue | null = null;
 
-  constructor(options: ThresholdDef | AllowedValues, addIssue: (issue: Issue) => void) {
+  constructor(options: ThresholdDef | AllowedValue, addIssue: (issue: Issue) => void) {
     if (typeof options === 'object') {
       const def = options as ThresholdDef;
       this._actual = def.actual;
@@ -46,10 +45,6 @@ export class SuggestionAssertion {
         this.isLessThan(def.isLessThan);
       } else if (def.isLessThanOrEqual !== undefined) {
         this.isLessThanOrEqual(def.isLessThanOrEqual);
-      } else if (def.isTrue !== undefined) {
-        this.isTrue();
-      } else if (def.isFalse !== undefined) {
-        this.isFalse();
       } else if (def.isEqual !== undefined) {
         this.isEqual(def.isEqual);
       }
@@ -87,12 +82,12 @@ export class SuggestionAssertion {
     this._mode = AssertionMode.IS_FALSE;
     return this;
   }
-  isEqual(value: ThresholdValue) {
+  isEqual(value: AllowedValue) {
     this._mode = AssertionMode.IS_EQUAL;
     this._threshold = value;
     return this;
   }
-  get triggerThreshold() {
+  get triggerThreshold(): AllowedValue {
     let threshold = this._threshold;
     if (threshold !== null && typeof threshold === 'object') {
       // `null` is also of type 'object'
@@ -124,7 +119,7 @@ export class SuggestionAssertion {
     }
     return ISSUE_IMPORTANCE.MINOR;
   }
-  _compare(actual, breakpoint) {
+  _compare(actual: AllowedValue, breakpoint: AllowedValue) {
     switch (this._mode) {
       case AssertionMode.IS_GREATER_THAN: return actual > breakpoint;
       case AssertionMode.IS_GREATER_THAN_OR_EQUAL: return actual >= breakpoint;
@@ -217,7 +212,7 @@ class ParseResults {
   }
 
   suggestions = {
-    when: actual => new SuggestionAssertion(actual, this.addIssue),
+    when: (threshold: ThresholdDef | AllowedValues) => new SuggestionAssertion(threshold, this.addIssue),
   };
 }
 
