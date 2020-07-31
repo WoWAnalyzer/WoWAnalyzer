@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,8 +8,20 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
+// prettier-ignore
 export default [
-  change(date(2020, 6, 3), <>Removed duplicate entry of <SpellLink id={SPELLS.GUARDIAN_SPIRIT.id} /> in defensive buffs.</>, Vetyst),
+  change(date(2020, 7, 23), 'Converted core log parser to TypeScript and added strict event typechecking to event listeners.', Dambroda),
+  change(date(2020, 7, 11), 'Added shared functionality to get an array of filtered events previous to the currently processing event.', Dambroda),
+  change(date(2020, 7, 6), <> Added support for <ItemLink id={ITEMS.SUBROUTINE_RECALIBRATION.id} />. </>, Putro),
+  change(date(2020, 6, 27), 'Initial page load performance enhancements.', Stui),
+  change(date(2020, 6, 12), 'Move various probability helpers to a shared folder.', Putro),
+  change(date(2020, 6, 11), 'Added a warning to N\'zoth fight due to the different realm phases, and the combat log errors they come with.', Putro),
+  change(date(2020, 6, 10), 'Fix a crash when changing your region after selecting a realm during character search.', Dambroda),
+  change(date(2020, 6, 9), <> Added debuff uptime to to the <SpellLink id={SPELLS.BLOOD_OF_THE_ENEMY.id} /> module. </>, Putro),
+  change(date(2020, 6, 7), 'Moved some helper functions from class/specialization folders to a shared folder', Putro),
+  change(date(2020, 6, 6), <> Added uptime to to the <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS.id} /> module. </>, Putro),
+  change(date(2020, 6, 3), <>Updated death recap suggestion for <SpellLink id={SPELLS.HEALTHSTONE.id} />. This will only show if a Warlock participated in the selected fight.</>, Vetyst),
+  change(date(2020, 6, 3), <>Removed duplicate entry of <SpellLink id={SPELLS.GUARDIAN_SPIRIT.id} /> in defensive buffs.</>, [Vetyst]),
   change(date(2020, 5, 29), 'Add a warning when the log exceeds our supported duration.', Vetyst),
   change(date(2020, 5, 27), <>Fixed a bug where <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} /> showed as having done 0 healing </>, Putro),
   change(date(2020, 5, 25), 'Replaced hard-coded statistic categories with STATISTIC_CATEGORY.', Vetyst),

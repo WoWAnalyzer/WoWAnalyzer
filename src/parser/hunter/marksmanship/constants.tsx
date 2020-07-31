@@ -1,0 +1,1 @@
+export const MASTER_MARKSMAN_CRIT_INCREASE = 0.25;

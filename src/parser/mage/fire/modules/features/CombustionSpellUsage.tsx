@@ -36,7 +36,7 @@ class CombustionSpellUsage extends Analyzer {
   }
 
   //Because Fireball has a longer cast time than Scorch, the player should never cast Fireball during Combustion.
-  fireballCasts(event: CastEvent | BeginCastEvent) {
+  fireballCasts(event: CastEvent & BeginCastEvent) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
 
     if (!hasCombustion) {
@@ -55,7 +55,7 @@ class CombustionSpellUsage extends Analyzer {
     }
   }
 
-  scorchCasts(event: CastEvent | BeginCastEvent) {
+  scorchCasts(event: CastEvent & BeginCastEvent) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
     const phoenixFlamesCharges = (this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES_TALENT.id) || 0);

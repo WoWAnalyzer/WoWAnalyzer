@@ -43,6 +43,7 @@
     "@lingui/core": "^2.9.0",
     "@lingui/loader": "^2.9.0",
     "@lingui/macro": "^2.9.0",
+    "@sentry/browser": "^5.19.1",
     "@types/jest": "^24.0.23",
     "@types/lingui__core": "^2.7.0",
     "@types/lingui__macro": "^2.7.3",
@@ -77,7 +78,7 @@
     "test:parser": "yarn test --testPathIgnorePatterns integrationTests ./src/parser",
     "test:integration": "yarn test integrationTests",
     "typecheck": "tsc",
-    "lint": "eslint .",
+    "lint": "eslint . --ext .js,.ts,.tsx",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node"
   },

@@ -7,13 +7,13 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { DamageEvent } from 'parser/core/Events';
-import { isPermanentPet } from '../../../../warlock/demonology/modules/pets/helpers';
+import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 /**
  * Your Call Pet additionally summons the first pet from your stable.
  * This pet will obey your Kill Command, but cannot use pet family abilities.
  *
- * Additionally this talent baseline reduces all pet damage by 40%.
+ * Additionally this talent baseline reduces all pet damage by 35%.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1

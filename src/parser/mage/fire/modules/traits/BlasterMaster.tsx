@@ -49,7 +49,7 @@ class BlasterMaster extends Analyzer {
     debug && this.log("Combustion Ended: " + this.stackCount + " stacks");
   }
 
-  onTraitStack(event: ApplyBuffEvent | ApplyBuffStackEvent) {
+  onTraitStack(event: ApplyBuffEvent & ApplyBuffStackEvent) {
     const buff: any = this.selectedCombatant.getBuff(SPELLS.BLASTER_MASTER_BUFF.id);
     if (buff && buff.stacks > this.stackCount) {
       this.stackCount = buff.stacks;

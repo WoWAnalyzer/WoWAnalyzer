@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -8,7 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage, formatNumber } from 'common/format';
-import { ApplyBuffEvent, ApplyDebuffEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, EventType, RefreshBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const inTheRhythmStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
@@ -53,32 +53,20 @@ class InTheRhythm extends Analyzer {
     options.statTracker.add(SPELLS.IN_THE_RHYTHM_BUFF.id, {
       haste: this.haste,
     });
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IN_THE_RHYTHM_BUFF), this.itrApplication);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.IN_THE_RHYTHM_BUFF), this.itrApplication);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.possibleApplication);
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.RAPID_FIRE.id) {
-      return;
-    }
+  possibleApplication() {
     this.possibleApplications += 1;
   }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.IN_THE_RHYTHM_BUFF.id) {
-      return;
-    }
+  itrApplication(event: ApplyBuffEvent & RefreshBuffEvent) {
     this.applications += 1;
-    this.lastApplicationTimestamp = event.timestamp;
-  }
-
-  on_byPlayer_refreshbuff(event: RefreshBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.IN_THE_RHYTHM_BUFF.id) {
-      return;
+    if(event.type === EventType.RefreshBuff) {
+      this.wastedUptime += DURATION - (event.timestamp - this.lastApplicationTimestamp);
     }
-    this.applications += 1;
-    this.wastedUptime += DURATION - (event.timestamp - this.lastApplicationTimestamp);
     this.lastApplicationTimestamp = event.timestamp;
   }
 

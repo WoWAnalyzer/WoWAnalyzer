@@ -9,8 +9,8 @@ import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
 
-import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import { getDotDurations } from '../../constants';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 

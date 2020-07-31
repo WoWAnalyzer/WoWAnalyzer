@@ -1,10 +1,10 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import React from 'react';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 /**
@@ -15,16 +15,16 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
  */
 
 class WildfireCluster extends Analyzer {
+
   damage = 0;
+
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.WILDFIRE_CLUSTER.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_CLUSTER_DAMAGE), this.onDamage);
   }
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WILDFIRE_CLUSTER_DAMAGE.id) {
-      return;
-    }
+
+  onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
   }
 

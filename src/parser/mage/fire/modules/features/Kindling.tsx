@@ -8,14 +8,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import HIT_TYPES from 'game/HIT_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-
-const COMBUST_REDUCTION_SPELLS = [
-  SPELLS.FIREBALL,
-  SPELLS.PYROBLAST,
-  SPELLS.FIRE_BLAST,
-];
-
-const CRIT_REDUCTION_MS = 1000;
+import { COMBUST_REDUCTION_SPELLS, KINDLING_REDUCTION_MS } from '../../constants';
 
 class Kindling extends Analyzer {
   static dependencies = {
@@ -38,7 +31,7 @@ class Kindling extends Analyzer {
       return;
     }
     if (combustionOnCD) {
-      this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.COMBUSTION.id, (CRIT_REDUCTION_MS));
+      this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.COMBUSTION.id, (KINDLING_REDUCTION_MS));
     }
   }
 

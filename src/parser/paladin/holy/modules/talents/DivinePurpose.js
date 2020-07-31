@@ -32,13 +32,31 @@ class DivinePurpose extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
     // Holy Shock
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF), this._onHolyShockDivinePurposeProc);
-    this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF), this._onHolyShockDivinePurposeProc);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_CAST), this._onHolyShockCast);
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF),
+      this._onHolyShockDivinePurposeProc,
+    );
+    this.addEventListener(
+      Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF),
+      this._onHolyShockDivinePurposeProc,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_CAST),
+      this._onHolyShockCast,
+    );
     // Light of Dawn
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF), this._onLightOfDawnDivinePurposeProc);
-    this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF), this._onLightOfDawnDivinePurposeProc);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST), this._onLightOfDawnCast);
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF),
+      this._onLightOfDawnDivinePurposeProc,
+    );
+    this.addEventListener(
+      Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF),
+      this._onLightOfDawnDivinePurposeProc,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST),
+      this._onLightOfDawnCast,
+    );
   }
 
   _onHolyShockDivinePurposeProc() {
@@ -50,7 +68,10 @@ class DivinePurpose extends Analyzer {
   _onHolyShockCast() {
     if (this.selectedCombatant.hasBuff(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id)) {
       this.holyShockProcStreak += 1;
-      this.highestHolyShockProcStreak = Math.max(this.highestHolyShockProcStreak, this.holyShockProcStreak);
+      this.highestHolyShockProcStreak = Math.max(
+        this.highestHolyShockProcStreak,
+        this.holyShockProcStreak,
+      );
     } else {
       // When we cast a regular (unbuffed) HS, it's outside of a streak.
       this.holyShockProcStreak = 0;
@@ -66,7 +87,10 @@ class DivinePurpose extends Analyzer {
   _onLightOfDawnCast() {
     if (this.selectedCombatant.hasBuff(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id)) {
       this.lightOfDawnProcStreak += 1;
-      this.highestLightOfDawnProcStreak = Math.max(this.highestLightOfDawnProcStreak, this.lightOfDawnProcStreak);
+      this.highestLightOfDawnProcStreak = Math.max(
+        this.highestLightOfDawnProcStreak,
+        this.lightOfDawnProcStreak,
+      );
     } else {
       // When we cast a regular (unbuffed) LoD, it's outside of a streak.
       this.lightOfDawnProcStreak = 0;
@@ -84,7 +108,12 @@ class DivinePurpose extends Analyzer {
     const holyShockHeals = holyShockHeal.healingHits || 0;
 
     // I want less than a space of width between the two
-    const formatProcsLeft = procs => <Trans>x<span style={{ width: 3 }} />{procs}</Trans>;
+    const formatProcsLeft = procs => (
+      <Trans>
+        x<span style={{ width: 3 }} />
+        {procs}
+      </Trans>
+    );
     const formatProcsRight = procs => <Trans>{procs}x</Trans>;
 
     return (
@@ -105,16 +134,30 @@ class DivinePurpose extends Analyzer {
                 }}
               />
             </div>
-            <div className="flex-sub content-bottom value" style={{ lineHeight: 1, marginRight: 5 }}>
+            <div
+              className="flex-sub content-bottom value"
+              style={{ lineHeight: 1, marginRight: 5 }}
+            >
               {/* I want less than a space of width between the two */}
               {formatProcsLeft(this.holyShockProcs)}
             </div>
             <div className="flex-main content-bottom">
-              <small>{formatPercentage(this.holyShockProcs / (holyShockHeals - this.holyShockProcs))}%</small>
+              <small>
+                {formatPercentage(this.holyShockProcs / (holyShockHeals - this.holyShockProcs))}%
+              </small>
             </div>
             <div className="flex-sub content-bottom">
               <div>
-                <small><Trans>Best streak: {this.highestHolyShockProcStreak < 2 ? <Trans>N/A</Trans> : formatProcsRight(this.highestHolyShockProcStreak)}</Trans></small>
+                <small>
+                  <Trans>
+                    Best streak:{' '}
+                    {this.highestHolyShockProcStreak < 2 ? (
+                      <Trans>N/A</Trans>
+                    ) : (
+                      formatProcsRight(this.highestHolyShockProcStreak)
+                    )}
+                  </Trans>
+                </small>
               </div>
             </div>
           </div>
@@ -128,14 +171,33 @@ class DivinePurpose extends Analyzer {
                 }}
               />
             </div>
-            <div className="flex-sub content-bottom value" style={{ lineHeight: 1, marginRight: 5 }}>
+            <div
+              className="flex-sub content-bottom value"
+              style={{ lineHeight: 1, marginRight: 5 }}
+            >
               {formatProcsLeft(this.lightOfDawnProcs)}
             </div>
             <div className="flex-main content-bottom">
-              <small>{formatPercentage(this.lightOfDawnProcs / (lightOfDawnHeals - this.lightOfDawnProcs))}%</small>
+              <small>
+                {formatPercentage(
+                  this.lightOfDawnProcs / (lightOfDawnHeals - this.lightOfDawnProcs),
+                )}
+                %
+              </small>
             </div>
             <div className="flex-sub content-bottom">
-              <div><small><Trans>Best streak: {this.highestLightOfDawnProcStreak < 2 ? <Trans>N/A</Trans> : formatProcsRight(this.highestLightOfDawnProcStreak)}</Trans></small></div>
+              <div>
+                <small>
+                  <Trans>
+                    Best streak:{' '}
+                    {this.highestLightOfDawnProcStreak < 2 ? (
+                      <Trans>N/A</Trans>
+                    ) : (
+                      formatProcsRight(this.highestLightOfDawnProcStreak)
+                    )}
+                  </Trans>
+                </small>
+              </div>
             </div>
           </div>
         </div>

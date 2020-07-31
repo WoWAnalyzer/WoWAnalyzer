@@ -180,7 +180,7 @@ class CastEfficiency extends Analyzer {
   }
 
   private getTimeSpentOnGcd(spellId: number) {
-    const ability: Ability = this.abilities.getAbility(spellId);
+    const ability = this.abilities.getAbility(spellId);
 
     if (ability && ability.gcd) {
       const cdInfo = this.getCooldownInfo(ability);

@@ -1,15 +1,15 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/index';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
-
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for [(10%
@@ -28,11 +28,14 @@ class BarbedShot extends Analyzer {
   barbedShotStacks: Array<Array<number>> = [];
   lastBarbedShotStack: number = 0;
   lastBarbedShotUpdate: number = this.owner.fight.start_time;
-  currentStacks: number = 0;
 
   constructor(options: any) {
     super(options);
     this.barbedShotStacks = Array.from({ length: MAX_FRENZY_STACKS + 1 }, x => []);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
+    this.addEventListener(Events.fightend, this.handleStacks);
   }
 
   get barbedShotTimesByStacks() {
@@ -48,7 +51,7 @@ class BarbedShot extends Analyzer {
     const withoutNoBuff = this.barbedShotStacks.slice(1);
     //Because .flat doesn't work in Microsoft Edge (non-chromium versions), we use this alternate option that is equivalent
     const alternativeFlatten = withoutNoBuff.reduce((acc, val) => acc.concat(val), []);
-    //After flattening the array, we can reduce it normally. 
+    //After flattening the array, we can reduce it normally.
     return alternativeFlatten.reduce((totalUptime: number, stackUptime: number) => totalUptime + stackUptime, 0) / this.owner.fightDuration;
   }
 
@@ -93,20 +96,13 @@ class BarbedShot extends Analyzer {
     }
   }
 
-  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
-    if (event.type === EventType.RemoveBuff) {
-      this.currentStacks = 0;
-    } else if (event.type === EventType.ApplyBuff) {
-      this.currentStacks = 1;
-    } else if (event.type === EventType.ApplyBuffStack) {
-      this.currentStacks = event.stack;
-    } else if (event.type === EventType.FightEnd) {
-      this.currentStacks = this.lastBarbedShotStack;
-    }
-
+  handleStacks(event: RemoveBuffEvent & ApplyBuffEvent & ApplyBuffStackEvent & FightEndEvent) {
     this.barbedShotStacks[this.lastBarbedShotStack].push(event.timestamp - this.lastBarbedShotUpdate);
+    if (event.type === EventType.FightEnd) {
+      return;
+    }
     this.lastBarbedShotUpdate = event.timestamp;
-    this.lastBarbedShotStack = this.currentStacks;
+    this.lastBarbedShotStack = currentStacks(event);
   }
 
   getAverageBarbedShotStacks() {
@@ -115,34 +111,6 @@ class BarbedShot extends Analyzer {
       avgStacks += elem.reduce((a: number, b: number) => a + b, 0) / this.owner.fightDuration * index;
     });
     return avgStacks;
-  }
-
-  on_toPlayerPet_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BARBED_SHOT_PET_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_fightend(event: FightEndEvent) {
-    this.handleStacks(event);
   }
 
   suggestions(when: any) {

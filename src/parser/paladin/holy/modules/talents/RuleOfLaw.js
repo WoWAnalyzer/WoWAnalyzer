@@ -17,7 +17,9 @@ class RuleOfLaw extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.owner.fightDuration
+    );
   }
 
   get uptimeSuggestionThresholds() {
@@ -35,7 +37,8 @@ class RuleOfLaw extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <Trans>
-          Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.
+          Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping
+          at least 1 charge on cooldown; you should (almost) never be at max charges.
         </Trans>,
       )
         .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
@@ -47,11 +50,7 @@ class RuleOfLaw extends Analyzer {
     const history = this.selectedCombatant.getBuffHistory(SPELLS.RULE_OF_LAW_TALENT.id);
 
     return (
-      <StatisticBar
-        position={STATISTIC_ORDER.CORE(31)}
-        wide
-        size="small"
-      >
+      <StatisticBar position={STATISTIC_ORDER.CORE(31)} wide size="small">
         <div className="flex">
           <div className="flex-sub icon">
             <SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 
 import SpellLink from 'common/SpellLink';
@@ -7,7 +7,9 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyBuffEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { formatPercentage } from 'common/format';
+import UptimeIcon from 'interface/icons/Uptime';
 
 const MS_BUFFER = 100;
 
@@ -29,6 +31,14 @@ class BeastCleave extends Analyzer {
   castsWithoutHits = 0;
   timestamp = 0;
 
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF), this.onRemoveBuff);
+    this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF), this.onRefreshBuff);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_DAMAGE), this.onBeastCleaveDamage);
+  }
+
   get beastCleavesWithoutHits() {
     return {
       actual: this.castsWithoutHits,
@@ -41,11 +51,11 @@ class BeastCleave extends Analyzer {
     };
   }
 
-  on_toPlayerPet_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
-      return;
-    }
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.BEAST_CLEAVE_BUFF.id) / this.owner.fightDuration;
+  }
+
+  onApplyBuff(event: ApplyBuffEvent) {
     if (this.timestamp + MS_BUFFER > event.timestamp) {
       return;
     }
@@ -55,44 +65,34 @@ class BeastCleave extends Analyzer {
     this.timestamp = event.timestamp;
   }
 
-  on_toPlayerPet_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
-      return;
-    }
+  onRemoveBuff(event: RemoveBuffEvent) {
     if (this.timestamp + MS_BUFFER > event.timestamp) {
       return;
     }
-    if (this.beastCleaveHits === 0) {
-      this.castsWithoutHits += 1;
-    }
+    this.checkAmountOfHits();
     this.cleaveUp = false;
     this.timestamp = event.timestamp;
   }
 
-  on_toPlayerPet_refreshbuff(event: RefreshBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BEAST_CLEAVE_PET_BUFF.id) {
-      return;
-    }
+  onRefreshBuff(event: RefreshBuffEvent) {
     if (this.timestamp + MS_BUFFER > event.timestamp) {
       return;
     }
     this.casts += 1;
-    if (this.beastCleaveHits === 0) {
-      this.castsWithoutHits += 1;
-    }
+    this.checkAmountOfHits();
     this.beastCleaveHits = 0;
     this.timestamp = event.timestamp;
   }
 
-  on_byPlayerPet_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BEAST_CLEAVE_DAMAGE.id) {
-      return;
-    }
+  onBeastCleaveDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
     this.beastCleaveHits += 1;
+  }
+
+  checkAmountOfHits() {
+    if (this.beastCleaveHits === 0) {
+      this.castsWithoutHits += 1;
+    }
   }
 
   suggestions(when: any) {
@@ -115,7 +115,8 @@ class BeastCleave extends Analyzer {
         >
           <BoringSpellValueText spell={SPELLS.BEAST_CLEAVE_BUFF}>
             <>
-              <ItemDamageDone amount={this.damage} />
+              <ItemDamageDone amount={this.damage} /> <br />
+              <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
             </>
           </BoringSpellValueText>
         </Statistic>

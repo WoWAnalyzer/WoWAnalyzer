@@ -63,7 +63,7 @@ class GlacialSpike extends Analyzer {
 
     // Check if the target had a shatter effect on them
     const enemy: any = this.enemies.getEntity(event);
-    if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect, event.timestamp))) {
+    if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp))) {
       this.goodCasts += 1;
       this.lastCastEvent = undefined;
     }

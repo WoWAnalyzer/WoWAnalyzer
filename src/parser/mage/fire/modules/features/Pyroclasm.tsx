@@ -7,10 +7,9 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatNumber, formatPercentage } from 'common/format';
+import { PYROCLASM_DAMAGE_MODIFIER, CAST_BUFFER } from '../../constants';
 
-const CAST_BUFFER = 250;
 const FIGHT_END_BUFFER = 5000;
-const PYROCLASM_DAMAGE_MODIFIER = 225;
 
 const debug = false;
 
@@ -48,14 +47,14 @@ class Pyroclasm extends Analyzer {
   }
 
   //Counts the number of times Pyroclasm was applied
-  onPyroclasmApplied(event: ApplyBuffEvent | ApplyBuffStackEvent) {
+  onPyroclasmApplied(event: ApplyBuffEvent & ApplyBuffStackEvent) {
     this.totalProcs += 1;
     this.buffAppliedEvent = event;
     debug && this.log("Buff Applied");
   }
 
   //Checks to see if Pyroclasm was removed because it was used (there was a non instant pyroblast within 250ms) or because it expired.
-  onPyroclasmRemoved(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  onPyroclasmRemoved(event: RemoveBuffEvent & RemoveBuffStackEvent) {
     if (!this.castEvent || !this.beginCastEvent) {
       return;
     }

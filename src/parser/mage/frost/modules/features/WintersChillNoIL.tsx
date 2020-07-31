@@ -10,14 +10,9 @@ import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { WINTERS_CHILL_HARDCASTS } from '../../constants';
 
 const debug = false;
-
-const HARDCAST_HITS = [
-  SPELLS.FROSTBOLT_DAMAGE.id,
-  SPELLS.EBONBOLT_DAMAGE.id,
-  SPELLS.GLACIAL_SPIKE_DAMAGE.id,
-];
 
 class WintersChillNoIL extends Analyzer {
   static dependencies = {
@@ -32,7 +27,7 @@ class WintersChillNoIL extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.owner.builds.NO_IL.active;
+    this.active = !!this.owner.builds.NO_IL.active;
 
     if (!this.active) {
       return;
@@ -44,13 +39,13 @@ class WintersChillNoIL extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    const spellId = event.ability.guid;
+    const spell = event.ability;
     const enemy = this.enemies.getEntity(event);
     if (!enemy || !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
       return;
     }
 
-    if(HARDCAST_HITS.includes(spellId)) {
+    if(WINTERS_CHILL_HARDCASTS.some(acceptable => acceptable.id === spell.guid)) {
       this.hardcastHits += 1;
       debug && console.log(`${event.ability.name} into Winter's Chill`);
     }

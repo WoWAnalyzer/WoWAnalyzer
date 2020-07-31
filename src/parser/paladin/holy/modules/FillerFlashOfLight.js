@@ -71,12 +71,17 @@ class FillerFlashOfLight extends Analyzer {
     if (this._isCurrentCastInefficient) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = <Trans>Holy Shock was off cooldown when you started casting this unbuffed Flash of Light. You should cast Holy Shock instead.</Trans>;
+      event.meta.inefficientCastReason = (
+        <Trans>
+          Holy Shock was off cooldown when you started casting this unbuffed Flash of Light. You
+          should cast Holy Shock instead.
+        </Trans>
+      );
     }
   }
 
   get inefficientCpm() {
-    return this.inefficientCasts.length / (this.owner.fightDuration / 1000) * 60;
+    return (this.inefficientCasts.length / (this.owner.fightDuration / 1000)) * 60;
   }
 
   get suggestionThresholds() {
@@ -84,8 +89,8 @@ class FillerFlashOfLight extends Analyzer {
       actual: this.inefficientCasts.length,
       isGreaterThan: {
         minor: 0,
-        average: 0.25 * this.owner.fightDuration / 1000 / 60,
-        major: 0.5 * this.owner.fightDuration / 1000 / 60,
+        average: (0.25 * this.owner.fightDuration) / 1000 / 60,
+        major: (0.5 * this.owner.fightDuration) / 1000 / 60,
       },
       style: 'number',
     };
@@ -95,7 +100,37 @@ class FillerFlashOfLight extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) => {
       return suggest(
         <Trans>
-          You started casting {this.inefficientCasts.length} filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was <TooltipElement content={<Trans>It was either already available or going to be available within {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.</Trans>}>available</TooltipElement> (at {this.inefficientCasts.map(event => this.owner.formatTimestamp(event.timestamp)).join(', ')}). <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is a much more efficient spell and should be prioritized<TooltipElement content={<Trans>There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.</Trans>}>*</TooltipElement>.
+          You started casting {this.inefficientCasts.length} filler{' '}
+          <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s while{' '}
+          <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was{' '}
+          <TooltipElement
+            content={
+              <Trans>
+                It was either already available or going to be available within{' '}
+                {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.
+              </Trans>
+            }
+          >
+            available
+          </TooltipElement>{' '}
+          (at{' '}
+          {this.inefficientCasts
+            .map(event => this.owner.formatTimestamp(event.timestamp))
+            .join(', ')}
+          ). <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is a much more efficient spell and should
+          be prioritized
+          <TooltipElement
+            content={
+              <Trans>
+                There are very rare exceptions to this. For example it may be worth saving Holy
+                Shock when you know you're going to be moving soon and you may have to heal
+                yourself.
+              </Trans>
+            }
+          >
+            *
+          </TooltipElement>
+          .
         </Trans>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)

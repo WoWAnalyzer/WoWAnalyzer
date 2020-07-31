@@ -1,4 +1,4 @@
-import { isPermanentPet } from './helpers';
+import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 class PetDamage {
   pets = {

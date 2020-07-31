@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/hunter';
 import SpellIcon from 'common/SpellIcon';
@@ -12,7 +12,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 
 /**
  * Reduces the cooldown of your Aimed Shot and Rapid Fire by 60%, and causes Aimed Shot to cast 50% faster for 15 sec.
@@ -34,16 +34,23 @@ class Trueshot extends Analyzer {
   aimedShotsPrTS = 0;
   startFocusForCombatant = 0;
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.TRUESHOT.id && spellId !== SPELLS.AIMED_SHOT.id) {
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onTrueshotCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShotCast);
+  }
+
+  onTrueshotCast(event: CastEvent) {
+    this.trueshotCasts += 1;
+    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+    if (!resource) {
       return;
     }
-    if (spellId === SPELLS.TRUESHOT.id) {
-      this.trueshotCasts += 1;
-      this.accumulatedFocusAtTSCast += (event.classResources && event.classResources[0].amount) || 0;
-    }
-    if (spellId === SPELLS.AIMED_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
+    this.accumulatedFocusAtTSCast += resource.amount || 0;
+  }
+
+  onAimedShotCast() {
+    if (this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       this.aimedShotsPrTS += 1;
     }
   }

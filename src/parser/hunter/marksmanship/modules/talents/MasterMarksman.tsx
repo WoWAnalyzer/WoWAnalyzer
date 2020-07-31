@@ -1,59 +1,61 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent } from 'parser/core/Events';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import Events, { DamageEvent } from 'parser/core/Events';
+import HIT_TYPES from 'game/HIT_TYPES';
+import { MASTER_MARKSMAN_CRIT_INCREASE } from 'parser/hunter/marksmanship/constants';
+import { formatPercentage } from 'common/format';
 
 /**
- * Aimed Shot has a 100% chance to reduce the focus cost of your next Arcane Shot or Multi-Shot by 100%.
+ * Aimed Shot has an additional 25% chance to deal a critical strike.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=summary&source=25
+ * https://www.warcraftlogs.com/reports/r1yPhZvcHkdCMLgt/#source=6&fight=1
  */
 
-const FOCUS_COST = 15;
-
 class MasterMarksman extends Analyzer {
-
-  overwrittenBuffs = 0;
-  usedProcs = 0;
-
-  affectedSpells = {
-    [SPELLS.ARCANE_SHOT.id]: {
-      casts: 0,
-      name: SPELLS.ARCANE_SHOT.name,
-    },
-    [SPELLS.MULTISHOT_MM.id]: {
-      casts: 0,
-      name: SPELLS.MULTISHOT_MM.name,
-    },
+  static dependencies = {
+    statTracker: StatTracker,
   };
+
+  protected statTracker!: StatTracker;
+
+  currentCritChance = 0;
+  aimedShotCrits = 0;
+  aggregatedContribution = 0;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_MARKSMAN_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedDamage);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (!this.selectedCombatant.hasBuff(SPELLS.MASTER_MARKSMAN_BUFF.id, event.timestamp) || (spellId !== SPELLS.ARCANE_SHOT.id && spellId !== SPELLS.MULTISHOT_MM.id && spellId !== SPELLS.AIMED_SHOT.id)) {
-      return;
-    }
-    if (spellId === SPELLS.AIMED_SHOT.id) {
-      this.overwrittenBuffs += 1;
-      return;
-    }
-    this.usedProcs += 1;
-    this.affectedSpells[spellId].casts += 1;
+  onAimedCast() {
+    this.currentCritChance = this.statTracker.currentCritPercentage;
   }
 
-  get totalProcs() {
-    return this.overwrittenBuffs + this.usedProcs;
+  onAimedDamage(event: DamageEvent) {
+    if (event.hitType !== HIT_TYPES.CRIT) {
+      return;
+    }
+    this.aggregatedContribution += MASTER_MARKSMAN_CRIT_INCREASE / (MASTER_MARKSMAN_CRIT_INCREASE + this.currentCritChance);
+    this.aimedShotCrits += 1;
+  }
+
+  get averageContributionPercentage() {
+    return this.aggregatedContribution / this.aimedShotCrits;
+  }
+
+  get averageContributionAbsolute() {
+    return Math.round(this.averageContributionPercentage * this.aimedShotCrits);
   }
 
   statistic() {
@@ -64,29 +66,13 @@ class MasterMarksman extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
-            You gained a total of {this.totalProcs} procs, and utilised {this.usedProcs} of them.
-            <ul>
-              {this.affectedSpells[SPELLS.ARCANE_SHOT.id].casts > 0 && (
-                <li>Out of the total procs, you used {this.affectedSpells[SPELLS.ARCANE_SHOT.id].casts} of them on {this.affectedSpells[SPELLS.ARCANE_SHOT.id].name}.
-                  <ul>
-                    <li>This saved you a total of {this.affectedSpells[SPELLS.ARCANE_SHOT.id].casts * FOCUS_COST} Focus.</li>
-                  </ul>
-                </li>
-              )}
-              {this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts > 0 && (
-                <li>Out of the total procs, you used {this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts} of them on {this.affectedSpells[SPELLS.MULTISHOT_MM.id].name}.
-                  <ul>
-                    <li>This saved you a total of {this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts * FOCUS_COST} Focus.</li>
-                  </ul>
-                </li>
-              )}
-            </ul>
+            Master Marksman contributed with approximately {formatPercentage(this.averageContributionPercentage)}% of your total Aimed Shot crits.
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.MASTER_MARKSMAN_TALENT}>
           <>
-            {this.usedProcs}/{this.totalProcs} <small>procs used</small>
+            ≈ {this.averageContributionAbsolute} <small> additional crits </small>
           </>
         </BoringSpellValueText>
       </Statistic>

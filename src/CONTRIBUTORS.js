@@ -82,6 +82,17 @@ export const Qbz = {
   nickname: 'Qbz',
   github: 'Qbz23',
 };
+export const Stui = {
+  nickname: 'Stui',
+  github: 'vpicone',
+  twitter: '@vppicone',
+  avatar: require('./interface/images/avatars/stui-avatar.jpg'),
+  mains: [{
+    name: 'Stui',
+    spec: SPECS.FIRE_MAGE,
+    link: 'https://www.warcraftlogs.com/character/id/45514247',
+  }],
+};
 export const sref = {
   nickname: 'sref',
   github: 'kfinch',

@@ -50,8 +50,6 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         <AbilityRequirement spell={SPELLS.BARRAGE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.STAMPEDE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id) &&
-        <AbilityRequirement spell={SPELLS.SPITTING_COBRA_TALENT.id} />}
       </Rule>
       <Rule
         name="Barbed Shot usage"

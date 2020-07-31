@@ -156,6 +156,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.BINDING_SHOT_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id),
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.ASPECT_OF_THE_EAGLE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
