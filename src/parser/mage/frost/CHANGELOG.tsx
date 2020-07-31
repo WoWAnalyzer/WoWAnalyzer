@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 7, 30), <>Shared class changes for Shadowlands (<SpellLink id={SPELLS.ALTER_TIME.id} />, <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />, <SpellLink id={SPELLS.MIRROR_IMAGE.id} />)</>, Sharrq),
   change(date(2020, 7, 2), <>Fixed bug for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> for NoIL.</>, [Sharrq]),
   change(date(2020, 6, 19), 'Updated backend Frost constants for easier maintenance.', [Sharrq]),
   change(date(2020, 6, 3), <>Fixed <SpellLink id={SPELLS.THERMAL_VOID_TALENT.id} /> statistic icon and <SpellLink id={SPELLS.SPLITTING_ICE_TALENT.id} /> typo.</>, [Dambroda]),
