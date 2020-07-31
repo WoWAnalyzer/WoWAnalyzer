@@ -32,9 +32,9 @@ class LatentPoison extends Analyzer {
     this.active = this.selectedCombatant.hasTrait(SPELLS.LATENT_POISON.id);
     this.spellKnown = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? SPELLS.MONGOOSE_BITE_TALENT.name : SPELLS.RAPTOR_STRIKE.name;
 
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.LATENT_POISON_DEBUFF), this.handleStacks);
-    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.LATENT_POISON_DEBUFF), this.handleStacks);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.LATENT_POISON_DEBUFF), this.handleStacks);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.LATENT_POISON_DEBUFF), (event: ApplyDebuffEvent) => this.handleStacks(event));
+    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.LATENT_POISON_DEBUFF), (event: ApplyDebuffStackEvent) => this.handleStacks(event));
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.LATENT_POISON_DEBUFF), (event: RemoveDebuffEvent) => this.handleStacks(event));
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onCast);
   }
@@ -43,7 +43,7 @@ class LatentPoison extends Analyzer {
     return this.utilised / this.casts;
   }
 
-  handleStacks(event: ApplyDebuffEvent & ApplyDebuffStackEvent & RemoveDebuffEvent) {
+  handleStacks(event: ApplyDebuffEvent | ApplyDebuffStackEvent | RemoveDebuffEvent) {
     if (event.type !== EventType.RemoveDebuff) {
       this.applications += 1;
     }

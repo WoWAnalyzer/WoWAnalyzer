@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode } from 'react';
 
 import * as contributors from 'CONTRIBUTORS';
 import CoreChangelog from 'CHANGELOG';
@@ -9,40 +8,42 @@ import DropdownIcon from 'interface/icons/Dropdown';
 import Panel from 'interface/others/Panel';
 import Expandable from 'interface/common/Expandable';
 import AVAILABLE_CONFIGS from 'parser';
+import { ChangelogEntry, Character, Contributor } from 'common/changelog';
 
-class ContributorDetails extends React.PureComponent {
-  static propTypes = {
-    contributorId: PropTypes.string.isRequired,
-    ownPage: PropTypes.bool,
-  };
+type ContributorProps = {
+  contributorId: string,
+  ownPage?: boolean,
+}
 
-  constructor() {
-    super();
+class ContributorDetails extends React.PureComponent<ContributorProps> {
+
+  constructor(props: any) {
+    super(props);
     this.filterChangelog = this.filterChangelog.bind(this);
   }
 
   //region Layout-Helpers
 
-  removeWhiteSpaces(string) {
+  removeWhiteSpaces(string: string) {
     return string.replace(' ', '');
   }
 
-  renderCharacter({ link, spec, name }) {
+  renderCharacter(character: Character) {
     return (
       <div>
-        <a href={link} className={this.removeWhiteSpaces(spec.className)}>
-          <SpecIcon id={spec.id} /> {name}
+        <a href={character.link} className={this.removeWhiteSpaces(character.spec.className)}>
+          <SpecIcon id={character.spec.id} /> {character.name}
         </a>
       </div>
     );
   }
 
-  filterChangelog(contribution) {
-    return contribution.contributors.includes(contributors[this.props.contributorId]);
+  filterChangelog(contribution: ChangelogEntry) {
+    return contribution.contributors.includes((contributors as any)[this.props.contributorId]);
   }
 
-  contributionHeader(spec) {
-    if (spec === '0') {
+  contributionHeader(spec: number) {
+    if (spec === 0) {
       return (
         <>
           <img src="/favicon.png" style={{ height: '2em', width: '2em', marginRight: 10 }} alt="Core" />
@@ -53,18 +54,18 @@ class ContributorDetails extends React.PureComponent {
 
     return (
       <>
-        <SpecIcon id={Number(spec)} style={{ height: '2em', width: '2em', marginRight: 10 }} />
+        <SpecIcon id={spec} style={{ height: '2em', width: '2em', marginRight: 10 }} />
         {SPECS[spec].specName} {SPECS[spec].className}
       </>
     );
   }
 
-  links(object) {
+  links(object: { [name: string]: string } | undefined) {
     if (!object) {
       return null;
     }
 
-    const value = [];
+    const value: Array<ReactNode> = [];
     Object.keys(object).forEach((key) => {
       value.push(
         <div>
@@ -82,16 +83,16 @@ class ContributorDetails extends React.PureComponent {
     );
   }
 
-  additionalInfo(object) {
+  additionalInfo(object: any) {
     if (!object) {
       return null;
     }
 
-    const value = [];
+    const value: Array<React.ReactNode> = [];
     Object.keys(object).forEach((key) => {
       if (Array.isArray(object[key])) {
-        const subvalue = [];
-        object[key].forEach((elem) => {
+        const subvalue: Array<React.ReactNode> = [];
+        object[key].forEach((elem: any) => {
           subvalue.push(<div>{elem}</div>);
         });
 
@@ -136,32 +137,33 @@ class ContributorDetails extends React.PureComponent {
     );
   }
 
-  chars(contributor, typ) {
-    if (!contributor[typ]) {
+  chars(contributor: Contributor, mains: boolean) {
+    const characters = mains ? contributor.mains : contributor.alts;
+    if (!characters) {
       return null;
     }
 
-    const style = typ === 'mains' ? { marginTop: 20 } : { marginBottom: 20 };
+    const style = mains ? { marginTop: 20 } : { marginBottom: 20 };
     return (
       <div className="row" style={style}>
-        <div className="col-md-3"><b>{typ[0].toUpperCase() + typ.slice(1)}:</b></div>
+        <div className="col-md-3"><b>{mains ? "Mains" : "Alts"}:</b></div>
         <div className="col-md-9">
-          {contributor[typ].map(char => this.renderCharacter(char))}
+          {characters.map(char => this.renderCharacter(char))}
         </div>
       </div>
     );
   }
 
-  text(contributor, text) {
-    if (!contributor) {
+  text(text: string | undefined, title: string) {
+    if (!text) {
       return null;
     }
 
     return (
       <div className="row">
-        <div className="col-md-3"><b>{text}:</b></div>
+        <div className="col-md-3"><b>{title}:</b></div>
         <div className="col-md-9">
-          {contributor}
+          {text}
         </div>
       </div>
     );
@@ -188,7 +190,7 @@ class ContributorDetails extends React.PureComponent {
 
     document.body.classList.toggle('no-scroll');
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: any) {
     if (this.props.ownPage) {
       return;
     }
@@ -207,20 +209,19 @@ class ContributorDetails extends React.PureComponent {
 
   render() {
     const { contributorId } = this.props;
-    const contributor = contributors[contributorId];
+    const contributor: Contributor | undefined = (contributors as any)[contributorId];
 
     if (!contributor) {
       return this.invalidContributor();
     }
 
+    const initial: {[id: number]: Array<ChangelogEntry>} = { 0: CoreChangelog };
     const contributions = AVAILABLE_CONFIGS.reduce((obj, elem) => {
       obj[elem.spec.id] = elem.changelog;
       return obj;
-    }, {
-      0: CoreChangelog,
-    });
+    }, initial);
 
-    Object.keys(contributions).forEach(key => {
+    Object.keys(contributions).map(Number).forEach(key => {
       contributions[key] = contributions[key].filter(this.filterChangelog);
       if (contributions[key].length === 0) {
         delete contributions[key];
@@ -254,8 +255,8 @@ class ContributorDetails extends React.PureComponent {
                   {this.maintainer}
                   {this.links(contributor.links)}
                   {this.additionalInfo(contributor.others)}
-                  {this.chars(contributor, 'mains')}
-                  {this.chars(contributor, 'alts')}
+                  {this.chars(contributor, true)}
+                  {this.chars(contributor, false)}
                 </div>
               </Panel>
             </div>
@@ -266,7 +267,7 @@ class ContributorDetails extends React.PureComponent {
                 pad={false}
               >
                 <ul className="list">
-                  {Object.keys(contributions).map((type, index) => (
+                  {Object.keys(contributions).map(Number).map((type, index) => (
                     <Expandable
                       key={index}
                       element="li"

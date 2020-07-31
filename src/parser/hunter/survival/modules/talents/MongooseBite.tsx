@@ -43,9 +43,9 @@ class MongooseBite extends Analyzer {
     this.mongooseBiteStacks = Array.from({ length: MAX_STACKS + 1 }, x => 0);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.handleDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), this.handleStacks);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), this.handleStacks);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), this.handleStacks);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), (event: ApplyBuffEvent) => this.handleStacks(event));
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), (event: ApplyBuffStackEvent) => this.handleStacks(event));
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), (event: RemoveBuffEvent) => this.handleStacks(event));
   }
 
   handleDamage(event: DamageEvent) {
@@ -67,7 +67,7 @@ class MongooseBite extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  handleStacks(event: DamageEvent & ApplyBuffEvent & ApplyBuffStackEvent & RemoveBuffEvent) {
+  handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent) {
     this.lastMongooseBiteStack = currentStacks(event);
     if (this.lastMongooseBiteStack === MAX_STACKS) {
       this.fiveBiteWindows += 1;

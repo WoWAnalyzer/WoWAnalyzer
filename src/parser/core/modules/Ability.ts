@@ -418,7 +418,7 @@ class Ability {
   enabled = true;
   timelineSortIndex: number | null = null;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
-  buffSpellId = null;
+  buffSpellId: number | Array<number> | null = null;
   shownSpell = null;
 
   /**
