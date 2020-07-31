@@ -56,6 +56,11 @@ export default {
     name: 'Rune of Power',
     icon: 'spell_mage_runeofpower',
   },
+  MIRROR_IMAGE: { 
+    id: 55342, 
+    name: 'Mirror Image', 
+    icon: 'spell_magic_lesserinvisibilty', 
+  },
   MIRROR_IMAGE_SUMMON: {
     id: 88088,
     name: 'Mirror Image',
@@ -70,6 +75,16 @@ export default {
     id: 1459,
     name: 'Arcane Intellect',
     icon: 'spell_holy_magicalsentry',
+  },
+  ALTER_TIME: {
+    id: 109878,
+    name: 'Alter Time',
+    icon: 'spell_mage_altertime',
+  },
+  ALTER_TIME_BUFF: {
+    id: 110909,
+    name: 'Alter Time',
+    icon: 'spell_mage_altertime',
   },
   REMOVE_CURSE: {
     id: 475,
@@ -140,6 +155,11 @@ export default {
     id: 277787,
     name: 'Polymorph',
     icon: 'inv_pet_direhorn',
+  },
+  POLYMORPH_MAWRAT: {
+    id: 321395,
+    name: 'Polymorph',
+    icon: 'inv_mawrat',
   },
 
 
