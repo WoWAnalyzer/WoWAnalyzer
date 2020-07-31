@@ -8,6 +8,7 @@ import ItemLink from 'common/ItemLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 7, 30), <>Shared class changes for Shadowlands (<SpellLink id={SPELLS.ALTER_TIME.id} />, <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />, <SpellLink id={SPELLS.MIRROR_IMAGE.id} />)</>, Sharrq),
   change(date(2020, 7, 7), <>Updated the Cooldowns page to show the 4 seconds of spells before <SpellLink id={SPELLS.COMBUSTION.id} />.</>, [Sharrq]),
   change(date(2020, 6, 19), 'Updated backend Fire constants and converted normalizers to typescript', [Sharrq]),
   change(date(2020, 6, 1), <>Fixed <SpellLink id={SPELLS.COMBUSTION.id} /> pre-pull detection</>, [Dambroda]),
