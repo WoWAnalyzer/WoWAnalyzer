@@ -13,7 +13,7 @@ import { XYPlot, AreaSeries } from 'react-vis';
 import groupDataForChart from 'common/groupDataForChart';
 import { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 
-const BASE_FOCUS_REGEN = 3;
+const BASE_FOCUS_REGEN = 5;
 
 const BASE_FOCUS_MAX = 100;
 

@@ -1,6 +1,6 @@
 import FocusCapTracker from 'parser/hunter/shared/modules/resources/FocusCapTracker';
 
-const BASE_FOCUS_REGEN = 5;
+const BASE_FOCUS_REGEN = 2.5;
 
 class SurvivalFocusCapTracker extends FocusCapTracker {
 

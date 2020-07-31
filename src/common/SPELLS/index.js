@@ -18,6 +18,7 @@ import safeMerge from 'common/safeMerge';
 import OTHERS from './others';
 import RACIALS from './racials';
 import BFA from './bfa';
+import SHADOWLANDS from './shadowlands';
 import ENCOUNTER from './encounter';
 
 import TALENTS_DEATH_KNIGHT from './talents/deathknight';
@@ -80,6 +81,7 @@ const ABILITIES = {
     WARLOCK,
     WARRIOR,
     BFA,
+    SHADOWLANDS,
   ),
 };
 

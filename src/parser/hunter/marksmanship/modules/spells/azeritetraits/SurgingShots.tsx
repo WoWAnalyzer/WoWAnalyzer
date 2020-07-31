@@ -26,7 +26,6 @@ const debug = false;
  * Rapid Fire damage is increased by up to 465 per shot fired, this damage starts lower and increases per shot of Rapid Fire.
  * Aimed Shot has a 15% chance to reset the cooldown of Rapid Fire.
  *
- * TODO: Running TODO - verify that the tooltip is still 'wrong', and that the spell values are still hardcoded.
  * It actually starts at 50% of the tooltip value, and then scales by 20% per tick and it doesn't scale beyond normal ticks.
  * Spell Data will say a 415 piece increases damage by 356, tooltip will say 534. 356 is the value at the 5th tick.
  * See more here: https://github.com/simulationcraft/simc/blob/bfa-dev/engine/class_modules/sc_hunter.cpp#L2724

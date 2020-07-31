@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 0.6 : .8,
+          recommendedEfficiency: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 0.65 : .85,
         },
         timelineSortIndex: 3,
         charges: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 2 : 1,
@@ -102,7 +102,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.FLANKING_STRIKE_TALENT, SPELLS.FLANKING_STRIKE_PLAYER],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 40,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -153,6 +153,15 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.BINDING_SHOT_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id),
+        cooldown: 45,
+        gcd: {
+          base: 1500,
         },
       },
       {

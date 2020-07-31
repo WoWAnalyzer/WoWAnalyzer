@@ -2,12 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
-import Events, { CastEvent } from 'parser/core/Events';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { CastEvent } from 'parser/core/Events';
 
 /**
  * Tracks the focus usage of all 3 hunter specs and creates a piechart with the breakdown.
@@ -17,30 +17,29 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const LIST_OF_FOCUS_SPENDERS = [
   //bm specific
-  SPELLS.COBRA_SHOT,
-  SPELLS.MULTISHOT_BM,
-  SPELLS.KILL_COMMAND_CAST_BM,
-  SPELLS.DIRE_BEAST_TALENT,
+  SPELLS.COBRA_SHOT.id,
+  SPELLS.MULTISHOT_BM.id,
+  SPELLS.KILL_COMMAND_CAST_BM.id,
+  SPELLS.DIRE_BEAST_TALENT.id,
   //mm specific
-  SPELLS.AIMED_SHOT,
-  SPELLS.ARCANE_SHOT,
-  SPELLS.SERPENT_STING_TALENT,
-  SPELLS.MULTISHOT_MM,
-  SPELLS.BURSTING_SHOT,
-  SPELLS.PIERCING_SHOT_TALENT,
-  SPELLS.EXPLOSIVE_SHOT_TALENT,
+  SPELLS.AIMED_SHOT.id,
+  SPELLS.ARCANE_SHOT.id,
+  SPELLS.SERPENT_STING_TALENT.id,
+  SPELLS.MULTISHOT_MM.id,
+  SPELLS.BURSTING_SHOT.id,
+  SPELLS.EXPLOSIVE_SHOT_TALENT.id,
   //sv specific
-  SPELLS.RAPTOR_STRIKE,
-  SPELLS.BUTCHERY_TALENT,
-  SPELLS.CARVE,
-  SPELLS.MONGOOSE_BITE_TALENT,
-  SPELLS.WING_CLIP,
-  SPELLS.CHAKRAMS_TALENT,
-  SPELLS.SERPENT_STING_SV,
+  SPELLS.RAPTOR_STRIKE.id,
+  SPELLS.BUTCHERY_TALENT.id,
+  SPELLS.CARVE.id,
+  SPELLS.MONGOOSE_BITE_TALENT.id,
+  SPELLS.WING_CLIP.id,
+  SPELLS.CHAKRAMS_TALENT.id,
+  SPELLS.SERPENT_STING_SV.id,
   //shared
-  SPELLS.REVIVE_PET,
-  SPELLS.A_MURDER_OF_CROWS_TALENT,
-  SPELLS.BARRAGE_TALENT,
+  SPELLS.REVIVE_PET.id,
+  SPELLS.A_MURDER_OF_CROWS_TALENT.id,
+  SPELLS.BARRAGE_TALENT.id,
 ];
 
 class FocusUsage extends Analyzer {
@@ -88,12 +87,6 @@ class FocusUsage extends Analyzer {
       focusUsed: 0,
       name: SPELLS.SERPENT_STING_TALENT.name,
       color: '#ecd1b6',
-    },
-    [SPELLS.PIERCING_SHOT_TALENT.id]: {
-      casts: 0,
-      focusUsed: 0,
-      name: SPELLS.PIERCING_SHOT_TALENT.name,
-      color: '#d440ec',
     },
     [SPELLS.MULTISHOT_MM.id]: {
       casts: 0,
@@ -176,26 +169,27 @@ class FocusUsage extends Analyzer {
       color: '#ec5c58',
     },
   };
+  lastVolleyHit = 0;
 
-  constructor(options: any) {
-    super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...LIST_OF_FOCUS_SPENDERS, SPELLS.MONGOOSE_BITE_TALENT_AOTE, SPELLS.RAPTOR_STRIKE_AOTE]), this.onCast);
-  }
-
-  onCast(event: CastEvent) {
-    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
-    if (!resource) {
+  on_byPlayer_cast(event: CastEvent) {
+    let spellId = event.ability.guid;
+    if (!LIST_OF_FOCUS_SPENDERS.includes(spellId) && !RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
       return;
     }
-    let spellId = event.ability.guid;
+    //shouldn't really happen unless something messed up in the log where the cast event doesn't have any class resource information so we skip those.
+    if (!event.classResources) {
+      return;
+    }
+
     //Aspect of the Eagle changes the spellID of the spells, so we readjust to the original versions of the spell for the purpose of the chart
     if (spellId === SPELLS.MONGOOSE_BITE_TALENT_AOTE.id) {
       spellId = SPELLS.MONGOOSE_BITE_TALENT.id;
     } else if (spellId === SPELLS.RAPTOR_STRIKE_AOTE.id) {
       spellId = SPELLS.RAPTOR_STRIKE.id;
     }
+
     this.focusSpenderCasts[spellId].casts += 1;
-    this.focusSpenderCasts[spellId].focusUsed += resource.cost || 0;
+    this.focusSpenderCasts[spellId].focusUsed += event.classResources[0].cost || 0;
   }
 
   get focusUsageChart() {
@@ -207,8 +201,7 @@ class FocusUsage extends Analyzer {
       </>
     );
 
-    LIST_OF_FOCUS_SPENDERS.forEach(spell => {
-      const id = spell.id;
+    LIST_OF_FOCUS_SPENDERS.forEach(id => {
       if (this.focusSpenderCasts[id].casts > 0 && this.focusSpenderCasts[id].focusUsed > 0) {
         items.push({
           color: this.focusSpenderCasts[id].color,

@@ -64,7 +64,7 @@ class AMurderOfCrows extends Analyzer {
     this.addEventListener(EventEmitter.catchAll, this.checkForReset);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.A_MURDER_OF_CROWS_TALENT), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.A_MURDER_OF_CROWS_DEBUFF), this.onDamage);
-    this.addEventListener(Events.fightend, this.adjustMaxFights);
+    this.addEventListener(Events.fightend, this.adjustMaxCasts);
   }
 
   checkForReset(event: any) {
@@ -103,7 +103,7 @@ class AMurderOfCrows extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  adjustMaxFights() {
+  adjustMaxCasts() {
     this.maxCasts += Math.ceil(this.owner.fightDuration / 60000);
   }
 
