@@ -2,7 +2,7 @@ export default {
   // Shared
   SHIMMER_TALENT: { id: 212653, name: 'Shimmer', icon: 'spell_arcane_massdispel', manaCost: 2000 },
   INCANTERS_FLOW_TALENT: { id: 1463, name: 'Incanter\'s Flow', icon: 'ability_mage_incantersabsorbtion' },
-  MIRROR_IMAGE_TALENT: { id: 55342, name: 'Mirror Image', icon: 'spell_magic_lesserinvisibilty', manaCost: 2000 },
+  FOCUS_MAGIC_TALENT: { id: 321358, name: 'Focus Magic', icon: 'spell_arcane_studentofmagic' },
   RUNE_OF_POWER_TALENT: { id: 116011, name: 'Rune of Power', icon: 'spell_mage_runeofpower' },
   ICE_WARD_TALENT: { id: 205036, name: 'Ice Ward', icon: 'spell_frost_frostward' },
   RING_OF_FROST_TALENT: { id: 113724, name: 'Ring of Frost', icon: 'spell_frost_ringoffrost', manaCost: 8000 },

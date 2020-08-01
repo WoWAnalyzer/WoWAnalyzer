@@ -14,11 +14,6 @@ class MirrorImage extends Analyzer {
   mirrorImagesId = 0;
   damage = 0;
 
-  constructor(options: any) {
-    super(options);
-	   this.active = this.selectedCombatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id);
-  }
-
   on_byPlayer_summon(event: SummonEvent) {
     // there are a dozen different Mirror Image summon IDs which is used where or why... this is the easy way out
     if(event.ability.name === SPELLS.MIRROR_IMAGE_SUMMON.name) {
@@ -55,8 +50,8 @@ class MirrorImage extends Analyzer {
   suggestions(when: any) {
     when(this.damageSuggestionThresholds)
       .addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<>Your <SpellLink id={SPELLS.MIRROR_IMAGE_TALENT.id} /> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
-          .icon(SPELLS.MIRROR_IMAGE_TALENT.icon)
+        return suggest(<>Your <SpellLink id={SPELLS.MIRROR_IMAGE.id} /> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
+          .icon(SPELLS.MIRROR_IMAGE.icon)
           .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Mirror Image`)
           .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`);
         });
@@ -69,7 +64,7 @@ class MirrorImage extends Analyzer {
         category={'TALENTS'}
         tooltip={<>This is the portion of your total damage attributable to Mirror Image. Expressed as an increase vs never using Mirror Image, this is a <strong>{formatPercentage(this.damageIncreasePercent)}% damage increase</strong></>}
       >
-        <BoringSpellValueText spell={SPELLS.MIRROR_IMAGE_TALENT}>
+        <BoringSpellValueText spell={SPELLS.MIRROR_IMAGE}>
           <>
           {formatPercentage(this.damagePercent)}% <small> damage contribution</small>
           </>

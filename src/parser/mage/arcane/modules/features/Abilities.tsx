@@ -140,13 +140,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MIRROR_IMAGE_TALENT,
+        spell: SPELLS.MIRROR_IMAGE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
         },
         cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -231,7 +230,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHIMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
-        cooldown: 15,
+        cooldown: 25,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
       },
@@ -265,6 +264,21 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.FOCUS_MAGIC_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.ALTER_TIME,
+        buffSpellId: SPELLS.ALTER_TIME_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.GREATER_INVISIBILITY,
         buffSpellId: SPELLS.GREATER_INVISIBILITY_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -280,7 +294,7 @@ class Abilities extends CoreAbilities {
           SPELLS.POLYMORPH_PORCUPINE, SPELLS.POLYMORPH_TURTLE,
           SPELLS.POLYMORPH_TURKEY, SPELLS.POLYMORPH_PENGUIN,
           SPELLS.POLYMORPH_BUMBLEBEE, SPELLS.POLYMORPH_PEACOCK,
-          SPELLS.POLYMORPH_DIREHORN],
+          SPELLS.POLYMORPH_DIREHORN, SPELLS.POLYMORPH_MAWRAT],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
