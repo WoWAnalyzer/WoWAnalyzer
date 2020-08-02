@@ -9,7 +9,7 @@ class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
-      //Baseline Rotational
+      //region Rotational
       {
         spell: SPELLS.BESTIAL_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -48,19 +48,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DIRE_BEAST_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 15,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
         spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 12 / (1 + haste),
@@ -89,8 +76,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
+      //endregion
 
-      //Baseline Defensive
+      //region Defensive
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
@@ -109,8 +97,9 @@ class Abilities extends CoreAbilities {
           static: 1500,
         },
       },
+      //endregion
 
-      //Baseline Utility
+      //region Utility
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -175,8 +164,30 @@ class Abilities extends CoreAbilities {
           static: 0,
         },
       },
+      {
+        spell: SPELLS.FLARE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+      },
+      //endregion
 
-      //Talents
+      //region Talents
+      {
+        spell: SPELLS.DIRE_BEAST_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 15,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
       {
         spell: SPELLS.BARRAGE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -238,8 +249,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
+      //endregion
 
-      //Pets
+      //region Pets
       {
         spell: SPELLS.SURVIVAL_OF_THE_FITTEST,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
@@ -301,6 +313,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      //endregion
     ];
   }
 }

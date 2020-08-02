@@ -64,6 +64,12 @@ import WildfireCluster from './modules/spells/azeritetraits/WildfireCluster';
 //Azerite Essences
 import MemoryOfLucidDreams from './modules/items/MemoryOfLucidDreams';
 
+//Covenants
+import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
+import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
+import WildSpirits from '../shared/modules/spells/covenants/nightfae/WildSpirits';
+import FlayedShot from '../shared/modules/spells/covenants/venthyr/FlayedShot';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -130,6 +136,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Azerite Essences
     memoryOfLucidDreams: MemoryOfLucidDreams,
+
+    //Covenants
+    resonatingArrow: ResonatingArrow,
+    deathChakrams: DeathChakrams,
+    wildSpirits: WildSpirits,
+    flayedShot: FlayedShot,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

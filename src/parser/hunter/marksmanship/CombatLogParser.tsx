@@ -61,6 +61,12 @@ import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
 import UnerringVision from './modules/spells/azeritetraits/UnerringVision';
 import RapidReload from '../shared/modules/spells/azeritetraits/RapidReload';
 
+//Covenants
+import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
+import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
+import WildSpirits from '../shared/modules/spells/covenants/nightfae/WildSpirits';
+import FlayedShot from '../shared/modules/spells/covenants/venthyr/FlayedShot';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -120,6 +126,12 @@ class CombatLogParser extends CoreCombatLogParser {
     inTheRhythm: InTheRhythm,
     unerringVision: UnerringVision,
     rapidReload: RapidReload,
+
+    //Covenants
+    resonatingArrow: ResonatingArrow,
+    deathChakrams: DeathChakrams,
+    wildSpirits: WildSpirits,
+    flayedShot: FlayedShot,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

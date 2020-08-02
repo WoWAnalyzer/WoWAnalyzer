@@ -36,8 +36,9 @@ class DeadEye extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
-            {this.deadEyeEffectiveCDR / 1000}s effective Aimed Shot CDR
-            {this.deadEyePotentialCDR / 1000}s potential Aimed Shot CDR, this include time where Aimed Shot was not on cooldown and Dead Eye buff was active
+            {formatNumber(this.deadEyeEffectiveCDR / 1000)}s effective Aimed Shot CDR
+            <br />
+            {formatNumber(this.deadEyePotentialCDR / 1000)}s potential Aimed Shot CDR, this include time where Aimed Shot was not on cooldown and Dead Eye buff was active
           </>
         )}
       >
