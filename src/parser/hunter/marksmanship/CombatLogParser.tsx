@@ -51,6 +51,7 @@ import SteadyFocus from './modules/talents/SteadyFocus';
 import BornToBeWild from '../shared/modules/talents/BornToBeWild';
 import CarefulAim from './modules/talents/CarefulAim';
 import ChimaeraShot from '../shared/modules/talents/ChimaeraShot';
+import DeadEye from './modules/talents/DeadEye';
 
 //Azerite Traits
 import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
@@ -110,6 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bornToBeWild: BornToBeWild,
     carefulAim: CarefulAim,
     chimaeraShot: ChimaeraShot,
+    deadEye: DeadEye,
 
     //Azerite Traits
     focusedFire: FocusedFire,
