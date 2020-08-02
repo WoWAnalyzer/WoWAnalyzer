@@ -42,20 +42,24 @@ class BindingShot extends Analyzer {
   }
 
   statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(14)}
-        size="flexible"
-        category={this.category}
-      >
-        <BoringSpellValueText spell={SPELLS.BINDING_SHOT_TALENT}>
-          <>
-            {this._roots} <small>roots</small> / {this._applications} <small>possible</small> <br />
-            {this._casts} <small>casts</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
+    if (this._casts > 0) {
+      return (
+        <Statistic
+          position={STATISTIC_ORDER.OPTIONAL(14)}
+          size="flexible"
+          category={this.category}
+        >
+          <BoringSpellValueText spell={SPELLS.BINDING_SHOT_TALENT}>
+            <>
+              {this._roots} <small>roots</small> / {this._applications} <small>possible</small> <br />
+              {this._casts} <small>casts</small>
+            </>
+          </BoringSpellValueText>
+        </Statistic>
+      );
+    } else {
+      return null;
+    }
   }
 }
 

@@ -10,6 +10,7 @@ import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { BLOODSHED_DAMAGE_AMP } from 'parser/hunter/beastmastery/constants';
 import Enemies from 'parser/shared/modules/Enemies';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 /**
  * Command your pet to tear into your target, causing your target to bleed for
@@ -77,7 +78,7 @@ class Bloodshed extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.BLOODSHED_TALENT}>
           <>

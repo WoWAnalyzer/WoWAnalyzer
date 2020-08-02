@@ -14,6 +14,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import UptimeIcon from 'interface/icons/Uptime';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
 
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
@@ -31,9 +32,11 @@ const MS_BUFFER = 100;
 class HuntersMark extends Analyzer {
   static dependencies = {
     enemies: Enemies,
+    abilities: Abilities,
   };
 
   protected enemies!: Enemies;
+  protected abilities!: Abilities;
 
   casts = 0;
   damage = 0;
@@ -52,8 +55,15 @@ class HuntersMark extends Analyzer {
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffRemoval);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffApplication);
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffRefresh);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffEnergize);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.calculateMarkDamage);
+
+    options.abilities.add({
+      spell: SPELLS.HUNTERS_MARK,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      gcd: {
+        base: 1000,
+      },
+    });
   }
 
   onCast(event: CastEvent) {
@@ -98,10 +108,6 @@ class HuntersMark extends Analyzer {
 
   onDebuffRefresh() {
     this.recasts += 1;
-  }
-
-  onDebuffEnergize() {
-    this.refunds += 1;
   }
 
   calculateMarkDamage(event: DamageEvent) {
