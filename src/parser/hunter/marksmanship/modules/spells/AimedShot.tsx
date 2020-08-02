@@ -56,10 +56,6 @@ class AimedShot extends Analyzer {
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), (event: RemoveBuffEvent) => this.onAffectingBuffChange(event));
   }
 
-  /**
-   *
-   * @param event
-   */
   onEvent(event: any) {
     if (!this.selectedCombatant.hasBuff(SPELLS.DEAD_EYE_BUFF.id) && !this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
@@ -70,6 +66,10 @@ class AimedShot extends Analyzer {
     if (this.lastReductionTimestamp === 0 || event.timestamp <= this.lastReductionTimestamp) {
       return;
     }
+    /**
+     * modRate is what the value is called in-game that defines how fast a cooldown recharges, so reusing that terminology here
+     * Dead Eye and Trueshot scale multiplicatively off each other, which can lead to extremely fast cooldown reduction that this should properly handle.
+     */
     let modRate = 1;
     if (this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       modRate /= (1 + TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE);
