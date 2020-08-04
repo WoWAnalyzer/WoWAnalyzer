@@ -6,7 +6,7 @@
 
 export default {
 
-  // Beast Mastery
+  //region Beast Mastery
   ASPECT_OF_THE_WILD: {
     id: 193530,
     name: 'Aspect of the Wild',
@@ -78,7 +78,7 @@ export default {
     icon: 'ability_creature_poison_02',
   },
 
-  //Beast Mastery Buffs
+  //Buffs
   BEAST_CLEAVE_BUFF: {
     id: 268877,
     name: 'Beast Cleave',
@@ -149,8 +149,9 @@ export default {
     name: 'Bloodshed',
     icon: 'ability_hunter_killcommand',
   },
+  //endregion
 
-  // Marksmanship
+  //region Marksmanship
   AIMED_SHOT: {
     id: 19434,
     name: 'Aimed Shot',
@@ -211,8 +212,6 @@ export default {
     name: 'Multi-Shot',
     icon: 'ability_upgrademoonglaive',
   },
-
-  //Marksmanship Buffs
   MASTER_MARKSMAN_BUFF: {
     id: 269576,
     name: 'Master Marksman',
@@ -263,18 +262,14 @@ export default {
     name: 'Lone Wolf',
     icon: 'spell_hunter_lonewolf',
   },
-  HUNTERS_MARK_FOCUS: {
-    id: 259558,
-    name: 'Hunter\'s Mark',
-    icon: 'ability_hunter_markedfordeath',
-  },
   DEAD_EYE_BUFF: {
     id: 321461,
     name: 'Dead Eye',
     icon: 'buff_epichunter',
   },
+  //endregion
 
-  //Survival:
+  //region Survival
   ASPECT_OF_THE_EAGLE: {
     id: 186289,
     name: 'Aspect of the Eagle',
@@ -470,12 +465,18 @@ export default {
     name: 'Flanking Strike',
     icon: 'ability_hunter_invigeration',
   },
+  //endregion
 
-  //Shared
+  //region Shared
   KILL_SHOT: {
     id: 53351,
     name: 'Kill Shot',
     icon: 'ability_hunter_assassinate2',
+  },
+  HUNTERS_MARK: {
+    id: 257284,
+    name: 'Hunter\'s Mark',
+    icon: 'ability_hunter_markedfordeath',
   },
   POSTHASTE_BUFF: {
     id: 118922,
@@ -577,15 +578,9 @@ export default {
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
   },
+  //endregion
 
-  //Covenants
-  RESONATING_ARROW: {
-    id: 308491,
-    name: 'Resonating Arrow',
-    icon: 'ability_bastion_hunter',
-  },
-
-  //Pet utility
+  //region Pets
   DISMISS_PET: {
     id: 2641,
     name: 'Dismiss Pet',
@@ -646,8 +641,6 @@ export default {
     name: 'Call Pet 5',
     icon: 'ability_hunter_beastcall',
   },
-
-  //Pet abilities
   PRIMAL_RAGE_1: {
     id: 264667,
     name: 'Primal Rage',
@@ -683,8 +676,9 @@ export default {
     name: 'Bite',
     icon: 'ability_druid_ferociousbite',
   },
+  //endregion
 
-  //Misc
+  //region Miscellaneous
   EAGLE_EYE: {
     id: 6197,
     name: 'Eagle Eye',
@@ -700,4 +694,5 @@ export default {
     name: 'Scare Beast',
     icon: 'ability_druid_cower',
   },
+  //endregion
 };

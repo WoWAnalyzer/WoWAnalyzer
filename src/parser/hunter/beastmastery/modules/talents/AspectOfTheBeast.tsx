@@ -7,7 +7,9 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 /**
  * Increases the damage of your pet's abilities by 30%.
@@ -27,11 +29,13 @@ const ABILITIES_NOT_AFFECTED: number[] = [
 class AspectOfTheBeast extends Analyzer {
 
   damage = 0;
+  healing = 0;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ASPECT_OF_THE_BEAST_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET), this.onPetHeal);
   }
 
   onPetDamage(event: DamageEvent) {
@@ -40,6 +44,10 @@ class AspectOfTheBeast extends Analyzer {
       return;
     }
     this.damage += calculateEffectiveDamage(event, ASPECT_MULTIPLIER);
+  }
+
+  onPetHeal(event: HealEvent) {
+    this.healing += calculateEffectiveHealing(event, ASPECT_MULTIPLIER);
   }
 
   statistic() {
@@ -52,6 +60,8 @@ class AspectOfTheBeast extends Analyzer {
         <BoringSpellValueText spell={SPELLS.ASPECT_OF_THE_BEAST_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
+            <br />
+            <ItemHealingDone amount={this.healing} />
           </>
         </BoringSpellValueText>
       </Statistic>

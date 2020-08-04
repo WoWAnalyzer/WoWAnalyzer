@@ -2,28 +2,23 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
-const hastedCooldown = (baseCD: number, haste: number) => (baseCD / (1 + haste));
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       //Baseline Rotational
-      {
-        spell: SPELLS.AIMED_SHOT,
-        buffSpellId: [SPELLS.DOUBLE_TAP_TALENT.id, SPELLS.LOCK_AND_LOAD_BUFF.id],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => {
-          if (combatant.hasBuff(SPELLS.TRUESHOT.id)) {
-            return hastedCooldown((12 / 3.25), haste);
-          }
-          return hastedCooldown(12, haste);
-        },
-        charges: 2,
-        gcd: {
-          base: 1500,
-        },
-      },
+      /**
+       * Marksmanship specific spells handled in their own files:
+       * Aimed Shot
+       *
+       * Shared spells handled in their own files:
+       * BindingShot
+       * Hunters Mark
+       * Kill Shot
+       * A Murder of Crows
+       *
+       */
       {
         spell: SPELLS.ARCANE_SHOT,
         buffSpellId: SPELLS.PRECISE_SHOTS.id,
@@ -73,20 +68,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-        },
-      },
-      {
-        spell: SPELLS.KILL_SHOT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: combatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) ? 2 : 1,
-        cooldown: () => {
-          if (combatant.hasBuff(SPELLS.DEAD_EYE_BUFF.id)) {
-            return 10 / 3 * 2;
-          }
-          return 10;
-        },
-        gcd: {
-          base: 1500,
         },
       },
 
