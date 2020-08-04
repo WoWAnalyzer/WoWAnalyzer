@@ -1,17 +1,17 @@
 export default {
-  //region Kyrian
+  //region Holy
 
   //endregion
 
-  //region Necrolord
+  //region Protection
 
   //endregion
 
-  //region Night Fae
+  //region Retribution
 
   //endregion
 
-  //region Venthyr
+  //region Shared
 
   //endregion
 };

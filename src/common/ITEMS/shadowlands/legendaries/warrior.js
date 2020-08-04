@@ -1,17 +1,17 @@
 export default {
-  //region Kyrian
+  //region Arms
 
   //endregion
 
-  //region Necrolord
+  //region Fury
 
   //endregion
 
-  //region Night Fae
+  //region Protection
 
   //endregion
 
-  //region Venthyr
+  //region Shared
 
   //endregion
 };

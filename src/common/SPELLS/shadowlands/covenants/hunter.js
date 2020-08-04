@@ -1,13 +1,4 @@
 export default {
-
-  //region Venthyr
-  FLAYERS_MARK: {
-    id: 324156,
-    name: 'Flayer\'s Mark',
-    icon: 'ability_hunter_assassinate2',
-  },
-  //endregion
-
   //region Kyrian
   RESONATING_ARROW: {
     id: 308491,
@@ -24,4 +15,11 @@ export default {
 
   //endregion
 
+  //region Venthyr
+  FLAYERS_MARK: {
+    id: 324156,
+    name: 'Flayer\'s Mark',
+    icon: 'ability_hunter_assassinate2',
+  },
+  //endregion
 };
