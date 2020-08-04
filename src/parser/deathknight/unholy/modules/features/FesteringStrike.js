@@ -34,18 +34,12 @@ class FesteringStrike extends Analyzer {
 
   onWoundApply(event){
     // we only need to look at events applying stacks after the first one, our analysis only cares about times when stacks are >3
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.FESTERING_WOUND.id){
-      this.targets[event.targetID] = event.stack;
-    }
+    this.targets[event.targetID] = event.stack;
   }
 
   onWoundRemove(event){
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.FESTERING_WOUND.id){
-      this.targets[event.targetID] = event.stack;
-    }
-  }
+    this.targets[event.targetID] = event.stack || 0;
+  }  
 
   onCast(event){
       this.totalFesteringStrikeCasts += 1;

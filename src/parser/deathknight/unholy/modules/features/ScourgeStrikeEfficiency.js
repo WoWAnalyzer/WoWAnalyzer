@@ -21,7 +21,7 @@ class FesteringStrikeEfficiency extends Analyzer {
 
     this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onWoundApply);
     this.addEventListener(Events.removedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onWoundRemove);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onLastWoundRemove);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onWoundRemove);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this.onCast);
   }
   // used to track how many stacks a target has
@@ -35,11 +35,7 @@ class FesteringStrikeEfficiency extends Analyzer {
   }
 
   onWoundRemove(event){
-		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
-  }
-
-  onLastWoundRemove(event){
-		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = 0;
+		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack || 0;
   }
 
   onCast(event){
