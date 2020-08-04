@@ -7,7 +7,6 @@ import VirulentPlagueUptime from './modules/features/VirulentPlagueUptime';
 import FesteringStrike from './modules/features/FesteringStrike';
 import Checklist from './modules/features/checklist/Module';
 import ScourgeStrikeEfficiency from './modules/features/ScourgeStrikeEfficiency';
-import ClawingShadowsEfficiency from './modules/features/ClawingShadowsEfficiency';
 import Apocalypse from './modules/features/Apocalypse';
 import VirulentPlagueEfficiency from './modules/features/VirulentPlagueEfficiency';
 
@@ -31,7 +30,6 @@ class CombatLogParser extends CoreCombatLogParser {
     festeringStrike: FesteringStrike,
     checklist: Checklist,
     scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
-    clawingShadowsEfficiency: ClawingShadowsEfficiency,
   	apocalypse: Apocalypse,
 	  virulentPlagueEfficiency: VirulentPlagueEfficiency,
 
