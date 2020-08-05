@@ -31,9 +31,9 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
       >
         <AbilityRequirement spell={SPELLS.COMBUSTION.id} />
         <AbilityRequirement spell={SPELLS.FIRE_BLAST.id} />
+        <AbilityRequirement spell={SPELLS.PHOENIX_FLAMES.id} />
+        <AbilityRequirement spell={SPELLS.MIRROR_IMAGE.id} />
         {combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.BLAST_WAVE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id) && <AbilityRequirement spell={SPELLS.PHOENIX_FLAMES_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.MIRROR_IMAGE.id) && <AbilityRequirement spell={SPELLS.MIRROR_IMAGE.id} />}
         {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />}
         {combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id) && <AbilityRequirement spell={SPELLS.LIVING_BOMB_TALENT.id} />}
         {combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
@@ -56,13 +56,11 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
           thresholds={thresholds.fireBlastCombustionCharges}
           tooltip="When Combustion is getting close to becomming available, it is important to save a couple Fire Blast charges to be used during the Combustion Window. This will help ensure that you can get as many Hot Streak procs as possible during Combustion."
         />
-        {combatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id) && (
-          <Requirement
-            name="Phoenix Flames Charges"
-            thresholds={thresholds.phoenixFlamesCombustionCharges}
-            tooltip="When outside of Combustion, you should avoid using your Phoenix Flames charges so that they have time to come off cooldown before Combustion is available again. This will ensure that you have a couple charges so you can get as many Hot Streak procs as possible before Combustion ends. If you are about to cap on Phoenix Flames charges, then it is acceptable to use one."
-          />
-        )}
+        <Requirement
+          name="Phoenix Flames Charges"
+          thresholds={thresholds.phoenixFlamesCombustionCharges}
+          tooltip="When outside of Combustion, you should avoid using your Phoenix Flames charges so that they have time to come off cooldown before Combustion is available again. This will ensure that you have a couple charges so you can get as many Hot Streak procs as possible before Combustion ends. If you are about to cap on Phoenix Flames charges, then it is acceptable to use one."
+        />
         {combatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && (
           <Requirement
             name="Combustion during Firestarter"
@@ -104,13 +102,11 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
           thresholds={thresholds.hotStreakPreCasts}
           tooltip="Unless you are in Combustion and have Fire Blast/Phoenix Flames charges, you should always cast an ability that can generate Heating Up before using your Hot Streak proc. As an example, if you have Hot Streak and you cast Fireball > Pyroblast to use your Hot Streak, and one of those spells crit, then you will get Heating Up. If both spells crit, then you will instantly get a new Hot Streak proc."
         />
-        {combatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id) && (
-          <Requirement
-            name="Phoenix Flames Usage"
-            thresholds={thresholds.phoenixFlamesHeatingUpUsage}
-            tooltip="Because Phoenix Flames is guaranteed to crit, you should only use it to convert Heating Up into Hot Streak."
-          />
-        )}
+        <Requirement
+          name="Phoenix Flames Usage"
+          thresholds={thresholds.phoenixFlamesHeatingUpUsage}
+          tooltip="Because Phoenix Flames is guaranteed to crit, you should only use it to convert Heating Up into Hot Streak."
+        />
         <Requirement
           name="Fire Blast Usage"
           thresholds={thresholds.fireBlastHeatingUpUsage}
