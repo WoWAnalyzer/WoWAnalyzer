@@ -25,6 +25,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
   ];
 
+  static ignoredSpells = [
+    ...CoreCooldownThroughputTracker.ignoredSpells,
+    SPELLS.BINDING_SHOT_TETHER.id,
+    SPELLS.BINDING_SHOT_ROOT.id,
+  ];
+
   on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BLOOD_OF_THE_ENEMY.id) {

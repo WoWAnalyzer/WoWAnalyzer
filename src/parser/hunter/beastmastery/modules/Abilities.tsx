@@ -94,7 +94,7 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
         cooldown: 120,
         gcd: {
-          static: 1500,
+          base: 1500,
         },
       },
       //endregion
@@ -225,15 +225,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-        },
-      },
-      {
-        spell: SPELLS.BINDING_SHOT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id),
-        gcd: {
-          base: 1500,
         },
       },
       {

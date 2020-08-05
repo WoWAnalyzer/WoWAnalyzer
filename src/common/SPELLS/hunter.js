@@ -578,6 +578,11 @@ export default {
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
   },
+  TRANQUILIZING_SHOT: {
+    id: 19801,
+    name: 'Tranquilizing Shot',
+    icon: 'spell_nature_drowsy',
+  },
   //endregion
 
   //region Pets

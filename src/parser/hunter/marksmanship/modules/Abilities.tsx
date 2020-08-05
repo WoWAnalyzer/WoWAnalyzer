@@ -78,7 +78,7 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
         cooldown: 120,
         gcd: {
-          static: 1500,
+          base: 1500,
         },
       },
       {
@@ -129,14 +129,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.MISDIRECTION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        gcd: {
-          static: 0,
-        },
-      },
-      {
-        spell: SPELLS.BINDING_SHOT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
         gcd: {
           static: 0,
         },
