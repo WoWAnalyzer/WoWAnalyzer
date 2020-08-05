@@ -26,11 +26,11 @@ class ArcaneMissiles extends Analyzer {
 		if (spellId === SPELLS.ARCANE_MISSILES.id && !this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE.id)) {
 			debug && this.log('Arcane Missiles cast without Clearcasting');
 			this.castWithoutClearcasting += 1;
-		} 
+		}
 	}
 
 	get missilesUtilization() {
-		return 1 - (this.castWithoutClearcasting / this.abilityTracker.getAbility(SPELLS.ARCANE_MISSILES.id).casts);
+		return 1 - (this.castWithoutClearcasting / (this.abilityTracker.getAbility(SPELLS.ARCANE_MISSILES.id).casts || 0));
 	}
 
 	get arcaneMissileUsageThresholds() {
@@ -44,7 +44,7 @@ class ArcaneMissiles extends Analyzer {
       style: 'percentage',
     };
 	}
-	
+
 	suggestions(when: any) {
 		when(this.arcaneMissileUsageThresholds)
 			.addSuggestion((suggest: any, actual: any, recommended: any) => {

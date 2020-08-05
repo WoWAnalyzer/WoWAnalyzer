@@ -27,7 +27,7 @@ class MeteorCombustion extends Analyzer {
   constructor(options: any) {
     super(options);
     this.hasMeteor = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
-    this.active = this.hasMeteor ? true : false;
+    this.active = this.hasMeteor;
 
     if (!this.active) {
       return;
@@ -57,11 +57,11 @@ class MeteorCombustion extends Analyzer {
   }
 
   get totalMeteorCasts() {
-    return this.abilityTracker.getAbility(SPELLS.METEOR_TALENT.id).casts;
+    return this.abilityTracker.getAbility(SPELLS.METEOR_TALENT.id).casts || 0;
   }
 
   get totalCombustionCasts() {
-    return this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts;
+    return this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts || 0;
   }
 
   get combustionWithoutMeteor() {
