@@ -348,10 +348,7 @@ class Results extends React.PureComponent {
 
     const boss = findByBossId(fight.boss);
 
-    const results = !this.isLoading && parser.generateResults({
-      i18n, // TODO: Remove and use singleton
-      adjustForDowntime: this.state.adjustForDowntime,
-    });
+    const results = !this.isLoading && parser.generateResults(this.state.adjustForDowntime);
 
     const contributorinfo = <ReadableListing>{(config.contributors.length !== 0) ? config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED'}</ReadableListing>;
 
