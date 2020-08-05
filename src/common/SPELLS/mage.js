@@ -291,6 +291,11 @@ export default {
     name: 'Fire Blast',
     icon: 'spell_fire_fireball',
   },
+  PHOENIX_FLAMES: { 
+    id: 257541, 
+    name: 'Phoenix Flames', 
+    icon: 'artifactability_firemage_phoenixbolt', 
+  },
   BLAZING_BARRIER: {
     id: 235313,
     name: 'Blazing Barrier',

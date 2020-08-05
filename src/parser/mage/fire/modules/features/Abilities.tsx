@@ -16,6 +16,22 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.FIREBALL.id],
       },
       {
+        spell: SPELLS.FROSTBOLT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        damageSpellIds: [SPELLS.FROSTBOLT_DAMAGE.id],
+      },
+      {
+        spell: SPELLS.ARCANE_EXPLOSION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
+        damageSpellIds: [SPELLS.ARCANE_EXPLOSION.id],
+      },
+      {
         spell: SPELLS.PYROBLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -31,9 +47,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.PHOENIX_FLAMES_TALENT,
+        spell: SPELLS.PHOENIX_FLAMES,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -74,7 +89,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 20,
+        cooldown: 18,
       },
       {
         spell: SPELLS.FLAMESTRIKE,

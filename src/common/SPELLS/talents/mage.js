@@ -15,7 +15,7 @@ export default {
   BLAST_WAVE_TALENT: { id: 157981, name: 'Blast Wave', icon: 'spell_holy_excorcism_02' },
   FLAME_ON_TALENT: { id: 205029, name: 'Flame On', icon: 'inv_helm_circlet_firelands_d_01' },
   ALEXSTRASZAS_FURY_TALENT: { id: 235870, name: 'Alexstrasza\'s Fury', icon: 'spell_warrior_dragoncharge' },
-  PHOENIX_FLAMES_TALENT: { id: 257541, name: 'Phoenix Flames', icon: 'artifactability_firemage_phoenixbolt' },
+  //NYI: Replacement for Phoenix Flames
   FRENETIC_SPEED_TALENT: { id: 236058, name: 'Frenetic Speed', icon: 'spell_fire_burningspeed' },
   FLAME_PATCH_TALENT: { id: 205037, name: 'Flame Patch', icon: 'spell_mage_flameorb' },
   CONFLAGRATION_TALENT: { id: 205023, name: 'Conflagration', icon: 'spell_shaman_firenova' },
