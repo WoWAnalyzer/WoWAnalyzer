@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { Mamtooth, Yajinni, Zerotorescue, Viridis, Torothin } from 'CONTRIBUTORS';
-import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
@@ -28,7 +26,7 @@ export default [
   change(date(2019, 2, 7), <>Added stats for <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} />, <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} />, and <SpellLink id={SPELLS.FEL_MASTERY_TALENT.id} /> talents.</>, [Yajinni]),
   change(date(2019, 2, 6), <>Added stats and suggestions for <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> and <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} />.</>, [Yajinni]),
   change(date(2019, 2, 3), <>Added stats and suggestions for <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} />, <SpellLink id={SPELLS.DEMONIC_APPETITE_TALENT.id} />, and <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> talents.</>, [Yajinni]),
-  change(date(2018, 8, 5), <>Added <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} /> suggestions talents picks for BfA.</>, [Mamtooth]),
+  change(date(2018, 8, 5), <>Added Soul of the Slayer legendary suggestions to reflect new talents in BFA.</>, [Mamtooth]),
   change(date(2018, 8, 1), <>Implemented Checklist feature.</>, [Mamtooth]),
   change(date(2018, 7, 28), <>Inserted new BfA spells, so the Statistics tab is now up and working again.</>, [Mamtooth]),
   change(date(2018, 7, 28), <>Removed artifact spell cast suggestion.</>, [Mamtooth]),

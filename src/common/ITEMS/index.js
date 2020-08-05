@@ -1,9 +1,7 @@
 import indexById from '../indexById';
 import safeMerge from '../safeMerge';
 
-import OTHERS from './others';
-import BFA from './bfa';
-
+//Classes
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
@@ -17,10 +15,14 @@ import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
-export default indexById(
-  safeMerge(
-    OTHERS,
-    BFA,
+//Non class-specific
+import OTHERS from './others';
+import BFA from './bfa';
+import SHADOWLANDS from './shadowlands';
+
+const ITEMS = {
+  //Class items
+  ...safeMerge(
     DEATH_KNIGHT,
     DEMON_HUNTER,
     DRUID,
@@ -34,4 +36,12 @@ export default indexById(
     WARLOCK,
     WARRIOR,
   ),
-);
+  //Any non class-specific items
+  ...safeMerge(
+    OTHERS,
+    BFA,
+    SHADOWLANDS,
+  ),
+};
+
+export default indexById(ITEMS);
