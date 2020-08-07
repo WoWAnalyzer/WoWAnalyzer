@@ -4,7 +4,7 @@ import { Ability, AbsorbedEvent, CastEvent, DamageEvent, EventType, HealEvent } 
 import HIT_TYPES from 'game/HIT_TYPES';
 import SpellManaCost from './SpellManaCost';
 
-type TrackedAbility = {
+interface TrackedAbility {
   ability: Ability | null;
   casts?: number;
   manaUsed?: number;

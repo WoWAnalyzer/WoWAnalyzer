@@ -20,7 +20,6 @@ class IceLanceNoIL extends Analyzer {
 
   hasSplittingIce: boolean;
 
-  iceLanceCastTimestamp = 0;
   iceLanceCastTarget = "";
   hadFingersFrostProc = false;
   goodIceLance = 0;
@@ -35,7 +34,6 @@ class IceLanceNoIL extends Analyzer {
   }
 
   onIceLanceCast(event: CastEvent) {
-    this.iceLanceCastTimestamp = event.timestamp;
     if (event.targetID) {
       this.iceLanceCastTarget = encodeTargetString(event.targetID, event.targetInstance);
     }
@@ -54,11 +52,12 @@ class IceLanceNoIL extends Analyzer {
   }
 
   get totalIceLanceCasts() {
-    return this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts;
+    return this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts || 0;
   }
 
   get iceLanceEfficiency() {
-    return this.goodIceLance / this.totalIceLanceCasts;
+    const casts = this.totalIceLanceCasts;
+    return casts === 0 ? 1 : this.goodIceLance / casts;
   }
 
   get badIceLance() {
