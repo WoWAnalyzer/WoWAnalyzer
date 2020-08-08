@@ -28,18 +28,20 @@ class KillShot extends Analyzer {
   lastExecuteHitTimestamp: number = 0;
   totalExecuteDuration: number = 0;
   damage: number = 0;
+  activeKillShotSpell = this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER ? SPELLS.KILL_SHOT_SV : SPELLS.KILL_SHOT_MM_BM;
+
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.KILL_SHOT_MM_BM, SPELLS.KILL_SHOT_SV]), this.onKillShotDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.activeKillShotSpell), this.onKillShotDamage);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.flayedShotProc);
     this.addEventListener(Events.fightend, this.onFightEnd);
 
     options.abilities.add({
-      spell: this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER ? SPELLS.KILL_SHOT_SV : SPELLS.KILL_SHOT_MM_BM,
+      spell: this.activeKillShotSpell,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       charges: this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) ? 2 : 1,
       cooldown: 10,
@@ -80,8 +82,8 @@ class KillShot extends Analyzer {
 
   flayedShotProc(event: ApplyBuffEvent) {
     this.maxCasts += 1;
-    if (this.spellUsable.isOnCooldown(SPELLS.KILL_SHOT.id)) {
-      this.spellUsable.endCooldown(SPELLS.KILL_SHOT.id, false, event.timestamp);
+    if (this.spellUsable.isOnCooldown(this.activeKillShotSpell.id)) {
+      this.spellUsable.endCooldown(this.activeKillShotSpell.id, false, event.timestamp);
     }
   }
 
@@ -107,7 +109,7 @@ class KillShot extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spell={SPELLS.KILL_SHOT_MM_BM}>
+        <BoringSpellValueText spell={this.activeKillShotSpell}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>
