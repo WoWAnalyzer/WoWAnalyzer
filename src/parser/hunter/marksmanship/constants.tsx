@@ -7,6 +7,8 @@ export const RAPID_FIRE_TICKS_PER_CAST = 10;
 /** Trueshot */
 //Trueshot makes Aimed Shot recharge 225% faster despite what its tooltip says
 export const TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE = 2.25;
+//Trueshot makes Rapid Fire recharge 240% faster despite what its tooltip says
+export const TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE = 2.4;
 /** Lone Wolf */
 //Lone Wolf increases damage done by up to 10%
 export const MAX_LONE_WOLF_MODIFIER = 0.10;
