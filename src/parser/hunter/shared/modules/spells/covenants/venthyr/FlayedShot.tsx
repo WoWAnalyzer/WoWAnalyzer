@@ -63,7 +63,7 @@ class FlayedShot extends Analyzer {
 
   onProc(event: ApplyBuffEvent) {
     this.totalProcs += 1;
-    //The Kill Shot module ends the cooldown of Kill Shot after a Flayed Shot proc.4
+    //The Kill Shot module ends the cooldown of Kill Shot after a Flayed Shot proc.
     if (this.spellUsable.isOnCooldown(this.activeKillShotSpell.id)) {
       this.resets += 1;
     } else {
