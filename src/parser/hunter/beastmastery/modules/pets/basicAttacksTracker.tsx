@@ -6,6 +6,8 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import Events, { DamageEvent } from 'parser/core/Events';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import { BASIC_ATTACK_SPELLS, MACRO_TIME_BETWEEN_BASIC_ATK, MAX_TIME_BETWEEN_BASIC_ATK, NO_DELAY_TIME_BETWEEN_BASIC_ATK } from '../../constants';
 
 /**
@@ -20,7 +22,8 @@ class BasicAttacks extends Analyzer {
   totalCasts = 0;
   chainCasts = 0;
   damage = 0;
-  usedBasicAttack: { id: number, name: string, icon: string } = { id: 0, name: '', icon: '' };
+  //Assume that the usedBasicAttack is Bite, so that there are no issues if no Basic Attack have been cast this fight
+  usedBasicAttack: { id: number, name: string, icon: string } = SPELLS.BITE_BASIC_ATTACK;
   basicAttackChecked: boolean = false;
 
   constructor(options: any) {
@@ -35,6 +38,18 @@ class BasicAttacks extends Analyzer {
         minor: 0,
         average: 0,
         major: 0,
+      },
+      style: 'number',
+    };
+  }
+
+  get totalAttacksFromBasicAttacks() {
+    return {
+      actual: this.totalCasts,
+      isLessThan: {
+        minor: 1,
+        average: 1,
+        major: 1,
       },
       style: 'number',
     };
@@ -63,6 +78,15 @@ class BasicAttacks extends Analyzer {
 
   potentialExtraDamage(dreamScenario: boolean = false) {
     return this.potentialExtraCasts(dreamScenario) * (this.damage / this.totalCasts) || 0;
+  }
+
+  suggestions(when: any) {
+    when(this.totalAttacksFromBasicAttacks).addSuggestion((suggest: any, actual: any, recommended: any) => {
+      return suggest(<> Make sure that your pet is casting it's Basic Attacks, such as <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />.</>)
+        .icon(SPELLS.BITE_BASIC_ATTACK.icon)
+        .actual(`Your pet didn't cast any Basic Attacks this fight`)
+        .recommended('Your pet should be autocast Basic Attacks');
+    });
   }
 
   statistic() {
