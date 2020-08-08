@@ -157,16 +157,6 @@ export default {
     name: 'Aimed Shot',
     icon: 'inv_spear_07',
   },
-  ARCANE_SHOT: {
-    id: 185358,
-    name: 'Arcane Shot',
-    icon: 'ability_impalingbolt',
-  },
-  STEADY_SHOT: {
-    id: 56641,
-    name: 'Steady Shot',
-    icon: 'ability_hunter_steadyshot',
-  },
   STEADY_SHOT_FOCUS: {
     id: 77443,
     name: 'Steady Shot',
@@ -468,8 +458,23 @@ export default {
   //endregion
 
   //region Shared
-  KILL_SHOT: {
+  ARCANE_SHOT: {
+    id: 185358,
+    name: 'Arcane Shot',
+    icon: 'ability_impalingbolt',
+  },
+  STEADY_SHOT: {
+    id: 56641,
+    name: 'Steady Shot',
+    icon: 'ability_hunter_steadyshot',
+  },
+  KILL_SHOT_MM_BM: {
     id: 53351,
+    name: 'Kill Shot',
+    icon: 'ability_hunter_assassinate2',
+  },
+  KILL_SHOT_SV: {
+    id: 320976,
     name: 'Kill Shot',
     icon: 'ability_hunter_assassinate2',
   },
@@ -577,6 +582,11 @@ export default {
     id: 171454,
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
+  },
+  TRANQUILIZING_SHOT: {
+    id: 19801,
+    name: 'Tranquilizing Shot',
+    icon: 'spell_nature_drowsy',
   },
   //endregion
 

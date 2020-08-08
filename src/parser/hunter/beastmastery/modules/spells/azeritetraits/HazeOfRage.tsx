@@ -10,7 +10,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-
 const hazeOfRageStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.HAZE_OF_RAGE.id, rank);
   obj.agility += agility;

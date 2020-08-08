@@ -10,11 +10,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { CA_MODIFIER, CAREFUL_AIM_HIGHER_HP_THRESHOLD, CAREFUL_AIM_LOWER_HP_THRESHOLD } from 'parser/hunter/marksmanship/constants';
 import ItemDamageDone from '../../../../../interface/ItemDamageDone';
-
-const HIGHER_HP_THRESHOLD = 0.8;
-const LOWER_HP_THRESHOLD = 0.2;
-const CA_MODIFIER = .5;
 
 /**
  * Aimed Shot deals 50% bonus damage to targets who are above 80% health or below 20% health.
@@ -27,10 +24,6 @@ class CarefulAim extends Analyzer {
     statTracker: StatTracker,
     enemies: Enemies,
   };
-
-  protected statTracker!: StatTracker;
-  protected enemies!: Enemies;
-
   caProcs = 0;
   damageContribution = 0;
   bossIDs: number[] = [];
@@ -57,6 +50,8 @@ class CarefulAim extends Analyzer {
       timestampDead: 0,
     },
   };
+  protected statTracker!: StatTracker;
+  protected enemies!: Enemies;
 
   constructor(options: any) {
     super(options);
@@ -77,7 +72,7 @@ class CarefulAim extends Analyzer {
     const healthPercent = event.hitPoints && event.maxHitPoints && event.hitPoints / event.maxHitPoints;
     const targetID = event.targetID;
     let target;
-    const outsideCarefulAim = healthPercent && healthPercent < HIGHER_HP_THRESHOLD && healthPercent > LOWER_HP_THRESHOLD; //True if target is below 80% and above 20%
+    const outsideCarefulAim = healthPercent && healthPercent < CAREFUL_AIM_HIGHER_HP_THRESHOLD && healthPercent > CAREFUL_AIM_LOWER_HP_THRESHOLD; //True if target is below 80% and above 20%
     if (event.maxHitPoints && this.bossIDs.includes(targetID)) {
       const enemy = this.enemies.getEntity(event);
       target = enemy && enemy.name;
@@ -92,13 +87,13 @@ class CarefulAim extends Analyzer {
           timestampDead: 0,
         };
       }
-      if (healthPercent && healthPercent > HIGHER_HP_THRESHOLD) {
+      if (healthPercent && healthPercent > CAREFUL_AIM_HIGHER_HP_THRESHOLD) {
         this.carefulAimPeriods[target].timestampSub100 = this.carefulAimPeriods[target].timestampSub100 || event.timestamp;
       }
       if (healthPercent && outsideCarefulAim) {
         this.carefulAimPeriods[target].timestampSub80 = this.carefulAimPeriods[target].timestampSub80 || event.timestamp;
       }
-      if (healthPercent && healthPercent < LOWER_HP_THRESHOLD) {
+      if (healthPercent && healthPercent < CAREFUL_AIM_LOWER_HP_THRESHOLD) {
         this.carefulAimPeriods[target].timestampSub20 = this.carefulAimPeriods[target].timestampSub20 || event.timestamp;
       }
     } else {

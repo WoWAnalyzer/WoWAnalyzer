@@ -8,6 +8,7 @@ import { formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SpellUsable from 'parser/hunter/marksmanship/modules/core/SpellUsable';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { RAPID_FIRE_TICKS_PER_CAST, SUS_INITIAL_DAMAGE_MOD, SUS_RAMP_UP_MOD } from 'parser/hunter/marksmanship/constants';
 
 const surgingShotsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [damage] = calculateAzeriteEffects(SPELLS.SURGING_SHOTS.id, rank);
@@ -17,9 +18,6 @@ const surgingShotsStats = (traits: number[]) => Object.values(traits).reduce((ob
   damage: 0,
 });
 
-const BASELINE_RF_TICKS = 10;
-const INITIAL_DAMAGE_MOD = 0.5;
-const RAMP_UP_MOD = 0.2;
 const debug = false;
 
 /** Surging Shots
@@ -38,12 +36,10 @@ class SurgingShots extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
-
   initialDamage = 0;
   damage = 0;
   damagePotential = 0;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: any) {
     super(options);
@@ -53,11 +49,11 @@ class SurgingShots extends Analyzer {
     }
     const { damage } = surgingShotsStats(this.selectedCombatant.traitsBySpellId[SPELLS.SURGING_SHOTS.id]);
     this.damage = damage;
-    this.initialDamage = damage * INITIAL_DAMAGE_MOD;
+    this.initialDamage = damage * SUS_INITIAL_DAMAGE_MOD;
 
-    for (let ticks = 1; ticks <= BASELINE_RF_TICKS; ticks++) {
-      this.damagePotential += this.initialDamage * (1 + (RAMP_UP_MOD * ticks));
-      debug && console.log('Tick number: ', ticks, ' and added damage: ', this.initialDamage * (1 + (RAMP_UP_MOD * ticks)));
+    for (let ticks = 1; ticks <= RAPID_FIRE_TICKS_PER_CAST; ticks++) {
+      this.damagePotential += this.initialDamage * (1 + (SUS_RAMP_UP_MOD * ticks));
+      debug && console.log('Tick number: ', ticks, ' and added damage: ', this.initialDamage * (1 + (SUS_RAMP_UP_MOD * ticks)));
     }
     debug && console.log('SuS damage potential: ', this.damagePotential);
   }

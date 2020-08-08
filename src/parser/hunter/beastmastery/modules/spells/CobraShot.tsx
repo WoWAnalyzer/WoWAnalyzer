@@ -10,6 +10,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events, { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { COBRA_SHOT_CDR_MS, COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT } from '../../constants';
 
 /**
  * A quick shot causing Physical damage.
@@ -19,8 +20,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
  * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1&ability=193455
  */
 
-const COOLDOWN_REDUCTION_MS = 1000;
-const FOCUS_THRESHOLD_TO_WAIT = 50; //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 class CobraShot extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -41,7 +40,7 @@ class CobraShot extends Analyzer {
   }
 
   get totalPossibleCDR() {
-    return this.casts * COOLDOWN_REDUCTION_MS;
+    return this.casts * COBRA_SHOT_CDR_MS;
   }
 
   get wastedCDR() {
@@ -82,7 +81,7 @@ class CobraShot extends Analyzer {
     this.casts += 1;
     if (!this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_BM.id)) {
       this.wastedCasts += 1;
-      this.wastedKCReductionMs += COOLDOWN_REDUCTION_MS;
+      this.wastedKCReductionMs += COBRA_SHOT_CDR_MS;
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command is not on cooldown.';
       return;
@@ -90,22 +89,22 @@ class CobraShot extends Analyzer {
     const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(SPELLS.COBRA_SHOT.id);
     const killCommandCooldownRemaining = this.spellUsable.cooldownRemaining(
       SPELLS.KILL_COMMAND_CAST_BM.id);
-    if (killCommandCooldownRemaining < COOLDOWN_REDUCTION_MS + globalCooldown) {
+    if (killCommandCooldownRemaining < COBRA_SHOT_CDR_MS + globalCooldown) {
       const effectiveReductionMs = killCommandCooldownRemaining -
         globalCooldown;
       this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, effectiveReductionMs);
-      this.wastedKCReductionMs += COOLDOWN_REDUCTION_MS - effectiveReductionMs;
+      this.wastedKCReductionMs += COBRA_SHOT_CDR_MS - effectiveReductionMs;
 
       const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
       if (!resource) {
         return;
       }
-      if (resource.amount < FOCUS_THRESHOLD_TO_WAIT) {
+      if (resource.amount < COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT) {
         event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command\'s cooldown was under ' + (globalCooldown + COOLDOWN_REDUCTION_MS / 1000).toFixed(1) + 's remaining and you were not close to capping focus as you only had ' + (resource.amount) + ' focus.';
+        event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command\'s cooldown was under ' + (globalCooldown + COBRA_SHOT_CDR_MS / 1000).toFixed(1) + 's remaining and you were not close to capping focus as you only had ' + (resource.amount) + ' focus.';
       }
     } else {
-      this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, COOLDOWN_REDUCTION_MS);
+      this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, COBRA_SHOT_CDR_MS);
     }
   }
 

@@ -60,6 +60,12 @@ import PrimalInstincts from './modules/spells/azeritetraits/PrimalInstincts';
 import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
 import RapidReload from '../shared/modules/spells/azeritetraits/RapidReload';
 
+//Covenants
+import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
+import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
+import WildSpirits from '../shared/modules/spells/covenants/nightfae/WildSpirits';
+import FlayedShot from '../shared/modules/spells/covenants/venthyr/FlayedShot';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     globalCooldown: GlobalCooldown,
@@ -122,6 +128,12 @@ class CombatLogParser extends CoreCombatLogParser {
     primalInstincts: PrimalInstincts,
     direConsequences: DireConsequences,
     rapidReload: RapidReload,
+
+    //Covenants
+    resonatingArrow: ResonatingArrow,
+    deathChakrams: DeathChakrams,
+    wildSpirits: WildSpirits,
+    flayedShot: FlayedShot,
   };
 }
 

@@ -22,17 +22,15 @@ class AimedShot extends Analyzer {
     abilities: Abilities,
     deadEye: DeadEye,
   };
-
-  protected spellUsable!: SpellUsable;
-  protected abilities!: Abilities;
-  protected deadEye!: DeadEye;
-
   lastReductionTimestamp: number = 0;
   effectiveCDRFromTrueshotDeadEye: number = 0;
   wastedCDRFromTrueshotDeadEye: number = 0;
   casts: number = 0;
   totalCooldown: number = 0;
   averageCooldown: number = 0;
+  protected spellUsable!: SpellUsable;
+  protected abilities!: Abilities;
+  protected deadEye!: DeadEye;
 
   constructor(options: any) {
     super(options);

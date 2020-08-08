@@ -24,18 +24,24 @@ class MasterMarksman extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
-
-  protected statTracker!: StatTracker;
-
   currentCritChance = 0;
   aimedShotCrits = 0;
   aggregatedContribution = 0;
+  protected statTracker!: StatTracker;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_MARKSMAN_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedDamage);
+  }
+
+  get averageContributionPercentage() {
+    return this.aggregatedContribution / this.aimedShotCrits;
+  }
+
+  get averageContributionAbsolute() {
+    return Math.round(this.averageContributionPercentage * this.aimedShotCrits);
   }
 
   onAimedCast() {
@@ -48,14 +54,6 @@ class MasterMarksman extends Analyzer {
     }
     this.aggregatedContribution += MASTER_MARKSMAN_CRIT_INCREASE / (MASTER_MARKSMAN_CRIT_INCREASE + this.currentCritChance);
     this.aimedShotCrits += 1;
-  }
-
-  get averageContributionPercentage() {
-    return this.aggregatedContribution / this.aimedShotCrits;
-  }
-
-  get averageContributionAbsolute() {
-    return Math.round(this.averageContributionPercentage * this.aimedShotCrits);
   }
 
   statistic() {

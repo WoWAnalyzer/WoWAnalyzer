@@ -12,15 +12,16 @@ import Statistic from 'interface/statistics/Statistic';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-const primalInstinctsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
-      const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
-      obj.mastery += mastery;
-      return obj;
-    },
-    {
-      mastery: 0,
-    },
-  );
+const primalInstinctsStats = (traits: number[]) => Object.values(traits).reduce(
+  (obj, rank) => {
+    const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
+    obj.mastery += mastery;
+    return obj;
+  },
+  {
+    mastery: 0,
+  },
+);
 
 /**
  * Aspect of the Wild increases your Mastery by X, and grants you a charge of

@@ -2,43 +2,29 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
-
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
-      //Baseline Rotational
       /**
        * Marksmanship specific spells handled in their own files:
        * Aimed Shot
+       * Rapid Fire
        *
        * Shared spells handled in their own files:
-       * BindingShot
+       * Binding Shot
        * Hunters Mark
        * Kill Shot
        * A Murder of Crows
        *
        */
+      //region Baseline Rotational
       {
         spell: SPELLS.ARCANE_SHOT,
         buffSpellId: SPELLS.PRECISE_SHOTS.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.RAPID_FIRE,
-        buffSpellId: SPELLS.DOUBLE_TAP_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: () => {
-          if (combatant.hasBuff(SPELLS.TRUESHOT.id)) {
-            return 20 / 3.4;
-          }
-          return 20;
         },
       },
       {
@@ -70,15 +56,16 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
         },
       },
+      //endregion
 
-      //Baseline Defensive
+      //region Baseline Defensives
       {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
         cooldown: 120,
         gcd: {
-          static: 1500,
+          base: 1500,
         },
       },
       {
@@ -91,8 +78,18 @@ class Abilities extends CoreAbilities {
           static: 0,
         },
       },
+      {
+        spell: [SPELLS.SURVIVAL_OF_THE_FITTEST_LONE_WOLF, SPELLS.SURVIVAL_OF_THE_FITTEST],
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
+        cooldown: 180,
+        gcd: {
+          static: 0,
+        },
+      },
+      //endregion
 
-      //Baseline Utility
+      //region Baseline Utility
       {
         spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -134,14 +131,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BINDING_SHOT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
-        gcd: {
-          static: 0,
-        },
-      },
-      {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
@@ -173,8 +162,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      //endregion
 
-      //Talents
+      //region Talents
       {
         spell: SPELLS.EXPLOSIVE_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -237,17 +227,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
+      //endregion
 
-      //Pets
-      {
-        spell: [SPELLS.SURVIVAL_OF_THE_FITTEST_LONE_WOLF, SPELLS.SURVIVAL_OF_THE_FITTEST],
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        isDefensive: true,
-        cooldown: 180,
-        gcd: {
-          static: 0,
-        },
-      },
+      //region Pets
       {
         spell: [SPELLS.PRIMAL_RAGE_1, SPELLS.PRIMAL_RAGE_2],
         buffSpellId: [SPELLS.PRIMAL_RAGE_1.id, SPELLS.PRIMAL_RAGE_2.id],
@@ -302,6 +284,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      //endregion
     ];
   }
 }

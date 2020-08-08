@@ -14,7 +14,10 @@ class DeadEye extends Analyzer {
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
-
+  //Incremented in Aimed Shot module
+  deadEyeEffectiveCDR: number = 0;
+  deadEyePotentialCDR: number = 0;
+  averageAimedShotCD: number = 0;
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
 
@@ -22,11 +25,6 @@ class DeadEye extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id);
   }
-
-  //Incremented in Aimed Shot module
-  deadEyeEffectiveCDR: number = 0;
-  deadEyePotentialCDR: number = 0;
-  averageAimedShotCD: number = 0;
 
   statistic() {
     return (
@@ -36,8 +34,9 @@ class DeadEye extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
-            {this.deadEyeEffectiveCDR / 1000}s effective Aimed Shot CDR
-            {this.deadEyePotentialCDR / 1000}s potential Aimed Shot CDR, this include time where Aimed Shot was not on cooldown and Dead Eye buff was active
+            {formatNumber(this.deadEyeEffectiveCDR / 1000)}s effective Aimed Shot CDR
+            <br />
+            {formatNumber(this.deadEyePotentialCDR / 1000)}s potential Aimed Shot CDR, this include time where Aimed Shot was not on cooldown and Dead Eye buff was active
           </>
         )}
       >

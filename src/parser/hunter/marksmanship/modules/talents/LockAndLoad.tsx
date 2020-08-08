@@ -13,6 +13,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import { binomialCDF, expectedProcCount, plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import SpellLink from 'common/SpellLink';
+import { LNL_PROC_CHANCE } from 'parser/hunter/marksmanship/constants';
 
 /**
  * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
@@ -21,21 +22,17 @@ import SpellLink from 'common/SpellLink';
  * https://www.warcraftlogs.com/reports/wPdQLfFnhTVYRyJm#fight=12&type=auras&source=640&ability=194594
  */
 
-const PROC_CHANCE = 0.05;
-
 class LockAndLoad extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
-
-  protected spellUsable!: SpellUsable;
-  protected abilities!: Abilities;
-
   hasLnLBuff = false;
   noGainLNLProcs = 0;
   totalProcs = 0;
   autoShots = 0;
+  protected spellUsable!: SpellUsable;
+  protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
@@ -44,6 +41,10 @@ class LockAndLoad extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LOCK_AND_LOAD_BUFF), this.onLNLApplication);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.LOCK_AND_LOAD_BUFF), this.onLNLRefresh);
+  }
+
+  get expectedProcs() {
+    return expectedProcCount(LNL_PROC_CHANCE, this.autoShots);
   }
 
   autoshotDamage() {
@@ -76,10 +77,6 @@ class LockAndLoad extends Analyzer {
     this.totalProcs += 1;
   }
 
-  get expectedProcs() {
-    return expectedProcCount(PROC_CHANCE, this.autoShots);
-  }
-
   statistic() {
     return (
       <Statistic
@@ -92,14 +89,14 @@ class LockAndLoad extends Analyzer {
             You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
             You had a total of {this.totalProcs} procs, and your expected amount of procs was {formatNumber(this.expectedProcs)}. <br />
             <ul>
-              <li>You have a ≈{formatPercentage(binomialCDF(this.totalProcs, this.autoShots, PROC_CHANCE))}% chance of getting this amount of procs or fewer in the future with this amount of auto attacks.</li>
+              <li>You have a ≈{formatPercentage(binomialCDF(this.totalProcs, this.autoShots, LNL_PROC_CHANCE))}% chance of getting this amount of procs or fewer in the future with this amount of auto attacks.</li>
             </ul>
           </>
         )}
         dropdown={(
           <>
             <div style={{ padding: '8px' }}>
-              {plotOneVariableBinomChart(this.totalProcs, this.autoShots, PROC_CHANCE)}
+              {plotOneVariableBinomChart(this.totalProcs, this.autoShots, LNL_PROC_CHANCE)}
               <p>Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given your number of <SpellLink id={SPELLS.AUTO_SHOT.id} /> hits.</p>
             </div>
           </>

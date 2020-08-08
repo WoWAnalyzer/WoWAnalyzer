@@ -10,6 +10,7 @@ import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, 
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
+import { MAX_BLUR_OF_TALONS_STACKS } from 'parser/hunter/survival/constants';
 
 const blurOfTalonsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.BLUR_OF_TALONS.id, rank);
@@ -25,8 +26,6 @@ const blurOfTalonsStats = (traits: number[]) => Object.values(traits).reduce((ob
  * Example:
  * https://www.warcraftlogs.com/reports/NTvPJdrFgYchAX1R#fight=6&type=auras&source=27&ability=277969
  */
-
-const MAX_BLUR_STACKS = 5;
 
 class BlurOfTalons extends Analyzer {
   static dependencies = {
@@ -48,7 +47,7 @@ class BlurOfTalons extends Analyzer {
     }
     const { agility } = blurOfTalonsStats(this.selectedCombatant.traitsBySpellId[SPELLS.BLUR_OF_TALONS.id]);
     this.agility = agility;
-    this.blurOfTalonStacks = Array.from({ length: MAX_BLUR_STACKS + 1 }, x => []);
+    this.blurOfTalonStacks = Array.from({ length: MAX_BLUR_OF_TALONS_STACKS + 1 }, x => []);
 
     options.statTracker.add(SPELLS.BLUR_OF_TALONS_BUFF.id, {
       agility: this.agility,

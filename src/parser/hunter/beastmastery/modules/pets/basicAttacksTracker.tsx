@@ -1,5 +1,4 @@
 import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import React from 'react';
@@ -7,11 +6,10 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import Events, { DamageEvent } from 'parser/core/Events';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import { BASIC_ATTACK_SPELLS, MACRO_TIME_BETWEEN_BASIC_ATK, MAX_TIME_BETWEEN_BASIC_ATK, NO_DELAY_TIME_BETWEEN_BASIC_ATK } from '../../constants';
 
-const BASIC_ATTACK_SPELLS = [SPELLS.BITE_BASIC_ATTACK, SPELLS.CLAW_BASIC_ATTACK, SPELLS.SMACK_BASIC_ATTACK];
-const MAX_TIME_BETWEEN_BASIC_ATK = 3500; //The actual current delay without macros is ~300ms on top of the 3 second cooldown, but adding 200 ms to act as a buffer.
-const MACRO_TIME_BETWEEN_BASIC_ATK = 3150; //The delay is reduced to ~100-200ms depending on latency when you macro the abilities
-const NO_DELAY_TIME_BETWEEN_BASIC_ATK = 3000; //This is what the optimal scenario would look like, if pet cast it instantly after it came off cooldown
 /**
  * Macroing pet basic attacks to the hunters general abilities is a DPS increase, because there is a natural delay before the pet decides to cast the spell by itself.
  */
@@ -24,12 +22,37 @@ class BasicAttacks extends Analyzer {
   totalCasts = 0;
   chainCasts = 0;
   damage = 0;
-  usedBasicAttack: { id: number, name: string, icon: string } = { id: 0, name: '', icon: '' };
+  //Assume that the usedBasicAttack is Bite, so that there are no issues if no Basic Attack have been cast this fight
+  usedBasicAttack: { id: number, name: string, icon: string } = SPELLS.BITE_BASIC_ATTACK;
   basicAttackChecked: boolean = false;
 
   constructor(options: any) {
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(BASIC_ATTACK_SPELLS), this.onPetBasicAttackDamage);
+  }
+
+  get additionalAttacksFromMacroing() {
+    return {
+      actual: this.potentialExtraCasts(),
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 0,
+      },
+      style: 'number',
+    };
+  }
+
+  get totalAttacksFromBasicAttacks() {
+    return {
+      actual: this.totalCasts,
+      isLessThan: {
+        minor: 1,
+        average: 1,
+        major: 1,
+      },
+      style: 'number',
+    };
   }
 
   onPetBasicAttackDamage(event: DamageEvent) {
@@ -57,16 +80,13 @@ class BasicAttacks extends Analyzer {
     return this.potentialExtraCasts(dreamScenario) * (this.damage / this.totalCasts) || 0;
   }
 
-  get additionalAttacksFromMacroing() {
-    return {
-      actual: this.potentialExtraCasts(),
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 0,
-      },
-      style: 'number',
-    };
+  suggestions(when: any) {
+    when(this.totalAttacksFromBasicAttacks).addSuggestion((suggest: any, actual: any, recommended: any) => {
+      return suggest(<> Make sure that your pet is casting it's Basic Attacks, such as <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />.</>)
+        .icon(SPELLS.BITE_BASIC_ATTACK.icon)
+        .actual(`Your pet didn't cast any Basic Attacks this fight`)
+        .recommended('Your pet should be autocast Basic Attacks');
+    });
   }
 
   statistic() {

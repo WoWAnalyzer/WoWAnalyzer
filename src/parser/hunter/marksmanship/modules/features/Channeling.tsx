@@ -46,7 +46,7 @@ class Channeling extends CoreChanneling {
     this.endChannel(event);
   }
 
-  on_byPlayer_removebuff(event:RemoveBuffEvent) {
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
     if (event.ability.guid !== SPELLS.BARRAGE_TALENT.id) {
       return;
     }

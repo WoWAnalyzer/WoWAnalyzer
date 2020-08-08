@@ -33,7 +33,7 @@ import PreciseShots from './modules/spells/PreciseShots';
 import AimedShot from './modules/spells/AimedShot';
 import HuntersMark from '../shared/modules/spells/HuntersMark';
 import KillShot from '../shared/modules/spells/KillShot';
-import BindingShot from './modules/spells/BindingShot';
+import BindingShot from '../shared/modules/talents/BindingShot';
 
 //Talents
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
@@ -60,6 +60,12 @@ import SurgingShots from './modules/spells/azeritetraits/SurgingShots';
 import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
 import UnerringVision from './modules/spells/azeritetraits/UnerringVision';
 import RapidReload from '../shared/modules/spells/azeritetraits/RapidReload';
+
+//Covenants
+import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
+import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
+import WildSpirits from '../shared/modules/spells/covenants/nightfae/WildSpirits';
+import FlayedShot from '../shared/modules/spells/covenants/venthyr/FlayedShot';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -120,6 +126,12 @@ class CombatLogParser extends CoreCombatLogParser {
     inTheRhythm: InTheRhythm,
     unerringVision: UnerringVision,
     rapidReload: RapidReload,
+
+    //Covenants
+    resonatingArrow: ResonatingArrow,
+    deathChakrams: DeathChakrams,
+    wildSpirits: WildSpirits,
+    flayedShot: FlayedShot,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

@@ -21,10 +21,6 @@ class MemoryOfLucidDreams extends Analyzer {
     spellUsable: SpellUsable,
     statTracker: StatTracker,
   };
-  protected abilities!: Abilities;
-  protected spellUsable!: SpellUsable;
-  protected statTracker!: StatTracker;
-
   hasLucidMajor?: boolean;
   lastTimestamp = 0;
   minorReductionMs = 0;
@@ -38,6 +34,9 @@ class MemoryOfLucidDreams extends Analyzer {
   lucidDuration = 12000;
   versGain = 0;
   leechGain = 0;
+  protected abilities!: Abilities;
+  protected spellUsable!: SpellUsable;
+  protected statTracker!: StatTracker;
 
   constructor(options: any) {
     super(options);
@@ -86,6 +85,14 @@ class MemoryOfLucidDreams extends Analyzer {
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.LUCID_DREAMS_MINOR_RESOURCE_REFUND_FOCUS), this.onLucidEnergize);
   }
 
+  get minorBuffUptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.LUCID_DREAMS_MINOR_STAT_BUFF.id) / this.owner.fightDuration;
+  }
+
+  get majorBuffUptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.LUCID_DREAMS_MAJOR.id) / this.owner.fightDuration;
+  }
+
   onEvent(event: any) {
     if (!this.selectedCombatant.hasBuff(SPELLS.LUCID_DREAMS_MAJOR.id) || event.timestamp <= this.lastTimestamp || this.lastTimestamp === 0 || !this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_SV.id)) {
       return;
@@ -123,14 +130,6 @@ class MemoryOfLucidDreams extends Analyzer {
     this.minorFocusGain += event.resourceChange - event.waste;
     this.minorFocusWaste += event.waste;
     this.minorProcs += 1;
-  }
-
-  get minorBuffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.LUCID_DREAMS_MINOR_STAT_BUFF.id) / this.owner.fightDuration;
-  }
-
-  get majorBuffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.LUCID_DREAMS_MAJOR.id) / this.owner.fightDuration;
   }
 
   statistic() {

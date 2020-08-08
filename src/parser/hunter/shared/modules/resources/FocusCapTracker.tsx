@@ -9,18 +9,14 @@ import SpellFocusCost from 'parser/hunter/shared/modules/resources/SpellFocusCos
 import StatisticBar from 'interface/statistics/StatisticBar';
 
 import { AutoSizer } from 'react-virtualized';
-import { XYPlot, AreaSeries } from 'react-vis';
+import { AreaSeries, XYPlot } from 'react-vis';
 import groupDataForChart from 'common/groupDataForChart';
 import { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
-
-const BASE_FOCUS_REGEN = 5;
-
-const BASE_FOCUS_MAX = 100;
+import { HUNTER_BASE_FOCUS_MAX, HUNTER_BASE_FOCUS_REGEN } from 'parser/hunter/shared/constants';
 
 /**
  * Sets up RegenResourceCapTracker to accurately track the regenerating focus of hunters.
- * Taking into account the effect of buffs, talents, and items on the focus cost of abilities,
- * the maximum focus amount, and the regeneration rate.
+ * Taking into account the effect of buffs, talents, and items on the focus cost of abilities, the maximum focus amount, and the regeneration rate.
  */
 class FocusCapTracker extends RegenResourceCapTracker {
   static dependencies = {
@@ -28,22 +24,31 @@ class FocusCapTracker extends RegenResourceCapTracker {
     // Needed for the `resourceCost` prop of events
     spellResourceCost: SpellFocusCost,
   };
-
-  protected spellResourceCost!: SpellFocusCost;
-
   static resourceType = RESOURCE_TYPES.FOCUS;
-  static baseRegenRate = BASE_FOCUS_REGEN;
+  static baseRegenRate = HUNTER_BASE_FOCUS_REGEN;
   static isRegenHasted = true;
-
-  currentMaxResource() {
-    return BASE_FOCUS_MAX;
-  }
+  bySecond: { [key: number]: number } = {};
+  protected spellResourceCost!: SpellFocusCost;
 
   get wastedPercent() {
     return (this.missedRegen / this.naturalRegen) || 0;
   }
 
-  bySecond: {[key: number]: number} = {};
+  get focusNaturalRegenWasteThresholds() {
+    return {
+      actual: 1 - this.wastedPercent,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.85,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
+
+  currentMaxResource() {
+    return HUNTER_BASE_FOCUS_MAX;
+  }
 
   on_byPlayer_energize(event: EnergizeEvent) {
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
@@ -60,18 +65,6 @@ class FocusCapTracker extends RegenResourceCapTracker {
     super.on_byPlayer_damage(event);
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
-  }
-
-  get focusNaturalRegenWasteThresholds() {
-    return {
-      actual: 1 - this.wastedPercent,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.85,
-        major: 0.8,
-      },
-      style: 'percentage',
-    };
   }
 
   suggestions(when: any) {
@@ -110,7 +103,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
             <div className="flex-main chart">
               {this.missedRegen > 0 && (
                 <AutoSizer>
-                  {({ width, height}) => (
+                  {({ width, height }) => (
                     <XYPlot
                       margin={0}
                       width={width}

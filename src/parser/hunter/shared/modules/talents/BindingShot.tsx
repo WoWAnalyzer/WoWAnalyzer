@@ -6,6 +6,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events from 'parser/core/Events';
+import SPECS from 'game/SPECS';
+import Abilities from 'parser/core/modules/Abilities';
 
 /**
  * Fires a magical projectile, tethering the enemy and any other enemies within
@@ -16,17 +18,32 @@ import Events from 'parser/core/Events';
 
 class BindingShot extends Analyzer {
 
+  static dependencies = {
+    abilities: Abilities,
+  };
   _roots = 0;
   _applications = 0;
   _casts = 0;
-  category = STATISTIC_CATEGORY.TALENTS;
+  category: string;
+  protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id) || this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER;
+    this.category = this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER ? STATISTIC_CATEGORY.GENERAL : STATISTIC_CATEGORY.TALENTS;
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_ROOT), this.onRoot);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_TETHER), this.onTether);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_TALENT), this.onCast);
+    if (this.active) {
+      options.abilities.add({
+        spell: SPELLS.BINDING_SHOT_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
+        gcd: {
+          static: 1500,
+        },
+      });
+    }
   }
 
   onTether() {

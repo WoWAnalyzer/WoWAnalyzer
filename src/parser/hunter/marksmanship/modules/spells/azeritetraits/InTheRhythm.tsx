@@ -7,9 +7,10 @@ import HasteIcon from 'interface/icons/Haste';
 import Statistic from 'interface/statistics/Statistic';
 import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Events, { ApplyBuffEvent, EventType, RefreshBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { IN_THE_RHYTHM_DURATION } from 'parser/hunter/marksmanship/constants';
 
 const inTheRhythmStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.IN_THE_RHYTHM.id, rank);
@@ -18,8 +19,6 @@ const inTheRhythmStats = (traits: number[]) => Object.values(traits).reduce((obj
 }, {
   haste: 0,
 });
-
-const DURATION = 8000;
 
 /** Rapid Fire
  * When Rapid Fire finishes fully channeling, your Haste is increased by 623 for 8 sec.
@@ -32,14 +31,12 @@ class InTheRhythm extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
-
-  protected statTracker!: StatTracker;
-
   applications = 0;
   lastApplicationTimestamp = 0;
   possibleApplications = 0;
   haste = 0;
   wastedUptime = 0;
+  protected statTracker!: StatTracker;
 
   constructor(options: any) {
     super(options);
@@ -58,24 +55,24 @@ class InTheRhythm extends Analyzer {
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.possibleApplication);
   }
 
-  possibleApplication() {
-    this.possibleApplications += 1;
-  }
-
-  itrApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.applications += 1;
-    if(event.type === EventType.RefreshBuff) {
-      this.wastedUptime += DURATION - (event.timestamp - this.lastApplicationTimestamp);
-    }
-    this.lastApplicationTimestamp = event.timestamp;
-  }
-
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.IN_THE_RHYTHM_BUFF.id) / this.owner.fightDuration;
   }
 
   get avgHaste() {
     return this.uptime * this.haste;
+  }
+
+  possibleApplication() {
+    this.possibleApplications += 1;
+  }
+
+  itrApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
+    this.applications += 1;
+    if (event.type === EventType.RefreshBuff) {
+      this.wastedUptime += IN_THE_RHYTHM_DURATION - (event.timestamp - this.lastApplicationTimestamp);
+    }
+    this.lastApplicationTimestamp = event.timestamp;
   }
 
   statistic() {

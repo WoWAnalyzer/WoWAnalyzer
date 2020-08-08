@@ -4,5 +4,5 @@ import { Putro } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 6, 4), <> First pass at Shadowlands updates </>, Putro),
+  change(date(2020, 8, 8), <> Beast Mastery modules updated for Shadowlands </>, Putro),
 ];

@@ -7,6 +7,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Statistic from 'interface/statistics/Statistic';
 import Events from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
 
 /**
  * Raptor Strike (or Mongoose Bite) deals an additional 27 damage and reduces the remaining cooldown of Wildfire Bomb by 1.0 sec.
@@ -14,8 +15,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
  * Example report:
  * https://www.warcraftlogs.com/reports/NTvPJdrFgYchAX1R#fight=6&type=summary&source=27
  */
-
-const MS_REDUCTION = 1000;
 
 class WildernessSurvival extends Analyzer {
 
@@ -47,12 +46,12 @@ class WildernessSurvival extends Analyzer {
   }
 
   checkCooldown(spellId: number) {
-    if (this.spellUsable.cooldownRemaining(spellId) < MS_REDUCTION) {
-      const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, MS_REDUCTION);
+    if (this.spellUsable.cooldownRemaining(spellId) < ONE_SECOND_IN_MS) {
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, ONE_SECOND_IN_MS);
       this.effectiveWSReductionMs += effectiveReductionMs;
-      this.wastedWSReductionMs += (MS_REDUCTION - effectiveReductionMs);
+      this.wastedWSReductionMs += (ONE_SECOND_IN_MS - effectiveReductionMs);
     } else {
-      this.effectiveWSReductionMs += this.spellUsable.reduceCooldown(spellId, MS_REDUCTION);
+      this.effectiveWSReductionMs += this.spellUsable.reduceCooldown(spellId, ONE_SECOND_IN_MS);
     }
   }
 
@@ -60,7 +59,7 @@ class WildernessSurvival extends Analyzer {
     if (this.spellUsable.isOnCooldown(this.bombSpellKnown.id)) {
       this.checkCooldown(this.bombSpellKnown.id);
     } else {
-      this.wastedWSReductionMs += MS_REDUCTION;
+      this.wastedWSReductionMs += ONE_SECOND_IN_MS;
     }
   }
 

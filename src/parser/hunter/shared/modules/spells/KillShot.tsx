@@ -12,6 +12,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import SPECS from 'game/SPECS';
 
 const debug = false;
 
@@ -21,31 +22,29 @@ class KillShot extends Analyzer {
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
-
-  protected spellUsable!: SpellUsable;
-  protected abilities!: Abilities;
-
   maxCasts: number = 0;
   inExecuteWindow: boolean = false;
   executeWindowStart: number = 0;
   lastExecuteHitTimestamp: number = 0;
   totalExecuteDuration: number = 0;
   damage: number = 0;
+  protected spellUsable!: SpellUsable;
+  protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.KILL_SHOT), this.onKillShotDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.KILL_SHOT_MM_BM, SPELLS.KILL_SHOT_SV]), this.onKillShotDamage);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.flayedShotProc);
     this.addEventListener(Events.fightend, this.onFightEnd);
 
     options.abilities.add({
-      spell: SPELLS.KILL_SHOT,
+      spell: this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER ? SPELLS.KILL_SHOT_SV : SPELLS.KILL_SHOT_MM_BM,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      charges:  this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) ? 2 : 1,
+      charges: this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) ? 2 : 1,
       cooldown: 10,
       gcd: {
-        base: 1500,
+        static: 1500,
       },
       castEfficiency: {
         suggestion: true,
@@ -108,7 +107,7 @@ class KillShot extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spell={SPELLS.KILL_SHOT}>
+        <BoringSpellValueText spell={SPELLS.KILL_SHOT_MM_BM}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { SERPENT_STING_SV_BASE_DURATION } from 'parser/hunter/survival/constants';
+import { SERPENT_STING_SV_BASE_DURATION, SV_SERPENT_STING_COST } from 'parser/hunter/survival/constants';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatDuration } from 'common/format';
 import SpellLink from 'common/SpellLink';
@@ -25,24 +25,17 @@ import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuff
  * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=summary&source=329
  */
 
-const SERPENT_STING_FOCUS_COST = 20;
-
 class VolatileBomb extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     statTracker: StatTracker,
   };
-
-  protected enemies!: Enemies;
-  protected statTracker!: StatTracker;
-
   damage = 0;
   casts = 0;
   extendedSerpentStings = 0;
   extendedInMs = 0;
   focusSaved = 0;
   missedSerpentResets = 0;
-
   activeSerpentStings: { [key: string]: { targetName: string, cast: number, expectedEnd: number, extendStart: number, extendExpectedEnd: number } } = {
     /*
     [encodedTargetString]: {
@@ -54,6 +47,8 @@ class VolatileBomb extends Analyzer {
       },
      */
   };
+  protected enemies!: Enemies;
+  protected statTracker!: StatTracker;
 
   constructor(options: any) {
     super(options);
@@ -64,6 +59,18 @@ class VolatileBomb extends Analyzer {
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VOLATILE_BOMB_WFI_DOT), this._maybeSerpentStingExtend);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOLATILE_BOMB_WFI), this.onBombCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.VOLATILE_BOMB_WFI_DOT, SPELLS.VOLATILE_BOMB_WFI_IMPACT]), this.onBombDamage);
+  }
+
+  get missedResetsThresholds() {
+    return {
+      actual: this.missedSerpentResets,
+      isGreaterThan: {
+        minor: 1,
+        average: 2,
+        major: 3,
+      },
+      style: 'number',
+    };
   }
 
   _serpentApplication(event: ApplyDebuffEvent | RefreshDebuffEvent) {
@@ -93,7 +100,7 @@ class VolatileBomb extends Analyzer {
       this.activeSerpentStings[target].extendExpectedEnd = event.timestamp + (this.activeSerpentStings[target].expectedEnd - this.activeSerpentStings[target].cast);
 
       this.extendedInMs += this.activeSerpentStings[target].extendExpectedEnd - this.activeSerpentStings[target].expectedEnd;
-      this.focusSaved += SERPENT_STING_FOCUS_COST;
+      this.focusSaved += SV_SERPENT_STING_COST;
       this.extendedSerpentStings += 1;
     } else {
       this.missedSerpentResets += 1;
@@ -111,18 +118,6 @@ class VolatileBomb extends Analyzer {
 
   onBombCast() {
     this.casts += 1;
-  }
-
-  get missedResetsThresholds() {
-    return {
-      actual: this.missedSerpentResets,
-      isGreaterThan: {
-        minor: 1,
-        average: 2,
-        major: 3,
-      },
-      style: 'number',
-    };
   }
 
   statistic() {

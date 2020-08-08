@@ -8,6 +8,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import { FLANKING_STRIKE_FOCUS_GAIN } from 'parser/hunter/survival/constants';
 
 /**
  * You and your pet leap to the target and strike it as one, dealing a total of X Physical damage.
@@ -17,13 +18,11 @@ import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
  * https://www.warcraftlogs.com/reports/QMJcFAdTXKhgpnbx#fight=2&type=damage-done&source=16&ability=259516
  */
 
-const FLANKING_STRIKE_FOCUS_GAIN = 30;
-
 class FlankingStrike extends Analyzer {
 
   damage = 0;
 
-  flankingStrikes: {name: string, sourceID: number, damage: number, effectiveFocus: number, possibleFocus: number}[] = [];
+  flankingStrikes: { name: string, sourceID: number, damage: number, effectiveFocus: number, possibleFocus: number }[] = [];
 
   constructor(options: any) {
     super(options);
@@ -42,13 +41,13 @@ class FlankingStrike extends Analyzer {
   }
 
   get flankingStrikesPlayer() {
-    return this.flankingStrikes.find((item: {sourceID: number}) => item.sourceID === this.owner.playerId) || this.flankingStrikes[0];
+    return this.flankingStrikes.find((item: { sourceID: number }) => item.sourceID === this.owner.playerId) || this.flankingStrikes[0];
   }
 
   getOrInitializePet(petId: number) {
-    const foundPet = this.flankingStrikes.find((pet: {sourceID: number}) => pet.sourceID === petId);
+    const foundPet = this.flankingStrikes.find((pet: { sourceID: number }) => pet.sourceID === petId);
     if (!foundPet) {
-      const sourcePet = this.owner.playerPets.find((pet: {id: number}) => pet.id === petId);
+      const sourcePet = this.owner.playerPets.find((pet: { id: number }) => pet.id === petId);
       const pet = {
         name: sourcePet.name,
         sourceID: petId,
@@ -86,7 +85,7 @@ class FlankingStrike extends Analyzer {
   }
 
   statistic() {
-    const totalDamage = this.flankingStrikes.map((source: {damage: number}) => source.damage).reduce((total: number, current: number) => total + current, 0);
+    const totalDamage = this.flankingStrikes.map((source: { damage: number }) => source.damage).reduce((total: number, current: number) => total + current, 0);
 
     return (
       <Statistic

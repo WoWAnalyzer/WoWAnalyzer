@@ -18,8 +18,6 @@ import Events, { CastEvent } from 'parser/core/Events';
  * Reduces the cooldown of your Aimed Shot and Rapid Fire by 60%, and causes Aimed Shot to cast 50% faster for 15 sec.
  * Lasts 15 sec.
  *
- * TODO: Verify going into Shadowlands if this is still bugged so that it reduces the cooldown of Aimed Shot by equivalent to 325% haste and Rapid Fire by the equivalent to 340% haste.
- *
  * Example log:
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=auras&source=25&ability=288613
  */
@@ -38,6 +36,27 @@ class Trueshot extends Analyzer {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onTrueshotCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShotCast);
+  }
+
+  get averageAimedShots() {
+    const averageAimedShots = (this.aimedShotsPrTS / this.trueshotCasts);
+    return isNaN(averageAimedShots) ? 0 : averageAimedShots;
+  }
+
+  get averageFocus() {
+    return formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
+  }
+
+  get aimedShotThreshold() {
+    return {
+      actual: this.averageAimedShots,
+      isLessThan: {
+        minor: 3,
+        average: 2.5,
+        major: 2,
+      },
+      style: 'decimal',
+    };
   }
 
   onTrueshotCast(event: CastEvent) {
@@ -93,27 +112,6 @@ class Trueshot extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
-  }
-
-  get averageAimedShots() {
-    const averageAimedShots = (this.aimedShotsPrTS / this.trueshotCasts);
-    return isNaN(averageAimedShots) ? 0 : averageAimedShots;
-  }
-
-  get averageFocus() {
-    return formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
-  }
-
-  get aimedShotThreshold() {
-    return {
-      actual: this.averageAimedShots,
-      isLessThan: {
-        minor: 3,
-        average: 2.5,
-        major: 2,
-      },
-      style: 'decimal',
-    };
   }
 
   suggestions(when: any) {
