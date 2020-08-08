@@ -31,6 +31,10 @@ class DoubleTap extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.onRapidFireCast);
   }
 
+  get totalUsage() {
+    return this.RFUsage + this.aimedUsage;
+  }
+
   onDoubleTapApplication() {
     this.activations += 1;
   }
@@ -47,10 +51,6 @@ class DoubleTap extends Analyzer {
       return;
     }
     this.RFUsage += 1;
-  }
-
-  get totalUsage() {
-    return this.RFUsage + this.aimedUsage;
   }
 
   statistic() {

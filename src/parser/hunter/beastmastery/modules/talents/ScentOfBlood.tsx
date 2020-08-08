@@ -6,8 +6,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ApplyBuffEvent } from 'parser/core/Events';
+import { SCENT_OF_BLOOD_BARBED_SHOT_RECHARGE } from 'parser/hunter/beastmastery/constants';
 import SpellUsable from '../core/SpellUsable';
-
 
 /**
  * Activating Bestial Wrath grants 2 charges of Barbed Shot.
@@ -15,18 +15,14 @@ import SpellUsable from '../core/SpellUsable';
  * Example log:
  */
 
-const CHARGE_RECHARGE = 2;
-
 class ScentOfBlood extends Analyzer {
 
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
-
   chargesGained = 0;
   chargesWasted = 0;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: any) {
     super(options);
@@ -38,8 +34,8 @@ class ScentOfBlood extends Analyzer {
     if (spellId !== SPELLS.BESTIAL_WRATH.id) {
       return;
     }
-    this.chargesGained += CHARGE_RECHARGE - this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id);
-    this.chargesWasted += Math.max(this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id) - CHARGE_RECHARGE, 0);
+    this.chargesGained += SCENT_OF_BLOOD_BARBED_SHOT_RECHARGE - this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id);
+    this.chargesWasted += Math.max(this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id) - SCENT_OF_BLOOD_BARBED_SHOT_RECHARGE, 0);
   }
 
   statistic() {

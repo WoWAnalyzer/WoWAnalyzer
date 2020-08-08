@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Putro, LeoZhekov } from 'CONTRIBUTORS';
+import { LeoZhekov, Putro } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 
 import CHANGELOG from 'parser/hunter/survival/CHANGELOG';

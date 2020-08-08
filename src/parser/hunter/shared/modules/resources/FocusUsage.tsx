@@ -4,10 +4,13 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
+import { LIST_OF_FOCUS_SPENDERS_SV, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import { CastEvent } from 'parser/core/Events';
+import { LIST_OF_FOCUS_SPENDERS_SHARED } from 'parser/hunter/shared/constants';
+import { LIST_OF_FOCUS_SPENDERS_MM } from 'parser/hunter/marksmanship/constants';
+import { LIST_OF_FOCUS_SPENDERS_BM } from 'parser/hunter/beastmastery/constants';
 
 /**
  * Tracks the focus usage of all 3 hunter specs and creates a piechart with the breakdown.
@@ -16,30 +19,10 @@ import { CastEvent } from 'parser/core/Events';
  */
 
 const LIST_OF_FOCUS_SPENDERS = [
-  //bm specific
-  SPELLS.COBRA_SHOT.id,
-  SPELLS.MULTISHOT_BM.id,
-  SPELLS.KILL_COMMAND_CAST_BM.id,
-  SPELLS.DIRE_BEAST_TALENT.id,
-  //mm specific
-  SPELLS.AIMED_SHOT.id,
-  SPELLS.ARCANE_SHOT.id,
-  SPELLS.SERPENT_STING_TALENT.id,
-  SPELLS.MULTISHOT_MM.id,
-  SPELLS.BURSTING_SHOT.id,
-  SPELLS.EXPLOSIVE_SHOT_TALENT.id,
-  //sv specific
-  SPELLS.RAPTOR_STRIKE.id,
-  SPELLS.BUTCHERY_TALENT.id,
-  SPELLS.CARVE.id,
-  SPELLS.MONGOOSE_BITE_TALENT.id,
-  SPELLS.WING_CLIP.id,
-  SPELLS.CHAKRAMS_TALENT.id,
-  SPELLS.SERPENT_STING_SV.id,
-  //shared
-  SPELLS.REVIVE_PET.id,
-  SPELLS.A_MURDER_OF_CROWS_TALENT.id,
-  SPELLS.BARRAGE_TALENT.id,
+  ...LIST_OF_FOCUS_SPENDERS_BM,
+  ...LIST_OF_FOCUS_SPENDERS_MM,
+  ...LIST_OF_FOCUS_SPENDERS_SV,
+  ...LIST_OF_FOCUS_SPENDERS_SHARED,
 ];
 
 class FocusUsage extends Analyzer {
@@ -171,27 +154,6 @@ class FocusUsage extends Analyzer {
   };
   lastVolleyHit = 0;
 
-  on_byPlayer_cast(event: CastEvent) {
-    let spellId = event.ability.guid;
-    if (!LIST_OF_FOCUS_SPENDERS.includes(spellId) && !RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
-      return;
-    }
-    //shouldn't really happen unless something messed up in the log where the cast event doesn't have any class resource information so we skip those.
-    if (!event.classResources) {
-      return;
-    }
-
-    //Aspect of the Eagle changes the spellID of the spells, so we readjust to the original versions of the spell for the purpose of the chart
-    if (spellId === SPELLS.MONGOOSE_BITE_TALENT_AOTE.id) {
-      spellId = SPELLS.MONGOOSE_BITE_TALENT.id;
-    } else if (spellId === SPELLS.RAPTOR_STRIKE_AOTE.id) {
-      spellId = SPELLS.RAPTOR_STRIKE.id;
-    }
-
-    this.focusSpenderCasts[spellId].casts += 1;
-    this.focusSpenderCasts[spellId].focusUsed += event.classResources[0].cost || 0;
-  }
-
   get focusUsageChart() {
     const items: { color: string; label: string; spellId: number; value: number; valueTooltip: JSX.Element; }[] = [];
     const makeTooltip = (spell: { casts: number; focusUsed: number }) => (
@@ -217,6 +179,27 @@ class FocusUsage extends Analyzer {
         items={items}
       />
     );
+  }
+
+  on_byPlayer_cast(event: CastEvent) {
+    let spellId = event.ability.guid;
+    if (!LIST_OF_FOCUS_SPENDERS.includes(spellId) && !RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
+      return;
+    }
+    //shouldn't really happen unless something messed up in the log where the cast event doesn't have any class resource information so we skip those.
+    if (!event.classResources) {
+      return;
+    }
+
+    //Aspect of the Eagle changes the spellID of the spells, so we readjust to the original versions of the spell for the purpose of the chart
+    if (spellId === SPELLS.MONGOOSE_BITE_TALENT_AOTE.id) {
+      spellId = SPELLS.MONGOOSE_BITE_TALENT.id;
+    } else if (spellId === SPELLS.RAPTOR_STRIKE_AOTE.id) {
+      spellId = SPELLS.RAPTOR_STRIKE.id;
+    }
+
+    this.focusSpenderCasts[spellId].casts += 1;
+    this.focusSpenderCasts[spellId].focusUsed += event.classResources[0].cost || 0;
   }
 
   statistic() {

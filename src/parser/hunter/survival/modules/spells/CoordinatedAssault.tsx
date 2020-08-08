@@ -12,6 +12,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { COORDINATED_ASSAULT_DMG_MOD } from 'parser/hunter/survival/constants';
 
 /**
  * You and your pet attack as one, increasing all damage you both deal by 20% for 20 sec.
@@ -20,8 +21,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
  * Example log:
  * https://www.warcraftlogs.com/reports/dHcVrvbMX39xNAC8#fight=3&type=auras&source=66&ability=266779
  */
-
-const CA_DMG_MODIFIER = 0.2;
 
 class CoordinatedAssault extends Analyzer {
   static dependencies = {
@@ -51,14 +50,14 @@ class CoordinatedAssault extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
     }
-    this.petDamage += calculateEffectiveDamage(event, CA_DMG_MODIFIER);
+    this.petDamage += calculateEffectiveDamage(event, COORDINATED_ASSAULT_DMG_MOD);
   }
 
   onPlayerDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       return;
     }
-    this.playerDamage += calculateEffectiveDamage(event, CA_DMG_MODIFIER);
+    this.playerDamage += calculateEffectiveDamage(event, COORDINATED_ASSAULT_DMG_MOD);
 
   }
 

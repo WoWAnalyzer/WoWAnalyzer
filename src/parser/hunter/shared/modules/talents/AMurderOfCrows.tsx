@@ -12,6 +12,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import { AMOC_BASE_DURATION, AMOC_TICK_RATE, MS_BUFFER } from 'parser/hunter/shared/constants';
 
 /**
  * Summons a flock of crows to attack your target over the next 15 sec. If the target dies while under attack, A Murder of Crows' cooldown is reset.
@@ -20,9 +21,6 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
  * https://www.warcraftlogs.com/reports/GFM9qZQy63zbxh7L#fight=49&type=damage-done&source=299&ability=131900
  */
 
-const CROWS_TICK_RATE = 1000;
-const MS_BUFFER = 100;
-const CROWS_DURATION = 15000;
 const debug = false;
 
 class AMurderOfCrows extends Analyzer {
@@ -31,10 +29,6 @@ class AMurderOfCrows extends Analyzer {
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
-
-  protected spellUsable!: SpellUsable;
-  protected abilities!: Abilities;
-
   damage = 0;
   casts = 0;
   applicationTimestamp: number = 0;
@@ -42,6 +36,8 @@ class AMurderOfCrows extends Analyzer {
   crowsEndingTimestamp: number = 0;
   maxCasts = 0;
   resets = 0;
+  protected spellUsable!: SpellUsable;
+  protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
@@ -73,7 +69,7 @@ class AMurderOfCrows extends Analyzer {
       // Checks whether the current damage event happened while the time passed since crows application is less than the crows duration
       && this.applicationTimestamp && event.timestamp < this.crowsEndingTimestamp
       // Checks to see if more than 1 second has passed since last tick
-      && event.timestamp > this.lastDamageTick + CROWS_TICK_RATE + MS_BUFFER) {
+      && event.timestamp > this.lastDamageTick + AMOC_TICK_RATE + MS_BUFFER) {
       // If more than 1 second has passed and less than the duration has elapsed, we can assume that crows has been reset, and thus we reset the CD.
       this.spellUsable.endCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, false, event.timestamp);
       this.maxCasts += 1;
@@ -97,7 +93,7 @@ class AMurderOfCrows extends Analyzer {
     //This accounts for the travel time of crows, since the first damage marks the time where the crows debuff is applied
     if (this.lastDamageTick === 0 && this.applicationTimestamp === 0) {
       this.applicationTimestamp = event.timestamp;
-      this.crowsEndingTimestamp = this.applicationTimestamp + CROWS_DURATION;
+      this.crowsEndingTimestamp = this.applicationTimestamp + AMOC_BASE_DURATION;
     }
     this.lastDamageTick = event.timestamp;
     this.damage += event.amount + (event.absorbed || 0);

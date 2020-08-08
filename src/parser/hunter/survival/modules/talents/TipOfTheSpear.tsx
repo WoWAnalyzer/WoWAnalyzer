@@ -10,6 +10,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, ChangeBuffStackEvent, DamageEvent } from 'parser/core/Events';
+import { MS_BUFFER } from 'parser/hunter/shared/constants';
 
 /**
  * Kill Command increases the damage of your next Raptor Strike by 20%, stacking up to 3 times.
@@ -17,8 +18,6 @@ import Events, { CastEvent, ChangeBuffStackEvent, DamageEvent } from 'parser/cor
  * Example log:
  * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=auras&source=329&translate=true&ability=260286
  */
-
-const MS_BUFFER = 100;
 
 class TipOfTheSpear extends Analyzer {
 

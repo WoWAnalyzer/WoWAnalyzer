@@ -11,6 +11,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { BM_CDR_PER_FOCUS, MM_SV_CDR_PER_FOCUS } from 'parser/hunter/shared/constants';
 
 /**
  * Every 20 (MM/SV) or 30 (BM) focus you spend reducxes the remaining cooldown
@@ -20,20 +21,15 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
  * https://www.warcraftlogs.com/reports/GWwtNLVQD8adn6q9#fight=5&type=summary&source=18
  */
 
-const MM_SV_CDR_PER_FOCUS = 1000 / 20;
-const BM_CDR_PER_FOCUS = 1000 / 30;
-
 class NaturalMending extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
-
   cdrPerFocus = MM_SV_CDR_PER_FOCUS;
   effectiveExhilReductionMs = 0;
   wastedExhilReductionMs = 0;
   lastFocusCost = 0;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: any) {
     super(options);

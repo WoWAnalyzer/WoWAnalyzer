@@ -14,6 +14,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import { MS_BUFFER } from 'parser/hunter/shared/constants';
+import { WILDFIRE_BOMB_LEEWAY_BUFFER } from 'parser/hunter/survival/constants';
 
 /**
  * Hurl a bomb at the target, exploding for (45% of Attack power) Fire damage in a cone and coating enemies in wildfire, scorching them for (90% of Attack power) Fire damage over 6 sec.
@@ -21,9 +23,6 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
  * Example log:
  * https://www.warcraftlogs.com/reports/6GjD12YkQCnJqPTz#fight=25&type=damage-done&source=19&translate=true&ability=-259495
  */
-
-const GCD_BUFFER = 500; //People aren't robots, give them a bit of leeway in terms of when they cast WFB to avoid capping on charges
-const MS_BUFFER = 200;
 
 class WildfireBomb extends Analyzer {
   static dependencies = {
@@ -87,7 +86,7 @@ class WildfireBomb extends Analyzer {
   onCast(event: CastEvent) {
     this.casts += 1;
     this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
-    if (!this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id) || this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) < GCD_BUFFER + this.currentGCD) {
+    if (!this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id) || this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) < WILDFIRE_BOMB_LEEWAY_BUFFER + this.currentGCD) {
       this.acceptedCastDueToCapping = true;
     }
   }

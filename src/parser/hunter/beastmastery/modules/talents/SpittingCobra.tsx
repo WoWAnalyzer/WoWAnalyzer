@@ -7,6 +7,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
+import { SPITTING_COBRA_DAMAGE_INCREASE } from '../../constants';
 
 /**
  *
@@ -17,8 +18,6 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
  *
  */
 
-const DAMAGE_INCREASE = 0.1;
-
 class SpittingCobra extends Analyzer {
 
   damage = 0;
@@ -28,6 +27,10 @@ class SpittingCobra extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
+  }
+
+  get averageIncrease() {
+    return (this.totalIncrease / this.casts).toFixed(1);
   }
 
   on_byPlayer_cast(event: CastEvent) {
@@ -41,10 +44,10 @@ class SpittingCobra extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
       return;
     }
-    this.totalIncrease += DAMAGE_INCREASE;
+    this.totalIncrease += SPITTING_COBRA_DAMAGE_INCREASE;
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
+  on_byPlayer_damage() {
     if (this.casts > 0) {
       return;
     }
@@ -60,10 +63,6 @@ class SpittingCobra extends Analyzer {
       return;
     }
     this.damage += event.amount + (event.absorbed || 0);
-  }
-
-  get averageIncrease() {
-    return (this.totalIncrease / this.casts).toFixed(1);
   }
 
   statistic() {

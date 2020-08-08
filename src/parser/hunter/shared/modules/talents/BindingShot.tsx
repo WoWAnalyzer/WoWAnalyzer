@@ -21,13 +21,11 @@ class BindingShot extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
-
-  protected abilities!: Abilities;
-
   _roots = 0;
   _applications = 0;
   _casts = 0;
   category: string;
+  protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);

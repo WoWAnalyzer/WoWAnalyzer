@@ -12,6 +12,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { BARRAGE_HITS_PER_CAST } from 'parser/hunter/shared/constants';
 
 /**
  * Rapidly fires a spray of shots for 3 sec, dealing an average of (80% * 10)
@@ -20,8 +21,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
  * Example log:
  * https://www.warcraftlogs.com/reports/wPdQLfFnhTVYRyJm#fight=12&type=damage-done&source=640&ability=120361
  */
-
-const BARRAGE_HITS_PER_CAST = 10;
 
 class Barrage extends Analyzer {
 
@@ -46,6 +45,18 @@ class Barrage extends Analyzer {
     }
 
     return this.casts[this.casts.length - 1];
+  }
+
+  get barrageInefficientCastsThreshold() {
+    return {
+      actual: this.inefficientCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 1,
+      },
+      style: 'number',
+    };
   }
 
   onCast() {
@@ -74,18 +85,6 @@ class Barrage extends Analyzer {
         this.inefficientCasts += 1;
       }
     });
-  }
-
-  get barrageInefficientCastsThreshold() {
-    return {
-      actual: this.inefficientCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 1,
-      },
-      style: 'number',
-    };
   }
 
   suggestions(when: any) {

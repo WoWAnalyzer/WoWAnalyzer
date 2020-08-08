@@ -19,15 +19,13 @@ class FlayedShot extends Analyzer {
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
-
-  protected spellUsable!: SpellUsable;
-  protected abilities!: Abilities;
-
   damage: number = 0;
   damageTicks: number = 0;
   totalProcs: number = 0;
   resets: number = 0;
   offCDProcs: number = 0;
+  protected spellUsable!: SpellUsable;
+  protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
@@ -51,6 +49,10 @@ class FlayedShot extends Analyzer {
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.onRefresh);
   }
 
+  get expectedProcs() {
+    return expectedProcCount(FLAYED_SHOT_RESET_CHANCE, this.damageTicks);
+  }
+
   onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
     this.damageTicks += 1;
@@ -69,48 +71,40 @@ class FlayedShot extends Analyzer {
 
   }
 
-  get expectedProcs() {
-    return expectedProcCount(FLAYED_SHOT_RESET_CHANCE, this.damageTicks);
-  }
-
   statistic() {
-    if (this.damage > 0) {
-      return (
-        <Statistic
-          position={STATISTIC_ORDER.OPTIONAL(13)}
-          size="flexible"
-          category={STATISTIC_CATEGORY.GENERAL}
-          tooltip={(
-            <>
-              You had {this.offCDProcs} {this.offCDProcs === 1 ? `proc` : `procs`} with Kill Shot already off cooldown. <br />
-              You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
-              You had a total of {this.totalProcs} procs, and your expected amount of procs was {formatNumber(this.expectedProcs)}. <br />
-              <ul>
-                <li>You have a ≈{formatPercentage(binomialCDF(this.totalProcs, this.damageTicks, FLAYED_SHOT_RESET_CHANCE))}% chance of getting this amount of procs or fewer in the future with this amount of auto attacks.</li>
-              </ul>
-            </>
-          )}
-          dropdown={(
-            <>
-              <div style={{ padding: '8px' }}>
-                {plotOneVariableBinomChart(this.totalProcs, this.damageTicks, FLAYED_SHOT_RESET_CHANCE)}
-                <p>Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given your number of <SpellLink id={SPELLS.FLAYED_SHOT.id} /> ticks.</p>
-              </div>
-            </>
-          )}
-        >
-          <BoringSpellValueText spell={SPELLS.FLAYED_SHOT}>
-            <>
-              {this.resets} / {this.totalProcs} ({formatPercentage(this.resets / (this.totalProcs))}%) <small>Kill Shot resets</small>
-              <br />
-              <ItemDamageDone amount={this.damage} />
-            </>
-          </BoringSpellValueText>
-        </Statistic>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+        tooltip={(
+          <>
+            You had {this.offCDProcs} {this.offCDProcs === 1 ? `proc` : `procs`} with Kill Shot already off cooldown. <br />
+            You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
+            You had a total of {this.totalProcs} procs, and your expected amount of procs was {formatNumber(this.expectedProcs)}. <br />
+            <ul>
+              <li>You have a ≈{formatPercentage(binomialCDF(this.totalProcs, this.damageTicks, FLAYED_SHOT_RESET_CHANCE))}% chance of getting this amount of procs or fewer in the future with this amount of auto attacks.</li>
+            </ul>
+          </>
+        )}
+        dropdown={(
+          <>
+            <div style={{ padding: '8px' }}>
+              {plotOneVariableBinomChart(this.totalProcs, this.damageTicks, FLAYED_SHOT_RESET_CHANCE)}
+              <p>Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given your number of <SpellLink id={SPELLS.FLAYED_SHOT.id} /> ticks.</p>
+            </div>
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.FLAYED_SHOT}>
+          <>
+            {this.resets} / {this.totalProcs} ({formatPercentage(this.resets / (this.totalProcs))}%) <small>Kill Shot resets</small>
+            <br />
+            <ItemDamageDone amount={this.damage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 }
 

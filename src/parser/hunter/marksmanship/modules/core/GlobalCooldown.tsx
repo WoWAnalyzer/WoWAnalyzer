@@ -1,10 +1,8 @@
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SPELLS from 'common/SPELLS';
 import SteadyFocus from 'parser/hunter/marksmanship/modules/talents/SteadyFocus';
-
-const STEADY_FOCUS_GCD_REDUCTION_PER_STACK = 0.2;
-
-const MIN_GCD = 750;
+import { STEADY_FOCUS_GCD_REDUCTION_PER_STACK } from 'parser/hunter/marksmanship/constants';
+import { MIN_GCD } from 'parser/hunter/shared/constants';
 
 /**
  * Steady Focus:

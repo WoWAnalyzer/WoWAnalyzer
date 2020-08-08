@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, {SELECTED_PLAYER, SELECTED_PLAYER_PET} from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -12,17 +12,13 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Events, { ApplyBuffEvent, CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { FEEDING_FRENZY_DAMAGE_COEFFICIENT, ORIGINAL_FRENZY_DURATION } from 'parser/hunter/beastmastery/constants';
+import { MS_BUFFER, ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
 
-const MS = 1000;
-const MS_BUFFER = 100;
-const ORIGINAL_FRENZY_DURATION = 8000;
-
-const FEEDING_FRENZY_DAMAGE_COEFFICIENT = 0.216;
 const debug = false;
 
 /**
- * Barbed Shot deals X additional damage over its duration,
- * and Frenzy's duration is increased to 9 seconds.
+ * Barbed Shot deals X additional damage over its duration, and Frenzy's duration is increased to 9 seconds.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/1fjYdCm7JybBLagM#fight=5&type=damage-done&source=7
@@ -69,7 +65,7 @@ class FeedingFrenzy extends Analyzer {
     const delta = timestamp - lastCast;
     if (delta > ORIGINAL_FRENZY_DURATION) {
       this.timesExtended += 1;
-      return Math.min(delta - ORIGINAL_FRENZY_DURATION, MS);
+      return Math.min(delta - ORIGINAL_FRENZY_DURATION, ONE_SECOND_IN_MS);
     } else {
       return 0;
     }
@@ -152,7 +148,7 @@ class FeedingFrenzy extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.FEEDING_FRENZY}>
           <>
-            <UptimeIcon /> {formatNumber(this.extraBuffUptime / MS)}s <small>added Frenzy Uptime</small><br />
+            <UptimeIcon /> {formatNumber(this.extraBuffUptime / ONE_SECOND_IN_MS)}s <small>added Frenzy Uptime</small><br />
             {formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS
           </>
         </BoringSpellValueText>

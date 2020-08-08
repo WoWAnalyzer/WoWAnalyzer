@@ -10,18 +10,14 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
+import { MAX_FRENZY_STACKS } from '../../constants';
 
 /**
- * Fire a shot that tears through your enemy, causing them to bleed for [(10%
- * of Attack power) * 8 / 2] damage over 8 sec. Sends your pet into a frenzy,
- * increasing attack speed by 30% for 8 sec, stacking up to 3 times.
+ * Fire a shot that tears through your enemy, causing them to bleed for X damage over 8 sec. Sends your pet into a frenzy, increasing attack speed by 30% for 8 sec, stacking up to 3 times.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/39yhq8VLFrm7J4wR#fight=17&type=casts&source=8&ability=-217200
  */
-
-//max stacks your pet can have of the Frenzy buff
-const MAX_FRENZY_STACKS: number = 3;
 
 class BarbedShot extends Analyzer {
 

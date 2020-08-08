@@ -12,14 +12,10 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import Events, { CastEvent } from 'parser/core/Events';
-
-const COOLDOWN_REDUCTION_MS = 12000;
-const BESTIAL_WRATH_BASE_CD = 90000;
+import { BARBED_SHOT_BESTIAL_WRATH_CDR_MS, BESTIAL_WRATH_BASE_CD } from '../../constants';
 
 /**
- * Sends you and your pet into a rage, increasing all damage you both deal by
- * 25% for 15 sec. Bestial Wrath's remaining cooldown is reduced by 12 sec each
- * time you use Barbed Shot
+ * Sends you and your pet into a rage, increasing all damage you both deal by 25% for 15 sec. Bestial Wrath's remaining cooldown is reduced by 12 sec each time you use Barbed Shot
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=auras&source=1&ability=19574
@@ -97,14 +93,14 @@ class BestialWrath extends Analyzer {
 
   }
 
-  onBarbedShotCast(event: CastEvent) {
+  onBarbedShotCast() {
     const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
     if (bestialWrathIsOnCooldown) {
-      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.BESTIAL_WRATH.id, COOLDOWN_REDUCTION_MS);
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.BESTIAL_WRATH.id, BARBED_SHOT_BESTIAL_WRATH_CDR_MS);
       this.effectiveBWReduction += reductionMs;
-      this.wastedBWReduction += (COOLDOWN_REDUCTION_MS - reductionMs);
+      this.wastedBWReduction += (BARBED_SHOT_BESTIAL_WRATH_CDR_MS - reductionMs);
     } else {
-      this.wastedBWReduction += COOLDOWN_REDUCTION_MS;
+      this.wastedBWReduction += BARBED_SHOT_BESTIAL_WRATH_CDR_MS;
     }
   }
 

@@ -11,6 +11,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
+import { SURVIVAL_CHAKRAM_TYPES } from 'parser/hunter/survival/constants';
 
 /**
  * Throw a pair of chakrams at your target, slicing all enemies in the chakrams' path for (40% of Attack power) Physical damage. The chakrams will return to you, damaging enemies again.
@@ -19,28 +20,20 @@ import AverageTargetsHit from 'interface/others/AverageTargetsHit';
  * https://www.warcraftlogs.com/reports/VGNkQ6BFbcdPvMDX#fight=20&type=damage-done&source=169&ability=-259391
  */
 
-const CHAKRAM_TYPES = [
-  SPELLS.CHAKRAMS_TO_MAINTARGET.id,
-  SPELLS.CHAKRAMS_BACK_FROM_MAINTARGET.id,
-  SPELLS.CHAKRAMS_NOT_MAINTARGET.id,
-];
-
 class Chakrams extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
-
   casts = 0;
   targetsHit = 0;
   uniqueTargets: string[] = [];
+  protected spellUsable!: SpellUsable;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHAKRAMS_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAKRAMS_TALENT), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(CHAKRAM_TYPES), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SURVIVAL_CHAKRAM_TYPES), this.onDamage);
   }
 
   onCast() {

@@ -8,12 +8,10 @@ import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
+import { BOP_CA_EXTENSION_PER_CAST, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
-
-const EXTENSION_PER_CAST = 1500;
-const MS_BUFFER = 100;
+import { MS_BUFFER } from 'parser/hunter/shared/constants';
 
 /** Bird of Prey
  * Attacking your pet's target with Mongoose Bite, Raptor Strike, Butchery or Carve extends the duration of Coordinated Assault by  1.5 sec.
@@ -41,45 +39,6 @@ class BirdOfPrey extends Analyzer {
     this.addEventListener(Events.fightend, this.aoeCheck);
   }
 
-  onAoECast() {
-    this.aoeChecked = false;
-  }
-
-  onPetDamage(event: DamageEvent) {
-    this.petTarget = encodeTargetString(event.targetID, event.targetInstance);
-  }
-
-  onPlayerDamage(event: DamageEvent) {
-    if (!this.aoeChecked && this.timestampAoE > 0 && event.timestamp > this.timestampAoE + MS_BUFFER) {
-      this.aoeCheck();
-    }
-    if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
-      return;
-    }
-    const spellId = event.ability.guid;
-    this.playerTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (spellId === SPELLS.CARVE.id || spellId === SPELLS.BUTCHERY_TALENT.id) {
-      this.targetsHitAoE.push(this.playerTarget === this.petTarget);
-      this.timestampAoE = event.timestamp;
-    } else {
-      if (this.playerTarget === this.petTarget) {
-        this.coordinatedAssaultExtended += EXTENSION_PER_CAST;
-      } else {
-        this.wastedExtension += EXTENSION_PER_CAST;
-      }
-    }
-  }
-
-  aoeCheck() {
-    if (this.targetsHitAoE.includes(true)) {
-      this.coordinatedAssaultExtended += EXTENSION_PER_CAST;
-    } else {
-      this.wastedExtension += EXTENSION_PER_CAST;
-    }
-    this.targetsHitAoE = [];
-    this.aoeChecked = true;
-  }
-
   get birdPercentEffectiveness() {
     return {
       actual: this.percentExtension,
@@ -102,6 +61,45 @@ class BirdOfPrey extends Analyzer {
 
   get percentExtension() {
     return this.coordinatedAssaultExtended / (this.coordinatedAssaultExtended + this.wastedExtension);
+  }
+
+  onAoECast() {
+    this.aoeChecked = false;
+  }
+
+  onPetDamage(event: DamageEvent) {
+    this.petTarget = encodeTargetString(event.targetID, event.targetInstance);
+  }
+
+  onPlayerDamage(event: DamageEvent) {
+    if (!this.aoeChecked && this.timestampAoE > 0 && event.timestamp > this.timestampAoE + MS_BUFFER) {
+      this.aoeCheck();
+    }
+    if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
+      return;
+    }
+    const spellId = event.ability.guid;
+    this.playerTarget = encodeTargetString(event.targetID, event.targetInstance);
+    if (spellId === SPELLS.CARVE.id || spellId === SPELLS.BUTCHERY_TALENT.id) {
+      this.targetsHitAoE.push(this.playerTarget === this.petTarget);
+      this.timestampAoE = event.timestamp;
+    } else {
+      if (this.playerTarget === this.petTarget) {
+        this.coordinatedAssaultExtended += BOP_CA_EXTENSION_PER_CAST;
+      } else {
+        this.wastedExtension += BOP_CA_EXTENSION_PER_CAST;
+      }
+    }
+  }
+
+  aoeCheck() {
+    if (this.targetsHitAoE.includes(true)) {
+      this.coordinatedAssaultExtended += BOP_CA_EXTENSION_PER_CAST;
+    } else {
+      this.wastedExtension += BOP_CA_EXTENSION_PER_CAST;
+    }
+    this.targetsHitAoE = [];
+    this.aoeChecked = true;
   }
 
   suggestions(when: any) {

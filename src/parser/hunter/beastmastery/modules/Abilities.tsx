@@ -4,20 +4,21 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import { hastedCooldown } from 'parser/hunter/shared/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
-      //region Rotational
+      //region Baseline Rotational
       {
         spell: SPELLS.BESTIAL_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
-        timelineSortIndex: -1,
         gcd: {
           base: 1500,
         },
+        timelineSortIndex: -1,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -31,7 +32,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.KILL_COMMAND_CAST_BM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 7.5 / (1 + haste),
+        cooldown: haste => hastedCooldown(7.5, haste),
         gcd: {
           base: 1500,
         },
@@ -50,8 +51,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
         charges: 2,
+        cooldown: haste => hastedCooldown(12, haste),
         gcd: {
           base: 1500,
         },
@@ -67,10 +68,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
-        timelineSortIndex: -1,
         gcd: {
           base: 1500,
         },
+        timelineSortIndex: -1,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -78,7 +79,7 @@ class Abilities extends CoreAbilities {
       },
       //endregion
 
-      //region Defensive
+      //region Baseline Defensives
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
@@ -97,9 +98,18 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.SURVIVAL_OF_THE_FITTEST,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
+        cooldown: 180,
+        gcd: {
+          static: 0,
+        },
+      },
       //endregion
 
-      //region Utility
+      //region Baseline Utility
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -179,10 +189,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIRE_BEAST_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id),
+        cooldown: 15,
         gcd: {
           base: 1500,
         },
-        cooldown: 15,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -191,8 +201,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BARRAGE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 20,
         enabled: combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
+        cooldown: 20,
         gcd: {
           base: 1500,
         },
@@ -204,8 +214,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STAMPEDE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id),
+        cooldown: 120,
         gcd: {
           base: 1500,
         },
@@ -217,8 +227,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHIMAERA_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
         enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id),
+        cooldown: haste => hastedCooldown(15, haste),
         gcd: {
           base: 1500,
         },
@@ -230,12 +240,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLOODSHED_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.BLOODSHED_TALENT.id),
+        cooldown: 60,
         gcd: {
           base: 1500,
         },
-        castEfficiency: { //Placeholder cast efficiency, but seems alright for a no-cost 60s CD spell
+        castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
@@ -243,15 +253,6 @@ class Abilities extends CoreAbilities {
       //endregion
 
       //region Pets
-      {
-        spell: SPELLS.SURVIVAL_OF_THE_FITTEST,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        isDefensive: true,
-        cooldown: 180,
-        gcd: {
-          static: 0,
-        },
-      },
       {
         spell: [SPELLS.PRIMAL_RAGE_1, SPELLS.PRIMAL_RAGE_2],
         category: Abilities.SPELL_CATEGORIES.UTILITY,

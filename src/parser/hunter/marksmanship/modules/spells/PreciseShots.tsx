@@ -8,6 +8,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import { ARCANE_SHOT_MAX_TRAVEL_TIME, PRECISE_SHOTS_ASSUMED_PROCS, PRECISE_SHOTS_MODIFIER } from 'parser/hunter/marksmanship/constants';
 
 /**
  * Aimed Shot causes your next 1-2 Arcane Shots or Multi-Shots to deal 100% more damage.
@@ -15,10 +16,6 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
  * Example log:
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=auras&source=25&ability=260242
  */
-
-const ASSUMED_PROCS = 2; //Logs give no indication whether we gain 1 or 2 stacks - we assume 2 and work from there.
-const PRECISE_SHOTS_MODIFIER = 0.75;
-const MAX_TRAVEL_TIME = 500;
 
 class PreciseShots extends Analyzer {
 
@@ -41,7 +38,7 @@ class PreciseShots extends Analyzer {
   }
 
   onPreciseShotsApplication() {
-    this.buffsActive = ASSUMED_PROCS;
+    this.buffsActive = PRECISE_SHOTS_ASSUMED_PROCS;
   }
 
   onPreciseShotsRemoval() {
@@ -57,7 +54,7 @@ class PreciseShots extends Analyzer {
   onPreciseShotsStackApplication() {
     this.minOverwrittenProcs += 1;
     this.maxOverwrittenProcs += 2;
-    this.buffsActive = ASSUMED_PROCS;
+    this.buffsActive = PRECISE_SHOTS_ASSUMED_PROCS;
   }
 
   onPreciseCast(event: CastEvent) {
@@ -72,7 +69,7 @@ class PreciseShots extends Analyzer {
     if (!this.buffedShotInFlight) {
       return;
     }
-    if (this.buffedShotInFlight < event.timestamp + MAX_TRAVEL_TIME) {
+    if (this.buffedShotInFlight < event.timestamp + ARCANE_SHOT_MAX_TRAVEL_TIME) {
       this.damage += calculateEffectiveDamage(event, PRECISE_SHOTS_MODIFIER);
     }
     if (event.ability.guid === SPELLS.ARCANE_SHOT.id) {
@@ -84,7 +81,7 @@ class PreciseShots extends Analyzer {
     if (!this.buffedShotInFlight) {
       return;
     }
-    if (this.buffedShotInFlight > event.timestamp + MAX_TRAVEL_TIME) {
+    if (this.buffedShotInFlight > event.timestamp + ARCANE_SHOT_MAX_TRAVEL_TIME) {
       this.buffedShotInFlight = null;
     }
   }

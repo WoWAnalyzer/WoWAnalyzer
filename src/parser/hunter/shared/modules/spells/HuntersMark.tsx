@@ -15,6 +15,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import { HUNTERS_MARK_MODIFIER, MS_BUFFER } from 'parser/hunter/shared/constants';
 
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
@@ -26,18 +27,11 @@ import Abilities from 'parser/core/modules/Abilities';
  * https://www.warcraftlogs.com/reports/Rn9XxCYLm1q7KFNW#fight=3&type=damage-done&source=15&ability=212680
  */
 
-const HUNTERS_MARK_MODIFIER = 0.05;
-const MS_BUFFER = 100;
-
 class HuntersMark extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     abilities: Abilities,
   };
-
-  protected enemies!: Enemies;
-  protected abilities!: Abilities;
-
   casts = 0;
   damage = 0;
   recasts = 0;
@@ -48,6 +42,8 @@ class HuntersMark extends Analyzer {
   markWindow: { [key: string]: { status: string; start: number } } = {};
   damageToTarget: { [key: string]: number } = {};
   enemyID: string = '';
+  protected enemies!: Enemies;
+  protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
@@ -64,6 +60,14 @@ class HuntersMark extends Analyzer {
         base: 1000,
       },
     });
+  }
+
+  get uptimePercentage() {
+    return this.enemies.getBuffUptime(SPELLS.HUNTERS_MARK.id) / this.owner.fightDuration;
+  }
+
+  get potentialPrecastConfirmation() {
+    return (this.refunds + this.recasts) > this.casts ? <li>We've detected a possible precast, and there might be a discrepancy in amount of total casts versus amount of refunds and casts whilst debuff was active on another target.</li> : '';
   }
 
   onCast(event: CastEvent) {
@@ -128,14 +132,6 @@ class HuntersMark extends Analyzer {
     if (this.markWindow[this.enemyID].status === 'active' && this.markWindow[this.enemyID].start < event.timestamp) {
       this.damage += calculateEffectiveDamage(event, HUNTERS_MARK_MODIFIER);
     }
-  }
-
-  get uptimePercentage() {
-    return this.enemies.getBuffUptime(SPELLS.HUNTERS_MARK.id) / this.owner.fightDuration;
-  }
-
-  get potentialPrecastConfirmation() {
-    return (this.refunds + this.recasts) > this.casts ? <li>We've detected a possible precast, and there might be a discrepancy in amount of total casts versus amount of refunds and casts whilst debuff was active on another target.</li> : '';
   }
 
   statistic() {

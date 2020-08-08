@@ -5,24 +5,22 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { WILD_MARK_DAMAGE_AMP } from 'parser/hunter/shared/constants';
+import { formatNumber } from 'common/format';
 
 class WildSpirits extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     enemies: Enemies,
   };
-
-  protected abilities!: Abilities;
-  protected enemies!: Enemies;
-
   damage: number = 0;
   ampDamage: number = 0;
+  protected abilities!: Abilities;
+  protected enemies!: Enemies;
 
   constructor(options: any) {
     super(options);
@@ -58,24 +56,23 @@ class WildSpirits extends Analyzer {
   }
 
   statistic() {
-    if (this.damage > 0) {
-      return (
-        <Statistic
-          position={STATISTIC_ORDER.OPTIONAL(13)}
-          size="flexible"
-          category={STATISTIC_CATEGORY.GENERAL}
-        >
-          <BoringSpellValueText spell={SPELLS.WILD_SPIRITS}>
-            <>
-              <ItemDamageDone amount={this.damage} /> <small> direct damage</small>
-              <ItemDamageDone amount={this.ampDamage} /> <small> Wild Mark damage</small>
-            </>
-          </BoringSpellValueText>
-        </Statistic>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+      >
+        <BoringSpellValueText spell={SPELLS.WILD_SPIRITS}>
+          <>
+            <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
+            {formatNumber(this.damage)} <small> direct damage</small>
+            <br />
+            <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
+            {formatNumber(this.damage)} <small> Wild Mark damage</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 
 }

@@ -1,17 +1,15 @@
 import FocusCapTracker from 'parser/hunter/shared/modules/resources/FocusCapTracker';
-
-const BASE_FOCUS_REGEN = 10;
-const BASE_FOCUS_MAX = 120;
+import { BEAST_MASTERY_FOCUS_MAX, BEAST_MASTERY_FOCUS_REGEN } from '../../constants';
 
 class BeastMasteryFocusCapTracker extends FocusCapTracker {
 
   getBaseRegenRate() {
-    const regenRate = BASE_FOCUS_REGEN;
+    const regenRate = BEAST_MASTERY_FOCUS_REGEN;
     return regenRate;
   }
 
   currentMaxResource() {
-    const max = BASE_FOCUS_MAX;
+    const max = BEAST_MASTERY_FOCUS_MAX;
     return max;
   }
 }

@@ -25,10 +25,6 @@ class VipersVenom extends Analyzer {
     statTracker: StatTracker,
     globalCooldown: GlobalCooldown,
   };
-
-  protected statTracker!: StatTracker;
-  protected globalCooldown!: GlobalCooldown;
-
   buffedSerpentSting = false;
   bonusDamage = 0;
   procs = 0;
@@ -37,6 +33,8 @@ class VipersVenom extends Analyzer {
   currentGCD = 0;
   wastedProcs = 0;
   spellKnown = SPELLS.RAPTOR_STRIKE;
+  protected statTracker!: StatTracker;
+  protected globalCooldown!: GlobalCooldown;
 
   constructor(options: any) {
     super(options);
@@ -48,6 +46,10 @@ class VipersVenom extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDamage);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VIPERS_VENOM_BUFF), this.onApplyBuff);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.VIPERS_VENOM_BUFF), this.onRefreshBuff);
+  }
+
+  get averageTimeBetweenBuffAndUsage() {
+    return this.accumulatedTimeFromBuffToCast / this.procs / 1000;
   }
 
   onCast(event: CastEvent) {
@@ -73,10 +75,6 @@ class VipersVenom extends Analyzer {
 
   onRefreshBuff() {
     this.wastedProcs += 1;
-  }
-
-  get averageTimeBetweenBuffAndUsage() {
-    return this.accumulatedTimeFromBuffToCast / this.procs / 1000;
   }
 
   statistic() {

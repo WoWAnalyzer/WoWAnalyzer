@@ -23,10 +23,8 @@ class SerpentSting extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-
-  protected enemies!: Enemies;
-
   damage = 0;
+  protected enemies!: Enemies;
 
   constructor(options: any) {
     super(options);
@@ -34,12 +32,12 @@ class SerpentSting extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT), this.onDamage);
   }
 
-  onDamage(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
-  }
-
   get uptimePercentage() {
     return this.enemies.getBuffUptime(SPELLS.SERPENT_STING_TALENT.id) / this.owner.fightDuration;
+  }
+
+  onDamage(event: DamageEvent) {
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {

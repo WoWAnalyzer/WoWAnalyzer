@@ -9,6 +9,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { AMOUNT_OF_PETS_WITH_AC } from '../../constants';
 
 /**
  * When you cast Barbed Shot, your pet stomps the ground, dealing [((50% of Attack power)) * (1 + Versatility)] Physical damage to all nearby enemies.
@@ -21,7 +22,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
  *
  */
 
-const AMOUNT_OF_PETS_WITH_AC = 2;
 class Stomp extends Analyzer {
   damage = 0;
   hits = 0;
@@ -32,7 +32,9 @@ class Stomp extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STOMP_TALENT.id);
     this.hasAC = this.selectedCombatant.hasTalent(SPELLS.ANIMAL_COMPANION_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BARBED_SHOT, SPELLS.DIRE_BEAST_TALENT]), () => { this.casts += 1; });
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BARBED_SHOT, SPELLS.DIRE_BEAST_TALENT]), () => {
+      this.casts += 1;
+    });
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.STOMP_DAMAGE), this.onPetStompDamage);
   }
 
@@ -51,7 +53,7 @@ class Stomp extends Analyzer {
         <BoringSpellValueText spell={SPELLS.STOMP_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /><br />
-            <AverageTargetsHit casts={this.casts} hits={this.hasAC ? this.hits/AMOUNT_OF_PETS_WITH_AC : this.hits} />
+            <AverageTargetsHit casts={this.casts} hits={this.hasAC ? this.hits / AMOUNT_OF_PETS_WITH_AC : this.hits} />
           </>
         </BoringSpellValueText>
       </Statistic>

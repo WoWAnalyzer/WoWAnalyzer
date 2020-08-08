@@ -15,10 +15,8 @@ class TranquilizingShot extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
-
-  protected abilities!: Abilities;
-
   totalDispels: number = 0;
+  protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
@@ -40,20 +38,25 @@ class TranquilizingShot extends Analyzer {
   }
 
   statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-      >
-        <BoringSpellValueText spell={SPELLS.TRANQUILIZING_SHOT}>
-          <>
-            {this.totalDispels}
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
+    if (this.totalDispels > 0) {
+      return (
+        <Statistic
+          position={STATISTIC_ORDER.OPTIONAL(13)}
+          size="flexible"
+          category={STATISTIC_CATEGORY.GENERAL}
+        >
+          <BoringSpellValueText spell={SPELLS.TRANQUILIZING_SHOT}>
+            <>
+              {this.totalDispels}
+            </>
+          </BoringSpellValueText>
+        </Statistic>
+      );
+    } else {
+      return null;
+    }
   }
+
 }
 
 export default TranquilizingShot;

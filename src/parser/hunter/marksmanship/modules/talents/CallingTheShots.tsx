@@ -9,11 +9,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events from 'parser/core/Events';
-
-const COOLDOWN_REDUCTION_MS = 3000;
+import { CTS_CDR_MS } from 'parser/hunter/marksmanship/constants';
 
 /**
- * Casting Arcane Shot or Multi-Shot reduces the cooldown of Trueshot by 3.0 sec.
+ * Casting Arcane Shot or Multi-Shot reduces the cooldown of Trueshot by 2.5 sec.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=summary&source=25
@@ -22,11 +21,9 @@ class CallingTheShots extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
-
   effectiveTrueshotReductionMs = 0;
   wastedTrueshotReductionMs = 0;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: any) {
     super(options);
@@ -36,15 +33,15 @@ class CallingTheShots extends Analyzer {
 
   onCast() {
     if (this.spellUsable.isOnCooldown(SPELLS.TRUESHOT.id)) {
-      if (this.spellUsable.cooldownRemaining(SPELLS.TRUESHOT.id) < COOLDOWN_REDUCTION_MS) {
-        const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, COOLDOWN_REDUCTION_MS);
+      if (this.spellUsable.cooldownRemaining(SPELLS.TRUESHOT.id) < CTS_CDR_MS) {
+        const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, CTS_CDR_MS);
         this.effectiveTrueshotReductionMs += effectiveReductionMs;
-        this.wastedTrueshotReductionMs += (COOLDOWN_REDUCTION_MS - effectiveReductionMs);
+        this.wastedTrueshotReductionMs += (CTS_CDR_MS - effectiveReductionMs);
       } else {
-        this.effectiveTrueshotReductionMs += this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, COOLDOWN_REDUCTION_MS);
+        this.effectiveTrueshotReductionMs += this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, CTS_CDR_MS);
       }
     } else {
-      this.wastedTrueshotReductionMs += COOLDOWN_REDUCTION_MS;
+      this.wastedTrueshotReductionMs += CTS_CDR_MS;
     }
   }
 

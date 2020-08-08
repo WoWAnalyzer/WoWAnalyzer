@@ -12,15 +12,10 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
-
-const MAX_STACKS: number = 5;
-
-const MAX_TRAVEL_TIME = 700;
+import { MONGOOSE_BITE_MAX_STACKS, MONGOOSE_BITE_MAX_TRAVEL_TIME, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 
 /**
- * Mongoose Fury increases Mongoose Bite damage by 15% for 14 sec, stacking up to 5 times. Successive
- * attacks do not increase duration.
+ * Mongoose Fury increases Mongoose Bite damage by 15% for 14 sec, stacking up to 5 times. Successive attacks do not increase duration.
  *
  * Example log: https://www.warcraftlogs.com/reports/CDL6mZfWdcgQX9wT#fight=2&type=damage-done&source=23
  */
@@ -40,45 +35,12 @@ class MongooseBite extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id);
-    this.mongooseBiteStacks = Array.from({ length: MAX_STACKS + 1 }, x => 0);
+    this.mongooseBiteStacks = Array.from({ length: MONGOOSE_BITE_MAX_STACKS + 1 }, x => 0);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.handleDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), (event: ApplyBuffEvent) => this.handleStacks(event));
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), (event: ApplyBuffStackEvent) => this.handleStacks(event));
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), (event: RemoveBuffEvent) => this.handleStacks(event));
-  }
-
-  handleDamage(event: DamageEvent) {
-    // Because Aspect of the Eagle applies a traveltime to Mongoose Bite, it sometimes applies the buff before it hits, despite not increasing the damage.
-    // This fixes that, ensuring we reduce by 1, and later increasing it by one.
-    if (this.lastMongooseBiteStack === 1 && event.timestamp < this.buffApplicationTimestamp + MAX_TRAVEL_TIME) {
-      this.lastMongooseBiteStack -= 1;
-      this.aspectOfTheEagleFixed = true;
-    }
-    if (!this.mongooseBiteStacks[this.lastMongooseBiteStack]) {
-      this.mongooseBiteStacks[this.lastMongooseBiteStack] = 1;
-    } else {
-      this.mongooseBiteStacks[this.lastMongooseBiteStack] += 1;
-    }
-    if (this.aspectOfTheEagleFixed) {
-      this.lastMongooseBiteStack += 1;
-      this.aspectOfTheEagleFixed = false;
-    }
-    this.damage += event.amount + (event.absorbed || 0);
-  }
-
-  handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent) {
-    this.lastMongooseBiteStack = currentStacks(event);
-    if (this.lastMongooseBiteStack === MAX_STACKS) {
-      this.fiveBiteWindows += 1;
-    }
-    if (event.type === EventType.ApplyBuff) {
-      this.buffApplicationTimestamp = event.timestamp;
-      this.totalWindowsStarted += 1;
-    }
-    if (event.type === EventType.RemoveBuff) {
-      this.windowCheckedForFocus = false;
-    }
   }
 
   get mongooseBiteByStacks() {
@@ -90,7 +52,7 @@ class MongooseBite extends Analyzer {
   }
 
   get fiveStackMongooseBites() {
-    return this.mongooseBiteStacks[MAX_STACKS];
+    return this.mongooseBiteStacks[MONGOOSE_BITE_MAX_STACKS];
   }
 
   get averageFocusOnMongooseWindowStart() {
@@ -98,7 +60,7 @@ class MongooseBite extends Analyzer {
   }
 
   get percentMaxStacksHit() {
-    return this.mongooseBiteStacks[MAX_STACKS] / this.totalMongooseBites;
+    return this.mongooseBiteStacks[MONGOOSE_BITE_MAX_STACKS] / this.totalMongooseBites;
   }
 
   get focusOnMongooseWindowThreshold() {
@@ -123,6 +85,39 @@ class MongooseBite extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  handleDamage(event: DamageEvent) {
+    // Because Aspect of the Eagle applies a traveltime to Mongoose Bite, it sometimes applies the buff before it hits, despite not increasing the damage.
+    // This fixes that, ensuring we reduce by 1, and later increasing it by one.
+    if (this.lastMongooseBiteStack === 1 && event.timestamp < this.buffApplicationTimestamp + MONGOOSE_BITE_MAX_TRAVEL_TIME) {
+      this.lastMongooseBiteStack -= 1;
+      this.aspectOfTheEagleFixed = true;
+    }
+    if (!this.mongooseBiteStacks[this.lastMongooseBiteStack]) {
+      this.mongooseBiteStacks[this.lastMongooseBiteStack] = 1;
+    } else {
+      this.mongooseBiteStacks[this.lastMongooseBiteStack] += 1;
+    }
+    if (this.aspectOfTheEagleFixed) {
+      this.lastMongooseBiteStack += 1;
+      this.aspectOfTheEagleFixed = false;
+    }
+    this.damage += event.amount + (event.absorbed || 0);
+  }
+
+  handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent) {
+    this.lastMongooseBiteStack = currentStacks(event);
+    if (this.lastMongooseBiteStack === MONGOOSE_BITE_MAX_STACKS) {
+      this.fiveBiteWindows += 1;
+    }
+    if (event.type === EventType.ApplyBuff) {
+      this.buffApplicationTimestamp = event.timestamp;
+      this.totalWindowsStarted += 1;
+    }
+    if (event.type === EventType.RemoveBuff) {
+      this.windowCheckedForFocus = false;
+    }
   }
 
   onCast(event: CastEvent) {
@@ -152,7 +147,7 @@ class MongooseBite extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            You hit an average of {(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had {MAX_STACKS} stacks of Mongoose Fury. <br />
+            You hit an average of {(this.mongooseBiteStacks[MONGOOSE_BITE_MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had {MONGOOSE_BITE_MAX_STACKS} stacks of Mongoose Fury. <br />
             You hit an average of {(this.totalMongooseBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.
           </>
         )}

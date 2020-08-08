@@ -9,17 +9,17 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import ResourceIcon from 'common/ResourceIcon';
 
 class DeathChakrams extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
-
-  protected abilities!: Abilities;
-
   damage: number = 0;
   focusGained: number = 0;
   focusWasted: number = 0;
+  protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
@@ -52,25 +52,21 @@ class DeathChakrams extends Analyzer {
   }
 
   statistic() {
-    if (this.damage > 0) {
-      return (
-        <Statistic
-          position={STATISTIC_ORDER.OPTIONAL(13)}
-          size="flexible"
-          category={STATISTIC_CATEGORY.GENERAL}
-        >
-          <BoringSpellValueText spell={SPELLS.DEATH_CHAKRAM}>
-            <>
-              <ItemDamageDone amount={this.damage} />
-              <br />
-              {this.focusGained}/{this.focusWasted + this.focusGained}<small> gained Focus</small>
-            </>
-          </BoringSpellValueText>
-        </Statistic>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+      >
+        <BoringSpellValueText spell={SPELLS.DEATH_CHAKRAM}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+            <br />
+            <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained}<small> gained Focus</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 }
 

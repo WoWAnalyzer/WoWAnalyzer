@@ -8,6 +8,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent } from 'parser/core/Events';
+import { BASELINE_TURTLE_CHEETAH_CD, BORN_TO_BE_WILD_AFFECTED_SPELLS } from 'parser/hunter/shared/constants';
+import { BASELINE_AOTE_CD } from 'parser/hunter/survival/constants';
 
 /**
  * Reduces the cooldowns of Aspect of the Cheetah and Aspect of the Turtle by 20%.
@@ -16,14 +18,6 @@ import Events, { CastEvent } from 'parser/core/Events';
  * Example log:
  * https://www.warcraftlogs.com/reports/1YZkWvbFGNgTA7L4#fight=3&type=summary&source=97
  */
-
-const BASELINE_TURTLE_CHEETAH_CD = 180000;
-const BASELINE_EAGLE_CD = 90000;
-const AFFECTED_SPELLS = [
-  SPELLS.ASPECT_OF_THE_CHEETAH.id,
-  SPELLS.ASPECT_OF_THE_TURTLE.id,
-  SPELLS.ASPECT_OF_THE_EAGLE.id,
-];
 
 const debug = false;
 
@@ -43,7 +37,7 @@ class BornToBeWild extends Analyzer {
     [SPELLS.ASPECT_OF_THE_EAGLE.id]: {
       effectiveCDR: 0,
       lastCast: 0,
-      baseCD: BASELINE_EAGLE_CD,
+      baseCD: BASELINE_AOTE_CD,
     },
   };
 
@@ -53,7 +47,13 @@ class BornToBeWild extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
     this.hasEagle = this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER;
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(AFFECTED_SPELLS), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(BORN_TO_BE_WILD_AFFECTED_SPELLS), this.onCast);
+  }
+
+  get effectiveTotalCDR() {
+    return Object.values(this._spells)
+      .map(spell => spell.effectiveCDR)
+      .reduce((total, current) => total + current, 0);
   }
 
   onCast(event: CastEvent) {
@@ -64,12 +64,6 @@ class BornToBeWild extends Analyzer {
       spell.effectiveCDR += spell.baseCD - (event.timestamp - spell.lastCast);
     }
     spell.lastCast = event.timestamp;
-  }
-
-  get effectiveTotalCDR() {
-    return Object.values(this._spells)
-      .map(spell => spell.effectiveCDR)
-      .reduce((total, current) => total + current, 0);
   }
 
   statistic() {

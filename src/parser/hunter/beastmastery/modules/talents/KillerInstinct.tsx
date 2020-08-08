@@ -10,9 +10,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
-
-const KILLER_INSTINCT_THRESHOLD = 0.35;
-const KILLER_INSTINCT_CONTRIBUTION = 0.5;
+import { KILLER_INSTINCT_MULTIPLIER, KILLER_INSTINCT_THRESHOLD } from '../../constants';
 
 /**
  * Kill Command deals 50% increased damage against enemies below 35% health.
@@ -39,7 +37,7 @@ class KillerInstinct extends Analyzer {
     const enemyHealthPercent = (event.hitPoints / event.maxHitPoints);
     if (enemyHealthPercent <= KILLER_INSTINCT_THRESHOLD) {
       this.castsWithExecute += 1;
-      const traitDamage = calculateEffectiveDamage(event, KILLER_INSTINCT_CONTRIBUTION);
+      const traitDamage = calculateEffectiveDamage(event, KILLER_INSTINCT_MULTIPLIER);
       this.damage += traitDamage;
     }
   }
