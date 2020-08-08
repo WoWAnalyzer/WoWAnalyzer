@@ -10,7 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
-  change(date(2020, 8, 5), 'Fix an issue where changelogs wouldn\'t count in pull requests.', Putro),
+  change(date(2020, 8, 8), 'Fixed an issue where changelogs wouldn\'t count in pull requests.', Putro),
   change(date(2020, 8, 4), 'Fixed a bug causing the total fight duration field to be improperly calculated, leading to confusing downtime/death percentages', Dambroda),
   change(date(2020, 8, 2), 'Remove Corruption in preparation for Shadowlands', Putro),
   change(date(2020, 7, 27), 'Updated contributor details to TypeScript and fixed contributor description not appearing when viewing those details', Dambroda),
