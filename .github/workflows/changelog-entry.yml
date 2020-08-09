@@ -15,7 +15,7 @@ jobs:
       YARN_CACHE_FOLDER: .yarn-cache
     steps:
       - uses: actions/checkout@v2
-      - run: git fetch --no-tags --depth=1 origin master:master
+      - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'

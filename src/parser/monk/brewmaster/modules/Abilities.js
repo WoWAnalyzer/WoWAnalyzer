@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
@@ -12,7 +11,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.KEG_SMASH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 8 / (1 + haste),
-        charges: combatant.hasShoulder(ITEMS.STORMSTOUTS_LAST_GASP.id) ? 2 : 1,
+        charges: 1,
         castEfficiency: {
           suggestion: true,
         },

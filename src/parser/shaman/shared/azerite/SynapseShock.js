@@ -1,12 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import { EventType } from 'parser/core/Events';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import Events, { EventType } from 'parser/core/Events';
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 const MAX_STACKS = 5;
 
@@ -35,53 +35,21 @@ class SynapseShock extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.SYNAPSE_SHOCK.id);
     this.synShockStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
+
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SYNAPSE_SHOCK_BUFF), this.handleStacks);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.SYNAPSE_SHOCK_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SYNAPSE_SHOCK_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SYNAPSE_SHOCK_BUFF), this.handleStacks);
+    this.addEventListener(Events.fightend, this.handleStacks);
   }
 
-  handleStacks(event, stack = null) {
-    if (event.type === EventType.RemoveBuff || isNaN(event.stack)) { //NaN check if player is dead during on_finish
-      event.stack = 0;
-    }
-    if (event.type === EventType.ApplyBuff) {
-      event.stack = 1;
-    }
-    if (stack) {
-      event.stack = stack;
-    }
+  handleStacks(event) {
     this.synShockStacks[this.lastStacks].push(event.timestamp - this.lastUpdate);
+    if (event.type === EventType.FightEnd) {
+      return;
+    }
     this.lastUpdate = event.timestamp;
-    this.lastStacks = event.stack;
-  }
-
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.SYNAPSE_SHOCK_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuffstack(event) {
-    if (event.ability.guid !== SPELLS.SYNAPSE_SHOCK_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.SYNAPSE_SHOCK_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuffstack(event) {
-    if (event.ability.guid !== SPELLS.SYNAPSE_SHOCK_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_fightend(event) {
-    this.handleStacks(event, this.lastStacks);
+    this.lastStacks = currentStacks(event);
   }
 
   get avgIntellect() {

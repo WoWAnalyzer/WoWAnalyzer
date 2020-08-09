@@ -13,6 +13,7 @@ import { binomialCDF, expectedProcCount, plotOneVariableBinomChart } from 'parse
 import SpellLink from 'common/SpellLink';
 import { FLAYED_SHOT_RESET_CHANCE } from 'parser/hunter/shared/constants';
 import { formatNumber, formatPercentage } from 'common/format';
+import SPECS from 'game/SPECS';
 
 class FlayedShot extends Analyzer {
   static dependencies = {
@@ -24,6 +25,8 @@ class FlayedShot extends Analyzer {
   totalProcs: number = 0;
   resets: number = 0;
   offCDProcs: number = 0;
+  activeKillShotSpell = this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER ? SPELLS.KILL_SHOT_SV : SPELLS.KILL_SHOT_MM_BM;
+
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
 
@@ -60,7 +63,8 @@ class FlayedShot extends Analyzer {
 
   onProc(event: ApplyBuffEvent) {
     this.totalProcs += 1;
-    if (this.spellUsable.isOnCooldown(SPELLS.KILL_SHOT.id)) {
+    //The Kill Shot module ends the cooldown of Kill Shot after a Flayed Shot proc.
+    if (this.spellUsable.isOnCooldown(this.activeKillShotSpell.id)) {
       this.resets += 1;
     } else {
       this.offCDProcs += 1;

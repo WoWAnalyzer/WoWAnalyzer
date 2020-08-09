@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { EventType } from 'parser/core/Events';
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 const MAX_BONE_SHIELD_STACKS = 10;
 
@@ -14,24 +15,22 @@ class BoneShieldStacksBySeconds extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.boneShieldStacks = Array.from({length: MAX_BONE_SHIELD_STACKS + 1}, x => []);
+    this.boneShieldStacks = Array.from({ length: MAX_BONE_SHIELD_STACKS + 1 }, x => []);
+
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.handleStacks);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.handleStacks);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.handleStacks);
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.handleStacks);
+    this.addEventListener(Events.fightend, this.handleStacks);
   }
 
-  handleStacks(event, stack = null) {
-    if (event.type === EventType.RemoveBuff || isNaN(event.stack)) { //NaN check if player is dead during on_finish
-      event.stack = 0;
-    }
-    if (event.type === EventType.ApplyBuff) {
-      event.stack = 1;
-    }
-
-    if (stack) {
-      event.stack = stack;
-    }
-
+  handleStacks(event) {
     this.boneShieldStacks[this.lastBoneShieldStack].push(event.timestamp - this.lastBoneShieldUpdate);
+    if (event.type === EventType.FightEnd) {
+      return;
+    }
     this.lastBoneShieldUpdate = event.timestamp;
-    this.lastBoneShieldStack = event.stack;
+    this.lastBoneShieldStack = currentStacks(event);
   }
 
   get boneShieldTimesByStacks() {
@@ -44,38 +43,6 @@ class BoneShieldStacksBySeconds extends Analyzer {
       avgStacks += elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration * index;
     });
     return avgStacks;
-  }
-
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.BONE_SHIELD.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuffstack(event) {
-    if (event.ability.guid !== SPELLS.BONE_SHIELD.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.BONE_SHIELD.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuffstack(event) {
-    if (event.ability.guid !== SPELLS.BONE_SHIELD.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_fightend(event) {
-    this.handleStacks(event, this.lastBoneShieldStack);
   }
 }
 

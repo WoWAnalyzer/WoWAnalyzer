@@ -3,10 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticBox from 'interface/others/StatisticBox';
-import { EventType } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events, { EventType } from 'parser/core/Events';
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 const MAX_STACKS = 5;
 const HASTE_PER_STACK = 3;
@@ -22,51 +22,21 @@ class IntoTheFray extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INTO_THE_FRAY_TALENT.id);
     this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
+
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
+    this.addEventListener(Events.fightend, this.handleStacks);
   }
 
-  handleStacks(event, stack = null) {
-    if (event.type === EventType.RemoveBuff || isNaN(event.stack)) { //NaN check if player is dead during on_finish
-      event.stack = 0;
-    }
-    if (event.type === EventType.ApplyBuff) {
-      event.stack = 1;
-    }
-
-    if (stack) {
-      event.stack = stack;
-    }
-
+  handleStacks(event) {
     this.buffStacks[this.lastStacks].push(event.timestamp - this.lastUpdate);
+    if (event.type === EventType.FightEnd) {
+      return;
+    }
+    this.lastStacks = currentStacks(event);
     this.lastUpdate = event.timestamp;
-    this.lastStacks = event.stack;
-  }
-
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.INTO_THE_FRAY_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuffstack(event) {
-    if (event.ability.guid !== SPELLS.INTO_THE_FRAY_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.INTO_THE_FRAY_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuffstack(event) {
-    if (event.ability.guid !== SPELLS.INTO_THE_FRAY_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
   }
 
   on_fightend(event) {
@@ -109,6 +79,7 @@ class IntoTheFray extends Analyzer {
       </StatisticBox>
     );
   }
+
   statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 

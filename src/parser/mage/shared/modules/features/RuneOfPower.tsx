@@ -97,7 +97,7 @@ class RuneOfPower extends Analyzer {
           return suggest(
             <>
             It is highly recommended to talent into <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> when playing this spec.
-            While it can take some practice to master, when played correctly it outputs substantially more DPS than <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} /> or <SpellLink id={SPELLS.MIRROR_IMAGE_TALENT.id} />.
+            While it can take some practice to master, when played correctly it outputs substantially more DPS than <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} /> or <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />.
             </>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
             .staticImportance(SUGGESTION_IMPORTANCE.REGULAR);
