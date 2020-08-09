@@ -4,7 +4,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatThousands } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
-import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTracker';
+import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import SpellFocusCost from 'parser/hunter/shared/modules/resources/SpellFocusCost';
 import StatisticBar from 'interface/statistics/StatisticBar';
 

@@ -7,7 +7,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
 import Statistic from 'interface/statistics/Statistic';
-import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import HolyPowerTracker from './HolyPowerTracker';
 
 
