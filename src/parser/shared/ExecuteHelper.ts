@@ -37,12 +37,37 @@ class ExecuteHelper extends Analyzer {
   static upperThreshold: number;
   //endregion
 
+  //region Generic Variables
+  /**
+   * Is true if we're in an execute window either because of a buff giving access to execute spells or because of health windows
+   */
   inExecuteWindow: boolean = false;
+
+  /**
+   * Is true if we're in an execute window due to health on a target, so a buff granting access to execute is pointless at this point
+   */
   inHealthExecuteWindow: boolean = false;
+
+  /**
+   * A variable marking the timestamp of the start of the current execute window
+   */
   executeWindowStart: number = 0;
+
+  /**
+   * A variable marking the timestamp of the last damage event within the execute window
+   */
   lastExecuteHitTimestamp: number = 0;
+
+  /**
+   * The amount of time spent inside executewindows, either caused by health or by buffs giving access to execute
+   */
   totalExecuteWindowDuration: number = 0;
+
+  /**
+   * Amount of damage done by the spells defined in executeSpells
+   */
   damage: number = 0;
+  //endregion
 
   //region Execute helpers
   /**
@@ -70,6 +95,17 @@ class ExecuteHelper extends Analyzer {
   }
 
   /**
+   * Returns true if either isTargetInExecuteRange() or isTargetInReverseExecuteRange() is true.
+   * @param event
+   */
+  isTargetInHealthExecuteWindow(event: DamageEvent) {
+    if (!event.hitPoints || !event.maxHitPoints) {
+      return false;
+    }
+    return (this.isTargetInExecuteRange(event) || this.isTargetInReverseExecuteRange(event));
+  }
+
+  /**
    * Returns true if the combatant has one of the buffs that enable execute to be used outside of the regular execute windows
    */
   isExecuteUsableOutsideExecuteRange() {
@@ -93,6 +129,7 @@ class ExecuteHelper extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
+  //region Static Getters
   get executeSources() {
     const ctor = this.constructor as typeof ExecuteHelper;
     return ctor.executeSources;
@@ -118,6 +155,9 @@ class ExecuteHelper extends Analyzer {
     return ctor.upperThreshold;
   }
 
+  //endregion
+
+  //region Generic Getters
   get executeDamage() {
     return this.damage;
   }
@@ -126,11 +166,14 @@ class ExecuteHelper extends Analyzer {
     return this.totalExecuteWindowDuration;
   }
 
+  //endregion
+
+  //region Event Listener functions
   onGeneralDamage(event: DamageEvent) {
     if (event.targetIsFriendly) {
       return;
     }
-    if (this.isExecuteUsableOutsideExecuteRange() || this.isTargetInExecuteRange(event) || this.isTargetInReverseExecuteRange(event)) {
+    if (this.isExecuteUsableOutsideExecuteRange || this.isTargetInHealthExecuteWindow(event)) {
       this.lastExecuteHitTimestamp = event.timestamp;
       if (!this.inExecuteWindow) {
         this.inExecuteWindow = true;
@@ -153,6 +196,9 @@ class ExecuteHelper extends Analyzer {
   }
 
   applyExecuteEnablerBuff(event: ApplyBuffEvent) {
+    if (!this.inExecuteWindow && !this.inHealthExecuteWindow) {
+      this.executeWindowStart = event.timestamp;
+    }
     this.inExecuteWindow = true;
     this.lastExecuteHitTimestamp = event.timestamp;
     debug && console.log(event.ability.name, ' was applied starting the execute window');
@@ -176,6 +222,7 @@ class ExecuteHelper extends Analyzer {
     debug && console.log('Fight ended, total duration of execute: ' + this.totalExecuteDuration + ' | ' + formatDuration(this.totalExecuteDuration));
   }
 
+  //endregion
 }
 
 export default ExecuteHelper;
