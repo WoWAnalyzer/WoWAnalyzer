@@ -17,7 +17,7 @@ import KillerInstinct from './modules/talents/KillerInstinct';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
 import Trailblazer from '../shared/modules/talents/Trailblazer';
 import Barrage from '../shared/modules/talents/Barrage';
-import ChimaeraShot from '../shared/modules/talents/ChimaeraShot';
+import ChimaeraShot from './modules/talents/ChimaeraShot';
 import DireBeast from './modules/talents/DireBeast';
 import KillerCobra from './modules/talents/KillerCobra';
 import Stampede from './modules/talents/Stampede';

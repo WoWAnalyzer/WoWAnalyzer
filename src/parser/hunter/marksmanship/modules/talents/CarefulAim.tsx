@@ -19,6 +19,8 @@ import ItemDamageDone from 'interface/ItemDamageDone';
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=damage-done&source=25&ability=-19434
+ *
+ * TODO: Optimize this for Execute Helper
  */
 class CarefulAim extends ExecuteHelper {
   static dependencies = {

@@ -5,11 +5,13 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { STEADY_FOCUS_MAX_STACKS } from 'parser/hunter/marksmanship/constants';
 
 /**
- * Using Steady Shot reduces the cast time of Steady Shot by 20%, stacking up to 2 times.  Using any other shot removes this effect.
- * Example log: https://www.warcraftlogs.com/reports/ChbVRqzQ8Z6najGB#fight=3&type=auras&source=3
+ * Using Steady Shot twice in a row increases your Haste by 7% for 10 sec.
+ *
+ * Example log:
+ *
+ * TODO: Add a statistic to this module and adjust for new version
  */
 
-//TODO: Add a statistic to this module
 class SteadyFocus extends Analyzer {
 
   stacks = 0;

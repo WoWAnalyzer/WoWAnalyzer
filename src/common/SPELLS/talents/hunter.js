@@ -8,7 +8,7 @@ export default {
   POSTHASTE_TALENT: { id: 109215, name: 'Posthaste', icon: 'ability_hunter_posthaste' },
   BINDING_SHOT_TALENT: { id: 109248, name: 'Binding Shot', icon: 'spell_shaman_bindelemental' },
   BARRAGE_TALENT: { id: 120360, name: 'Barrage', icon: 'ability_hunter_rapidregeneration', focusCost: 60 },
-  CHIMAERA_SHOT_TALENT: { id: 53209, name: 'Chimaera Shot', icon: 'ability_hunter_chimerashot2' }, //Beast Mastery and Marksmanship only
+
 
   // Beast Mastery
   KILLER_INSTINCT_TALENT: { id: 273887, name: 'Killer Instinct', icon: 'ability_hunter_killcommand' },
@@ -23,6 +23,7 @@ export default {
   ASPECT_OF_THE_BEAST_TALENT: { id: 191384, name: 'Aspect of the Beast', icon: 'ability_deathwing_assualtaspects' },
   KILLER_COBRA_TALENT: { id: 199532, name: 'Killer Cobra', icon: 'ability_hunter_snaketrap' },
   BLOODSHED_TALENT: { id: 321530, name: 'Bloodshed', icon: 'ability_hunter_killcommand'},
+  CHIMAERA_SHOT_BM_TALENT: { id: 53209, name: 'Chimaera Shot', icon: 'ability_hunter_chimerashot2' },
 
   // Marksmanship
   MASTER_MARKSMAN_TALENT: { id: 260309, name: 'Master Marksman', icon: 'ability_hunter_mastermarksman' },
@@ -38,6 +39,7 @@ export default {
   CALLING_THE_SHOTS_TALENT: { id: 260404, name: 'Calling the Shots', icon: 'ability_hunter_assassinate' },
   LOCK_AND_LOAD_TALENT: { id: 194595, name: 'Lock and Load', icon: 'ability_hunter_lockandload' },
   VOLLEY_TALENT: { id: 260243, name: 'Volley', icon: 'ability_hunter_rapidkilling' },
+  CHIMAERA_SHOT_MM_TALENT: { id: 342049, name: 'Chimaera Shot', icon: 'ability_hunter_chimerashot2' },
 
   // Survival
   VIPERS_VENOM_TALENT: { id: 268501, name: 'Viper\'s Venom', icon: 'ability_hunter_potentvenom' },

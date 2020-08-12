@@ -69,8 +69,8 @@ export const CAREFUL_AIM_THRESHOLD = 0.7;
 //Careful Aim increases Aimed Shot damage by 50% when active
 export const CA_MODIFIER = .5;
 /** Lock and Load */
-//Lock and Load has a 5% chance to proc per auto attack
-export const LNL_PROC_CHANCE = 0.05;
+//Lock and Load has a 8% chance to proc per auto attack
+export const LNL_PROC_CHANCE = 0.08;
 //When Lock and Load procs, Aimed Shot costs 0 focus
 export const LNL_COST_MULTIPLIER = 0;
 //endregion

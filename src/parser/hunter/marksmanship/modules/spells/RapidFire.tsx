@@ -7,7 +7,10 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import { TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE } from 'parser/hunter/marksmanship/constants';
 
 /**
- * Shoot a stream of 10 shots at your target over 3 sec, dealing a total of [10 * (26% of Attack power)%] Physical damage.
+ * Shoot a stream of 7 shots at your target over 2 sec, dealing a total of 242% attack power Physical damage.
+ * Each shot generates 1 focus.
+ *
+ * Example log:
  *
  */
 const debug = false;

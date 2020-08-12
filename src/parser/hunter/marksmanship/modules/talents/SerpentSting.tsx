@@ -13,17 +13,21 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { DamageEvent } from 'parser/core/Events';
 
 /**
- * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12 sec.
+ * Fire a shot that poisons your target, causing them to take (16.5% of Attack power) Nature damage instantly and an additional (99% of Attack power) Nature damage over 18 sec.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/GWwtNLVQD8adn6q9#fight=5&type=damage-done&source=18&ability=271788
+ *
+ * TODO: Add suggestion for early refreshes and such
  */
 
 class SerpentSting extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+
   damage = 0;
+
   protected enemies!: Enemies;
 
   constructor(options: any) {
