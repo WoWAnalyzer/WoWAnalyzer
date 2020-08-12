@@ -2,7 +2,7 @@ import Events, { ApplyBuffEvent, DamageEvent, FightEndEvent, RemoveBuffEvent } f
 import Analyzer from 'parser/core/Analyzer';
 import { formatDuration } from 'common/format';
 
-const debug = true;
+const debug = false;
 
 const MS_BUFFER = 500;
 
@@ -62,7 +62,7 @@ class ExecuteHelper extends Analyzer {
    * This is useful for things like Firestarter and Flashpoint.
    * @param event
    */
-  isTargetInPullExecuteRange(event: DamageEvent) {
+  isTargetInReverseExecuteRange(event: DamageEvent) {
     if (!event.hitPoints || !event.maxHitPoints) {
       return false;
     }
@@ -75,13 +75,13 @@ class ExecuteHelper extends Analyzer {
   isExecuteUsableOutsideExecuteRange() {
     let usable: boolean = false;
     this.executeOutsideRangeEnablers.forEach(spell => {
-      debug && console.log(spell);
       if (this.selectedCombatant.hasBuff(spell.id)) {
         usable = true;
       }
     });
     return usable;
   }
+
   //endregion
 
   constructor(options: any) {
@@ -130,7 +130,7 @@ class ExecuteHelper extends Analyzer {
     if (event.targetIsFriendly) {
       return;
     }
-    if (this.isExecuteUsableOutsideExecuteRange() || this.isTargetInExecuteRange(event) || this.isTargetInPullExecuteRange(event)) {
+    if (this.isExecuteUsableOutsideExecuteRange() || this.isTargetInExecuteRange(event) || this.isTargetInReverseExecuteRange(event)) {
       this.lastExecuteHitTimestamp = event.timestamp;
       if (!this.inExecuteWindow) {
         this.inExecuteWindow = true;
@@ -155,6 +155,7 @@ class ExecuteHelper extends Analyzer {
   applyExecuteEnablerBuff(event: ApplyBuffEvent) {
     this.inExecuteWindow = true;
     this.lastExecuteHitTimestamp = event.timestamp;
+    debug && console.log(event.ability.name, ' was applied starting the execute window');
   }
 
   removeExecuteEnablerBuff(event: RemoveBuffEvent) {
@@ -170,6 +171,7 @@ class ExecuteHelper extends Analyzer {
   onFightEnd(event: FightEndEvent) {
     if (this.inExecuteWindow) {
       this.totalExecuteWindowDuration += event.timestamp - this.executeWindowStart;
+      this.inExecuteWindow = false;
     }
     debug && console.log('Fight ended, total duration of execute: ' + this.totalExecuteDuration + ' | ' + formatDuration(this.totalExecuteDuration));
   }

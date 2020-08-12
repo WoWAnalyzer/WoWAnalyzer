@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events, { ApplyBuffEvent, FightEndEvent } from 'parser/core/Events';
 import { KILL_SHOT_EXECUTE_RANGE } from 'parser/hunter/shared/constants';
-import { formatDuration } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -15,8 +14,6 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import SPECS from 'game/SPECS';
 import ExecuteHelper from 'parser/shared/ExecuteHelper';
 
-const debug = false;
-
 class KillShot extends ExecuteHelper {
   static executeSpells = [
     SPELLS.KILL_SHOT_SV,
@@ -24,6 +21,7 @@ class KillShot extends ExecuteHelper {
   ];
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = KILL_SHOT_EXECUTE_RANGE;
+  static executeOutsideRangeEnablers = [SPELLS.FLAYERS_MARK];
 
   static dependencies = {
     spellUsable: SpellUsable,
@@ -39,7 +37,7 @@ class KillShot extends ExecuteHelper {
   constructor(options: any) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.flayedShotProc);
-    this.addEventListener(Events.fightend, this.onFightEnd);
+    this.addEventListener(Events.fightend, this.adjustMaxCasts);
 
     options.abilities.add({
       spell: this.activeKillShotSpell,
@@ -64,12 +62,8 @@ class KillShot extends ExecuteHelper {
     }
   }
 
-  onFightEnd(event: FightEndEvent) {
-    if (this.inExecuteWindow) {
-      this.totalExecuteWindowDuration += event.timestamp - this.executeWindowStart;
-    }
-    debug && console.log('Fight ended, total duration of execute: ' + this.totalExecuteDuration + ' | ' + formatDuration(this.totalExecuteDuration));
-
+  adjustMaxCasts(event: FightEndEvent) {
+    super.onFightEnd(event);
     this.maxCasts += Math.ceil(this.totalExecuteDuration / 10000);
     if (this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id)) {
       this.maxCasts += 1;
