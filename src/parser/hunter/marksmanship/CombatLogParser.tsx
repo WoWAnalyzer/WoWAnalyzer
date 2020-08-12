@@ -24,7 +24,7 @@ import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
 import FocusCapTracker from '../shared/modules/resources/FocusCapTracker';
 import Focus from './modules/resources/Focus';
-import FocusUsage from '../shared/modules/resources/FocusUsage';
+import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
 
 //Spells
 import Trueshot from './modules/spells/Trueshot';
@@ -79,7 +79,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     cancelledCasts: CancelledCasts,
-    focusUsage: FocusUsage,
     buffs: Buffs,
 
     //Resources
@@ -88,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellFocusCost: SpellFocusCost,
     focusCapTracker: FocusCapTracker,
     focus: Focus,
+    marksmanshipFocusUsage: MarksmanshipFocusUsage,
 
     //DeathTracker
     deathTracker: DeathTracker,

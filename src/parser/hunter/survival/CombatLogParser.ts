@@ -30,7 +30,7 @@ import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
 import SurvivalFocusCapTracker from './modules/resources/SurvivalFocusCapTracker';
 import Focus from './modules/resources/Focus';
-import FocusUsage from '../shared/modules/resources/FocusUsage';
+import SurvivalFocusUsage from './modules/resources/SurvivalFocusUsage';
 
 //Talents
 import Trailblazer from '../shared/modules/talents/Trailblazer';
@@ -79,7 +79,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    focusUsage: FocusUsage,
     buffs: Buffs,
 
     //Resources
@@ -88,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellFocusCost: SpellFocusCost,
     survivalFocusCapTracker: SurvivalFocusCapTracker,
     focus: Focus,
+    survivalFocusUsage: SurvivalFocusUsage,
 
     //Normalizers
     tipOfTheSpearNormalizer: TipOfTheSpearNormalizer,

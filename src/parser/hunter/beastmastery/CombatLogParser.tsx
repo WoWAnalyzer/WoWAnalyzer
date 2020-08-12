@@ -50,7 +50,7 @@ import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
 import BeastMasteryFocusCapTracker from './modules/resources/BeastMasteryFocusCapTracker';
 import Focus from './modules/resources/Focus';
-import FocusUsage from '../shared/modules/resources/FocusUsage';
+import BeastMasteryFocusUsage from './modules/resources/BeastMasteryFocusUsage';
 
 //Azerite Traits
 import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
@@ -77,7 +77,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    focusUsage: FocusUsage,
 
     //Resources
     focusTracker: FocusTracker,
@@ -85,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellFocusCost: SpellFocusCost,
     beastMasteryFocusCapTracker: BeastMasteryFocusCapTracker,
     focus: Focus,
+    beastMasteryFocusUsage: BeastMasteryFocusUsage,
 
     //DeathTracker
     deathTracker: DeathTracker,

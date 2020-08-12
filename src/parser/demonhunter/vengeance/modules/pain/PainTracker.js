@@ -1,5 +1,5 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 class PainTracker extends ResourceTracker {
   constructor(...args) {

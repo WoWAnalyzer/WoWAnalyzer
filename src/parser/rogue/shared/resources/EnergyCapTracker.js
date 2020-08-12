@@ -6,7 +6,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
-import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTracker';
+import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 
 import SpellEnergyCost from './SpellEnergyCost';
 

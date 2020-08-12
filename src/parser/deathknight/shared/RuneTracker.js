@@ -10,7 +10,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
-import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { EventType } from 'parser/core/Events';
 
 const MAX_RUNES = 6;

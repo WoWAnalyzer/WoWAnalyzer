@@ -5,7 +5,7 @@ import Panel from 'interface/others/Panel';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import { formatPercentage } from 'common/format';
-import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { RESOURCES_HUNTER_AVERAGE_THRESHOLD, RESOURCES_HUNTER_MAJOR_THRESHOLD, RESOURCES_HUNTER_MINOR_THRESHOLD } from 'parser/hunter/shared/constants';
