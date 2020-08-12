@@ -31,6 +31,7 @@ import Trueshot from './modules/spells/Trueshot';
 import LoneWolf from './modules/spells/LoneWolf';
 import PreciseShots from './modules/spells/PreciseShots';
 import AimedShot from './modules/spells/AimedShot';
+import RapidFire from './modules/spells/RapidFire';
 import HuntersMark from '../shared/modules/spells/HuntersMark';
 import KillShot from '../shared/modules/spells/KillShot';
 import BindingShot from '../shared/modules/talents/BindingShot';
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     loneWolf: LoneWolf,
     preciseShots: PreciseShots,
     aimedShot: AimedShot,
+    rapidFire: RapidFire,
     bindingShot: BindingShot,
     huntersMark: HuntersMark,
     KillShot: KillShot,

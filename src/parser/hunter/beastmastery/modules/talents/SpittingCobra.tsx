@@ -75,7 +75,7 @@ class SpittingCobra extends Analyzer {
         <BoringSpellValueText spell={SPELLS.SPITTING_COBRA_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
-            Average Damage Increase: {this.averageIncrease}%
+            {this.averageIncrease}% <small>average damage increase</small>
           </>
         </BoringSpellValueText>
       </Statistic>

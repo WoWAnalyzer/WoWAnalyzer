@@ -1,6 +1,7 @@
 import Events, { ApplyBuffEvent, DamageEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Analyzer from 'parser/core/Analyzer';
 import { formatDuration } from 'common/format';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 const debug = false;
 
@@ -35,6 +36,17 @@ class ExecuteHelper extends Analyzer {
    * The upper threshold where an execute can be enabled immediately at a pull, shown in decimals.
    */
   static upperThreshold: number;
+
+  /**
+   * A boolean representing if the given execute modifies the damage of an existing spell.
+   * An execute spell should be labelled as false, whereas a talent that modifies an existing spell should be labelled as true.
+   */
+  static modifiesDamage: boolean;
+
+  /**
+   * represents the modifier of of a talent (or some other effect) that modifies the damage done by an existing spell
+   */
+  static damageModifier: number;
   //endregion
 
   //region Generic Variables
@@ -67,6 +79,16 @@ class ExecuteHelper extends Analyzer {
    * Amount of damage done by the spells defined in executeSpells
    */
   damage: number = 0;
+
+  /**
+   * returns the total amount of casts of the executes listed in executeSpells
+   */
+  casts: number = 0;
+
+  /**
+   * returns the amount of casts of the executes listed in executeSpells that were cast whilst being in an execute window
+   */
+  castsWithExecute: number = 0;
   //endregion
 
   //region Execute helpers
@@ -123,6 +145,7 @@ class ExecuteHelper extends Analyzer {
   constructor(options: any) {
     super(options);
     this.addEventListener(Events.damage.by(this.executeSources), this.onGeneralDamage);
+    this.addEventListener(Events.cast.by(this.executeSources).spell(this.executeSpells), this.onExecuteCast);
     this.addEventListener(Events.damage.by(this.executeSources).spell(this.executeSpells), this.onExecuteDamage);
     this.addEventListener(Events.applybuff.to(this.executeSources).spell(this.executeOutsideRangeEnablers), this.applyExecuteEnablerBuff);
     this.addEventListener(Events.removebuff.to(this.executeSources).spell(this.executeOutsideRangeEnablers), this.removeExecuteEnablerBuff);
@@ -155,6 +178,16 @@ class ExecuteHelper extends Analyzer {
     return ctor.upperThreshold;
   }
 
+  get modifiesDamage() {
+    const ctor = this.constructor as typeof ExecuteHelper;
+    return ctor.modifiesDamage;
+  }
+
+  get damageModifier() {
+    const ctor = this.constructor as typeof ExecuteHelper;
+    return ctor.damageModifier;
+  }
+
   //endregion
 
   //region Generic Getters
@@ -166,6 +199,14 @@ class ExecuteHelper extends Analyzer {
     return this.totalExecuteWindowDuration;
   }
 
+  get totalCasts() {
+    return this.casts;
+  }
+
+  get totalExecuteCasts() {
+    return this.castsWithExecute;
+  }
+
   //endregion
 
   //region Event Listener functions
@@ -173,7 +214,7 @@ class ExecuteHelper extends Analyzer {
     if (event.targetIsFriendly) {
       return;
     }
-    if (this.isExecuteUsableOutsideExecuteRange || this.isTargetInHealthExecuteWindow(event)) {
+    if (this.isExecuteUsableOutsideExecuteRange() || this.isTargetInHealthExecuteWindow(event)) {
       this.lastExecuteHitTimestamp = event.timestamp;
       if (!this.inExecuteWindow) {
         this.inExecuteWindow = true;
@@ -191,8 +232,21 @@ class ExecuteHelper extends Analyzer {
     }
   }
 
+  onExecuteCast() {
+    this.casts += 1;
+    if (this.inExecuteWindow || this.inHealthExecuteWindow) {
+      this.castsWithExecute += 1;
+    }
+  }
+
   onExecuteDamage(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
+    if (this.inExecuteWindow || this.inHealthExecuteWindow) {
+      if (this.modifiesDamage) {
+        this.damage += calculateEffectiveDamage(event, this.damageModifier);
+      } else {
+        this.damage += event.amount + (event.absorbed || 0);
+      }
+    }
   }
 
   applyExecuteEnablerBuff(event: ApplyBuffEvent) {

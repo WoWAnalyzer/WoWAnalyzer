@@ -1,15 +1,14 @@
 import React from 'react';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
+import ExecuteHelper from 'parser/shared/ExecuteHelper';
 import { KILLER_INSTINCT_MULTIPLIER, KILLER_INSTINCT_THRESHOLD } from '../../constants';
 
 /**
@@ -18,28 +17,17 @@ import { KILLER_INSTINCT_MULTIPLIER, KILLER_INSTINCT_THRESHOLD } from '../../con
  * Example log:
  * https://www.warcraftlogs.com/reports/DFZVfmhkj9bYa6rn#fight=1&type=damage-done
  */
-class KillerInstinct extends Analyzer {
-  casts = 0;
-  castsWithExecute = 0;
-  damage = 0;
+class KillerInstinct extends ExecuteHelper {
+
+  static executeSpells = [SPELLS.KILL_COMMAND_DAMAGE_BM];
+  static executeSources = SELECTED_PLAYER_PET;
+  static lowerThreshold = KILLER_INSTINCT_THRESHOLD;
+  static modifiesDamage = true;
+  static damageModifier = KILLER_INSTINCT_MULTIPLIER;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.KILLER_INSTINCT_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_BM), this.onPetKillCmdDamage);
-  }
-
-  onPetKillCmdDamage(event: DamageEvent) {
-    if (!event.hitPoints || !event.maxHitPoints) {
-      return;
-    }
-    this.casts += 1;
-    const enemyHealthPercent = (event.hitPoints / event.maxHitPoints);
-    if (enemyHealthPercent <= KILLER_INSTINCT_THRESHOLD) {
-      this.castsWithExecute += 1;
-      const talentDamage = calculateEffectiveDamage(event, KILLER_INSTINCT_MULTIPLIER);
-      this.damage += talentDamage;
-    }
   }
 
   statistic() {

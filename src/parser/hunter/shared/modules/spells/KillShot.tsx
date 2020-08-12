@@ -22,6 +22,7 @@ class KillShot extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = KILL_SHOT_EXECUTE_RANGE;
   static executeOutsideRangeEnablers = [SPELLS.FLAYERS_MARK];
+  static modifiesDamage = false;
 
   static dependencies = {
     spellUsable: SpellUsable,
