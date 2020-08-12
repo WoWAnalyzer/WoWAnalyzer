@@ -9,7 +9,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, DamageEvent, RemoveBuffEvent, CastEvent } from 'parser/core/Events';
 
 const DAMAGE_BOOST = .10;
 const DURATION_BOOST_MS = 500;
@@ -19,14 +19,14 @@ const debug = false;
  *Each Rune spent during Remorseless Winter increases its damage by 10%, and extends its duration by 0.5 sec.
  */
 class GatheringStorm extends Analyzer {
-  totalCasts = 0;
-  bonusDamage = 0;
-  totalStacks = 0;
-  currentStacks = 0;
-  extendedDuration = 0;
+  totalCasts: number = 0;
+  bonusDamage: number = 0;
+  totalStacks: number = 0;
+  currentStacks: number = 0;
+  extendedDuration: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(args: any) {
+    super(args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GATHERING_STORM_TALENT.id);
     if (!this.active) {
       return;
@@ -39,31 +39,31 @@ class GatheringStorm extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
-  onApplyBuff(event) {
+  onApplyBuff(event: ApplyBuffEvent) {
     this.currentStacks = 1;
     this.totalCasts += 1;
     this.totalStacks += 1;
     debug && console.log('applied buff');
   }
 
-  onApplyBuffStack(event) {
+  onApplyBuffStack(event: ApplyBuffStackEvent) {
     this.currentStacks += 1;
     this.totalStacks += 1;
     debug && console.log(`added buff stack, now at ${this.currentStacks}`);
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     const boostedDamage = calculateEffectiveDamage(event, (DAMAGE_BOOST * this.currentStacks));
     this.bonusDamage += boostedDamage;
     debug && console.log(`boosted damage with ${this.currentStacks} stacks = ${boostedDamage}`);
   }
 
-  onRemoveBuff(event) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     this.currentStacks = 0;
     debug && console.log(`removed buff`);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.REMORSELESS_WINTER.id)) {
       return;
     }

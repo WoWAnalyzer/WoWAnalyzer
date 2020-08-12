@@ -12,10 +12,12 @@ class FrostFeverUptime extends Analyzer {
     enemies: Enemies,
   };
 
-  suggestions(when) {
+  protected enemies!: Enemies;
+
+  suggestions(when: any) {
     const frostfeverUptime = this.enemies.getBuffUptime(SPELLS.FROST_FEVER.id) / this.owner.fightDuration;
     when(frostfeverUptime).isLessThan(0.95)
-        .addSuggestion((suggest, actual, recommended) => {
+        .addSuggestion((suggest: any, actual: any, recommended: any) => {
           return suggest(<span>Your <SpellLink id={SPELLS.FROST_FEVER.id} /> uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to refresh Frost Fever. Using a debuff tracker can help.</span>)
             .icon(SPELLS.FROST_FEVER.icon)
             .actual(`${formatPercentage(actual)}% Frost Fever uptime`)

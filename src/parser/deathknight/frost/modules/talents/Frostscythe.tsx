@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
@@ -13,13 +13,13 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
  *A sweeping attack that strikes all enemies in front of you for (14% of attack power) Frost damage. This attack benefits from Killing Machine. Critical strikes with Frostscythe deal 4 times normal damage.
  */
 class Frostscythe extends Analyzer {
-  casts = 0;
-  hits = -1; // need to initialize negative to make sure first cast isn't counted as bad
-  goodCasts = 0;
-  hitThreshold = 0;
+  casts: number = 0;
+  hits: number = -1; // need to initialize negative to make sure first cast isn't counted as bad
+  goodCasts: number = 0;
+  hitThreshold: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(args: any) {
+    super(args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FROSTSCYTHE_TALENT.id);
     if (!this.active) {
       return;
@@ -30,7 +30,7 @@ class Frostscythe extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (this.hits >= this.hitThreshold) { // this is checking the previous cast, not the cast in the current event
       this.goodCasts += 1;
     }
@@ -39,7 +39,7 @@ class Frostscythe extends Analyzer {
     this.hits = 0;
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     this.hits += 1;
   }
 
@@ -65,8 +65,8 @@ class Frostscythe extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.efficencyThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         <>
           Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you can hit 2+ targets.

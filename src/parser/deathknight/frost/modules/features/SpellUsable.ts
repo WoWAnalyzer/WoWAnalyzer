@@ -1,6 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
+import Events, { DamageEvent } from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 /**
  * 
@@ -22,14 +24,15 @@ class SpellUsable extends CoreSpellUsable {
     ...CoreSpellUsable.dependencies,
   };
 
-  lastCritTime = -2000;
+  lastCritTime: number = -2000;
+  hasIcecap: boolean;
 
-  constructor(...args) {
-    super(...args);
+  constructor(args: any) {
+    super(args);
     this.hasIcecap = this.selectedCombatant.hasTalent(SPELLS.ICECAP_TALENT.id);
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     if (!this.hasIcecap) {
       return;
     }

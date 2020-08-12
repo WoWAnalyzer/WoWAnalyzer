@@ -1,11 +1,11 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 const debug = false;
 
@@ -15,15 +15,18 @@ class HardHowlingBlastCasts extends Analyzer {
     enemies: Enemies,
   };
 
-  constructor(...args) {
-    super(...args);
+  protected abilityTracker!: AbilityTracker;
+  protected enemies!: Enemies;
+
+  constructor(args: any) {
+    super(args);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOWLING_BLAST), this.onCast);
   }
 
   castsWithoutRime = 0;
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const target = this.enemies.getEntity(event);
     if(!target) {
       return;
@@ -35,7 +38,6 @@ class HardHowlingBlastCasts extends Analyzer {
   }
 
   statistic() {
-    this.nonrimedHB = this.castsWithoutRime;
     return (
       <StatisticBox
         postion={STATISTIC_ORDER.CORE(50)}
