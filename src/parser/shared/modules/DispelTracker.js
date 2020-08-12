@@ -55,7 +55,7 @@ class DispelTracker extends Analyzer {
       <Statistic position={STATISTIC_ORDER.OPTIONAL(1)}>
         <div className="pad">
           <label>
-            Dispells
+            Dispels
           </label>
           {Object.keys(this.dispelEvents).map(key => (
             <div className="flex" key={key}>
