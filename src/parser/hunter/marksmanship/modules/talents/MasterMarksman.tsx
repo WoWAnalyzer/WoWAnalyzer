@@ -14,10 +14,12 @@ import { MASTER_MARKSMAN_CRIT_INCREASE } from 'parser/hunter/marksmanship/consta
 import { formatPercentage } from 'common/format';
 
 /**
- * Aimed Shot has an additional 25% chance to deal a critical strike.
+ * Your ranged special attack critical strikes cause the target to bleed for an additional 15% of the damage dealt over 6 sec.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/r1yPhZvcHkdCMLgt/#source=6&fight=1
+ *
+ * TODO: Update to new version of this
  */
 
 class MasterMarksman extends Analyzer {

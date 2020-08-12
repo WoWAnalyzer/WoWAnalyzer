@@ -12,23 +12,27 @@ import Events from 'parser/core/Events';
 import { CTS_CDR_MS } from 'parser/hunter/marksmanship/constants';
 
 /**
- * Casting Arcane Shot or Multi-Shot reduces the cooldown of Trueshot by 2.5 sec.
+ * Casting Arcane Shot, Chimaera Shot or Multi-Shot reduces the cooldown of Trueshot by 2.5 sec.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=summary&source=25
+ *
+ * TODO: Verify if you can actually proc Calling The Shots twice off Chimaera Shot
  */
 class CallingTheShots extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
   effectiveTrueshotReductionMs = 0;
   wastedTrueshotReductionMs = 0;
+
   protected spellUsable!: SpellUsable;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CALLING_THE_SHOTS_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_TALENT]), this.onCast);
   }
 
   onCast() {

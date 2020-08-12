@@ -16,7 +16,7 @@ import SpellLink from 'common/SpellLink';
 import { LNL_PROC_CHANCE } from 'parser/hunter/marksmanship/constants';
 
 /**
- * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
+ * Your ranged auto attacks have a 8% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/wPdQLfFnhTVYRyJm#fight=12&type=auras&source=640&ability=194594

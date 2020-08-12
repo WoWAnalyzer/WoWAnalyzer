@@ -51,8 +51,10 @@ import Trailblazer from '../shared/modules/talents/Trailblazer';
 import SteadyFocus from './modules/talents/SteadyFocus';
 import BornToBeWild from '../shared/modules/talents/BornToBeWild';
 import CarefulAim from './modules/talents/CarefulAim';
-import ChimaeraShot from '../shared/modules/talents/ChimaeraShot';
 import DeadEye from './modules/talents/DeadEye';
+import ChimaeraShot from './modules/talents/ChimaeraShot';
+import LethalShots from './modules/talents/LethalShots';
+import Streamline from './modules/talents/Streamline';
 
 //Azerite Traits
 import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
@@ -120,6 +122,8 @@ class CombatLogParser extends CoreCombatLogParser {
     carefulAim: CarefulAim,
     chimaeraShot: ChimaeraShot,
     deadEye: DeadEye,
+    lethalShots: LethalShots,
+    streamline: Streamline,
 
     //Azerite Traits
     focusedFire: FocusedFire,
