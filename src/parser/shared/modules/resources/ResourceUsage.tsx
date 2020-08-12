@@ -139,7 +139,6 @@ class ResourceUsage extends Analyzer {
   }
 
   statistic() {
-    console.log(this.spellsThatShouldShowAsOtherSpells);
     return (
       <Statistic position={STATISTIC_ORDER.CORE(13)}>
         <div className="pad">

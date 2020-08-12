@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Events, { ApplyBuffEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
-import { KILL_SHOT_EXECUTE_RANGE, OVER_1_GCD_BUFFER } from 'parser/hunter/shared/constants';
+import Events, { ApplyBuffEvent, FightEndEvent } from 'parser/core/Events';
+import { KILL_SHOT_EXECUTE_RANGE } from 'parser/hunter/shared/constants';
 import { formatDuration } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
@@ -13,21 +13,24 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SPECS from 'game/SPECS';
+import ExecuteHelper from 'parser/shared/ExecuteHelper';
 
 const debug = false;
 
-class KillShot extends Analyzer {
+class KillShot extends ExecuteHelper {
+  static executeSpells = [
+    SPELLS.KILL_SHOT_SV,
+    SPELLS.KILL_SHOT_MM_BM,
+  ];
+  static executeSources = SELECTED_PLAYER;
+  static lowerThreshold = KILL_SHOT_EXECUTE_RANGE;
 
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
+
   maxCasts: number = 0;
-  inExecuteWindow: boolean = false;
-  executeWindowStart: number = 0;
-  lastExecuteHitTimestamp: number = 0;
-  totalExecuteDuration: number = 0;
-  damage: number = 0;
   activeKillShotSpell = this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER ? SPELLS.KILL_SHOT_SV : SPELLS.KILL_SHOT_MM_BM;
 
   protected spellUsable!: SpellUsable;
@@ -35,8 +38,6 @@ class KillShot extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.activeKillShotSpell), this.onKillShotDamage);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.flayedShotProc);
     this.addEventListener(Events.fightend, this.onFightEnd);
 
@@ -56,30 +57,6 @@ class KillShot extends Analyzer {
     });
   }
 
-  onDamage(event: DamageEvent) {
-    if (event.targetIsFriendly) {
-      return;
-    }
-    if (this.isTargetInExecuteRange(event)) {
-      this.lastExecuteHitTimestamp = event.timestamp;
-      if (!this.inExecuteWindow) {
-        this.inExecuteWindow = true;
-        this.executeWindowStart = event.timestamp;
-        debug && console.log('Execute window started');
-      }
-    } else {
-      if (this.inExecuteWindow && event.timestamp > this.lastExecuteHitTimestamp + OVER_1_GCD_BUFFER) {
-        this.inExecuteWindow = false;
-        this.totalExecuteDuration += event.timestamp - this.executeWindowStart;
-        debug && console.log('Execute window ended, current total: ', this.totalExecuteDuration);
-      }
-    }
-  }
-
-  onKillShotDamage(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
-  }
-
   flayedShotProc(event: ApplyBuffEvent) {
     this.maxCasts += 1;
     if (this.spellUsable.isOnCooldown(this.activeKillShotSpell.id)) {
@@ -89,17 +66,14 @@ class KillShot extends Analyzer {
 
   onFightEnd(event: FightEndEvent) {
     if (this.inExecuteWindow) {
-      this.totalExecuteDuration += event.timestamp - this.executeWindowStart;
-      debug && console.log('Fight ended, total duration of execute: ' + this.totalExecuteDuration + ' | ' + formatDuration(this.totalExecuteDuration));
+      this.totalExecuteWindowDuration += event.timestamp - this.executeWindowStart;
     }
-    this.maxCasts += Math.ceil(this.totalExecuteDuration / 10000);
-  }
+    debug && console.log('Fight ended, total duration of execute: ' + this.totalExecuteDuration + ' | ' + formatDuration(this.totalExecuteDuration));
 
-  isTargetInExecuteRange(event: DamageEvent) {
-    if (!event.hitPoints || !event.maxHitPoints) {
-      return false;
+    this.maxCasts += Math.ceil(this.totalExecuteDuration / 10000);
+    if (this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id)) {
+      this.maxCasts += 1;
     }
-    return (event.hitPoints / event.maxHitPoints) < KILL_SHOT_EXECUTE_RANGE;
   }
 
   statistic() {

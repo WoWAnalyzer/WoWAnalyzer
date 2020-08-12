@@ -99,7 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
     aimedShot: AimedShot,
     bindingShot: BindingShot,
     huntersMark: HuntersMark,
-    killShot: KillShot,
+    KillShot: KillShot,
 
     //Talents
     volley: Volley,
