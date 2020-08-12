@@ -5,7 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
@@ -14,45 +15,40 @@ class VirulentPlagueEfficiency extends Analyzer {
 	  enemies: Enemies,
   };
 
+  constructor(...args){
+    super(...args);
+
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.VIRULENT_PLAGUE), this.onRefresh);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VIRULENT_PLAGUE), this.onApply);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.OUTBREAK), this.onCastOutbreak);
+  }
+
   targets = {};
 
   totalOutBreakCasts = 0;
   totalTimeWasted = 0;
 
   get VirulentDuration(){
-	  if (this.selectedCombatant.hasTalent(SPELLS.EBON_FEVER_TALENT.id)) {
-		  return 13.65;
-	  } else{
-		  return 27.3;
-	  }
+    return this.selectedCombatant.hasTalent(SPELLS.EBON_FEVER_TALENT.id) ? 13.65 : 27.3;
   }
 
-  on_byPlayer_refreshdebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.VIRULENT_PLAGUE.id) {
-      this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.timestamp + 1000 * this.VirulentDuration;
-    }
+  onRefresh(event) {
+    this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.timestamp + 1000 * this.VirulentDuration;
   }
 
-  on_byPlayer_applydebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.VIRULENT_PLAGUE.id) {
-      this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.timestamp + 1000 * this.VirulentDuration - 1000 * 0.3 * this.VirulentDuration;
-      //Removing 3.15 seconds when buff is only applied. This is for cases when the target does not benefit from the epidemic effect (Dots spreading to adds not staying by target for instance.)
-    }
+  onApply(event) {
+    this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.timestamp + 1000 * this.VirulentDuration - 1000 * 0.3 * this.VirulentDuration;
+    //Removing 3.15 seconds when buff is only applied. This is for cases when the target does not benefit from the epidemic effect (Dots spreading to adds not staying by target for instance.)    
   }
 
-  on_byPlayer_cast(event) {
-    const spellID = event.ability.guid;
-    if (spellID === SPELLS.OUTBREAK.id) {
-      this.totalOutBreakCasts += 1;
-      if (this.targets[encodeTargetString(event.targetID, event.targetInstance)]) {
-        //We subtract 6 seconds from the total duration since this is the time left after Outbreak finishes.
-        if (((this.targets[encodeTargetString(event.targetID, event.targetInstance)]) - event.timestamp) >= 0) {
-          this.totalTimeWasted += ((this.targets[encodeTargetString(event.targetID, event.targetInstance)]) - event.timestamp) / 1000;
-        }
+  onCastOutbreak(event) {
+    this.totalOutBreakCasts += 1;
+    if (this.targets[encodeTargetString(event.targetID, event.targetInstance)]) {
+      //We subtract 6 seconds from the total duration since this is the time left after Outbreak finishes.
+      if (((this.targets[encodeTargetString(event.targetID, event.targetInstance)]) - event.timestamp) >= 0) {
+        this.totalTimeWasted += ((this.targets[encodeTargetString(event.targetID, event.targetInstance)]) - event.timestamp) / 1000;
       }
-    }
+    }    
   }
 
   get averageTimeWasted() {
@@ -89,10 +85,10 @@ class VirulentPlagueEfficiency extends Analyzer {
         value={`${(this.averageTimeWasted).toFixed(1)} seconds`}
         label="Average Virulent Plague Duration Waste"
         tooltip={`A total amount of ${this.totalTimeWasted.toFixed(1)} seconds of Virulent Plague uptime was wasted with an average amount of ${(this.averageTimeWasted).toFixed(1)} seconds per cast`}
+        position={STATISTIC_ORDER.CORE(7)}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default VirulentPlagueEfficiency;
