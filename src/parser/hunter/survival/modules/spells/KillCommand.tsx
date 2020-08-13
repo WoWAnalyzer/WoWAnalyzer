@@ -51,7 +51,7 @@ class KillCommand extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(18)}
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.KILL_COMMAND_CAST_SV}>

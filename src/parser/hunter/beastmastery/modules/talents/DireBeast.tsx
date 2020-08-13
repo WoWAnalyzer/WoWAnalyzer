@@ -10,7 +10,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
 import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
-import { HASTE_PERCENT_DB } from 'parser/hunter/shared/constants';
+import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
 
 /**
  * Summons a powerful wild beast that attacks the target and roars, increasing your Haste by 5% for 8 sec.
@@ -61,7 +61,7 @@ class DireBeast extends Analyzer {
         <BoringSpellValueText spell={SPELLS.DIRE_BEAST_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
-            <Haste /> {formatPercentage(HASTE_PERCENT_DB * this.uptime)}% Haste<br />
+            <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% Haste<br />
           </>
         </BoringSpellValueText>
       </Statistic>

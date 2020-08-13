@@ -126,7 +126,7 @@ class CobraShot extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
         tooltip={(
           <>
