@@ -237,7 +237,7 @@ class SerpentSting extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(19)}
+        position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
         tooltip={(
           <>

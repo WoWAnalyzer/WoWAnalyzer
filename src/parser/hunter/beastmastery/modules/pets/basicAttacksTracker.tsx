@@ -100,7 +100,7 @@ class BasicAttacks extends Analyzer {
     }
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(14)}
+        position={STATISTIC_ORDER.OPTIONAL(20)}
         size="flexible"
         dropdown={(
           <>

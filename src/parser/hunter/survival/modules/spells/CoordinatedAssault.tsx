@@ -64,11 +64,12 @@ class CoordinatedAssault extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(17)}
+        position={STATISTIC_ORDER.OPTIONAL(4)}
         size="flexible"
         tooltip={(
           <>
-            Over the course of the encounter you had Coordinated Assault up for a total of {(this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / 1000).toFixed(1)} seconds. <br />
+            Over the course of the encounter you had Coordinated Assault up for a total of {(this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / 1000).toFixed(1)} seconds.
+            <br />
             Total damage breakdown:
             <ul>
               <li>Player damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.playerDamage))}% / {formatNumber(this.playerDamage / (this.owner.fightDuration / 1000))} DPS</li>
@@ -79,7 +80,8 @@ class CoordinatedAssault extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.COORDINATED_ASSAULT}>
           <>
-            <ItemDamageDone amount={this.totalDamage} /> <br />
+            <ItemDamageDone amount={this.totalDamage} />
+            <br />
             <UptimeIcon /> {formatPercentage(this.percentUptime)}% <small>uptime</small>
           </>
         </BoringSpellValueText>
