@@ -45,7 +45,7 @@ class FocusDetails extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(2)}
+        position={STATISTIC_ORDER.CORE(11)}
         size="flexible"
         tooltip={`You wasted ${this.wasted} out of ${this.total} Focus from generators.`}
       >
