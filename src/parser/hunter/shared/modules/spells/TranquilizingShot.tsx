@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -8,14 +8,21 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events from 'parser/core/Events';
+import DispelTracker from 'parser/shared/modules/DispelTracker';
 
-//TODO Revisit this module when we have more information
-class TranquilizingShot extends Analyzer {
+/**
+ * Removes 1 Enrage and 1 Magic effect from an enemy target.
+ *
+ * TODO Revisit this module when we have more information
+ */
+class TranquilizingShot extends DispelTracker {
 
   static dependencies = {
     abilities: Abilities,
   };
+
   totalDispels: number = 0;
+
   protected abilities!: Abilities;
 
   constructor(options: any) {

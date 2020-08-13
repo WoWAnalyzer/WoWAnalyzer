@@ -68,7 +68,7 @@ class CancelledCasts extends CoreCancelledCasts {
         )}
       >
         <BoringValueText label="Cancelled Casts">
-          <CrossIcon /> {formatPercentage(this.cancelledPercentage)}% <small>Casts Cancelled</small>
+          <CrossIcon /> {formatPercentage(this.cancelledPercentage)}% <small>casts cancelled</small>
         </BoringValueText>
       </Statistic>
     );
