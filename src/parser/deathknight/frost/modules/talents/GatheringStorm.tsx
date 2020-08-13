@@ -25,8 +25,8 @@ class GatheringStorm extends Analyzer {
   currentStacks: number = 0;
   extendedDuration: number = 0;
 
-  constructor(args: any) {
-    super(args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GATHERING_STORM_TALENT.id);
     if (!this.active) {
       return;

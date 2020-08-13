@@ -18,8 +18,8 @@ class Frostscythe extends Analyzer {
   goodCasts: number = 0;
   hitThreshold: number = 0;
 
-  constructor(args: any) {
-    super(args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FROSTSCYTHE_TALENT.id);
     if (!this.active) {
       return;

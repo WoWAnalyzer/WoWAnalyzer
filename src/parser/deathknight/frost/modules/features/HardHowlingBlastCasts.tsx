@@ -18,8 +18,8 @@ class HardHowlingBlastCasts extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected enemies!: Enemies;
 
-  constructor(args: any) {
-    super(args);
+  constructor(options: any) {
+    super(options);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOWLING_BLAST), this.onCast);
   }

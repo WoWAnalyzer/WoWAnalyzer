@@ -25,8 +25,8 @@ class KillingMachineEfficiency extends Analyzer {
   refreshedKMProcs = 0;
   expiredKMProcs = 0;
 
-  constructor(args: any) {
-    super(args);
+  constructor(options: any) {
+    super(options);
 
     this.addEventListener(Events.GlobalCooldown, this.globalCooldown);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onApplyBuff);

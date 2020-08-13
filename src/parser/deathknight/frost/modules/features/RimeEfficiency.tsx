@@ -23,8 +23,8 @@ class RimeEfficiency extends Analyzer {
   refreshedRimeProcs: number = 0;
   expiredRimeProcs: number = 0;
 
-  constructor(args: any) {
-    super(args);
+  constructor(options: any) {
+    super(options);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.onRemoveBuff);
