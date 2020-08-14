@@ -43,7 +43,7 @@ class Haste extends Analyzer {
 
     //region Hunter Haste Buffs
     [SPELLS.DIRE_BEAST_BUFF.id]: DIRE_BEAST_HASTE_PERCENT,
-    [SPELLS.STEADY_FOCUS_BUFF]: STEADY_FOCUS_HASTE_PERCENT,
+    [SPELLS.STEADY_FOCUS_BUFF.id]: STEADY_FOCUS_HASTE_PERCENT,
     //endregion
 
     // Boss abilities:
