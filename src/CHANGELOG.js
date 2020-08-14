@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 8, 13), 'Added a generic Execute module that should help in standardizing and maintaining execute modules across specs', Putro),
   change(date(2020, 8, 8), 'Fixed an issue where changelogs wouldn\'t count in pull requests.', Putro),
   change(date(2020, 8, 4), 'Fixed a bug causing the total fight duration field to be improperly calculated, leading to confusing downtime/death percentages', Dambroda),
   change(date(2020, 8, 2), 'Remove Corruption in preparation for Shadowlands', Putro),

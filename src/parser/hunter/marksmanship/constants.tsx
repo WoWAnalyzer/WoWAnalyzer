@@ -64,11 +64,9 @@ export const DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE = 2;
 //Calling the Shots makes Arcane Shot and Multi Shot decrease Trueshot cooldown by 2.5s
 export const CTS_CDR_MS = 2500;
 /** Careful Aim */
-//Careful Aim is a execution-like talent that triggers off above 80%
-export const CAREFUL_AIM_HIGHER_HP_THRESHOLD = 0.8;
-//It also triggers off sub 20%
-export const CAREFUL_AIM_LOWER_HP_THRESHOLD = 0.2;
-//Careful Aim increases Aimed Shot damage by 50% iwhen active
+//Careful Aim is a execution-like talent that triggers off above 70%
+export const CAREFUL_AIM_THRESHOLD = 0.7;
+//Careful Aim increases Aimed Shot damage by 50% when active
 export const CA_MODIFIER = .5;
 /** Lock and Load */
 //Lock and Load has a 5% chance to proc per auto attack
