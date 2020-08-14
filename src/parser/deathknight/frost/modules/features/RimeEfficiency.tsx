@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RemoveBuffEvent, RefreshBuffEvent, GlobalCooldownEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -16,14 +16,15 @@ class RimeEfficiency extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  rimeProcs = 0;
-  lastGCD = null;
-  lastProc = null;
-  refreshedRimeProcs = 0;
-  expiredRimeProcs = 0;
+  rimeProcs: number = 0;
+  lastGCDTime: number = 0;
+  lastGCDDuration: number = 0;
+  lastProcTime: number = 0;
+  refreshedRimeProcs: number = 0;
+  expiredRimeProcs: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.onRemoveBuff);
@@ -31,28 +32,29 @@ class RimeEfficiency extends Analyzer {
     this.addEventListener(Events.GlobalCooldown, this.onGlobalCooldown);
   }
 
-  onApplyBuff(event) {
+  onApplyBuff(event: ApplyBuffEvent) {
     this.rimeProcs += 1;
-    this.lastProc = event;
+    this.lastProcTime = event.timestamp;
   }
 
-  onRemoveBuff(event) {
-    const durationHeld = event.timestamp - this.lastProc.timestamp;
+  onRemoveBuff(event: RemoveBuffEvent) {
+    const durationHeld = event.timestamp - this.lastProcTime;
     if (durationHeld > (BUFF_DURATION_SEC * 1000)) {
       this.expiredRimeProcs += 1;
     }
   }
 
-  onRefreshBuff(event) {
-    const timeSinceGCD = event.timestamp - this.lastGCD.timestamp;
-    if (timeSinceGCD < this.lastGCD.duration + LAG_BUFFER_MS) {
+  onRefreshBuff(event: RefreshBuffEvent) {
+    const timeSinceGCD = event.timestamp - this.lastGCDTime;
+    if (timeSinceGCD < this.lastGCDDuration + LAG_BUFFER_MS) {
       return;
     }
     this.refreshedRimeProcs += 1;
   }
 
-  onGlobalCooldown(event) {
-    this.lastGCD = event;
+  onGlobalCooldown(event: GlobalCooldownEvent) {
+    this.lastGCDTime = event.timestamp;
+    this.lastGCDDuration = event.duration;
   }
 
   get totalWastedProcs() {
@@ -80,9 +82,9 @@ class RimeEfficiency extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<> You are wasting <SpellLink id={SPELLS.RIME.id} /> procs. You should be casting <SpellLink id={SPELLS.HOWLING_BLAST.id} /> as soon as possible when you have a Rime proc to avoid wasting it.</>)
           .icon(SPELLS.RIME.icon)
           .actual(`${formatPercentage(this.wastedProcRate)}% of Rime procs were either refreshed and lost or expired without being used`)
