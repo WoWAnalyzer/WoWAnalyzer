@@ -202,7 +202,7 @@ export default {
     name: 'Multi-Shot',
     icon: 'ability_upgrademoonglaive',
   },
-  MASTER_MARKSMAN_BUFF: {
+  MASTER_MARKSMAN_DEBUFF: {
     id: 269576,
     name: 'Master Marksman',
     icon: 'ability_hunter_mastermarksman',
@@ -256,6 +256,11 @@ export default {
     id: 321461,
     name: 'Dead Eye',
     icon: 'buff_epichunter',
+  },
+  STREAMLINE_BUFF: {
+    id: 342076,
+    name: 'Streamline',
+    icon: 'ability_hunter_runningshot',
   },
   //endregion
 

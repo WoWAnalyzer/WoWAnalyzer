@@ -89,7 +89,7 @@ class PreciseShots extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(17)}
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         tooltip={(
           <>

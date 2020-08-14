@@ -70,7 +70,6 @@ class RapidFire extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       modRate /= (1 + TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE);
     }
-    debug && console.log('modRate: ', modRate);
     const spellReductionSpeed = 1 / modRate;
     debug && console.log('modRate: ', modRate, ' & spellReductionSpeed: ', spellReductionSpeed);
     this.reduceRapidFireCooldown(event, spellReductionSpeed);

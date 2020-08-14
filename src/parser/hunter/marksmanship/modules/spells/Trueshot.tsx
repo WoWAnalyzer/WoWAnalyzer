@@ -77,7 +77,7 @@ class Trueshot extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(16)}
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
         tooltip={(
           <>
