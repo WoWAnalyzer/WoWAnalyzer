@@ -4,7 +4,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 //Overridden Core modules
-import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 
 //Features
@@ -75,7 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core statistics
     abilities: Abilities,
     channeling: Channeling,
-    globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
 
     // Features
@@ -103,7 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rapidFire: RapidFire,
     bindingShot: BindingShot,
     huntersMark: HuntersMark,
-    KillShot: KillShot,
+    killShot: KillShot,
 
     //Talents
     volley: Volley,

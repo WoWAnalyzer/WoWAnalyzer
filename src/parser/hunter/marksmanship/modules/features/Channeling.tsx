@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
-import { ApplyDebuffEvent, CastEvent, RemoveBuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 const debug = false;
 
@@ -8,9 +8,6 @@ class Channeling extends CoreChanneling {
 
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.RAPID_FIRE.id) {
-      return;
-    }
     if (spellId === SPELLS.BARRAGE_TALENT.id) {
       this.beginChannel(event);
       return;
@@ -26,24 +23,6 @@ class Channeling extends CoreChanneling {
     } else {
       super.cancelChannel(event, ability);
     }
-  }
-
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    if (event.ability.guid !== SPELLS.RAPID_FIRE.id) {
-      return;
-    }
-    this.beginChannel(event);
-  }
-
-  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
-    if (event.ability.guid !== SPELLS.RAPID_FIRE.id) {
-      return;
-    }
-    if (!this.isChannelingSpell(SPELLS.RAPID_FIRE.id)) {
-      // This may be true if we did the event-order fix in begincast/cast and it was already ended there.
-      return;
-    }
-    this.endChannel(event);
   }
 
   on_byPlayer_removebuff(event: RemoveBuffEvent) {

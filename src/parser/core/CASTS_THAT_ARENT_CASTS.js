@@ -15,7 +15,6 @@ export default [
   SPELLS.DEFILED_AUGMENT_RUNE.id,
   SPELLS.PRIMAL_FURY.id, // Feral Druid "extra CP on crit" proc causes a cast event
   SPELLS.GUSHING_LACERATIONS_PROC.id, // Feral Druid azerite trait causes a cast event when it procs a combo point
-  SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
   SPELLS.BLOW_DARKMOON_WHISTLE.id, //Darkmoon Whistle active that some people macro into abilities
   SPELLS.DARKMOON_FIREWORK.id, //Darkmoon Firework toy
   SPELLS.BIG_RED_RAYS.id, //Big Red Raygun active effect
@@ -34,4 +33,14 @@ export default [
   285347, // Plague of Fire - King Rastakhan mechanic
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
   316944, // Dragon's Flight - Feather Fall (DNT)
+
+  //region Hunter
+  SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
+
+  //region Covenants
+  SPELLS.RESONATING_ARROW_DEBUFF.id, //The debuff applied to mobs inside Kyrian hunter ability resonating arrow area of effect
+  SPELLS.COMBAT_MEDITATION_TRIGGER.id, //The Spell ID when Combat Meditation from Kyrian Soulbind triggers, so that there is now a soul ready to pick up
+  SPELLS.COMBAT_MEDITATION_PICK_UP.id, //The Spell ID that is "cast" when an orb is picked up
+  //endregion
+  //endregion
 ];

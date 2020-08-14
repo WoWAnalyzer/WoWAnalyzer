@@ -4,11 +4,16 @@ import SPELLS from 'common/SPELLS';
 /** Rapid Fire */
 //Rapid Fire ticks 10 times per cast baseline
 export const RAPID_FIRE_TICKS_PER_CAST = 10;
+/** Aimed Shot */
+//Aimed Shot has a baseline casttime of 2.5s
+export const AIMED_SHOT_BASELINE_CAST_TIME = 2500;
 /** Trueshot */
 //Trueshot makes Aimed Shot recharge 225% faster despite what its tooltip says
 export const TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE = 2.25;
 //Trueshot makes Rapid Fire recharge 240% faster despite what its tooltip says
 export const TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE = 2.4;
+//Trueshot increases the cast rate of Aimed Shot by 50%
+export const TRUESHOT_AIMED_SHOT_CAST_TIME_SPEED_UP = 0.5;
 /** Lone Wolf */
 //Lone Wolf increases damage done by up to 10%
 export const MAX_LONE_WOLF_MODIFIER = 0.10;
@@ -47,16 +52,18 @@ export const ARCANE_SHOT_MAX_TRAVEL_TIME = 500;
 
 //region Talents
 /** Streamline */
-//Streamline increases amount of Rapid Fire ticks by 20%
-export const STREAMLINE_TICK_INCREASE = 0.2;
+//Streamline increases the damage of Rapid Fire by 15%
+export const STREAMLINE_RAPID_FIRE_DAMAGE_INCREASE = 0.15;
+//Rapid Fire causes the next Aimed Shot to cast 30% faster.
+export const STREAMLINE_AIMED_SHOT_CAST_SPEED_UP = 0.3;
 /** Steady Focus */
-//Each Stack of Steady Focus decrease Steady Shot cast time by 20%
-export const STEADY_FOCUS_GCD_REDUCTION_PER_STACK = 0.2;
-//Steady Focus stacks up to 2 times
-export const STEADY_FOCUS_MAX_STACKS = 2;
+//Steady Focus increases haste by 7%
+export const STEADY_FOCUS_HASTE_PERCENT = 0.07;
 /** Master Marksman */
-//Master Marksman increases Aimed Shot crit chance by 25%
-export const MASTER_MARKSMAN_CRIT_INCREASE = 0.25;
+//Master Marksman makes special shot crits apply a 15% DOT
+export const MASTER_MARKSMAN_CRIT_DOT = 0.15;
+//Master Marksman ticks every two seconds
+export const MASTER_MARKSMAN_TICK_RATE = 2000;
 /** Dead Eye */
 //Dead Eye increases the Aimed Shot recharge rate by 200%, despite tooltip saying it is 50%
 export const DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE = 2;
@@ -73,6 +80,11 @@ export const CA_MODIFIER = .5;
 export const LNL_PROC_CHANCE = 0.08;
 //When Lock and Load procs, Aimed Shot costs 0 focus
 export const LNL_COST_MULTIPLIER = 0;
+/** Lethal Shots */
+//Lethal Shot has a 30% chance per Arcane Shot / Multi Shot / Chimaera Shot hit
+export const LETHAL_SHOTS_CHANCE = 0.3;
+//Lethal Shot procs reduce cooldown of Rapid Fire
+export const LETHAL_SHOTS_REDUCTION = 5000;
 //endregion
 
 //region Resources
