@@ -6,6 +6,8 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import EventFilter from 'parser/core/EventFilter';
 import { EventType } from 'parser/core/Events';
+import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
+import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
 
 const debug = false;
 
@@ -28,7 +30,6 @@ class Haste extends Analyzer {
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
     [SPELLS.HAVOC_T21_4PC_BUFF.id]: 0.25,
-    [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
     [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
@@ -39,6 +40,11 @@ class Haste extends Analyzer {
     [SPELLS.GUARDIAN_OF_AZEROTH_HASTE_BUFF.id]: {
       hastePerStack: 0.02,
     },
+
+    //region Hunter Haste Buffs
+    [SPELLS.DIRE_BEAST_BUFF.id]: DIRE_BEAST_HASTE_PERCENT,
+    [SPELLS.STEADY_FOCUS_BUFF.id]: STEADY_FOCUS_HASTE_PERCENT,
+    //endregion
 
     // Boss abilities:
     [SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id]: 0.5, // Amethyst of the Shadow King by Opulence (BoD - BFA)

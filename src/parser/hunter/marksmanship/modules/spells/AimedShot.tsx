@@ -22,18 +22,21 @@ class AimedShot extends Analyzer {
     abilities: Abilities,
     deadEye: DeadEye,
   };
+
   lastReductionTimestamp: number = 0;
   effectiveCDRFromTrueshotDeadEye: number = 0;
   wastedCDRFromTrueshotDeadEye: number = 0;
   casts: number = 0;
   totalCooldown: number = 0;
   averageCooldown: number = 0;
+
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
   protected deadEye!: DeadEye;
 
   constructor(options: any) {
     super(options);
+
     options.abilities.add({
       spell: SPELLS.AIMED_SHOT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -47,6 +50,7 @@ class AimedShot extends Analyzer {
         recommendedEfficiency: 0.95,
       },
     });
+
     this.addEventListener(EventEmitter.catchAll, this.onEvent);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), (event: ApplyBuffEvent) => this.onAffectingBuffChange(event));
@@ -75,7 +79,6 @@ class AimedShot extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.DEAD_EYE_BUFF.id)) {
       modRate /= (1 + DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE);
     }
-    debug && console.log('modRate: ', modRate);
     const spellReductionSpeed = 1 / modRate;
     debug && console.log('modRate: ', modRate, ' & spellReductionSpeed: ', spellReductionSpeed);
     this.reduceAimedShotCooldown(event, spellReductionSpeed);

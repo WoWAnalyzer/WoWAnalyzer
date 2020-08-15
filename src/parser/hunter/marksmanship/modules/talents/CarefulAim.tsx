@@ -13,12 +13,15 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import { CA_MODIFIER, CAREFUL_AIM_THRESHOLD } from 'parser/hunter/marksmanship/constants';
 import ExecuteHelper from 'parser/shared/ExecuteHelper';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import { abbreviateBossNames } from 'common/abbreviateLongNames';
 
 /**
  * Aimed Shot deals 50% bonus damage to targets who are above 70% health.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=damage-done&source=25&ability=-19434
+ *
+ * TODO: Optimize this for Execute Helper
  */
 class CarefulAim extends ExecuteHelper {
   static dependencies = {
@@ -76,7 +79,7 @@ class CarefulAim extends ExecuteHelper {
     const outsideCarefulAim = healthPercent && healthPercent < CAREFUL_AIM_THRESHOLD;
     if (event.maxHitPoints && this.bossIDs.includes(targetID)) {
       const enemy = this.enemies.getEntity(event);
-      target = enemy && enemy.name;
+      target = enemy && enemy.name && abbreviateBossNames(enemy.name);
       if (!this.carefulAimPeriods[target]) {
         this.carefulAimPeriods[target] = {
           caDamage: 0,
@@ -106,6 +109,7 @@ class CarefulAim extends ExecuteHelper {
   calculateCarefulAimPeriods() {
     Object.values(this.carefulAimPeriods).forEach(boss => {
       boss.timestampSub100 = boss.timestampSub100 || this.owner.fight.start_time;
+      boss.timestampSub70 = boss.timestampSub70 || this.owner.fight.end_time;
     });
   }
 
@@ -121,9 +125,9 @@ class CarefulAim extends ExecuteHelper {
               <thead>
                 <tr>
                   <th>Boss</th>
-                  <th>Dmg</th>
+                  <th>Damage</th>
                   <th>Hits</th>
-                  <th>Dur</th>
+                  <th>Duration</th>
                 </tr>
               </thead>
               <tbody>
@@ -144,7 +148,8 @@ class CarefulAim extends ExecuteHelper {
       >
         <BoringSpellValueText spell={SPELLS.CAREFUL_AIM_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             {this.caProcs} <small>hits for</small> ≈ {formatNumber(this.damage / this.caProcs)} <small>each</small>
           </>
         </BoringSpellValueText>

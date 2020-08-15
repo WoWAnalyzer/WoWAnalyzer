@@ -2,7 +2,7 @@ import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -100,7 +100,7 @@ class BasicAttacks extends Analyzer {
     }
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(14)}
+        position={STATISTIC_ORDER.OPTIONAL(20)}
         size="flexible"
         dropdown={(
           <>

@@ -17,8 +17,8 @@ export const ONE_SECOND_IN_MS = 1000;
 //Whenever we need to use a buffer that is slightly above that of the maximum GCD
 export const OVER_1_GCD_BUFFER = 2000;
 /** Death Tracker */
-//The override we use in the hunter version of the Death Tracker that allows for a hunter to be dead for 0.2% of an encounter without it counting towards death time as it could just be Feign Death
-export const TIME_SPENT_DEAD_THRESHOLD = 0.002; //0.2%
+//The override we use in the hunter version of the Death Tracker that allows for a hunter to be dead for 0.25% of an encounter without it counting towards death time as it could just be Feign Death
+export const TIME_SPENT_DEAD_THRESHOLD = 0.0025; //0.25%
 //endregion
 
 //region Spells
@@ -39,7 +39,7 @@ export const HUNTERS_MARK_MODIFIER = 0.05;
 export const BASELINE_TURTLE_CHEETAH_CD = 180000;
 /** Dire Beast (and also Dire Consequences) */
 //Dire Beast (and therefore also Dire Consequences) increases haste by 5% while active
-export const HASTE_PERCENT_DB = 0.05;
+export const DIRE_BEAST_HASTE_PERCENT= 0.05;
 //endregion
 
 //region Talents

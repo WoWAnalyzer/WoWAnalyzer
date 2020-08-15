@@ -8,7 +8,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Events from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import { HASTE_PERCENT_DB } from 'parser/hunter/shared/constants';
+import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
 
 /**
  * Kill Command deals n additional damage, and has a chance to summon a Dire
@@ -46,7 +46,7 @@ class DireConsequences extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.DIRE_CONSEQUENCES}>
           <>
-            <Haste /> {formatPercentage(HASTE_PERCENT_DB * this.uptime)}% <small>Haste</small><br />
+            <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% <small>Haste</small><br />
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small><br />
             {this.procs} <small>procs</small>
           </>

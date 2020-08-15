@@ -125,9 +125,9 @@ class WildfireBomb extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(20)}
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.GENERAL}
       >
         <BoringSpellValueText spell={SPELLS.WILDFIRE_BOMB}>
           <>

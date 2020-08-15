@@ -122,7 +122,7 @@ class BestialWrath extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(14)}
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         dropdown={(
           <>

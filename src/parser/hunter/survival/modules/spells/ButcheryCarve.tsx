@@ -32,25 +32,16 @@ class ButcheryCarve extends Analyzer {
   wastedReductionMs: number = 0;
   targetsHit: number = 0;
   casts: number = 0;
-  spellKnown: any = SPELLS.CARVE;
+  spellKnown: any = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
   damage: number = 0;
-  hasButchery: boolean = false;
-  bombSpellKnown: number = SPELLS.WILDFIRE_BOMB.id;
+  bombSpellKnown: number = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id) ? SPELLS.WILDFIRE_INFUSION_TALENT.id : SPELLS.WILDFIRE_BOMB.id;
 
   protected spellUsable!: SpellUsable;
 
   constructor(options: any) {
     super(options);
-    this.hasButchery = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id);
-    if (this.hasButchery) {
-      this.spellKnown = SPELLS.BUTCHERY_TALENT;
-    }
-    if (this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id)) {
-      this.bombSpellKnown = SPELLS.WILDFIRE_INFUSION_TALENT.id;
-    }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BUTCHERY_TALENT, SPELLS.CARVE]), this.onDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BUTCHERY_TALENT, SPELLS.CARVE]), this.onCast);
-
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.spellKnown), this.onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.spellKnown), this.onCast);
   }
 
   get avgTargetsHitThreshold() {
@@ -111,12 +102,13 @@ class ButcheryCarve extends Analyzer {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
       return (
         <Statistic
-          position={STATISTIC_ORDER.OPTIONAL(17)}
+          position={STATISTIC_ORDER.OPTIONAL(5)}
           size="flexible"
         >
-          <BoringSpellValueText spell={this.hasButchery ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE}>
+          <BoringSpellValueText spell={this.spellKnown}>
             <>
-              <ItemDamageDone amount={this.damage} /> <br />
+              <ItemDamageDone amount={this.damage} />
+              <br />
               <AverageTargetsHit casts={this.casts} hits={this.targetsHit} />
             </>
           </BoringSpellValueText>

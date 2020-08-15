@@ -4,7 +4,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 //Overridden Core modules
-import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 
 //Features
@@ -51,8 +50,10 @@ import Trailblazer from '../shared/modules/talents/Trailblazer';
 import SteadyFocus from './modules/talents/SteadyFocus';
 import BornToBeWild from '../shared/modules/talents/BornToBeWild';
 import CarefulAim from './modules/talents/CarefulAim';
-import ChimaeraShot from '../shared/modules/talents/ChimaeraShot';
 import DeadEye from './modules/talents/DeadEye';
+import ChimaeraShot from './modules/talents/ChimaeraShot';
+import LethalShots from './modules/talents/LethalShots';
+import Streamline from './modules/talents/Streamline';
 
 //Azerite Traits
 import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
@@ -73,7 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core statistics
     abilities: Abilities,
     channeling: Channeling,
-    globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
 
     // Features
@@ -101,7 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rapidFire: RapidFire,
     bindingShot: BindingShot,
     huntersMark: HuntersMark,
-    KillShot: KillShot,
+    killShot: KillShot,
 
     //Talents
     volley: Volley,
@@ -120,6 +120,8 @@ class CombatLogParser extends CoreCombatLogParser {
     carefulAim: CarefulAim,
     chimaeraShot: ChimaeraShot,
     deadEye: DeadEye,
+    lethalShots: LethalShots,
+    streamline: Streamline,
 
     //Azerite Traits
     focusedFire: FocusedFire,

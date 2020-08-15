@@ -92,7 +92,7 @@ export const LIST_OF_FOCUS_SPENDERS_SV = [
   SPELLS.SERPENT_STING_SV,
   ...RAPTOR_MONGOOSE_VARIANTS,
 ];
-export const BASE_FOCUS_REGEN_SV = 2.5;
+export const BASE_FOCUS_REGEN_SV = 5;
 export const BASE_MAX_FOCUS_SV = 100;
 //endregion
 
