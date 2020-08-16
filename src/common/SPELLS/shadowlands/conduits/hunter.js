@@ -1,5 +1,10 @@
 export default {
   //region Kyrian
+  ENFEEBLED_MARK_CONDUIT: {
+    id: 339018,
+    name: 'Enfeebled Mark',
+    icon: 'ability_blackhand_marked4death',
+  },
   COMBAT_MEDITATION_TRIGGER: {
     id: 328917,
     name: 'Combat Meditation',
@@ -13,14 +18,54 @@ export default {
   //endregion
 
   //region Necrolord
-
+  NECROTIC_BARRAGE_CONDUIT: {
+    id: 339129,
+    name: 'Necrotic Barrage',
+    icon: 'spell_necro_voodooblast',
+  },
   //endregion
 
   //region Night Fae
-
+  SPIRIT_ATTUNEMENT_CONDUIT: {
+    id: 339109,
+    name: 'Spirit Attunement',
+    icon: 'inv_archaeology_70_spiritofechero',
+  },
   //endregion
 
   //region Venthyr
+  EMPOWERED_RELEASE_CONDUIT: {
+    id: 339059,
+    name: 'Empowered Release',
+    icon: 'buff_epichunter',
+  },
+  EMPOWERED_RELEASE_BUFF: {
+    id: 339061,
+    name: 'Empowered Release',
+    icon: 'buff_epichunter',
+  },
+  //endregion
 
+  //region Beast Mastery
+  FEROCIOUS_APPETITE_CONDUIT: {
+    id: 339704,
+    name: 'Ferocious Appetite',
+    icon: 'ability_hunter_rapidkilling',
+  },
+  ONE_WITH_THE_BEAST_CONDUIT: {
+    id: 339750,
+    name: 'One With the Beast',
+    icon: 'spell_winston_rage',
+  },
+  BLOODLETTING_CONDUIT: {
+    id: 341440,
+    name: 'Bloodletting',
+    icon: 'ability_warrior_bloodbath',
+  },
+  ECHOING_CALL_CONDUIT: {
+    id: 340876,
+    name: 'Echoing Call',
+    icon: 'ability_fixated_state_yellow',
+  },
   //endregion
 };
