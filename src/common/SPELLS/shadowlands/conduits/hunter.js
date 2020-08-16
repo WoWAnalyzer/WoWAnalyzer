@@ -68,4 +68,37 @@ export default {
     icon: 'ability_fixated_state_yellow',
   },
   //endregion
+
+  //region Marksmanship
+  BRUTAL_PROJECTILES_CONDUIT: {
+    id: 339924,
+    name: 'Brutal Projectiles',
+    icon: 'inv_rapidfire',
+  },
+  BRUTAL_PROJECTILES_NEXT_RF_BUFF: {
+    id: 339928,
+    name: 'Brutal Projectiles',
+    icon: 'inv_rapidfire',
+  },
+  BRUTAL_PROJECTILES_DURING_RF_BUFF: {
+    id: 339929,
+    name: 'Brutal Projectiles',
+    icon: 'inv_rapidfire',
+  },
+  DEADLY_CHAIN_CONDUIT: {
+    id: 339973,
+    name: 'Deadly Chain',
+    icon: 'ability_hunter_resistanceisfutile',
+  },
+  POWERFUL_PRECISION_CONDUIT: {
+    id: 340033,
+    name: 'Powerful Precision',
+    icon: 'ability_hunter_markedshot',
+  },
+  SHARPSHOOTERS_FOCUS_CONDUIT: {
+    id: 339920,
+    name: 'Sharpshooter\'s Focus',
+    icon: 'ability_creature_cursed_04',
+  },
+  //endregion
 };

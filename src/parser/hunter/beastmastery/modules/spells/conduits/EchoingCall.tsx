@@ -11,6 +11,9 @@ import { ECHOING_CALL_INCREASED_WILD_CALL_CHANCE } from 'parser/hunter/beastmast
 
 /**
  * Wild Call has a x%  increased chance to reset the cooldown of Barbed Shot.
+ *
+ * Example log
+ *
  */
 class EchoingCall extends Analyzer {
 
@@ -50,7 +53,8 @@ class EchoingCall extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.ECHOING_CALL_CONDUIT}>
           <>
-            ≈{(this.procChances * ECHOING_CALL_INCREASED_WILD_CALL_CHANCE[this.conduitRank]).toFixed(1)} <small>resets</small></>
+            ≈{(this.procChances * ECHOING_CALL_INCREASED_WILD_CALL_CHANCE[this.conduitRank]).toFixed(1)} <small>resets</small>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

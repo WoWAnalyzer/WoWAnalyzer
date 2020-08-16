@@ -74,6 +74,10 @@ import EnfeebledMark from '../shared/modules/spells/conduits/kyrian/EnfeebledMar
 import EmpoweredRelease from '../shared/modules/spells/conduits/venthyr/EmpoweredRelease';
 import NecroticBarrage from '../shared/modules/spells/conduits/necrolord/NecroticBarrage';
 import SpiritAttunement from '../shared/modules/spells/conduits/nightfae/SpiritAttunement';
+import BrutalProjectiles from './modules/spells/conduits/BrutalProjectiles';
+import DeadlyChain from './modules/spells/conduits/DeadlyChain';
+import PowerfulPrecision from './modules/spells/conduits/PowerfulPrecision';
+import SharpshootersFocus from './modules/spells/conduits/SharpshootersFocus';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -148,6 +152,10 @@ class CombatLogParser extends CoreCombatLogParser {
     enfeebledMark: EnfeebledMark,
     necroticBarrage: NecroticBarrage,
     spiritAttunement: SpiritAttunement,
+    brutalProjectiles: BrutalProjectiles,
+    deadlyChain: DeadlyChain,
+    powerfulPrecision: PowerfulPrecision,
+    sharpshootersFocus: SharpshootersFocus,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

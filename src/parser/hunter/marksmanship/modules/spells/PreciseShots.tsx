@@ -21,7 +21,7 @@ class PreciseShots extends Analyzer {
 
   damage = 0;
   buffsActive = 0;
-  buffsGained = 0;
+  buffsSpent = 0;
   minOverwrittenProcs = 0;
   maxOverwrittenProcs = 0;
   buffedShotInFlight: number | null = null;
@@ -42,12 +42,12 @@ class PreciseShots extends Analyzer {
   }
 
   onPreciseShotsRemoval() {
-    this.buffsGained += 1;
+    this.buffsSpent += 1;
     this.buffsActive = 0;
   }
 
   onPreciseShotsStackRemoval() {
-    this.buffsGained += 1;
+    this.buffsSpent += 1;
     this.buffsActive -= 1;
   }
 
@@ -100,7 +100,7 @@ class PreciseShots extends Analyzer {
         <BoringSpellValueText spell={SPELLS.PRECISE_SHOTS}>
           <>
             <ItemDamageDone amount={this.damage} /><br />
-            {this.buffsGained} <small>buffs used</small>
+            {this.buffsSpent} <small>buffs used</small>
           </>
         </BoringSpellValueText>
       </Statistic>

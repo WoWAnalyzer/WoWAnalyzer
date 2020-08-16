@@ -15,6 +15,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
  *
  * Example log
  *
+ * TODO: Verify how this applies to Bestial Wrath (Multiplicate or Additive)
  */
 class OneWithTheBeast extends Analyzer {
 

@@ -14,6 +14,8 @@ export const TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE = 2.25;
 export const TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE = 2.4;
 //Trueshot increases the cast rate of Aimed Shot by 50%
 export const TRUESHOT_AIMED_SHOT_CAST_TIME_SPEED_UP = 0.5;
+//Trueshot lasts 15 seconds by default
+export const TRUESHOT_DURATION_BASELINE = 15000;
 /** Lone Wolf */
 //Lone Wolf increases damage done by up to 10%
 export const MAX_LONE_WOLF_MODIFIER = 0.10;
@@ -48,6 +50,9 @@ export const PRECISE_SHOTS_ASSUMED_PROCS = 2;
 export const PRECISE_SHOTS_MODIFIER = 0.75;
 //Because the spells have traveltime we need to take it into account
 export const ARCANE_SHOT_MAX_TRAVEL_TIME = 500;
+/** Trick Shots */
+//Trick Shots baseline does 50% damage to secondary targets
+export const TRICK_SHOTS_BASELINE_DAMAGE = 0.5;
 //endregion
 
 //region Talents
@@ -113,4 +118,21 @@ export const SUS_RAMP_UP_MOD = 0.2;
 /** Unerring Vision */
 //Unerring Vision stacks up to 10 times, regardless of Trueshot increasing in duration
 export const UV_MAX_STACKS = 10;
+//endregion
+
+//region Conduits
+/** Brutal Projectiles */
+//With Brutal Projectiles your auto attacks have a 10%
+export const BRUTAL_PROJECTILES_PROC_CHANCE = 0.1;
+//Each Shot of Rapid Fire increases damage more and more over its duration
+export const BRUTAL_PROJECTILES_RAMP_DAMAGE = [0, 0.01, 1.25, 0.015, 0.02, 0.0225, 0.025, 0.0275, 0.0325, 0.035, 0.0375, 0.04, 0.0425, 0.045, 0.0475, 0.05];
+/** Deadly Chain */
+//With Deadly Chain your trickshots damage is increased
+export const DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE = [0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25];
+/** Powerful Precision */
+//With Powerful Precision Precise Shots further increases the damage of Arcane Shot, Chimaera Shots and Multi-Shot
+export const POWERFUL_PRECISION_DAMAGE_INCREASE = [0.05, 0.06, 0.07, 0.08, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20];
+/** Sharpshooter's Focus */
+//With Sharpshooter's Focus, Trueshot lasts x% longer
+export const SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION = [0.20, 0.22, 0.24, 0.27, 0.29, 0.31, 0.33, 0.36, 0.38, 0.40, 0.42, 0.44, 0.46, 0.48, 0.50];
 //endregion
