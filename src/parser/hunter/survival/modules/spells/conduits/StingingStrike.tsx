@@ -1,0 +1,51 @@
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import React from 'react';
+import Events, { DamageEvent } from 'parser/core/Events';
+import { RAPTOR_MONGOOSE_VARIANTS, STINGING_STRIKE_RS_MB_DMG_INCREASE } from 'parser/hunter/survival/constants';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import SPELLS from 'common/SPELLS';
+
+class StingingStrike extends Analyzer {
+  
+  conduitRank: number = 0;
+  addedDamage: number = 0;
+
+  constructor(options: any) {
+    super(options);
+    this.active = false;
+    if (!this.active) {
+      return;
+    }
+
+    this.conduitRank = 1; //TODO: Find out the proper way of parsing conduit ranks
+
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onRaptorMongooseDamage);
+  }
+
+  onRaptorMongooseDamage(event: DamageEvent) {
+    this.addedDamage += calculateEffectiveDamage(event, STINGING_STRIKE_RS_MB_DMG_INCREASE[this.conduitRank]);
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+      >
+        <BoringSpellValueText spell={SPELLS.STINGING_STRIKE_CONDUIT}>
+          <>
+            <ItemDamageDone amount={this.addedDamage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
+  }
+}
+
+export default StingingStrike;

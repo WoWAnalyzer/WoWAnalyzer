@@ -128,11 +128,11 @@ export const BRUTAL_PROJECTILES_PROC_CHANCE = 0.1;
 export const BRUTAL_PROJECTILES_RAMP_DAMAGE = [0, 0.01, 1.25, 0.015, 0.02, 0.0225, 0.025, 0.0275, 0.0325, 0.035, 0.0375, 0.04, 0.0425, 0.045, 0.0475, 0.05];
 /** Deadly Chain */
 //With Deadly Chain your trickshots damage is increased
-export const DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE = [0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25];
+export const DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE = [0, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25];
 /** Powerful Precision */
 //With Powerful Precision Precise Shots further increases the damage of Arcane Shot, Chimaera Shots and Multi-Shot
-export const POWERFUL_PRECISION_DAMAGE_INCREASE = [0.05, 0.06, 0.07, 0.08, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20];
+export const POWERFUL_PRECISION_DAMAGE_INCREASE = [0, 0.05, 0.06, 0.07, 0.08, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20];
 /** Sharpshooter's Focus */
 //With Sharpshooter's Focus, Trueshot lasts x% longer
-export const SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION = [0.20, 0.22, 0.24, 0.27, 0.29, 0.31, 0.33, 0.36, 0.38, 0.40, 0.42, 0.44, 0.46, 0.48, 0.50];
+export const SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION = [0, 0.20, 0.22, 0.24, 0.27, 0.29, 0.31, 0.33, 0.36, 0.38, 0.40, 0.42, 0.44, 0.46, 0.48, 0.50];
 //endregion

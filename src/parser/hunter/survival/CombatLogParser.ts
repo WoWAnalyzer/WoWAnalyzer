@@ -75,6 +75,10 @@ import EnfeebledMark from '../shared/modules/spells/conduits/kyrian/EnfeebledMar
 import EmpoweredRelease from '../shared/modules/spells/conduits/venthyr/EmpoweredRelease';
 import NecroticBarrage from '../shared/modules/spells/conduits/necrolord/NecroticBarrage';
 import SpiritAttunement from '../shared/modules/spells/conduits/nightfae/SpiritAttunement';
+import DeadlyTandem from './modules/spells/conduits/DeadlyTandem';
+import FlameInfusion from './modules/spells/conduits/FlameInfusion';
+import StingingStrike from './modules/spells/conduits/StingingStrike';
+import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -154,6 +158,10 @@ class CombatLogParser extends CoreCombatLogParser {
     enfeebledMark: EnfeebledMark,
     necroticBarrage: NecroticBarrage,
     spiritAttunement: SpiritAttunement,
+    deadlyTandem: DeadlyTandem,
+    flameInfusion: FlameInfusion,
+    stingingStrike: StingingStrike,
+    strengthOfThePack: StrengthOfThePack,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

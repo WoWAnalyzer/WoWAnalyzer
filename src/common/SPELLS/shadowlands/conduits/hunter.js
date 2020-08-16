@@ -101,4 +101,37 @@ export default {
     icon: 'ability_creature_cursed_04',
   },
   //endregion
+
+  //region Survival
+  DEADLY_TANDOM_CONDUIT: {
+    id: 341350,
+    name: 'Deadly Tandem',
+    icon: 'ability_boss_kilrogg_heartseeker',
+  },
+  FLAME_INFUSION_CONDUIT: {
+    id: 341399,
+    name: 'Flame Infusion',
+    icon: 'spell_fire_flameblades',
+  },
+  FLAME_INFUSION_BUFF: {
+    id: 341401,
+    name: 'Flame Infusion',
+    icon: 'spell_fire_flameblades',
+  },
+  STINGING_STRIKE_CONDUIT: {
+    id: 341246,
+    name: 'Stinging Strike',
+    icon: 'ability_arakkoa_spinning_blade',
+  },
+  STRENGTH_OF_THE_PACK_CONDUIT: {
+    id: 341222,
+    name: 'Strength of the Pack',
+    icon: 'ability_ironmaidens_swirlingvortex',
+  },
+  STRENGTH_OF_THE_PACK_BUFF: {
+    id: 341223,
+    name: 'Strength of the Pack',
+    icon: 'ability_ironmaidens_swirlingvortex',
+  },
+  //endregion
 };

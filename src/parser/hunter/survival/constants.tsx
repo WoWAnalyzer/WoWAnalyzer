@@ -7,6 +7,8 @@ export const BUTCHERY_CARVE_MAX_TARGETS_HIT = 5;
 /** Coordinated Assault */
 //Coordinated Assault increases all damage done by 20%
 export const COORDINATED_ASSAULT_DMG_MOD = 0.2;
+//Coordinated Assault lasts 20 seconds by default
+export const COORDINATED_ASSAULT_BASELINE_DURATION = 20000;
 /** Wildfire Bomb */
 //People aren't robots, give them a bit of leeway in terms of when they cast WFB to avoid capping on charges
 export const WILDFIRE_BOMB_LEEWAY_BUFFER = 500;
@@ -108,4 +110,21 @@ export const LATENT_POISON_MAX_STACKS = 10;
 export const PRIMEVAL_INTUITION_MAX_FOCUS_SV = 120;
 //Primeval Intuition increased crit stacks up to 5 times
 export const MAX_PRIMEVAL_INTUITION_STACKS = 5;
+//endregion
+
+//region Conduits
+/** Deadly Tandem */
+//Deadly Tandem increases the duration of Coordinated Assault by a flat amount
+export const DEADLY_TANDEM_CA_DURATION_INCREASE = [0, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000];
+/** Flame Infusion */
+//Flame infusion increases the damage of the next Wildfire Bomb (or WFI equivalent) by x%
+export const FLAME_INFUSION_WFB_DAMAGE_INCREASE = [0, 0.1, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.21, 0.22, 0.23, 0.24, 0.25];
+//Flame Infusion can stack twice
+export const FLAME_INFUSION_MAX_STACKS = 2;
+/** Stinging Strike */
+//Stinging Strike increases the damage of Mongoose Bite / Raptor Strike by a flat amount
+export const STINGING_STRIKE_RS_MB_DMG_INCREASE = [0, 0.14, 0.16, 0.17, 0.19, 0.20, 0.22, 0.23, 0.25, 0.26, 0.28, 0.29, 0.31, 0.32, 0.34, 0.35];
+/** Strength of the Pack */
+//Strength of the Pack increases all damage done by a % for its duration
+export const STRENGTH_OF_THE_PACK_DAMAGE_MODIFIER = [0, 0.03, 0.04, 0.04, 0.05, 0.05, 0.06, 0.06, 0.07, 0.07, 0.08, 0.08, 0.09, 0.09, 0.1, 0.1];
 //endregion
