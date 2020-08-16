@@ -39,7 +39,7 @@ export const HUNTERS_MARK_MODIFIER = 0.05;
 export const BASELINE_TURTLE_CHEETAH_CD = 180000;
 /** Dire Beast (and also Dire Consequences) */
 //Dire Beast (and therefore also Dire Consequences) increases haste by 5% while active
-export const DIRE_BEAST_HASTE_PERCENT= 0.05;
+export const DIRE_BEAST_HASTE_PERCENT = 0.05;
 //endregion
 
 //region Talents
@@ -101,12 +101,55 @@ export const RESONATING_ARROW_CRIT_INCREASE = 0.3;
 /** Wild Spirits */
 //Wild Mark is a Hunters Mark-like effect increasing damage done to targets affected by it by 5%
 export const WILD_MARK_DAMAGE_AMP = 0.05;
+//Wild Spirits lasts 15 seconds baseline
+export const WILD_SPIRITS_BASELINE_DURATION = 15000;
 //endregion
 
 //region Venthyr
 /** Flayed Shot */
 //Flayed Shot has a 15% chance to reset Kill Shot (and allow it to be used on a target regardless of HP) every damage tick
 export const FLAYED_SHOT_RESET_CHANCE = 0.15;
+//endregion
+
+//endregion
+
+//region Conduits
+//region Kyrian
+/** Enfeebled Mark */
+//Enfeebled Mark increases the damage against targets affected by Resonating Arrow
+export const ENFEEBLED_MARK_DAMAGE_INCREASE = [0, 0.05, 0.055, 0.06, 0.0675, 0.075, 0.0825, 0.09, 0.0975, 0.105, 0.1125, 0.12, 0.1275, 0.135, 0.1425, 0.15];
+//endregion
+
+//region Necrolord
+/** Necrotic Barrage  */
+//Necrotic Barrage makes Death Chakram generate 2 additional focus
+export const NECROTIC_BARRAGE_ADDITIONAL_FOCUS = 2;
+//Necrotic Barrage makes Death Chakram do additional damage
+export const NECROTIC_BARRAGE_DAMAGE_INCREASE = [0, 0.05, 0.06, 0.07, 0.085, 0.095, 0.105, 0.115, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20];
+//endregion
+
+//region Night Fae
+/** Spirit Attunement */
+//Spirit Attunement increases the duration of Wild Spirits by 3 seconds
+export const SPIRIT_ATTUNEMENT_DURATION_INCREASE = 3000;
+//Spirit Attunement increases damage done by Wild Spirits by X%
+export const SPIRIT_ATTUNEMENT_DAMAGE_INCREASE = [0, 0.10, 0.11, 0.12, 0.135, 0.145, 0.155, 0.165, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25];
+//endregion
+
+//region Venthyr
+/** Empowered Release */
+//Empowered Release increases Flayed Shot proc chance by 5%, not increasing with ranks.
+export const EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE = 0.05;
+//Empowered Release makes Flayer's Mark also increase the damage of next Kill Shot by 5.0% (scaling)
+export const EMPOWERED_RELEASE_INCREASE_KS_DAMAGE = [0, 0.05, 0.06, 0.07, 0.085, 0.095, 0.105, 0.115, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20];
+//endregion
+
+//region Endurance
+
+//endregion
+
+//region Finesse
+
 //endregion
 
 //endregion

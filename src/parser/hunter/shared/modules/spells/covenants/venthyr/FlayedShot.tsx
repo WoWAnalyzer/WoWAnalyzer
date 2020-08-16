@@ -32,7 +32,7 @@ class FlayedShot extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = true; //TODO: Once we can parse from WCL this should be changed to activate
+    this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
     if (this.active) {
       options.abilities.add({
         spell: SPELLS.FLAYED_SHOT,
@@ -78,7 +78,7 @@ class FlayedShot extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={(
