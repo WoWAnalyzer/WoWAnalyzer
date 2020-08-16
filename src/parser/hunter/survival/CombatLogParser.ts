@@ -70,6 +70,12 @@ import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathCha
 import WildSpirits from '../shared/modules/spells/covenants/nightfae/WildSpirits';
 import FlayedShot from '../shared/modules/spells/covenants/venthyr/FlayedShot';
 
+//Conduits
+import EnfeebledMark from '../shared/modules/spells/conduits/kyrian/EnfeebledMark';
+import EmpoweredRelease from '../shared/modules/spells/conduits/venthyr/EmpoweredRelease';
+import NecroticBarrage from '../shared/modules/spells/conduits/necrolord/NecroticBarrage';
+import SpiritAttunement from '../shared/modules/spells/conduits/nightfae/SpiritAttunement';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -142,6 +148,12 @@ class CombatLogParser extends CoreCombatLogParser {
     deathChakrams: DeathChakrams,
     wildSpirits: WildSpirits,
     flayedShot: FlayedShot,
+
+    //Conduits
+    empoweredRelease: EmpoweredRelease,
+    enfeebledMark: EnfeebledMark,
+    necroticBarrage: NecroticBarrage,
+    spiritAttunement: SpiritAttunement,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

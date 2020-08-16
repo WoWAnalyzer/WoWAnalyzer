@@ -66,6 +66,16 @@ import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathCha
 import WildSpirits from '../shared/modules/spells/covenants/nightfae/WildSpirits';
 import FlayedShot from '../shared/modules/spells/covenants/venthyr/FlayedShot';
 
+//Conduits
+import EnfeebledMark from '../shared/modules/spells/conduits/kyrian/EnfeebledMark';
+import EmpoweredRelease from '../shared/modules/spells/conduits/venthyr/EmpoweredRelease';
+import NecroticBarrage from '../shared/modules/spells/conduits/necrolord/NecroticBarrage';
+import SpiritAttunement from '../shared/modules/spells/conduits/nightfae/SpiritAttunement';
+import Bloodletting from './modules/spells/conduits/Bloodletting';
+import EchoingCall from './modules/spells/conduits/EchoingCall';
+import FerociousAppetite from './modules/spells/conduits/FerociousAppetite';
+import OneWithTheBeast from './modules/spells/conduits/OneWithTheBeast';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     globalCooldown: GlobalCooldown,
@@ -134,6 +144,16 @@ class CombatLogParser extends CoreCombatLogParser {
     deathChakrams: DeathChakrams,
     wildSpirits: WildSpirits,
     flayedShot: FlayedShot,
+
+    //Conduits
+    empoweredRelease: EmpoweredRelease,
+    enfeebledMark: EnfeebledMark,
+    necroticBarrage: NecroticBarrage,
+    spiritAttunement: SpiritAttunement,
+    bloodLetting: Bloodletting,
+    echoingCall: EchoingCall,
+    ferociousAppetite: FerociousAppetite,
+    oneWithTheBeast: OneWithTheBeast,
   };
 }
 

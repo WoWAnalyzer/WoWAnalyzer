@@ -150,3 +150,20 @@ export const LIST_OF_FOCUS_SPENDERS_BM = [
 // Damage coefficient of Feeding Frenzy to accurately attribute damage to it
 export const FEEDING_FRENZY_DAMAGE_COEFFICIENT = 0.216;
 //endregion
+
+//region Conduits
+/** Ferocious Appetite */
+//Ferocious Appetite causes Kill Command crits to reduce the cooldown of Aspect of the Wild with X seconds.
+export const FEROCIOUS_APPETITE_ASPECT_REDUCTION = [0, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400];
+/** One With the Beast */
+//One With the Beast increases all damage done during Bestial Wrath
+export const ONE_WITH_THE_BEAST_DAMAGE_INCREASE = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15];
+/** Bloodletting */
+//Bloodletting reduces the recharge time of Barbed Shot by 1 second
+export const BLOODLETTING_BARBED_SHOT_RECHARGE_REDUCTION = 1000;
+//Bloodletting increases the damage done by x%
+export const BLOODLETTING_BARBED_DOT_INCREASE = [0, 0.1, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.18, 0.19, 0.2, 0.21, 0.22, 0.23, 0.24, 0.25];
+/** Echoing Call */
+//Wild Call has a % increase chance to reset the cooldown of Barbed Shot
+export const ECHOING_CALL_INCREASED_WILD_CALL_CHANCE = [0, 0.05, 0.06, 0.06, 0.07, 0.07, 0.08, 0.08, 0.09, 0.09, 0.1, 0.1, 0.11, 0.11, 0.12, 0.12];
+//endregion
