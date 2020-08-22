@@ -74,7 +74,7 @@ export default class AgilityValue extends Analyzer {
   }
 
   get _hasIsb() {
-    return this.selectedCombatant.hasBuff(SPELLS.IRONSKIN_BREW_BUFF.id);
+    return false;
   }
 
   _onDeath(event) {

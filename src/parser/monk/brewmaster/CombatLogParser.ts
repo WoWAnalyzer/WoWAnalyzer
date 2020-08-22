@@ -14,7 +14,6 @@ import MasteryValue from './modules/core/MasteryValue';
 import AgilityValue from './modules/features/AgilityValue';
 import VersatilityValue from './modules/features/VersatilityValue';
 import CritValue from './modules/features/CritValue';
-import SpellUsable from './modules/core/SpellUsable';
 // Spells
 import PurifyingBrew from './modules/spells/PurifyingBrew';
 import BlackoutCombo from './modules/spells/BlackoutCombo';
@@ -54,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryValue: MasteryValue,
     versValue: VersatilityValue,
     critValue: CritValue,
-    spellUsable: SpellUsable,
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
 

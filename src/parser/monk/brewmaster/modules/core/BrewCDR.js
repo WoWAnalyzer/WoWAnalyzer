@@ -1,7 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -59,21 +58,8 @@ class BrewCDR extends Analyzer {
   }
 
   get avgCooldown() {
-    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
+    const ability = this.abilities.getAbility(SPELLS.PURIFYING_BREW.id);
     return ability._cooldown(this.meanHaste);
-  }
-
-  get suggestionThreshold() {
-    const target = this.cdrRequiredForUptime;
-    return {
-      actual: this.cooldownReductionRatio,
-      isLessThan: {
-        minor: target * 1.1,
-        average: target,
-        major: target * 0.9,
-      },
-      style: 'percentage',
-    };
   }
 
   on_changehaste(event) {
@@ -84,16 +70,6 @@ class BrewCDR extends Analyzer {
 
   on_fightend() {
     this._totalHaste += this._newHaste * (this.owner.fight.end_time - this._lastHasteChange);
-  }
-
-  suggestions(when) {
-    when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) => {
-      const bobText = this.bob.active ? <> and <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /></> : null;
-      return suggest(<>You are not generating enough <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> charges through your rotation to maintain the buff. Make sure you are using <SpellLink id={SPELLS.KEG_SMASH.id} />{bobText} as much as possible.</>)
-        .icon(SPELLS.IRONSKIN_BREW.icon)
-        .actual(`${formatPercentage(actual)}% CDR`)
-        .recommended(`at least ${formatPercentage(recommended)}% CDR is recommended`);
-    });
   }
 
   statistic() {

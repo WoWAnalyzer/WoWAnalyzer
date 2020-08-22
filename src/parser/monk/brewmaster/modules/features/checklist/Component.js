@@ -22,29 +22,29 @@ const BrewmasterMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
 
   return (
     <Checklist>
-      <Rule
-        performanceMethod={PERFORMANCE_METHOD.FIRST}
-        name={<>Mitigate damage with <SpellLink id={SPELLS.IRONSKIN_BREW.id} onClick={e => e.preventDefault()} />.</>}
-        description={(
-<>
-            <SpellLink id={SPELLS.STAGGER.id} /> is our main damage mitigation tool. <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> increases the amount of damage that we can mitigate with Stagger while active. It is possible to maintain 100% uptime without reaching any particular haste threshold due to the cooldown reduction applied by <SpellLink id={SPELLS.KEG_SMASH.id} /> and <SpellLink id={SPELLS.TIGER_PALM.id} />. If you are having difficulty maintaining your buff you may need to improve your cast efficiency or reduce the amount of purification you are doing.
-          </>
-)}
-      >
-      <Requirement
-        name={<>Hits mitigated with <SpellLink id={SPELLS.IRONSKIN_BREW.id} /></>}
-        thresholds={thresholds.isb}
-      />
-      <AbilityRequirement spell={SPELLS.IRONSKIN_BREW.id}
-        name={<><SpellLink id={SPELLS.IRONSKIN_BREW.id} /> Cast Efficiency</>}
-        tooltip={<>A low cast efficiency indicates that brews are being wasted to capping charges.<br />The cast efficiency of Ironskin Brew is shared with Purifying Brew.</>}
-      />
-    </Rule>
+{/*       <Rule */}
+{/*         performanceMethod={PERFORMANCE_METHOD.FIRST} */}
+{/*         name={<>Mitigate damage with <SpellLink id={SPELLS.IRONSKIN_BREW.id} onClick={e => e.preventDefault()} />.</>} */}
+{/*         description={( */}
+{/* <> */}
+{/*             <SpellLink id={SPELLS.STAGGER.id} /> is our main damage mitigation tool. <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> increases the amount of damage that we can mitigate with Stagger while active. It is possible to maintain 100% uptime without reaching any particular haste threshold due to the cooldown reduction applied by <SpellLink id={SPELLS.KEG_SMASH.id} /> and <SpellLink id={SPELLS.TIGER_PALM.id} />. If you are having difficulty maintaining your buff you may need to improve your cast efficiency or reduce the amount of purification you are doing. */}
+{/*           </> */}
+{/* )} */}
+{/*       > */}
+{/*       <Requirement */}
+{/*         name={<>Hits mitigated with <SpellLink id={SPELLS.IRONSKIN_BREW.id} /></>} */}
+{/*         thresholds={thresholds.isb} */}
+{/*       /> */}
+{/*       <AbilityRequirement spell={SPELLS.IRONSKIN_BREW.id} */}
+{/*         name={<><SpellLink id={SPELLS.IRONSKIN_BREW.id} /> Cast Efficiency</>} */}
+{/*         tooltip={<>A low cast efficiency indicates that brews are being wasted to capping charges.<br />The cast efficiency of Ironskin Brew is shared with Purifying Brew.</>} */}
+{/*       /> */}
+{/*     </Rule> */}
     <Rule name={'Generate enough brews through your rotation'}
       performanceMethod={PERFORMANCE_METHOD.FIRST}
       description={(
 <>
-          <p>The cooldown of all brews is reduced by your key rotational abilities: <SpellLink id={SPELLS.KEG_SMASH.id} /> and <SpellLink id={SPELLS.TIGER_PALM.id} />. Maintaining a proper rotation will help ensure you have enough brews available to maintain <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</p>
+          <p>The cooldown of all brews is reduced by your key rotational abilities: <SpellLink id={SPELLS.KEG_SMASH.id} /> and <SpellLink id={SPELLS.TIGER_PALM.id} />.</p>
 
           <p>Note that <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> is <em>almost always</em> the best talent for brew generation in a raiding environment. Unless specific fight mechanics require using 3+ brews in rapid succession, use it as close to on cooldown as possible without wasting brew charges. If you are using <SpellLink id={SPELLS.LIGHT_BREWING_TALENT.id} /> and seeing low brew CDR, consider switching talents.</p>
           </>
@@ -57,10 +57,6 @@ const BrewmasterMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
         <AbilityRequirement spell={SPELLS.BLACK_OX_BREW_TALENT.id}
           name={<><SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> Cast Efficiency</>} />
       )}
-      <Requirement name={<><SpellLink id={SPELLS.IRONSKIN_BREW.id} /> duration clipped</>}
-        thresholds={thresholds.isbClipping}
-        tooltip={<>Ironskin Brew has a <em>cap</em> on total buff duration of three times the base duration. Casting Ironskin Brew with more time remaining than twice the base duration (normally 14 seconds) wastes part of the brew.</>}
-      />
     </Rule>
     <Rule name={<>Use <SpellLink id={SPELLS.PURIFYING_BREW.id} onClick={e => e.preventDefault()} /> effectively</>}
       performanceMethod={PERFORMANCE_METHOD.HARMONIC}

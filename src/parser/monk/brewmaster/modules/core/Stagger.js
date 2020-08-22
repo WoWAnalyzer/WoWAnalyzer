@@ -58,7 +58,7 @@ class Stagger extends Analyzer {
     const damageAvoided = this.totalStaggered - this.totalStaggerTaken - this.staggerMissingFromFight;
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}
+        icon={<SpellIcon id={SPELLS.STAGGER.id} />}
         value={formatNumber(this.totalStaggered)}
         label="Damage staggered"
         tooltip={(

@@ -104,7 +104,7 @@ class PurifyingBrew extends Analyzer {
   }
 
   get availablePurifies() {
-    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
+    const ability = this.abilities.getAbility(SPELLS.PURIFYING_BREW.id);
     const cd = ability._cooldown(this.cdr.meanHaste);
     const castsAvailable = calculateMaxCasts(cd, this.owner.fightDuration + this.cdr.totalCDR, 3);
     return castsAvailable;
@@ -205,10 +205,10 @@ class PurifyingBrew extends Analyzer {
     });
 
     when(this.purifyCastSuggestion).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You should spend brews not needed to maintain <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> on <SpellLink id={SPELLS.PURIFYING_BREW.id} />. <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> has a capped duration, so spending all brews on the buff ultimately wastes resources.</>)
+      return suggest(<>You should spend brews on <SpellLink id={SPELLS.PURIFYING_BREW.id} />.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
         .actual(`${formatNumber(actual)} casts`)
-        .recommended(<>{formatNumber(recommended)} could be cast without dropping <SpellLink id={SPELLS.IRONSKIN_BREW.id} /></>);
+        .recommended(<>{formatNumber(recommended)} could be cast</>);
     });
   }
 
