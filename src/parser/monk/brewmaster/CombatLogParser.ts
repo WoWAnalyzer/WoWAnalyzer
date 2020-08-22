@@ -29,10 +29,7 @@ import Guard from './modules/spells/Guard';
 import CelestialFortune from './modules/spells/CelestialFortune';
 import GiftOfTheOxStat from './modules/spells/GiftOfTheOx';
 // Azerite Traits
-import TrainingOfNiuzao from './modules/spells/azeritetraits/TrainingOfNiuzao';
 import StaggeringStrikes from './modules/spells/azeritetraits/StaggeringStrikes';
-import ElusiveFootwork from './modules/spells/azeritetraits/ElusiveFootwork';
-import FitToBurst from './modules/spells/azeritetraits/FitToBurst';
 // Features
 import Checklist from './modules/features/checklist/Module';
 import Abilities from './modules/Abilities';
@@ -92,10 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     gotox: GiftOfTheOxStat,
 
     // Azerite Traits
-    trainingOfNiuzao: TrainingOfNiuzao,
     staggeringStrikes: StaggeringStrikes,
-    elusiveFootwork: ElusiveFootwork,
-    fitToBurst: FitToBurst,
 
     // Items
 
