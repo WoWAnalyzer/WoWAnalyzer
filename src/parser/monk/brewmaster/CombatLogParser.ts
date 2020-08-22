@@ -26,7 +26,6 @@ import HighTolerance from './modules/spells/HighTolerance';
 import CelestialFortune from './modules/spells/CelestialFortune';
 import GiftOfTheOxStat from './modules/spells/GiftOfTheOx';
 // Features
-import Checklist from './modules/features/checklist/Module';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
@@ -57,7 +56,6 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
 
     // Features
-    checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     staggerPoolGraph: StaggerPoolGraph,

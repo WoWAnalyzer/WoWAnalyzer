@@ -89,19 +89,6 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: SPELLS.GUARD_TALENT,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 30,
-        castEfficiency: {
-          suggestion: false,
-          recommendedEfficiency: 0.7,
-        },
-        enabled: combatant.hasTalent(SPELLS.GUARD_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.EXPEL_HARM,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
