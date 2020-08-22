@@ -25,7 +25,6 @@ import RushingJadeWind from './modules/spells/RushingJadeWind';
 import BreathOfFire from './modules/spells/BreathOfFire';
 import BlackOxBrew from './modules/spells/BlackOxBrew';
 import HighTolerance from './modules/spells/HighTolerance';
-import Guard from './modules/spells/Guard';
 import CelestialFortune from './modules/spells/CelestialFortune';
 import GiftOfTheOxStat from './modules/spells/GiftOfTheOx';
 // Features
@@ -82,7 +81,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bof: BreathOfFire,
     bob: BlackOxBrew,
     highTolerance: HighTolerance,
-    guard: Guard,
     cf: CelestialFortune,
     gotox: GiftOfTheOxStat,
 
