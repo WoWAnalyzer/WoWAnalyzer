@@ -368,15 +368,15 @@ export default {
     name: 'Arcane Explosion',
     icon: 'spell_nature_wispsplode',
   },
+  TOUCH_OF_THE_MAGI: { 
+    id: 210725, 
+    name: 'Touch of the Magi', 
+    icon: 'spell_mage_icenova', 
+  },
   ARCANE_POWER: {
     id: 12042,
     name: 'Arcane Power',
     icon: 'spell_nature_lightning',
-  },
-  DISPLACEMENT: {
-    id: 212801,
-    name: 'Displacement',
-    icon: 'ability_hunter_displacement',
   },
   EVOCATION: {
     id: 12051,
@@ -407,6 +407,16 @@ export default {
     id: 235450,
     name: 'Prismatic Barrier',
     icon: 'spell_magearmor',
+  },
+  CONJURE_MANA_GEM: {
+    id: 759,
+    name: 'Conjure Mana Gem',
+    icon: 'inv_misc_gem_sapphire_02',
+  },
+  REPLENISH_MAAN: {
+    id: 5405,
+    name: 'Replenish Mana',
+    icon: 'inv_misc_gem_sapphire_02',
   },
   ARCANE_CHARGE: {
     id: 36032,
