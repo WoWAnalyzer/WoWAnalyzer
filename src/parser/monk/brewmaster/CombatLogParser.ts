@@ -31,7 +31,6 @@ import Checklist from './modules/features/checklist/Module';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
-import MitigationCheck from './modules/features/MitigationCheck';
 import MitigationSheet from './modules/features/MitigationSheet';
 
 // Items
@@ -55,7 +54,6 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryValue: MasteryValue,
     versValue: VersatilityValue,
     critValue: CritValue,
-    mitigationCheck: MitigationCheck,
     spellUsable: SpellUsable,
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
