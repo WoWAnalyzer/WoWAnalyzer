@@ -28,8 +28,6 @@ import HighTolerance from './modules/spells/HighTolerance';
 import Guard from './modules/spells/Guard';
 import CelestialFortune from './modules/spells/CelestialFortune';
 import GiftOfTheOxStat from './modules/spells/GiftOfTheOx';
-// Azerite Traits
-import StaggeringStrikes from './modules/spells/azeritetraits/StaggeringStrikes';
 // Features
 import Checklist from './modules/features/checklist/Module';
 import Abilities from './modules/Abilities';
@@ -87,9 +85,6 @@ class CombatLogParser extends CoreCombatLogParser {
     guard: Guard,
     cf: CelestialFortune,
     gotox: GiftOfTheOxStat,
-
-    // Azerite Traits
-    staggeringStrikes: StaggeringStrikes,
 
     // Items
 
