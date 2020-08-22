@@ -58,8 +58,4 @@ describe('Brewmaster.BlackoutCombo', () => {
     parser.processEvents(SimpleFight);
     expect(module.spellsBOCWasUsedOn[SPELLS.BREATH_OF_FIRE.id]).toBe(1);
   });
-  it('track how many times ironskin brew consumed BOC when none were cast', () => {
-    parser.processEvents(SimpleFight);
-    expect(module.spellsBOCWasUsedOn[SPELLS.IRONSKIN_BREW.id]).toBe(undefined);
-  });
 });
