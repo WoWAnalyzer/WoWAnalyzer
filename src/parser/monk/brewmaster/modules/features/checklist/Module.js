@@ -4,7 +4,6 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
-import IronSkinBrew from '../../spells/IronSkinBrew';
 import PurifyingBrew from '../../spells/PurifyingBrew';
 import BrewCDR from '../../core/BrewCDR';
 import TigerPalm from '../../spells/TigerPalm';
@@ -18,7 +17,6 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     castEfficiency: CastEfficiency,
 
-    isb: IronSkinBrew,
     pb: PurifyingBrew,
     brewcdr: BrewCDR,
     tp: TigerPalm,
@@ -34,12 +32,10 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
-          isb: this.isb.uptimeSuggestionThreshold,
           purifyHeavy: this.pb.purifyHeavySuggestion,
           purifyDelay: this.pb.purifyDelaySuggestion,
           purifyCasts: this.pb.purifyCastSuggestion,
           totalCDR: this.brewcdr.suggestionThreshold,
-          isbClipping: this.isb.clipSuggestionThreshold,
           bocTp: this.tp.bocEmpoweredThreshold,
           bocDpsWaste: this.boc.dpsWasteThreshold,
           rjw: this.rjw.uptimeThreshold,

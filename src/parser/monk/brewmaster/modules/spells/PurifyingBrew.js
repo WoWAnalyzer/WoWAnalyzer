@@ -12,7 +12,6 @@ import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 import SharedBrews from '../core/SharedBrews';
 import BrewCDR from '../core/BrewCDR';
-import IronskinBrew from './IronSkinBrew';
 
 const PURIFY_DELAY_THRESHOLD = 1250; // 1.25s, gives a bit of flexibility in case the brew-GCD is rolling right when a hit comes in
 
@@ -45,7 +44,6 @@ class PurifyingBrew extends Analyzer {
     spells: SpellUsable,
     abilities: Abilities,
     cdr: BrewCDR,
-    isb: IronskinBrew,
   };
 
   purifyAmounts = [];
@@ -105,14 +103,11 @@ class PurifyingBrew extends Analyzer {
     return this.purifyDelays.reduce((total, delay) => total + delay) / this.purifyDelays.length;
   }
 
-  // the number of purifies you *could have* cast without dropping ISB
-  // if you didn't clip at all
   get availablePurifies() {
     const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
     const cd = ability._cooldown(this.cdr.meanHaste);
-    const castsForUptime = Math.ceil(this.owner.fightDuration / this.isb.durationPerCast);
     const castsAvailable = calculateMaxCasts(cd, this.owner.fightDuration + this.cdr.totalCDR, 3);
-    return Math.max(castsAvailable - castsForUptime, 1);
+    return castsAvailable;
   }
 
   on_addstagger(event) {

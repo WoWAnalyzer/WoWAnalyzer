@@ -68,8 +68,7 @@ class Abilities extends CoreAbilities {
       {
         // it is possible to refer to the shared CD using *either* spell
         // id
-        spell: [SPELLS.IRONSKIN_BREW, SPELLS.PURIFYING_BREW],
-        buffSpellId: SPELLS.IRONSKIN_BREW_BUFF.id,
+        spell: SPELLS.PURIFYING_BREW,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => brewCooldown / (1 + haste),
         charges: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT.id) ? 4 : 3,

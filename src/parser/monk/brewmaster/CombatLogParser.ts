@@ -16,7 +16,6 @@ import VersatilityValue from './modules/features/VersatilityValue';
 import CritValue from './modules/features/CritValue';
 import SpellUsable from './modules/core/SpellUsable';
 // Spells
-import IronSkinBrew from './modules/spells/IronSkinBrew';
 import PurifyingBrew from './modules/spells/PurifyingBrew';
 import BlackoutCombo from './modules/spells/BlackoutCombo';
 import KegSmash from './modules/spells/KegSmash';
@@ -37,7 +36,6 @@ import MitigationSheet from './modules/features/MitigationSheet';
 
 // Items
 // normalizers
-import IronskinBrewNormalizer from './normalizers/IronskinBrew';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import ExpelHarmNorm from './normalizers/ExpelHarm';
 
@@ -70,7 +68,6 @@ class CombatLogParser extends CoreCombatLogParser {
     sheet: MitigationSheet,
 
     // Spells
-    ironSkinBrew: IronSkinBrew,
     purifyingBrew: PurifyingBrew,
     blackoutCombo: BlackoutCombo,
     kegSmash: KegSmash,
@@ -85,7 +82,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
 
     // normalizers
-    isbNormalizer: IronskinBrewNormalizer,
     gotoxNorm: GiftOfTheOx,
     ehNorm: ExpelHarmNorm,
   };
