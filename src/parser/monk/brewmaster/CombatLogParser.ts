@@ -10,10 +10,6 @@ import SharedBrews from './modules/core/SharedBrews';
 import StaggerFabricator from './modules/core/StaggerFabricator';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/core/Channeling';
-import MasteryValue from './modules/core/MasteryValue';
-import AgilityValue from './modules/features/AgilityValue';
-import VersatilityValue from './modules/features/VersatilityValue';
-import CritValue from './modules/features/CritValue';
 // Spells
 import PurifyingBrew from './modules/spells/PurifyingBrew';
 import BlackoutCombo from './modules/spells/BlackoutCombo';
@@ -29,7 +25,6 @@ import GiftOfTheOxStat from './modules/spells/GiftOfTheOx';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
-import MitigationSheet from './modules/features/MitigationSheet';
 
 // Items
 // normalizers
@@ -48,10 +43,6 @@ class CombatLogParser extends CoreCombatLogParser {
     brews: SharedBrews,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
-    agilityValue: AgilityValue,
-    masteryValue: MasteryValue,
-    versValue: VersatilityValue,
-    critValue: CritValue,
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
 
@@ -59,7 +50,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     staggerPoolGraph: StaggerPoolGraph,
-    sheet: MitigationSheet,
 
     // Spells
     purifyingBrew: PurifyingBrew,
