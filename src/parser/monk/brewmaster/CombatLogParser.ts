@@ -33,7 +33,6 @@ import TrainingOfNiuzao from './modules/spells/azeritetraits/TrainingOfNiuzao';
 import StaggeringStrikes from './modules/spells/azeritetraits/StaggeringStrikes';
 import ElusiveFootwork from './modules/spells/azeritetraits/ElusiveFootwork';
 import FitToBurst from './modules/spells/azeritetraits/FitToBurst';
-import StraightNoChaser from './modules/spells/azeritetraits/StraightNoChaser';
 // Features
 import Checklist from './modules/features/checklist/Module';
 import Abilities from './modules/Abilities';
@@ -97,7 +96,6 @@ class CombatLogParser extends CoreCombatLogParser {
     staggeringStrikes: StaggeringStrikes,
     elusiveFootwork: ElusiveFootwork,
     fitToBurst: FitToBurst,
-    snc: StraightNoChaser,
 
     // Items
 
