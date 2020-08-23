@@ -258,16 +258,6 @@ export default {
     name: 'Keg Smash',
     icon: 'achievement_brewery_2',
   },
-  IRONSKIN_BREW: {
-    id: 115308,
-    name: 'Ironskin Brew',
-    icon: 'ability_monk_ironskinbrew',
-  },
-  IRONSKIN_BREW_BUFF: {
-    id: 215479,
-    name: 'Ironskin Brew',
-    icon: 'ability_monk_ironskinbrew',
-  },
   PURIFYING_BREW: {
     id: 119582,
     name: 'Purifying Brew',

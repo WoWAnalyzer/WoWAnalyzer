@@ -33,7 +33,7 @@ class BlackOxBrew extends Analyzer {
     //
     // loop until we've reset all the charges individually, recording
     // the amount of cooldown reduction for each charge.
-    const spellId = SPELLS.IRONSKIN_BREW.id;
+    const spellId = SPELLS.PURIFYING_BREW.id;
     while(this.spellUsable.isOnCooldown(spellId)) {
       const cd = this.spellUsable.cooldownRemaining(spellId);
       this.cdr += cd;
@@ -58,7 +58,7 @@ class BlackOxBrew extends Analyzer {
   suggestions(when) {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> usage can be improved. Try to use it only when all 3 charges of <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> / <SpellLink id={SPELLS.PURIFYING_BREW.id} /> are on cooldown.</>)
+        return suggest(<>Your <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> usage can be improved.</>)
           .icon(SPELLS.BLACK_OX_BREW_TALENT.icon)
           .actual(`${formatPercentage(actual)}% of Cooldown Reduction wasted`)
           .recommended(`< ${formatPercentage(recommended)}% is recommended`);
