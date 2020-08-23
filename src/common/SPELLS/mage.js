@@ -66,11 +66,6 @@ export default {
     name: 'Mirror Image',
     icon: 'spell_magic_managain',
   },
-  UNSTABLE_MAGIC_DAMAGE_ARCANE: {
-    id: 157979,
-    name: 'Unstable Magic',
-    icon: 'spell_mage_unstablemagic',
-  },
   ARCANE_INTELLECT: {
     id: 1459,
     name: 'Arcane Intellect',
@@ -179,6 +174,11 @@ export default {
     name: 'Frostbolt',
     icon: 'spell_frost_frostbolt02',
   },
+  WATERBOLT: {
+    id: 31707,
+    name: 'Waterbolt',
+    icon: 'spell_frost_frostbolt',
+  },
   ICE_LANCE: {
     id: 30455,
     name: 'Ice Lance',
@@ -188,6 +188,31 @@ export default {
     id: 228598,
     name: 'Ice Lance',
     icon: 'spell_frost_frostblast',
+  },
+  BRAIN_FREEZE: {
+    id: 190446,
+    name: 'Brain Freeze',
+    icon: 'ability_mage_brainfreeze',
+  },
+  FINGERS_OF_FROST: {
+    id: 44544,
+    name: 'Fingers of Frost',
+    icon: 'ability_mage_wintersgrasp',
+  },
+  WINTERS_CHILL: {
+    id: 228358,
+    name: 'Winter\'s Chill',
+    icon: 'spell_frost_frostward',
+  },
+  GLACIAL_SPIKE_BUFF: {
+    id: 199844,
+    name: 'Glacial Spike!',
+    icon: 'spell_frost_frostbolt',
+  },
+  ICICLES_BUFF: {
+    id: 205473,
+    name: 'Icicles',
+    icon: 'spell_frost_iceshard',
   },
   BLIZZARD: {
     id: 190356,
@@ -218,6 +243,21 @@ export default {
     id: 120,
     name: 'Cone of Cold',
     icon: 'spell_frost_glacier',
+  },
+  SHATTER: {
+    id: 12982,
+    name: 'Shatter',
+    icon: 'spell_frost_frostshock',
+  },
+  FREEZE: {
+    id: 33395,
+    name: 'Freeze',
+    icon: 'ability_mage_freeze',
+  },
+  ICICLE_DAMAGE: {
+    id: 148022,
+    name: 'Icicle',
+    icon: 'spell_frost_iceshard',
   },
   ICY_VEINS: {
     id: 12472,
@@ -296,6 +336,36 @@ export default {
     name: 'Phoenix Flames', 
     icon: 'artifactability_firemage_phoenixbolt', 
   },
+  HEATING_UP: {
+    id: 48107,
+    name: 'Heating Up',
+    icon: 'ability_mage_hotstreak',
+  },
+  HOT_STREAK: {
+    id: 48108,
+    name: 'Hot Streak',
+    icon: 'ability_mage_hotstreak',
+  },
+  COMBUSTION: {
+    id: 190319,
+    name: 'Combustion',
+    icon: 'spell_fire_sealoffire',
+  },
+  CAUTERIZE: {
+    id: 108843,
+    name: 'Cauterize',
+    icon: 'spell_fire_burningspeed',
+  },
+  ENHANCED_PYROTECHNICS: {
+    id: 157644,
+    name: 'Enhanced Pyrotechnics',
+    icon: 'spell_fire_firebolt02',
+  },
+  FRENETIC_SPEED: {
+    id: 236060,
+    name: 'Frenetic Speed',
+    icon: 'spell_fire_burningspeed',
+  },
   BLAZING_BARRIER: {
     id: 235313,
     name: 'Blazing Barrier',
@@ -315,11 +385,6 @@ export default {
     id: 31661,
     name: 'Dragon\'s Breath',
     icon: 'inv_misc_head_dragon_01',
-  },
-  PHOENIX_REBORN: {
-    id: 215775,
-    name: 'Phoenix Reborn',
-    icon: 'inv_misc_phoenixegg',
   },
   METEOR_DAMAGE: {
     id: 153564,
@@ -378,6 +443,31 @@ export default {
     name: 'Arcane Power',
     icon: 'spell_nature_lightning',
   },
+  ARCANE_MISSILES_BUFF: {
+    id: 79683,
+    name: 'Arcane Missiles!',
+    icon: 'spell_nature_starfall',
+  },
+  ARCANE_MISSILES_ENERGIZE: {
+    id: 208030,
+    name: 'Arcane Missiles',
+    icon: 'spell_nature_starfall',
+  },
+  ARCANE_FAMILIAR_BUFF: {
+    id: 210126,
+    name: 'Arcane Familiar',
+    icon: 'ability_sorcererking_arcanemines',
+  },
+  CLEARCASTING_ARCANE: {
+    id: 263725,
+    name: 'Clearcasting',
+    icon: 'spell_shadow_manaburn',
+  },
+  RULE_OF_THREES_BUFF: {
+    id: 264774,
+    name: 'Rule of Threes',
+    icon: 'spell_arcane_starfire',
+  },
   EVOCATION: {
     id: 12051,
     name: 'Evocation',
@@ -433,135 +523,7 @@ export default {
     name: 'Arcane Orb',
     icon: 'spell_mage_arcaneorb',
   },
-
-  //Passives
-  SHATTER: {
-    id: 12982,
-    name: 'Shatter',
-    icon: 'spell_frost_frostshock',
-  },
-  FREEZE: {
-    id: 33395,
-    name: 'Freeze',
-    icon: 'ability_mage_freeze',
-  },
-  GLACIAL_ERUPTION: {
-    id: 242851,
-    name: 'Glacial Eruption',
-    icon: 'creatureportrait_creature_iceblock',
-  },
-  ICICLE_DAMAGE: {
-    id: 148022,
-    name: 'Icicle',
-    icon: 'spell_frost_iceshard',
-  },
-
-  //Buffs
-  BRAIN_FREEZE: {
-    id: 190446,
-    name: 'Brain Freeze',
-    icon: 'ability_mage_brainfreeze',
-  },
-  FINGERS_OF_FROST: {
-    id: 44544,
-    name: 'Fingers of Frost',
-    icon: 'ability_mage_wintersgrasp',
-  },
-  WINTERS_CHILL: {
-    id: 228358,
-    name: 'Winter\'s Chill',
-    icon: 'spell_frost_frostward',
-  },
-  GLACIAL_SPIKE_BUFF: {
-    id: 199844,
-    name: 'Glacial Spike!',
-    icon: 'spell_frost_frostbolt',
-  },
-  ICICLES_BUFF: {
-    id: 205473,
-    name: 'Icicles',
-    icon: 'spell_frost_iceshard',
-  },
-  FROZEN_MASS: {
-    id: 242253,
-    name: 'Frozen Mass',
-    icon: 'spell_frost_frozenorb',
-  },
-  HEATING_UP: {
-    id: 48107,
-    name: 'Heating Up',
-    icon: 'ability_mage_hotstreak',
-  },
-  HOT_STREAK: {
-    id: 48108,
-    name: 'Hot Streak',
-    icon: 'ability_mage_hotstreak',
-  },
-  COMBUSTION: {
-    id: 190319,
-    name: 'Combustion',
-    icon: 'spell_fire_sealoffire',
-  },
-  CAUTERIZE: {
-    id: 108843,
-    name: 'Cauterize',
-    icon: 'spell_fire_burningspeed',
-  },
-  ENHANCED_PYROTECHNICS: {
-    id: 157644,
-    name: 'Enhanced Pyrotechnics',
-    icon: 'spell_fire_firebolt02',
-  },
-  FRENETIC_SPEED: {
-    id: 236060,
-    name: 'Frenetic Speed',
-    icon: 'spell_fire_burningspeed',
-  },
-  CRITICAL_MASSIVE: {
-    id: 242251,
-    name: 'Critical Massive',
-    icon: 'ability_mage_firestarter',
-  },
-  KAELTHAS_ULTIMATE_ABILITY: {
-    id: 209455,
-    name: 'Kaelthas\'s Ultimate Ability',
-    icon: 'inv_bracer_robe_raidwarlock_j_01',
-  },
-  ARCTIC_BLAST: { // Frost 4t21 proc
-    id: 253257,
-    name: 'Arctic Blast',
-    icon: 'inv_staff_15',
-  },
-  ARCANE_MISSILES_BUFF: {
-    id: 79683,
-    name: 'Arcane Missiles!',
-    icon: 'spell_nature_starfall',
-  },
-  ARCANE_MISSILES_ENERGIZE: {
-    id: 208030,
-    name: 'Arcane Missiles',
-    icon: 'spell_nature_starfall',
-  },
-  ARCANE_FAMILIAR_BUFF: {
-    id: 210126,
-    name: 'Arcane Familiar',
-    icon: 'ability_sorcererking_arcanemines',
-  },
-  QUICK_THINKER_BUFF: {
-    id: 253299,
-    name: 'Quick Thinker',
-    icon: 'ability_mage_studentofthemind',
-  },
-  CLEARCASTING_ARCANE: {
-    id: 263725,
-    name: 'Clearcasting',
-    icon: 'spell_shadow_manaburn',
-  },
-  RULE_OF_THREES_BUFF: {
-    id: 264774,
-    name: 'Rule of Threes',
-    icon: 'spell_arcane_starfire',
-  },
+  
 
   //Azerite Traits
   GLACIAL_ASSAULT_TRAIT: {
@@ -593,76 +555,5 @@ export default {
     id: 274598,
     name: 'Blaster Master',
     icon: 'spell_fire_fireball',
-  },
-
-  //Tier Sets
-  FIRE_MAGE_T20_2SET_BONUS_BUFF: {
-    id: 242249,
-    name: 'T20 2 set bonus',
-    icon: 'spell_fire_firebolt02',
-  },
-  FIRE_MAGE_T20_4SET_BONUS_BUFF: {
-    id: 242250,
-    name: 'T20 4 set bonus',
-    icon: 'spell_fire_firebolt02',
-  },
-  FIRE_MAGE_T21_2SET_BONUS_BUFF: {
-    id: 251857,
-    name: 'T21 2 set bonus',
-    icon: 'ability_mage_greaterinvisibility',
-  },
-  FIRE_MAGE_T21_4SET_BONUS_BUFF: {
-    id: 251858,
-    name: 'T21 4 set bonus',
-    icon: 'ability_mage_greaterinvisibility',
-  },
-
-  // Pet abilities
-  WATERBOLT: {
-    id: 31707,
-    name: 'Waterbolt',
-    icon: 'spell_frost_frostbolt',
-  },
-
-  //Removed in 8.0 (Keep Temporarily until not needed anymore)
-  WARMTH_OF_THE_PHOENIX: {
-    id: 240671,
-    name: 'Warmth of the Phoenix',
-    icon: 'artifactability_firemage_phoenixbolt',
-  },
-  PHOENIX_REBORN_TRAIT: {
-    id: 215773,
-    name: 'Phoenix Reborn',
-    icon: 'inv_sword_1h_artifactfelomelorn_d_01',
-  },
-  ERUPTING_INFERNAL_CORE: {
-    id: 248147,
-    name: 'Erupting Infernal Core',
-    icon: 'spell_mage_flameorb',
-  },
-  PRE_IGNITED_TRAIT: {
-    id: 238055,
-    name: 'Pre-Ignited',
-    icon: 'spell_fire_sealoffire',
-  },
-  MARK_OF_ALUNETH: {
-    id: 224968,
-    name: 'Mark of Aluneth',
-    icon: 'inv_staff_2h_artifactaegwynsstaff_d_01',
-  },
-  UNSTABLE_MAGIC_DAMAGE_FIRE: {
-    id: 157977,
-    name: 'Unstable Magic',
-    icon: 'spell_mage_unstablemagic',
-  },
-  CINDERSTORM_DAMAGE: {
-    id: 198928,
-    name: 'Cinderstorm',
-    icon: 'spell_fire_flare',
-  },
-  CONJURE_REFRESHMENT: {
-    id: 176351,
-    name: 'Conjure Refreshment',
-    icon: 'inv_misc_food_73cinnamonroll',
   },
 };

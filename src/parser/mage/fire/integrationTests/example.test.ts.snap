@@ -2264,7 +2264,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "122.66105793117154%",
+                      "width": "102.08075254214832%",
                     }
                   }
                 />
@@ -2279,7 +2279,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              122.66%
+              102.08%
             </td>
             <td
               style={
