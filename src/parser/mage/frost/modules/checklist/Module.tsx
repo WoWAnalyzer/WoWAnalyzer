@@ -6,14 +6,10 @@ import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import BrainFreeze from '../features/BrainFreeze';
-import BrainFreezeNoIL from '../features/BrainFreezeNoIL';
 import GlacialSpike from '../features/GlacialSpike';
-import GlacialSpikeNoIL from '../features/GlacialSpikeNoIL';
 import IceLance from '../features/IceLance';
-import IceLanceNoIL from '../features/IceLanceNoIL';
 import ThermalVoid from '../features/ThermalVoid';
 import WintersChill from '../features/WintersChill';
-import WintersChillNoIL from '../features/WintersChillNoIL';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ArcaneIntellect from '../../../shared/modules/features/ArcaneIntellect';
 import CancelledCasts from '../../../shared/modules/features/CancelledCasts';
@@ -38,12 +34,6 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     waterElemental: WaterElemental,
 
-    //NoIL Build
-    brainFreezeNoIL: BrainFreezeNoIL,
-    glacialSpikeNoIL: GlacialSpikeNoIL,
-    iceLanceNoIL: IceLanceNoIL,
-    wintersChillNoIL: WintersChillNoIL,
-
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
@@ -58,12 +48,6 @@ class Checklist extends BaseChecklist {
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected waterElemental!: WaterElemental;
-
-  //NoIL
-  protected brainFreezeNoIL!: BrainFreezeNoIL;
-  protected glacialSpikeNoIL!: GlacialSpikeNoIL;
-  protected iceLanceNoIL!: IceLanceNoIL;
-  protected wintersChillNoIL!: WintersChillNoIL;
 
   render() {
     return (
@@ -88,14 +72,6 @@ class Checklist extends BaseChecklist {
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
           runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,
           waterElementalUptime: this.waterElemental.waterElementalUptimeThresholds,
-
-          //NoIL Build
-          brainFreezeUtilizationNoIL: this.brainFreezeNoIL.brainFreezeUtilizationThresholds,
-          brainFreezeOverwritesNoIL: this.brainFreezeNoIL.brainFreezeOverwritenThresholds,
-          brainFreezeExpiredNoIL: this.brainFreezeNoIL.brainFreezeExpiredThresholds,
-          brainFreezeUnbuffedFlurryNoIL: this.brainFreezeNoIL.flurryWithoutBrainFreezeThresholds,
-          glacialSpikeUtilizationNoIL: this.glacialSpikeNoIL.glacialSpikeUtilizationThresholds,
-          wintersChillHardCastsNoIL: this.wintersChillNoIL.wintersChillHardCastThresholds,
         }}
       />
     );

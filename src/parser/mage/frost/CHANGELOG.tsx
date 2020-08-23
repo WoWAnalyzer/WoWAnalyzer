@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 8, 23), <>Removed BFA Azerite Traits, Essences, BFA Items, and cleaned up some old spells from Legion.</>, Sharrq),
   change(date(2020, 7, 30), <>Shared class changes for Shadowlands (<SpellLink id={SPELLS.ALTER_TIME.id} />, <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />, <SpellLink id={SPELLS.MIRROR_IMAGE.id} />)</>, Sharrq),
   change(date(2020, 7, 2), <>Fixed bug for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> for NoIL.</>, [Sharrq]),
   change(date(2020, 6, 19), 'Updated backend Frost constants for easier maintenance.', [Sharrq]),
@@ -29,9 +30,9 @@ export default [
   change(date(2018, 11, 18), <>Removed <SpellLink id={SPELLS.BONE_CHILLING_TALENT.id} /> uptime from checklist and updated the module to calculate damage instead of uptime.</>, [Dambroda]),
   change(date(2018, 10, 29), <>Rewrote <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> module. Inefficient casts are now shown in timeline.</>, [Dambroda]),
   change(date(2018, 10, 28), <>Added statistics and checklist entry for <SpellLink id={SPELLS.SUMMON_WATER_ELEMENTAL.id} /> if talented.</>, [jos3p]),
-  change(date(2018, 9, 21), <>Added statistics for <SpellLink id={SPELLS.WHITEOUT.id} /></>, [Dambroda]),
+  change(date(2018, 9, 21), <>Added statistics for Whiteout</>, [Dambroda]),
   change(date(2018, 9, 10), <>Updated Checklist, Better <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> Support, Added Support for <SpellLink id={SPELLS.BONE_CHILLING_TALENT.id} /></>, [Sharrq]),
-  change(date(2018, 8, 28), <>Added support for Winter's Reach and <SpellLink id={SPELLS.WHITEOUT.id} /></>, [Sharrq]),
+  change(date(2018, 8, 28), <>Added support for Winter's Reach and Whiteout</>, [Sharrq]),
   change(date(2018, 8, 11), <>Updated for Level 120</>, [Sharrq]),
   change(date(2018, 6, 10), <>Updated for 8.0 Prepatch</>, [Sharrq]),
 ];

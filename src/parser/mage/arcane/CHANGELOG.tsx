@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 8, 23), <>Removed BFA Azerite Traits, Essences, BFA Items, and cleaned up some old spells from Legion.</>, Sharrq),
   change(date(2020, 8, 4), <>Arcane class changes for Shadowlands (Baseline <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} />, <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> cooldown and charge changes (All Specs), New Talents, <SpellLink id={SPELLS.FROSTBOLT.id} />/<SpellLink id={SPELLS.FIRE_BLAST.id} /> Spellbook entries)</>, Sharrq),
   change(date(2020, 7, 30), <>Shared class changes for Shadowlands (<SpellLink id={SPELLS.ALTER_TIME.id} />, <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />, <SpellLink id={SPELLS.MIRROR_IMAGE.id} />)</>, Sharrq),
   change(date(2020, 7, 20), <>Fix <SpellLink id={SPELLS.ARCANE_POWER.id} /> module which was ignoring more cast events than intended.</>, Dambroda),
@@ -24,7 +25,7 @@ export default [
   change(date(2018, 10, 11), <>Fixed <SpellLink id={SPELLS.ARCANE_CHARGE.id} /> Normalizer to not put energize events after <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> and added Normalizer to sort the <SpellLink id={SPELLS.ARCANE_POWER.id} /> cast before the buff application</>, [Sharrq]),
   change(date(2018, 10, 11), <>Redid <SpellLink id={SPELLS.ARCANE_POWER.id} /> Utilization to count each pre-req separately. Also updated tooltip and suggestion to show which checks were failed.</>, [Sharrq]),
   change(date(2018, 10, 11), <>Fixed <SpellLink id={SPELLS.RULE_OF_THREES_TALENT.id} /> bug</>, [Sharrq]),
-  change(date(2018, 8, 28), <>Added support for <SpellLink id={SPELLS.GALVANIZING_SPARK.id} /> and Anomalous Impact.</>, [Sharrq]),
+  change(date(2018, 8, 28), <>Added support for Galvanizing Spark and Anomalous Impact.</>, [Sharrq]),
   change(date(2018, 8, 11), <>Added <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> Module and <SpellLink id={SPELLS.TIME_ANOMALY_TALENT.id} /> Mana Management.</>, [Sharrq]),
   change(date(2018, 8, 10), <>Added Check to see if the player went OOM during <SpellLink id={SPELLS.ARCANE_POWER.id} />.</>, [Sharrq]),
   change(date(2018, 8, 9), 'Added Checklist', [Sharrq]),

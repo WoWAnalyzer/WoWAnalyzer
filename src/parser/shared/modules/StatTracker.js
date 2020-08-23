@@ -140,7 +140,7 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Mage
-    [SPELLS.WARMTH_OF_THE_PHOENIX.id]: { crit: 36 },
+    
     // endregion
 
     // region Paladin

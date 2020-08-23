@@ -242,73 +242,6 @@ exports[`Fire Mage integration test: example log BalefireBranch matches the stat
 </div>
 `;
 
-exports[`Fire Mage integration test: example log BlasterMaster matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="AZERITE_POWERS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=274596"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Blaster Master"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=274596"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Blaster Master
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          3.00
-           
-          <small>
-            Stacks per Combustion
-          </small>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Fire Mage integration test: example log BlightborneInfusion matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -1072,7 +1005,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "107.94992974303246%",
+                      "width": "108.97871315530763%",
                     }
                   }
                 />
@@ -1087,7 +1020,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              107.95%
+              108.98%
             </td>
             <td
               style={
@@ -1754,103 +1687,6 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             />
           </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                href="http://wowhead.com/spell=298357"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_azerite_essence05.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Memory of Lucid Dreams
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.79
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              2
-              /2
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "95.26547646649664%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              95.27%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -2264,7 +2100,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "122.66105793117154%",
+                      "width": "102.08075254214832%",
                     }
                   }
                 />
@@ -2279,7 +2115,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              122.66%
+              102.08%
             </td>
             <td
               style={
@@ -3960,6 +3796,38 @@ Array [
     "issue": <React.Fragment>
       You started to cast 
       <ForwardRef
+        id={2948}
+      />
+       
+      1
+       times (
+      0.50
+       per Combustion), and completed 
+      0
+       casts, while you had charges of 
+      <ForwardRef
+        id={108853}
+      />
+        or 
+      <ForwardRef
+        id={257541}
+      />
+       available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Scorch during Combustion.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      0.50 Casts Per Combustion
+       (
+      0 is recommended
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_fire_sealoffire",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You started to cast 
+      <ForwardRef
         id={133}
       />
        
@@ -4626,63 +4494,6 @@ Array [
       2 crits wasted
        (
       0 is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
-exports[`Fire Mage integration test: example log HyperthreadWristwraps matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_bracer_cloth_kultirasdungeon_c_01",
-    "importance": "major",
-    "issue": <React.Fragment>
-      You used your 
-      <ItemLink
-        icon={true}
-        id={168989}
-      />
-       improperly 
-      1
-       times. In order to get the most out of the item, you should ensure that you are reducing 
-      <ForwardRef
-        id={108853}
-      />
-       twice per use. To accomplish this, you should cast 
-      <ForwardRef
-        id={108853}
-      />
-       
-      &gt;
-       
-      <ForwardRef
-        id={11366}
-      />
-       
-      &gt;
-       
-      <ForwardRef
-        id={108853}
-      />
-       
-      &gt;
-       
-      <ItemLink
-        icon={true}
-        id={168989}
-      />
-      . That way 
-      <ForwardRef
-        id={108853}
-      />
-       gets reduced twice.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      50.00% Utilization
-       (
-      &lt;95.00% is recommended
       )
     </React.Fragment>,
   },
@@ -5742,7 +5553,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  107.95%
+                  108.98%
                    
                    
                 </div>
@@ -6090,7 +5901,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "77.08124999999998%",
+                  "width": "72.91875000000002%",
                 }
               }
             />
@@ -6407,7 +6218,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  0
+                  1
                    
                    
                 </div>
@@ -6427,9 +6238,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "83.35000000000001%",
                       }
                     }
                   />
@@ -7528,7 +7339,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -7552,8 +7363,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "69.84384697129352%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "64.32157366644755%",
                 }
               }
             />
@@ -7646,7 +7457,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  5.62%
+                  6.98%
                    
                    
                 </div>
@@ -7666,9 +7477,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "39.687693942587025%",
+                        "width": "28.643147332895115%",
                       }
                     }
                   />

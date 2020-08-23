@@ -17,8 +17,6 @@ class CombustionSpellUsage extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
 
-  hasBlasterMaster: boolean;
-
   scorchCastsStarted = 0;
   scorchCastsCompleted = 0;
   fireballCastsStarted = 0;
@@ -26,7 +24,6 @@ class CombustionSpellUsage extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.hasBlasterMaster = this.selectedCombatant.hasTrait(SPELLS.BLASTER_MASTER.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), (event: CastEvent) => this.fireballCasts(event));
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), (event: BeginCastEvent) => this.fireballCasts(event));
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), (event: CastEvent) => this.scorchCasts(event));
@@ -58,8 +55,7 @@ class CombustionSpellUsage extends Analyzer {
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
     const phoenixFlamesCharges = (this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES.id) || 0);
 
-    //If the player has the Blaster Master trait, it is acceptable to cast Scorch during Combustion
-    if (!hasCombustion || this.hasBlasterMaster) {
+    if (!hasCombustion) {
       return;
     }
 
@@ -116,7 +112,7 @@ class CombustionSpellUsage extends Analyzer {
   suggestions(when: any) {
     when(this.scorchDuringCombustionThresholds)
       .addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<>You started to cast <SpellLink id={SPELLS.SCORCH.id} /> {this.scorchCastsStarted} times ({this.badScorchesPerCombustion.toFixed(2)} per Combustion), and completed {this.scorchCastsCompleted} casts, while you had charges of <SpellLink id={SPELLS.FIRE_BLAST.id} />  or <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> available. Unless you have the <SpellLink id={SPELLS.BLASTER_MASTER.id} /> trait, make sure you are using up all of your charges of Fire Blast  and Phoenix Flames before using Scorch during Combustion.</>)
+        return suggest(<>You started to cast <SpellLink id={SPELLS.SCORCH.id} /> {this.scorchCastsStarted} times ({this.badScorchesPerCombustion.toFixed(2)} per Combustion), and completed {this.scorchCastsCompleted} casts, while you had charges of <SpellLink id={SPELLS.FIRE_BLAST.id} />  or <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Scorch during Combustion.</>)
           .icon(SPELLS.COMBUSTION.icon)
           .actual(`${this.badScorchesPerCombustion.toFixed(2)} Casts Per Combustion`)
           .recommended(`${formatNumber(recommended)} is recommended`);

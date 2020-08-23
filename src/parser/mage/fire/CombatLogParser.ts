@@ -13,8 +13,6 @@ import Abilities from './modules/features/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 
-import BlasterMaster from './modules/traits/BlasterMaster';
-
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
@@ -31,10 +29,6 @@ import SearingTouch from './modules/features/SearingTouch';
 import Meteor from './modules/features/Meteor';
 import MeteorRune from './modules/features/MeteorRune';
 import MeteorCombustion from './modules/features/MeteorCombustion';
-
-import HyperthreadWristwraps from './modules/items/HyperthreadWristwraps';
-
-import LucidDreams from './modules/items/LucidDreams';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -62,9 +56,6 @@ class CombatLogParser extends CoreCombatLogParser {
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
 
-    //Traits
-    blasterMaster: BlasterMaster,
-
     // Talents
     mirrorImage: MirrorImage,
     arcaneIntellect: ArcaneIntellect,
@@ -73,12 +64,6 @@ class CombatLogParser extends CoreCombatLogParser {
     meteor: Meteor,
     meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
-
-    // Items
-    hyperthreadWristwraps: HyperthreadWristwraps,
-
-    // Essences
-    lucidDreams: LucidDreams,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
