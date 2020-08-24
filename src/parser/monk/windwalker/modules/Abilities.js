@@ -60,21 +60,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.REVERSE_HARM,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 10,
-        gcd: {
-          base: 1000,
-          minimum: 750,
-        },
-        enabled: combatant.hasEssence(SPELLS.CONFLICT.traitId) ? combatant.hasMajor(SPELLS.CONFLICT.traitId) : false,
-        castEfficiency: {
-          recommendedEfficiency: 0.75,
-          suggestion: true,
-          extraSuggestion: 'If you have a low amount of Reverse Harm casts, consider using another major essence',
-        },
-      },
-      {
         spell: SPELLS.BLACKOUT_KICK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -146,13 +131,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TOUCH_OF_DEATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
+        cooldown: 180,
         gcd: {
           static: 1000,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
         },
       },
       {
@@ -185,13 +166,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT,
+        spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -284,6 +264,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.EXPEL_HARM,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          static: 500,
+        },
+      },
+      {
         spell: SPELLS.VIVIFY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
@@ -320,6 +307,12 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       // Defensives
+      {
+        spell: SPELLS.FORTIFYING_BREW,
+        buffSpellId: SPELLS.FORTIFYING_BREW.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+      },
       {
         spell: SPELLS.DIFFUSE_MAGIC_TALENT,
         buffSpellId: SPELLS.DIFFUSE_MAGIC_TALENT.id,

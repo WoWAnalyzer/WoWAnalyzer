@@ -35,7 +35,6 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
         {combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id) && <AbilityRequirement spell={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />}
         {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />}
-        {(combatant.hasEssence(SPELLS.CONFLICT.traitId) ? combatant.hasMajor(SPELLS.CONFLICT.traitId) : false) && <AbilityRequirement spell={SPELLS.REVERSE_HARM.id} />}
       </Rule>
       <Rule
         name="Use your procs and short CDs"
@@ -74,7 +73,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
         <AbilityRequirement spell={SPELLS.TOUCH_OF_KARMA_CAST.id} />
         {!combatant.hasTalent(SPELLS.SERENITY_TALENT.id) && <AbilityRequirement spell={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} />}
         {combatant.hasTalent(SPELLS.SERENITY_TALENT.id) && <AbilityRequirement spell={SPELLS.SERENITY_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id} />}
+        <AbilityRequirement spell={SPELLS.INVOKE_XUEN_THE_WHITE_TIGER.id} />
         <Requirement
           name={(
             <>

@@ -321,7 +321,7 @@ export default {
     icon: 'ability_monk_rushingjadewind',
   },
   EXPEL_HARM: {
-    id: 115072,
+    id: 322101,
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
   },
@@ -552,19 +552,14 @@ export default {
     name: 'Disable',
     icon: 'ability_shockwave',
   },
-  REVERSE_HARM: {
-    id: 287771,
-    name: 'Reverse Harm',
-    icon: 'ability_monk_expelharm',
-  },
-  REVERSE_HARM_DAMAGE: {
-    id: 290461,
-    name: 'Reverse Harm',
-    icon: 'ability_monk_expelharm',
-  },
   WINDWALKING: {
     id: 166646,
     name: 'Windwalking',
     icon: 'monk_stance_whitetiger',
+  },
+  INVOKE_XUEN_THE_WHITE_TIGER: {
+    id: 123904,
+    name: 'Invoke Xuen, the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
   },
 };

@@ -40,7 +40,6 @@ export default {
   GOOD_KARMA_TALENT: { id: 280195, name: 'Good Karma', icon: 'ability_monk_touchofkarma' },
   INNER_STRENGTH_TALENT: { id: 261767, name: 'Inner Strength', icon: 'ability_monk_domeofmist' },
   HIT_COMBO_TALENT: { id: 196740, name: 'Hit Combo', icon: 'ability_monk_palmstrike' },
-  INVOKE_XUEN_THE_WHITE_TIGER_TALENT: { id: 123904, name: 'Invoke Xuen, the White Tiger', icon: 'ability_monk_summontigerstatue' },
   SPIRITUAL_FOCUS_TALENT: { id: 280197, name: 'Spiritual Focus', icon: 'spell_nature_giftofthewild' },
   WHIRLING_DRAGON_PUNCH_TALENT: { id: 152175, name: 'Whirling Dragon Punch', icon: 'ability_monk_hurricanestrike' },
   SERENITY_TALENT: { id: 152173, name: 'Serenity', icon: 'ability_monk_serenity' },
