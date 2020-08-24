@@ -56,9 +56,6 @@ class ShadowWordPain extends Analyzer {
     if (spellId === SPELLS.SHADOW_WORD_PAIN.id) {
       this.castedShadowWordPains += 1;
     }
-    if (spellId === SPELLS.DARK_VOID_TALENT.id) {
-      this.lastCastTimestamp = event.timestamp;
-    }
   }
 
   on_byPlayer_applydebuff(event) {

@@ -37,7 +37,10 @@ class Haste extends Analyzer {
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
     [SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id]: 0.1, // Essence
     [SPELLS.GUARDIAN_OF_AZEROTH_HASTE_BUFF.id]: {
-      hastePerStack: 0.02,
+      hastePerStack: 0.02, //Essence
+    },
+    [SPELLS.DARK_PASSION.id]: {
+      hastePerStack: 0.01, //Shadow Priest Legacy of the Void
     },
 
     //region Hunter Haste Buffs

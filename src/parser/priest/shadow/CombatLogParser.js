@@ -30,9 +30,9 @@ import TwistOfFate from './modules/talents/TwistOfFate';
 import VoidTorrent from './modules/talents/VoidTorrent';
 import ShadowCrash from './modules/talents/ShadowCrash';
 import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
-import DarkVoid from './modules/talents/DarkVoid';
 // normalizers
 import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
+import Buffs from './modules/features/Buffs';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -45,6 +45,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // features:
     abilities: Abilities,
+    buffs: Buffs,
     alwaysBeCasting: AlwaysBeCasting,
     checklist: Checklist,
     skippableCasts: SkippableCasts,
@@ -71,7 +72,6 @@ class CombatLogParser extends MainCombatLogParser {
     voidTorrent: VoidTorrent,
     shadowCrash: ShadowCrash,
     auspiciousSpirits: AuspiciousSpirits,
-    darkVoid: DarkVoid,
 
     shadowfiendNormalizer: ShadowfiendNormalizer,
   };
