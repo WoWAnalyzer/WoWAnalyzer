@@ -129,14 +129,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.TOUCH_OF_DEATH,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
         spell: SPELLS.SERENITY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 90) : 90,
@@ -170,7 +162,8 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
-          static: 1000,
+          base: 1000,
+          minimum: 750,
         },
         castEfficiency: {
           suggestion: true,
