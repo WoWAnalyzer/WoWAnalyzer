@@ -78,15 +78,12 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }) => {
         name="Use core spells as often as possible"
         description={(
           <React.Fragment>
-            Spells such as <SpellLink id={SPELLS.VOID_BOLT.id} />, <SpellLink id={SPELLS.MIND_BLAST.id} />, or <SpellLink id={SPELLS.SHADOW_WORD_VOID_TALENT.id} /> are your most important spells. Try to cast them as much as possible.
+            Spells such as <SpellLink id={SPELLS.VOID_BOLT.id} /> or <SpellLink id={SPELLS.MIND_BLAST.id} /> are your most important spells. Try to cast them as much as possible.
           </React.Fragment>
         )}
       >
         <AbilityRequirement spell={SPELLS.VOID_BOLT.id} />
-        {combatant.hasTalent(SPELLS.SHADOW_WORD_VOID_TALENT.id) ?
-          <AbilityRequirement spell={SPELLS.SHADOW_WORD_VOID_TALENT.id} /> :
-          <AbilityRequirement spell={SPELLS.MIND_BLAST.id} />
-        }
+        <AbilityRequirement spell={SPELLS.MIND_BLAST.id} />
 
       </Rule>
 
@@ -102,10 +99,6 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }) => {
           <AbilityRequirement spell={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> :
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         }
-
-        {combatant.hasTalent(SPELLS.DARK_ASCENSION_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DARK_ASCENSION_TALENT.id} />
-        )}
 
         {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />

@@ -18,7 +18,6 @@ const whispersOfTheDamnedStats = traits => Object.values(traits).reduce((obj, ra
 
 const MIND_BLAST_SPELLS = [
   SPELLS.MIND_BLAST,
-  SPELLS.SHADOW_WORD_VOID_TALENT,
 ];
 
 /**

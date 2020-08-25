@@ -18,7 +18,6 @@ const logger = (message, color) => debug && console.log(`%c${message.join('  ')}
 
 const VOID_FORM_ACTIVATORS = [
   SPELLS.VOID_ERUPTION.id,
-  SPELLS.DARK_ASCENSION_TALENT.id,
 ];
 
 class Voidform extends Analyzer {

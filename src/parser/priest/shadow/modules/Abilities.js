@@ -1,4 +1,3 @@
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -24,30 +23,15 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIND_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => (7.5 - (combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 1.5 : 0)) / (1 + haste),
+        cooldown: haste => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
-        charges: 1 + (combatant.hasWaist(ITEMS.MANGAZAS_MADNESS.id) ? 1 : 0),
+        charges: combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 2 : 1,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.55,
         },
-        enabled: !combatant.hasTalent(SPELLS.SHADOW_WORD_VOID_TALENT.id),
-      },
-      {
-        spell: SPELLS.SHADOW_WORD_VOID_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => (9 - (combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 1.5 : 0)) / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        charges: 2 + (combatant.hasWaist(ITEMS.MANGAZAS_MADNESS.id) ? 1 : 0),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        enabled: combatant.hasTalent(SPELLS.SHADOW_WORD_VOID_TALENT.id),
       },
       {
         spell: SPELLS.MIND_FLAY,
@@ -64,17 +48,44 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SHADOW_WORD_DEATH_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 9,
-        charges: 2,
+        spell: SPELLS.SEARING_NIGHTMARE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.SHADOW_WORD_DEATH_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.SEARING_NIGHTMARE_TALENT.id),
+      },
+      {
+        spell: SPELLS.SHADOW_WORD_DEATH,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 20 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SHADOW_CRASH_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        charges: 3,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+        enabled: combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id),
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DEVOURING_PLAGUE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -88,14 +99,28 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.VOID_ERUPTION,
+        spell: SPELLS.DAMNATION_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
         gcd: {
           base: 1500,
         },
+        enabled: combatant.hasTalent(SPELLS.DAMNATION_TALENT.id), 
       },
 
       // Cooldowns
+      {
+        spell: SPELLS.VOID_ERUPTION,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+        },
+      },
       {
         spell: SPELLS.VOID_TORRENT_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -108,19 +133,6 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.75,
         },
         enabled: combatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id),
-      },
-      {
-        spell: SPELLS.DARK_VOID_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.4, // TODO: Determine at what cast efficiency this starts being worth the talent slot
-        },
-        enabled: combatant.hasTalent(SPELLS.DARK_VOID_TALENT.id),
       },
       {
         spell: SPELLS.MINDBENDER_TALENT_SHADOW,
@@ -149,39 +161,22 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SHADOW_CRASH_TALENT,
+        spell: SPELLS.POWER_INFUSION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 20,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        enabled: combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id),
       },
+      
       {
         spell: SPELLS.SURRENDER_TO_MADNESS_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 3 * 60,
+        cooldown: 90,
         gcd: {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id),
-      },
-      {
-        spell: SPELLS.DARK_ASCENSION_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        enabled: combatant.hasTalent(SPELLS.DARK_ASCENSION_TALENT.id),
       },
 
       // Utility
@@ -228,6 +223,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.DESPERATE_PRAYER,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.LEAP_OF_FAITH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
@@ -248,6 +251,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LEVITATE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MIND_SOOTHE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
