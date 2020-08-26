@@ -23,6 +23,7 @@ import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
+import { fakePlayerInfoGenerator } from 'interface/report/FakePlayerHelper';
 import handleApiError from './handleApiError';
 
 const defaultState = {
@@ -122,13 +123,19 @@ class PlayerLoader extends React.PureComponent {
       let characterDatas = await Promise.all(characterDataPromises);
       // Filter for only loaded characterDatas
       characterDatas = characterDatas.filter(value => value);
+      const fakePlayerInDevelopment = true;
       combatants.forEach(player => {
         if (player.error || player.specID === -1) {
-          return;
+          if (process.env.NODE_ENV === 'development' && fakePlayerInDevelopment) {
+            console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see FakePlayerHelper.ts for more information.');
+            player = fakePlayerInfoGenerator(player);
+          } else {
+            return;
+          }
         }
         const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
-        if(!friendly) {
-          console.error("friendly missing from report for player", player.sourceID);
+        if (!friendly) {
+          console.error('friendly missing from report for player', player.sourceID);
           return;
         }
         const characterData = characterDatas ? characterDatas.find(data => data.id === friendly.guid) : null;
@@ -145,7 +152,8 @@ class PlayerLoader extends React.PureComponent {
           case ROLES.DPS.RANGED:
             this.ranged += 1;
             break;
-          default: break;
+          default:
+            break;
         }
         // Gear may be null for broken combatants
         this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
