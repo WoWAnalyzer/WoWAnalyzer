@@ -79,6 +79,12 @@ import DeadlyChain from './modules/spells/conduits/DeadlyChain';
 import PowerfulPrecision from './modules/spells/conduits/PowerfulPrecision';
 import SharpshootersFocus from './modules/spells/conduits/SharpshootersFocus';
 
+//Legendaries
+import CallOfTheWild from '../shared/modules/items/CallOfTheWild';
+import CravenStrategem from '../shared/modules/items/CravenStrategem';
+import NessingwarysTrappingApparatus from '../shared/modules/items/NessingwarysTrappingApparatus';
+import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -156,6 +162,12 @@ class CombatLogParser extends CoreCombatLogParser {
     deadlyChain: DeadlyChain,
     powerfulPrecision: PowerfulPrecision,
     sharpshootersFocus: SharpshootersFocus,
+
+    //Legendaries
+    callOfTheWild: CallOfTheWild,
+    cravenStrategem: CravenStrategem,
+    nessingwarysTrappingApparatus: NessingwarysTrappingApparatus,
+    soulforgeEmbers: SoulforgeEmbers,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

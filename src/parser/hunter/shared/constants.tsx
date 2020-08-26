@@ -89,6 +89,17 @@ export const LIST_OF_FOCUS_SPENDERS_SHARED = [
 ];
 //endregion
 
+//region Items
+export const CALL_OF_THE_WILD_AFFECTED_SPELLS = [
+  SPELLS.ASPECT_OF_THE_CHEETAH,
+  SPELLS.ASPECT_OF_THE_TURTLE,
+  SPELLS.ASPECT_OF_THE_EAGLE,
+  SPELLS.ASPECT_OF_THE_WILD,
+  SPELLS.TRUESHOT,
+  SPELLS.COORDINATED_ASSAULT,
+];
+//endregion
+
 //region Covenants
 
 //region Kyrian

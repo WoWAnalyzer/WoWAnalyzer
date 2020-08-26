@@ -11,6 +11,12 @@ import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
+/**
+ * Carve/Butchery increases the damage of your next Wildfire Bomb explosion by 10.0%, stacks up to 2 times.
+ *
+ * Example log
+ *
+ */
 class FlameInfusion extends Analyzer {
 
   conduitRank: number = 0;

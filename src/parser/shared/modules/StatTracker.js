@@ -588,6 +588,8 @@ class StatTracker extends Analyzer {
   /*
    * For percentage stats, this is the divider to go from rating to percent (expressed from 0 to 1)
    * These values don't change.
+   * TODO: Verify these values at Shadowlands launch (33 haste, 35 crit, 35 mastery, 40 versatility)
+   * TODO: Account for DR in the rating to percent functions
    */
   get critRatingPerPercent() {
     return 72 * 100;
@@ -608,7 +610,7 @@ class StatTracker extends Analyzer {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
   }
   get versatilityRatingPerPercent() {
-    return 85 * 100;
+    return 40 * 100;
   }
   versatilityPercentage(rating, withBase = false) {
     return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;

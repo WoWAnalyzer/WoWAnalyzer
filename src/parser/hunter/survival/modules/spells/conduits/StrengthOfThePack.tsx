@@ -10,6 +10,12 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 
+/**
+ * When Kill Command's cooldown is reset, gain 3.0% increased damage for until cancelled.
+ *
+ * Example log
+ *
+ */
 class StrengthOfThePack extends Analyzer {
 
   conduitRank: number = 0;

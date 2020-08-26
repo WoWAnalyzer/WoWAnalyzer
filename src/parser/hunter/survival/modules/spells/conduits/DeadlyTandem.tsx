@@ -9,6 +9,12 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import { COORDINATED_ASSAULT_BASELINE_DURATION, DEADLY_TANDEM_CA_DURATION_INCREASE } from 'parser/hunter/survival/constants';
 
+/**
+ * Coordinated Assault's duration is increased by x ms
+ *
+ * Example log
+ *
+ */
 class DeadlyTandem extends Analyzer {
 
   conduitRank: number = 0;

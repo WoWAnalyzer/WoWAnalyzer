@@ -10,8 +10,14 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 
+/**
+ * Raptor Strike and Mongoose Bite damage increased by 14.0%.
+ *
+ * Example log
+ *
+ */
 class StingingStrike extends Analyzer {
-  
+
   conduitRank: number = 0;
   addedDamage: number = 0;
 

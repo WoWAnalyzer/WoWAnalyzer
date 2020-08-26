@@ -9,6 +9,12 @@ import SPELLS from 'common/SPELLS';
 import { SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION, TRUESHOT_DURATION_BASELINE } from 'parser/hunter/marksmanship/constants';
 import { formatNumber } from 'common/format';
 
+/**
+ * Trueshot lasts 20.0% longer.
+ *
+ * Example log
+ *
+ */
 class SharpshootersFocus extends Analyzer {
 
   conduitRank: number = 0;

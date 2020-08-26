@@ -10,6 +10,12 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { NECROTIC_BARRAGE_DAMAGE_INCREASE } from 'parser/hunter/shared/constants';
 
+/**
+ * Death Chakram generates an additional 2 Focus and the damage is increased by 5.0%.
+ *
+ * Example log
+ *
+ */
 class NecroticBarrage extends Analyzer {
 
   conduitRank: number = 0;

@@ -80,6 +80,12 @@ import FlameInfusion from './modules/spells/conduits/FlameInfusion';
 import StingingStrike from './modules/spells/conduits/StingingStrike';
 import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
 
+//Legendaries
+import CallOfTheWild from '../shared/modules/items/CallOfTheWild';
+import CravenStrategem from '../shared/modules/items/CravenStrategem';
+import NessingwarysTrappingApparatus from '../shared/modules/items/NessingwarysTrappingApparatus';
+import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -162,6 +168,12 @@ class CombatLogParser extends CoreCombatLogParser {
     flameInfusion: FlameInfusion,
     stingingStrike: StingingStrike,
     strengthOfThePack: StrengthOfThePack,
+
+    //Legendaries
+    callOfTheWild: CallOfTheWild,
+    cravenStrategem: CravenStrategem,
+    nessingwarysTrappingApparatus: NessingwarysTrappingApparatus,
+    soulforgeEmbers: SoulforgeEmbers,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

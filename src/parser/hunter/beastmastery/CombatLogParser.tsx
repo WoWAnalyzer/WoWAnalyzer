@@ -76,6 +76,12 @@ import EchoingCall from './modules/spells/conduits/EchoingCall';
 import FerociousAppetite from './modules/spells/conduits/FerociousAppetite';
 import OneWithTheBeast from './modules/spells/conduits/OneWithTheBeast';
 
+//Legendaries
+import CallOfTheWild from '../shared/modules/items/CallOfTheWild';
+import CravenStrategem from '../shared/modules/items/CravenStrategem';
+import NessingwarysTrappingApparatus from '../shared/modules/items/NessingwarysTrappingApparatus';
+import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     globalCooldown: GlobalCooldown,
@@ -154,6 +160,12 @@ class CombatLogParser extends CoreCombatLogParser {
     echoingCall: EchoingCall,
     ferociousAppetite: FerociousAppetite,
     oneWithTheBeast: OneWithTheBeast,
+
+    //Legendaries
+    callOfTheWild: CallOfTheWild,
+    cravenStrategem: CravenStrategem,
+    nessingwarysTrappingApparatus: NessingwarysTrappingApparatus,
+    soulforgeEmbers: SoulforgeEmbers,
   };
 }
 

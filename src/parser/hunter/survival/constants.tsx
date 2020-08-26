@@ -23,7 +23,7 @@ export const SERPENT_STING_SV_PANDEMIC = 0.3;
 //The baseduration of Serpent Sting before any haste reduction
 export const SERPENT_STING_SV_BASE_DURATION = 12000;
 /** Raptor Strike / Mongoose Bite */
-//Raptor Strike turns into MongAoose Bite when talented into it, and during Aspect of the Eagle they change spellIDs.
+//Raptor Strike turns into Mongoose Bite when talented into it, and during Aspect of the Eagle they change spellIDs.
 export const RAPTOR_MONGOOSE_VARIANTS = [
   SPELLS.RAPTOR_STRIKE,
   SPELLS.RAPTOR_STRIKE_AOTE,

@@ -12,6 +12,12 @@ import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatThousands } from 'common/format';
 
+/**
+ * Wild Spirits duration is increased by 3 sec and the damage dealt is increased by 10.0%.
+ *
+ * Example log
+ *
+ */
 class SpiritAttunement extends Analyzer {
 
   conduitRank: number = 0;
