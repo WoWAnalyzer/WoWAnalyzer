@@ -9,8 +9,6 @@ import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Flametongue from '../core/Flametongue';
 import Hailstorm from '../talents/Hailstorm';
-import FuryOfAir from '../talents/FuryOfAir';
-import LightningShield from '../talents/LightningShield';
 import FlametongueRefresh from '../core/FlametongueRefresh';
 
 class Checklist extends BaseChecklist {
@@ -19,22 +17,18 @@ class Checklist extends BaseChecklist {
     castEfficiency: CastEfficiency,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,
-    lightningShield: LightningShield,
     flametongue: Flametongue,
     flametongueRefresh: FlametongueRefresh,
     hailstorm: Hailstorm,
-    furyOfAir: FuryOfAir,
   };
 
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected alwaysBeCasting!: AlwaysBeCasting;
-  protected lightningShield!: LightningShield;
   protected flametongue!: Flametongue;
   protected flametongueRefresh!: FlametongueRefresh;
   protected hailstorm!: Hailstorm;
-  protected furyOfAir!: FuryOfAir;
 
   render() {
     return (
@@ -47,11 +41,9 @@ class Checklist extends BaseChecklist {
           alwaysBeCasting: this.alwaysBeCasting.suggestionThresholds,
 
           // Buffs uptime and refreshes
-          lightningShieldUptime: this.lightningShield.lightningShieldUptimeThreshold,
           flametongueUptime: this.flametongue.flametongueUptimeThreshold,
           flametongueEarlyRefreshes: this.flametongueRefresh.flametongueEarlyRefreshThreshold,
           frostbrandUptime: this.hailstorm.frostbrandUptimeThresholds,
-          furyOfAirUptime: this.furyOfAir.furyOfAirUptimeThresholds,
         }}
       />
     );

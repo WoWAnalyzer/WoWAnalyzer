@@ -53,7 +53,7 @@ Array [
     "importance": "minor",
     "issue": "Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.",
     "stat": <React.Fragment>
-      7.99% downtime
+      7.06% downtime
        (
       &lt;5.00% is recommended
       )
@@ -381,7 +381,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "88.26939133171035%",
+                      "width": "88.39747956153882%",
                     }
                   }
                 />
@@ -396,7 +396,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              88.27%
+              88.40%
             </td>
             <td
               style={
@@ -2971,131 +2971,6 @@ Array [
 ]
 `;
 
-exports[`Elemental Shaman integration test: example log IgneousPotential matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=279829"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Igneous Potential"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shaman_lavasurge.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=279829"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Igneous Potential
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <img
-            alt="Damage"
-            className="icon"
-            src="/img/sword.png"
-          />
-           
-          4,287
-           DPS
-           
-          <small>
-            9.43
-             % of total
-          </small>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Elemental Shaman integration test: example log LavaShock matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic small "
-    position={1000}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="flex boring-value "
-      >
-        <div
-          className="flex-sub icon"
-        >
-          <a
-            href="http://wowhead.com/spell=273448"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Lava Shock"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_nature_earthshock.jpg"
-            />
-          </a>
-        </div>
-        <div
-          className="flex-main value"
-        >
-          <div>
-            {0} Damage
-          </div>
-          <small>
-            Damage done
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Elemental Shaman integration test: example log MaelstromDetails matches the statistic snapshot 1`] = `
 Array [
   <div
@@ -4527,149 +4402,6 @@ exports[`Elemental Shaman integration test: example log MasterOfTheElements matc
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log NaturalHarmony matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-    position={1001}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=278697"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Natural Harmony"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_nature_elementalprecision_1.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=278697"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Natural Harmony
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle
-              cx="32.111"
-              cy="32.678"
-              r="2.989"
-            />
-            <path
-              d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
-            />
-          </svg>
-           
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-             
-            153
-             
-            <small>
-              average Crit gained
-            </small>
-          </dfn>
-          <br />
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
-            />
-          </svg>
-           
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            140
-             
-            <small>
-              average Haste gained
-            </small>
-          </dfn>
-          <br />
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M46.934,26.287c-1.107,0-2.004,0.885-2.004,1.976c0,0.31,0.079,0.599,0.208,0.861l-6.74,4.691 l-0.387-8.422c1.064-0.048,1.914-0.906,1.914-1.967c0-1.091-0.898-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976 c0,0.732,0.408,1.364,1.008,1.705l-4.812,8.237l-4.812-8.237c0.6-0.341,1.008-0.973,1.008-1.705c0-1.091-0.897-1.976-2.004-1.976 c-1.107,0-2.004,0.885-2.004,1.976c0,1.061,0.85,1.919,1.914,1.967l-0.387,8.422l-6.74-4.691c0.129-0.261,0.208-0.551,0.208-0.861 c0-1.092-0.897-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976c0,1.091,0.897,1.976,2.004,1.976 c0.298,0,0.578-0.068,0.832-0.183l5.048,13.236c2.178-0.849,5.377-1.385,8.943-1.385c3.566,0,6.764,0.536,8.942,1.385l5.048-13.236 c0.254,0.115,0.534,0.183,0.832,0.183c1.107,0,2.005-0.885,2.005-1.976C48.939,27.172,48.041,26.287,46.934,26.287z"
-            />
-          </svg>
-           
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            119
-             
-            <small>
-              average Mastery gained
-            </small>
-          </dfn>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Elemental Shaman integration test: example log Overload matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -5883,7 +5615,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "74.95970441668625%",
+                  "width": "76.5184335902511%",
                 }
               }
             />
@@ -6032,7 +5764,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  7.99%
+                  7.06%
                    
                    
                 </div>
@@ -6054,7 +5786,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "90.03782988600408%",
+                        "width": "93.15528823313379%",
                       }
                     }
                   />
@@ -6408,7 +6140,6 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
       </div>
     </div>
   </li>
-  
   <li
     className="expandable  passed"
   >

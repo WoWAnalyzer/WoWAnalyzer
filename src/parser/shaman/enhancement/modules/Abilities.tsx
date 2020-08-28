@@ -93,15 +93,6 @@ class Abilities extends CoreAbilities {
         gcd: undefined,
       },
       {
-        spell: SPELLS.ROCKBITER,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: 2,
-        cooldown: haste => (combatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id) ? 6 * 0.85 : 6) / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.FROSTBRAND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
