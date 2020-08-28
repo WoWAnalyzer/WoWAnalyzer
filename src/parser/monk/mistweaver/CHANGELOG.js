@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 5, 24), <>Bye Bye Bfa</>,Abelito75),
   change(date(2020, 5, 24), <>Updated the Rising Mist modules and generally made tracking hots better. </>,Abelito75),
   change(date(2020, 4, 22), <>Corrected cooldown for Rising Sun Kick and Blackout Kick. </>,Abelito75),
   change(date(2020, 4, 1), <>Added average haste gained statistic from <SpellLink id={SPELLS.MISTY_PEAKS.id} /> azerite trait. </>,FraunchToost),
