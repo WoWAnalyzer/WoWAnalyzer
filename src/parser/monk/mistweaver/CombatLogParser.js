@@ -1,22 +1,12 @@
-/* TODO: BfA Edition!
- * Rising Mist - Poor use suggestions
- * Upwelling - Additional healing added from channel, missed healing from channel?
- * Mana Tea vs SotC - Potentially compare common output of each talent.
- *    Suggest using one over the other?
- * Vivify or REM - Missed Vivify healing from less than 2 REMs out
- * Azerite Bonus Placeholders
- */
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import CoreChanneling from './modules/core/Channeling';
 import HotTrackerMW from './modules/core/HotTrackerMW';
-import SpellUsable from './modules/core/SpellUsable';
 
 // Normalizers
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
@@ -45,7 +35,6 @@ import RenewingMist from './modules/spells/RenewingMist';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
-import ChiJi from './modules/talents/ChiJi';
 import ChiBurst from './modules/talents/ChiBurst';
 import ManaTea from './modules/talents/ManaTea';
 import RefreshingJadeWind from './modules/talents/RefreshingJadeWind';
@@ -56,15 +45,6 @@ import AverageTimeBetweenRSKSs from './modules/talents/AverageTimeBetweenRSKs';
 import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaTea';
 import Tier45Comparison from './modules/talents/Tier45Comparison';
 import Upwelling from './modules/talents/Upwelling';
-
-// Azerite Traits
-import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
-import UpliftedSpirits from './modules/spells/azeritetraits/UpliftedSpirits';
-import SecretInfusion from './modules/spells/azeritetraits/SecretInfusion';
-import MistyPeaks from './modules/spells/azeritetraits/MistyPeaks';
-
-//essences
-import WayOfTheCrane from './modules/spells/essences/WayOfTheCrane';
 
 // Mana Tracker
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
@@ -88,7 +68,6 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
     hotTrackerMW: HotTrackerMW,
-    spellUsable: SpellUsable,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
@@ -119,7 +98,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     chiBurst: ChiBurst,
-    chiJi: ChiJi,
     manaTea: ManaTea,
     refreshingJadeWind: RefreshingJadeWind,
     lifecycles: Lifecycles,
@@ -130,22 +108,10 @@ class CombatLogParser extends CoreCombatLogParser {
     tier45Comparison: Tier45Comparison,
     upwelling: Upwelling,
 
-    // Azerite Traits
-    fontOfLife: FontOfLife,
-    upliftedSpirits: UpliftedSpirits,
-    secretInfusion: SecretInfusion,
-    mistyPeaks: MistyPeaks,
-
-    // Essences
-    lucidDreams: LucidDreams,
-
     // Mana Tab
     manaTracker: ManaTracker,
     hpmDetails: MistweaverHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
-
-    //Essences
-    wayOfTheCrane: WayOfTheCrane,
   };
 }
 

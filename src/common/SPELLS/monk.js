@@ -168,12 +168,6 @@ export default {
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
   },
-  // Ch-Ji Heal
-  CRANE_HEAL: {
-    id: 198756,
-    name: 'Crane Heal',
-    icon: 'inv_pet_cranegod',
-  },
   // Lifecycles buffs
   LIFECYCLES_VIVIFY_BUFF: {
     id: 197916,
@@ -206,11 +200,6 @@ export default {
     name: 'Blackout Kick',
     icon: 'ability_monk_roundhousekick',
   },
-  WAY_OF_THE_CRANE: {
-    id: 216113,
-    name: 'Way of the Crane',
-    icon: 'monk_stance_redcrane',
-  },
 
   // Utility / Other
   DETOX: {
@@ -223,18 +212,6 @@ export default {
     id: 243435,
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingelixir',
-  },
-
-  // Mistweaver Azerite Traits
-  OVERFLOWING_MISTS_HEAL: {
-    id: 273354,
-    name: 'Overflowing Mists',
-    icon: 'spell_monk_envelopingmist',
-  },
-  BURST_OF_LIFE_HEAL: {
-  id: 278564,
-  name: 'Burst of Life',
-  icon: 'ability_monk_chicocoon',
   },
 
   // Brewmaster
