@@ -9,6 +9,7 @@ import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { EventType } from 'parser/core/Events';
 
 const MAX_OVERWHELMING_POWER_STACKS = 25;
 
@@ -27,7 +28,7 @@ const overWhelmingPowerStats = traits => Object.values(traits).reduce((obj, rank
  *
  * Example report: https://www.warcraftlogs.com/reports/jBthQCZcWRNGyAk1#fight=29&type=auras&source=18
  */
-class OverWhelmingPower extends Analyzer {
+class OverwhelmingPower extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
@@ -84,9 +85,9 @@ class OverWhelmingPower extends Analyzer {
       this.totalHaste += this.currentStacks * this.haste * uptimeOnStack;
     }
 
-    if (event.type === "applybuff") {
+    if (event.type === EventType.ApplyBuff) {
       this.currentStacks = MAX_OVERWHELMING_POWER_STACKS;
-    } else if (event.type === "removebuff") {
+    } else if (event.type === EventType.RemoveBuff) {
       this.currentStacks = 0;
     } else {
       this.currentStacks = event.stack;
@@ -129,4 +130,4 @@ class OverWhelmingPower extends Analyzer {
   }
 }
 
-export default OverWhelmingPower;
+export default OverwhelmingPower;

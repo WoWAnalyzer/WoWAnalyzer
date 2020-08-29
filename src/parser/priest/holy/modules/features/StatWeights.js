@@ -21,10 +21,10 @@ class StatWeights extends BaseHealerStatValues {
   qeLive = false;
 
   _hasteHpm(event, healVal) {
-    if (event.ability.guid === SPELLS.RENEW.id && event.tick) {
-      return super._hasteHpm(event, healVal);
+    if (event.ability.guid === SPELLS.RENEW.id && !event.tick) {
+      return 0;
     }
-    return 0;
+    return super._hasteHpm(event, healVal);
   }
 
   _criticalStrike(event, healVal) {

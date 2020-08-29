@@ -36,7 +36,7 @@ describe('[PENANCE] Spell Calculations', () => {
 
     expect(boltEstimator()).toEqual({
       boltDamage: 40,
-      boltHealing: 22,
+      boltHealing: 20,
     });
   });
 
@@ -47,7 +47,7 @@ describe('[PENANCE] Spell Calculations', () => {
 
     expect(boltEstimator()).toEqual({
       boltDamage: 50,
-      boltHealing: 28,
+      boltHealing: 25,
     });
   });
 });
@@ -60,7 +60,7 @@ describe('[SMITE] Spell Calculations', () => {
       vers: 0,
       expected: {
         smiteDamage: 71,
-        smiteHealing: 39,
+        smiteHealing: 36,
       },
     },
     {
@@ -69,7 +69,7 @@ describe('[SMITE] Spell Calculations', () => {
       vers: 0.25,
       expected: {
         smiteDamage: 88,
-        smiteHealing: 48,
+        smiteHealing: 44,
       },
     },
     {
@@ -78,7 +78,7 @@ describe('[SMITE] Spell Calculations', () => {
       vers: 0,
       expected: {
         smiteDamage: 71,
-        smiteHealing: 39,
+        smiteHealing: 36,
       },
     },
     {
@@ -87,7 +87,7 @@ describe('[SMITE] Spell Calculations', () => {
       vers: 0,
       expected: {
         smiteDamage: 71,
-        smiteHealing: 39,
+        smiteHealing: 36,
       },
     },
     {
@@ -96,7 +96,7 @@ describe('[SMITE] Spell Calculations', () => {
       vers: 0.25,
       expected: {
         smiteDamage: 95,
-        smiteHealing: 52,
+        smiteHealing: 48,
       },
     },
   ];

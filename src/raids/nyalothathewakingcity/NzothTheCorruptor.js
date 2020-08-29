@@ -1,4 +1,5 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/NzothTheCorruptor.jpg';
 import Headshot from './images/headshots/NzothTheCorruptor.png';
@@ -15,18 +16,19 @@ export default {
       physical: [],
       magical: [],
     },
+    resultsWarning: 'Logs recorded for this fight contain many issues that may make analysis inaccurate, unless you were the one logging the fight. If not, please consider analyzing a different fight.',
     phases: {
       P1: {
         name: 'Stage 1: Dominant Mind',
         multiple: false,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID],
       },
       P2: {
         name: 'Stage 2: Writhing Onslaught',
         multiple: false,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'health',
+          type: EventType.Health,
           guid: 158376,
           health: 0.1,
           eventInstance: 0,

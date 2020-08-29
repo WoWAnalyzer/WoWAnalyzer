@@ -12,9 +12,10 @@ import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import makeWclUrl from 'common/makeWclUrl';
 import SpellLink from 'common/SpellLink';
+import { EventType } from 'parser/core/Events';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
-const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = n => Math.max(3, (2.25 + 7.75 / n)) / 100;
+const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = n => Math.max(3, 2.25 + 7.75 / n) / 100;
 const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 
 /**
@@ -43,17 +44,17 @@ class DevotionAuraDamageReduction extends Analyzer {
 
   passiveDamageReduced = 0;
   get passiveDrps() {
-    return this.passiveDamageReduced / this.owner.fightDuration * 1000;
+    return (this.passiveDamageReduced / this.owner.fightDuration) * 1000;
   }
   activeDamageReduced = 0;
   get activeDrps() {
-    return this.activeDamageReduced / this.owner.fightDuration * 1000;
+    return (this.activeDamageReduced / this.owner.fightDuration) * 1000;
   }
   get totalDamageReduced() {
     return this.passiveDamageReduced + this.activeDamageReduced;
   }
   get totalDrps() {
-    return this.totalDamageReduced / this.owner.fightDuration * 1000;
+    return (this.totalDamageReduced / this.owner.fightDuration) * 1000;
   }
 
   constructor(...args) {
@@ -67,10 +68,17 @@ class DevotionAuraDamageReduction extends Analyzer {
       return;
     }
 
-    const isAuraMasteryActive = this.selectedCombatant.hasBuff(SPELLS.AURA_MASTERY.id, event.timestamp, 0, 0, this.owner.playerId);
+    const isAuraMasteryActive = this.selectedCombatant.hasBuff(
+      SPELLS.AURA_MASTERY.id,
+      event.timestamp,
+      0,
+      0,
+      this.owner.playerId,
+    );
     if (!isAuraMasteryActive) {
       const damageTaken = event.amount + (event.absorbed || 0);
-      const damageReduced = damageTaken / (1 - this.totalPassiveDamageReduction) * this.totalPassiveDamageReduction;
+      const damageReduced =
+        (damageTaken / (1 - this.totalPassiveDamageReduction)) * this.totalPassiveDamageReduction;
       this.passiveDamageReduced += damageReduced;
     }
   }
@@ -113,24 +121,39 @@ class DevotionAuraDamageReduction extends Analyzer {
     this.buffsActive -= 1;
     // this.debug('devo removed from', this.combatants.players[event.targetID].name, this.buffsActive);
     if (this.buffsActive === 0) {
-      console.error('We lost more Devotion Aura buffs than we gained, this should not be possible as applybuffs are fabricated for all removebuffs.');
+      console.error(
+        'We lost more Devotion Aura buffs than we gained, this should not be possible as applybuffs are fabricated for all removebuffs.',
+      );
       this.buffsActive = 1;
     }
   }
 
   get auraMasteryUptimeFilter() {
-    const buffHistory = this.selectedCombatant.getBuffHistory(SPELLS.AURA_MASTERY.id, this.owner.playerId);
+    const buffHistory = this.selectedCombatant.getBuffHistory(
+      SPELLS.AURA_MASTERY.id,
+      this.owner.playerId,
+    );
     if (buffHistory.length === 0) {
       return null;
     }
     // WCL's filter requires the timestamp to be relative to fight start
-    return buffHistory.map(buff => `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${buff.end - this.owner.fight.start_time})`).join(' OR ');
+    return buffHistory
+      .map(
+        buff =>
+          `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${buff.end -
+            this.owner.fight.start_time})`,
+      )
+      .join(' OR ');
   }
   get filter() {
     const playerName = this.owner.player.name;
     // Include any damage while selected player has AM, and is above the health requirement,
     // and the mitigation percentage is greater than 19% (we use this to reduce the false positives. We use DR-1% to account for rounding)
-    return `(IN RANGE FROM target.name='${playerName}' AND type='applybuff' AND ability.id=${SPELLS.AURA_MASTERY.id} TO target.name='${playerName}' AND type='removebuff' AND ability.id=${SPELLS.AURA_MASTERY.id} END)
+    return `(IN RANGE FROM target.name='${playerName}' AND type='${
+      EventType.ApplyBuff
+    }' AND ability.id=${SPELLS.AURA_MASTERY.id} TO target.name='${playerName}' AND type='${
+      EventType.RemoveBuff
+    }' AND ability.id=${SPELLS.AURA_MASTERY.id} END)
       AND (mitigatedDamage/rawDamage*100)>${DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION * 100 - 1}`;
   }
 
@@ -139,23 +162,46 @@ class DevotionAuraDamageReduction extends Analyzer {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: this.filter,
-    })
-      .then(json => {
-        console.log('Received AM damage taken', json);
-        const totalDamageTaken = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
-        this.activeDamageReduced = totalDamageTaken / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
-      });
+    }).then(json => {
+      console.log('Received AM damage taken', json);
+      const totalDamageTaken = json.entries.reduce(
+        (damageTaken, entry) => damageTaken + entry.total,
+        0,
+      );
+      this.activeDamageReduced =
+        (totalDamageTaken / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION)) *
+        DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
+    });
   }
 
   statistic() {
     const tooltip = (
       <Trans>
-        The total estimated damage reduced <strong>by the passive</strong> was {formatThousands(this.passiveDamageReduced)} ({formatNumber(this.passiveDrps)} DRPS). This has high accuracy.<br />
-        The total estimated damage reduced <strong>during Aura Mastery</strong> was {formatThousands(this.activeDamageReduced)} ({formatNumber(this.activeDrps)} DRPS). This has a 99% accuracy.<br /><br />
-
-        This value is calculated using the <i>Optional DRs</i> method. This results in the lowest possible damage reduction value being shown. This should be the correct value in most circumstances.<br /><br />
-
-        Calculating the exact damage reduced by Devotion Aura is very time and resource consuming. This method uses a very close estimation. The active damage reduced is calculated by taking the total damage taken of the entire raid during <SpellLink id={SPELLS.AURA_MASTERY.id} /> and calculating the damage reduced during this time. The passive damage reduction is calculated by taking the exact damage reduction factor applicable and calculating the damage reduced if that full effect was applied to the Paladin. Even though the passive damage reduction is split among other nearby players, using your personal damage taken should average it out very closely. More extensive tests that go over all damage events have shown that this is usually a close approximation.
+        The total estimated damage reduced <strong>by the passive</strong> was{' '}
+        {formatThousands(this.passiveDamageReduced)} ({formatNumber(this.passiveDrps)} DRPS). This
+        has high accuracy.
+        <br />
+        The total estimated damage reduced <strong>during Aura Mastery</strong> was{' '}
+        {formatThousands(this.activeDamageReduced)} ({formatNumber(this.activeDrps)} DRPS). This has
+        a 99% accuracy.
+        <br />
+        <br />
+        This value is calculated using the <i>Optional DRs</i> method. This results in the lowest
+        possible damage reduction value being shown. This should be the correct value in most
+        circumstances.
+        <br />
+        <br />
+        Calculating the exact damage reduced by Devotion Aura is very time and resource consuming.
+        This method uses a very close estimation. The active damage reduced is calculated by taking
+        the total damage taken of the entire raid during <SpellLink
+          id={SPELLS.AURA_MASTERY.id}
+        />{' '}
+        and calculating the damage reduced during this time. The passive damage reduction is
+        calculated by taking the exact damage reduction factor applicable and calculating the damage
+        reduced if that full effect was applied to the Paladin. Even though the passive damage
+        reduction is split among other nearby players, using your personal damage taken should
+        average it out very closely. More extensive tests that go over all damage events have shown
+        that this is usually a close approximation.
       </Trans>
     );
 

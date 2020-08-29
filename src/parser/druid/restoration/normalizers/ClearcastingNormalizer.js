@@ -1,6 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 const MAX_DELAY = 50;
 
@@ -13,7 +14,7 @@ class ClearcastingNormalizer extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === 'cast' && event.ability.guid === SPELLS.REGROWTH.id) {
+      if (event.type === EventType.Cast && event.ability.guid === SPELLS.REGROWTH.id) {
         const castTimestamp = event.timestamp;
 
         // Loop through the event history in reverse to detect if there was a clearcast remove event that was the result of this cast
@@ -22,7 +23,7 @@ class ClearcastingNormalizer extends EventsNormalizer {
           if ((castTimestamp - previousEvent.timestamp) > MAX_DELAY) {
             break;
           }
-          if (previousEvent.type === 'removebuff' && previousEvent.ability.guid === SPELLS.CLEARCASTING_BUFF.id && previousEvent.sourceID === event.sourceID) {
+          if (previousEvent.type === EventType.RemoveBuff && previousEvent.ability.guid === SPELLS.CLEARCASTING_BUFF.id && previousEvent.sourceID === event.sourceID) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;

@@ -1,5 +1,6 @@
-import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/WrathionTheBlackEmperor.jpg';
 import Headshot from './images/headshots/WrathionTheBlackEmperor.png';
@@ -20,9 +21,9 @@ export default {
       P1: {
         name: 'Stage 1: The Black Emperor',
         multiple: true,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: SPELLS.CREEPING_MADNESS.id,
           },
@@ -31,9 +32,9 @@ export default {
       P2: {
         name: 'Stage 2: Smoke and Mirrors',
         multiple: true,
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
-          type: 'cast',
+          type: EventType.Cast,
           ability: {
             id: SPELLS.SMOKE_AND_MIRRORS.id,
           },

@@ -114,16 +114,36 @@ export default {
     side: 'alliance',
     name: 'Lightforged Draenei',
   },
+  ZandalariTroll: {
+    id: 31,
+    side: 'horde',
+    name: 'Zandalari Troll',
+  },
+  KulTiran: {
+    id: 32,
+    side: 'alliance',
+    name: 'Kul Tiran',
+  },
   DarkIronDwarf: {
     id: 34,
     mask: 2,
     side: 'alliance',
     name: 'Dark Iron Dwarf',
   },
+  Vulpera: {
+    id: 35,
+    side: 'horde',
+    name: 'Vulpera',
+  },
   MagharOrc: {
     id: 36,
     mask: 8,
     side: 'horde',
     name: 'Mag\'har Orc',
+  },
+  Mechagnome: {
+    id: 37,
+    name: 'Mechagnome',
+    side: 'alliance',
   },
 };

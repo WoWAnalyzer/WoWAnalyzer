@@ -2,14 +2,14 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, BeginCastEvent, ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent, RemoveBuffStackEvent, RefreshBuffEvent, FightEndEvent } from 'parser/core/Events';
+import Events, { CastEvent, BeginCastEvent, ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatNumber, formatPercentage } from 'common/format';
+import { PYROCLASM_DAMAGE_MODIFIER, CAST_BUFFER } from '../../constants';
 
-const CAST_BUFFER = 250;
 const FIGHT_END_BUFFER = 5000;
-const PYROCLASM_DAMAGE_MODIFIER = 225;
 
 const debug = false;
 
@@ -28,10 +28,10 @@ class Pyroclasm extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST), this.onPyroblastBeginCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST), this.onPyroblastCast);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmApplied);
-    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmApplied);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
-    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), (event: ApplyBuffEvent) => this.onPyroclasmApplied(event));
+    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), (event: ApplyBuffStackEvent) => this.onPyroclasmApplied(event));
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), (event: RemoveBuffEvent) => this.onPyroclasmRemoved(event));
+    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), (event: RemoveBuffStackEvent) => this.onPyroclasmRemoved(event));
     this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRefresh);
     this.addEventListener(Events.fightend, this.onFinished);
   }
@@ -69,14 +69,14 @@ class Pyroclasm extends Analyzer {
   }
 
   //Counts the number of procs that were refreshed. This means that they had 2 procs available and gained another one. Therefore the gained proc is wasted.
-  onPyroclasmRefresh(event: RefreshBuffEvent) {
+  onPyroclasmRefresh() {
     this.overwrittenProcs += 1;
     this.totalProcs += 1;
     debug && this.log("Buff Refreshed");
   }
 
   //If the player has a Pyroclasm proc when the fight ends and they got the proc within the last 5 seconds of the fight, then ignore it. Otherwise, it was wasted.
-  onFinished(event: FightEndEvent) {
+  onFinished() {
     if (!this.buffAppliedEvent) {
       return;
     }
@@ -132,7 +132,7 @@ class Pyroclasm extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             This is a measure of how well you utilized your Pyroclasm procs.

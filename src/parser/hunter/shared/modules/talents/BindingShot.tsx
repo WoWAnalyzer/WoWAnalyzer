@@ -1,11 +1,11 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyDebuffEvent } from '../../../../core/Events';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Events from 'parser/core/Events';
 
 /**
  * Fires a magical projectile, tethering the enemy and any other enemies within
@@ -18,27 +18,26 @@ class BindingShot extends Analyzer {
 
   _roots = 0;
   _applications = 0;
+  _casts = 0;
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_ROOT), this.onRoot);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_TETHER), this.onTether);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_TALENT), this.onCast);
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !==
-      SPELLS.BINDING_SHOT_ROOT.id &&
-      spellId !==
-      SPELLS.BINDING_SHOT_TETHER.id) {
-      return;
-    }
-    if (spellId === SPELLS.BINDING_SHOT_ROOT.id) {
-      this._roots += 1;
-    }
-    if (spellId === SPELLS.BINDING_SHOT_TETHER.id) {
-      this._applications += 1;
-    }
+  onTether() {
+    this._applications += 1;
+  }
+
+  onRoot() {
+    this._roots += 1;
+  }
+
+  onCast() {
+    this._casts += 1;
   }
 
   statistic() {
@@ -46,12 +45,12 @@ class BindingShot extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(14)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.BINDING_SHOT_TALENT}>
           <>
-            {this._roots} <small>roots</small> / {this._applications}
-            <small>possible</small>
+            {this._roots} <small>roots</small> / {this._applications} <small>possible</small> <br />
+            {this._casts} <small>casts</small>
           </>
         </BoringSpellValueText>
       </Statistic>

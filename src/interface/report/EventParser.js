@@ -7,6 +7,7 @@ import { getBuild } from 'interface/selectors/url/report';
 import sleep from 'common/sleep';
 import { captureException } from 'common/errorLogger';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import { EventType } from 'parser/core/Events';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
@@ -50,7 +51,7 @@ class EventParser extends React.PureComponent {
     applyTimeFilter: PropTypes.func.isRequired,
     applyPhaseFilter: PropTypes.func.isRequired,
     parserClass: PropTypes.func.isRequired,
-    build: PropTypes.object,
+    build: PropTypes.string,
     builds: PropTypes.object,
     characterProfile: PropTypes.object,
     events: PropTypes.array.isRequired,
@@ -110,7 +111,7 @@ class EventParser extends React.PureComponent {
   makeEvents(parser) {
     let { events } = this.props;
     // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
-    events = events.filter(event => event.type !== 'combatantinfo');
+    events = events.filter(event => event.type !== EventType.CombatantInfo);
     //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
     events = parser.normalize(events).sort((a,b) => a.timestamp - b.timestamp);
     return events;

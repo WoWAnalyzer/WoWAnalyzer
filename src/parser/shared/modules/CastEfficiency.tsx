@@ -76,10 +76,10 @@ class CastEfficiency extends Analyzer {
     const completedRechargeTime = (history.filter(
       event => event.type === EventType.UpdateSpellUsable,
     ) as UpdateSpellUsableEvent[]).reduce((acc, event) => {
-      if (event.trigger === 'begincooldown') {
+      if (event.trigger === EventType.BeginCooldown) {
         lastRechargeTimestamp = event.timestamp;
         return acc;
-      } else if (event.trigger === 'endcooldown') {
+      } else if (event.trigger === EventType.EndCooldown) {
         //limit by start time in case of pre phase events
         recharges += 1;
         lastRechargeTimestamp = undefined;
@@ -87,7 +87,7 @@ class CastEfficiency extends Analyzer {
         // don't have `timePassed` filled in.
         return acc + event.timestamp - event.start;
         // This might cause oddness if we add anything that externally refreshes charges, but so far nothing does
-      } else if (event.trigger === 'restorecharge') {
+      } else if (event.trigger === EventType.RestoreCharge) {
         //limit by start time in case of pre phase events
         recharges += 1;
         lastRechargeTimestamp = event.timestamp;
@@ -102,9 +102,9 @@ class CastEfficiency extends Analyzer {
       : this.owner.currentTimestamp -
         Math.max(lastRechargeTimestamp, this.owner.fight.start_time);
 
-    const casts = history.filter(event => event.type === 'cast').length;
+    const casts = history.filter(event => event.type === EventType.Cast).length;
 
-    const castEvents = history.filter(event => event.type === 'cast');
+    const castEvents = history.filter(event => event.type === EventType.Cast);
     const castTimestamps = castEvents.map(
       event => event.timestamp - this.owner.fight.start_time,
     );
@@ -128,10 +128,10 @@ class CastEfficiency extends Analyzer {
     let beginCastTimestamp: number | undefined;
     let beginChannelTimestamp: number | undefined;
     const timeSpentCasting = history.reduce((acc, event) => {
-      if (event.type === 'begincast') {
+      if (event.type === EventType.BeginCast) {
         beginCastTimestamp = event.timestamp;
         return acc;
-      } else if (event.type === 'cast') {
+      } else if (event.type === EventType.Cast) {
         //limit by start time in case of pre phase events
         const castTime = beginCastTimestamp
           ? event.timestamp -
@@ -139,12 +139,12 @@ class CastEfficiency extends Analyzer {
           : 0;
         beginCastTimestamp = undefined;
         return acc + castTime;
-      } else if (event.type === 'beginchannel') {
+      } else if (event.type === EventType.BeginChannel) {
         beginChannelTimestamp = beginCastTimestamp
           ? undefined
           : event.timestamp;
         return acc;
-      } else if (event.type === 'endchannel') {
+      } else if (event.type === EventType.EndChannel) {
         //limit by start time in case of pre phase events
         const channelTime = beginChannelTimestamp
           ? event.timestamp -
@@ -180,7 +180,7 @@ class CastEfficiency extends Analyzer {
   }
 
   private getTimeSpentOnGcd(spellId: number) {
-    const ability: Ability = this.abilities.getAbility(spellId);
+    const ability = this.abilities.getAbility(spellId);
 
     if (ability && ability.gcd) {
       const cdInfo = this.getCooldownInfo(ability);
@@ -227,7 +227,7 @@ class CastEfficiency extends Analyzer {
     }
 
     const timeWaitingOnGCD = history.reduce((acc, event) => {
-      if (event.type === 'updatespellusable' && event.timeWaitingOnGCD) {
+      if (event.type === EventType.UpdateSpellUsable && event.timeWaitingOnGCD) {
         return acc + event.timeWaitingOnGCD;
       } else {
         return acc;

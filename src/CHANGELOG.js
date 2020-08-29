@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,10 +8,43 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
+// prettier-ignore
 export default [
+  change(date(2020, 8, 5), 'Fix an issue where changelogs wouldn\'t count in pull requests.', Putro),
+  change(date(2020, 8, 4), 'Fixed a bug causing the total fight duration field to be improperly calculated, leading to confusing downtime/death percentages', Dambroda),
+  change(date(2020, 7, 27), 'Updated contributor details to TypeScript and fixed contributor description not appearing when viewing those details', Dambroda),
+  change(date(2020, 7, 27), 'Converted core log parser and other modules to TypeScript and added strict event typechecking to event listeners.', Dambroda),
+  change(date(2020, 7, 24), 'Added missing allied races to race definitions', Dambroda),
+  change(date(2020, 7, 11), 'Added shared functionality to get an array of filtered events previous to the currently processing event.', Dambroda),
+  change(date(2020, 7, 6), <> Added support for <ItemLink id={ITEMS.SUBROUTINE_RECALIBRATION.id} />. </>, Putro),
+  change(date(2020, 6, 27), 'Initial page load performance enhancements.', Stui),
+  change(date(2020, 6, 12), 'Move various probability helpers to a shared folder.', Putro),
+  change(date(2020, 6, 11), 'Added a warning to N\'zoth fight due to the different realm phases, and the combat log errors they come with.', Putro),
+  change(date(2020, 6, 10), 'Fix a crash when changing your region after selecting a realm during character search.', Dambroda),
+  change(date(2020, 6, 9), <> Added debuff uptime to to the <SpellLink id={SPELLS.BLOOD_OF_THE_ENEMY.id} /> module. </>, Putro),
+  change(date(2020, 6, 7), 'Moved some helper functions from class/specialization folders to a shared folder', Putro),
+  change(date(2020, 6, 6), <> Added uptime to to the <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS.id} /> module. </>, Putro),
+  change(date(2020, 6, 3), <>Updated death recap suggestion for <SpellLink id={SPELLS.HEALTHSTONE.id} />. This will only show if a Warlock participated in the selected fight.</>, Vetyst),
+  change(date(2020, 6, 3), <>Removed duplicate entry of <SpellLink id={SPELLS.GUARDIAN_SPIRIT.id} /> in defensive buffs.</>, [Vetyst]),
+  change(date(2020, 5, 29), 'Add a warning when the log exceeds our supported duration.', Vetyst),
+  change(date(2020, 5, 27), <>Fixed a bug where <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} /> showed as having done 0 healing </>, Putro),
+  change(date(2020, 5, 25), 'Replaced hard-coded statistic categories with STATISTIC_CATEGORY.', Vetyst),
+  change(date(2020, 5, 18), 'Replaced duplicate FIGHT_DIFFICULTIES with DIFFICULTIES', Vetyst),
+  change(date(2020, 5, 18), 'Updated patchlist', Vetyst),
+  change(date(2020, 5, 14), 'Replaced hardcoded event type strings with EventType equivalent', Vetyst),
+  change(date(2020, 5, 13), 'Disallow use of ++ and -- to adhere to the style guide', Putro),
+  change(date(2020, 5, 12), 'Tweak JetBrains codeStyles file to better adhere to code style, while allowing for auto-formatting all files in the repository.', Vetyst),
+  change(date(2020, 5, 12), 'Reduced avatar and article image file sizes.', Vetyst),
+  change(date(2020, 4, 26), <>Added <SpellLink id={SPELLS.BLOOD_FURY_PHYSICAL.id} /> to the core parser. </>, Putro),
+  change(date(2020, 4, 16), <>Fixed a bug where the haste value gained <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS_RANK_THREE_FOUR.id} /> minor was extremely low if the buff never fell off.</>, Putro),
+  change(date(2020, 4, 14), <>Using <ItemLink id={ITEMS.AZSHARAS_FONT_OF_POWER.id} /> no longer shows as downtime during the channel.</>, Sharrq),
+  change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.FLASH_OF_INSIGHT.id} />.</>, niseko),
+  change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.SEVERE_T3.id} /> <SpellLink id={SPELLS.EXPEDIENT_T3.id} /> <SpellLink id={SPELLS.MASTERFUL_T3.id} /> <SpellLink id={SPELLS.VERSATILE_T3.id} />.</>, niseko),
+  change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS_RANK_THREE_FOUR.id} /> and <SpellLink id={SPELLS.FOCUSED_ENERGY_BUFF.id} />.</>, Putro),
+  change(date(2020, 3, 29), 'Add the possibility to modify stat multipliers to be able to support some of the new corruption effects.', niseko),
   change(date(2020, 3, 16), <>Adjusted <ItemLink id={ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id} /> for hotfixes.</>, niseko),
   change(date(2020, 3, 6), 'Fixed an issue where Vantus Runes weren\'t working as intended.', niseko),
-  change(date(2020, 3, 4), "Fix a bug where having multiple of the same corruption didn't count towards corruption total", Putro),
+  change(date(2020, 3, 4), 'Fix a bug where having multiple of the same corruption didn\'t count towards corruption total', Putro),
   change(date(2020, 2, 28), <>Added the primary stat proc of <ItemLink id={ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id} />.</>, niseko),
   change(date(2020, 2, 21), <>Added the possibility of adding item warnings, and added a warning for people using <ItemLink id={ITEMS.WHISPERING_ELDRITH_BOW.id} />.</>, Putro),
   change(date(2020, 2, 21), <>Added <SpellLink id={SPELLS.SYMBIOTIC_PRESENCE.id} />.</>, niseko),

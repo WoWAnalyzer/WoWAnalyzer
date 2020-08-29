@@ -1,20 +1,19 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText
-  from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent, DamageEvent } from '../../../../core/Events';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 /**
- * A two-headed shot that hits your primary target and another nearby target,
- * dealing 720% Nature damage to one and 720% Frost damage to the other.
+ * A two-headed shot that hits your primary target and another nearby target, dealing 720% Nature damage to one and 720% Frost damage to the other.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/qZRdFv9Apg74wmMV#fight=3&type=damage-done
+ * https://www.warcraftlogs.com/reports/3hpLckCDdjWXqFyT#fight=5&type=damage-done&source=2&ability=-53209
  */
 class ChimaeraShot extends Analyzer {
 
@@ -24,31 +23,15 @@ class ChimaeraShot extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active
-      = this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHIMAERA_SHOT_TALENT), () => { this.casts += 1; });
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER)
+      .spell([SPELLS.CHIMAERA_SHOT_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE]), this.onChimaeraDamage);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CHIMAERA_SHOT_TALENT.id) {
-      return;
-    }
-    this.casts += 1;
-  }
-
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !==
-      SPELLS.CHIMAERA_SHOT_FROST_DAMAGE.id &&
-      spellId !==
-      SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE.id) {
-      return;
-    }
+  onChimaeraDamage(event: DamageEvent) {
     this.hits += 1;
-    this.damage += event.amount +
-      (
-        event.absorbed || 0
-      );
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
@@ -56,7 +39,7 @@ class ChimaeraShot extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={'TALENTS'}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.CHIMAERA_SHOT_TALENT}>
           <>

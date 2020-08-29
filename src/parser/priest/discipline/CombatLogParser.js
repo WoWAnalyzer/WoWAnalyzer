@@ -26,6 +26,7 @@ import AtonementHealingDone from './modules/features/AtonementHealingDone';
 import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import Lenience from './modules/spells/Lenience';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
+import AtonementApplicatorBreakdown from './modules/features/AtonementApplicatorBreakdown';
 
 import TwistOfFate from './modules/spells/TwistOfFate';
 import Castigation from './modules/spells/Castigation';
@@ -40,6 +41,7 @@ import Schism from './modules/spells/Schism';
 
 import DeathThroes from './modules/azeritetraits/DeathThroes';
 import DepthOfTheShadows from './modules/azeritetraits/DepthOfTheShadows';
+import EnduringLuminescence from './modules/azeritetraits/EnduringLuminescence';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
@@ -80,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     powerWordBarrier: PowerWordBarrier,
     lenience: Lenience,
     purgeTheWicked: PurgeTheWicked,
+    atonementApplicatorBreakdown: AtonementApplicatorBreakdown,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
@@ -97,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lucidDreams: LucidDreams,
 
     // Azerite Traits
+    enduringLuminescence: EnduringLuminescence,
     depthOfTheShadows: DepthOfTheShadows,
     deathThroes: DeathThroes,
   };

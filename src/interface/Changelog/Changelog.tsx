@@ -13,7 +13,7 @@ interface Props {
 
 const Changelog = ({ changelog, limit, includeCore = true }: Props) => {
   const mergedChangelog: ReturnType<typeof change>[] = includeCore
-    ? [...CORE_CHANGELOG, ...changelog].sort((a, b) => b.date - a.date)
+    ? [...CORE_CHANGELOG, ...changelog].sort((a: any, b: any) => b.date - a.date)
     : changelog;
 
   return (

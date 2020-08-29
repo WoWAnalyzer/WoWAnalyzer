@@ -123,6 +123,11 @@ export default {
     name: 'Misty Peaks',
     icon: 'ability_monk_renewingmists',
   },
+  MISTY_PEAKS_BUFF: {
+    id: 276025,
+    name: 'Misty Peaks',
+    icon: 'ability_monk_renewingmists',
+  },
   OVERFLOWING_MISTS: {
     id: 273328,
     name: 'Overflowing Mists',

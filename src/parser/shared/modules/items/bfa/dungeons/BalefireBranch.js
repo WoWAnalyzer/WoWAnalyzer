@@ -11,6 +11,7 @@ import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { EventType } from 'parser/core/Events';
 
 const ACTIVATION_COOLDOWN = 90; // seconds
 
@@ -35,7 +36,7 @@ const BASE_INTELLECT_PER_STACK = 12;
  *
  * The initial buff shows in the log (and changebuffstack fabricated events) as a "1 stack" buff.
  * The log shows the correct stack count once it has been lowered from that initial value.
- * 
+ *
  * Test Log: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Bjørgx/statistics
  */
 class BalefireBranch extends Analyzer {
@@ -102,7 +103,7 @@ class BalefireBranch extends Analyzer {
         guid: SPELLS.BALEFIRE_BRANCH_SPELL.id,
         name: SPELLS.BALEFIRE_BRANCH_SPELL.name,
       },
-      type: 'cast',
+      type: EventType.Cast,
     }, event);
 
     /**
@@ -113,7 +114,7 @@ class BalefireBranch extends Analyzer {
     this.eventEmitter.fabricateEvent({
       ...event,
       stack: STACKS_START,
-      type: 'applybuffstack',
+      type: EventType.ApplyBuffStack,
     });
   }
   on_toPlayer_removebuffstack(event) {

@@ -47,7 +47,7 @@ class DesperatePrayer extends Analyzer {
 
   on_toPlayer_death(event) {
     if(!this.spellUsable.isOnCooldown(SPELLS.DESPERATE_PRAYER.id)){
-      this.deathsWithDPReady++;
+      this.deathsWithDPReady += 1;
     }
   }
 

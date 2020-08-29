@@ -31,7 +31,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
         <div
           className="value"
         >
-          25.99 %
+          25.95 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "74.01010655359994%",
+                  "width": "74.05323650798718%",
                 }
               }
             >
@@ -258,7 +258,7 @@ exports[`Frost Death Knight integration test: example log BloodOfTheEnemy matche
               />
             </svg>
              
-            37
+            33
              
             <small>
               average Haste gained
@@ -842,91 +842,6 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
-                href="http://wowhead.com/spell=207230"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_2h_farmscythe_a_01.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Frostscythe
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.00
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              0
-              
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
                 href="http://wowhead.com/spell=45524"
                 rel="noopener noreferrer"
                 style={
@@ -970,6 +885,140 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               3
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                Spell (AOE)
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                CPM
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                Casts
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                Time on Cooldown
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=207230"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_2h_farmscythe_a_01.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Frostscythe
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
               
                
               casts
@@ -3785,7 +3834,7 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
 </div>
 `;
 
-exports[`Frost Death Knight integration test: example log OverWhelmingPower matches the statistic snapshot 1`] = `
+exports[`Frost Death Knight integration test: example log OverwhelmingPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4011,7 +4060,7 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
         <div
           className="value"
         >
-          14.45 %
+          14.40 %
         </div>
       </div>
       <div
@@ -4063,11 +4112,11 @@ Array [
     "importance": "minor",
     "issue": <React.Fragment>
       You overcapped 
-      14.45
+      14.40
       % of your runes. Try to always have at least 3 runes on cooldown.
     </React.Fragment>,
     "stat": <React.Fragment>
-      14.45% runes overcapped
+      14.40% runes overcapped
        (
       &lt;10.00% is recommended
       )
@@ -5102,7 +5151,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  25.99%
+                  25.95%
                    
                    
                 </div>
@@ -5162,7 +5211,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "85.09499147698787%",
+                  "width": "85.2591597312744%",
                 }
               }
             />
@@ -5255,7 +5304,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  85.55%
+                  85.60%
                    
                    
                 </div>
@@ -5277,7 +5326,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "85.09499147698787%",
+                        "width": "85.2591597312744%",
                       }
                     }
                   />
@@ -5386,7 +5435,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                
               Frost Strike
             </a>
-             when you have 76 or more Runic Power to avoid overcapping.
+             when you have 73+ Runic Power to avoid overcapping.
           </div>
         </div>
         <div

@@ -1,19 +1,21 @@
 import React from 'react';
 
-import { Zerotorescue, HolySchmidt, Abelito75, blazyb, Taleria, Torothin } from 'CONTRIBUTORS';
+import { Zerotorescue, HolySchmidt, Abelito75, blazyb, Taleria, Torothin, Putro } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
+// prettier-ignore
 export default [
+  change(date(2020, 8, 27), <> Enabled a statistic for the minor of <SpellLink id={SPELLS.LUCID_DREAMS.id} />. </>, Putro),
   change(date(2020, 1, 18), <>Added <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> major essence statistic to track procs, uptime and haste gained.</>, [HolySchmidt]),
-  change(date(2020, 1, 18), <>Added <SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> minor essence statistic to track versitility, healing, and <SpellLink id={SPELLS.AVENGING_WRATH.id} /> cooldown reduction.</> , [HolySchmidt]),
+  change(date(2020, 1, 18), <>Added <SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> minor essence statistic to track versitility, healing, and <SpellLink id={SPELLS.AVENGING_WRATH.id} /> cooldown reduction.</>, [HolySchmidt]),
   change(date(2020, 1, 18), <>Added check to fabricate pre-pull event for <SpellLink id={SPELLS.AVENGING_WRATH.id} /> and added ability cooldown reduction for <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} />.</>, [HolySchmidt]),
   change(date(2020, 1, 15), <>Removed <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> 8.3 nerf prediction statistic.</>, [Zerotorescue]),
   change(date(2020, 1, 5), <>Added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> 8.3 nerf prediction statistic to see how the nerf will affect you.</>, [Zerotorescue]),
   change(date(2020, 1, 1), <>Added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> build suggestions for early overwriting of active glimmers and added support for 8.3 buff cap of 8.</>, [HolySchmidt]),
-  change(date(2019, 12, 21), "Added beacon uptime statistic and checklist rule.", [Torothin]),
-  change(date(2019, 12, 14), <>Implemented a fun statistic for <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} />.}</>, [Abelito75]),
+  change(date(2019, 12, 21), 'Added beacon uptime statistic and checklist rule.', [Torothin]),
+  change(date(2019, 12, 14), <>Implemented a fun statistic for <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} />.</>, [Abelito75]),
   change(date(2019, 12, 8), <>Fixed <SpellLink id={SPELLS.LIGHTS_DECREE.id} /> duration along with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> usage, <SpellLink id={SPELLS.AVENGING_WRATH.id} /> damage, healing, and critical strike contributions.</>, [HolySchmidt]),
   change(date(2019, 12, 1), <><SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> cooldown reduction will correctly adjust for <SpellLink id={SPELLS.SANCTIFIED_WRATH_TALENT.id} />, added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> build support and fixed spelling errors.</>, [HolySchmidt]),
   change(date(2019, 12, 1), <><SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> build has been added for Holy Paladin, will now link to a guild on the build and not suggest that all mana must be used during a fight.</>, [HolySchmidt]),

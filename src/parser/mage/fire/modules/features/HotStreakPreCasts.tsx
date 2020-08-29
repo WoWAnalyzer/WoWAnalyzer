@@ -4,20 +4,9 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD, HOT_STREAK_CONTRIBUTORS, PROC_BUFFER, COMBUSTION_BUFFER } from '../../constants';
 
 const debug = false;
-
-const PROC_WINDOW_MS = 200;
-const FIRESTARTER_HEALTH_THRESHOLD = 0.90;
-const SEARING_TOUCH_HEALTH_THRESHOLD = 0.30;
-
-const HOT_STREAK_CONTRIBUTORS = [
-  SPELLS.FIREBALL,
-  SPELLS.PYROBLAST,
-  SPELLS.FIRE_BLAST,
-  SPELLS.SCORCH,
-  SPELLS.PHOENIX_FLAMES_TALENT,
-];
 
 class HotStreakPreCasts extends Analyzer {
   hasPyroclasm: boolean;
@@ -31,6 +20,7 @@ class HotStreakPreCasts extends Analyzer {
   noCastBeforeHotStreak = 0;
   healthPercent = 1;
   castTimestamp = 0;
+  combustionEnded = 0;
 
   constructor(options: any) {
     super(options);
@@ -40,9 +30,10 @@ class HotStreakPreCasts extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.getCastTimestamp);
     if (this.hasFirestarter || this.hasSearingTouch) {this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(HOT_STREAK_CONTRIBUTORS), this.checkHealthPercent);}
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.onHotStreakRemoved);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
-    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), (event: RemoveBuffEvent) => this.onPyroclasmRemoved(event));
+    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), (event: RemoveBuffStackEvent) => this.onPyroclasmRemoved(event));
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.checkForHotStreakPreCasts);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionEnd);
 
   }
 
@@ -56,6 +47,10 @@ class HotStreakPreCasts extends Analyzer {
     if (event.hitPoints && event.maxHitPoints && event.hitPoints > 0) {
       this.healthPercent = event.hitPoints / event.maxHitPoints;
     }
+  }
+
+  onCombustionEnd(event: RemoveBuffEvent) {
+    this.combustionEnded = event.timestamp;
   }
 
   //Get the timestamp that Hot Streak was removed. This is used for comparing the cast Timestamp to see if there was a hard cast immediately before Hot Streak was removed (and therefore they pre-casted before Hot Streak)
@@ -72,12 +67,12 @@ class HotStreakPreCasts extends Analyzer {
   //Compares timestamps to determine if an ability was hard casted immediately before using Hot Streak.
   //If Combustion is active or they are in the Firestarter or Searing Touch execute windows, then this check is ignored.
   checkForHotStreakPreCasts(event: RemoveBuffEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || (this.hasFirestarter && this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || event.timestamp < this.combustionEnded + COMBUSTION_BUFFER || (this.hasFirestarter && this.healthPercent > FIRESTARTER_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_THRESHOLD)) {
       debug && this.log('Pre Cast Ignored');
       return;
     }
 
-    if (this.hotStreakRemoved - PROC_WINDOW_MS < this.castTimestamp || this.hotStreakRemoved - PROC_WINDOW_MS < this.pyroclasmProcRemoved) {
+    if (this.hotStreakRemoved - PROC_BUFFER < this.castTimestamp || this.hotStreakRemoved - PROC_BUFFER < this.pyroclasmProcRemoved) {
       this.castedBeforeHotStreak += 1;
     } else {
       this.noCastBeforeHotStreak += 1;
@@ -93,9 +88,9 @@ class HotStreakPreCasts extends Analyzer {
     return {
       actual: this.castBeforeHotStreakUtil,
       isLessThan: {
-        minor: .95,
-        average: .85,
-        major:.75,
+        minor: .85,
+        average: .75,
+        major:.65,
       },
       style: 'percentage',
     };
@@ -104,7 +99,7 @@ class HotStreakPreCasts extends Analyzer {
   suggestions(when: any) {
       when(this.castBeforeHotStreakThresholds)
         .addSuggestion((suggest: any, actual: any, recommended: any) => {
-          return suggest(<>Unless you are guaranteed to crit (i.e. during <SpellLink id={SPELLS.COMBUSTION.id} />, <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} />, or <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} />), you should always cast <SpellLink id={SPELLS.FIREBALL.id} /> {this.hasPyroclasm ? <>or use a <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> proc</> : ''} alongside using your <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. This way, if one of the two abilities crit you will gain a new <SpellLink id={SPELLS.HEATING_UP.id} /> proc, and if both crit you will get a new <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. You failed to do this {this.noCastBeforeHotStreak} times.</>)
+          return suggest(<>When <SpellLink id={SPELLS.COMBUSTION.id} /> is not active{this.hasFirestarter ? ' and the target is below 90% health' : ''} {this.hasSearingTouch ? ' and the target is over 30% health' : ''}, <SpellLink id={SPELLS.HOT_STREAK.id} /> procs should be used immediately after casting <SpellLink id={SPELLS.FIREBALL.id} /> {this.hasPyroclasm ? <> or after using a <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> proc </> : ''}. This way, if one of the two abilities crit you will gain a new <SpellLink id={SPELLS.HEATING_UP.id} /> proc, and if both crit you will get a new <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. You failed to do this {this.noCastBeforeHotStreak} times. If you have a <SpellLink id={SPELLS.HOT_STREAK.id} /> proc and need to move, you can hold the proc and cast <SpellLink id={SPELLS.SCORCH.id} /> once or twice until you are able to stop and cast <SpellLink id={SPELLS.FIREBALL.id} /> or you can use your procs while you move.</>)
             .icon(SPELLS.HOT_STREAK.icon)
             .actual(`${formatPercentage(this.castBeforeHotStreakUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)}% is recommended`);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import CombatLogParser from 'parser/core/CombatLogParser';
 import Combatant from 'parser/core/Combatant';
-
+import { Event } from '../Events';
 import Abilities from './Abilities';
 
 export interface AbilityTrackerAbility {
@@ -61,7 +61,7 @@ export interface SpellbookAbility {
    * for more complicated calls or even to check for buffs. Parameters
    * provided: `hastePercentage`, `selectedCombatant`
    */
-  cooldown?: ((haste: number, trigger?: Event) => number) | number;
+  cooldown?: ((haste: number, trigger?: Event<any>) => number) | number;
   /**
    * NYI, do not use
    */
@@ -83,7 +83,8 @@ export interface SpellbookAbility {
         base?: number | ((combatant: Combatant) => number);
         minimum?: number | ((combatant: Combatant) => number);
       }
-    | ((combatant: Combatant) => number);
+    | ((combatant: Combatant) => number)
+    | null;
   castEfficiency?: {
     name?: string;
     /**
@@ -367,7 +368,7 @@ class Ability {
   get cooldown() {
     return this.getCooldown(this.owner.haste.current);
   }
-  getCooldown(haste: number, cooldownTriggerEvent?: Event) {
+  getCooldown(haste: number, cooldownTriggerEvent?: Event<any>) {
     if (this._cooldown === undefined) {
       // Most abilities will always be active and don't provide this prop at all
       return 0;
@@ -415,9 +416,9 @@ class Ability {
   };
   charges = 1;
   enabled = true;
-  timelineSortIndex = null;
+  timelineSortIndex: number | null = null;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
-  buffSpellId = null;
+  buffSpellId: number | Array<number> | null = null;
   shownSpell = null;
 
   /**

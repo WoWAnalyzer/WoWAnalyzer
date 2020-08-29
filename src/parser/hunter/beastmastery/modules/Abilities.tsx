@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import { SpellbookAbility } from '../../../core/modules/Ability';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -30,10 +30,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.KILL_COMMAND_CAST_BM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 7.5 /
-          (
-            1 + haste
-          ),
+        cooldown: haste => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -65,10 +62,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 /
-          (
-            1 + haste
-          ),
+        cooldown: haste => 12 / (1 + haste),
         charges: 2,
         gcd: {
           base: 1500,
@@ -136,10 +130,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHIMAERA_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 /
-          (
-            1 + haste
-          ),
+        cooldown: haste => 15 / (1 + haste),
         enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id),
         gcd: {
           base: 1500,
@@ -235,13 +226,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180 *
-          (
-            1 -
-            (
-              combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0
-            )
-          ),
+        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
         gcd: {
           static: 0,
         },
@@ -250,13 +235,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
-        cooldown: 180 *
-          (
-            1 -
-            (
-              combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0
-            )
-          ),
+        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
         gcd: {
           static: 0,
         },
@@ -311,38 +290,6 @@ class Abilities extends CoreAbilities {
         cooldown: 10,
         gcd: {
           base: 1500,
-        },
-      },
-
-      /**
-       * Racials until we find a better solution
-       */
-      {
-        spell: SPELLS.BERSERKING,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        isUndetectable: true,
-        gcd: {
-          static: 0,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: [
-          SPELLS.BLOOD_FURY_PHYSICAL,
-          SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL,
-          SPELLS.BLOOD_FURY_SPELL,
-        ],
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        isUndetectable: true,
-        gcd: {
-          static: 0,
-        },
-        castEfficiency: {
-          suggestion: true,
         },
       },
     ];

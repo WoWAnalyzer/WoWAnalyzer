@@ -264,6 +264,11 @@ export default {
     name: 'Breath of Sindragosa',
     icon: 'spell_deathknight_breathofsindragosa',
   },
+  CHILL_STREAK_TALENT: {
+    id: 305392,
+    name: 'Chill Streak',
+    icon: 'spell_frost_piercing-chill',
+  },
   // Buffs
   EMPOWER_RUNE_WEAPON: {
     id: 47568,
@@ -422,6 +427,12 @@ export default {
 	  id: 53365,
 	  name: 'Unholy Strength',
 	  icon: 'spell_holy_blessingofstrength',
+  },
+
+  DARK_ARBITER_TALENT_GLYPH: {
+    id: 207349,
+    name: 'Dark Arbiter',
+    icon: 'achievement_boss_svalasorrowgrave',
   },
 
   // Shared:

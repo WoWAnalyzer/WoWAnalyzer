@@ -44,7 +44,7 @@ class Crusade extends Analyzer {
 
   onCrusadeBuffStack(event) {
     if (this.crusadeCastTimestamp && event.timestamp > (this.crusadeCastTimestamp + CAST_BUFFER + this.gcdBuffer)) {
-      this.badFirstGlobal++;
+      this.badFirstGlobal += 1;
     }
     this.crusadeCastTimestamp = null;
   }

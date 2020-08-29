@@ -35,6 +35,12 @@ class Potion extends Analyzer {
 
   constructor(...args) {
     super(...args);
+
+    if (!this.isAvailable) {
+      this.active = false;
+      return;
+    }
+
     this.abilities.add({
       spell: this.constructor.spells,
       category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
@@ -61,6 +67,11 @@ class Potion extends Analyzer {
         });
       });
     }
+  }
+
+  // To be overwriten by classes extending the Potion module.
+  get isAvailable() {
+    return true;
   }
 
   get spellId() {

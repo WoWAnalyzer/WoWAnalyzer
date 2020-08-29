@@ -14,7 +14,7 @@ import StatisticGroup from 'interface/statistics/StatisticGroup';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -94,8 +94,8 @@ class TheEverRisingTide extends Analyzer {
   hasteBuffs = [];
   hasteChange(event) {
     if (event.trigger.ability && (event.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id)) {
-      this.hasteBuffActive = event.trigger.type === "applybuff";
-      if (event.trigger.type === "removebuff") {
+      this.hasteBuffActive = event.trigger.type === EventType.ApplyBuff;
+      if (event.trigger.type === EventType.RemoveBuff) {
         this.hasteBuffs.push(event);
       }
     }
@@ -149,8 +149,8 @@ class TheEverRisingTide extends Analyzer {
     let averageHaste = 0;
     const hasteBuffsCopy = this.hasteBuffs.slice(0); // don't destroy the original
     while (hasteBuffsCopy.length > 0) {
-      const startIndex = hasteBuffsCopy.findIndex(p => (p.trigger.ability && p.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id && p.trigger.type === "applybuff"));
-      const spliceCount = hasteBuffsCopy.findIndex(p => (p.trigger.ability && p.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id && p.trigger.type === "removebuff")) + 1;
+      const startIndex = hasteBuffsCopy.findIndex(p => (p.trigger.ability && p.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id && p.trigger.type === EventType.ApplyBuff));
+      const spliceCount = hasteBuffsCopy.findIndex(p => (p.trigger.ability && p.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id && p.trigger.type === EventType.RemoveBuff)) + 1;
       if (startIndex < 0 || spliceCount <= 0) {
         break;
       }

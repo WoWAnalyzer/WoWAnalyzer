@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 
@@ -21,9 +22,13 @@ class Bonestorm extends Analyzer {
     if (event.ability.guid !== SPELLS.BONESTORM_TALENT.id) {
       return;
     }
+    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER.id);
+    if (!resource) {
+      return;
+    }
 
     this.bsCasts.push({
-      cost: event.classResources[0].cost,
+      cost: resource.cost,
       hits: [],
     });
   }
@@ -40,8 +45,10 @@ class Bonestorm extends Analyzer {
         hits: [],
       });
     }
-    this.bsCasts[this.bsCasts.length - 1].hits.push(event.amount + event.absorbed);
-    this.totalBonestormDamage += event.amount + event.absorbed;
+
+    const totalDamage = event.amount + (event.absorbed || 0);
+    this.bsCasts[this.bsCasts.length - 1].hits.push(totalDamage);
+    this.totalBonestormDamage += totalDamage;
   }
 
   get goodBonestormCasts() {

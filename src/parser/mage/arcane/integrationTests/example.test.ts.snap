@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Arcane Mage integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "minor",
+    "issue": <span>
+      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If a fight requires movement, try saving 
+      <ForwardRef
+        id={205025}
+      />
+       to make your next 2 
+      <ForwardRef
+        id={30451}
+      />
+       casts instant.
+    </span>,
+    "stat": <React.Fragment>
+      29.35% downtime
+       (
+      &lt;20.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Arcane Mage integration test: example log ArcaneIntellect matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_holy_magicalsentry",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      <ForwardRef
+        id={1459}
+      />
+       was up for 
+      98.89
+      % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      98.89% Uptime
+       (
+      100.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Arcane Mage integration test: example log ArcaneManaValues matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -8,9 +59,38 @@ Array [
     "importance": "major",
     "issue": "You had mana left at the end of the fight. You should be aiming to complete the fight with as little mana as possible regardless of whether your cooldowns will be coming up or not. So dont be afraid to burn your mana before the boss dies.",
     "stat": <React.Fragment>
-      61.46% (75k) mana left
+      98.62% (127k) mana left
        (
       &lt;20.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Arcane Mage integration test: example log ArcaneMissiles matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_nature_starfall",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You cast 
+      <ForwardRef
+        id={5143}
+      />
+       without 
+      <ForwardRef
+        id={263725}
+      />
+       
+      3
+       times. Arcane Missiles is a very expensive spell (more expensive than a 4 Charge Arcane Blast) and therefore it should only be cast when you have the Clearcasting buff which makes the spell free.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      72.73% Uptime
+       (
+      100.00% is recommended
       )
     </React.Fragment>,
   },
@@ -22,34 +102,35 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
-            href="http://wowhead.com/spell=12042"
+            href="http://wowhead.com/spell=205022"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Arcane Power"
+              alt="Arcane Familiar"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_nature_lightning.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_socererking_arcanemines.jpg"
             />
           </a>
            
-          Arcane Power Utilization
+          <a
+            href="http://wowhead.com/spell=205022"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Arcane Familiar
+          </a>
         </label>
         <div
           className="value"
@@ -73,7 +154,10 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           </a>
            
           100
-           %
+          % 
+          <small>
+             Arcane Power utilization
+          </small>
           <br />
           <a
             href="http://wowhead.com/spell=30451"
@@ -93,171 +177,10 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
             />
           </a>
            
-          0
-           %
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Arcane Mage integration test: example log ArchiveOfTheTitans matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic medium "
-    position={1001}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=280555"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Archive of the Titans"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan01b.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=280555"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Archive of the Titans
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 17 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
-            />
-          </svg>
-           
-          247
-           
+          100
+          % 
           <small>
-            average 
-            Intellect
-             gained
-          </small>
-          <br />
-          <small>
-            Enabled the 
-            <a
-              href="http://wowhead.com/spell=280573"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan02c.jpg"
-              />
-               
-              Reorigination Array
-            </a>
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Arcane Mage integration test: example log BalefireBranch matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-    position={1000}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="unknown"
-            href="http://wowhead.com/item=159630"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            <img
-              alt="Balefire Branch"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_staff_26.jpg"
-            />
-          </a>
-           
-          <a
-            className="unknown"
-            href="http://wowhead.com/item=159630"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            Balefire Branch
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 17 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
-            />
-          </svg>
-           
-          208
-           
-          <small>
-            average Intellect gained
+            Arcane Blast Cast utilization
           </small>
         </div>
       </div>
@@ -333,7 +256,7 @@ exports[`Arcane Mage integration test: example log CancelledCasts matches the st
             </g>
           </svg>
            
-          4.02
+          15.19
           % 
           <small>
             Casts Cancelled
@@ -360,6 +283,41 @@ exports[`Arcane Mage integration test: example log CancelledCasts matches the st
     </div>
   </div>
 </div>
+`;
+
+exports[`Arcane Mage integration test: example log CancelledCasts matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_map_01",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You cancelled 
+      15.19
+      % of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as 
+      <ForwardRef
+        id={1953}
+      />
+      , 
+      <ForwardRef
+        id={212653}
+      />
+      <React.Fragment>
+        , and 
+        <ForwardRef
+          id={236457}
+        />
+      </React.Fragment>
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      15.19% casts cancelled
+       (
+      &lt;5.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Arcane Mage integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
@@ -493,7 +451,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              22.63
+              18.48
             </td>
             <td
               className="text-right"
@@ -503,7 +461,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              155
+              67
               
                
               casts
@@ -578,7 +536,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              2.19
+              3.03
             </td>
             <td
               className="text-right"
@@ -588,7 +546,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              15
+              11
               
                
               casts
@@ -663,7 +621,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              3.21
+              3.59
             </td>
             <td
               className="text-right"
@@ -673,7 +631,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              22
+              13
               
                
               casts
@@ -748,7 +706,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.00
+              0.28
             </td>
             <td
               className="text-right"
@@ -758,7 +716,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0
+              1
               
                
               casts
@@ -791,105 +749,6 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                href="http://wowhead.com/spell=205032"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_thunderking_overcharge.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Charged Up
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              1.31
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              9
-              /11
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "82.3414778933949%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              82.34%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            >
-              Can be improved.
-            </td>
           </tr>
         </tbody>
         <tbody>
@@ -949,7 +808,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
-                href="http://wowhead.com/spell=268999"
+                href="http://wowhead.com/spell=313148"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -961,7 +820,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_staff_26.jpg"
+                  src="/img/Icons/talentspec_druid_feral_cat.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -970,7 +829,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   }
                 />
                  
-                Balefire Branch
+                Forbidden Obsidian Claw
               </a>
             </td>
             <td
@@ -981,7 +840,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.73
+              0.28
             </td>
             <td
               className="text-right"
@@ -991,8 +850,8 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              5
-              /5
+              1
+              /2
                
               casts
             </td>
@@ -1011,7 +870,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "91.42570755003881%",
+                      "width": "55.15821213848389%",
                     }
                   }
                 />
@@ -1026,7 +885,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              91.43%
+              55.16%
             </td>
             <td
               style={
@@ -1127,7 +986,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.00
+              0.28
             </td>
             <td
               className="text-right"
@@ -1137,8 +996,8 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0
-              /2
+              1
+              /1
                
               casts
             </td>
@@ -1157,7 +1016,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "0%",
+                      "width": "96.8555222563386%",
                     }
                   }
                 />
@@ -1172,7 +1031,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.00%
+              96.86%
             </td>
             <td
               style={
@@ -1224,7 +1083,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.73
+              0.55
             </td>
             <td
               className="text-right"
@@ -1234,8 +1093,8 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              5
-              /5
+              2
+              /3
                
               casts
             </td>
@@ -1253,8 +1112,8 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "91.42570755003881%",
+                      "backgroundColor": "#ff8000",
+                      "width": "80.01663939399512%",
                     }
                   }
                 />
@@ -1269,7 +1128,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              91.43%
+              80.02%
             </td>
             <td
               style={
@@ -1278,7 +1137,9 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   "width": "25%",
                 }
               }
-            />
+            >
+              Can be improved.
+            </td>
           </tr>
           <tr>
             <td
@@ -1321,7 +1182,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.44
+              0.28
             </td>
             <td
               className="text-right"
@@ -1331,8 +1192,8 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              3
-              /5
+              1
+              /3
                
               casts
             </td>
@@ -1351,7 +1212,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "68.8115981519642%",
+                      "width": "33.52975785544871%",
                     }
                   }
                 />
@@ -1366,7 +1227,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              68.81%
+              33.53%
             </td>
             <td
               style={
@@ -1420,7 +1281,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.73
+              0.28
             </td>
             <td
               className="text-right"
@@ -1430,8 +1291,8 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              5
-              /7
+              1
+              /4
                
               casts
             </td>
@@ -1450,7 +1311,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "60.43485771146215%",
+                      "width": "27.579106069241945%",
                     }
                   }
                 />
@@ -1465,104 +1326,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              60.43%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                href="http://wowhead.com/spell=116011"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Rune of Power
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              1.75
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              12
-              /12
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "107.86777639642753%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              107.87%
+              27.58%
             </td>
             <td
               style={
@@ -1663,7 +1427,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.73
+              0.28
             </td>
             <td
               className="text-right"
@@ -1673,8 +1437,8 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              5
-              /17
+              1
+              /9
                
               casts
             </td>
@@ -1693,7 +1457,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "29.771233799883706%",
+                      "width": "11.491294195517476%",
                     }
                   }
                 />
@@ -1708,7 +1472,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              29.77%
+              11.49%
             </td>
             <td
               style={
@@ -1760,7 +1524,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.29
+              0.00
             </td>
             <td
               className="text-right"
@@ -1770,8 +1534,8 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              2
-              /2
+              0
+              /1
                
               casts
             </td>
@@ -1790,7 +1554,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "67.75255394361982%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -1805,7 +1569,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              67.75%
+              0.00%
             </td>
             <td
               style={
@@ -1906,7 +1670,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.00
+              0.28
             </td>
             <td
               className="text-right"
@@ -1916,7 +1680,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0
+              1
               
                
               casts
@@ -2002,7 +1766,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               0
-              /14
+              /8
                
               casts
             </td>
@@ -2184,7 +1948,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               0
-              /19
+              /10
                
               casts
             </td>
@@ -2270,7 +2034,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.29
+              0.00
             </td>
             <td
               className="text-right"
@@ -2280,8 +2044,8 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              2
-              /29
+              0
+              /16
                
               casts
             </td>
@@ -2300,7 +2064,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "7.298719561298296%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2315,7 +2079,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              7.30%
+              0.00%
             </td>
             <td
               style={
@@ -2378,7 +2142,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               0
-              /18
+              /10
                
               casts
             </td>
@@ -2475,7 +2239,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               0
-              /52
+              /28
                
               casts
             </td>
@@ -2731,7 +2495,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.44
+              0.00
             </td>
             <td
               className="text-right"
@@ -2741,8 +2505,8 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              3
-              /4
+              0
+              /2
                
               casts
             </td>
@@ -2761,7 +2525,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "68.55443993275446%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2776,7 +2540,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              68.55%
+              0.00%
             </td>
             <td
               style={
@@ -2930,7 +2694,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
-                href="http://wowhead.com/spell=6262"
+                href="http://wowhead.com/spell=301308"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2942,7 +2706,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -2951,7 +2715,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   }
                 />
                  
-                Healthstone
+                Abyssal Healing Potion
               </a>
             </td>
             <td
@@ -3027,103 +2791,6 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Abyssal Healing Potion
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.15
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              1
-              /1
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              100.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
                 href="http://wowhead.com/spell=279151"
                 rel="noopener noreferrer"
                 style={
@@ -3156,7 +2823,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.15
+              0.00
             </td>
             <td
               className="text-right"
@@ -3166,7 +2833,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -3186,7 +2853,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -3201,7 +2868,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -3223,14 +2890,14 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the su
 Array [
   Object {
     "details": null,
-    "icon": "ability_thunderking_overcharge",
+    "icon": "spell_nature_lightning",
     "importance": "regular",
     "issue": <React.Fragment>
       <WithI18n
         components={
           Array [
             <ForwardRef
-              id={205032}
+              id={12042}
             />,
           ]
         }
@@ -3244,9 +2911,9 @@ Array [
         id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
-            "0": 9,
-            "1": 11,
-            "2": "82",
+            "0": 2,
+            "1": 3,
+            "2": "80",
           }
         }
       />
@@ -3285,9 +2952,9 @@ Array [
         id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
-            "0": 3,
-            "1": 5,
-            "2": "69",
+            "0": 1,
+            "1": 3,
+            "2": "34",
           }
         }
       />
@@ -3304,6 +2971,72 @@ Array [
     </React.Fragment>,
   },
 ]
+`;
+
+exports[`Arcane Mage integration test: example log DeadlyMomentum matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="ITEMS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=318219"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Deadly Momentum"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_raptorstrike.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=318219"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Deadly Momentum
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="32.111"
+              cy="32.678"
+              r="2.989"
+            />
+            <path
+              d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
+            />
+          </svg>
+           
+          90
+           
+          <small>
+            average Crit
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Arcane Mage integration test: example log DistanceMoved matches the statistic snapshot 1`] = `
@@ -3327,7 +3060,7 @@ exports[`Arcane Mage integration test: example log DistanceMoved matches the sta
           className="value"
         >
           ≈ 
-          265
+          301
            yards
           <small
             style={
@@ -3337,7 +3070,7 @@ exports[`Arcane Mage integration test: example log DistanceMoved matches the sta
             }
           >
             ≈ 
-            19.53
+            36.15
             %
           </small>
         </div>
@@ -3390,7 +3123,7 @@ exports[`Arcane Mage integration test: example log DistanceMoved matches the sta
               >
                 <path
                   className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                  d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
+                  d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
                   onClick={[Function]}
                   onContextMenu={[Function]}
                   onMouseOut={[Function]}
@@ -3431,81 +3164,172 @@ exports[`Arcane Mage integration test: example log DistanceMoved matches the sta
 </div>
 `;
 
+exports[`Arcane Mage integration test: example log ElementalWhirl matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="ITEMS"
+    className="panel statistic flexible "
+    position={1001}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=263984"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Elemental Whirl"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_skyreach_four_wind.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=263984"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Elemental Whirl
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          6
+          % 
+          <small>
+            uptime
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="32.111"
+              cy="32.678"
+              r="2.989"
+            />
+            <path
+              d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
+            />
+          </svg>
+           
+          1
+           
+          <small>
+            average Critical Strike gained
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
+            />
+          </svg>
+           
+          0
+           
+          <small>
+            average Haste gained
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M46.934,26.287c-1.107,0-2.004,0.885-2.004,1.976c0,0.31,0.079,0.599,0.208,0.861l-6.74,4.691 l-0.387-8.422c1.064-0.048,1.914-0.906,1.914-1.967c0-1.091-0.898-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976 c0,0.732,0.408,1.364,1.008,1.705l-4.812,8.237l-4.812-8.237c0.6-0.341,1.008-0.973,1.008-1.705c0-1.091-0.897-1.976-2.004-1.976 c-1.107,0-2.004,0.885-2.004,1.976c0,1.061,0.85,1.919,1.914,1.967l-0.387,8.422l-6.74-4.691c0.129-0.261,0.208-0.551,0.208-0.861 c0-1.092-0.897-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976c0,1.091,0.897,1.976,2.004,1.976 c0.298,0,0.578-0.068,0.832-0.183l5.048,13.236c2.178-0.849,5.377-1.385,8.943-1.385c3.566,0,6.764,0.536,8.942,1.385l5.048-13.236 c0.254,0.115,0.534,0.183,0.832,0.183c1.107,0,2.005-0.885,2.005-1.976C48.939,27.172,48.041,26.287,46.934,26.287z"
+            />
+          </svg>
+           
+          47
+           
+          <small>
+            average Mastery gained
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polygon
+              points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774 39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143 26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749 21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096 23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03 45.85,42.051 37.229,33.419"
+            />
+          </svg>
+           
+          32
+           
+          <small>
+            average Versatility gained
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Arcane Mage integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
-    "icon": "inv_ring_80_04d.jpg",
-    "importance": "minor",
+    "icon": "inv_70_quest_ring7c.jpg",
+    "importance": "major",
     "issue": <React.Fragment>
       Your 
       <ItemLink
         details={
           Object {
             "bonusIDs": Array [
-              4800,
-              1507,
+              4823,
+              6516,
+              6513,
+              1502,
               4786,
             ],
-            "icon": "inv_ring_80_04d.jpg",
-            "id": 160645,
-            "itemLevel": 385,
-            "permanentEnchant": 5943,
+            "icon": "inv_70_quest_ring7c.jpg",
+            "id": 174533,
+            "itemLevel": 470,
             "quality": 4,
           }
         }
         icon={false}
-        id={160645}
+        id={174533}
         quality={4}
       >
         Ring
       </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
     </React.Fragment>,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_ring_80_05b.jpg",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5010,
-              42,
-              1557,
-              4784,
-            ],
-            "icon": "inv_ring_80_05b.jpg",
-            "id": 159461,
-            "itemLevel": 385,
-            "permanentEnchant": 5943,
-            "quality": 3,
-          }
-        }
-        icon={false}
-        id={159461}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
-    "stat": null,
-  },
-]
-`;
-
-exports[`Arcane Mage integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "trade_alchemy_dpotion_c26",
-    "importance": "minor",
-    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
     "stat": null,
   },
 ]
@@ -3516,25 +3340,20 @@ Array [
   Object {
     "details": null,
     "icon": "trade_archaeology_staffofsorcerer_than-thaurissan",
-    "importance": "minor",
-    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "importance": "major",
+    "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
     "stat": null,
   },
 ]
 `;
 
-exports[`Arcane Mage integration test: example log Gutripper matches the statistic snapshot 1`] = `
+exports[`Arcane Mage integration test: example log ForbiddenObsidianClaw matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="ITEMS"
+    className="panel statistic flexible "
   >
     <div
       className="panel-body"
@@ -3544,97 +3363,148 @@ exports[`Arcane Mage integration test: example log Gutripper matches the statist
       >
         <label>
           <a
-            href="http://wowhead.com/spell=266937"
+            className="epic"
+            href="http://wowhead.com/item=173944&bonus=4823:6513:1502:4786"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Gutripper"
+              alt="Forbidden Obsidian Claw"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_criticalstrike.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_bearclaw_nightmare.jpg"
             />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=266937"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Gutripper
+             
+            Forbidden Obsidian Claw
           </a>
         </label>
         <div
           className="value"
         >
-          2.16 % / 363 DPS
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          923
+           DPS
+           
+          <small>
+            2.78
+             % of total
+          </small>
+          <br />
+          <img
+            alt="Healing"
+            className="icon"
+            src="/img/healing.png"
+          />
+           
+          100
+           HPS
+           
+          <small>
+            7.20
+            % of total
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M44.584,43.126l-7.489-11.73v-4.722h0.425c1.753,0,3.335-1.432,3.335-3.29v-1.35 c0-1.857-1.582-3.328-3.335-3.328H26.736c-1.753,0-3.428,1.471-3.428,3.328v1.35c0,1.857,1.674,3.29,3.428,3.29h0.332v4.721 l-7.442,11.731c-0.26,0.407-0.277,0.968-0.059,1.401c0.218,0.433,0.652,0.739,1.115,0.739h22.892c0.463,0,0.874-0.306,1.092-0.739 C44.884,44.094,44.843,43.534,44.584,43.126z M29.378,32.543c0.14-0.219,0.197-0.478,0.197-0.742v-6.376 c0-0.734-0.527-1.407-1.219-1.407h-1.62c-0.371,0-0.921-0.241-0.921-0.633v-1.35c0-0.393,0.55-0.672,0.921-0.672H37.52 c0.371,0,0.829,0.28,0.829,0.672v1.35c0,0.393-0.458,0.633-0.829,0.633h-1.619c-0.692,0-1.312,0.673-1.312,1.407v6.376 c0,0.264,0.104,0.523,0.244,0.742l3.053,4.755H26.371L29.378,32.543z"
+            />
+          </svg>
+           
+          350
+           MP5
+           
+          <small>
+            15,240
+             total mana
+          </small>
         </div>
       </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
     </div>
   </div>
 </div>
 `;
 
-exports[`Arcane Mage integration test: example log HeedMyCall matches the statistic snapshot 1`] = `
+exports[`Arcane Mage integration test: example log Gemhide matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="ITEMS"
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
-            href="http://wowhead.com/spell=263987"
+            href="http://wowhead.com/spell=268596"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Heed My Call"
+              alt="Gemhide"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shaman_thunderstorm.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/inv_jewelcrafting_argusgemcut_yellow_miscicons.jpg"
             />
           </a>
            
           <a
-            href="http://wowhead.com/spell=263987"
+            href="http://wowhead.com/spell=268596"
             rel="noopener noreferrer"
             target="_blank"
           >
-            Heed My Call
+            Gemhide
           </a>
         </label>
         <div
           className="value"
         >
-          1.24 % / 208 DPS
+          <svg
+            className="stroke icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M75.25,23C65.75,19.75,59,26.5,59,26.5S56.75,35,50,35s-8.5-8.5-8.5-8.5s-6.75-6.25-17-2S14,38.001,14,38.001l12.5,7.249V73.5  c0,0,8.25,9,23.5,9s23.5-9,23.5-9V44.25l10.941-6.249C84.441,38.001,84.75,26.25,75.25,23z"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeMiterlimit="10"
+              strokeWidth="6"
+            />
+          </svg>
+           
+          36
+           
+          <small>
+            average Armor
+          </small>
+           
+          <br />
+          <img
+            alt=""
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/ability_rogue_quickrecovery.jpg"
+          />
+           
+          15
+           
+          <small>
+            average Avoidance
+          </small>
         </div>
       </div>
     </div>
@@ -3666,94 +3536,72 @@ Array [
     "icon": "trade_alchemy_potione2",
     "importance": "minor",
     "issue": <React.Fragment>
-      You used a weak potion. 
+      You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
       <ItemLink
         icon={true}
         id={168498}
       />
-       can be used instead of 
+       can be very effective, especially during shorter encounters. 
+      
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "trade_alchemy_potione2",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
+      
+       increasing output through 
       <ItemLink
         icon={true}
-        id={163222}
+        id={168498}
       />
-       in order to get a slightly higher damage output.
+      
+      . 
+      
     </React.Fragment>,
     "stat": null,
   },
 ]
 `;
 
-exports[`Arcane Mage integration test: example log RuneOfPower matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="TALENTS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=116011"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Rune of Power"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=116011"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Rune of Power
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          17
-          % 
-          <small>
-            Damage added by Rune of Power
-          </small>
-          <br />
-          9
-          s 
-          <small>
-            Average time in Rune per cast
-          </small>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
+exports[`Arcane Mage integration test: example log RuleOfThrees matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_arcane_starfire",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You cast 
+      <ForwardRef
+        id={44425}
+      />
+       
+      1
+       times while you had the 
+      <ForwardRef
+        id={264774}
+      />
+       buff. This buff makes your next 
+      <ForwardRef
+        id={30451}
+      />
+       or 
+      <ForwardRef
+        id={5143}
+      />
+       free after you gain your third Arcane Charge, so you should ensure that you use the buff before clearing your charges.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      92.31% Utilization
+       (
+      95.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Arcane Mage integration test: example log RuneOfPower matches the suggestions snapshot 1`] = `
@@ -3761,22 +3609,104 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_runeofpower",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <React.Fragment>
-      You sometimes aren't standing in your 
+      It is highly recommended to talent into 
       <ForwardRef
         id={116011}
       />
-       for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
+       when playing this spec. While it can take some practice to master, when played correctly it outputs substantially more DPS than 
+      <ForwardRef
+        id={1463}
+      />
+       or 
+      <ForwardRef
+        id={55342}
+      />
+      .
     </React.Fragment>,
-    "stat": <React.Fragment>
-      Average 9.3s standing in each Rune of Power
-       (
-      the full duration of 10s is recommended
-      )
-    </React.Fragment>,
+    "stat": null,
   },
 ]
+`;
+
+exports[`Arcane Mage integration test: example log TheCrucibleofFlame matches the statistic snapshot 1`] = `
+<div
+  category="ITEMS"
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "padding": 0,
+    }
+  }
+>
+  <div
+    className="col-md-12"
+  >
+    <div
+      category="ITEMS"
+      className="panel statistic standard "
+      position={1000}
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="pad"
+        >
+          <label>
+            <a
+              href="http://wowhead.com/spell=299348"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_radientazeritematrix.jpg"
+              />
+               
+              Ancient Flame
+            </a>
+             - Minor Rank 
+            1
+          </label>
+          <div
+            className="value"
+          >
+            <img
+              alt="Damage"
+              className="icon"
+              src="/img/sword.png"
+            />
+             
+            877
+             DPS
+             
+            <small>
+              2.64
+               % of total
+            </small>
+            <br />
+            <img
+              alt="Healing"
+              className="icon"
+              src="/img/healing.png"
+            />
+             
+            0
+             HPS
+             
+            <small>
+              0.00
+              % of total
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
@@ -3828,7 +3758,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
               }
             }
           >
-            16,776
+            33,214
              DPS
           </div>
           <div
@@ -3845,7 +3775,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/TEST/#fight=20&source=28&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/bhyKzta1c9gPfZJk/#fight=7&source=65&type=damage-done"
             >
               <div
                 style={
@@ -3884,7 +3814,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
                   >
                     <path
                       className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
+                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
                       onClick={[Function]}
                       onContextMenu={[Function]}
                       onMouseOut={[Function]}
@@ -3945,7 +3875,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
               }
             }
           >
-            1,457
+            1,389
              HPS
           </div>
           <div
@@ -3967,7 +3897,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/TEST/#fight=20&source=28&type=healing"
+              href="https://www.warcraftlogs.com/reports/bhyKzta1c9gPfZJk/#fight=7&source=65&type=healing"
             >
               <div
                 style={
@@ -4006,7 +3936,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
                   >
                     <path
                       className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
+                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
                       onClick={[Function]}
                       onContextMenu={[Function]}
                       onMouseOut={[Function]}
@@ -4067,7 +3997,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
               }
             }
           >
-            5,820
+            20,542
              DTPS
           </div>
           <div
@@ -4085,7 +4015,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/TEST/#fight=20&source=28&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/bhyKzta1c9gPfZJk/#fight=7&source=65&type=damage-taken"
             >
               <div
                 style={
@@ -4124,7 +4054,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
                   >
                     <path
                       className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
+                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
                       onClick={[Function]}
                       onContextMenu={[Function]}
                       onMouseOut={[Function]}
@@ -4150,92 +4080,12 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
 </div>
 `;
 
-exports[`Arcane Mage integration test: example log VigilantsBloodshaper matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-    position={1000}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="unknown"
-            href="http://wowhead.com/item=160651"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            <img
-              alt="Vigilant's Bloodshaper"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_bloodtap.jpg"
-            />
-          </a>
-           
-          <a
-            className="unknown"
-            href="http://wowhead.com/item=160651"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            Vigilant's Bloodshaper
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <img
-            alt="Damage"
-            className="icon"
-            src="/img/sword.png"
-          />
-           
-          292
-           DPS
-           
-          <small>
-            1.74
-             % of total
-          </small>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Arcane Mage integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
 >
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -4259,8 +4109,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "72.07486774111928%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "32.446310834911486%",
                 }
               }
             />
@@ -4365,7 +4215,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  100.00%
+                  80.02%
                    
                    
                 </div>
@@ -4385,9 +4235,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "50.00540918200373%",
                       }
                     }
                   />
@@ -4437,7 +4287,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  68.81%
+                  33.53%
                    
                    
                 </div>
@@ -4459,151 +4309,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "30.55234957947211%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  href="http://wowhead.com/spell=116011"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
-                  />
-                   
-                  Rune of Power
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  100.00%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  href="http://wowhead.com/spell=205032"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_thunderking_overcharge.jpg"
-                  />
-                   
-                  Charged Up
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  82.34%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ffc84a",
-                        "transition": "background-color 800ms",
-                        "width": "57.747121385005016%",
+                        "width": "14.887212487819228%",
                       }
                     }
                   />
@@ -4778,7 +4484,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  0.00%
+                  100.00%
                    
                    
                 </div>
@@ -4928,7 +4634,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "88.29500000000002%",
+                  "width": "81.96923076923082%",
                 }
               }
             />
@@ -5051,97 +4757,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  100.00%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Rune of Power Uptime
-              </div>
-              <div
-                className="flex-sub"
-                style={
-                  Object {
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <div
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onTouchStart={[Function]}
-                >
-                  <svg
-                    className="icon"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                    />
-                    <path
-                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                    />
-                    <path
-                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  9
+                  92.31%
                    
                    
                 </div>
@@ -5163,7 +4779,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "76.59000000000003%",
+                        "width": "81.96923076923082%",
                       }
                     }
                   />
@@ -5200,8 +4816,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "56.737498912728256%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "28.062503504014273%",
                 }
               }
             />
@@ -5294,7 +4910,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  14.83%
+                  29.35%
                    
                    
                 </div>
@@ -5316,7 +4932,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "13.474997825456514%",
+                        "width": "6.8072854890412%",
                       }
                     }
                   />
@@ -5354,7 +4970,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  4.02%
+                  15.19%
                    
                    
                 </div>
@@ -5374,9 +4990,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "49.31772151898735%",
                       }
                     }
                   />
@@ -5413,8 +5029,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "96.2157485888691%",
                 }
               }
             />
@@ -5535,7 +5151,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  100.00%
+                  98.89%
                    
                    
                 </div>
@@ -5555,9 +5171,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "96.2157485888691%",
                       }
                     }
                   />
@@ -5570,7 +5186,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -5594,8 +5210,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "73.89100378330517%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "26.90909090909091%",
                 }
               }
             />
@@ -5702,7 +5318,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  61.46%
+                  98.62%
                    
                    
                 </div>
@@ -5724,7 +5340,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "21.67301134991548%",
+                        "width": "13.506349408682105%",
                       }
                     }
                   />
@@ -5822,7 +5438,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  100.00%
+                  72.73%
                    
                    
                 </div>
@@ -5842,9 +5458,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "26.90909090909091%",
                       }
                     }
                   />
@@ -5881,8 +5497,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "59.25925925925925%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "0%",
                 }
               }
             />
@@ -5975,7 +5591,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  3
+                  2
                    
                   / 3
                    
@@ -5996,9 +5612,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "66.66666666666666%",
                       }
                     }
                   />
@@ -6036,7 +5652,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  1
+                  2
                    
                   / 3
                    
@@ -6057,9 +5673,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "33.33333333333333%",
+                        "width": "66.66666666666666%",
                       }
                     }
                   />
@@ -6097,7 +5713,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -6117,9 +5733,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -6157,7 +5773,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -6177,9 +5793,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -6277,7 +5893,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  No
+                  Yes
                    
                    
                 </div>
@@ -6297,9 +5913,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6457,7 +6073,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -6477,9 +6093,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

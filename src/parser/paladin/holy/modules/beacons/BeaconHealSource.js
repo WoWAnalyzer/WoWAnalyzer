@@ -3,7 +3,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
 import EventFilter from 'parser/core/EventFilter';
-import Events from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 
 import BeaconTargets from './BeaconTargets';
 import BeaconTransferFactor from './BeaconTransferFactor';
@@ -30,10 +30,10 @@ class BeaconHealSource extends Analyzer {
   };
 
   get beacontransfer() {
-    return new EventFilter('beacontransfer');
+    return new EventFilter(EventType.BeaconTransfer);
   }
   get beacontransferfailed() {
-    return new EventFilter('beacontransferfailed');
+    return new EventFilter(EventType.BeaconTransferFailed);
   }
 
   constructor(options) {
@@ -61,7 +61,12 @@ class BeaconHealSource extends Analyzer {
     // TODO: If numBeaconsActive < max add to lostBeaconHealing (better to track separately for showing both stats)
     if (beaconTargets.hasBeacon(event.targetID)) {
       remainingBeaconTransfers -= 1;
-      debug && this.debug(`${this.combatants.players[event.targetID].name} has beacon, remaining beacon transfers reduced by 1 and is now ${remainingBeaconTransfers}`);
+      debug &&
+        this.debug(
+          `${
+            this.combatants.players[event.targetID].name
+          } has beacon, remaining beacon transfers reduced by 1 and is now ${remainingBeaconTransfers}`,
+        );
     }
 
     if (remainingBeaconTransfers > 0) {
@@ -84,7 +89,12 @@ class BeaconHealSource extends Analyzer {
     this.healBacklog.forEach((healEvent, index) => {
       const age = this.owner.currentTimestamp - healEvent.timestamp;
       if (age > 500) {
-        debug && this.warn('No beacon transfer found for heal:', healEvent, 'This is usually caused by line of sighting the beacon target.');
+        debug &&
+          this.warn(
+            'No beacon transfer found for heal:',
+            healEvent,
+            'This is usually caused by line of sighting the beacon target.',
+          );
 
         this.eventEmitter.fabricateEvent({
           ...healEvent,
@@ -102,7 +112,12 @@ class BeaconHealSource extends Analyzer {
     let index;
     index = this._matchByHealSize(beaconTransferEvent);
     if (index === -1) {
-      debug && this.warn('Failed to match a heal by size (this might be caused by "increased healing received" buffs on a target) for', beaconTransferEvent, '. Falling back to order-based heal selection.');
+      debug &&
+        this.warn(
+          'Failed to match a heal by size (this might be caused by "increased healing received" buffs on a target) for',
+          beaconTransferEvent,
+          '. Falling back to order-based heal selection.',
+        );
       if (debug) {
         this._dumpBacklog(beaconTransferEvent);
       }
@@ -115,11 +130,14 @@ class BeaconHealSource extends Analyzer {
     }
 
     // Fabricate a new event to make it easy to listen to just beacon heal events while being away of the original heals. While we could also modify the original heal event and add a reference to the original heal, this would be less clean as mutating objects makes things harder and more confusing to use, and may lead to conflicts.
-    this.eventEmitter.fabricateEvent({
-      ...beaconTransferEvent,
-      type: 'beacontransfer',
-      originalHeal: matchedHeal,
-    }, beaconTransferEvent);
+    this.eventEmitter.fabricateEvent(
+      {
+        ...beaconTransferEvent,
+        type: EventType.BeaconTransfer,
+        originalHeal: matchedHeal,
+      },
+      beaconTransferEvent,
+    );
 
     matchedHeal.remainingBeaconTransfers -= 1;
     if (matchedHeal.remainingBeaconTransfers < 1) {
@@ -144,14 +162,28 @@ class BeaconHealSource extends Analyzer {
       this._dumpBacklog(beaconTransferEvent);
     } else if (index !== 0) {
       const matchedHeal = this.healBacklog[index];
-      this.warn('Matched [', 'Beacon transfer', beaconTransferEvent, '] to [', matchedHeal.ability.name, matchedHeal, `] but it wasn't the first heal in the Backlog (it was #${index}). Something is likely wrong. Backlog:`);
+      this.warn(
+        'Matched [',
+        'Beacon transfer',
+        beaconTransferEvent,
+        '] to [',
+        matchedHeal.ability.name,
+        matchedHeal,
+        `] but it wasn't the first heal in the Backlog (it was #${index}). Something is likely wrong. Backlog:`,
+      );
       this._dumpBacklog(beaconTransferEvent);
     }
   }
   _dumpBacklog(beaconTransferEvent) {
-    const beaconTransferRaw = beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0) + (beaconTransferEvent.overheal || 0);
+    const beaconTransferRaw =
+      beaconTransferEvent.amount +
+      (beaconTransferEvent.absorbed || 0) +
+      (beaconTransferEvent.overheal || 0);
     this.healBacklog.forEach((healEvent, i) => {
-      const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(healEvent, beaconTransferEvent);
+      const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(
+        healEvent,
+        beaconTransferEvent,
+      );
 
       this.debug(i, {
         ability: healEvent.ability.name,
@@ -176,10 +208,16 @@ class BeaconHealSource extends Analyzer {
    * @returns {number} Gets the next heal in the backlog that matches the expected source heal amount through simply reversing the transfer formula.
    */
   _matchByHealSize(beaconTransferEvent) {
-    const rawBeaconTransfer = beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0) + (beaconTransferEvent.overheal || 0);
+    const rawBeaconTransfer =
+      beaconTransferEvent.amount +
+      (beaconTransferEvent.absorbed || 0) +
+      (beaconTransferEvent.overheal || 0);
 
     return this.healBacklog.findIndex(healEvent => {
-      const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(healEvent, beaconTransferEvent);
+      const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(
+        healEvent,
+        beaconTransferEvent,
+      );
 
       return Math.abs(expectedBeaconTransfer - rawBeaconTransfer) <= 2; // allow for rounding errors on Blizzard's end
     });

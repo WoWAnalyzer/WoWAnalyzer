@@ -18,10 +18,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   constructor(...args) {
     super(...args);
 
-    if(this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id)){
+    if (this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id)) {
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
-    } else{
+    } else {
       if (this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
         this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
       }
@@ -34,21 +34,29 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   countsAsHealingAbility(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.HOLY_SHOCK_CAST.id && !event.trigger.targetIsFriendly) {
-      debug && console.log(`%cABC: ${event.ability.name} (${spellId}) skipped for healing time; target is not friendly`, 'color: orange');
+      debug &&
+        console.log(
+          `%cABC: ${event.ability.name} (${spellId}) skipped for healing time; target is not friendly`,
+          'color: orange',
+        );
       return false;
     }
 
     // using crusdars might, count Crusader Strike healing spell, or if Avenging Crusdaer is active, count for healing //
-    if (spellId === SPELLS.CRUSADER_STRIKE.id &&
+    if (
+      spellId === SPELLS.CRUSADER_STRIKE.id &&
       !this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp) &&
-      !this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)){
+      !this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)
+    ) {
       return false;
     }
 
     // if judging light, always count as healing spell, or if Avenging Crusdaer is active, count for healing //
-    if (spellId === SPELLS.JUDGMENT_CAST.id &&
+    if (
+      spellId === SPELLS.JUDGMENT_CAST.id &&
       !this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp) &&
-      !this.selectedCombatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id)){
+      !this.selectedCombatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id)
+    ) {
       return false;
     }
     return super.countsAsHealingAbility(event);

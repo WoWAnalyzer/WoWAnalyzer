@@ -1,0 +1,55 @@
+name: 'Lingui message extraction'
+
+on:
+  push:
+    paths:
+      - 'src/**'
+      - '.github/**'
+
+env:
+  CI: true
+
+jobs:
+  extract:
+    name: 'Extract messages'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # Needed by ad-m/github-push-action:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v2
+        with:
+          path: node_modules
+          # path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+      - run: yarn --frozen-lockfile --production=false
+      - name: Extract messages
+        # We need to run extraction twice as Lingui has a bug where the second pass removes the default for messages with the same id as the default
+        run: |
+          yarn extract
+          yarn extract
+      - name: Has changes
+        id: has-changes
+        run: echo "::set-output name=changed::$(if [[ `git status --porcelain` ]]; then echo "true"; else echo "false"; fi)"
+      - name: Commit changes
+        if: steps.has-changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update i18n messages" -a
+      - name: Push changes
+        if: steps.has-changes.outputs.changed == 'true'
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

@@ -35,7 +35,7 @@ class CallTheThunder extends Analyzer {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHOCK), this.onEarthShockCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EARTHQUAKE), this.onEarthquakeCast);
-    
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHOCK), this.onEarthShockDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTHQUAKE_DAMAGE), this.onEarthquakeDamage);
   }
@@ -78,11 +78,11 @@ class CallTheThunder extends Analyzer {
   }
 
   onEarthShockCast() {
-    this.earthShockCasts++;
+    this.earthShockCasts += 1;
   }
 
   onEarthquakeCast() {
-    this.earthquakeCasts++;
+    this.earthquakeCasts += 1;
   }
 
   statistic() {

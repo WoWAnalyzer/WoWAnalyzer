@@ -2,13 +2,17 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 import Checklist from './modules/checklist/Module';
+
 //Features
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import CooldownThroughputTracker
-  from './modules/features/CooldownThroughputTracker';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import FocusUsage from '../shared/modules/resources/FocusUsage';
+
+//Death Tracker
+import DeathTracker from '../shared/modules/core/DeathTracker';
+
 //Talents
 import KillerInstinct from './modules/talents/KillerInstinct';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
@@ -29,26 +33,30 @@ import ScentOfBlood from './modules/talents/ScentOfBlood';
 import BornToBeWild from '../shared/modules/talents/BornToBeWild';
 import BindingShot from '../shared/modules/talents/BindingShot';
 import AnimalCompanion from './modules/talents/AnimalCompanion';
+
+//Pets
+import BasicAttacks from './modules/pets/basicAttacksTracker';
+
 //Spells
 import BeastCleave from './modules/spells/BeastCleave';
 import CobraShot from './modules/spells/CobraShot';
 import BarbedShot from './modules/spells/BarbedShot';
 import AspectOfTheWild from './modules/spells/AspectOfTheWild';
 import BestialWrath from './modules/spells/BestialWrath';
+
 //Focus
 import FocusTracker from '../shared/modules/resources/FocusTracker';
 import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
-import BeastMasteryFocusCapTracker
-  from './modules/core/BeastMasteryFocusCapTracker';
+import BeastMasteryFocusCapTracker from './modules/core/BeastMasteryFocusCapTracker';
 import Focus from './modules/core/Focus';
+
 //Azerite Traits
 import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
 import HazeOfRage from './modules/spells/azeritetraits/HazeOfRage';
 import FeedingFrenzy from './modules/spells/azeritetraits/FeedingFrenzy';
 import PrimalInstincts from './modules/spells/azeritetraits/PrimalInstincts';
-import DireConsequences
-  from '../shared/modules/spells/azeritetraits/DireConsequences';
+import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
 import RapidReload from '../shared/modules/spells/azeritetraits/RapidReload';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -70,6 +78,12 @@ class CombatLogParser extends CoreCombatLogParser {
     spellFocusCost: SpellFocusCost,
     beastMasteryFocusCapTracker: BeastMasteryFocusCapTracker,
     focus: Focus,
+
+    //DeathTracker
+    deathTracker: DeathTracker,
+
+    //Pets
+    basicAttacks: BasicAttacks,
 
     //Spells
     bestialWrath: BestialWrath,

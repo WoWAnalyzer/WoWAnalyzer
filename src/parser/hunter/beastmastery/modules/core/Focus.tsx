@@ -3,8 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import resourceSuggest
-  from 'parser/shared/modules/resourcetracker/ResourceSuggest';
+import resourceSuggest from 'parser/shared/modules/resourcetracker/ResourceSuggest';
 import FocusTracker from 'parser/hunter/shared/modules/resources/FocusTracker';
 
 const MINOR = 0.025;
@@ -17,7 +16,6 @@ class Focus extends Analyzer {
   };
 
   protected focusTracker!: FocusTracker;
-
 
   suggestions(when: any) {
     resourceSuggest(when, this.focusTracker, {
@@ -34,6 +32,9 @@ class Focus extends Analyzer {
         SPELLS.BARBED_SHOT_BUFF_STACK_3,
         SPELLS.BARBED_SHOT_BUFF_STACK_4,
         SPELLS.BARBED_SHOT_BUFF_STACK_5,
+        SPELLS.BARBED_SHOT_BUFF_STACK_6,
+        SPELLS.BARBED_SHOT_BUFF_STACK_7,
+        SPELLS.BARBED_SHOT_BUFF_STACK_8,
       ],
       minor: MINOR,
       avg: AVG,

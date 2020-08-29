@@ -18,7 +18,7 @@ class Censure extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.HOLY_WORD_CHASTISE.id) {
-      this.chastiseCasts++;
+      this.chastiseCasts += 1;
     }
   }
 
@@ -26,10 +26,10 @@ class Censure extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.HOLY_WORD_CHASTISE_CENSURE_INCAPACITATE.id) {
-      this.censureIncomp++;
+      this.censureIncomp += 1;
     }
     if (spellId === SPELLS.HOLY_WORD_CHASTISE_CENSURE_STUN.id) {
-      this.censureStuns++;
+      this.censureStuns += 1;
     }
   }
 

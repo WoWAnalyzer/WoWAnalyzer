@@ -14,17 +14,17 @@ const PANDEMIC_WINDOW = 0.3;
 //   duration: 18000, //duration of the dot in ms
 // },
 
-// Abstract class for tracking bad dot casts. 
+// Abstract class for tracking bad dot casts.
 // See /parser/Druid/Balance/Modules/Features/EarlyDotRefreshesInstants.js for an example implementation.
 class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
   static dependencies = {
     ...EarlyDotRefreshes.dependencies,
     distanceMoved: DistanceMoved,
   };
-  
+
   get lastCastBuffer() {
     return this.lastGCD.duration - BUFFER_MS;
-  } 
+  }
 
   // Checks the status of the last cast and marks it accordingly.
   getLastBadCastText(event, dot) {
@@ -49,13 +49,13 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
       }
       text = `${dot.name} was cast while it had more than 30% of its duration remaining on all targets hit and you had ${fillers} available as a better filler.`;
     }
-    return text; 
+    return text;
   }
 
   movedSinceCast(event) {
     const timeSinceCast = event.timestamp - this.lastGCD.timestamp;
     const timeSinceLastMovement = this.distanceMoved.timeSinceLastMovement();
-    if (timeSinceLastMovement < timeSinceCast) {
+    if (timeSinceLastMovement !== null && timeSinceLastMovement < timeSinceCast) {
       return true;
     }
     return false;

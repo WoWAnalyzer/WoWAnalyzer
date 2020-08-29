@@ -1,131 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Fire Mage integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          Downtime
-        </label>
-        <div
-          className="value"
-        >
-          25.15 %
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
-          <div
-            className="statistic-box-bar"
-          >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={
-                Object {
-                  "width": "74.84749715005334%",
-                }
-              }
-            >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-            >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Fire Mage integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_mage_altertime",
-    "importance": "minor",
-    "issue": <span>
-      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting 
-      <ForwardRef
-        id={2948}
-      />
-      .
-    </span>,
-    "stat": <React.Fragment>
-      25.15% downtime
-       (
-      &lt;20.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
-exports[`Fire Mage integration test: example log ArchiveOfTheTitans matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log Ashjrakamas matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
     category="ITEMS"
-    className="panel statistic medium "
-    position={1001}
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
@@ -135,23 +17,27 @@ exports[`Fire Mage integration test: example log ArchiveOfTheTitans matches the 
       >
         <label>
           <a
-            href="http://wowhead.com/spell=280555"
+            className="legendary"
+            href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
           >
+             
             <img
-              alt="Archive of the Titans"
+              alt="Ashjra'kamas, Shroud of Resolve"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan01b.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_cape_deathwingraid_d_03.jpg"
             />
           </a>
            
           <a
-            href="http://wowhead.com/spell=280555"
+            className="legendary"
+            href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
           >
-            Archive of the Titans
+             
+            Ashjra'kamas, Shroud of Resolve
           </a>
         </label>
         <div
@@ -168,29 +54,103 @@ exports[`Fire Mage integration test: example log ArchiveOfTheTitans matches the 
             />
           </svg>
            
-          237
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+             
+            619
+             
+            <small>
+              average 
+              Intellect
+               gained
+            </small>
+          </dfn>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Fire Mage integration test: example log AzsharasFontofPower matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="ITEMS"
+    className="panel statistic flexible "
+    position={1000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="unknown"
+            href="http://wowhead.com/item=169314"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Azshara's Font of Power"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_6_2raid_trinket_3c.jpg"
+            />
+          </a>
+           
+          <a
+            className="unknown"
+            href="http://wowhead.com/item=169314"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            Azshara's Font of Power
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          32.47
+          % uptime
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 17 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
+            />
+          </svg>
+           
+          946
            
           <small>
             average 
             Intellect
              gained
-          </small>
-          <br />
-          <small>
-            Enabled the 
-            <a
-              href="http://wowhead.com/spell=280573"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan02c.jpg"
-              />
-               
-              Reorigination Array
-            </a>
           </small>
         </div>
       </div>
@@ -253,7 +213,7 @@ exports[`Fire Mage integration test: example log BalefireBranch matches the stat
             />
           </svg>
            
-          157
+          487
            
           <small>
             average Intellect gained
@@ -289,7 +249,6 @@ exports[`Fire Mage integration test: example log BlasterMaster matches the stati
   <div
     category="AZERITE_POWERS"
     className="panel statistic flexible "
-    position={1001}
   >
     <div
       className="panel-body"
@@ -321,7 +280,7 @@ exports[`Fire Mage integration test: example log BlasterMaster matches the stati
         <div
           className="value"
         >
-          2.33
+          3.00
            
           <small>
             Stacks per Combustion
@@ -350,42 +309,88 @@ exports[`Fire Mage integration test: example log BlasterMaster matches the stati
 </div>
 `;
 
-exports[`Fire Mage integration test: example log BlasterMaster matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_fire_fireball",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      On average, you got 
-      2.33
-       stacks of 
-      <ForwardRef
-        id={274596}
-      />
-       per 
-      <ForwardRef
-        id={190319}
-      />
-       cast. In order to maximize the use of the trait, you should aim for getting to 
-      3
-       stacks each time you use Combustion. For more information on how to adjust your Combustion rotation to make this happen, refer to 
-      <a
-        href="https://cdn.discordapp.com/attachments/524387813060247553/606533890080899083/bm_combustion.png"
-        rel="noopener noreferrer"
-        target="_blank"
+exports[`Fire Mage integration test: example log BlightborneInfusion matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="ITEMS"
+    className="panel statistic flexible "
+    position={1000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
       >
-        this graphic
-      </a>
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      2.33 stacks per Combustion
-       (
-      3 is recommended
-      )
-    </React.Fragment>,
-  },
-]
+        <label>
+          <a
+            href="http://wowhead.com/spell=273823"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Blightborne Infusion"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_argus_soulbombdebuffsmall.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=273823"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Blightborne Infusion
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="32.111"
+              cy="32.678"
+              r="2.989"
+            />
+            <path
+              d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
+            />
+          </svg>
+           
+          454
+           
+          <small>
+            average Critical Strike
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Fire Mage integration test: example log CancelledCasts matches the statistic snapshot 1`] = `
@@ -438,7 +443,7 @@ exports[`Fire Mage integration test: example log CancelledCasts matches the stat
             </g>
           </svg>
            
-          6.96
+          2.68
           % 
           <small>
             Casts Cancelled
@@ -465,35 +470,6 @@ exports[`Fire Mage integration test: example log CancelledCasts matches the stat
     </div>
   </div>
 </div>
-`;
-
-exports[`Fire Mage integration test: example log CancelledCasts matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_misc_map_01",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You cancelled 
-      6.96
-      % of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as 
-      <ForwardRef
-        id={1953}
-      />
-       and 
-      <ForwardRef
-        id={212653}
-      />
-      .
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      6.96% casts cancelled
-       (
-      &lt;5.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Fire Mage integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
@@ -627,7 +603,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              9.29
+              11.13
             </td>
             <td
               className="text-right"
@@ -637,7 +613,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              50
+              28
               
                
               casts
@@ -712,7 +688,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              9.66
+              19.87
             </td>
             <td
               className="text-right"
@@ -722,7 +698,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              52
+              50
               
                
               casts
@@ -797,7 +773,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              6.69
+              10.73
             </td>
             <td
               className="text-right"
@@ -807,7 +783,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              36
+              27
               
                
               casts
@@ -882,7 +858,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              6.13
+              16.30
             </td>
             <td
               className="text-right"
@@ -892,8 +868,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              33
-              /40
+              41
+              /39
                
               casts
             </td>
@@ -911,8 +887,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "86.5824721510296%",
+                      "backgroundColor": "#70b570",
+                      "width": "107.94992974303246%",
                     }
                   }
                 />
@@ -927,7 +903,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              86.58%
+              107.95%
             </td>
             <td
               style={
@@ -936,9 +912,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   "width": "25%",
                 }
               }
-            >
-              Can be improved.
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -981,7 +955,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.93
+              1.59
             </td>
             <td
               className="text-right"
@@ -991,8 +965,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              5
-              /8
+              4
+              /4
                
               casts
             </td>
@@ -1011,7 +985,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "68.96842261775693%",
+                      "width": "96.17303169818821%",
                     }
                   }
                 />
@@ -1026,7 +1000,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              68.97%
+              96.17%
             </td>
             <td
               style={
@@ -1127,7 +1101,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.74
+              0.00
             </td>
             <td
               className="text-right"
@@ -1137,8 +1111,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              4
-              /17
+              0
+              /8
                
               casts
             </td>
@@ -1157,7 +1131,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "24.781151456202412%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -1172,7 +1146,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              24.78%
+              0.00%
             </td>
             <td
               style={
@@ -1358,7 +1332,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.56
+              0.79
             </td>
             <td
               className="text-right"
@@ -1368,8 +1342,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              3
-              /4
+              2
+              /2
                
               casts
             </td>
@@ -1387,8 +1361,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "69.96214679115064%",
+                      "backgroundColor": "#70b570",
+                      "width": "75.09920174886555%",
                     }
                   }
                 />
@@ -1403,7 +1377,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              69.96%
+              75.10%
             </td>
             <td
               style={
@@ -1412,9 +1386,201 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   "width": "25%",
                 }
               }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
             >
-              Can be improved.
+              <a
+                href="http://wowhead.com/spell=296971"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_priest_plea_blue.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Azshara's Font of Power
+              </a>
             </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.40
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /2
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "31.81279189162333%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              31.81%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=298357"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_azerite_essence05.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Memory of Lucid Dreams
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.79
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              2
+              /2
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "95.26547646649664%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              95.27%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
           </tr>
         </tbody>
         <tbody>
@@ -1506,7 +1672,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.19
+              0.00
             </td>
             <td
               className="text-right"
@@ -1516,8 +1682,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              1
-              /2
+              0
+              /1
                
               casts
             </td>
@@ -1536,7 +1702,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "92.92931796075905%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -1551,7 +1717,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              92.93%
+              0.00%
             </td>
             <td
               style={
@@ -1603,7 +1769,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.56
+              0.79
             </td>
             <td
               className="text-right"
@@ -1613,8 +1779,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              3
-              /3
+              2
+              /2
                
               casts
             </td>
@@ -1633,7 +1799,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "88.55699355070533%",
+                      "width": "95.36219403133384%",
                     }
                   }
                 />
@@ -1648,7 +1814,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              88.56%
+              95.36%
             </td>
             <td
               style={
@@ -1700,7 +1866,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              1.67
+              1.99
             </td>
             <td
               className="text-right"
@@ -1710,8 +1876,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              9
-              /10
+              5
+              /5
                
               casts
             </td>
@@ -1730,7 +1896,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "108.46431204425913%",
+                      "width": "122.66105793117154%",
                     }
                   }
                 />
@@ -1745,7 +1911,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              108.46%
+              122.66%
             </td>
             <td
               style={
@@ -1846,7 +2012,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.93
+              0.40
             </td>
             <td
               className="text-right"
@@ -1856,8 +2022,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              5
-              /13
+              1
+              /7
                
               casts
             </td>
@@ -1876,7 +2042,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "35.80070997998922%",
+                      "width": "16.56122685568547%",
                     }
                   }
                 />
@@ -1891,7 +2057,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              35.80%
+              16.56%
             </td>
             <td
               style={
@@ -1943,7 +2109,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.19
+              0.00
             </td>
             <td
               className="text-right"
@@ -1953,8 +2119,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              1
-              /2
+              0
+              /1
                
               casts
             </td>
@@ -1973,7 +2139,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "22.26245717507264%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -1988,7 +2154,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              22.26%
+              0.00%
             </td>
             <td
               style={
@@ -2185,7 +2351,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               0
-              /11
+              /6
                
               casts
             </td>
@@ -2271,7 +2437,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.19
+              0.79
             </td>
             <td
               className="text-right"
@@ -2281,8 +2447,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              1
-              /23
+              2
+              /12
                
               casts
             </td>
@@ -2301,7 +2467,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "4.6464658980379525%",
+                      "width": "19.873472226822564%",
                     }
                   }
                 />
@@ -2316,7 +2482,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              4.65%
+              19.87%
             </td>
             <td
               style={
@@ -2379,7 +2545,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               0
-              /14
+              /7
                
               casts
             </td>
@@ -2476,7 +2642,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               0
-              /41
+              /19
                
               casts
             </td>
@@ -2743,7 +2909,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               0
-              /2
+              /1
                
               casts
             </td>
@@ -2931,103 +3097,6 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
-                href="http://wowhead.com/spell=6262"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Healthstone
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.19
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              1
-              /1
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              100.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
                 href="http://wowhead.com/spell=301308"
                 rel="noopener noreferrer"
                 style={
@@ -3157,7 +3226,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.19
+              0.00
             </td>
             <td
               className="text-right"
@@ -3167,7 +3236,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -3187,7 +3256,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -3202,7 +3271,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -3220,87 +3289,80 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
 </div>
 `;
 
-exports[`Fire Mage integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log CombustionCharges matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
-    "icon": "spell_fire_fireball",
-    "importance": "minor",
+    "icon": "spell_fire_sealoffire",
+    "importance": "regular",
     "issue": <React.Fragment>
-      <WithI18n
-        components={
-          Array [
-            <ForwardRef
-              id={108853}
-            />,
-          ]
-        }
-        id="Try to cast <0/> more often."
+      You cast 
+      <ForwardRef
+        id={190319}
       />
        
-      
+      1
+       times with less than 
+      2
+       charges of 
+      <ForwardRef
+        id={108853}
+      />
+      . Make sure you are saving at least 
+      2
+       charges while Combustion is on cooldown so you can get as many 
+      <ForwardRef
+        id={48108}
+      />
+       procs as possible before Combustion ends.
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 33,
-            "1": 40,
-            "2": "87",
-          }
-        }
-      />
+      50.00% Utilization
        (
-      <WithI18n
-        id=">{0}% is recommended"
-        values={
-          Object {
-            "0": "90",
-          }
-        }
-      />
+      100.00 is recommended
       )
     </React.Fragment>,
   },
+]
+`;
+
+exports[`Fire Mage integration test: example log CombustionSpellUsage matches the suggestions snapshot 1`] = `
+Array [
   Object {
     "details": null,
-    "icon": "inv_staff_26",
-    "importance": "regular",
+    "icon": "spell_fire_sealoffire",
+    "importance": "minor",
     "issue": <React.Fragment>
-      <WithI18n
-        components={
-          Array [
-            <ForwardRef
-              id={268999}
-            />,
-          ]
-        }
-        id="Try to cast <0/> more often."
+      You started to cast 
+      <ForwardRef
+        id={133}
+      />
+       
+      1
+       times (
+      0.50
+       per Combustion), and completed 
+      1
+       casts, during 
+      <ForwardRef
+        id={190319}
+      />
+      . Combustion has a short duration, so you are better off using instant abilities like 
+      <ForwardRef
+        id={108853}
       />
        
       
+      . If you run out of instant cast abilities, use 
+      <ForwardRef
+        id={2948}
+      />
+       instead of Fireball since it has a shorter cast time.
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 3,
-            "1": 4,
-            "2": "70",
-          }
-        }
-      />
+      0.50 Casts Per Combustion
        (
-      <WithI18n
-        id=">{0}% is recommended"
-        values={
-          Object {
-            "0": "80",
-          }
-        }
-      />
+      0 is recommended
       )
     </React.Fragment>,
   },
@@ -3328,7 +3390,7 @@ exports[`Fire Mage integration test: example log DistanceMoved matches the stati
           className="value"
         >
           ≈ 
-          252
+          151
            yards
           <small
             style={
@@ -3338,7 +3400,7 @@ exports[`Fire Mage integration test: example log DistanceMoved matches the stati
             }
           >
             ≈ 
-            36.93
+            25.59
             %
           </small>
         </div>
@@ -3391,7 +3453,7 @@ exports[`Fire Mage integration test: example log DistanceMoved matches the stati
               >
                 <path
                   className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                  d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
+                  d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
                   onClick={[Function]}
                   onContextMenu={[Function]}
                   onMouseOut={[Function]}
@@ -3432,161 +3494,221 @@ exports[`Fire Mage integration test: example log DistanceMoved matches the stati
 </div>
 `;
 
-exports[`Fire Mage integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_ring_80_01d.jpg",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5010,
-              40,
-              1552,
-              4783,
-            ],
-            "icon": "inv_ring_80_01d.jpg",
-            "id": 159460,
-            "itemLevel": 380,
-            "permanentEnchant": 5943,
-            "quality": 3,
-          }
-        }
-        icon={false}
-        id={159460}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_ring_80_04e.jpg",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4800,
-              1507,
-              4786,
-            ],
-            "icon": "inv_ring_80_04e.jpg",
-            "id": 160646,
-            "itemLevel": 385,
-            "permanentEnchant": 5945,
-            "quality": 4,
-          }
-        }
-        icon={false}
-        id={160646}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
-    "stat": null,
-  },
-]
-`;
-
-exports[`Fire Mage integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "trade_alchemy_dpotion_c26",
-    "importance": "minor",
-    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
-    "stat": null,
-  },
-]
-`;
-
-exports[`Fire Mage integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "trade_archaeology_staffofsorcerer_than-thaurissan",
-    "importance": "minor",
-    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
-    "stat": null,
-  },
-]
-`;
-
-exports[`Fire Mage integration test: example log Gutripper matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log ElementalWhirl matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="ITEMS"
+    className="panel statistic flexible "
+    position={1001}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
-            href="http://wowhead.com/spell=266937"
+            href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Gutripper"
+              alt="Elemental Whirl"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_criticalstrike.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_skyreach_four_wind.jpg"
             />
           </a>
            
           <a
-            href="http://wowhead.com/spell=266937"
+            href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
           >
-            Gutripper
+            Elemental Whirl
           </a>
         </label>
         <div
           className="value"
         >
-          2.56 % / 420 DPS
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          3
+          % 
+          <small>
+            uptime
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="32.111"
+              cy="32.678"
+              r="2.989"
+            />
+            <path
+              d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
+            />
+          </svg>
+           
+          24
+           
+          <small>
+            average Critical Strike gained
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
+            />
+          </svg>
+           
+          0
+           
+          <small>
+            average Haste gained
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M46.934,26.287c-1.107,0-2.004,0.885-2.004,1.976c0,0.31,0.079,0.599,0.208,0.861l-6.74,4.691 l-0.387-8.422c1.064-0.048,1.914-0.906,1.914-1.967c0-1.091-0.898-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976 c0,0.732,0.408,1.364,1.008,1.705l-4.812,8.237l-4.812-8.237c0.6-0.341,1.008-0.973,1.008-1.705c0-1.091-0.897-1.976-2.004-1.976 c-1.107,0-2.004,0.885-2.004,1.976c0,1.061,0.85,1.919,1.914,1.967l-0.387,8.422l-6.74-4.691c0.129-0.261,0.208-0.551,0.208-0.861 c0-1.092-0.897-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976c0,1.091,0.897,1.976,2.004,1.976 c0.298,0,0.578-0.068,0.832-0.183l5.048,13.236c2.178-0.849,5.377-1.385,8.943-1.385c3.566,0,6.764,0.536,8.942,1.385l5.048-13.236 c0.254,0.115,0.534,0.183,0.832,0.183c1.107,0,2.005-0.885,2.005-1.976C48.939,27.172,48.041,26.287,46.934,26.287z"
+            />
+          </svg>
+           
+          0
+           
+          <small>
+            average Mastery gained
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polygon
+              points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774 39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143 26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749 21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096 23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03 45.85,42.051 37.229,33.419"
+            />
+          </svg>
+           
+          24
+           
+          <small>
+            average Versatility gained
+          </small>
         </div>
       </div>
     </div>
+  </div>
+</div>
+`;
+
+exports[`Fire Mage integration test: example log EssenceOfTheFocusingIris matches the statistic snapshot 1`] = `
+<div
+  category="ITEMS"
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "padding": 0,
+    }
+  }
+>
+  <div
+    className="col-md-12"
+  >
     <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
+      category="ITEMS"
+      className="panel statistic standard "
+      position={1000}
     >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        className="panel-body"
       >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
+        <div
+          className="pad"
+        >
+          <label>
+            <a
+              href="http://wowhead.com/spell=299337"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_azeriteareadenial.jpg"
+              />
+               
+              Focused Energy
+            </a>
+             - Minor Rank 
+            3
+          </label>
+          <div
+            className="value"
+          >
+            <svg
+              className="icon"
+              version="1.1"
+              viewBox="16 16 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
+              />
+            </svg>
+             
+            334
+             
+            <small>
+              average Haste gained
+            </small>
+             
+            <br />
+            <svg
+              className="icon"
+              viewBox="10 10 80 80"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+              />
+            </svg>
+             
+            97.61
+            % 
+            <small>
+              uptime
+            </small>
+                        
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -3642,7 +3764,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
             />
           </a>
            
-          97
+          90
           % 
           <small>
             Fire Blast Utilization
@@ -3672,72 +3794,39 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
 </div>
 `;
 
-exports[`Fire Mage integration test: example log HeedMyCall matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=263987"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Heed My Call"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shaman_thunderstorm.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=263987"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Heed My Call
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          1.63 % / 267 DPS
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
+exports[`Fire Mage integration test: example log HeatingUp matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_fire_fireball",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You cast 
+      <ForwardRef
+        id={108853}
+      />
+       
+      1
+       times while 
+      <ForwardRef
+        id={48108}
+      />
+       was active and 
+      3
+       times while you didnt have 
+      <ForwardRef
+        id={48107}
+      />
+      . Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak or if you are going to cap on charges.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      90.24% Utilization
+       (
+      &lt;95.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Fire Mage integration test: example log HotStreak matches the statistic snapshot 1`] = `
@@ -3784,7 +3873,7 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
             Proc Utilization
           </small>
           <br />
-          50
+          82
           % 
           <small>
             Procs used alongside Fireball
@@ -3818,31 +3907,27 @@ Array [
   Object {
     "details": null,
     "icon": "ability_mage_hotstreak",
-    "importance": "major",
+    "importance": "minor",
     "issue": <React.Fragment>
-      Unless you are guaranteed to crit (i.e. during 
+      When 
       <ForwardRef
         id={190319}
       />
+       is not active
+      
+       
+       and the target is over 30% health
       , 
       <ForwardRef
-        id={205026}
+        id={48108}
       />
-      , or 
-      <ForwardRef
-        id={269644}
-      />
-      ), you should always cast 
+       procs should be used immediately after casting 
       <ForwardRef
         id={133}
       />
        
       
-       alongside using your 
-      <ForwardRef
-        id={48108}
-      />
-       proc. This way, if one of the two abilities crit you will gain a new 
+      . This way, if one of the two abilities crit you will gain a new 
       <ForwardRef
         id={48107}
       />
@@ -3851,13 +3936,109 @@ Array [
         id={48108}
       />
        proc. You failed to do this 
-      10
-       times.
+      3
+       times. If you have a 
+      <ForwardRef
+        id={48108}
+      />
+       proc and need to move, you can hold the proc and cast 
+      <ForwardRef
+        id={2948}
+      />
+       once or twice until you are able to stop and cast 
+      <ForwardRef
+        id={133}
+      />
+       or you can use your procs while you move.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      82.35% Utilization
+       (
+      85.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Fire Mage integration test: example log HotStreakWastedCrits matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_mage_hotstreak",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You crit with 
+      2
+       (
+      1
+       Per Minute) direct damage abilities while 
+      <ForwardRef
+        id={48108}
+      />
+       was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      2 crits wasted
+       (
+      0 is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Fire Mage integration test: example log HyperthreadWristwraps matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_bracer_cloth_kultirasdungeon_c_01",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You used your 
+      <ItemLink
+        icon={true}
+        id={168989}
+      />
+       improperly 
+      1
+       times. In order to get the most out of the item, you should ensure that you are reducing 
+      <ForwardRef
+        id={108853}
+      />
+       twice per use. To accomplish this, you should cast 
+      <ForwardRef
+        id={108853}
+      />
+       
+      &gt;
+       
+      <ForwardRef
+        id={11366}
+      />
+       
+      &gt;
+       
+      <ForwardRef
+        id={108853}
+      />
+       
+      &gt;
+       
+      <ItemLink
+        icon={true}
+        id={168989}
+      />
+      . That way 
+      <ForwardRef
+        id={108853}
+      />
+       gets reduced twice.
     </React.Fragment>,
     "stat": <React.Fragment>
       50.00% Utilization
        (
-      95.00% is recommended
+      &lt;95.00% is recommended
       )
     </React.Fragment>,
   },
@@ -3902,13 +4083,13 @@ exports[`Fire Mage integration test: example log Meteor matches the statistic sn
         <div
           className="value"
         >
-          83
+          133
           % 
           <small>
             Adjusted Cast Efficiency
           </small>
           <br />
-          80
+          75
           % 
           <small>
             Overall Utilization
@@ -3943,37 +4124,6 @@ exports[`Fire Mage integration test: example log Meteor matches the statistic sn
 </div>
 `;
 
-exports[`Fire Mage integration test: example log Meteor matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_mage_meteor",
-    "importance": "major",
-    "issue": <React.Fragment>
-      You could have cast 
-      <ForwardRef
-        id={153561}
-      />
-       
-      6
-       times during this fight, but you only cast it 
-      5
-       times. While you should not cast Meteor on cooldown (since you need to have it available for 
-      <ForwardRef
-        id={190319}
-      />
-      ), you should be casting it at least once per minute.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      83.33% Utilization
-       (
-      &lt;100.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Fire Mage integration test: example log MeteorRune matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -4002,7 +4152,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      80.00% Utilization
+      75.00% Utilization
        (
       &lt;95.00% is recommended
       )
@@ -4013,6 +4163,24 @@ Array [
 
 exports[`Fire Mage integration test: example log PrePotion matches the suggestions snapshot 1`] = `
 Array [
+  Object {
+    "details": null,
+    "icon": "trade_alchemy_potione2",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
+      
+       increasing output through 
+      <ItemLink
+        icon={true}
+        id={168498}
+      />
+      
+      . 
+      
+    </React.Fragment>,
+    "stat": null,
+  },
   Object {
     "details": null,
     "icon": "trade_alchemy_potione2",
@@ -4073,13 +4241,13 @@ exports[`Fire Mage integration test: example log RuneOfPower matches the statist
         <div
           className="value"
         >
-          15
+          13
           % 
           <small>
             Damage added by Rune of Power
           </small>
           <br />
-          10
+          9
           s 
           <small>
             Average time in Rune per cast
@@ -4146,10 +4314,10 @@ exports[`Fire Mage integration test: example log SearingTouch matches the statis
         <div
           className="value"
         >
-          86
+          100
           % 
           <small>
-            Buff Utilization
+            Execute Utilization
           </small>
         </div>
       </div>
@@ -4175,37 +4343,165 @@ exports[`Fire Mage integration test: example log SearingTouch matches the statis
 </div>
 `;
 
-exports[`Fire Mage integration test: example log SearingTouch matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "ability_warlock_backdraft",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You cast 
-      <ForwardRef
-        id={133}
-      />
-       instead of 
-      <ForwardRef
-        id={2948}
-      />
-       while the target was under 30% health 
-      4
-       times. When using 
-      <ForwardRef
-        id={269644}
-      />
-       always use Scorch instead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      86.21% Utilization
-       (
-      95.00 is recommended
-      )
-    </React.Fragment>,
-  },
-]
+exports[`Fire Mage integration test: example log Severe matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="ITEMS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=315558"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Severe"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_priest_shadowyapparition.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=315558"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Severe
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 50 50"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 25L25 0l25 25H37.4v25h-25V25H0z"
+            />
+          </svg>
+           
+          12
+          % 
+          <small>
+            Crit Multiplier
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="32.111"
+              cy="32.678"
+              r="2.989"
+            />
+            <path
+              d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
+            />
+          </svg>
+           
+          223
+           
+          <small>
+            average Crit gained
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Fire Mage integration test: example log TheCrucibleofFlame matches the statistic snapshot 1`] = `
+<div
+  category="ITEMS"
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "padding": 0,
+    }
+  }
+>
+  <div
+    className="col-md-12"
+  >
+    <div
+      category="ITEMS"
+      className="panel statistic standard "
+      position={1000}
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="pad"
+        >
+          <label>
+            <a
+              href="http://wowhead.com/spell=299348"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_radientazeritematrix.jpg"
+              />
+               
+              Ancient Flame
+            </a>
+             - Minor Rank 
+            4
+          </label>
+          <div
+            className="value"
+          >
+            <img
+              alt="Damage"
+              className="icon"
+              src="/img/sword.png"
+            />
+             
+            2,608
+             DPS
+             
+            <small>
+              4.03
+               % of total
+            </small>
+            <br />
+            <img
+              alt="Healing"
+              className="icon"
+              src="/img/healing.png"
+            />
+             
+            129
+             HPS
+             
+            <small>
+              1.68
+              % of total
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Fire Mage integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
@@ -4257,7 +4553,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
               }
             }
           >
-            16,406
+            64,685
              DPS
           </div>
           <div
@@ -4274,7 +4570,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=12&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/GknA1zwHRtjpaXy7/#fight=9&source=10&type=damage-done"
             >
               <div
                 style={
@@ -4313,7 +4609,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
                   >
                     <path
                       className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
+                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
                       onClick={[Function]}
                       onContextMenu={[Function]}
                       onMouseOut={[Function]}
@@ -4374,7 +4670,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
               }
             }
           >
-            2,315
+            7,704
              HPS
           </div>
           <div
@@ -4396,7 +4692,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=12&type=healing"
+              href="https://www.warcraftlogs.com/reports/GknA1zwHRtjpaXy7/#fight=9&source=10&type=healing"
             >
               <div
                 style={
@@ -4435,7 +4731,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
                   >
                     <path
                       className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
+                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
                       onClick={[Function]}
                       onContextMenu={[Function]}
                       onMouseOut={[Function]}
@@ -4496,7 +4792,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
               }
             }
           >
-            4,648
+            18,616
              DTPS
           </div>
           <div
@@ -4514,7 +4810,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/TEST/#fight=12&source=12&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/GknA1zwHRtjpaXy7/#fight=9&source=10&type=damage-taken"
             >
               <div
                 style={
@@ -4553,7 +4849,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
                   >
                     <path
                       className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
+                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
                       onClick={[Function]}
                       onContextMenu={[Function]}
                       onMouseOut={[Function]}
@@ -4579,14 +4875,13 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
 </div>
 `;
 
-exports[`Fire Mage integration test: example log VigilantsBloodshaper matches the statistic snapshot 1`] = `
+exports[`Fire Mage integration test: example log VoidRitual matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
     category="ITEMS"
     className="panel statistic flexible "
-    position={1000}
   >
     <div
       className="panel-body"
@@ -4596,64 +4891,102 @@ exports[`Fire Mage integration test: example log VigilantsBloodshaper matches th
       >
         <label>
           <a
-            className="unknown"
-            href="http://wowhead.com/item=160651"
+            href="http://wowhead.com/spell=316823"
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
-              alt="Vigilant's Bloodshaper"
+              alt="Void Ritual"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_bloodtap.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadesofdarkness.jpg"
             />
           </a>
            
           <a
-            className="unknown"
-            href="http://wowhead.com/item=160651"
+            href="http://wowhead.com/spell=316823"
             rel="noopener noreferrer"
             target="_blank"
           >
-             
-            Vigilant's Bloodshaper
+            Void Ritual
           </a>
         </label>
         <div
           className="value"
         >
-          <img
-            alt="Damage"
+          <svg
             className="icon"
-            src="/img/sword.png"
-          />
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="32.111"
+              cy="32.678"
+              r="2.989"
+            />
+            <path
+              d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
+            />
+          </svg>
            
-          384
-           DPS
+          92
            
           <small>
-            2.34
-             % of total
+            average Crit
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
+            />
+          </svg>
+           
+          92
+           
+          <small>
+            average Haste
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M46.934,26.287c-1.107,0-2.004,0.885-2.004,1.976c0,0.31,0.079,0.599,0.208,0.861l-6.74,4.691 l-0.387-8.422c1.064-0.048,1.914-0.906,1.914-1.967c0-1.091-0.898-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976 c0,0.732,0.408,1.364,1.008,1.705l-4.812,8.237l-4.812-8.237c0.6-0.341,1.008-0.973,1.008-1.705c0-1.091-0.897-1.976-2.004-1.976 c-1.107,0-2.004,0.885-2.004,1.976c0,1.061,0.85,1.919,1.914,1.967l-0.387,8.422l-6.74-4.691c0.129-0.261,0.208-0.551,0.208-0.861 c0-1.092-0.897-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976c0,1.091,0.897,1.976,2.004,1.976 c0.298,0,0.578-0.068,0.832-0.183l5.048,13.236c2.178-0.849,5.377-1.385,8.943-1.385c3.566,0,6.764,0.536,8.942,1.385l5.048-13.236 c0.254,0.115,0.534,0.183,0.832,0.183c1.107,0,2.005-0.885,2.005-1.976C48.939,27.172,48.041,26.287,46.934,26.287z"
+            />
+          </svg>
+           
+          92
+           
+          <small>
+            average Mastery
+          </small>
+          <br />
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polygon
+              points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774 39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143 26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749 21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096 23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03 45.85,42.051 37.229,33.419"
+            />
+          </svg>
+           
+          92
+           
+          <small>
+            average Versatility
           </small>
         </div>
       </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
     </div>
   </div>
 </div>
@@ -4688,8 +5021,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "76.22231613146428%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -4866,7 +5199,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  86.58%
+                  107.95%
                    
                    
                 </div>
@@ -4886,9 +5219,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "77.13926452585714%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -4938,7 +5271,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  108.46%
+                  100.00%
                    
                    
                 </div>
@@ -5010,7 +5343,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  83.33%
+                  133.33%
                    
                    
                 </div>
@@ -5030,9 +5363,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "27.750000000000004%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5069,8 +5402,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "66.7%",
                 }
               }
             />
@@ -5207,7 +5540,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  100.00%
+                  50.00%
                    
                    
                 </div>
@@ -5227,9 +5560,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "41.625%",
                       }
                     }
                   />
@@ -5387,7 +5720,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  0
+                  1
                    
                    
                 </div>
@@ -5407,9 +5740,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "66.7%",
                       }
                     }
                   />
@@ -5447,7 +5780,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "80.55%",
+                  "width": "82.30691455575969%",
                 }
               }
             />
@@ -5660,7 +5993,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  0
+                  1
                    
                    
                 </div>
@@ -5680,9 +6013,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "73.52853499387234%",
                       }
                     }
                   />
@@ -5750,7 +6083,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  50.00%
+                  82.35%
                    
                    
                 </div>
@@ -5770,9 +6103,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "22.2%",
+                        "width": "91.08529411764705%",
                       }
                     }
                   />
@@ -5840,7 +6173,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  96.97%
+                  90.24%
                    
                    
                 </div>
@@ -5860,9 +6193,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "68.22439024390245%",
                       }
                     }
                   />
@@ -5900,7 +6233,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "74.6325354969574%",
+                  "width": "73.50774323529411%",
                 }
               }
             />
@@ -6023,7 +6356,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  86.21%
+                  100.00%
                    
                    
                 </div>
@@ -6043,9 +6376,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "70.61896551724138%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6113,7 +6446,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  10
+                  9
                    
                    
                 </div>
@@ -6133,9 +6466,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "96.57000000000002%",
+                        "width": "64.64862%",
                       }
                     }
                   />
@@ -6203,7 +6536,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  80.00%
+                  75.00%
                    
                    
                 </div>
@@ -6225,7 +6558,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "31.341176470588238%",
+                        "width": "29.382352941176475%",
                       }
                     }
                   />
@@ -6352,8 +6685,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "47.43822743581738%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "65.84342482619152%",
                 }
               }
             />
@@ -6446,7 +6779,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  25.15%
+                  6.31%
                    
                    
                 </div>
@@ -6468,7 +6801,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "7.943543479229692%",
+                        "width": "31.686849652383042%",
                       }
                     }
                   />
@@ -6506,7 +6839,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  6.96%
+                  2.68%
                    
                    
                 </div>
@@ -6526,9 +6859,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "86.93291139240506%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6541,7 +6874,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -6565,8 +6898,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "63.33333333333333%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "80%",
                 }
               }
             />
@@ -6720,7 +7053,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  1
+                  3
                    
                   / 3
                    
@@ -6741,9 +7074,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "33.33333333333333%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6841,7 +7174,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -6861,9 +7194,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -6961,7 +7294,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  No
+                  Yes
                    
                    
                 </div>
@@ -6981,9 +7314,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -7081,7 +7414,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  No
+                  Yes
                    
                    
                 </div>
@@ -7101,9 +7434,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />

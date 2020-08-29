@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS/index';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import HIT_TYPES from 'game/HIT_TYPES';
+import { EventType } from 'parser/core/Events';
 import ComboPointsFromAoE from './ComboPointsFromAoE';
 
 describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
@@ -14,7 +15,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -23,7 +24,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -37,7 +38,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -47,7 +48,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         { // fabricated combo point energize
           __fabricated: true,
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -59,7 +60,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -76,7 +77,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -85,7 +86,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -99,7 +100,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -109,7 +110,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         { // fabricated combo point energize
           __fabricated: true,
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -121,7 +122,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -138,7 +139,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -147,7 +148,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -161,7 +162,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -171,7 +172,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         { // fabricated combo point energize
           __fabricated: true,
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -183,7 +184,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -200,7 +201,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -209,7 +210,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -221,7 +222,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage to a second target
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: otherEnemyId,
@@ -233,7 +234,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage to the first target again
           timestamp: 3,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -247,7 +248,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -257,7 +258,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         { // fabricated combo point energize
           __fabricated: true,
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -269,7 +270,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -281,7 +282,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage to a second target
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId + 1,
@@ -293,7 +294,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage to the first target again
           timestamp: 3,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -310,7 +311,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -319,7 +320,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE damage event, but is parried so does 0 damge
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -333,7 +334,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -342,7 +343,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE damage event, but is parried so does 0 damge
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -359,7 +360,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -368,7 +369,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from a different AoE ability
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -382,7 +383,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -391,7 +392,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from a different AoE ability
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -408,7 +409,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -417,7 +418,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage event from same ability, but a different player
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: otherPlayerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -431,7 +432,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -440,7 +441,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage event from same ability, but a different player
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: otherPlayerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -457,7 +458,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // energize to 5/5 combo points
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -469,7 +470,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // cast AoE
           timestamp: 2,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -478,7 +479,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from AoE
           timestamp: 3,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -492,7 +493,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // energize to 5/5 combo points
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -504,7 +505,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // cast AoE
           timestamp: 2,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -514,7 +515,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         { // fabricated combo point energize, showing it wasted a combo point
           __fabricated: true,
           timestamp: 2,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -526,7 +527,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from AoE
           timestamp: 3,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -543,7 +544,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // generate 5 combo points
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -555,7 +556,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // spend 5 combo points
           timestamp: 2,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -570,7 +571,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // cast AoE
           timestamp: 3,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -579,7 +580,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage
           timestamp: 4,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -593,7 +594,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // generate 5 combo points
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -605,7 +606,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // spend 5 combo points
           timestamp: 2,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -620,7 +621,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // cast AoE
           timestamp: 3,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -630,7 +631,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         { // fabricated energize event showing no waste
           __fabricated: true,
           timestamp: 3,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -642,7 +643,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // AoE does damage
           timestamp: 4,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -659,7 +660,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -668,7 +669,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from AoE 5 seconds after the cast
           timestamp: 5000,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -682,7 +683,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -691,7 +692,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from AoE 5 seconds after the cast
           timestamp: 5000,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -708,7 +709,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -717,7 +718,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // energy energize from another ability
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -729,7 +730,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // cast another ability
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -738,7 +739,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from another ability
           timestamp: 1,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -750,7 +751,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from AoE
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -764,7 +765,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -774,7 +775,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         { // fabricated combo point energize
           __fabricated: true,
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -786,7 +787,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // energy energize from another ability
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -798,7 +799,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // cast another ability
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -807,7 +808,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from another ability
           timestamp: 1,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -819,7 +820,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from AoE
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -836,7 +837,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       events: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -845,7 +846,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // energize combo points from AoE
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -857,7 +858,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from AoE
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -871,7 +872,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       expected: [
         { // cast AoE
           timestamp: 1,
-          type: 'cast',
+          type: EventType.Cast,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,
@@ -880,7 +881,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // energize combo points from AoE
           timestamp: 1,
-          type: 'energize',
+          type: EventType.Energize,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: playerId,
@@ -892,7 +893,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
         { // damage from AoE
           timestamp: 2,
-          type: 'damage',
+          type: EventType.Damage,
           sourceID: playerId,
           sourceIsFriendly: true,
           targetID: enemyId,

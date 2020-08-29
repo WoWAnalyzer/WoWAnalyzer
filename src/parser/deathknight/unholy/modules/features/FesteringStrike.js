@@ -5,7 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -16,46 +17,38 @@ class FesteringStrike extends Analyzer {
     combantants: Combatants,
   };
 
+  constructor(...args) {
+    super(...args);
+
+    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onWoundApply);
+    this.addEventListener(Events.removedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onWoundRemove);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onWoundRemove);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_STRIKE), this.onCast);
+  }
+
   // used to track how many stacks a target has
   targets = {};
 
   totalFesteringStrikeCasts = 0;
   festeringStrikeCastsOverThreeStacks = 0;
 
-  on_byPlayer_applydebuffstack(event){
+  onWoundApply(event){
     // we only need to look at events applying stacks after the first one, our analysis only cares about times when stacks are >3
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.FESTERING_WOUND.id){
-      this.targets[event.targetID] = event.stack;
-    }
+    this.targets[event.targetID] = event.stack;
   }
 
-  on_byPlayer_removedebuffstack(event){
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.FESTERING_WOUND.id){
-      this.targets[event.targetID] = event.stack;
-    }
-  }
+  onWoundRemove(event){
+    this.targets[event.targetID] = event.stack || 0;
+  }  
 
-  on_byPlayer_removedebuff(event){
-    // keeps track of when the debuff drops off, useful for multitarget targets like DI
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.FESTERING_WOUND.id){
-      this.targets[event.targetID] = 0;
-    }
-  }
-
-  on_byPlayer_cast(event){
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.FESTERING_STRIKE.id){
-      this.totalFesteringStrikeCasts++;
+  onCast(event){
+      this.totalFesteringStrikeCasts += 1;
       if(this.targets.hasOwnProperty(event.targetID)){
         const currentTargetWounds = this.targets[event.targetID];
         if(currentTargetWounds > 3){
-          this.festeringStrikeCastsOverThreeStacks++;
+          this.festeringStrikeCastsOverThreeStacks += 1;
         }
-      }
-    }
+      }    
   }
 
   suggestions(when) {
@@ -80,11 +73,10 @@ class FesteringStrike extends Analyzer {
         value={`${formatPercentage(strikeEfficiency)} %`}
         label="Festering Strike Efficiency"
         tooltip={`${this.festeringStrikeCastsOverThreeStacks} Festering Strikes were cast on a target with more than three stacks of Festering Wounds.`}
+        position={STATISTIC_ORDER.CORE(4)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default FesteringStrike;

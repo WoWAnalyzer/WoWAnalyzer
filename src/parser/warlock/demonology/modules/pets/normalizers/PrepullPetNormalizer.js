@@ -1,12 +1,13 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
+import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 import { PERMANENT_PET_ABILITIES_TO_SUMMON_MAP, PET_SUMMON_ABILITY_IDS } from '../CONSTANTS';
-import { isPermanentPet } from '../helpers';
 import PETS from '../PETS';
 
 const MAX_TEMPORARY_PET_DURATION = 30000;
-const CHECKED_EVENT_TYPES = ['begincast', 'cast', 'damage'];
+const CHECKED_EVENT_TYPES = [EventType.BeginCast, EventType.Cast, EventType.Damage];
 const debug = false;
 
 class PrepullPetNormalizer extends EventsNormalizer {
@@ -30,7 +31,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
         break;
       }
       debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Event`, event);
-      if (event.type === 'summon' && event.ability && PET_SUMMON_ABILITY_IDS.includes(event.ability.guid)) {
+      if (event.type === EventType.Summon && event.ability && PET_SUMMON_ABILITY_IDS.includes(event.ability.guid)) {
         summonedPets.push(encodeTargetString(event.targetID, event.targetInstance));
         debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Pet summon, added to array. Current array: `, JSON.parse(JSON.stringify(summonedPets)));
       } else if (CHECKED_EVENT_TYPES.includes(event.type) && this.owner.byPlayerPet(event)) {
@@ -58,7 +59,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
           }
           const fabricatedEvent = {
             timestamp: this.owner.fight.start_time,
-            type: 'summon',
+            type: EventType.Summon,
             sourceID: this.owner.playerId,
             targetID: petId,
             targetInstance: petInstance,

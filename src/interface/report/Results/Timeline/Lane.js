@@ -29,7 +29,7 @@ class Lane extends React.PureComponent {
       case EventType.Cast:
         return this.renderCast(event);
       case EventType.UpdateSpellUsable:
-        if (event.trigger === 'restorecharge') {
+        if (event.trigger === EventType.RestoreCharge) {
           return (
             <React.Fragment key={`restorecharge-${event.timestamp}`}>
               {this.renderCooldown(event)}

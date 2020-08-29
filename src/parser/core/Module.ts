@@ -17,6 +17,8 @@ class Module {
   active: boolean = true;
   /** This module's execution priority, this makes sure dependencies are executed before modules that depend on them. */
   priority: number = 0;
+  /** This module's given name by the parser, sometimes auto generated and sometimes requested. */
+  key!: string;
   get selectedCombatant(): Combatant {
     return this.owner.selectedCombatant;
   }

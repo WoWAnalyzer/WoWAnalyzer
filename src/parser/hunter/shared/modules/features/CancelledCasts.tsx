@@ -21,8 +21,7 @@ class CancelledCasts extends CoreCancelledCasts {
   constructor(options: any) {
     super(options);
     this.IGNORED_ABILITIES = [
-      //Include the spells that you do not want to be tracked and spells that
-      // are castable while casting
+      //Include the spells that you do not want to be tracked and spells that are castable while casting
       SPELLS.EXPLOSIVE_SHOT_DAMAGE.id,
     ];
   }
@@ -39,8 +38,7 @@ class CancelledCasts extends CoreCancelledCasts {
     };
   }
   suggestions(when: any) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</>)
           .icon('inv_misc_map_01')
           .actual(`${formatPercentage(actual)}% casts cancelled`)
@@ -49,10 +47,9 @@ class CancelledCasts extends CoreCancelledCasts {
   }
 
   statistic() {
-    const tooltipText = Object.keys(this.cancelledSpellList)
-      .map((cancelledSpell: any) => (
-        <li>
-          {this.cancelledSpellList[cancelledSpell].spellName}: {this.cancelledSpellList[cancelledSpell].amount}
+    const tooltipText = Object.values(this.cancelledSpellList).map(cancelledSpell => (
+        <li key={cancelledSpell.spellName}>
+          {cancelledSpell.spellName}: {cancelledSpell.amount}
         </li>
       ));
 

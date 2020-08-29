@@ -39,6 +39,7 @@ import DegradedExperience from './DegradedExperience';
 import ItemWarning from './ItemWarning';
 import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
+import ReportDurationWarning, { MAX_REPORT_DURATION } from '../ReportDurationWarning';
 import ScrollToTop from './ScrollToTop';
 import TABS from './TABS';
 
@@ -53,6 +54,7 @@ class Results extends React.PureComponent {
           resultsWarning: PropTypes.any,
         }),
       }),
+      getOptionalModule: PropTypes.func.isRequired,
       getModule: PropTypes.func.isRequired,
       selectedCombatant: PropTypes.any,
       fight: PropTypes.shape({
@@ -78,6 +80,8 @@ class Results extends React.PureComponent {
     build: PropTypes.string,
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
+      start: PropTypes.number.isRequired,
+      end: PropTypes.number.isRequired,
     }).isRequired,
     fight: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -178,7 +182,7 @@ class Results extends React.PureComponent {
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
-        const checklist = parser.getModule(Checklist, true);
+        const checklist = parser.getOptionalModule(Checklist);
         return (
           <Overview
             checklist={checklist && checklist.render()}
@@ -344,12 +348,11 @@ class Results extends React.PureComponent {
 
     const boss = findByBossId(fight.boss);
 
-    const results = !this.isLoading && parser.generateResults({
-      i18n, // TODO: Remove and use singleton
-      adjustForDowntime: this.state.adjustForDowntime,
-    });
+    const results = !this.isLoading && parser.generateResults(this.state.adjustForDowntime);
 
     const contributorinfo = <ReadableListing>{(config.contributors.length !== 0) ? config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED'}</ReadableListing>;
+
+    const reportDuration = report.end - report.start;
 
     return (
       <div className={`results boss-${fight.boss}`}>
@@ -371,6 +374,10 @@ class Results extends React.PureComponent {
           build={build}
           isLoading={this.isLoading}
         />
+
+        {fight.end_time > MAX_REPORT_DURATION &&
+        <ReportDurationWarning duration={reportDuration} />}
+
         {parser && parser.disabledModules && <DegradedExperience disabledModules={parser.disabledModules} />}
         {boss && boss.fight.resultsWarning && (
           <div className="container">

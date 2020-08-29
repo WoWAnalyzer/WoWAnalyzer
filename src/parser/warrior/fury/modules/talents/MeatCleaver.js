@@ -49,7 +49,7 @@ class MeatCleaver extends Analyzer {
     // Whirlwind triggers damage 3 times. We only need to count the number of targets hit on the first set of MH damage
     if (this.whirlwindEvents[this.lastWhirlwindCast].isFirstRoundOfDamage) {
       if (event.ability.guid === SPELLS.WHIRLWIND_FURY_DAMAGE_MH.id) {
-        this.whirlwindEvents[this.lastWhirlwindCast].targetsHit++;
+        this.whirlwindEvents[this.lastWhirlwindCast].targetsHit += 1;
       } else {
         this.whirlwindEvents[this.lastWhirlwindCast].isFirstRoundOfDamage = false;
       }

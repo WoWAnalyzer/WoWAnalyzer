@@ -1,4 +1,5 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Abilities from 'parser/core/modules/Abilities';
 import Channeling from 'parser/shared/modules/Channeling';
 import Events, {
   ApplyBuffEvent,
@@ -11,7 +12,6 @@ import Events, {
 } from 'parser/core/Events';
 
 import SpellUsable from './SpellUsable';
-import Abilities from '../../core/modules/Abilities';
 
 class SpellHistory extends Analyzer {
   static dependencies = {
@@ -38,11 +38,11 @@ class SpellHistory extends Analyzer {
   } = {
     // This contains the raw event to have all information one might ever need and so that we don't construct additional objects that take their own memory.
     // [spellId]: [
-    //   {type: 'cast', timestamp, ...},
-    //   {type: 'updatespellusable', trigger: 'begincooldown', timestamp, ...},
-    //   {type: 'applybuff', timestamp, ...},
-    //   {type: 'removebuff', timestamp, ...},
-    //   {type: 'updatespellusable', trigger: 'endcooldown', timestamp, ...},
+    //   {type: EventType.Cast, timestamp, ...},
+    //   {type: EventType.UpdateSpellUsable, trigger: EventType.BeginCooldown', timestamp, ...},
+    //   {type: EventType.ApplyBuff, timestamp, ...},
+    //   {type: EventType.RemoveBuff, timestamp, ...},
+    //   {type: EventType.UpdateSpellUsable, trigger: EventType.EndCooldown', timestamp, ...},
     //   ...
     // ]
   };
@@ -74,13 +74,13 @@ class SpellHistory extends Analyzer {
 
   private append(
     event:
-      | BeginCastEvent
-      | CastEvent
-      | BeginChannelEvent
-      | EndChannelEvent
-      | ApplyBuffEvent
-      | RemoveBuffEvent
-      | UpdateSpellUsableEvent,
+      & BeginCastEvent
+      & CastEvent
+      & BeginChannelEvent
+      & EndChannelEvent
+      & ApplyBuffEvent
+      & RemoveBuffEvent
+      & UpdateSpellUsableEvent,
   ) {
     const spellId = event.ability.guid;
     const history = this.getAbility(spellId);

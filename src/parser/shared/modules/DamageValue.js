@@ -28,7 +28,7 @@ class DamageValue {
     this._largestHit = (largestHit === null) ? regular + absorbed + overkill : largestHit;
   }
 
-  add(regular, absorbed, blocked, overkill) {
+  add(regular = 0, absorbed = 0, blocked = 0, overkill = 0) {
     return new this.constructor(this.regular + regular, this.absorbed + absorbed, this.blocked + blocked, this.overkill + overkill, Math.max(this.largestHit, regular + absorbed + blocked + overkill));
   }
   subtract(regular, absorbed, blocked, overkill) {

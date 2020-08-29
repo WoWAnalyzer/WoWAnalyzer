@@ -10,6 +10,7 @@ import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { EventType } from 'parser/core/Events';
 
 const GUARDIAN_SPIRIT_HEALING_INCREASE = 0.6;
 
@@ -28,10 +29,10 @@ class GuardianSpirit extends Analyzer {
   get filter() {
     return `
     IN RANGE
-      FROM type='applybuff'
+      FROM type='${EventType.ApplyBuff}'
           AND ability.id=${SPELLS.GUARDIAN_SPIRIT.id}
           AND source.name='${this.selectedCombatant.name}'
-      TO type='removebuff'
+      TO type='${EventType.RemoveBuff}'
           AND ability.id=${SPELLS.GUARDIAN_SPIRIT.id}
           AND source.name='${this.selectedCombatant.name}'
       GROUP BY

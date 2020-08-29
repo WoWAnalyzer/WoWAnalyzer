@@ -49,7 +49,7 @@ class SurgeOfPower extends Analyzer {
 
     event.meta = event.meta || {};
     event.meta.isEnhancedCast = true;
-    this.sopBuffedAbilities[event.ability.guid]++;
+    this.sopBuffedAbilities[event.ability.guid] += 1;
 
     // cast lightning bolt with SoP and SK buffs active
     if (this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_TALENT.id, event.timestamp) && event.ability.guid === SPELLS.LIGHTNING_BOLT.id) {
@@ -87,7 +87,7 @@ class SurgeOfPower extends Analyzer {
     );
   }
 
-  get suggestionTresholds() {
+  get suggestionThresholds() {
     return {
       actual: this.skSopCasts / this.skCasts,
       isLessThan: {
@@ -100,10 +100,10 @@ class SurgeOfPower extends Analyzer {
   }
 
   suggestions(when){
-    when(this.suggestionTresholds)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You should aim to empower all of your Stormkeeper lightning bolts with Surge of Power. You can accomplish this
-        consistently by pooling to 95+ maelstrom right before Stormkeeper is available, then casting ES -> SK -> LB -> LvB -> ES -> LB.</span>)
+        consistently by pooling to 95+ maelstrom right before Stormkeeper is available, then casting ES {'->'} SK {'->'} LB {'->'} LvB {'->'} ES {'->'} LB.</span>)
           .icon(SPELLS.SURGE_OF_POWER_TALENT.icon)
           .actual(`${formatPercentage(actual)}% of Stormkeeper Lightning Bolts empowered with Surge`)
           .recommended(`100% is recommended.`);

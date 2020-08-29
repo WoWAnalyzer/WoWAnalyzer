@@ -1,5 +1,6 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
 class GrimoireOfSacrificeNormalizer extends EventsNormalizer {
   // Grimoire of Sacrifice is an ability that you can cast before combat, and it sacrifices your pet
@@ -12,15 +13,15 @@ class GrimoireOfSacrificeNormalizer extends EventsNormalizer {
 
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
-      if (event.ability && event.ability.guid === SPELLS.GRIMOIRE_OF_SACRIFICE_BUFF && ['applybuff', 'removebuff'].includes(event.type)) {
+      if (event.ability && event.ability.guid === SPELLS.GRIMOIRE_OF_SACRIFICE_BUFF && [EventType.ApplyBuff, EventType.RemoveBuff].includes(event.type)) {
         // first GoSac event is applybuff or removebuff, ignore the rest, return events as they are
         break;
       }
-      if (event.ability && event.ability.guid === SPELLS.GRIMOIRE_OF_SACRIFICE_DAMAGE.id && event.type === 'damage') {
+      if (event.ability && event.ability.guid === SPELLS.GRIMOIRE_OF_SACRIFICE_DAMAGE.id && event.type === EventType.Damage) {
         // first GoSac event is damage, add the fabricated applybuff and return
         const fabricatedEvent = {
           timestamp: events[firstEventIndex].timestamp,
-          type: 'applybuff',
+          type: EventType.ApplyBuff,
           sourceID: event.sourceID,
           targetID: event.sourceID,
           sourceIsFriendly: true,
