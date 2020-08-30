@@ -282,6 +282,7 @@ declare module 'react-vis' {
 
   export interface LineSeriesProps extends AbstractSeriesProps<LineSeriesPoint> {
     strokeStyle?: 'dashed' | 'solid'; //default: 'solid'
+    strokeWidth?: number;
     curve?: string | Function; //default: null
     getNull?: RVGetNull<LineSeriesPoint>;
   }

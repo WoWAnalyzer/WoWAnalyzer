@@ -3,12 +3,15 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 import Voidform from '../spells/Voidform';
 
-function formatSeconds(seconds) {
+function formatSeconds(seconds: number) {
   return Math.round(seconds * 10) / 10;
 }
 
@@ -21,17 +24,18 @@ class VoidTorrent extends Analyzer {
   static dependencies = {
     voidform: Voidform,
   };
+  protected voidform!: Voidform;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id);
   }
 
-  _voidTorrents = {};
-  _previousVoidTorrentCast = null;
+  _voidTorrents: any = {};
+  _previousVoidTorrentCast: any;
   damage = 0;
 
-  startedVoidTorrent(event) {
+  startedVoidTorrent(event: any) {
     this._voidTorrents[event.timestamp] = {
       start: event.timestamp,
     };
@@ -39,7 +43,7 @@ class VoidTorrent extends Analyzer {
     this._previousVoidTorrentCast = event;
   }
 
-  finishedVoidTorrent({ event, wastedTime }) {
+  finishedVoidTorrent({ event, wastedTime }: any) {
     this._voidTorrents[this._previousVoidTorrentCast.timestamp] = {
       ...this._voidTorrents[this._previousVoidTorrentCast.timestamp],
       wastedTime,
@@ -65,14 +69,14 @@ class VoidTorrent extends Analyzer {
     return this.voidTorrents.reduce((total, c) => total + c.wastedTime, 0) / 1000;
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOID_TORRENT_TALENT.id) {
       this.startedVoidTorrent(event);
     }
   }
 
-  on_byPlayer_removebuff(event) {
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOID_TORRENT_TALENT.id) {
       const timeSpentChanneling = event.timestamp - this._previousVoidTorrentCast.timestamp;
@@ -81,7 +85,7 @@ class VoidTorrent extends Analyzer {
     }
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellID = event.ability.guid;
     if (spellID !== SPELLS.VOID_TORRENT_TALENT.id) {
       return;
@@ -101,25 +105,29 @@ class VoidTorrent extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.totalWasted).isGreaterThan(this.suggestionThresholds.average)
-      .addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>You interrupted <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> early, wasting {formatSeconds(this.totalWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</>)
           .icon(SPELLS.VOID_TORRENT_TALENT.icon)
           .actual(`Lost ${formatSeconds(actual)} seconds of Void Torrent.`)
-          .recommended('No time wasted is recommended.')
-          .regular(this.suggestionThresholds.average).major(this.suggestionThresholds.major);
+          .recommended('No time wasted is recommended.');
       });
   }
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.VOID_TORRENT_TALENT.id}
-        position={STATISTIC_ORDER.CORE(6)}
-        value={<ItemDamageDone amount={this.damage} />}
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={`${formatSeconds(this.totalWasted)} seconds wasted`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.VOID_TORRENT_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
