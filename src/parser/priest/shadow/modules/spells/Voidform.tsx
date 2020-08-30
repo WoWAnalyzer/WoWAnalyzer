@@ -3,12 +3,9 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
-import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import { CastEvent, RemoveBuffEvent, ApplyBuffStackEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Panel from 'interface/others/Panel';
 
 import Insanity from '../core/Insanity';
