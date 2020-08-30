@@ -242,21 +242,6 @@ class Voidform extends Analyzer {
       });
   }
 
-  statistic() {
-    return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(1)}
-        icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
-        value={`${formatPercentage(this.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id)))} %`}
-        label={(
-          <TooltipElement content={`Time spent in dispersion (${Math.round(this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from the fight.`}>
-            Voidform uptime
-          </TooltipElement>
-        )}
-      />
-    );
-  }
-
   tab() {
     return {
       title: 'Voidforms',
