@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
+import { ApplyBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CritIcon from 'interface/icons/CriticalStrike';
@@ -11,7 +12,7 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { EventType } from 'parser/core/Events';
 
-const chorusOfInsanityStats = traits => Object.values(traits).reduce((obj, rank) => {
+const chorusOfInsanityStats = (traits: any) => Object.values(traits).reduce((obj: any, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.CHORUS_OF_INSANITY.id, rank);
   obj.crit += crit;
   return obj;
@@ -30,38 +31,41 @@ class ChorusOfInsanity extends Analyzer {
     eventEmitter: EventEmitter,
     statTracker: StatTracker,
   };
+  protected eventEmitter!: EventEmitter;
+  protected statTracker!: StatTracker;
+
   crit = 0;
   lastTimestamp = 0;
   pendingStack = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.CHORUS_OF_INSANITY.id);
     if (!this.active) {
       return;
     }
 
-    const { crit } = chorusOfInsanityStats(this.selectedCombatant.traitsBySpellId[SPELLS.CHORUS_OF_INSANITY.id]);
+    const { crit }: any = chorusOfInsanityStats(this.selectedCombatant.traitsBySpellId[SPELLS.CHORUS_OF_INSANITY.id]);
     this.crit = crit;
 
-    this.statTracker.add(SPELLS.CHORUS_OF_INSANITY_BUFF.id, {
+    options.statTracker.add(SPELLS.CHORUS_OF_INSANITY_BUFF.id, {
       crit,
     });
   }
 
-  on_byPlayer_applybuff(event) {
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
     this.pendingStack = true;
     this.lastTimestamp = event.timestamp;
   }
 
-  on_byPlayer_removebuffstack(event) {
+  on_byPlayer_removebuffstack(event: RemoveBuffStackEvent) {
     if (this.pendingStack) {
       this.fabricateFirstStack(event);
       this.pendingStack = false;
     }
   }
 
-  fabricateFirstStack(event) {
+  fabricateFirstStack(event: any) {
     this.eventEmitter.fabricateEvent({
       ...event,
       timestamp: this.lastTimestamp,

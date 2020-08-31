@@ -1,13 +1,15 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import { CastEvent, ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import SmallStatisticBox, { STATISTIC_ORDER } from 'interface/others/SmallStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
 
 const MS_BUFFER = 100;
@@ -31,7 +33,10 @@ class ShadowWordPain extends Analyzer {
     enemies: Enemies,
     abilityTracker: AbilityTracker,
   };
+  protected enemies!: Enemies;
+  protected abilityTracker!: AbilityTracker;
 
+  lastCastTimestamp = 0;
   castedShadowWordPains = 0;
   appliedShadowWordPains = 0;
   refreshedShadowWordPains = 0;
@@ -50,7 +55,7 @@ class ShadowWordPain extends Analyzer {
     return spell.damageEffective + spell.damageAbsorbed;
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.SHADOW_WORD_PAIN.id) {
@@ -58,7 +63,7 @@ class ShadowWordPain extends Analyzer {
     }
   }
 
-  on_byPlayer_applydebuff(event) {
+  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SHADOW_WORD_PAIN.id) {
       return;
@@ -71,7 +76,7 @@ class ShadowWordPain extends Analyzer {
     }
   }
 
-  on_byPlayer_refreshdebuff(event) {
+  on_byPlayer_refreshdebuff(event: RefreshDebuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SHADOW_WORD_PAIN.id) {
       return;
@@ -96,33 +101,28 @@ class ShadowWordPain extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    const {
-      isLessThan: {
-        minor,
-        average,
-        major,
-      },
-    } = this.suggestionThresholds;
-
-    when(this.uptime).isLessThan(minor)
-      .addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<span>Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.</span>)
           .icon(SPELLS.SHADOW_WORD_PAIN.icon)
           .actual(`${formatPercentage(actual)}% Shadow Word: Pain uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(average).major(major);
+          .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
   }
 
   statistic() {
     return (
-      <SmallStatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(4)}
-        icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Shadow Word: Pain uptime"
-      />
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.SHADOW_WORD_PAIN}>
+          <>
+          {formatPercentage(this.uptime)}% <small>Uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

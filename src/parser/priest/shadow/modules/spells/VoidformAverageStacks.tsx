@@ -3,13 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { TooltipElement } from 'common/Tooltip';
-import StatisticBox from 'interface/others/StatisticBox';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import Voidform from './Voidform';
 
@@ -17,15 +16,16 @@ class VoidformAverageStacks extends Analyzer {
   static dependencies = {
     voidform: Voidform,
   };
+  protected voidform!: Voidform;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = true;
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.voidform.averageVoidformStacks).isLessThan(21.5)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(
           <>
             Your <SpellLink id={SPELLS.VOIDFORM.id} /> stacks can be improved. Try to maximize the uptime by using <SpellLink id={SPELLS.VOID_BOLT.id} />, <SpellLink id={SPELLS.MIND_BLAST.id} />, and <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.<br /><br />
@@ -51,17 +51,12 @@ class VoidformAverageStacks extends Analyzer {
     const lastVoidformWasExcluded = voidforms[voidforms.length - 1].excluded;
 
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(0)}
-        icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
-        value={`${formatNumber(this.voidform.averageVoidformStacks)} stacks`}
-        label={(
-          <TooltipElement content={`The average stacks of your voidforms.${lastVoidformWasExcluded ? 'The last voidform of the fight was excluded since it skewed the average.' : ''}`}>
-            Average voidform
-          </TooltipElement>
-        )}
-      >
-        <table className="table table-condensed">
+        size="flexible"
+        tooltip={`The uptime and average stacks of your voidforms.${lastVoidformWasExcluded ? 'The last voidform of the fight was excluded since it skewed the average' : ''}. Time spent in dispersion (${Math.round(this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from your uptime.`}
+        dropdown={
+          <table className="table table-condensed">
           <thead>
             <tr>
               <th>#</th>
@@ -80,7 +75,15 @@ class VoidformAverageStacks extends Analyzer {
             }
           </tbody>
         </table>
-      </StatisticBox>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.VOIDFORM}>
+          <>
+          {formatPercentage(this.voidform.uptime)}% <small>Uptime</small><br />
+          {formatNumber(this.voidform.averageVoidformStacks)} <small>Average stacks</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 8, 29), <>Typescript conversion and updated Statistic Boxes. </>, [Sharrq]),
   change(date(2020, 8, 23), <>Updated Talents and Spellbook for Shadowlands. Added Buff Highlights for Timeline. </>, [Sharrq]),
   change(date(2019, 8, 22), <>Added <SpellLink id={SPELLS.SPITEFUL_APPARITIONS.id} /> module.</>, [Adoraci]),
   change(date(2019, 8, 17), <>Added <SpellLink id={SPELLS.WHISPERS_OF_THE_DAMNED.id} /> module.</>, [Adoraci]),

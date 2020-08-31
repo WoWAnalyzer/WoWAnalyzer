@@ -2,11 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 
-import SpellIcon from 'common/SpellIcon';
-import { TooltipElement } from 'common/Tooltip';
-
-import SmallStatisticBox, { STATISTIC_ORDER } from 'interface/others/SmallStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer from 'parser/core/Analyzer';
+import { CastEvent } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
@@ -17,6 +17,8 @@ class SkippableCasts extends Analyzer {
     haste: Haste,
     globalCooldown: GlobalCooldown,
   };
+  protected haste!: Haste;
+  protected globalCooldown!: GlobalCooldown;
 
   _castsSinceLastVoidBolt = 0;
   _skippableCastsBetweenVoidbolts = 0;
@@ -25,7 +27,7 @@ class SkippableCasts extends Analyzer {
     return this._skippableCastsBetweenVoidbolts;
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (this.haste.current >= ONE_FILLER_GCD_HASTE_THRESHOLD) {
       if (spellId === SPELLS.VOID_BOLT.id) {
@@ -43,16 +45,17 @@ class SkippableCasts extends Analyzer {
     const skippableCasts = this.skippableCastsBetweenVoidbolts;
 
     return (
-      <SmallStatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(7)}
-        icon={<SpellIcon id={SPELLS.VOID_BOLT.id} />}
-        value={skippableCasts}
-        label={(
-          <TooltipElement content={`There should only be 1 cast between Void Bolts casts when you exceed 140% haste. You casted a total of ${skippableCasts} extra abilities inbetween, wasting insanity generation & damage.`}>
-            Skippable casts
-          </TooltipElement>
-        )}
-      />
+        size="flexible"
+        tooltip={`There should only be 1 cast between Void Bolts casts when you exceed 140% haste. You casted a total of ${skippableCasts} extra abilities inbetween, wasting insanity generation & damage.`}
+      >
+        <BoringSpellValueText spell={SPELLS.VOID_BOLT}>
+          <>
+            {skippableCasts} <small>Skippable casts</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

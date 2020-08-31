@@ -1,6 +1,5 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 // core
-import Haste from './modules/core/Haste';
 import AbilityTracker from './modules/core/AbilityTracker';
 import Insanity from './modules/core/Insanity';
 import Channeling from './modules/core/Channeling';
@@ -37,7 +36,6 @@ import Buffs from './modules/features/Buffs';
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // core
-    haste: Haste,
     abilityTracker: AbilityTracker,
     insanity: Insanity,
     channeling: Channeling,

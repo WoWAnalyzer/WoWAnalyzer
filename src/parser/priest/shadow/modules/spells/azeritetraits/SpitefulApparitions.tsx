@@ -3,8 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Events from 'parser/core/Events';
@@ -24,12 +27,14 @@ class SpitefulApparitions extends Analyzer {
     enemies: Enemies,
     statTracker: StatTracker,
   };
+  protected enemies!: Enemies;
+  protected statTracker!: StatTracker;
 
   damageDone = 0;
   traitBonus = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.SPITEFUL_APPARITIONS.id);
     if (!this.active) {
       return;
@@ -41,7 +46,7 @@ class SpitefulApparitions extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_DAMAGE), this.onDamageEvent);
   }
 
-  onDamageEvent(event) {
+  onDamageEvent(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
@@ -54,16 +59,21 @@ class SpitefulApparitions extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.SPITEFUL_APPARITIONS.id}
-        value={<ItemDamageDone amount={this.damageDone} />}
+      <Statistic
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
+        size="flexible"
         tooltip={(
           <>
             {formatNumber(this.damageDone)} additional damage dealt by {SPELLS.SHADOWY_APPARITION.name} to targets affected by {SPELLS.VAMPIRIC_TOUCH.name}.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SPITEFUL_APPARITIONS}>
+          <>
+          <ItemDamageDone amount={this.damageDone} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

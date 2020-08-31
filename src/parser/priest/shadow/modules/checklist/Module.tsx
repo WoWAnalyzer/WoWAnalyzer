@@ -20,6 +20,13 @@ class Checklist extends BaseChecklist {
     vampiricTouch: VampiricTouch,
     voidform: Voidform,
   };
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected shadowWordPain!: ShadowWordPain;
+  protected vampiricTouch!: VampiricTouch;
+  protected voidform!: Voidform;
 
   render() {
     return (

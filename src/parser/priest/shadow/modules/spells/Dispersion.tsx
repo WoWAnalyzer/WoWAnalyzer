@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-
+import { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
@@ -17,15 +17,16 @@ class Disperion extends Analyzer {
   static dependencies = {
     voidform: Voidform,
   };
+  protected voidform!: Voidform;
 
-  _dispersions = {};
-  _previousDispersionCast = null;
+  _dispersions: any = {};
+  _previousDispersionCast: any;
 
   get dispersions() {
     return Object.keys(this._dispersions).map(key => this._dispersions[key]);
   }
 
-  startDispersion(event) {
+  startDispersion(event: any) {
     this._dispersions[event.timestamp] = {
       start: event.timestamp,
     };
@@ -33,7 +34,7 @@ class Disperion extends Analyzer {
     this._previousDispersionCast = event;
   }
 
-  endDispersion(event) {
+  endDispersion(event: any) {
     this._dispersions[this._previousDispersionCast.timestamp] = {
       ...this._dispersions[this._previousDispersionCast.timestamp],
       end: event.timestamp,
@@ -49,25 +50,25 @@ class Disperion extends Analyzer {
     this._previousDispersionCast = null;
   }
 
-  on_byPlayer_applybuff(event) {
+  on_byPlayer_applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.DISPERSION.id) this.startDispersion(event);
   }
 
-  on_byPlayer_removebuff(event) {
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.DISPERSION.id) this.endDispersion(event);
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     const dispersionUptime = this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id);
-    const maxDispersiontime = Math.floor(calculateMaxCasts(DISPERSION_BASE_CD, this.owner.fightDuration)) * DISPERSION_UPTIME_MS;
-    const dispersedTime = dispersionUptime / this.maxUptime;
+    const maxDispersionTime = Math.floor(calculateMaxCasts(DISPERSION_BASE_CD, this.owner.fightDuration)) * DISPERSION_UPTIME_MS;
+    const dispersedTime = dispersionUptime / maxDispersionTime;
 
 
     when(dispersedTime).isGreaterThan(0.20)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You spent {Math.round(dispersionUptime / 1000)} seconds (out of a possible {Math.round(maxDispersiontime / 1000)} seconds) in <SpellLink id={SPELLS.DISPERSION.id} />. Consider using <SpellLink id={SPELLS.DISPERSION.id} /> less or cancel it early.</span>)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+        return suggest(<span>You spent {Math.round(dispersionUptime / 1000)} seconds (out of a possible {Math.round(maxDispersionTime / 1000)} seconds) in <SpellLink id={SPELLS.DISPERSION.id} />. Consider using <SpellLink id={SPELLS.DISPERSION.id} /> less or cancel it early.</span>)
           .icon(SPELLS.DISPERSION.icon)
           .actual(`${formatPercentage(actual)}% Dispersion uptime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended, unless the encounter requires it.`)

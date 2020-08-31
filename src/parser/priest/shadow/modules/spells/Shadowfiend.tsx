@@ -6,8 +6,8 @@ import Pet from '../core/Pet';
 class Shadowfiend extends Pet {
   _pet = PETS.SHADOWFIEND;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
   }
 }

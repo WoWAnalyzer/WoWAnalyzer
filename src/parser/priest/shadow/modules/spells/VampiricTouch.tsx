@@ -5,14 +5,16 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import SmallStatisticBox, { STATISTIC_ORDER } from 'interface/others/SmallStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 class VampiricTouch extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+  protected enemies!: Enemies;
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.VAMPIRIC_TOUCH.id) / this.owner.fightDuration;
@@ -30,33 +32,28 @@ class VampiricTouch extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    const {
-      isLessThan: {
-        minor,
-        average,
-        major,
-      },
-    } = this.suggestionThresholds;
-
-    when(this.uptime).isLessThan(minor)
-      .addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<span>Your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> on the boss.</span>)
           .icon(SPELLS.VAMPIRIC_TOUCH.icon)
           .actual(`${formatPercentage(actual)}% Vampiric Touch uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(average).major(major);
+          .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
   }
 
   statistic() {
     return (
-      <SmallStatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(3)}
-        icon={<SpellIcon id={SPELLS.VAMPIRIC_TOUCH.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Vampiric Touch uptime"
-      />
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.VAMPIRIC_TOUCH}>
+          <>
+          {formatPercentage(this.uptime)}% <small>Uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -3,18 +3,16 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
-import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
+import { CastEvent, RemoveBuffEvent, ApplyBuffStackEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Panel from 'interface/others/Panel';
 
 import Insanity from '../core/Insanity';
 import VoidformsTab from './VoidformsTab';
 
 const debug = false;
-const logger = (message, color) => debug && console.log(`%c${message.join('  ')}`, `color: ${color}`);
+const logger = (message: any, color: any) => debug && console.log(`%c${message.join('  ')}`, `color: ${color}`);
 
 const VOID_FORM_ACTIVATORS = [
   SPELLS.VOID_ERUPTION.id,
@@ -25,13 +23,15 @@ class Voidform extends Analyzer {
     insanity: Insanity,
     haste: Haste,
   };
+  protected insanity!: Insanity;
+  protected haste!: Haste;
 
   _previousVoidformCast = null;
   _totalHasteAcquiredOutsideVoidform = 0;
   _totalLingeringInsanityTimeOutsideVoidform = 0;
   _inVoidform = false;
 
-  _voidforms = {};
+  _voidforms: any = {};
 
   get voidforms() {
     return Object.keys(this._voidforms).map(key => this._voidforms[key]);
@@ -79,11 +79,11 @@ class Voidform extends Analyzer {
   }
 
   get normalizeTimestamp() {
-    return (event) => Math.round((event.timestamp - this.currentVoidform.start) / 10) * 10;
+    return (event: any) => Math.round((event.timestamp - this.currentVoidform.start) / 10) * 10;
   }
 
   get addVoidformEvent() {
-    return (name, event) => {
+    return (name: any, event: any) => {
       if (this.currentVoidform) {
         this.currentVoidform[name] = [
           ...this.currentVoidform[name],
@@ -93,7 +93,7 @@ class Voidform extends Analyzer {
     };
   }
 
-  addVoidformStack(event) {
+  addVoidformStack(event: any) {
     if (!this.currentVoidform) return;
     this.currentVoidform.stacks = [
       ...this.currentVoidform.stacks,
@@ -102,7 +102,7 @@ class Voidform extends Analyzer {
     logger(['Added voidform stack:', event.stack, `at`, this.normalizeTimestamp(event)], 'green');
   }
 
-  removeLingeringInsanityStack(event) {
+  removeLingeringInsanityStack(event: any) {
     if (this.inVoidform) {
       this.currentVoidform.lingeringInsanityStacks = [
         ...this.currentVoidform.lingeringInsanityStacks,
@@ -115,7 +115,7 @@ class Voidform extends Analyzer {
     }
   }
 
-  startVoidform(event) {
+  startVoidform(event: any) {
     this._voidforms[event.timestamp] = {
       start: event.timestamp,
       lingeringInsanityStacks: [],
@@ -130,7 +130,7 @@ class Voidform extends Analyzer {
     this.addVoidformStack({ ...event, stack: 1 });
   }
 
-  endVoidform(event) {
+  endVoidform(event: any) {
     this.currentVoidform.duration = this.normalizeTimestamp(event);
 
     // artificially adds the starting lingering insanity stack:
@@ -143,30 +143,30 @@ class Voidform extends Analyzer {
     }
 
     // calculates the average gained haste from voidform stacks & lingering insanity within the voidform:
-    this.currentVoidform.averageGainedHaste = (this.currentVoidform.stacks.reduce((total, { stack, timestamp }, i) => {
+    this.currentVoidform.averageGainedHaste = (this.currentVoidform.stacks.reduce((total: number, { stack, timestamp }: any, i: number) => {
       const nextTimestamp = this.currentVoidform.stacks[i + 1] ? this.currentVoidform.stacks[i + 1].timestamp : timestamp + 1000;
       return total + ((nextTimestamp - timestamp) / 1000) * stack / 100;
-    }, 0) + this.currentVoidform.lingeringInsanityStacks.reduce((total, { stack, timestamp }, i) => {
+    }, 0) + this.currentVoidform.lingeringInsanityStacks.reduce((total: number, { stack, timestamp }: any, i: number) => {
       const nextTimestamp = this.currentVoidform.lingeringInsanityStacks[i + 1] ? this.currentVoidform.lingeringInsanityStacks[i + 1].timestamp : timestamp + 1000;
       return total + ((nextTimestamp - timestamp) / 1000) * stack / 100;
     }, 0)) / (this.currentVoidform.duration / 1000);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (VOID_FORM_ACTIVATORS.includes(spellId)) {
       this.startVoidform(event);
     }
   }
 
-  on_byPlayer_removebuff(event) {
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
       this.endVoidform(event);
     }
   }
 
-  on_byPlayer_applybuffstack(event) {
+  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
       if (!this.currentVoidform) {
@@ -177,7 +177,7 @@ class Voidform extends Analyzer {
     }
   }
 
-  on_byPlayer_removebuffstack(event) {
+  on_byPlayer_removebuffstack(event: RemoveBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.LINGERING_INSANITY.id) this.removeLingeringInsanityStack(event);
   }
@@ -212,7 +212,7 @@ class Voidform extends Analyzer {
   }
 
   get suggestionStackThresholds() {
-    return (voidform) => ({
+    return (voidform: any) => ({
       actual: voidform.stacks.length,
       isLessThan: {
         minor: 20,
@@ -223,17 +223,9 @@ class Voidform extends Analyzer {
     });
   }
 
-  suggestions(when) {
-    const {
-      isLessThan: {
-        minor,
-        average,
-        major,
-      },
-    } = this.suggestionUptimeThresholds;
-
-    when(this.uptime).isLessThan(minor)
-      .addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.suggestionUptimeThresholds)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.
           <br /><br />
           Use the generators with the priority: <br />
@@ -243,24 +235,8 @@ class Voidform extends Analyzer {
         </>)
           .icon(SPELLS.VOIDFORM_BUFF.icon)
           .actual(`${formatPercentage(actual)}% Voidform uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(average).major(major);
+          .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(1)}
-        icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
-        value={`${formatPercentage(this.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id)))} %`}
-        label={(
-          <TooltipElement content={`Time spent in dispersion (${Math.round(this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from the fight.`}>
-            Voidform uptime
-          </TooltipElement>
-        )}
-      />
-    );
   }
 
   tab() {

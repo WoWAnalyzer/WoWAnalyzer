@@ -8,12 +8,14 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import { formatNumber } from 'common/format';
+import AbilityTracker from '../core/AbilityTracker';
 
 // Example log: /report/TzhG7rkfJAWP8MQp/32-Mythic+G'huun+-+Wipe+11+(8:21)/16-Constiince/changelog
 class VampiricEmbrace extends Analyzer {
   static dependencies = {
     abilityTracker: DamageTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
   get casts() {
     return this.abilityTracker.getAbility(SPELLS.VAMPIRIC_EMBRACE.id).casts;

@@ -1,6 +1,7 @@
 import PETS from 'common/PETS';
-
+import { DamageEvent } from 'parser/core/Events';
 import Pet from '../core/Pet';
+
 
 
 const INSANITY_GENERATED_EACH_TICK = 3;
@@ -10,7 +11,7 @@ class CallToTheVoid extends Pet {
   _generatedInsanity = 0;
   _tentacles = {};
 
-  on_damage(event) {
+  on_damage(event: DamageEvent) {
     if (this._sourceId !== undefined && event.sourceID === this._sourceId) {
       this._generatedInsanity += INSANITY_GENERATED_EACH_TICK;
     }

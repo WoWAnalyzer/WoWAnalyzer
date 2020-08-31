@@ -9,8 +9,8 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
-const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const DotUptime = props => (
+const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+  const DotUptime: any = (props: any) => (
     <Requirement
       name={(
         <React.Fragment>
@@ -24,7 +24,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }) => {
     id: PropTypes.number.isRequired,
   };
 
-  const AbilityRequirement = props => (
+  const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -34,7 +34,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }) => {
     spell: PropTypes.number.isRequired,
   };
 
-  const VoidFormStacks = props => {
+  const VoidFormStacks: any = (props: any) => {
     const requirements = [];
 
     // eslint-disable-next-line react/prop-types

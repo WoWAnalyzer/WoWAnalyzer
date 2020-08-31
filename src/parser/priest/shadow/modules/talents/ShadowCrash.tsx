@@ -2,7 +2,10 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import { DamageEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber } from 'common/format';
@@ -13,6 +16,7 @@ class ShadowCrash extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
   damage = 0;
   totalTargetsHit = 0;
@@ -21,12 +25,12 @@ class ShadowCrash extends Analyzer {
     return this.totalTargetsHit / this.abilityTracker.getAbility(SPELLS.SHADOW_CRASH_TALENT.id).casts;
   }
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id);
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SHADOW_CRASH_TALENT_DAMAGE.id) {
       return;
@@ -37,12 +41,17 @@ class ShadowCrash extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.SHADOW_CRASH_TALENT.id}
-        value={<ItemDamageDone amount={this.damage} />}
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
-        position={STATISTIC_ORDER.CORE(5)}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SHADOW_CRASH_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

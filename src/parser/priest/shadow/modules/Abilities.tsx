@@ -10,20 +10,20 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.VOID_BOLT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 4.5 / (1 + haste),
+        cooldown: (haste: any) => 4.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          maxCasts: cooldown => calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id)),
+          maxCasts: (cooldown: any) => calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id)),
         },
       },
       {
         spell: SPELLS.MIND_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 7.5 / (1 + haste),
+        cooldown: (haste: any) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -58,7 +58,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOW_WORD_DEATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 20 / (1 + haste),
+        cooldown: (haste: any) => 20 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -210,7 +210,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.POWER_WORD_SHIELD,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste: any) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },

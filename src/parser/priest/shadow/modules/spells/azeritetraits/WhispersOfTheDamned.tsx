@@ -3,12 +3,15 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Events from 'parser/core/Events';
 import { formatNumber } from 'common/format';
 
-const whispersOfTheDamnedStats = traits => Object.values(traits).reduce((obj, rank) => {
+const whispersOfTheDamnedStats = (traits: any) => Object.values(traits).reduce((obj: any, rank) => {
   const [damage] = calculateAzeriteEffects(SPELLS.WHISPERS_OF_THE_DAMNED.id, rank);
   obj.damage += damage;
   return obj;
@@ -31,8 +34,8 @@ class WhispersOfTheDamned extends Analyzer {
   damageDone = 0;
   insanityGained = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.WHISPERS_OF_THE_DAMNED.id);
     if (!this.active) {
       return;
@@ -41,31 +44,36 @@ class WhispersOfTheDamned extends Analyzer {
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WHISPERS_OF_THE_DAMNED_ENERGIZE), this.onEnergizeEvent);
 
 
-    const { damage } = whispersOfTheDamnedStats(this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_THE_DAMNED.id]);
+    const { damage }: any = whispersOfTheDamnedStats(this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_THE_DAMNED.id]);
     this.damageValue = damage;
   }
 
-  onDamageEvent(event) {
+  onDamageEvent(event: DamageEvent) {
     this.damageDone += this.damageValue;
   }
 
-  onEnergizeEvent(event) {
+  onEnergizeEvent(event: EnergizeEvent) {
     this.insanityGained += event.resourceChange;
   }
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.WHISPERS_OF_THE_DAMNED.id}
-        value={<ItemDamageDone amount={this.damageDone} />}
+      <Statistic
+        category={STATISTIC_CATEGORY.AZERITE_POWERS}
+        size="flexible"
         tooltip={(
           <>
             {formatNumber(this.damageDone)} additional damage dealt by {SPELLS.WHISPERS_OF_THE_DAMNED.name}.<br />
             {formatNumber(this.insanityGained)} additional insanity generated.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.WHISPERS_OF_THE_DAMNED}>
+          <>
+            <ItemDamageDone amount={this.damageDone} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

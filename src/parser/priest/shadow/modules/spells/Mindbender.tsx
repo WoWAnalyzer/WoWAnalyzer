@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
-
+import { SummonEvent } from 'parser/core/Events';
 import Pet from '../core/Pet';
 import Voidform from './Voidform';
 
@@ -11,17 +11,18 @@ class Mindbender extends Pet {
     ...Pet.dependencies,
     voidform: Voidform,
   };
+  protected voidform!: Voidform;
 
   _pet = PETS.MINDBENDER;
-  _mindbenders = {};
+  _mindbenders: any = {};
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
   }
 
   get suggestionStackThresholds() {
-    return mindbender => ({
+    return (mindbender: any) => ({
       actual: mindbender.voidformStacks,
       isLessThan: {
         minor: 15,
@@ -36,7 +37,7 @@ class Mindbender extends Pet {
     return Object.keys(this._mindbenders).map(timestamp => this._mindbenders[timestamp]);
   }
 
-  on_byPlayer_summon(event) {
+  on_byPlayer_summon(event: SummonEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MINDBENDER_TALENT_SHADOW.id) {
       return;
