@@ -56,12 +56,10 @@ export const dpsCasts = [
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
 export const isbCasts = [
-  { type: EventType.Cast, sourceID: thisPlayer, targetid: thisPlayer, timestamp: 200, ability: { guid: SPELLS.IRONSKIN_BREW.id } },
 ];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
 export const applybuff = [
-  { type: EventType.ApplyBuff, sourceID: thisPlayer, targetid: thisPlayer, timestamp: 200, ability: { guid: SPELLS.IRONSKIN_BREW_BUFF.id } },
   { type: EventType.ApplyBuff, sourceID: thisPlayer, targetid: thisPlayer, timestamp: 3500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
   { type: EventType.ApplyBuff, sourceID: thisPlayer, targetid: thisPlayer, timestamp: 6500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
   { type: EventType.ApplyBuff, sourceID: thisPlayer, targetid: thisPlayer, timestamp: 8500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },

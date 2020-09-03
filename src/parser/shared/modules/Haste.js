@@ -34,12 +34,19 @@ class Haste extends Analyzer {
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
     [SPELLS.FROTHING_BERSERKER.id]: 0.05, // Fury Warrior
-    [SPELLS.QUICK_THINKER_BUFF.id]: 0.15,
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
     [SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id]: 0.1, // Essence
     [SPELLS.GUARDIAN_OF_AZEROTH_HASTE_BUFF.id]: {
-      hastePerStack: 0.02,
+      hastePerStack: 0.02, //Essence
     },
+    [SPELLS.DARK_PASSION.id]: {
+      hastePerStack: 0.01, //Shadow Priest Legacy of the Void
+    },
+
+    //region Hunter Haste Buffs
+    [SPELLS.DIRE_BEAST_BUFF.id]: DIRE_BEAST_HASTE_PERCENT,
+    [SPELLS.STEADY_FOCUS_BUFF.id]: STEADY_FOCUS_HASTE_PERCENT,
+    //endregion
 
     //region Hunter Haste Buffs
     [SPELLS.DIRE_BEAST_BUFF.id]: DIRE_BEAST_HASTE_PERCENT,

@@ -16,7 +16,6 @@ class CancelledCasts extends CoreCancelledCasts {
       SPELLS.COMBUSTION.id,
       SPELLS.SHIMMER_TALENT.id,
       SPELLS.ICE_FLOES_TALENT.id,
-      SPELLS.DISPLACEMENT.id,
     ];
   }
 

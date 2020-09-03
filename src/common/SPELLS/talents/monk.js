@@ -32,7 +32,6 @@ export default {
   SPECIAL_DELIVERY_TALENT: { id: 196730, name: 'Special Delivery', icon: 'achievement_brewery_2' },
   INVOKE_NIUZAO_THE_BLACK_OX_TALENT: { id: 132578, name: 'Invoke Niuzao, the Black Ox', icon: 'spell_monk_brewmaster_spec' },
   HIGH_TOLERANCE_TALENT: { id: 196737, name: 'High Tolerance', icon: 'monk_ability_avertharm' },
-  GUARD_TALENT: { id: 115295, name: 'Guard', icon: 'ability_monk_guard' },
   BLACKOUT_COMBO_TALENT: { id: 196736, name: 'Blackout Combo', icon: 'ability_monk_blackoutkick' },
   RUSHING_JADE_WIND_TALENT_BREWMASTER: { id: 116847, name: 'Rushing Jade Wind', icon: 'ability_monk_rushingjadewind', chiCost: 1 },
   // Windwalker

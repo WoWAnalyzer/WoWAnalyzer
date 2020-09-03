@@ -24,6 +24,26 @@ export default {
     icon: 'spell_holy_wordfortitude',
     manaCost: 4000,
   },
+  SHADOW_WORD_DEATH: { 
+    id: 32379, 
+    name: 'Shadow Word: Death', 
+    icon: 'spell_shadow_demonicfortitude',
+  },
+  POWER_INFUSION: {
+    id: 265314,
+    name: 'Power Infusion',
+    icon: 'spell_holy_powerinfusion',
+  },
+  DESPERATE_PRAYER: {
+    id: 19236,
+    name: 'Desperate Prayer',
+    icon: 'spell_holy_testoffaith',
+  },
+  MIND_SOOTHE: {
+    id: 453,
+    name: 'Mind Soothe',
+    icon: 'spell_holy_mindsooth',
+  },
   // Discipline Priest:
   GRACE: {
     id: 271534,
@@ -375,11 +395,6 @@ export default {
     icon: 'spell_holy_divineprovidence',
     manaCost: 5000,
   },
-  DESPERATE_PRAYER: {
-    id: 19236,
-    name: 'Desperate Prayer',
-    icon: 'spell_holy_testoffaith',
-  },
   GUARDIAN_SPIRIT: {
     id: 47788,
     name: 'Guardian Spirit',
@@ -464,7 +479,6 @@ export default {
     name: 'Mind Blast',
     icon: 'spell_shadow_unholyfrenzy',
   },
-
   MIND_FLAY: {
     id: 15407,
     name: 'Mind Flay',
@@ -474,6 +488,11 @@ export default {
     id: 34914,
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
+  },
+  DEVOURING_PLAGUE: {
+    id: 335467,
+    name: 'Devouring Plague',
+    icon: 'spell_shadow_devouringplague',
   },
   VOID_ERUPTION: {
     id: 228260,
@@ -585,6 +604,18 @@ export default {
     id: 197937,
     name: 'Lingering Insanity',
     icon: 'spell_shadow_twistedfaith',
+  },
+
+  DARK_PASSION: {
+    id: 342855,
+    name: 'Dark Passion',
+    icon: 'spell_shadow_twistedfaith',
+  },
+
+  DARK_THOUGHTS: {
+    id: 341205,
+    name: 'Dark Thoughts',
+    icon: 'ability_priest_thoughtsteal01',
   },
 
   // Shadow items:

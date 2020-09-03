@@ -25,7 +25,6 @@ class MasterMarksman extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_MARKSMAN_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MASTER_MARKSMAN_DEBUFF), this.onDebuffDamage);
-
   }
 
   onDebuffDamage(event: DamageEvent) {

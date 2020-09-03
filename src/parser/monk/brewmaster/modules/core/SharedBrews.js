@@ -20,10 +20,10 @@ class SharedBrews extends Analyzer {
     if(this.spellUsable.isOnCooldown(SPELLS.FORTIFYING_BREW_BRM.id)) {
       this.spellUsable.reduceCooldown(SPELLS.FORTIFYING_BREW_BRM.id, amount);
     }
-    if(!this.spellUsable.isOnCooldown(SPELLS.IRONSKIN_BREW.id)) {
+    if(!this.spellUsable.isOnCooldown(SPELLS.PURIFYING_BREW.id)) {
       return 0;
     }
-    return this.spellUsable.reduceCooldown(SPELLS.IRONSKIN_BREW.id, amount);
+    return this.spellUsable.reduceCooldown(SPELLS.PURIFYING_BREW.id, amount);
   }
 }
 

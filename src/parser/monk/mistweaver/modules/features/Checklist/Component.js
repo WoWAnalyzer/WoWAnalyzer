@@ -52,7 +52,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
         {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) && <Requirement name={(<><SpellLink id={SPELLS.RENEWING_MIST.id} /> active during MT</>)} thresholds={thresholds.renewingMistDuringManaTea} />}
         {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />}
         {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} />}
         <AbilityRequirement spell={SPELLS.REVIVAL.id} />
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (

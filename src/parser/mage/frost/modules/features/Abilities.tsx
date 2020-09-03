@@ -17,6 +17,19 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.FROSTBOLT_DAMAGE.id],
       },
       {
+        spell: SPELLS.FIRE_BLAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: null,
+        cooldown: (haste: any) => 12 / (1 + haste),
+      },
+      {
+        spell: SPELLS.ARCANE_EXPLOSION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.ICE_LANCE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -157,8 +170,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 40,
-        charges: 2,
+        cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
         castEfficiency: {
           suggestion: true,

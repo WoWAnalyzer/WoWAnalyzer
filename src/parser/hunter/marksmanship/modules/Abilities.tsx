@@ -229,7 +229,7 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.VOLLEY_TALENT.id),
         gcd: {
-          base: 1500,
+          base: 1500, //TODO: Follow up on Volley double dipping focus on it's GCD
         },
         castEfficiency: {
           suggestion: true,
