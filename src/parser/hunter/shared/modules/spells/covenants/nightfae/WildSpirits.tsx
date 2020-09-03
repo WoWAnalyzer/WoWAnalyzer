@@ -25,22 +25,23 @@ class WildSpirits extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
-    if (this.active) {
-      options.abilities.add({
-        spell: SPELLS.WILD_SPIRITS,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      });
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WILD_SPIRITS_DAMAGE, SPELLS.WILD_SPIRITS_DAMAGE_AOE]), this.onWildSpiritsDamage);
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    if (!this.active) {
+      return;
     }
+    options.abilities.add({
+      spell: SPELLS.WILD_SPIRITS,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 120,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.9,
+      },
+    });
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WILD_SPIRITS_DAMAGE, SPELLS.WILD_SPIRITS_DAMAGE_AOE]), this.onWildSpiritsDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   onWildSpiritsDamage(event: DamageEvent) {

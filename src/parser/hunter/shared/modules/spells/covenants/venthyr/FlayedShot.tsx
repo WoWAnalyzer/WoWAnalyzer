@@ -33,7 +33,9 @@ class FlayedShot extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
-    if (this.active) {
+    if (!this.active) {
+      return;
+    }
       options.abilities.add({
         spell: SPELLS.FLAYED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -46,7 +48,6 @@ class FlayedShot extends Analyzer {
           recommendedEfficiency: 0.9,
         },
       });
-    }
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAYED_SHOT), this.onDamage);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.onProc);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.onRefresh);

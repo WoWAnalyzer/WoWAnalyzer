@@ -27,20 +27,21 @@ class ResonatingArrow extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
-    if (this.active) {
-      options.abilities.add({
-        spell: SPELLS.RESONATING_ARROW,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      });
+    if (!this.active) {
+      return;
     }
+    options.abilities.add({
+      spell: SPELLS.RESONATING_ARROW,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 60,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.9,
+      },
+    });
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW), this.onCast);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DEBUFF), this.onDebuff);
   }

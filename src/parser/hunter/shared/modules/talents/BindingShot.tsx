@@ -40,7 +40,7 @@ class BindingShot extends Analyzer {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
         gcd: {
-          static: 1500,
+          base: 1500,
         },
       });
     }

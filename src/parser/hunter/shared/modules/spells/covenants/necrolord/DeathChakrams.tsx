@@ -24,22 +24,23 @@ class DeathChakrams extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
-    if (this.active) {
-      options.abilities.add({
-        spell: SPELLS.DEATH_CHAKRAM,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      });
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]), this.onDamage);
-      this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE), this.onEnergize);
+    if (!this.active) {
+      return;
     }
+    options.abilities.add({
+      spell: SPELLS.DEATH_CHAKRAM,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 45,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.9,
+      },
+    });
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]), this.onDamage);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE), this.onEnergize);
   }
 
   onDamage(event: DamageEvent) {

@@ -14,10 +14,12 @@ class DeadEye extends Analyzer {
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
+
   //Incremented in Aimed Shot module
   deadEyeEffectiveCDR: number = 0;
   deadEyePotentialCDR: number = 0;
   averageAimedShotCD: number = 0;
+
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
 

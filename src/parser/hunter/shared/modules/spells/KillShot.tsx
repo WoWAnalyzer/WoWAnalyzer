@@ -46,7 +46,7 @@ class KillShot extends ExecuteHelper {
       charges: this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) ? 2 : 1,
       cooldown: 10,
       gcd: {
-        static: 1500,
+        base: 1500,
       },
       castEfficiency: {
         suggestion: true,

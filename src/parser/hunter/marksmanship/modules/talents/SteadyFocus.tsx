@@ -11,7 +11,7 @@ import { formatPercentage } from 'common/format';
 import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
 
 /**
- * Using Steady Shot twice in a row increases your Haste by 7% for 10 sec.
+ * Using Steady Shot twice in a row increases your Haste by 7% for 15 sec.
  *
  * Example log:
  *

@@ -81,8 +81,6 @@ import StingingStrike from './modules/spells/conduits/StingingStrike';
 import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
 
 //Legendaries
-import CallOfTheWild from '../shared/modules/items/CallOfTheWild';
-import CravenStrategem from '../shared/modules/items/CravenStrategem';
 import NessingwarysTrappingApparatus from '../shared/modules/items/NessingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 
@@ -170,8 +168,6 @@ class CombatLogParser extends CoreCombatLogParser {
     strengthOfThePack: StrengthOfThePack,
 
     //Legendaries
-    callOfTheWild: CallOfTheWild,
-    cravenStrategem: CravenStrategem,
     nessingwarysTrappingApparatus: NessingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
 

@@ -15,8 +15,9 @@ import Events, { DamageEvent } from 'parser/core/Events';
  *
  * Example log:
  *
- * TODO: Verify this now works as intended with the new changes to MM
+ * TODO: New Chimaera Shot spells added to follow up on.
  */
+
 class ChimaeraShot extends Analyzer {
 
   damage = 0;
