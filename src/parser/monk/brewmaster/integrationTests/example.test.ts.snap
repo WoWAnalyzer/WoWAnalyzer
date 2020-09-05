@@ -1440,7 +1440,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
+                      "backgroundColor": "#ff8000",
                       "width": "9.32476094526927%",
                     }
                   }
@@ -1465,7 +1465,9 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   "width": "25%",
                 }
               }
-            />
+            >
+              Can be improved.
+            </td>
           </tr>
           <tr>
             <td
@@ -1537,7 +1539,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
+                      "backgroundColor": "#ff8000",
                       "width": "0%",
                     }
                   }
@@ -1562,7 +1564,9 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   "width": "25%",
                 }
               }
-            />
+            >
+              Can be improved.
+            </td>
           </tr>
           <tr>
             <td
@@ -3270,6 +3274,88 @@ Array [
       )
     </React.Fragment>,
   },
+  Object {
+    "details": null,
+    "icon": "inv_misc_beer_06",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={119582}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 6,
+            "1": 60,
+            "2": "9",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "95",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "ability_monk_ironskinbrew",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={322507}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 17,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
 ]
 `;
 
@@ -3313,6 +3399,23 @@ exports[`Brewmaster Monk integration test: example log CelestialBrew matches the
           0
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -3906,7 +4009,7 @@ Array [
   Object {
     "details": null,
     "icon": "inv_misc_beer_06",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       You should delay your 
       <ForwardRef
@@ -3918,27 +4021,6 @@ Array [
       2.19s Average Delay
        (
       &lt; 1.00s is recommended
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_misc_beer_06",
-    "importance": "major",
-    "issue": <React.Fragment>
-      You should spend brews on 
-      <ForwardRef
-        id={119582}
-      />
-      .
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      6 casts
-       (
-      <React.Fragment>
-        37
-         could be cast
-      </React.Fragment>
       )
     </React.Fragment>,
   },
