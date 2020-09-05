@@ -453,7 +453,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "61.2133628473417%",
+                      "width": "61.30769633247605%",
                     }
                   }
                 />
@@ -468,7 +468,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              61.21%
+              61.31%
             </td>
             <td
               style={
@@ -502,7 +502,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_blackoutstrike.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_roundhousekick.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -511,7 +511,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   }
                 />
                  
-                Blackout Strike
+                Blackout Kick
               </a>
             </td>
             <td
@@ -533,7 +533,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               34
-              /103
+              /78
                
               casts
             </td>
@@ -552,7 +552,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "32.353132522282216%",
+                      "width": "42.699889402120874%",
                     }
                   }
                 />
@@ -567,7 +567,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              32.35%
+              42.70%
             </td>
             <td
               style={
@@ -833,7 +833,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "34.66527877171296%",
+                      "width": "34.67113395354889%",
                     }
                   }
                 />
@@ -949,6 +949,140 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
           <tr>
             <th>
               <b>
+                Spell (AOE)
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                CPM
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                Casts
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                Time on Cooldown
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=322729"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_cranekick_new.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Spinning Crane Kick
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
                 Cooldown
               </b>
             </th>
@@ -1002,7 +1136,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
-                href="http://wowhead.com/spell=115072"
+                href="http://wowhead.com/spell=132578"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1014,7 +1148,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_expelharm.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_monk_brewmaster_spec.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -1023,7 +1157,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   }
                 />
                  
-                Expel Harm
+                Invoke Niuzao, the Black Ox
               </a>
             </td>
             <td
@@ -1034,7 +1168,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              4.10
+              0.00
             </td>
             <td
               className="text-right"
@@ -1044,8 +1178,8 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              21
-              
+              0
+              /2
                
               casts
             </td>
@@ -1056,7 +1190,19 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
             </td>
             <td
               className="text-left"
@@ -1067,7 +1213,104 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=322109"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_touchofdeath.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Touch of Death
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /2
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
             </td>
             <td
               style={
@@ -1214,6 +1457,188 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               9.32%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=322507"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Celestial Brew
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /17
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=115072"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_expelharm.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Expel Harm
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              4.10
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              21
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
             </td>
             <td
               style={
@@ -2806,7 +3231,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_monk_blackoutstrike",
+    "icon": "ability_monk_roundhousekick",
     "importance": "major",
     "issue": <React.Fragment>
       <WithI18n
@@ -2828,8 +3253,8 @@ Array [
         values={
           Object {
             "0": 34,
-            "1": 103,
-            "2": "32",
+            "1": 78,
+            "2": "43",
           }
         }
       />
