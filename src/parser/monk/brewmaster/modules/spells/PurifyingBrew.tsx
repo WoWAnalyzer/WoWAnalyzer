@@ -4,7 +4,9 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, When } from 'parser/core/Analyzer';
+import Events, { EventType, RemoveDebuffEvent, CastEvent } from 'parser/core/Events';
+import EventFilter from 'parser/core/EventFilter';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
@@ -12,10 +14,11 @@ import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 import SharedBrews from '../core/SharedBrews';
 import BrewCDR from '../core/BrewCDR';
+import { AddStaggerEvent, RemoveStaggerEvent, StaggerEventType } from '../core/StaggerFabricator';
 
 const PURIFY_DELAY_THRESHOLD = 1250; // 1.25s, gives a bit of flexibility in case the brew-GCD is rolling right when a hit comes in
 
-function markupPurify(event, delay, hasHeavyStagger) {
+function markupPurify(event: CastEvent, delay: number, hasHeavyStagger: boolean) {
   const msgs = [];
   if(delay > PURIFY_DELAY_THRESHOLD) {
     msgs.push(<li key="PURIFY_DELAY_THRESHOLD">You delayed casting it for <b>{(delay / 1000).toFixed(2)}s</b> after being hit, allowing Stagger to tick down.</li>);
@@ -46,8 +49,13 @@ class PurifyingBrew extends Analyzer {
     cdr: BrewCDR,
   };
 
-  purifyAmounts = [];
-  purifyDelays = [];
+  protected brews!: SharedBrews;
+  protected spells!: SpellUsable;
+  protected abilities!: Abilities;
+  protected cdr!: BrewCDR;
+
+  purifyAmounts: number[] = [];
+  purifyDelays: number[] = [];
 
   heavyPurifies = 0;
 
@@ -55,10 +63,18 @@ class PurifyingBrew extends Analyzer {
   // cast event happens
   _heavyStaggerDropped = false;
 
-  _lastHit = null;
+  _lastHit?: AddStaggerEvent | RemoveStaggerEvent;
   _msTilPurify = 0;
 
-  on_byPlayer_removedebuff(event) {
+  constructor(options: any) {
+    super(options);
+
+    this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER).spell(SPELLS.HEAVY_STAGGER_DEBUFF), this._removeHeavyStagger);
+    this.addEventListener(new EventFilter(StaggerEventType.Add), this._addstagger);
+    this.addEventListener(new EventFilter(StaggerEventType.Remove), this._removestagger);
+  }
+
+  private _removeHeavyStagger(event: RemoveDebuffEvent) {
     if (event.ability.guid === SPELLS.HEAVY_STAGGER_DEBUFF.id) {
       this._heavyStaggerDropped = true;
     }
@@ -104,19 +120,19 @@ class PurifyingBrew extends Analyzer {
   }
 
   get availablePurifies() {
-    const ability = this.abilities.getAbility(SPELLS.PURIFYING_BREW.id);
-    const cd = ability._cooldown(this.cdr.meanHaste);
+    const ability = this.abilities.getAbility(SPELLS.PURIFYING_BREW.id)!;
+    const cd = ability.getCooldown(this.cdr.meanHaste);
     const castsAvailable = calculateMaxCasts(cd, this.owner.fightDuration + this.cdr.totalCDR, 3);
     return castsAvailable;
   }
 
-  on_addstagger(event) {
+  private _addstagger(event: AddStaggerEvent) {
     this._lastHit = event;
     this._msTilPurify = this.spells.isAvailable(SPELLS.PURIFYING_BREW.id) ? 0 : this.spells.cooldownRemaining(SPELLS.PURIFYING_BREW.id);
   }
 
-  on_removestagger(event) {
-    if(this._lastHit === null) {
+  private _removestagger(event: RemoveStaggerEvent) {
+    if(this._lastHit === undefined) {
       if(event.amount > 0) {
         console.warn('Stagger removed but player hasn\'t been hit yet', event);
       }
@@ -125,14 +141,14 @@ class PurifyingBrew extends Analyzer {
     // tracking gap from peak --- ideally you want to purify as close to
     // a peak as possible, but if no purify charges are available we
     // want to get the new pooled amount
-    const gap = event.timestamp - this._lastHit.timestamp;
-    if(event.trigger.ability && event.trigger.ability.guid === SPELLS.STAGGER.id && this._msTilPurify - gap > 0) {
+    const gap = event.timestamp - this._lastHit!.timestamp;
+    if(event.trigger!.ability && event.trigger!.ability.guid === SPELLS.STAGGER.id && this._msTilPurify - gap > 0) {
       this._msTilPurify = Math.max(0, this._msTilPurify - gap);
       this._lastHit = event;
     }
 
     // tracking purification
-    if (!event.trigger.ability || event.trigger.ability.guid !== SPELLS.PURIFYING_BREW.id) {
+    if (!event.trigger!.ability || event.trigger!.ability.guid !== SPELLS.PURIFYING_BREW.id) {
       // reset this, if we lost heavy stagger then death or another ability took us out of heavy stagger
       this._heavyStaggerDropped = false;
       return;
@@ -141,7 +157,11 @@ class PurifyingBrew extends Analyzer {
     const delay = event.timestamp - this._lastHit.timestamp - this._msTilPurify;
     this.purifyDelays.push(delay);
     const hasHeavyStagger = this.selectedCombatant.hasBuff(SPELLS.HEAVY_STAGGER_DEBUFF.id) || this._heavyStaggerDropped;
-    markupPurify(event.trigger, delay, hasHeavyStagger);
+    const trigger = event.trigger!;
+
+    if (trigger.type === EventType.Cast) {
+      markupPurify(trigger, delay, hasHeavyStagger);
+    }
     if (hasHeavyStagger) {
       this.heavyPurifies += 1;
     }
@@ -189,22 +209,22 @@ class PurifyingBrew extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: When) {
+    when(this.purifyDelaySuggestion).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
         .actual(`${actual.toFixed(2)}s Average Delay`)
         .recommended(`< ${recommended.toFixed(2)}s is recommended`);
     });
 
-    when(this.purifyHeavySuggestion).addSuggestion((suggest, actual, recommended) => {
+    when(this.purifyHeavySuggestion).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>You should avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, you should often aim to save your purifies for these parts of the fight.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
         .actual(`${formatPercentage(actual)}% of your purifies were less than Heavy Stagger`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`);
     });
 
-    when(this.purifyCastSuggestion).addSuggestion((suggest, actual, recommended) => {
+    when(this.purifyCastSuggestion).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>You should spend brews on <SpellLink id={SPELLS.PURIFYING_BREW.id} />.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
         .actual(`${formatNumber(actual)} casts`)
