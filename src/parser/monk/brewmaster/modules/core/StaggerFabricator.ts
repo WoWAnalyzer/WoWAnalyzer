@@ -23,18 +23,18 @@ export interface AddStaggerEvent extends Event<StaggerEventType.Add> {
   amount: number;
   overheal: number;
   newPooledDamage: number;
-  _reason: Event<any>;
   extraAbility?: Ability;
+  trigger?: AbsorbedEvent;
 }
 
 export interface RemoveStaggerEvent extends Event<StaggerEventType.Remove> {
   amount: number;
   overheal: number;
   newPooledDamage: number;
-  _reason: Event<any>;
+  trigger?: CastEvent | DeathEvent;
 }
 
-type MaxHPEvent = Event<any> & { maxHitPoints?: number; }
+export type MaxHPEvent = Event<any> & { maxHitPoints?: number; }
 
 /**
  * Fabricate events corresponding to stagger pool updates. Each stagger
@@ -157,7 +157,6 @@ class StaggerFabricator extends Analyzer {
       amount: amount + overage,
       overheal: -overage,
       newPooledDamage: this._staggerPool,
-      _reason: reason,
     };
   }
 
