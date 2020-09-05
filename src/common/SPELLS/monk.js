@@ -255,6 +255,11 @@ export default {
     name: 'Purifying Brew',
     icon: 'inv_misc_beer_06',
   },
+  PURIFIED_CHI: {
+    id: 325092,
+    name: 'Purified Chi',
+    icon: 'inv_misc_beer_06',
+  },
   CELESTIAL_BREW: {
     id: 322507,
     name: 'Celestial Brew',

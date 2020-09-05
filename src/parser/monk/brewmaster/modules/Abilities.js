@@ -95,7 +95,8 @@ class Abilities extends CoreAbilities {
         charges: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT.id) ? 4 : 3,
         gcd: null,
         castEfficiency: {
-          recommendedEfficiency: 0.9,
+          suggestion: true,
+          recommendedEfficiency: 0.95,
         },
       },
       {
@@ -106,6 +107,7 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.9,
         },
       },

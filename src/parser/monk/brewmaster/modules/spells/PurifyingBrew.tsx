@@ -10,13 +10,12 @@ import EventFilter from 'parser/core/EventFilter';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 import SharedBrews from '../core/SharedBrews';
 import BrewCDR from '../core/BrewCDR';
 import { AddStaggerEvent, RemoveStaggerEvent, StaggerEventType } from '../core/StaggerFabricator';
 
-const PURIFY_DELAY_THRESHOLD = 1250; // 1.25s, gives a bit of flexibility in case the brew-GCD is rolling right when a hit comes in
+const PURIFY_DELAY_THRESHOLD = 500; // with the removal of ISB, i'm cutting the delay threshold.
 
 function markupPurify(event: CastEvent, delay: number, hasHeavyStagger: boolean) {
   const msgs = [];
@@ -119,13 +118,6 @@ class PurifyingBrew extends Analyzer {
     return this.purifyDelays.reduce((total, delay) => total + delay) / this.purifyDelays.length;
   }
 
-  get availablePurifies() {
-    const ability = this.abilities.getAbility(SPELLS.PURIFYING_BREW.id)!;
-    const cd = ability.getCooldown(this.cdr.meanHaste);
-    const castsAvailable = calculateMaxCasts(cd, this.owner.fightDuration + this.cdr.totalCDR, 3);
-    return castsAvailable;
-  }
-
   private _addstagger(event: AddStaggerEvent) {
     this._lastHit = event;
     this._msTilPurify = this.spells.isAvailable(SPELLS.PURIFYING_BREW.id) ? 0 : this.spells.cooldownRemaining(SPELLS.PURIFYING_BREW.id);
@@ -195,20 +187,6 @@ class PurifyingBrew extends Analyzer {
     };
   }
 
-  get purifyCastSuggestion() {
-    const target = Math.floor(this.availablePurifies);
-    return {
-      actual: this.totalPurifies,
-      max: target,
-      isLessThan: {
-        minor: target,
-        average: 0.8 * target,
-        major: 0.6 * target,
-      },
-      style: 'number',
-    };
-  }
-
   suggestions(when: When) {
     when(this.purifyDelaySuggestion).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
@@ -222,13 +200,6 @@ class PurifyingBrew extends Analyzer {
         .icon(SPELLS.PURIFYING_BREW.icon)
         .actual(`${formatPercentage(actual)}% of your purifies were less than Heavy Stagger`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`);
-    });
-
-    when(this.purifyCastSuggestion).addSuggestion((suggest: any, actual: any, recommended: any) => {
-      return suggest(<>You should spend brews on <SpellLink id={SPELLS.PURIFYING_BREW.id} />.</>)
-        .icon(SPELLS.PURIFYING_BREW.icon)
-        .actual(`${formatNumber(actual)} casts`)
-        .recommended(<>{formatNumber(recommended)} could be cast</>);
     });
   }
 

@@ -107,8 +107,7 @@ class StaggerFabricator extends Analyzer {
     if (event.extraAbility && event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
       return;
     }
-    const amount = event.amount + (event.absorbed || 0);
-    this.addStagger(event, amount);
+    this.addStagger(event, event.amount);
   }
 
   private _damage(event: DamageEvent) {

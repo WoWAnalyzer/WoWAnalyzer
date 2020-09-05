@@ -3273,6 +3273,51 @@ Array [
 ]
 `;
 
+exports[`Brewmaster Monk integration test: example log CelestialBrew matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=322507"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Celestial Brew"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
+            />
+          </a>
+           
+          Avg. Absorb per Celestial Brew
+        </label>
+        <div
+          className="value"
+        >
+          0
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Brewmaster Monk integration test: example log CelestialFortune matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
