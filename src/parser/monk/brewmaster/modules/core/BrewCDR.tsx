@@ -2,6 +2,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import Events, { EventType, ChangeHasteEvent } from 'parser/core/Events';
+import EventFilter from 'parser/core/EventFilter';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Abilities from '../Abilities';
@@ -17,13 +19,21 @@ class BrewCDR extends Analyzer {
     abilities: Abilities,
   };
 
+  protected ks!: KegSmash;
+  protected tp!: TigerPalm;
+  protected bob!: BlackOxBrew;
+  protected abilities!: Abilities;
+
   _totalHaste = 0;
   _newHaste = 0;
   _lastHasteChange = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this._lastHasteChange = this.owner.fight.start_time;
+
+    this.addEventListener(new EventFilter(EventType.ChangeHaste), this._updateHaste);
+    this.addEventListener(Events.fightend, this._finalizeHaste);
   }
 
   get meanHaste() {
@@ -58,17 +68,17 @@ class BrewCDR extends Analyzer {
   }
 
   get avgCooldown() {
-    const ability = this.abilities.getAbility(SPELLS.PURIFYING_BREW.id);
-    return ability._cooldown(this.meanHaste);
+    const ability = this.abilities.getAbility(SPELLS.PURIFYING_BREW.id)!;
+    return ability.getCooldown(this.meanHaste);
   }
 
-  on_changehaste(event) {
-    this._totalHaste += event.oldHaste * (event.timestamp - this._lastHasteChange);
+  private _updateHaste(event: ChangeHasteEvent) {
+    this._totalHaste += event.oldHaste! * (event.timestamp - this._lastHasteChange);
     this._lastHasteChange = event.timestamp;
-    this._newHaste = event.newHaste;
+    this._newHaste = event.newHaste!;
   }
 
-  on_fightend() {
+  private _finalizeHaste() {
     this._totalHaste += this._newHaste * (this.owner.fight.end_time - this._lastHasteChange);
   }
 

@@ -497,6 +497,11 @@ export interface ChangeStatsEvent extends Event<EventType.ChangeStats> {
   delta: Stats
 }
 
+export interface ChangeHasteEvent extends Event<EventType.ChangeHaste> {
+  oldHaste: number
+  newHaste: number
+}
+
 export interface IPhaseEvent<T extends string> extends Event<T> {
   phase: PhaseConfig;
   __fabricated: true;

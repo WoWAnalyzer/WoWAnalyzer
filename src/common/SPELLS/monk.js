@@ -218,7 +218,7 @@ export default {
   INVOKE_NIUZAO_THE_BLACK_OX: {
     id: 132578,
     name: 'Invoke Niuzao, the Black Ox',
-    icon: 'spell_monk_brewmaster_spec'
+    icon: 'spell_monk_brewmaster_spec',
   },
   BLACKOUT_KICK_BRM: {
     id: 205523,
