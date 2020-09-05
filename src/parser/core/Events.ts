@@ -241,6 +241,7 @@ export interface AbsorbedEvent extends Event<EventType.Absorbed> {
   attackerID?: number;
   attackerIsFriendly: boolean;
   amount: number;
+  absorbed?: number;
   extraAbility: Ability;
 }
 
