@@ -69,6 +69,20 @@ import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathCha
 import WildSpirits from '../shared/modules/spells/covenants/nightfae/WildSpirits';
 import FlayedShot from '../shared/modules/spells/covenants/venthyr/FlayedShot';
 
+//Conduits
+import EnfeebledMark from '../shared/modules/spells/conduits/kyrian/EnfeebledMark';
+import EmpoweredRelease from '../shared/modules/spells/conduits/venthyr/EmpoweredRelease';
+import NecroticBarrage from '../shared/modules/spells/conduits/necrolord/NecroticBarrage';
+import SpiritAttunement from '../shared/modules/spells/conduits/nightfae/SpiritAttunement';
+import BrutalProjectiles from './modules/spells/conduits/BrutalProjectiles';
+import DeadlyChain from './modules/spells/conduits/DeadlyChain';
+import PowerfulPrecision from './modules/spells/conduits/PowerfulPrecision';
+import SharpshootersFocus from './modules/spells/conduits/SharpshootersFocus';
+
+//Legendaries
+import NessingwarysTrappingApparatus from '../shared/modules/items/NessingwarysTrappingApparatus';
+import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -136,6 +150,20 @@ class CombatLogParser extends CoreCombatLogParser {
     deathChakrams: DeathChakrams,
     wildSpirits: WildSpirits,
     flayedShot: FlayedShot,
+
+    //Conduits
+    empoweredRelease: EmpoweredRelease,
+    enfeebledMark: EnfeebledMark,
+    necroticBarrage: NecroticBarrage,
+    spiritAttunement: SpiritAttunement,
+    brutalProjectiles: BrutalProjectiles,
+    deadlyChain: DeadlyChain,
+    powerfulPrecision: PowerfulPrecision,
+    sharpshootersFocus: SharpshootersFocus,
+
+    //Legendaries
+    nessingwarysTrappingApparatus: NessingwarysTrappingApparatus,
+    soulforgeEmbers: SoulforgeEmbers,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

@@ -23,23 +23,24 @@ class DeathChakrams extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = true; //TODO: Once we can parse from WCL this should be changed to activate
-    if (this.active) {
-      options.abilities.add({
-        spell: SPELLS.DEATH_CHAKRAM,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      });
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_CHAKRAM, SPELLS.DEATH_CHAKRAM_SECONDARY]), this.onDamage);
-      this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE), this.onEnergize);
+    this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
+    if (!this.active) {
+      return;
     }
+    options.abilities.add({
+      spell: SPELLS.DEATH_CHAKRAM,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 45,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.9,
+      },
+    });
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]), this.onDamage);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE), this.onEnergize);
   }
 
   onDamage(event: DamageEvent) {
@@ -54,11 +55,11 @@ class DeathChakrams extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.DEATH_CHAKRAM}>
+        <BoringSpellValueText spell={SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

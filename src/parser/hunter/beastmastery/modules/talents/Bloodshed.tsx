@@ -16,6 +16,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
  * Command your pet to tear into your target, causing your target to bleed for
  * [Attack power * 0.25 * 6 * 1 * (1 + Versatility) * 1] over 18 sec and
  * increase all damage taken from your pet by 15% for 18 sec.
+ *
+ * TODO: Verify if this still only still works from main pet (Say if you use Animal Companion and have two pets)
  */
 
 class Bloodshed extends Analyzer {

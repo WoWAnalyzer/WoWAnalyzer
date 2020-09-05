@@ -13,12 +13,12 @@ export default {
   //endregion
 
   //region Necrolord
-  DEATH_CHAKRAM: { //TODO: Follow up on these two, the first one is cast but also damage, secondary is only damage? Sometimes?
+  DEATH_CHAKRAM_INITIAL_AND_AOE: {
     id: 325028,
     name: 'Death Chakram',
     icon: 'ability_maldraxxus_hunter',
   },
-  DEATH_CHAKRAM_SECONDARY: {
+  DEATH_CHAKRAM_SINGLE_TARGET: {
     id: 325037,
     name: 'Death Chakram',
     icon: 'ability_maldraxxus_hunter',

@@ -26,21 +26,22 @@ class ResonatingArrow extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = true; //TODO: Once we can parse from WCL this should be changed to activate
-    if (this.active) {
-      options.abilities.add({
-        spell: SPELLS.RESONATING_ARROW,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      });
+    this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
+    if (!this.active) {
+      return;
     }
+    options.abilities.add({
+      spell: SPELLS.RESONATING_ARROW,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 60,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.9,
+      },
+    });
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW), this.onCast);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DEBUFF), this.onDebuff);
   }
@@ -60,7 +61,7 @@ class ResonatingArrow extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={(

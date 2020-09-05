@@ -70,6 +70,20 @@ import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathCha
 import WildSpirits from '../shared/modules/spells/covenants/nightfae/WildSpirits';
 import FlayedShot from '../shared/modules/spells/covenants/venthyr/FlayedShot';
 
+//Conduits
+import EnfeebledMark from '../shared/modules/spells/conduits/kyrian/EnfeebledMark';
+import EmpoweredRelease from '../shared/modules/spells/conduits/venthyr/EmpoweredRelease';
+import NecroticBarrage from '../shared/modules/spells/conduits/necrolord/NecroticBarrage';
+import SpiritAttunement from '../shared/modules/spells/conduits/nightfae/SpiritAttunement';
+import DeadlyTandem from './modules/spells/conduits/DeadlyTandem';
+import FlameInfusion from './modules/spells/conduits/FlameInfusion';
+import StingingStrike from './modules/spells/conduits/StingingStrike';
+import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
+
+//Legendaries
+import NessingwarysTrappingApparatus from '../shared/modules/items/NessingwarysTrappingApparatus';
+import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -142,6 +156,20 @@ class CombatLogParser extends CoreCombatLogParser {
     deathChakrams: DeathChakrams,
     wildSpirits: WildSpirits,
     flayedShot: FlayedShot,
+
+    //Conduits
+    empoweredRelease: EmpoweredRelease,
+    enfeebledMark: EnfeebledMark,
+    necroticBarrage: NecroticBarrage,
+    spiritAttunement: SpiritAttunement,
+    deadlyTandem: DeadlyTandem,
+    flameInfusion: FlameInfusion,
+    stingingStrike: StingingStrike,
+    strengthOfThePack: StrengthOfThePack,
+
+    //Legendaries
+    nessingwarysTrappingApparatus: NessingwarysTrappingApparatus,
+    soulforgeEmbers: SoulforgeEmbers,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

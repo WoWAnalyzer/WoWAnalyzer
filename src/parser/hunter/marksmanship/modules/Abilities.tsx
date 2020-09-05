@@ -50,7 +50,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
-          base: 1500,
+          static: 0,
         },
         castEfficiency: {
           suggestion: true,
@@ -142,7 +142,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FREEZING_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
+        cooldown: 30, //TODO: Set to 25 at Shadowlands launch
         gcd: {
           base: 1500,
         },
@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
+        cooldown: 30, //TODO: Set to 25 at Shadowlands launch
         gcd: {
           base: 1500,
         },
@@ -282,7 +282,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DISMISS_PET,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          static: 1500,
+          base: 1500,
         },
       },
       {

@@ -8,7 +8,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
-import HIT_TYPES from 'game/HIT_TYPES';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 /**
@@ -16,31 +15,16 @@ import ItemDamageDone from 'interface/ItemDamageDone';
  *
  * Example log:
  *
- * TODO: If the current implementation of this stays throughout the beta, add something tracking damage lost to overriding the debuff
  */
 
 class MasterMarksman extends Analyzer {
 
-  dotApplications: number = 0;
   damage: number = 0;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_MARKSMAN_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onGenericDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MASTER_MARKSMAN_DEBUFF), this.onDebuffDamage);
-
-  }
-
-  onGenericDamage(event: DamageEvent) {
-    if (event.hitType !== HIT_TYPES.CRIT) {
-      return;
-    }
-    const spellID = event.ability.guid;
-    if (spellID === SPELLS.AUTO_SHOT.id) {
-      return;
-    }
-    this.dotApplications += 1;
   }
 
   onDebuffDamage(event: DamageEvent) {
@@ -53,11 +37,6 @@ class MasterMarksman extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(10)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
-          <>
-            You applied a fresh DOT {this.dotApplications} times.
-          </>
-        )}
       >
         <BoringSpellValueText spell={SPELLS.MASTER_MARKSMAN_TALENT}>
           <>

@@ -187,7 +187,7 @@ export default {
     name: 'Rapid Fire',
     icon: 'ability_hunter_efficiency',
   },
-  RAPID_FIRE_TICKS: {
+  RAPID_FIRE_DAMAGE: {
     id: 257045,
     name: 'Rapid Fire',
     icon: 'ability_hunter_efficiency',

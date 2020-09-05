@@ -27,13 +27,14 @@ class Streamline extends Analyzer {
 
   damage: number = 0;
   aimedShotCastTimeSaved: number = 0;
+  streamlinesConsumedByLNL: number = 0;
 
   protected haste!: Haste;
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STREAMLINE_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_TICKS), this.onRapidFireDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE), this.onRapidFireDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShotCast);
   }
 
@@ -43,6 +44,10 @@ class Streamline extends Analyzer {
 
   onAimedShotCast() {
     if (!this.selectedCombatant.hasBuff(SPELLS.STREAMLINE_BUFF.id)) {
+      return;
+    }
+    if (this.selectedCombatant.hasBuff(SPELLS.LOCK_AND_LOAD_BUFF.id)) {
+      this.streamlinesConsumedByLNL += 1;
       return;
     }
     const hastepercent = this.haste.current;
@@ -60,6 +65,7 @@ class Streamline extends Analyzer {
         tooltip={(
           <>
             You saved {formatNumber(this.aimedShotCastTimeSaved / 1000)} seconds of Aimed Shot cast time through Streamline
+            You lost out on the faster Aimed Shot cast time {this.streamlinesConsumedByLNL} times due to Lock and Load being active when consuming Streamline through Aimed Shot.
           </>
         )}
       >
