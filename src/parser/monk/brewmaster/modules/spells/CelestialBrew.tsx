@@ -6,8 +6,7 @@ import Events, { CastEvent, AbsorbedEvent, RemoveBuffEvent, ApplyBuffEvent, Appl
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import { VegaLite } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import FooterChart from 'interface/others/FooterChart';
 
 const PURIFIED_CHI_PCT = 0.2;
 const PURIFIED_CHI_WINDOW = 150;
@@ -108,23 +107,6 @@ class CelestialBrew extends Analyzer {
     const wastedAbsorb = this._absorbs.reduce((total, absorb) => total + absorb.wasted, 0);
     const avgStacks = this._absorbs.reduce((total, absorb) => total + absorb.stacks, 0) / this._absorbs.length;
 
-    const config = {
-      autosize: {
-        type: 'fit' as const,
-        contains: 'padding' as const,
-      },
-      background: '#0000',
-      padding: 0,
-      view: {
-        stroke: null,
-      },
-      axis: {
-        domainColor: 'gray',
-        labelColor: '#e9e8e7',
-        tickColor: 'gray',
-      },
-    };
-
     const spec = {
       mark: 'bar' as const,
       transform: [
@@ -171,9 +153,11 @@ class CelestialBrew extends Analyzer {
           type: 'nominal' as const,
           legend: null,
           scale: {
+            domain: ["amount", "wasted"],
             range: ["rgb(112, 181, 112)", "rgb(255, 128, 0)"],
           },
         },
+        order: { field: 'key' },
         tooltip: [
           { field: 'time_label', type: 'nominal' as const, title: 'Time' },
           { field: 'stacks', type: 'ordinal' as const, title: 'Purified Chi Stacks' },
@@ -181,34 +165,7 @@ class CelestialBrew extends Analyzer {
           { field: 'wasted', type: 'quantitative' as const, title: 'Absorb Wasted', format: '.3~s' },
         ],
       },
-      data: { name: 'default_data' },
     };
-
-    const chart = (
-      <div style={{
-        width: '100%',
-      }}>
-        <AutoSizer disableHeight>
-          {({ width }) => {
-            if (width > 0) {
-              return (
-                <VegaLite
-                  width={width}
-                  height={75}
-                  renderer="canvas"
-                  theme="dark"
-                  tooltip={{theme: 'dark'}}
-                  actions={false}
-                  data={{default_data: this._absorbs}}
-                  config={config}
-                  spec={spec} />
-              );
-            }
-            return null;
-          }}
-        </AutoSizer>
-      </div>
-    );
 
     return (
       <StatisticBox
@@ -222,7 +179,7 @@ class CelestialBrew extends Analyzer {
             You cast Celestial Brew with an average of <strong>{avgStacks.toFixed(2)} stacks</strong> of Purified Chi, increasing the absorb amount by <strong>{formatPercentage(avgStacks * PURIFIED_CHI_PCT)}%</strong>.
           </>
         )}
-        footer={chart}
+        footer={(<FooterChart spec={spec} data={this._absorbs} />)}
       />
     );
   }
