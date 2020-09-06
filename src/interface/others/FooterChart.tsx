@@ -29,6 +29,10 @@ interface Props {
   config?: Config;
 }
 
+export function formatTime(field: string = 'datum.timestamp') {
+  return `if(${field} / 1000 >= 60, toString(floor(${field} / 60000)) + 'm ', '') + toString(floor(${field} / 1000) % 60) + 's'`;
+}
+
 // A vega-lite chart displayed in the footer of a <StatisticBox />.
 export default function FooterChart(props: Props) {
   const spec = {

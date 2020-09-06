@@ -6,7 +6,7 @@ import Events, { CastEvent, AbsorbedEvent, RemoveBuffEvent, ApplyBuffEvent, Appl
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import FooterChart from 'interface/others/FooterChart';
+import FooterChart, { formatTime } from 'interface/others/FooterChart';
 
 const PURIFIED_CHI_PCT = 0.2;
 const PURIFIED_CHI_WINDOW = 150;
@@ -114,15 +114,11 @@ class CelestialBrew extends Analyzer {
           fold: ['amount', 'wasted'],
         },
         {
-          calculate: "round(datum.timestamp / 1000)",
-          as: 'time_sec',
-        },
-        {
-          calculate: "datum.time_sec / 60",
+          calculate: "datum.timestamp / 60000",
           as: 'time_min',
         },
         {
-          calculate: "if(datum.time_sec >= 60, toString(floor(datum.time_sec / 60)) + 'm ', '') + toString(datum.time_sec % 60) + 's'",
+          calculate: formatTime(),
           as: 'time_label',
         },
       ],
@@ -132,7 +128,7 @@ class CelestialBrew extends Analyzer {
           type: 'quantitative' as const,
           axis: {
             title: null,
-            labelExpr: "if(datum.value >= 1, toString(floor(datum.value)) + 'm ', '') + toString((datum.value * 60) % 60) + 's'",
+            labelExpr: formatTime('(datum.value * 60000)'),
             grid: false,
           },
           scale: { zero: true },
