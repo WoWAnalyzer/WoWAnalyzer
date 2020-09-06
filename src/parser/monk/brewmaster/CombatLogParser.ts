@@ -12,6 +12,7 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/core/Channeling';
 // Spells
 import PurifyingBrew from './modules/spells/PurifyingBrew';
+import CelestialBrew from './modules/spells/CelestialBrew';
 import BlackoutCombo from './modules/spells/BlackoutCombo';
 import KegSmash from './modules/spells/KegSmash';
 import TigerPalm from './modules/spells/TigerPalm';
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Spells
     purifyingBrew: PurifyingBrew,
+    celestialBrew: CelestialBrew,
     blackoutCombo: BlackoutCombo,
     kegSmash: KegSmash,
     tigerPalm: TigerPalm,

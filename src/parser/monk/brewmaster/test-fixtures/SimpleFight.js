@@ -45,12 +45,12 @@ export const casts = [
 ];
 
 export const dpsCasts = [
-  { type: EventType.Cast, sourceID: thisPlayer, targetid: enemy, timestamp: 3500, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { type: EventType.Cast, sourceID: thisPlayer, targetid: enemy, timestamp: 3500, ability: { guid: SPELLS.BLACKOUT_KICK.id } },
   { type: EventType.Cast, sourceID: thisPlayer, targetid: enemy, timestamp: 4500, ability: { guid: SPELLS.KEG_SMASH.id } },
   { type: EventType.Cast, sourceID: thisPlayer, targetid: enemy, timestamp: 4700, ability: { guid: SPELLS.KEG_SMASH.id } },
-  { type: EventType.Cast, sourceID: thisPlayer, targetid: enemy, timestamp: 6500, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
-  { type: EventType.Cast, sourceID: thisPlayer, targetid: enemy, timestamp: 8500, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
-  { type: EventType.Cast, sourceID: thisPlayer, targetid: enemy, timestamp: 9000, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { type: EventType.Cast, sourceID: thisPlayer, targetid: enemy, timestamp: 6500, ability: { guid: SPELLS.BLACKOUT_KICK.id } },
+  { type: EventType.Cast, sourceID: thisPlayer, targetid: enemy, timestamp: 8500, ability: { guid: SPELLS.BLACKOUT_KICK.id } },
+  { type: EventType.Cast, sourceID: thisPlayer, targetid: enemy, timestamp: 9000, ability: { guid: SPELLS.BLACKOUT_KICK.id } },
   { type: EventType.Cast, sourceID: thisPlayer, targetid: enemy, timestamp: 9700, ability: { guid: SPELLS.BREATH_OF_FIRE.id } },
 ];
 

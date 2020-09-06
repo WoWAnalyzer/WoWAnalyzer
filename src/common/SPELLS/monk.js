@@ -215,10 +215,25 @@ export default {
   },
 
   // Brewmaster
-  BLACKOUT_STRIKE: {
+  INVOKE_NIUZAO_THE_BLACK_OX: {
+    id: 132578,
+    name: 'Invoke Niuzao, the Black Ox',
+    icon: 'spell_monk_brewmaster_spec',
+  },
+  BLACKOUT_KICK_BRM: {
     id: 205523,
-    name: 'Blackout Strike',
-    icon: 'ability_monk_blackoutstrike',
+    name: 'Blackout Kick',
+    icon: 'ability_monk_roundhousekick',
+  },
+  SPINNING_CRANE_KICK_BRM: {
+    id: 322729,
+    name: 'Spinning Crane Kick',
+    icon: 'ability_monk_cranekick_new',
+  },
+  TOUCH_OF_DEATH_BRM: {
+    id: 322109,
+    name: 'Touch of Death',
+    icon: 'ability_monk_touchofdeath',
   },
   CELESTIAL_FORTUNE_HEAL: {
     id: 216521,
@@ -239,6 +254,16 @@ export default {
     id: 119582,
     name: 'Purifying Brew',
     icon: 'inv_misc_beer_06',
+  },
+  PURIFIED_CHI: {
+    id: 325092,
+    name: 'Purified Chi',
+    icon: 'inv_misc_beer_06',
+  },
+  CELESTIAL_BREW: {
+    id: 322507,
+    name: 'Celestial Brew',
+    icon: 'ability_monk_ironskinbrew',
   },
   BREATH_OF_FIRE: {
     id: 115181,

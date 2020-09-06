@@ -4,9 +4,11 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import EventFilter from 'parser/core/EventFilter';
 import StatisticBox from 'interface/others/StatisticBox';
 
-import StaggerFabricator from './StaggerFabricator';
+import StaggerFabricator, { StaggerEventType, AddStaggerEvent, RemoveStaggerEvent } from './StaggerFabricator';
 
 const debug = false;
 const PHYSICAL_DAMAGE = 1;
@@ -16,26 +18,36 @@ class Stagger extends Analyzer {
     fab: StaggerFabricator,
   };
 
+  protected fab!: StaggerFabricator;
+
   totalPhysicalStaggered = 0;
   totalMagicalStaggered = 0;
   totalStaggerTaken = 0;
   staggerMissingFromFight = 0;
 
-  on_addstagger(event) {
-    if (event.trigger.extraAbility.type === PHYSICAL_DAMAGE) {
+  constructor(options: any) {
+    super(options);
+
+    this.addEventListener(new EventFilter(StaggerEventType.Add), this._addstagger);
+    this.addEventListener(new EventFilter(StaggerEventType.Remove), this._removestagger);
+    this.addEventListener(Events.fightend, this._fightend);
+  }
+
+  private _addstagger(event: AddStaggerEvent) {
+    if (event.trigger!.extraAbility.type === PHYSICAL_DAMAGE) {
       this.totalPhysicalStaggered += event.amount;
     } else {
       this.totalMagicalStaggered += event.amount;
     }
   }
 
-  on_removestagger(event) {
-    if (event.trigger.ability && event.trigger.ability.guid === SPELLS.STAGGER_TAKEN.id) {
+  private _removestagger(event: RemoveStaggerEvent) {
+    if (event.trigger!.ability && event.trigger!.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       this.totalStaggerTaken += event.amount;
     }
   }
 
-  on_fightend() {
+  private _fightend() {
     this.staggerMissingFromFight = this.fab.staggerPool;
     if (debug) {
       console.log(`Total physical staggered: ${formatNumber(this.totalPhysicalStaggered)}`);
