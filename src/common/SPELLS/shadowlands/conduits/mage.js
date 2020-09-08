@@ -4,7 +4,7 @@ export default {
   ARCANE_PRODIGY: {
     id: 336873,
     name: 'Arcane Prodigy',
-    icon: 'spell_nature_moonglow'
+    icon: 'spell_nature_moonglow',
   },
   ARTIFICE_OF_THE_ARCHMAGE: {
     id: 337240,
@@ -53,7 +53,7 @@ export default {
   UNRELENTING_COLD: {
     id: 336460,
     name: 'Unrelenting Cold',
-    icon: 'spell_fire_blueflamering'
+    icon: 'spell_fire_blueflamering',
   },
   ICY_PROPULSION: {
     id: 336522,
