@@ -63,9 +63,10 @@ class Nightstalker extends StealthCasts {
   }
 
   get goodOpenerCasts() {
-    if (!this.usedStealthOnPull) {
+    if (!this.usedStealthOnPull || !this.stealthSequences.length) {
       return false;
     }
+
     const RuptureOpener = this.stealthSequences[0].find(e => e.ability.guid === SPELLS.RUPTURE.id);
     const GarroteOpener = this.stealthSequences[0].find(e => e.ability.guid === SPELLS.GARROTE.id);
     if(RuptureOpener || GarroteOpener) {
