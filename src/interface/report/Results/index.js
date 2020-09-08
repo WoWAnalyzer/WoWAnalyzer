@@ -379,6 +379,14 @@ class Results extends React.PureComponent {
         <ReportDurationWarning duration={reportDuration} />}
 
         {parser && parser.disabledModules && <DegradedExperience disabledModules={parser.disabledModules} />}
+        {
+          //Warning Message for Shadowlands Prepatch (Remove after Shadowlands Launch)
+          <div className="container">
+            <Warning style={{ marginBottom: 30}}>
+              In an effort to focus on Shadowlands and Castle Nathria development, we will be removing support for Azerite, Essences, Corruption, and other BFA specific items with the launch of Prepatch. As a result, analysis of Prepatch encounters may be inaccurate.
+            </Warning>
+          </div>
+        }
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
