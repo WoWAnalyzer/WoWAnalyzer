@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -9,8 +9,8 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from 'parser/core/Events';
-import { binomialCDF, plotOneVariableBinomChart, expectedProcCount } from 'parser/shared/modules/helpers/Probability';
+import Events, { DamageEvent } from 'parser/core/Events';
+import { binomialCDF, expectedProcCount, plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import SpellLink from 'common/SpellLink';
 
 /**
@@ -33,23 +33,20 @@ class Volley extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VOLLEY_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AUTO_SHOT), this.onAutoshot);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOLLEY_DAMAGE), this.onVolleyProc);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.VOLLEY_DAMAGE.id && spellId !== SPELLS.AUTO_SHOT.id) {
-      return;
+  onVolleyProc(event: DamageEvent) {
+    this.damage += event.amount + (event.absorbed || 0);
+    if (event.timestamp > (this.lastVolleyHit + BUFFER_MS)) {
+      this.procs += 1;
+      this.lastVolleyHit = event.timestamp;
     }
-    if (spellId === SPELLS.VOLLEY_DAMAGE.id) {
-      this.damage += event.amount + (event.absorbed || 0);
-      if (event.timestamp > (this.lastVolleyHit + BUFFER_MS)) {
-        this.procs += 1;
-        this.lastVolleyHit = event.timestamp;
-      }
-    }
-    if (spellId === SPELLS.AUTO_SHOT.id) {
-      this.autoShots += 1;
-    }
+  }
+
+  onAutoshot() {
+    this.autoShots += 1;
   }
 
   get expectedProcs() {
@@ -64,7 +61,7 @@ class Volley extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
-            You had {this.procs} {this.procs > 1 ? `procs` : `proc`}. <br />
+            You had {this.procs} {this.procs === 1 ? `proc` : `procs`}. <br />
             You had {formatPercentage(this.procs / this.expectedProcs)}% procs of what you could expect to get over the encounter. <br />
             You had a total of {this.procs} procs, and your expected amount of procs was {formatNumber(this.expectedProcs)}. <br />
             <ul>

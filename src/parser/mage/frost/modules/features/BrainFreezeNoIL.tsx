@@ -28,7 +28,7 @@ class BrainFreezeNoIL extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.owner.builds.NO_IL.active;
+    this.active = !!this.owner.builds.NO_IL.active;
     this.hasGlacialSpike = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
     this.hasEbonbolt = this.selectedCombatant.hasTalent(SPELLS.EBONBOLT_TALENT.id);
 

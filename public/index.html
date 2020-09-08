@@ -1,102 +1,138 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns#">
+  <head>
+    <title>WoWAnalyzer</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&family=Poppins:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <meta property="og:title" content="WoWAnalyzer" />
+    <meta
+      property="og:description"
+      content="Use WoWAnalyzer to analyze your gameplay and get suggestions to become a better raider."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://wowanalyzer.com" />
+    <meta property="og:image" content="https://wowanalyzer.com/favicon.png" />
+    <meta
+      name="keywords"
+      content="World of Warcraft, WoW, Raiding, Analysis, Gameplay, Performance, MMO, MMORPG, Games, Combatlog, Improving, DPS, Battle for Azeroth, Bosses"
+    />
+    <!-- Google translate doesn't play well with React (leading to crashes) -->
+    <meta name="google" content="notranslate" />
+    <link
+      rel="search"
+      type="application/opensearchdescription+xml"
+      href="/search.xml"
+      title="WoWAnalyzer"
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 
-<head>
-<title>WoWAnalyzer</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700,800" rel="stylesheet">
-<meta property="og:title" content="WoWAnalyzer" />
-<meta property="og:description" content="Use WoWAnalyzer to analyze your gameplay and get suggestions to become a better raider." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://wowanalyzer.com" />
-<meta property="og:image" content="https://wowanalyzer.com/favicon.png" />
-<meta name="keywords" content="World of Warcraft, WoW, Raiding, Analysis, Gameplay, Performance, MMO, MMORPG, Games, Combatlog, Improving, DPS, Battle for Azeroth, Bosses">
-<!-- Google translate doesn't play well with React (leading to crashes) -->
-<meta name="google" content="notranslate">
-<link rel="search" type="application/opensearchdescription+xml" href="/search.xml" title="WoWAnalyzer" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <style type="text/css">
+      #splash {
+        background: #14161a;
+        color: #fff;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        font-family: 'Trebuchet MS', Helvetica, sans-serif;
+        box-shadow: 0 0 200px #172c34 inset;
+      }
+      #splash > div {
+        width: 100%;
+      }
+      #splash h1 {
+        font-size: 170px;
+        font-weight: 600;
+        letter-spacing: -1px;
+        margin: 0;
+        color: #ffffff;
+        transform: scaleY(1.1);
+        text-transform: uppercase;
+      }
+      @media (max-width: 1200px) {
+        #splash h1 {
+          font-size: 150px;
+        }
+      }
+      @media (max-width: 1000px) {
+        #splash h1 {
+          font-size: 130px;
+        }
+      }
+      @media (max-width: 800px) {
+        #splash h1 {
+          font-size: 90px;
+        }
+      }
+      @media (max-width: 530px) {
+        #splash h1 {
+          font-size: 50px;
+        }
+      }
+      #splash p {
+        color: #aaa;
+        font-size: 0.9em;
+      }
+      #splash p a {
+        color: #e45a5a;
+      }
+    </style>
+  </head>
 
-<style type="text/css">
-#splash {
-  background: #14161a;
-  color: #fff;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
-  box-shadow: 0 0 200px #172c34 inset;
-}
-#splash > div {
-  width: 100%;
-}
-#splash h1 {
-  font-size: 170px;
-  font-weight: 600;
-  letter-spacing: -1px;
-  margin: 0;
-  color: #ffffff;
-  transform: scaleY(1.1);
-  text-transform: uppercase;
-}
-@media (max-width: 1200px) { #splash h1 { font-size: 150px; } }
-@media (max-width: 1000px) { #splash h1 { font-size: 130px; } }
-@media (max-width: 800px) { #splash h1 { font-size: 90px; } }
-@media (max-width: 530px) { #splash h1 { font-size: 50px; } }
-#splash p {
-  color: #aaa;
-  font-size: 0.9em;
-}
-#splash p a {
-  color: #e45a5a;
-}
-</style>
-
-</head>
-
-<body>
-<noscript>
-  You need to enable JavaScript to run this app.
-</noscript>
-<div id="app-mount">
-  <div id="splash">
-    <div>
-      <h1>WoWAnalyzer</h1>
-      <small>Loading...</small>
-      <p>
-        If the app won't load your browser might not be compatible. Get a compatible browser at <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a>.<br />
-        Let us know on <a href="https://wowanalyzer.com/discord">Discord</a> if the problem persist.
-      </p>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="app-mount">
+      <div id="splash">
+        <div>
+          <h1>WoWAnalyzer</h1>
+          <small>Loading...</small>
+          <p>
+            If the app won't load your browser might not be compatible. Get a compatible browser at
+            <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a>.<br />
+            Let us know on <a href="https://wowanalyzer.com/discord">Discord</a> if the problem
+            persist.
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2015%2Ces2016%2Ces2017%2Cfetch%2CIntl"></script>
-<script src="https://browser.sentry-cdn.com/5.5.0/bundle.min.js" crossorigin="anonymous"></script>
-<script>
-window.Sentry && Sentry.init({
-  dsn: '%REACT_APP_SENTRY_DSN%',
-  release: 'wowanalyzer@%REACT_APP_VERSION%',
-  environment: '%REACT_APP_ENVIRONMENT_NAME%',
-});
-</script>
-<script async src="https://ga.wowanalyzer.com/gtag/js?id=UA-132937713-1"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'UA-132937713-1');
-</script>
-
-</body>
-
+    <script
+      crossorigin="anonymous"
+      src="https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2015%2Ces2016%2Ces2017%2Cfetch%2CIntl"
+    ></script>
+    <script
+      src="https://browser.sentry-cdn.com/5.5.0/bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.Sentry &&
+        Sentry.init({
+          dsn: '%REACT_APP_SENTRY_DSN%',
+          release: 'wowanalyzer@%REACT_APP_VERSION%',
+          environment: '%REACT_APP_ENVIRONMENT_NAME%',
+        });
+    </script>
+    <script async src="https://ga.wowanalyzer.com/gtag/js?id=UA-132937713-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-132937713-1');
+    </script>
+  </body>
 </html>

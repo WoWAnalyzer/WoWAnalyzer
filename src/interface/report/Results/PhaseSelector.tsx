@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE, Fight } from 'interface/report/PhaseParser';
+import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE } from 'interface/report/PhaseParser';
+import Fight from 'parser/core/Fight';
 import { Phase } from 'raids';
 
 import './PhaseSelector.scss';

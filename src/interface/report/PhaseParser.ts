@@ -2,25 +2,10 @@ import React, { ReactNode } from 'react';
 
 import { EventType, PhaseEvent } from 'parser/core/Events';
 import { findByBossId, Phase } from 'raids';
+import Fight from 'parser/core/Fight';
 
 export const SELECTION_ALL_PHASES = "ALL";
 export const SELECTION_CUSTOM_PHASE = "CUSTOM";
-
-//todo: move this
-export interface Fight {
-  filtered?: boolean;
-  phase?: string;
-  instance?: number;
-  // eslint-disable-next-line camelcase
-  offset_time: number;
-  // eslint-disable-next-line camelcase
-  original_end_time: number;
-  // eslint-disable-next-line camelcase
-  start_time: number,
-  // eslint-disable-next-line camelcase
-  end_time: number,
-  boss: number,
-}
 
 interface Props {
   fight: Fight,

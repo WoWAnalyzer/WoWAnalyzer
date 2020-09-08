@@ -185,6 +185,12 @@ export default {
     icon: 'inv_misc_punchcards_red',
     quality: ITEM_QUALITIES.PURPLE,
   },
+  SUBROUTINE_RECALIBRATION: {
+    id: 168800,
+    name: 'Subroutine: Recalibration',
+    icon: 'inv_misc_punchcards_red',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
   // Eternal Palace
   AZSHARAS_FONT_OF_POWER: {
     id: 169314,

@@ -27,7 +27,7 @@ class WintersChillNoIL extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.owner.builds.NO_IL.active;
+    this.active = !!this.owner.builds.NO_IL.active;
 
     if (!this.active) {
       return;

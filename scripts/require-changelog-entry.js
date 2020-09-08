@@ -7,14 +7,14 @@ function getTargetBranch() {
 async function getChangedFiles(targetBranch) {
   // eslint-disable-next-line no-unused-vars
   const { stdout, stderr } = await exec(
-    `git diff --name-only ${targetBranch}...HEAD`,
+    `git diff --name-only ${targetBranch}..HEAD`,
   );
   // TODO: How do I properly handle stderr?
   return stdout.trim().split('\n');
 }
 
 function getChangelogs(changedFiles) {
-  const allowedChangelogFormats = ['/CHANGELOG.js','/CHANGELOG.tsx'];
+  const allowedChangelogFormats = ['/CHANGELOG.js','/CHANGELOG.tsx','/CHANGELOG.ts'];
   return changedFiles.filter(path => allowedChangelogFormats.some(format => path.includes(format)));
 }
 

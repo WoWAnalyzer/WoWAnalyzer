@@ -7,10 +7,12 @@ import { Event } from './Events';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
 
+export type EventListener<ET extends string, E extends Event<ET>> = (event: E) => void;
+
 class EventSubscriber extends Module {
-  addEventListener<T extends Event>(
-    eventFilter: T['type'] | EventFilter<T['type']>,
-    listener: (event: T) => void,
+  addEventListener<ET extends string, E extends Event<ET>>(
+    eventFilter: ET | EventFilter<ET>,
+    listener: EventListener<ET, E>,
   ) {
     if (!this.active) {
       return;

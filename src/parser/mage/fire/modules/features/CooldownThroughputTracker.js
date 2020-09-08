@@ -9,6 +9,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.COMBUSTION,
+      startBufferMS: 4000,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
