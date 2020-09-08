@@ -27,7 +27,7 @@ class GlacialSpike extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && this.owner.build === undefined;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
     this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GLACIAL_SPIKE_TALENT), this.onGlacialSpikeCast);

@@ -56,7 +56,6 @@ export const BONE_CHILLING_SPELLS = [
   SPELLS.GLACIAL_SPIKE_DAMAGE,
   SPELLS.FROST_NOVA,
   SPELLS.EBONBOLT_DAMAGE,
-  SPELLS.GLACIAL_ASSAULT_DAMAGE,
   SPELLS.CONE_OF_COLD,
   SPELLS.RAY_OF_FROST_TALENT,
   SPELLS.ICE_NOVA_TALENT,
@@ -68,10 +67,3 @@ export const LONELY_WINTER_AFFECTED_SPELLS = [
   SPELLS.ICE_LANCE_DAMAGE,
   SPELLS.FLURRY_DAMAGE,
 ];
-
-/**
- * See known issue below, this is a temporary fix
- * To update, see https://www.wowhead.com/spell=137020/frost-mage
- * AURA = 1 + (Damage modifier)
- */
-export const FROST_MAGE_AURA = 1 + (-0.15);

@@ -503,7 +503,7 @@ export default {
     name: 'Conjure Mana Gem',
     icon: 'inv_misc_gem_sapphire_02',
   },
-  REPLENISH_MAAN: {
+  REPLENISH_MANA: {
     id: 5405,
     name: 'Replenish Mana',
     icon: 'inv_misc_gem_sapphire_02',
@@ -522,38 +522,5 @@ export default {
     id: 153640,
     name: 'Arcane Orb',
     icon: 'spell_mage_arcaneorb',
-  },
-  
-
-  //Azerite Traits
-  GLACIAL_ASSAULT_TRAIT: {
-    id: 279854,
-    name: 'Glacial Assault',
-    icon: 'spell_mage_cometstorm2',
-  },
-  GLACIAL_ASSAULT_DAMAGE: {
-    id: 279856,
-    name: 'Glacial Assault',
-    icon: 'spell_mage_cometstorm2',
-  },
-  WHITEOUT: {
-    id: 278541,
-    name: 'Whiteout',
-    icon: 'spell_frost_frostblast',
-  },
-  GALVANIZING_SPARK: {
-    id: 278536,
-    name: 'Galvanizing Spark',
-    icon: 'spell_arcane_arcane03',
-  },
-  BLASTER_MASTER: {
-    id: 274596,
-    name: 'Blaster Master',
-    icon: 'spell_fire_fireball',
-  },
-  BLASTER_MASTER_BUFF: {
-    id: 274598,
-    name: 'Blaster Master',
-    icon: 'spell_fire_fireball',
   },
 };
