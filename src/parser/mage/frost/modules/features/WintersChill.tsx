@@ -33,8 +33,6 @@ class WintersChill extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.owner.build === undefined;
-
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.FROSTBOLT_DAMAGE,SPELLS.EBONBOLT_DAMAGE,SPELLS.GLACIAL_SPIKE_DAMAGE,SPELLS.ICE_LANCE_DAMAGE]), this.onDamage);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL), this.onDebuffApplied);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL), this.onDebuffRemoved);
