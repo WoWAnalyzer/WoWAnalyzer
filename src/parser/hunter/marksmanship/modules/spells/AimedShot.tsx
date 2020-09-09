@@ -1,15 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-<<<<<<< HEAD
 import Events, { ApplyBuffEvent, CastEvent, EventType, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Abilities from 'parser/core/modules/Abilities';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import DeadEye from 'parser/hunter/marksmanship/modules/talents/DeadEye';
 import { DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE, TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE } from 'parser/hunter/marksmanship/constants';
-=======
-import Events, { CastEvent } from 'parser/core/Events';
->>>>>>> upstream/master
 
 /**
  * A powerful aimed shot that deals [(248.4% of Attack power) * ((max(0, min(Level - 10, 10)) * 8 + 130) / 210)] Physical damage.
@@ -21,7 +17,6 @@ const debug = false;
 
 class AimedShot extends Analyzer {
 
-<<<<<<< HEAD
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
@@ -39,8 +34,6 @@ class AimedShot extends Analyzer {
   protected abilities!: Abilities;
   protected deadEye!: DeadEye;
 
-=======
->>>>>>> upstream/master
   constructor(options: any) {
     super(options);
 
@@ -120,7 +113,6 @@ class AimedShot extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-<<<<<<< HEAD
     const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(SPELLS.AIMED_SHOT.id, event);
     if (expectedCooldownDuration) {
       this.totalCooldown += expectedCooldownDuration;
@@ -128,8 +120,6 @@ class AimedShot extends Analyzer {
       this.deadEye.averageAimedShotCD = this.totalCooldown / this.casts;
     }
 
-=======
->>>>>>> upstream/master
     if (event.meta === undefined) {
       event.meta = {
         isEnhancedCast: false,
