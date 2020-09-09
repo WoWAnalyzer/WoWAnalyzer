@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
-import { calculateCooldown } from 'parser/shared/modules/spells/bfa/essences/VisionsOfPerfection';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -131,11 +130,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SERENITY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 90) : 90,
-        gcd: {
-          base: 1000,
-          minimum: 750,
-        },
+        cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -145,11 +140,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 90) : 90,
-        gcd: {
-          base: 1000,
-          minimum: 750,
-        },
+        cooldown: 90,
         enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         charges: 2,
         castEfficiency: {

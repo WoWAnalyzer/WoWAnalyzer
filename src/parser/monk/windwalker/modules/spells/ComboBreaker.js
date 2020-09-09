@@ -82,7 +82,7 @@ class ComboBreaker extends Analyzer {
   }
 
   statistic() {
-    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * (this.selectedCombatant.hasTrait(SPELLS.PRESSURE_POINT.id) ? 0.1 : 0.08);
+    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * 0.08;
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}
