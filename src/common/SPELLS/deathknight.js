@@ -21,55 +21,6 @@ export default {
     icon: 'spell_shadow_soulleech',
   },
 
-  //Artifact Trait
-  UMBILICUS_ETERNUS: {
-    id: 193213,
-    name: 'Umbilicus Eternus',
-    icon: 'artifactability_blooddeathknight_umbilicuseternus',
-  },
-
-  UMBILICUS_ETERNUS_BUFF: {
-    id: 193320,
-    name: 'Umbilicus Eternus Buff',
-    icon: 'artifactability_blooddeathknight_umbilicuseternus',
-  },
-
-  SOULDRINKER_TRAIT: {
-    id: 238114,
-    name: 'Souldrinker',
-    icon: 'spell_deathknight_butcher2',
-  },
-
-  BONEBREAKER_TRAIT: {
-    id: 192538,
-    name: 'Bonebreaker',
-    icon: 'trade_archaeology_fossil_dinosaurbone',
-  },
-
-  COAGULOPHATHY_TRAIT: {
-    id: 192460,
-    name: 'Coagulopathy',
-    icon: 'spell_deathknight_bloodplague',
-  },
-
-  VEINRENDER_TRAIT: {
-    id: 192457,
-    name: 'Veinrender',
-    icon: 'ability_skeer_bloodletting',
-  },
-
-  ALL_CONSUMING_ROT_TRAIT: {
-    id: 192464,
-    name: 'All-Consuming Rot',
-    icon: 'spell_shadow_deathanddecay',
-  },
-
-  SKELETAL_SHATTERING_TRAIT: {
-    id: 192558,
-    name: 'Skeletal Shattering',
-    icon: 'trade_archaeology_bones-of-transformation',
-  },
-
   // Damage Dealing
   BLOOD_BOIL: {
     id: 50842,
@@ -154,6 +105,25 @@ export default {
     icon: 'spell_deathknight_deathstrike',
   },
 
+  RUNE_TAP: {
+    id: 194679,
+    name: 'Rune Tap',
+    icon: 'spell_deathknight_runetap',
+  },
+
+  BLOOD_TAP: {
+    id: 221699,
+    name: 'Blood Tap',
+    icon: 'spell_deathknight_bloodtap',
+  },
+
+  CONSUMPTION_HEAL: {
+    id: 205224,
+    name: 'Consumption Heal',
+    icon: 'inv_axe_2h_artifactmaw_d_02',
+  },
+
+
 // Buffs
   OSSUARY: {
     id: 219788,
@@ -164,16 +134,6 @@ export default {
     id: 81141,
     name: 'Crimson Scourge',
     icon: 'ability_warrior_bloodnova',
-  },
-  UNENDING_THIRST: {
-    id: 192567,
-    name: 'Unending Thirst',
-    icon: 'ability_ironmaidens_whirlofblood',
-  },
-  VAMPIRIC_AURA: {
-    id: 238698,
-    name: 'Vampiric Aura',
-    icon: 'ability_ironmaidens_maraksbloodcalling',
   },
   VORACIOUS: {
     id: 274009,
@@ -355,18 +315,6 @@ export default {
     icon: 'achievement_boss_festergutrotface',
   },
 
-  DEATH_COIL: {
-    id: 47541,
-    name: 'Death Coil',
-    icon: 'spell_shadow_deathcoil',
-  },
-
-  DEATH_COIL_DAMAGE: {
-    id: 47632,
-    name: 'Death Coil',
-    icon: 'spell_shadow_deathcoil',
-  },
-
   FESTERING_STRIKE: {
     id: 85948,
     name: 'Festering Strike',
@@ -391,7 +339,7 @@ export default {
     icon: 'spell_deathvortex',
   },
 
-  RAISE_DEAD: {
+  RAISE_DEAD_UNHOLY: {
     id: 46584,
     name: 'Raise Dead',
     icon: 'spell_shadow_animatedead',
@@ -423,13 +371,47 @@ export default {
     icon: 'ability_creature_disease_02',
   },
 
+  DARK_ARBITER_TALENT_GLYPH: {
+    id: 207349,
+    name: 'Dark Arbiter',
+    icon: 'achievement_boss_svalasorrowgrave',
+  },
+
+  // Shared:
+  //Rune of the Fallen Crusader Proc
   UNHOLY_STRENGTH_BUFF: {
 	  id: 53365,
 	  name: 'Unholy Strength',
 	  icon: 'spell_holy_blessingofstrength',
   },
 
-  // Shared:
+  //Rune of Unending Thirst Proc
+  RUNE_OF_UNENDING_THIRST_BUFF: {
+      id: 326984,
+      name: 'Rune of Unending Thirst',
+      icon: 'spell_nzinsanity_bloodthirst',
+  },
+  
+  //Rune of Spellwarding
+  RUNE_OF_SPELLWARDING_BUFF_SHIELD: {
+    id: 326867,
+    name: 'Rune of Spellwarding',
+    icon: 'spell_fire_twilightfireward',
+  },
+
+  //Rune of Sanguination
+  RUNE_OF_SANGUINATION_BUFF_HEAL: {
+    id: 326808,
+    name: 'Rune of Sanguination',
+    icon: 'ability_argus_deathfog',
+  },
+
+  ANTI_MAGIC_ZONE: {
+    id: 51052,
+    name: 'Anti-Magic Zone',
+    icon: 'spell_deathknight_antimagiczone',
+  },
+
   ANTI_MAGIC_SHELL: {
     id: 48707,
     name: 'Anti-Magic Shell',
@@ -496,12 +478,6 @@ export default {
     icon: 'spell_deathknight_butcher2',
   },
 
-  CONSUMPTION_HEAL: {
-    id: 205224,
-    name: 'Consumption Heal',
-    icon: 'inv_axe_2h_artifactmaw_d_02',
-  },
-
   ICEBOUND_FORTITUDE: {
     id: 48792,
     name: 'Icebound Fortitude',
@@ -532,16 +508,40 @@ export default {
     icon: 'spell_shadow_deadofnight',
   },
 
+  RAISE_DEAD_BLOOD_FROST: {
+    id: 46585,
+    name: 'Raise Dead',
+    icon: 'inv_pet_ghoul',
+  },
+
+  SACRIFICIAL_PACT: {
+    id: 327574,
+    name: 'Sacrificial Pact',
+    icon: 'spell_shadow_corpseexplode',
+  },
+
   DEATHS_ADVANCE: {
     id: 48265,
     name: 'Death\'s Advance',
     icon: 'spell_shadow_demonicempathy',
   },
 
-  COLD_HEART_DEBUFF: {
-    id: 248397,
-    name: 'Cold Heart',
-    icon: 'spell_frost_chainsofice',
+  DEATH_COIL: {
+    id: 47541,
+    name: 'Death Coil',
+    icon: 'spell_shadow_deathcoil',
+  },
+
+  DEATH_COIL_DAMAGE: {
+    id: 47632,
+    name: 'Death Coil',
+    icon: 'spell_shadow_deathcoil',
+  },
+
+  LICHBORNE: {
+    id: 49039,
+    name: 'Lichborne',
+    icon: 'spell_shadow_raisedead',
   },
 
   RUNE_1: {
