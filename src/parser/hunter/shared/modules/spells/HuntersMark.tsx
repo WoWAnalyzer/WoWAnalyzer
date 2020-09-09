@@ -17,6 +17,7 @@ import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RemoveDebuffEvent } f
 import Abilities from 'parser/core/modules/Abilities';
 import { HUNTERS_MARK_MODIFIER, MS_BUFFER } from 'parser/hunter/shared/constants';
 
+
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
  * The target can always be seen and tracked by the Hunter.

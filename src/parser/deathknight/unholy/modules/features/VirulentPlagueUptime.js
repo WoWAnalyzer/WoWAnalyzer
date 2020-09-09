@@ -47,11 +47,10 @@ class VirulentPlagueUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.VIRULENT_PLAGUE.id} />}
         value={`${formatPercentage(this.Uptime)} %`}
         label="Virulent Plague Uptime"
+        statisticOrder={STATISTIC_ORDER.CORE(3)}
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default VirulentPlagueUptime;
