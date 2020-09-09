@@ -11,18 +11,18 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {
-        minor: 0.2,
+        minor: 0.30,
         average: 0.35,
-        major: .4,
+        major: .45,
       },
       style: 'percentage',
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.downtimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as <SpellLink id={SPELLS.DEATH_COIL.id} /> or <SpellLink id={SPELLS.OUTBREAK.id} />.</span>)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+        return suggest(<>Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as <SpellLink id={SPELLS.HOWLING_BLAST.id} /> or <SpellLink id={SPELLS.REMORSELESS_WINTER.id} />.</>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

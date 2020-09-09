@@ -22,6 +22,7 @@ class RapidReload extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
   _aspects: { [key: number]: { effectiveCdr: number; wastedCdr: number } } = {
     [SPELLS.ASPECT_OF_THE_CHEETAH.id]: {
       effectiveCdr: 0,
@@ -38,6 +39,7 @@ class RapidReload extends Analyzer {
   multiShotsNoRR: number = 0;
   damage: number = 0;
   multishotSpell: number = SPELLS.MULTISHOT_MM.id;
+
   protected spellUsable!: SpellUsable;
 
   constructor(options: any) {

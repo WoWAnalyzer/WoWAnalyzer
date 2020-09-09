@@ -9,7 +9,10 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
+<<<<<<< HEAD
 import { LONE_WOLF_AFFECTED_SPELLS, LONE_WOLF_INCREASE_PER_RAMP, LONE_WOLF_RAMP_INTERVAL_MS, MAX_LONE_WOLF_MODIFIER, START_LONE_WOLF_MODIFIER } from 'parser/hunter/marksmanship/constants';
+=======
+>>>>>>> upstream/master
 
 /**
  * Increases your damage by 10% when you do not have an active pet.
@@ -18,6 +21,26 @@ import { LONE_WOLF_AFFECTED_SPELLS, LONE_WOLF_INCREASE_PER_RAMP, LONE_WOLF_RAMP_
  * Example log:
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=auras&source=25&ability=155228
  */
+<<<<<<< HEAD
+=======
+const AFFECTED_SPELLS = [
+  SPELLS.AUTO_SHOT,
+  SPELLS.MULTISHOT_MM,
+  SPELLS.AIMED_SHOT,
+  SPELLS.STEADY_SHOT,
+  SPELLS.BARRAGE_TALENT,
+  SPELLS.A_MURDER_OF_CROWS_DEBUFF,
+  SPELLS.CHIMAERA_SHOT_FROST_DAMAGE,
+  SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE,
+  SPELLS.ARCANE_SHOT,
+  SPELLS.BURSTING_SHOT,
+  SPELLS.PIERCING_SHOT_TALENT,
+  SPELLS.EXPLOSIVE_SHOT_DAMAGE,
+  SPELLS.SERPENT_STING_TALENT,
+  SPELLS.VOLLEY_DAMAGE,
+  SPELLS.RAPID_FIRE,
+];
+>>>>>>> upstream/master
 
 class LoneWolf extends Analyzer {
 

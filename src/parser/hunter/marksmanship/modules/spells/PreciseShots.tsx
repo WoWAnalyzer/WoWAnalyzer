@@ -1,14 +1,21 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+<<<<<<< HEAD
 import SPELLS from 'common/SPELLS';
+=======
+import SPELLS from 'common/SPELLS/hunter';
+>>>>>>> upstream/master
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+<<<<<<< HEAD
 import { ARCANE_SHOT_MAX_TRAVEL_TIME, PRECISE_SHOTS_ASSUMED_PROCS, PRECISE_SHOTS_MODIFIER } from 'parser/hunter/marksmanship/constants';
+=======
+>>>>>>> upstream/master
 
 /**
  * Aimed Shot causes your next 1-2 Arcane Shots, Chimaera Shots or Multi-Shots to deal 100% more damage.
@@ -42,7 +49,11 @@ class PreciseShots extends Analyzer {
   }
 
   onPreciseShotsRemoval() {
+<<<<<<< HEAD
     this.buffsSpent += 1;
+=======
+    this.buffsGained += 1;
+>>>>>>> upstream/master
     this.buffsActive = 0;
   }
 
@@ -81,7 +92,11 @@ class PreciseShots extends Analyzer {
     if (!this.buffedShotInFlight) {
       return;
     }
+<<<<<<< HEAD
     if (this.buffedShotInFlight > event.timestamp + ARCANE_SHOT_MAX_TRAVEL_TIME) {
+=======
+    if (this.buffedShotInFlight > event.timestamp + MAX_TRAVEL_TIME) {
+>>>>>>> upstream/master
       this.buffedShotInFlight = null;
     }
   }

@@ -14,6 +14,8 @@ class RunicPowerDetails extends Analyzer {
     runicPowerTracker: RunicPowerTracker,
   };
 
+  protected runicPowerTracker!: RunicPowerTracker;
+
   get wastedPercent(){
     return this.runicPowerTracker.wasted / (this.runicPowerTracker.wasted + this.runicPowerTracker.generated) || 0;
   }
@@ -42,8 +44,8 @@ class RunicPowerDetails extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
           .icon('inv_sword_62')
           .actual(`${formatPercentage(actual)}% wasted`)
@@ -54,11 +56,11 @@ class RunicPowerDetails extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(11)}
         icon={<Icon icon="inv_sword_62" />}
         value={`${formatPercentage(this.wastedPercent)} %`}
         label="Runic Power wasted"
         tooltip={`${this.runicPowerTracker.wasted} out of ${this.runicPowerTracker.wasted + this.runicPowerTracker.generated} runic power wasted.`}
-        position={STATISTIC_ORDER.CORE(2)}
       />
 
     );
