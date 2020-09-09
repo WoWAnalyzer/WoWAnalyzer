@@ -81,7 +81,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.TOUCH_OF_DEATH_BRM,
+        spell: SPELLS.TOUCH_OF_DEATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: {

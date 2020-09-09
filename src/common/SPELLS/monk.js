@@ -21,6 +21,11 @@ export default {
     name: 'Crackling Jade Lightning',
     icon: 'ability_monk_cracklingjadelightning',
   },
+  FORTIFYING_BREW: {
+    id: 243435,
+    name: 'Fortifying Brew',
+    icon: 'ability_monk_fortifyingelixir',
+  },
   PARALYSIS: {
     id: 115078,
     name: 'Paralysis',
@@ -57,6 +62,11 @@ export default {
     id: 100780,
     name: 'Tiger Palm',
     icon: 'ability_monk_tigerpalm',
+  },
+  TOUCH_OF_DEATH: {
+    id: 322109,
+    name: 'Touch of Death',
+    icon: 'ability_monk_touchofdeath',
   },
   TRANSCENDENCE: {
     id: 101643,
@@ -208,11 +218,6 @@ export default {
     icon: 'ability_rogue_imrovedrecuperate',
     manaCost: 1300,
   },
-  FORTIFYING_BREW: {
-    id: 243435,
-    name: 'Fortifying Brew',
-    icon: 'ability_monk_fortifyingelixir',
-  },
 
   // Brewmaster
   INVOKE_NIUZAO_THE_BLACK_OX: {
@@ -229,11 +234,6 @@ export default {
     id: 322729,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-  },
-  TOUCH_OF_DEATH_BRM: {
-    id: 322109,
-    name: 'Touch of Death',
-    icon: 'ability_monk_touchofdeath',
   },
   CELESTIAL_FORTUNE_HEAL: {
     id: 216521,
@@ -476,16 +476,6 @@ export default {
     id: 116768,
     name: 'Blackout Kick!',
     icon: 'ability_monk_roundhousekick',
-  },
-  TOUCH_OF_DEATH: {
-    id: 115080,
-    name: 'Touch of Death',
-    icon: 'ability_monk_touchofdeath',
-  },
-  TOUCH_OF_DEATH_DAMAGE: {
-    id: 229980,
-    name: 'Touch of Death',
-    icon: 'ability_monk_touchofdeath',
   },
   CYCLONE_STRIKES: {
     id: 220357,
