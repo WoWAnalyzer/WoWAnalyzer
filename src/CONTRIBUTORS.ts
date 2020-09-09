@@ -159,9 +159,9 @@ export const Khazak: Contributor = {
   avatar: require('./interface/images/avatars/khazak-avatar.jpg'),
   discord: 'Khazak#3360',
   mains: [{
-    name: 'Khazakk',
+    name: 'Khazak',
     spec: SPECS.FROST_DEATH_KNIGHT,
-    link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/khazakk',
+    link: 'https://worldofwarcraft.com/en-us/character/us/illidan/khazak',
   }],
 };
 export const Bicepspump: Contributor = {
