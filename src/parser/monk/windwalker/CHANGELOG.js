@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 9, 9), 'Updated for 9.0 Shadowlands', Juko8),
   change(date(2020, 1, 15), 'Marked as up to date for 8.3', Juko8),
   change(date(2019, 10, 14), <>Updated cooldown calculations with <SpellLink id={SPELLS.SERENITY_TALENT.id} /> and added statistic showing its effective damage increase and cooldown reductions.</>, Juko8),
   change(date(2019, 10, 1), <>Updated <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> to use stack weighted uptime.</>, Juko8),
