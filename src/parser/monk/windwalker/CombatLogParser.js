@@ -18,7 +18,7 @@ import FistsofFury from './modules/spells/FistsofFury';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import ComboStrikes from './modules/spells/ComboStrikes';
 import TouchOfKarma from './modules/spells/TouchOfKarma';
-import TouchOfDeath from './modules/spells/TouchOfDeath';
+import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
 import BlackoutKick from './modules/spells/BlackoutKick';
 // Talents
 import HitCombo from './modules/talents/HitCombo';
