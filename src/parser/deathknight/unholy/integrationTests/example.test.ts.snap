@@ -1,100 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Unholy Death Knight integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          Downtime
-        </label>
-        <div
-          className="value"
-        >
-          13.90 %
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
-          <div
-            className="statistic-box-bar"
-          >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={
-                Object {
-                  "width": "86.09590692638477%",
-                }
-              }
-            >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-            >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Unholy Death Knight integration test: example log Apocalypse matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -3501,83 +3406,6 @@ exports[`Unholy Death Knight integration test: example log EssenceOfTheFocusingI
 </div>
 `;
 
-exports[`Unholy Death Knight integration test: example log Expedient matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=315546"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Expedient"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_mage_netherwindpresence.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=315546"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Expedient
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 50 50"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 25L25 0l25 25H37.4v25h-25V25H0z"
-            />
-          </svg>
-           
-          48
-          % 
-          <small>
-            Haste Multiplier
-          </small>
-          <br />
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
-            />
-          </svg>
-           
-          1833
-           
-          <small>
-            average Haste gained
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Unholy Death Knight integration test: example log FesteringStrike matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -3797,67 +3625,6 @@ exports[`Unholy Death Knight integration test: example log OverwhelmingPower mat
 </div>
 `;
 
-exports[`Unholy Death Knight integration test: example log RacingPulse matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=318227"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Racing Pulse"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_warrior_bloodfrenzy.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=318227"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Racing Pulse
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
-            />
-          </svg>
-           
-          758
-           
-          <small>
-            average Haste
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Unholy Death Knight integration test: example log RuneTracker matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -3889,7 +3656,7 @@ exports[`Unholy Death Knight integration test: example log RuneTracker matches t
         <div
           className="value"
         >
-          8.76 %
+          3.21 %
         </div>
       </div>
       <div
@@ -5067,7 +4834,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  13.90%
+                  9.60%
                    
                    
                 </div>
@@ -5220,7 +4987,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  91.24%
+                  96.79%
                    
                    
                 </div>
