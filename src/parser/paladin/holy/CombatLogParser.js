@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import LucidDreamsHealers from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import DivinePurposeNormalizer from './normalizers/DivinePurpose';
@@ -113,12 +114,15 @@ class CombatLogParser extends CoreCombatLogParser {
     avengingCrusader: AvengingCrusader,
     judgmentOfLight: JudgmentOfLight,
 
-    // Azureite Traits //
+    // Azerite Traits //
     graceOfTheJusticar: GraceOfTheJusticar,
     radiantIncandescence: RadiantIncandescence,
     glimmerOfLight: GlimmerOfLight,
     lightsDecree: LightsDecree,
     visionOfPerfection: VisionOfPerfection,
+
+    // Azerite Essences //
+    lucidDream: LucidDreamsHealers,
   };
 }
 

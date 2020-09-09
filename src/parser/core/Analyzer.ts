@@ -106,6 +106,7 @@ class Analyzer extends EventSubscriber {
   statisticOrder?: number = undefined;
 
   suggestions(when: When) {}
+
   /**
    * @deprecated Return a `Panel` from the statistic method instead.
    */

@@ -47,7 +47,6 @@ class SteadyFocus extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default SteadyFocus;

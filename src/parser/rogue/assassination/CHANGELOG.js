@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { tsabo, Cloake, Zerotorescue, Gebuz, Aelexe, Vetyst } from 'CONTRIBUTORS';
+import { tsabo, Cloake, Zerotorescue, Gebuz, Aelexe, Vetyst, joshinator } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 5, 26), <>Fixed an issue with the Nightstalker-module crashing.</>, [joshinator]),
   change(date(2020, 5, 26), <>Fixed garrote early refresh tracking.</>, [Vetyst]),
   change(date(2019, 4, 22), <>Early dot refresh tracking</>, [tsabo]),
   change(date(2018, 11, 20), <>Added Bleed snapshot tracking and support for <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} />, <SpellLink id={SPELLS.SUBTERFUGE_TALENT.id} /> and <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />.</>, [Gebuz]),
