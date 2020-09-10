@@ -1,15 +1,8 @@
-import React from 'react';
-
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ItemDamageDone from 'interface/ItemDamageDone';
 import ExecuteHelper from 'parser/shared/ExecuteHelper';
 
 class TouchOfDeath extends ExecuteHelper {
@@ -50,22 +43,6 @@ class TouchOfDeath extends ExecuteHelper {
   adjustMaxCasts(event) {
     super.onFightEnd(event);
     this.maxCasts += Math.ceil(this.totalExecuteDuration / 1800000);
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-      >
-        <BoringSpellValueText spell={SPELLS.TOUCH_OF_DEATH}>
-          <>
-            <ItemDamageDone amount={this.damage} />
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
   }
 }
 
