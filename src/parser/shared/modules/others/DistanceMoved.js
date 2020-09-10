@@ -1,14 +1,13 @@
 import React from 'react';
-import { XYPlot, AreaSeries } from 'react-vis';
 import { AutoSizer } from 'react-virtualized';
-import 'react-vis/dist/style.css';
+import { VegaLite } from 'react-vega';
 
 import { formatPercentage, formatThousands } from 'common/format';
-import groupDataForChart from 'common/groupDataForChart';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import FlushLineChart from 'interface/others/FlushLineChart';
 
 const debug = false;
 
@@ -68,7 +67,7 @@ class DistanceMoved extends Analyzer {
   statistic() {
     debug && console.log(`Time spent moving: ${this.timeSpentMoving / 1000}s, Total distance moved: ${this.totalDistanceMoved} yds`);
 
-    const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const data = Object.entries(this.bySecond).map(([sec, val]) => ({'time': sec, 'val': val}));
 
     return (
       <Statistic
@@ -92,23 +91,7 @@ class DistanceMoved extends Analyzer {
           </div>
 
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, width: '100%', height: '45%' }}>
-            <AutoSizer>
-              {({ width, height }) => (
-                <XYPlot
-                  margin={0}
-                  width={width}
-                  height={height}
-                >
-                  <AreaSeries
-                    data={Object.keys(groupedData).map(x => ({
-                      x: x / width,
-                      y: groupedData[x],
-                    }))}
-                    className="primary"
-                  />
-                </XYPlot>
-              )}
-            </AutoSizer>
+            <FlushLineChart data={data} duration={this.owner.fightDuration / 1000}/>
           </div>
         </div>
       </Statistic>

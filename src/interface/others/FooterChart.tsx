@@ -4,7 +4,7 @@ import { TopLevelSpec, Config } from 'vega-lite';
 import { VegaLite, VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 
-const defaultConfig = {
+export const defaultConfig = {
   autosize: {
     type: 'fit' as const,
     contains: 'padding' as const,
@@ -21,9 +21,9 @@ const defaultConfig = {
   },
 };
 
-type Spec = Omit<TopLevelSpec, "data">;
+export type Spec = Omit<TopLevelSpec, "data">;
 
-interface Props {
+export interface Props {
   spec: Spec;
   data: any;
   config?: Config;
