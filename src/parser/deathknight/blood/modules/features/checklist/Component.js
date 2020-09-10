@@ -29,7 +29,6 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
         <AbilityRequirement spell={SPELLS.BLOOD_BOIL.id} />
         {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) && <AbilityRequirement spell={SPELLS.DEATH_AND_DECAY.id} />}
         {combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id) && <AbilityRequirement spell={SPELLS.BLOODDRINKER_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.RUNE_STRIKE_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_STRIKE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) && (
           <Requirement
             name={<><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs spent</>}
@@ -53,12 +52,6 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
           name={<><SpellLink id={SPELLS.MARROWREND.id} /> Efficiency</>}
           thresholds={thresholds.marrowrend}
         />
-        {combatant.hasTalent(SPELLS.RUNE_STRIKE_TALENT.id) && (
-          <Requirement
-            name={<><SpellLink id={SPELLS.RUNE_STRIKE_TALENT.id} /> Efficiency</>}
-            thresholds={thresholds.runestrike}
-          />
-        )}
         <Requirement
           name={<><SpellLink id={SPELLS.DEATHS_CARESS.id} /> Efficiency</>}
           thresholds={thresholds.deathsCaress}
@@ -115,7 +108,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
         <AbilityRequirement spell={SPELLS.VAMPIRIC_BLOOD.id} />
         <AbilityRequirement spell={SPELLS.ICEBOUND_FORTITUDE.id} />
         <AbilityRequirement spell={SPELLS.ANTI_MAGIC_SHELL.id} />
-        {combatant.hasTalent(SPELLS.RUNE_TAP_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_TAP_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.RUNE_TAP.id) && <AbilityRequirement spell={SPELLS.RUNE_TAP.id} />}
         {combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id) && <AbilityRequirement spell={SPELLS.TOMBSTONE_TALENT.id} />}
       </Rule>
       <PreparationRule thresholds={thresholds} />

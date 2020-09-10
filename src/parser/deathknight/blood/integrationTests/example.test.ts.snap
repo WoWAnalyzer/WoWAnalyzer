@@ -1220,6 +1220,105 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             />
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=221699"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_bloodtap.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Blood Tap
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /4
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              Can be improved.
+            </td>
+          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -1700,6 +1799,105 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               25.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              Can be improved.
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=194679"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_runetap.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Rune Tap
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /7
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
             </td>
             <td
               style={
@@ -3206,6 +3404,88 @@ Array [
             "0": 1,
             "1": 3,
             "2": "25",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "50",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_deathknight_runetap",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={194679}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 7,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "50",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_deathknight_bloodtap",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={221699}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      Use to generate extra runes at opportune times.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 4,
+            "2": "0",
           }
         }
       />
