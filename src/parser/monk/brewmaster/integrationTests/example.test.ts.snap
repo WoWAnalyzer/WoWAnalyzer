@@ -31,7 +31,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
         <div
           className="value"
         >
-          41.61 %
+          45.03 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "58.38917441936113%",
+                  "width": "54.97365168173833%",
                 }
               }
             >
@@ -103,7 +103,7 @@ Array [
     "importance": "major",
     "issue": "Your downtime can be improved. Try to Always Be Casting (ABC).",
     "stat": <React.Fragment>
-      41.61% downtime
+      45.03% downtime
        (
       &lt;20.00% is recommended
       )
@@ -1276,7 +1276,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               0
-              /2
+              /1
                
               casts
             </td>
@@ -1294,7 +1294,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
+                      "backgroundColor": "#ff8000",
                       "width": "0%",
                     }
                   }
@@ -1319,7 +1319,9 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   "width": "25%",
                 }
               }
-            />
+            >
+              Can be improved.
+            </td>
           </tr>
         </tbody>
         <tbody>
@@ -1577,7 +1579,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
-                href="http://wowhead.com/spell=115072"
+                href="http://wowhead.com/spell=322101"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1609,7 +1611,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              4.10
+              0.00
             </td>
             <td
               className="text-right"
@@ -1619,7 +1621,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              21
+              0
               
                
               casts
@@ -3356,6 +3358,47 @@ Array [
       )
     </React.Fragment>,
   },
+  Object {
+    "details": null,
+    "icon": "ability_monk_touchofdeath",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={322109}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 1,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "85",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
 ]
 `;
 
@@ -3497,7 +3540,7 @@ exports[`Brewmaster Monk integration test: example log DistanceMoved matches the
             }
           >
             ≈ 
-            27.53
+            27.52
             %
           </small>
         </div>

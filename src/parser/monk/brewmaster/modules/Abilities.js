@@ -81,14 +81,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.TOUCH_OF_DEATH_BRM,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
         spell: SPELLS.PURIFYING_BREW,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => brewCooldown / (1 + haste),

@@ -32,6 +32,7 @@ import Vivify from './modules/spells/Vivify';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import RenewingMist from './modules/spells/RenewingMist';
+import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vivify: Vivify,
     renewingMist: RenewingMist,
     lifeCocoon: LifeCocoon,
+    touchOfDeath: TouchOfDeath,
 
     // Talents
     chiBurst: ChiBurst,
