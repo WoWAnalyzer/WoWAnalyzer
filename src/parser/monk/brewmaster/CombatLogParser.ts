@@ -22,6 +22,7 @@ import BlackOxBrew from './modules/spells/BlackOxBrew';
 import HighTolerance from './modules/spells/HighTolerance';
 import CelestialFortune from './modules/spells/CelestialFortune';
 import GiftOfTheOxStat from './modules/spells/GiftOfTheOx';
+import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
 // Features
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -64,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     highTolerance: HighTolerance,
     cf: CelestialFortune,
     gotox: GiftOfTheOxStat,
+    touchOfDeath: TouchOfDeath,
 
     // Items
 
