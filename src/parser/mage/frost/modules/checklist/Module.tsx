@@ -6,9 +6,9 @@ import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import BrainFreeze from '../features/BrainFreeze';
-import GlacialSpike from '../features/GlacialSpike';
+import GlacialSpike from '../talents/GlacialSpike';
 import IceLance from '../features/IceLance';
-import ThermalVoid from '../features/ThermalVoid';
+import ThermalVoid from '../talents/ThermalVoid';
 import WintersChill from '../features/WintersChill';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ArcaneIntellect from '../../../shared/modules/features/ArcaneIntellect';

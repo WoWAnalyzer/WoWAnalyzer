@@ -10,13 +10,13 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import WintersChill from './modules/features/WintersChill';
 import BrainFreeze from './modules/features/BrainFreeze';
 import IceLance from './modules/features/IceLance';
-import ThermalVoid from './modules/features/ThermalVoid';
-import GlacialSpike from './modules/features/GlacialSpike';
+import ThermalVoid from './modules/talents/ThermalVoid';
+import GlacialSpike from './modules/talents/GlacialSpike';
 import BoneChilling from './modules/talents/BoneChilling';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
-import SplittingIce from './modules/features/SplittingIce';
+import SplittingIce from './modules/talents/SplittingIce';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import ColdSnap from './modules/cooldowns/ColdSnap';
