@@ -406,8 +406,8 @@ exports[`Frost Mage integration test: example log BoneChilling matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
+    category="TALENTS"
     className="panel statistic flexible "
-    position={90}
   >
     <div
       className="panel-body"
@@ -518,7 +518,7 @@ exports[`Frost Mage integration test: example log BrainFreeze matches the statis
         <div
           className="value"
         >
-          96
+          73
           % 
           <small>
             Proc utilization
@@ -552,54 +552,26 @@ Array [
   Object {
     "details": null,
     "icon": "ability_mage_brainfreeze",
-    "importance": "minor",
+    "importance": "major",
     "issue": <React.Fragment>
-      You overwrote 
-      3.85
+      You overwrite 
+      26.92
       % of your 
       <ForwardRef
         id={190446}
       />
-       procs incorrectly. You should use 
+       procs. You should use your 
       <ForwardRef
         id={190446}
       />
-       immediately following 
-      <ForwardRef
-        id={116}
-      />
-       if you have fewer than 
-      3
-       
-      <ForwardRef
-        id={205473}
-      />
-       during the 
-      <ForwardRef
-        id={116}
-      />
-       cast. If you have 
-      3
-       or more 
-      <ForwardRef
-        id={205473}
-      />
-       during the 
-      <ForwardRef
-        id={116}
-      />
-       cast, save the 
+       procs as soon as possible and avoid letting them expire or be overwritten whenever possible. There are not any situations where it would be advantageous to hold your 
       <ForwardRef
         id={190446}
-      />
-       proc for 
-      <ForwardRef
-        id={199786}
       />
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      3.85% overwritten
+      26.92% overwritten
        (
       Overwriting none is recommended
       )
@@ -620,7 +592,27 @@ Array [
       />
        
       4
-       times.
+       times. 
+      <ForwardRef
+        id={44614}
+      />
+       does not debuff the target with 
+      <ForwardRef
+        id={228358}
+      />
+       unless you have a 
+      <ForwardRef
+        id={190446}
+      />
+       proc, so you should never cast 
+      <ForwardRef
+        id={44614}
+      />
+       unless you have 
+      <ForwardRef
+        id={190446}
+      />
+      .
     </React.Fragment>,
     "stat": <React.Fragment>
       4 casts
@@ -4515,8 +4507,8 @@ exports[`Frost Mage integration test: example log GlacialSpike matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
+    category="TALENTS"
     className="panel statistic flexible "
-    position={30}
   >
     <div
       className="panel-body"
@@ -4588,52 +4580,28 @@ Array [
       <ForwardRef
         id={199786}
       />
-       inefficiently 
+       without 
+      <ForwardRef
+        id={12982}
+      />
+      ing it 
       4
-       times. Because it is such a potent ability, it is important to maximize its damage by only casting it when at least one of the following is true:
-      <ul>
-        <li>
-          You have a 
-          <ForwardRef
-            id={190446}
-          />
-           proc to  
-          <TooltipElement
-            className=""
-            content={
-              <React.Fragment>
-                <em>
-                  Glacial Spike 
-                  &gt;
-                   (empowered) Flurry 
-                  &gt;
-                   Ice Lance
-                </em>
-                <br />
-                Because of Flurry's extremely fast travel time, using a Brain Freeze proc immediately following a slower spell like Glacial Spike will apply Winter's Chill to the target before the slower spell hits.
-              </React.Fragment>
-            }
-            direction="down"
-            hoverable={false}
-            style={Object {}}
-            tooltipClassName=""
-          >
-            use on it
-          </TooltipElement>
-          .
-        </li>
-        <li>
-          The 
-          <ForwardRef
-            id={199786}
-          />
-           will cleave to a second target via 
-          <ForwardRef
-            id={56377}
-          />
-           (if talented).
-        </li>
-      </ul>
+       times. Because it is such a potent ability, it is important to maximize it's damage by only casting it if the target is
+      <TooltipElement
+        className=""
+        content={
+          <React.Fragment>
+            Winter's Chill, Frost Nova, Ice Nova, Ring of Frost, and your pet's Freeze will all cause the target to be frozen or act as frozen.
+          </React.Fragment>
+        }
+        direction="down"
+        hoverable={false}
+        style={Object {}}
+        tooltipClassName=""
+      >
+        Frozen or acting as Frozen
+      </TooltipElement>
+      .
     </React.Fragment>,
     "stat": <React.Fragment>
       80.0% utilization
@@ -4756,8 +4724,8 @@ exports[`Frost Mage integration test: example log MirrorImage matches the statis
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="TALENTS"
     className="panel statistic flexible "
+    position={30}
   >
     <div
       className="panel-body"
@@ -6307,7 +6275,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -6331,8 +6299,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "69.67727272727274%",
+                  "backgroundColor": "#df7102",
+                  "width": "34.88640734265736%",
                 }
               }
             />
@@ -6553,7 +6521,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  96.15%
+                  73.08%
                    
                    
                 </div>
@@ -6573,9 +6541,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "30.418269230769234%",
                       }
                     }
                   />

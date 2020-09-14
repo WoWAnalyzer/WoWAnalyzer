@@ -4621,8 +4621,8 @@ exports[`Fire Mage integration test: example log MirrorImage matches the statist
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="TALENTS"
     className="panel statistic flexible "
+    position={30}
   >
     <div
       className="panel-body"

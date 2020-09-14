@@ -4,6 +4,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { SummonEvent, DamageEvent } from 'parser/core/Events';
 
@@ -60,8 +61,8 @@ class MirrorImage extends Analyzer {
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.CORE(30)}
         size="flexible"
-        category={'TALENTS'}
         tooltip={<>This is the portion of your total damage attributable to Mirror Image. Expressed as an increase vs never using Mirror Image, this is a <strong>{formatPercentage(this.damageIncreasePercent)}% damage increase</strong></>}
       >
         <BoringSpellValueText spell={SPELLS.MIRROR_IMAGE}>
