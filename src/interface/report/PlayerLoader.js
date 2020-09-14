@@ -24,12 +24,15 @@ import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/Rep
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
 import handleApiError from './handleApiError';
+import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
 
 const defaultState = {
   error: null,
   combatants: null,
   combatantsFightId: null,
 };
+
+const FAKE_PLAYER_IF_DEV_ENV = true;
 
 class PlayerLoader extends React.PureComponent {
   tanks = 0;
@@ -123,37 +126,44 @@ class PlayerLoader extends React.PureComponent {
       // Filter for only loaded characterDatas
       characterDatas = characterDatas.filter(value => value);
       combatants.forEach(player => {
-        if (player.error || player.specID === -1) {
-          return;
-        }
-        const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
-        if(!friendly) {
-          console.error("friendly missing from report for player", player.sourceID);
-          return;
-        }
-        const characterData = characterDatas ? characterDatas.find(data => data.id === friendly.guid) : null;
-        switch (SPECS[player.specID].role) {
-          case ROLES.TANK:
-            this.tanks += 1;
-            break;
-          case ROLES.HEALER:
-            this.healers += 1;
-            break;
-          case ROLES.DPS.MELEE:
-            this.dps += 1;
-            break;
-          case ROLES.DPS.RANGED:
-            this.ranged += 1;
-            break;
-          default: break;
-        }
-        // Gear may be null for broken combatants
-        this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
-        if (characterData && characterData.heartOfAzeroth) {
-          numberOfCombatantsWithLoadedHeart += 1;
-          this.heartLvl += characterData.heartOfAzeroth.azeriteItemLevel;
-        }
-      });
+          if (player.error || player.specID === -1) {
+            if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
+              console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see FakePlayerHelper.ts for more information.');
+              player = generateFakeCombatantInfo(player);
+            } else {
+              return;
+            }
+            const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
+            if (!friendly) {
+              console.error('friendly missing from report for player', player.sourceID);
+              return;
+            }
+            const characterData = characterDatas ? characterDatas.find(data => data.id === friendly.guid) : null;
+            switch (SPECS[player.specID].role) {
+              case ROLES.TANK:
+                this.tanks += 1;
+                break;
+              case ROLES.HEALER:
+                this.healers += 1;
+                break;
+              case ROLES.DPS.MELEE:
+                this.dps += 1;
+                break;
+              case ROLES.DPS.RANGED:
+                this.ranged += 1;
+                break;
+              default:
+                break;
+            }
+            // Gear may be null for broken combatants
+            this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
+            if (characterData && characterData.heartOfAzeroth) {
+              numberOfCombatantsWithLoadedHeart += 1;
+              this.heartLvl += characterData.heartOfAzeroth.azeriteItemLevel;
+            }
+          }
+        },
+      );
       this.ilvl /= combatants.length;
       if (numberOfCombatantsWithLoadedHeart > 0) {
         this.heartLvl /= numberOfCombatantsWithLoadedHeart;
