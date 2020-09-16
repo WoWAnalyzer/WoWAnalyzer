@@ -27,6 +27,7 @@ export interface Props {
   spec: Spec;
   data: any;
   config?: Config;
+  height?: number;
 }
 
 export function formatTime(field: string = 'datum.timestamp') {
@@ -39,9 +40,12 @@ export default function FooterChart(props: Props) {
     ...props.spec,
     data: { name: 'default_data' },
   };
+  const height = props.height || 75;
+
   return (
     <div style={{
       width: '100%',
+      height,
     }}>
       <AutoSizer disableHeight>
         {({ width }) => {
@@ -49,7 +53,7 @@ export default function FooterChart(props: Props) {
             return (
               <VegaLite
                 width={width}
-                height={75}
+                height={height}
                 renderer="canvas"
                 theme="dark"
                 tooltip={{theme: 'dark'}}

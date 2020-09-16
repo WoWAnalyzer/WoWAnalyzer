@@ -1,6 +1,4 @@
 import React from 'react';
-import { AutoSizer } from 'react-virtualized';
-import { VegaLite } from 'react-vega';
 
 import { formatPercentage, formatThousands } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
@@ -91,7 +89,7 @@ class DistanceMoved extends Analyzer {
           </div>
 
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, width: '100%', height: '45%' }}>
-            <FlushLineChart data={data} duration={this.owner.fightDuration / 1000}/>
+            <FlushLineChart data={data} duration={this.owner.fightDuration / 1000} />
           </div>
         </div>
       </Statistic>

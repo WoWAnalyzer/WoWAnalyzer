@@ -9,7 +9,8 @@ export interface Props {
   x?: string,
   y?: string,
   duration?: number,
-};
+  height?: number,
+}
 
 export default function FlushLineChart(props: Props) {
   const x = props.x || 'time';
@@ -71,5 +72,5 @@ export default function FlushLineChart(props: Props) {
     },
   };
 
-  return <FooterChart spec={spec} data={props.data} config={props.config} />;
+  return <FooterChart spec={spec} data={props.data} config={props.config} height={props.height} />;
 }
