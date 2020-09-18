@@ -123,7 +123,7 @@ class ManaLevelGraph extends React.PureComponent {
             tooltip: [
               { field: 'name', type: 'nominal', title: 'Target' },
               { field: 'ability', type: 'nominal', title: 'Killing Ability' },
-            ]
+            ],
           },
         },
       ],
