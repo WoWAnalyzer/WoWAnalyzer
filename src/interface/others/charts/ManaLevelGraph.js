@@ -1,20 +1,8 @@
 import React from 'react';
+import { VegaLite } from 'react-vega';
+import { AutoSizer } from 'react-virtualized';
 import PropTypes from 'prop-types';
-import {
-  FlexibleWidthXYPlot as XYPlot,
-  DiscreteColorLegend,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  AreaSeries,
-  LineSeries,
-} from 'react-vis';
-
-import { formatDuration } from 'common/format';
-
-import VerticalLine from './VerticalLine';
-import './ManaLevelGraph.scss';
+import { formatTime, defaultConfig } from 'interface/others/FooterChart';
 
 class ManaLevelGraph extends React.PureComponent {
   static propTypes = {
@@ -34,9 +22,6 @@ class ManaLevelGraph extends React.PureComponent {
         y: PropTypes.number.isRequired,
       })).isRequired,
     })).isRequired,
-    startTime: PropTypes.number.isRequired,
-    endTime: PropTypes.number.isRequired,
-    offsetTime: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
@@ -52,88 +37,118 @@ class ManaLevelGraph extends React.PureComponent {
   };
 
   render() {
-    const { mana, deaths, bossData, startTime, endTime, offsetTime } = this.props;
+    const { mana, deaths, bossData } = this.props;
 
-    const xValues = [];
-    const yValues = [0, 25, 50, 75, 100];
-    const duration = endTime - startTime;
-    const steps = 20;
-    const optimalInterval = 30 * 1000; // seconds
-    const interval = Math.max(optimalInterval, Math.floor(duration / steps / optimalInterval) * optimalInterval);
-    for (let i = startTime; i < endTime; i += interval) {
-      xValues.push(i);
-    }
+    const baseEncoding = {
+            x: {
+              field: 'x',
+              type: 'quantitative',
+              axis: {
+                labelExpr: formatTime('datum.value'),
+                grid: false,
+              },
+              title: null,
+              scale: { zero: true },
+            },
+            y: {
+              field: 'y',
+              type: 'quantitative',
+              axis: {
+                tickCount: 4,
+              },
+              title: null,
+            },
+          };
+
+    const spec = {
+      layer: [
+        {
+          data: {
+            name: 'mana',
+          },
+          mark: {
+            type: 'area',
+            line: {
+              interpolate: 'linear',
+              color: this.colors.mana.border,
+              strokeWidth: 1,
+            },
+            color: this.colors.mana.background,
+          },
+          encoding: baseEncoding,
+        },
+        {
+          data: {
+            name: 'bosses',
+          },
+          transform: [
+            { flatten: ['data'] },
+            { calculate: 'datum.data.x', as: 'x' },
+            { calculate: 'datum.data.y', as: 'y' },
+          ],
+          mark: {
+            type: 'area',
+            opacity: 0.6,
+            line: {
+              interpolate: 'linear',
+              strokeWidth: 1,
+            },
+          },
+          encoding: {
+            ...baseEncoding,
+            color: {
+              field: 'title',
+              type: 'nominal',
+              title: 'Enemy',
+              legend: {
+                orient: 'top',
+              },
+              scale: {
+                scheme: "accent",
+              },
+            },
+          },
+        },
+        {
+          data: {
+            name: 'deaths',
+          },
+          mark: {
+            type: 'rule',
+            color: 'red',
+            strokeWidth: 2,
+          },
+          encoding: {
+            x: baseEncoding.x,
+            tooltip: [
+              { field: 'name', type: 'nominal', title: 'Target' },
+              { field: 'ability', type: 'nominal', title: 'Killing Ability' },
+            ]
+          },
+        },
+      ],
+    };
+
+    const data = {
+      mana, deaths,
+      bosses: bossData,
+    };
 
     return (
-      <XYPlot
-        height={400}
-        yDomain={[0, 100]}
-        margin={{
-          top: 30,
-        }}
-      >
-        <DiscreteColorLegend
-          orientation="horizontal"
-          items={[
-            ...bossData.map(boss => ({ title: boss.title, color: boss.borderColor })),
-            { title: 'Mana', color: this.colors.mana.border },
-            { title: 'Deaths', color: this.colors.death },
-          ]}
-        />
-        <XAxis tickValues={xValues} tickFormat={value => formatDuration((value - startTime + offsetTime) / 1000)} />
-        <YAxis tickValues={yValues} tickFormat={value => `${value}%`} />
-        <VerticalGridLines
-          tickValues={xValues}
-          style={{
-            strokeDasharray: 3,
-            stroke: 'white',
-            fill: 'white',
-          }}
-        />
-        <HorizontalGridLines
-          tickValues={yValues}
-          style={{
-            strokeDasharray: 3,
-            stroke: 'white',
-            fill: 'white',
-          }}
-        />
-        {bossData.map(boss => (
-          <AreaSeries
-            key={boss.id}
-            data={boss.data}
-            color={boss.backgroundColor}
-            stroke="transparent"
+      <AutoSizer disableHeight>
+        {({ width }) => (
+          <VegaLite
+            height={400}
+            width={width}
+            config={defaultConfig}
+            spec={spec}
+            data={data}
+            actions={false}
+            theme="dark"
+            tooltip={{theme: 'dark'}}
           />
-        ))}
-        {bossData.map(boss => (
-          <LineSeries
-            key={boss.id}
-            data={boss.data}
-            color={boss.borderColor}
-            strokeWidth={2}
-          />
-        ))}
-        <AreaSeries
-          data={mana}
-          color={this.colors.mana.background}
-          stroke="transparent"
-        />
-        <LineSeries
-          data={mana}
-          color={this.colors.mana.border}
-          strokeWidth={2}
-        />
-        {deaths.map(({ x }, index) => (
-          <VerticalLine
-            key={index}
-            value={x}
-            style={{
-              line: { background: this.colors.death },
-            }}
-          />
-        ))}
-      </XYPlot>
+        )}
+      </AutoSizer>
     );
   }
 }
