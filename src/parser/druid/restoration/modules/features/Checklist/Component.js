@@ -101,19 +101,6 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
           </>
         )}
       >
-        {!combatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && (
-          <Requirement
-            name={(<><SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime</>)}
-            thresholds={thresholds.lifebloomUpTime}
-          />
-        )}
-        {combatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && (
-          <Requirement
-            name={(<><SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime</>)}
-            tooltip="This requirement is more stringent because you have The Dark Titans Advice equipped"
-            thresholds={thresholds.lifebloomUpTime}
-          />
-        )}
         <Requirement
           name={(<><SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime</>)}
           thresholds={thresholds.efflorescenceUpTime}
@@ -207,8 +194,6 @@ RestorationDruidChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasTrinket: PropTypes.func.isRequired,
-    hasWaist: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };

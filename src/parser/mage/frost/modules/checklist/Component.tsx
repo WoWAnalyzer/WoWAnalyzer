@@ -8,7 +8,7 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
-const FrostMageChecklist = ({ combatant, castEfficiency, thresholds, owner }: any) => {
+const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
   const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -99,10 +99,8 @@ FrostMageChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasTrinket: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
-  owner: PropTypes.object.isRequired,
 };
 
 export default FrostMageChecklist;
