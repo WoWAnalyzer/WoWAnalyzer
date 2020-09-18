@@ -9,8 +9,7 @@ import SpellFocusCost from 'parser/hunter/shared/modules/resources/SpellFocusCos
 import StatisticBar from 'interface/statistics/StatisticBar';
 
 import { AutoSizer } from 'react-virtualized';
-import { AreaSeries, XYPlot } from 'react-vis';
-import groupDataForChart from 'common/groupDataForChart';
+import FlushLineChart from 'interface/others/FlushLineChart';
 import { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import { HUNTER_BASE_FOCUS_MAX, HUNTER_BASE_FOCUS_REGEN } from 'parser/hunter/shared/constants';
 
@@ -77,7 +76,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
   }
 
   statistic() {
-    const groupedData: any = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const data = Object.entries(this.bySecond).map(([sec, val]) => ({'time': sec, 'val': val}));
     return (
       <StatisticBar
         position={STATISTIC_ORDER.CORE(1)}
@@ -102,21 +101,9 @@ class FocusCapTracker extends RegenResourceCapTracker {
             </div>
             <div className="flex-main chart">
               {this.missedRegen > 0 && (
-                <AutoSizer>
-                  {({ width, height }) => (
-                    <XYPlot
-                      margin={0}
-                      width={width}
-                      height={height}
-                    >
-                      <AreaSeries
-                        data={Object.keys(groupedData).map(x => ({
-                          x: +x / width,
-                          y: groupedData[x],
-                        }))}
-                        className="primary"
-                      />
-                    </XYPlot>
+                <AutoSizer disableWidth>
+                  {({ height }) => (
+                    <FlushLineChart data={data} duration={this.owner.fightDuration / 1000} height={height} />
                   )}
                 </AutoSizer>
               )}
