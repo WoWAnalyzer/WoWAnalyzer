@@ -84,6 +84,41 @@ export default {
     name: 'Hammer of Justice',
     icon: 'spell_holy_sealofmight',
   },
+  HAMMER_OF_WRATH: {
+    id: 24275,
+    name: 'Hammer of Wrath',
+    icon: 'spell_paladin_hammerofwrath',
+  },
+  WORD_OF_GLORY: {
+    id: 85673,
+    name: 'Word of Glory',
+    icon: 'inv_helmet_96',
+  },
+  CRUSADER_AURA: {
+    id: 32223,
+    name: 'Crusader Aura',
+    icon: 'spell_holy_crusaderaura',
+  },
+  RETRIBUTION_AURA: {
+    id: 183435,
+    name: 'Retribution Aura',
+    icon: 'spell_holy_crusade',
+  },
+  CONCENTRATION_AURA: {
+    id: 317920,
+    name: 'Concentration Aura',
+    icon: 'spell_holy_mindsooth',
+  },
+  DEVOTION_AURA: {
+    id: 465,
+    name: 'Devotion Aura',
+    icon: 'spell_holy_devotionaura',
+  },
+  TURN_EVIL: {
+    id: 10326,
+    name: 'Turn Evil',
+    icon: 'ability_paladin_turnevil',
+  },
 
   // Holy Paladin:
   MASTERY_LIGHTBRINGER: {
@@ -307,11 +342,6 @@ export default {
     name: 'Blade of Wrath',
     icon: 'ability_paladin_bladeofjusticeblue',
   },
-  RETRIBUTION_BUFF: {
-    id: 183436,
-    name: 'Retribution',
-    icon: 'spell_holy_crusade',
-  },
   GREATER_BLESSING_OF_KINGS: {
     id: 203538,
     name: 'Greater Blessing of Kings',
@@ -347,7 +377,17 @@ export default {
     name: 'Execution Sentence',
     icon: 'spell_paladin_executionsentence',
   },
-  // Traits:
+  WAKE_OF_ASHES: {
+    id: 255937,
+    name: 'Wake of Ashes',
+    icon: 'inv_sword_2h_artifactashbringerfire_d_03',
+  },
+  FINAL_VERDICT: {
+    id: 336872,
+    name: 'Final Verdict',
+    icon: 'spell_paladin_templarsverdict',
+  },
+
 	// Protection
   ARDENT_DEFENDER: {
     id: 31850,
