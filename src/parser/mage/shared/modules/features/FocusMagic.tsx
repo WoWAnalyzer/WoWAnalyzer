@@ -38,9 +38,10 @@ class FocusMagic extends Analyzer {
 
   onBuffRemoved(event: RemoveBuffEvent) {
     this.buffStack = 0;
-
+    
     if (this.highStackTimestamp !== 0) {
       this.intUptime += event.timestamp - this.highStackTimestamp;
+      this.highStackTimestamp = 0;
     }
   }
 
