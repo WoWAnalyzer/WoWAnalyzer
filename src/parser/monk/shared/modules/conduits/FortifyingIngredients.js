@@ -28,7 +28,7 @@ class FortifyingIngredients extends Analyzer {
   }
 
   addShield(event) {
-    this.shield += event.absorb || 0;
+    this.shield += (event.absorb || 0);
   }
 
   statistic() {
