@@ -71,6 +71,16 @@ export default {
     name: 'Arcane Intellect',
     icon: 'spell_holy_magicalsentry',
   },
+  FOCUS_MAGIC_CRIT_BUFF: {
+    id: 321363,
+    name: 'Focus Magic',
+    icon: 'spell_arcane_studentofmagic',
+  },
+  FOCUS_MAGIC_INT_BUFF: {
+    id: 334180,
+    name: 'Focus Magic',
+    icon: 'spell_arcane_studentofmagic',
+  },
   ALTER_TIME: {
     id: 109878,
     name: 'Alter Time',
