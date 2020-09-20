@@ -40,6 +40,7 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         <AbilityRequirement spell={SPELLS.BARBED_SHOT.id} />
         <AbilityRequirement spell={SPELLS.BESTIAL_WRATH.id} />
         <AbilityRequirement spell={SPELLS.ASPECT_OF_THE_WILD.id} />
+
         {combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.DIRE_BEAST_TALENT.id} />}
         {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_BM_TALENT.id) &&
@@ -50,6 +51,8 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         <AbilityRequirement spell={SPELLS.BARRAGE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.STAMPEDE_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.BLOODSHED_TALENT.id) &&
+        <AbilityRequirement spell={SPELLS.BLOODSHED_TALENT.id} />}
       </Rule>
       <Rule
         name="Barbed Shot usage"
