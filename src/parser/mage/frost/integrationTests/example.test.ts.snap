@@ -5506,7 +5506,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
             />
           </a>
            
-          -247
+          13
           % 
           <small>
             Spells shattered
@@ -5567,7 +5567,7 @@ Array [
        on your target 
       33
        times (
-      347.37
+      86.84
       %). After debuffing the target via 
       <ForwardRef
         id={190446}
@@ -5603,7 +5603,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      347.37% Winter's Chill not shattered with Ice Lance
+      86.84% Winter's Chill not shattered with Ice Lance
        (
       5.00% is recommended
       )
@@ -5878,8 +5878,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "-4.915789473684217%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "52.921052631578945%",
                 }
               }
             />
@@ -6128,7 +6128,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  -247.37%
+                  13.16%
                    
                    
                 </div>
@@ -6150,7 +6150,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "-109.83157894736844%",
+                        "width": "5.842105263157894%",
                       }
                     }
                   />
