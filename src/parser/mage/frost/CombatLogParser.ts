@@ -14,6 +14,7 @@ import ThermalVoid from './modules/talents/ThermalVoid';
 import GlacialSpike from './modules/talents/GlacialSpike';
 import BoneChilling from './modules/talents/BoneChilling';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
+import FocusMagic from '../shared/modules/features/FocusMagic';
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import SplittingIce from './modules/talents/SplittingIce';
@@ -46,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // T45 TODO - Incanters Flow
     mirrorImage: MirrorImage,
+    focusMagic: FocusMagic,
     runeOfPower: RuneOfPower,
 
     // T60 TODO - Frozen Touch, Chain Reaction, Ebonbolt
