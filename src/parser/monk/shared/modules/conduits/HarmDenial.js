@@ -24,7 +24,7 @@ class HarmDenial extends Analyzer {
    */
   constructor(...args) {
     super(...args);
-    this.active = true;//this.selectedCombatant.hasConduit(SPELLS.HARM_DENIAL.id);
+    this.active = false;
     if (!this.active) {
       return;
     }
@@ -35,7 +35,7 @@ class HarmDenial extends Analyzer {
   }
 
   extraHealing(event) {
-    const bonusHealing = (calculateEffectiveHealing(event, this.healingBoost) || 0);
+    const bonusHealing = calculateEffectiveHealing(event, this.healingBoost) || 0;
     this.healingIncrease += bonusHealing;
     this.bonusDamage += bonusHealing * .1;
   }
@@ -48,10 +48,8 @@ class HarmDenial extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <BoringSpellValueText spell={SPELLS.HARM_DENIAL}>
-          <>
-            <ItemDamageDone amount={this.bonusDamage} /><br />
-            <ItemHealingDone amount={this.healingIncrease} />
-          </>
+          <ItemDamageDone amount={this.bonusDamage} /><br />
+          <ItemHealingDone amount={this.healingIncrease} />
         </BoringSpellValueText>
       </Statistic>
     );

@@ -24,7 +24,7 @@ class GroundingBreath extends Analyzer {
    */
   constructor(...args) {
     super(...args);
-    this.active = true;//this.selectedCombatant.hasConduit(SPELLS.GROUNDING_BREATH.id);
+    this.active = false;
     if (!this.active) {
       return;
     }
@@ -54,10 +54,8 @@ class GroundingBreath extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <BoringSpellValueText spell={SPELLS.GROUNDING_BREATH}>
-          <>
-            <ItemManaGained amount={this.resourceReturned} />
-            <ItemHealingDone amount={this.healing} /><br />
-          </>
+          <ItemManaGained amount={this.resourceReturned} />
+          <ItemHealingDone amount={this.healing} /><br />
         </BoringSpellValueText>
       </Statistic>
     );

@@ -19,7 +19,7 @@ class FortifyingIngredients extends Analyzer {
    */
   constructor(...args) {
     super(...args);
-    this.active = true;//this.selectedCombatant.hasConduit(SPELLS.FORTIFYING_INGREDIENTS.id);
+    this.active = false;
 
     if (!this.active) {
       return;
@@ -39,9 +39,7 @@ class FortifyingIngredients extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <BoringSpellValueText spell={SPELLS.FORTIFYING_INGREDIENTS}>
-          <>
-            <ItemHealingDone amount={this.shield} />
-          </>
+          <ItemHealingDone amount={this.shield} />
         </BoringSpellValueText>
       </Statistic>
     );
