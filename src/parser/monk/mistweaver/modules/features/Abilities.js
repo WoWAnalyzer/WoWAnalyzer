@@ -93,6 +93,16 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 18,
       },
+      {
+        spell: SPELLS.INVOKE_YULON_THE_JADE_SERPENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        enabled: !combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
+        cooldown: 180,
+        gcd: {
+          base: 1500
+        },
+        timelineSortIndex: 20,
+      },
 
       // Other Spell Casting Metrics
 
@@ -176,6 +186,13 @@ class Abilities extends CoreAbilities {
         cooldown: 8,
         gcd: {
           base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.EXPEL_HARM,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        gcd: {
+          static: 500,
         },
       },
       {

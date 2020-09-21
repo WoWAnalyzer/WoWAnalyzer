@@ -17,7 +17,7 @@ const debug = false;
 const RISING_MIST_EXTENSION = 4000;
 
 const UNAFFECTED_SPELLS = [
-  SPELLS.CRANE_HEAL.id,
+  // SPELLS.CRANE_HEAL.id,
   SPELLS.ENVELOPING_MIST.id,
 ];
 

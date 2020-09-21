@@ -61,10 +61,10 @@ class ThunderFocusTea extends Analyzer {
         this.castsUnderTft += 1;
         this.castsTftRsk += 1;
         
-        if(this.selectedCombatant.hasBuff(SPELLS.WAY_OF_THE_CRANE.id)){
-          this.correctCasts += 1;
-          return;
-        }
+        // if(this.selectedCombatant.hasBuff(SPELLS.WAY_OF_THE_CRANE.id)){
+        //   this.correctCasts += 1;
+        //   return;
+        // }
         
         if(this.rmActive){
           this.correctCasts +=1;

@@ -162,6 +162,22 @@ export default {
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
   },
+  INVOKE_YULON_THE_JADE_SERPENT: {
+    id: 322118,
+    name: 'Invoke Yu\'lon, the Jade Serpent',
+    icon: 'ability_monk_dragonkick',
+    manaCost: 50000,
+  },
+  ENVELOPING_BREATH: {
+    id: 325209,
+    name: 'Enveloping Breath',
+    icon: 'ability_monk_chiexplosion',
+  },
+  SOOTHING_BREATH: {
+    id: 343737,
+    name: 'Soothing Breath',
+    icon: 'ability_monk_soothingmists',
+  },
   SPIRIT_OF_THE_CRANE_BUFF: {
     id: 210803,
     name: 'Spirit of the Crane',
