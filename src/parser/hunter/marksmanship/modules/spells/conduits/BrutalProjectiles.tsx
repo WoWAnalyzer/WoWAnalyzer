@@ -17,7 +17,7 @@ import { BRUTAL_PROJECTILES_RAMP_DAMAGE } from 'parser/hunter/marksmanship/const
  *
  * TODO: If the buff goes live with 15 seconds despite Rapid Fire being 20 seconds cooldown, make some check for unlucky procs(?)
  * TODO: Verify these two buffs work like indicated in the spell data
- * Maybe even add a Binom chart to this, even it ends up being impactful?
+ * TODO: Maybe even add a Binom chart to this, even it ends up being impactful?
  *
  */
 class BrutalProjectiles extends Analyzer {

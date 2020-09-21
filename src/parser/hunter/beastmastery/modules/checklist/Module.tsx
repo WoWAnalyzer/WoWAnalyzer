@@ -1,20 +1,21 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 import FocusDetails from 'parser/hunter/shared/modules/resources/FocusDetails';
 
-import Component from './Component';
+import HuntersMark from 'parser/hunter/shared/modules/spells/HuntersMark';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Combatants from 'parser/shared/modules/Combatants';
+
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import BestialWrath from '../spells/BestialWrath';
-import KillerCobra from '../talents/KillerCobra';
-import CobraShot from '../spells/CobraShot';
-import BarbedShot from '../spells/BarbedShot';
-import BeastMasteryFocusCapTracker from '../resources/BeastMasteryFocusCapTracker';
-import BeastCleave from '../spells/BeastCleave';
 import BasicAttacks from '../pets/basicAttacksTracker';
+import BeastMasteryFocusCapTracker from '../resources/BeastMasteryFocusCapTracker';
+import BarbedShot from '../spells/BarbedShot';
+import BeastCleave from '../spells/BeastCleave';
+import BestialWrath from '../spells/BestialWrath';
+import CobraShot from '../spells/CobraShot';
+import KillerCobra from '../talents/KillerCobra';
+import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -30,20 +31,38 @@ class Checklist extends BaseChecklist {
     focusCapTracker: BeastMasteryFocusCapTracker,
     beastCleave: BeastCleave,
     basicAttacks: BasicAttacks,
+    huntersMark: HuntersMark,
   };
 
+  //region Core
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected alwaysBeCasting!: AlwaysBeCasting;
+  //endregion
+
+  //region Spells
+  protected beastCleave!: BeastCleave;
+  protected huntersMark!: HuntersMark;
+  protected cobraShot!: CobraShot;
   protected barbedShot!: BarbedShot;
   protected bestialWrath!: BestialWrath;
+  //endregion
+
+  //region Talents
   protected killerCobra!: KillerCobra;
-  protected cobraShot!: CobraShot;
+
+  //endregion
+
+  //region Resources
   protected focusGeneratorDetails!: FocusDetails;
   protected focusCapTracker!: BeastMasteryFocusCapTracker;
-  protected beastCleave!: BeastCleave;
+  //endregion
+
+  //region Pets
   protected basicAttacks!: BasicAttacks;
+
+  //endregion
 
   render() {
     return (
@@ -51,24 +70,33 @@ class Checklist extends BaseChecklist {
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{
-          //Preparation
+          //region Core
           ...this.preparationRuleAnalyzer.thresholds,
-          //Barbed Shot Usage
+          downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
+          //endregion
+
+          //region Spells
           frenzy3StackSuggestionThreshold: this.barbedShot.frenzy3StackThreshold,
           frenzyUptimeSuggestionThreshold: this.barbedShot.frenzyUptimeThreshold,
           bestialWrathCDREfficiencyThreshold: this.bestialWrath.cdrEfficiencyBestialWrathThreshold,
-          //Spells  & Talents
           bestialWrathFocusThreshold: this.bestialWrath.focusOnBestialWrathCastThreshold,
-          wastedKillerCobraThreshold: this.killerCobra.wastedKillerCobraThreshold,
           cobraShotCDREfficiencyThreshold: this.cobraShot.cdrEfficiencyCobraShotThreshold,
           wastedCobraShotsThreshold: this.cobraShot.wastedCobraShotsThreshold,
           beastCleaveThresholds: this.beastCleave.beastCleavesWithoutHits,
-          //Downtime & FocusCapping
-          downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
+          //endregion
+
+          //region Talents
+          wastedKillerCobraThreshold: this.killerCobra.wastedKillerCobraThreshold,
+          //endregion
+
+          //region Resources
           focusGeneratorWasteThresholds: this.focusGeneratorDetails.focusGeneratorWasteThresholds,
           focusNaturalRegenWasteThresholds: this.focusCapTracker.focusNaturalRegenWasteThresholds,
-          //Pets
+          //endregion
+
+          //region Pets
           basicAttackThresholds: this.basicAttacks.additionalAttacksFromMacroing,
+          //endregion
         }}
       />
     );

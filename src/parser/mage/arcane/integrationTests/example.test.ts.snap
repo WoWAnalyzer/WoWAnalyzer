@@ -3048,7 +3048,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
+                href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3060,7 +3060,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3069,7 +3069,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   }
                 />
                  
-                Abyssal Healing Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -3145,7 +3145,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
-                href="http://wowhead.com/spell=279151"
+                href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3157,7 +3157,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/trade_alchemy_potionc4.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3631,6 +3631,102 @@ exports[`Arcane Mage integration test: example log EnchantChecker matches the su
 Array [
   Object {
     "details": null,
+    "icon": "inv_chest_cloth_warfrontsforsaken_d_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5845,
+              1577,
+              4786,
+              6507,
+            ],
+            "icon": "inv_chest_cloth_warfrontsforsaken_d_01.jpg",
+            "id": 165492,
+            "itemLevel": 465,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={165492}
+        quality={3}
+      >
+        Chest
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_bracer_cloth_kultirasdungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              6536,
+              6516,
+              6513,
+              1637,
+              4786,
+            ],
+            "icon": "inv_bracer_cloth_kultirasdungeon_c_01.jpg",
+            "id": 159227,
+            "itemLevel": 465,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159227}
+        quality={3}
+      >
+        Bracers
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_misc_diamondring1.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4803,
+              6516,
+              6513,
+              1637,
+              4786,
+            ],
+            "icon": "inv_misc_diamondring1.jpg",
+            "id": 165679,
+            "itemLevel": 445,
+            "permanentEnchant": 6108,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={165679}
+        quality={3}
+      >
+        Ring
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
     "icon": "inv_70_quest_ring7c.jpg",
     "importance": "major",
     "issue": <React.Fragment>
@@ -3661,6 +3757,79 @@ Array [
     </React.Fragment>,
     "stat": null,
   },
+  Object {
+    "details": null,
+    "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              6272,
+            ],
+            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+            "id": 169223,
+            "itemLevel": 470,
+            "quality": 5,
+          }
+        }
+        icon={false}
+        id={169223}
+        quality={5}
+      >
+        Cloak
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_knife_1h_nzothraid_d_03.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4823,
+              6516,
+              6513,
+              1502,
+              4786,
+            ],
+            "icon": "inv_knife_1h_nzothraid_d_03.jpg",
+            "id": 172201,
+            "itemLevel": 460,
+            "permanentEnchant": 5949,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={172201}
+        quality={4}
+      >
+        Weapon
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+]
+`;
+
+exports[`Arcane Mage integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "stat": null,
+  },
 ]
 `;
 
@@ -3668,7 +3837,7 @@ exports[`Arcane Mage integration test: example log FoodChecker matches the sugge
 Array [
   Object {
     "details": null,
-    "icon": "trade_archaeology_staffofsorcerer_than-thaurissan",
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "major",
     "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
     "stat": null,
@@ -3863,8 +4032,8 @@ exports[`Arcane Mage integration test: example log MirrorImage matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="TALENTS"
     className="panel statistic flexible "
+    position={30}
   >
     <div
       className="panel-body"
@@ -3960,13 +4129,13 @@ exports[`Arcane Mage integration test: example log PrePotion matches the suggest
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione2",
+    "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
     "issue": <React.Fragment>
       You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
       <ItemLink
         icon={true}
-        id={168498}
+        id={171273}
       />
        can be very effective, especially during shorter encounters. 
       
@@ -3975,7 +4144,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione2",
+    "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
     "issue": <React.Fragment>
       You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
@@ -3983,7 +4152,7 @@ Array [
        increasing output through 
       <ItemLink
         icon={true}
-        id={168498}
+        id={171273}
       />
       
       . 
@@ -6020,7 +6189,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                    
                   2
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -6039,9 +6208,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "66.66666666666666%",
+                        "width": "33.33333333333333%",
                       }
                     }
                   />
@@ -6079,9 +6248,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  2
+                  0
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -6100,9 +6269,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "66.66666666666666%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -6320,7 +6489,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -6340,9 +6509,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

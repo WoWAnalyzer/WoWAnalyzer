@@ -2957,7 +2957,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
+                href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2969,7 +2969,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -2978,7 +2978,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   }
                 />
                  
-                Abyssal Healing Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -2989,7 +2989,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0.52
+              0.00
             </td>
             <td
               className="text-right"
@@ -2999,7 +2999,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -3019,7 +3019,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -3034,7 +3034,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -3054,7 +3054,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
-                href="http://wowhead.com/spell=300714"
+                href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3066,7 +3066,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_potionf_5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3086,7 +3086,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0.52
+              0.00
             </td>
             <td
               className="text-right"
@@ -3096,7 +3096,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -3116,7 +3116,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -3131,7 +3131,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -3318,6 +3318,177 @@ exports[`Unholy Death Knight integration test: example log DistanceMoved matches
     </div>
   </div>
 </div>
+`;
+
+exports[`Unholy Death Knight integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_chest_plate_nzothraid_d_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4824,
+              1517,
+              4786,
+              6510,
+            ],
+            "icon": "inv_chest_plate_nzothraid_d_01.jpg",
+            "id": 174164,
+            "itemLevel": 480,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={174164}
+        quality={4}
+      >
+        Chest
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_glove_plate_nzothraid_d_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              6412,
+              4803,
+              6515,
+              6578,
+              6579,
+              6474,
+              6455,
+              1507,
+              4786,
+            ],
+            "icon": "inv_glove_plate_nzothraid_d_01.jpg",
+            "id": 173456,
+            "itemLevel": 450,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={173456}
+        quality={3}
+      >
+        Gloves
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_ring_80_05b.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              6536,
+              6578,
+              6579,
+              6559,
+              6513,
+              1647,
+              4786,
+            ],
+            "icon": "inv_ring_80_05b.jpg",
+            "id": 159461,
+            "itemLevel": 475,
+            "permanentEnchant": 6109,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159461}
+        quality={3}
+      >
+        Ring
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_70_raid_ring8d.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4824,
+              6578,
+              6579,
+              6560,
+              6513,
+              1517,
+              4786,
+            ],
+            "icon": "inv_70_raid_ring8d.jpg",
+            "id": 174530,
+            "itemLevel": 475,
+            "permanentEnchant": 6109,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={174530}
+        quality={4}
+      >
+        Ring
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              6590,
+              1472,
+            ],
+            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+            "id": 169223,
+            "itemLevel": 500,
+            "quality": 5,
+          }
+        }
+        icon={false}
+        id={169223}
+        quality={5}
+      >
+        Cloak
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+]
 `;
 
 exports[`Unholy Death Knight integration test: example log EssenceOfTheFocusingIris matches the statistic snapshot 1`] = `
@@ -3530,6 +3701,30 @@ exports[`Unholy Death Knight integration test: example log FesteringStrikeEffici
 </div>
 `;
 
+exports[`Unholy Death Knight integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
+exports[`Unholy Death Knight integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
+    "importance": "minor",
+    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
 exports[`Unholy Death Knight integration test: example log OverwhelmingPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -3623,6 +3818,48 @@ exports[`Unholy Death Knight integration test: example log OverwhelmingPower mat
     </div>
   </div>
 </div>
+`;
+
+exports[`Unholy Death Knight integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_yellow",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
+      
+       increasing output through 
+      <ItemLink
+        icon={true}
+        id={171275}
+      />
+      
+      . 
+      
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_yellow",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You used a weak potion. 
+      <ItemLink
+        icon={true}
+        id={171275}
+      />
+       can be used instead of 
+      <ItemLink
+        icon={true}
+        id={171275}
+      />
+       in order to get a slightly higher damage output.
+    </React.Fragment>,
+    "stat": null,
+  },
+]
 `;
 
 exports[`Unholy Death Knight integration test: example log RuneTracker matches the statistic snapshot 1`] = `
@@ -5189,7 +5426,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -5213,8 +5450,8 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "16.666666666666664%",
                 }
               }
             />
@@ -5309,7 +5546,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                    
                   3
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -5328,9 +5565,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "50%",
                       }
                     }
                   />
@@ -5368,9 +5605,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  3
+                  1
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -5389,9 +5626,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "16.666666666666664%",
                       }
                     }
                   />
@@ -5489,7 +5726,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -5509,9 +5746,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -5549,7 +5786,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -5569,9 +5806,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -5609,7 +5846,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -5629,9 +5866,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -5729,7 +5966,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -5749,9 +5986,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

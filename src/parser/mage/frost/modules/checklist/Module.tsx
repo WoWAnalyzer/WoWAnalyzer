@@ -6,9 +6,9 @@ import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import BrainFreeze from '../features/BrainFreeze';
-import GlacialSpike from '../features/GlacialSpike';
+import GlacialSpike from '../talents/GlacialSpike';
 import IceLance from '../features/IceLance';
-import ThermalVoid from '../features/ThermalVoid';
+import ThermalVoid from '../talents/ThermalVoid';
 import WintersChill from '../features/WintersChill';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ArcaneIntellect from '../../../shared/modules/features/ArcaneIntellect';
@@ -54,7 +54,6 @@ class Checklist extends BaseChecklist {
       <Component
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
-        owner={this.owner}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
@@ -66,7 +65,7 @@ class Checklist extends BaseChecklist {
           glacialSpikeUtilization: this.glacialSpike.glacialSpikeUtilizationThresholds,
           fingersOfFrostUtilization: this.iceLance.fingersProcUtilizationThresholds,
           iceLanceNotShattered: this.iceLance.nonShatteredIceLanceThresholds,
-          wintersChillIceLance: this.wintersChill.wintersChillIceLanceThresholds,
+          wintersChillShatter: this.wintersChill.wintersChillShatterThresholds,
           wintersChillHardCasts: this.wintersChill.wintersChillHardCastThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,

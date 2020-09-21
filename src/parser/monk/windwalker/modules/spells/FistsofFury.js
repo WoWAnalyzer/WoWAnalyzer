@@ -5,7 +5,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
-import ITEMS from 'common/ITEMS/index';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -20,14 +19,11 @@ class FistsofFury extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.hasCyclotronic = this.selectedCombatant.hasRedPunchcard(ITEMS.CYCLOTRONIC_BLAST.id);
-
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE), this.onFistsDamage);
   }
 
   previousTickTimestamp = null;
   fistsTicks = 0;
-  hasCyclotronic = false;
 
   isNewFistsTick(timestamp) {
     return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
@@ -50,13 +46,12 @@ class FistsofFury extends Analyzer {
   }
 
   get suggestionThresholds() {
-    const cycloReducer = this.hasCyclotronic ? 0.5 : 0;
     return {
       actual: this.averageTicks,
       isLessThan: {
-        minor: 5 - cycloReducer,
-        average: 4.75 - cycloReducer,
-        major: 4.5 - cycloReducer,
+        minor: 5,
+        average: 4.75,
+        major: 4.5,
       },
       style: 'decimal',
     };
@@ -66,7 +61,7 @@ class FistsofFury extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
         .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(`${actual.toFixed(2)} average ticks on each Fists of Fury cast`)
-        .recommended(<span>Aim to get{this.hasCyclotronic ? ` more than ${recommended} ticks on average when cancelling intentionally for Cyclotronic Blast` : ` ${recommended} ticks with each Fists of Fury cast`}.</span>);
+        .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`);
     });
   }
 

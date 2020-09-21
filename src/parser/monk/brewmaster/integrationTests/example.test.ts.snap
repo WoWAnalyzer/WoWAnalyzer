@@ -31,7 +31,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
         <div
           className="value"
         >
-          41.61 %
+          45.03 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "58.38917441936113%",
+                  "width": "54.97365168173833%",
                 }
               }
             >
@@ -103,7 +103,7 @@ Array [
     "importance": "major",
     "issue": "Your downtime can be improved. Try to Always Be Casting (ABC).",
     "stat": <React.Fragment>
-      41.61% downtime
+      45.03% downtime
        (
       &lt;20.00% is recommended
       )
@@ -1276,7 +1276,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               0
-              /2
+              /1
                
               casts
             </td>
@@ -1294,7 +1294,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
+                      "backgroundColor": "#ff8000",
                       "width": "0%",
                     }
                   }
@@ -1319,7 +1319,9 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   "width": "25%",
                 }
               }
-            />
+            >
+              Can be improved.
+            </td>
           </tr>
         </tbody>
         <tbody>
@@ -1577,7 +1579,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
-                href="http://wowhead.com/spell=115072"
+                href="http://wowhead.com/spell=322101"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1609,7 +1611,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              4.10
+              0.00
             </td>
             <td
               className="text-right"
@@ -1619,7 +1621,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              21
+              0
               
                
               casts
@@ -2998,7 +3000,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
+                href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3010,7 +3012,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3019,7 +3021,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   }
                 />
                  
-                Abyssal Healing Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -3030,7 +3032,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              0.20
+              0.00
             </td>
             <td
               className="text-right"
@@ -3040,7 +3042,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -3060,7 +3062,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -3075,7 +3077,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -3095,7 +3097,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
-                href="http://wowhead.com/spell=279152"
+                href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3107,7 +3109,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/trade_alchemy_potionc6.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3356,6 +3358,47 @@ Array [
       )
     </React.Fragment>,
   },
+  Object {
+    "details": null,
+    "icon": "ability_monk_touchofdeath",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={322109}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 1,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "85",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
 ]
 `;
 
@@ -3497,7 +3540,7 @@ exports[`Brewmaster Monk integration test: example log DistanceMoved matches the
             }
           >
             ≈ 
-            27.53
+            27.52
             %
           </small>
         </div>
@@ -3595,6 +3638,66 @@ exports[`Brewmaster Monk integration test: example log EnchantChecker matches th
 Array [
   Object {
     "details": null,
+    "icon": "inv_chest_leather_zandalardungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4819,
+              1512,
+              4786,
+            ],
+            "icon": "inv_chest_leather_zandalardungeon_c_01.jpg",
+            "id": 155860,
+            "itemLevel": 340,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={155860}
+        quality={3}
+      >
+        Chest
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_boot_leather_zandalardungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5010,
+              1552,
+              4783,
+            ],
+            "icon": "inv_boot_leather_zandalardungeon_c_01.jpg",
+            "id": 159336,
+            "itemLevel": 380,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159336}
+        quality={3}
+      >
+        Boots
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
     "icon": "inv_ring_80_01e.jpg",
     "importance": "minor",
     "issue": <React.Fragment>
@@ -3655,6 +3758,67 @@ Array [
     </React.Fragment>,
     "stat": null,
   },
+  Object {
+    "details": null,
+    "icon": "inv_leather_nazmirraid_d_01cape.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4799,
+              1502,
+              4783,
+            ],
+            "icon": "inv_leather_nazmirraid_d_01cape.jpg",
+            "id": 160643,
+            "itemLevel": 380,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={160643}
+        quality={4}
+      >
+        Cloak
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_polearm_2h_zandalariguard_b_01.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5007,
+              1547,
+              4784,
+            ],
+            "icon": "inv_polearm_2h_zandalariguard_b_01.jpg",
+            "id": 159655,
+            "itemLevel": 375,
+            "permanentEnchant": 5962,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159655}
+        quality={3}
+      >
+        Weapon
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
 ]
 `;
 
@@ -3662,7 +3826,14 @@ exports[`Brewmaster Monk integration test: example log FlaskChecker matches the 
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_dpotion_c26",
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.",
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
     "stat": null,
@@ -3674,9 +3845,9 @@ exports[`Brewmaster Monk integration test: example log FoodChecker matches the s
 Array [
   Object {
     "details": null,
-    "icon": "trade_archaeology_staffofsorcerer_than-thaurissan",
-    "importance": "minor",
-    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
+    "importance": "major",
+    "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
     "stat": null,
   },
 ]
@@ -3897,7 +4068,7 @@ exports[`Brewmaster Monk integration test: example log PrePotion matches the sug
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione3",
+    "icon": "inv_alchemy_90_combat2_green",
     "importance": "minor",
     "issue": <React.Fragment>
       You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
@@ -3905,35 +4076,28 @@ Array [
        increasing output through 
       <ItemLink
         icon={true}
-        id={168489}
+        id={171270}
       />
       
       . 
-      <React.Fragment>
-        In a multi-target encounter, a potion such as 
-        <ItemLink
-          icon={true}
-          id={168489}
-        />
-         could be very effective.
-      </React.Fragment>
+      
     </React.Fragment>,
     "stat": null,
   },
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione3",
+    "icon": "inv_alchemy_90_combat2_green",
     "importance": "minor",
     "issue": <React.Fragment>
       You used a weak potion. 
       <ItemLink
         icon={true}
-        id={168489}
+        id={171270}
       />
        can be used instead of 
       <ItemLink
         icon={true}
-        id={169299}
+        id={171270}
       />
        in order to get a slightly higher damage output.
     </React.Fragment>,

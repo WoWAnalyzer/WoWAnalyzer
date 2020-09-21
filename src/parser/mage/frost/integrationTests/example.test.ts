@@ -7,5 +7,4 @@ import CombatLogParser from '../CombatLogParser';
 describe('Frost Mage integration test: example log', integrationTest(
   CombatLogParser,
   path.resolve(__dirname, 'example.zip'),
-  "NO_IL",
 ));

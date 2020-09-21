@@ -1,12 +1,16 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
+//Overridden Racial
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-import Abilities from './modules/Abilities';
-import Checklist from './modules/checklist/Module';
 
 //Features
+import Abilities from './modules/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/Buffs';
+
+//Checklist
+import Checklist from './modules/checklist/Module';
 
 //Normalizer
 import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';

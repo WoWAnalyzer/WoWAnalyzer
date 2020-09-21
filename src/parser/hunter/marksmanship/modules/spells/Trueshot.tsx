@@ -6,9 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
-import Abilities from 'parser/core/modules/Abilities';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -22,10 +20,6 @@ import Events, { CastEvent } from 'parser/core/Events';
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=auras&source=25&ability=288613
  */
 class Trueshot extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-    abilities: Abilities,
-  };
 
   trueshotCasts = 0;
   accumulatedFocusAtTSCast = 0;

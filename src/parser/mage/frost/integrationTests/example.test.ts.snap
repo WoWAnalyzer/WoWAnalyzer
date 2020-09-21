@@ -406,8 +406,8 @@ exports[`Frost Mage integration test: example log BoneChilling matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
+    category="TALENTS"
     className="panel statistic flexible "
-    position={90}
   >
     <div
       className="panel-body"
@@ -518,7 +518,7 @@ exports[`Frost Mage integration test: example log BrainFreeze matches the statis
         <div
           className="value"
         >
-          96
+          73
           % 
           <small>
             Proc utilization
@@ -552,54 +552,26 @@ Array [
   Object {
     "details": null,
     "icon": "ability_mage_brainfreeze",
-    "importance": "minor",
+    "importance": "major",
     "issue": <React.Fragment>
-      You overwrote 
-      3.85
+      You overwrite 
+      26.92
       % of your 
       <ForwardRef
         id={190446}
       />
-       procs incorrectly. You should use 
+       procs. You should use your 
       <ForwardRef
         id={190446}
       />
-       immediately following 
-      <ForwardRef
-        id={116}
-      />
-       if you have fewer than 
-      3
-       
-      <ForwardRef
-        id={205473}
-      />
-       during the 
-      <ForwardRef
-        id={116}
-      />
-       cast. If you have 
-      3
-       or more 
-      <ForwardRef
-        id={205473}
-      />
-       during the 
-      <ForwardRef
-        id={116}
-      />
-       cast, save the 
+       procs as soon as possible and avoid letting them expire or be overwritten whenever possible. There are not any situations where it would be advantageous to hold your 
       <ForwardRef
         id={190446}
-      />
-       proc for 
-      <ForwardRef
-        id={199786}
       />
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      3.85% overwritten
+      26.92% overwritten
        (
       Overwriting none is recommended
       )
@@ -620,7 +592,27 @@ Array [
       />
        
       4
-       times.
+       times. 
+      <ForwardRef
+        id={44614}
+      />
+       does not debuff the target with 
+      <ForwardRef
+        id={228358}
+      />
+       unless you have a 
+      <ForwardRef
+        id={190446}
+      />
+       proc, so you should never cast 
+      <ForwardRef
+        id={44614}
+      />
+       unless you have 
+      <ForwardRef
+        id={190446}
+      />
+      .
     </React.Fragment>,
     "stat": <React.Fragment>
       4 casts
@@ -3886,7 +3878,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
+                href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3898,7 +3890,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3907,7 +3899,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   }
                 />
                  
-                Abyssal Healing Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -3983,7 +3975,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               <a
-                href="http://wowhead.com/spell=300714"
+                href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3995,7 +3987,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_potionf_5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -4424,6 +4416,214 @@ exports[`Frost Mage integration test: example log ElementalWhirl matches the sta
 </div>
 `;
 
+exports[`Frost Mage integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_chest_cloth_nzothraid_d_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              1502,
+              4786,
+              6504,
+            ],
+            "icon": "inv_chest_cloth_nzothraid_d_01.jpg",
+            "id": 173846,
+            "itemLevel": 450,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={173846}
+        quality={3}
+      >
+        Chest
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_bracer_cloth_zandalardungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5007,
+              4802,
+              6516,
+              6515,
+              1622,
+              4786,
+            ],
+            "gems": Array [
+              Object {
+                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                "id": 168639,
+                "itemLevel": 120,
+              },
+            ],
+            "icon": "inv_bracer_cloth_zandalardungeon_c_01.jpg",
+            "id": 159240,
+            "itemLevel": 450,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159240}
+        quality={3}
+      >
+        Bracers
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_ring_80_05a.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5006,
+              6578,
+              6579,
+              6476,
+              6470,
+              6513,
+              1627,
+              4786,
+            ],
+            "icon": "inv_ring_80_05a.jpg",
+            "id": 159463,
+            "itemLevel": 455,
+            "permanentEnchant": 6111,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159463}
+        quality={3}
+      >
+        Ring
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_jewelry_mech_ring_green.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5006,
+              6516,
+              6515,
+              1502,
+              4786,
+            ],
+            "icon": "inv_jewelry_mech_ring_green.jpg",
+            "id": 169159,
+            "itemLevel": 445,
+            "permanentEnchant": 6111,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={169159}
+        quality={4}
+      >
+        Ring
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              6283,
+              1472,
+            ],
+            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+            "id": 169223,
+            "itemLevel": 492,
+            "quality": 5,
+          }
+        }
+        icon={false}
+        id={169223}
+        quality={5}
+      >
+        Cloak
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_staff_2h_zandalarquest_b_03.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4803,
+              6578,
+              6579,
+              6553,
+              6515,
+              1637,
+              4786,
+            ],
+            "icon": "inv_staff_2h_zandalarquest_b_03.jpg",
+            "id": 158131,
+            "itemLevel": 445,
+            "permanentEnchant": 5949,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={158131}
+        quality={3}
+      >
+        Weapon
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Frost Mage integration test: example log EssenceOfTheFocusingIris matches the statistic snapshot 1`] = `
 <div
   category="ITEMS"
@@ -4510,13 +4710,37 @@ exports[`Frost Mage integration test: example log EssenceOfTheFocusingIris match
 </div>
 `;
 
+exports[`Frost Mage integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
+exports[`Frost Mage integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
+    "importance": "minor",
+    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
 exports[`Frost Mage integration test: example log GlacialSpike matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
+    category="TALENTS"
     className="panel statistic flexible "
-    position={30}
   >
     <div
       className="panel-body"
@@ -4588,52 +4812,28 @@ Array [
       <ForwardRef
         id={199786}
       />
-       inefficiently 
+       without 
+      <ForwardRef
+        id={12982}
+      />
+      ing it 
       4
-       times. Because it is such a potent ability, it is important to maximize its damage by only casting it when at least one of the following is true:
-      <ul>
-        <li>
-          You have a 
-          <ForwardRef
-            id={190446}
-          />
-           proc to  
-          <TooltipElement
-            className=""
-            content={
-              <React.Fragment>
-                <em>
-                  Glacial Spike 
-                  &gt;
-                   (empowered) Flurry 
-                  &gt;
-                   Ice Lance
-                </em>
-                <br />
-                Because of Flurry's extremely fast travel time, using a Brain Freeze proc immediately following a slower spell like Glacial Spike will apply Winter's Chill to the target before the slower spell hits.
-              </React.Fragment>
-            }
-            direction="down"
-            hoverable={false}
-            style={Object {}}
-            tooltipClassName=""
-          >
-            use on it
-          </TooltipElement>
-          .
-        </li>
-        <li>
-          The 
-          <ForwardRef
-            id={199786}
-          />
-           will cleave to a second target via 
-          <ForwardRef
-            id={56377}
-          />
-           (if talented).
-        </li>
-      </ul>
+       times. Because it is such a potent ability, it is important to maximize it's damage by only casting it if the target is
+      <TooltipElement
+        className=""
+        content={
+          <React.Fragment>
+            Winter's Chill, Frost Nova, Ice Nova, Ring of Frost, and your pet's Freeze will all cause the target to be frozen or act as frozen.
+          </React.Fragment>
+        }
+        direction="down"
+        hoverable={false}
+        style={Object {}}
+        tooltipClassName=""
+      >
+        Frozen or acting as Frozen
+      </TooltipElement>
+      .
     </React.Fragment>,
     "stat": <React.Fragment>
       80.0% utilization
@@ -4756,8 +4956,8 @@ exports[`Frost Mage integration test: example log MirrorImage matches the statis
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="TALENTS"
     className="panel statistic flexible "
+    position={30}
   >
     <div
       className="panel-body"
@@ -4948,7 +5148,7 @@ exports[`Frost Mage integration test: example log PrePotion matches the suggesti
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione2",
+    "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
     "issue": <React.Fragment>
       You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
@@ -4956,18 +5156,30 @@ Array [
        increasing output through 
       <ItemLink
         icon={true}
-        id={168498}
+        id={171273}
       />
       
       . 
-      <React.Fragment>
-        In a multi-target encounter, a potion such as 
-        <ItemLink
-          icon={true}
-          id={168498}
-        />
-         could be very effective.
-      </React.Fragment>
+      
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_purple",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You used a weak potion. 
+      <ItemLink
+        icon={true}
+        id={171273}
+      />
+       can be used instead of 
+      <ItemLink
+        icon={true}
+        id={171273}
+      />
+       in order to get a slightly higher damage output.
     </React.Fragment>,
     "stat": null,
   },
@@ -5527,21 +5739,21 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
           className="value"
         >
           <a
-            href="http://wowhead.com/spell=30455"
+            href="http://wowhead.com/spell=228358"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Ice Lance"
+              alt="Winter's Chill"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostblast.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostward.jpg"
             />
           </a>
            
-          26
+          13
           % 
           <small>
-            Ice Lances shattered
+            Spells shattered
           </small>
           <br />
           <a
@@ -5556,7 +5768,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
             />
           </a>
            
-          84
+          100
           % 
           <small>
             Pre-casts shattered
@@ -5592,74 +5804,52 @@ Array [
     "icon": "spell_frost_frostblast",
     "importance": "major",
     "issue": <React.Fragment>
-      You failed to Ice Lance into 
+      You failed to properly take advantage of 
       <ForwardRef
         id={228358}
       />
-       
-      14
+       on your target 
+      33
        times (
-      73.68
-      %). Make sure you cast 
+      86.84
+      %). After debuffing the target via 
+      <ForwardRef
+        id={190446}
+      />
+       and 
+      <ForwardRef
+        id={44614}
+      />
+      , you should ensure that you hit the target with 
+      <React.Fragment>
+        a 
+        <ForwardRef
+          id={199786}
+        />
+         and an 
+        <ForwardRef
+          id={30455}
+        />
+         (If Glacial Spike is available), or 
+      </React.Fragment>
+       two 
       <ForwardRef
         id={30455}
       />
-       after each 
-      <ForwardRef
-        id={44614}
-      />
-       to benefit from 
-      <ForwardRef
-        id={12982}
-      />
-      .
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      73.68% Winter's Chill not shattered with Ice Lance
-       (
-      &lt;5.00% is recommended
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_frost_frostbolt02",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You failed to 
-      <ForwardRef
-        id={116}
-      />
-      , 
-      <ForwardRef
-        id={199786}
-      />
-       or 
-      <ForwardRef
-        id={257537}
-      />
-       into 
+      s before the 
       <ForwardRef
         id={228358}
       />
-       
-      3
-       times (
-      15.79
-      %). Make sure you hard cast just before each instant 
-      <ForwardRef
-        id={44614}
-      />
-       to benefit from 
+       debuff expires to get the most out of 
       <ForwardRef
         id={12982}
       />
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      15.79% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt
+      86.84% Winter's Chill not shattered with Ice Lance
        (
-      10.00% is recommended
+      5.00% is recommended
       )
     </React.Fragment>,
   },
@@ -5932,8 +6122,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "46.15263157894736%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "52.921052631578945%",
                 }
               }
             />
@@ -6182,7 +6372,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  26.32%
+                  13.16%
                    
                    
                 </div>
@@ -6204,7 +6394,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "11.684210526315791%",
+                        "width": "5.842105263157894%",
                       }
                     }
                   />
@@ -6272,7 +6462,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  84.21%
+                  100.00%
                    
                    
                 </div>
@@ -6292,9 +6482,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "80.62105263157892%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6307,7 +6497,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -6331,8 +6521,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "69.67727272727274%",
+                  "backgroundColor": "#df7102",
+                  "width": "34.88640734265736%",
                 }
               }
             />
@@ -6553,7 +6743,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  96.15%
+                  73.08%
                    
                    
                 </div>
@@ -6573,9 +6763,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "30.418269230769234%",
                       }
                     }
                   />
@@ -7296,7 +7486,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -7320,8 +7510,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "90%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "25%",
                 }
               }
             />
@@ -7416,7 +7606,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                    
                   3
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -7435,9 +7625,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "50%",
                       }
                     }
                   />
@@ -7475,9 +7665,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  3
+                  0
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -7496,9 +7686,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -7656,7 +7846,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -7676,9 +7866,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -7716,7 +7906,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -7736,9 +7926,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -7836,7 +8026,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -7856,9 +8046,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
