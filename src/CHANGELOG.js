@@ -11,11 +11,7 @@ import Contributor from 'interface/ContributorButton';
 // prettier-ignore
 export default [
   change(date(2020, 9, 20), 'Update Shadowlands warning with github link for feedback/suggestions', Sharrq),
-  change(date(2020, 9, 15), 'Add the possibility to fake player information in development if it doesn\'t exist in combatantinfo', Putro),
   change(date(2020, 9, 8), 'Added a warning message for Shadowlands Prepatch.', Sharrq),
-  change(date(2020, 8, 14), 'Added a boss name abbreviation function', Putro),
-  change(date(2020, 8, 13), 'Added a generic Execute module that should help in standardizing and maintaining execute modules across specs', Putro),
-  change(date(2020, 8, 8), 'Fixed an issue where changelogs wouldn\'t count in pull requests.', Putro),
   change(date(2020, 8, 4), 'Fixed a bug causing the total fight duration field to be improperly calculated, leading to confusing downtime/death percentages', Dambroda),
   change(date(2020, 7, 27), 'Updated contributor details to TypeScript and fixed contributor description not appearing when viewing those details', Dambroda),
   change(date(2020, 7, 27), 'Converted core log parser and other modules to TypeScript and added strict event typechecking to event listeners.', Dambroda),
