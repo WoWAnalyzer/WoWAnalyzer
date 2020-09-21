@@ -10,7 +10,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 
-const debug = true;
+const debug = false;
 
 class Celestial extends Analyzer {
   static dependencies = {
@@ -48,7 +48,6 @@ class Celestial extends Analyzer {
 
   on_heal(event) {
      if (event.ability.guid === SPELLS.ENVELOPING_BREATH.id) {
-       console.log('ENVELOPING BREATH CAST!');
         this.healingDone._total = this.healingDone._total.add(event.amount || 0, event.absorbed || 0, event.overheal || 0);
 
         this.envelopHealing += (event.amount || 0) + (event.absorbed || 0);
@@ -56,7 +55,6 @@ class Celestial extends Analyzer {
         this.soothCasts += 1;
     }
     if (event.sourceID === this.petID && event.ability.guid === SPELLS.SOOTHING_BREATH.id) {
-      console.log('SOOTHING BREATH CAST!');
       this.healingDone._total = this.healingDone._total.add(event.amount || 0, event.absorbed || 0, event.overheal || 0);
 
       this.soothHealing += (event.amount || 0) + (event.absorbed || 0);
