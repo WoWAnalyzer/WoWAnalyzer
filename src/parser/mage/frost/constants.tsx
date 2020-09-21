@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
-export const FROZEN_ORB_REDUCTION = 500;
+export const BLIZZARD_ORB_REDUCTION = 500;
+export const FREEZING_WINDS_ORB_REDUCTION = 2500;
 export const PROC_BUFFER = 100;
 export const CAST_BUFFER = 100;
 export const SPLITTING_ICE_DAMAGE_BONUS = 0.05;

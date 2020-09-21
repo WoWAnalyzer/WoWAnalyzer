@@ -23,6 +23,8 @@ import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import ColdSnap from './modules/cooldowns/ColdSnap';
 import WaterElemental from './modules/features/WaterElemental';
 import LonelyWinter from './modules/talents/LonelyWinter';
+import FreezingWinds from './modules/items/FreezingWinds';
+import ColdFront from './modules/items/ColdFront';
 
 class CombatLogParser extends CoreCombatLogParser {
    static specModules = {
@@ -40,29 +42,23 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneIntellect: ArcaneIntellect,
     waterElemental: WaterElemental,
 
-    // region Talents (T30 and T75 don't need analyzers)
-    // T15 TODO - Ice Nova, Lonely Winter
+    // Talents
     boneChilling: BoneChilling,
     lonelyWinter: LonelyWinter,
-
-    // T45 TODO - Incanters Flow
     mirrorImage: MirrorImage,
     focusMagic: FocusMagic,
     runeOfPower: RuneOfPower,
-
-    // T60 TODO - Frozen Touch, Chain Reaction, Ebonbolt
-
-    // T90 TODO - Freezing Rain, Comet Storm
     splittingIce: SplittingIce,
-
-    // T100 TODO - Ray of Frost
     thermalVoid: ThermalVoid,
     glacialSpike: GlacialSpike,
-    // endregion
 
 	  // Cooldowns
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
+
+    //Legendaries
+    freezingWinds: FreezingWinds,
+    coldFront: ColdFront,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

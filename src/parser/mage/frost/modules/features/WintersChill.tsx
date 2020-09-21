@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, ApplyDebuffEvent, RemoveDebuffEvent, FightEndEvent } from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
@@ -13,7 +13,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { WINTERS_CHILL_HARDCASTS, WINTERS_CHILL_CASTS, WINTERS_CHILL_DAMAGE, WINTERS_CHILL_SPENDERS } from '../../constants';
 
-const debug = true;
+const debug = false;
 
 class WintersChill extends Analyzer {
   static dependencies = {
@@ -28,6 +28,7 @@ class WintersChill extends Analyzer {
   //isKyrian: boolean;
 
   totalProcs = 0;
+  totalChillStacks = 0;
   preCastFound = false;
   preCastSpellId = 0;
   wintersChillHits: any = [];
@@ -37,6 +38,7 @@ class WintersChill extends Analyzer {
   missedHardcasts = 0;
   missedShatters = 0;
   badShatters = 0;
+  buffRemovedTimestamp = 0;
 
   constructor(options: any) {
     super(options);
@@ -48,6 +50,7 @@ class WintersChill extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(WINTERS_CHILL_DAMAGE), this.onDamage);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL), this.onDebuffApplied);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL), this.onDebuffRemoved);
+    this.addEventListener(Events.fightend, this.onFinished);
   }
 
   onCast(event: CastEvent) {
@@ -75,15 +78,20 @@ class WintersChill extends Analyzer {
   }
 
   onDebuffApplied(event: ApplyDebuffEvent) {
+    this.preCastFound = false;
+    this.preCastSpellId = 0;
+    this.goodShatteredCasts = 0;
+    this.badShatteredCasts = 0;
+    this.wintersChillHits = [];
     const preCastSpell: any = this.eventHistory.last(2,1000,Events.cast.by(SELECTED_PLAYER));
     this.totalProcs += 1;
+    this.totalChillStacks += 2;
     
     if (preCastSpell.length <= 1) {
       this.preCastFound = false;
     } else {
       this.preCastFound = true;
       this.preCastSpellId = preCastSpell!.find((spell: any) => spell.ability.guid !== SPELLS.FLURRY.id).ability.guid;
-      this.log(this.preCastSpellId);
     }
   }
 
@@ -106,15 +114,21 @@ class WintersChill extends Analyzer {
       this.badShatters += this.badShatteredCasts;
     }
 
-    this.preCastFound = false;
-    this.preCastSpellId = 0;
-    this.goodShatteredCasts = 0;
-    this.badShatteredCasts = 0;
-    this.wintersChillHits = [];
+    this.buffRemovedTimestamp = event.timestamp;
+  }
+
+  onFinished(event: FightEndEvent) {
+    //If there was a Winters Chill applied that had not been removed yet when the fight ended, adjust the total chill stacks and missed shatters to account for what the player didnt have time to use
+    //Only reduce the total and missed numbers by the amount that was unused. So if they shattered one of the 2 casts then only reduce by 1.
+    if (this.buffRemovedTimestamp === event.timestamp) {
+      this.totalChillStacks -= 2 - this.goodShatteredCasts + this.badShatteredCasts;
+      this.missedShatters -= 2 - this.goodShatteredCasts + this.badShatteredCasts;
+    }
+
   }
 
   get shatterMissedPercent() {
-    return (this.badShatters + this.missedShatters / this.totalProcs * 2) || 0;
+    return (this.badShatters + this.missedShatters) / this.totalChillStacks || 0;
   }
 
   get shatterUtil() {

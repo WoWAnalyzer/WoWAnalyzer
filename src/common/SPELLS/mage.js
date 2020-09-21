@@ -324,6 +324,11 @@ export default {
     name: 'Bone Chilling',
     icon: 'ability_mage_chilledtothebone',
   },
+  COLD_FRONT_BUFF: {
+    id: 327327,
+    name: 'Cold Front',
+    icon: 'ability_mage_coldasice',
+  },
 
   //Fire
   FIREBALL: {
