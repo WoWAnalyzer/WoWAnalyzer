@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 9, 20), 'Update Shadowlands warning with github link for feedback/suggestions', Sharrq),
   change(date(2020, 9, 8), 'Added a warning message for Shadowlands Prepatch.', Sharrq),
   change(date(2020, 8, 5), 'Fix an issue where changelogs wouldn\'t count in pull requests.', Putro),
   change(date(2020, 8, 4), 'Fixed a bug causing the total fight duration field to be improperly calculated, leading to confusing downtime/death percentages', Dambroda),
