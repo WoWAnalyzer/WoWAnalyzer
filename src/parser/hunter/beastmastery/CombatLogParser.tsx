@@ -1,13 +1,17 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import GlobalCooldown from './modules/core/GlobalCooldown';
+
+//Overridden Core modules
 import SpellUsable from './modules/core/SpellUsable';
-import Checklist from './modules/checklist/Module';
+import GlobalCooldown from './modules/core/GlobalCooldown';
 
 //Features
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+
+//Checklist
+import Checklist from './modules/checklist/Module';
 
 //Death Tracker
 import DeathTracker from '../shared/modules/core/DeathTracker';

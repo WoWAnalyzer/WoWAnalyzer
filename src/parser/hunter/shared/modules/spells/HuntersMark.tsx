@@ -16,7 +16,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { HUNTERS_MARK_MODIFIER, MS_BUFFER } from 'parser/hunter/shared/constants';
-
+import SpellLink from 'common/SpellLink';
 
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
@@ -57,6 +57,7 @@ class HuntersMark extends Analyzer {
     options.abilities.add({
       spell: SPELLS.HUNTERS_MARK,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 20,
       gcd: {
         base: 1000,
       },
@@ -135,6 +136,18 @@ class HuntersMark extends Analyzer {
     }
   }
 
+  get uptimeThresholds() {
+    return {
+      actual: this.uptimePercentage,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.925,
+        major: 0.9,
+      },
+      style: 'percentage',
+    };
+  }
+
   statistic() {
     return (
       <Statistic
@@ -160,6 +173,19 @@ class HuntersMark extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  suggestions(when: any) {
+    when(this.uptimeThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+      return suggest(
+        <>
+          Your uptime on the debuff from <SpellLink id={SPELLS.HUNTERS_MARK.id} /> could be better. You should try and keep <SpellLink id={SPELLS.HUNTERS_MARK.id} /> up on a mob that you're actively hitting as much as possible.
+        </>,
+      )
+        .icon(SPELLS.HUNTERS_MARK.icon)
+        .actual(`${formatPercentage(actual)}% uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 }
 

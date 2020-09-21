@@ -16,7 +16,6 @@ import { DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE, TRICK_SHOTS_BASELINE_DAMAGE } 
  *
  * Example log
  *
- * TODO: Verify how this applies to Trick Shots (Multiplicate or Additive)
  */
 class DeadlyChain extends Analyzer {
 

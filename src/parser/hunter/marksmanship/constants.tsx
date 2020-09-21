@@ -90,6 +90,11 @@ export const LNL_COST_MULTIPLIER = 0;
 export const LETHAL_SHOTS_CHANCE = 0.3;
 //Lethal Shot procs reduce cooldown of Rapid Fire
 export const LETHAL_SHOTS_REDUCTION = 5000;
+/** Serpent Sting */
+//Serpent Sting has a 18 second duration for Marksmanship
+export const SERPENT_STING_MM_BASE_DURATION = 18000;
+//Serpent Sting pandemics at 30%
+export const SERPENT_STING_MM_PANDEMIC = 0.3;
 //endregion
 
 //region Resources
