@@ -8,13 +8,10 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 class Heartbreaker extends Analyzer {
   rpGains = [];
   hsCasts = 0;
-  deathStrikeCost = 45;
+  deathStrikeCost = 40;
 
   constructor(...args) {
     super(...args);
-    if (this.selectedCombatant.hasTalent(SPELLS.OSSUARY_TALENT.id)) {
-      this.deathStrikeCost -= 5;
-    }
     this.active = this.selectedCombatant.hasTalent(SPELLS.HEARTBREAKER_TALENT.id);
   }
 

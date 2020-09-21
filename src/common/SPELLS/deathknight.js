@@ -111,12 +111,6 @@ export default {
     icon: 'spell_deathknight_runetap',
   },
 
-  BLOOD_TAP: {
-    id: 221699,
-    name: 'Blood Tap',
-    icon: 'spell_deathknight_bloodtap',
-  },
-
   CONSUMPTION_HEAL: {
     id: 205224,
     name: 'Consumption Heal',

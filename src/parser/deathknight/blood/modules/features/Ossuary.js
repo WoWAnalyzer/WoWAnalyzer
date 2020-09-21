@@ -11,11 +11,6 @@ class Ossuary extends Analyzer {
   dsWithOS = 0;
   dsWithoutOS = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.OSSUARY_TALENT.id);
-  }
-
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.OSSUARY.id) / this.owner.fightDuration;
   }
@@ -76,7 +71,7 @@ class Ossuary extends Analyzer {
 
     return (
       <TalentStatisticBox
-        talent={SPELLS.OSSUARY_TALENT.id}
+        talent={SPELLS.OSSUARY.id}
         position={STATISTIC_ORDER.OPTIONAL(3)}
         value={`${ this.dsWithoutOS } / ${ this.dsWithOS + this.dsWithoutOS }`}
         label="Death Strikes without Ossuary"
