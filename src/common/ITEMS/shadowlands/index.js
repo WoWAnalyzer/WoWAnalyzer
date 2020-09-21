@@ -6,7 +6,8 @@ import Enchants from './enchants';
 import Gems from './gems';
 import Legendaries from './legendaries';
 import Potions from './potions';
+import Others from './others';
 import PVP from './pvp';
 import Raids from './raids';
 
-export default safeMerge(Crafted, Dungeons, Enchants, Gems, Legendaries, Potions, PVP, Raids);
+export default safeMerge(Crafted, Dungeons, Enchants, Gems, Legendaries, Potions, Others, PVP, Raids);

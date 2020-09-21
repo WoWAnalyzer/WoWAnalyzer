@@ -3016,7 +3016,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
+                href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3028,7 +3028,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3037,7 +3037,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   }
                 />
                  
-                Abyssal Healing Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -3113,7 +3113,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
-                href="http://wowhead.com/spell=279151"
+                href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3125,7 +3125,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/trade_alchemy_potionc4.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3366,6 +3366,65 @@ exports[`Frost Death Knight integration test: example log EnchantChecker matches
 Array [
   Object {
     "details": null,
+    "icon": "inv_chest_plate_warfrontsalliance_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              1607,
+              4786,
+              6263,
+            ],
+            "icon": "inv_chest_plate_warfrontsalliance_c_01.jpg",
+            "id": 163418,
+            "itemLevel": 420,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={163418}
+        quality={3}
+      >
+        Chest
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_glove_plate_warfrontsalliance_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              1607,
+              4786,
+            ],
+            "icon": "inv_glove_plate_warfrontsalliance_c_01.jpg",
+            "id": 163414,
+            "itemLevel": 415,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={163414}
+        quality={3}
+      >
+        Gloves
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
     "icon": "inv_argus_ring01.jpg",
     "importance": "major",
     "issue": <React.Fragment>
@@ -3426,6 +3485,36 @@ Array [
     </React.Fragment>,
     "stat": null,
   },
+  Object {
+    "details": null,
+    "icon": "inv_cape_cloth_nazjatar_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              1507,
+              5860,
+              4782,
+            ],
+            "icon": "inv_cape_cloth_nazjatar_c_01.jpg",
+            "id": 167533,
+            "itemLevel": 410,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={167533}
+        quality={4}
+      >
+        Cloak
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
 ]
 `;
 
@@ -3433,14 +3522,14 @@ exports[`Frost Death Knight integration test: example log FlaskChecker matches t
 Array [
   Object {
     "details": null,
-    "icon": "inv_alchemy_80_flask01green",
+    "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.",
     "stat": null,
   },
   Object {
     "details": null,
-    "icon": "trade_alchemy_dpotion_c26",
+    "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
     "stat": null,
@@ -3452,7 +3541,7 @@ exports[`Frost Death Knight integration test: example log FoodChecker matches th
 Array [
   Object {
     "details": null,
-    "icon": "trade_archaeology_staffofsorcerer_than-thaurissan",
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "major",
     "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
     "stat": null,
@@ -3933,13 +4022,13 @@ exports[`Frost Death Knight integration test: example log PrePotion matches the 
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione1",
+    "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
     "issue": <React.Fragment>
       You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
       <ItemLink
         icon={true}
-        id={168500}
+        id={171275}
       />
        can be very effective, especially during shorter encounters. 
       
@@ -3948,7 +4037,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione1",
+    "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
     "issue": <React.Fragment>
       You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
@@ -3956,7 +4045,7 @@ Array [
        increasing output through 
       <ItemLink
         icon={true}
-        id={168500}
+        id={171275}
       />
       
       . 
@@ -5626,7 +5715,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                    
                   2
                    
-                  / 4
+                  / 7
                    
                 </div>
               </div>
@@ -5645,9 +5734,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "50%",
+                        "width": "28.57142857142857%",
                       }
                     }
                   />
@@ -5687,7 +5776,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                    
                   2
                    
-                  / 4
+                  / 7
                    
                 </div>
               </div>
@@ -5706,9 +5795,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "50%",
+                        "width": "28.57142857142857%",
                       }
                     }
                   />

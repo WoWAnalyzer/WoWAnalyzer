@@ -2635,7 +2635,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
+                href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2647,7 +2647,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -2656,7 +2656,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   }
                 />
                  
-                Abyssal Healing Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -2732,7 +2732,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
-                href="http://wowhead.com/spell=279151"
+                href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2744,7 +2744,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/trade_alchemy_potionc4.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3343,6 +3343,74 @@ exports[`Protection Paladin integration test: example log EnchantChecker matches
 Array [
   Object {
     "details": null,
+    "icon": "inv_plate_chest_warfrontshorde_b_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5124,
+              1532,
+              4786,
+            ],
+            "icon": "inv_plate_chest_warfrontshorde_b_01.jpg",
+            "id": 163459,
+            "itemLevel": 340,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={163459}
+        quality={3}
+      >
+        Chest
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_glove_plate_zandalardungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5008,
+              4802,
+              1537,
+              4786,
+            ],
+            "gems": Array [
+              Object {
+                "icon": "inv_jewelcrafting_80_cutgem02_yellow.jpg",
+                "id": 154127,
+                "itemLevel": 120,
+              },
+            ],
+            "icon": "inv_glove_plate_zandalardungeon_c_01.jpg",
+            "id": 155864,
+            "itemLevel": 365,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={155864}
+        quality={3}
+      >
+        Gloves
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
     "icon": "inv_ring_80_06b.jpg",
     "importance": "minor",
     "issue": <React.Fragment>
@@ -3403,6 +3471,68 @@ Array [
     </React.Fragment>,
     "stat": null,
   },
+  Object {
+    "details": null,
+    "icon": "inv_cape_plate_zandalardungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5006,
+              1537,
+              4783,
+            ],
+            "icon": "inv_cape_plate_zandalardungeon_c_01.jpg",
+            "id": 159287,
+            "itemLevel": 365,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159287}
+        quality={3}
+      >
+        Cloak
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_axe_1h_nazmirraid_d_01.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4799,
+              41,
+              1492,
+              4786,
+            ],
+            "icon": "inv_axe_1h_nazmirraid_d_01.jpg",
+            "id": 160685,
+            "itemLevel": 370,
+            "permanentEnchant": 5966,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={160685}
+        quality={4}
+      >
+        Weapon
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
 ]
 `;
 
@@ -3410,14 +3540,14 @@ exports[`Protection Paladin integration test: example log FlaskChecker matches t
 Array [
   Object {
     "details": null,
-    "icon": "inv_alchemy_80_flask01green",
+    "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.",
     "stat": null,
   },
   Object {
     "details": null,
-    "icon": "trade_alchemy_dpotion_c26",
+    "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
     "stat": null,
@@ -3429,7 +3559,7 @@ exports[`Protection Paladin integration test: example log FoodChecker matches th
 Array [
   Object {
     "details": null,
-    "icon": "trade_archaeology_staffofsorcerer_than-thaurissan",
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "major",
     "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
     "stat": null,
@@ -3809,29 +3939,22 @@ exports[`Protection Paladin integration test: example log PrePotion matches the 
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione1",
+    "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
     "issue": <React.Fragment>
       You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
       <ItemLink
         icon={true}
-        id={168500}
+        id={171275}
       />
        can be very effective, especially during shorter encounters. 
-      <React.Fragment>
-        In a multi-target encounter, a potion such as 
-        <ItemLink
-          icon={true}
-          id={168500}
-        />
-         could be very effective.
-      </React.Fragment>
+      
     </React.Fragment>,
     "stat": null,
   },
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione1",
+    "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
     "issue": <React.Fragment>
       You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
@@ -3839,18 +3962,11 @@ Array [
        increasing output through 
       <ItemLink
         icon={true}
-        id={168500}
+        id={171275}
       />
       
       . 
-      <React.Fragment>
-        In a multi-target encounter, a potion such as 
-        <ItemLink
-          icon={true}
-          id={168500}
-        />
-         could be very effective.
-      </React.Fragment>
+      
     </React.Fragment>,
     "stat": null,
   },
@@ -5749,7 +5865,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                    
                   3
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -5768,9 +5884,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "50%",
                       }
                     }
                   />
@@ -5808,9 +5924,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  1
+                  0
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -5829,9 +5945,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "33.33333333333333%",
+                        "width": "0%",
                       }
                     }
                   />
