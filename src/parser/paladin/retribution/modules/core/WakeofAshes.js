@@ -18,17 +18,16 @@ class WakeofAshes extends Analyzer {
     badCasts = 0;
     wakeCast = false;
     wasteHP = false;
-    wasteBlade = false;
 
     constructor(...args) {
         super(...args);
-        this.active = this.selectedCombatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id);
+        this.active = this.selectedCombatant.hasTalent(SPELLS.WAKE_OF_ASHES.id);
         if (!this.active) {
             return;
         }
-        this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES_TALENT), this.onWakeofAshesDamage);
-        this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES_TALENT), this.onWakeofAshesCast);
-        this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES_TALENT), this.onWakeofAshesEnergize);
+        this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES), this.onWakeofAshesDamage);
+        this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES), this.onWakeofAshesCast);
+        this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES), this.onWakeofAshesEnergize);
         this.addEventListener(Events.fightend, this.onFinished);
     }
 
@@ -38,11 +37,8 @@ class WakeofAshes extends Analyzer {
     }
 
     onWakeofAshesEnergize(event) {
-        if (event.waste > 1 ){
+        if (event.waste > 0 ){
             this.wasteHP = true;
-        }
-        if (event.waste === 1 && this.spellUsable.isAvailable(SPELLS.BLADE_OF_JUSTICE.id)){
-            this.wasteBlade = true;
         }
     }
 
@@ -54,14 +50,8 @@ class WakeofAshes extends Analyzer {
         if (this.wasteHP) {
             event.meta = event.meta || {};
             event.meta.isInefficientCast = true;
-            event.meta.inefficientCastReason = '2 Holy Power or more wasted. You should either use or wait for a Holy Power generator and spend before using Wake.';
+            event.meta.inefficientCastReason = '1 Holy Power or more wasted. You should be at 2 Holy Power or less before using Wake.';
             this.wasteHP = false;
-        }
-        if (this.wasteBlade) {
-            event.meta = event.meta || {};
-            event.meta.isInefficientCast = true;
-            event.meta.inefficientCastReason = '1 Holy Power wasted while Blade of Justice was off of CD. Use Blade of Justice and a Holy Power spender before using Wake.';
-            this.wasteBlade = false;
         }
     }
 
@@ -72,7 +62,7 @@ class WakeofAshes extends Analyzer {
     }
 
     get averageHitPerCast() {
-        return this.totalHits / this.abilityTracker.getAbility(SPELLS.WAKE_OF_ASHES_TALENT.id).casts;
+        return this.totalHits / this.abilityTracker.getAbility(SPELLS.WAKE_OF_ASHES.id).casts;
     }
 
     get badCastsThresholds() {
@@ -90,10 +80,10 @@ class WakeofAshes extends Analyzer {
     suggestions(when) {
         when(this.badCastsThresholds)
             .addSuggestion((suggest, actual, recommended) => {
-                return suggest(<><SpellLink id={SPELLS.WAKE_OF_ASHES_TALENT.id} /> hit 0 targets {(this.badCasts)} time(s). <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} /> has the same range of 12yds. You can use this as a guideline to tell if targets will be in range.</>)
-                    .icon(SPELLS.WAKE_OF_ASHES_TALENT.icon)
-                    .actual(`${(this.badCasts)} casts with no targets hit.`)
-                    .recommended(`${(recommended)} is recommended`);
+                return suggest(<><SpellLink id={SPELLS.WAKE_OF_ASHES.id} /> hit 0 targets {actual} time(s). <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} /> has the same range of 12yds. You can use this as a guideline to tell if targets will be in range.</>)
+                    .icon(SPELLS.WAKE_OF_ASHES.icon)
+                    .actual(`${actual} casts with no targets hit.`)
+                    .recommended(`${recommended} is recommended`);
             });
     }
 
@@ -101,7 +91,7 @@ class WakeofAshes extends Analyzer {
         return (
             <StatisticBox
               position={STATISTIC_ORDER.UNIMPORTANT()}
-              icon={<SpellIcon id={SPELLS.WAKE_OF_ASHES_TALENT.id} />}
+              icon={<SpellIcon id={SPELLS.WAKE_OF_ASHES.id} />}
               value={(
                     <>
                         {(this.averageHitPerCast.toFixed(2))} Average<br />

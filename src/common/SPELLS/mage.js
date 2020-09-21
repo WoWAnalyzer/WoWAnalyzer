@@ -71,6 +71,16 @@ export default {
     name: 'Arcane Intellect',
     icon: 'spell_holy_magicalsentry',
   },
+  FOCUS_MAGIC_CRIT_BUFF: {
+    id: 321363,
+    name: 'Focus Magic',
+    icon: 'spell_arcane_studentofmagic',
+  },
+  FOCUS_MAGIC_INT_BUFF: {
+    id: 334180,
+    name: 'Focus Magic',
+    icon: 'spell_arcane_studentofmagic',
+  },
   ALTER_TIME: {
     id: 109878,
     name: 'Alter Time',
@@ -313,6 +323,11 @@ export default {
     id: 205766,
     name: 'Bone Chilling',
     icon: 'ability_mage_chilledtothebone',
+  },
+  COLD_FRONT_BUFF: {
+    id: 327327,
+    name: 'Cold Front',
+    icon: 'ability_mage_coldasice',
   },
 
   //Fire

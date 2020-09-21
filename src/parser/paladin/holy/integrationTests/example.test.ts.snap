@@ -4944,7 +4944,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
+                href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4956,7 +4956,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -4965,7 +4965,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   }
                 />
                  
-                Abyssal Healing Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -5041,7 +5041,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
-                href="http://wowhead.com/spell=250872"
+                href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -5053,7 +5053,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_70_purple.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -5073,7 +5073,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              0.15
+              0.00
             </td>
             <td
               className="text-right"
@@ -5083,7 +5083,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -5103,7 +5103,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -5118,7 +5118,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -5810,6 +5810,66 @@ exports[`Holy Paladin integration test: example log EnchantChecker matches the s
 Array [
   Object {
     "details": null,
+    "icon": "inv_chest_plate_nazmirraid_d_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4823,
+              1492,
+              4786,
+            ],
+            "icon": "inv_chest_plate_nazmirraid_d_01.jpg",
+            "id": 160636,
+            "itemLevel": 370,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={160636}
+        quality={4}
+      >
+        Chest
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_bracer_plate_nazmirraid_d_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4799,
+              1492,
+              4786,
+            ],
+            "icon": "inv_bracer_plate_nazmirraid_d_01.jpg",
+            "id": 160637,
+            "itemLevel": 370,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={160637}
+        quality={4}
+      >
+        Bracers
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
     "icon": "inv_ring_80_01e.jpg",
     "importance": "minor",
     "issue": <React.Fragment>
@@ -5867,6 +5927,36 @@ Array [
         Ring
       </ItemLink>
        has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_cape_mail_nazmirraid_d_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4798,
+              1477,
+              4786,
+            ],
+            "icon": "inv_cape_mail_nazmirraid_d_01.jpg",
+            "id": 160644,
+            "itemLevel": 355,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={160644}
+        quality={4}
+      >
+        Cloak
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
     </React.Fragment>,
     "stat": null,
   },
@@ -6166,7 +6256,14 @@ exports[`Holy Paladin integration test: example log FlaskChecker matches the sug
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_dpotion_c26",
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.",
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
     "stat": null,
@@ -6178,9 +6275,9 @@ exports[`Holy Paladin integration test: example log FoodChecker matches the sugg
 Array [
   Object {
     "details": null,
-    "icon": "trade_archaeology_staffofsorcerer_than-thaurissan",
-    "importance": "minor",
-    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
+    "importance": "major",
+    "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
     "stat": null,
   },
 ]
@@ -8242,17 +8339,27 @@ Array [
     "icon": "trade_alchemy_potione2",
     "importance": "minor",
     "issue": <React.Fragment>
-      You used a weak potion. 
+      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
+      either
+       increasing output through 
       <ItemLink
         icon={true}
         id={168498}
       />
-       can be used instead of 
-      <ItemLink
-        icon={true}
-        id={163222}
-      />
-       in order to get a slightly higher damage output.
+      <React.Fragment>
+         or allowing you to gain mana using 
+        <ItemLink
+          icon={true}
+          id={152495}
+        />
+         or 
+        <ItemLink
+          icon={true}
+          id={152561}
+        />
+      </React.Fragment>
+      . 
+      
     </React.Fragment>,
     "stat": null,
   },
@@ -12063,7 +12170,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                    
                   2
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -12082,9 +12189,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "66.66666666666666%",
+                        "width": "33.33333333333333%",
                       }
                     }
                   />
@@ -12124,7 +12231,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                    
                   0
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -12243,7 +12350,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -12263,9 +12370,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -12423,7 +12530,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -12443,9 +12550,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -12543,7 +12650,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -12563,9 +12670,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
