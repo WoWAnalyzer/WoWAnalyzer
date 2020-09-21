@@ -24,7 +24,7 @@ class GroundingBreath extends Analyzer {
    */
   constructor(...args) {
     super(...args);
-    this.active = false;
+    this.active = false;//FIXME actually check if they have the conduit
     if (!this.active) {
       return;
     }
