@@ -18,7 +18,6 @@ class Celestial extends Analyzer {
   };
 
   petID = null;
-  _pets = {};
   soothHealing = 0;
   soothOverHealing = 0;
   envelopHealing = 0;
@@ -29,7 +28,6 @@ class Celestial extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this._pets = this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.player.id);
   }
 
   on_byPlayer_summon(event) {
