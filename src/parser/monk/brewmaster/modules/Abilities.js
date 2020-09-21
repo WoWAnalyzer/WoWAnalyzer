@@ -117,7 +117,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EXPEL_HARM,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        gcd: null,
+        gcd: {
+          static: 500,
+        },
       },
       {
         spell: SPELLS.FORTIFYING_BREW_BRM,

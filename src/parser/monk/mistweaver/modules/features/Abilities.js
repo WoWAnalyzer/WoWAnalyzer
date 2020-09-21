@@ -151,6 +151,13 @@ class Abilities extends CoreAbilities {
         cooldown: 10,
         timelineSortIndex: 15,
       },
+      {
+        spell: SPELLS.EXPEL_HARM,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1000,
+        },
+      },
 
       // Utility Spells
       {
@@ -186,13 +193,6 @@ class Abilities extends CoreAbilities {
         cooldown: 8,
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.EXPEL_HARM,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        gcd: {
-          static: 500,
         },
       },
       {
