@@ -2,8 +2,8 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
 
 const OSSUARY_RUNICPOWER_REDUCTION = 5;
 
@@ -68,11 +68,9 @@ class Ossuary extends Analyzer {
   }
 
   statistic() {
-
     return (
-      <TalentStatisticBox
-        talent={SPELLS.OSSUARY.id}
-        position={STATISTIC_ORDER.OPTIONAL(3)}
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.OSSUARY.id} />}
         value={`${ this.dsWithoutOS } / ${ this.dsWithOS + this.dsWithoutOS }`}
         label="Death Strikes without Ossuary"
         tooltip={(
@@ -85,6 +83,7 @@ class Ossuary extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default Ossuary;
