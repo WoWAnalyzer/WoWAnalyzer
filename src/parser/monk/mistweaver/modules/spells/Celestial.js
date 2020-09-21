@@ -97,7 +97,7 @@ class Celestial extends Analyzer {
           )}
         />
       </>
-    )
+    );
   }
 
   on_fightend() {

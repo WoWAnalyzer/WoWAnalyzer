@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
         cooldown: 180,
         gcd: {
-          base: 1500
+          base: 1500,
         },
         timelineSortIndex: 20,
       },
