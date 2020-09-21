@@ -26,10 +26,6 @@ class Celestial extends Analyzer {
   overhealing = 0;
   count = 0;
 
-  constructor(...args) {
-    super(...args);
-  }
-
   on_byPlayer_summon(event) {
     this.petID = event.targetID;
     debug && console.log(`${event.ability.guid === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id ? 'Chi-Ji' : 'Yu\'lon'} Summoned: ${this.petID}`);
