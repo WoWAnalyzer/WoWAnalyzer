@@ -1,18 +1,19 @@
-import React from 'react';
-
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { formatPercentage } from 'common/format';
+import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { formatPercentage } from 'common/format';
-import Enemies from 'parser/shared/modules/Enemies';
-import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { SERPENT_STING_MM_BASE_DURATION, SERPENT_STING_MM_PANDEMIC } from 'parser/hunter/marksmanship/constants';
+import Enemies from 'parser/shared/modules/Enemies';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import React from 'react';
 
 /**
  * Fire a shot that poisons your target, causing them to take (16.5% of Attack power) Nature damage instantly and an additional (99% of Attack power) Nature damage over 18 sec.
@@ -121,22 +122,21 @@ class SerpentSting extends Analyzer {
   suggestions(when: any) {
     when(this.nonPandemicThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
-        <>
-          :)
+        <>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_MM_PANDEMIC, 0)}% of the duration remaining.
         </>)
         .icon(SPELLS.SERPENT_STING_TALENT.icon)
-        .actual(`:)`)
-        .recommended(`:)`);
+        .actual(`You refreshed Serpent Sting ${actual} times when it wasn't in the pandemic window`)
+        .recommended(`${recommended} non-pandemic refreshes is recommended`);
     });
 
     when(this.uptimeThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         <>
-          :)
+          You should make sure to keep up <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> by using it within the pandemic windows to maximize it's damage potential.
         </>)
         .icon(SPELLS.SERPENT_STING_TALENT.icon)
-        .actual(`:)`)
-        .recommended(`:)`);
+        .actual(`You had an uptime of ${formatPercentage(actual, 0)}%`)
+        .recommended(`An uptime of >${formatPercentage(recommended, 0)}% is recommended`);
     });
   }
 
@@ -146,6 +146,15 @@ class SerpentSting extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={(
+          <>
+            <ul>
+              <li>You cast Serpent Sting a total of {this.casts} times.</li>
+              <li>You refreshed the debuff {this.timesRefreshed} times.</li>
+              <li>You had {this.nonPandemicRefresh} refreshes outside of the pandemic window. This means refreshes with more than {formatPercentage(SERPENT_STING_MM_PANDEMIC, 0)}% of the current debuff remaining.</li>
+            </ul>
+          </>
+        )}
       >
         <BoringSpellValueText spell={SPELLS.SERPENT_STING_TALENT}>
           <>

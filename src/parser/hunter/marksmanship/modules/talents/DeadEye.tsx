@@ -28,6 +28,22 @@ class DeadEye extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id);
   }
 
+  get deadEyeEfficacy() {
+    return this.deadEyeEffectiveCDR / this.deadEyePotentialCDR;
+  }
+
+  get deadEyeEfficacyThresholds() {
+    return {
+      actual: this.deadEyeEfficacy,
+      isLessThan: {
+        minor: 0.8,
+        average: 0.7,
+        major: 0.6,
+      },
+      style: 'percentage',
+    };
+  }
+
   statistic() {
     return (
       <Statistic
@@ -44,7 +60,7 @@ class DeadEye extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.DEAD_EYE_TALENT}>
           <>
-            {formatNumber(this.deadEyeEffectiveCDR / 1000)}s <small> total Aimed Shot CDR</small>
+            {formatNumber(this.deadEyeEffectiveCDR / 1000)}/{formatNumber(this.deadEyePotentialCDR / 1000)}s <small> total Aimed Shot CDR</small>
             <br />
             <small>up to </small>{(this.deadEyeEffectiveCDR / this.averageAimedShotCD).toFixed(1)} <small>extra Aimed Shot casts</small>
           </>

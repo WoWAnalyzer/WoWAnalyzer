@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -243,7 +243,6 @@ class SerpentSting extends Analyzer {
                 {this.hasBoP && this.hasVV && this.nonVVBoPRefresh > 0 && <li>During Coordinated Assault, you should only refresh Serpent Sting when there is less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% remaining on Serpent Sting AND you have a Viper's Venom proc. You refreshed it incorrectly {this.nonVVBoPRefresh} times.</li>}
                 {this.hasBoP && !this.hasVV && this.nonVVBoPRefresh > 0 && <li>Because you're using Birds of Prey, but not using Viper's Venom, you should never refresh Serpent Sting during Coordinated Assault buff. You did this {this.nonVVBoPRefresh} times.</li>}
               </ul>}
-              <li>Serpent Sting dealt a total of {formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li>
             </ul>
           </>
         )}

@@ -65,25 +65,21 @@ const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         )}
       >
 
-        {//<Requirement name={<SpellLink id={SPELLS.PRECISE_SHOTS.id} />} thresholds={} />
-        }
+        <Requirement name={<><SpellLink id={SPELLS.PRECISE_SHOTS.id} /> utilization</>} thresholds={thresholds.preciseShotsThresholds} />
 
-        <Requirement name={<><SpellLink id={SPELLS.HUNTERS_MARK.id} /> uptime</>} thresholds={thresholds.huntersMarkThresholds} />
+        <Requirement name={<><SpellLink id={SPELLS.HUNTERS_MARK.id} /> debuff uptime</>} thresholds={thresholds.huntersMarkThresholds} />
 
         {combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id) && <Requirement name={<><SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> uptime</>} thresholds={thresholds.uptimeThreshold} />}
 
         {combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id) && <Requirement name={<>Refreshes of <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> that didn't pandemic </>} thresholds={thresholds.nonPandemicThreshold} />}
 
+        {combatant.hasTalent(SPELLS.CALLING_THE_SHOTS_TALENT.id) && <Requirement name={<><SpellLink id={SPELLS.CALLING_THE_SHOTS_TALENT.id} /> CDR efficiency </>} thresholds={thresholds.callingTheShotsThresholds} />}
 
-        {//combatant.hasTalent(SPELLS.CALLING_THE_SHOTS_TALENT.id) && <Requirement />
-        }
-
-        {//combatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) && <Requirement />
-        }
+        {combatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) && <Requirement name={<><SpellLink id={SPELLS.AIMED_SHOT.id} /> recharge efficiency from <SpellLink id={SPELLS.DEAD_EYE_TALENT.id} /></>} thresholds={thresholds.deadEyeThresholds} />}
 
         {combatant.hasTalent(SPELLS.LETHAL_SHOTS_TALENT.id) && <Requirement name={<>Potential <SpellLink id={SPELLS.LETHAL_SHOTS_TALENT.id} /> triggers when <SpellLink id={SPELLS.RAPID_FIRE.id} /> isn't on CD</>} thresholds={thresholds.lethalShotsThresholds} />}
 
-        {combatant.hasTalent(SPELLS.STEADY_FOCUS_TALENT.id) && <Requirement name={<><SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> uptime</>} thresholds={thresholds.steadyFocusThresholds} />}
+        {combatant.hasTalent(SPELLS.STEADY_FOCUS_TALENT.id) && <Requirement name={<><SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> buff uptime</>} thresholds={thresholds.steadyFocusThresholds} />}
       </Rule>
 
       <Rule

@@ -10,6 +10,9 @@ import SteadyFocus from 'parser/hunter/marksmanship/modules/talents/SteadyFocus'
 import LethalShots from 'parser/hunter/marksmanship/modules/talents/LethalShots';
 import HuntersMark from 'parser/hunter/shared/modules/spells/HuntersMark';
 import SerpentSting from 'parser/hunter/marksmanship/modules/talents/SerpentSting';
+import CallingTheShots from 'parser/hunter/marksmanship/modules/talents/CallingTheShots';
+import DeadEye from 'parser/hunter/marksmanship/modules/talents/DeadEye';
+import PreciseShots from 'parser/hunter/marksmanship/modules/spells/PreciseShots';
 
 import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
@@ -26,12 +29,15 @@ class Checklist extends BaseChecklist {
 
     //region Spells
     huntersMark: HuntersMark,
+    preciseShots: PreciseShots,
     //endregion
 
     //region Talents
     steadyFocus: SteadyFocus,
     lethalShots: LethalShots,
     serpentSting: SerpentSting,
+    callingTheShots: CallingTheShots,
+    deadEye: DeadEye,
     //endregion
 
     //region Resources
@@ -40,9 +46,9 @@ class Checklist extends BaseChecklist {
     //endregion
   };
 
-  protected combatants!: Combatants;
 
   //region Core
+  protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected alwaysBeCasting!: AlwaysBeCasting;
@@ -50,12 +56,15 @@ class Checklist extends BaseChecklist {
 
   //region Spells
   protected huntersMark!: HuntersMark;
+  protected preciseShots!: PreciseShots;
   //endregion
 
   //region Talents
   protected steadyFocus!: SteadyFocus;
   protected lethalShots!: LethalShots;
   protected serpentSting!: SerpentSting;
+  protected callingTheShots!: CallingTheShots;
+  protected deadEye!: DeadEye;
   //endregion
 
   //region Resources
@@ -77,6 +86,7 @@ class Checklist extends BaseChecklist {
 
           //region Spells
           huntersMarkThresholds: this.huntersMark.uptimeThresholds,
+          preciseShotsThresholds: this.preciseShots.preciseShotsWastedThreshold,
           //endregion
 
           //region Talents
@@ -84,6 +94,8 @@ class Checklist extends BaseChecklist {
           lethalShotsThresholds: this.lethalShots.wastedPotentialCDR,
           serpentStingUptimeThresholds: this.serpentSting.uptimeThreshold,
           serpentStingNonPandemicThresholds: this.serpentSting.nonPandemicThreshold,
+          deadEyeThresholds: this.deadEye.deadEyeEfficacyThresholds,
+          callingTheShotsThresholds: this.callingTheShots.callingTheShotsEfficacyThresholds,
           //endregion
 
           //region Resources
