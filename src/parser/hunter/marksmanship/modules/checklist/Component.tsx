@@ -6,8 +6,6 @@ import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import ResourceIcon from 'common/ResourceIcon';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 
 const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
@@ -58,11 +56,7 @@ const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: any) =
 
       <Rule
         name="Talent, cooldown and spell efficiency"
-        description={(
-          <>
-            You want to be using your baseline spells as efficiently as possible, as well as choosing the right talents for the given scenario. If a talent isn't being used optimally for the encounter, you should consider swapping to a different talent.
-          </>
-        )}
+        description="You want to be using your baseline spells as efficiently as possible, as well as choosing the right talents for the given scenario. If a talent isn't being used optimally for the encounter, you should consider swapping to a different talent."
       >
 
         <Requirement name={<><SpellLink id={SPELLS.PRECISE_SHOTS.id} /> utilization</>} thresholds={thresholds.preciseShotsThresholds} />
@@ -83,18 +77,29 @@ const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       </Rule>
 
       <Rule
-        name={<>Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> focus capping</>}
+        name="Downtime & Cancelled Casts"
         description={(
           <>
-            As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_MM_TALENT.id) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_MM_TALENT.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} to stay off the focus cap and do some damage.
+            As a DPS, you should try to reduce the delay between casting spells. This is especially true as a Marksmanship that should be casting something all the time, because you can always be casting <SpellLink id={SPELLS.STEADY_SHOT.id} /> if nothing else is available.
           </>
         )}
       >
         <Requirement name="Active time" thresholds={thresholds.downtimeSuggestionThresholds} />
 
+        <Requirement name="Successful casts" thresholds={thresholds.cancelledCastsThresholds} />
+      </Rule>
+
+      <Rule
+        name="Resource generators"
+        description={(
+          <>
+            Capping on Focus is a loss of potential DPS, as you could've used that Focus for a damaging ability at a later point. If everything is on cooldown, try and use {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_MM_TALENT.id) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_MM_TALENT.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} to stay off the focus cap and do some damage.
+          </>
+        )}
+      >
         <Requirement name="Effective Focus from generators" thresholds={thresholds.focusGeneratorWasteThresholds} />
 
-        <Requirement name="Effective Focus from natural regen" thresholds={thresholds.focusNaturalRegenWasteThresholds} />
+        <Requirement name="Effective natural Focus regeneration" thresholds={thresholds.focusNaturalRegenWasteThresholds} />
       </Rule>
 
       <PreparationRule thresholds={thresholds} />

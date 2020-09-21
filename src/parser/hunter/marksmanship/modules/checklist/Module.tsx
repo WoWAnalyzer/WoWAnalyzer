@@ -13,6 +13,7 @@ import SerpentSting from 'parser/hunter/marksmanship/modules/talents/SerpentStin
 import CallingTheShots from 'parser/hunter/marksmanship/modules/talents/CallingTheShots';
 import DeadEye from 'parser/hunter/marksmanship/modules/talents/DeadEye';
 import PreciseShots from 'parser/hunter/marksmanship/modules/spells/PreciseShots';
+import CancelledCasts from 'parser/hunter/shared/modules/features/CancelledCasts';
 
 import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
@@ -25,6 +26,7 @@ class Checklist extends BaseChecklist {
     castEfficiency: CastEfficiency,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,
+    cancelledCasts: CancelledCasts,
     //endregion
 
     //region Spells
@@ -52,6 +54,7 @@ class Checklist extends BaseChecklist {
   protected castEfficiency!: CastEfficiency;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected alwaysBeCasting!: AlwaysBeCasting;
+  protected cancelledCasts!: CancelledCasts;
   //endregion
 
   //region Spells
@@ -82,6 +85,7 @@ class Checklist extends BaseChecklist {
           //region Core
           ...this.preparationRuleAnalyzer.thresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
+          cancelledCastsThresholds: this.cancelledCasts.suggestionThresholds,
           //endregion
 
           //region Spells

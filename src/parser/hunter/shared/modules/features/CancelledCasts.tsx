@@ -28,11 +28,11 @@ class CancelledCasts extends CoreCancelledCasts {
 
   get suggestionThresholds() {
     return {
-      actual: this.cancelledPercentage,
-      isGreaterThan: {
-        minor: 0.025,
-        average: 0.05,
-        major: 0.1,
+      actual: 1 - this.cancelledPercentage,
+      isLessThan: {
+        minor: 0.975,
+        average: 0.95,
+        major: 0.9,
       },
       style: 'percentage',
     };
@@ -42,8 +42,8 @@ class CancelledCasts extends CoreCancelledCasts {
     when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(<>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</>)
         .icon('inv_misc_map_01')
-        .actual(`${formatPercentage(actual)}% casts cancelled`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`);
+        .actual(`${formatPercentage(1 - actual)}% casts cancelled`)
+        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`);
     });
   }
 
