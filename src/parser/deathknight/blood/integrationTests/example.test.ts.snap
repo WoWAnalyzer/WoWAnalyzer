@@ -3061,7 +3061,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
+                href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3073,7 +3073,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3082,7 +3082,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                   }
                 />
                  
-                Abyssal Healing Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -3158,7 +3158,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
-                href="http://wowhead.com/spell=279153"
+                href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3170,7 +3170,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/trade_alchemy_potionc2.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3190,7 +3190,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.43
+              0.00
             </td>
             <td
               className="text-right"
@@ -3200,7 +3200,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -3220,7 +3220,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -3235,7 +3235,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -3781,6 +3781,75 @@ exports[`Blood Death Knight integration test: example log EnchantChecker matches
 Array [
   Object {
     "details": null,
+    "icon": "inv_chest_plate_nazmirraid_d_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4824,
+              1507,
+              4786,
+            ],
+            "icon": "inv_chest_plate_nazmirraid_d_01.jpg",
+            "id": 160722,
+            "itemLevel": 385,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={160722}
+        quality={4}
+      >
+        Chest
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_glove_plate_nazmirraid_d_01.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4800,
+              1808,
+              1512,
+              4783,
+            ],
+            "gems": Array [
+              Object {
+                "icon": "inv_jewelcrafting_80_cutgem02_yellow.jpg",
+                "id": 154127,
+                "itemLevel": 120,
+              },
+            ],
+            "icon": "inv_glove_plate_nazmirraid_d_01.jpg",
+            "id": 160635,
+            "itemLevel": 390,
+            "permanentEnchant": 5937,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={160635}
+        quality={4}
+      >
+        Gloves
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
     "icon": "inv_ring_80_01e.jpg",
     "importance": "minor",
     "issue": <React.Fragment>
@@ -3841,6 +3910,36 @@ Array [
     </React.Fragment>,
     "stat": null,
   },
+  Object {
+    "details": null,
+    "icon": "inv_cape_mail_zandalardungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5010,
+              1562,
+              4784,
+            ],
+            "icon": "inv_cape_mail_zandalardungeon_c_01.jpg",
+            "id": 159288,
+            "itemLevel": 390,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159288}
+        quality={3}
+      >
+        Cloak
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
 ]
 `;
 
@@ -3848,7 +3947,14 @@ exports[`Blood Death Knight integration test: example log FlaskChecker matches t
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_dpotion_c26",
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.",
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
     "stat": null,
@@ -3860,9 +3966,9 @@ exports[`Blood Death Knight integration test: example log FoodChecker matches th
 Array [
   Object {
     "details": null,
-    "icon": "trade_archaeology_staffofsorcerer_than-thaurissan",
-    "importance": "minor",
-    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
+    "importance": "major",
+    "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
     "stat": null,
   },
 ]
@@ -4379,18 +4485,36 @@ exports[`Blood Death Knight integration test: example log PrePotion matches the 
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione1",
+    "icon": "inv_alchemy_90_combat2_yellow",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
+      
+       increasing output through 
+      <ItemLink
+        icon={true}
+        id={171275}
+      />
+      
+      . 
+      
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
     "issue": <React.Fragment>
       You used a weak potion. 
       <ItemLink
         icon={true}
-        id={168500}
+        id={171275}
       />
        can be used instead of 
       <ItemLink
         icon={true}
-        id={163224}
+        id={171275}
       />
        in order to get a slightly higher damage output.
     </React.Fragment>,
@@ -6555,8 +6679,8 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "59.25925925925925%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "0%",
                 }
               }
             />
@@ -6649,9 +6773,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  3
+                  4
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -6670,9 +6794,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "66.66666666666666%",
                       }
                     }
                   />
@@ -6712,7 +6836,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                    
                   1
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -6731,9 +6855,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "33.33333333333333%",
+                        "width": "16.666666666666664%",
                       }
                     }
                   />
@@ -6831,7 +6955,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -6851,9 +6975,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -7011,7 +7135,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -7031,9 +7155,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -7131,7 +7255,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -7151,9 +7275,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

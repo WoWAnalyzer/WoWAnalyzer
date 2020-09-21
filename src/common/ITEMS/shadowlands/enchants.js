@@ -1,21 +1,194 @@
-/**
- * NAME: {
- *   id: number,
- *   name: string,
- *   icon: string,
- *   effectId: number,
- * },
- */
 export default {
-  //region Ring enchants
-
-  //endregion
-
-  //region Weapon enchants
-
-  //endregion
-
-  //region Engineering
-
-  //endregion
+  ENCHANT_WEAPON_ASCENDED_VIGOR: {
+    id: 172365,
+    name: 'Enchant Weapon - Ascended Vigor',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6227,
+  },
+  ENCHANT_WEAPON_CELESTIAL_GUIDANCE: {
+    id: 172366,
+    name: 'Celestial Guidance',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6229,
+  },
+  ENCHANT_WEAPON_ETERNAL_GRACE: {
+    id: 172367,
+    name: 'Eternal Grace',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6226,
+  },
+  ENCHANT_WEAPON_LIGHTLESS_FORCE: {
+    id: 172370,
+    name: 'Lightless Force',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6223,
+  },
+  ENCHANT_WEAPON_SINFUL_REVELATION: {
+    id: 172368,
+    name: 'Sinful Revelation',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6228,
+  },
+  ENCHANT_CLOAK_FORTIFIED_AVOIDANCE: {
+    id: 172411,
+    name: 'Fortified Avoidance',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6203,
+  },
+  ENCHANT_CLOAK_FORTIFIED_LEECH: {
+    id: 172412,
+    name: 'Fortified Leech',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6204,
+  },
+  ENCHANT_CLOAK_FORTIFIED_SPEED: {
+    id: 172410,
+    name: 'Fortified Speed',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6202,
+  },
+  ENCHANT_CLOAK_SOUL_VITALITY: {
+    id: 177660,
+    name: 'Soul Vitality',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6208,
+  },
+  ENCHANT_CHEST_SACRED_STATS: {
+    id: 177716,
+    name: 'Sacred Stats',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6216,
+  },
+  ENCHANT_CHEST_ETERNAL_STATS: {
+    id: 177962,
+    name: 'Eternal Stats',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6230,
+  },
+  ENCHANT_CHEST_ETERNAL_BOUNDS: {
+    id: 177715,
+    name: 'Eternal Bounds',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6217,
+  },
+  ENCHANT_CHEST_ETERNAL_INSIGHT: {
+    id: 183738,
+    name: 'Eternal Insight',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6265,
+  },
+  ENCHANT_CHEST_ETERNAL_BULWARK: {
+    id: 172418,
+    name: 'Eternal Bulwark',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6213,
+  },
+  ENCHANT_CHEST_ETERNAL_SKIRMISH: {
+    id: 177659,
+    name: 'Eternal Skirmish',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6214,
+  },
+  ENCHANT_BRACERS_ILLUMINATED_SOUL: {
+    id: 172414,
+    name: 'Illuminated Soul',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6219,
+  },
+  ENCHANT_BRACERS_ETERNAL_INTELLECT: {
+    id: 172415,
+    name: 'Eternal Intellect',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6220,
+  },
+  ENCHANT_BRACERS_SHADED_HEARTHING: {
+    id: 172416,
+    name: 'Shaded Hearthing',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6222,
+  },
+  ENCHANT_GLOVES_STRENGTH_OF_SOUL: {
+    id: 172407,
+    name: 'Strength of Soul',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6209,
+  },
+  ENCHANT_GLOVES_ETERNAL_STRENGTH: {
+    id: 172408,
+    name: 'Eternal Strength',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6210,
+  },
+  ENCHANT_GLOVES_SHADOWLANDS_GATHERING: {
+    id: 172406,
+    name: 'Shadowlands Gathering',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6205,
+  },
+  ENCHANT_BOOTS_AGILE_SOULWALKER: {
+    id: 172413,
+    name: 'Agile Soulwalker',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6212,
+  },
+  ENCHANT_BOOTS_ETERNAL_AGILITY: {
+    id: 172419,
+    name: 'Eternal Agility',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6211,
+  },
+  ENCHANT_BOOTS_SOUL_TREADS: {
+    id: 177661,
+    name: 'Soul Treads',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6207,
+  },
+  ENCHANT_RING_BARGAIN_OF_CRITICAL_STRIKE: {
+    id: 172357,
+    name: 'Bargain of Critical Strike',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6163,
+  },
+  ENCHANT_RING_BARGAIN_OF_HASTE: {
+    id: 172358,
+    name: 'Bargain of Haste',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6165,
+  },
+  ENCHANT_RING_BARGAIN_OF_MASTERY: {
+    id: 172359,
+    name: 'Bargain of Master',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6167,
+  },
+  ENCHANT_RING_BARGAIN_OF_VERSATILITY: {
+    id: 172360,
+    name: 'Bargain of Versatility',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6169,
+  },
+  ENCHANT_RING_TENET_OF_CRITICAL_STRIKE: {
+    id: 172361,
+    name: 'Tenet of Critical Strike',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6164,
+  },
+  ENCHANT_RING_TENET_OF_HASTE: {
+    id: 172362,
+    name: 'Tenet of Haste',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6166,
+  },
+  ENCHANT_RING_TENET_OF_MASTERY: {
+    id: 172363,
+    name: 'Tenet of Mastery',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6168,
+  },
+  ENCHANT_RING_TENET_OF_VERSATILITY: {
+    id: 172364,
+    name: 'Tenet of Versatility',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6170,
+  },
 };
