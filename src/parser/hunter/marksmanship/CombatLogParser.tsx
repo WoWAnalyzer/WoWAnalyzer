@@ -14,6 +14,9 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import Buffs from './modules/Buffs';
 
+//Checklist
+import Checklist from './modules/checklist/Module';
+
 //Death Tracker
 import DeathTracker from '../shared/modules/core/DeathTracker';
 
@@ -89,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     channeling: Channeling,
     spellUsable: SpellUsable,
+    checklist: Checklist,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

@@ -134,12 +134,4 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.LUCID_DREAMS_HEAL.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false,
-    vers: true,
-  },
 };

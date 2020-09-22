@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 9, 19), <>Added module for <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} /> buff uptime. </>, Sharrq),
   change(date(2020, 9, 8), <>Added Spell IDs for the Shadowlands Mage Conduits, Legendaries, and Covenant Abilities. </>, Sharrq),
   change(date(2020, 9, 8), <>Removed Azerite, Essences, and BFA Items in prep for Shadowlands. </>, Sharrq),
   change(date(2020, 8, 23), <>General Cleanup for Mage Spells</>, Sharrq),

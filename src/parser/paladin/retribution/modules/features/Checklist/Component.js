@@ -43,19 +43,19 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
         <AbilityRequirement spell={SPELLS.CRUSADER_STRIKE.id} />
         <AbilityRequirement spell={SPELLS.JUDGMENT_CAST.id} />
         <AbilityRequirement spell={SPELLS.BLADE_OF_JUSTICE.id} />
-        {combatant.hasTalent(SPELLS.CONSECRATION_TALENT.id) && <AbilityRequirement spell={SPELLS.CONSECRATION_TALENT.id} />}
+        <AbilityRequirement spell={SPELLS.CONSECRATION_CAST.id} />
       </Rule>
       <Rule
         name="Use your cooldowns"
         description={(
           <>
-            Retribution Paladin is a very cooldown dependant spec. Make sure you are keeping spells like <SpellLink id={combatant.hasTalent(SPELLS.CRUSADE_TALENT.id) ? SPELLS.CRUSADE_TALENT.id : SPELLS.AVENGING_WRATH.id} icon /> and <SpellLink id={SPELLS.WAKE_OF_ASHES_TALENT.id} /> on cooldown.
+            Retribution Paladin is a very cooldown dependant spec. Make sure you are keeping spells like <SpellLink id={combatant.hasTalent(SPELLS.CRUSADE_TALENT.id) ? SPELLS.CRUSADE_TALENT.id : SPELLS.AVENGING_WRATH.id} icon /> and <SpellLink id={SPELLS.WAKE_OF_ASHES.id} /> on cooldown.
           </>
         )}
       >
         {combatant.hasTalent(SPELLS.CRUSADE_TALENT.id) && <AbilityRequirement spell={SPELLS.CRUSADE_TALENT.id} />}
         {!combatant.hasTalent(SPELLS.CRUSADE_TALENT.id) && <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />}
-        {combatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id) && <AbilityRequirement spell={SPELLS.WAKE_OF_ASHES_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.WAKE_OF_ASHES.id) && <AbilityRequirement spell={SPELLS.WAKE_OF_ASHES.id} />}
         {combatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id) && <AbilityRequirement spell={SPELLS.EXECUTION_SENTENCE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.CRUSADE_TALENT.id) && (
           <Requirement
@@ -72,7 +72,7 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
         name="Use procs and buffs efficiently"
         description={(
           <>
-            Buffs and procs like <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon />, <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> and <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> have a significant impact on your damage, use them well.
+            Buffs and procs like <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> and <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> have a significant impact on your damage, use them well.
         </>
         )}
       >
@@ -92,16 +92,6 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
           )}
           thresholds={thresholds.judgment}
         />
-        {combatant.hasTalent(SPELLS.INQUISITION_TALENT.id) && (
-          <Requirement
-            name={(
-              <>
-                Damage empowered by <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon />
-              </>
-            )}
-            thresholds={thresholds.inquisition}
-          />
-        )}
         {combatant.hasTalent(SPELLS.RIGHTEOUS_VERDICT_TALENT.id) && (
           <Requirement
             name={(
@@ -110,16 +100,6 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
               </>
             )}
             thresholds={thresholds.righteousVerdict}
-          />
-        )}
-        {combatant.hasTrait(SPELLS.RELENTLESS_INQUISITOR.id) && (
-          <Requirement
-            name={(
-              <>
-                Average <SpellLink id={SPELLS.RELENTLESS_INQUISITOR.id} icon /> stacks
-                </>
-            )}
-            thresholds={thresholds.relentlessInquisitor}
           />
         )}
       </Rule>
@@ -160,8 +140,6 @@ RetributionPaladinChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasTrinket: PropTypes.func.isRequired,
-    hasTrait: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };

@@ -58,6 +58,11 @@ import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
 
+//conduits
+//endurance
+import GroundingBreath from '../shared/modules/conduits/GroundingBreath';
+import HarmDenial from '../shared/modules/conduits/HarmDenial';
+import FortifyingIngredients from '../shared/modules/conduits/FortifyingIngredients';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -120,6 +125,12 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTracker: ManaTracker,
     hpmDetails: MistweaverHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    // Conduits
+    groundingBreath: GroundingBreath,
+    harmDenial: HarmDenial,
+    fortifyingIngredients: FortifyingIngredients,
+
   };
 }
 

@@ -2435,7 +2435,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
+                href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2447,7 +2447,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -2456,7 +2456,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                   }
                 />
                  
-                Abyssal Healing Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -2467,7 +2467,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              0.22
+              0.00
             </td>
             <td
               className="text-right"
@@ -2477,7 +2477,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -2497,7 +2497,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2512,7 +2512,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -2532,7 +2532,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
-                href="http://wowhead.com/spell=300714"
+                href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2544,7 +2544,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_potionf_5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -2564,7 +2564,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              0.22
+              0.00
             </td>
             <td
               className="text-right"
@@ -2574,7 +2574,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -2594,7 +2594,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2609,7 +2609,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -2798,6 +2798,231 @@ exports[`Elemental Shaman integration test: example log DistanceMoved matches th
 </div>
 `;
 
+exports[`Elemental Shaman integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_chest_mail_kultirasdungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5448,
+              1617,
+              4786,
+              6269,
+            ],
+            "icon": "inv_chest_mail_kultirasdungeon_c_01.jpg",
+            "id": 159362,
+            "itemLevel": 450,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159362}
+        quality={3}
+      >
+        Chest
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_bracer_mail_nazjatar_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              6300,
+              4802,
+              6294,
+              1512,
+              4786,
+            ],
+            "gems": Array [
+              Object {
+                "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
+                "id": 168642,
+                "itemLevel": 120,
+              },
+            ],
+            "icon": "inv_bracer_mail_nazjatar_c_01.jpg",
+            "id": 170304,
+            "itemLevel": 425,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={170304}
+        quality={4}
+      >
+        Bracers
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_jewelry_ring_44.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4800,
+              1808,
+              1537,
+              4786,
+            ],
+            "gems": Array [
+              Object {
+                "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
+                "id": 168642,
+                "itemLevel": 120,
+              },
+            ],
+            "icon": "inv_jewelry_ring_44.jpg",
+            "id": 165565,
+            "itemLevel": 415,
+            "permanentEnchant": 6108,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={165565}
+        quality={4}
+      >
+        Ring
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_ring_80_01c.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4799,
+              1808,
+              41,
+              1502,
+              4786,
+            ],
+            "gems": Array [
+              Object {
+                "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
+                "id": 168642,
+                "itemLevel": 120,
+              },
+            ],
+            "icon": "inv_ring_80_01c.jpg",
+            "id": 168891,
+            "itemLevel": 430,
+            "permanentEnchant": 6108,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={168891}
+        quality={4}
+      >
+        Ring
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_cape_leather_zandalardungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5010,
+              4802,
+              1612,
+              4783,
+            ],
+            "gems": Array [
+              Object {
+                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                "id": 168639,
+                "itemLevel": 120,
+              },
+            ],
+            "icon": "inv_cape_leather_zandalardungeon_c_01.jpg",
+            "id": 159292,
+            "itemLevel": 440,
+            "onUseEnchant": 4897,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159292}
+        quality={3}
+      >
+        Cloak
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_mace_1h_pandaraid_d_01.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5010,
+              40,
+              1612,
+              4783,
+            ],
+            "icon": "inv_mace_1h_pandaraid_d_01.jpg",
+            "id": 158369,
+            "itemLevel": 440,
+            "permanentEnchant": 5949,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={158369}
+        quality={3}
+      >
+        Weapon
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Elemental Shaman integration test: example log EssenceOfTheFocusingIris matches the statistic snapshot 1`] = `
 <div
   category="ITEMS"
@@ -2967,6 +3192,30 @@ Array [
       &lt;10.00% is recommended
       )
     </React.Fragment>,
+  },
+]
+`;
+
+exports[`Elemental Shaman integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
+exports[`Elemental Shaman integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
+    "importance": "minor",
+    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "stat": null,
   },
 ]
 `;
@@ -4694,6 +4943,48 @@ exports[`Elemental Shaman integration test: example log OverwhelmingPower matche
 </div>
 `;
 
+exports[`Elemental Shaman integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_purple",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
+      
+       increasing output through 
+      <ItemLink
+        icon={true}
+        id={171273}
+      />
+      
+      . 
+      
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_purple",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You used a weak potion. 
+      <ItemLink
+        icon={true}
+        id={171273}
+      />
+       can be used instead of 
+      <ItemLink
+        icon={true}
+        id={171273}
+      />
+       in order to get a slightly higher damage output.
+    </React.Fragment>,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Elemental Shaman integration test: example log SpiritWolf matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -6407,7 +6698,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
   </li>
   
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -6431,8 +6722,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "0%",
                 }
               }
             />
@@ -6527,7 +6818,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                    
                   3
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -6546,9 +6837,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "50%",
                       }
                     }
                   />
@@ -6586,9 +6877,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  3
+                  0
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -6607,9 +6898,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -6707,7 +6998,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -6727,9 +7018,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -6767,7 +7058,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -6787,9 +7078,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -6827,7 +7118,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -6847,9 +7138,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -6947,7 +7238,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -6967,9 +7258,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

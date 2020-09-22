@@ -16,8 +16,6 @@ import { POWERFUL_PRECISION_DAMAGE_INCREASE, PRECISE_SHOTS_MODIFIER } from 'pars
  *
  * Example log
  *
- * TODO: Verify multiplicative or additive when comparing to regular Precise Shots
- * This also involves looking into the regular precise shots module and adjusting that modifer potentially.
  */
 class PowerfulPrecision extends Analyzer {
   static dependencies = {

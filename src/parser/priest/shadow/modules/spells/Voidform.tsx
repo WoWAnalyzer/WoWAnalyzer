@@ -3,20 +3,17 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'parser/core/Analyzer';
-import { CastEvent, RemoveBuffEvent, ApplyBuffStackEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, RemoveBuffEvent, ApplyBuffStackEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
 import Panel from 'interface/others/Panel';
 
 import Insanity from '../core/Insanity';
 import VoidformsTab from './VoidformsTab';
+import { VOID_FORM_ACTIVATORS } from '../../constants';
 
 const debug = false;
 const logger = (message: any, color: any) => debug && console.log(`%c${message.join('  ')}`, `color: ${color}`);
-
-const VOID_FORM_ACTIVATORS = [
-  SPELLS.VOID_ERUPTION.id,
-];
 
 class Voidform extends Analyzer {
   static dependencies = {
@@ -32,6 +29,15 @@ class Voidform extends Analyzer {
   _inVoidform = false;
 
   _voidforms: any = {};
+
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(VOID_FORM_ACTIVATORS), this.onCast);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.VOIDFORM_BUFF), this.onVoidFormRemoved);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.VOIDFORM_BUFF), this.onVoidFormStack);
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.LINGERING_INSANITY), this.onLingeringInsanityRemoved);
+    this.addEventListener(Events.fightend, this.onFinished);
+  }
 
   get voidforms() {
     return Object.keys(this._voidforms).map(key => this._voidforms[key]);
@@ -152,37 +158,27 @@ class Voidform extends Analyzer {
     }, 0)) / (this.currentVoidform.duration / 1000);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (VOID_FORM_ACTIVATORS.includes(spellId)) {
+  onCast(event: CastEvent) {
+    this.startVoidform(event);
+  }
+
+  onVoidFormRemoved(event: RemoveBuffEvent) {
+    this.endVoidform(event);
+  }
+
+  onVoidFormStack(event: ApplyBuffStackEvent) {
+    if (!this.currentVoidform) {
+      // for prepull voidforms
       this.startVoidform(event);
     }
+    this.addVoidformStack(event);
   }
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-      this.endVoidform(event);
-    }
+  onLingeringInsanityRemoved(event: RemoveBuffStackEvent) {
+    this.removeLingeringInsanityStack(event);
   }
 
-  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-      if (!this.currentVoidform) {
-        // for prepull voidforms
-        this.startVoidform(event);
-      }
-      this.addVoidformStack(event);
-    }
-  }
-
-  on_byPlayer_removebuffstack(event: RemoveBuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.LINGERING_INSANITY.id) this.removeLingeringInsanityStack(event);
-  }
-
-  on_fightend() {
+  onFinished() {
     if (this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
       // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
       const averageVoidformStacks = this.voidforms.slice(0, -1).reduce((p, c) => p + c.stacks.length, 0) / (this.voidforms.length - 1);
