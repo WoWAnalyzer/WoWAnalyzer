@@ -35,7 +35,6 @@ import RenewingMist from './modules/spells/RenewingMist';
 import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
 import InvokeYulon from './modules/spells/InvokeYulon';
 import InvokeChiJi from './modules/spells/InvokeChiJi';
-import WeaponsOfOrder from './modules/spells/WeaponsOfOrder';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
@@ -107,7 +106,6 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     invokeYulon: InvokeYulon,
     invokeChiJi: InvokeChiJi,
-    weaponsOfOrder: WeaponsOfOrder,
 
     // Talents
     chiBurst: ChiBurst,
@@ -130,7 +128,6 @@ class CombatLogParser extends CoreCombatLogParser {
     groundingBreath: GroundingBreath,
     harmDenial: HarmDenial,
     fortifyingIngredients: FortifyingIngredients,
-
   };
 }
 

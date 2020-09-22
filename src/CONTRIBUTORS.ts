@@ -877,4 +877,5 @@ export const Tyndi: Contributor = {
   nickname: 'Tyndi',
   github: 'darthelit',
   discord: 'Tyndi#4337',
+  avatar: require('./interface/images/avatars/tyndi-avatar.png'),
 };
