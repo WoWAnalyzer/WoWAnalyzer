@@ -2,14 +2,15 @@ import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, ApplyDebuffEvent, FightEndEvent } from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatPercentage, formatNumber } from 'common/format';
 
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+
 
 // the application of the debuff (and first tick of damage) is instant after the cast, but seems to have a little bit of leeway across multiple enemies
 // this example log: /report/mvK3PYrbcwfj9qTG/15-LFR+Zul+-+Kill+(3:49)/16-Residentevil shows around +15ms, so setting 100ms buffer to account for lags
@@ -20,20 +21,21 @@ class VileTaint extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
-  _castTimestamp = null;
+  _castTimestamp: number = 0;
   _currentCastCount = 0;
-  casts = [];
+  casts: any = [];
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT), this.onVileTaintCast);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT), this.onVileTaintApplyDebuff);
     this.addEventListener(Events.fightend, this.onFinished);
   }
 
-  onVileTaintCast(event) {
+  onVileTaintCast(event: CastEvent) {
     if (this._castTimestamp !== null) {
       // we've casted VT at least once, so we should add the current (at this time the previous) cast first before resetting the counter
       this.casts.push(this._currentCastCount);
@@ -42,7 +44,7 @@ class VileTaint extends Analyzer {
     this._currentCastCount = 0;
   }
 
-  onVileTaintApplyDebuff(event) {
+  onVileTaintApplyDebuff(event: ApplyDebuffEvent) {
     if (event.timestamp <= this._castTimestamp + BUFFER) {
       this._currentCastCount += 1;
     } else {
@@ -50,7 +52,7 @@ class VileTaint extends Analyzer {
     }
   }
 
-  onFinished() {
+  onFinished(event: FightEndEvent) {
     // on each cast, the previous one is saved, so the "results" of the last VT cast in fight aren't saved, so do it on fight end
     this.casts.push(this._currentCastCount);
   }
@@ -58,11 +60,11 @@ class VileTaint extends Analyzer {
   statistic() {
     const spell = this.abilityTracker.getAbility(SPELLS.VILE_TAINT_TALENT.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
-    const averageTargetsHit = (this.casts.reduce((total, current) => total + current, 0) / spell.casts) || 0;
+    const averageTargetsHit = (this.casts.reduce((total: number, current: number) => total + current, 0) / spell.casts) || 0;
     const dps = damage / this.owner.fightDuration * 1000;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(3)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="small"
         tooltip={(
           <>

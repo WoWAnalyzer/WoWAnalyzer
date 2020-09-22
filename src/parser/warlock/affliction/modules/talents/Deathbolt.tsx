@@ -1,18 +1,18 @@
 import React from 'react';
 
-import Events from 'parser/core/Events';
+import Events, { CastEvent, ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
-
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
+
 
 const PANDEMIC_WINDOW = 0.3;
 const DOT_DEBUFFS = [
@@ -32,11 +32,12 @@ class Deathbolt extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
   _hasAC = false;
-  _dotDurations = {};
+  _dotDurations: any = {};
   // track application of dots on targets so we know their remaining duration when Deathbolt is cast
-  _dots = {
+  _dots: any = {
     /*
     [target string]: {
       [dot id]: {
@@ -46,27 +47,27 @@ class Deathbolt extends Analyzer {
      */
   };
 
-  remainingDotDurations = {
+  remainingDotDurations: any = {
     /*
     [dot id]: [number]
      */
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEATHBOLT_TALENT.id);
     this._dotDurations = getDotDurations(this.selectedCombatant.hasTalent(SPELLS.CREEPING_DEATH_TALENT.id));
     this._hasAC = this.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id);
     if (this._hasAC) {
-      this._dotDurations[SPELLS.CORRUPTION_DEBUFF.id] = Infinity;
+      options._dotDurations[SPELLS.CORRUPTION_DEBUFF.id] = Infinity;
     }
 
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(DOT_DEBUFFS), this.onDotApply);
-    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(DOT_DEBUFFS), this.onDotApply);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(DOT_DEBUFFS), (event: ApplyDebuffEvent) => this.onDotApply(event));
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(DOT_DEBUFFS), (event: RefreshDebuffEvent) => this.onDotApply(event));
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATHBOLT_TALENT), this.onDeathboltCast);
   }
 
-  onDotApply(event) {
+  onDotApply(event: ApplyDebuffEvent | RefreshDebuffEvent) {
     const target = encodeTargetString(event.targetID, event.targetInstance);
     const spellId = event.ability.guid;
     this._dots[target] = this._dots[target] || {};
@@ -96,13 +97,13 @@ class Deathbolt extends Analyzer {
     }
   }
 
-  onDeathboltCast(event) {
+  onDeathboltCast(event: CastEvent) {
     const timestamp = event.timestamp;
     const target = encodeTargetString(event.targetID, event.targetInstance);
 
     // get currently active dots on target from this._dots, add their remaining duration to the remainingDotDurations arrays
     // ignore Corruption if player has Absolute Corruption
-    Object.entries(this._dots[target]).forEach(([dotId, dotInfo]) => {
+    Object.entries(this._dots[target]).forEach(([dotId, dotInfo]: any) => {
       if (Number(dotId) === SPELLS.CORRUPTION_DEBUFF.id && this._hasAC) {
         return;
       }
@@ -120,13 +121,13 @@ class Deathbolt extends Analyzer {
   }
 
   get averageRemainingDotLengths() {
-    const result = {};
-    const allDurations = [];
-    Object.entries(this.remainingDotDurations).forEach(([dotId, durations]) => {
-      result[dotId] = (durations.reduce((total, current) => total + current, 0) / durations.length) || 0;
+    const result: any = {};
+    const allDurations: any = [];
+    Object.entries(this.remainingDotDurations).forEach(([dotId, durations]: any) => {
+      result[dotId] = (durations.reduce((total: number, current: number) => total + current, 0) / durations.length) || 0;
       allDurations.push(...durations);
     });
-    result.total = (allDurations.reduce((total, current) => total + current, 0) / allDurations.length) || 0;
+    result.total = (allDurations.reduce((total: number, current: number) => total + current, 0) / allDurations.length) || 0;
     return result;
   }
 
@@ -138,11 +139,11 @@ class Deathbolt extends Analyzer {
     const avgDotLengths = this.averageRemainingDotLengths;
     const dotDurationsTooltip = Object.entries(avgDotLengths)
       .filter(([key]) => key !== 'total')
-      .map(([key, value]) => <>{SPELLS[key].name}: {(value / 1000).toFixed(2)} seconds<br /></>);
+      .map(([key, value]: any) => <>{SPELLS[key].name}: {(value / 1000).toFixed(2)} seconds<br /></>);
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={(
           <>
@@ -152,19 +153,10 @@ class Deathbolt extends Analyzer {
           </>
         )}
       >
-        <div className="pad">
-          <label><SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /></label>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatThousands(avg)} <small>average damage</small>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex-main value">
-              {(avgDotLengths.total / 1000).toFixed(2)} s <small>average DoT length on cast</small>
-            </div>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.DEATHBOLT_TALENT}>
+          {formatThousands(avg)} <small>average damage</small><br />
+          {(avgDotLengths.total / 1000).toFixed(2)}s <small>average DoT length on cast</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

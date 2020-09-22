@@ -14,6 +14,7 @@ class AgonyUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+  protected enemies!: Enemies;
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
@@ -31,15 +32,15 @@ class AgonyUptime extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    let text;
+  suggestions(when: any) {
+    let text: any;
     if (this.selectedCombatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
       text = <>Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of Soul Shards. Try to pay more attention to your Agony on the boss, especially since you're using <SpellLink id={SPELLS.WRITHE_IN_AGONY_TALENT.id} /> talent.</>;
     } else {
       text = <>Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of Soul Shards. Try to pay more attention to your Agony on the boss, perhaps use some debuff tracker.</>;
     }
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(text)
           .icon(SPELLS.AGONY.icon)
           .actual(`${formatPercentage(actual)}% Agony uptime`)
@@ -58,7 +59,7 @@ class AgonyUptime extends Analyzer {
           className="flex-sub value"
           style={{ width: 140 }}
         >
-          {formatPercentage(this.uptime, 0)} % <small>uptime</small>
+          {formatPercentage(this.uptime, 0)}% <small>uptime</small>
         </div>
         <div className="flex-main chart" style={{ padding: 15 }}>
           <UptimeBar

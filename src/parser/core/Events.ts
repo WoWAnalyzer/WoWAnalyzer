@@ -17,6 +17,7 @@ export enum EventType {
   RemoveBuffStack = 'removebuffstack',
   RemoveDebuffStack = 'removedebuffstack',
   ChangeBuffStack = 'changebuffstack',
+  ChangeDebuffStack = 'changedebuffstack',
   RefreshBuff = 'refreshbuff',
   RefreshDebuff = 'refreshdebuff',
   RemoveBuff = 'removebuff',
@@ -351,6 +352,38 @@ export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStac
   stacksGained: number;
   start: number;
   targetIsFriendly: boolean;
+  trigger: {
+    end?: number;
+    isDebuff?: boolean;
+    prepull: boolean;
+    sourceID: number;
+    sourceIsFriendly: boolean;
+    stacks: number;
+    start: number;
+    targetID: number;
+    targetIsFriendly: boolean;
+    timestamp: number;
+    type: string;
+  };
+}
+
+export interface ChangeDebuffStackEvent extends BuffEvent<EventType.ChangeDebuffStack> {
+  end?: number;
+  isDebuff?: boolean;
+  newStacks: number;
+  oldStacks: number;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  stack?: number;
+  stackHistory: {
+    stacks: number;
+    timestamp: number;
+  };
+  stacks: number;
+  stacksGained: number;
+  start: number;
+  targetIsFriendly: boolean;
+  targetInstance: number;
   trigger: {
     end?: number;
     isDebuff?: boolean;
@@ -734,6 +767,9 @@ const Events = {
   },
   get changebuffstack() {
     return new EventFilter(EventType.ChangeBuffStack);
+  },
+  get changedebuffstack() {
+    return new EventFilter(EventType.ChangeDebuffStack);
   },
   get applydebuffstack() {
     return new EventFilter(EventType.ApplyDebuffStack);

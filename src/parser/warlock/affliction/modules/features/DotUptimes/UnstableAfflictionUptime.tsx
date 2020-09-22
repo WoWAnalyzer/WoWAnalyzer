@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent, ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import { formatPercentage, formatThousands } from 'common/format';
@@ -20,34 +20,35 @@ class UnstableAfflictionUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+  protected enemies!: Enemies;
 
   buffedTime = 0;
   damage = 0;
   _buffStart = 0;
   _count = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(UNSTABLE_AFFLICTION_DEBUFFS), this.onUAapply);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(UNSTABLE_AFFLICTION_DEBUFFS), this.onUAremove);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  onUAapply(event) {
+  onUAapply(event: ApplyDebuffEvent) {
     if (this._count === 0) {
       this._buffStart = event.timestamp;
     }
     this._count += 1;
   }
 
-  onUAremove(event) {
+  onUAremove(event: RemoveDebuffEvent) {
     this._count -= 1;
     if (this._count === 0) {
       this.buffedTime += event.timestamp - this._buffStart;
     }
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
@@ -76,9 +77,9 @@ class UnstableAfflictionUptime extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(
           <>
             Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime is too low. Try spacing out your UAs a little more so that you get the most out of the internal 10% damage bonus, unless you're pooling for <SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /> or focusing priority targets.
@@ -109,7 +110,7 @@ class UnstableAfflictionUptime extends Analyzer {
               paddingRight: 8, // to compensate for the asterisk and align % values
             }}
           >
-            {formatPercentage(this.uptime, 0)} % <small>uptime <sup>*</sup></small>
+            {formatPercentage(this.uptime, 0)}% <small>uptime <sup>*</sup></small>
           </div>
         </Tooltip>
         <div className="flex-main chart" style={{ padding: 15 }}>

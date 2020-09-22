@@ -10,13 +10,19 @@ import SpellIcon from 'common/SpellIcon';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
-class CorruptionUptime extends Analyzer {
+class SiphonLifeUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+  protected enemies!: Enemies;
+
+  constructor(options: any) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id);
+  }
 
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.CORRUPTION_DEBUFF.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SPELLS.SIPHON_LIFE_TALENT.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -31,34 +37,33 @@ class CorruptionUptime extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
-          <>
-            Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.
-          </>,
-        )
-          .icon(SPELLS.CORRUPTION_CAST.icon)
-          .actual(`${formatPercentage(actual)}% Corruption uptime`)
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+        return suggest(<>Your <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Siphon Life on the boss, perhaps use some debuff tracker.</>)
+          .icon(SPELLS.SIPHON_LIFE_TALENT.icon)
+          .actual(`${formatPercentage(actual)}% Siphon Life uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.CORRUPTION_DEBUFF.id);
+    const history = this.enemies.getDebuffHistory(SPELLS.SIPHON_LIFE_TALENT.id);
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.CORRUPTION_CAST.id} />
+          <SpellIcon id={SPELLS.SIPHON_LIFE_TALENT.id} />
         </div>
         <div
           className="flex-sub value"
           style={{ width: 140 }}
         >
-          {formatPercentage(this.uptime, 0)} % <small>uptime</small>
+          {formatPercentage(this.uptime, 0)}% <small>uptime</small>
         </div>
-        <div className="flex-main chart" style={{ padding: 15 }}>
+        <div
+          className="flex-main chart"
+          style={{ padding: 15 }}
+        >
           <UptimeBar
             uptimeHistory={history}
             start={this.owner.fight.start_time}
@@ -71,4 +76,4 @@ class CorruptionUptime extends Analyzer {
   }
 }
 
-export default CorruptionUptime;
+export default SiphonLifeUptime;

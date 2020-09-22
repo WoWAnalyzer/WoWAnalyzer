@@ -1,17 +1,18 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, ChangeDebuffStackEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const BONUS_PER_STACK = 0.03;
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
@@ -21,12 +22,13 @@ class ShadowEmbrace extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+  protected enemies!: Enemies;
 
   damage = 0;
 
-  _lastEventTimestamp = null;
+  _lastEventTimestamp: number = 0;
 
-  debuffs = {
+  debuffs: any = {
     0: {
       // ignored, see comment in stackedUptime getter
       start: null,
@@ -50,12 +52,14 @@ class ShadowEmbrace extends Analyzer {
     },
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOW_EMBRACE_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.changedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_EMBRACE_DEBUFF), this.onShadowEmbraceDebuffStack);
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
@@ -67,10 +71,7 @@ class ShadowEmbrace extends Analyzer {
     this.damage += calculateEffectiveDamage(event, shadowEmbrace.stacks * BONUS_PER_STACK);
   }
 
-  on_byPlayer_changedebuffstack(event) {
-    if (event.ability.guid !== SPELLS.SHADOW_EMBRACE_DEBUFF.id) {
-      return;
-    }
+  onShadowEmbraceDebuffStack(event: ChangeDebuffStackEvent) {
     if (event.targetIsFriendly) {
       return;
     }
@@ -121,33 +122,24 @@ class ShadowEmbrace extends Analyzer {
     const uptimes = this.stackedUptime;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)}
-        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="small"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <div className="pad">
-          <label><SpellLink id={SPELLS.SHADOW_EMBRACE_TALENT.id} /></label>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatPercentage(this.totalUptimePercentage)} %
-              <Tooltip content={(
-                <>
-                  No stacks: {formatPercentage(uptimes[0])} %<br />
-                  1 stack: {formatPercentage(uptimes[1])} %<br />
-                  2 stacks: {formatPercentage(uptimes[2])} %<br />
-                  3 stacks: {formatPercentage(uptimes[3])} %
-                </>
-              )}>
-                <small style={{ marginLeft: 7 }}>uptime <sup>*</sup></small>
-              </Tooltip>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
-            </div>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE_TALENT}>
+          {formatPercentage(this.totalUptimePercentage)}% 
+                <TooltipElement content={(
+                  <>
+                    No stacks: {formatPercentage(uptimes[0])} %<br />
+                    1 stack: {formatPercentage(uptimes[1])} %<br />
+                    2 stacks: {formatPercentage(uptimes[2])} %<br />
+                    3 stacks: {formatPercentage(uptimes[3])} %
+                  </>
+                )}>
+                  <> <small>uptime<sup>*</sup></small></>
+                </TooltipElement><br />
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

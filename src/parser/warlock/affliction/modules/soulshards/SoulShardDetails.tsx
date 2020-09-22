@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS';
 import Panel from 'interface/others/Panel';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import '../../../shared/modules/soulshards/SoulShardDetails.css';
 import SoulShardTracker from './SoulShardTracker';
@@ -17,6 +17,7 @@ class SoulShardDetails extends Analyzer {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
   };
+  protected soulShardTracker!: SoulShardTracker;
 
   get suggestionThresholds() {
     const shardsWasted = this.soulShardTracker.wasted;
@@ -32,10 +33,10 @@ class SoulShardDetails extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     const shardsWasted = this.soulShardTracker.wasted;
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
           .icon(SPELLS.SOUL_SHARDS.icon)
           .actual(`${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`)
@@ -50,12 +51,9 @@ class SoulShardDetails extends Analyzer {
         position={STATISTIC_ORDER.CORE(3)}
         size="small"
       >
-        <BoringSpellValue
-          spell={SPELLS.SOUL_SHARDS}
-          value={shardsWasted}
-          label="Wasted Soul Shards"
-          className="grayscale"
-        />
+        <BoringSpellValueText spell={SPELLS.SOUL_SHARDS}>
+          {shardsWasted} <small>Wasted Soul Shards</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

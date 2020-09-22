@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Chizu, Putro } from 'CONTRIBUTORS';
+import { Chizu, Putro, Sharrq } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 9, 22), 'Upgraded to new Statistic Boxes, Event Listeners, Integration Tests, and Typescript.', Sharrq),
   change(date(2020, 6, 12), 'Moved probability helpers to a shared folder.', Putro),
   change(date(2019, 3, 18), 'Updated the visuals to match new WoWAnalyzer look!', [Chizu]),
   change(date(2018, 12, 24), <>Now showing average remaining dot length on <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> casts.</>, [Chizu]),

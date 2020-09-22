@@ -17,6 +17,10 @@ class DotUptimeStatisticBox extends Analyzer {
     unstableAfflictionUptime: UnstableAfflictionUptime,
     siphonLifeUptime: SiphonLifeUptime,
   };
+  protected agonyUptime!: AgonyUptime;
+  protected corruptionUptime!: CorruptionUptime;
+  protected unstableAfflictionUptime!: UnstableAfflictionUptime;
+  protected siphonLifeUptime!: SiphonLifeUptime;
 
   statistic() {
     return (

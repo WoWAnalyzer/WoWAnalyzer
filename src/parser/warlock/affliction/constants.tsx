@@ -10,7 +10,7 @@ export const UNSTABLE_AFFLICTION_DEBUFFS = [
   SPELLS.UNSTABLE_AFFLICTION_DEBUFF_5,
 ];
 
-export const getDotDurations = (hasCreepingDeath) => {
+export const getDotDurations = (hasCreepingDeath: any) => {
   const durations = {
     [SPELLS.AGONY.id]: 18000,
     [SPELLS.CORRUPTION_DEBUFF.id]: 14000,
@@ -22,7 +22,7 @@ export const getDotDurations = (hasCreepingDeath) => {
     [SPELLS.UNSTABLE_AFFLICTION_DEBUFF_5.id]: 8000,
   };
   if (hasCreepingDeath) {
-    Object.entries(durations).forEach(([key]) => {
+    Object.entries(durations).forEach(([key]: any) => {
       durations[key] *= 0.85;
     });
   }

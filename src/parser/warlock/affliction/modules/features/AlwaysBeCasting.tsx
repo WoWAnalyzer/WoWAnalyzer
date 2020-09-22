@@ -23,9 +23,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots. Make good use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} /> or <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} /> when you can.</>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)

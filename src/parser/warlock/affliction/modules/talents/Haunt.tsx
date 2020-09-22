@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
@@ -10,7 +10,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
@@ -20,18 +21,19 @@ class Haunt extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+  protected enemies!: Enemies;
 
   bonusDmg = 0;
   totalTicks = 0;
   buffedTicks = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     const target = this.enemies.getEntity(event);
     if (!target) {
       return;
@@ -70,9 +72,9 @@ class Haunt extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(
           <>
             Your <SpellLink id={SPELLS.HAUNT_TALENT.id} /> debuff uptime is too low. While it's usually not possible to get 100% uptime due to travel and cast time, you should aim for as much uptime on the debuff as possible.
@@ -88,7 +90,7 @@ class Haunt extends Analyzer {
     const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={(
           <>
@@ -97,19 +99,10 @@ class Haunt extends Analyzer {
           </>
         )}
       >
-        <div className="pad">
-          <label><SpellLink id={SPELLS.HAUNT_TALENT.id} /></label>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatPercentage(this.uptime)} % <small>uptime</small>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
-            </div>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.HAUNT_TALENT}>
+          {formatPercentage(this.uptime)}% <small>uptime</small><br />
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

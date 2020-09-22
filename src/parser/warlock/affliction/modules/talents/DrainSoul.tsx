@@ -3,17 +3,19 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
-import Events from 'parser/core/Events';
+import Events, { EnergizeEvent, RemoveDebuffEvent, FightEndEvent } from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
+
 // limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
 // it's still possible that it can be a coincidence (mob dies and at the same time something falls off somewhere unrelated), but shouldn't happen too much
 const ENERGIZE_REMOVEDEBUFF_THRESHOLD = 100;
@@ -24,8 +26,11 @@ class DrainSoul extends Analyzer {
     soulShardTracker: SoulShardTracker,
     abilityTracker: AbilityTracker,
   };
+  protected enemies!: Enemies;
+  protected soulShardTracker!: SoulShardTracker;
+  protected abilityTracker!: AbilityTracker;
 
-  _lastEnergize = null;
+  _lastEnergize: any = null;
 
   // this is to avoid counting soul shards from boss kill, the SoulShardTracker module tracks all shards gained and we're not interested in those we gained from boss kill
   _subtractBossShards = 0;
@@ -36,15 +41,15 @@ class DrainSoul extends Analyzer {
   totalNumOfAdds = 0;
   mobsSniped = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DRAIN_SOUL_TALENT.id);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN), this.onDrainSoulEnergize);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_TALENT), this.onDrainSoulRemove);
     this.addEventListener(Events.fightend, this.onFinished);
   }
 
-  onDrainSoulEnergize(event) {
+  onDrainSoulEnergize(event: EnergizeEvent) {
     this.mobsSniped += 1;
     if (this._lastEnergize !== event.timestamp) {
       this._lastEnergize = event.timestamp;
@@ -52,7 +57,7 @@ class DrainSoul extends Analyzer {
     }
   }
 
-  onDrainSoulRemove(event) {
+  onDrainSoulRemove(event: RemoveDebuffEvent) {
     if (event.timestamp < this._lastEnergize + ENERGIZE_REMOVEDEBUFF_THRESHOLD) {
       const enemy = this.enemies.getEntity(event);
       if (!enemy) {
@@ -65,7 +70,7 @@ class DrainSoul extends Analyzer {
     }
   }
 
-  onFinished() {
+  onFinished(event: FightEndEvent) {
     const allEnemies = this.enemies.getEntities();
     this.totalNumOfAdds = Object.values(allEnemies)
       .filter(enemy => enemy.type === 'NPC')
@@ -85,9 +90,9 @@ class DrainSoul extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(
           <>
             You sniped {formatPercentage(actual)} % of mobs in this fight ({this.mobsSniped - this._subtractBossShards} / {this.totalNumOfAdds}) for total of {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds} Shards from them. Try to snipe shards from adds (cast <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /> on them before they die) as it is a great source of extra Soul Shards.<br /><br />
@@ -106,23 +111,14 @@ class DrainSoul extends Analyzer {
     const dps = damage / this.owner.fightDuration * 1000;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`${formatThousands(damage)} total damage`}
       >
-        <div className="pad">
-          <label><SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /></label>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex-main value">
-              <CriticalStrikeIcon /> {this._shardsGained} <small>shards sniped</small>
-            </div>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.DRAIN_SOUL_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small><br />
+          <CriticalStrikeIcon /> {this._shardsGained} <small>shards sniped</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

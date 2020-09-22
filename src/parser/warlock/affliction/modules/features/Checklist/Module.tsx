@@ -29,6 +29,16 @@ class Checklist extends BaseChecklist {
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
   };
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected agonyUptime!: AgonyUptime;
+  protected corruptionUptime!: CorruptionUptime;
+  protected siphonLifeUptime!: SiphonLifeUptime;
+  protected unstableAfflictionUptime!: UnstableAfflictionUptime;
+  protected soulShardDetails!: SoulShardDetails;
+  protected soulShardTracker!: SoulShardTracker;
 
   render() {
     return (

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import './UptimeBar.scss';
 
-const UptimeBar = props => {
+const UptimeBar: any = (props: any) => {
   const { uptimeHistory, start: fightStart, end: fightEnd, ...others } = props;
   const fightDuration = fightEnd - fightStart;
 
   return (
     <div className="uptime-bar" {...others}>
-      {uptimeHistory.map(buff => {
+      {uptimeHistory.map((buff: any) => {
         const start = buff.start;
         const end = buff.end !== null ? buff.end : fightEnd;
 

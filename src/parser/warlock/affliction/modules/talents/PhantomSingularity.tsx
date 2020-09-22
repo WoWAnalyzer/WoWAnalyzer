@@ -5,18 +5,18 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 class PhantomSingularity extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id);
   }
 
@@ -26,16 +26,13 @@ class PhantomSingularity extends Analyzer {
     const dps = damage / this.owner.fightDuration * 1000;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(3)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="small"
         tooltip={`${formatThousands(damage)} damage`}
       >
-        <div className="pad">
-          <label><SpellIcon id={SPELLS.PHANTOM_SINGULARITY_TALENT.id} /> Phantom Singularity damage</label>
-          <div className="value">
-            {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.PHANTOM_SINGULARITY_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

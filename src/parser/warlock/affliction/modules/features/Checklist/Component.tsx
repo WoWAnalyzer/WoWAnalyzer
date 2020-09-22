@@ -10,8 +10,8 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
-const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, shardTracker }) => {
-  const DotUptime = props => (
+const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, shardTracker }: any) => {
+  const DotUptime: any = (props: any) => (
     <Requirement
       name={(
         <>
@@ -25,7 +25,7 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sha
     id: PropTypes.number.isRequired,
   };
 
-  const AbilityRequirement = props => (
+  const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}

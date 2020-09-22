@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
 
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
@@ -21,17 +21,18 @@ class SoulConduit extends Analyzer {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
   };
+  protected soulShardTracker!: SoulShardTracker;
 
   _totalTicks = 0;
   _totalUAdamage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(UNSTABLE_AFFLICTION_DEBUFFS), this.onUnstableAfflictionDamage);
   }
 
-  onUnstableAfflictionDamage(event) {
+  onUnstableAfflictionDamage(event: DamageEvent) {
     this._totalTicks += 1;
     this._totalUAdamage += event.amount + (event.absorbed || 0);
   }
@@ -47,7 +48,7 @@ class SoulConduit extends Analyzer {
     const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, SC_PROC_CHANCE));
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(5)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="small"
         tooltip={(
           <>
