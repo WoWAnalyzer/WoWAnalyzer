@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 9, 22), 'Updated search in Event tab to allow for multi-word searching in quotes.', Abelito75),
   change(date(2020, 9, 15), 'Add the possibility to fake player information in development if it doesn\'t exist in combatantinfo', Putro),
   change(date(2020, 8, 14), 'Added a boss name abbreviation function', Putro),
   change(date(2020, 8, 13), 'Added a generic Execute module that should help in standardizing and maintaining execute modules across specs', Putro),
