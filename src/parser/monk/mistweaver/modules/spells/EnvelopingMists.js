@@ -14,7 +14,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 const debug = false;
 
 const UNAFFECTED_SPELLS = [
-  SPELLS.CRANE_HEAL.id,
   SPELLS.ENVELOPING_MIST.id,
 ];
 
