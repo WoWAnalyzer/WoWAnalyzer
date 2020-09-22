@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 9, 22), 'Add some scripts for generating conduit information.', Putro),
   change(date(2020, 9, 22), 'Fix an issue where it wasn\'t possible to view the character page', Putro),
   change(date(2020, 9, 21), 'Fix Armory link for characters on realms that contain spaces or apostrophes', Sharrq),
   change(date(2020, 9, 20), 'Update checks for Enchants, Potions, Flasks, and Food for Shadowlands', Sharrq),
