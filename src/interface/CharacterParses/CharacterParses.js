@@ -344,6 +344,7 @@ class CharacterParses extends React.Component {
     return fetchWcl(
       `parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`,
       {
+        includeCombatantInfo: true,
         metric: this.state.metric,
         zone: this.state.activeZoneID,
         timeframe: 'historical',
