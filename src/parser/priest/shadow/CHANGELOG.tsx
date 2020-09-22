@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 9, 21), <>Removed Azerite Traits and Added Event Listeners, Centralized Constants, and Integration Tests. </>, [Sharrq]),
   change(date(2020, 8, 29), <>Typescript conversion and updated Statistic Boxes. </>, [Sharrq]),
   change(date(2020, 8, 23), <>Updated Talents and Spellbook for Shadowlands. Added Buff Highlights for Timeline. </>, [Sharrq]),
   change(date(2019, 8, 22), <>Added <SpellLink id={SPELLS.SPITEFUL_APPARITIONS.id} /> module.</>, [Adoraci]),

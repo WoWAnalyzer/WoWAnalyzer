@@ -6,7 +6,9 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 9, 1), <>Initial Shadowlands cleanup activities. </>,Anomoly),
+  change(date(2020, 9, 22), <>Mistweaver cleanup for shadowlands. </>, Abelito75),
+  change(date(2020, 9, 21), <>Added all endurance conduits. </>, Abelito75),
+  change(date(2020, 9, 1), <>Initial Shadowlands cleanup activities. </>, Anomoly),
   change(date(2020, 5, 24), <>Updated the Rising Mist modules and generally made tracking hots better. </>,Abelito75),
   change(date(2020, 4, 22), <>Corrected cooldown for Rising Sun Kick and Blackout Kick. </>,Abelito75),
   change(date(2020, 4, 1), <>Added average haste gained statistic from Mist Peaks azerite trait. </>,FraunchToost),
