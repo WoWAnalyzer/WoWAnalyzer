@@ -368,35 +368,15 @@ export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStac
 }
 
 export interface ChangeDebuffStackEvent extends BuffEvent<EventType.ChangeDebuffStack> {
-  end?: number;
   isDebuff?: boolean;
   newStacks: number;
   oldStacks: number;
   sourceID: number;
+  targetID: number;
   sourceIsFriendly: boolean;
   stack?: number;
-  stackHistory: {
-    stacks: number;
-    timestamp: number;
-  };
-  stacks: number;
-  stacksGained: number;
-  start: number;
   targetIsFriendly: boolean;
   targetInstance: number;
-  trigger: {
-    end?: number;
-    isDebuff?: boolean;
-    prepull: boolean;
-    sourceID: number;
-    sourceIsFriendly: boolean;
-    stacks: number;
-    start: number;
-    targetID: number;
-    targetIsFriendly: boolean;
-    timestamp: number;
-    type: string;
-  };
 }
 
 export interface RemoveDebuffStackEvent extends BuffEvent<EventType.RemoveDebuffStack> {

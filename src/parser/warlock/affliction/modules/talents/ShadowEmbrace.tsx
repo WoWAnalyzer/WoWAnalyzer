@@ -123,7 +123,7 @@ class ShadowEmbrace extends Analyzer {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
-        size="small"
+        size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
         <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE_TALENT}>
