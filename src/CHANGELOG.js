@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 9, 22), 'Updated search in Event tab to allow for multi-word searching in quotes.', Abelito75),
   change(date(2020, 9, 22), 'Add some early checks to see if a player has a given conduit, soulbind or covenant.', Putro),
   change(date(2020, 9, 22), 'Add some scripts for generating conduit information.', Putro),
   change(date(2020, 9, 22), 'Fix an issue where it wasn\'t possible to view the character page', Putro),
