@@ -2,22 +2,19 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'parser/core/Analyzer';
-import { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 import Voidform from '../spells/Voidform';
+import {MS_BUFFER, VOID_TORRENT_MAX_TIME } from '../../constants';
 
 function formatSeconds(seconds: number) {
   return Math.round(seconds * 10) / 10;
 }
-
-// account for some logger delay (should be 4000):
-const TIMESTAMP_ERROR_MARGIN = 100;
-const VOID_TORRENT_MAX_TIME = 4000;
 
 // Example Log: /report/hmJqLPZ7GVgY1CNa/16-Normal+Fetid+Devourer+-+Kill+(1:52)/44-베시잉/events
 class VoidTorrent extends Analyzer {
@@ -29,6 +26,9 @@ class VoidTorrent extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOID_TORRENT_TALENT), this.onVoidTorrentCast);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.VOID_TORRENT_TALENT), this.onVoidTorrentRemoved);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOID_TORRENT_TALENT), this.onVoidTorrentDamage);
   }
 
   _voidTorrents: any = {};
@@ -69,27 +69,17 @@ class VoidTorrent extends Analyzer {
     return this.voidTorrents.reduce((total, c) => total + c.wastedTime, 0) / 1000;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOID_TORRENT_TALENT.id) {
-      this.startedVoidTorrent(event);
-    }
+  onVoidTorrentCast(event: CastEvent) {
+    this.startedVoidTorrent(event);
   }
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOID_TORRENT_TALENT.id) {
-      const timeSpentChanneling = event.timestamp - this._previousVoidTorrentCast.timestamp;
-      const wastedTime = (VOID_TORRENT_MAX_TIME - TIMESTAMP_ERROR_MARGIN) > timeSpentChanneling ? (VOID_TORRENT_MAX_TIME - timeSpentChanneling) : 0;
-      this.finishedVoidTorrent({ event, wastedTime });
-    }
+  onVoidTorrentRemoved(event: RemoveBuffEvent) {
+    const timeSpentChanneling = event.timestamp - this._previousVoidTorrentCast.timestamp;
+    const wastedTime = (VOID_TORRENT_MAX_TIME - MS_BUFFER) > timeSpentChanneling ? (VOID_TORRENT_MAX_TIME - timeSpentChanneling) : 0;
+    this.finishedVoidTorrent({ event, wastedTime });
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellID = event.ability.guid;
-    if (spellID !== SPELLS.VOID_TORRENT_TALENT.id) {
-      return;
-    }
+  onVoidTorrentDamage(event: DamageEvent) {
     this.damage += event.amount || 0;
   }
 

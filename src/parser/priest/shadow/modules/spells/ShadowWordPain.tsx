@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
-import { CastEvent, ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
@@ -11,8 +11,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
-
-const MS_BUFFER = 100;
+import { MS_BUFFER } from '../../constants';
 
 /*
   Shadow word pain can be created by:
@@ -46,6 +45,13 @@ class ShadowWordPain extends Analyzer {
   darkVoidShadowWordPainApplications = 0;
   darkVoidShadowWordPainRefreshes = 0;
 
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN), this.onCast);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN), this.onDebuffApplied);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN), this.onDebuffRefreshed);
+  }
+
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.owner.fightDuration;
   }
@@ -55,20 +61,11 @@ class ShadowWordPain extends Analyzer {
     return spell.damageEffective + spell.damageAbsorbed;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.SHADOW_WORD_PAIN.id) {
-      this.castedShadowWordPains += 1;
-    }
+  onCast(event: CastEvent) {
+    this.castedShadowWordPains += 1;
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SHADOW_WORD_PAIN.id) {
-      return;
-    }
-
+  onDebuffApplied(event: ApplyDebuffEvent) {
     this.appliedShadowWordPains += 1;
 
     if (this.lastCastTimestamp !== 0 && event.timestamp < this.lastCastTimestamp + MS_BUFFER) {
@@ -76,12 +73,7 @@ class ShadowWordPain extends Analyzer {
     }
   }
 
-  on_byPlayer_refreshdebuff(event: RefreshDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SHADOW_WORD_PAIN.id) {
-      return;
-    }
-
+  onDebuffRefreshed(event: RefreshDebuffEvent) {
     this.refreshedShadowWordPains += 1;
 
     if (this.lastCastTimestamp !== 0 && event.timestamp < this.lastCastTimestamp + MS_BUFFER) {
