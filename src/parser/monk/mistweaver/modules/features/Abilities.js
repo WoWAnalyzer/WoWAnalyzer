@@ -103,9 +103,17 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 20,
       },
+      {
+        spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 20,
+      },
 
       // Other Spell Casting Metrics
-
       {
         spell: SPELLS.ENVELOPING_MIST,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
