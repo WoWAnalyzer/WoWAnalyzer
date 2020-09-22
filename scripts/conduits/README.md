@@ -4,6 +4,8 @@ This script generates all the necessary information we could ever need (as the s
 
 For future purposes, we might want to set up some filtering so these files only contain unused conduits, and potentially even some automated updating.
 
+Note: This does **NOT** include soulbind abilities at the moment.
+
 Poke @Putro for questions/complaints
 
 ## Layout
