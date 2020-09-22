@@ -11,7 +11,6 @@ import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 
 class InvokeChiJi extends Analyzer {
-  active = false;
   healing = 0;
 
   constructor(...args) {

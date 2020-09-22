@@ -105,7 +105,6 @@ class CombatLogParser extends CoreCombatLogParser {
     lifeCocoon: LifeCocoon,
     touchOfDeath: TouchOfDeath,
     invokeYulon: InvokeYulon,
-    invokeChiJi: InvokeChiJi,
 
     // Talents
     chiBurst: ChiBurst,
@@ -118,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
     tier45Comparison: Tier45Comparison,
     upwelling: Upwelling,
+    invokeChiJi: InvokeChiJi,
 
     // Mana Tab
     manaTracker: ManaTracker,

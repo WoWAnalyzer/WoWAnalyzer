@@ -11,7 +11,6 @@ import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 
 class InvokeYulon extends Analyzer {
-  active = false;
   petID = null;
   soothHealing = 0;
   envelopHealing = 0;
