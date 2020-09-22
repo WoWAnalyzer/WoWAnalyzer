@@ -106,6 +106,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        enabled: combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -222,7 +223,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell:SPELLS.LEG_SWEEP,
+        spell: SPELLS.LEG_SWEEP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.TIGER_TAIL_SWEEP_TALENT.id) ? 50 : 60,
         gcd: {
@@ -316,7 +317,6 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 100,
       },
-
     ];
   }
 }

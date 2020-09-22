@@ -9,6 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 class InvokeYulon extends Analyzer {
   petID = null;
@@ -27,7 +28,10 @@ class InvokeYulon extends Analyzer {
       Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH),
       this.handleSoothingBreath,
     );
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_YULON_THE_JADE_SERPENT), this.handleSummon);
+    this.addEventListener(
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_YULON_THE_JADE_SERPENT),
+      this.handleSummon,
+    );
   }
 
   handleSummon(event) {
@@ -48,7 +52,7 @@ class InvokeYulon extends Analyzer {
         <StatisticBox
           position={STATISTIC_ORDER.OPTIONAL(50)}
           icon={<SpellIcon id={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id} />}
-          value={`${formatNumber(this.soothHealing + this.envelopHealing)}`}
+          value={<ItemHealingDone amount={this.soothHealing + this.envelopHealing} />}
           label={
             <TooltipElement
               content={
