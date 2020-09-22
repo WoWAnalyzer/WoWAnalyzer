@@ -189,19 +189,6 @@ import VoidTwistedTitanshard from '../shared/modules/items/bfa/raids/nyalothathe
 import TitanicEmpowerment from '../shared/modules/items/bfa/raids/nyalothathewakingcity/TitanicEmpowerment';
 import ForbiddenObsidianClaw from '../shared/modules/items/bfa/raids/nyalothathewakingcity/ForbiddenObsidianClaw';
 import HummingBlackDragonscale from '../shared/modules/items/bfa/raids/nyalothathewakingcity/HummingBlackDragonscale';
-// Corruptions
-import IneffableTruth from '../shared/modules/spells/bfa/corruptions/IneffableTruth';
-import HonedMind from '../shared/modules/spells/bfa/corruptions/HonedMind';
-import SurgingVitality from '../shared/modules/spells/bfa/corruptions/SurgingVitality';
-import RacingPulse from '../shared/modules/spells/bfa/corruptions/RacingPulse';
-import DeadlyMomentum from '../shared/modules/spells/bfa/corruptions/DeadlyMomentum';
-import VoidRitual from '../shared/modules/spells/bfa/corruptions/VoidRitual';
-import Siphoner from '../shared/modules/spells/bfa/corruptions/Siphoner';
-import FlashOfInsight from '../shared/modules/spells/bfa/corruptions/FlashOfInsight';
-import Versatile from '../shared/modules/spells/bfa/corruptions/Versatile';
-import Severe from '../shared/modules/spells/bfa/corruptions/Severe';
-import Masterful from '../shared/modules/spells/bfa/corruptions/Masterful';
-import Expedient from '../shared/modules/spells/bfa/corruptions/Expedient';
 
 // Legendaries
 import Ashjrakamas from '../shared/modules/items/bfa/Ashjrakamas';
@@ -412,20 +399,6 @@ class CombatLogParser {
     titanicEmpowerment: TitanicEmpowerment,
     forbiddenObsidianClaw: ForbiddenObsidianClaw,
     hummingBlackDragonscale: HummingBlackDragonscale,
-
-    // Corruptions
-    ineffableTruth: IneffableTruth,
-    honedMind: HonedMind,
-    surgingVitality: SurgingVitality,
-    racingPulse: RacingPulse,
-    deadlyMomentum: DeadlyMomentum,
-    voidRitual: VoidRitual,
-    siphoner: Siphoner,
-    flashOfInsight: FlashOfInsight,
-    versatile: Versatile,
-    severe: Severe,
-    masterful: Masterful,
-    expedient: Expedient,
 
     // Legendaries
     ashjrakamas: Ashjrakamas,

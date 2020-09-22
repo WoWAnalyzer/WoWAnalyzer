@@ -16,6 +16,20 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.ARCANE_BLAST.id],
       },
       {
+        spell: SPELLS.FROSTBOLT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        damageSpellIds: [SPELLS.FROSTBOLT_DAMAGE.id],
+      },
+      {
+        spell: SPELLS.FIRE_BLAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: null,
+        cooldown: (haste: any) => 12 / (1 + haste),
+      },
+      {
         spell: SPELLS.ARCANE_MISSILES,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -44,19 +58,6 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 25,
         enabled: combatant.hasTalent(SPELLS.SUPERNOVA_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-        },
-      },
-      {
-        spell: SPELLS.CHARGED_UP_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 40,
-        enabled: combatant.hasTalent(SPELLS.CHARGED_UP_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -109,7 +110,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 90,
+        cooldown: 120,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -140,13 +141,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MIRROR_IMAGE_TALENT,
+        spell: SPELLS.MIRROR_IMAGE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
         },
         cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -159,8 +159,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 40,
-        charges: 2,
+        cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -213,12 +212,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DISPLACEMENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: null,
-        cooldown: 22,
-      },
-      {
         spell: SPELLS.BLINK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
@@ -231,7 +224,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHIMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
-        cooldown: 15,
+        cooldown: 25,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
       },
@@ -265,6 +258,21 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.FOCUS_MAGIC_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.ALTER_TIME,
+        buffSpellId: SPELLS.ALTER_TIME_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.GREATER_INVISIBILITY,
         buffSpellId: SPELLS.GREATER_INVISIBILITY_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -280,7 +288,7 @@ class Abilities extends CoreAbilities {
           SPELLS.POLYMORPH_PORCUPINE, SPELLS.POLYMORPH_TURTLE,
           SPELLS.POLYMORPH_TURKEY, SPELLS.POLYMORPH_PENGUIN,
           SPELLS.POLYMORPH_BUMBLEBEE, SPELLS.POLYMORPH_PEACOCK,
-          SPELLS.POLYMORPH_DIREHORN],
+          SPELLS.POLYMORPH_DIREHORN, SPELLS.POLYMORPH_MAWRAT],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,

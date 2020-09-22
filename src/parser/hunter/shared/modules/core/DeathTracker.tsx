@@ -1,11 +1,10 @@
 import CoreDeathTracker from 'parser/shared/modules/DeathTracker';
-
+import { TIME_SPENT_DEAD_THRESHOLD } from 'parser/hunter/shared/constants';
 
 /**
  * Due to combatlog restrictions it is not possible to know whether the hunter cast Feign Death or the hunter actually died.
  * For this module we assume any single death lasting less than 0.2% of an encounter (1.2 seconds on a 10 minute fight) was due to Feign Death, and thus we remove it as it is improbable anyone is that fast to ress anyone.
  */
-const TIME_SPENT_DEAD_THRESHOLD = 0.002; //0.2%
 class DeathTracker extends CoreDeathTracker {
   static dependencies = {
     ...CoreDeathTracker.dependencies,
@@ -26,6 +25,5 @@ class DeathTracker extends CoreDeathTracker {
     }
   }
 }
-
 
 export default DeathTracker;

@@ -10,8 +10,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { ApplyBuffEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { formatPercentage } from 'common/format';
 import UptimeIcon from 'interface/icons/Uptime';
-
-const MS_BUFFER = 100;
+import { MS_BUFFER } from 'parser/hunter/shared/constants';
 
 /**
  * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.

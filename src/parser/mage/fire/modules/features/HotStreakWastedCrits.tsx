@@ -49,7 +49,7 @@ class HotStreakWastedCrits extends Analyzer {
     const spellId = event.ability.guid;
     const castTarget = encodeTargetString(this.lastCastEvent.targetID, event.targetInstance);
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (event.hitType !== HIT_TYPES.CRIT || !this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id,undefined,-50) || (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id && castTarget !== damageTarget)) {
+    if (event.hitType !== HIT_TYPES.CRIT || !this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id,undefined,-50) || (spellId === SPELLS.PHOENIX_FLAMES.id && castTarget !== damageTarget)) {
       return;
     }
 

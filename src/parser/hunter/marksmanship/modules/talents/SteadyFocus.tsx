@@ -1,39 +1,77 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import Events, { CastEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import React from 'react';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import HasteIcon from 'interface/icons/Haste';
+import { formatPercentage } from 'common/format';
+import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
+import SpellLink from 'common/SpellLink';
 
 /**
- * Using Steady Shot reduces the cast time of Steady Shot by 20%, stacking up to 2 times.  Using any other shot removes this effect.
- * Example log: https://www.warcraftlogs.com/reports/ChbVRqzQ8Z6najGB#fight=3&type=auras&source=3
+ * Using Steady Shot twice in a row increases your Haste by 7% for 15 sec.
+ *
+ * Example log:
+ *
  */
 
-const MAX_STACKS = 2;
-
-//TODO: Add a statistic to this module
 class SteadyFocus extends Analyzer {
 
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STEADY_FOCUS_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
-  stacks = 0;
-
-  get steadyFocusStacks() {
-    return this.stacks;
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.STEADY_FOCUS_BUFF.id) / this.owner.fightDuration;
   }
 
-  onCast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.STEADY_SHOT.id) {
-      if (this.stacks < MAX_STACKS) {
-        this.stacks += 1;
-      }
-    } else {
-      this.stacks = 0;
-    }
+  get avgHaste() {
+    return this.uptime * STEADY_FOCUS_HASTE_PERCENT;
+  }
+
+  get uptimeThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85,
+      },
+      style: 'percentage',
+    };
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+      >
+        <BoringSpellValueText spell={SPELLS.STEADY_FOCUS_TALENT}>
+          <>
+            <HasteIcon /> {formatPercentage(this.avgHaste)}% <small>average Haste gained</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
+  }
+
+  suggestions(when: any) {
+    when(this.uptimeThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+      return suggest(
+        <>
+          Your uptime on the buff from <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> could be better. When using this talent you should always try and couple your <SpellLink id={SPELLS.STEADY_SHOT.id} /> together to maintain this buff.
+        </>,
+      )
+        .icon(SPELLS.STEADY_FOCUS_TALENT.icon)
+        .actual(`${formatPercentage(actual)}% uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 }
 

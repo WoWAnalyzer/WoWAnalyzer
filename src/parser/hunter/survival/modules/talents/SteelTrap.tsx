@@ -25,11 +25,9 @@ class SteelTrap extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
-
   damage = 0;
   casts = 0;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: any) {
     super(options);

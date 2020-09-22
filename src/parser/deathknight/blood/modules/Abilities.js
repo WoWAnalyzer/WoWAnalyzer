@@ -225,21 +225,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RUNE_STRIKE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.RUNE_STRIKE_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 60,
-        charges: 2,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-        timelineSortIndex: 8,
-      },
-      {
         spell: SPELLS.MARK_OF_BLOOD_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT),
@@ -266,16 +251,28 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.RUNE_TAP_TALENT,
-        buffSpellId: SPELLS.RUNE_TAP_TALENT.id,
+        spell: SPELLS.RUNE_TAP,
+        buffSpellId: SPELLS.RUNE_TAP.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        enabled: combatant.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
         cooldown: 25,
         charges: 2,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
           extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
+        timelineSortIndex: 10,
+      },
+      {
+        spell: SPELLS.BLOOD_TAP,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 60,
+        charges: 2,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.50,
+          extraSuggestion: 'Use to generate extra runes at opportune times.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,

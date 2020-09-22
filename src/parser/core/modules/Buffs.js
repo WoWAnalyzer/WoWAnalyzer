@@ -1,4 +1,5 @@
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import SPELLS from 'common/SPELLS';
 import Module from 'parser/core/Module';
 import Haste from 'parser/shared/modules/Haste';
 
@@ -34,6 +35,10 @@ class Buffs extends Module {
       })),
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        timelineHightlight: true,
+      },
+      {
+        spellId: SPELLS.POWER_INFUSION.id,
         timelineHightlight: true,
       },
     ];

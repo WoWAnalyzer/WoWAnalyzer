@@ -4,7 +4,7 @@ import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
-import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import RageTracker from './RageTracker';
 
 class RageDetails extends Analyzer {

@@ -10,9 +10,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatDuration, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-
-const MULTI_SHOTS = [SPELLS.MULTISHOT_BM, SPELLS.MULTISHOT_MM];
-const COOLDOWN_REDUCTION_MS = 1000;
+import { MULTI_SHOTS_LIST, ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
 
 /**
  * Multi-Shots that damage more than 2 targets fire an additional wave of bullets, dealing 1817 damage and reducing the cooldown of your Aspects by 1 sec.
@@ -24,8 +22,6 @@ class RapidReload extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
 
   _aspects: { [key: number]: { effectiveCdr: number; wastedCdr: number } } = {
     [SPELLS.ASPECT_OF_THE_CHEETAH.id]: {
@@ -44,6 +40,8 @@ class RapidReload extends Analyzer {
   damage: number = 0;
   multishotSpell: number = SPELLS.MULTISHOT_MM.id;
 
+  protected spellUsable!: SpellUsable;
+
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.RAPID_RELOAD.id);
@@ -56,33 +54,9 @@ class RapidReload extends Analyzer {
         this.multishotSpell = SPELLS.MULTISHOT_BM.id;
       }
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...MULTI_SHOTS]), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...MULTI_SHOTS_LIST]), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_RELOAD_DAMAGE), this.onDamage);
 
-  }
-
-  onCast(event: CastEvent) {
-    this.casts += 1;
-    this.castTimestamp = event.timestamp;
-    if (this.currentCastHits === 0) {
-      this.multiShotsNoRR += 1;
-    }
-    this.currentCastHits = 0;
-  }
-
-  onDamage(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
-    this.currentCastHits += 1;
-    Object.keys(this._aspects).forEach(spell => {
-      const spellId = parseInt(spell);
-      if (this.spellUsable.isOnCooldown(spellId)) {
-        const reductionMs = this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS);
-        this._aspects[spellId].effectiveCdr += reductionMs;
-        this._aspects[spellId].wastedCdr += COOLDOWN_REDUCTION_MS - reductionMs;
-      } else {
-        this._aspects[spellId].wastedCdr += COOLDOWN_REDUCTION_MS;
-      }
-    });
   }
 
   get multiShotsWithoutRRProcs() {
@@ -107,6 +81,30 @@ class RapidReload extends Analyzer {
       },
       style: 'number',
     };
+  }
+
+  onCast(event: CastEvent) {
+    this.casts += 1;
+    this.castTimestamp = event.timestamp;
+    if (this.currentCastHits === 0) {
+      this.multiShotsNoRR += 1;
+    }
+    this.currentCastHits = 0;
+  }
+
+  onDamage(event: DamageEvent) {
+    this.damage += event.amount + (event.absorbed || 0);
+    this.currentCastHits += 1;
+    Object.keys(this._aspects).forEach(spell => {
+      const spellId = parseInt(spell);
+      if (this.spellUsable.isOnCooldown(spellId)) {
+        const reductionMs = this.spellUsable.reduceCooldown(spellId, ONE_SECOND_IN_MS);
+        this._aspects[spellId].effectiveCdr += reductionMs;
+        this._aspects[spellId].wastedCdr += ONE_SECOND_IN_MS - reductionMs;
+      } else {
+        this._aspects[spellId].wastedCdr += ONE_SECOND_IN_MS;
+      }
+    });
   }
 
   suggestions(when: any) {

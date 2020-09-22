@@ -10,7 +10,6 @@ import Ascendance from 'parser/shaman/elemental/modules/talents/Ascendance';
 import CancelledCasts from 'parser/shaman/elemental/modules/features/CancelledCasts';
 import AlwaysBeCasting from 'parser/shaman/elemental/modules/features/AlwaysBeCasting';
 import FlameShock from 'parser/shaman/elemental/modules/core/FlameShock';
-import TotemMastery from 'parser/shaman/elemental/modules/talents/TotemMastery';
 
 import Component from './Component';
 
@@ -24,7 +23,6 @@ class Checklist extends BaseChecklist {
     icefury: Icefury,
     ascendance: Ascendance,
     flameshock: FlameShock,
-    totemMastery: TotemMastery,
   };
 
   render() {
@@ -40,7 +38,6 @@ class Checklist extends BaseChecklist {
           ascendanceEfficiency: this.ascendance.suggestionThresholds,
           flameShockUptime: this.flameshock.uptimeThreshold,
           flameShockRefreshes: this.flameshock.refreshThreshold,
-          totemMasteryUptime: this.totemMastery.uptimeSuggestionThresholds,
         }}
       />
     );

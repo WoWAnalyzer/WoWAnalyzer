@@ -40,18 +40,19 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         <AbilityRequirement spell={SPELLS.BARBED_SHOT.id} />
         <AbilityRequirement spell={SPELLS.BESTIAL_WRATH.id} />
         <AbilityRequirement spell={SPELLS.ASPECT_OF_THE_WILD.id} />
+
         {combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.DIRE_BEAST_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id) &&
-        <AbilityRequirement spell={SPELLS.CHIMAERA_SHOT_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_BM_TALENT.id) &&
+        <AbilityRequirement spell={SPELLS.CHIMAERA_SHOT_BM_TALENT.id} />}
         {combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />}
         {combatant.hasTalent(SPELLS.BARRAGE_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.BARRAGE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.STAMPEDE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id) &&
-        <AbilityRequirement spell={SPELLS.SPITTING_COBRA_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.BLOODSHED_TALENT.id) &&
+        <AbilityRequirement spell={SPELLS.BLOODSHED_TALENT.id} />}
       </Rule>
       <Rule
         name="Barbed Shot usage"
@@ -76,6 +77,7 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         <Requirement name={<><SpellIcon id={SPELLS.COBRA_SHOT.id} /><SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} icon={false} /> CDR efficiency</>} thresholds={thresholds.cobraShotCDREfficiencyThreshold} />
         <Requirement name={<><SpellLink id={SPELLS.COBRA_SHOT.id} /> casts when <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> wasn't on cd</>} thresholds={thresholds.wastedCobraShotsThreshold} />
         <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> Average focus on <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /> cast </>} thresholds={thresholds.bestialWrathFocusThreshold} />
+        <Requirement name={<><SpellLink id={SPELLS.HUNTERS_MARK.id} /> uptime</>} thresholds={thresholds.huntersMarkThresholds} />
         <Requirement name={<> Lost pet Basic Attacks </>} thresholds={thresholds.basicAttackThresholds} />
         <Requirement name={<><SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} /> applications with 0 cleaves</>} thresholds={thresholds.beastCleaveThresholds} />
         {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && <Requirement name={<> Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets </>} thresholds={thresholds.wastedKillerCobraThreshold} />}
@@ -101,7 +103,6 @@ BeastMasteryChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasTrinket: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };

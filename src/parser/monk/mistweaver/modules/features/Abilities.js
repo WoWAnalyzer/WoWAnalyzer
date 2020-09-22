@@ -40,19 +40,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 17,
       },
       {
-        spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        enabled: combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 3,
-      },
-      {
         spell: SPELLS.MANA_TEA_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,

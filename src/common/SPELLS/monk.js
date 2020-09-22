@@ -21,6 +21,11 @@ export default {
     name: 'Crackling Jade Lightning',
     icon: 'ability_monk_cracklingjadelightning',
   },
+  FORTIFYING_BREW: {
+    id: 243435,
+    name: 'Fortifying Brew',
+    icon: 'ability_monk_fortifyingelixir',
+  },
   PARALYSIS: {
     id: 115078,
     name: 'Paralysis',
@@ -57,6 +62,11 @@ export default {
     id: 100780,
     name: 'Tiger Palm',
     icon: 'ability_monk_tigerpalm',
+  },
+  TOUCH_OF_DEATH: {
+    id: 322109,
+    name: 'Touch of Death',
+    icon: 'ability_monk_touchofdeath',
   },
   TRANSCENDENCE: {
     id: 101643,
@@ -168,12 +178,6 @@ export default {
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
   },
-  // Ch-Ji Heal
-  CRANE_HEAL: {
-    id: 198756,
-    name: 'Crane Heal',
-    icon: 'inv_pet_cranegod',
-  },
   // Lifecycles buffs
   LIFECYCLES_VIVIFY_BUFF: {
     id: 197916,
@@ -201,15 +205,10 @@ export default {
     buffDur: 12000,
     manaRet: 0.0065,
   },
-  BLACKOUT_KICK_TOTM : {//blackoutkick from totm
+  BLACKOUT_KICK_TOTM : { //Backout Kick from TotM
     id: 228649,
     name: 'Blackout Kick',
     icon: 'ability_monk_roundhousekick',
-  },
-  WAY_OF_THE_CRANE: {
-    id: 216113,
-    name: 'Way of the Crane',
-    icon: 'monk_stance_redcrane',
   },
 
   // Utility / Other
@@ -219,29 +218,22 @@ export default {
     icon: 'ability_rogue_imrovedrecuperate',
     manaCost: 1300,
   },
-  FORTIFYING_BREW: {
-    id: 243435,
-    name: 'Fortifying Brew',
-    icon: 'ability_monk_fortifyingelixir',
-  },
-
-  // Mistweaver Azerite Traits
-  OVERFLOWING_MISTS_HEAL: {
-    id: 273354,
-    name: 'Overflowing Mists',
-    icon: 'spell_monk_envelopingmist',
-  },
-  BURST_OF_LIFE_HEAL: {
-  id: 278564,
-  name: 'Burst of Life',
-  icon: 'ability_monk_chicocoon',
-  },
 
   // Brewmaster
-  BLACKOUT_STRIKE: {
+  INVOKE_NIUZAO_THE_BLACK_OX: {
+    id: 132578,
+    name: 'Invoke Niuzao, the Black Ox',
+    icon: 'spell_monk_brewmaster_spec',
+  },
+  BLACKOUT_KICK_BRM: {
     id: 205523,
-    name: 'Blackout Strike',
-    icon: 'ability_monk_blackoutstrike',
+    name: 'Blackout Kick',
+    icon: 'ability_monk_roundhousekick',
+  },
+  SPINNING_CRANE_KICK_BRM: {
+    id: 322729,
+    name: 'Spinning Crane Kick',
+    icon: 'ability_monk_cranekick_new',
   },
   CELESTIAL_FORTUNE_HEAL: {
     id: 216521,
@@ -258,20 +250,20 @@ export default {
     name: 'Keg Smash',
     icon: 'achievement_brewery_2',
   },
-  IRONSKIN_BREW: {
-    id: 115308,
-    name: 'Ironskin Brew',
-    icon: 'ability_monk_ironskinbrew',
-  },
-  IRONSKIN_BREW_BUFF: {
-    id: 215479,
-    name: 'Ironskin Brew',
-    icon: 'ability_monk_ironskinbrew',
-  },
   PURIFYING_BREW: {
     id: 119582,
     name: 'Purifying Brew',
     icon: 'inv_misc_beer_06',
+  },
+  PURIFIED_CHI: {
+    id: 325092,
+    name: 'Purified Chi',
+    icon: 'inv_misc_beer_06',
+  },
+  CELESTIAL_BREW: {
+    id: 322507,
+    name: 'Celestial Brew',
+    icon: 'ability_monk_ironskinbrew',
   },
   BREATH_OF_FIRE: {
     id: 115181,
@@ -329,7 +321,7 @@ export default {
     icon: 'ability_monk_rushingjadewind',
   },
   EXPEL_HARM: {
-    id: 115072,
+    id: 322101,
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
   },
@@ -485,16 +477,6 @@ export default {
     name: 'Blackout Kick!',
     icon: 'ability_monk_roundhousekick',
   },
-  TOUCH_OF_DEATH: {
-    id: 115080,
-    name: 'Touch of Death',
-    icon: 'ability_monk_touchofdeath',
-  },
-  TOUCH_OF_DEATH_DAMAGE: {
-    id: 229980,
-    name: 'Touch of Death',
-    icon: 'ability_monk_touchofdeath',
-  },
   CYCLONE_STRIKES: {
     id: 220357,
     name: 'Cyclone Strikes',
@@ -560,19 +542,14 @@ export default {
     name: 'Disable',
     icon: 'ability_shockwave',
   },
-  REVERSE_HARM: {
-    id: 287771,
-    name: 'Reverse Harm',
-    icon: 'ability_monk_expelharm',
-  },
-  REVERSE_HARM_DAMAGE: {
-    id: 290461,
-    name: 'Reverse Harm',
-    icon: 'ability_monk_expelharm',
-  },
   WINDWALKING: {
     id: 166646,
     name: 'Windwalking',
     icon: 'monk_stance_whitetiger',
+  },
+  INVOKE_XUEN_THE_WHITE_TIGER: {
+    id: 123904,
+    name: 'Invoke Xuen, the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
   },
 };

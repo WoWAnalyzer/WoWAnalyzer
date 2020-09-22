@@ -69,6 +69,8 @@ function addLegacyEventListenerSupport(object: Analyzer) {
   object.hasLegacyEventListener = hasLegacyEventListener;
 }
 
+export type When = (actual: object | any) => SuggestionAssertion;
+
 class Analyzer extends EventSubscriber {
   hasLegacyEventListener = false;
 
@@ -102,7 +104,9 @@ class Analyzer extends EventSubscriber {
    * @deprecated Set the `position` property on the Statistic component instead.
    */
   statisticOrder?: number = undefined;
-  suggestions(when: (actual: object | any) => SuggestionAssertion) {}
+
+  suggestions(when: When) {}
+
   /**
    * @deprecated Return a `Panel` from the statistic method instead.
    */
