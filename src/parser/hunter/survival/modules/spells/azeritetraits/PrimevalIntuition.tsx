@@ -52,10 +52,10 @@ class PrimevalIntuition extends Analyzer {
     options.statTracker.add(SPELLS.PRIMEVAL_INTUITION_BUFF.id, {
       crit: this.crit,
     });
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF),(event: ApplyBuffEvent) => this.handleStacks(event));
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), (event: ApplyBuffStackEvent) => this.handleStacks(event));
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), (event: RemoveBuffEvent) => this.handleStacks(event));
-    this.addEventListener(Events.fightend, (event: FightEndEvent) => this.handleStacks(event));
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF),this.handleStacks);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), this.handleStacks);
+    this.addEventListener(Events.fightend, this.handleStacks);
   }
 
   get intuitionTimesByStacks() {

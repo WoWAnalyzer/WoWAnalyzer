@@ -33,8 +33,8 @@ class FlashOfInsight extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FLASH_OF_INSIGHT_BUFF), (event: ApplyBuffStackEvent) => this.stackChange(event));
-    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FLASH_OF_INSIGHT_BUFF), (event: RemoveBuffStackEvent) => this.stackChange(event));
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FLASH_OF_INSIGHT_BUFF), this.stackChange);
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FLASH_OF_INSIGHT_BUFF), this.stackChange);
     this.addEventListener(Events.ChangeStats.by(SELECTED_PLAYER), this.statChange);
     this.addEventListener(Events.fightend, this.onFightEnd);
     this.timestamp = this.owner.fight.start_time;

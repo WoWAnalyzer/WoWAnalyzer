@@ -35,7 +35,7 @@ class BarbedShot extends Analyzer {
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
-    this.addEventListener(Events.fightend, (event: FightEndEvent) => this.handleStacks(event));
+    this.addEventListener(Events.fightend, this.handleStacks);
   }
 
   get barbedShotTimesByStacks() {
