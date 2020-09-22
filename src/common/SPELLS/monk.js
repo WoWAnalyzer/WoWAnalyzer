@@ -194,6 +194,11 @@ export default {
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
   },
+  GUST_OF_MISTS_CHIJI: {
+    id: 343819,
+    name: 'Gust of Mists',
+    icon: 'monk_stance_redcrane',
+  },
   // Lifecycles buffs
   LIFECYCLES_VIVIFY_BUFF: {
     id: 197916,

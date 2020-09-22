@@ -1,7 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 
 import SpellIcon from 'common/SpellIcon';
@@ -12,35 +13,39 @@ import { TooltipElement } from 'common/Tooltip';
 
 const debug = false;
 
-class Celestial extends Analyzer {
+class InvokeYulon extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
   petID = null;
   soothHealing = 0;
-  soothOverHealing = 0;
   envelopHealing = 0;
-  evelopOverhealing = 0;
   healing = 0;
-  overhealing = 0;
-  count = 0;
 
-  on_byPlayer_summon(event) {
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.handleEnvelopingBreath);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH), this.handleSoothingBreath);
+    this.addEventListener(Events.summon.by(SELECTED_PLAYER), this.handleSummon);
+    debug && this.addEventListener(Events.fightend, this.fightEndDebug);
+  }
+
+  handleSummon(event) {
     this.petID = event.targetID;
     debug && console.log(`${event.ability.guid === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id ? 'Chi-Ji' : 'Yu\'lon'} Summoned: ${this.petID}`);
   }
 
-  on_heal(event) {
-    if (event.ability.guid === SPELLS.ENVELOPING_BREATH.id) {
-      this.envelopHealing += (event.amount || 0) + (event.absorbed || 0);
-      this.evelopOverhealing += event.overheal || 0;
-    }
-    if (event.sourceID === this.petID && event.ability.guid === SPELLS.SOOTHING_BREATH.id) {
-      this.soothHealing += (event.amount || 0) + (event.absorbed || 0);
-      this.soothOverHealing += event.overheal || 0;
-    }
-    this.healing = this.soothHealing + this.envelopHealing;
+  handleEnvelopingBreath(event) {
+    this.envelopHealing += (event.amount || 0) + (event.absorbed || 0);
+  }
+
+  handleSoothingBreath(event) {
+    this.soothHealing += (event.amount || 0) + (event.absorbed || 0);
+  }
+  
+  fightEndDebug() {
+    console.log(`Yu'lon ID: ${this.petID}`);
   }
 
   statistic() {
@@ -70,7 +75,7 @@ class Celestial extends Analyzer {
           <StatisticBox
             position={STATISTIC_ORDER.OPTIONAL(50)}
             icon={<><SpellIcon id={SPELLS.ENVELOPING_BREATH.id} /><SpellIcon id={SPELLS.SOOTHING_BREATH.id} /></>}
-            value={`${formatNumber(this.healing)}`}
+            value={`${formatNumber(this.soothHealing + this.envelopHealing)}`}
             label={(
               <TooltipElement content="This is the effective healing contributed by both Enveloping & Soothing Breath.">
                 Total Healing Contributed
@@ -82,12 +87,6 @@ class Celestial extends Analyzer {
     } 
     return <span />;
   }
-
-  on_fightend() {
-    if (debug) {
-      console.log(`Celestial ID: ${this.petID}`);
-    }
-  }
 }
 
-export default Celestial;
+export default InvokeYulon;

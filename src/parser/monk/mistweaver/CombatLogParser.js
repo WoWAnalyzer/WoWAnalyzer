@@ -33,7 +33,9 @@ import LifeCocoon from './modules/spells/LifeCocoon';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import RenewingMist from './modules/spells/RenewingMist';
 import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
-import Celestial from './modules/spells/Celestial';
+import InvokeYulon from './modules/spells/InvokeYulon';
+import InvokeChiJi from './modules/spells/InvokeChiJi';
+import WeaponsOfOrder from './modules/spells/WeaponsOfOrder';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
@@ -98,7 +100,9 @@ class CombatLogParser extends CoreCombatLogParser {
     renewingMist: RenewingMist,
     lifeCocoon: LifeCocoon,
     touchOfDeath: TouchOfDeath,
-    celestial: Celestial,
+    invokeYulon: InvokeYulon,
+    invokeChiJi: InvokeChiJi,
+    weaponsOfOrder: WeaponsOfOrder,
 
     // Talents
     chiBurst: ChiBurst,
