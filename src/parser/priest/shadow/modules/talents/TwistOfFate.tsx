@@ -1,15 +1,14 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
-import { DamageEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-
-const TWIST_OF_FATE_INCREASE = 1.1;
+import { TWIST_OF_FATE_INCREASE } from '../../constants';
 
 // Example log: /report/9fLF3NhHTqCBtmXy/10-Normal+Zul+-+Kill+(2:26)/7-Nospheratu
 class TwistOfFate extends Analyzer {
@@ -18,9 +17,10 @@ class TwistOfFate extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT_SHADOW.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
+  onDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {
       return;
     }

@@ -620,42 +620,6 @@ export default {
 
   // Shadow items:
 
-  SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE: {
-    id: 242273,
-    name: 'T20 4 Set Bonus',
-    icon: 'spell_shadow_shadowwordpain',
-  },
-
-  ANUNDS_SEARED_SHACKLES_BUFF: {
-    id: 215210,
-    name: "Anund's Last Breath",
-    icon: 'ability_ironmaidens_convulsiveshadows',
-  },
-
-  HEART_OF_THE_VOID_HEAL: {
-    id: 248219,
-    name: 'Heart of the Void',
-    icon: 'spell_priest_void-blast',
-  },
-
-  THE_TWINS_PAINFUL_TOUCH: {
-    id: 207724,
-    name: "The Twins' Painful Touch",
-    icon: 'spell_shadow_mindflay',
-  },
-
-  SHADOW_PRIEST_T21_2SET_BONUS_PASSIVE: {
-    id: 251845,
-    name: 'Shadow Priest T21 2P Bonus',
-    icon: 'ability_priest_ascension',
-  },
-
-  SHADOW_PRIEST_T21_4SET_BONUS_PASSIVE: {
-    id: 251846,
-    name: 'Shadow Priest T21 4P Bonus',
-    icon: 'ability_priest_ascension',
-  },
-
   SHADOW_CRASH_TALENT_DAMAGE: {
     id: 205386,
     name: "Shadow Crash",
