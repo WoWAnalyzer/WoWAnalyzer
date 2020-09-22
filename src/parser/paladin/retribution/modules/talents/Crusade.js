@@ -7,7 +7,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import HolyPowerTracker from 'parser/paladin/retribution/modules/holypower/HolyPowerTracker';
+import HolyPowerTracker from 'parser/paladin/shared/holypower/HolyPowerTracker';
 
 const CAST_BUFFER = 500;
 
