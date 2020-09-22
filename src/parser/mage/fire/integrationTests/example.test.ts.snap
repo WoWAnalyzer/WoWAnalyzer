@@ -3471,7 +3471,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
+                href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3483,7 +3483,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3492,7 +3492,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   }
                 />
                  
-                Abyssal Healing Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -3568,7 +3568,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
-                href="http://wowhead.com/spell=279151"
+                href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3580,7 +3580,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/trade_alchemy_potionc4.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -4123,6 +4123,212 @@ exports[`Fire Mage integration test: example log ElementalWhirl matches the stat
 </div>
 `;
 
+exports[`Fire Mage integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5448,
+              1647,
+              4786,
+              6510,
+            ],
+            "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
+            "id": 159233,
+            "itemLevel": 480,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159233}
+        quality={3}
+      >
+        Chest
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_bracer_cloth_kultirasdungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5009,
+              6516,
+              6513,
+              1512,
+              4786,
+            ],
+            "icon": "inv_bracer_cloth_kultirasdungeon_c_01.jpg",
+            "id": 168989,
+            "itemLevel": 455,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={168989}
+        quality={4}
+      >
+        Bracers
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_70_quest_ring7c.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4823,
+              6516,
+              6513,
+              1502,
+              4786,
+            ],
+            "icon": "inv_70_quest_ring7c.jpg",
+            "id": 174533,
+            "itemLevel": 470,
+            "permanentEnchant": 6109,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={174533}
+        quality={4}
+      >
+        Ring
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_jewelry_mech_ring_green.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              5005,
+              6516,
+              6515,
+              1502,
+              4786,
+            ],
+            "icon": "inv_jewelry_mech_ring_green.jpg",
+            "id": 169160,
+            "itemLevel": 445,
+            "permanentEnchant": 6109,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={169160}
+        quality={4}
+      >
+        Ring
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              6285,
+              1472,
+            ],
+            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+            "id": 169223,
+            "itemLevel": 496,
+            "quality": 5,
+          }
+        }
+        icon={false}
+        id={169223}
+        quality={5}
+      >
+        Cloak
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_sword_1h_nzothraid_d_01.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4823,
+              1808,
+              6553,
+              6578,
+              6579,
+              1502,
+              4786,
+              6513,
+            ],
+            "gems": Array [
+              Object {
+                "icon": "inv_jewelcrafting_80_cutgem02_blue.jpg",
+                "id": 154128,
+                "itemLevel": 120,
+              },
+            ],
+            "icon": "inv_sword_1h_nzothraid_d_01.jpg",
+            "id": 174108,
+            "itemLevel": 470,
+            "permanentEnchant": 5949,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={174108}
+        quality={4}
+      >
+        Weapon
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Fire Mage integration test: example log EssenceOfTheFocusingIris matches the statistic snapshot 1`] = `
 <div
   category="ITEMS"
@@ -4207,6 +4413,30 @@ exports[`Fire Mage integration test: example log EssenceOfTheFocusingIris matche
     </div>
   </div>
 </div>
+`;
+
+exports[`Fire Mage integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
+exports[`Fire Mage integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
+    "importance": "minor",
+    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
 `;
 
 exports[`Fire Mage integration test: example log HeatingUp matches the statistic snapshot 1`] = `
@@ -4718,7 +4948,7 @@ exports[`Fire Mage integration test: example log PrePotion matches the suggestio
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione2",
+    "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
     "issue": <React.Fragment>
       You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
@@ -4726,7 +4956,7 @@ Array [
        increasing output through 
       <ItemLink
         icon={true}
-        id={168498}
+        id={171273}
       />
       
       . 
@@ -4736,18 +4966,18 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione2",
+    "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
     "issue": <React.Fragment>
       You used a weak potion. 
       <ItemLink
         icon={true}
-        id={168498}
+        id={171273}
       />
        can be used instead of 
       <ItemLink
         icon={true}
-        id={163222}
+        id={171273}
       />
        in order to get a slightly higher damage output.
     </React.Fragment>,
@@ -7552,7 +7782,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -7576,8 +7806,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "80%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "25%",
                 }
               }
             />
@@ -7672,7 +7902,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                    
                   3
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -7691,9 +7921,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "50%",
                       }
                     }
                   />
@@ -7731,9 +7961,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  3
+                  0
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -7752,9 +7982,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -7972,7 +8202,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -7992,9 +8222,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -8092,7 +8322,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -8112,9 +8342,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

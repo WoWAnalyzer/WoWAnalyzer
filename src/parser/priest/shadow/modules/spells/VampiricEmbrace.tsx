@@ -3,8 +3,9 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import { formatNumber } from 'common/format';
@@ -27,13 +28,17 @@ class VampiricEmbrace extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(3)}
-        icon={<SpellIcon id={SPELLS.VAMPIRIC_EMBRACE.id} />}
-        value={<ItemHealingDone amount={this.healingDone} />}
-        label="Vampiric Embrace healing"
+        size="flexible"
         tooltip={`${formatNumber(this.healingDone)} healing done in ${this.casts || 0} cast(s).`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.VAMPIRIC_EMBRACE}>
+          <>
+            <ItemHealingDone amount={this.healingDone} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

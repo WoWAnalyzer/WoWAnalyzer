@@ -54,7 +54,6 @@ class Checklist extends BaseChecklist {
       <Component
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
-        owner={this.owner}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
@@ -66,7 +65,7 @@ class Checklist extends BaseChecklist {
           glacialSpikeUtilization: this.glacialSpike.glacialSpikeUtilizationThresholds,
           fingersOfFrostUtilization: this.iceLance.fingersProcUtilizationThresholds,
           iceLanceNotShattered: this.iceLance.nonShatteredIceLanceThresholds,
-          wintersChillIceLance: this.wintersChill.wintersChillIceLanceThresholds,
+          wintersChillShatter: this.wintersChill.wintersChillShatterThresholds,
           wintersChillHardCasts: this.wintersChill.wintersChillHardCastThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,

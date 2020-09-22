@@ -1,11 +1,16 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { EnergizeEvent } from 'parser/core/Events';
+import Events, { EnergizeEvent } from 'parser/core/Events';
 
 class Insanity extends Analyzer {
   _insanityEvents: any = [];
 
-  on_toPlayer_energize(event: EnergizeEvent) {
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onInsanityEnergize);
+  }
+
+  onInsanityEnergize(event: EnergizeEvent) {
     if (event.resourceChangeType === RESOURCE_TYPES.INSANITY.id) {
       this._insanityEvents = [
         ...this._insanityEvents,

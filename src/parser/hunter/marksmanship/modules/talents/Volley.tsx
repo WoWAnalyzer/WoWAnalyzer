@@ -40,7 +40,7 @@ class Volley extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.VOLLEY_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
+            <ItemDamageDone amount={this.damage} />
           </>
         </BoringSpellValueText>
       </Statistic>

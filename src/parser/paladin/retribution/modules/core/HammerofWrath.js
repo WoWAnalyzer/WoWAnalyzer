@@ -2,18 +2,16 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 
+// TODO: Needs updating with ExecuteHelper
+
 class HammerofWrath extends Analyzer {
 
   wasteHP = false;
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HAMMER_OF_WRATH_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HAMMER_OF_WRATH_TALENT), this.onHammerofWrathCast);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.HAMMER_OF_WRATH_TALENT), this.onHammerofWrathEnergize);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HAMMER_OF_WRATH), this.onHammerofWrathCast);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.HAMMER_OF_WRATH), this.onHammerofWrathEnergize);
   }
 
   onHammerofWrathEnergize(event) {
