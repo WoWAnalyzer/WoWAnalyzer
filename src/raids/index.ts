@@ -43,6 +43,7 @@ const raids = {
   CrucibleOfStorms: require('./crucibleofstorms').default, //tier 23.5
   AzsharasEternalPalace: require('./azsharaseternalpalace').default, //tier 24
   NyalothaTheWakingCity: require('./nyalothathewakingcity').default, //tier 25
+  CastleNathria: require('./castlenathria').default, //tier 26
 };
 export default raids;
 
