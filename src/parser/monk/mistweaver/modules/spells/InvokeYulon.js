@@ -15,7 +15,6 @@ class InvokeYulon extends Analyzer {
   petID = null;
   soothHealing = 0;
   envelopHealing = 0;
-  healing = 0;
 
   constructor(...args) {
     super(...args);
