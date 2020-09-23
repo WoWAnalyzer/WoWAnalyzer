@@ -61,7 +61,7 @@ export enum EventType {
 }
 
 type MappedEventTypes = {
-  [EventType.Heal]:HealEvent,
+  [EventType.Heal]: HealEvent,
   [EventType.Absorbed]: AbsorbedEvent,
   [EventType.Damage]: DamageEvent,
   [EventType.BeginCast]: BeginCastEvent,
