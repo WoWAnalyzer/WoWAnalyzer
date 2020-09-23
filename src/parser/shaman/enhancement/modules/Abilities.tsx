@@ -47,15 +47,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          extraSuggestion: (
-            <>
-              The total damage that it deals is equal to 2-3 GCDs. Additionally their attacks have a chance to trigger <SpellLink id={SPELLS.STORMBRINGER_BUFF.id} />, weapon enchantments, azerite traits and essence effects. (Corruption effects have not been confirmed.)
-            </>
-          ),
-        },
       },
       {
         spell: SPELLS.EARTHEN_SPIKE_TALENT,
