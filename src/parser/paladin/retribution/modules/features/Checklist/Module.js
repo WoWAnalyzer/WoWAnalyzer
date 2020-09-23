@@ -6,7 +6,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import HolyPowerDetails from '../../holypower/HolyPowerDetails';
+import HolyPowerDetails from '../../../../shared/holypower/HolyPowerDetails';
 import ArtOfWar from '../../core/ArtOfWar';
 import Judgment from '../../core/Judgment';
 import Crusade from '../../talents/Crusade';

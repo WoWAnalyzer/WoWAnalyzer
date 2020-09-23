@@ -5,7 +5,7 @@ import Panel from 'interface/statistics/Panel';
 import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
+import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 import Statistic from 'interface/statistics/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import HolyPowerTracker from './HolyPowerTracker';
