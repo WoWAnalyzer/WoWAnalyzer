@@ -879,3 +879,13 @@ export const Tyndi: Contributor = {
   discord: 'Tyndi#4337',
   avatar: require('./interface/images/avatars/tyndi-avatar.png'),
 };
+export const MusicMeister: Contributor = {
+  nickname: 'MusicMeister',
+  github: 'TheMusicMeister',
+  discord: 'The Music Meister#8236',
+  mains: [{
+    name: 'Leviisa',
+    spec: SPECS.ENHANCEMENT_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/illidan/leviisa',
+  }],
+};

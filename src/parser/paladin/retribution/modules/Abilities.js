@@ -258,6 +258,19 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
       },
       {
+        spell: SPELLS.SERAPHIM_TALENT,
+        buffSpellId: SPELLS.SERAPHIM_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.SERAPHIM_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
         spell: SPELLS.DIVINE_SHIELD,
         buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
