@@ -16,7 +16,7 @@ const COVENANTS: {
     id: 2,
   },
   NIGHT_FAE: {
-    name: 'Nigh Fae',
+    name: 'Night Fae',
     description: 'The night fae tend to fallen nature spirits who slumber within the tranquil forest. Those with a deep bond to nature may join their cause, ensuring that the rejuvenated spirits can one day rejoin the eternal cycle.',
     id: 3,
   },
