@@ -7,8 +7,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
 
-import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const SHARDS_PER_HOG = 3;

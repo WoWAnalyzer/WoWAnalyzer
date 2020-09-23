@@ -58,11 +58,11 @@ class RunicPowerDetails extends Analyzer {
         value={`${formatPercentage(this.wastedPercent)} %`}
         label="Runic Power wasted"
         tooltip={`${this.runicPowerTracker.wasted} out of ${this.runicPowerTracker.wasted + this.runicPowerTracker.generated} runic power wasted.`}
+        position={STATISTIC_ORDER.CORE(2)}
       />
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 
   tab() {
     return {

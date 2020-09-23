@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/hunter';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  * Aimed Shot causes your next 1-2 Arcane Shots or Multi-Shots to deal 100% more damage.
@@ -29,62 +29,62 @@ class PreciseShots extends Analyzer {
   maxOverwrittenProcs = 0;
   buffedShotInFlight: number | null = null;
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PRECISE_SHOTS.id) {
-      return;
-    }
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsApplication);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsRemoval);
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsStackRemoval);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsStackApplication);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]), this.onPreciseCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.checkForBuff);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]), this.onPreciseDamage);
+  }
+
+  onPreciseShotsApplication() {
     this.buffsActive = ASSUMED_PROCS;
   }
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PRECISE_SHOTS.id) {
-      return;
-    }
+  onPreciseShotsRemoval() {
     this.buffsGained += 1;
     this.buffsActive = 0;
   }
 
-  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PRECISE_SHOTS.id) {
-      return;
-    }
+  onPreciseShotsStackRemoval() {
+    this.buffsGained += 1;
+    this.buffsActive -= 1;
+  }
+
+  onPreciseShotsStackApplication() {
     this.minOverwrittenProcs += 1;
     this.maxOverwrittenProcs += 2;
     this.buffsActive = ASSUMED_PROCS;
   }
 
-  on_byPlayer_removebuffstack(event: RemoveBuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PRECISE_SHOTS.id) {
-      return;
-    }
-    this.buffsGained += 1;
-    this.buffsActive -= 1;
-  }
-
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (!this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS.id) || (spellId !== SPELLS.ARCANE_SHOT.id && spellId !== SPELLS.MULTISHOT_MM.id)) {
+  onPreciseCast(event: CastEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS.id)) {
       return;
     }
     this.buffedShotInFlight = event.timestamp;
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (this.buffedShotInFlight && this.buffedShotInFlight > event.timestamp + MAX_TRAVEL_TIME) {
-      this.buffedShotInFlight = null;
-    }
-    if (spellId !== SPELLS.ARCANE_SHOT.id && spellId !== SPELLS.MULTISHOT_MM.id) {
+  onPreciseDamage(event: DamageEvent) {
+    this.checkForBuff(event);
+    if (!this.buffedShotInFlight) {
       return;
     }
-    if (this.buffedShotInFlight && this.buffedShotInFlight < event.timestamp + MAX_TRAVEL_TIME) {
+    if (this.buffedShotInFlight < event.timestamp + MAX_TRAVEL_TIME) {
       this.damage += calculateEffectiveDamage(event, PRECISE_SHOTS_MODIFIER);
     }
-    if (spellId === SPELLS.ARCANE_SHOT.id) {
+    if (event.ability.guid === SPELLS.ARCANE_SHOT.id) {
+      this.buffedShotInFlight = null;
+    }
+  }
+
+  checkForBuff(event: DamageEvent) {
+    if (!this.buffedShotInFlight) {
+      return;
+    }
+    if (this.buffedShotInFlight > event.timestamp + MAX_TRAVEL_TIME) {
       this.buffedShotInFlight = null;
     }
   }

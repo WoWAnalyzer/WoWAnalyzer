@@ -8,25 +8,9 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { SPLITTABLE_CASTS, SPLITTABLE_DAMAGE, SPLITTING_ICE_DAMAGE_BONUS, GLACIAL_SPIKE_DAMAGE_BONUS } from '../../constants';
 
 const debug = false;
-
-const DAMAGE_BONUS = 0.05;
-const GLACIAL_SPIKE_BONUS_PORTION = 0.65; // GS benefits from Icicles in it, but totals less than the full 5%. This number currently a guess.
-
-const SPLIT_CAST_SPELLS = [
-  SPELLS.FROSTBOLT,
-  SPELLS.ICE_LANCE,
-  SPELLS.GLACIAL_SPIKE_TALENT,
-  SPELLS.EBONBOLT_TALENT,
-];
-
-const SPLIT_DAMAGE_SPELLS = [
-  SPELLS.ICE_LANCE_DAMAGE,
-  SPELLS.ICICLE_DAMAGE,
-  SPELLS.GLACIAL_SPIKE_DAMAGE,
-  SPELLS.EBONBOLT_DAMAGE,
-];
 
 class SplittingIce extends Analyzer {
 
@@ -44,8 +28,8 @@ class SplittingIce extends Analyzer {
      this.hasGlacialSpike = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
      this.hasEbonbolt = this.selectedCombatant.hasTalent(SPELLS.EBONBOLT_TALENT.id);
 
-     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPLIT_CAST_SPELLS), this.onCast);
-     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPLIT_DAMAGE_SPELLS), this.onDamage);
+     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPLITTABLE_CASTS), this.onCast);
+     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPLITTABLE_DAMAGE), this.onDamage);
   }
 
   onCast(event: CastEvent) {
@@ -58,9 +42,9 @@ class SplittingIce extends Analyzer {
     const spellId = event.ability.guid;
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     if(this.castTarget === damageTarget) {
-      let damageBonus = DAMAGE_BONUS;
+      let damageBonus = SPLITTING_ICE_DAMAGE_BONUS;
       if(spellId === SPELLS.GLACIAL_SPIKE_DAMAGE.id) {
-        damageBonus *= GLACIAL_SPIKE_BONUS_PORTION;
+        damageBonus *= GLACIAL_SPIKE_DAMAGE_BONUS;
       }
       this.boostDamage += calculateEffectiveDamage(event, damageBonus);
     } else {

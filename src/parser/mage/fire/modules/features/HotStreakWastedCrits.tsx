@@ -6,18 +6,9 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, ApplyBuffEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { PROC_BUFFER, HOT_STREAK_CONTRIBUTORS } from '../../constants';
 
 const debug = false;
-
-const PROC_WINDOW_MS = 200;
-
-const HOT_STREAK_CONTRIBUTORS = [
-  SPELLS.FIREBALL.id,
-  SPELLS.PYROBLAST.id,
-  SPELLS.FIRE_BLAST.id,
-  SPELLS.SCORCH.id,
-  SPELLS.PHOENIX_FLAMES_TALENT.id,
-];
 
 class HotStreakWastedCrits extends Analyzer {
   static dependencies = {
@@ -75,7 +66,7 @@ class HotStreakWastedCrits extends Analyzer {
 
   //Pyromaniac doesnt trigger an event, so we need to check to see if the player immediately got a new Hot Streak immediately after using a Hot Streak
   checkForPyromaniacProc(event: ApplyBuffEvent) {
-    if (this.hasPyromaniac && event.timestamp - this.hotStreakRemoved < PROC_WINDOW_MS) {
+    if (this.hasPyromaniac && event.timestamp - this.hotStreakRemoved < PROC_BUFFER) {
       this.hasPyromaniacProc = true;
     }
   }

@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 6, 19), 'Updated player cast handlers to use an improved architecture.', Putro),
   change(date(2020, 6, 7), 'Moved some helper functions from class/specialization folders to a shared folder', Putro),
   change(date(2020, 6, 6), 'Bump support to 8.3.', Putro),
   change(date(2020, 6, 6), <> Added support for <SpellLink id={SPELLS.LUCID_DREAMS.id} />. </>, Putro),

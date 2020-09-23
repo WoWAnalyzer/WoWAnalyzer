@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
 import SpellLink from 'common/SpellLink';
@@ -8,7 +8,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -36,7 +36,6 @@ class ButcheryCarve extends Analyzer {
   spellKnown: any = SPELLS.CARVE;
   damage: number = 0;
   hasButchery: boolean = false;
-  hasWFI: boolean = false;
   bombSpellKnown: number = SPELLS.WILDFIRE_BOMB.id;
 
   protected spellUsable!: SpellUsable;
@@ -48,9 +47,11 @@ class ButcheryCarve extends Analyzer {
       this.spellKnown = SPELLS.BUTCHERY_TALENT;
     }
     if (this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id)) {
-      this.hasWFI = true;
       this.bombSpellKnown = SPELLS.WILDFIRE_INFUSION_TALENT.id;
     }
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BUTCHERY_TALENT, SPELLS.CARVE]), this.onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BUTCHERY_TALENT, SPELLS.CARVE]), this.onCast);
+
   }
 
   get avgTargetsHitThreshold() {
@@ -65,20 +66,12 @@ class ButcheryCarve extends Analyzer {
     };
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
-      return;
-    }
+  onCast() {
     this.casts += 1;
     this.reductionAtCurrentCast = 0;
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
-      return;
-    }
+  onDamage(event: DamageEvent) {
     this.targetsHit += 1;
     this.damage += event.amount + (event.absorbed || 0);
     if (this.reductionAtCurrentCast === MAX_TARGETS_HIT) {

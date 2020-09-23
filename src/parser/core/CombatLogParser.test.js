@@ -93,7 +93,7 @@ describe('Core/CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
-      expect(parser.getModule(MyModule, true)).toBe(undefined);
+      expect(parser.getOptionalModule(MyModule)).toBe(undefined);
       expect(Object.keys(parser._modules).length).toBe(0);
     });
   });

@@ -1,12 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import { EnergizeEvent } from 'parser/core/Events';
+import Events, { EnergizeEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const focusedFireStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
@@ -46,13 +46,10 @@ class FocusedFire extends Analyzer {
     } else {
       this.damagePotential = damage * TICKS_PER_CAST;
     }
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FOCUSED_FIRE_FOCUS), this.onEnergize);
   }
 
-  on_byPlayer_energize(event: EnergizeEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FOCUSED_FIRE_FOCUS.id) {
-      return;
-    }
+  onEnergize(event: EnergizeEvent) {
     this.focusGained += event.resourceChange;
     this.focusWasted += event.waste;
   }

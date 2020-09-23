@@ -8,6 +8,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.ARCANE_POWER,
+      startBufferMS: 4000,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

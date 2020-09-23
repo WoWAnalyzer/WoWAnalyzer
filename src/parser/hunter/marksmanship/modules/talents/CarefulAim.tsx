@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatDuration, formatNumber } from 'common/format';
@@ -9,7 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import ItemDamageDone from '../../../../../interface/ItemDamageDone';
 
 const HIGHER_HP_THRESHOLD = 0.8;
@@ -68,9 +68,11 @@ class CarefulAim extends Analyzer {
         }
       });
     });
+    this.addEventListener(Events.fightend, this.calculateCarefulAimPeriods);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
+  onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
     const healthPercent = event.hitPoints && event.maxHitPoints && event.hitPoints / event.maxHitPoints;
     const targetID = event.targetID;
@@ -112,12 +114,13 @@ class CarefulAim extends Analyzer {
     this.damageContribution += damageFromCA;
   }
 
-  on_fightend() {
+  calculateCarefulAimPeriods() {
     Object.values(this.carefulAimPeriods).forEach(boss => {
       boss.timestampSub100 = boss.timestampSub100 || this.owner.fight.start_time;
       boss.timestampDead = boss.timestampDead || this.owner.fight.end_time;
     });
   }
+
   statistic() {
     return (
       <Statistic

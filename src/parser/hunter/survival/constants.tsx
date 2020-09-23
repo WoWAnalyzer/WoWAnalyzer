@@ -4,10 +4,10 @@ import SPELLS from 'common/SPELLS';
 export const GUERRILLA_TACTICS_INIT_HIT_MODIFIER = 1;
 //Spells affected by Guerrilla Tactics talent
 export const AFFECTED_BY_GUERRILLA_TACTICS = [
-  SPELLS.WILDFIRE_BOMB_IMPACT.id,
-  SPELLS.VOLATILE_BOMB_WFI_IMPACT.id,
-  SPELLS.PHEROMONE_BOMB_WFI_IMPACT.id,
-  SPELLS.SHRAPNEL_BOMB_WFI_IMPACT.id,
+  SPELLS.WILDFIRE_BOMB_IMPACT,
+  SPELLS.VOLATILE_BOMB_WFI_IMPACT,
+  SPELLS.PHEROMONE_BOMB_WFI_IMPACT,
+  SPELLS.SHRAPNEL_BOMB_WFI_IMPACT,
 ];
 //Serpent Sting for SV pandemics at 30%
 export const SERPENT_STING_SV_PANDEMIC = 0.3;
@@ -25,10 +25,10 @@ export const TIP_DAMAGE_INCREASE = 0.2;
 export const TIP_MAX_STACKS = 3;
 //Raptor Strike turns into Mongoose Bite when talented into it, and during Aspect of the Eagle they change spellIDs.
 export const RAPTOR_MONGOOSE_VARIANTS = [
-  SPELLS.RAPTOR_STRIKE.id,
-  SPELLS.RAPTOR_STRIKE_AOTE.id,
-  SPELLS.MONGOOSE_BITE_TALENT.id,
-  SPELLS.MONGOOSE_BITE_TALENT_AOTE.id,
+  SPELLS.RAPTOR_STRIKE,
+  SPELLS.RAPTOR_STRIKE_AOTE,
+  SPELLS.MONGOOSE_BITE_TALENT,
+  SPELLS.MONGOOSE_BITE_TALENT_AOTE,
 ];
 //The increased damage of the initial hit of Serpent Sting from Viper's Venom
 export const VIPERS_VENOM_DAMAGE_MODIFIER = 2.5;

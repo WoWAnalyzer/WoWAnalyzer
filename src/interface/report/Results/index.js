@@ -54,6 +54,7 @@ class Results extends React.PureComponent {
           resultsWarning: PropTypes.any,
         }),
       }),
+      getOptionalModule: PropTypes.func.isRequired,
       getModule: PropTypes.func.isRequired,
       selectedCombatant: PropTypes.any,
       fight: PropTypes.shape({
@@ -181,7 +182,7 @@ class Results extends React.PureComponent {
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
-        const checklist = parser.getModule(Checklist, true);
+        const checklist = parser.getOptionalModule(Checklist);
         return (
           <Overview
             checklist={checklist && checklist.render()}
@@ -347,10 +348,7 @@ class Results extends React.PureComponent {
 
     const boss = findByBossId(fight.boss);
 
-    const results = !this.isLoading && parser.generateResults({
-      i18n, // TODO: Remove and use singleton
-      adjustForDowntime: this.state.adjustForDowntime,
-    });
+    const results = !this.isLoading && parser.generateResults(this.state.adjustForDowntime);
 
     const contributorinfo = <ReadableListing>{(config.contributors.length !== 0) ? config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED'}</ReadableListing>;
 
@@ -381,6 +379,15 @@ class Results extends React.PureComponent {
         <ReportDurationWarning duration={reportDuration} />}
 
         {parser && parser.disabledModules && <DegradedExperience disabledModules={parser.disabledModules} />}
+        {
+          //Warning Message for Shadowlands Prepatch (Remove after Shadowlands Launch)
+          <div className="container">
+            <Warning style={{ marginBottom: 30}}>
+              In an effort to focus on Shadowlands and Castle Nathria, we will be removing support for Azerite, Essences, Corruption, and other BFA items with the launch of Prepatch. As a result, analysis of Prepatch encounters may be inaccurate. If you would like to follow your spec's Shadowlands development or provide suggestions/feedback, <a href="
+https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3AShadowlands">Click Here</a>
+            </Warning>
+          </div>
+        }
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>

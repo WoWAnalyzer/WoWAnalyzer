@@ -5,16 +5,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-
-const DAMAGE_SPELLS = [
-  SPELLS.FIREBALL,
-  SPELLS.PYROBLAST,
-  SPELLS.SCORCH,
-  SPELLS.FIRE_BLAST,
-  SPELLS.PHOENIX_FLAMES_TALENT,
-];
-
-const FIRESTARTER_HEALTH_THRESHOLD = .90;
+import { FIRESTARTER_THRESHOLD, HOT_STREAK_CONTRIBUTORS } from '../../constants';
 
 const debug = false;
 
@@ -28,7 +19,7 @@ class CombustionFirestarter extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustion);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_SPELLS), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(HOT_STREAK_CONTRIBUTORS), this.onDamage);
   }
 
   //Checks to see if a new Combustion was cast. This variable is marked false once a damage event is triggered since we only want the first damage event in the Combustion (to get the health percentage)
@@ -47,7 +38,7 @@ class CombustionFirestarter extends Analyzer {
     if (event.hitPoints && event.maxHitPoints && event.hitPoints > 0) {
       this.healthPercent = event.hitPoints / event.maxHitPoints;
     }
-    if (this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) {
+    if (this.healthPercent > FIRESTARTER_THRESHOLD) {
       this.combustionDuringFirestarter = true;
       debug && this.log("Combustion Used During Firestarter");
     }

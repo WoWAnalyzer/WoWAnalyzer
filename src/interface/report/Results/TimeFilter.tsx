@@ -1,7 +1,6 @@
 import React from 'react';
-
+import Fight from 'parser/core/Fight';
 import TimeInput from './TimeInput';
-import { Fight } from '../PhaseParser';
 
 interface Props {
   fight: Fight,
@@ -71,7 +70,7 @@ class TimeFilter extends React.PureComponent<Props, State> {
     return (
       <form onSubmit={this.handleSubmit}>
         <TimeInput name="start" min={0} max={this.state.max} time={this.state.start} onChange={this.selectStart} />
-         to 
+         to
         <TimeInput name="end" min={0} max={this.state.max} time={this.state.end} onChange={this.selectEnd} />
         <div className="buttons">
           <button type="submit" name="filter" className="btn btn-primary filter animated-button" disabled={isLoading || this.invalidTimes()}>

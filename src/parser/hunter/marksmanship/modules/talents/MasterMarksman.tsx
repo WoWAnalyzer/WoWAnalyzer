@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 
 /**
  * Aimed Shot has a 100% chance to reduce the focus cost of your next Arcane Shot or Multi-Shot by 100%.
@@ -37,19 +37,23 @@ class MasterMarksman extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_MARKSMAN_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.MULTISHOT_MM, SPELLS.ARCANE_SHOT]), this.onSpenderCast);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (!this.selectedCombatant.hasBuff(SPELLS.MASTER_MARKSMAN_BUFF.id, event.timestamp) || (spellId !== SPELLS.ARCANE_SHOT.id && spellId !== SPELLS.MULTISHOT_MM.id && spellId !== SPELLS.AIMED_SHOT.id)) {
+  onAimedCast() {
+    if (!this.selectedCombatant.hasBuff(SPELLS.MASTER_MARKSMAN_BUFF.id)) {
       return;
     }
-    if (spellId === SPELLS.AIMED_SHOT.id) {
-      this.overwrittenBuffs += 1;
+    this.overwrittenBuffs += 1;
+  }
+
+  onSpenderCast(event: CastEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.MASTER_MARKSMAN_BUFF.id)) {
       return;
     }
     this.usedProcs += 1;
-    this.affectedSpells[spellId].casts += 1;
+    this.affectedSpells[event.ability.guid].casts += 1;
   }
 
   get totalProcs() {

@@ -7,7 +7,7 @@ import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { formatNumber, formatPercentage } from 'common/format';
-import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
+import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 
 import SpellUsable from '../../core/SpellUsable';
 
@@ -41,7 +41,7 @@ export default class StraightNoChaser extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.STRAIGHT_NO_CHASER.id);
-    if(!this.active) {
+    if (!this.active) {
       return;
     }
 
@@ -55,71 +55,14 @@ export default class StraightNoChaser extends Analyzer {
     });
   }
 
-  // currently literal copypasta from the `MasteryValue` module. Once
-  // we're ready to start moving to next this will get replaced with a
-  // generic implementation.
-  get plot() {
-    // not the most efficient, but close enough and pretty safe
-    function binom(n, k) {
-      if(k > n) {
-        return null;
-      }
-      if(k === 0) {
-        return 1;
-      }
-
-      return n / k * binom(n-1, k-1);
-    }
-
-    // pmf of the binomial distribution
-    const resetProb = (i) => binom(this.isbCasts, i) * Math.pow(SNC_PROC_CHANCE, i) * Math.pow(1 - SNC_PROC_CHANCE, this.isbCasts - i);
-
-    const resetProbabilities = Array.from({length: this.isbCasts}, (_x, i) => {
-      return { x: i, y: resetProb(i) };
-    });
-
-    const actualReset = {
-      x: this.resets,
-      y: resetProb(this.resets),
-    };
-
-    const RANGE_THRESHOLD = 0.001;
-    const rangeMin = resetProbabilities.findIndex(({y}) => y >= RANGE_THRESHOLD);
-    const rangeMax = rangeMin + resetProbabilities.slice(rangeMin).findIndex(({y}) => y < RANGE_THRESHOLD);
-
-    return (
-      <OneVariableBinomialChart
-        probabilities={resetProbabilities.slice(rangeMin, rangeMax + 1)}
-        actualEvent={actualReset}
-        yDomain={[0, 0.4]}
-        xAxis={{
-          title: 'Charges Gained',
-          tickFormat: (value) => formatNumber(value),
-          style: {
-            fill: 'white',
-          },
-        }}
-        yAxis={{
-          title: 'Likelihood',
-          tickFormat: (value) => `${formatPercentage(value, 0)}%`,
-          style: {
-            fill: 'white',
-          },
-        }}
-        curve="curveMonotoneX"
-        tooltip={(point) => `Estimated Charges Gained: ${formatNumber(point.x)}`}
-      />
-    );
-  }
-
   statistic() {
     return (
       <TraitStatisticBox
         trait={SPELLS.STRAIGHT_NO_CHASER.id}
         value={(
           <>
-          ≥{this.resets} Charges Gained<br />
-          {formatNumber(this.avgArmor)} Armor Gained
+            ≥{this.resets} Charges Gained<br />
+            {formatNumber(this.avgArmor)} Armor Gained
           </>
         )}
         tooltip={(
@@ -129,8 +72,8 @@ export default class StraightNoChaser extends Analyzer {
           </>
         )}
       >
-        <div style={{padding: '8px'}}>
-          {this.plot}
+        <div style={{ padding: '8px' }}>
+          {plotOneVariableBinomChart(this.resets, this.isbCasts, SNC_PROC_CHANCE, 'Charges Gained', 'Estimated Charges Gained: ')}
           <p>Likelihood of getting <em>exactly</em> as many extra charges as estimated on a fight given your number of <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> casts.</p>
         </div>
       </TraitStatisticBox>

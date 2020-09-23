@@ -28,7 +28,7 @@ class GlacialSpikeNoIL extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && this.owner.builds.NO_IL.active;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && !!this.owner.builds.NO_IL.active;
     this.hasIncantersFlow = this.selectedCombatant.hasTalent(SPELLS.INCANTERS_FLOW_TALENT.id);
     this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
 
@@ -45,8 +45,8 @@ class GlacialSpikeNoIL extends Analyzer {
     this.lastCastDidDamage = true;
 
     // Check if the target had a shatter effect on them
-    const enemy = this.enemies.getEntity(event);
-    if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect, event.timestamp))) {
+    const enemy: any = this.enemies.getEntity(event);
+    if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp))) {
       this.goodCasts += 1;
       this.lastCastEvent = undefined;
     }

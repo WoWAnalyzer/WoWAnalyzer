@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatPercentage } from 'common/format';
-import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
+import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import Abilities from '../Abilities';
 
 const BASE_PROC_CHANCE = 0.15;
@@ -15,7 +15,7 @@ const IV_PROC_CHANCE = 0.05;
 class GrandCrusader extends Analyzer {
   static dependencies = {
     abilities: Abilities,
-  }
+  };
   _totalResets = 0;
   _exactResets = 0;
   _inferredResets = 0;
@@ -32,10 +32,10 @@ class GrandCrusader extends Analyzer {
 
   get procChance() {
     let chance = BASE_PROC_CHANCE;
-    if(this._hasIV) {
+    if (this._hasIV) {
       chance += IV_PROC_CHANCE;
     }
-    if(this._hasFA) {
+    if (this._hasFA) {
       chance += FA_PROC_CHANCE;
     }
 
@@ -45,7 +45,7 @@ class GrandCrusader extends Analyzer {
   _lastResetSource = null;
 
   on_byPlayer_cast(event) {
-    if(![SPELLS.HAMMER_OF_THE_RIGHTEOUS.id, SPELLS.BLESSED_HAMMER_TALENT.id].includes(event.ability.guid)) {
+    if (![SPELLS.HAMMER_OF_THE_RIGHTEOUS.id, SPELLS.BLESSED_HAMMER_TALENT.id].includes(event.ability.guid)) {
       return;
     }
     this._resetChances += 1;
@@ -67,7 +67,7 @@ class GrandCrusader extends Analyzer {
   }
 
   triggerInferredReset(spellUsable, event) {
-    if(this._hasIV) {
+    if (this._hasIV) {
       console.warn('Inferred reset with IV. Not actually resetting. This shouldn\'t happen.', event.ability.name, event);
       return;
     }
@@ -78,12 +78,12 @@ class GrandCrusader extends Analyzer {
 
   resetCooldowns(spellUsable, event) {
     // reset AS cd
-    if(spellUsable.isOnCooldown(SPELLS.AVENGERS_SHIELD.id)) {
+    if (spellUsable.isOnCooldown(SPELLS.AVENGERS_SHIELD.id)) {
       spellUsable.endCooldown(SPELLS.AVENGERS_SHIELD.id, false, this._lastResetSource.timestamp, 0);
     }
 
     // reset Judgment CD if the CJ talent is selected
-    if(this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) && spellUsable.isOnCooldown(SPELLS.JUDGMENT_CAST_PROTECTION.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) && spellUsable.isOnCooldown(SPELLS.JUDGMENT_CAST_PROTECTION.id)) {
       // get haste as of last reset source. fingers crossed that it
       // isn't too far off
       const ecd = this.abilities.getExpectedCooldownDuration(SPELLS.JUDGMENT_CAST_PROTECTION.id, this._lastResetSource);
@@ -91,60 +91,17 @@ class GrandCrusader extends Analyzer {
     }
   }
 
-  get plot() {
-    // stolen from BrM code
-
-    // not the most efficient, but close enough and pretty safe
-    function binom(n, k) {
-      if(k > n) {
-        return null;
-      }
-      if(k === 0) {
-        return 1;
-      }
-
-      return n / k * binom(n-1, k-1);
-    }
-
-    // pmf of the binomial distribution with n = _resetChances and
-    // p = procChance
-    const resetProb = (i) => binom(this._resetChances, i) * Math.pow(this.procChance, i) * Math.pow(1 - this.procChance, this._resetChances - i);
-
-    // probability of having exactly k resets of the n chances
-    const resetProbabilities = Array.from({length: this._resetChances}, (_x, i) => {
-      return { x: i, y: resetProb(i) };
-    });
-
-    const actualReset = {
-      x: this._totalResets,
-      y: resetProb(this._totalResets),
-    };
-
-    return (
-      <OneVariableBinomialChart
-        probabilities={resetProbabilities}
-        actualEvent={actualReset}
-        xAxis={{
-          title: 'Reset %',
-          tickFormat: (value) => `${formatPercentage(value / this._resetChances, 0)}%`,
-          style: {
-            fill: 'white',
-          },
-        }}
-        yAxis={{
-          title: 'Likelihood',
-          tickFormat: (value) => `${formatPercentage(value, 0)}%`,
-          style: {
-            fill: 'white',
-          },
-        }}
-        tooltip={(point) => `Actual Resets: ${formatPercentage(point.x / this._resetChances, 2)}%`}
-        yDomain={[0, 0.2]}
-      />
-    );
-  }
-
   statistic() {
+    //Since a different formula than the standard one is used, we set our own here and insert as parameter in the plotOneVariableBinomChart function
+    const binomChartTooltipFormula = (point) => `Actual Resets: ${formatPercentage(point.x / this._resetChances, 2)}%`;
+    //As we use a different formula than the standard one for XAxis, we send it along as a parameter
+    const binomChartXAxis = {
+      title: 'Reset %',
+      tickFormat: (value) => `${formatPercentage(value / this._resetChances, 0)}%`,
+      style: {
+        fill: 'white',
+      },
+    };
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GRAND_CRUSADER.id} />}
@@ -157,8 +114,8 @@ class GrandCrusader extends Analyzer {
           </>
         )}
       >
-        <div style={{padding: '8px'}}>
-          {this.plot}
+        <div style={{ padding: '8px' }}>
+          {plotOneVariableBinomChart(this._totalResets, this._resetChances, this.procChance, 'Reset %', 'Actual Resets', binomChartTooltipFormula, [0, 0.2], binomChartXAxis)}
           <p>Likelihood of having <em>exactly</em> as many resets as you did with your traits and talents.</p>
         </div>
       </StatisticBox>

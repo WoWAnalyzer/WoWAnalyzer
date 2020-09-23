@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
@@ -13,7 +13,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /**
  * Hurl a bomb at the target, exploding for (45% of Attack power) Fire damage in a cone and coating enemies in wildfire, scorching them for (90% of Attack power) Fire damage over 6 sec.
@@ -48,6 +48,8 @@ class WildfireBomb extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB_IMPACT), this.onDamage);
   }
 
   get uptimePercentage() {
@@ -82,23 +84,15 @@ class WildfireBomb extends Analyzer {
     return this.targetsHit / this.casts;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WILDFIRE_BOMB.id) {
-      return;
-    }
+  onCast(event: CastEvent) {
     this.casts += 1;
-    this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(spellId);
+    this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
     if (!this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id) || this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) < GCD_BUFFER + this.currentGCD) {
       this.acceptedCastDueToCapping = true;
     }
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WILDFIRE_BOMB_IMPACT.id) {
-      return;
-    }
+  onDamage(event: DamageEvent) {
     if (this.casts === 0) {
       this.casts += 1;
       this.spellUsable.beginCooldown(SPELLS.WILDFIRE_BOMB.id, event);

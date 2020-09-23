@@ -429,6 +429,12 @@ export default {
 	  icon: 'spell_holy_blessingofstrength',
   },
 
+  DARK_ARBITER_TALENT_GLYPH: {
+    id: 207349,
+    name: 'Dark Arbiter',
+    icon: 'achievement_boss_svalasorrowgrave',
+  },
+
   // Shared:
   ANTI_MAGIC_SHELL: {
     id: 48707,

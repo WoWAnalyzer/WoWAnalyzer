@@ -8,10 +8,9 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import HotStreakPreCasts from './HotStreakPreCasts';
+import { PROC_BUFFER } from '../../constants';
 
 const debug = false;
-
-const PROC_WINDOW_MS = 200;
 
 class HotStreak extends Analyzer {
   static dependencies = {
@@ -47,7 +46,7 @@ class HotStreak extends Analyzer {
 
   //Checks to see if there was a Hot Streak spender cast immediately before Hot Streak was removed. If there was not, then it must have expired.
   checkForExpiredProcs(event: RemoveBuffEvent) {
-    if (!this.castTimestamp || this.castTimestamp + PROC_WINDOW_MS < event.timestamp) {
+    if (!this.castTimestamp || this.castTimestamp + PROC_BUFFER < event.timestamp) {
       debug && this.log("Hot Streak proc expired");
       this.expiredProcs += 1;
     }

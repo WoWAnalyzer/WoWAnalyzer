@@ -45,7 +45,7 @@ class ContributorButton extends React.PureComponent {
 
     let content = (
       <div className="contributor">
-        {avatar && <img src={avatar} alt="Avatar" />}
+        {avatar && <img loading="lazy" src={avatar} alt={`${nickname}'s contributor avatar`} />}
         {nickname}
       </div>
     );

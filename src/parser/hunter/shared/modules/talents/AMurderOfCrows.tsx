@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -10,7 +10,8 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, EnergizeEvent, RemoveBuffEvent} from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 
 /**
  * Summons a flock of crows to attack your target over the next 15 sec. If the target dies while under attack, A Murder of Crows' cooldown is reset.
@@ -60,9 +61,13 @@ class AMurderOfCrows extends Analyzer {
         },
       });
     }
+    this.addEventListener(EventEmitter.catchAll, this.checkForReset);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.A_MURDER_OF_CROWS_TALENT), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.A_MURDER_OF_CROWS_DEBUFF), this.onDamage);
+    this.addEventListener(Events.fightend, this.adjustMaxFights);
   }
 
-  checkForReset(event: CastEvent | EnergizeEvent | ApplyBuffEvent | RemoveBuffEvent | ApplyBuffStackEvent | DamageEvent) {
+  checkForReset(event: any) {
     // Checks if we've had atleast 1 damage tick of the currently applied crows, and checks that crows is in fact on cooldown.
     if (this.lastDamageTick && this.spellUsable.isOnCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id)
       // Checks whether the current damage event happened while the time passed since crows application is less than the crows duration
@@ -77,43 +82,13 @@ class AMurderOfCrows extends Analyzer {
     }
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    this.checkForReset(event);
-    if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT.id) {
-      return;
-    }
+  onCast() {
     this.casts += 1;
     this.applicationTimestamp = 0;
     this.lastDamageTick = 0;
   }
 
-  on_byPlayer_energize(event: EnergizeEvent) {
-    this.checkForReset(event);
-  }
-
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    this.checkForReset(event);
-  }
-
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    this.checkForReset(event);
-  }
-
-  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
-    this.checkForReset(event);
-  }
-
-  on_byPlayerPet_damage(event: DamageEvent) {
-    this.checkForReset(event);
-  }
-
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    this.checkForReset(event);
-    if (spellId !== SPELLS.A_MURDER_OF_CROWS_DEBUFF.id) {
-      return;
-    }
+  onDamage(event: DamageEvent) {
     if (this.casts === 0) {
       this.casts += 1;
       this.spellUsable.beginCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, event);
@@ -128,7 +103,7 @@ class AMurderOfCrows extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  on_fightend() {
+  adjustMaxFights() {
     this.maxCasts += Math.ceil(this.owner.fightDuration / 60000);
   }
 

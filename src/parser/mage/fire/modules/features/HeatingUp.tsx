@@ -10,11 +10,9 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD } from '../../constants';
 
 const debug = false;
-
-const FIRESTARTER_HEALTH_THRESHOLD = .90;
-const SEARING_TOUCH_HEALTH_THRESHOLD = .30;
 
 class HeatingUp extends Analyzer {
   static dependencies = {
@@ -67,7 +65,7 @@ class HeatingUp extends Analyzer {
 
     //If Combustion is active, the player is within the Firestarter execute window, or the player is in the Searing Touch execute window, then ignore the event
     //If the player had Hot Streak though, then its a mistake regardless
-    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
+    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && this.healthPercent > FIRESTARTER_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_THRESHOLD))) {
       debug && this.log("Event Ignored");
       return;
     }
@@ -95,7 +93,7 @@ class HeatingUp extends Analyzer {
 
     //If Combustion is active, the player is within the Firestarter execute window, or the player is in the Searing Touch execute window, then ignore the event
     //If the player had Hot Streak though, then its a mistake regardless
-    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
+    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && this.healthPercent > FIRESTARTER_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_THRESHOLD))) {
       debug && this.log("Event Ignored");
       return;
     }

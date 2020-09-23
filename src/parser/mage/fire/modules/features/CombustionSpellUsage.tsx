@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, BeginCastEvent, EventType } from 'parser/core/Events';
+import Events, { BeginCastEvent, CastEvent, EventType } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
@@ -50,7 +50,7 @@ class CombustionSpellUsage extends Analyzer {
       event.meta.inefficientCastReason = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
     }
 
-    if (event.type ==="begincast") {
+    if (event.type === EventType.BeginCast) {
       this.fireballCastsStarted += 1;
     }
   }

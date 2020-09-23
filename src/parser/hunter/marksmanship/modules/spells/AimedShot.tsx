@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
-import { CastEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 
 /**
  * A powerful aimed shot that deals [(248.4% of Attack power) * ((max(0, min(Level - 10, 10)) * 8 + 130) / 210)] Physical damage.
@@ -10,11 +10,12 @@ import { CastEvent } from 'parser/core/Events';
  */
 class AimedShot extends Analyzer {
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.AIMED_SHOT.id) {
-      return;
-    }
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onCast);
+  }
+
+  onCast(event: CastEvent) {
     if (event.meta === undefined) {
       event.meta = {
         isEnhancedCast: false,
@@ -30,7 +31,6 @@ class AimedShot extends Analyzer {
       event.meta.inefficientCastReason = 'Aimed Shot while having Precise Shots stacks left.';
     }
   }
-
 }
 
 export default AimedShot;

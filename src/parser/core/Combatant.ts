@@ -5,8 +5,9 @@ import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import traitIdMap from 'common/TraitIdMap';
 import corruptionIdMap from 'common/corruptionIdMap';
 import SPELLS from 'common/SPELLS';
-import { findByBossId } from 'raids/index';
-import { CombatantInfoEvent, Item, Trait } from 'parser/core/Events';
+import { findByBossId } from 'raids';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import { Buff, CombatantInfoEvent, EventType, Item, Trait } from 'parser/core/Events';
 import Entity from './Entity';
 
 export interface CombatantInfo extends CombatantInfoEvent {
@@ -25,10 +26,6 @@ type Spell = {
   id: number;
 };
 
-type Parser = {
-  players: Array<Player>;
-};
-
 type Player = {
   id: number;
   name: string;
@@ -38,6 +35,13 @@ type Player = {
   gear: any;
   auras: any;
 };
+
+export type Race = {
+  id: number,
+  mask?: number,
+  side: string,
+  name: string,
+}
 
 type Talent = {
   id: number;
@@ -66,12 +70,15 @@ class Combatant extends Entity {
   get spec() {
     return SPECS[this.specId];
   }
-  get race() {
+  get race(): Race | null {
     if (!this.owner.characterProfile) {
       return null;
     }
     const raceId = this.owner.characterProfile.race;
     let race = Object.values(RACES).find(race => race.id === raceId);
+    if(race === undefined) {
+      throw new Error(`Unknown race id ${raceId}`);
+    }
     if (!this.owner.boss) {
       return race;
     }
@@ -86,7 +93,7 @@ class Combatant extends Entity {
   }
 
   _combatantInfo: CombatantInfo;
-  constructor(parser: Parser, combatantInfo: CombatantInfoEvent) {
+  constructor(parser: CombatLogParser, combatantInfo: CombatantInfoEvent) {
     super(parser);
 
     const playerInfo = parser.players.find(
@@ -144,8 +151,12 @@ class Combatant extends Entity {
     return this._getTalent(TALENT_ROWS.LV100);
   }
 
-  hasTalent(spell: Spell) {
-    const spellId = spell instanceof Object ? spell.id : spell;
+  hasTalent(spell: number | Spell) {
+    let spellId = spell;
+    const spellObj = spell as Spell;
+    if (spellObj.id) {
+      spellId = spellObj.id;
+    }
     return Boolean(
       Object.keys(this._talentsByRow).find(
         (row: string) => this._talentsByRow[Number(row)] === spellId,
@@ -418,19 +429,22 @@ class Combatant extends Entity {
   }
   // endregion
 
-  _parsePrepullBuffs(buffs: any) {
+  _parsePrepullBuffs(buffs: Array<Buff>) {
     // TODO: We only apply prepull buffs in the `auras` prop of combatantinfo,
     // but not all prepull buffs are in there and ApplyBuff finds more. We
     // should update ApplyBuff to add the other buffs to the auras prop of the
     // combatantinfo too (or better yet, make a new normalizer for that).
     const timestamp = this.owner.fight.start_time;
-    buffs.forEach((buff: any) => {
+    buffs.forEach((buff) => {
       const spell = SPELLS[buff.ability];
       this.applyBuff({
+        type: EventType.ApplyBuff,
+        timestamp: timestamp,
         ability: {
           abilityIcon: buff.icon.replace('.jpg', ''),
           guid: buff.ability,
           name: spell ? spell.name : undefined,
+          type: 0,
         },
         sourceID: buff.source,
         targetID: this.id,

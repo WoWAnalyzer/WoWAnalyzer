@@ -1,13 +1,27 @@
+import { Race } from 'parser/core/Combatant';
+
 interface Raid {
   bosses: Array<Boss>,
 }
-
-type Boss = {
+export type Boss = {
   id: number,
-  fight: any,
-
+  name: string,
+  background?: string,
+  headshot?: string,
+  icon?: string,
+  fight: EncounterConfig,
 }
-
+type EncounterConfig = {
+  vantusRuneBuffId?: number,
+  softMitigationChecks?: {
+    physical: [],
+    magical: [],
+  },
+  phases?: { [key: string]: PhaseConfig },
+  raceTranslation?: (race: Race, spec: any) => Race,
+  disableDeathSuggestion?: boolean,
+  disableDowntimeSuggestion?: boolean,
+}
 export interface PhaseConfig {
   name: string,
   key: string,
@@ -16,7 +30,6 @@ export interface PhaseConfig {
   multiple?: boolean,
   instance?: number,
 }
-
 export interface Phase extends PhaseConfig {
   start: number[],
   end: number[],
@@ -33,11 +46,15 @@ const raids = {
 };
 export default raids;
 
-export function findByBossId(id:number) : Boss|null {
-  let boss = null;
+export function findByBossId(id: number): Boss | null {
+  let boss: Boss | null = null;
   Object.values(raids).some((raid: Raid) => {
-    boss = Object.values(raid.bosses).find(boss => boss.id === id);
-    return !!boss; // this breaks the loop early once we find a boss
+    const match = Object.values(raid.bosses).find(boss => boss.id === id);
+    if (match) {
+      boss = match;
+      return true;
+    }
+    return false;
   });
   return boss;
 }

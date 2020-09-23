@@ -11,8 +11,8 @@ import { calculateAzeriteEffects } from 'common/stats';
 
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
 
-import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const PROC_CHANCE = 0.04;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -10,7 +10,22 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
-  change(date(2020, 6, /*TODO change when ready for review */10), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),
+  change(date(2020, 10, /*TODO change when ready for review */10), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),
+  change(date(2020, 9, 22), 'Provide an EventType to Event map to make event handlers that listen to more than one event type easier to write.', Dambroda),
+  change(date(2020, 9, 22), 'Fix an issue where it wasn\'t possible to view the character page', Putro),
+  change(date(2020, 9, 21), 'Fix Armory link for characters on realms that contain spaces or apostrophes', Sharrq),
+  change(date(2020, 9, 20), 'Update Shadowlands warning with github link for feedback/suggestions', Sharrq),
+  change(date(2020, 9, 8), 'Added a warning message for Shadowlands Prepatch.', Sharrq),
+  change(date(2020, 8, 5), 'Fix an issue where changelogs wouldn\'t count in pull requests.', Putro),
+  change(date(2020, 8, 4), 'Fixed a bug causing the total fight duration field to be improperly calculated, leading to confusing downtime/death percentages', Dambroda),
+  change(date(2020, 7, 27), 'Updated contributor details to TypeScript and fixed contributor description not appearing when viewing those details', Dambroda),
+  change(date(2020, 7, 27), 'Converted core log parser and other modules to TypeScript and added strict event typechecking to event listeners.', Dambroda),
+  change(date(2020, 7, 24), 'Added missing allied races to race definitions', Dambroda),
+  change(date(2020, 7, 11), 'Added shared functionality to get an array of filtered events previous to the currently processing event.', Dambroda),
+  change(date(2020, 7, 6), <> Added support for <ItemLink id={ITEMS.SUBROUTINE_RECALIBRATION.id} />. </>, Putro),
+  change(date(2020, 6, 27), 'Initial page load performance enhancements.', Stui),
+  change(date(2020, 6, 12), 'Move various probability helpers to a shared folder.', Putro),
+  change(date(2020, 6, 11), 'Added a warning to N\'zoth fight due to the different realm phases, and the combat log errors they come with.', Putro),
   change(date(2020, 6, 10), 'Fix a crash when changing your region after selecting a realm during character search.', Dambroda),
   change(date(2020, 6, 9), <> Added debuff uptime to to the <SpellLink id={SPELLS.BLOOD_OF_THE_ENEMY.id} /> module. </>, Putro),
   change(date(2020, 6, 7), 'Moved some helper functions from class/specialization folders to a shared folder', Putro),

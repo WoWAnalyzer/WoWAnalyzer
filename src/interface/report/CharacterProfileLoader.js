@@ -8,11 +8,13 @@ const CHINESE_REGION = 'cn';
 class CharacterProfileLoader extends React.PureComponent {
   static propTypes = {
     report: PropTypes.shape({
-      exportedCharacters: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        region: PropTypes.string.isRequired,
-        server: PropTypes.string.isRequired,
-      })),
+      exportedCharacters: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          region: PropTypes.string.isRequired,
+          server: PropTypes.string.isRequired,
+        }),
+      ),
     }).isRequired,
     player: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -66,7 +68,9 @@ class CharacterProfileLoader extends React.PureComponent {
     let region;
     let realm;
     let name;
-    const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === player.name) : null;
+    const exportedCharacter = report.exportedCharacters
+      ? report.exportedCharacters.find(char => char.name === player.name)
+      : null;
     if (exportedCharacter) {
       region = exportedCharacter.region.toLowerCase();
       realm = exportedCharacter.server;
@@ -77,7 +81,14 @@ class CharacterProfileLoader extends React.PureComponent {
       }
     }
 
-    return fetch(makeCharacterApiUrl(id, region, realm, name)).then(data => data.json());
+    return fetch(makeCharacterApiUrl(id, region, realm, name))
+      .then(result => {
+        if (!result.ok) {
+          throw new Error('Request failed');
+        }
+        return result;
+      })
+      .then(data => data.json());
   }
 
   render() {

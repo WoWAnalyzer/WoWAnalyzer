@@ -12,8 +12,8 @@ import { formatPercentage, formatThousands } from 'common/format';
 
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import { findMax, poissonBinomialPMF } from 'parser/shared/modules/helpers/Probability';
 
-import { findMax, poissonBinomialPMF } from 'parser/warlock/shared/probability';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const HOG_SP_COEFFICIENT = 0.16; // taken from Simcraft SpellDataDump

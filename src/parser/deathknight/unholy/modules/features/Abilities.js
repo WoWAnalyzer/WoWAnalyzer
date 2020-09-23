@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.SUMMON_GARGOYLE_TALENT,
+        spell: [SPELLS.SUMMON_GARGOYLE_TALENT, SPELLS.DARK_ARBITER_TALENT_GLYPH],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: {
@@ -209,6 +209,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WRAITH_WALK_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DEATHS_ADVANCE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },

@@ -23,11 +23,14 @@ class News extends React.PureComponent {
   get numArticles() {
     return Object.keys(articles).length;
   }
+  get changelogEntries() {
+    return mergeAllChangelogs();
+  }
   get articlesPerPage() {
-    return 5;
+    return 50;
   }
   get pages() {
-    return Math.ceil(this.numArticles / this.articlesPerPage);
+    return Math.ceil((this.numArticles + this.changelogEntries.length) / this.articlesPerPage);
   }
   get hasOlder() {
     return this.state.page < (this.pages - 1);
@@ -67,7 +70,6 @@ class News extends React.PureComponent {
     const indexStart = this.state.page * this.articlesPerPage;
     const indexEnd = indexStart + this.articlesPerPage;
 
-    const changelogEntries = mergeAllChangelogs();
     const pageArticles = Object.values(articles)
       .sort((a, b) => b.localeCompare(a))
       .filter((_, index) => index >= indexStart && index < indexEnd)
@@ -80,13 +82,15 @@ class News extends React.PureComponent {
           article: articleName,
         };
       });
-    const lastArticle = pageArticles[pageArticles.length - 1];
-    const pageChangelogEntries = changelogEntries.filter(changeLogEntry => changeLogEntry.date > lastArticle.date);
+
+    const entries = [...pageArticles, ...this.changelogEntries]
+      .sort((a, b) => b.date - a.date)
+      .filter((_, index) => index >= indexStart && index < indexEnd);
+
 
     return (
       <div className="news">
-        {[...pageArticles, ...pageChangelogEntries]
-          .sort((a, b) => b.date - a.date)
+        {entries
           .map((item, index) => {
             if (item.article) {
               return (
