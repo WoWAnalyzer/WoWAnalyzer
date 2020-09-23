@@ -6,7 +6,7 @@ import EventFilter, {
   SELECTED_PLAYER_PET,
 } from './EventFilter';
 import { SuggestionAssertion } from './ParseResults';
-import { Event } from './Events';
+import { MappedEvent } from './Events';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
 
@@ -82,7 +82,7 @@ class Analyzer extends EventSubscriber {
     super(options);
     addLegacyEventListenerSupport(this);
   }
-  addEventListener<ET extends string, E extends Event<ET>>(
+  addEventListener<ET extends string, E extends MappedEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, E>,
   ) {

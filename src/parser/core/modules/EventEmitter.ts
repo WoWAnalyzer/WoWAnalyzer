@@ -1,5 +1,5 @@
 import ModuleError from 'parser/core/ModuleError';
-import Events, { Event, HasAbility } from '../Events';
+import Events, { HasAbility, MappedEvent } from '../Events';
 import Module from '../Module';
 import { EventListener } from '../EventSubscriber';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from '../Analyzer';
@@ -9,7 +9,7 @@ const CATCH_ALL_EVENT = 'event';
 
 const PROFILE = false;
 
-type BoundListener<ET extends string, E extends Event<ET>> = {
+type BoundListener<ET extends string, E extends MappedEvent<ET>> = {
   eventFilter: ET | EventFilter<ET>;
   module: Module;
   listener: EventListener<ET, E>;
@@ -41,7 +41,7 @@ class EventEmitter extends Module {
    * @param {function} listener
    * @param {Module} module
    */
-  addEventListener<ET extends string, T extends Event<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, T>, module: Module) {
+  addEventListener<ET extends string, T extends MappedEvent<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, T>, module: Module) {
     const eventType = eventFilter instanceof EventFilter ? eventFilter.eventType : eventFilter;
     this._eventListenersByEventType[eventType] = this._eventListenersByEventType[eventType] || [];
     this._eventListenersByEventType[eventType].push({
@@ -51,7 +51,7 @@ class EventEmitter extends Module {
     });
     this.numEventListeners += 1;
   }
-  _compileListener<ET extends string, E extends Event<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, E>, module: Module): EventListener<ET, E> {
+  _compileListener<ET extends string, E extends MappedEvent<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, E>, module: Module): EventListener<ET, E> {
     listener = this._prependCounter(listener);
     if (eventFilter instanceof EventFilter) {
       listener = this._prependFilters(eventFilter, listener);
@@ -62,20 +62,20 @@ class EventEmitter extends Module {
   }
 
   numActualExecutions = 0;
-  _prependCounter<ET extends string, E extends Event<ET>>(listener: EventListener<ET, E>): EventListener<ET, E> {
+  _prependCounter<ET extends string, E extends MappedEvent<ET>>(listener: EventListener<ET, E>): EventListener<ET, E> {
     return event => {
       this.numActualExecutions += 1;
       listener(event);
     };
   }
-  _prependActiveCheck<ET extends string, E extends Event<ET>>(listener: EventListener<ET, E>, module: Module): EventListener<ET, E> {
+  _prependActiveCheck<ET extends string, E extends MappedEvent<ET>>(listener: EventListener<ET, E>, module: Module): EventListener<ET, E> {
     return function(event: E) {
       if (module.active) {
         listener(event);
       }
     };
   }
-  _prependFilters<ET extends string, E extends Event<ET>>(eventFilter: EventFilter<ET>, listener: EventListener<ET, E>): EventListener<ET, E> {
+  _prependFilters<ET extends string, E extends MappedEvent<ET>>(eventFilter: EventFilter<ET>, listener: EventListener<ET, E>): EventListener<ET, E> {
     const by = eventFilter.getBy();
     if (by) {
       listener = this._prependByCheck(listener, by);
@@ -91,7 +91,7 @@ class EventEmitter extends Module {
     return listener;
   }
 
-  createByCheck<ET extends string, E extends Event<ET>>(by: number): ((event: E) => boolean) | null {
+  createByCheck<ET extends string, E extends MappedEvent<ET>>(by: number): ((event: E) => boolean) | null {
     const requiresSelectedPlayer = by & SELECTED_PLAYER;
     const requiresSelectedPlayerPet = by & SELECTED_PLAYER_PET;
 
@@ -105,7 +105,7 @@ class EventEmitter extends Module {
       return null;
     }
   }
-  _prependByCheck<ET extends string, E extends Event<ET>>(listener: EventListener<ET, E>, by: number): EventListener<ET, E> {
+  _prependByCheck<ET extends string, E extends MappedEvent<ET>>(listener: EventListener<ET, E>, by: number): EventListener<ET, E> {
     const check = this.createByCheck(by);
     if (!check) {
       return listener;
@@ -118,7 +118,7 @@ class EventEmitter extends Module {
     };
   }
 
-  createToCheck<ET extends string>(to: number): ((event: Event<ET>) => boolean) | null {
+  createToCheck<ET extends string>(to: number): ((event: MappedEvent<ET>) => boolean) | null {
     const requiresSelectedPlayer = to & SELECTED_PLAYER;
     const requiresSelectedPlayerPet = to & SELECTED_PLAYER_PET;
     if (requiresSelectedPlayer && requiresSelectedPlayerPet) {
@@ -131,7 +131,7 @@ class EventEmitter extends Module {
       return null;
     }
   }
-  _prependToCheck<ET extends string, E extends Event<ET>>(listener: EventListener<ET, E>, to: number): EventListener<ET, E> {
+  _prependToCheck<ET extends string, E extends MappedEvent<ET>>(listener: EventListener<ET, E>, to: number): EventListener<ET, E> {
     const check = this.createToCheck(to);
     if (!check) {
       return listener;
@@ -143,7 +143,7 @@ class EventEmitter extends Module {
     };
   }
 
-  createSpellCheck<ET extends string, E extends Event<ET>>(spell: SpellFilter): ((event: E) => boolean) {
+  createSpellCheck<ET extends string, E extends MappedEvent<ET>>(spell: SpellFilter): ((event: E) => boolean) {
     if (spell instanceof Array) {
       return event => HasAbility(event) && spell.some(s => s.id === event.ability.guid);
     }
@@ -151,7 +151,7 @@ class EventEmitter extends Module {
     return event => HasAbility(event) && event.ability.guid === spellId;
   }
 
-  _prependSpellCheck<ET extends string, E extends Event<ET>>(listener: EventListener<ET, E>, spell: SpellFilter): EventListener<ET, E> {
+  _prependSpellCheck<ET extends string, E extends MappedEvent<ET>>(listener: EventListener<ET, E>, spell: SpellFilter): EventListener<ET, E> {
     const check = this.createSpellCheck(spell);
     return function(event: E) {
       if (check(event)) {
@@ -163,7 +163,7 @@ class EventEmitter extends Module {
   numTriggeredEvents = 0;
   numListenersCalled = 0;
   _isHandlingEvent = false;
-  triggerEvent<ET extends string, E extends Event<ET>>(event: E) {
+  triggerEvent<ET extends string, E extends MappedEvent<ET>>(event: E) {
     if (process.env.NODE_ENV === 'development') {
       this._validateEvent(event);
     }
@@ -216,7 +216,7 @@ class EventEmitter extends Module {
   }
 
   timePerModule!: Map<Module, number>;
-  profile<ET extends string, E extends Event<ET>>(run: (options: BoundListener<ET, E>) => void) {
+  profile<ET extends string, E extends MappedEvent<ET>>(run: (options: BoundListener<ET, E>) => void) {
     return (options: BoundListener<ET, E>) => {
       const start = performance.now();
       run(options);
