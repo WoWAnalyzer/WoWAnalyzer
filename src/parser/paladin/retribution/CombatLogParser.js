@@ -20,8 +20,8 @@ import HammerofWrath from './modules/core/HammerofWrath';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
 
-import HolyPowerTracker from './modules/holypower/HolyPowerTracker';
-import HolyPowerDetails from './modules/holypower/HolyPowerDetails';
+import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
+import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
