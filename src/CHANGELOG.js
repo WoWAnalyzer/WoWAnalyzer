@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 9, 22), 'Provide an EventType to Event map to make event handlers that listen to more than one event type easier to write.', Dambroda),
   change(date(2020, 8, 5), 'Fix an issue where changelogs wouldn\'t count in pull requests.', Putro),
   change(date(2020, 8, 4), 'Fixed a bug causing the total fight duration field to be improperly calculated, leading to confusing downtime/death percentages', Dambroda),
   change(date(2020, 7, 27), 'Updated contributor details to TypeScript and fixed contributor description not appearing when viewing those details', Dambroda),
