@@ -6,7 +6,7 @@ import traitIdMap from 'common/TraitIdMap';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { Buff, CombatantInfoEvent, EventType, Item, Trait } from 'parser/core/Events';
+import { Buff, CombatantInfoEvent, EventType, Item, Trait, Soulbind, Conduit, Covenant } from 'parser/core/Events';
 import Entity from './Entity';
 
 export interface CombatantInfo extends CombatantInfoEvent {
@@ -50,22 +50,26 @@ class Combatant extends Entity {
   get id() {
     return this._combatantInfo.sourceID;
   }
+
   get name() {
     return this._combatantInfo.name;
   }
+
   get specId() {
     return this._combatantInfo.specID;
   }
+
   get spec() {
     return SPECS[this.specId];
   }
+
   get race(): Race | null {
     if (!this.owner.characterProfile) {
       return null;
     }
     const raceId = this.owner.characterProfile.race;
     let race = Object.values(RACES).find(race => race.id === raceId);
-    if(race === undefined) {
+    if (race === undefined) {
       throw new Error(`Unknown race id ${raceId}`);
     }
     if (!this.owner.boss) {
@@ -77,11 +81,13 @@ class Combatant extends Entity {
     }
     return race;
   }
+
   get characterProfile() {
     return this.owner.characterProfile;
   }
 
   _combatantInfo: CombatantInfo;
+
   constructor(parser: CombatLogParser, combatantInfo: CombatantInfoEvent) {
     super(parser);
 
@@ -106,35 +112,45 @@ class Combatant extends Entity {
 
   // region Talents
   _talentsByRow: { [key: number]: number } = {};
+
   _parseTalents(talents: Array<Talent>) {
     talents.forEach(({ id }, index: number) => {
       this._talentsByRow[index] = id;
     });
   }
+
   get talents() {
     return Object.values(this._talentsByRow);
   }
+
   _getTalent(row: number) {
     return this._talentsByRow[row];
   }
+
   get lv15Talent() {
     return this._getTalent(TALENT_ROWS.LV15);
   }
+
   get lv30Talent() {
     return this._getTalent(TALENT_ROWS.LV30);
   }
+
   get lv45Talent() {
     return this._getTalent(TALENT_ROWS.LV45);
   }
+
   get lv60Talent() {
     return this._getTalent(TALENT_ROWS.LV60);
   }
+
   get lv75Talent() {
     return this._getTalent(TALENT_ROWS.LV75);
   }
+
   get lv90Talent() {
     return this._getTalent(TALENT_ROWS.LV90);
   }
+
   get lv100Talent() {
     return this._getTalent(TALENT_ROWS.LV100);
   }
@@ -156,6 +172,7 @@ class Combatant extends Entity {
 
   // region Traits
   traitsBySpellId: { [key: number]: Array<number> } = {};
+
   _parseTraits(traits: Array<Trait>) {
     traits.forEach(({ traitID, rank }) => {
       const spellId = traitIdMap[traitID];
@@ -168,16 +185,20 @@ class Combatant extends Entity {
       this.traitsBySpellId[spellId].push(rank);
     });
   }
+
   hasTrait(spellId: number) {
     return Boolean(this.traitsBySpellId[spellId]);
   }
+
   traitRanks(spellId: number) {
     return this.traitsBySpellId[spellId];
   }
+
   // endregion
 
   // region Essences
   essencesByTraitID: { [key: number]: Essence } = {};
+
   _parseEssences(essences: Array<Essence>) {
     if (essences === undefined) {
       return;
@@ -191,105 +212,196 @@ class Combatant extends Entity {
       // traitID:int}
     });
   }
+
   hasEssence(traitId: number) {
     return Boolean(this.essencesByTraitID[traitId]);
   }
+
   hasMajor(traitId: number) {
     return this.essencesByTraitID[traitId] &&
       this.essencesByTraitID[traitId].isMajor;
   }
+
   essenceRank(traitId: number) {
-    return (
-      this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].rank
-    );
+    return this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].rank;
   }
+
   // endregion
+
+  //region Shadowlands Systems
+
+  //region Covenants
+  covenantsByCovenantID: { [key: number]: Covenant } = {};
+
+  _parseCovenants(covenants: Array<Covenant>) {
+    if (!covenants) {
+      return;
+    }
+    covenants.forEach((covenant: Covenant) => {
+      this.covenantsByCovenantID[covenant.id] = covenant;
+    });
+  }
+
+  hasCovenant(covenantId: number) {
+    return Boolean(this.covenantsByCovenantID[covenantId]);
+  }
+
+  //endregion
+
+  //region Soulbinds
+  soulbindsBySoulbindID: { [key: number]: Soulbind } = {};
+
+  _parseSoulbinds(soulbinds: Array<Soulbind>) {
+    if (!soulbinds) {
+      return;
+    }
+    soulbinds.forEach((soulbind: Soulbind) => {
+      this.soulbindsBySoulbindID[soulbind.id] = soulbind;
+    });
+  }
+
+  hasSoulbind(soulbindId: number) {
+    return Boolean(this.soulbindsBySoulbindID[soulbindId]);
+  }
+
+  //endregion
+
+  //region Conduits
+  conduitsByConduitID: { [key: number]: Conduit } = {};
+
+  _parseConduits(conduits: Array<Conduit>) {
+    if (!conduits) {
+      return;
+    }
+    conduits.forEach((conduit: Conduit) => {
+      this.conduitsByConduitID[conduit.id] = conduit;
+    });
+  }
+
+  hasConduit(conduitId: number) {
+    return Boolean(this.conduitsByConduitID[conduitId]);
+  }
+
+  conduitRank(conduitID: number) {
+    return this.conduitsByConduitID[conduitID] && this.conduitsByConduitID[conduitID].rank;
+  }
+
+  //endregion
+
+  //endregion
 
   // region Gear
   _gearItemsBySlotId: { [key: number]: Item } = {};
+
   _parseGear(gear: Array<Item>) {
     gear.forEach((item, index) => {
       this._gearItemsBySlotId[index] = item;
     });
   }
+
   _getGearItemBySlotId(slotId: number) {
     return this._gearItemsBySlotId[slotId];
   }
+
   _getGearItemGemsBySlotId(slotId: number) {
     if (this._gearItemsBySlotId[slotId]) {
       return this._gearItemsBySlotId[slotId].gems;
     }
     return undefined;
   }
+
   get gear() {
     return Object.values(this._gearItemsBySlotId);
   }
+
   get head() {
     return this._getGearItemBySlotId(GEAR_SLOTS.HEAD);
   }
+
   hasHead(itemId: number) {
     return this.head && this.head.id === itemId;
   }
+
   get neck() {
     return this._getGearItemBySlotId(GEAR_SLOTS.NECK);
   }
+
   hasNeck(itemId: number) {
     return this.neck && this.neck.id === itemId;
   }
+
   get shoulder() {
     return this._getGearItemBySlotId(GEAR_SLOTS.SHOULDER);
   }
+
   hasShoulder(itemId: number) {
     return this.shoulder && this.shoulder.id === itemId;
   }
+
   get back() {
     return this._getGearItemBySlotId(GEAR_SLOTS.BACK);
   }
+
   hasBack(itemId: number) {
     return this.back && this.back.id === itemId;
   }
+
   get chest() {
     return this._getGearItemBySlotId(GEAR_SLOTS.CHEST);
   }
+
   hasChest(itemId: number) {
     return this.chest && this.chest.id === itemId;
   }
+
   get wrists() {
     return this._getGearItemBySlotId(GEAR_SLOTS.WRISTS);
   }
+
   hasWrists(itemId: number) {
     return this.wrists && this.wrists.id === itemId;
   }
+
   get hands() {
     return this._getGearItemBySlotId(GEAR_SLOTS.HANDS);
   }
+
   hasHands(itemId: number) {
     return this.hands && this.hands.id === itemId;
   }
+
   get waist() {
     return this._getGearItemBySlotId(GEAR_SLOTS.WAIST);
   }
+
   hasWaist(itemId: number) {
     return this.waist && this.waist.id === itemId;
   }
+
   get legs() {
     return this._getGearItemBySlotId(GEAR_SLOTS.LEGS);
   }
+
   hasLegs(itemId: number) {
     return this.legs && this.legs.id === itemId;
   }
+
   get feet() {
     return this._getGearItemBySlotId(GEAR_SLOTS.FEET);
   }
+
   hasFeet(itemId: number) {
     return this.feet && this.feet.id === itemId;
   }
+
   get finger1() {
     return this._getGearItemBySlotId(GEAR_SLOTS.FINGER1);
   }
+
   get finger2() {
     return this._getGearItemBySlotId(GEAR_SLOTS.FINGER2);
   }
+
   getFinger(itemId: number) {
     if (this.finger1 && this.finger1.id === itemId) {
       return this.finger1;
@@ -300,15 +412,19 @@ class Combatant extends Entity {
 
     return undefined;
   }
+
   hasFinger(itemId: number) {
     return this.getFinger(itemId) !== undefined;
   }
+
   get trinket1() {
     return this._getGearItemBySlotId(GEAR_SLOTS.TRINKET1);
   }
+
   get trinket2() {
     return this._getGearItemBySlotId(GEAR_SLOTS.TRINKET2);
   }
+
   getTrinket(itemId: number) {
     if (this.trinket1 && this.trinket1.id === itemId) {
       return this.trinket1;
@@ -319,21 +435,27 @@ class Combatant extends Entity {
 
     return undefined;
   }
+
   hasTrinket(itemId: number) {
     return this.getTrinket(itemId) !== undefined;
   }
+
   hasMainHand(itemId: number) {
     return this.mainHand && this.mainHand.id === itemId;
   }
+
   get mainHand() {
     return this._getGearItemBySlotId(GEAR_SLOTS.MAINHAND);
   }
+
   hasOffHand(itemId: number) {
     return this.offHand && this.offHand.id === itemId;
   }
+
   get offHand() {
     return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
+
   // Punchcards are insertable items for the Pocket Sized Computation Device
   // trinket The PSCD never has actual gems in it, since it is a one-time quest
   // reward
@@ -342,11 +464,13 @@ class Combatant extends Entity {
       this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET1) || undefined;
     return punchcard;
   }
+
   get trinket2Punchcard() {
     const punchcard =
       this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET2) || undefined;
     return punchcard;
   }
+
   // Red punchcard is always the first in the array
   getRedPunchcard(id: number) {
     if (this.trinket1Punchcard && this.trinket1Punchcard[0].id === id) {
@@ -358,9 +482,11 @@ class Combatant extends Entity {
 
     return undefined;
   }
+
   hasRedPunchcard(id: number) {
     return this.getRedPunchcard(id) !== undefined;
   }
+
   // Yellow punchcard is always second
   getYellowPunchcard(id: number) {
     if (this.trinket1Punchcard && this.trinket1Punchcard[1].id === id) {
@@ -372,14 +498,17 @@ class Combatant extends Entity {
 
     return undefined;
   }
+
   hasYellowPunchcard(id: number) {
     return this.getYellowPunchcard(id) !== undefined;
   }
+
   getItem(itemId: number) {
     return Object.keys(this._gearItemsBySlotId)
       .map((key: any) => this._gearItemsBySlotId[key])
       .find((item: Item) => item.id === itemId);
   }
+
   // endregion
 
   _parsePrepullBuffs(buffs: Array<Buff>) {
