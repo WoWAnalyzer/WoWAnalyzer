@@ -49,7 +49,7 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
 
       <Rule
         name="Maintain your buffs"
-        description="You should maintain your buffs in order to passivly increase your damage done to targets without refreshing them to early."
+        description="You should maintain your buffs in order to passively increase your damage done to targets without refreshing them too early."
       >
         <Requirement name={<> <SpellLink id={SPELLS.FLAMETONGUE.id} /> uptime</>} thresholds={thresholds.flametongueUptime} />
         {!combatant.hasTalent(SPELLS.SEARING_ASSAULT_TALENT.id) &&
