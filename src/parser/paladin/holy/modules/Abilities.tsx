@@ -290,6 +290,14 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
+        spell: SPELLS.HAMMER_OF_WRATH,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: haste => 7.5 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.HOLY_LIGHT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
