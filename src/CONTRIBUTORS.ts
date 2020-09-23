@@ -873,3 +873,13 @@ export const Tiphess: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/tjphess',
   }],
 };
+export const MusicMeister: Contributor = {
+  nickname: 'MusicMeister',
+  github: 'TheMusicMeister',
+  discord: 'The Music Meister#8236',
+  mains: [{
+    name: 'Leviisa',
+    spec: SPECS.ENHANCEMENT_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/illidan/leviisa',
+  }],
+};
