@@ -290,6 +290,14 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
+        spell: SPELLS.HAMMER_OF_WRATH,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: haste => 7.5 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.HOLY_LIGHT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
@@ -421,6 +429,19 @@ class Abilities extends CoreAbilities {
         cooldown: 8,
         gcd: undefined,
         timelineSortIndex: 106,
+      },
+      {
+        spell: SPELLS.SERAPHIM_TALENT,
+        buffSpellId: SPELLS.SERAPHIM_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.SERAPHIM_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
     ];
   }

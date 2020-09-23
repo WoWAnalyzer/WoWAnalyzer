@@ -892,6 +892,103 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                href="http://wowhead.com/spell=24275"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_paladin_hammerofwrath.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Hammer of Wrath
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /54
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
                 href="http://wowhead.com/spell=204035"
                 rel="noopener noreferrer"
                 style={
@@ -3748,6 +3845,152 @@ Array [
       )
     </React.Fragment>,
   },
+]
+`;
+
+exports[`Protection Paladin integration test: example log HolyPowerDetails matches the statistic snapshot 1`] = `
+Array [
+  <div
+    className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  >
+    <div
+      className="panel statistic small "
+      position={4}
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="flex boring-value "
+        >
+          <div
+            className="flex-sub icon"
+          >
+            <a
+              href="http://wowhead.com/holy-power"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+               
+              <img
+                alt="Holy Power"
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/achievement_bg_winsoa.jpg"
+              />
+            </a>
+          </div>
+          <div
+            className="flex-main value"
+          >
+            <div>
+              0
+            </div>
+            <small>
+              Holy Power Wasted
+            </small>
+          </div>
+        </div>
+      </div>
+      <div
+        className="detail-corner"
+        data-place="top"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+      >
+        <svg
+          className="icon"
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="panel "
+  >
+    <div
+      className="panel-heading"
+    >
+      <h1
+        style={
+          Object {
+            "position": "relative",
+          }
+        }
+      >
+        <a
+          href="#Holy power usage"
+          id="Holy power usage"
+        >
+          Holy power usage
+        </a>
+      </h1>
+    </div>
+    <div
+      className="panel-body "
+    >
+      <table
+        className="data-table"
+      >
+        <thead>
+          <tr>
+            <th>
+              Ability
+            </th>
+            <th
+              colSpan="2"
+            >
+              Holy Power
+               generated
+            </th>
+            <th
+              colSpan="2"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                Holy Power
+                 wasted
+              </dfn>
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+      <table
+        className="data-table"
+      >
+        <thead>
+          <tr>
+            <th>
+              Ability
+            </th>
+            <th
+              colSpan="2"
+            >
+              Holy Power
+               spent
+            </th>
+            <th
+              colSpan="2"
+            >
+              Casts
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+    </div>
+  </div>,
 ]
 `;
 
