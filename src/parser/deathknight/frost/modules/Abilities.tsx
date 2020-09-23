@@ -4,9 +4,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       // COOLDOWNS
