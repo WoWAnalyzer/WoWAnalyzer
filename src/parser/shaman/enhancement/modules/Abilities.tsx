@@ -47,6 +47,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: false,
+        },
       },
       {
         spell: SPELLS.EARTHEN_SPIKE_TALENT,
