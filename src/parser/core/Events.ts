@@ -549,6 +549,29 @@ export interface Trait {
   isMajor: boolean;
 }
 
+export interface Covenant {
+  name: string;
+  description: string;
+  id: number;
+}
+
+export interface Soulbind {
+  name: string;
+  id: number;
+  covenantID: number;
+  garrisonTalentTreeId: number;
+}
+
+export interface Conduit {
+  id: number;
+  rank: number;
+  spellID: number;
+  name: string;
+  soulbindConduitID: number;
+  spellModifier: number;
+  icon: string;
+}
+
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   pin: string;
   sourceID: number;
