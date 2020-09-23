@@ -12,29 +12,15 @@ import { TooltipElement } from 'common/Tooltip';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
 class InvokeYulon extends Analyzer {
-  petID = null;
   soothHealing = 0;
   envelopHealing = 0;
 
   constructor(...args) {
     super(...args);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id);
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
-      this.handleEnvelopingBreath,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH),
-      this.handleSoothingBreath,
-    );
-    this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_YULON_THE_JADE_SERPENT),
-      this.handleSummon,
-    );
-  }
-
-  handleSummon(event) {
-    this.petID = event.targetID;
+    if (!this.active) return;
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.handleEnvelopingBreath);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH), this.handleSoothingBreath);
   }
 
   handleEnvelopingBreath(event) {
