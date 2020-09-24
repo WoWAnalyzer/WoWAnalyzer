@@ -1,11 +1,11 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 // Example Log: /report/mWZ6TG9JgjPQVdbA/9-Mythic+Zek'voz+-+Kill+(7:24)/1-Allyseia`Ø
 class DivineStar extends Analyzer {
@@ -54,7 +54,7 @@ class DivineStar extends Analyzer {
           </>
         )}
         tooltip={`Divine Stars Cast: ${this.divineStarCasts}`}
-        position={STATISTIC_ORDER.CORE(6)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
     );
   }

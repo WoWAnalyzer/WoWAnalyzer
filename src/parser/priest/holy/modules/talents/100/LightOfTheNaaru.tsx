@@ -1,11 +1,11 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 // Example Log: /report/Gvxt7CgLya2W1TYj/5-Normal+Zek'voz+-+Kill+(3:57)/13-弥砂丶
 class LightOfTheNaaru extends Analyzer {
@@ -35,7 +35,7 @@ class LightOfTheNaaru extends Analyzer {
             Chastise: {Math.ceil(this.chastise.lightOfTheNaaruCooldownReduction / 1000)}s CDR
           </>
         )}
-        position={STATISTIC_ORDER.CORE(7)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
 
     );

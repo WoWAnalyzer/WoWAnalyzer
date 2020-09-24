@@ -1,11 +1,11 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import ItemManaGained from 'interface/ItemManaGained';
 import SpellLink from 'common/SpellLink';
 import { CastEvent, ChangeBuffStackEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 // Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
 class SurgeOfLight extends Analyzer {
@@ -70,7 +70,7 @@ class SurgeOfLight extends Analyzer {
           </>
         )}
         tooltip={`${this.solFlashHeals}/${this.solStacksGained} Surge of Light buffs used`}
-        position={STATISTIC_ORDER.CORE(5)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
     );
   }

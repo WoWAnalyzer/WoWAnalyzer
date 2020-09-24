@@ -1,9 +1,9 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import { CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const DESPERATE_PRAYER_BASE_COOLDOWN = 90000;
 
@@ -39,7 +39,7 @@ class AngelsMercy extends Analyzer {
         talent={SPELLS.ANGELS_MERCY_TALENT.id}
         value={`${Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used`}
         tooltip={`Desperate Prayers cast: ${this.desperatePrayersCast}`}
-        position={STATISTIC_ORDER.CORE(2)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
     );
   }

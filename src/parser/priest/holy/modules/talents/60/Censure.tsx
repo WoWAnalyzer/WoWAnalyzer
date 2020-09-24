@@ -1,9 +1,9 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class Censure extends Analyzer {
@@ -46,7 +46,7 @@ class Censure extends Analyzer {
             {this.censureStuns} Chastise Stuns<br />
           </>
         )}
-        position={STATISTIC_ORDER.CORE(4)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
 
     );

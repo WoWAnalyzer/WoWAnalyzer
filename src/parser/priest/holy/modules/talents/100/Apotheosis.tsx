@@ -1,6 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
@@ -9,6 +8,7 @@ import { formatNumber } from 'common/format';
 import ItemManaGained from 'interface/ItemManaGained';
 import { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 // Example Log: /report/NfFqTvxrQ8GLWDpY/12-Normal+Fetid+Devourer+-+Kill+(1:25)/6-Yrret
 class Apotheosis extends Analyzer {
@@ -61,7 +61,7 @@ class Apotheosis extends Analyzer {
             Chastise: {this.chastise.apotheosisCooldownReduction / 1000}s CDR | {this.chastise.apotheosisManaReduction} Mana saved
           </>
         )}
-        position={STATISTIC_ORDER.CORE(7)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
 
     );

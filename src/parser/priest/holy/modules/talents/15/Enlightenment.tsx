@@ -1,10 +1,10 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import SpiritOfRedemption from 'parser/priest/holy/modules/spells/SpiritOfRedemption';
 import ItemManaGained from 'interface/ItemManaGained';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const MAX_MANA = 100000;
 const BASE_MANA_REGEN = .04;
@@ -37,7 +37,7 @@ class Enlightenment extends Analyzer {
         value={(
           <ItemManaGained amount={this.enlightenmentMana} />
         )}
-        position={STATISTIC_ORDER.CORE(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
 
     );

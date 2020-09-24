@@ -1,11 +1,11 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatPercentage, formatThousands } from 'common/format';
 import { CastEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class BindingHeal extends Analyzer {
@@ -74,7 +74,7 @@ class BindingHeal extends Analyzer {
             Party Healing: {formatThousands(this.bindingHealPartyHealing)} ({formatPercentage(this.getOverhealPercent(this.bindingHealPartyHealing, this.bindingHealPartyOverhealing))}% OH)
           </>
         )}
-        position={STATISTIC_ORDER.CORE(5)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
 
     );

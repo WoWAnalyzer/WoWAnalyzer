@@ -1,10 +1,10 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const GS_BASE_COOLDOWN_TIME = (60 * 3) * 1000;
 const GS_MODIFIED_COOLDOWN_TIME = (60 + 10) * 1000; // one minute plus 10 seconds to account for the duration of the buff.
@@ -42,7 +42,7 @@ class GuardianAngel extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT), this._parseGsRemove);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT), this._parseGsRemove);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT), this._parseGsHeal);
   }
 
@@ -70,7 +70,7 @@ class GuardianAngel extends Analyzer {
             You could have theoretically cast Guardian Spirit {this.gsGuardianSpiritCastsPossible - this.guardianSpiritCastCount} more times.
           </>
         )}
-        position={STATISTIC_ORDER.CORE(3)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
     );
   }

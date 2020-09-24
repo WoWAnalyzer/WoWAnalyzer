@@ -1,9 +1,9 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 // Example Log: /report/nWVBjGLrDQvahH7M/15-Mythic+Taloc+-+Kill+(6:50)/3-Claver
 class PsychicVoice extends Analyzer {
@@ -34,7 +34,7 @@ class PsychicVoice extends Analyzer {
       <Statistic
         talent={SPELLS.PSYCHIC_VOICE_TALENT.id}
         value={`${this.psychicScreamHits} Targets Feared`}
-        position={STATISTIC_ORDER.CORE(4)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
     );
   }

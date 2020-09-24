@@ -1,9 +1,9 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class AngelicFeather extends Analyzer {
@@ -36,7 +36,7 @@ class AngelicFeather extends Analyzer {
       <Statistic
         talent={SPELLS.ANGELIC_FEATHER_TALENT.id}
         value={`${this.angelicFeatherCasts} Feather(s) cast`}
-        position={STATISTIC_ORDER.CORE(2)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
     );
   }

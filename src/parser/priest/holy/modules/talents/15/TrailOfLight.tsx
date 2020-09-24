@@ -2,10 +2,10 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 // Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
 class TrailOfLight extends Analyzer {
@@ -33,7 +33,7 @@ class TrailOfLight extends Analyzer {
         talent={SPELLS.TRAIL_OF_LIGHT_TALENT.id}
         value={<ItemHealingDone amount={this.totalToLHealing} />}
         tooltip={`Trail of Light Procs: ${this.totalToLProcs}`}
-        position={STATISTIC_ORDER.CORE(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
       />
     );
   }

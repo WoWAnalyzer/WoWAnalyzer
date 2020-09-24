@@ -1,5 +1,5 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
@@ -12,10 +12,15 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
 const DEBUG = false;
 const CUTOFF_PERCENT = .01;
+
+interface EoLHealEvent extends HealEvent{
+  eolCritAmount: number;
+}
 
 class EchoOfLightMastery extends Analyzer {
   static dependencies = {
@@ -31,7 +36,17 @@ class EchoOfLightMastery extends Analyzer {
   // All healing done by spells that can proc mastery
   masteryHealingBySpell: any = {};
   // The eol pools currently on a target
-  targetMasteryPool: any = {};
+  targetMasteryPool: {
+    [targetId: number]: {
+      pendingHealingTotal: number,
+      pendingHealingBySpell: {
+        [spellId: number]: number
+      },
+      remainingTicks: number,
+      applicationTime: number,
+      pendingCritTotal: number,
+    }
+  } = {};
   // The test value so we can see how accurate our EoL values are
   testValues = {
     effectiveHealing: 0,
@@ -73,7 +88,7 @@ class EchoOfLightMastery extends Analyzer {
     return this.masteryHealingBySpell[spellId].overHealing / this.masteryHealingBySpell[spellId].rawHealing;
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  on_byPlayer_heal(event: EoLHealEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.ECHO_OF_LIGHT_HEAL.id) {
       this.handleEolTick(event);
@@ -92,6 +107,8 @@ class EchoOfLightMastery extends Analyzer {
 
     if (!this.targetMasteryPool[targetId]) {
       this.targetMasteryPool[targetId] = {
+        remainingTicks: 0,
+        applicationTime: 0,
         pendingHealingTotal: 0,
         pendingHealingBySpell: {},
         pendingCritTotal: 0,
@@ -110,7 +127,8 @@ class EchoOfLightMastery extends Analyzer {
     }
   }
 
-  handleEolTick(event: HealEvent) {
+
+  handleEolTick(event: EoLHealEvent) {
     const targetId = event.targetID;
 
     // As far as I can tell, this happens when the combat log is out of order. You shouldn't receive a tick of EoL without a target having a buff apply event.
@@ -136,7 +154,9 @@ class EchoOfLightMastery extends Analyzer {
 
     const rawCritValue = ((this.targetMasteryPool[targetId].pendingCritTotal || 0) * poolDrainPercent);
     const effectiveCritValue = rawCritValue - tickOverhealing;
-    this.targetMasteryPool[targetId].pendingCritTotal -= rawCritValue;
+      this.targetMasteryPool[targetId].pendingCritTotal -= rawCritValue;
+
+
     if (effectiveCritValue > 0) {
       event.eolCritAmount = effectiveCritValue;
     }
@@ -184,6 +204,8 @@ class EchoOfLightMastery extends Analyzer {
     if (spellId === SPELLS.ECHO_OF_LIGHT_HEAL.id) {
       if (!this.targetMasteryPool[targetId]) {
         this.targetMasteryPool[targetId] = {
+          applicationTime: 0,
+          remainingTicks: 0,
           pendingHealingTotal: 0,
           pendingHealingBySpell: {},
           pendingCritTotal: 0,
@@ -262,7 +284,7 @@ class EchoOfLightMastery extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT_MASTERY.id} />}
         value={(
@@ -298,7 +320,7 @@ class EchoOfLightMastery extends Analyzer {
             {this.masteryTable}
           </tbody>
         </table>
-      </StatisticBox>
+      </Statistic>
     );
   }
 }
