@@ -14,7 +14,7 @@ import MarrowrendUsage from './../MarrowrendUsage';
 import DeathsCaress from '../../core/DeathsCaress';
 import BoneStorm from '../../talents/Bonestorm';
 import MarkOfBloodUptime from '../../talents/MarkOfBlood';
-import Ossuary from '../../talents/Ossuary';
+import Ossuary from '../Ossuary';
 import Consumption from '../../talents/Consumption';
 import RunicPowerDetails from '../../runicpower/RunicPowerDetails';
 import RuneTracker from '../../../../shared/RuneTracker';

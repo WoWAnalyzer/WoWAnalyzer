@@ -265,8 +265,9 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.BLOOD_TAP,
+        spell: SPELLS.BLOOD_TAP_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.BLOOD_TAP_TALENT.id),
         cooldown: 60,
         charges: 2,
         castEfficiency: {
