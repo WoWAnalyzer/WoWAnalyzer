@@ -25,12 +25,12 @@ class SharpshootersFocus extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.SHARPSHOOTERS_FOCUS_CONDUIT.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = 1; //TODO: Find out the proper way of parsing conduit ranks
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SHARPSHOOTERS_FOCUS_CONDUIT.id);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onTrueshotApply);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onTrueshotRemove);

@@ -13,6 +13,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import { formatPercentage } from 'common/format';
 import CritIcon from 'interface/icons/CriticalStrike';
 import { RESONATING_ARROW_CRIT_INCREASE } from 'parser/hunter/shared/constants';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class ResonatingArrow extends Analyzer {
   static dependencies = {
@@ -26,7 +27,7 @@ class ResonatingArrow extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
     if (!this.active) {
       return;
     }

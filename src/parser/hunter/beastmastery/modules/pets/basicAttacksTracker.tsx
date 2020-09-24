@@ -18,10 +18,10 @@ const debug = false;
 class BasicAttacks extends Analyzer {
 
   lastCast: number = 0;
-  timeBetweenAttacks = 0;
-  totalCasts = 0;
-  chainCasts = 0;
-  damage = 0;
+  timeBetweenAttacks: number = 0;
+  totalCasts: number = 0;
+  chainCasts: number = 0;
+  damage: number = 0;
   //Assume that the usedBasicAttack is Bite, so that there are no issues if no Basic Attack have been cast this fight
   usedBasicAttack: { id: number, name: string, icon: string } = SPELLS.BITE_BASIC_ATTACK;
   basicAttackChecked: boolean = false;

@@ -63,9 +63,9 @@ const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: any) =
 
         <Requirement name={<><SpellLink id={SPELLS.HUNTERS_MARK.id} /> debuff uptime</>} thresholds={thresholds.huntersMarkThresholds} />
 
-        {combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id) && <Requirement name={<><SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> uptime</>} thresholds={thresholds.uptimeThreshold} />}
+        {combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id) && <Requirement name={<><SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> uptime</>} thresholds={thresholds.serpentStingUptimeThresholds} />}
 
-        {combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id) && <Requirement name={<>Refreshes of <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> that didn't pandemic </>} thresholds={thresholds.nonPandemicThreshold} />}
+        {combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id) && <Requirement name={<>Refreshes of <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> that didn't pandemic </>} thresholds={thresholds.serpentStingNonPandemicThresholds} />}
 
         {combatant.hasTalent(SPELLS.CALLING_THE_SHOTS_TALENT.id) && <Requirement name={<><SpellLink id={SPELLS.CALLING_THE_SHOTS_TALENT.id} /> CDR efficiency </>} thresholds={thresholds.callingTheShotsThresholds} />}
 

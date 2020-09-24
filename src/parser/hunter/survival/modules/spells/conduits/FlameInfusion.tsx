@@ -27,12 +27,12 @@ class FlameInfusion extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.FLAME_INFUSION_CONDUIT.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = 1; //TODO: Find out the proper way of parsing conduit ranks
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FLAME_INFUSION_CONDUIT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_GUERRILLA_TACTICS), this.onBombImpact);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyFlameInfusion);

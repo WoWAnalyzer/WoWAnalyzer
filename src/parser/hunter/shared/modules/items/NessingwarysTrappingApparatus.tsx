@@ -22,7 +22,7 @@ class NessingwarysTrappingApparatus extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESSINGWARYS_TRAPPING_APPARATUS_ENERGIZE.bonusID);
     if (!this.active) {
       return;
     }

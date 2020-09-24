@@ -30,12 +30,12 @@ class BrutalProjectiles extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.BRUTAL_PROJECTILES_CONDUIT.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = 1; //TODO: Find out the proper way of parsing conduit ranks
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.BRUTAL_PROJECTILES_CONDUIT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE), this.onRapidFireDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.onRapidFireCast);

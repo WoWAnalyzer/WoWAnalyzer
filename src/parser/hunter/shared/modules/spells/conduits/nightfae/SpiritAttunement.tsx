@@ -11,6 +11,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatThousands } from 'common/format';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 /**
  * Wild Spirits duration is increased by 3 sec and the damage dealt is increased by 10.0%.
@@ -27,12 +28,12 @@ class SpiritAttunement extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && this.selectedCombatant.hasConduitBySpellID(SPELLS.SPIRIT_ATTUNEMENT_CONDUIT.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = 1; //TODO: Find out the proper way of parsing conduit ranks
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SPIRIT_ATTUNEMENT_CONDUIT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WILD_SPIRITS_DAMAGE, SPELLS.WILD_SPIRITS_DAMAGE_AOE]), this.onWildSpiritsDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onGenericDamage);

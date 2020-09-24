@@ -11,6 +11,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { WILD_MARK_DAMAGE_AMP } from 'parser/hunter/shared/constants';
 import { formatNumber } from 'common/format';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class WildSpirits extends Analyzer {
   static dependencies = {
@@ -24,7 +25,7 @@ class WildSpirits extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
     if (!this.active) {
       return;
     }
