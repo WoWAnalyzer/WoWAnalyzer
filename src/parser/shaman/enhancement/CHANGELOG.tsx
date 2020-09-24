@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 9, 23), <>Updated <SpellLink id={SPELLS.LIGHTNING_SHIELD.id} /> uptime tracker as core Shaman spell.</>, [MusicMeister]),
+  change(date(2020, 9, 23), <>Changed <SpellLink id={SPELLS.LIGHTNING_SHIELD.id} /> to be baseline spell instead of talent.</>, [MusicMeister]),
   change(date(2020, 9, 23), <>Removed <SpellLink id={SPELLS.EARTH_ELEMENTAL.id} /> from recommended offensive spells.</>, [MusicMeister]),
   change(date(2020, 8, 28), <>First go at removing obsolete Spells and Azerite.</>, [HawkCorrigan]),
   change(date(2020, 6, 1), <>Added <strong>Maintain your buffs</strong> checklist rule.</>, [Vetyst]),
