@@ -4,6 +4,7 @@ import Abilities from './modules/Abilities';
 // Shared Shaman
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
+import LightningShield from '../shared/spells/LightningShield';
 // Resources
 import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
 import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
@@ -33,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Shaman Shared
     ankhNormalizer: AnkhNormalizer,
     astralShift: AstralShift,
+    lightningShield: LightningShield,
 
     // Resources
     maelstromTracker: MaelstromTracker,
