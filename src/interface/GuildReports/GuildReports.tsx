@@ -26,6 +26,7 @@ const ZONE_ALL = -1;
 const ZONE_DEFAULT = ZONE_ALL;
 const REPORTS_TO_SHOW = [25, 50, 100];
 const REPORTS_TO_SHOW_DEFAULT = 25;
+const MONTHS_BACK_SEARCH = 3;
 
 const ERRORS = {
   GUILD_NOT_FOUND: t`We couldn't find your guild on Warcraft Logs`,
@@ -190,7 +191,7 @@ class GuildReports extends React.Component<Props, State> {
 
     const filterStart = new Date();
     // TODO allow selection of a date range?
-    filterStart.setMonth(filterStart.getMonth() - 3);
+    filterStart.setMonth(filterStart.getMonth() - MONTHS_BACK_SEARCH);
     return fetchWcl(
       `reports/guild/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`,
       {
