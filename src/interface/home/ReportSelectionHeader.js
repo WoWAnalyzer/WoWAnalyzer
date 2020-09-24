@@ -89,18 +89,17 @@ class ReportSelectionHeader extends React.PureComponent {
                 <h1>WoWAnalyzer</h1>
               </a>
               <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report below.</Trans>
-              <div style={{ margin: '15px auto', maxWidth: 700 }}>
-
-                <nav style={{margin: '0px', maxWidth:450}}>
+              <div style={{ margin: '30px auto', maxWidth: 700, textAlign: 'left' }}>
+                <nav>
                   <ul>
                     <li key="report" className={this.state.searchType === STATE_SEARCH_REPORT ? "active" : undefined}>
-                      <a href="/" style={{padding:'2px'}} onClick={this.handleReportSearchClick}><ReportIcon /><Trans>Report</Trans></a>
+                      <a href="/" style={{padding:'5px'}} onClick={this.handleReportSearchClick}><ReportIcon /><Trans>Report</Trans></a>
                     </li>
                     <li key="character" className={this.state.searchType === STATE_SEARCH_CHAR ? "active" : undefined}>
-                      <a href="/" style={{padding:'2px'}} onClick={this.handleCharacterSearchClick}><CharacterIcon /><Trans>Character</Trans></a>
+                      <a href="/" style={{padding:'5px'}} onClick={this.handleCharacterSearchClick}><CharacterIcon /><Trans>Character</Trans></a>
                     </li>
                     <li key="guild" className={this.state.searchType === STATE_SEARCH_GUILD ? "active" : undefined}>
-                      <a href="/" style={{padding:'2px'}} onClick={this.handleGuildSearchClick}><GuildIcon /><Trans>Guild</Trans></a>
+                      <a href="/" style={{padding:'5px'}} onClick={this.handleGuildSearchClick}><GuildIcon /><Trans>Guild</Trans></a>
                     </li>
                   </ul>
                 </nav>
