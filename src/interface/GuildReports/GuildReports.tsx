@@ -20,8 +20,8 @@ const loadRealms = () =>
     import('common/RealmList').then(exports => exports.default),
   );
 
-const ALLIANCE_PICTURE = 'https://i.imgur.com/UucEtXp.png'; // TODO need to update these and put them on server
-const HORDE_PICTURE = 'https://i.imgur.com/1rMGcwU.jpg';
+const ALLIANCE_PICTURE = require('./images/ally_guild_banner_bwl.jpg');
+const HORDE_PICTURE = require('./images/horde_guild_banner_onyx.jpg');
 const ZONE_ALL = -1;
 const ZONE_DEFAULT = ZONE_ALL;
 const REPORTS_TO_SHOW = [25, 50, 100];
@@ -358,7 +358,7 @@ class GuildReports extends React.Component<Props, State> {
               className="img"
               style={{
                 backgroundImage: `url(${this.state.factionImage})`,
-                backgroundSize: `auto`,
+                backgroundSize: `cover`,
                 backgroundPosition: 'center center',
               }}
             />
