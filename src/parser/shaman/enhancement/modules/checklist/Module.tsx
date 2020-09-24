@@ -10,6 +10,7 @@ import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Flametongue from '../core/Flametongue';
 import Hailstorm from '../talents/Hailstorm';
 import FlametongueRefresh from '../core/FlametongueRefresh';
+import LightningShield from '../../../shared/spells/LightningShield';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -20,6 +21,7 @@ class Checklist extends BaseChecklist {
     flametongue: Flametongue,
     flametongueRefresh: FlametongueRefresh,
     hailstorm: Hailstorm,
+    lightningShield: LightningShield,
   };
 
   protected combatants!: Combatants;
@@ -29,6 +31,7 @@ class Checklist extends BaseChecklist {
   protected flametongue!: Flametongue;
   protected flametongueRefresh!: FlametongueRefresh;
   protected hailstorm!: Hailstorm;
+  protected lightningShield!: LightningShield;
 
   render() {
     return (
@@ -44,6 +47,7 @@ class Checklist extends BaseChecklist {
           flametongueUptime: this.flametongue.flametongueUptimeThreshold,
           flametongueEarlyRefreshes: this.flametongueRefresh.flametongueEarlyRefreshThreshold,
           frostbrandUptime: this.hailstorm.frostbrandUptimeThresholds,
+          lightningShieldUptime: this.lightningShield.lightningShieldUptimeThreshold,
         }}
       />
     );
