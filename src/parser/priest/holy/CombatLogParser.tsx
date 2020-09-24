@@ -123,7 +123,6 @@ class CombatLogParser extends CoreCombatLogParser {
   };
 
   generateResults(adjustForDowntime:boolean) {
-    // @ts-ignore
     const results = super.generateResults(adjustForDowntime);
 
     results.tabs = [
