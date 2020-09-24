@@ -33,6 +33,8 @@ import LifeCocoon from './modules/spells/LifeCocoon';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import RenewingMist from './modules/spells/RenewingMist';
 import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
+import InvokeYulon from './modules/spells/InvokeYulon';
+import InvokeChiJi from './modules/spells/InvokeChiJi';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
@@ -102,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     renewingMist: RenewingMist,
     lifeCocoon: LifeCocoon,
     touchOfDeath: TouchOfDeath,
+    invokeYulon: InvokeYulon,
 
     // Talents
     chiBurst: ChiBurst,
@@ -114,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
     tier45Comparison: Tier45Comparison,
     upwelling: Upwelling,
+    invokeChiJi: InvokeChiJi,
 
     // Mana Tab
     manaTracker: ManaTracker,
@@ -124,7 +128,6 @@ class CombatLogParser extends CoreCombatLogParser {
     groundingBreath: GroundingBreath,
     harmDenial: HarmDenial,
     fortifyingIngredients: FortifyingIngredients,
-
   };
 }
 

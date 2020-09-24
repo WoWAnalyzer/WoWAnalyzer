@@ -873,6 +873,12 @@ export const Tiphess: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/tjphess',
   }],
 };
+export const Tyndi: Contributor = {
+  nickname: 'Tyndi',
+  github: 'darthelit',
+  discord: 'Tyndi#4337',
+  avatar: require('./interface/images/avatars/tyndi-avatar.png'),
+};
 export const MusicMeister: Contributor = {
   nickname: 'MusicMeister',
   github: 'TheMusicMeister',
