@@ -1,12 +1,13 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import Renew from 'parser/priest/holy/modules/spells/Renew';
 import PrayerOfMending from 'parser/priest/holy/modules/spells/PrayerOfMending';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatThousands } from 'common/format';
 import { HealEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class HolyWordSalvation extends Analyzer {
@@ -84,8 +85,7 @@ class HolyWordSalvation extends Analyzer {
 
   statistic() {
     return (
-      // @ts-ignore
-      <TalentStatisticBox
+      <Statistic
         talent={SPELLS.HOLY_WORD_SALVATION_TALENT.id}
         value={<ItemHealingDone amount={this.totalHealing} />}
         tooltip={(

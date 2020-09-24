@@ -1,8 +1,9 @@
 import React from 'react';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import Statistic from 'interface/statistics/Statistic';
 import { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../constants';
 
@@ -73,8 +74,7 @@ class EnduringRenewal extends Analyzer {
 
   statistic() {
     return (
-      // @ts-ignore
-      <TalentStatisticBox
+      <Statistic
         talent={SPELLS.ENDURING_RENEWAL_TALENT.id}
         value={<ItemHealingDone amount={this.healing} />}
         tooltip={`Refreshed Renews: ${this.refreshedRenews}`}

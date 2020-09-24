@@ -1,10 +1,11 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
 
 // Example Log: /report/mWZ6TG9JgjPQVdbA/9-Mythic+Zek'voz+-+Kill+(7:24)/1-Allyseia`Ø
 class DivineStar extends Analyzer {
@@ -44,8 +45,7 @@ class DivineStar extends Analyzer {
 
   statistic() {
     return (
-      // @ts-ignore
-      <TalentStatisticBox
+      <Statistic
         talent={SPELLS.DIVINE_STAR_TALENT.id}
         value={(
           <>

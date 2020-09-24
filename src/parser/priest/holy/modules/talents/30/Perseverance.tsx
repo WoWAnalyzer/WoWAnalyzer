@@ -2,10 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatPercentage, formatThousands } from 'common/format';
 import { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
 
 // Example Log: /report/aBxvzDZJQP7431Nt/21-Normal+G'huun+-+Kill+(7:11)/15-Liarine
 class Perseverance extends Analyzer {
@@ -43,8 +44,7 @@ class Perseverance extends Analyzer {
 
   statistic() {
     return (
-		// @ts-ignore
-      <TalentStatisticBox
+      <Statistic
         talent={SPELLS.PERSEVERANCE_TALENT.id}
         value={<ItemHealingDone amount={this.totalDamageReduced} />}
         tooltip={(

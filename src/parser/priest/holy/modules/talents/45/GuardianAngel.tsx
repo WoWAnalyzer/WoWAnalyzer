@@ -1,9 +1,10 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
 
 const GS_BASE_COOLDOWN_TIME = (60 * 3) * 1000;
 const GS_MODIFIED_COOLDOWN_TIME = (60 + 10) * 1000; // one minute plus 10 seconds to account for the duration of the buff.
@@ -55,8 +56,7 @@ class GuardianAngel extends Analyzer {
 
   statistic() {
     return (
-		// @ts-ignore
-      <TalentStatisticBox
+      <Statistic
         talent={SPELLS.GUARDIAN_ANGEL_TALENT.id}
         value={(
           <>

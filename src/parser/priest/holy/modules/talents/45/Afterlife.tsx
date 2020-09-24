@@ -1,10 +1,11 @@
 import React from 'react';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
 
 const SPIRIT_OF_REDEMPTION_DURATION = 15000;
 
@@ -59,8 +60,7 @@ class Afterlife extends Analyzer {
 
   statistic() {
     return (
-      // @ts-ignore
-      <TalentStatisticBox
+      <Statistic
         talent={SPELLS.AFTERLIFE_TALENT.id}
         value={<ItemHealingDone amount={this.healingInAfterlife} />}
         tooltip={`Extra Spirit of Redemption time: ${Math.floor(this.spiritOfRedemptionBonusTime / 1000)}s`}

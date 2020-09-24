@@ -1,10 +1,11 @@
 import React from 'react';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { HealEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
 
 // Example Log: /report/C2NGDav6KHgc8ZWd/28-Mythic+Taloc+-+Kill+(7:07)/13-Ariemah
 class CosmicRipple extends Analyzer {
@@ -37,8 +38,7 @@ class CosmicRipple extends Analyzer {
 
   statistic() {
     return (
-      // @ts-ignore
-      <TalentStatisticBox
+      <Statistic
         talent={SPELLS.COSMIC_RIPPLE_HEAL.id}
         value={(
           <ItemHealingDone amount={this.totalHealing} />
