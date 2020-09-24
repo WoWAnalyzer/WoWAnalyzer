@@ -11,7 +11,7 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
+import { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
 const DEBUG = false;
@@ -73,7 +73,7 @@ class EchoOfLightMastery extends Analyzer {
     return this.masteryHealingBySpell[spellId].overHealing / this.masteryHealingBySpell[spellId].rawHealing;
   }
 
-  on_byPlayer_heal(event: any) {
+  on_byPlayer_heal(event: HealEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.ECHO_OF_LIGHT_HEAL.id) {
       this.handleEolTick(event);
@@ -110,7 +110,7 @@ class EchoOfLightMastery extends Analyzer {
     }
   }
 
-  handleEolTick(event: any) {
+  handleEolTick(event: HealEvent) {
     const targetId = event.targetID;
 
     // As far as I can tell, this happens when the combat log is out of order. You shouldn't receive a tick of EoL without a target having a buff apply event.
