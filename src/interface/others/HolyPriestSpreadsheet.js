@@ -13,11 +13,6 @@ import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import HealingTargetTracker from 'parser/priest/holy/modules/features/HealingTargetTracker';
 import Renew from 'parser/priest/holy/modules/spells/Renew';
 import CosmicRipple from 'parser/priest/holy/modules/talents/45/CosmicRipple';
-import BlessedSanctuary from 'parser/priest/holy/modules/spells/azeritetraits/BlessedSanctuary';
-import EverlastingLight from 'parser/priest/holy/modules/spells/azeritetraits/EverlastingLight';
-import PermeatingGlow from 'parser/priest/holy/modules/spells/azeritetraits/PermeatingGlow';
-import PrayerfulLitany from 'parser/priest/holy/modules/spells/azeritetraits/PrayerfulLitany';
-import WordOfMending from 'parser/priest/holy/modules/spells/azeritetraits/WordOfMending';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 
 const HolyPriestSpreadsheet = props => {
@@ -145,23 +140,8 @@ const HolyPriestSpreadsheet = props => {
   };
 
   const healingFromAzerite = () => {
-    let totalHealing = 0;
+    const totalHealing = 0;
 
-    if (parser.getModule(BlessedSanctuary)) {
-      totalHealing += parser.getModule(BlessedSanctuary).effectiveHealing;
-    }
-    if (parser.getModule(EverlastingLight)) {
-      totalHealing += parser.getModule(EverlastingLight).effectiveHealing;
-    }
-    if (parser.getModule(PermeatingGlow)) {
-      totalHealing += parser.getModule(PermeatingGlow).permiatingGlowTotalHealAmount;
-    }
-    if (parser.getModule(PrayerfulLitany)) {
-      totalHealing += parser.getModule(PrayerfulLitany).rawPrayerfulLitanyHealing;
-    }
-    if (parser.getModule(WordOfMending)) {
-      totalHealing += parser.getModule(WordOfMending).effectiveHealing;
-    }
     return totalHealing;
   };
 
