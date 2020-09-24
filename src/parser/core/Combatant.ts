@@ -106,6 +106,9 @@ class Combatant extends Entity {
     this._parseTalents(combatantInfo.talents);
     this._parseTraits(combatantInfo.artifact);
     this._parseEssences(combatantInfo.heartOfAzeroth);
+    this._parseCovenants(combatantInfo.covenant);
+    this._parseSoulbinds(combatantInfo.soulbind);
+    this._parseConduits(combatantInfo.conduits);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
   }
@@ -233,13 +236,11 @@ class Combatant extends Entity {
   //region Covenants
   covenantsByCovenantID: { [key: number]: Covenant } = {};
 
-  _parseCovenants(covenants: Array<Covenant>) {
-    if (!covenants) {
+  _parseCovenants(covenant: Covenant) {
+    if (!covenant) {
       return;
     }
-    covenants.forEach((covenant: Covenant) => {
-      this.covenantsByCovenantID[covenant.id] = covenant;
-    });
+    this.covenantsByCovenantID[covenant.id] = covenant;
   }
 
   hasCovenant(covenantId: number) {
@@ -251,13 +252,11 @@ class Combatant extends Entity {
   //region Soulbinds
   soulbindsBySoulbindID: { [key: number]: Soulbind } = {};
 
-  _parseSoulbinds(soulbinds: Array<Soulbind>) {
-    if (!soulbinds) {
+  _parseSoulbinds(soulbind: Soulbind) {
+    if (!soulbind) {
       return;
     }
-    soulbinds.forEach((soulbind: Soulbind) => {
-      this.soulbindsBySoulbindID[soulbind.id] = soulbind;
-    });
+    this.soulbindsBySoulbindID[soulbind.id] = soulbind;
   }
 
   hasSoulbind(soulbindId: number) {
@@ -274,16 +273,16 @@ class Combatant extends Entity {
       return;
     }
     conduits.forEach((conduit: Conduit) => {
-      this.conduitsByConduitID[conduit.id] = conduit;
+      this.conduitsByConduitID[conduit.spellID] = conduit;
     });
   }
 
-  hasConduit(conduitId: number) {
-    return Boolean(this.conduitsByConduitID[conduitId]);
+  hasConduitBySpellID(spellId: number) {
+    return Boolean(this.conduitsByConduitID[spellId]);
   }
 
-  conduitRank(conduitID: number) {
-    return this.conduitsByConduitID[conduitID] && this.conduitsByConduitID[conduitID].rank;
+  conduitRankBySpellID(spellId: number) {
+    return this.conduitsByConduitID[spellId] && this.conduitsByConduitID[spellId].rank;
   }
 
   //endregion
@@ -501,6 +500,20 @@ class Combatant extends Entity {
 
   hasYellowPunchcard(id: number) {
     return this.getYellowPunchcard(id) !== undefined;
+  }
+
+  //Each legendary is given a specific bonusID that is the same regardless which slot it appears on.
+  hasLegendaryByBonusID(legendaryBonusID: number) {
+    const foundLegendaryMatch = Object.keys(this._gearItemsBySlotId)
+      .map((key: any) => this._gearItemsBySlotId[key])
+      .find((item: Item) => {
+        if (typeof item.bonusIDs === 'number') {
+          return item.bonusIDs === legendaryBonusID;
+        } else {
+          return item?.bonusIDs?.includes(legendaryBonusID);
+        }
+      });
+    return typeof foundLegendaryMatch === 'object';
   }
 
   getItem(itemId: number) {
