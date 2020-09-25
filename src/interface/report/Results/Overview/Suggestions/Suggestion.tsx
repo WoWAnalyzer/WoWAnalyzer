@@ -1,11 +1,10 @@
 import React from 'react';
 import UpArrow from 'interface/icons/UpArrow';
-
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { Issue } from 'parser/core/ParseResults';
 import Icon from 'common/Icon';
 
-function getIssueImportance(importance: string) {
+function getIssueImportance(importance: ISSUE_IMPORTANCE) {
   switch (importance) {
     case ISSUE_IMPORTANCE.MAJOR:
       return <>Major <UpArrow /></>;
