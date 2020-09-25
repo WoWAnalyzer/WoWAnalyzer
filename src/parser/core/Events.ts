@@ -60,6 +60,43 @@ export enum EventType {
   FilterBuffInfo = 'filterbuffinfo',
 }
 
+type MappedEventTypes = {
+  [EventType.Heal]: HealEvent,
+  [EventType.Absorbed]: AbsorbedEvent,
+  [EventType.Damage]: DamageEvent,
+  [EventType.BeginCast]: BeginCastEvent,
+  [EventType.Cast]: CastEvent,
+  [EventType.ApplyBuff]: ApplyBuffEvent,
+  [EventType.ApplyDebuff]: ApplyDebuffEvent,
+  [EventType.ApplyBuffStack]: ApplyBuffStackEvent,
+  [EventType.ApplyDebuffStack]: ApplyDebuffStackEvent,
+  [EventType.RemoveBuffStack]: RemoveBuffStackEvent,
+  [EventType.RemoveDebuffStack]: RemoveDebuffStackEvent,
+  [EventType.ChangeBuffStack]: ChangeBuffStackEvent,
+  [EventType.RefreshBuff]: RefreshBuffEvent,
+  [EventType.RefreshDebuff]: RefreshDebuffEvent,
+  [EventType.RemoveBuff]: RemoveBuffEvent,
+  [EventType.RemoveDebuff]: RemoveDebuffEvent,
+  [EventType.Summon]: SummonEvent,
+  [EventType.Energize]: EnergizeEvent,
+  [EventType.Death]: DeathEvent,
+  [EventType.CombatantInfo]: CombatantInfoEvent,
+
+  // Fabricated:
+  [EventType.FightEnd]: FightEndEvent,
+  [EventType.GlobalCooldown]: GlobalCooldownEvent,
+  [EventType.BeginChannel]: BeginChannelEvent,
+  [EventType.EndChannel]: EndChannelEvent,
+  [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent,
+  [EventType.ChangeStats]: ChangeStatsEvent,
+  // Phases:
+  [EventType.PhaseStart]: PhaseStartEvent,
+  [EventType.PhaseEnd]: PhaseEndEvent,
+
+  // Time Filtering:
+  [EventType.FilterCooldownInfo]: FilterCooldownInfoEvent,
+}
+
 export interface Ability {
   name: string;
   guid: number;
@@ -104,6 +141,9 @@ export function HasSource<T extends string>(event: Event<T>): event is SourcedEv
 export function HasTarget<T extends string>(event: Event<T>): event is TargettedEvent<T> {
   return (event as TargettedEvent<T>).targetID !== undefined;
 }
+
+export type MappedEvent<T extends string> =
+  T extends keyof MappedEventTypes ? MappedEventTypes[T] : Event<T>;
 
 // TODO Eventually convert this back from string to EventType (once the edge cases of raw string filters are removed)
 export interface Event<T extends string> {

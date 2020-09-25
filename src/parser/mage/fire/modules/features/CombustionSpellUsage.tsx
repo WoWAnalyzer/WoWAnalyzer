@@ -24,10 +24,10 @@ class CombustionSpellUsage extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), (event: CastEvent) => this.fireballCasts(event));
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), (event: BeginCastEvent) => this.fireballCasts(event));
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), (event: CastEvent) => this.scorchCasts(event));
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), (event: BeginCastEvent) => this.scorchCasts(event));
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.fireballCasts);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.fireballCasts);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), this.scorchCasts);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), this.scorchCasts);
   }
 
   //Because Fireball has a longer cast time than Scorch, the player should never cast Fireball during Combustion.

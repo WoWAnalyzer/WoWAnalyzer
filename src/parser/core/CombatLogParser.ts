@@ -4,7 +4,7 @@ import { Boss, findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ModuleError from 'parser/core/ModuleError';
-import { CombatantInfoEvent, Event, HasSource, HasTarget } from 'parser/core/Events';
+import { CombatantInfoEvent, Event, HasSource, HasTarget, MappedEvent } from 'parser/core/Events';
 import Module from './Module';
 import Fight from './Fight';
 import Analyzer from './Analyzer';
@@ -671,7 +671,7 @@ class CombatLogParser {
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   eventHistory: Array<Event<any>> = [];
-  addEventListener<ET extends string, E extends Event<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, E>, module: Module) {
+  addEventListener<ET extends string, E extends MappedEvent<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, E>, module: Module) {
     this.getModule(EventEmitter).addEventListener(eventFilter, listener, module);
   }
 

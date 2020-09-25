@@ -28,10 +28,10 @@ class Pyroclasm extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST), this.onPyroblastBeginCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST), this.onPyroblastCast);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), (event: ApplyBuffEvent) => this.onPyroclasmApplied(event));
-    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), (event: ApplyBuffStackEvent) => this.onPyroclasmApplied(event));
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), (event: RemoveBuffEvent) => this.onPyroclasmRemoved(event));
-    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), (event: RemoveBuffStackEvent) => this.onPyroclasmRemoved(event));
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmApplied);
+    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmApplied);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
+    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
     this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRefresh);
     this.addEventListener(Events.fightend, this.onFinished);
   }

@@ -50,8 +50,8 @@ class InTheRhythm extends Analyzer {
     options.statTracker.add(SPELLS.IN_THE_RHYTHM_BUFF.id, {
       haste: this.haste,
     });
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IN_THE_RHYTHM_BUFF), (event: ApplyBuffEvent) => this.itrApplication(event));
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.IN_THE_RHYTHM_BUFF), (event: RefreshBuffEvent) => this.itrApplication(event));
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IN_THE_RHYTHM_BUFF), this.itrApplication);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.IN_THE_RHYTHM_BUFF), this.itrApplication);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.possibleApplication);
   }
 
