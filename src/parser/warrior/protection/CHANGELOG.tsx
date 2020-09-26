@@ -3,11 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { Abelito75 } from 'CONTRIBUTORS';
+import { Abelito75, Dambroda } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
-export default [   
-  change(date(2019, 1, 18),<>Included Lucid dream statistic.</>,Abelito75),
+export default [
+  change(date(2020, 9, 25),'Update spec to TypeScript.', Dambroda),
+  change(date(2020, 1, 18),<>Included Lucid dream statistic.</>,Abelito75),
   change(date(2020, 1, 15),<>Updated for 8.3 </>,Abelito75),
   change(date(2019, 11, 9),<>Fixed a bugged where precasted <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> would break a few modules. </>,Abelito75),
   change(date(2019, 10, 28),<>Added bad <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast highlighting to the timeline. </>,Abelito75),
