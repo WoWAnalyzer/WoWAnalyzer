@@ -5,6 +5,8 @@ import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ExecuteHelper from 'parser/shared/ExecuteHelper';
 
+const MINUTE = 600000;
+
 class TouchOfDeath extends ExecuteHelper {
   static executeSpells = [
     SPELLS.TOUCH_OF_DEATH,
@@ -21,9 +23,17 @@ class TouchOfDeath extends ExecuteHelper {
 
   maxCasts = 0;
 
+  cooldown = MINUTE * 3;
+
   constructor(options) {
     super(options);
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
+
+    //FIXME added reduction from legendary when we can get that info
+
+    //if(hasLego) {
+    //  this.cooldown = this.cooldown - MINUTE;
+    // }
 
     options.abilities.add({
         spell: SPELLS.TOUCH_OF_DEATH,
@@ -35,14 +45,14 @@ class TouchOfDeath extends ExecuteHelper {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          maxCasts: () => this.maxCasts,
+          maxCasts: () => this.maxCasts || 0,
         },
       });
   }
 
   adjustMaxCasts(event) {
     super.onFightEnd(event);
-    this.maxCasts += Math.ceil(this.totalExecuteDuration / 1800000);
+    this.maxCasts += Math.ceil(this.totalExecuteDuration / this.cooldown);
   }
 }
 

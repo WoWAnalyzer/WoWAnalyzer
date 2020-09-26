@@ -34,7 +34,7 @@ import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import RenewingMist from './modules/spells/RenewingMist';
 import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
 import InvokeYulon from './modules/spells/InvokeYulon';
-import InvokeChiJi from './modules/spells/InvokeChiJi';
+import InvokeChiJi from './modules/talents/InvokeChiJi';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
@@ -57,11 +57,13 @@ import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
 
-//conduits
-//endurance
+// Conduits
+// Endurance
 import GroundingBreath from '../shared/modules/conduits/GroundingBreath';
 import HarmDenial from '../shared/modules/conduits/HarmDenial';
 import FortifyingIngredients from '../shared/modules/conduits/FortifyingIngredients';
+
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -125,6 +127,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmTracker: HealingEfficiencyTracker,
 
     // Conduits
+    // Endurance
     groundingBreath: GroundingBreath,
     harmDenial: HarmDenial,
     fortifyingIngredients: FortifyingIngredients,
