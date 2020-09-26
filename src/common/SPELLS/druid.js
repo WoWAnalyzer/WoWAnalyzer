@@ -332,6 +332,11 @@ export default {
     name: 'Incarnation',
     icon: 'spell_druid_incarnation',
   },
+  NATURES_SWIFTNESS :{
+    id: 132158,
+    name: 'Nature\'s Swiftness',
+    icon: 'spell_nature_ravenform',
+  },
 
   // Sets/Items:
   // Hidden buffs that indicate set is equipped:
