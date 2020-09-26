@@ -74,7 +74,7 @@ class GuildReports extends React.Component<Props, State> {
       error: null,
       errorMessage: null,
       realmSlug: props.realm,
-      factionImage: ALLIANCE_PICTURE, // TODO neutral default for china?
+      factionImage: HORDE_PICTURE,
     };
     this.load = this.load.bind(this);
   }
@@ -90,7 +90,7 @@ class GuildReports extends React.Component<Props, State> {
     if (region === 'CN') {
       this.setState(
         {
-          factionImage: HORDE_PICTURE, // TODO neutral
+          factionImage: HORDE_PICTURE,
         },
         () => {
           this.load();
@@ -244,55 +244,33 @@ class GuildReports extends React.Component<Props, State> {
   render() {
     let errorMessage;
     const filteredReports = this.filterReports;
+
+    const DISCORD = <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a>;
+    const GITHUB = <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>;
+    const WCL_GUIDE = <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a>;
+
     if (this.state.error === ERRORS.GUILD_NOT_FOUND) {
       errorMessage = (
         <Trans>
-          Please check your input and make sure that you've selected the correct
-          region and realm.
+          Please check your input and make sure that you've selected the correct region and realm.
           <br />
-          If your input was correct, then make sure that someone in your raid
-          logged the fight for you or check{' '}
-          <a
-            href="https://www.warcraftlogs.com/help/start/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Warcraft Logs guide
-          </a>{' '}
-          to get started with logging on your own.
+          If your input was correct, then make sure that someone in your raid logged the fight for
+          you or check out the {WCL_GUIDE} to get started with logging on your own.
           <br />
           <br />
-          When you know for sure that you have logs on Warcraft Logs and you
-          still get this error, please message us on{' '}
-          <a
-            href="https://discord.gg/AxphPxU"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Discord
-          </a>{' '}
-          or create an issue on{' '}
-          <a
-            href="https://github.com/WoWAnalyzer/WoWAnalyzer"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github
-          </a>
-          .
+          When you know for sure that you have logs on Warcraft Logs and you still get this error,
+          please message us on {DISCORD} or create an issue on {GITHUB}.
         </Trans>
       );
     } else if (this.state.error === ERRORS.NOT_RESPONDING) {
       errorMessage = (
         <Trans>
-          It looks like we couldn't get a response in time from the API, this
-          usually happens when the servers are under heavy load.
+          It looks like we couldn't get a response in time from the API, this usually happens when
+          the servers are under heavy load.
           <br />
           <br />
-          You could try and enter your report-code manually{' '}
-          <Link to="/">here</Link>.<br />
-          That would bypass the guild lookup and we should be
-          able to analyze your report.
+          You could try and enter your report-code manually <Link to="/">here</Link>.<br />
+          That would bypass the guild lookup and we should be able to analyze your report.
           <br />
         </Trans>
       );
@@ -303,22 +281,9 @@ class GuildReports extends React.Component<Props, State> {
     ) {
       errorMessage = (
         <Trans>
-          {this.state.errorMessage} Please message us on{' '}
-          <a
-            href="https://discord.gg/AxphPxU"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Discord
-          </a>{' '}
-          or create an issue on{' '}
-          <a
-            href="https://github.com/WoWAnalyzer/WoWAnalyzer"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github
-          </a>{' '}
+          {this.state.errorMessage}
+          <br />
+          Please message us on {DISCORD} or create an issue on {GITHUB}
           if this issue persists and we will fix it, eventually.
         </Trans>
       );
@@ -331,15 +296,7 @@ class GuildReports extends React.Component<Props, State> {
           Please check your filters and make sure that you logged those fights on Warcraft Logs.
           <br />
           <br />
-          Don't know how to log your fights? Check{' '}
-          <a
-            href="https://www.warcraftlogs.com/help/start/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Warcraft Logs guide
-          </a>{' '}
-          to get started.
+          Don't know how to log your fights? Check out the {WCL_GUIDE} to get started.
         </Trans>
       );
     }
@@ -485,11 +442,10 @@ class GuildReports extends React.Component<Props, State> {
                     </h1>
                     <small>
                       <Trans>
-                        This page will only show reports that are public on
-                        Warcraft Logs. If your reports are private, you need
-                        to manually find the report on Warcraft Logs and copy
-                        the direct report link to analyze a fight missing from
-                        this page.
+                        This page will only show guild reports that are public and listed on
+                        Warcraft Logs. If your reports are unlisted, you need to manually find the
+                        report on Warcraft Logs and copy the direct report link to analyze a fight
+                        missing from this page. If your reports are private, they can't be analyzed.
                       </Trans>
                     </small>
                   </div>
