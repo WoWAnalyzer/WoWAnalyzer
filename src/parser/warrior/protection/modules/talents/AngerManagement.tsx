@@ -1,11 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Events, { CastEvent } from 'parser/core/Events';
 
 const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
   SPELLS.DEMORALIZING_SHOUT.id,
@@ -21,27 +22,28 @@ class AngerManagement extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  totalRageSpend = 0;
-  wastedReduction = { };
-  effectiveReduction = { };
+  protected spellUsable!: SpellUsable;
 
-  constructor(...args) {
-    super(...args);
+  totalRageSpend = 0;
+  wastedReduction: { [spellId: number]: number } = { };
+  effectiveReduction: { [spellId: number]: number } = { };
+
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
       this.wastedReduction[e] = 0;
       this.effectiveReduction[e] = 0;
     });
   }
 
-  on_byPlayer_cast(event) {
-    if (!event.classResources ||
-        !event.classResources.filter(e => e.type !== RESOURCE_TYPES.RAGE.id) ||
-        !event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost) {
+  onCast(event: CastEvent) {
+    const classResources = event.classResources?.find(e => e.type === RESOURCE_TYPES.RAGE.id);
+    if (!classResources) {
       return;
     }
-
-    const rageSpend = event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost / RAGE_NEEDED_FOR_A_PROC;
+    const rageSpend = classResources.cost / RAGE_NEEDED_FOR_A_PROC;
     const reduction = rageSpend / RAGE_NEEDED_FOR_A_PROC * CDR_PER_PROC;
     COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
       if (!this.spellUsable.isOnCooldown(e)) {
