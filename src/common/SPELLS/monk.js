@@ -166,7 +166,6 @@ export default {
     id: 322118,
     name: 'Invoke Yu\'lon, the Jade Serpent',
     icon: 'ability_monk_dragonkick',
-    manaCost: 50000,
   },
   ENVELOPING_BREATH: {
     id: 325209,
