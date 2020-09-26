@@ -45,6 +45,11 @@ export default {
     name: 'Nourishing Chi',
     icon: 'inv_misc_gem_pearl_06',
   },
+  NOURISHING_CHI_BUFF:{
+    id: 337242,
+    name: 'Nourishing Chi',
+    icon: 'inv_misc_gem_pearl_06',
+  },
   RISING_SUN_REVIVAL: {
     id: 337099,
     name: 'Rising Sun Revival',

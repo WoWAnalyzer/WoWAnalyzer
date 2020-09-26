@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 9, 26), <>Added Rising Sun Revival, Jade Bond, and Nourishing Chi. </>, Abelito75),
   change(date(2020, 9, 26), <>Updated Checklist to include Touch of Death, Yu'lon and Chi-ji.</>, Abelito75),
   change(date(2020, 9, 22), <>Updated pieces to the Mistweaver Core for Shadowlands.</>, Tyndi),
   change(date(2020, 9, 22), <>Mistweaver cleanup for shadowlands. </>, Abelito75),
