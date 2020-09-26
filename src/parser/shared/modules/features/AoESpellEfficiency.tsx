@@ -7,6 +7,7 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 
 /*
   Creates a suggestion for an AoE-Spell based on the amount of hits done and min. amount of hits possible
@@ -16,11 +17,13 @@ class AoESpellEfficiency extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
+  ability!: { id: number, name: string, icon: string };
   bonusDmg = 0;
-  casts = [];
+  casts: { timestamp: number, hits: number }[] = [];
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     if (event.ability.guid !== this.ability.id) {
       return;
     }
@@ -31,7 +34,7 @@ class AoESpellEfficiency extends Analyzer {
     });
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     if (event.ability.guid !== this.ability.id) {
       return;
     }
@@ -47,7 +50,7 @@ class AoESpellEfficiency extends Analyzer {
 
   get possibleHits() {
     const cooldownMS = this.abilityTracker.getAbility(this.ability.id).cooldown * 1000;
-    let lastCast = null;
+    let lastCast: number | null = null;
     let missedCasts = 0;
     let timeSum = 0;
 
@@ -66,7 +69,7 @@ class AoESpellEfficiency extends Analyzer {
       }
     });
 
-    timeSum += this.owner.currentTimestamp - lastCast;
+    timeSum += this.owner.currentTimestamp - (lastCast || 0);
     missedCasts += Math.floor(timeSum / cooldownMS);
     timeSum %= cooldownMS;
 

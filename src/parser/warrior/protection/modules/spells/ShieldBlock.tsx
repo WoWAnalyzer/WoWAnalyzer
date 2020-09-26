@@ -1,9 +1,10 @@
 import React from 'react';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import { DamageEvent } from 'parser/core/Events';
 
 const debug = false;
 
@@ -17,14 +18,15 @@ class ShieldBlock extends Analyzer {
   bolster = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id);
   ssNeeded = !this.selectedCombatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id) ? 0 : 1;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHEILD_BLOCK), )
     this.shieldBlocksOffensive = [];
     this.shieldBlocksDefensive = [];
     this.shieldBlocksOverall = [];
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
 
     if(spellId !== SPELLS.SHIELD_BLOCK.id){
@@ -38,7 +40,7 @@ class ShieldBlock extends Analyzer {
     this.shieldBlockCast(event);
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
 
     if(!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)){
@@ -54,7 +56,7 @@ class ShieldBlock extends Analyzer {
     }
   }
 
-  on_toPlayer_damage(event) {
+  on_toPlayer_damage(event: DamageEvent) {
 
     if(!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)){
       return;
@@ -84,7 +86,6 @@ class ShieldBlock extends Analyzer {
   }
 
   shieldBlockCast(event){
-
     const offensive = {
       shieldBlock: this.shieldBlocksOffensive.length + 1,
       shieldSlamCasts: 0,

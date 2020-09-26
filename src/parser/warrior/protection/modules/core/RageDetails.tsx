@@ -13,6 +13,7 @@ class RageDetails extends Analyzer {
   static dependencies = {
     rageTracker: RageTracker,
   };
+  protected rageTracker!: RageTracker;
 
   get wastedPercent(){
     return this.rageTracker.wasted / (this.rageTracker.wasted + this.rageTracker.generated) || 0;
