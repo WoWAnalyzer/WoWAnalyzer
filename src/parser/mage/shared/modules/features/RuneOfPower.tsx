@@ -12,6 +12,8 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import { When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/Thresholds';
 
 /*
  * If Rune of Power is substantially better than the rest of the row, enable
@@ -65,7 +67,7 @@ class RuneOfPower extends Analyzer {
     return ((this.uptimeMS / this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts) / 1000);
   }
 
-  get damageSuggestionThresholds() {
+  get damageSuggestionThresholds(): NumberThreshold {
     return {
       actual: this.damageIncreasePercent,
       isLessThan: {
@@ -73,11 +75,11 @@ class RuneOfPower extends Analyzer {
         average: INCANTERS_FLOW_EXPECTED_BOOST,
         major: INCANTERS_FLOW_EXPECTED_BOOST - 0.03,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  get roundedSecondsSuggestionThresholds() {
+  get roundedSecondsSuggestionThresholds(): NumberThreshold {
     return {
       actual: this.roundedSecondsPerCast,
       isLessThan: {
@@ -85,12 +87,12 @@ class RuneOfPower extends Analyzer {
         average: RUNE_DURATION - 1,
         major: RUNE_DURATION - 2,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
   showSuggestion = true;
-  suggestions(when: any) {
+  suggestions(when: When) {
     if (!this.hasROP) {
       when(SUGGEST_ROP[this.selectedCombatant.specId]).isTrue()
         .addSuggestion((suggest: any) => {
@@ -110,7 +112,7 @@ class RuneOfPower extends Analyzer {
     }
 
     when(this.damageSuggestionThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
           .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
           .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`)
@@ -119,7 +121,7 @@ class RuneOfPower extends Analyzer {
 
     if (this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts > 0) {
       when(this.roundedSecondsSuggestionThresholds)
-        .addSuggestion((suggest: any, actual: any, recommended: any) => {
+        .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.</>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
             .actual(`Average ${this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power`)

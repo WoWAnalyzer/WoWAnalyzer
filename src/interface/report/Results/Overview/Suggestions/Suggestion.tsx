@@ -38,7 +38,7 @@ class Suggestion extends React.PureComponent<Issue, { expanded: boolean }> {
 
     return (
       <>
-        <li className={`item ${importance || ''} ${details ? 'clickable' : ''}`} onClick={details && this.handleClick}>
+        <li className={`item ${importance || ''} ${details ? 'clickable' : ''}`} onClick={details ? this.handleClick : undefined}>
           <div className="icon">
             <Icon icon={icon} alt="Icon" />
           </div>

@@ -30,7 +30,7 @@ export class SuggestionAssertion {
         return;
       }
       // @ts-ignore for js files that arent typechecked
-      if(def.style === ThresholdStyle.BOOLEAN) {
+      if (def.style === ThresholdStyle.BOOLEAN) {
         throw new Error("For boolean thresholds the only valid comparator is isEqual");
       }
       if (def.isGreaterThan !== undefined) {
@@ -52,34 +52,41 @@ export class SuggestionAssertion {
     this._threshold = value;
     return this;
   }
+
   isGreaterThanOrEqual(value: number | ThresholdRange) {
     this._mode = AssertionMode.IS_GREATER_THAN_OR_EQUAL;
     this._threshold = value;
     return this;
   }
+
   isLessThan(value: number | ThresholdRange) {
     this._mode = AssertionMode.IS_LESS_THAN;
     this._threshold = value;
     return this;
   }
+
   isLessThanOrEqual(value: number | ThresholdRange) {
     this._mode = AssertionMode.IS_LESS_THAN_OR_EQUAL;
     this._threshold = value;
     return this;
   }
+
   isTrue() {
     this._mode = AssertionMode.IS_TRUE;
     return this;
   }
+
   isFalse() {
     this._mode = AssertionMode.IS_FALSE;
     return this;
   }
+
   isEqual(value: number | boolean) {
     this._mode = AssertionMode.IS_EQUAL;
     this._threshold = value;
     return this;
   }
+
   get triggerThreshold(): number | boolean | undefined {
     const threshold = this._threshold;
     // `null` is also of type 'object'
@@ -88,9 +95,11 @@ export class SuggestionAssertion {
     }
     return threshold;
   }
+
   _isApplicable() {
     return this._compare(this._actual, this.triggerThreshold);
   }
+
   _getIssueImportance(suggestion: Suggestion): ISSUE_IMPORTANCE {
     if (suggestion._staticImportance) {
       return suggestion._staticImportance;
@@ -112,27 +121,39 @@ export class SuggestionAssertion {
     }
     return ISSUE_IMPORTANCE.MINOR;
   }
+
   _compare(actual: number | boolean, breakpoint: number | boolean | undefined) {
-    if(breakpoint === undefined) {
+    if (breakpoint === undefined) {
       switch (this._mode) {
-        case AssertionMode.IS_TRUE: return !!actual;
-        case AssertionMode.IS_FALSE: return !actual;
-        default: throw new Error('Threshold not defined for numerical comparator');
+        case AssertionMode.IS_TRUE:
+          return !!actual;
+        case AssertionMode.IS_FALSE:
+          return !actual;
+        default:
+          throw new Error('Threshold not defined for numerical comparator');
       }
     }
     switch (this._mode) {
-      case AssertionMode.IS_GREATER_THAN: return actual > breakpoint;
-      case AssertionMode.IS_GREATER_THAN_OR_EQUAL: return actual >= breakpoint;
-      case AssertionMode.IS_LESS_THAN: return actual < breakpoint;
-      case AssertionMode.IS_LESS_THAN_OR_EQUAL: return actual <= breakpoint;
-      case AssertionMode.IS_EQUAL: return actual === breakpoint;
-      case AssertionMode.IS_TRUE: return !!actual;
-      case AssertionMode.IS_FALSE: return !actual;
-      default: throw new Error('Assertion mode not set.');
+      case AssertionMode.IS_GREATER_THAN:
+        return actual > breakpoint;
+      case AssertionMode.IS_GREATER_THAN_OR_EQUAL:
+        return actual >= breakpoint;
+      case AssertionMode.IS_LESS_THAN:
+        return actual < breakpoint;
+      case AssertionMode.IS_LESS_THAN_OR_EQUAL:
+        return actual <= breakpoint;
+      case AssertionMode.IS_EQUAL:
+        return actual === breakpoint;
+      case AssertionMode.IS_TRUE:
+        return !!actual;
+      case AssertionMode.IS_FALSE:
+        return !actual;
+      default:
+        throw new Error('Assertion mode not set.');
     }
   }
 
-  addSuggestion(func: (suggest: React.ReactNode, actual: number | boolean, recommended: number | boolean | undefined) => Suggestion) {
+  addSuggestion(func: (suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean | undefined) => Suggestion) {
     if (this._isApplicable()) {
       const suggestion = func((suggestionText: React.ReactNode) => new Suggestion(suggestionText), this._actual, this.triggerThreshold);
 
@@ -148,6 +169,9 @@ export class SuggestionAssertion {
   }
 
 }
+
+type SuggestionFactory = (suggest: React.ReactNode) => Suggestion;
+
 class Suggestion {
   _text: React.ReactNode;
   _icon?: string;
@@ -200,7 +224,7 @@ export type Issue = {
 }
 
 type WhenThresholds = number | boolean | NumberThreshold | BoolThreshold;
-export type When = (threshold: WhenThresholds) => SuggestionAssertion;
+export type When= (threshold: WhenThresholds) => SuggestionAssertion;
 
 class ParseResults {
   tabs: Analyzer['tab'][] = [];

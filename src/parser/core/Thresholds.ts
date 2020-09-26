@@ -1,9 +1,9 @@
 export enum ThresholdStyle {
+  BOOLEAN = 'boolean',
   PERCENTAGE = 'percentage',
   NUMBER = 'number',
   THOUSANDS = 'thousands',
   DECIMAL = 'decimal',
-  BOOLEAN = 'boolean',
   SECONDS = 'seconds',
 }
 export type ThresholdTypes = number | boolean;
@@ -24,8 +24,9 @@ export type ThresholdRange = {
   b) didn't declare one at all
  */
 interface INumberThreshold extends Threshold<number> {
-  style: [ThresholdStyle.NUMBER] | [ThresholdStyle.PERCENTAGE] | [ThresholdStyle.THOUSANDS] |
-    [ThresholdStyle.DECIMAL] | [ThresholdStyle.SECONDS],
+  style: ThresholdStyle.NUMBER | ThresholdStyle.PERCENTAGE | ThresholdStyle.THOUSANDS |
+    ThresholdStyle.DECIMAL | ThresholdStyle.SECONDS,
+  max?: number,
   // Require exactly one of the below (including isEqual from parent)
   isLessThan: ThresholdRange,
   isGreaterThan: ThresholdRange,

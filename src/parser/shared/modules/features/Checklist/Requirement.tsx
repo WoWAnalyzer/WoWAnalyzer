@@ -4,17 +4,16 @@ import InformationIcon from 'interface/icons/Information';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import colorForPerformance from 'common/colorForPerformance';
-import { ThresholdDef } from 'parser/core/ParseResults';
-import { ThresholdStyle } from 'parser/core/Thresholds';
+import { NumberThreshold, Threshold, ThresholdStyle } from 'parser/core/Thresholds';
 import performanceForThresholds from './helpers/performanceForThresholds';
 import { RuleContext } from './Rule';
 
 
 interface Props {
   name: React.ReactNode,
-  thresholds: ThresholdDef,
-  tooltip: React.ReactNode,
-  valueTooltip: React.ReactNode,
+  thresholds: Threshold<any>,
+  tooltip?: React.ReactNode,
+  valueTooltip?: React.ReactNode,
   setPerformance: (performance: number) => void,
   prefix?: React.ReactNode,
   suffix?: React.ReactNode,
@@ -30,7 +29,7 @@ class Requirement extends React.PureComponent<Props> {
     return performanceForThresholds(this.props.thresholds);
   }
 
-  formatThresholdsActual(thresholds: ThresholdDef) {
+  formatThresholdsActual(thresholds: Threshold<any>) {
     switch (thresholds.style) {
       case ThresholdStyle.PERCENTAGE:
         return `${formatPercentage(thresholds.actual)}%`;
@@ -53,9 +52,14 @@ class Requirement extends React.PureComponent<Props> {
     const { name, thresholds, tooltip, valueTooltip, prefix, suffix } = this.props;
 
     const performance = this.performance;
+    let max = '';
+    const thresholdsN = thresholds as NumberThreshold;
+    if(thresholdsN.max !== undefined) {
+      max = `/ ${thresholdsN.max}`;
+    }
     const actual = (
       <>
-        {prefix} {this.formatThresholdsActual(thresholds)} {thresholds.max !== undefined && `/ ${thresholds.max}`} {suffix}
+        {prefix} {this.formatThresholdsActual(thresholds)} {max} {suffix}
       </>
     );
 
@@ -100,9 +104,9 @@ class Requirement extends React.PureComponent<Props> {
   }
 }
 
-export default props => (
+export default (props: Omit<Props, 'setPerformance'>) => (
   <RuleContext.Consumer>
-    {setPerformance => (
+    {(setPerformance: (performance: number) => void) => (
       <Requirement
         {...props}
         setPerformance={setPerformance}
