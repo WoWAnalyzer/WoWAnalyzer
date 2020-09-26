@@ -8,19 +8,21 @@ import colorForPerformance from 'common/colorForPerformance';
 
 import performanceForThresholds from './helpers/performanceForThresholds';
 import { RuleContext } from './Rule';
+import { ThresholdDef } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/Thresholds';
 
-class Requirement extends React.PureComponent {
-  static propTypes = {
-    name: PropTypes.node.isRequired,
-    thresholds: PropTypes.object.isRequired,
-    tooltip: PropTypes.node,
-    valueTooltip: PropTypes.node,
-    setPerformance: PropTypes.func,
-    prefix: PropTypes.node,
-    suffix: PropTypes.node,
-  };
+interface Props {
+  name: React.ReactNode,
+  thresholds: ThresholdDef,
+  tooltip: React.ReactNode,
+  valueTooltip: React.ReactNode,
+  setPerformance: PropTypes.func,
+  prefix?: React.ReactNode,
+  suffix?: React.ReactNode,
+}
+class Requirement extends React.PureComponent<Props> {
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     props.setPerformance(this.performance);
   }
@@ -29,21 +31,21 @@ class Requirement extends React.PureComponent {
     return performanceForThresholds(this.props.thresholds);
   }
 
-  formatThresholdsActual(thresholds) {
+  formatThresholdsActual(thresholds: ThresholdDef) {
     switch (thresholds.style) {
-      case 'percentage':
+      case ThresholdStyle.PERCENTAGE:
         return `${formatPercentage(thresholds.actual)}%`;
-      case 'number':
+      case ThresholdStyle.NUMBER:
         return `${formatNumber(thresholds.actual)}`;
-      case 'thousands':
+      case ThresholdStyle.THOUSANDS:
         return `${formatThousands(thresholds.actual)}`;
-      case 'decimal':
+      case ThresholdStyle.DECIMAL:
         return `${thresholds.actual.toFixed(2)}`;
-      case 'boolean':
+      case ThresholdStyle.BOOLEAN:
         return thresholds.actual ? 'Yes' : 'No';
-      case 'seconds':
+      case ThresholdStyle.SECONDS:
         return `${thresholds.actual.toFixed(2)}s`;
-      case 'absolute':
+      case ThresholdStyle.ABSOLUTE:
         return `${thresholds.actual}`;
       default:
         throw new Error(`Unknown style: ${thresholds.style}`);
