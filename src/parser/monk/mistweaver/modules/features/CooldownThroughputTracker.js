@@ -13,6 +13,22 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
     },
+    {
+      spell: SPELLS.INVOKE_YULON_THE_JADE_SERPENT,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    },
+    {
+      spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    },
   ];
 
   static ignoredSpells = [
