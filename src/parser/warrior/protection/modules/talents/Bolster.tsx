@@ -1,56 +1,48 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import { formatDuration } from 'common/format';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 const debug = false;
+const BUFFS = [SPELLS.LAST_STAND, SPELLS.SHIELD_BLOCK_BUFF];
 
 class Bolster extends Analyzer {
   badBlocks = 0;
   wastedBlockTime = 0;
   buffStartTime = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(BUFFS), this.applyBlockBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(BUFFS), this.removeBlockBuff);
+    debug && this.addEventListener(Events.fightend, this.fightEndDebug);
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (!(spellId === SPELLS.LAST_STAND.id || spellId === SPELLS.SHIELD_BLOCK_BUFF.id)) {
-      return;
-    }
-
+  applyBlockBuff(event: ApplyBuffEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id) && this.selectedCombatant.hasBuff(SPELLS.LAST_STAND.id)) {
       this.badBlocks += 1;
       this.buffStartTime += event.timestamp;
     }
   }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (!(spellId === SPELLS.LAST_STAND.id || spellId === SPELLS.SHIELD_BLOCK_BUFF.id)) {
-      return;
-    }
-
+  removeBlockBuff(event: RemoveBuffEvent) {
     if (this.buffStartTime === 0) {
       return;
     }
-
     this.wastedBlockTime += event.timestamp - this.buffStartTime;
     this.buffStartTime = 0;
     debug && console.log(`Wasted Block Time: ${this.wastedBlockTime}`);
   }
 
-  on_fightend() {
-    if (debug) {
-      console.log(`Overlapped Casts ${this.badBlocks}`);
-      console.log(`Total wasted block time ${formatDuration(this.wastedBlockTime / 1000)}`);
-    }
+  fightEndDebug() {
+    console.log(`Overlapped Casts ${this.badBlocks}`);
+    console.log(`Total wasted block time ${formatDuration(this.wastedBlockTime / 1000)}`);
   }
 
   get suggestionThresholds() {
@@ -67,7 +59,7 @@ class Bolster extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
+        .addSuggestion((suggest) => {
           return suggest('You should never overlap Shield Block and Last stand when you take the Bolster talent.')
             .icon(SPELLS.BOLSTER_TALENT.icon)
             .actual(`You overlapped shield block and last stand ${this.badBlocks} times.`)

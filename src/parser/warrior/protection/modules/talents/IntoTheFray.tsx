@@ -4,9 +4,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Events, { EventType } from 'parser/core/Events';
-import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 
 const MAX_STACKS = 5;
 const HASTE_PER_STACK = 3;
@@ -18,25 +18,31 @@ class IntoTheFray extends Analyzer {
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INTO_THE_FRAY_TALENT.id);
-    this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
-
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
     this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
-    this.addEventListener(Events.fightend, this.handleStacks);
+    this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
   }
 
-  handleStacks(event) {
-    this.buffStacks[this.lastStacks].push(event.timestamp - this.lastUpdate);
-    if (event.type === EventType.FightEnd) {
-      return;
+  handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | RemoveBuffStackEvent | FightEndEvent, stack: number = null) {
+    if (event.type === EventType.RemoveBuff || isNaN(event.stack)) { //NaN check if player is dead during on_finish
+      event.stack = 0;
     }
-    this.lastStacks = currentStacks(event);
+    if (event.type === EventType.ApplyBuff) {
+      event.stack = 1;
+    }
+
+    if (stack) {
+      event.stack = stack;
+    }
+
+    this.buffStacks[this.lastStacks].push(event.timestamp - this.lastUpdate);
     this.lastUpdate = event.timestamp;
+    this.lastStacks = event.stack;
   }
 
   on_fightend(event) {
@@ -79,7 +85,6 @@ class IntoTheFray extends Analyzer {
       </StatisticBox>
     );
   }
-
   statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
