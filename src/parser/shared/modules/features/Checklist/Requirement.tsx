@@ -1,22 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import InformationIcon from 'interface/icons/Information';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import colorForPerformance from 'common/colorForPerformance';
-
-import performanceForThresholds from './helpers/performanceForThresholds';
-import { RuleContext } from './Rule';
 import { ThresholdDef } from 'parser/core/ParseResults';
 import { ThresholdStyle } from 'parser/core/Thresholds';
+import performanceForThresholds from './helpers/performanceForThresholds';
+import { RuleContext } from './Rule';
+
 
 interface Props {
   name: React.ReactNode,
   thresholds: ThresholdDef,
   tooltip: React.ReactNode,
   valueTooltip: React.ReactNode,
-  setPerformance: PropTypes.func,
+  setPerformance: (performance: number) => void,
   prefix?: React.ReactNode,
   suffix?: React.ReactNode,
 }
@@ -45,8 +44,6 @@ class Requirement extends React.PureComponent<Props> {
         return thresholds.actual ? 'Yes' : 'No';
       case ThresholdStyle.SECONDS:
         return `${thresholds.actual.toFixed(2)}s`;
-      case ThresholdStyle.ABSOLUTE:
-        return `${thresholds.actual}`;
       default:
         throw new Error(`Unknown style: ${thresholds.style}`);
     }

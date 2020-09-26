@@ -13,7 +13,7 @@ export interface Threshold<T extends ThresholdTypes> {
   isEqual: T
 }
 
-type ThresholdRange = {
+export type ThresholdRange = {
   minor?: number,
   average?: number,
   major?: number,
@@ -24,8 +24,8 @@ type ThresholdRange = {
   b) didn't declare one at all
  */
 interface INumberThreshold extends Threshold<number> {
-  style: ThresholdStyle.NUMBER | ThresholdStyle.PERCENTAGE | ThresholdStyle.THOUSANDS |
-    ThresholdStyle.DECIMAL | ThresholdStyle.SECONDS,
+  style: [ThresholdStyle.NUMBER] | [ThresholdStyle.PERCENTAGE] | [ThresholdStyle.THOUSANDS] |
+    [ThresholdStyle.DECIMAL] | [ThresholdStyle.SECONDS],
   // Require exactly one of the below (including isEqual from parent)
   isLessThan: ThresholdRange,
   isGreaterThan: ThresholdRange,
