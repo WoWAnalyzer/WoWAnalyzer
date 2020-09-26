@@ -3,7 +3,6 @@
  * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
-
 export default {
   // Shared
   MYSTIC_TOUCH: {
@@ -35,7 +34,7 @@ export default {
     id: 107428,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
-    manaCost: 1500,
+    manaCost: 750,
   },
   ROLL: {
     id: 109132,
@@ -51,7 +50,7 @@ export default {
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaCost: 1000,
+    manaCost: 500,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -99,7 +98,7 @@ export default {
     id: 124682,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-    manaCost: 5200,
+    manaCost: 3000,
   },
   ENVELOPING_MIST_TFT: {
     id: 274062,
@@ -110,7 +109,7 @@ export default {
     id: 191837,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
-    manaCost: 7200,
+    manaCost: 3600,
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
@@ -121,13 +120,13 @@ export default {
     id: 116849,
     name: 'Life Cocoon',
     icon: 'ability_monk_chicocoon',
-    manaCost: 2400,
+    manaCost: 1200,
   },
   RENEWING_MIST: {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaCost: 2500,
+    manaCost: 1100,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -138,7 +137,7 @@ export default {
     id: 115310,
     name: 'Revival',
     icon: 'spell_monk_revival',
-    manaCost: 4374,
+    manaCost: 2187,
   },
   THUNDER_FOCUS_TEA: {
     id: 116680,
@@ -149,13 +148,13 @@ export default {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 3500,
+    manaCost: 2050,
   },
   SOOTHING_MIST: {
     id: 115175,
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
-    manaCost: 400,
+    manaCost: 200,
   },
   SOOTHING_MIST_STATUE: {
     id: 198533,
@@ -166,6 +165,7 @@ export default {
     id: 322118,
     name: 'Invoke Yu\'lon, the Jade Serpent',
     icon: 'ability_monk_dragonkick',
+    manaCost: 2500,
   },
   ENVELOPING_BREATH: {
     id: 325209,
@@ -236,7 +236,7 @@ export default {
     id: 115450,
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
-    manaCost: 1300,
+    manaCost: 650,
   },
 
   // Brewmaster

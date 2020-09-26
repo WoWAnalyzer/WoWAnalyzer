@@ -48,6 +48,12 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getVivifyDetails(spellInfo);
     } else if (spellId === SPELLS.REFRESHING_JADE_WIND_TALENT.id) {
       spellInfo = this.getRefreshingJadeWindDetails(spellInfo);
+    } else if (spellId === SPELLS.RISING_SUN_KICK.id) {
+      spellInfo = this.getRisingSunKickDetails(spellInfo);
+    } else if (spellId === SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id) {
+      spellInfo = this.getYulonDetails(spellInfo);
+    } else if (spellId === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
+      spellInfo = this.getChijiDetails(spellInfo);
     }
 
     return spellInfo;
@@ -93,6 +99,31 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     spellInfo.overhealingDone = this.refreshingJadeWind.overhealingRJW;
     return spellInfo;
   }
+
+  getRisingSunKickDetails(spellInfo) {
+    // Since I don't want messy code right now it will only give the rising mist healing not any of the other fun stuff it gives indirectly
+    spellInfo.healingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).effective;
+    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).effective;
+    return spellInfo;
+  }
+
+  getYulonDetails(spellInfo) {
+    // Get all soothing breath and enveloping breath healing since its all bc of yu'lon
+    spellInfo.healingDone = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id).effective;
+    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id).effective;
+    // Enveloping breath part
+    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
+    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
+    return spellInfo;
+  }
+
+  getChijiDetails(spellInfo) {
+    spellInfo.healingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).effective;
+    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).effective;
+    return spellInfo;
+  }
+
+  
 }
 
 export default MistweaverHealingEfficiencyTracker;
