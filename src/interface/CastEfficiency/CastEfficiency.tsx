@@ -104,7 +104,7 @@ const CastEfficiency = ({ categories, abilities }: Props) => (
                         style={{ minWidth: 50, paddingRight: 5 }}
                       >
                         {efficiency !== null
-                          ? `${(efficiency * 100).toFixed(2)}%`
+                          ? `${efficiency ? (efficiency * 100).toFixed(2) : 0}%`
                           : ''}
                       </td>
                       <td style={{ width: '25%', color: 'orange' }}>

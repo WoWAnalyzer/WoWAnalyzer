@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 9, 26), 'Updated abilities effiency tracker to default to 0 if no casts were possible.', Abelito75),
   change(date(2020, 9, 22), 'Added holy power tracking for prot and holy paladin specs.', HolySchmidt),
   change(date(2020, 9, 22), 'Updated search in Event tab to allow for multi-word searching in quotes.', Abelito75),
   change(date(2020, 9, 22), 'Add some early checks to see if a player has a given conduit, soulbind or covenant.', Putro),
