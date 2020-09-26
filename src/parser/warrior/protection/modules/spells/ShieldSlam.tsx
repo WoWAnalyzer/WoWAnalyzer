@@ -1,12 +1,13 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Events, { CastEvent } from 'parser/core/Events';
 
 const debug = false;
 
@@ -15,8 +16,10 @@ class ShieldBlock extends Analyzer {
     statTracker: StatTracker,
     abilityTracker: AbilityTracker,
   };
-  
-  timeOnCd = 0;//total time its not on cd
+  protected statTracker!: StatTracker;
+  protected abilityTracker!: AbilityTracker;
+
+  timeOnCd = 0; //total time its not on cd
   currentCd = 0;
   lastCast = 0;
   averageCd = 0;
@@ -24,46 +27,40 @@ class ShieldBlock extends Analyzer {
 
   totalCastsAssumed = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.lastCast = this.owner.fight.start_time/1000;
+  constructor(options: any) {
+    super(options);
+    this.lastCast = this.owner.fight.start_time / 1000;
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHEILD_SLAM), this.onSlamCast);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if (SPELLS.SHIELD_SLAM.id !== spellId) {
-      return;
-    } 
-
-    if(this.currentCd === 0){//we then know this is the first cast
-      this.timeOnCd = event.timestamp/1000 - this.owner.fight.start_time/1000;
+  onSlamCast(event: CastEvent) {
+    if (this.currentCd === 0) { //we then know this is the first cast
+      this.timeOnCd = event.timestamp / 1000 - this.owner.fight.start_time / 1000;
     }
 
-    if((event.timestamp/1000 - this.lastCast) * 1.05 > this.currentCd){//normal cast
-      this.timeOnCd += event.timestamp/1000 - this.lastCast;
+    if ((event.timestamp / 1000 - this.lastCast) * 1.05 > this.currentCd) { //normal cast
+      this.timeOnCd += event.timestamp / 1000 - this.lastCast;
     }
 
-    if(this.currentCd !== 0){
+    if (this.currentCd !== 0) {
       this.averageCd += this.currentCd;
     }
 
     this.currentCd = 9 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
-    this.lastCast = event.timestamp/1000;
+    this.lastCast = event.timestamp / 1000;
 
     this.totalCastsAssumed += 1;
-
   }
 
-  on_fightend(){
+  on_fightend() {
     this.actualCasts = this.abilityTracker.getAbility(SPELLS.SHIELD_SLAM.id).casts;
-    if((this.owner.fight.end_time/1000 - this.lastCast) *1.05 > this.currentCd){
-      this.timeOnCd += this.owner.fight.end_time/1000 - this.lastCast;
+    if ((this.owner.fight.end_time / 1000 - this.lastCast) * 1.05 > this.currentCd) {
+      this.timeOnCd += this.owner.fight.end_time / 1000 - this.lastCast;
     }
     this.averageCd = this.averageCd / this.totalCastsAssumed;
-    this.totalCastsAssumed += (this.timeOnCd/this.averageCd);
-    this.totalCastsAssumed = parseInt(this.totalCastsAssumed);
-    if(debug){
+    this.totalCastsAssumed += (this.timeOnCd / this.averageCd);
+    //this.totalCastsAssumed = parseInt(this.totalCastsAssumed); [dambroda: not sure what this did?]
+    if (debug) {
       console.log('assumed max shield slam casts: ' + this.totalCastsAssumed);
       console.log('time on cd: ' + this.timeOnCd);
       console.log('current cd: ' + this.currentCd);
@@ -73,11 +70,11 @@ class ShieldBlock extends Analyzer {
     }
   }
 
-  get slamRatio(){
-    return this.actualCasts/this.totalCastsAssumed;
+  get slamRatio() {
+    return this.actualCasts / this.totalCastsAssumed;
   }
-  
-  get suggestionThresholds(){
+
+  get suggestionThresholds() {
     return {
       actual: this.slamRatio,
       isLessThan: {
@@ -88,12 +85,12 @@ class ShieldBlock extends Analyzer {
       style: 'percentage',
     };
   }
- 
-  suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+
+  suggestions(when: any) {
+    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />  more often - it is your main  <ResourceLink id={RESOURCE_TYPES.RAGE.id} />  generator and damage source.
+          Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> more often - it is your main <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generator and damage source.
         </>,
       )
         .icon(SPELLS.SHIELD_SLAM.icon)
