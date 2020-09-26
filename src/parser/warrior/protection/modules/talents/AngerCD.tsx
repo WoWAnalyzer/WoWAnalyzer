@@ -121,9 +121,9 @@ class AngerCD extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
 
-    when(this.suggestionThresholdsDemoShout).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholdsDemoShout).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         this.DEMOTEXT,
       )
@@ -132,7 +132,7 @@ class AngerCD extends Analyzer {
         .recommended(`${formatPercentage(recommended)}% casts recommended`);
     });
 
-    when(this.suggestionThresholdsAvatar).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholdsAvatar).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         <>
           Using  <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important for the increased damage output and rage generation so try to get the maximum casts out of it.
@@ -143,7 +143,7 @@ class AngerCD extends Analyzer {
         .recommended(`${formatPercentage(recommended)}% casts recommended`);
     });
 
-    when(this.suggestionThresholdsLastStand).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholdsLastStand).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         <>
           Remember to cast <SpellLink id={SPELLS.LAST_STAND.id} /> more frequently. If you have <SpellLink id={SPELLS.BOLSTER_TALENT.id} /> talented you can use this to fill gaps between your <SpellLink id={SPELLS.SHIELD_BLOCK.id} />.
@@ -154,7 +154,7 @@ class AngerCD extends Analyzer {
         .recommended(`${formatPercentage(recommended)}% casts recommended`);
     });
 
-    when(this.suggestionThresholdsShieldWall).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholdsShieldWall).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         <>
           Try to use <SpellLink id={SPELLS.SHIELD_WALL.id} /> more often as it reduces both physical and magical damage - unless you need it for a specific mechanic in the fight.
