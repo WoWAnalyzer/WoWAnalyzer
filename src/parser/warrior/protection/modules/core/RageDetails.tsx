@@ -43,8 +43,8 @@ class RageDetails extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
           .icon('spell_nature_reincarnation')
           .actual(`${formatPercentage(actual)}% wasted`)

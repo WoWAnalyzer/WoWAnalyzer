@@ -1,5 +1,6 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -12,40 +13,34 @@ class Vengeance extends Analyzer {
   static dependencies = {
     rageTracker: RageTracker,
   };
+  protected rageTracker!: RageTracker;
 
   buffedIgnoreCasts = 0;
   buffedRevengeCasts = 0;
   ignoreBuffsOverwritten = 0;
   revengeBuffsOverwritten = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VENGEANCE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IGNORE_PAIN), this.onIgnorePainCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REVENGE), this.onRevengeCast);
+
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.IGNORE_PAIN.id && event.ability.guid !== SPELLS.REVENGE.id) {
-      return;
-    }
-
-    if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id) && event.ability.guid === SPELLS.REVENGE.id) {
+  onRevengeCast(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id)) {
       this.ignoreBuffsOverwritten += 1;
-      return;
-    }
-
-    if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_REVENGE.id) && event.ability.guid === SPELLS.IGNORE_PAIN.id) {
-      this.revengeBuffsOverwritten += 1;
-      return;
-    }
-
-    if (event.ability.guid === SPELLS.REVENGE.id && this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_REVENGE.id)) {
+    } else if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_REVENGE.id)) {
       this.buffedRevengeCasts += 1;
-      return;
     }
+  }
 
-    if (event.ability.guid === SPELLS.IGNORE_PAIN.id && this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id)) {
+  onIgnorePainCast(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_REVENGE.id)) {
+      this.revengeBuffsOverwritten += 1;
+    } else if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id)) {
       this.buffedIgnoreCasts += 1;
-      return;
     }
   }
 
@@ -65,9 +60,9 @@ class Vengeance extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
+        .addSuggestion((suggest: any, actual: any, recommended: any) => {
           return suggest(<>Avoid casting <SpellLink id={SPELLS.IGNORE_PAIN.id} /> and <SpellLink id={SPELLS.REVENGE.id} /> back to back without using it's counterpart. <SpellLink id={SPELLS.VENGEANCE_TALENT.id} /> requires you to weave between those two spells to get the most rage and damage out of it.</>)
             .icon(SPELLS.VENGEANCE_TALENT.icon)
             .actual(`${formatPercentage(actual)}% overwritten`)

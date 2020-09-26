@@ -57,9 +57,9 @@ class Bolster extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.suggestionThresholds)
-        .addSuggestion((suggest) => {
+        .addSuggestion((suggest: any) => {
           return suggest('You should never overlap Shield Block and Last stand when you take the Bolster talent.')
             .icon(SPELLS.BOLSTER_TALENT.icon)
             .actual(`You overlapped shield block and last stand ${this.badBlocks} times.`)
