@@ -67,7 +67,12 @@ class Combatant extends Entity {
     if (!this.owner.characterProfile) {
       return null;
     }
-    const raceId = this.owner.characterProfile.race;
+    let raceId = this.owner.characterProfile.race;
+    if (raceId === null) {
+      // When it is an anonymous report we won't have any race.
+      raceId = 0;
+    }
+
     let race = Object.values(RACES).find(race => race.id === raceId);
     if (race === undefined) {
       throw new Error(`Unknown race id ${raceId}`);
