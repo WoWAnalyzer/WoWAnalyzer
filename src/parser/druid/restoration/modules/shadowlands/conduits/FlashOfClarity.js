@@ -20,7 +20,7 @@ class FlashOfClarity extends Analyzer {
   targetsWithClearCastingRegrowth = [];
 
   /**
-   * Flash of Clarity makes it so any regrowth 
+   * Flash of Clarity makes it so any regrowth casted with clearcasting is boosted by x% on hot healing and direct heal
    */
   constructor(...args) {
     super(...args);
