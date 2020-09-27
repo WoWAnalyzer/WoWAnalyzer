@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, ChristopherKiss } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, AdamKelly } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -10,10 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
-  change(date(2020, 10, 6), 'Fixed guild and character search so they can be submitted.', ChristopherKiss),
-  change(date(2020, 10, 4), 'Removed remaining trackers', Zerotorescue),
-  change(date(2020, 10, 2), 'Updated project dependencies.', Zerotorescue),
-  change(date(2020, 9, 26), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),
+  change(date(2020, 9, 22), 'Provide the ability to analyse anonymous reports.', AdamKelly),
   change(date(2020, 9, 22), 'Provide an EventType to Event map to make event handlers that listen to more than one event type easier to write.', Dambroda),
   change(date(2020, 9, 22), 'Fix an issue where it wasn\'t possible to view the character page', Putro),
   change(date(2020, 9, 21), 'Fix Armory link for characters on realms that contain spaces or apostrophes', Sharrq),
