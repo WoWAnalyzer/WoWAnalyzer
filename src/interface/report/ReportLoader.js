@@ -25,7 +25,6 @@ class ReportLoader extends React.PureComponent {
   static propTypes = {
     children: PropTypes.func.isRequired,
     reportCode: PropTypes.string,
-    isAnonymous: PropTypes.bool,
     setReport: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired, // adds to browser history
