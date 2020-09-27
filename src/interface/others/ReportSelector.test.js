@@ -65,6 +65,8 @@ describe('ReportSelector', () => {
   });
   test('getCode does not accept malformed anonymous report codes', () => {
     // Anonymous report URLs
+    expect(getReportCode('https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk4')).toBe(null);
+    expect(getReportCode('https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk4LL')).toBe(null);
     expect(getReportCode('https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk4#fight=6&type=healing&source=10')).toBe(null);
     expect(getReportCode('https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk-4#fight=6&type=healing&source=10')).toBe(null);
     expect(getReportCode('https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk4AA#fight=6&type=healing&source=10')).toBe(null);
