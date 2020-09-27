@@ -873,3 +873,14 @@ export const Tiphess: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/tjphess',
   }],
 };
+export const AdamKelly: Contributor = {
+  nickname: 'AdamKelly',
+  github: 'Adammkelly',
+  discord: 'Overload#0899',
+  avatar: require('./interface/images/avatars/karagus-avatar.jpg'),
+  mains: [{
+    name: 'Karagus',
+    spec: SPECS.ELEMENTAL_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/defias-brotherhood/Karagus',
+  }],
+};
