@@ -58,7 +58,6 @@ class EmbraceOfEarth extends Analyzer {
   }
 
   statistic() {
-    console.log(this.healing);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}

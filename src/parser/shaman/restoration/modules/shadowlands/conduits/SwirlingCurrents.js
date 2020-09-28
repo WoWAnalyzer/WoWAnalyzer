@@ -21,7 +21,7 @@ class SwirlingCurrents extends Analyzer {
   targetsWithBoostedRiptides = [];
 
   /**
-   * Whenever you cast a Gust of Mist procing ability it reduces the cooldown of Yu'lon or Chi-ji by .5 seconds as well as increasing their healing by x%
+   * Using Healing stream totem/Cloudburst totem increases the healing of your next 3 healing surges, healing waves or riptides by x%
    */
   constructor(...args) {
     super(...args);
@@ -36,6 +36,7 @@ class SwirlingCurrents extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE_RESTORATION, SPELLS.HEALING_WAVE, SPELLS.RIPTIDE]), this.normalizeBoost);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
+    //this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.addRiptide);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.removeRiptide);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.pandemicRiptide);
   }
@@ -43,6 +44,13 @@ class SwirlingCurrents extends Analyzer {
   normalizeBoost(event){
     if (this.selectedCombatant.hasBuff(SPELLS.SWIRLING_CURRENTS_BUFF.id) || this.targetsWithBoostedRiptides[event.targetID]) {
       this.healing += calculateEffectiveHealing(event, this.healingBoost);
+    }
+  }
+
+  addRiptide(event){
+    const targetID = event.targetID;
+    if (this.selectedCombatant.hasBuff(SPELLS.SWIRLING_CURRENTS_BUFF.id)) {
+      this.targetsWithBoostedRiptides[targetID]=targetID;
     }
   }
 
@@ -60,7 +68,7 @@ class SwirlingCurrents extends Analyzer {
   }
 
   pandemicRiptide(event){
-    if (this.selectedCombatant.hasBuff(SPELLS.SWIRLING_CURRENTS_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.SWIRLING_CURRENTS_BUFF.id)) {
      delete this.targetsWithBoostedRiptides[event.targetID];
     }
   }
