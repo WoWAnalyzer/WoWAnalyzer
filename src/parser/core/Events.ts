@@ -603,12 +603,10 @@ export interface Soulbind {
 }
 
 export interface Conduit {
-  id: number;
   rank: number;
   spellID: number;
   name: string;
   soulbindConduitID: number;
-  spellModifier: number;
   icon: string;
 }
 
@@ -659,6 +657,9 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     isMajor: false;
   }>;
   heartOfAzeroth: Array<Trait>;
+  covenant: Covenant, //TODO: Verify this is the structure in the combatlog
+  soulbind: Soulbind, //TODO: Verify this is the structure in the combatlog
+  conduits: Array<Conduit>, //TODO: Verify this is the structure in the combatlog
 }
 
 const Events = {

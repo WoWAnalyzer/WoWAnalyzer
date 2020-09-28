@@ -97,18 +97,20 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
     \t}
     }${Object.keys(conduitItemInfo).length - 1 > idx ? ',' : ''}\n`;
 
+  conduitName = conduitName.replace('\'', '\\\'');
+
   jsSpellOutput +=
     `\t${conduitKeyName}: {
   \tid: ${conduitSpellId},
-  \tname: "${conduitName}",
-  \ticon: "${conduitIcon}",
+  \tname: '${conduitName}',
+  \ticon: '${conduitIcon}',
   },\n`;
 
   jsItemOutput +=
     `\t${conduitKeyName}_ITEM: {
   \tid: ${conduitItemID},
-  \tname: "${conduitName}",
-  \ticon: "${conduitIcon}",
+  \tname: '${conduitName}',
+  \ticon: '${conduitIcon}',
   },\n`;
 });
 

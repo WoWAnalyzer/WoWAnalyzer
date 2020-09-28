@@ -11,6 +11,7 @@ import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Enemies from 'parser/shared/modules/Enemies';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 /**
  * Your attacks and abilities deal 5.0% increased damage to enemies inside Resonating Arrow.
@@ -30,12 +31,12 @@ class EnfeebledMark extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id) && this.selectedCombatant.hasConduitBySpellID(SPELLS.ENFEEBLED_MARK_CONDUIT.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = 1; //TODO: Find out the proper way of parsing conduit ranks
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ENFEEBLED_MARK_CONDUIT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onGenericDamage);
   }

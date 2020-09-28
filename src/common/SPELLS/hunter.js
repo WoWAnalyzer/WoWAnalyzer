@@ -63,7 +63,7 @@ export default {
     icon: 'ability_hunter_longevity',
   },
   DIRE_BEAST_SUMMON: {
-    id: 306229,
+    id: 132764,
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
   },

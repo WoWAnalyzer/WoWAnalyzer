@@ -10,6 +10,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 /**
  * Flayed Shot has an additional 5% chance to pro Flayer's Mark
@@ -27,12 +28,12 @@ class EmpoweredRelease extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) && this.selectedCombatant.hasConduitBySpellID(SPELLS.EMPOWERED_RELEASE_CONDUIT.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = 1; //TODO: Find out the proper way of parsing conduit ranks
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.EMPOWERED_RELEASE_CONDUIT.id);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.flayedShotProc);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.flayedShotProc);
