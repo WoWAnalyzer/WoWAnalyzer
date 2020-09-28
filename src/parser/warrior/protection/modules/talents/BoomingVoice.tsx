@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -8,6 +8,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber } from 'common/format';
+import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 
 const BOOMING_VOICE_DAMAGE_INCREASE = 0.15;
 const BOOMING_VOICE_RAGE_GENERATION = 40;
@@ -16,6 +17,7 @@ class BoomingVoice extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+  protected enemies!: Enemies;
 
   rageGenerated = 0;
   rageWasted = 0;
@@ -23,13 +25,16 @@ class BoomingVoice extends Analyzer {
   maxRage = 100;
   nextCastWasted = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT), this.onShoutCast);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT), this.onShoutEnergize);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.DEMORALIZING_SHOUT.id || this.nextCastWasted === 0) {
+  onShoutCast(event: CastEvent) {
+    if (this.nextCastWasted === 0) {
       return;
     }
 
@@ -39,19 +44,15 @@ class BoomingVoice extends Analyzer {
     this.nextCastWasted = 0;
   }
 
-  on_energize(event) {
-    if (event.ability.guid !== SPELLS.DEMORALIZING_SHOUT.id) {
-      return;
-    }
-
+  onShoutEnergize(event: EnergizeEvent) {
     this.rageGenerated += event.resourceChange;
     const waste = event.waste || 0;
     this.rageWasted += waste;
-    //on_energize event happens before the cast-event
+    // on_energize event happens before the cast-event
     this.nextCastWasted = waste;
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event: DamageEvent) {
     if (event.targetIsFriendly) {
       return;
     }
