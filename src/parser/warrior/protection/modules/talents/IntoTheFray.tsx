@@ -4,9 +4,10 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticBox from 'interface/others/StatisticBox';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 
 const MAX_STACKS = 5;
 const HASTE_PER_STACK = 3;
@@ -14,7 +15,7 @@ const HASTE_PER_STACK = 3;
 //update haste per stack in ./core/Haste.js aswell
 
 class IntoTheFray extends Analyzer {
-  buffStacks = [];
+  buffStacks: number[][];
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;
 
@@ -25,27 +26,30 @@ class IntoTheFray extends Analyzer {
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
     this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
-    this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
+    this.addEventListener(Events.fightend, this.fightEnd);
+    this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, () => [0]);
   }
 
-  handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | RemoveBuffStackEvent | FightEndEvent, stack: number = null) {
-    if (event.type === EventType.RemoveBuff || isNaN(event.stack)) { //NaN check if player is dead during on_finish
-      event.stack = 0;
+  handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | RemoveBuffStackEvent | FightEndEvent, stack?: number) {
+    // TODO create child classes of the event types that we add event.stack to, in case its used in other modules
+    const stackEvent = event as (typeof event & { stack: number });
+    if (stackEvent.type === EventType.RemoveBuff || isNaN(stackEvent.stack)) { // NaN check if player is dead during on_finish
+      stackEvent.stack = 0;
     }
     if (event.type === EventType.ApplyBuff) {
-      event.stack = 1;
+      stackEvent.stack = 1;
     }
 
     if (stack) {
-      event.stack = stack;
+      stackEvent.stack = stack;
     }
 
-    this.buffStacks[this.lastStacks].push(event.timestamp - this.lastUpdate);
-    this.lastUpdate = event.timestamp;
-    this.lastStacks = event.stack;
+    this.buffStacks[this.lastStacks].push(stackEvent.timestamp - this.lastUpdate);
+    this.lastUpdate = stackEvent.timestamp;
+    this.lastStacks = stackEvent.stack;
   }
 
-  on_fightend(event) {
+  fightEnd(event: FightEndEvent) {
     this.handleStacks(event, this.lastStacks);
   }
 
