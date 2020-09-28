@@ -47,7 +47,7 @@ class EmbraceOfEarth extends Analyzer {
 
     if(target.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp, 0, 0)){
       // idea
-      // heal = boostedHeal / (1.5 + x)
+      // heal = boostedHeal / (1.1 + x)
       // bonusHeal = heal * x
       const boostedHeal = (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
       const heal = boostedHeal / (1 + EARTH_SHIELD_BOOST + this.boost);
