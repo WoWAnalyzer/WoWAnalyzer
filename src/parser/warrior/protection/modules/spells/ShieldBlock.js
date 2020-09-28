@@ -1,10 +1,9 @@
 import React from 'react';
 import SpellLink from 'common/SpellLink';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
-import { DamageEvent } from 'parser/core/Events';
 
 const debug = false;
 
@@ -18,15 +17,14 @@ class ShieldBlock extends Analyzer {
   bolster = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id);
   ssNeeded = !this.selectedCombatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id) ? 0 : 1;
 
-  constructor(options: any) {
-    super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHEILD_BLOCK), )
+  constructor(...args) {
+    super(...args);
     this.shieldBlocksOffensive = [];
     this.shieldBlocksDefensive = [];
     this.shieldBlocksOverall = [];
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
     if(spellId !== SPELLS.SHIELD_BLOCK.id){
@@ -40,7 +38,7 @@ class ShieldBlock extends Analyzer {
     this.shieldBlockCast(event);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
+  on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
 
     if(!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)){
@@ -56,7 +54,7 @@ class ShieldBlock extends Analyzer {
     }
   }
 
-  on_toPlayer_damage(event: DamageEvent) {
+  on_toPlayer_damage(event) {
 
     if(!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)){
       return;
@@ -86,6 +84,7 @@ class ShieldBlock extends Analyzer {
   }
 
   shieldBlockCast(event){
+
     const offensive = {
       shieldBlock: this.shieldBlocksOffensive.length + 1,
       shieldSlamCasts: 0,
@@ -204,12 +203,12 @@ class ShieldBlock extends Analyzer {
             Overall bad casts: {totalCasts - goodCasts}<br />
             Good offensive casts: {offensiveCasts}<br />
             Good offensive casts where you cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> during the <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> buff to take advantage of increased <SpellLink id={SPELLS.SHIELD_SLAM.id} /> damage.
-          <br /><br />
+            <br /><br />
             Good defensive casts: {defensiveCasts}<br />
             Good defensive casts where you blocked several hits.
-          <br /><br />
+            <br /><br />
             Some casts may be good both offensively and defensively.
-          <br /><br />
+            <br /><br />
             Try to maximize the efficiency of your <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> casts by ensuring that you take advantage of the offensive or defensive effects each time.
           </>
         )}
