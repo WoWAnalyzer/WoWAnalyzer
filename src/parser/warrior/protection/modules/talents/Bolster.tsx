@@ -71,6 +71,7 @@ class Bolster extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.BOLSTER_TALENT.id}
+        icon={undefined} // will be overriden by talent; required because TSB is not converted to TS
         position={STATISTIC_ORDER.OPTIONAL(3)}
         value={`${ this.badBlocks }`}
         label="Last Stand and Shield Block overlapped"
