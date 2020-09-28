@@ -106,8 +106,8 @@ class Combatant extends Entity {
     this._parseTalents(combatantInfo.talents);
     this._parseTraits(combatantInfo.artifact);
     this._parseEssences(combatantInfo.heartOfAzeroth);
-    this._parseCovenants(combatantInfo.covenant);
-    this._parseSoulbinds(combatantInfo.soulbind);
+    this._parseCovenant(combatantInfo.covenant);
+    this._parseSoulbind(combatantInfo.soulbind);
     this._parseConduits(combatantInfo.conduits);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
@@ -236,7 +236,7 @@ class Combatant extends Entity {
   //region Covenants
   covenantsByCovenantID: { [key: number]: Covenant } = {};
 
-  _parseCovenants(covenant: Covenant) {
+  _parseCovenant(covenant: Covenant) {
     if (!covenant) {
       return;
     }
@@ -252,7 +252,7 @@ class Combatant extends Entity {
   //region Soulbinds
   soulbindsBySoulbindID: { [key: number]: Soulbind } = {};
 
-  _parseSoulbinds(soulbind: Soulbind) {
+  _parseSoulbind(soulbind: Soulbind) {
     if (!soulbind) {
       return;
     }

@@ -49,6 +49,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.ARCANE_SHOT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,

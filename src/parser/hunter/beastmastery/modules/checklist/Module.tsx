@@ -83,6 +83,7 @@ class Checklist extends BaseChecklist {
           cobraShotCDREfficiencyThreshold: this.cobraShot.cdrEfficiencyCobraShotThreshold,
           wastedCobraShotsThreshold: this.cobraShot.wastedCobraShotsThreshold,
           beastCleaveThresholds: this.beastCleave.beastCleavesWithoutHits,
+          huntersMarkThresholds: this.huntersMark.uptimeThresholds,
           //endregion
 
           //region Talents

@@ -2,135 +2,49 @@ import SPECS from 'game/SPECS';
 import { specificGearSets } from 'interface/report/CombatantInfoFakerGearsets';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SOULBINDS from 'game/shadowlands/SOULBINDS';
-import { Conduit } from 'parser/core/Events';
+import { Conduit, Covenant, Soulbind } from 'parser/core/Events';
 
 const debugGear = false;
-const debugCovenant = false;
-const debugSoulbind = false;
+
+type FakeInfo = {
+  covenant: Covenant,
+  soulbind: Soulbind,
+  conduits: Array<Conduit>
+  legendaryInfo: { slotId: number, bonusId: number } //slotId 0 would be head slot, and bonusID is the bonusID that is added to an item with the given legendary effect
+}
+
+const SPEC_CONFIGS: { [specId: number]: FakeInfo } = {
+  [SPECS.MARKSMANSHIP_HUNTER.id]: {
+    covenant: COVENANTS.VENTHYR,
+    soulbind: SOULBINDS.GENERAL_DRAVEN,
+    conduits: [{ spellID: 340033, name: 'Powerful Precision', icon: 'ability_hunter_markedshot', soulbindConduitID: 199, rank: 1 }],
+    legendaryInfo: { slotId: 0, bonusId: 7003 },
+  },
+  [SPECS.BEAST_MASTERY_HUNTER.id]: {
+    covenant: COVENANTS.NIGHT_FAE,
+    soulbind: SOULBINDS.NIYA,
+    conduits: [{ spellID: 339750, name: 'One With the Beast', icon: 'spell_winston_rage', soulbindConduitID: 185, rank: 1 }],
+    legendaryInfo: { slotId: 0, bonusId: 7003 },
+  },
+};
 
 export function generateFakeCombatantInfo(player: any) {
   const fakedPlayer = player;
   fakedPlayer.gear = fakeGearGenerator(player.specID);
-  fakedPlayer.gear = fakeLegendaryGeneration(player.gear);
+  fakedPlayer.gear = fakeLegendaryGeneration(player.gear, SPEC_CONFIGS[player.specID]?.legendaryInfo);
   fakedPlayer.auras = fakeBuffGenerator();
-  fakedPlayer.covenant = fakeCovenantGenerator(player.specID);
-  fakedPlayer.soulbind = fakeSoulbindGenerator(player.specID);
-  fakedPlayer.conduits = fakeConduitGenerator();
+  fakedPlayer.covenant = SPEC_CONFIGS[player.specID]?.covenant;
+  fakedPlayer.soulbind = SPEC_CONFIGS[player.specID]?.soulbind;
+  fakedPlayer.conduits = SPEC_CONFIGS[player.specID]?.conduits;
   fakedPlayer.error = null;
   return fakedPlayer;
 }
 
-//region Shadowlands Systems
-
-//region Covenant Generation
-
-function fakeCovenantGenerator(specID: number) {
-  const KYRIAN_SPECS: Array<Number> = [];
-  const VENTHYR_SPECS: Array<Number> = [SPECS.MARKSMANSHIP_HUNTER.id];
-  const NIGHT_FAE_SPECS: Array<Number> = [];
-  const NECROLORD_SPECS: Array<Number> = [];
-
-  if (VENTHYR_SPECS.includes(specID)) {
-    return COVENANTS.VENTHYR;
-  } else if (KYRIAN_SPECS.includes(specID)) {
-    return COVENANTS.KYRIAN;
-  } else if (NIGHT_FAE_SPECS.includes(specID)) {
-    return COVENANTS.NIGHT_FAE;
-  } else if (NECROLORD_SPECS.includes(specID)) {
-    return COVENANTS.NECROLORD;
-  } else {
-    debugCovenant && console.warn('SpecID: ' + specID + ' passed - can\'t generate fake covenant for the spec - add it to a list in CombatantInfoFaker.ts');
-    return null;
-  }
-}
-
-//endregion
-
-//region Soulbind Generation
-
-function fakeSoulbindGenerator(specID: number) {
-  //Kyrian Soulbinds
-  const PELAGOS_SPECS: Array<Number> = [];
-  const KLEIA_SPECS: Array<Number> = [];
-  const FORGELITE_PRIME_MIKANIKOS_SPECS: Array<Number> = [];
-
-  //Venthyr Soulbinds
-  const GENERAL_DRAVEN_SPECS: Array<Number> = [];
-  const NADJIA_THE_MISTBLADE_SPECS: Array<Number> = [];
-  const THEOTAR_THE_MAD_DUKE_SPECS: Array<Number> = [];
-
-  //Night Fae Soulbinds
-  const NIYA_SPECS: Array<Number> = [];
-  const DREAMWEAVER_SPECS: Array<Number> = [];
-  const KORAYN_SPEC: Array<Number> = [];
-
-  //Necrolord Soulbinds
-  const PLAGUE_DEVISER_MARILETH_SPECS: Array<Number> = [];
-  const EMENI_SPECS: Array<Number> = [];
-  const BONESMITH_HEIRMIR_SPECS: Array<Number> = [];
-
-  if (PELAGOS_SPECS.includes(specID)) {
-    return SOULBINDS.PELAGOS;
-  } else if (KLEIA_SPECS.includes(specID)) {
-    return SOULBINDS.KLEIA;
-  } else if (FORGELITE_PRIME_MIKANIKOS_SPECS.includes(specID)) {
-    return SOULBINDS.FORGELITE_PRIME_MIKANIKOS;
-  } else if (GENERAL_DRAVEN_SPECS.includes(specID)) {
-    return SOULBINDS.GENERAL_DRAVEN;
-  } else if (NADJIA_THE_MISTBLADE_SPECS.includes(specID)) {
-    return SOULBINDS.NADJIA_THE_MISTBLADE;
-  } else if (THEOTAR_THE_MAD_DUKE_SPECS.includes(specID)) {
-    return SOULBINDS.THEOTAR_THE_MAD_DUKE;
-  } else if (NIYA_SPECS.includes(specID)) {
-    return SOULBINDS.NIYA;
-  } else if (DREAMWEAVER_SPECS.includes(specID)) {
-    return SOULBINDS.DREAMWEAVER;
-  } else if (KORAYN_SPEC.includes(specID)) {
-    return SOULBINDS.KORAYN;
-  } else if (PLAGUE_DEVISER_MARILETH_SPECS.includes(specID)) {
-    return SOULBINDS.PLAGUE_DEVISER_MARILETH;
-  } else if (EMENI_SPECS.includes(specID)) {
-    return SOULBINDS.EMENI;
-  } else if (BONESMITH_HEIRMIR_SPECS.includes(specID)) {
-    return SOULBINDS.BONESMITH_HEIRMIR;
-  } else {
-    debugSoulbind && console.warn('SpecID: ' + specID + ' passed - can\'t generate fake soulbind for the spec - add it to a list in CombatantInfoFaker.ts');
-    return null;
-  }
-}
-
-//endregion
-
-//region Conduit Generation
-
-function fakeConduitGenerator() {
-  const arrayOfConduits: Array<Conduit> = [];
-  // Examples
-  /*
-   arrayOfConduits.push({
-    spellID: 340033,
-    name: 'Powerful Precision',
-    icon: 'ability_hunter_markedshot',
-    soulbindConduitID: 199,
-    rank: 1,
-  });
-  arrayOfConduits.push({
-    spellID: 339924,
-    name: 'Brutal Projectiles',
-    icon: 'inv_rapidfire',
-    soulbindConduitID: 189,
-    rank: 1,
-  });*/
-  return arrayOfConduits;
-}
-
-//endregion
-
 //region Legendary Generation
 
-function fakeLegendaryGeneration(playerGear: any) {
-  const legendaryBonusID: number = 0; //Example: 7003 would be the legendary bonusID for call of the wild
-  const itemSlotID: number = 0; //Example: 0 would be the head item slot
+function fakeLegendaryGeneration(playerGear: any, legendaryInfo: { slotId: number, bonusId: number }) {
+  const legendaryBonusID: number = legendaryInfo ? legendaryInfo.bonusId : 0; //Example: 7003 would be the legendary bonusID for call of the wild
+  const itemSlotID: number = legendaryInfo ? legendaryInfo.slotId : 0; //Example: 0 would be the head item slot
   if (!playerGear[itemSlotID].bonusIDs) {
     playerGear[itemSlotID].bonusIDs = legendaryBonusID;
   } else if (typeof playerGear[itemSlotID].bonusIDs === 'number') {
@@ -141,8 +55,6 @@ function fakeLegendaryGeneration(playerGear: any) {
 
   return playerGear;
 }
-
-//endregion
 
 //endregion
 
