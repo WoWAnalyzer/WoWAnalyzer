@@ -21,7 +21,7 @@ class Checklist extends BaseChecklist {
     castEfficiency: CastEfficiency,
     manaValues: ManaValues,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
-    alwaysBeCasting: AlwaysBeCasting,    
+    alwaysBeCasting: AlwaysBeCasting,
     rageDetails: RageDetails,
     rageTracker: RageTracker,
     shieldSlam: ShieldSlam,
@@ -30,6 +30,18 @@ class Checklist extends BaseChecklist {
     angerCD: AngerCD,
     spellReflect: SpellReflect,
   };
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected manaValues!: ManaValues;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected rageDetails!: RageDetails;
+  protected rageTracker!: RageTracker;
+  protected shieldSlam!: ShieldSlam;
+  protected shieldBlock!: ShieldBlock;
+  protected blockCheck!: BlockCheck;
+  protected angerCD!: AngerCD;
+  protected spellReflect!: SpellReflect;
 
   render() {
     return (

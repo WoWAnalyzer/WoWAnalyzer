@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -10,17 +9,22 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import Combatant from 'parser/core/Combatant';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 
-const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = props => (
+type Props = {
+  castEfficiency: CastEfficiency,
+  combatant: Combatant,
+  thresholds: any,
+};
+
+const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Props) => {
+  const AbilityRequirement = (props: {spell: number}) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
@@ -129,15 +133,6 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }) =
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-ProtectionWarriorChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-    hasTrinket: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default ProtectionWarriorChecklist;
