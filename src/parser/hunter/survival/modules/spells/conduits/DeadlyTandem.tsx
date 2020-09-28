@@ -24,12 +24,11 @@ class DeadlyTandem extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.DEADLY_TANDOM_CONDUIT.id);
-    if (!this.active) {
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.DEADLY_TANDOM_CONDUIT.id);
+    if (!this.conduitRank) {
+      this.active = false;
       return;
     }
-
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.DEADLY_TANDOM_CONDUIT.id);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COORDINATED_ASSAULT), this.onCACast);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COORDINATED_ASSAULT), this.onCARemove);

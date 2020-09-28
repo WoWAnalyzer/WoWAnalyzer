@@ -24,12 +24,11 @@ class OneWithTheBeast extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.ONE_WITH_THE_BEAST_CONDUIT.id);
-    if (!this.active) {
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ONE_WITH_THE_BEAST_CONDUIT.id);
+    if (!this.conduitRank) {
+      this.active = false;
       return;
     }
-
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ONE_WITH_THE_BEAST_CONDUIT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onGenericDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onGenericDamage);

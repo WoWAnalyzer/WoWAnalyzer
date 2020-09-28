@@ -30,12 +30,11 @@ class FerociousAppetite extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.FEROCIOUS_APPETITE_CONDUIT.id);
-    if (!this.active) {
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FEROCIOUS_APPETITE_CONDUIT.id);
+    if (!this.conduitRank) {
+      this.active = false;
       return;
     }
-
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FEROCIOUS_APPETITE_CONDUIT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_DAMAGE_BM), this.onKillCommandDamage);
   }

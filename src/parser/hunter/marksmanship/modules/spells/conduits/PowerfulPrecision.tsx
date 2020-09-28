@@ -29,12 +29,11 @@ class PowerfulPrecision extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.POWERFUL_PRECISION_CONDUIT.id);
-    if (!this.active) {
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.POWERFUL_PRECISION_CONDUIT.id);
+    if (!this.conduitRank) {
+      this.active = false;
       return;
     }
-
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.POWERFUL_PRECISION_CONDUIT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE]), this.onPotentialPreciseDamage);
   }
