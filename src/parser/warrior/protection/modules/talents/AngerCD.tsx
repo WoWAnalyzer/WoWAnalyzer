@@ -1,14 +1,13 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import AngerManagement from './AngerManagement';
 import { calculateCooldown } from 'parser/shared/modules/spells/bfa/essences/VisionsOfPerfection';
-import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
-
+import AngerManagement from './AngerManagement';
 
 class AngerCD extends Analyzer {
   static dependencies = {
@@ -63,7 +62,7 @@ class AngerCD extends Analyzer {
     }
   }
 
-  ratio(spellCD, spellid) {
+  ratio(spellCD: number, spellid: number) {
     const possibleCasts = Math.ceil(this.actualFightTime / spellCD) || 1;
     let actualCasts = this.abilityTracker.getAbility(spellid).casts || 0;
     if (spellid === SPELLS.AVATAR_TALENT.id) {
