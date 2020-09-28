@@ -6,6 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
+import { DamageEvent } from 'parser/core/Events';
 
 const AVATAR_DAMAGE_INCREASE = 0.2;
 
@@ -17,7 +18,7 @@ class Avatar extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.AVATAR_TALENT.id) / this.owner.fightDuration;
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id)) {
       return;
     }
