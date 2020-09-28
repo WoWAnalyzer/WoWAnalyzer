@@ -189,7 +189,7 @@ class HolyWordBase extends Analyzer {
     }
   }
 
-  on_byPlayer_removebuff(event:RemoveBuffEvent) {
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.APOTHEOSIS_TALENT.id) {
       this.apotheosisActive = false;

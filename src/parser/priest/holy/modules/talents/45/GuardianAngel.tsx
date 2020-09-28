@@ -46,11 +46,11 @@ class GuardianAngel extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT), this._parseGsHeal);
   }
 
-  _parseGsRemove(event: any) {
+  _parseGsRemove() {
     this.guardianSpiritRemovalCount += 1;
   }
 
-  _parseGsHeal(event: any) {
+  _parseGsHeal() {
     this.guardianSpiritHealCount += 1;
   }
 
