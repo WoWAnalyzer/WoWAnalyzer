@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { tsabo, Cloake, Zerotorescue, Gebuz, Aelexe, Vetyst, joshinator } from 'CONTRIBUTORS';
+import { tsabo, Cloake, Zerotorescue, Gebuz, Aelexe, Vetyst, joshinator, Tyndi } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 9, 29), <>Updated for Shadowlands</>, [Tyndi]),
   change(date(2020, 5, 26), <>Fixed an issue with the Nightstalker-module crashing.</>, [joshinator]),
   change(date(2020, 5, 26), <>Fixed garrote early refresh tracking.</>, [Vetyst]),
   change(date(2019, 4, 22), <>Early dot refresh tracking</>, [tsabo]),
