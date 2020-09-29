@@ -6,7 +6,9 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/Thresholds';
+import Events, { CastEvent } from 'parser/core/Events';
 import { PROC_BUFFER } from '../../constants';
 
 const debug = false;
@@ -15,9 +17,9 @@ const debug = false;
 const MIN_ICICLES_DURING_FB_CAST_FOR_HOLD = 3;
 
 class BrainFreeze extends Analyzer {
-  
+
   hasGlacialSpike: boolean;
-  
+
   lastFlurryTimestamp = 0;
   overwrittenProcs = 0;
   okOverwrittenProcs = 0;
@@ -38,11 +40,11 @@ class BrainFreeze extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FROSTBOLT,SPELLS.EBONBOLT_TALENT,SPELLS.FLURRY]), this.onCast);
   }
 
-  brainFreezeApplied(event: ApplyBuffEvent) {
+  brainFreezeApplied() {
     this.totalProcs += 1;
   }
 
-  brainFreezeRefreshed(event: RefreshBuffEvent) {
+  brainFreezeRefreshed() {
     this.totalProcs += 1;
 
     if (!this.hasGlacialSpike || this.wasLastGeneratorEB) {
@@ -52,7 +54,7 @@ class BrainFreeze extends Analyzer {
     }
 
     // Get the number of icicles the player has *after* the cast of the frostbolt
-    const buff: any = this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id);
+    const buff = this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id);
 
     // The icicle const relates to the number of icicles the player had *during* the cast of frostbolt, so increment by 1 to check against icicles *after* the cast
     if (buff && buff.stacks < (MIN_ICICLES_DURING_FB_CAST_FOR_HOLD + 1)) {
@@ -64,7 +66,7 @@ class BrainFreeze extends Analyzer {
     }
   }
 
-  brainFreezeRemoved(event: RemoveBuffEvent) {
+  brainFreezeRemoved() {
     if (!this.lastFlurryTimestamp || this.lastFlurryTimestamp + PROC_BUFFER < this.owner.currentTimestamp) {
       this.expiredProcs += 1; // it looks like Brain Freeze is always removed after the cast, and always on same timestamp
       debug && this.debug("Brain Freeze proc expired");
@@ -121,7 +123,7 @@ class BrainFreeze extends Analyzer {
         average: 0.05,
         major: 0.10,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -134,7 +136,7 @@ class BrainFreeze extends Analyzer {
         average: 0.03,
         major: 0.06,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -146,17 +148,16 @@ class BrainFreeze extends Analyzer {
         average: 0,
         major: 3,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.brainFreezeOverwritenThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         let suggestBuilder;
         if (this.hasGlacialSpike) {
           suggestBuilder = suggest(<>You overwrote {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You should use <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> immediately following <SpellLink id={SPELLS.FROSTBOLT.id} /> if you have fewer than {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast. If you have {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast, save the <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />.</>);
-          // suggestBuilder = suggest(<>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You should only hold <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have {CONST_NAME} icicles, or would have {CONST_NAME} <SpellLink id={SPELLS.ICICLES_BUFF.id} /> after your current <SpellLink id={SPELLS.FROSTBOLT.id} /> cast. If you have {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast, save the <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />.</>);
         } else {
           suggestBuilder = suggest(<>You overwrote {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as possible to avoid this.</>);
         }
@@ -165,14 +166,14 @@ class BrainFreeze extends Analyzer {
           .recommended(`Overwriting none is recommended`);
       });
     when(this.brainFreezeExpiredThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You allowed {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</>)
           .icon(SPELLS.BRAIN_FREEZE.icon)
           .actual(`${formatPercentage(actual)}% expired`)
           .recommended(`Letting none expire is recommended`);
       });
     when(this.flurryWithoutBrainFreezeThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {actual} times.</>)
           .icon(SPELLS.FLURRY.icon)
           .actual(`${formatNumber(actual)} casts`)
