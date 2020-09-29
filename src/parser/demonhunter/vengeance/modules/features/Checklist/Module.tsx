@@ -47,8 +47,19 @@ class Checklist extends BaseModule {
     // Resources
     painDetails: PainDetails,
     soulsOvercap: SoulsOvercap,
-
   };
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected spiritBombFrailtyDebuff!: SpiritBombFrailtyDebuff;
+  protected voidReaverDebuff!: VoidReaverDebuff;
+  protected spiritBombSoulsConsume!: SpiritBombSoulsConsume;
+  protected soulBarrier!: SoulBarrier;
+  protected soulCleaveSoulsConsumed!: SoulCleaveSoulsConsumed;
+  protected demonSpikes!: DemonSpikes;
+  protected painDetails!: PainDetails;
+  protected soulsOvercap!: SoulsOvercap;
 
   render() {
     return (

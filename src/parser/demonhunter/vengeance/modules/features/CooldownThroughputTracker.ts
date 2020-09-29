@@ -8,8 +8,8 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       spell: SPELLS.METAMORPHOSIS_TANK,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
-			  BUILT_IN_SUMMARY_TYPES.ABSORBED,
-				BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.ABSORBED,
+        BUILT_IN_SUMMARY_TYPES.HEALING,
       ],
     },
   ];
