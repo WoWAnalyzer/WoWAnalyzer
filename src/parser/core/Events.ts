@@ -249,7 +249,7 @@ export interface DamageEvent extends Event<EventType.Damage> {
   sourceID?: number;
   sourceIsFriendly: true;
   targetID: number;
-  targetInstance: number,
+  targetInstance: number;
   targetIsFriendly: false;
   ability: Ability;
   hitType: number;
@@ -500,6 +500,17 @@ export interface ChangeStatsEvent extends Event<EventType.ChangeStats> {
 export interface ChangeHasteEvent extends Event<EventType.ChangeHaste> {
   oldHaste: number
   newHaste: number
+}
+
+export interface DispelEvent extends Event<EventType.Dispel>{
+  ability: Ability;
+  extraAbility: Ability;
+  isBuff: number;
+  sourceID?: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance: number;
+  targetIsFriendly: boolean;
 }
 
 export interface IPhaseEvent<T extends string> extends Event<T> {
