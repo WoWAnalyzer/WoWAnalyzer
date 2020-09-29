@@ -139,12 +139,6 @@ const HolyPriestSpreadsheet = props => {
     return 'Unknown talent choice!';
   };
 
-  const healingFromAzerite = () => {
-    const totalHealing = 0;
-
-    return totalHealing;
-  };
-
   return (
     <div>
       <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Player Log section of the Holy Priest Spreadsheet by Niphyr. <a href="https://docs.google.com/spreadsheets/d/1a8dNKpU49UkUxzWBgffWM-zXxhPWOUl8sFSM6Bp9Sl0/edit" target="_blank" rel="noopener noreferrer">Link to the sheet</a><br /></div>
@@ -226,10 +220,6 @@ const HolyPriestSpreadsheet = props => {
             <tr>
               <td>Serenity CDR wasted (s)</td>
               <td>{parser.getModule(HolyWordSerenity).holyWordWastedCooldown / 1000}</td>
-            </tr>
-            <tr>
-              <td>Total Healing from Azerite Traits</td>
-              <td>{Math.floor(healingFromAzerite())}</td>
             </tr>
             <tr>
               <td>Renews refreshed by Enduring Renewal</td>
