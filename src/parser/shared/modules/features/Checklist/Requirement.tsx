@@ -4,14 +4,16 @@ import InformationIcon from 'interface/icons/Information';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import colorForPerformance from 'common/colorForPerformance';
-import { NumberThreshold, Threshold, ThresholdStyle } from 'parser/core/Thresholds';
+import { BoolThreshold, NumberThreshold, Threshold, ThresholdStyle } from 'parser/core/ParseResults';
 import performanceForThresholds from './helpers/performanceForThresholds';
 import { RuleContext } from './Rule';
 
 
+export type RequirementThresholds = NumberThreshold | BoolThreshold;
+
 interface Props {
   name: React.ReactNode,
-  thresholds: Threshold<any>,
+  thresholds: RequirementThresholds,
   tooltip?: React.ReactNode,
   valueTooltip?: React.ReactNode,
   setPerformance: (performance: number) => void,
