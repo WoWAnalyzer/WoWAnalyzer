@@ -5,9 +5,9 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import Statistic from 'interface/statistics/Statistic';
 import { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../constants';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../../constants';
 
 // Example Log: /report/ZtzgPbjw3hRYvJTc/3-Mythic+Taloc+-+Kill+(6:46)/26-萤火兔
 class EnduringRenewal extends Analyzer {
