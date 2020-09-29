@@ -6,6 +6,8 @@ import { formatPercentage, formatThousands } from 'common/format';
 import { CastEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class BindingHeal extends Analyzer {
@@ -65,8 +67,6 @@ class BindingHeal extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.BINDING_HEAL_TALENT.id}
-        value={<ItemHealingDone amount={this.bindingHealHealing} />}
         tooltip={(
           <>
             Casts: {this.bindingHealCasts}<br />
@@ -74,9 +74,14 @@ class BindingHeal extends Analyzer {
             Party Healing: {formatThousands(this.bindingHealPartyHealing)} ({formatPercentage(this.getOverhealPercent(this.bindingHealPartyHealing, this.bindingHealPartyOverhealing))}% OH)
           </>
         )}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
-
+        position={STATISTIC_ORDER.OPTIONAL(5)}
+      >
+        <BoringSpellValueText spell={SPELLS.BINDING_HEAL_TALENT}>
+          <ItemHealingDone amount={this.bindingHealHealing} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

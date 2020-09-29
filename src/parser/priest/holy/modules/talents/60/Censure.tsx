@@ -4,6 +4,8 @@ import React from 'react';
 import { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class Censure extends Analyzer {
@@ -38,17 +40,20 @@ class Censure extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.CENSURE_TALENT.id}
-        value={`${this.censureStuns + this.censureIncomp} Censure CC(s)`}
         tooltip={(
           <>
             {this.chastiseCasts} Chastise Casts<br />
             {this.censureStuns} Chastise Stuns<br />
           </>
         )}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
-
+        position={STATISTIC_ORDER.OPTIONAL(4)}
+      >
+        <BoringSpellValueText spell={SPELLS.CENSURE_TALENT}>
+          {this.censureStuns + this.censureIncomp} Censure CC(s)
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

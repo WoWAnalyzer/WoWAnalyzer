@@ -5,6 +5,8 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const SPIRIT_OF_REDEMPTION_DURATION = 15000;
 
@@ -60,12 +62,15 @@ class Afterlife extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.AFTERLIFE_TALENT.id}
-        value={<ItemHealingDone amount={this.healingInAfterlife} />}
         tooltip={`Extra Spirit of Redemption time: ${Math.floor(this.spiritOfRedemptionBonusTime / 1000)}s`}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
-
+        position={STATISTIC_ORDER.OPTIONAL(3)}
+      >
+        <BoringSpellValueText spell={SPELLS.AFTERLIFE_TALENT}>
+          <ItemHealingDone amount={this.healingInAfterlife} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

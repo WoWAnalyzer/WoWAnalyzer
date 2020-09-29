@@ -5,6 +5,8 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import { HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/C2NGDav6KHgc8ZWd/28-Mythic+Taloc+-+Kill+(7:07)/13-Ariemah
 class CosmicRipple extends Analyzer {
@@ -38,13 +40,14 @@ class CosmicRipple extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.COSMIC_RIPPLE_HEAL.id}
-        value={(
-          <ItemHealingDone amount={this.totalHealing} />
-        )}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
-
+        position={STATISTIC_ORDER.OPTIONAL(3)}
+      >
+        <BoringSpellValueText spell={SPELLS.COSMIC_RIPPLE_HEAL}>
+          <ItemHealingDone amount={this.totalHealing} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

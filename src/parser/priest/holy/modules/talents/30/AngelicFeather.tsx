@@ -4,6 +4,8 @@ import React from 'react';
 import { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class AngelicFeather extends Analyzer {
@@ -34,10 +36,14 @@ class AngelicFeather extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.ANGELIC_FEATHER_TALENT.id}
-        value={`${this.angelicFeatherCasts} Feather(s) cast`}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+      >
+        <BoringSpellValueText spell={SPELLS.ANGELIC_FEATHER_TALENT}>
+          {this.angelicFeatherCasts} Feather(s) cast
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

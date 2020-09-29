@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { CastEvent, ChangeBuffStackEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
 class SurgeOfLight extends Analyzer {
@@ -62,16 +64,18 @@ class SurgeOfLight extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.SURGE_OF_LIGHT_TALENT.id}
-        value={(
+        tooltip={`${this.solFlashHeals}/${this.solStacksGained} Surge of Light buffs used`}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(5)}
+      >
+        <BoringSpellValueText spell={SPELLS.SURGE_OF_LIGHT_TALENT}>
           <>
             {this.solFlashHeals} free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts<br />
             <ItemManaGained amount={this.solManaSaved} />
           </>
-        )}
-        tooltip={`${this.solFlashHeals}/${this.solStacksGained} Surge of Light buffs used`}
-        category={STATISTIC_CATEGORY.TALENTS}
-      />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

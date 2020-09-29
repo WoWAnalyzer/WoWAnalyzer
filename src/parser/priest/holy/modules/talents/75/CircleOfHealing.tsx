@@ -6,6 +6,8 @@ import { formatPercentage, formatThousands } from 'common/format';
 import { CastEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/aBxvzDZJQP7431Nt/21-Normal+G'huun+-+Kill+(7:11)/15-Liarine
 class CircleOfHealing extends Analyzer {
@@ -50,8 +52,6 @@ class CircleOfHealing extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.CIRCLE_OF_HEALING_TALENT.id}
-        value={<ItemHealingDone amount={this.circleOfHealingHealing} />}
         tooltip={(
           <>
             Coh Casts: {this.circleOfHealingCasts}<br />
@@ -59,8 +59,14 @@ class CircleOfHealing extends Analyzer {
             Average Targets Hit: {this.averageTargetsHit.toFixed(2)}
           </>
         )}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
+        position={STATISTIC_ORDER.OPTIONAL(5)}
+      >
+        <BoringSpellValueText spell={SPELLS.CIRCLE_OF_HEALING_TALENT}>
+          <ItemHealingDone amount={this.circleOfHealingHealing} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

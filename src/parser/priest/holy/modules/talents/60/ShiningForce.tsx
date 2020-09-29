@@ -4,6 +4,8 @@ import React from 'react';
 import { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/NcKyHD94nrj31tG2/10-Mythic+Zek'voz+-+Kill+(9:35)/3-旧时印月
 class ShiningForce extends Analyzer {
@@ -32,11 +34,14 @@ class ShiningForce extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.SHINING_FORCE_TALENT.id}
-        value={`${this.shiningForceHits} Knock Back(s)`}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
-
+        position={STATISTIC_ORDER.OPTIONAL(4)}
+      >
+        <BoringSpellValueText spell={SPELLS.SHINING_FORCE_TALENT}>
+          {this.shiningForceHits} Knock Back(s)
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

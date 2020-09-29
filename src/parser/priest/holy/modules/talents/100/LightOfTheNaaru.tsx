@@ -6,6 +6,8 @@ import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/Gvxt7CgLya2W1TYj/5-Normal+Zek'voz+-+Kill+(3:57)/13-弥砂丶
 class LightOfTheNaaru extends Analyzer {
@@ -27,7 +29,6 @@ class LightOfTheNaaru extends Analyzer {
     return (
       <Statistic
         talent={SPELLS.LIGHT_OF_THE_NAARU_TALENT.id}
-        value={`${Math.ceil((this.sanctify.lightOfTheNaaruCooldownReduction + this.serenity.lightOfTheNaaruCooldownReduction + this.chastise.lightOfTheNaaruCooldownReduction) / 1000)}s Cooldown Reduction`}
         tooltip={(
           <>
             Serenity: {Math.ceil(this.serenity.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
@@ -35,9 +36,14 @@ class LightOfTheNaaru extends Analyzer {
             Chastise: {Math.ceil(this.chastise.lightOfTheNaaruCooldownReduction / 1000)}s CDR
           </>
         )}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
-
+        position={STATISTIC_ORDER.OPTIONAL(7)}
+      >
+        <BoringSpellValueText spell={SPELLS.LIGHT_OF_THE_NAARU_TALENT}>
+          {Math.ceil((this.sanctify.lightOfTheNaaruCooldownReduction + this.serenity.lightOfTheNaaruCooldownReduction + this.chastise.lightOfTheNaaruCooldownReduction) / 1000)}s Cooldown Reduction
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -7,6 +7,8 @@ import { formatPercentage, formatThousands } from 'common/format';
 import { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/aBxvzDZJQP7431Nt/21-Normal+G'huun+-+Kill+(7:11)/15-Liarine
 class Perseverance extends Analyzer {
@@ -45,16 +47,20 @@ class Perseverance extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.PERSEVERANCE_TALENT.id}
-        value={<ItemHealingDone amount={this.totalDamageReduced} />}
         tooltip={(
           <>
             Perseverance Uptime: {formatPercentage(this.uptime)}%<br />
             Damage Reduced: {formatThousands(this.totalDamageReduced)}
           </>
         )}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+      >
+        <BoringSpellValueText spell={SPELLS.PERSEVERANCE_TALENT}>
+          <ItemHealingDone amount={this.totalDamageReduced} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

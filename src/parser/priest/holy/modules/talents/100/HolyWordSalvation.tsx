@@ -8,6 +8,8 @@ import { formatThousands } from 'common/format';
 import { HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class HolyWordSalvation extends Analyzer {
@@ -86,8 +88,6 @@ class HolyWordSalvation extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.HOLY_WORD_SALVATION_TALENT.id}
-        value={<ItemHealingDone amount={this.totalHealing} />}
         tooltip={(
           <>
             Healing from Salv: {formatThousands(this.healingFromSalv + this.absorptionFromSalv)}<br />
@@ -95,8 +95,14 @@ class HolyWordSalvation extends Analyzer {
             Healing from PoMs: {formatThousands(this.healingFromPom + this.absorptionFromPom)}
           </>
         )}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
+        position={STATISTIC_ORDER.OPTIONAL(7)}
+      >
+        <BoringSpellValueText spell={SPELLS.HOLY_WORD_SALVATION_TALENT}>
+          <ItemHealingDone amount={this.totalHealing} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

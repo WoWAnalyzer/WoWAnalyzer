@@ -4,6 +4,8 @@ import React from 'react';
 import { CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const DESPERATE_PRAYER_BASE_COOLDOWN = 90000;
 
@@ -36,11 +38,14 @@ class AngelsMercy extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.ANGELS_MERCY_TALENT.id}
-        value={`${Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used`}
         tooltip={`Desperate Prayers cast: ${this.desperatePrayersCast}`}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+      ><BoringSpellValueText spell={SPELLS.ANGELS_MERCY_TALENT}>
+        {Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used
+      </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

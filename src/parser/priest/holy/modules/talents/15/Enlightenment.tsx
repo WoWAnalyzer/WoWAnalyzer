@@ -5,6 +5,8 @@ import SpiritOfRedemption from 'parser/priest/holy/modules/spells/SpiritOfRedemp
 import ItemManaGained from 'interface/ItemManaGained';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const MAX_MANA = 100000;
 const BASE_MANA_REGEN = .04;
@@ -33,13 +35,14 @@ class Enlightenment extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.ENLIGHTENMENT_TALENT.id}
-        value={(
-          <ItemManaGained amount={this.enlightenmentMana} />
-        )}
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-      />
-
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+      >
+        <BoringSpellValueText spell={SPELLS.ENLIGHTENMENT_TALENT}>
+          <ItemManaGained amount={this.enlightenmentMana} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

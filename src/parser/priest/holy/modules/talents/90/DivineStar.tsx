@@ -6,6 +6,8 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/mWZ6TG9JgjPQVdbA/9-Mythic+Zek'voz+-+Kill+(7:24)/1-Allyseia`Ø
 class DivineStar extends Analyzer {
@@ -46,16 +48,18 @@ class DivineStar extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.DIVINE_STAR_TALENT.id}
-        value={(
+        tooltip={`Divine Stars Cast: ${this.divineStarCasts}`}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(6)}
+      >
+        <BoringSpellValueText spell={SPELLS.DIVINE_STAR_TALENT}>
           <>
             <ItemHealingDone amount={this.divineStarHealing} /><br />
             <ItemDamageDone amount={this.divineStarDamage} />
           </>
-        )}
-        tooltip={`Divine Stars Cast: ${this.divineStarCasts}`}
-        category={STATISTIC_CATEGORY.TALENTS}
-      />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
