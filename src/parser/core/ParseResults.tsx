@@ -1,5 +1,4 @@
 import React from 'react';
-import { BoolThreshold, NumberThreshold, Threshold, ThresholdRange, ThresholdStyle } from 'parser/core/Thresholds';
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
 enum AssertionMode {
@@ -264,14 +263,63 @@ export type Issue = {
   details: (() => React.ReactNode) | null
 }
 
-type ValidParams = number | boolean | BoolThreshold | NumberThreshold;
-type GenericSuggestionType<T extends ValidParams> =
+export enum ThresholdStyle {
+  BOOLEAN = 'boolean',
+  PERCENTAGE = 'percentage',
+  NUMBER = 'number',
+  THOUSANDS = 'thousands',
+  DECIMAL = 'decimal',
+  SECONDS = 'seconds',
+}
+
+export interface Threshold<T extends number | boolean> {
+  style: ThresholdStyle,
+  actual: T,
+}
+
+export type ThresholdRange = {
+  minor: number,
+  average?: number,
+  major?: number,
+}
+
+/* If you're looking here to fix an error, it's likely that you either:
+  a) declared more than one comparator for the threshold (i.e isEqual and isLess than, etc.)
+  b) didn't declare one at all
+ */
+interface INumberThreshold extends Threshold<number> {
+  max?: number,
+  // Require exactly one of the below
+  isEqual: number,
+  isLessThan: ThresholdRange,
+  isGreaterThan: ThresholdRange,
+  isGreaterThanOrEqual: ThresholdRange,
+  isLessThanOrEqual: ThresholdRange,
+}
+
+export type NumberThreshold = RequireExactlyOne<INumberThreshold,
+  'isEqual' | 'isLessThan' | 'isGreaterThan' | 'isGreaterThanOrEqual' | 'isLessThanOrEqual'>
+
+export interface BoolThreshold extends Threshold<boolean> {
+  isEqual: boolean,
+}
+
+// https://github.com/sindresorhus/type-fest/blob/master/source/require-exactly-one.d.ts
+type RequireExactlyOne<T, Keys extends keyof T = keyof T> =
+  Pick<T, Exclude<keyof T, Keys>>
+  & { [K in Keys]-?:
+  Required<Pick<T, K>>
+  & Partial<Record<Exclude<Keys, K>, undefined>>
+}[Keys];
+
+export type ValidThresholds = number | boolean | BoolThreshold | NumberThreshold;
+type GenericSuggestionType<T extends ValidThresholds> =
   T extends number ? NumberSuggestionAssertion :
     T extends boolean ? BoolSuggestionAssertion :
       T extends NumberThreshold ? NumberSuggestionAssertion :
         T extends BoolThreshold ? BoolSuggestionAssertion : never;
 
-export type When = <T extends ValidParams>(threshold: T) => GenericSuggestionType<T>;
+export type When = <T extends ValidThresholds>(threshold: T) => GenericSuggestionType<T>;
 
 class ParseResults {
   tabs: React.ReactNode[] = [];
@@ -291,7 +339,7 @@ class ParseResults {
     same methods. Will require pretty hefty refactoring to resolve completely in a type-safe way, but
     we can typecheck everything else while keeping the "bad" code into this one method with the ts-ignores.
     */
-    when: <T extends ValidParams>(threshold: T): GenericSuggestionType<T> => {
+    when: <T extends ValidThresholds>(threshold: T): GenericSuggestionType<T> => {
       if (typeof threshold === "number") {
         // @ts-ignore
         return new NumberSuggestionAssertion(threshold, this.addIssue);
