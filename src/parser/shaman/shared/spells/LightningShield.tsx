@@ -1,7 +1,9 @@
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import { formatPercentage } from '../../../../common/format';
+import { formatPercentage } from 'common/format';
+import React from 'react';
+import SpellLink from 'common/SpellLink';
 
 class LightningShield extends Analyzer {
 
@@ -15,7 +17,7 @@ class LightningShield extends Analyzer {
     return {
       actual: this.lightningShieldUptime,
       isLessThan: {
-        major: 0.95,
+        minor: 0.95,
       },
       style: 'percentage',
     };
@@ -24,9 +26,9 @@ class LightningShield extends Analyzer {
   suggestions(when: any) {
     when(this.lightningShieldUptimeThreshold)
       .addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest('Remember to have Lightning Shield up constantly, as its generation of Maelstrom Weapon charges is vital to optimal DPS.')
+        return suggest(<span>Remember to have <SpellLink id={SPELLS.LIGHTNING_SHIELD.id} /> (or <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> up as constantly as possible. As a 30 minute buff, one should always be cast before combat as well as just after res, if possible.</span>)
           .icon(SPELLS.LIGHTNING_SHIELD.icon)
-          .actual(`${formatPercentage(actual)}% Lightning Shield uptime`)
+          .actual(`${formatPercentage(actual)}% Elemental Shield uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
   }
