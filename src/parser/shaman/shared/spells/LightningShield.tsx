@@ -12,10 +12,15 @@ class LightningShield extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.LIGHTNING_SHIELD.id) / this.owner.fightDuration;
   }
 
-  /** Returns a Threshold-compatible object based on the value from lightningShieldUptime(). */
-  get lightningShieldUptimeThreshold() {
+  /** Returns calculated decimal value of Earth Shield buff uptime. */
+  get earthShieldUptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.EARTH_SHIELD_TALENT.id) / this.owner.fightDuration;
+  }
+
+  /** Returns a Threshold-compatible object based on the values from lightningShieldUptime() and earthShieldUptime(). */
+  get elementalShieldUptimeThreshold() {
     return {
-      actual: this.lightningShieldUptime,
+      actual: this.lightningShieldUptime + this.earthShieldUptime,
       isLessThan: {
         minor: 0.95,
       },
@@ -24,7 +29,7 @@ class LightningShield extends Analyzer {
   }
 
   suggestions(when: any) {
-    when(this.lightningShieldUptimeThreshold)
+    when(this.elementalShieldUptimeThreshold)
       .addSuggestion((suggest: any, actual: any, recommended: any) => {
         return suggest(<span>Remember to have <SpellLink id={SPELLS.LIGHTNING_SHIELD.id} /> (or <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> up as constantly as possible. As a 30 minute buff, one should always be cast before combat as well as just after res, if possible.</span>)
           .icon(SPELLS.LIGHTNING_SHIELD.icon)
