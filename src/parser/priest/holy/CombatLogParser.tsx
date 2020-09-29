@@ -122,7 +122,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmTracker: HealingEfficiencyTracker,
   };
 
-  generateResults(adjustForDowntime:boolean) {
+  generateResults(adjustForDowntime: boolean) {
     const results = super.generateResults(adjustForDowntime);
 
     results.tabs = [
