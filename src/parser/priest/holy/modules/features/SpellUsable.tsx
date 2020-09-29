@@ -1,12 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
+import { DispelEvent } from 'parser/core/Events';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
   };
 
-  on_dispel(event: any) {
+  on_dispel(event: DispelEvent) {
     if (!this.owner.byPlayer(event)) {
       return;
     }
