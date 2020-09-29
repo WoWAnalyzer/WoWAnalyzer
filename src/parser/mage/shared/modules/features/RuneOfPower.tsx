@@ -12,8 +12,8 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import { ThresholdStyle } from 'parser/core/Thresholds';
 import { When } from 'parser/core/ParseResults';
-import { NumberThreshold, ThresholdStyle } from 'parser/core/Thresholds';
 
 /*
  * If Rune of Power is substantially better than the rest of the row, enable
@@ -67,7 +67,7 @@ class RuneOfPower extends Analyzer {
     return ((this.uptimeMS / this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts) / 1000);
   }
 
-  get damageSuggestionThresholds(): NumberThreshold {
+  get damageSuggestionThresholds() {
     return {
       actual: this.damageIncreasePercent,
       isLessThan: {
@@ -79,7 +79,7 @@ class RuneOfPower extends Analyzer {
     };
   }
 
-  get roundedSecondsSuggestionThresholds(): NumberThreshold {
+  get roundedSecondsSuggestionThresholds() {
     return {
       actual: this.roundedSecondsPerCast,
       isLessThan: {
@@ -107,7 +107,7 @@ class RuneOfPower extends Analyzer {
       return;
     }
 
-    if(!this.showSuggestion) {
+    if (!this.showSuggestion) {
       return;
     }
 
@@ -141,7 +141,7 @@ class RuneOfPower extends Analyzer {
         >
           <BoringSpellValueText spell={SPELLS.RUNE_OF_POWER_TALENT}>
             <>
-              {formatPercentage(this.damagePercent,0)}% <small>Damage added by Rune of Power</small><br />
+              {formatPercentage(this.damagePercent, 0)}% <small>Damage added by Rune of Power</small><br />
               {formatNumber(this.roundedSecondsPerCast)}s <small>Average time in Rune per cast</small>
             </>
           </BoringSpellValueText>
