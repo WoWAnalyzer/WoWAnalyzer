@@ -12,7 +12,7 @@ enum AssertionMode {
   IS_EQUAL = '===',
 }
 
-class SuggestionAssertion<T extends number | boolean> {
+abstract class SuggestionAssertion<T extends number | boolean> {
   _actual!: T;
   _addIssue: (issue: Issue) => void;
 
@@ -20,17 +20,11 @@ class SuggestionAssertion<T extends number | boolean> {
     this._addIssue = addIssue;
   }
 
-  get _triggerThreshold(): T {
-    throw new Error('Use child class');
-  }
+  abstract get _triggerThreshold(): T;
 
-  _isApplicable(): boolean {
-    throw new Error('Use child class');
-  }
+  abstract _isApplicable(): boolean;
 
-  _getIssueImportance(suggestion: Suggestion): ISSUE_IMPORTANCE {
-    throw new Error('Use child class');
-  }
+  abstract _getIssueImportance(suggestion: Suggestion): ISSUE_IMPORTANCE;
 
   addSuggestion(func: (suggest: SuggestionFactory, actual: T, recommended: T) => Suggestion) {
     if (this._isApplicable()) {
