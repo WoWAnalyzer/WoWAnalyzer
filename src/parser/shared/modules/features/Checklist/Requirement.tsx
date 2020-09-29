@@ -52,7 +52,7 @@ class Requirement extends React.PureComponent<Props> {
     const { name, thresholds, tooltip, valueTooltip, prefix, suffix } = this.props;
 
     const performance = this.performance;
-    let max = '';
+    let max = undefined;
     const thresholdsN = thresholds as NumberThreshold;
     if(thresholdsN.max !== undefined) {
       max = `/ ${thresholdsN.max}`;

@@ -1,6 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
-import { BoolThreshold, NumberThreshold, ThresholdRange, ThresholdStyle } from 'parser/core/Thresholds';
+import { BoolThreshold, NumberThreshold, Threshold, ThresholdRange, ThresholdStyle } from 'parser/core/Thresholds';
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
 enum AssertionMode {
@@ -13,37 +12,65 @@ enum AssertionMode {
   IS_EQUAL = '===',
 }
 
-export class SuggestionAssertion {
-  _actual: number | boolean;
+class SuggestionAssertion<T extends number | boolean> {
+  _actual!: T;
   _addIssue: (issue: Issue) => void;
 
-  _mode: AssertionMode | null = null;
-  _threshold?: number | boolean | ThresholdRange;
-
-  constructor(options: WhenThresholds, addIssue: (issue: Issue) => void) {
+  constructor(addIssue: (issue: Issue) => void) {
     this._addIssue = addIssue;
-    if (typeof options === 'object') {
-      const def = options;
-      this._actual = def.actual;
-      if (def.isEqual !== undefined) {
-        this.isEqual(def.isEqual);
-        return;
-      }
-      // @ts-ignore for js files that arent typechecked
-      if (def.style === ThresholdStyle.BOOLEAN) {
-        throw new Error("For boolean thresholds the only valid comparator is isEqual");
-      }
-      if (def.isGreaterThan !== undefined) {
-        this.isGreaterThan(def.isGreaterThan);
-      } else if (def.isGreaterThanOrEqual !== undefined) {
-        this.isGreaterThanOrEqual(def.isGreaterThanOrEqual);
-      } else if (def.isLessThan !== undefined) {
-        this.isLessThan(def.isLessThan);
-      } else if (def.isLessThanOrEqual !== undefined) {
-        this.isLessThanOrEqual(def.isLessThanOrEqual);
-      }
-    } else {
+  }
+
+  get _triggerThreshold(): T {
+    throw new Error('Use child class');
+  }
+
+  _isApplicable(): boolean {
+    throw new Error('Use child class');
+  }
+
+  _getIssueImportance(suggestion: Suggestion): ISSUE_IMPORTANCE {
+    throw new Error('Use child class');
+  }
+
+  addSuggestion(func: (suggest: SuggestionFactory, actual: T, recommended: T) => Suggestion) {
+    if (this._isApplicable()) {
+      const suggestion = func((suggestionText: React.ReactNode) => new Suggestion(suggestionText), this._actual, this._triggerThreshold);
+
+      this._addIssue({
+        issue: suggestion._text,
+        // stat is a string and not a React node on purpose: this is quicker and we don't want the stats to become complicated
+        stat: suggestion._actualText ? <>{suggestion._actualText} ({suggestion._recommendedText})</> : null,
+        icon: suggestion._icon,
+        importance: this._getIssueImportance(suggestion),
+        details: suggestion._details,
+      });
+    }
+  }
+}
+
+export class NumberSuggestionAssertion extends SuggestionAssertion<number> {
+  _threshold?: number | ThresholdRange;
+  _mode?: AssertionMode | null;
+
+  constructor(options: number | NumberThreshold, addIssue: (issue: Issue) => void) {
+    super(addIssue);
+    if (typeof options !== 'object') {
       this._actual = options;
+      return;
+    }
+    this._actual = options.actual;
+    if (options.isEqual !== undefined) {
+      this.isEqual(options.isEqual);
+    } else if (options.isGreaterThan !== undefined) {
+      this.isGreaterThan(options.isGreaterThan);
+    } else if (options.isGreaterThanOrEqual !== undefined) {
+      this.isGreaterThanOrEqual(options.isGreaterThanOrEqual);
+    } else if (options.isLessThan !== undefined) {
+      this.isLessThan(options.isLessThan);
+    } else if (options.isLessThanOrEqual !== undefined) {
+      this.isLessThanOrEqual(options.isLessThanOrEqual);
+    } else {
+      // Potentially error here; used an object to define the actual but didn't set thresholds?
     }
   }
 
@@ -71,24 +98,17 @@ export class SuggestionAssertion {
     return this;
   }
 
-  isTrue() {
-    this._mode = AssertionMode.IS_TRUE;
-    return this;
-  }
-
-  isFalse() {
-    this._mode = AssertionMode.IS_FALSE;
-    return this;
-  }
-
-  isEqual(value: number | boolean) {
+  isEqual(value: number) {
     this._mode = AssertionMode.IS_EQUAL;
     this._threshold = value;
     return this;
   }
 
-  get triggerThreshold(): number | boolean | undefined {
+  get _triggerThreshold(): number {
     const threshold = this._threshold;
+    if(threshold === undefined) {
+      throw new Error("You must set a number threshold before finalizing the suggestion");
+    }
     // `null` is also of type 'object'
     if (threshold !== null && typeof threshold === 'object') {
       return threshold.minor;
@@ -97,7 +117,7 @@ export class SuggestionAssertion {
   }
 
   _isApplicable() {
-    return this._compare(this._actual, this.triggerThreshold);
+    return this._compare(this._actual, this._triggerThreshold);
   }
 
   _getIssueImportance(suggestion: Suggestion): ISSUE_IMPORTANCE {
@@ -122,16 +142,9 @@ export class SuggestionAssertion {
     return ISSUE_IMPORTANCE.MINOR;
   }
 
-  _compare(actual: number | boolean, breakpoint: number | boolean | undefined) {
+  _compare(actual: number, breakpoint: number | undefined) {
     if (breakpoint === undefined) {
-      switch (this._mode) {
-        case AssertionMode.IS_TRUE:
-          return !!actual;
-        case AssertionMode.IS_FALSE:
-          return !actual;
-        default:
-          throw new Error('Threshold not defined for numerical comparator');
-      }
+      throw new Error('Number thresholds not set');
     }
     switch (this._mode) {
       case AssertionMode.IS_GREATER_THAN:
@@ -144,30 +157,64 @@ export class SuggestionAssertion {
         return actual <= breakpoint;
       case AssertionMode.IS_EQUAL:
         return actual === breakpoint;
-      case AssertionMode.IS_TRUE:
-        return !!actual;
-      case AssertionMode.IS_FALSE:
-        return !actual;
       default:
         throw new Error('Assertion mode not set.');
     }
   }
+}
 
-  addSuggestion(func: (suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean | undefined) => Suggestion) {
-    if (this._isApplicable()) {
-      const suggestion = func((suggestionText: React.ReactNode) => new Suggestion(suggestionText), this._actual, this.triggerThreshold);
+export class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
+  _compareTo?: boolean;
 
-      this._addIssue({
-        issue: suggestion._text,
-        // stat is a string and not a React node on purpose: this is quicker and we don't want the stats to become complicated
-        stat: suggestion._actualText ? <>{suggestion._actualText} ({suggestion._recommendedText})</> : null,
-        icon: suggestion._icon,
-        importance: this._getIssueImportance(suggestion),
-        details: suggestion._details,
-      });
+  constructor(options: boolean | BoolThreshold, addIssue: (issue: Issue) => void) {
+    super(addIssue);
+    if (typeof options === 'object') {
+      this._actual = options.actual;
+      this._compareTo = options.isEqual;
+    } else {
+      this._actual = options;
     }
   }
 
+  isTrue() {
+    this._compareTo = true;
+    return this;
+  }
+
+  isFalse() {
+    this._compareTo = false;
+    return this;
+  }
+
+  isEqual(value: boolean) {
+    this._compareTo = value;
+    return this;
+  }
+
+  get _triggerThreshold(): boolean {
+    if(this._compareTo === undefined) {
+      throw new Error("You must set a boolean target before finalizing the suggestion");
+    }
+    return this._compareTo;
+  }
+
+  _isApplicable() {
+    return this._compare(this._actual, this._triggerThreshold);
+  }
+
+  _getIssueImportance(suggestion: Suggestion): ISSUE_IMPORTANCE {
+    if (suggestion._staticImportance) {
+      return suggestion._staticImportance;
+    }
+    return ISSUE_IMPORTANCE.MINOR;
+  }
+
+  _compare(actual: boolean, breakpoint: boolean | undefined) {
+    if (breakpoint === undefined) {
+      throw new Error('Boolean threshold comparable not set');
+    }
+    return actual === breakpoint;
+  }
 }
 
 type SuggestionFactory = (suggest: React.ReactNode) => Suggestion;
@@ -223,12 +270,18 @@ export type Issue = {
   details: (() => React.ReactNode) | null
 }
 
-type WhenThresholds = number | boolean | NumberThreshold | BoolThreshold;
-export type When= (threshold: WhenThresholds) => SuggestionAssertion;
+type ValidParams = number | boolean | BoolThreshold | NumberThreshold;
+type GenericSuggestionType<T extends ValidParams> =
+  T extends number ? NumberSuggestionAssertion :
+    T extends boolean ? BoolSuggestionAssertion :
+      T extends NumberThreshold ? NumberSuggestionAssertion :
+        T extends BoolThreshold ? BoolSuggestionAssertion : never;
+
+export type When = <T extends ValidParams>(threshold: T) => GenericSuggestionType<T>;
 
 class ParseResults {
-  tabs: Analyzer['tab'][] = [];
-  statistics: Analyzer['statistic'][] = [];
+  tabs: React.ReactNode[] = [];
+  statistics: React.ReactNode[] = [];
   issues: Array<Issue> = [];
 
   constructor() {
@@ -239,9 +292,33 @@ class ParseResults {
     this.issues.push(issue);
   }
 
-  suggestions: { when: When } = {
-    when: (threshold) => new SuggestionAssertion(threshold, this.addIssue),
-  };
+  suggestions = {
+    /* All sorts of hackery here related to trying to use both numerical and boolean params for the
+    same methods. Will require pretty hefty refactoring to resolve completely in a type-safe way, but
+    we can typecheck everything else while keeping the "bad" code into this one method with the ts-ignores.
+    */
+    when: <T extends ValidParams>(threshold: T): GenericSuggestionType<T> => {
+      if (typeof threshold === "number") {
+        // @ts-ignore
+        return new NumberSuggestionAssertion(threshold, this.addIssue);
+      } else if (typeof threshold === "boolean") {
+        // @ts-ignore
+        return new BoolSuggestionAssertion(threshold, this.addIssue);
+      } else if (typeof threshold === "object") {
+        const th = threshold as Threshold<any>;
+        switch (th.style) {
+          case ThresholdStyle.BOOLEAN:
+            // @ts-ignore
+            return new BoolSuggestionAssertion(threshold, this.addIssue);
+          default:
+            // @ts-ignore
+            return new NumberSuggestionAssertion(threshold, this.addIssue);
+        }
+      }
+      throw new Error("Invalid threshold type");
+    },
+  }
+
 }
 
 export default ParseResults;

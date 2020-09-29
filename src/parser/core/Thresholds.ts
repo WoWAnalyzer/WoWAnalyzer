@@ -6,15 +6,14 @@ export enum ThresholdStyle {
   DECIMAL = 'decimal',
   SECONDS = 'seconds',
 }
-export type ThresholdTypes = number | boolean;
-export interface Threshold<T extends ThresholdTypes> {
+
+export interface Threshold<T extends number | boolean> {
   style: ThresholdStyle,
   actual: T,
-  isEqual: T
 }
 
 export type ThresholdRange = {
-  minor?: number,
+  minor: number,
   average?: number,
   major?: number,
 }
@@ -24,20 +23,20 @@ export type ThresholdRange = {
   b) didn't declare one at all
  */
 interface INumberThreshold extends Threshold<number> {
-  style: ThresholdStyle.NUMBER | ThresholdStyle.PERCENTAGE | ThresholdStyle.THOUSANDS |
-    ThresholdStyle.DECIMAL | ThresholdStyle.SECONDS,
   max?: number,
   // Require exactly one of the below (including isEqual from parent)
+  isEqual: number,
   isLessThan: ThresholdRange,
   isGreaterThan: ThresholdRange,
   isGreaterThanOrEqual: ThresholdRange,
-  isLessThanOrEqual: ThresholdRange
+  isLessThanOrEqual: ThresholdRange,
 }
+
 export type NumberThreshold = RequireExactlyOne<INumberThreshold,
   'isEqual' | 'isLessThan' | 'isGreaterThan' | 'isGreaterThanOrEqual' | 'isLessThanOrEqual'>
 
 export interface BoolThreshold extends Threshold<boolean> {
-  style: ThresholdStyle.BOOLEAN
+  isEqual: boolean,
 }
 
 // https://github.com/sindresorhus/type-fest/blob/master/source/require-exactly-one.d.ts

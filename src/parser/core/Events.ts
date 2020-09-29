@@ -411,7 +411,7 @@ export interface GlobalCooldownEvent extends Event<EventType.GlobalCooldown> {
   sourceID: number;
   targetID: number;
   timestamp: number;
-  trigger: CastEvent;
+  trigger: CastEvent | BeginChannelEvent;
   __fabricated: true;
 }
 export interface FightEndEvent extends Event<EventType.FightEnd> {

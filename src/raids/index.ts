@@ -21,6 +21,7 @@ type EncounterConfig = {
   raceTranslation?: (race: Race, spec: any) => Race,
   disableDeathSuggestion?: boolean,
   disableDowntimeSuggestion?: boolean,
+  disableDowntimeStatistic?: boolean,
 }
 export interface PhaseConfig {
   name: string,
