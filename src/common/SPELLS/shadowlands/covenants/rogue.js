@@ -5,6 +5,11 @@ export default {
     name: 'Echoing Reprimand',
     icon: 'ability_bastion_rogue',
   },
+  ECHOING_REPRIMAND_ENERGIZE: {
+    id: 307016,
+    name: 'Echoing Reprimand',
+    icon: 'inv_knife_1h_artifactskulloferedar_d_06',
+  },
   //endregion
 
   //region Necrolord
@@ -26,6 +31,11 @@ export default {
     name: 'Sepsis',
     icon: 'ability_ardenweald_rogue',
   },
+  SEPSIS_POISON: {
+    id: 328306,
+    name: 'Sepsis',
+    icon: 'ability_ardenweald_rogue',
+  },
   //endregion
 
   //region Venthyr
@@ -34,5 +44,10 @@ export default {
     name: 'Flagellation',
     icon: 'ability_revendreth_rogue',
   },
+  FLAGELLATION_LASH: {
+    id: 123456, // GET REAL DoT ID
+    name: 'Flagellation',
+    icon: 'ability_revendreth_rogue',
+  },,,
   //endregion
 };

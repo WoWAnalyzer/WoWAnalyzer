@@ -12,25 +12,21 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ResourceIcon from 'common/ResourceIcon';
 
-class SerratedBoneSpike extends Analyzer {
+class EchoingReprimand extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
   damage: number = 0;
-  comboPointsGained: number = 0;
-  comboPointsWasted: number = 0;
+  poisonDamage: number = 0;
   protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS), this.onDamage);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_ENERGIZE),
-      this.onEnergize,
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS_POISON),
+      this.onPoisonDamage,
     );
   }
 
@@ -38,11 +34,9 @@ class SerratedBoneSpike extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  onEnergize(event: EnergizeEvent) {
-    if (event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id) {
-      this.comboPointsGained += event.resourceChange;
-      this.comboPointsWasted += event.waste;
-    }
+  onPoisonDamage(event: DamageEvent) {
+    this.damage += event.amount + (event.absorbed || 0);
+    this.poisonDamage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
@@ -53,13 +47,10 @@ class SerratedBoneSpike extends Analyzer {
           size="flexible"
           category={STATISTIC_CATEGORY.COVENANTS}
         >
-          <BoringSpellValueText spell={SPELLS.SERRATED_BONE_SPIKE}>
+          <BoringSpellValueText spell={SPELLS.SEPSIS}>
             <>
               <ItemDamageDone amount={this.damage} />
-              <br />
-              <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
-              {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
-              <small> gained Combo Points</small>
+              <ItemDamageDone amount={this.poisonDamage} />
             </>
           </BoringSpellValueText>
         </Statistic>
@@ -68,4 +59,4 @@ class SerratedBoneSpike extends Analyzer {
   }
 }
 
-export default SerratedBoneSpike;
+export default EchoingReprimand;
