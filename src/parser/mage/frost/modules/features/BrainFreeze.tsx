@@ -8,6 +8,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
+import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/Thresholds';
 import { PROC_BUFFER } from '../../constants';
 
 const debug = false;
@@ -17,7 +19,7 @@ class BrainFreeze extends Analyzer {
     eventHistory: EventHistory,
   };
   protected eventHistory!: EventHistory;
-  
+
   usedProcs = 0;
   overwrittenProcs = 0;
   expiredProcs = 0;
@@ -35,11 +37,11 @@ class BrainFreeze extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLURRY), this.onFlurryCast);
   }
 
-  brainFreezeApplied(event: ApplyBuffEvent) {
+  brainFreezeApplied() {
     this.totalProcs += 1;
   }
 
-  brainFreezeRefreshed(event: RefreshBuffEvent) {
+  brainFreezeRefreshed() {
     this.totalProcs += 1;
     this.overwrittenProcs += 1;
     debug && this.debug("Brain Freeze overwritten");
@@ -94,7 +96,7 @@ class BrainFreeze extends Analyzer {
         average: 0.05,
         major: 0.10,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -107,7 +109,7 @@ class BrainFreeze extends Analyzer {
         average: 0.03,
         major: 0.06,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -119,27 +121,27 @@ class BrainFreeze extends Analyzer {
         average: 0,
         major: 3,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.brainFreezeOverwritenThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You overwrite {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. You should use your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs as soon as possible and avoid letting them expire or be overwritten whenever possible. There are not any situations where it would be advantageous to hold your <SpellLink id={SPELLS.BRAIN_FREEZE.id} />.</>)
           .icon(SPELLS.BRAIN_FREEZE.icon)
           .actual(`${formatPercentage(actual)}% overwritten`)
           .recommended(`Overwriting none is recommended`);
       });
     when(this.brainFreezeExpiredThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You allowed {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Make sure you are using your procs as soon as possible to avoid this.</>)
           .icon(SPELLS.BRAIN_FREEZE.icon)
           .actual(`${formatPercentage(actual)}% expired`)
           .recommended(`Letting none expire is recommended`);
       });
     when(this.flurryWithoutBrainFreezeThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {actual} times. <SpellLink id={SPELLS.FLURRY.id} /> does not debuff the target with <SpellLink id={SPELLS.WINTERS_CHILL.id} /> unless you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc, so you should never cast <SpellLink id={SPELLS.FLURRY.id} /> unless you have <SpellLink id={SPELLS.BRAIN_FREEZE.id} />.</>)
           .icon(SPELLS.FLURRY.icon)
           .actual(`${formatNumber(actual)} casts`)
