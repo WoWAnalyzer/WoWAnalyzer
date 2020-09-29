@@ -1,19 +1,17 @@
 import React from 'react';
 
 import Icon from 'common/Icon';
-import { formatMilliseconds, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/Thresholds';
+import { When } from 'parser/core/ParseResults';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
-
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
 import Channeling from './Channeling';
-
 import Haste from './Haste';
-
-const debug = false;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
@@ -22,6 +20,10 @@ class AlwaysBeCasting extends Analyzer {
     globalCooldown: GlobalCooldown, // triggers the globalcooldown event
     channeling: Channeling, // triggers the channeling-related events
   };
+  protected haste!: Haste;
+  protected abilities!: Abilities;
+  protected globalCooldown!: GlobalCooldown;
+  protected channeling!: Channeling;
 
   /**
    * The amount of milliseconds not spent casting anything or waiting for the GCD.
@@ -39,7 +41,7 @@ class AlwaysBeCasting extends Analyzer {
 
   activeTime = 0;
   _lastGlobalCooldownDuration = 0;
-  on_globalcooldown(event) {
+  on_globalcooldown(event: GlobalCooldownEvent) {
     this._lastGlobalCooldownDuration = event.duration;
     if (event.trigger.prepull) {
       // Ignore prepull casts for active time since active time should only include casts during the
@@ -52,7 +54,7 @@ class AlwaysBeCasting extends Analyzer {
     this.activeTime += event.duration;
     return true;
   }
-  on_endchannel(event) {
+  on_endchannel(event: EndChannelEvent) {
     // If the channel was shorter than the GCD then use the GCD as active time
     let amount = event.duration;
     if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
@@ -60,31 +62,6 @@ class AlwaysBeCasting extends Analyzer {
     }
     this.activeTime += amount;
     return true;
-  }
-
-  processCast({ begincast, cast }) {
-    if (!cast) {
-      return;
-    }
-    const spellId = cast.ability.guid;
-    const isOnGCD = this.isOnGlobalCooldown(spellId);
-
-    if (!isOnGCD) {
-      debug && console.log(formatMilliseconds(this.owner.fightDuration), `%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
-      return;
-    }
-
-    const globalCooldown = this.getGlobalCooldownDuration(spellId);
-
-    const castStartTimestamp = (begincast || cast).timestamp;
-
-    this.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId,
-    );
   }
 
   showStatistic = true;
@@ -102,6 +79,7 @@ class AlwaysBeCasting extends Analyzer {
       return null;
     }
 
+    const ctor = this.constructor as typeof AlwaysBeCasting;
     return (
       <StatisticBox
         position={this.position}
@@ -126,12 +104,12 @@ class AlwaysBeCasting extends Analyzer {
                   width: `${this.activeTimePercentage * 100}%`,
                 }}
               >
-                <img src={this.constructor.icons.activeTime} alt="Active time" />
+                <img src={ctor.icons.activeTime} alt="Active time" />
               </div>
             </Tooltip>
             <Tooltip content={<>You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time casting nothing at all.</>}>
               <div className="remainder DeathKnight-bg">
-                <img src={this.constructor.icons.downtime} alt="Downtime" />
+                <img src={ctor.icons.downtime} alt="Downtime" />
               </div>
             </Tooltip>
           </div>
@@ -148,10 +126,10 @@ class AlwaysBeCasting extends Analyzer {
         average: 0.04,
         major: 0.06,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.')
