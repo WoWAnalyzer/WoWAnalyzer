@@ -1,6 +1,5 @@
 export default {
   // Shared
-  ELABORATE_PLANNING_TALENT: { id: 193640, name: 'Elaborate Planning', icon: 'inv_misc_map08' },
   NIGHTSTALKER_TALENT: { id: 14062, name: 'Nightstalker', icon: 'ability_stealth' },
   SUBTERFUGE_TALENT: { id: 108208, name: 'Subterfuge', icon: 'rogue_subterfuge' },
   VIGOR_TALENT: { id: 14983, name: 'Vigor', icon: 'ability_rogue_vigor' },
@@ -40,13 +39,13 @@ export default {
   WEAPONMASTER_TALENT_OUTLAW: { id: 200733, name: 'Weaponmaster', icon: 'ability_ironmaidens_bladerush' },
   // Assassination
   MASTER_POISONER_TALENT: { id: 196864, name: 'Master Poisoner', icon: 'ability_creature_poison_06' },
-  BLINDSIDE_TALENT: { id: 111240, name: 'Blindside', icon: 'ability_rogue_focusedattacks', energyCost: 30 },
+  ELABORATE_PLANNING_TALENT: { id: 193640, name: 'Elaborate Planning', icon: 'inv_misc_map08' },
+  BLINDSIDE_TALENT: { id: 328085, name: 'Blindside', icon: 'ability_rogue_focusedattacks', energyCost: 30 },
   MASTER_ASSASSIN_TALENT: { id: 255989, name: 'Master Assassin', icon: 'ability_criticalstrike' },
   LEECHING_POISON_TALENT: { id: 280716, name: 'Leeching Poison', icon: 'rogue_leeching_poison' },
   INTERNAL_BLEEDING_TALENT: { id: 154904, name: 'Internal Bleeding', icon: 'ability_rogue_bloodsplatter' },
   IRON_WIRE_TALENT: { id: 196861, name: 'Iron Wire', icon: 'inv_jewelcrafting_delicatecopperwire' },
   VENOM_RUSH_TALENT: { id: 152152, name: 'Venom Rush', icon: 'rogue_venomzest' },
-  TOXIC_BLADE_TALENT: { id: 245388, name: 'Toxic Blade', icon: 'inv_weapon_shortblade_62', energyCost: 20 },
   EXSANGUINATE_TALENT: { id: 200806, name: 'Exsanguinate', icon: 'ability_deathwing_bloodcorruption_earth', energyCost: 25 },
   POISON_BOMB_TALENT: { id: 255544, name: 'Poison Bomb', icon: 'rogue_paralytic_poison' },
   HIDDEN_BLADES_TALENT: { id: 270061, name: 'Hidden Blades', icon: 'ability_rogue_fanofknives' },

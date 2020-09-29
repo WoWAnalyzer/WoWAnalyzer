@@ -118,6 +118,11 @@ export default {
     name: 'Pick Pocket',
     icon: 'inv_misc_bag_11',
   },
+  SLICE_AND_DICE: {
+    id: 315496,
+    name: 'Slice and Dice',
+    icon: 'ability_rogue_slicedice',
+  },
 
   // Subtlety spells
   // Combo point generating damage ability
@@ -193,12 +198,12 @@ export default {
   },
   SHADOW_SATYRS_WALK_ENERGY_BASE: {
     id: 224914,
-    name: 'Shadow Satyr\'s Walk',
+    name: "Shadow Satyr's Walk",
     icon: 'inv_boots_mail_dungeonmail_c_04',
   },
   SHADOW_SATYRS_WALK_ENERGY_EXTRA: {
     id: 208440,
-    name: 'Shadow Satyr\'s Walk',
+    name: "Shadow Satyr's Walk",
     icon: 'inv_boots_mail_dungeonmail_c_04',
   },
   MASTER_OF_SHADOWS_ENERGY: {
@@ -210,7 +215,7 @@ export default {
   //Buffs
   MASTER_ASSASSINS_INITIATIVE_BUFF: {
     id: 235027,
-    name: 'Master Assassin\'s Initiative',
+    name: "Master Assassin's Initiative",
     icon: 'inv_weapon_shortblade_25',
   },
   THE_FIRST_OF_THE_DEAD_BUFF: {
@@ -400,7 +405,6 @@ export default {
     icon: 'inv_weapon_shortblade_62',
   },
 
-
   //Outlaw
 
   //Builders
@@ -497,12 +501,12 @@ export default {
     name: 'Broadside',
     icon: 'ability_rogue_rollthebones06',
   },
-  BLADE_RUSH_TALENT_BUFF: { // This is the energy gain buff
-    id: 271896, 
-    name: 'Blade Rush', 
+  BLADE_RUSH_TALENT_BUFF: {
+    // This is the energy gain buff
+    id: 271896,
+    name: 'Blade Rush',
     icon: 'ability_arakkoa_spinning_blade',
   },
-
 
   //Procs
   COMBO_POINT: {

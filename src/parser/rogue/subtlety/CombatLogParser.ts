@@ -22,18 +22,16 @@ import NightbladeEarlyRefresh from './modules/core/NightbladeEarlyRefresh';
 import CastsInShadowDance from './modules/core/CastsInShadowDance';
 import NightbladeUptime from './modules/core/NightbladeUptime';
 import CastsInStealth from './modules/core/CastsInStealth';
-import ShadowBladesUptime from "./modules/features/ShadowBladesUptime";
-import SymbolsOfDeathUptime from "./modules/features/SymbolsOfDeathUptime";
+import ShadowBladesUptime from './modules/features/ShadowBladesUptime';
+import SymbolsOfDeathUptime from './modules/features/SymbolsOfDeathUptime';
 import DeepeningShadows from './modules/core/DeepeningShadows';
 import ComboPoints from './modules/core/ComboPoints';
 import Energy from './modules/core/Energy';
 import SymbolsDamageTracker from './modules/core/SymbolsDamageTracker';
 import DanceDamageTracker from './modules/core/DanceDamageTracker';
 import DarkShadowNightblade from './modules/talents/DarkShadow/DarkShadowNightblade';
-import DarkShadowContribution from "./modules/talents/DarkShadow/DarkShadowContribution";
-import FindWeakness from "./modules/talents/FindWeakness";
-
-import Perforate from "./modules/azerite/Perforate";
+import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
+import FindWeakness from './modules/talents/FindWeakness';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -65,8 +63,8 @@ class CombatLogParser extends CoreCombatLogParser {
     danceCooldownReduction: DeepeningShadows,
 
     //Casts
-    symbolsOfDeathUptime:  SymbolsOfDeathUptime,
-    shadowBladesUptime : ShadowBladesUptime,
+    symbolsOfDeathUptime: SymbolsOfDeathUptime,
+    shadowBladesUptime: ShadowBladesUptime,
     nightbladeUptime: NightbladeUptime,
     nightbladeDuringSymbols: NightbladeDuringSymbols,
     nightbladeEarlyRefresh: NightbladeEarlyRefresh,
@@ -79,7 +77,6 @@ class CombatLogParser extends CoreCombatLogParser {
     findWeakness: FindWeakness,
 
     // Traits
-    perforate: Perforate,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

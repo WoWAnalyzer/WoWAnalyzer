@@ -39,7 +39,8 @@ import Nightstalker from './modules/talents/Nightstalker';
 import Subterfuge from './modules/talents/Subterfuge';
 import MasterAssassin from './modules/talents/MasterAssassin';
 
-// Traits
+// Covenants
+import SerratedBoneSpike from './modules/spells/shadowlands/covenants/necrolord/SerratedBoneSpike';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,7 +88,8 @@ class CombatLogParser extends CoreCombatLogParser {
     subterfuge: Subterfuge,
     masterAssassin: MasterAssassin,
 
-    // Traits
+    // Covenants
+    serratedBoneSpike: SerratedBoneSpike,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

@@ -22,12 +22,7 @@ const GOOD_MASTER_ASSASSIN_ABILITIES = [
   SPELLS.ENVENOM.id,
   SPELLS.FAN_OF_KNIVES.id,
 ];
-const GOOD_OPENER_CASTS = [
-  ...GOOD_MASTER_ASSASSIN_ABILITIES,
-  SPELLS.GARROTE.id,
-  SPELLS.RUPTURE.id,
-  SPELLS.TOXIC_BLADE_TALENT.id,
-];
+const GOOD_OPENER_CASTS = [...GOOD_MASTER_ASSASSIN_ABILITIES, SPELLS.GARROTE.id, SPELLS.RUPTURE.id];
 
 class MasterAssassin extends StealthCasts {
   static dependencies = {
@@ -92,7 +87,7 @@ class MasterAssassin extends StealthCasts {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You failed to take full advantage of <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />. Make sure to prioritize spending the buff on <SpellLink id={SPELLS.MUTILATE.id} /> or <SpellLink id={SPELLS.ENVENOM.id} /> (<SpellLink id={SPELLS.FAN_OF_KNIVES.id} /> is acceptable for AOE). During your opener <SpellLink id={SPELLS.GARROTE.id} />, <SpellLink id={SPELLS.RUPTURE.id} /> and <SpellLink id={SPELLS.TOXIC_BLADE_TALENT.id} /> is also okay.</>)
+      return suggest(<>You failed to take full advantage of <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />. Make sure to prioritize spending the buff on <SpellLink id={SPELLS.MUTILATE.id} /> or <SpellLink id={SPELLS.ENVENOM.id} /> (<SpellLink id={SPELLS.FAN_OF_KNIVES.id} /> is acceptable for AOE). During your opener <SpellLink id={SPELLS.GARROTE.id} />, <SpellLink id={SPELLS.RUPTURE.id} /> is also okay.</>)
         .icon(SPELLS.MASTER_ASSASSIN_TALENT.icon)
         .actual(`${formatPercentage(actual)}% good casts during Master Assassin`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

@@ -88,11 +88,11 @@ class Analyzer extends EventSubscriber {
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, E>,
   ) {
-    if (this.hasLegacyEventListener) {
-      throw new Error(
-        'You can not combine legacy event listeners with manual event listeners, use only one method.',
-      );
-    }
+    // if (this.hasLegacyEventListener) {
+    //   throw new Error(
+    //     'You can not combine legacy event listeners with manual event listeners, use only one method.',
+    //   );
+    // }
     super.addEventListener(eventFilter, listener);
   }
 
