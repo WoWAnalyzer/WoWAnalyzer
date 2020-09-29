@@ -12,8 +12,8 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import { ThresholdStyle } from 'parser/core/Thresholds';
 import { When } from 'parser/core/ParseResults';
-import { NumberThreshold, ThresholdStyle } from 'parser/core/Thresholds';
 
 /*
  * If Rune of Power is substantially better than the rest of the row, enable
@@ -67,7 +67,7 @@ class RuneOfPower extends Analyzer {
     return ((this.uptimeMS / this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts) / 1000);
   }
 
-  get damageSuggestionThresholds(): NumberThreshold {
+  get damageSuggestionThresholds() {
     return {
       actual: this.damageIncreasePercent,
       isLessThan: {
@@ -79,7 +79,7 @@ class RuneOfPower extends Analyzer {
     };
   }
 
-  get roundedSecondsSuggestionThresholds(): NumberThreshold {
+  get roundedSecondsSuggestionThresholds() {
     return {
       actual: this.roundedSecondsPerCast,
       isLessThan: {
@@ -98,8 +98,8 @@ class RuneOfPower extends Analyzer {
         .addSuggestion((suggest: any) => {
           return suggest(
             <>
-            It is highly recommended to talent into <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> when playing this spec.
-            While it can take some practice to master, when played correctly it outputs substantially more DPS than <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} /> or <SpellLink id={SPELLS.MIRROR_IMAGE_TALENT.id} />.
+              It is highly recommended to talent into <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> when playing this spec.
+              While it can take some practice to master, when played correctly it outputs substantially more DPS than <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} /> or <SpellLink id={SPELLS.MIRROR_IMAGE_TALENT.id} />.
             </>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
             .staticImportance(SUGGESTION_IMPORTANCE.REGULAR);
@@ -107,7 +107,7 @@ class RuneOfPower extends Analyzer {
       return;
     }
 
-    if(!this.showSuggestion) {
+    if (!this.showSuggestion) {
       return;
     }
 
@@ -141,7 +141,7 @@ class RuneOfPower extends Analyzer {
         >
           <BoringSpellValueText spell={SPELLS.RUNE_OF_POWER_TALENT}>
             <>
-              {formatPercentage(this.damagePercent,0)}% <small>Damage added by Rune of Power</small><br />
+              {formatPercentage(this.damagePercent, 0)}% <small>Damage added by Rune of Power</small><br />
               {formatNumber(this.roundedSecondsPerCast)}s <small>Average time in Rune per cast</small>
             </>
           </BoringSpellValueText>
