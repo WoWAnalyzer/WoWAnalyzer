@@ -1,12 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { When } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import DeathDowntime from 'parser/shared/modules/downtime/DeathDowntime';
 import SpellLink from 'common/SpellLink';
 import { isItAprilFoolDay } from 'common/aprilFools';
 import { ApplyBuffEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/Thresholds';
+import { When } from 'parser/core/ParseResults';
 
 class SpiritOfRedemption extends Analyzer {
   static dependencies = {
@@ -59,7 +61,7 @@ class SpiritOfRedemption extends Analyzer {
         average: 5,
         major: 1,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
   suggestions(when: When) {

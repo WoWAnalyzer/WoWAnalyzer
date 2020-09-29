@@ -24,7 +24,7 @@ export type ThresholdRange = {
  */
 interface INumberThreshold extends Threshold<number> {
   max?: number,
-  // Require exactly one of the below (including isEqual from parent)
+  // Require exactly one of the below
   isEqual: number,
   isLessThan: ThresholdRange,
   isGreaterThan: ThresholdRange,
