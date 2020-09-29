@@ -8,8 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import Gauge from 'interface/statistics/components/Gauge';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
-import { When } from 'parser/core/ParseResults';
-import { ThresholdStyle } from 'parser/core/Thresholds';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get deadTimePercentage() {

@@ -5,6 +5,7 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get downtimeSuggestionThresholds() {
@@ -15,7 +16,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         average: 0.35,
         major: .45,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

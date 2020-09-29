@@ -12,8 +12,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { ThresholdStyle } from 'parser/core/Thresholds';
-import { When } from 'parser/core/ParseResults';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 /*
  * If Rune of Power is substantially better than the rest of the row, enable

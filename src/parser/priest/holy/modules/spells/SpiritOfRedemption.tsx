@@ -7,8 +7,7 @@ import DeathDowntime from 'parser/shared/modules/downtime/DeathDowntime';
 import SpellLink from 'common/SpellLink';
 import { isItAprilFoolDay } from 'common/aprilFools';
 import { ApplyBuffEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/Thresholds';
-import { When } from 'parser/core/ParseResults';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 class SpiritOfRedemption extends Analyzer {
   static dependencies = {
