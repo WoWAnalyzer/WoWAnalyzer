@@ -6,10 +6,9 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import { When } from 'parser/core/ParseResults';
-import { ThresholdStyle } from 'parser/core/Thresholds';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { PROC_BUFFER } from '../../constants';
 
 const debug = false;
@@ -47,9 +46,9 @@ class BrainFreeze extends Analyzer {
     debug && this.debug("Brain Freeze overwritten");
   }
 
-  brainFreezeRemoved(event: RemoveBuffEvent) {
-    const previousSpell: any = this.eventHistory.last(1, PROC_BUFFER, Events.cast.by(SELECTED_PLAYER));
-    if (previousSpell?.find((spell: CastEvent) => spell.ability.guid === SPELLS.FLURRY.id)) {
+  brainFreezeRemoved() {
+    const previousSpell = this.eventHistory.last(1, PROC_BUFFER, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLURRY));
+    if (previousSpell.length !== 0) {
       this.usedProcs += 1;
     } else {
       this.expiredProcs += 1; // If Flurry was not the spell that was cast immediately before this, then the proc must have expired.
@@ -57,7 +56,7 @@ class BrainFreeze extends Analyzer {
     }
   }
 
-  onFlurryCast(event: CastEvent) {
+  onFlurryCast() {
     if (!this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE.id)) {
       this.flurryHardCast += 1;
     }
