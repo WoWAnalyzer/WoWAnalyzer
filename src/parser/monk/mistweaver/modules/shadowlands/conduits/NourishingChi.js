@@ -13,9 +13,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-
 import { LIFE_COCOON_HEALING_BOOST } from '../../../constants';
-
 
 /**
  * HoT Healing during Life cocoon is buffed by x% and this boost lasts for an extra 6 second after cocoon breaks or ends.
@@ -70,7 +68,6 @@ class NourishingChi extends Analyzer {
   }
 
   statistic() {
-    console.log(this.healing);
     return (
     <Statistic
       position={STATISTIC_ORDER.OPTIONAL(13)}
