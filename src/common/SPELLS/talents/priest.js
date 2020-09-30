@@ -59,5 +59,6 @@ export default {
   PURGE_THE_WICKED_TALENT: { id: 204197, name: 'Purge the Wicked', icon: 'ability_mage_firestarter', manaCost: 900 },
   LENIENCE_TALENT: { id: 238063, name: 'Lenience', icon: 'ability_priest_atonement' },
   EVANGELISM_TALENT: { id: 246287, name: 'Evangelism', icon: 'spell_holy_divineillumination' },
+  SPIRIT_SHELL_TALENT: { id: 109964, name: 'Spirit Shell', icon: 'ability_shaman_astralshift' },
   TWIST_OF_FATE_TALENT_DISCIPLINE: { id: 265259, name: 'Twist of Fate', icon: 'spell_shadow_mindtwisting' },
 };
