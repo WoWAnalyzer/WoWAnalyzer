@@ -16,7 +16,7 @@ import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
-import Kindling from './modules/features/Kindling';
+
 import HotStreak from './modules/features/HotStreak';
 import HotStreakPreCasts from './modules/features/HotStreakPreCasts';
 import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
@@ -25,10 +25,16 @@ import CombustionCharges from './modules/features/CombustionCharges';
 import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
 import HeatingUp from './modules/features/HeatingUp';
 import Pyroclasm from './modules/features/Pyroclasm';
-import SearingTouch from './modules/features/SearingTouch';
-import Meteor from './modules/features/Meteor';
-import MeteorRune from './modules/features/MeteorRune';
-import MeteorCombustion from './modules/features/MeteorCombustion';
+
+//Talents
+import SearingTouch from './modules/talents/SearingTouch';
+import Meteor from './modules/talents/Meteor';
+import MeteorRune from './modules/talents/MeteorRune';
+import MeteorCombustion from './modules/talents/MeteorCombustion';
+import Kindling from './modules/talents/Kindling';
+
+//Conduits
+import MasterFlame from './modules/items/MasterFlame';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -64,6 +70,9 @@ class CombatLogParser extends CoreCombatLogParser {
     meteor: Meteor,
     meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
+
+    //Conduits
+    masterFlame: MasterFlame,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
