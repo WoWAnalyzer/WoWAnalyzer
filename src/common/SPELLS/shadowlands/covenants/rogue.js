@@ -45,7 +45,7 @@ export default {
     icon: 'ability_revendreth_rogue',
   },
   FLAGELLATION_LASH: {
-    id: 123456, // GET REAL DoT ID
+    id: 345390, // GET REAL DoT ID
     name: 'Flagellation',
     icon: 'ability_revendreth_rogue',
   },,,
