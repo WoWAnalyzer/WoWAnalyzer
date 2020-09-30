@@ -1,6 +1,7 @@
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreRuneTracker from '../../../shared/RuneTracker';
 
-class RuneTracker extends CoreRuneTracker{
+class RuneTracker extends CoreRuneTracker {
 
   get suggestionThresholds() {
     return {
