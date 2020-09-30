@@ -1,6 +1,8 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { AbsorbedEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -15,6 +17,8 @@ class SoulBarrier extends Analyzer {
     damageTracker: DamageTracker,
     enemies: Enemies,
   };
+  protected damageTracker!: DamageTracker;
+  protected enemies!: Enemies;
 
   casts = 0;
   totalAbsorbed = 0;
@@ -24,35 +28,28 @@ class SoulBarrier extends Analyzer {
   avgBuffLength = 0;
   totalBuffLength = 0;
 
-
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT), this.onBarrierApply);
+    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT), this.onBarrierAbsorb);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT), this.onBarrierRemove);
   }
 
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.SOUL_BARRIER_TALENT.id) / this.owner.fightDuration;
   }
 
-  on_toPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.SOUL_BARRIER_TALENT.id) {
-      return;
-    }
+  onBarrierApply(event: ApplyBuffEvent) {
     this.casts += 1;
     this.buffApplied = event.timestamp;
   }
 
-  on_toPlayer_absorbed(event) {
-    if (event.ability.guid !== SPELLS.SOUL_BARRIER_TALENT.id) {
-      return;
-    }
-    this.totalAbsorbed+= event.amount;
+  onBarrierAbsorb(event: AbsorbedEvent) {
+    this.totalAbsorbed += event.amount;
   }
 
-  on_toPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.SOUL_BARRIER_TALENT.id) {
-      return;
-    }
+  onBarrierRemove(event: RemoveBuffEvent) {
     this.buffRemoved = event.timestamp;
     this.buffLength = this.buffRemoved - this.buffApplied;
     this.totalBuffLength += this.buffLength;
@@ -66,11 +63,11 @@ class SoulBarrier extends Analyzer {
         average: 0.30,
         major: .25,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.</>)
@@ -84,6 +81,7 @@ class SoulBarrier extends Analyzer {
     const avgBuffLength = (this.totalBuffLength / this.casts) / 1000;
     return (
       <TalentStatisticBox
+        icon={undefined}
         talent={SPELLS.SOUL_BARRIER_TALENT.id}
         position={STATISTIC_ORDER.CORE(7)}
         value={`${formatPercentage(this.uptime)} %`}
