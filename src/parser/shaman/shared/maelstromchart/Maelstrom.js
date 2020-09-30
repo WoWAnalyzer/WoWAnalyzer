@@ -28,8 +28,8 @@ const Maelstrom = props => {
 
   props.tracker.resourceUpdates.forEach((item) => {
     const secIntoFight = Math.floor((item.timestamp - start) / 1000);
-    rawData.push({kind: 'resource', x: secIntoFight, y:item.current});
-    rawData.push({kind: 'waste', x: secIntoFight, y:item.waste});
+    rawData.push({kind: 'Maelstrom', x: secIntoFight, y:item.current});
+    rawData.push({kind: 'Wasted', x: secIntoFight, y:item.waste});
   });
 
   const data = {
@@ -51,6 +51,7 @@ const Maelstrom = props => {
           labelExpr: formatTime('datum.value * 1000'),
           grid: false,
         },
+        title: 'Time',
       },
       y: {
         field: 'y',
@@ -58,22 +59,29 @@ const Maelstrom = props => {
         axis: {
           grid: false,
         },
+        title: 'Maelstrom',
       },
       color: {
         field: 'kind',
         type: 'nominal',
-        legend: null,
+        title: null,
+        legend: {
+          orient: 'top',
+        },
         scale: {
-          domain: ['resource', 'waste'],
+          domain: ['Maelstrom', 'Wasted'],
           range: [COLORS.MAELSTROM_FILL, COLORS.WASTED_MAELSTROM_FILL],
         },
       },
       stroke: {
         field: 'kind',
         type: 'nominal',
-        legend: null,
+        title: null,
+        legend: {
+          orient: 'top',
+        },
         scale: {
-          domain: ['resource', 'waste'],
+          domain: ['Maelstrom', 'Wasted'],
           range: [COLORS.MAELSTROM_BORDER, COLORS.WASTED_MAELSTROM_BORDER],
         },
       },
