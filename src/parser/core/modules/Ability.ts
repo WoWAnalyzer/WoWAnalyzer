@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CombatLogParser from 'parser/core/CombatLogParser';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import Combatant from 'parser/core/Combatant';
 import { Event } from '../Events';
 import Abilities from './Abilities';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 export interface AbilityTrackerAbility {
   casts: number;
