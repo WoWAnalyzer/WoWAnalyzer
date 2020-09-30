@@ -1,20 +1,21 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-
 import PainTracker from './PainTracker';
 
 class PainDetails extends Analyzer {
   static dependencies = {
     painTracker: PainTracker,
   };
+  protected painTracker!: PainTracker;
 
-  get wastedPercent(){
+  get wastedPercent() {
     return this.painTracker.wasted / (this.painTracker.wasted + this.painTracker.generated) || 0;
   }
 
@@ -26,7 +27,7 @@ class PainDetails extends Analyzer {
         average: 0.90,
         major: .85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -38,11 +39,11 @@ class PainDetails extends Analyzer {
         average: 0.10,
         major: 0.15,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Pain.`)
@@ -61,7 +62,6 @@ class PainDetails extends Analyzer {
         label="Pain wasted"
         tooltip={`${this.painTracker.wasted} out of ${this.painTracker.wasted + this.painTracker.generated} pain wasted.`}
       />
-
     );
   }
 
@@ -78,7 +78,7 @@ class PainDetails extends Analyzer {
         </Panel>
       ),
     };
- }
+  }
 
 }
 
