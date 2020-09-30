@@ -1,13 +1,12 @@
 import React from 'react';
 import { AutoSizer } from 'react-virtualized';
-import { VegaLite } from 'react-vega';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DeathEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import Panel from 'interface/others/Panel';
-import { defaultConfig, formatTime } from 'interface/others/FooterChart';
+import BaseChart, { formatTime } from 'interface/others/BaseChart';
 import { AddStaggerEvent, RemoveStaggerEvent, StaggerEventType } from '../core/StaggerFabricator';
 
 import StaggerFabricator from '../core/StaggerFabricator';
@@ -283,17 +282,13 @@ class StaggerPoolGraph extends Analyzer {
         }}>
           <AutoSizer>
             {({ width, height }) => (
-              <VegaLite
+              <BaseChart
                 spec={spec}
                 data={{
                   combined,
                   purifies: this._purifyEvents,
                   deaths: this._deathEvents,
                 }}
-                config={defaultConfig}
-                actions={false}
-                theme="dark"
-                tooltip={{theme: 'dark'}}
                 width={width}
                 height={height} />
             )}

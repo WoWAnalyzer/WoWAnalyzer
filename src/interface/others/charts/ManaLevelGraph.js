@@ -1,8 +1,7 @@
 import React from 'react';
-import { VegaLite } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 import PropTypes from 'prop-types';
-import { formatTime, defaultConfig } from 'interface/others/FooterChart';
+import BaseChart, { formatTime } from 'interface/others/BaseChart';
 
 class ManaLevelGraph extends React.PureComponent {
   static propTypes = {
@@ -137,15 +136,11 @@ class ManaLevelGraph extends React.PureComponent {
     return (
       <AutoSizer disableHeight>
         {({ width }) => (
-          <VegaLite
+          <BaseChart
             height={400}
             width={width}
-            config={defaultConfig}
             spec={spec}
             data={data}
-            actions={false}
-            theme="dark"
-            tooltip={{theme: 'dark'}}
           />
         )}
       </AutoSizer>

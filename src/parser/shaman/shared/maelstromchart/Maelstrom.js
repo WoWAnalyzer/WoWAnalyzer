@@ -3,9 +3,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VegaLite } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
-import { formatTime, defaultConfig } from 'interface/others/FooterChart';
+import BaseChart, { formatTime } from 'interface/others/BaseChart';
 
 const COLORS = {
   MAELSTROM_FILL: 'rgba(0, 139, 215, 0.2)',
@@ -87,15 +86,11 @@ const Maelstrom = props => {
  return (
    <AutoSizer disableHeight>
      {({ width }) => (
-       <VegaLite
+       <BaseChart
          height={400}
          width={width}
-         config={defaultConfig}
          spec={spec}
          data={data}
-         actions={false}
-         theme="dark"
-         tooltip={{theme: 'dark'}}
        />
      )}
    </AutoSizer>

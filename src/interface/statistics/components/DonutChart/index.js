@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VegaLite } from 'react-vega';
-import { defaultConfig } from 'interface/others/FooterChart';
+import BaseChart from 'interface/others/BaseChart';
 
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
@@ -94,12 +93,9 @@ class DonutChart extends React.PureComponent {
     };
     return (
       <div className="chart">
-        <VegaLite
+        <BaseChart
           width={chartSize}
           height={chartSize}
-          actions={false}
-          config={defaultConfig}
-          theme="dark"
           spec={spec}
           data={data}
         />

@@ -1,13 +1,12 @@
 import React from 'react';
 import { AutoSizer } from 'react-virtualized';
-import { VegaLite } from 'react-vega';
 
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { defaultConfig, formatTime } from 'interface/others/FooterChart';
+import BaseChart, { formatTime } from 'interface/others/BaseChart';
 
 const DEATH_BUFFER = 200;
 
@@ -173,7 +172,7 @@ class SelfHealTimingGraph extends Analyzer {
       }}>
         <AutoSizer>
           {({ width, height }) => (
-            <VegaLite width={width} height={height} spec={spec} data={data} config={defaultConfig} actions={false} theme="dark" tooltip={{theme: 'dark'}} />
+            <BaseChart width={width} height={height} spec={spec} data={data} />
           )}
         </AutoSizer>
       </div>

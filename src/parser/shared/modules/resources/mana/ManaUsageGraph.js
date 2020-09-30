@@ -1,8 +1,7 @@
 import React from 'react';
-import { VegaLite } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 import PropTypes from 'prop-types';
-import { formatTime, defaultConfig } from 'interface/others/FooterChart';
+import BaseChart, { formatTime } from 'interface/others/BaseChart';
 
 const COLORS = {
   MANA: {
@@ -93,13 +92,9 @@ class ManaUsageGraph extends React.Component {
     return (
       <AutoSizer disableHeight>
         {({ width }) => (
-        <VegaLite
+        <BaseChart
           height={400}
           width={width}
-          config={defaultConfig}
-          theme="dark"
-          tooltip={{theme: 'dark'}}
-          actions={false}
           spec={spec}
           data={data}
           />
