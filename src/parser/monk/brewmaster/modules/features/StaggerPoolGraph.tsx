@@ -93,14 +93,13 @@ class StaggerPoolGraph extends Analyzer {
 
   get plot() {
     const xAxis = {
-      field: 'seconds',
+      field: 'timestamp_shifted',
       type: 'quantitative' as const,
       axis: {
-        labelExpr: formatTime('datum.value * 500'),
+        labelExpr: formatTime('datum.value'),
         grid: false,
       },
       title: null,
-      scale: { zero: true },
     };
 
     const spec = {
@@ -109,29 +108,18 @@ class StaggerPoolGraph extends Analyzer {
       },
       transform: [
         {
-          filter: 'isValid(datum.hitPoints)',
+          filter: 'isValid(datum.newPooledDamage)',
         },
         {
-          calculate: `floor((datum.timestamp - ${this.owner.fight.start_time}) / 500)`,
-          as: 'seconds',
-        },
-        {
-          aggregate: [
-            { op: 'mean' as const, field: 'hitPoints', as: 'mean_hitPoints' },
-            { op: 'mean' as const, field: 'newPooledDamage', as: 'mean_newPooledDamage' },
-          ],
-          groupby: ['seconds'],
-        },
-        {
-          calculate: 'if(isValid(datum.mean_newPooledDamage), datum.mean_newPooledDamage, 0)',
-          as: 'mean_newPooledDamage',
+          calculate: `datum.timestamp - ${this.owner.fight.start_time}`,
+          as: 'timestamp_shifted',
         },
       ],
       encoding: {
         x: xAxis,
         tooltip: [
-          { field: 'mean_hitPoints', type: 'quantitative' as const, title: 'Hit Points', format: '.3~s' },
-          { field: 'mean_newPooledDamage', type: 'quantitative' as const, title: 'Staggered Damage', format: '.3~s' },
+          { field: 'hitPoints', type: 'quantitative' as const, title: 'Hit Points', format: '.3~s' },
+          { field: 'newPooledDamage', type: 'quantitative' as const, title: 'Staggered Damage', format: '.3~s' },
         ],
       },
       layer: [
@@ -147,7 +135,7 @@ class StaggerPoolGraph extends Analyzer {
           },
           encoding: {
             y: {
-              field: 'mean_newPooledDamage',
+              field: 'newPooledDamage',
               type: 'quantitative' as const,
               title: null,
               axis: {
@@ -169,7 +157,7 @@ class StaggerPoolGraph extends Analyzer {
           },
           encoding: {
             y: {
-              field: 'mean_hitPoints',
+              field: 'hitPoints',
               type: 'quantitative' as const,
               title: null,
               axis: {
@@ -215,18 +203,11 @@ class StaggerPoolGraph extends Analyzer {
           },
           transform: [
             {
-              calculate: `floor((datum.timestamp - ${this.owner.fight.start_time}) / 500) - 1`,
-              as: 'seconds',
+              calculate: `datum.timestamp - ${this.owner.fight.start_time}`,
+              as: 'timestamp_shifted',
             },
             {
-              aggregate: [
-                { op: 'mean' as const, field: 'newPooledDamage', as: 'mean_newPooledDamage' },
-                { op: 'mean' as const, field: 'amount', as: 'amount' },
-              ],
-              groupby: ['seconds'],
-            },
-            {
-              calculate: 'datum.mean_newPooledDamage + datum.amount',
+              calculate: 'datum.newPooledDamage + datum.amount',
               as: 'oldPooledDamage',
             },
           ],
@@ -253,8 +234,8 @@ class StaggerPoolGraph extends Analyzer {
           },
           transform: [
             {
-              calculate: `floor((datum.timestamp - ${this.owner.fight.start_time}) / 500)`,
-              as: 'seconds',
+              calculate: `datum.timestamp - ${this.owner.fight.start_time}`,
+              as: 'timestamp_shifted',
             },
           ],
           encoding: {
