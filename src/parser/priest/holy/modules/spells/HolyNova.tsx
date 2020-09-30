@@ -1,7 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { When } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox from 'interface/others/StatisticBox';
@@ -81,7 +82,7 @@ class HolyNova extends Analyzer {
         average: 5,
         major: 2,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -115,7 +116,7 @@ class HolyNova extends Analyzer {
 
   suggestions(when: When) {
     when(this.holyNovaThreshold)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>You should only cast <SpellLink id={SPELLS.HOLY_NOVA.id} /> when you will hit 5 or more targets.</>)
             .icon(SPELLS.HOLY_NOVA.icon)
             .actual(<>You hit an average of {actual} targets when you cast Holy Nova.</>)

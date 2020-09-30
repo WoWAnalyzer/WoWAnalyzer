@@ -1,7 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { When } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DistanceMoved from 'parser/shared/modules/others/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
@@ -78,7 +79,7 @@ class Renew extends Analyzer {
         average: 3 * this.owner.fightDuration / 1000 / 60,
         major: 4 * this.owner.fightDuration / 1000 / 60,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -198,7 +199,7 @@ class Renew extends Analyzer {
 
   suggestions(when: When) {
     when(this.badRenewThreshold)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>You should cast <SpellLink id={SPELLS.RENEW.id} /> less.</>)
             .icon(SPELLS.RENEW.icon)
             .actual(<>
