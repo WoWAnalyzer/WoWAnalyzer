@@ -5,6 +5,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import Combatant from 'parser/core/Combatant';
 import { Event } from '../Events';
 import Abilities from './Abilities';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 export interface AbilityTrackerAbility {
   casts: number;
@@ -121,7 +122,7 @@ export interface SpellbookAbility {
      * If set, this suggestion will get this static importance value. Use this
      * ISSUE_IMPORTANCE enum for this.
      */
-    importance?: string;
+    importance?: ISSUE_IMPORTANCE;
   };
   /**
    * Whether the spell is enabled (available to the player) and should be
