@@ -1,5 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -70,13 +71,13 @@ class BoomingVoice extends Analyzer {
         average: 10,
         major: 20,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest: any, actual: any, recommended: any) => {
+        .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.</>)
             .icon(SPELLS.BOOMING_VOICE_TALENT.icon)
             .actual(`${actual} Rage wasted`)

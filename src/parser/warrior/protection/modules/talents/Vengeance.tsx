@@ -1,5 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -56,13 +57,13 @@ class Vengeance extends Analyzer {
         average: .1,
         major: .2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest: any, actual: any, recommended: any) => {
+        .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>Avoid casting <SpellLink id={SPELLS.IGNORE_PAIN.id} /> and <SpellLink id={SPELLS.REVENGE.id} /> back to back without using it's counterpart. <SpellLink id={SPELLS.VENGEANCE_TALENT.id} /> requires you to weave between those two spells to get the most rage and damage out of it.</>)
             .icon(SPELLS.VENGEANCE_TALENT.icon)
             .actual(`${formatPercentage(actual)}% overwritten`)

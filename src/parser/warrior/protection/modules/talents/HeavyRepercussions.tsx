@@ -1,5 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -57,13 +58,13 @@ class HeavyRepercussions extends Analyzer {
         average: .85,
         major: .80,
       },
-      style: 'percent',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest: any, actual: any, recommended: any) => {
+        .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />'s during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of <SpellLink id={SPELLS.SHIELD_SLAM.id} />.</>)
             .icon(SPELLS.HEAVY_REPERCUSSIONS_TALENT.icon)
             .actual(`${formatPercentage(actual)}% cast during Shield Block`)

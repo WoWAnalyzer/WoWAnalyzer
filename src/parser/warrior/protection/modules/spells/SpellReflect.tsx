@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
@@ -53,12 +54,12 @@ class SpellReflect extends Analyzer {
         average: .15,
         major: .05,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
-    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           Try to cast <SpellLink id={SPELLS.SPELL_REFLECTION.id} />  more often when magic damage is going out to take less damage.
