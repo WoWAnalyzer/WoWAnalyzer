@@ -90,7 +90,7 @@ class ManaLevelChartComponent extends React.PureComponent {
         .map(({ timestamp, targetID, killingAbility }) => ({
           x: timestamp - start,
           name: combatants.players[targetID].name,
-          ability: killingAbility.name,
+          ability: killingAbility ? killingAbility.name : 'Unknown Ability',
         }));
     }
 
