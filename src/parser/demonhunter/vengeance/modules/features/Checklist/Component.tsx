@@ -8,10 +8,17 @@ import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
-import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import Requirement, { RequirementThresholds } from 'parser/shared/modules/features/Checklist/Requirement';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Combatant from 'parser/core/Combatant';
 
-const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = props => (
+type ChecklistProps = {
+  combatant: Combatant,
+  castEfficiency: CastEfficiency,
+  thresholds: {[key: string]: RequirementThresholds},
+}
+const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: {spell: number}) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
