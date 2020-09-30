@@ -1,4 +1,5 @@
 import React from 'react';
+import { captureException } from 'common/errorLogger';
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
 enum AssertionMode {
@@ -343,6 +344,10 @@ class ParseResults {
       if (typeof threshold === "number") {
         // @ts-ignore
         return new NumberSuggestionAssertion(threshold, this.addIssue);
+      } else if (typeof threshold === "string") {
+        captureException(new Error("Sent string threshold, only number and boolean allowed"));
+        // @ts-ignore TODO find all instances of javascript sending in formatted numbers here (via captured error above), then remove this
+        return new NumberSuggestionAssertion(Number(threshold), this.addIssue);
       } else if (typeof threshold === "boolean") {
         // @ts-ignore
         return new BoolSuggestionAssertion(threshold, this.addIssue);
