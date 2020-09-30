@@ -50,7 +50,8 @@ class ArcaneProdigy extends Analyzer {
         tooltip={<>You reduced the cooldown on Arcane Power by a total of {this.reductionSeconds}s. Additionally, by casting Arcane Missiles while Arcane Power was not on cooldown, you wasted {this.wastedReductionSeconds}s that could have reduced the cooldown on Arcane Power further. </>}
       >
         <BoringSpellValueText spell={SPELLS.ARCANE_PRODIGY}>
-          <UptimeIcon /> {this.reductionSeconds}s <small>Arcane Power CDR</small>
+          <UptimeIcon /> {this.reductionSeconds}s <small>Arcane Power CDR</small><br />
+          {this.wastedReductionSeconds}s <small>Wasted CDR</small>
         </BoringSpellValueText>
       </Statistic>
     );
