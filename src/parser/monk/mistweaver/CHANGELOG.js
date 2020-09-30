@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 9, 30), <>Integration Tests have been added for Mistweaver. </>, Anomoly),
   change(date(2020, 9, 30), <>Statistic created for the potency conduit Imbued Reflections. </>, Abelito75),
   change(date(2020, 9, 26), <>Added Yu'lon and Chi-ji to the cooldown tracker. </>, Abelito75),
   change(date(2020, 9, 26), <>Added Rising Sun Revival, Jade Bond, and Nourishing Chi. </>, Abelito75),
