@@ -26,7 +26,7 @@ class ImbuedReflections extends Analyzer {
    */
   constructor(...args) {
     super(...args);
-    this.active = true;
+    this.active = false;
 
     this.boost = .29;//TODO Get from combat data when they EXPORT IT >:c
 
