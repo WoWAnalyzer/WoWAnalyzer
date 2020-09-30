@@ -68,6 +68,8 @@ import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
 
+import ImbuedReflections from '../shared/modules/conduits/ImbuedReflections';
+
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
@@ -139,6 +141,7 @@ class CombatLogParser extends CoreCombatLogParser {
     jadeBond: JadeBond,
     nourishingChi: NourishingChi,
     risingSunRevival: RisingSunRevival,
+    imbuedReflections: ImbuedReflections,
   };
 }
 
