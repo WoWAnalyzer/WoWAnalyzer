@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { RadialChart } from 'react-vis';
+import { VegaLite } from 'react-vega';
+import { defaultConfig } from 'interface/others/FooterChart';
 
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
@@ -59,18 +60,48 @@ class DonutChart extends React.PureComponent {
     );
   }
   renderChart(items, chartSize, innerRadiusFactor) {
+    const innerRadius = chartSize * innerRadiusFactor;
+
+    const data = {
+      items,
+    };
+    const spec = {
+      data: {
+        name: 'items',
+      },
+      mark: {
+        type: 'arc',
+        innerRadius,
+      },
+      encoding: {
+        theta: {
+          field: 'value',
+          type: 'quantitative',
+        },
+        color: {
+          field: 'label',
+          type: 'nominal',
+          legend: null,
+          scale: {
+            domain: items.map(({label}) => label),
+            range: items.map(({color}) => color),
+          },
+        },
+      },
+      view: {
+        stroke: null,
+      },
+    };
     return (
       <div className="chart">
-        <RadialChart
-          colorType="literal"
-          data={items.map(item => ({
-            ...item,
-            angle: item.value,
-          }))}
+        <VegaLite
           width={chartSize}
           height={chartSize}
-          radius={chartSize / 2 - 1} // a 1px padding avoids straight edges
-          innerRadius={chartSize * innerRadiusFactor}
+          actions={false}
+          config={defaultConfig}
+          theme="dark"
+          spec={spec}
+          data={data}
         />
       </div>
     );
