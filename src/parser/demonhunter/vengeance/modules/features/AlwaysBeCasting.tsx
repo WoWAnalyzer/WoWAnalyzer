@@ -1,9 +1,10 @@
 import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
+import { When } from 'parser/core/ParseResults';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  suggestions(when) {
+  suggestions(when: When) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     when(deadTimePercentage).isGreaterThan(0.20)

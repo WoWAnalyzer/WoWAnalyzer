@@ -1,5 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
+import { ChangeBuffStackEvent } from 'parser/core/Events';
 
 const MAX_SOUL_FRAGMENTS = 5;
 
@@ -14,7 +15,7 @@ class SoulFragmentsTracker extends Analyzer {
   soulsSpent = 0;
   currentSouls = 0;
 
-  on_byPlayer_changebuffstack(event) {
+  on_byPlayer_changebuffstack(event: ChangeBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
       return;
