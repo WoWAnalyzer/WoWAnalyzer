@@ -48,7 +48,7 @@ class BestialWrath extends Analyzer {
   }
 
   get averageFocusAtBestialWrathCast() {
-    return formatNumber(this.accumulatedFocusAtBWCast / this.casts);
+    return this.accumulatedFocusAtBWCast / this.casts;
   }
 
   get totalPossibleCDR() {
@@ -107,9 +107,9 @@ class BestialWrath extends Analyzer {
 
   suggestions(when: When) {
     when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {this.averageFocusAtBestialWrathCast} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</>)
+      return suggest(<>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {formatNumber(this.averageFocusAtBestialWrathCast)} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</>)
         .icon(SPELLS.BESTIAL_WRATH.icon)
-        .actual(`Average of ${this.averageFocusAtBestialWrathCast} focus at start of Bestial Wrath`)
+        .actual(`Average of ${formatNumber(this.averageFocusAtBestialWrathCast)} focus at start of Bestial Wrath`)
         .recommended(`>${recommended} focus is recommended`);
     });
     when(this.cdrEfficiencyBestialWrathThreshold).addSuggestion((suggest, actual, recommended) => {
@@ -137,7 +137,7 @@ class BestialWrath extends Analyzer {
               <tbody>
                 <tr>
                   <td className={'text-left'}>Average focus on cast</td>
-                  <td><>{this.averageFocusAtBestialWrathCast}
+                  <td><>{formatNumber(this.averageFocusAtBestialWrathCast)}
                     <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /></>
                   </td>
                 </tr>

@@ -8,7 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 class AuraOfMercy extends Analyzer {
@@ -43,6 +43,7 @@ class AuraOfMercy extends Analyzer {
         average: 2000,
         major: 1500,
       },
+      style: ThresholdStyle.NUMBER,
     };
   }
 

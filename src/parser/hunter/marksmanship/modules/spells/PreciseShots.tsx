@@ -9,6 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ARCANE_SHOT_MAX_TRAVEL_TIME, PRECISE_SHOTS_ASSUMED_PROCS, PRECISE_SHOTS_MODIFIER } from 'parser/hunter/marksmanship/constants';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 /**
  * Aimed Shot causes your next 1-2 Arcane Shots, Chimaera Shots or Multi-Shots to deal 100% more damage.

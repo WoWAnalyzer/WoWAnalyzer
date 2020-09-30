@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import Panel from 'interface/statistics/Panel';
 import CastEfficiencyComponent from 'interface/CastEfficiency';
 import Analyzer from 'parser/core/Analyzer';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 import Channeling from 'parser/shared/modules/Channeling';
 import Abilities from 'parser/core/modules/Abilities';
@@ -414,6 +414,7 @@ class CastEfficiency extends Analyzer {
           average: abilityInfo.averageIssueEfficiency,
           major: abilityInfo.majorIssueEfficiency,
         },
+        style: ThresholdStyle.PERCENTAGE,
       };
 
       when(suggestionThresholds).addSuggestion(
@@ -439,7 +440,7 @@ class CastEfficiency extends Analyzer {
                 &gt;{formatPercentage(recommended, 0)}% is recommended
               </Trans>,
             )
-            .staticImportance(ability.castEfficiency.importance);
+            .staticImportance(ability.castEfficiency.importance || null);
         },
       );
     });

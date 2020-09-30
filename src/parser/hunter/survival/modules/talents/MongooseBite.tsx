@@ -66,7 +66,7 @@ class MongooseBite extends Analyzer {
 
   get focusOnMongooseWindowThreshold() {
     return {
-      actual: formatNumber(this.averageFocusOnMongooseWindowStart),
+      actual: this.averageFocusOnMongooseWindowStart,
       isLessThan: {
         minor: 65,
         average: 60,
