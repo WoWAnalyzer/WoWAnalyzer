@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS/index';
@@ -12,25 +13,27 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 
+/* Feed The Demon talent is taken in defensive builds. In those cases you want to generate and consume souls as quickly
+as possible. So how you consume your souls down matter. If you dont take that talent your taking a more balanced
+build meaning you want to consume souls in a way that boosts your dps. That means feeding the souls into spirit
+bomb as efficiently as possible (cast at 4+ souls) for a dps boost and have soul cleave absorb souls as little as
+possible since it provides no extra dps.
+*/
 class SoulsOvercap extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     soulFragmentsTracker: SoulFragmentsTracker,
   };
+  protected abilityTracker!: AbilityTracker;
+  protected soulFragmentsTracker!: SoulFragmentsTracker;
 
-  /* Feed The Demon talent is taken in defensive builds. In those cases you want to generate and consume souls as quickly
- as possible. So how you consume your souls down matter. If you dont take that talent your taking a more balanced
- build meaning you want to consume souls in a way that boosts your dps. That means feeding the souls into spirit
- bomb as efficiently as possible (cast at 4+ souls) for a dps boost and have soul cleave absorb souls as little as
- possible since it provides no extra dps.
-*/
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
   }
 
   wasterPerGenerated() {
-    return this.soulFragmentsTracker.soulsWasted / this.soulFragmentsTracker.soulsGenerated;
+    return this.soulFragmentsTracker.overcap / this.soulFragmentsTracker.soulsGenerated;
   }
 
   get suggestionThresholdsEfficiency() {
@@ -41,11 +44,11 @@ class SoulsOvercap extends Analyzer {
         average: 0.10,
         major: 0.15,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You are generating <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />s when you are already at 5 souls. These are auto consumed. You are missing out on the extra damage consuming them with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> provides.</>)
@@ -64,7 +67,7 @@ class SoulsOvercap extends Analyzer {
         label="Inefficiently generated"
         tooltip={(
           <>
-            You generated {formatNumber(this.soulFragmentsTracker.soulsWasted)} souls at cap. These are absorbed automatically and aren't avalible to boost Spirit Bomb's damage.<br />
+            You generated {formatNumber(this.soulFragmentsTracker.overcap)} souls at cap. These are absorbed automatically and aren't avalible to boost Spirit Bomb's damage.<br />
             Total Soul Fragments generated: {formatNumber(this.soulFragmentsTracker.soulsGenerated)}<br />
             Total Soul Fragments spent: {formatNumber(this.soulFragmentsTracker.soulsSpent)}<br />
             At the end of the fight, you had {formatNumber(this.soulFragmentsTracker.currentSouls)} unused Soul Fragments.
