@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -49,7 +50,7 @@ class GlacialSpike extends Analyzer {
     if (!this.lastCastEvent) {
       return;
     }
-    
+
     const castTarget = encodeTargetString(this.lastCastEvent.targetID, this.lastCastEvent.targetInstance);
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
 
@@ -60,7 +61,7 @@ class GlacialSpike extends Analyzer {
 
     this.lastCastDidDamage = true;
     const enemy: any = this.enemies.getEntity(event);
-    if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp))) { 
+    if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp))) {
       this.spikeShattered += 1;
     } else {
       this.spikeNotShattered += 1;
@@ -105,17 +106,17 @@ class GlacialSpike extends Analyzer {
         average: 0.85,
         major: 0.7,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.glacialSpikeUtilizationThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(
           <>
-            You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> without <SpellLink id={SPELLS.SHATTER.id} />ing it {this.spikeNotShattered} times. Because it is such a potent ability, it is important to maximize it's damage by only casting it if the target is  
-            <TooltipElement 
+            You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> without <SpellLink id={SPELLS.SHATTER.id} />ing it {this.spikeNotShattered} times. Because it is such a potent ability, it is important to maximize it's damage by only casting it if the target is
+            <TooltipElement
               content={(<>Winter's Chill, Frost Nova, Ice Nova, Ring of Frost, and your pet's Freeze will all cause the target to be frozen or act as frozen.</>)}
             >
             Frozen or acting as Frozen

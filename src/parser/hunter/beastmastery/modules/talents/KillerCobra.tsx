@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
@@ -46,7 +47,7 @@ class KillerCobra extends Analyzer {
         average: 0.9,
         major: 1.9,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -82,8 +83,8 @@ class KillerCobra extends Analyzer {
     );
   }
 
-  suggestions(when: any) {
-    when(this.wastedKillerCobraThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.wastedKillerCobraThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>Avoid casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> whilst <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> isn't on cooldown, when you have <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up. Utilize the reset effect of <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> by only casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to reset <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> when <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up. </>)
         .icon(SPELLS.KILLER_COBRA_TALENT.icon)
         .actual(`You cast Cobra Shot while Kill Command wasn't on cooldown, whilst Bestial Wrath was up ${actual} times.`)

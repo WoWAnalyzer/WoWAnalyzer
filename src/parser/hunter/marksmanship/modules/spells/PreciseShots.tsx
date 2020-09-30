@@ -98,7 +98,7 @@ class PreciseShots extends Analyzer {
         average: 0.85,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

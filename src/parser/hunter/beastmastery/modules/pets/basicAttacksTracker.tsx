@@ -1,4 +1,5 @@
 import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import React from 'react';
@@ -39,7 +40,7 @@ class BasicAttacks extends Analyzer {
         average: 0,
         major: 0,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -51,7 +52,7 @@ class BasicAttacks extends Analyzer {
         average: 1,
         major: 1,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -80,8 +81,8 @@ class BasicAttacks extends Analyzer {
     return this.potentialExtraCasts(dreamScenario) * (this.damage / this.totalCasts) || 0;
   }
 
-  suggestions(when: any) {
-    when(this.totalAttacksFromBasicAttacks).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.totalAttacksFromBasicAttacks).addSuggestion((suggest, actual, recommended) => {
       return suggest(<> Make sure that your pet is casting it's Basic Attacks, such as <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />.</>)
         .icon(SPELLS.BITE_BASIC_ATTACK.icon)
         .actual(`Your pet didn't cast any Basic Attacks this fight`)

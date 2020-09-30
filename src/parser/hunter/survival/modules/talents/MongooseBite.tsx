@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { formatNumber, formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SpellLink from 'common/SpellLink';
@@ -71,7 +72,7 @@ class MongooseBite extends Analyzer {
         average: 60,
         major: 55,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -83,7 +84,7 @@ class MongooseBite extends Analyzer {
         average: 0.29,
         major: 0.28,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -184,14 +185,14 @@ class MongooseBite extends Analyzer {
     );
   }
 
-  suggestions(when: any) {
-    when(this.focusOnMongooseWindowThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.focusOnMongooseWindowThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>When talented into <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, it's important to have accumulated a good amount of focus before you open a <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> window in order to maximize the number of <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s at high stacks.</>)
         .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
         .actual(`${formatNumber(actual)} average focus on new window.`)
         .recommended(`>${formatNumber(recommended)} is recommended`);
     });
-    when(this.mongoose5StackHitThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.mongoose5StackHitThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>It's important to cast as much <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s as possible when having max(5) stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} />.</>)
         .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
         .actual(`${formatPercentage(actual)}% casts on max stacks.`)

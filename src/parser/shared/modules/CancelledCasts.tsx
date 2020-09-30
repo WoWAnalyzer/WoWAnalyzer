@@ -91,7 +91,7 @@ class CancelledCasts extends Analyzer {
         average: 0.05,
         major: 0.15,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

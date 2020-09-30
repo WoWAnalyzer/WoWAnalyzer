@@ -94,7 +94,7 @@ class RuneOfPower extends Analyzer {
   suggestions(when: When) {
     if (!this.hasROP) {
       when(SUGGEST_ROP[this.selectedCombatant.specId]).isTrue()
-        .addSuggestion((suggest: any) => {
+        .addSuggestion((suggest) => {
           return suggest(
             <>
             It is highly recommended to talent into <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> when playing this spec.

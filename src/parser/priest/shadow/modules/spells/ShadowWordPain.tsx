@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
@@ -89,13 +89,13 @@ class ShadowWordPain extends Analyzer {
         average: 0.90,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.</span>)
           .icon(SPELLS.SHADOW_WORD_PAIN.icon)
           .actual(`${formatPercentage(actual)}% Shadow Word: Pain uptime`)

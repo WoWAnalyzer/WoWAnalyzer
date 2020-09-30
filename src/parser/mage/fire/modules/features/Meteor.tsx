@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -23,16 +24,9 @@ class Meteor extends Analyzer {
   protected meteorRune!: MeteorRune;
   protected meteorCombustion!: MeteorCombustion;
 
-  hasMeteor: boolean;
-
   constructor(options: any) {
     super(options);
-    this.hasMeteor = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
-    this.active = this.hasMeteor ? true : false;
-
-    if (!this.active) {
-      return;
-    }
+    this.active = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
   }
 
   get totalMeteorCasts() {
@@ -55,13 +49,13 @@ class Meteor extends Analyzer {
         average: 1,
         major: 1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.meteorEfficiencySuggestionThresholds)
-			.addSuggestion((suggest: any, actual: any, recommended: any) => {
+			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<>You could have cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> {this.meteorMaxCasts} times during this fight, but you only cast it {this.totalMeteorCasts} times. While you should not cast Meteor on cooldown (since you need to have it available for <SpellLink id={SPELLS.COMBUSTION.id} />), you should be casting it at least once per minute.</>)
 					.icon(SPELLS.METEOR_TALENT.icon)
 					.actual(`${formatPercentage(this.meteorCastEfficiency)}% Utilization`)

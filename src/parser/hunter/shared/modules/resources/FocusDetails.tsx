@@ -38,7 +38,7 @@ class FocusDetails extends Analyzer {
         average: 1 - RESOURCES_HUNTER_AVERAGE_THRESHOLD,
         major: 1 - RESOURCES_HUNTER_MAJOR_THRESHOLD,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

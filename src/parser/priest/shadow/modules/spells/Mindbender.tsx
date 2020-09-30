@@ -30,7 +30,7 @@ class Mindbender extends Pet {
         average: 12,
         major: 10,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     });
   }
 

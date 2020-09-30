@@ -1,5 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -68,7 +69,7 @@ class BestialWrath extends Analyzer {
         average: 30,
         major: 20,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -80,7 +81,7 @@ class BestialWrath extends Analyzer {
         average: 0.9,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -104,14 +105,14 @@ class BestialWrath extends Analyzer {
     }
   }
 
-  suggestions(when: any) {
-    when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {this.averageFocusAtBestialWrathCast} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</>)
         .icon(SPELLS.BESTIAL_WRATH.icon)
         .actual(`Average of ${this.averageFocusAtBestialWrathCast} focus at start of Bestial Wrath`)
         .recommended(`>${recommended} focus is recommended`);
     });
-    when(this.cdrEfficiencyBestialWrathThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.cdrEfficiencyBestialWrathThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>A crucial part of <SpellLink id={SPELLS.BARBED_SHOT.id} /> is the cooldown reduction of <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> it provides. Therefore it's important to be casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> as often as possible to ensure you'll be wasting as little potential cooldown reduction as possible.</>)
         .icon(SPELLS.BESTIAL_WRATH.icon)
         .actual(`You had ${formatPercentage(actual)}% effective cooldown reduction of Bestial Wrath`)

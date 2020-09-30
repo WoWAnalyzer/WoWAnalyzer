@@ -40,7 +40,7 @@ class DeadEye extends Analyzer {
         average: 0.7,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

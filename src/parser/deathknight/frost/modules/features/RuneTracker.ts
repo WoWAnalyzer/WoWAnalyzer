@@ -10,7 +10,7 @@ class RuneTracker extends CoreRuneTracker{
         average: 0.20,
         major: 0.30,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -22,10 +22,10 @@ class RuneTracker extends CoreRuneTracker{
         average: 0.80,
         major: 0.70,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-} 
+}
 
 export default RuneTracker;

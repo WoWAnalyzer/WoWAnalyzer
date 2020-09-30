@@ -66,7 +66,7 @@ class SpiritOfRedemption extends Analyzer {
   suggestions(when: When) {
     if (isItAprilFoolDay()) {
       when(this.deadTimeThresholds)
-        .addSuggestion((suggest: any, actual: any, recommended: any) => {
+        .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>We noticed that you didn't die during this encounter. It is recommended that you die within the last 15 seconds of each encounter to make the most of <SpellLink id={SPELLS.SPIRIT_OF_REDEMPTION_BUFF.id} />. If you are having trouble dying, try standing in fire.</>)
             .icon('inv_enchant_essenceeternallarge')
             .actual(`${actual} seconds spent redeeming`)

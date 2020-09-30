@@ -82,7 +82,7 @@ class BrainFreeze extends Analyzer {
         average: 0.90,
         major: 0.80,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

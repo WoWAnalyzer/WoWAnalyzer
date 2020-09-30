@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
@@ -31,11 +31,11 @@ class CancelledCasts extends CoreCancelledCasts {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     let extraMovementSpell: any = null;
     if(this.selectedCombatant.specId === SPECS.FROST_MAGE.id) {
       extraMovementSpell = <>, and <SpellLink id={SPELLS.ICE_FLOES_TALENT.id} /></>;
@@ -45,7 +45,7 @@ class CancelledCasts extends CoreCancelledCasts {
     const joiner = extraMovementSpell === null ? ' and ' : ', ';
 
     when(this.suggestionThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as <SpellLink id={SPELLS.BLINK.id} />{joiner}<SpellLink id={SPELLS.SHIMMER_TALENT.id} />{extraMovementSpell}.</>)
           .icon('inv_misc_map_01')
           .actual(`${formatPercentage(actual)}% casts cancelled`)

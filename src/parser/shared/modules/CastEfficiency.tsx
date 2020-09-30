@@ -6,6 +6,7 @@ import { formatPercentage } from 'common/format';
 import Panel from 'interface/statistics/Panel';
 import CastEfficiencyComponent from 'interface/CastEfficiency';
 import Analyzer from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 import Channeling from 'parser/shared/modules/Channeling';
 import Abilities from 'parser/core/modules/Abilities';
@@ -391,7 +392,7 @@ class CastEfficiency extends Analyzer {
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     const castEfficiencyInfo = this.getCastEfficiency();
     castEfficiencyInfo.forEach(abilityInfo => {
       if (
@@ -416,7 +417,7 @@ class CastEfficiency extends Analyzer {
       };
 
       when(suggestionThresholds).addSuggestion(
-        (suggest: any, actual: any, recommended: any) => {
+        (suggest, actual, recommended) => {
           return suggest(
             <>
               <Trans>
