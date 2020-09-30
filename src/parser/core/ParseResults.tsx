@@ -216,7 +216,7 @@ class Suggestion {
   _text: React.ReactNode;
   _icon?: string;
   _actualText: React.ReactNode = null;
-  _recommendedText: string | null = null;
+  _recommendedText: React.ReactNode = null;
   averageThreshold?: number;
   majorThreshold?: number;
   _staticImportance: ISSUE_IMPORTANCE | null = null;
@@ -233,7 +233,7 @@ class Suggestion {
     this._actualText = actualText;
     return this;
   }
-  recommended(recommendedText: string) {
+  recommended(recommendedText: React.ReactNode) {
     this._recommendedText = recommendedText;
     return this;
   }
@@ -245,7 +245,7 @@ class Suggestion {
     this.majorThreshold = value;
     return this;
   }
-  staticImportance(value: ISSUE_IMPORTANCE) {
+  staticImportance(value: ISSUE_IMPORTANCE | null) {
     this._staticImportance = value;
     return this;
   }
