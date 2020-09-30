@@ -1,6 +1,5 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -76,7 +75,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEMON_SPIKES,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 20 / (1 + haste),
-        charges: combatant.hasLegs(ITEMS.OBLIVIONS_EMBRACE.id) ? 3 : 2,
+        charges: 2,
         isDefensive: true,
       },
 
