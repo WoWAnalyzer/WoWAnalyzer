@@ -6,6 +6,7 @@ import {
   formatPercentage,
 } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CrossIcon from 'interface/icons/Cross';
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';

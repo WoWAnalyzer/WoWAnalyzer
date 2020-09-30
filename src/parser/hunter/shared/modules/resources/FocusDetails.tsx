@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Panel from 'interface/others/Panel';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
