@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ResourceLink from 'common/ResourceLink';
@@ -82,12 +83,12 @@ class ShieldBlock extends Analyzer {
         average: .80,
         major: .70,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
-    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> more often - it is your main <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generator and damage source.

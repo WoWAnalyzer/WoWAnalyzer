@@ -1,5 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -80,7 +81,7 @@ class AngerCD extends Analyzer {
         average: .80,
         major: .70,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -92,7 +93,7 @@ class AngerCD extends Analyzer {
         average: .80,
         major: .70,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -104,7 +105,7 @@ class AngerCD extends Analyzer {
         average: .70,
         major: .60,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -116,13 +117,13 @@ class AngerCD extends Analyzer {
         average: .70,
         major: .60,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
 
-    when(this.suggestionThresholdsDemoShout).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.suggestionThresholdsDemoShout).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         this.DEMOTEXT,
       )
@@ -131,7 +132,7 @@ class AngerCD extends Analyzer {
         .recommended(`${formatPercentage(recommended)}% casts recommended`);
     });
 
-    when(this.suggestionThresholdsAvatar).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.suggestionThresholdsAvatar).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           Using  <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important for the increased damage output and rage generation so try to get the maximum casts out of it.
@@ -142,7 +143,7 @@ class AngerCD extends Analyzer {
         .recommended(`${formatPercentage(recommended)}% casts recommended`);
     });
 
-    when(this.suggestionThresholdsLastStand).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.suggestionThresholdsLastStand).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           Remember to cast <SpellLink id={SPELLS.LAST_STAND.id} /> more frequently. If you have <SpellLink id={SPELLS.BOLSTER_TALENT.id} /> talented you can use this to fill gaps between your <SpellLink id={SPELLS.SHIELD_BLOCK.id} />.
@@ -153,7 +154,7 @@ class AngerCD extends Analyzer {
         .recommended(`${formatPercentage(recommended)}% casts recommended`);
     });
 
-    when(this.suggestionThresholdsShieldWall).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.suggestionThresholdsShieldWall).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           Try to use <SpellLink id={SPELLS.SHIELD_WALL.id} /> more often as it reduces both physical and magical damage - unless you need it for a specific mechanic in the fight.

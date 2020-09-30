@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
@@ -27,7 +28,7 @@ class RageDetails extends Analyzer {
         average: 0.90,
         major: .85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -39,12 +40,12 @@ class RageDetails extends Analyzer {
         average: 0.1,
         major: .15,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
-    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
           .icon('spell_nature_reincarnation')
           .actual(`${formatPercentage(actual)}% wasted`)

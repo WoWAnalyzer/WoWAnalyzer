@@ -1,5 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
@@ -53,13 +54,13 @@ class Bolster extends Analyzer {
         average: 0,
         major: 0,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
-        .addSuggestion((suggest: any) => {
+        .addSuggestion((suggest) => {
           return suggest('You should never overlap Shield Block and Last stand when you take the Bolster talent.')
             .icon(SPELLS.BOLSTER_TALENT.icon)
             .actual(`You overlapped shield block and last stand ${this.badBlocks} times.`)

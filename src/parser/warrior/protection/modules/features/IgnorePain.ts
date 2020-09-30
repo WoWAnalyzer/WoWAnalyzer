@@ -1,4 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 
 class IgnorePain extends Analyzer {
@@ -15,7 +16,7 @@ class IgnorePain extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 }
