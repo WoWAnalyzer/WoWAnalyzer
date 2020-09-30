@@ -6,10 +6,8 @@ import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent, ApplyBuffStackEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
-import Panel from 'interface/others/Panel';
 
 import Insanity from '../core/Insanity';
-import VoidformsTab from './VoidformsTab';
 import { VOID_FORM_ACTIVATORS } from '../../constants';
 
 const debug = false;
@@ -233,23 +231,6 @@ class Voidform extends Analyzer {
           .actual(`${formatPercentage(actual)}% Voidform uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
-  }
-
-  tab() {
-    return {
-      title: 'Voidforms',
-      url: 'voidforms',
-      render: () => (
-        <Panel>
-          <VoidformsTab
-            voidforms={this.voidforms}
-            insanityEvents={this.insanity.events}
-            fightEnd={this.owner.fight.end_time}
-            surrenderToMadness={!!this.selectedCombatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
-          />
-        </Panel>
-      ),
-    };
   }
 }
 
