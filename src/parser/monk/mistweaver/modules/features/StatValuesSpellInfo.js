@@ -206,6 +206,14 @@ export default {
     mastery: false,
     vers: true,
   },
+  [SPELLS.FAELINE_STOMP_ESSENCE_FONT]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
   [SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id]: { 
     int: true,
     crit: true,

@@ -48,6 +48,11 @@ export default {
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
+  FAELINE_STOMP_ESSENCE_FONT: {
+    id: 344006,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
   //endregion
 
   //region Venthyr
