@@ -1,6 +1,5 @@
 import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
 import React from 'react';
-import { formatNumber, formatPercentage } from 'common/format';
 
 /**
  * pn is the mean value of procs
