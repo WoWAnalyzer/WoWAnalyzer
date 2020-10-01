@@ -63,21 +63,6 @@ class ManaLevelGraph extends React.PureComponent {
       layer: [
         {
           data: {
-            name: 'mana',
-          },
-          mark: {
-            type: 'area',
-            line: {
-              interpolate: 'linear',
-              color: this.colors.mana.border,
-              strokeWidth: 1,
-            },
-            color: this.colors.mana.background,
-          },
-          encoding: baseEncoding,
-        },
-        {
-          data: {
             name: 'bosses',
           },
           transform: [
@@ -107,6 +92,21 @@ class ManaLevelGraph extends React.PureComponent {
               },
             },
           },
+        },
+        {
+          data: {
+            name: 'mana',
+          },
+          mark: {
+            type: 'area',
+            line: {
+              interpolate: 'linear',
+              color: this.colors.mana.border,
+              strokeWidth: 1,
+            },
+            color: this.colors.mana.background,
+          },
+          encoding: baseEncoding,
         },
         {
           data: {
