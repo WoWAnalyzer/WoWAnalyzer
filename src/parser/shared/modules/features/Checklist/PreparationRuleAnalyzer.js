@@ -3,6 +3,7 @@ import PrePotion from 'parser/shared/modules/items/PrePotion';
 import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 import FlaskChecker from 'parser/shared/modules/items/FlaskChecker';
 import FoodChecker from 'parser/shared/modules/items/FoodChecker';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class PreparationRuleAnalyzer extends Analyzer {
   static dependencies = {
@@ -21,14 +22,14 @@ class PreparationRuleAnalyzer extends Analyzer {
         actual: this.enchantChecker.numEnchantableGear - this.enchantChecker.numSlotsMissingEnchant,
         max: this.enchantChecker.numEnchantableGear,
         isLessThan: this.enchantChecker.numEnchantableGear,
-        style: 'number',
+        style: ThresholdStyle.NUMBER,
       },
       itemsBestEnchanted: {
         // numSlotsMissingMaxEnchant doesn't include items without an enchant at all
         actual: this.enchantChecker.numEnchantableGear - this.enchantChecker.numSlotsMissingEnchant - this.enchantChecker.numSlotsMissingMaxEnchant,
         max: this.enchantChecker.numEnchantableGear,
         isLessThan: this.enchantChecker.numEnchantableGear,
-        style: 'number',
+        style: ThresholdStyle.NUMBER,
       },
       higherFlaskPresent: this.flaskChecker.flaskStrengthSuggestion,
       flaskPresent: this.flaskChecker.flaskSuggestionThresholds,

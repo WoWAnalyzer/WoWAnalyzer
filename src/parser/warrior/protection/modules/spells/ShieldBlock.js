@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const debug = false;
 
@@ -169,7 +170,7 @@ class ShieldBlock extends Analyzer {
         average: .80,
         major: .70,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
