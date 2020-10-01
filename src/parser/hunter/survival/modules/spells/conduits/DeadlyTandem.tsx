@@ -24,7 +24,9 @@ class DeadlyTandem extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.DEADLY_TANDOM_CONDUIT.id);
+
     if (!this.conduitRank) {
       this.active = false;
       return;

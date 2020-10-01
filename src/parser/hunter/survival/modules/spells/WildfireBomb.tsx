@@ -46,7 +46,9 @@ class WildfireBomb extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.active = !this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB_IMPACT), this.onDamage);
   }
@@ -131,7 +133,8 @@ class WildfireBomb extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.WILDFIRE_BOMB}>
           <>
-            {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small><br />
+            {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small>
+            <br />
             {formatPercentage(this.uptimePercentage)}% <small> DoT uptime</small>
           </>
         </BoringSpellValueText>

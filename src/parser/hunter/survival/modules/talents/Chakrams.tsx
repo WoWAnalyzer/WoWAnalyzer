@@ -31,7 +31,9 @@ class Chakrams extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHAKRAMS_TALENT.id);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAKRAMS_TALENT), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SURVIVAL_CHAKRAM_TYPES), this.onDamage);
   }

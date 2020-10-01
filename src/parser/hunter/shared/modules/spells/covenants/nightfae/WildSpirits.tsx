@@ -13,6 +13,9 @@ import { WILD_MARK_DAMAGE_AMP } from 'parser/hunter/shared/constants';
 import { formatNumber } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
+/**
+ * TODO Revisit this when Blizzard is done messing with this changing it constantly.
+ */
 class WildSpirits extends Analyzer {
   static dependencies = {
     abilities: Abilities,

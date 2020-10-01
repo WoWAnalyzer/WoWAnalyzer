@@ -33,6 +33,7 @@ class KillCommand extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLANKERS_ADVANTAGE), this.onFlankersProc);
   }
 
