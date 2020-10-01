@@ -2,14 +2,52 @@ export default {
   //region Kyrian
   //heal 311123
   //buff and cast 310454
+  WEAPONS_OF_ORDER_CAST: {
+    id: 311123,
+    name: 'Weapons of Order',
+    icon: 'ability_bastion_monk',
+  },
+  WEAPONS_OF_ORDER_BUFF_AND_HEAL: {
+    id: 310454,
+    name: 'Weapons of Order',
+    icon: 'ability_bastion_monk',
+  },
   //endregion
 
   //region Necrolord
-  //cast 325216
+  BONEDUST_BREW_CAST: {
+    id: 325216,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+  },
+  BONEDUST_BREW_DAMAGE: {
+    id: 325217,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+  },
+  BONEDUST_BREW_HEAL: {
+    id: 325218,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+  },
+  BONEDUST_BREW_GUST_OF_MIST: {
+    id: 328748,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+  },
   //endregion
 
   //region Night Fae
-  //cast 327104
+  FAELINE_STOMP_CAST: {
+    id: 327104,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
+  FAELINE_STOMP_HEAL: {
+    id: 345727,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
   //endregion
 
   //region Venthyr

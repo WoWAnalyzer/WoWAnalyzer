@@ -58,12 +58,11 @@ class JadeBond extends Analyzer {
   }
 
   gustProcingSpell(event) {
-    console.log(this.spellToReduce);
-      if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
-        this.cooldownReductionUsed += this.spellUsable.reduceCooldown(this.spellToReduce.id, JADE_BOND_REDUCTION);
-      } else {
-        this.cooldownReductionWasted += JADE_BOND_REDUCTION;
-      }
+    if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
+      this.cooldownReductionUsed += this.spellUsable.reduceCooldown(this.spellToReduce.id, JADE_BOND_REDUCTION);
+    } else {
+      this.cooldownReductionWasted += JADE_BOND_REDUCTION;
+    }
   }
 
   normalizeBoost(event){
