@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
@@ -12,7 +11,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.KEG_SMASH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 8 / (1 + haste),
-        charges: combatant.hasShoulder(ITEMS.STORMSTOUTS_LAST_GASP.id) ? 2 : 1,
+        charges: 1,
         castEfficiency: {
           suggestion: true,
         },
@@ -21,9 +20,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BLACKOUT_STRIKE,
+        spell: SPELLS.BLACKOUT_KICK_BRM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 3,
+        cooldown: 4,
         castEfficiency: {
           suggestion: true,
         },
@@ -65,17 +64,42 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.SPINNING_CRANE_KICK_BRM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          static: 1000,
+        },
+      },
       // Cooldowns
       {
-        // it is possible to refer to the shared CD using *either* spell
-        // id
-        spell: [SPELLS.IRONSKIN_BREW, SPELLS.PURIFYING_BREW],
-        buffSpellId: SPELLS.IRONSKIN_BREW_BUFF.id,
+        spell: SPELLS.INVOKE_NIUZAO_THE_BLACK_OX,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.PURIFYING_BREW,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => brewCooldown / (1 + haste),
         charges: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT.id) ? 4 : 3,
         gcd: null,
         castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+        },
+      },
+      {
+        spell: SPELLS.CELESTIAL_BREW,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: haste => 2 * brewCooldown / (1 + haste),
+        gcd: {
+          static: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.9,
         },
       },
@@ -91,21 +115,8 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: SPELLS.GUARD_TALENT,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 30,
-        castEfficiency: {
-          suggestion: false,
-          recommendedEfficiency: 0.7,
-        },
-        enabled: combatant.hasTalent(SPELLS.GUARD_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.EXPEL_HARM,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
           static: 500,
         },
@@ -177,13 +188,6 @@ class Abilities extends CoreAbilities {
           // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id),
-        cooldown: 180,
-        gcd: null,
       },
       {
         spell: SPELLS.SUMMON_BLACK_OX_STATUE_TALENT,

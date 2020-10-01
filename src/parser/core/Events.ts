@@ -103,11 +103,13 @@ export interface Ability {
   type: number;
   abilityIcon: string;
 }
+
 export interface ClassResources {
   amount: number;
   max: number;
   type: number;
 }
+
 // TODO: Find a good place for this
 export enum Class {
   DemonHunter = 'DemonHunter',
@@ -127,12 +129,15 @@ export enum Class {
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
 export type SourcedEvent<T extends string> = Event<T> & { sourceID: number };
 export type TargettedEvent<T extends string> = Event<T> & { targetID: number };
+
 export function HasAbility<T extends string>(event: Event<T>): event is AbilityEvent<T> {
   return (event as AbilityEvent<T>).ability !== undefined;
 }
+
 export function HasSource<T extends string>(event: Event<T>): event is SourcedEvent<T> {
   return (event as SourcedEvent<T>).sourceID !== undefined;
 }
+
 export function HasTarget<T extends string>(event: Event<T>): event is TargettedEvent<T> {
   return (event as TargettedEvent<T>).targetID !== undefined;
 }
@@ -147,6 +152,7 @@ export interface Event<T extends string> {
   prepull?: boolean;
   __fabricated?: boolean;
 }
+
 export interface BeginCastEvent extends Event<EventType.BeginCast> {
   ability: Ability;
   castEvent: CastEvent | null;
@@ -163,11 +169,13 @@ export interface BeginCastEvent extends Event<EventType.BeginCast> {
   target: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   targetIsFriendly: boolean;
 }
+
 export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
   ability: Ability;
   sourceID: number;
   isCancelled: boolean;
 }
+
 export interface EndChannelEvent extends Event<EventType.EndChannel> {
   ability: Ability;
   sourceID: number;
@@ -175,12 +183,13 @@ export interface EndChannelEvent extends Event<EventType.EndChannel> {
   duration: number;
   beginChannel: BeginChannelEvent;
 }
+
 export interface ICastEvent<T extends string> extends Event<T> {
   ability: Ability;
   absorb?: number;
   armor?: number;
   attackPower?: number;
-  classResources?: Array<ClassResources & {cost: number}>;
+  classResources?: Array<ClassResources & { cost: number }>;
   facing?: number;
   hitPoints?: number;
   itemLevel?: number;
@@ -214,7 +223,10 @@ export interface ICastEvent<T extends string> extends Event<T> {
     enhancedCastReason?: React.ReactNode;
   };
 }
-export interface CastEvent extends ICastEvent<EventType.Cast> {}
+
+export interface CastEvent extends ICastEvent<EventType.Cast> {
+}
+
 export interface FilterCooldownInfoEvent extends ICastEvent<EventType.FilterCooldownInfo> {
   trigger: EventType;
 }
@@ -247,10 +259,12 @@ export interface HealEvent extends Event<EventType.Heal> {
   mapID: number;
   itemLevel: number;
 }
+
 export interface BeaconHealEvent extends Omit<HealEvent, 'type'> {
   type: EventType.BeaconTransfer,
   originalHeal: HealEvent,
 }
+
 export interface AbsorbedEvent extends Event<EventType.Absorbed> {
   sourceID: number;
   sourceIsFriendly: boolean;
@@ -269,12 +283,13 @@ export interface AbsorbedEvent extends Event<EventType.Absorbed> {
   amount: number;
   extraAbility: Ability;
 }
+
 export interface DamageEvent extends Event<EventType.Damage> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceID?: number;
   sourceIsFriendly: true;
   targetID: number;
-  targetInstance: number,
+  targetInstance: number;
   targetIsFriendly: false;
   ability: Ability;
   hitType: number;
@@ -298,11 +313,13 @@ export interface DamageEvent extends Event<EventType.Damage> {
   tick?: boolean;
   overkill?: number;
 }
+
 export interface BuffEvent<T extends string> extends Event<T> {
   ability: Ability;
   targetID: number;
   sourceID?: number;
 }
+
 export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {
   sourceID: number;
   sourceIsFriendly: boolean;
@@ -311,6 +328,7 @@ export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {
   absorb?: number;
   __fromCombatantinfo?: boolean;
 }
+
 export interface ApplyDebuffEvent extends BuffEvent<EventType.ApplyDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceIsFriendly: boolean;
@@ -319,6 +337,7 @@ export interface ApplyDebuffEvent extends BuffEvent<EventType.ApplyDebuff> {
   absorb?: number;
   __fromCombatantinfo?: boolean;
 }
+
 export interface RemoveBuffEvent extends BuffEvent<EventType.RemoveBuff> {
   sourceID: number;
   sourceIsFriendly: boolean;
@@ -326,6 +345,7 @@ export interface RemoveBuffEvent extends BuffEvent<EventType.RemoveBuff> {
   targetInstance?: number;
   absorb?: number;
 }
+
 export interface RemoveDebuffEvent extends BuffEvent<EventType.RemoveDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceIsFriendly: boolean;
@@ -333,24 +353,28 @@ export interface RemoveDebuffEvent extends BuffEvent<EventType.RemoveDebuff> {
   targetIsFriendly: boolean;
   absorb?: number;
 }
+
 export interface ApplyBuffStackEvent extends BuffEvent<EventType.ApplyBuffStack> {
   sourceID: number;
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
   stack: number;
 }
+
 export interface ApplyDebuffStackEvent extends BuffEvent<EventType.ApplyDebuffStack> {
   sourceID: number;
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
   stack: number;
 }
+
 export interface RemoveBuffStackEvent extends BuffEvent<EventType.RemoveBuffStack> {
   sourceID: number;
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
   stack: number;
 }
+
 export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStack> {
   end?: number;
   isDebuff?: boolean;
@@ -381,23 +405,27 @@ export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStac
     type: string;
   };
 }
+
 export interface RemoveDebuffStackEvent extends BuffEvent<EventType.RemoveDebuffStack> {
   sourceID: number;
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
   stack: number;
 }
+
 export interface RefreshBuffEvent extends BuffEvent<EventType.RefreshBuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
 }
+
 export interface RefreshDebuffEvent extends BuffEvent<EventType.RefreshDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceIsFriendly: boolean;
   targetInstance: number;
   targetIsFriendly: boolean;
 }
+
 export interface EnergizeEvent extends Event<EventType.Energize> {
   ability: Ability;
   sourceID: number;
@@ -421,6 +449,7 @@ export interface EnergizeEvent extends Event<EventType.Energize> {
   mapID: number;
   itemLevel: number;
 }
+
 export interface DeathEvent extends Event<EventType.Death> {
   source: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceIsFriendly: boolean;
@@ -428,6 +457,7 @@ export interface DeathEvent extends Event<EventType.Death> {
   targetIsFriendly: boolean;
   ability: Ability;
 }
+
 export interface SummonEvent extends Event<EventType.Summon> {
   sourceID: number;
   sourceIsFriendly: boolean;
@@ -454,10 +484,12 @@ export interface GlobalCooldownEvent extends Event<EventType.GlobalCooldown> {
   trigger: CastEvent;
   __fabricated: true;
 }
+
 export interface FightEndEvent extends Event<EventType.FightEnd> {
   timestamp: number;
   __fabricated: true;
 }
+
 export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsable> {
   ability: Ability;
   name: string
@@ -505,13 +537,35 @@ export interface ChangeStatsEvent extends Event<EventType.ChangeStats> {
   delta: Stats
 }
 
+export interface ChangeHasteEvent extends Event<EventType.ChangeHaste> {
+  oldHaste: number
+  newHaste: number
+}
+
+export interface DispelEvent extends Event<EventType.Dispel>{
+  ability: Ability;
+  extraAbility: Ability;
+  isBuff: number;
+  sourceID?: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance: number;
+  targetIsFriendly: boolean;
+}
+
 export interface IPhaseEvent<T extends string> extends Event<T> {
   phase: PhaseConfig;
   __fabricated: true;
 }
-export interface PhaseEvent extends IPhaseEvent<EventType.PhaseStart | EventType.PhaseEnd> {}
-export interface PhaseStartEvent extends IPhaseEvent<EventType.PhaseStart> {}
-export interface PhaseEndEvent extends IPhaseEvent<EventType.PhaseEnd> {}
+
+export interface PhaseEvent extends IPhaseEvent<EventType.PhaseStart | EventType.PhaseEnd> {
+}
+
+export interface PhaseStartEvent extends IPhaseEvent<EventType.PhaseStart> {
+}
+
+export interface PhaseEndEvent extends IPhaseEvent<EventType.PhaseEnd> {
+}
 
 export interface Item {
   id: number;
@@ -544,6 +598,27 @@ export interface Trait {
   icon: string;
   slot: number;
   isMajor: boolean;
+}
+
+export interface Covenant {
+  name: string;
+  description: string;
+  id: number;
+}
+
+export interface Soulbind {
+  name: string;
+  id: number;
+  covenantID: number;
+  garrisonTalentTreeId: number;
+}
+
+export interface Conduit {
+  rank: number;
+  spellID: number;
+  name: string;
+  soulbindConduitID: number;
+  icon: string;
 }
 
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
@@ -593,6 +668,9 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     isMajor: false;
   }>;
   heartOfAzeroth: Array<Trait>;
+  covenant: Covenant, //TODO: Verify this is the structure in the combatlog
+  soulbind: Soulbind, //TODO: Verify this is the structure in the combatlog
+  conduits: Array<Conduit>, //TODO: Verify this is the structure in the combatlog
 }
 
 const Events = {
@@ -774,6 +852,9 @@ const Events = {
    */
   get removedebuff() {
     return new EventFilter(EventType.RemoveDebuff);
+  },
+  get dispel() {
+    return new EventFilter(EventType.Dispel);
   },
   get summon() {
     return new EventFilter(EventType.Summon);

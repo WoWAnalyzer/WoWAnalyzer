@@ -7,8 +7,7 @@ import Potion from './Potion';
  */
 class HealthPotion extends Potion {
   static spells = [
-    SPELLS.ABYSSAL_HEALING_POTION,
-    SPELLS.COASTAL_HEALING_POTION,
+    SPELLS.SPIRITUAL_HEALING_POTION,
   ];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {

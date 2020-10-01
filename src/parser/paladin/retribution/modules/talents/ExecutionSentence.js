@@ -15,6 +15,8 @@ import { ABILITIES_AFFECTED_BY_HOLY_DAMAGE_INCREASES } from '../../constants';
 
 const DAMAGE_BONUS = 0.2;
 
+//TODO: Needs updating for Shadowlands
+
 class ExecutionSentence extends Analyzer {
   static dependencies = {
     enemies: Enemies,

@@ -54,6 +54,9 @@ import LightsDecree from './modules/azeritetraits/LightsDecree';
 import RadiantIncandescence from './modules/azeritetraits/RadiantIncandescence';
 import VisionOfPerfection from './modules/azeritetraits/VisionOfPerfection';
 
+import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
+import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -123,6 +126,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite Essences //
     lucidDream: LucidDreamsHealers,
+
+    // HolyPower
+    holyPowerTracker: HolyPowerTracker,
+    holyPowerDetails: HolyPowerDetails,
   };
 }
 

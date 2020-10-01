@@ -10,6 +10,7 @@ import CriticalStrike from 'interface/icons/CriticalStrike';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
+import { MAX_PRIMEVAL_INTUITION_STACKS } from 'parser/hunter/survival/constants';
 
 /**
  * Your maximum Focus is increased to 120, and Raptor Strike (or Mongoose bite) increases your Critical Strike by 52 for 12 sec, stacking up to 5 times.
@@ -17,7 +18,6 @@ import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
  * Example log:
  * https://www.warcraftlogs.com/reports/NTvPJdrFgYchAX1R#fight=6&type=auras&source=27&ability=288573
  */
-const MAX_INTUITION_STACKS = 5;
 
 const primevalIntuitionStats = (traits: number[]) => Object.values(traits).reduce((obj: { crit: number }, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.PRIMEVAL_INTUITION.id, rank);
@@ -47,7 +47,7 @@ class PrimevalIntuition extends Analyzer {
     }
     const { crit } = primevalIntuitionStats(this.selectedCombatant.traitsBySpellId[SPELLS.PRIMEVAL_INTUITION.id]);
     this.crit = crit;
-    this.intuitionStacks = Array.from({ length: MAX_INTUITION_STACKS + 1 }, x => []);
+    this.intuitionStacks = Array.from({ length: MAX_PRIMEVAL_INTUITION_STACKS + 1 }, x => []);
 
     options.statTracker.add(SPELLS.PRIMEVAL_INTUITION_BUFF.id, {
       crit: this.crit,

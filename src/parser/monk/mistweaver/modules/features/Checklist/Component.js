@@ -52,8 +52,10 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
         {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) && <Requirement name={(<><SpellLink id={SPELLS.RENEWING_MIST.id} /> active during MT</>)} thresholds={thresholds.renewingMistDuringManaTea} />}
         {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />}
         {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} />}
         <AbilityRequirement spell={SPELLS.REVIVAL.id} />
+        {!combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id} />}
+        {combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} />}
+        <AbilityRequirement spell={SPELLS.TOUCH_OF_DEATH.id} />
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA1.id} />
@@ -148,7 +150,6 @@ MistweaverMonkChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasTrinket: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };

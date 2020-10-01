@@ -1,17 +1,23 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
+//Overridden Racial
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-import Abilities from './modules/Abilities';
-import Checklist from './modules/checklist/Module';
+
 //Features
+import Abilities from './modules/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import FocusUsage from '../shared/modules/resources/FocusUsage';
 import Buffs from './modules/Buffs';
+
+//Checklist
+import Checklist from './modules/checklist/Module';
 
 //Normalizer
 import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';
+
 //Death Tracker
 import DeathTracker from '../shared/modules/core/DeathTracker';
+
 //Spells
 import KillCommand from './modules/spells/KillCommand';
 import ButcheryCarve from './modules/spells/ButcheryCarve';
@@ -19,12 +25,17 @@ import SerpentSting from './modules/spells/SerpentSting';
 import CoordinatedAssault from './modules/spells/CoordinatedAssault';
 import WildfireBomb from './modules/spells/WildfireBomb';
 import RaptorStrike from './modules/spells/RaptorStrike';
+import HuntersMark from '../shared/modules/spells/HuntersMark';
+import KillShot from '../shared/modules/spells/KillShot';
+
 //Focus
 import FocusTracker from '../shared/modules/resources/FocusTracker';
 import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
-import SurvivalFocusCapTracker from './modules/core/SurvivalFocusCapTracker';
-import Focus from './modules/core/Focus';
+import SurvivalFocusCapTracker from './modules/resources/SurvivalFocusCapTracker';
+import Focus from './modules/resources/Focus';
+import SurvivalFocusUsage from './modules/resources/SurvivalFocusUsage';
+
 //Talents
 import Trailblazer from '../shared/modules/talents/Trailblazer';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
@@ -57,6 +68,26 @@ import WildfireCluster from './modules/spells/azeritetraits/WildfireCluster';
 //Azerite Essences
 import MemoryOfLucidDreams from './modules/items/MemoryOfLucidDreams';
 
+//Covenants
+import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
+import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
+import WildSpirits from '../shared/modules/spells/covenants/nightfae/WildSpirits';
+import FlayedShot from '../shared/modules/spells/covenants/venthyr/FlayedShot';
+
+//Conduits
+import EnfeebledMark from '../shared/modules/spells/conduits/kyrian/EnfeebledMark';
+import EmpoweredRelease from '../shared/modules/spells/conduits/venthyr/EmpoweredRelease';
+import NecroticBarrage from '../shared/modules/spells/conduits/necrolord/NecroticBarrage';
+import SpiritAttunement from '../shared/modules/spells/conduits/nightfae/SpiritAttunement';
+import DeadlyTandem from './modules/spells/conduits/DeadlyTandem';
+import FlameInfusion from './modules/spells/conduits/FlameInfusion';
+import StingingStrike from './modules/spells/conduits/StingingStrike';
+import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
+
+//Legendaries
+import NessingwarysTrappingApparatus from '../shared/modules/items/NessingwarysTrappingApparatus';
+import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -66,7 +97,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    focusUsage: FocusUsage,
     buffs: Buffs,
 
     //Resources
@@ -75,6 +105,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellFocusCost: SpellFocusCost,
     survivalFocusCapTracker: SurvivalFocusCapTracker,
     focus: Focus,
+    survivalFocusUsage: SurvivalFocusUsage,
 
     //Normalizers
     tipOfTheSpearNormalizer: TipOfTheSpearNormalizer,
@@ -89,6 +120,8 @@ class CombatLogParser extends CoreCombatLogParser {
     coordinatedAssault: CoordinatedAssault,
     wildfireBomb: WildfireBomb,
     raptorStrike: RaptorStrike,
+    huntersMark: HuntersMark,
+    killShot: KillShot,
 
     //Talents
     naturalMending: NaturalMending,
@@ -107,7 +140,6 @@ class CombatLogParser extends CoreCombatLogParser {
     hydrasBite: HydrasBite,
     flankingStrike: FlankingStrike,
     tipOfTheSpear: TipOfTheSpear,
-    /** Wildfire Infusion */
     pheromoneBomb: PheromoneBomb,
     shrapnelBomb: ShrapnelBomb,
     volatileBomb: VolatileBomb,
@@ -122,6 +154,26 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Azerite Essences
     memoryOfLucidDreams: MemoryOfLucidDreams,
+
+    //Covenants
+    resonatingArrow: ResonatingArrow,
+    deathChakrams: DeathChakrams,
+    wildSpirits: WildSpirits,
+    flayedShot: FlayedShot,
+
+    //Conduits
+    empoweredRelease: EmpoweredRelease,
+    enfeebledMark: EnfeebledMark,
+    necroticBarrage: NecroticBarrage,
+    spiritAttunement: SpiritAttunement,
+    deadlyTandem: DeadlyTandem,
+    flameInfusion: FlameInfusion,
+    stingingStrike: StingingStrike,
+    strengthOfThePack: StrengthOfThePack,
+
+    //Legendaries
+    nessingwarysTrappingApparatus: NessingwarysTrappingApparatus,
+    soulforgeEmbers: SoulforgeEmbers,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

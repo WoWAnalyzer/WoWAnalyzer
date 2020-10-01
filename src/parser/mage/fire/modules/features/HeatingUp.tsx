@@ -24,7 +24,6 @@ class HeatingUp extends Analyzer {
 
   hasFirestarter: boolean;
   hasSearingTouch: boolean;
-  hasPhoenixFlames: boolean;
   phoenixFlamesCastEvent?: CastEvent;
 
   fireBlastWithoutHeatingUp = 0;
@@ -37,11 +36,8 @@ class HeatingUp extends Analyzer {
     super(options);
     this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.hasSearingTouch = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
-    this.hasPhoenixFlames = this.selectedCombatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id);
-    if (this.hasPhoenixFlames) {
-      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES_TALENT), this.onPhoenixFlamesCast);
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES_TALENT), this.onPhoenixFlamesDamage);
-    }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES), this.onPhoenixFlamesCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES), this.onPhoenixFlamesDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BLAST), this.onFireBlastDamage);
   }
 
@@ -133,7 +129,7 @@ class HeatingUp extends Analyzer {
   }
 
   get phoenixFlamesMissedPercent() {
-    return this.phoenixFlamesWasted / this.abilityTracker.getAbility(SPELLS.PHOENIX_FLAMES_TALENT.id).casts;
+    return this.phoenixFlamesWasted / this.abilityTracker.getAbility(SPELLS.PHOENIX_FLAMES.id).casts;
   }
 
   get fireBlastUtilSuggestionThresholds() {
@@ -170,8 +166,8 @@ class HeatingUp extends Analyzer {
 			});
     when(this.phoenixFlamesUtilSuggestionThresholds)
 			.addSuggestion((suggest: any, actual: any, recommended: any) => {
-				return suggest(<>You cast <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.phoenixFlamesWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. While ideally you should only be using these to convert Heating Up into Hot Streak, there are some minor circumstances where it is acceptable (i.e. If you are about to cap on Phoenixs Flames charges or when used alongside <SpellLink id={SPELLS.FIREBALL.id} /> to bait Heating Up or Hot Streak just before <SpellLink id={SPELLS.COMBUSTION.id} />.</>)
-					.icon(SPELLS.PHOENIX_FLAMES_TALENT.icon)
+				return suggest(<>You cast <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.phoenixFlamesWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. While ideally you should only be using these to convert Heating Up into Hot Streak, there are some minor circumstances where it is acceptable (i.e. If you are about to cap on Phoenixs Flames charges or when used alongside <SpellLink id={SPELLS.FIREBALL.id} /> to bait Heating Up or Hot Streak just before <SpellLink id={SPELLS.COMBUSTION.id} />.</>)
+					.icon(SPELLS.PHOENIX_FLAMES.icon)
 					.actual(`${formatPercentage(this.phoenixFlamesUtil)}% Utilization`)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`);
 			});
@@ -184,12 +180,12 @@ statistic() {
       size="flexible"
       tooltip={(
         <>
-          Spells that are guaranteed to crit like Fire Blast {this.hasPhoenixFlames ? 'and Phoenix Flames' : ''} should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on charges{this.hasPhoenixFlames ? ' or using Fireball & Phoenix Flames to bait Heating Up/Hot Streak just before Combustion' : ''}), the goal should be to waste as few of these as possible.
+          Spells that are guaranteed to crit like Fire Blast and Phoenix Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on charges or using Fireball & Phoenix Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible.
           <ul>
             <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
             <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
-            {this.hasPhoenixFlames && <><li>Phoenix Flames used with no procs: {this.phoenixFlamesWithoutHeatingUp}</li></>}
-            {this.hasPhoenixFlames && <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesWithHotStreak}</li>}
+            <li>Phoenix Flames used with no procs: {this.phoenixFlamesWithoutHeatingUp}</li>
+            <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesWithHotStreak}</li>
           </ul>
         </>
       )}
@@ -197,7 +193,7 @@ statistic() {
       <BoringSpellValueText spell={SPELLS.HEATING_UP}>
         <>
           <SpellIcon id={SPELLS.FIRE_BLAST.id} /> {formatPercentage(this.fireBlastUtil,0)}% <small>Fire Blast Utilization</small><br />
-          {this.hasPhoenixFlames && <><SpellIcon id={SPELLS.PHOENIX_FLAMES_TALENT.id} /> {formatPercentage(this.phoenixFlamesUtil,0)}% <small>Phoenix Flames Utilization</small></>}
+          <SpellIcon id={SPELLS.PHOENIX_FLAMES.id} /> {formatPercentage(this.phoenixFlamesUtil,0)}% <small>Phoenix Flames Utilization</small>
         </>
       </BoringSpellValueText>
     </Statistic>

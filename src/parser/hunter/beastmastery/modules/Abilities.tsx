@@ -4,19 +4,21 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import { hastedCooldown } from 'parser/hunter/shared/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
+      //region Baseline Rotational
       {
         spell: SPELLS.BESTIAL_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
-        timelineSortIndex: -1,
         gcd: {
           base: 1500,
         },
+        timelineSortIndex: -1,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -30,7 +32,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.KILL_COMMAND_CAST_BM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 7.5 / (1 + haste),
+        cooldown: haste => hastedCooldown(7.5, haste),
         gcd: {
           base: 1500,
         },
@@ -47,23 +49,17 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DIRE_BEAST_TALENT,
+        spell: SPELLS.ARCANE_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id),
         gcd: {
           base: 1500,
-        },
-        cooldown: 15,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
         },
       },
       {
         spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
         charges: 2,
+        cooldown: haste => hastedCooldown(12, haste),
         gcd: {
           base: 1500,
         },
@@ -79,65 +75,25 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
-        timelineSortIndex: -1,
         gcd: {
-          base: 1500,
+          static: 0,
         },
+        timelineSortIndex: -1,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
       },
+      //endregion
+
+      //region Baseline Defensives
       {
-        spell: SPELLS.BARRAGE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 20,
-        enabled: combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
+        spell: SPELLS.ASPECT_OF_THE_TURTLE,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
+        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
         gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-      },
-      {
-        spell: SPELLS.STAMPEDE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 180,
-        enabled: combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-      },
-      {
-        spell: SPELLS.SPITTING_COBRA_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 90,
-        enabled: combatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-      },
-      {
-        spell: SPELLS.CHIMAERA_SHOT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
-        enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
+          static: 0,
         },
       },
       {
@@ -146,7 +102,7 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
         cooldown: 120,
         gcd: {
-          static: 1500,
+          base: 1500,
         },
       },
       {
@@ -158,19 +114,13 @@ class Abilities extends CoreAbilities {
           static: 0,
         },
       },
-      {
-        spell: [SPELLS.PRIMAL_RAGE_1, SPELLS.PRIMAL_RAGE_2],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 360,
-        gcd: {
-          static: 0,
-        },
-      },
+      //endregion
 
+      //region Baseline Utility
       {
-        spell: SPELLS.MASTERS_CALL,
+        spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
+        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
         gcd: {
           static: 0,
         },
@@ -208,42 +158,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.INTIMIDATION,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.BINDING_SHOT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.ASPECT_OF_THE_CHEETAH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
-        gcd: {
-          static: 0,
-        },
-      },
-      {
-        spell: SPELLS.ASPECT_OF_THE_TURTLE,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        isDefensive: true,
-        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
-        gcd: {
-          static: 0,
-        },
-      },
-      {
         spell: SPELLS.FREEZING_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
+        cooldown: 30, //TODO: Set to 25 at Shadowlands launch
         gcd: {
           base: 1500,
         },
@@ -251,7 +168,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
+        cooldown: 30, //TODO: Set to 25 at Shadowlands launch
         gcd: {
           base: 1500,
         },
@@ -262,6 +179,109 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         gcd: {
           static: 0,
+        },
+      },
+      {
+        spell: SPELLS.FLARE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+      },
+      //endregion
+
+      //region Talents
+      {
+        spell: SPELLS.DIRE_BEAST_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id),
+        cooldown: 15,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.BARRAGE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: SPELLS.STAMPEDE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id),
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: SPELLS.CHIMAERA_SHOT_BM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_BM_TALENT.id),
+        cooldown: haste => hastedCooldown(15, haste),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+        },
+      },
+      {
+        spell: SPELLS.BLOODSHED_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.BLOODSHED_TALENT.id),
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      //endregion
+
+      //region Pets
+      {
+        spell: [SPELLS.PRIMAL_RAGE_1, SPELLS.PRIMAL_RAGE_2],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 360,
+        gcd: {
+          static: 0,
+        },
+      },
+      {
+        spell: SPELLS.MASTERS_CALL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
+        gcd: {
+          static: 0,
+        },
+      },
+      {
+        spell: SPELLS.INTIMIDATION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
         },
       },
       {
@@ -281,7 +301,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DISMISS_PET,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          static: 1500,
+          base: 1500,
         },
       },
       {
@@ -292,6 +312,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      //endregion
     ];
   }
 }

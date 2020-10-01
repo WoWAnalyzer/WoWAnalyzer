@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { EventType, CastEvent } from 'parser/core/Events';
+import { CastEvent, EventType } from 'parser/core/Events';
 
 class TipOfTheSpearNormalizer extends EventsNormalizer {
   /**

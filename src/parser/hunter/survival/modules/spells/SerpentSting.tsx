@@ -3,11 +3,10 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { SERPENT_STING_SV_BASE_DURATION, SERPENT_STING_SV_PANDEMIC } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
@@ -17,7 +16,7 @@ import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, R
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 /**
- * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12/(1+haste) sec.
+ * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12 sec.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=summary&source=329
@@ -26,7 +25,6 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 class SerpentSting extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    statTracker: StatTracker,
   };
 
   //Used to handle talents
@@ -47,7 +45,6 @@ class SerpentSting extends Analyzer {
   nonVVBoPRefresh: number = 0;
 
   protected enemies!: Enemies;
-  protected statTracker!: StatTracker;
 
   constructor(options: any) {
     super(options);
@@ -129,10 +126,6 @@ class SerpentSting extends Analyzer {
     return this.hasBoP && this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id) && (!this.hasVV || !this.vipersVenomBuffUp);
   }
 
-  get hastedSerpentStingDuration() {
-    return SERPENT_STING_SV_BASE_DURATION / (1 + this.statTracker.currentHastePercentage);
-  }
-
   onCast(event: CastEvent) {
     this.casts += 1;
 
@@ -165,7 +158,7 @@ class SerpentSting extends Analyzer {
       targetInstance = 1;
     }
     const serpentStingTarget: any = encodeTargetString(event.targetID, targetInstance);
-    this.serpentStingTargets[serpentStingTarget] = { timestamp: event.timestamp, serpentStingDuration: this.hastedSerpentStingDuration };
+    this.serpentStingTargets[serpentStingTarget] = { timestamp: event.timestamp, serpentStingDuration: SERPENT_STING_SV_BASE_DURATION };
     if (this.vipersVenomBuffUp) {
       this.vipersVenomBuffUp = false;
     }
@@ -189,10 +182,10 @@ class SerpentSting extends Analyzer {
     this.timesRefreshed += 1;
 
     const timeRemaining = this.serpentStingTargets[serpentStingTarget].serpentStingDuration - (event.timestamp - this.serpentStingTargets[serpentStingTarget].timestamp);
-    if (timeRemaining > (this.hastedSerpentStingDuration * SERPENT_STING_SV_PANDEMIC)) {
+    if (timeRemaining > (SERPENT_STING_SV_BASE_DURATION * SERPENT_STING_SV_PANDEMIC)) {
       this.nonPandemicRefresh += 1;
     } else {
-      const pandemicSerpentStingDuration = Math.min(this.hastedSerpentStingDuration * SERPENT_STING_SV_PANDEMIC, timeRemaining) + this.hastedSerpentStingDuration;
+      const pandemicSerpentStingDuration = Math.min(SERPENT_STING_SV_BASE_DURATION * SERPENT_STING_SV_PANDEMIC, timeRemaining) + SERPENT_STING_SV_BASE_DURATION;
       this.serpentStingTargets[serpentStingTarget].timestamp = event.timestamp;
       this.serpentStingTargets[serpentStingTarget].serpentStingDuration = pandemicSerpentStingDuration;
     }
@@ -237,7 +230,7 @@ class SerpentSting extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(19)}
+        position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
         tooltip={(
           <>
@@ -250,7 +243,6 @@ class SerpentSting extends Analyzer {
                 {this.hasBoP && this.hasVV && this.nonVVBoPRefresh > 0 && <li>During Coordinated Assault, you should only refresh Serpent Sting when there is less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% remaining on Serpent Sting AND you have a Viper's Venom proc. You refreshed it incorrectly {this.nonVVBoPRefresh} times.</li>}
                 {this.hasBoP && !this.hasVV && this.nonVVBoPRefresh > 0 && <li>Because you're using Birds of Prey, but not using Viper's Venom, you should never refresh Serpent Sting during Coordinated Assault buff. You did this {this.nonVVBoPRefresh} times.</li>}
               </ul>}
-              <li>Serpent Sting dealt a total of {formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li>
             </ul>
           </>
         )}

@@ -25,13 +25,11 @@ class ShrapnelBomb extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-
-  protected enemies!: Enemies;
-
   damage = 0;
   bleedDamage = 0;
   stacks = 0;
   applications = 0;
+  protected enemies!: Enemies;
 
   constructor(options: any) {
     super(options);

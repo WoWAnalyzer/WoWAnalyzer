@@ -12,7 +12,7 @@ class ManaValues extends Analyzer {
   lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
   endingMana = 0;
 
-  maxMana = 100000;
+  maxMana = 50000;
   manaUpdates = [];
 
   constructor(...args) {

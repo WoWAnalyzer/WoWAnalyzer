@@ -229,7 +229,7 @@ class Abilities extends CoreAbilities {
       },
       // utility
       {
-        spell: SPELLS.RAISE_DEAD,
+        spell: SPELLS.RAISE_DEAD_UNHOLY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: {
