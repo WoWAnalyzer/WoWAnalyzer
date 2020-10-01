@@ -6,6 +6,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { SEARING_TOUCH_THRESHOLD, SEARING_TOUCH_DAMAGE_MODIFIER, COMBUSTION_BUFFER } from '../../constants';
@@ -79,7 +80,7 @@ class SearingTouch extends Analyzer {
         average: 0.85,
         major: 0.70,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -91,20 +92,20 @@ class SearingTouch extends Analyzer {
         average: 0.85,
         major: 0.80,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
 		when(this.executeSuggestionThreshold)
-			.addSuggestion((suggest: any, actual: any, recommended: any) => {
+			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<>You cast <SpellLink id={SPELLS.FIREBALL.id} /> instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.fireballExecuteCasts} times. When using <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> always use Scorch instead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.</>)
 					.icon(SPELLS.SEARING_TOUCH_TALENT.icon)
 					.actual(`${formatPercentage(this.executeUtil)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)} is recommended`);
       });
     when(this.nonExecuteSuggestionThreshold)
-			.addSuggestion((suggest: any, actual: any, recommended: any) => {
+			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<>You cast <SpellLink id={SPELLS.SCORCH.id} /> while the target was over 30% health {this.nonExecuteScorchCasts} times. While this is acceptable when you need to move, you should aim to minimize this by limiting your movement and using spells like <SpellLink id={SPELLS.BLINK.id} /> (or <SpellLink id={SPELLS.SHIMMER_TALENT.id} />) when possible or by using your instant abilities and procs.</>)
 					.icon(SPELLS.SEARING_TOUCH_TALENT.icon)
 					.actual(`${formatPercentage(this.nonExecuteUtil)}% Utilization`)

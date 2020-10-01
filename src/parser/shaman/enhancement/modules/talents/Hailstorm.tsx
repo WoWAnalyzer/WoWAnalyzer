@@ -4,6 +4,7 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -33,13 +34,13 @@ class Hailstorm extends Analyzer {
         average: 0.95,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.frostbrandUptimeThresholds).addSuggestion(
-      (suggest: any, actual: any, recommended: any) => {
+      (suggest, actual, recommended) => {
         return suggest(
           <Trans>
             Try to make sure the Frostbrand is always up, when it drops you should refresh it as soon as possible

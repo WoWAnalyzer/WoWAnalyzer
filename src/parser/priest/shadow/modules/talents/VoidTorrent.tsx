@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -91,13 +92,13 @@ class VoidTorrent extends Analyzer {
         average: 0.5,
         major: 2,
       },
-      style: 'seconds',
+      style: ThresholdStyle.SECONDS,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You interrupted <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> early, wasting {formatSeconds(this.totalWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</>)
           .icon(SPELLS.VOID_TORRENT_TALENT.icon)
           .actual(`Lost ${formatSeconds(actual)} seconds of Void Torrent.`)

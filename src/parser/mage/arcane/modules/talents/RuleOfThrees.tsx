@@ -4,6 +4,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent } from 'parser/core/Events';
 
 const debug = false;
@@ -41,13 +42,13 @@ class RuleOfThrees extends Analyzer {
         average: 0.90,
         major: 0.80,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-	suggestions(when: any) {
+	suggestions(when: When) {
 		when(this.ruleOfThreesUtilizationThresholds)
-			.addSuggestion((suggest: any, actual: any, recommended: any) => {
+			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> {this.barrageWithRuleOfThrees} times while you had the <SpellLink id={SPELLS.RULE_OF_THREES_BUFF.id} /> buff. This buff makes your next <SpellLink id={SPELLS.ARCANE_BLAST.id} /> or <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> free after you gain your third Arcane Charge, so you should ensure that you use the buff before clearing your charges.</>)
 					.icon(SPELLS.RULE_OF_THREES_TALENT.icon)
 					.actual(`${formatPercentage(this.utilization)}% Utilization`)

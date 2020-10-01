@@ -8,6 +8,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 class ArcaneOrb extends Analyzer {
 	static dependencies = {
@@ -57,13 +58,13 @@ class ArcaneOrb extends Analyzer {
         average: 1.5,
         major: 1,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
 	}
 
-	suggestions(when: any) {
+	suggestions(when: When) {
 		when(this.arcaneOrbHitThresholds)
-			.addSuggestion((suggest: any, actual: any, recommended: any) => {
+			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<>On average, your <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> hit ${formatNumber(this.averageHitPerCast)} times per cast. While it is beneficial to cast this even if it will only hit one mob, the talent is suited more towards AOE than Single Target. So if the fight is primarily Single Target, consider taking a different talent.</>)
 					.icon(SPELLS.ARCANE_ORB_TALENT.icon)
 					.actual(`${formatNumber(this.averageHitPerCast)} Hits Per Cast`)

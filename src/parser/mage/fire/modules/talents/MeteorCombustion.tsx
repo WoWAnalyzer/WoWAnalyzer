@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { DamageEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
@@ -15,8 +16,6 @@ class MeteorCombustion extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected enemies!: EnemyInstances;
 
-  hasMeteor: boolean;
-
   lastRuneCast = 0
   badMeteor = 0
   meteorCast = false;
@@ -26,13 +25,10 @@ class MeteorCombustion extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.hasMeteor = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
-    this.active = this.hasMeteor ? true : false;
-
+    this.active = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
     if (!this.active) {
       return;
     }
-
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.METEOR_DAMAGE), this.onMeteorDamage);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionStart);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionEnd);
@@ -89,13 +85,13 @@ class MeteorCombustion extends Analyzer {
         average: 1,
         major: 1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.meteorCombustionSuggestionThresholds)
-			.addSuggestion((suggest: any, actual: any, recommended: any) => {
+			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<>You failed to cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> during <SpellLink id={SPELLS.COMBUSTION.id} /> {this.combustionWithoutMeteor} times. In order to make the most of Combustion and <SpellLink id={SPELLS.IGNITE.id} />, you should always cast Meteor during Combustion. If Meteor will not come off cooldown before Combustion is available, then you should hold Meteor for Combustion.</>)
 					.icon(SPELLS.METEOR_TALENT.icon)
 					.actual(`${formatPercentage(this.combustionUtilization)}% Utilization`)

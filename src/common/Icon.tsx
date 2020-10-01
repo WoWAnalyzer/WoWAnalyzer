@@ -3,7 +3,7 @@ import React from 'react';
 import BAD_ICONS from 'common/BAD_ICONS';
 
 interface Props extends React.HTMLAttributes<HTMLImageElement> {
-  icon: string
+  icon?: string
   className?: string
   /**
    * Implementers should annotate these as desired, but it's usually just

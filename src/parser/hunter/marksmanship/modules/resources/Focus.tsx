@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
@@ -13,7 +14,7 @@ class Focus extends Analyzer {
 
   protected focusTracker!: FocusTracker;
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     resourceSuggest(when, this.focusTracker, {
       spell: SPELLS.STEADY_SHOT_FOCUS,
       minor: 0.025,

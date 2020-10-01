@@ -4,6 +4,7 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
 
 // Don't refresh with more than 4.5 seconds left on Flametongue buff
@@ -67,14 +68,14 @@ class FlametongueRefresh extends Analyzer {
         average: 3,
         major: 5,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.flametongueEarlyRefreshThreshold)
       .addSuggestion(
-        (suggest: any, actual: any, recommended: any) => {
+        (suggest, actual, recommended) => {
           return suggest(
             <>Avoid refreshing Flametongue with more then 4.5 sec left on the buff.
               Some early refreshes are unavoidable.</>)

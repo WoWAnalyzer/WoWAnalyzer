@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { SummonEvent } from 'parser/core/Events';
 import Pet from '../core/Pet';
 import Voidform from './Voidform';
@@ -30,7 +31,7 @@ class Mindbender extends Pet {
         average: 12,
         major: 10,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     });
   }
 
