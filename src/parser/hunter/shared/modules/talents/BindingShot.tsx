@@ -24,7 +24,7 @@ class BindingShot extends Analyzer {
   _roots = 0;
   _applications = 0;
   _casts = 0;
-  category: string;
+  category: STATISTIC_CATEGORY;
   protected abilities!: Abilities;
 
   constructor(options: any) {

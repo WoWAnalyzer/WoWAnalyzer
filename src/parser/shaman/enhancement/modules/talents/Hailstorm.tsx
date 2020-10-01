@@ -8,6 +8,7 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 /**
  * Frostbrand now also enhances your weapon's damage,
@@ -64,7 +65,7 @@ class Hailstorm extends Analyzer {
   statistic() {
     return (
       <Statistic
-        category="TALENTS"
+        category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.CORE(1)}
         size="small"
       >
