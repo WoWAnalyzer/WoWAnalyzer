@@ -43,7 +43,7 @@ class ChimaeraShot extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.CHIMAERA_SHOT_TALENT}>
+        <BoringSpellValueText spell={SPELLS.CHIMAERA_SHOT_BM_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

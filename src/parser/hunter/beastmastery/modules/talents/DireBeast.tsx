@@ -17,6 +17,8 @@ import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/TY846VxkCwAfPLbG#fight=46&type=damage-done&source=411
+ *
+ * TODO: Ensure it doesn't conflict with Dire Command legendary.
  */
 
 class DireBeast extends Analyzer {

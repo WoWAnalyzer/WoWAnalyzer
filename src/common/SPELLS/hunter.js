@@ -94,42 +94,42 @@ export default {
     name: 'Bestial Wrath Buff',
     icon: 'ability_druid_ferociousbite',
   },
-  BARBED_SHOT_BUFF: { //1st stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF: {
     id: 246152,
     name: 'Barbed Shot (1)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_2: { //2nd stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_2: {
     id: 246851,
     name: 'Barbed Shot (2)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_3: { //3rd stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_3: {
     id: 246852,
     name: 'Barbed Shot (3)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_4: { //4th stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_4: {
     id: 246853,
     name: 'Barbed Shot (4)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_5: { //5th stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_5: {
     id: 246854,
     name: 'Barbed Shot (5)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_6: { //6th stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_6: {
     id: 284255,
     name: 'Barbed Shot (6)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_7: { //7th stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_7: {
     id: 284257,
     name: 'Barbed Shot (7)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_8: { //8th stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_8: {
     id: 284258,
     name: 'Barbed Shot (8)',
     icon: 'ability_hunter_barbedshot',
@@ -578,12 +578,12 @@ export default {
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
   },
-  CHIMAERA_SHOT_NATURE_DAMAGE: {
+  CHIMAERA_SHOT_NATURE_DAMAGE: { //TODO: Check MM vs BM versions of Chimaera
     id: 171457,
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
   },
-  CHIMAERA_SHOT_FROST_DAMAGE: {
+  CHIMAERA_SHOT_FROST_DAMAGE: { //TODO: Check MM vs BM versions of Chimaera
     id: 171454,
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',

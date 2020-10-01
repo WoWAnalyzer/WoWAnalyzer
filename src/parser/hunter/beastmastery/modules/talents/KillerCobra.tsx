@@ -4,12 +4,11 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
-import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events from 'parser/core/Events';
 
 /**
  * While Bestial Wrath is active, Cobra Shot resets the cooldown on Kill
@@ -23,14 +22,12 @@ import Events, { CastEvent } from 'parser/core/Events';
 class KillerCobra extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown,
   };
 
   effectiveKillCommandResets = 0;
   wastedKillerCobraCobraShots = 0;
 
   protected spellUsable!: SpellUsable;
-  protected globalCooldown!: GlobalCooldown;
 
   constructor(options: any) {
     super(options);
@@ -43,23 +40,20 @@ class KillerCobra extends Analyzer {
       actual: this.wastedKillerCobraCobraShots,
       isGreaterThan: {
         minor: 0,
-        average: 0.9,
-        major: 1.9,
+        average: 1,
+        major: 3,
       },
       style: 'number',
     };
   }
 
-  onCobraCast(event: CastEvent) {
+  onCobraCast() {
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
       return;
     }
     const killCommandIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_BM.id);
     if (killCommandIsOnCooldown) {
-      const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(SPELLS.COBRA_SHOT.id);
-      const cooldownToReduceWith = this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND_CAST_BM.id) - globalCooldown;
-      //using this instead of endCooldown to ensure it doesn't negatively affect cast efficiency when resetting with Killer Cobra
-      this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, cooldownToReduceWith);
+      this.spellUsable.endCooldown(SPELLS.KILL_COMMAND_CAST_BM.id);
       this.effectiveKillCommandResets += 1;
     } else {
       this.wastedKillerCobraCobraShots += 1;
