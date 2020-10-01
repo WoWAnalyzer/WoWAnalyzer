@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Tooltip from 'common/Tooltip';
@@ -9,22 +8,35 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import './Statistic.scss';
 
-class Statistic extends React.PureComponent {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    tooltip: PropTypes.node,
-    wide: PropTypes.bool,
-    ultrawide: PropTypes.bool,
-    // eslint-disable-next-line react/no-unused-prop-types
-    category: PropTypes.oneOf(Object.values(STATISTIC_CATEGORY)),
-    // eslint-disable-next-line react/no-unused-prop-types
-    position: PropTypes.number,
-    size: PropTypes.oneOf(['standard', 'small', 'medium', 'large', 'flexible']),
-    drilldown: PropTypes.string,
-    dropdown: PropTypes.node,
-    className: PropTypes.string,
-    expanded: PropTypes.bool,
-  };
+type Props = {
+  children: React.ReactNode,
+  /**
+   * A tooltip node to be displayed when the user hovers over an information *(i)* icon in the
+   * statistic box's top right corner.
+   */
+  tooltip?: React.ReactNode,
+  wide: boolean,
+  ultrawide: boolean,
+  category?: STATISTIC_CATEGORY,
+  position?: number,
+  size: 'standard' | 'small' | 'medium' | 'large' | 'flexible',
+  /**
+   * A relative or absolute URL. If set, a button will be attached to the bottom of the statistic
+   * box that a user can click to be sent to the given URL.
+   */
+  drilldown?: string,
+  /**
+   * A node to display upon the user clicking an *expand* arrow at the bottom of the statistic box.
+   */
+  dropdown?: React.ReactNode,
+  /**
+   * CSS class name(s) to apply to the statistic box.
+   */
+  className: string,
+  expanded?: boolean,
+}
+
+class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {
   static defaultProps = {
     size: 'standard',
     wide: false,
@@ -32,7 +44,7 @@ class Statistic extends React.PureComponent {
     className: '',
   };
 
-  constructor(props){
+  constructor(props: Props) {
     super(props);
     this.state = {
       expanded: props.expanded,
@@ -41,7 +53,7 @@ class Statistic extends React.PureComponent {
     this.toggleExpansion = this.toggleExpansion.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.expanded !== this.props.expanded) {
       this.setState({
         expanded: this.props.expanded,
@@ -55,7 +67,7 @@ class Statistic extends React.PureComponent {
     });
   }
 
-  renderDrilldown(drilldown) {
+  renderDrilldown(drilldown: string) {
     const isAbsolute = drilldown.includes('://');
 
     return (
@@ -75,7 +87,7 @@ class Statistic extends React.PureComponent {
     );
   }
 
-  renderDropdown(dropdown){
+  renderDropdown(dropdown: React.ReactNode) {
     return (
       <>
         <div className="row">
@@ -101,15 +113,12 @@ class Statistic extends React.PureComponent {
   render() {
     const { children, wide, ultrawide, tooltip, size, drilldown, className, dropdown, ...others } = this.props;
 
-    // TODO: Determine if drilldown is a relative or absolute URL. Absolute: has protocol. Relative: has no protocol.
-    // TODO: Render drilldown link. Maybe on mouseover a small box expand below the statistic with a link?
-
     return (
       <div className={ultrawide ? 'col-md-12' : (wide ? 'col-md-6 col-sm-12 col-xs-12' : 'col-lg-3 col-md-4 col-sm-6 col-xs-12')}>
         <div
           className={`panel statistic ${size} ${className}`}
           // only add zIndex property if a dropdown exists, to preserve backwards compatiblity with StatisticBox utilizing Statistic
-          style={dropdown && {zIndex: this.state.expanded ? 2 : 1 }}
+          style={!!dropdown ? { zIndex: this.state.expanded ? 2 : 1 } : undefined}
           {...others}
         >
           <div className="panel-body">
@@ -118,10 +127,7 @@ class Statistic extends React.PureComponent {
           </div>
           {tooltip && (
             <Tooltip content={tooltip}>
-              <div
-                className="detail-corner"
-                data-place="top"
-              >
+              <div className="detail-corner" data-place="top">
                 <InfoIcon />
               </div>
             </Tooltip>
