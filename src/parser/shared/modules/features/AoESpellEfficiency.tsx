@@ -8,6 +8,7 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 /*
   Creates a suggestion for an AoE-Spell based on the amount of hits done and min. amount of hits possible
@@ -88,18 +89,18 @@ class AoESpellEfficiency extends Analyzer {
         average: 0.9,
         major: .8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.hitSuggestionThreshold)
-        .addSuggestion((suggest: any, actual: any, recommended: any) => {
-          return suggest(<>It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but don't delay it too long or you'll miss out on casts and possible hits.</>)
-            .icon(this.ability.icon)
-            .actual(`${this.totalHits} total hits`)
-            .recommended(`${this.possibleHits} or more hits were possible`);
-        });
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but don't delay it too long or you'll miss out on casts and possible hits.</>)
+          .icon(this.ability.icon)
+          .actual(`${this.totalHits} total hits`)
+          .recommended(`${this.possibleHits} or more hits were possible`);
+      });
   }
 
   statistic() {
