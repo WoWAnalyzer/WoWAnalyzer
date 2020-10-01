@@ -11,6 +11,7 @@ import EventFilter from 'parser/core/EventFilter';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
+import FooterChart, { formatTime } from 'interface/others/FooterChart';
 
 import SharedBrews from '../core/SharedBrews';
 import BrewCDR from '../core/BrewCDR';
@@ -54,7 +55,7 @@ class PurifyingBrew extends Analyzer {
   protected abilities!: Abilities;
   protected cdr!: BrewCDR;
 
-  purifyAmounts: number[] = [];
+  purifies: RemoveStaggerEvent[] = [];
   purifyDelays: number[] = [];
 
   heavyPurifies = 0;
@@ -81,7 +82,7 @@ class PurifyingBrew extends Analyzer {
   }
 
   get meanPurify() {
-    if (this.purifyAmounts.length === 0) {
+    if (this.purifies.length === 0) {
       return 0;
     }
 
@@ -89,19 +90,19 @@ class PurifyingBrew extends Analyzer {
   }
 
   get minPurify() {
-    if (this.purifyAmounts.length === 0) {
+    if (this.purifies.length === 0) {
       return 0;
     }
 
-    return this.purifyAmounts.reduce((prev, cur) => (prev < cur) ? prev : cur, Infinity);
+    return this.purifies.reduce((prev, cur) => (prev < cur.amount) ? prev : cur.amount, Infinity);
   }
 
   get maxPurify() {
-    return this.purifyAmounts.reduce((prev, cur) => (prev > cur) ? prev : cur, 0);
+    return this.purifies.reduce((prev, cur) => (prev > cur.amount) ? prev : cur.amount, 0);
   }
 
   get totalPurified() {
-    return this.purifyAmounts.reduce((prev, cur) => prev + cur, 0);
+    return this.purifies.reduce((prev, cur) => prev + cur.amount, 0);
   }
 
   get belowHeavyPurifies() {
@@ -109,7 +110,7 @@ class PurifyingBrew extends Analyzer {
   }
 
   get totalPurifies() {
-    return this.purifyAmounts.length;
+    return this.purifies.length;
   }
 
   get avgPurifyDelay() {
@@ -146,7 +147,7 @@ class PurifyingBrew extends Analyzer {
       this._heavyStaggerDropped = false;
       return;
     }
-    this.purifyAmounts.push(event.amount);
+    this.purifies.push(event);
     const delay = event.timestamp - this._lastHit.timestamp - this._msTilPurify;
     this.purifyDelays.push(delay);
     const hasHeavyStagger = this.selectedCombatant.hasBuff(SPELLS.HEAVY_STAGGER_DEBUFF.id) || this._heavyStaggerDropped;
@@ -205,6 +206,40 @@ class PurifyingBrew extends Analyzer {
   }
 
   statistic() {
+    const spec = {
+      mark: 'bar',
+      transform: [
+        { calculate: `datum.timestamp - ${this.owner.fight.start_time}` , as: 'timestamp' },
+        { calculate: "datum.timestamp / 60000", as: 'time_min' },
+        { calculate: formatTime(), as: 'time_label' },
+      ],
+      encoding: {
+        x: {
+          field: 'time_min',
+          type: 'quantitative' as const,
+          axis: {
+            labelExpr: formatTime('(datum.value * 60000)'),
+            grid: false,
+          },
+          title: null,
+          scale: { zero: true },
+        },
+        y: {
+          field: 'amount',
+          type: 'quantitative' as const,
+          title: null,
+          axis: {
+            grid: false,
+            format: '~s',
+          },
+        },
+        tooltip: [
+          { field: 'time_label', type: 'nominal' as const, title: 'Time' },
+          { field: 'amount', type: 'quantitative' as const, title: 'Amount Purified', format: '.3~s' },
+        ],
+      },
+    };
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PURIFYING_BREW.id} />}
@@ -218,6 +253,7 @@ class PurifyingBrew extends Analyzer {
             Your purifies were delayed from the nearest peak by <strong>{(this.avgPurifyDelay / 1000).toFixed(2)}s</strong> on average.
           </>
         )}
+        footer={(<FooterChart data={this.purifies} spec={spec} />)}
       />
     );
   }

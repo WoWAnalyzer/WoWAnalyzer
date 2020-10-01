@@ -83,8 +83,7 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                 </tr>
               </thead>
               <tbody>
-                // @ts-ignore
-                <this.HealingEfficiencyTable tracker={tracker} showHealing={this.state.showHealing} />
+                {this.HealingEfficiencyTable({ tracker, showHealing: this.state.showHealing })}
               </tbody>
             </table>
           </div>

@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 1), 'Converted charts to new library.', emallson),
   change(date(2020, 9, 26), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),
   change(date(2020, 9, 26), 'Updated mana costs for all healers.', Abelito75),
   change(date(2020, 9, 26), 'Updated abilities effiency tracker to default to 0 if no casts were possible.', Abelito75),
