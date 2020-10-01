@@ -32,7 +32,6 @@
     "react-transition-group": "^1.2.1",
     "react-vega": "^7.4.1",
     "react-virtualized": "^9.21.1",
-    "react-vis": "^1.11.7",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",

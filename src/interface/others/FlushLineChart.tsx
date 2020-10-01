@@ -4,7 +4,7 @@ import { Config } from 'vega-lite';
 import FooterChart from './FooterChart';
 
 export interface Props {
-  data: any,
+  data: any[],
   config?: Config,
   x?: string,
   y?: string,
@@ -13,6 +13,10 @@ export interface Props {
 }
 
 export default function FlushLineChart(props: Props) {
+  if (props.data.length === 0) {
+    return null;
+  }
+
   const x = props.x || 'time';
   const y = props.y || 'val';
   const spec = {
@@ -26,6 +30,10 @@ export default function FlushLineChart(props: Props) {
     },
     transform: [
       {
+        calculate: `max(datum.${y}, 0)`,
+        as: y,
+      },
+      {
         impute: y,
         key: x,
         keyvals: {
@@ -37,16 +45,12 @@ export default function FlushLineChart(props: Props) {
       },
       {
         window: [
-          { op: 'sum' as const, field: y, as: 'sum_val' },
+          { op: 'mean' as const, field: y, as: 'sum_val' },
         ],
         sort: [
           { field: x, order: 'ascending' as const },
         ],
         frame: [-3, 3],
-      },
-      {
-        calculate: 'if(datum.sum_val <= 0, 0, datum.sum_val)',
-        as: 'sum_val',
       },
     ],
     encoding: {
