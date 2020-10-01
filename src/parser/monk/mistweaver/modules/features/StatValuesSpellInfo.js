@@ -136,7 +136,7 @@ export default {
   },
   [SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_HEAL.id]: {
     int: true,
-    crit: true,
+    crit: false,
     hasteHpm: false,
     hasteHpct: true,
     mastery: false,
@@ -216,7 +216,7 @@ export default {
   },
   [SPELLS.BONEDUST_BREW_HEAL.id]: { 
     int: true,
-    crit: true,
+    crit: false,
     hasteHpm: false,
     hasteHpct: false,
     mastery: false,
