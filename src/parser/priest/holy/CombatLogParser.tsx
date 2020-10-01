@@ -105,7 +105,7 @@ class CombatLogParser extends CoreCombatLogParser {
     PsychicVoice: Talents.t60.PsychicVoice,
 
     SurgeOfLight: Talents.t75.SurgeOfLight,
-    CircleOfHealing: Talents.t75.CircleOfHealing,
+    PrayerCircle: Talents.t75.PrayerCircle,
     BindingHeal: Talents.t75.BindingHeal,
 
     Halo: Talents.t90.Halo,

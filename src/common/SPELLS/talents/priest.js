@@ -14,7 +14,7 @@ export default {
   HALO_TALENT: { id: 120517, name: 'Halo', icon: 'ability_priest_halo', manaCost: 1350 },
   LUMINOUS_BARRIER_TALENT: { id: 271466, name: 'Luminous Barrier', icon: 'spell_priest_burningwill', manaCost: 4000 },
   MINDBENDER_TALENT_SHARED: { id: 123040, name: 'Mindbender', icon: 'spell_shadow_soulleech_3' },
-  
+
   // Shadow
   FORTRESS_OF_THE_MIND_TALENT: { id: 193195, name: 'Fortress of the Mind', icon: 'ability_mage_studentofthemind' },
   DEATH_AND_MADNESS_TALLENT: { id: 321291, name: 'Death and Madness', icon: 'spell_shadow_demonicfortitude' },
@@ -35,7 +35,7 @@ export default {
   ANCIENT_MADNESS_TALENT: { id: 341240, name: 'Ancient Madness', icon: 'spell_priest_void-flay' },
   LEGACY_OF_THE_VOID_TALENT: { id: 193225, name: 'Legacy of the Void', icon: 'inv_enchant_voidcrystal' },
   SURRENDER_TO_MADNESS_TALENT: { id: 193223, name: 'Surrender to Madness', icon: 'achievement_boss_generalvezax_01' },
-  
+
   // Holy
   ENLIGHTENMENT_TALENT: { id: 193155, name: 'Enlightenment', icon: 'spell_arcane_mindmastery' },
   TRAIL_OF_LIGHT_TALENT: { id: 200128, name: 'Trail of Light', icon: 'ability_priest_wordsofmeaning' },
@@ -51,6 +51,8 @@ export default {
   LIGHT_OF_THE_NAARU_TALENT: { id: 196985, name: 'Light of the Naaru', icon: 'inv_pet_naaru' },
   APOTHEOSIS_TALENT: { id: 200183, name: 'Apotheosis', icon: 'ability_priest_ascension' },
   HOLY_WORD_SALVATION_TALENT: { id: 265202, name: 'Holy Word: Salvation', icon: 'ability_priest_archangel', manaCost: 3000 },
+  PRAYER_CIRCLE_TALENT: { id: 321377, name: 'Prayer Circle', icon: 'spell_paladin_divinecircle' },
+
   // Discipline
   SCHISM_TALENT: { id: 214621, name: 'Schism', icon: 'spell_warlock_focusshadow', manaCost: 250 },
   MASOCHISM_TALENT: { id: 193063, name: 'Masochism', icon: 'spell_shadow_misery' },

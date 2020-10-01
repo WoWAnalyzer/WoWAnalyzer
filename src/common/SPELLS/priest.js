@@ -24,9 +24,9 @@ export default {
     icon: 'spell_holy_wordfortitude',
     manaCost: 2000,
   },
-  SHADOW_WORD_DEATH: { 
-    id: 32379, 
-    name: 'Shadow Word: Death', 
+  SHADOW_WORD_DEATH: {
+    id: 32379,
+    name: 'Shadow Word: Death',
     icon: 'spell_shadow_demonicfortitude',
     manaCost: 800,
   },
@@ -336,6 +336,7 @@ export default {
     icon: 'ability_priest_halo',
     manaCost: 2700,
   },
+
 
   // Holy Priest Spells
   GREATER_HEAL: {
