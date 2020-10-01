@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
@@ -49,7 +50,7 @@ class Stampede extends Analyzer {
         average: 0,
         major: 1,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -83,8 +84,8 @@ class Stampede extends Analyzer {
     });
   }
 
-  suggestions(when: any) {
-    when(this.stampedeInefficientCastsThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.stampedeInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you've placed <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to deal it's full damage, or the enemy moved out of it. Avoid using <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will be moving out of it.</>)
         .icon(SPELLS.STAMPEDE_TALENT.icon)
         .actual(`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`)

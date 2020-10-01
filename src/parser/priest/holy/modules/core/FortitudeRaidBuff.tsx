@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { When } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { formatPercentage } from 'common/format';
 
 class FortitudeRaidBuff extends Analyzer {
@@ -15,13 +16,13 @@ class FortitudeRaidBuff extends Analyzer {
         average: .90,
         major: 0,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
     when(this.uptimeSuggestionThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest('Remember to have Power Word: Fortitude always up and recast it on death/resurection.')
           .icon(SPELLS.POWER_WORD_FORTITUDE.icon)
           .actual(`${formatPercentage(actual)}% Power Word: Fortitude uptime`)

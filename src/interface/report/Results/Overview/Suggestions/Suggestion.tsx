@@ -1,13 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import UpArrow from 'interface/icons/UpArrow';
-
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-
+import { Issue } from 'parser/core/ParseResults';
 import Icon from 'common/Icon';
 
-function getIssueImportance(importance) {
+function getIssueImportance(importance: ISSUE_IMPORTANCE) {
   switch (importance) {
     case ISSUE_IMPORTANCE.MAJOR:
       return <>Major <UpArrow /></>;
@@ -20,17 +17,10 @@ function getIssueImportance(importance) {
   }
 }
 
-class Suggestion extends React.PureComponent {
-  static propTypes = {
-    icon: PropTypes.string.isRequired,
-    issue: PropTypes.node.isRequired,
-    stat: PropTypes.node,
-    importance: PropTypes.string.isRequired,
-    details: PropTypes.func,
-  };
+class Suggestion extends React.PureComponent<Issue, { expanded: boolean }> {
 
-  constructor() {
-    super();
+  constructor(props: Issue) {
+    super(props);
     this.state = {
       expanded: false,
     };
@@ -48,7 +38,7 @@ class Suggestion extends React.PureComponent {
 
     return (
       <>
-        <li className={`item ${importance || ''} ${details ? 'clickable' : ''}`} onClick={details && this.handleClick}>
+        <li className={`item ${importance || ''} ${details ? 'clickable' : ''}`} onClick={details ? this.handleClick : undefined}>
           <div className="icon">
             <Icon icon={icon} alt="Icon" />
           </div>

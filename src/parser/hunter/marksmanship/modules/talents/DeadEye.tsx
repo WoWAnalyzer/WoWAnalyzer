@@ -8,6 +8,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { formatNumber } from 'common/format';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class DeadEye extends Analyzer {
   static dependencies = {
@@ -40,7 +41,7 @@ class DeadEye extends Analyzer {
         average: 0.7,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS/hunter';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
@@ -49,7 +49,7 @@ class Trueshot extends Analyzer {
         average: 2.5,
         major: 2,
       },
-      style: 'decimal',
+      style: ThresholdStyle.DECIMAL,
     };
   }
 
@@ -108,8 +108,8 @@ class Trueshot extends Analyzer {
     );
   }
 
-  suggestions(when: any) {
-    when(this.aimedShotThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.aimedShotThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You only cast {actual.toFixed(1)} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.</>)
         .icon(SPELLS.TRUESHOT.icon)
         .actual(`Average of ${actual.toFixed(1)} Aimed Shots per Trueshot.`)

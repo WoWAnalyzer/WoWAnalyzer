@@ -4,6 +4,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, RemoveBuffEvent, ApplyBuffStackEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
 import Panel from 'interface/others/Panel';
@@ -203,7 +204,7 @@ class Voidform extends Analyzer {
         average: 0.65,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -215,13 +216,13 @@ class Voidform extends Analyzer {
         average: 19,
         major: 18,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     });
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.suggestionUptimeThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.
           <br /><br />
           Use the generators with the priority: <br />

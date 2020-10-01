@@ -1,6 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -55,7 +56,7 @@ class CobraShot extends Analyzer {
         average: 0.8,
         major: 0.75,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -67,7 +68,7 @@ class CobraShot extends Analyzer {
         average: 1,
         major: 2,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -108,14 +109,14 @@ class CobraShot extends Analyzer {
     }
   }
 
-  suggestions(when: any) {
-    when(this.cdrEfficiencyCobraShotThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.cdrEfficiencyCobraShotThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>A crucial part of <SpellLink id={SPELLS.COBRA_SHOT.id} /> is the cooldown reduction of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> it provides. When the cooldown of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is larger than the duration of your GCD + 1s, you'll want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to maximize the amount of casts of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />. If the cooldown of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is lower than GCD + 1s, you'll only want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} />, if you'd be capping focus otherwise.</>)
         .icon(SPELLS.COBRA_SHOT.icon)
         .actual(`You had ${formatPercentage(actual)}% effective cooldown reduction of Kill Command`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
-    when(this.wastedCobraShotsThreshold).addSuggestion((suggest: any, actual: any) => {
+    when(this.wastedCobraShotsThreshold).addSuggestion((suggest, actual) => {
       return suggest(<>You should never cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> when <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is off cooldown.</>)
         .icon(SPELLS.COBRA_SHOT.icon)
         .actual(`You cast ${actual} Cobra Shots when Kill Command wasn't on cooldown`)

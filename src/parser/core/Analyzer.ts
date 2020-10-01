@@ -5,7 +5,7 @@ import EventFilter, {
   SELECTED_PLAYER,
   SELECTED_PLAYER_PET,
 } from './EventFilter';
-import { SuggestionAssertion } from './ParseResults';
+import { When } from './ParseResults';
 import { MappedEvent } from './Events';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
@@ -69,8 +69,6 @@ function addLegacyEventListenerSupport(object: Analyzer) {
   object.hasLegacyEventListener = hasLegacyEventListener;
 }
 
-export type When = (actual: object | any) => SuggestionAssertion;
-
 class Analyzer extends EventSubscriber {
   hasLegacyEventListener = false;
 
@@ -104,9 +102,7 @@ class Analyzer extends EventSubscriber {
    * @deprecated Set the `position` property on the Statistic component instead.
    */
   statisticOrder?: number = undefined;
-
   suggestions(when: When) {}
-
   /**
    * @deprecated Return a `Panel` from the statistic method instead.
    */
