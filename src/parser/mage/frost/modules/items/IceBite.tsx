@@ -35,19 +35,24 @@ class IceBite extends Analyzer {
   }
   protected enemies!: Enemies;
 
+  conduitRank: number = 0;
+
   bonusDamage = 0;
 
   constructor(props: any) {
     super(props);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.ICE_BITE.id);
+    if (!this.active) {
+      return;
+    }
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ICE_BITE.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE_DAMAGE), this.onIceLanceDamage);
   }
 
   onIceLanceDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ICE_BITE.id);
     if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp))) {  
-      this.bonusDamage += calculateEffectiveDamage(event,DAMAGE_BONUS[conduitRank]);
+      this.bonusDamage += calculateEffectiveDamage(event,DAMAGE_BONUS[this.conduitRank]);
     }
   }
 

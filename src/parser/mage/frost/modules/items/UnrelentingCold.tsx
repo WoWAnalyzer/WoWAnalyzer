@@ -29,17 +29,22 @@ const DAMAGE_BONUS: {[rank: number]:number } = {
 
 class UnrelentingCold extends Analyzer {
 
+  conduitRank: number = 0;
+
   bonusDamage = 0;
 
   constructor(props: any) {
     super(props);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.UNRELENTING_COLD.id);
+    if (!this.active) {
+      return;
+    }
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.UNRELENTING_COLD.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FROZEN_ORB_DAMAGE), this.onFrozenOrbDamage);
   }
 
   onFrozenOrbDamage(event: DamageEvent) {
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.UNRELENTING_COLD.id);
-    this.bonusDamage += calculateEffectiveDamage(event,DAMAGE_BONUS[conduitRank]);
+    this.bonusDamage += calculateEffectiveDamage(event,DAMAGE_BONUS[this.conduitRank]);
   }
 
   statistic() {

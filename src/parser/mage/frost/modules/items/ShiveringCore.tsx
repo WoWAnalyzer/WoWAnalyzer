@@ -29,17 +29,22 @@ const DAMAGE_BONUS: {[rank: number]: number } = {
 
 class ShiveringCore extends Analyzer {
 
+  conduitRank: number = 0;
+
   bonusDamage = 0;
 
   constructor(props: any) {
     super(props);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.SHIVERING_CORE.id);
+    if (!this.active) {
+      return;
+    }
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SHIVERING_CORE.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE), this.onBlizzardDamage);
   }
 
   onBlizzardDamage(event: DamageEvent) {
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SHIVERING_CORE.id);
-    this.bonusDamage += calculateEffectiveDamage(event.amount,DAMAGE_BONUS[conduitRank]);
+    this.bonusDamage += calculateEffectiveDamage(event.amount,DAMAGE_BONUS[this.conduitRank]);
   }
 
   statistic() {

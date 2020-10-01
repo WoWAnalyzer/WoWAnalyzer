@@ -29,11 +29,17 @@ const DAMAGE_BONUS: {[rank: number]:number } = {
 
 class IreOfTheAscended extends Analyzer {
 
+  conduitRank: number = 0;
+
   bonusDamage = 0;
 
   constructor(props: any) {
     super(props);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.IRE_OF_THE_ASCENDED.id);
+    if (!this.active) {
+      return;
+    }
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.IRE_OF_THE_ASCENDED.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
@@ -41,9 +47,7 @@ class IreOfTheAscended extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.RADIANT_SPARK.id)) {
       return;
     }
-
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.IRE_OF_THE_ASCENDED.id);
-    this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_BONUS[conduitRank]);
+    this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_BONUS[this.conduitRank]);
   }
 
   statistic() {

@@ -29,17 +29,22 @@ export const DAMAGE_BONUS: {[rank: number]:number } = {
 
 class MasterFlame extends Analyzer {
 
+  conduitRank: number = 0;
+
   bonusDamage = 0;
 
   constructor(props: any) {
     super(props);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.MASTER_FLAME.id);
+    if (!this.active) {
+      return;
+    }
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.MASTER_FLAME.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAMESTRIKE), this.onFlameStrikeDamage);
   }
 
   onFlameStrikeDamage(event: DamageEvent) {
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.MASTER_FLAME.id);
-    this.bonusDamage += calculateEffectiveDamage(event,DAMAGE_BONUS[conduitRank]);
+    this.bonusDamage += calculateEffectiveDamage(event,DAMAGE_BONUS[this.conduitRank]);
   }
 
   statistic() {

@@ -28,17 +28,22 @@ class GroundingSurge extends Analyzer {
   }
   protected spellUsable!: SpellUsable;
 
+  conduitRank: number = 0;
+
   bonusDamage = 0;
 
   constructor(props: any) {
     super(props);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.GROUNDING_SURGE.id);
+    if (!this.active) {
+      return;
+    }
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.GROUNDING_SURGE.id);
     this.addEventListener(Events.interrupt.by(SELECTED_PLAYER).spell(SPELLS.COUNTERSPELL), this.onInterrupt);
   }
 
   onInterrupt(event: InterruptEvent) {
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.GROUNDING_SURGE.id);
-    this.spellUsable.reduceCooldown(SPELLS.COUNTERSPELL.id, COOLDOWN_REDUCTION_MS[conduitRank]);
+    this.spellUsable.reduceCooldown(SPELLS.COUNTERSPELL.id, COOLDOWN_REDUCTION_MS[this.conduitRank]);
   }
 }
 

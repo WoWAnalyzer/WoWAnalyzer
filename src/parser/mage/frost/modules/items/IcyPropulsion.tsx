@@ -38,21 +38,26 @@ class IcyPropulsion extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
 
+  conduitRank: number = 0;
+
   cooldownReduction = 0;
 
   constructor(props: any) {
     super(props);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.ICY_PROPULSION.id);
+    if (!this.active) {
+      return;
+    }
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ICY_PROPULSION.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   onDamage(event: DamageEvent) {
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ICY_PROPULSION.id);
     if (!this.selectedCombatant.hasBuff(SPELLS.ICY_VEINS.id) || event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
 
-    this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.ICY_VEINS.id,COOLDOWN_REDUCTION_MS[conduitRank]);
+    this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.ICY_VEINS.id,COOLDOWN_REDUCTION_MS[this.conduitRank]);
 
   }
 

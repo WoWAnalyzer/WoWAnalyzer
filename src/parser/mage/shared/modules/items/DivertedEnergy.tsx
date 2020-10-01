@@ -21,7 +21,6 @@ class DivertedEnergy extends Analyzer {
   }
 
   onDivertedEnergyHeal(event: HealEvent) {
-    this.log(event);
     this.healingDone += event.amount;
     if (event.overheal) {
       this.overhealing += event.overheal;
