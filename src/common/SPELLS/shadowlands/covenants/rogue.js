@@ -14,7 +14,7 @@ export default {
 
   //region Necrolord
   SERRATED_BONE_SPIKE: {
-    id: 324073,
+    id: 328547,
     name: 'Serrated Bone Spike',
     icon: 'ability_maldraxxus_rogue',
   },
@@ -45,9 +45,9 @@ export default {
     icon: 'ability_revendreth_rogue',
   },
   FLAGELLATION_LASH: {
-    id: 345390, // GET REAL DoT ID
+    id: 345390,
     name: 'Flagellation',
     icon: 'ability_revendreth_rogue',
-  },,,
+  },
   //endregion
 };

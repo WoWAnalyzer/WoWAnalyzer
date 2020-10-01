@@ -32,7 +32,7 @@ export default {
   DIRTY_TRICKS_TALENT: { id: 108216, name: 'Dirty Tricks', icon: 'ability_rogue_dirtydeeds' },
   BLINDING_POWDER_TALENT: { id: 256165, name: 'Blinding Powder', icon: 'inv_misc_ammo_gunpowder_06' },
   LOADED_DICE_TALENT: { id: 256170, name: 'Loaded Dice', icon: 'ability_rogue_rollthebones' },
-  SLICE_AND_DICE_TALENT: { id: 5171, name: 'Slice and Dice', icon: 'ability_rogue_slicedice', energyCost: 25 },
+  DREADBLADES_TALENT: { id: 343142, name: 'Dreadblades', icon: 'inv_sword_1h_artifactskywall_d_01dual', energyCost: 30 },
   DANCING_STEEL_TALENT: { id: 272026, name: 'Dancing Steel', icon: 'ability_warrior_punishingblow' },
   BLADE_RUSH_TALENT: { id: 271877, name: 'Blade Rush', icon: 'ability_arakkoa_spinning_blade' },
   KILLING_SPREE_TALENT: { id: 51690, name: 'Killing Spree', icon: 'ability_rogue_murderspree' },

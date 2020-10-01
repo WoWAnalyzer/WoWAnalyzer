@@ -39,7 +39,8 @@ class RollTheBonesCastTracker extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
+    // this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
+    this.active = true;
     if(!this.active){
       return;
     }
@@ -79,7 +80,7 @@ class RollTheBonesCastTracker extends Analyzer {
     if(!event || !event.classResources){
       return;
     }
-    const cpCost = getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id).cost;
+    const cpCost = getResource(event.classResources, RESOURCE_TYPES.ENERGY);
     const refresh = this.lastCast ? event.timestamp < (this.lastCast.timestamp + this.lastCast.duration) : false;
 
     // All of the events for adding/removing buffs occur at the same timestamp as the cast, so this.selectedCombatant.hasBuff isn't quite accurate

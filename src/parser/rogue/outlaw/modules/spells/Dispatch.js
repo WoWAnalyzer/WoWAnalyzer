@@ -18,7 +18,7 @@ class Dispatch extends Analyzer {
   constructor(...args) {
     super(...args);
     const hasRelevantTrait = this.selectedCombatant.hasTrait(SPELLS.ACE_UP_YOUR_SLEEVE.id) || this.selectedCombatant.hasTrait(SPELLS.DEADSHOT.id);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id) || hasRelevantTrait;
+    this.active = hasRelevantTrait;
 
     this.betweenTheEyesDamageTracker.subscribeInefficientCast(
       [SPELLS.DISPATCH],

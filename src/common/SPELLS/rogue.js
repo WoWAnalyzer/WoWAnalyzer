@@ -436,7 +436,7 @@ export default {
     icon: 'ability_rogue_waylay',
   },
   BETWEEN_THE_EYES: {
-    id: 199804,
+    id: 315341,
     name: 'Between the Eyes',
     icon: 'inv_weapon_rifle_01',
   },
@@ -446,7 +446,7 @@ export default {
     icon: 'spell_shadow_mindsteal',
   },
   ROLL_THE_BONES: {
-    id: 193316,
+    id: 315508,
     name: 'Roll the Bones',
     icon: 'ability_rogue_rollthebones',
   },
@@ -506,6 +506,11 @@ export default {
     id: 271896,
     name: 'Blade Rush',
     icon: 'ability_arakkoa_spinning_blade',
+  },
+  DREADBLADES_TALENT_BUFF: {
+    id: 343143,
+    name: 'Dreadblades',
+    icon: 'ability_rogue_restlessblades',
   },
 
   //Procs

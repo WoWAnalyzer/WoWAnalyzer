@@ -14,7 +14,8 @@ import { ROLL_THE_BONES_BUFFS } from '../../constants';
 class RollTheBonesBuffs extends Analyzer {
   constructor(...args) {
     super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
+    // this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
+    this.active = true;
   }
 
   percentUptime(spellid) {

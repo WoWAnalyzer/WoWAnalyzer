@@ -33,15 +33,15 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: standardGcd,
         },
-        enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
+        // enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
-        spell: SPELLS.SLICE_AND_DICE_TALENT,
+        spell: SPELLS.SLICE_AND_DICE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: standardGcd,
         },
-        enabled: combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.SLICE_AND_DICE.id),
       },
       {
         spell: SPELLS.SINISTER_STRIKE,
@@ -99,6 +99,19 @@ class Abilities extends CoreAbilities {
         },
       },
       // Cooldowns
+      {
+        spell: SPELLS.DREADBLADES_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          static: standardGcd,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: `Using Dreadblades on cooldown is very important and should only be delayed when you know you won't be able to attack for the majority of it's duration.`,
+        }
+      },
       {
         spell: SPELLS.ADRENALINE_RUSH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

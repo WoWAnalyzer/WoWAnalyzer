@@ -26,7 +26,7 @@ class RollTheBonesEfficiency extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
+    this.active = true;
   }
 
   get goodLowValueRolls(){
