@@ -314,7 +314,7 @@ class EchoOfLightMastery extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.ECHO_OF_LIGHT_MASTERY}>
-            <ItemHealingDone amount={this.effectiveHealing} approximate />
+            <ItemHealingDone amount={this.effectiveHealing} />
         </BoringSpellValueText>
       </Statistic>
     );
