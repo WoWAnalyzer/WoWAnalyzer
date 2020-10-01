@@ -136,7 +136,7 @@ export default {
   },
   [SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_HEAL.id]: {
     int: true,
-    crit: false,
+    crit: true,
     hasteHpm: false,
     hasteHpct: true,
     mastery: false,
@@ -193,7 +193,7 @@ export default {
   [SPELLS.FALLEN_ORDER_SOOTHING_MIST.id]: { 
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
