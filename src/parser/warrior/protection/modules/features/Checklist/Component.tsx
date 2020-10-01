@@ -6,7 +6,7 @@ import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import Requirement, { RequirementThresholds } from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Combatant from 'parser/core/Combatant';
@@ -15,11 +15,11 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 type Props = {
   castEfficiency: CastEfficiency,
   combatant: Combatant,
-  thresholds: any,
+  thresholds: { [name: string]: RequirementThresholds },
 };
 
 const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Props) => {
-  const AbilityRequirement = (props: {spell: number}) => (
+  const AbilityRequirement = (props: { spell: number }) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -38,17 +38,17 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: P
       >
         <AbilityRequirement spell={SPELLS.THUNDER_CLAP.id} />
         <Requirement
-          name={(<SpellLink id={SPELLS.SHIELD_SLAM.id} /> )}
+          name={(<SpellLink id={SPELLS.SHIELD_SLAM.id} />)}
           thresholds={thresholds.shieldSlam}
         />
         <AbilityRequirement spell={SPELLS.SHIELD_BLOCK.id} />
         <Requirement
           name={(<>Effective <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> Casts </>)}
           thresholds={thresholds.shieldBlock}
-          />
+        />
         {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
           <Requirement
-            name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> )}
+            name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} />)}
             thresholds={thresholds.demoShoutCD}
           />
         )}
@@ -60,28 +60,28 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: P
         name="Defensive Cooldowns"
         description={(
           <>
-           Protection warriors have a multitude of defensive spells on a fairly short cooldown.  Be sure to use these to further mitigate incoming damage.
+            Protection warriors have a multitude of defensive spells on a fairly short cooldown. Be sure to use these to further mitigate incoming damage.
           </>
         )}
       >
         <Requirement
-          name={(<SpellLink id={SPELLS.SHIELD_WALL.id} /> )}
+          name={(<SpellLink id={SPELLS.SHIELD_WALL.id} />)}
           thresholds={thresholds.shieldWallCD}
-          />
+        />
         <Requirement
-          name={(<SpellLink id={SPELLS.LAST_STAND.id} /> )}
+          name={(<SpellLink id={SPELLS.LAST_STAND.id} />)}
           thresholds={thresholds.lastStandCD}
-          />
+        />
         <Requirement
-          name={(<>Magic damage with <SpellLink id={SPELLS.SPELL_REFLECTION.id} /></> )}
+          name={(<>Magic damage with <SpellLink id={SPELLS.SPELL_REFLECTION.id} /></>)}
           thresholds={thresholds.spellReflect}
-          />
+        />
         {!combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
-            <Requirement
-              name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> )}
-              thresholds={thresholds.demoShoutCD}
+          <Requirement
+            name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} />)}
+            thresholds={thresholds.demoShoutCD}
           />
-          )}
+        )}
       </Rule>
 
       <Rule
@@ -92,20 +92,20 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: P
 
           </>
         )}
-        >
+      >
+        <Requirement
+          name={(<SpellLink id={SPELLS.AVATAR_TALENT.id} />)}
+          thresholds={thresholds.avatarCD}
+        />
+        {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
           <Requirement
-            name={(<SpellLink id={SPELLS.AVATAR_TALENT.id} /> )}
-            thresholds={thresholds.avatarCD}
+            name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} />)}
+            thresholds={thresholds.demoShoutCD}
           />
-          {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
-            <Requirement
-              name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> )}
-              thresholds={thresholds.demoShoutCD}
-          />
-          )}
-          {combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id) && <AbilityRequirement spell={SPELLS.RAVAGER_TALENT_PROTECTION.id} />}
+        )}
+        {combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id) && <AbilityRequirement spell={SPELLS.RAVAGER_TALENT_PROTECTION.id} />}
 
-        </Rule>
+      </Rule>
 
       <Rule
         name="Don't get too angry"
