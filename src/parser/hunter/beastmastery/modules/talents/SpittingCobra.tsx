@@ -29,20 +29,10 @@ class SpittingCobra extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BESTIAL_WRATH, SPELLS.COBRA_SHOT]), this.bestialWrathCobraShotCasts);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SPITTING_COBRA_DAMAGE), this.spittingCobraDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.checkPrecast);
   }
 
   get averageIncrease() {
     return (this.totalIncrease / this.casts).toFixed(1);
-  }
-
-  checkPrecast() {
-    if (this.casts > 0) {
-      return;
-    }
-    if (this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
-      this.casts += 1;
-    }
   }
 
   bestialWrathCobraShotCasts(event: CastEvent) {
