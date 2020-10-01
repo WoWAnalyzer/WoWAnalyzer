@@ -26,7 +26,7 @@ class RenewedFaith extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = true;// this.selectedCombatant.hasTalent(SPELLS.RENEWED_FAITH_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RENEWED_FAITH_TALENT.id);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW), this.onRenewApplication);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW), this.onRenewRemoval);
