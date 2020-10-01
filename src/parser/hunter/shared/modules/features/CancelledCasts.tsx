@@ -2,12 +2,12 @@ import React from 'react';
 
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 
-import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import CrossIcon from 'interface/icons/Cross';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
 /**
  * Tracks the amount of cancelled casts in %.
@@ -22,7 +22,7 @@ class CancelledCasts extends CoreCancelledCasts {
     super(options);
     this.IGNORED_ABILITIES = [
       //Include the spells that you do not want to be tracked and spells that are castable while casting
-      SPELLS.EXPLOSIVE_SHOT_DAMAGE.id,
+      ...CASTS_THAT_ARENT_CASTS,
     ];
   }
 

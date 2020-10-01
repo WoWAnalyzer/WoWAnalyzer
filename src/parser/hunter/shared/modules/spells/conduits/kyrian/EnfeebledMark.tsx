@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -38,7 +38,7 @@ class EnfeebledMark extends Analyzer {
 
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ENFEEBLED_MARK_CONDUIT.id);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onGenericDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onGenericDamage);
   }
 
   onGenericDamage(event: DamageEvent) {
