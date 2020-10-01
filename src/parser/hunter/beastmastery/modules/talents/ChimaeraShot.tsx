@@ -28,7 +28,7 @@ class ChimaeraShot extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHIMAERA_SHOT_BM_TALENT), () => {
       this.casts += 1;
     });
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.CHIMAERA_SHOT_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE]), this.onChimaeraDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.CHIMAERA_SHOT_BM_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_BM_NATURE_DAMAGE]), this.onChimaeraDamage);
   }
 
   onChimaeraDamage(event: DamageEvent) {

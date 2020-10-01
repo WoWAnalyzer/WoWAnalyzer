@@ -77,8 +77,16 @@ export default {
     name: 'Cobra Spit',
     icon: 'ability_creature_poison_02',
   },
-
-  //Buffs
+  CHIMAERA_SHOT_BM_NATURE_DAMAGE: {
+    id: 171457,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
+  CHIMAERA_SHOT_BM_FROST_DAMAGE: {
+    id: 171454,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
   BEAST_CLEAVE_BUFF: {
     id: 268877,
     name: 'Beast Cleave',
@@ -261,6 +269,16 @@ export default {
     id: 342076,
     name: 'Streamline',
     icon: 'ability_hunter_runningshot',
+  },
+  CHIMAERA_SHOT_MM_NATURE_DAMAGE: {
+    id: 344120,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
+  CHIMAERA_SHOT_MM_FROST_DAMAGE: {
+    id: 344121,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
   },
   //endregion
 
@@ -575,16 +593,6 @@ export default {
   },
   CHIMAERA_SHOT_FOCUS: {
     id: 204304,
-    name: 'Chimaera Shot',
-    icon: 'ability_hunter_chimerashot2',
-  },
-  CHIMAERA_SHOT_NATURE_DAMAGE: { //TODO: Check MM vs BM versions of Chimaera
-    id: 171457,
-    name: 'Chimaera Shot',
-    icon: 'ability_hunter_chimerashot2',
-  },
-  CHIMAERA_SHOT_FROST_DAMAGE: { //TODO: Check MM vs BM versions of Chimaera
-    id: 171454,
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
   },

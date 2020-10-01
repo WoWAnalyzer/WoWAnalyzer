@@ -34,7 +34,7 @@ class CallingTheShots extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CALLING_THE_SHOTS_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE, SPELLS.CHIMAERA_SHOT_FROST_DAMAGE]), this.onCTSPotentialProc);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE, SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE]), this.onCTSPotentialProc);
   }
 
   onCTSPotentialProc(event: DamageEvent) {

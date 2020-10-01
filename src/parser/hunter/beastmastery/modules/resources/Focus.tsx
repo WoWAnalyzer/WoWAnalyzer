@@ -15,19 +15,20 @@ class Focus extends Analyzer {
   protected focusTracker!: FocusTracker;
 
   suggestions(when: any) {
+    const bmFocusExtraSuggestion = <>Try to keep focus below max by using <SpellLink id={SPELLS.COBRA_SHOT.id} /> and <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />.</>;
     resourceSuggest(when, this.focusTracker, {
       spell: SPELLS.ASPECT_OF_THE_WILD,
       minor: FOCUS_THRESHOLD_MINOR,
       avg: FOCUS_THRESHOLD_AVG,
       major: FOCUS_THRESHOLD_MAJOR,
-      extraSuggestion: <>Try to keep focus below max by using <SpellLink id={SPELLS.COBRA_SHOT.id} /> and <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />.</>,
+      extraSuggestion: bmFocusExtraSuggestion,
     });
     resourceSuggest(when, this.focusTracker, {
       spell: BARBED_SHOT_FOCUS_REGEN_BUFFS,
       minor: FOCUS_THRESHOLD_MINOR,
       avg: FOCUS_THRESHOLD_AVG,
       major: FOCUS_THRESHOLD_MAJOR,
-      extraSuggestion: <>Try to keep focus below max by using <SpellLink id={SPELLS.COBRA_SHOT.id} /> and <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />.</>,
+      extraSuggestion: bmFocusExtraSuggestion,
     });
   }
 }
