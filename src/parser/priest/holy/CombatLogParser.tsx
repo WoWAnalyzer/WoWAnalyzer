@@ -94,7 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     AngelicFeather: Talents.t30.AngelicFeather,
     AngelsMercy: Talents.t30.AngelsMercy,
-    Perseverance: Talents.t30.Perseverance,
+    BodyAndSoul: Talents.t30.BodyAndSoul,
 
     GuardianAngel: Talents.t45.GuardianAngel,
     Afterlife: Talents.t45.Afterlife,
