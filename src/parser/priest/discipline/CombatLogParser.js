@@ -40,6 +40,8 @@ import Schism from './modules/spells/Schism';
 
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
+import MindGames from './modules/shadowlands/covenants/MindGames';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -93,6 +95,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Essences
     lucidDreams: LucidDreams,
+
+    // Covenants
+    mindGames: MindGames,
   };
 }
 
