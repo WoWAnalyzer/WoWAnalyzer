@@ -4578,7 +4578,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.x, create-react-class@^15.6.2:
+create-react-class@^15.6.2:
   version "15.6.3"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.3.tgz#2d73237fb3f970ae6ebe011a9e66f46dbca80036"
   integrity sha512-M+/3Q6E6DLO6Yx3OwrWjwHBnvfXXYA7W+dFjt/ZDBemHO1DDZhsalX/NUtnTYclN6GfnBDRh4qRHjcDHmlJBJg==
@@ -11482,13 +11482,6 @@ react-motion@^0.5.2:
     prop-types "^15.5.8"
     raf "^3.1.0"
 
-react-onclickoutside@^5.7.1:
-  version "5.11.1"
-  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-5.11.1.tgz#00314e52567cf55faba94cabbacd119619070623"
-  integrity sha1-ADFOUlZ89V+rqUyrus0RlhkHBiM=
-  dependencies:
-    create-react-class "^15.5.x"
-
 react-onclickoutside@^6.8.0:
   version "6.9.0"
   resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.9.0.tgz#a54bc317ae8cf6131a5d78acea55a11067f37a1f"
@@ -11595,12 +11588,12 @@ react-scripts@^3.4.3:
   optionalDependencies:
     fsevents "2.1.2"
 
-react-select-search@^0.5.6:
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/react-select-search/-/react-select-search-0.5.6.tgz#74f430bfe0ed55f90450685addc4c088a6d276e3"
-  integrity sha512-IL+2NEe5lBCOCVA+g2cGYUzXc7bry6hDBOMsJabkTtTdK9/IlfAJ65Egy+PiERoAsp9HcEFbU99/CpSTZAnW8g==
-  dependencies:
-    react-onclickoutside "^5.7.1"
+react-select-search@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-select-search/-/react-select-search-2.1.1.tgz#e7f3f4eb8707ed3042b1c8e6bf2404014d1290ba"
+  integrity sha512-1QBce5zvK5skJIKFUn5tYT14Pfyg0EnCuswpYGE5CqOCv26jzhfWDU7/y7edTgxWiMMdBh1KA51pimYEexoMMg==
+  optionalDependencies:
+    fuse.js "^3.4.5"
 
 react-test-renderer@^16.0.0-0, react-test-renderer@^16.8.6:
   version "16.12.0"
