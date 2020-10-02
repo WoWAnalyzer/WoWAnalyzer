@@ -1,16 +1,18 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Combatants from 'parser/shared/modules/Combatants';
 
-const debug = false;
-const LC_HEALING_INCREASE = 0.5;
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
-const AFFECTED_SPELLS = [
-  SPELLS.RENEWING_MIST_HEAL.id,
-  SPELLS.ENVELOPING_MIST.id,
-];
+import { LIFE_COCOON_HEALING_BOOST } from '../../constants';
 
 class LifeCocoon extends Analyzer {
   static dependencies = {
@@ -19,22 +21,42 @@ class LifeCocoon extends Analyzer {
 
   healing = 0;
 
-  on_byPlayer_heal(event) {
-    const targetId = event.targetID;
-    const spellId = event.ability.guid;
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.heal, this.cocoonBuff);
+  }
 
-    if (!AFFECTED_SPELLS.includes(spellId)) {
-      debug && console.log('Exiting');
+  cocoonBuff(event) {
+    //Life Cocoon works on any HoT that has this flag checked even if they don't come from the mistweaver themselves
+    if(!event.tick){
       return;
     }
 
-    if (this.combatants.players[targetId]) {
-      if (this.combatants.players[targetId].hasBuff(SPELLS.LIFE_COCOON.id, event.timestamp, 0, 0) === true) {
-        this.healing += calculateEffectiveHealing(event, LC_HEALING_INCREASE);
-        debug && console.log('Event Details for Healing Increase: ' + event.ability.name);
-      }
+    const target = this.combatants.players[event.targetID];
+
+    if(!target){
+      return;
+    }
+
+    if(target.hasBuff(SPELLS.LIFE_COCOON.id, event.timestamp, 0, 0)){
+      this.healing += calculateEffectiveHealing(event, LIFE_COCOON_HEALING_BOOST);
     }
   }
+
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(20)}
+        size="flexible"
+        tooltip={<>Life Cocoon boosts HoTs from other players as wells as your own.</>}
+      >
+        <BoringSpellValueText spell={SPELLS.LIFE_COCOON}>
+          <ItemHealingDone amount={this.healing} /><br />
+        </BoringSpellValueText>
+      </Statistic>
+    );
+  }
+
 }
 
 export default LifeCocoon;
