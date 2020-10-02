@@ -4,6 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 
 import ShieldBlock from '../spells/ShieldBlock';
@@ -29,7 +30,7 @@ class BlockCheck extends Analyzer {
   //key to make variable names shorter
   //HR = heavyRepercussions
   //Bl = bolster
-  noHRorBlThresholds = {//no HR and no BL 
+  noHRorBlThresholds = {//no HR and no BL
     minor: 0.4,
     average: 0.35,
     major: 0.3,
@@ -40,8 +41,8 @@ class BlockCheck extends Analyzer {
     average: 0.75,
     major: 0.7,
   }
-  
-  blHRThresholds = {//has BL and HR 
+
+  blHRThresholds = {//has BL and HR
     minor: 0.95,
     average: 0.9,
     major: 0.8,
@@ -104,7 +105,7 @@ class BlockCheck extends Analyzer {
     return {
       actual: this.rawDamageWithBlock / (this.rawDamageWithBlock + this.rawDamageWithoutBlock),
       isLessThan: this.thresholdsToUse,
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

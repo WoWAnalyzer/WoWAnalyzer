@@ -3,12 +3,14 @@ import React from 'react';
 import Panel from 'interface/statistics/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import ManaValues from 'parser/shared/modules/ManaValues';
+import Combatants from 'parser/shared/modules/Combatants';
 
 import ManaLevelChartComponent from './ManaLevelChartComponent';
 
 class ManaLevelChart extends Analyzer {
   static dependencies = {
     manaValues: ManaValues,
+    combatants: Combatants,
   };
 
   statistic() {
@@ -21,7 +23,7 @@ class ManaLevelChart extends Analyzer {
     return (
       <Panel
         title="Mana pool"
-        explanation="As a rule of thumb aim to burn mana about as quickly as the boss is losing health. Some fights require specific mana management though."
+        explanation="Mana (blue) along with boss HP and deaths. As a rule of thumb aim to burn mana about as quickly as the boss is losing health. Some fights require specific mana management though."
         position={100}
       >
         <ManaLevelChartComponent
@@ -30,6 +32,7 @@ class ManaLevelChart extends Analyzer {
           start={start}
           end={end}
           offset={offset}
+          combatants={this.combatants}
           manaUpdates={this.manaValues.manaUpdates}
         />
       </Panel>

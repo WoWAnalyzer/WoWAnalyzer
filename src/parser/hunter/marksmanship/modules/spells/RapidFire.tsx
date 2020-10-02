@@ -34,18 +34,7 @@ class RapidFire extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    options.abilities.add({
-      spell: SPELLS.RAPID_FIRE,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      cooldown: 20,
-      gcd: {
-        base: 1500,
-      },
-      castEfficiency: {
-        suggestion: true,
-        recommendedEfficiency: 0.95,
-      },
-    });
+
     this.addEventListener(EventEmitter.catchAll, this.onEvent);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), (event: ApplyBuffEvent) => this.onAffectingBuffChange(event));

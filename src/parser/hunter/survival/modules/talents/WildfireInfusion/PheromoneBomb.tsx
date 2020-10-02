@@ -26,16 +26,20 @@ class PheromoneBomb extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+
   damage = 0;
   casts = 0;
   kcCastTimestamp = 0;
   focusGained = 0;
   resets = 0;
+
   protected enemies!: Enemies;
 
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV), this.onPetDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.PHEROMONE_BOMB_WFI_DOT, SPELLS.PHEROMONE_BOMB_WFI_IMPACT]), this.onPlayerDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHEROMONE_BOMB_WFI), this.onBombCast);

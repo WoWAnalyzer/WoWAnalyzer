@@ -5,16 +5,14 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
+const DEATHSTRIKE_COST = 40;
+
 class Heartbreaker extends Analyzer {
   rpGains = [];
   hsCasts = 0;
-  deathStrikeCost = 45;
 
   constructor(...args) {
     super(...args);
-    if (this.selectedCombatant.hasTalent(SPELLS.OSSUARY_TALENT.id)) {
-      this.deathStrikeCost -= 5;
-    }
     this.active = this.selectedCombatant.hasTalent(SPELLS.HEARTBREAKER_TALENT.id);
   }
 
@@ -49,7 +47,7 @@ class Heartbreaker extends Analyzer {
         label="Runic Power gained"
         tooltip={(
           <>
-            Resulting in about {Math.floor(this.totalRPGained / this.deathStrikeCost)} extra Death Strikes.<br />
+            Resulting in about {Math.floor(this.totalRPGained / DEATHSTRIKE_COST)} extra Death Strikes.<br />
             Your Heart Strike hit on average {this.averageHearStrikeHits} targets.
           </>
         )}

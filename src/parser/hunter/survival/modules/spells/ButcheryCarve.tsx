@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
 import SpellLink from 'common/SpellLink';
@@ -40,19 +41,20 @@ class ButcheryCarve extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.spellKnown), this.onDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.spellKnown), this.onCast);
   }
 
   get avgTargetsHitThreshold() {
     return {
-      actual: (this.targetsHit / this.casts).toFixed(1),
+      actual: Number((this.targetsHit / this.casts).toFixed(1)),
       isLessThan: {
         minor: 2,
         average: 2,
         major: 2,
       },
-      style: 'decimal',
+      style: ThresholdStyle.DECIMAL,
     };
   }
 
@@ -85,10 +87,10 @@ class ButcheryCarve extends Analyzer {
     }
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
-      when(this.avgTargetsHitThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+      when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
           .icon(this.spellKnown.icon)
           .actual(`${actual} average targets hit per cast`)

@@ -65,6 +65,10 @@ import VisionOfPerfection from './modules/azerite/essences/VisionOfPerfection';
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
 import AstralShift from '../shared/spells/AstralShift';
+// Potency Conduits
+import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
+import HeavyRainfall from './modules/shadowlands/conduits/HeavyRainfall';
+import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 
@@ -144,6 +148,11 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers:
     cloudburstNormalizer: CloudburstNormalizer,
+
+    // Potency Conduits
+    embraceOfEarth: EmbraceOfEarth,
+    heavyRainfall: HeavyRainfall,
+    swirlingCurrents: SwirlingCurrents,
   };
 
   generateResults(...args) {

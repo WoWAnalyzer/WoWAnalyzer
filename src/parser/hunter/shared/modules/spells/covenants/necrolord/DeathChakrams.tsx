@@ -11,24 +11,30 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceIcon from 'common/ResourceIcon';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class DeathChakrams extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
+
   damage: number = 0;
   focusGained: number = 0;
   focusWasted: number = 0;
+
   protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
-    this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
+
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+
     if (!this.active) {
       return;
     }
+
     options.abilities.add({
-      spell: SPELLS.DEATH_CHAKRAM,
+      spell: SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 45,
       gcd: {
@@ -39,6 +45,7 @@ class DeathChakrams extends Analyzer {
         recommendedEfficiency: 0.9,
       },
     });
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]), this.onDamage);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE), this.onEnergize);
   }

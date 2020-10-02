@@ -16,6 +16,11 @@ class Buffs extends CoreBuffs {
         triggeredBySpellId: SPELLS.AIMED_SHOT.id,
       },
       {
+        spellId: SPELLS.LOCK_AND_LOAD_BUFF.id,
+        timelineHightlight: true,
+        triggeredBySpellId: SPELLS.LOCK_AND_LOAD_TALENT.id,
+      },
+      {
         spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         timelineHightlight: true, // showing because it's relevant to know when we couldn't attack (this could explain some downtime)
         triggeredBySpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,

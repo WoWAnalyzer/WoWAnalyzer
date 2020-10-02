@@ -52,10 +52,10 @@ class BlurOfTalons extends Analyzer {
     options.statTracker.add(SPELLS.BLUR_OF_TALONS_BUFF.id, {
       agility: this.agility,
     });
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLUR_OF_TALONS_BUFF), (event: ApplyBuffEvent) => this.handleStacks(event));
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BLUR_OF_TALONS_BUFF), (event: ApplyBuffStackEvent) => this.handleStacks(event));
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLUR_OF_TALONS_BUFF), (event: RemoveBuffEvent) => this.handleStacks(event));
-    this.addEventListener(Events.fightend, (event: FightEndEvent) => this.handleStacks(event));
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLUR_OF_TALONS_BUFF), this.handleStacks);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BLUR_OF_TALONS_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLUR_OF_TALONS_BUFF), this.handleStacks);
+    this.addEventListener(Events.fightend, this.handleStacks);
   }
 
   get blurOfTalonsTimesByStacks() {

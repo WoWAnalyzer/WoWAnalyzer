@@ -8,6 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 class AuraOfMercy extends Analyzer {
@@ -42,11 +43,12 @@ class AuraOfMercy extends Analyzer {
         average: 2000,
         major: 1500,
       },
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
-    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <Trans>
           The healing done by your <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> is low. Try to

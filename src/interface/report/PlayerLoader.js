@@ -128,7 +128,7 @@ class PlayerLoader extends React.PureComponent {
       combatants.forEach(player => {
         if (player.error || player.specID === -1) {
           if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
-            console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see FakePlayerHelper.ts for more information.');
+            console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.');
             player = generateFakeCombatantInfo(player);
           } else {
             return;

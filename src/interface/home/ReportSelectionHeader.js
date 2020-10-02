@@ -6,12 +6,18 @@ import { Trans } from '@lingui/macro';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import Warning from 'interface/Alert/Warning';
 import { getReportHistory } from 'interface/selectors/reportHistory';
-import CharacterSearch from 'interface/CharacterSearch';
-
+import NameSearch, { SearchType } from 'interface/NameSearch';
+import ReportIcon from 'interface/icons/Events';
+import CharacterIcon from 'interface/icons/Person';
+import GuildIcon from 'interface/icons/People';
 import ReportSelecter from '../others/ReportSelecter';
 import ReportHistory from './ReportHistory';
 
 import '../Header.scss';
+
+const STATE_SEARCH_REPORT = 0;
+const STATE_SEARCH_CHAR = 1;
+const STATE_SEARCH_GUILD = 2;
 
 class ReportSelectionHeader extends React.PureComponent {
   static propTypes = {
@@ -21,23 +27,52 @@ class ReportSelectionHeader extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      reportSelectionActive: true,
+      searchType: STATE_SEARCH_REPORT,
     };
-    this.handleToggleCharacterSearchClick = this.handleToggleCharacterSearchClick.bind(this);
-    this.handleToggleReportSelectorClick = this.handleToggleReportSelectorClick.bind(this);
+    this.handleCharacterSearchClick = this.handleCharacterSearchClick.bind(this);
+    this.handleReportSearchClick = this.handleReportSearchClick.bind(this);
+    this.handleGuildSearchClick = this.handleGuildSearchClick.bind(this);
   }
 
-  handleToggleCharacterSearchClick(e) {
+  handleCharacterSearchClick(e) {
     e.preventDefault();
     this.setState({
-      reportSelectionActive: false,
+      searchType: STATE_SEARCH_CHAR,
     });
   }
-  handleToggleReportSelectorClick(e) {
+
+  handleReportSearchClick(e) {
     e.preventDefault();
     this.setState({
-      reportSelectionActive: true,
+      searchType: STATE_SEARCH_REPORT,
     });
+  }
+
+  handleGuildSearchClick(e) {
+    e.preventDefault();
+    this.setState({
+      searchType: STATE_SEARCH_GUILD,
+    });
+  }
+
+  renderSearch() {
+    switch (this.state.searchType) {
+      case STATE_SEARCH_CHAR:
+        return (<>
+          <NameSearch type={SearchType.CHARACTER} />
+          <br />
+          <Warning>
+            <Trans>
+              The character page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. You can still analyze these fights by manually finding the report on Warcraft Logs and using the report link.
+            </Trans>
+          </Warning>
+        </>);
+      case STATE_SEARCH_GUILD:
+        return <NameSearch type={SearchType.GUILD} />;
+      case STATE_SEARCH_REPORT:
+      default:
+        return <ReportSelecter />;
+    }
   }
 
   render() {
@@ -53,29 +88,22 @@ class ReportSelectionHeader extends React.PureComponent {
                 <Logo />
                 <h1>WoWAnalyzer</h1>
               </a>
-              <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report:</Trans>
+              <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report below.</Trans>
               <div style={{ margin: '30px auto', maxWidth: 700, textAlign: 'left' }}>
-                {this.state.reportSelectionActive ? (
-                  <>
-                    <ReportSelecter />
-                    <Trans>or <a href="/" onClick={this.handleToggleCharacterSearchClick}>
-                      search for a character
-                    </a>.</Trans>
-                  </>
-                ) : (
-                  <>
-                    <CharacterSearch />
-                    <Trans>or <a href="/" onClick={this.handleToggleReportSelectorClick}>
-                      enter a report link
-                    </a>.</Trans><br /><br />
-
-                    <Warning>
-                      <Trans>
-                        The character page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. You can still analyze these fights by manually finding the report on Warcraft Logs and using the report link.
-                      </Trans>
-                    </Warning>
-                  </>
-                )}
+                <nav>
+                  <ul>
+                    <li key="report" className={this.state.searchType === STATE_SEARCH_REPORT ? "active" : undefined}>
+                      <a href="/" style={{padding:'5px'}} onClick={this.handleReportSearchClick}><ReportIcon /><Trans>Report</Trans></a>
+                    </li>
+                    <li key="character" className={this.state.searchType === STATE_SEARCH_CHAR ? "active" : undefined}>
+                      <a href="/" style={{padding:'5px'}} onClick={this.handleCharacterSearchClick}><CharacterIcon /><Trans>Character</Trans></a>
+                    </li>
+                    <li key="guild" className={this.state.searchType === STATE_SEARCH_GUILD ? "active" : undefined}>
+                      <a href="/" style={{padding:'5px'}} onClick={this.handleGuildSearchClick}><GuildIcon /><Trans>Guild</Trans></a>
+                    </li>
+                  </ul>
+                </nav>
+                {this.renderSearch()}
               </div>
             </div>
             {reportHistory.length !== 0 && (

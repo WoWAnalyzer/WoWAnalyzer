@@ -22,7 +22,9 @@ class GuerrillaTactics extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id);
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_GUERRILLA_TACTICS), this.onDamage);
   }
 

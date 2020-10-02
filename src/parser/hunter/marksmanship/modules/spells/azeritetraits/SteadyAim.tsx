@@ -32,9 +32,9 @@ class SteadyAim extends Analyzer {
     this.active = this.selectedCombatant.hasTrait(SPELLS.STEADY_AIM.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShot);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STEADY_SHOT), this.onSteadyShot);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), (event: ApplyDebuffEvent) => this.onDebuffChange(event));
-    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), (event: ApplyDebuffStackEvent) => this.onDebuffChange(event));
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), (event: RemoveDebuffEvent) => this.onDebuffChange(event));
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), this.onDebuffChange);
+    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), this.onDebuffChange);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), this.onDebuffChange);
   }
 
   get averageStacksPerAimed() {

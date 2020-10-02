@@ -13,23 +13,29 @@ import UptimeIcon from 'interface/icons/Uptime';
 import { formatPercentage } from 'common/format';
 import CritIcon from 'interface/icons/CriticalStrike';
 import { RESONATING_ARROW_CRIT_INCREASE } from 'parser/hunter/shared/constants';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class ResonatingArrow extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     enemies: Enemies,
   };
+
   casts: number = 0;
   debuffs: number = 0;
+
   protected abilities!: Abilities;
   protected enemies!: Enemies;
 
   constructor(options: any) {
     super(options);
-    this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
+
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+
     if (!this.active) {
       return;
     }
+
     options.abilities.add({
       spell: SPELLS.RESONATING_ARROW,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -42,6 +48,7 @@ class ResonatingArrow extends Analyzer {
         recommendedEfficiency: 0.9,
       },
     });
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW), this.onCast);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DEBUFF), this.onDebuff);
   }

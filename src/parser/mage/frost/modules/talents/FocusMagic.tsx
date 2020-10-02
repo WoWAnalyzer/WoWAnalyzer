@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -32,13 +33,13 @@ class FocusMagic extends Analyzer {
         average: 0.85,
         major: 0.75,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.focusMagicBuffUptimeThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You had low uptime on <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />. In order to get benefit from this talent, ensure that you are putting <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} /> on another player or trading the buff with another mage before the pull. If you buffed a player for the entire fight but still had low uptime, consider giving the buff to a player that will crit more often so the buff can trigger as many times as possible.</>)
           .icon(SPELLS.ICE_LANCE.icon)
           .actual(`${formatPercentage(this.buffUptime)}% Focus Magic Uptime`)

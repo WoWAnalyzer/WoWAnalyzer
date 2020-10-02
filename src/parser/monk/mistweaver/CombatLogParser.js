@@ -33,6 +33,8 @@ import LifeCocoon from './modules/spells/LifeCocoon';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import RenewingMist from './modules/spells/RenewingMist';
 import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
+import InvokeYulon from './modules/spells/InvokeYulon';
+import InvokeChiJi from './modules/talents/InvokeChiJi';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
@@ -55,11 +57,21 @@ import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
 
-//conduits
-//endurance
+// Conduits
+// Endurance
 import GroundingBreath from '../shared/modules/conduits/GroundingBreath';
 import HarmDenial from '../shared/modules/conduits/HarmDenial';
 import FortifyingIngredients from '../shared/modules/conduits/FortifyingIngredients';
+
+// Potency
+import JadeBond from './modules/shadowlands/conduits/JadeBond';
+import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
+import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
+import ImbuedReflections from '../shared/modules/conduits/ImbuedReflections';
+
+// Legendaries
+import TearofMorning from './modules/shadowlands/legendaries/TearofMorning';
+import AncientTeachingsoftheMonastery from './modules/shadowlands/legendaries/AncientTeachingsoftheMonastery';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -102,6 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
     renewingMist: RenewingMist,
     lifeCocoon: LifeCocoon,
     touchOfDeath: TouchOfDeath,
+    invokeYulon: InvokeYulon,
 
     // Talents
     chiBurst: ChiBurst,
@@ -114,6 +127,7 @@ class CombatLogParser extends CoreCombatLogParser {
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
     tier45Comparison: Tier45Comparison,
     upwelling: Upwelling,
+    invokeChiJi: InvokeChiJi,
 
     // Mana Tab
     manaTracker: ManaTracker,
@@ -121,10 +135,20 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmTracker: HealingEfficiencyTracker,
 
     // Conduits
+    // Endurance
     groundingBreath: GroundingBreath,
     harmDenial: HarmDenial,
     fortifyingIngredients: FortifyingIngredients,
 
+    // Potency
+    jadeBond: JadeBond,
+    nourishingChi: NourishingChi,
+    risingSunRevival: RisingSunRevival,
+    imbuedReflections: ImbuedReflections,
+
+    // Legendaries
+    tearofMorning: TearofMorning,
+    ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
   };
 }
 

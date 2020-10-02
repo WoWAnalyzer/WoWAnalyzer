@@ -15,13 +15,13 @@ export default {
     id: 20271,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 600,
+    manaCost: 300,
   },
   JUDGMENT_CAST_HOLY: {
     id: 275773,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 600,
+    manaCost: 300,
   },
   JUDGMENT_CAST_PROTECTION: {
     id: 275779,
@@ -32,7 +32,7 @@ export default {
     id: 220637,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 600,
+    manaCost: 300,
   },
   DIVINE_STEED: {
     id: 190784,
@@ -135,18 +135,19 @@ export default {
     id: 53563,
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
+    manaCost: 250,
   },
   FLASH_OF_LIGHT: {
     id: 19750,
     name: 'Flash of Light',
     icon: 'spell_holy_flashheal',
-    manaCost: 4400,
+    manaCost: 2200,
   },
   HOLY_SHOCK_CAST: {
     id: 20473,
     name: 'Holy Shock',
     icon: 'spell_holy_searinglight',
-    manaCost: 2000,
+    manaCost: 1400,
   },
   HOLY_SHOCK_HEAL: {
     id: 25914,
@@ -167,19 +168,18 @@ export default {
     id: 85222,
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
-    manaCost: 2800,
   },
   HOLY_LIGHT: {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 2600,
+    manaCost: 1600,
   },
   LIGHT_OF_THE_MARTYR: {
     id: 183998,
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
-    manaCost: 1400,
+    manaCost: 700,
   },
   LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN: {
     id: 196917,
@@ -260,6 +260,7 @@ export default {
     id: 4987,
     name: 'Cleanse',
     icon: 'spell_holy_purify',
+    manaCost: 650,
   },
   DEVOTION_AURA_BUFF: {
     id: 210320,

@@ -1,11 +1,20 @@
 import React from 'react';
 
-import { Anomoly, Gao, Zerotorescue, Abelito75, niseko, blazyb, JeremyDwayne, FraunchToost } from 'CONTRIBUTORS';
+import { Anomoly, Gao, Zerotorescue, Abelito75, niseko, blazyb, JeremyDwayne, FraunchToost, Tyndi, Moonrabbit } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 2), <>Corrected Nourshing Chi to track all hots. </>, Moonrabbit),
+  change(date(2020, 10, 1), <>Updated spell data so stat weights will be accurate. </>, Abelito75),
+  change(date(2020, 10, 1), <>Added Statistics for Tear of Morning and Ancient Teachings of the Monastery. </>, Abelito75),
+  change(date(2020, 9, 30), <>Integration Tests have been added for Mistweaver. </>, Anomoly),
+  change(date(2020, 9, 30), <>Statistic created for the potency conduit Imbued Reflections. </>, Abelito75),
+  change(date(2020, 9, 26), <>Added Yu'lon and Chi-ji to the cooldown tracker. </>, Abelito75),
+  change(date(2020, 9, 26), <>Added Rising Sun Revival, Jade Bond, and Nourishing Chi. </>, Abelito75),
+  change(date(2020, 9, 26), <>Updated Checklist to include Touch of Death, Yu'lon and Chi-ji.</>, Abelito75),
+  change(date(2020, 9, 22), <>Updated pieces to the Mistweaver Core for Shadowlands.</>, Tyndi),
   change(date(2020, 9, 22), <>Mistweaver cleanup for shadowlands. </>, Abelito75),
   change(date(2020, 9, 21), <>Added all endurance conduits. </>, Abelito75),
   change(date(2020, 9, 1), <>Initial Shadowlands cleanup activities. </>, Anomoly),
