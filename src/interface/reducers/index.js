@@ -1,9 +1,7 @@
-import { connectRouter } from 'connected-react-router';
 import { combineReducers } from 'redux';
 
 export default history => combineReducers({
   // System
-  router: connectRouter(history),
   error: require('./error').default,
 
   // App
