@@ -8,9 +8,9 @@ import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetra
 import StatisticBar from 'interface/statistics/StatisticBar';
 
 import { AutoSizer } from 'react-virtualized';
-import { AreaSeries, XYPlot } from 'react-vis';
-import groupDataForChart from 'common/groupDataForChart';
+import FlushLineChart from 'interface/others/FlushLineChart';
 import { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { HUNTER_BASE_FOCUS_MAX, HUNTER_BASE_FOCUS_REGEN } from 'parser/hunter/shared/constants';
 
 /**
@@ -39,7 +39,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
         average: 0.85,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -64,8 +64,8 @@ class FocusCapTracker extends RegenResourceCapTracker {
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }
 
-  suggestions(when: any) {
-    when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.</>)
         .icon('ability_hunter_focusfire')
         .actual(`${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`)
@@ -74,7 +74,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
   }
 
   statistic() {
-    const groupedData: any = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const data = Object.entries(this.bySecond).map(([sec, val]) => ({'time': sec, 'val': val}));
     return (
       <StatisticBar
         position={STATISTIC_ORDER.CORE(1)}
@@ -99,21 +99,9 @@ class FocusCapTracker extends RegenResourceCapTracker {
             </div>
             <div className="flex-main chart">
               {this.missedRegen > 0 && (
-                <AutoSizer>
-                  {({ width, height }) => (
-                    <XYPlot
-                      margin={0}
-                      width={width}
-                      height={height}
-                    >
-                      <AreaSeries
-                        data={Object.keys(groupedData).map(x => ({
-                          x: +x / width,
-                          y: groupedData[x],
-                        }))}
-                        className="primary"
-                      />
-                    </XYPlot>
+                <AutoSizer disableWidth>
+                  {({ height }) => (
+                    <FlushLineChart data={data} duration={this.owner.fightDuration / 1000} height={height} />
                   )}
                 </AutoSizer>
               )}

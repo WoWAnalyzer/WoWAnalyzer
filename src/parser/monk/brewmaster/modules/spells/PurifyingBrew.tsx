@@ -4,12 +4,14 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, When } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { EventType, RemoveDebuffEvent, CastEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
+import FooterChart, { formatTime } from 'interface/others/FooterChart';
 
 import SharedBrews from '../core/SharedBrews';
 import BrewCDR from '../core/BrewCDR';
@@ -53,7 +55,7 @@ class PurifyingBrew extends Analyzer {
   protected abilities!: Abilities;
   protected cdr!: BrewCDR;
 
-  purifyAmounts: number[] = [];
+  purifies: RemoveStaggerEvent[] = [];
   purifyDelays: number[] = [];
 
   heavyPurifies = 0;
@@ -80,7 +82,7 @@ class PurifyingBrew extends Analyzer {
   }
 
   get meanPurify() {
-    if (this.purifyAmounts.length === 0) {
+    if (this.purifies.length === 0) {
       return 0;
     }
 
@@ -88,19 +90,19 @@ class PurifyingBrew extends Analyzer {
   }
 
   get minPurify() {
-    if (this.purifyAmounts.length === 0) {
+    if (this.purifies.length === 0) {
       return 0;
     }
 
-    return this.purifyAmounts.reduce((prev, cur) => (prev < cur) ? prev : cur, Infinity);
+    return this.purifies.reduce((prev, cur) => (prev < cur.amount) ? prev : cur.amount, Infinity);
   }
 
   get maxPurify() {
-    return this.purifyAmounts.reduce((prev, cur) => (prev > cur) ? prev : cur, 0);
+    return this.purifies.reduce((prev, cur) => (prev > cur.amount) ? prev : cur.amount, 0);
   }
 
   get totalPurified() {
-    return this.purifyAmounts.reduce((prev, cur) => prev + cur, 0);
+    return this.purifies.reduce((prev, cur) => prev + cur.amount, 0);
   }
 
   get belowHeavyPurifies() {
@@ -108,7 +110,7 @@ class PurifyingBrew extends Analyzer {
   }
 
   get totalPurifies() {
-    return this.purifyAmounts.length;
+    return this.purifies.length;
   }
 
   get avgPurifyDelay() {
@@ -145,7 +147,7 @@ class PurifyingBrew extends Analyzer {
       this._heavyStaggerDropped = false;
       return;
     }
-    this.purifyAmounts.push(event.amount);
+    this.purifies.push(event);
     const delay = event.timestamp - this._lastHit.timestamp - this._msTilPurify;
     this.purifyDelays.push(delay);
     const hasHeavyStagger = this.selectedCombatant.hasBuff(SPELLS.HEAVY_STAGGER_DEBUFF.id) || this._heavyStaggerDropped;
@@ -168,7 +170,7 @@ class PurifyingBrew extends Analyzer {
         average: PURIFY_DELAY_THRESHOLD / 1000,
         major: PURIFY_DELAY_THRESHOLD / 1000 + 1,
       },
-      style: 'seconds',
+      style: ThresholdStyle.SECONDS,
     };
   }
 
@@ -183,19 +185,19 @@ class PurifyingBrew extends Analyzer {
         average: 1.5 * threshold,
         major: 2 * threshold,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
-    when(this.purifyDelaySuggestion).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
         .actual(`${actual.toFixed(2)}s Average Delay`)
         .recommended(`< ${recommended.toFixed(2)}s is recommended`);
     });
 
-    when(this.purifyHeavySuggestion).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.purifyHeavySuggestion).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You should avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, you should often aim to save your purifies for these parts of the fight.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
         .actual(`${formatPercentage(actual)}% of your purifies were less than Heavy Stagger`)
@@ -204,6 +206,40 @@ class PurifyingBrew extends Analyzer {
   }
 
   statistic() {
+    const spec = {
+      mark: 'bar',
+      transform: [
+        { calculate: `datum.timestamp - ${this.owner.fight.start_time}` , as: 'timestamp' },
+        { calculate: "datum.timestamp / 60000", as: 'time_min' },
+        { calculate: formatTime(), as: 'time_label' },
+      ],
+      encoding: {
+        x: {
+          field: 'time_min',
+          type: 'quantitative' as const,
+          axis: {
+            labelExpr: formatTime('(datum.value * 60000)'),
+            grid: false,
+          },
+          title: null,
+          scale: { zero: true },
+        },
+        y: {
+          field: 'amount',
+          type: 'quantitative' as const,
+          title: null,
+          axis: {
+            grid: false,
+            format: '~s',
+          },
+        },
+        tooltip: [
+          { field: 'time_label', type: 'nominal' as const, title: 'Time' },
+          { field: 'amount', type: 'quantitative' as const, title: 'Amount Purified', format: '.3~s' },
+        ],
+      },
+    };
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PURIFYING_BREW.id} />}
@@ -217,6 +253,7 @@ class PurifyingBrew extends Analyzer {
             Your purifies were delayed from the nearest peak by <strong>{(this.avgPurifyDelay / 1000).toFixed(2)}s</strong> on average.
           </>
         )}
+        footer={(<FooterChart data={this.purifies} spec={spec} />)}
       />
     );
   }

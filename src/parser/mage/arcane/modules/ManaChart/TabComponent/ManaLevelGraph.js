@@ -61,7 +61,7 @@ class Mana extends React.PureComponent {
     const { start, end, manaUpdates, offsetTime } = this.props;
 
     const mana = manaUpdates.map(({ timestamp, current, max }) => {
-      const x = Math.max(timestamp, start);
+      const x = Math.max(timestamp, start) - start;
       return {
         x,
         y: (current / max) * 100,
@@ -72,11 +72,14 @@ class Mana extends React.PureComponent {
     if (this.state.bossHealth.deaths) {
       deaths = this.state.bossHealth.deaths
         .filter(death => death.targetID === this.props.actorId)
-        .map(({ timestamp }) => ({ x: timestamp }));
+        .map(({ timestamp, killingAbility }) => ({
+          x: timestamp - start,
+          ability: killingAbility? killingAbility.name : 'Unknown Ability',
+        }));
     }
 
     const bossData = this.state.bossHealth.series.map((series, i) => {
-      const data = series.data.map(([timestamp, health]) => ({ x: timestamp, y: health }));
+      const data = series.data.map(([timestamp, health]) => ({ x: timestamp - start, y: health }));
 
       return {
         title: `${series.name} Health`,

@@ -125,7 +125,7 @@ class Ascendance extends Analyzer {
       isGreaterThan: {
         major: 1,
       },
-      style: 'absolute',
+      style: 'number',
     };
   }
 

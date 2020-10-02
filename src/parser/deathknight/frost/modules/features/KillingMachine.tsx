@@ -4,6 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, RemoveBuffEvent, RefreshBuffEvent, GlobalCooldownEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -31,7 +32,7 @@ class KillingMachineEfficiency extends Analyzer {
     this.addEventListener(Events.GlobalCooldown, this.globalCooldown);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onRemoveBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onRefreshBuff);    
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onRefreshBuff);
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -43,7 +44,7 @@ class KillingMachineEfficiency extends Analyzer {
     const durationHeld = event.timestamp - this.lastProcTime;
     if(durationHeld > (BUFF_DURATION_MS)){
       this.expiredKMProcs += 1;
-    }       
+    }
   }
 
   onRefreshBuff(event: RefreshBuffEvent){
@@ -83,14 +84,14 @@ class KillingMachineEfficiency extends Analyzer {
         average: .90,
         major: .85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
       suffix: 'Average',
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<React.Fragment> You wasted <SpellLink id={SPELLS.KILLING_MACHINE.id} /> procs. You should be casting <SpellLink id={SPELLS.OBLITERATE_CAST.id} /> or <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> within 1 or 2 GCDs of gaining a Killing Machine proc to avoid wasting it.  See one of the guides on the About tab for more information on when another ability takes precedence over spending Killing Machine</React.Fragment>)
           .icon(SPELLS.KILLING_MACHINE.icon)
           .actual(`${formatPercentage(this.wastedProcRate)}% of Killing Machine procs were either refreshed and lost or expired without being used`)

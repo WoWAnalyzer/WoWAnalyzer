@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
@@ -15,12 +15,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         average: 0.825,
         major: 0.775,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
-    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> (or <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> if selected) to stay off the focus cap and do some damage.</>)
         .icon('spell_mage_altertime')
         .actual(`${formatPercentage(1 - actual)}% downtime`)

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
@@ -14,7 +15,7 @@ class Focus extends Analyzer {
 
   protected focusTracker!: FocusTracker;
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     const bmFocusExtraSuggestion = <>Try to keep focus below max by using <SpellLink id={SPELLS.COBRA_SHOT.id} /> and <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />.</>;
     resourceSuggest(when, this.focusTracker, {
       spell: SPELLS.ASPECT_OF_THE_WILD,

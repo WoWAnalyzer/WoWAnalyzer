@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { When } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import { CastEvent, HealEvent } from 'parser/core/Events';
+import { When } from 'parser/core/ParseResults';
 
 class DivineHymn extends Analyzer {
   healing = 0;
@@ -35,7 +36,7 @@ class DivineHymn extends Analyzer {
     const missedHymnTicks = (this.casts * 5) - this.ticks;
 
     when(missedHymnTicks).isGreaterThan(0)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest('You wasted Divine Hymn ticks. Try to avoid clipping the end of Divine Hymn as well as positioning such that you will not have to move during its duration. ')
           .icon('spell_holy_divinehymn')
           .actual(`${actual} missed Hymn ticks`)

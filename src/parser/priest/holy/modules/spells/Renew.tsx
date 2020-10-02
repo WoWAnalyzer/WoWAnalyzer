@@ -1,13 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { When } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DistanceMoved from 'parser/shared/modules/others/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import { ApplyBuffEvent, CastEvent, GlobalCooldownEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-
-import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../constants';
 
 const MS_BUFFER = 100;
 
@@ -38,10 +37,6 @@ class Renew extends Analyzer {
   lastSalvationCast = 0;
   renewsFromSalvation = 0;
 
-  enduringRenewalActive = false;
-  lastEnduringRenewalSpellCast = 0;
-  renewsFromEnduringRenewal = 0;
-
   benedictionActive = false;
   renewsFromBenedictionAndRenew = 0;
 
@@ -53,9 +48,6 @@ class Renew extends Analyzer {
 
     if (this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id)) {
       this.salvationActive = true;
-    }
-    if (this.selectedCombatant.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id)) {
-      this.enduringRenewalActive = true;
     }
     if (this.selectedCombatant.hasTalent(SPELLS.BENEDICTION_TALENT.id)) {
       this.benedictionActive = true;
@@ -78,7 +70,7 @@ class Renew extends Analyzer {
         average: 3 * this.owner.fightDuration / 1000 / 60,
         major: 4 * this.owner.fightDuration / 1000 / 60,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -120,8 +112,6 @@ class Renew extends Analyzer {
       this.lastCast = event;
     } else if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
       this.lastSalvationCast = event.timestamp;
-    } else if (ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL.includes(spellId)) {
-      this.lastEnduringRenewalSpellCast = event.timestamp;
     }
   }
 
@@ -144,8 +134,6 @@ class Renew extends Analyzer {
 
     if (this.salvationActive && event.timestamp - this.lastSalvationCast < MS_BUFFER) {
       this.renewsFromSalvation += 1;
-    } else if (this.enduringRenewalActive && event.timestamp - this.lastEnduringRenewalSpellCast < MS_BUFFER) {
-      this.renewsFromEnduringRenewal += 1;
     } else {
       this.renewsFromBenedictionAndRenew += 1;
     }
@@ -198,7 +186,7 @@ class Renew extends Analyzer {
 
   suggestions(when: When) {
     when(this.badRenewThreshold)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>You should cast <SpellLink id={SPELLS.RENEW.id} /> less.</>)
             .icon(SPELLS.RENEW.icon)
             .actual(<>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -142,7 +142,7 @@ class HuntersMark extends Analyzer {
         average: 0.925,
         major: 0.9,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -172,8 +172,8 @@ class HuntersMark extends Analyzer {
     );
   }
 
-  suggestions(when: any) {
-    when(this.uptimeThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           Your uptime on the debuff from <SpellLink id={SPELLS.HUNTERS_MARK.id} /> could be better. You should try and keep <SpellLink id={SPELLS.HUNTERS_MARK.id} /> up on a mob that you're actively hitting as much as possible.

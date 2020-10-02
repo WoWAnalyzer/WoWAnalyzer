@@ -67,8 +67,11 @@ import FortifyingIngredients from '../shared/modules/conduits/FortifyingIngredie
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
-
 import ImbuedReflections from '../shared/modules/conduits/ImbuedReflections';
+
+// Legendaries
+import TearofMorning from './modules/shadowlands/legendaries/TearofMorning';
+import AncientTeachingsoftheMonastery from './modules/shadowlands/legendaries/AncientTeachingsoftheMonastery';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -142,6 +145,10 @@ class CombatLogParser extends CoreCombatLogParser {
     nourishingChi: NourishingChi,
     risingSunRevival: RisingSunRevival,
     imbuedReflections: ImbuedReflections,
+
+    // Legendaries
+    tearofMorning: TearofMorning,
+    ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
   };
 }
 

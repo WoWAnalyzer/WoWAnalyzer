@@ -1,9 +1,9 @@
-import EnduringRenewal from './EnduringRenewal';
+import RenewedFaith from 'parser/priest/holy/modules/talents/15/RenewedFaith';
 import Enlightenment from './Enlightenment';
 import TrailOfLight from './TrailOfLight';
 
 export {
-  EnduringRenewal,
+  RenewedFaith,
   Enlightenment,
   TrailOfLight,
 };
