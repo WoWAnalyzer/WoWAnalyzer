@@ -23,11 +23,7 @@ class PrayerCircle extends Analyzer {
   protected abilities!: Abilities;
 
   lastCohCastAt: number = 0;
-  lastPohCastStart: {
-    timestamp: number,
-    isBuffed: boolean,
-    expectedCooldown: number,
-  } = { timestamp: 0, isBuffed: false, expectedCooldown: 0 };
+  lastCastStartWasBuffed: boolean = false;
   buffedCohCasts = 0;
 
   get unbuffedCohCasts() {
@@ -50,12 +46,11 @@ class PrayerCircle extends Analyzer {
   }
 
   startPohCast(event: BeginCastEvent) {
-    this.lastPohCastStart.timestamp = event.timestamp;
-    this.lastPohCastStart.isBuffed = (event.timestamp - this.lastCohCastAt) < PR_BUFF_DURATION;
+    this.lastCastStartWasBuffed = this.selectedCombatant.hasBuff(SPELLS.PRAYER_CIRCLE_BUFF.id);
   }
 
   finishPohCast(event: CastEvent) {
-    if (this.lastPohCastStart.isBuffed) {
+    if (this.lastCastStartWasBuffed) {
       this.buffedCohCasts += 1;
     }
   }
