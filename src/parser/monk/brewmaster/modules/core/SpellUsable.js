@@ -15,9 +15,7 @@ export default class SpellUsable extends CoreSpellUsable {
   }
 
   on_byPlayer_cast(event) {
-    if (super.on_byPlayer_cast) {
-      super.on_byPlayer_cast(event);
-    }
+    super.on_byPlayer_cast(event);
 
     if (event.ability.guid !== SPELLS.IRONSKIN_BREW.id) {
       return;
