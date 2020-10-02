@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber } from 'common/format';
 
-class FreezingWinds extends Analyzer {
+class ColdFront extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
   };
@@ -20,13 +20,12 @@ class FreezingWinds extends Analyzer {
 
   constructor(props: any) {
     super(props);
-    this.active = false;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.COLD_FRONT.bonusID);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF), this.onBuffApplied);
   }
 
   onBuffApplied(event: ApplyBuffEvent) {
     const buffRemovedEvent = this.eventHistory.last(1,500,Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF));
-    this.log(buffRemovedEvent);
     if (buffRemovedEvent) {
       this.bonusFrozenOrbs += 1;
     }
@@ -49,4 +48,4 @@ class FreezingWinds extends Analyzer {
 
 }
 
-export default FreezingWinds;
+export default ColdFront;
