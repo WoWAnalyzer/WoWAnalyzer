@@ -1,20 +1,21 @@
 import React from 'react';
 
 import ItemHealingDone from 'interface/ItemHealingDone';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 import AtonementDamageSource from '../../features/AtonementDamageSource';
 import isAtonement from '../../core/isAtonement';
 
-class MindGames extends Analyzer {
+class Mindgames extends Analyzer {
   static dependencies = {
     atonementDamageSource: AtonementDamageSource,
   };
@@ -26,14 +27,18 @@ class MindGames extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES_ABSORB), this.onMindgamesAbsorbed);
+
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
 
     if (isAtonement(event)) {
 
       const atonenementDamageEvent = this.atonementDamageSource.event;
-      if (atonenementDamageEvent.ability.guid !== SPELLS.MIND_GAMES.id) {
+      if (atonenementDamageEvent.ability.guid !== SPELLS.MINDGAMES.id) {
         return;
       }
 
@@ -42,47 +47,39 @@ class MindGames extends Analyzer {
     }
 
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.MIND_GAMES_HEAL.id) {
+    if (spellId === SPELLS.MINDGAMES_HEAL.id) {
       this.directHealing += event.amount + (event.absorbed || 0);
       return;
     }
   }
 
-  on_byPlayer_absorbed(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MIND_GAMES_ABSORB.id) {
-      return;
-    }
+  onMindgamesAbsorbed(event) {
     this.preventedDamage += event.amount;
   }
 
   statistic() {
     return (
-      <>
-        <StatisticBox
-          position={STATISTIC_ORDER.OPTIONAL(50)}
-          icon={<SpellIcon id={SPELLS.MIND_GAMES.id} />}
-          value={<ItemHealingDone amount={this.atonementHealing + this.directHealing + this.preventedDamage} />}
-          label={
-            <TooltipElement
-              content={
-                <>
-                  Healing Breakdown:
-                      <ul>
-                    <li>{formatNumber(this.atonementHealing)} Atonement healing</li>
-                    <li>{formatNumber(this.directHealing)} Direct Healing</li>
-                    <li>{formatNumber(this.preventedDamage)} Prevented Damage</li>
-                  </ul>
-                </>
-              }
-            >
-              Total Healing Contributed
-                </TooltipElement>
-          }
-        />
-      </>
-    );
+      <Statistic
+        size="flexible"
+        tooltip={(
+          <>
+            Healing Breakdown:
+            <ul>
+              <li>{formatNumber(this.atonementHealing)} Atonement healing</li>
+              <li>{formatNumber(this.directHealing)} Direct Healing</li>
+              <li>{formatNumber(this.preventedDamage)} Prevented Damage</li>
+            </ul>
+          </>
+        )}
+        category={STATISTIC_CATEGORY.COVENANTS}>
+          <BoringSpellValueText spell={SPELLS.MINDGAMES}>
+            <>
+              <ItemHealingDone amount={this.atonementHealing + this.directHealing + this.preventedDamage} />
+            </>
+        </BoringSpellValueText>
+      </Statistic>
+    )
   }
 }
 
-export default MindGames;
+export default Mindgames;

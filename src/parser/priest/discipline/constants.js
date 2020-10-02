@@ -26,7 +26,7 @@ export const ATONEMENT_DAMAGE_SOURCES = {
   [SPELLS.HOLY_NOVA.id]: true,
   [SPELLS.MIND_SEAR.id]: true,
   [SPELLS.MIND_BLAST.id]: true,
-  [SPELLS.MIND_GAMES.id]: true,
+  [SPELLS.MINDGAMES.id]: true,
 };
 
 export const ATONEMENT_COEFFICIENT = 0.50;
