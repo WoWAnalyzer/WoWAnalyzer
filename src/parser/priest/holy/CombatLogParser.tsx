@@ -90,7 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     Enlightenment: Talents.t15.Enlightenment,
     TrailOfLight: Talents.t15.TrailOfLight,
-    EnduringRenewal: Talents.t15.RenewedFaith,
+    RenewedFaith: Talents.t15.RenewedFaith,
 
     AngelicFeather: Talents.t30.AngelicFeather,
     AngelsMercy: Talents.t30.AngelsMercy,
