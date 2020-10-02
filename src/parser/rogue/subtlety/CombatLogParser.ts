@@ -31,13 +31,13 @@ import SymbolsDamageTracker from './modules/core/SymbolsDamageTracker';
 import DanceDamageTracker from './modules/core/DanceDamageTracker';
 import DarkShadowNightblade from './modules/talents/DarkShadow/DarkShadowNightblade';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
-import FindWeakness from './modules/talents/FindWeakness';
 
 import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
 import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingReprimand';
 import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
 import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
 
+import AkaarisSoulFragment from './modules/spell/shadowlands/legendaries/AkaarisSoulFragment';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
@@ -79,13 +79,15 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     darkShadowContribution: DarkShadowContribution,
     darkShadowNightblade: DarkShadowNightblade,
-    findWeakness: FindWeakness,
 
     // Covenants
     serratedBoneSpike: SerratedBoneSpike,
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
     sepsis: Sepsis,
+
+    // Legendaries
+    akaarisSoulFragment: AkaarisSoulFragment,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

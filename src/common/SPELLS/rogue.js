@@ -223,11 +223,6 @@ export default {
     name: 'The First of the Dead',
     icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
   },
-  FIND_WEAKNESS_BUFF: {
-    id: 91021,
-    name: 'Find Weakness',
-    icon: 'ability_rogue_findweakness',
-  },
 
   // Sets
 

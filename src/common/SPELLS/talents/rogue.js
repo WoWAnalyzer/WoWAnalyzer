@@ -10,7 +10,7 @@ export default {
   PREY_ON_THE_WEAK_TALENT: { id: 131511, name: 'Prey on the Weak', icon: 'ability_rogue_preyontheweak' },
   ALACRITY_TALENT: { id: 193539, name: 'Alacrity', icon: 'ability_paladin_speedoflight' },
   // Subtlety
-  FIND_WEAKNESS_TALENT: { id: 91023, name: 'Find Weakness', icon: 'ability_rogue_findweakness' },
+  PREMEDITATION_TALENT: { id: 343160, name: 'Premeditation', icon: 'spell_shadow_possession' },
   GLOOMBLADE_TALENT: { id: 200758, name: 'Gloomblade', icon: 'ability_ironmaidens_convulsiveshadows', energyCost: 35 },
   SHADOW_FOCUS_TALENT: { id: 108209, name: 'Shadow Focus', icon: 'rogue_shadowfocus' },
   SOOTHING_DARKNESS_TALENT: { id: 200759, name: 'Soothing Darkness', icon: 'spell_shadow_twilight' },
