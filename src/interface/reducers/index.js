@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-export default history => combineReducers({
+export default () => combineReducers({
   // System
   error: require('./error').default,
 
