@@ -48,6 +48,11 @@ export default {
     name: 'Infernal Cascade',
     icon: 'ability_rhyolith_immolation',
   },
+  INFERNAL_CASCADE_BUFF: {
+    id: 336832,
+    name: 'Infernal Cascade',
+    icon: 'ability_rhyolith_immolation',
+  },
 
   //Frost
   SHIVERING_CORE: {
@@ -92,6 +97,11 @@ export default {
     name: 'Tempest Barrier',
     icon: 'inv_shield_1h_artifactstormfist_d_04',
   },
+  TEMPEST_BARRIER_ABSORB: {
+    id: 337299,
+    name: 'Tempest Barrier',
+    icon: 'inv_shield_1h_artifactstormfist_d_04',
+  },
   FLOW_OF_TIME: {
     id: 336636,
     name: 'Flow of Time',
@@ -122,7 +132,12 @@ export default {
   SIPHONED_MALICE: {
     id: 337087,
     name: 'Siphoned Malice',
-    icon: 'inv_articact_stolenpower',
+    icon: 'inv_artifact_stolenpower',
+  },
+  SIPHONED_MALICE_BUFF: {
+    id: 337090,
+    name: 'Siphoned Malice',
+    icon: 'inv_artifact_stolenpower',
   },
   GIFT_OF_THE_LICH: {
     id: 336999,
