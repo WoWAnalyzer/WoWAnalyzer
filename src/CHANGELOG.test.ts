@@ -1,15 +1,20 @@
 import AVAILABLE_CONFIGS from 'parser';
+import { ChangelogEntry } from 'common/changelog';
+
 import CORE_CHANGELOG from './CHANGELOG';
 
 describe('CHANGELOG', () => {
-  const allChangelogs = AVAILABLE_CONFIGS.reduce((obj, config) => {
-    const specName = `${config.spec.specName} ${config.spec.className}`;
-    obj[specName] = config.changelog;
-    return obj;
-  }, {
-    'Core': CORE_CHANGELOG,
-  });
-  const testEntries = test => {
+  const allChangelogs = AVAILABLE_CONFIGS.reduce<{ [specName: string]: ChangelogEntry[] }>(
+    (obj, config) => {
+      const specName = `${config.spec.specName} ${config.spec.className}`;
+      obj[specName] = config.changelog;
+      return obj;
+    },
+    {
+      Core: CORE_CHANGELOG,
+    },
+  );
+  const testEntries = (test: (entry: ChangelogEntry) => void) => {
     Object.keys(allChangelogs).forEach(name => {
       const changelog = allChangelogs[name];
 
@@ -19,7 +24,9 @@ describe('CHANGELOG', () => {
         } catch (error) {
           // Custom fail handling so that we can point to the proper changelog without poluting the Jest log with all spec names
           // eslint-disable-next-line no-undef
-          fail(`Changelog entry #${index} of the ${name} changelog does not meet this requirement.`);
+          fail(
+            `Changelog entry #${index} of the ${name} changelog does not meet this requirement.`,
+          );
         }
       });
     });
