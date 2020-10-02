@@ -30,11 +30,9 @@ class Mindgames extends Analyzer {
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES_ABSORB), this.onMindgamesAbsorbed);
-
   }
 
   onHeal(event) {
-
     if (isAtonement(event)) {
 
       const atonenementDamageEvent = this.atonementDamageSource.event;
