@@ -40,7 +40,10 @@ import Subterfuge from './modules/talents/Subterfuge';
 import MasterAssassin from './modules/talents/MasterAssassin';
 
 // Covenants
-import SerratedBoneSpike from './modules/spells/shadowlands/covenants/necrolord/SerratedBoneSpike';
+import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
+import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingReprimand';
+import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
+import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -90,6 +93,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     serratedBoneSpike: SerratedBoneSpike,
+    echoingReprimand: EchoingReprimand,
+    flagellation: Flagellation,
+    sepsis: Sepsis,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

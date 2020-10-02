@@ -29,6 +29,11 @@ import BetweenTheEyes from './modules/spells/BetweenTheEyes';
 import BetweenTheEyesDamageTracker from './modules/spells/BetweenTheEyesDamageTracker';
 import Finishers from './modules/features/Finishers';
 
+import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
+import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingReprimand';
+import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
+import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Feature
@@ -67,6 +72,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     sliceAndDiceUptime: SliceAndDiceUptime,
+
+    // Covenants
+    serratedBoneSpike: SerratedBoneSpike,
+    echoingReprimand: EchoingReprimand,
+    flagellation: Flagellation,
+    sepsis: Sepsis,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [ArcaneTorrent, {

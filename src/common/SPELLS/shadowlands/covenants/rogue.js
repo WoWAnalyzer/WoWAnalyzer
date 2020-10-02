@@ -10,6 +10,11 @@ export default {
     name: 'Echoing Reprimand',
     icon: 'inv_knife_1h_artifactskulloferedar_d_06',
   },
+  ECHOING_REPRIMAND_BUFF: {
+    id: 323560,
+    name: 'Echoing Reprimand',
+    icon: 'inv_knife_1h_artifactskulloferedar_d_06',
+  },
   //endregion
 
   //region Necrolord

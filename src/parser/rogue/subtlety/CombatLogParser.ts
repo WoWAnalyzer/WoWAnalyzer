@@ -33,6 +33,11 @@ import DarkShadowNightblade from './modules/talents/DarkShadow/DarkShadowNightbl
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
 import FindWeakness from './modules/talents/FindWeakness';
 
+import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
+import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingReprimand';
+import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
+import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
@@ -76,7 +81,11 @@ class CombatLogParser extends CoreCombatLogParser {
     darkShadowNightblade: DarkShadowNightblade,
     findWeakness: FindWeakness,
 
-    // Traits
+    // Covenants
+    serratedBoneSpike: SerratedBoneSpike,
+    echoingReprimand: EchoingReprimand,
+    flagellation: Flagellation,
+    sepsis: Sepsis,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
