@@ -8,7 +8,7 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
@@ -38,7 +38,7 @@ class SoulFire extends Analyzer {
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={(
           <>

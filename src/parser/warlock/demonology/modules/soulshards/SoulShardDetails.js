@@ -1,12 +1,12 @@
 import React from 'react';
-
+import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 
 import Panel from 'interface/others/Panel';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-
-import WastedShardsIcon from 'parser/warlock/shared/images/warlock_soulshard_bw.jpg';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SoulShardTracker from './SoulShardTracker';
 
 const SOUL_SHARD_ICON = 'inv_misc_gem_amethyst_02';
@@ -44,16 +44,15 @@ class SoulShardDetails extends Analyzer {
   statistic() {
     const shardsWasted = this.soulShardTracker.wasted;
     return (
-      <StatisticBox
-        icon={(
-          <img
-            src={WastedShardsIcon}
-            alt="Wasted Soul Shards"
-          />
-        )}
-        value={shardsWasted}
-        label="Wasted Soul Shards"
-      />
+      <Statistic
+        position={STATISTIC_ORDER.CORE(3)}
+        size="flexible"
+        tooltip={(<>In order for Focus Magic to compete with the other talents on that row, you need to ensure you are getting as much uptime out of the buff as possible. Therefore, if you forget to put the buff on another player or if they player you gave it to is not getting crits very often, then you might need to consider giving the buff to someone else. Ideally, you should aim to trade buffs with another mage who has also taken Focus Magic so you both get the full benefit.</>)}
+      >
+        <BoringSpellValueText spell={SPELLS.SOUL_SHARDS}>
+          {shardsWasted} <small>Wasted Soul Shards</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

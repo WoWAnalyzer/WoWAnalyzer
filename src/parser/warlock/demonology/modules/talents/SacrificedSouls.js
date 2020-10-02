@@ -5,10 +5,11 @@ import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
-
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 import DemoPets from '../pets/DemoPets';
 
@@ -73,17 +74,13 @@ class SacrificedSouls extends Analyzer {
     return this._shadowBoltDamage + this._demonboltDamage;
   }
 
-  subStatistic() {
+  statistic() {
     const hasPS = this.selectedCombatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id);
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.SACRIFICED_SOULS_TALENT.id} /> bonus dmg</>}
-        value={(
-          <>
-            {this.owner.formatItemDamageDone(this.totalBonusDamage)}${hasPS ? '*' : ''}
-          </>
-        )}
-        valueTooltip={(
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={(
           <>
             {formatThousands(this.totalBonusDamage)} bonus damage<br />
             Bonus Shadow Bolt damage: {formatThousands(this._shadowBoltDamage)} ({this.owner.formatItemDamageDone(this._shadowBoltDamage)})<br />
@@ -96,7 +93,11 @@ class SacrificedSouls extends Analyzer {
             )}
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SACRIFICED_SOULS_TALENT}>
+          <ItemDamageDone amount={this.totalBonusDamage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

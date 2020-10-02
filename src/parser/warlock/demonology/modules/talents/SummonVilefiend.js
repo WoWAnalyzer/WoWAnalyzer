@@ -4,9 +4,10 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
-
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 import PETS from '../pets/PETS';
 import DemoPets from '../pets/DemoPets';
@@ -23,14 +24,18 @@ class SummonVilefiend extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id);
   }
 
-  subStatistic() {
+  statistic() {
     const damage = this.demoPets.getPetDamage(PETS.VILEFIEND.guid);
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.SUMMON_VILEFIEND_TALENT.id} /> dmg</>}
-        value={this.owner.formatItemDamageDone(damage)}
-        valueTooltip={`${formatThousands(damage)} damage`}
-      />
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={`${formatThousands(damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.SUMMON_VILEFIEND_TALENT}>
+          <ItemDamageDone amount={damage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
