@@ -16,8 +16,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
  *
  * Example log
  *
- * TODO: Add the 1 second reduction to the barbed shot ability
- * TODO: Can a reasonable statistic be made with the 1 second reduction
  */
 class Bloodletting extends Analyzer {
 
@@ -33,7 +31,6 @@ class Bloodletting extends Analyzer {
     }
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT), this.onBarbedShotDamage);
-
   }
 
   onBarbedShotDamage(event: DamageEvent) {

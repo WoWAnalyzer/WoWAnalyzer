@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -33,6 +33,7 @@ class HuntersMark extends Analyzer {
     enemies: Enemies,
     abilities: Abilities,
   };
+
   casts = 0;
   damage = 0;
   recasts = 0;
@@ -43,6 +44,7 @@ class HuntersMark extends Analyzer {
   markWindow: { [key: string]: { status: string; start: number } } = {};
   damageToTarget: { [key: string]: number } = {};
   enemyID: string = '';
+
   protected enemies!: Enemies;
   protected abilities!: Abilities;
 
@@ -66,10 +68,6 @@ class HuntersMark extends Analyzer {
 
   get uptimePercentage() {
     return this.enemies.getBuffUptime(SPELLS.HUNTERS_MARK.id) / this.owner.fightDuration;
-  }
-
-  get potentialPrecastConfirmation() {
-    return (this.refunds + this.recasts) > this.casts ? <li>We've detected a possible precast, and there might be a discrepancy in amount of total casts versus amount of refunds and casts whilst debuff was active on another target.</li> : '';
   }
 
   onCast(event: CastEvent) {
@@ -144,7 +142,7 @@ class HuntersMark extends Analyzer {
         average: 0.925,
         major: 0.9,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -159,7 +157,6 @@ class HuntersMark extends Analyzer {
             <ul>
               <li>You had a total of {this.casts} casts of Hunter's Mark.</li>
               <li>You cast Hunter's Mark {this.recasts} times, whilst it was active on the target or another target.</li>
-              {this.potentialPrecastConfirmation}
             </ul>
           </>
         )}
@@ -175,8 +172,8 @@ class HuntersMark extends Analyzer {
     );
   }
 
-  suggestions(when: any) {
-    when(this.uptimeThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           Your uptime on the debuff from <SpellLink id={SPELLS.HUNTERS_MARK.id} /> could be better. You should try and keep <SpellLink id={SPELLS.HUNTERS_MARK.id} /> up on a mob that you're actively hitting as much as possible.

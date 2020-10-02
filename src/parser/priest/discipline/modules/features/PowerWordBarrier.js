@@ -14,11 +14,6 @@ const POWER_WORD_BARRIER_REDUCTION = 0.25;
 
 class PowerWordBarrier extends Analyzer {
 
-  constructor(...args) {
-    super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id);
-  }
-
   get damageReducedDuringPowerWordBarrier() {
     return this.totalDamageTakenDuringPWB / (1 - POWER_WORD_BARRIER_REDUCTION) * POWER_WORD_BARRIER_REDUCTION;
   }

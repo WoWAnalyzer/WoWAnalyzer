@@ -332,7 +332,6 @@ exports[`Fire Mage integration test: example log CancelledCasts matches the stat
 >
   <div
     className="panel statistic small value"
-    label="test"
     position={10}
   >
     <div
@@ -3914,56 +3913,19 @@ exports[`Fire Mage integration test: example log DistanceMoved matches the stati
           <div
             style={
               Object {
-                "height": 0,
-                "overflow": "visible",
-                "width": 0,
+                "height": 75,
+                "width": "100%",
               }
             }
           >
             <div
-              className="rv-xy-plot "
               style={
                 Object {
-                  "height": "0px",
-                  "width": "0px",
+                  "overflow": "visible",
+                  "width": 0,
                 }
               }
-            >
-              <svg
-                className="rv-xy-plot__inner"
-                height={0}
-                onClick={[Function]}
-                onDoubleClick={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onMouseMove={[Function]}
-                onMouseUp={[Function]}
-                onTouchCancel={[Function]}
-                onTouchEnd={[Function]}
-                onTouchMove={[Function]}
-                onTouchStart={[Function]}
-                onWheel={[Function]}
-                width={0}
-              >
-                <path
-                  className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                  d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
-                  onClick={[Function]}
-                  onContextMenu={[Function]}
-                  onMouseOut={[Function]}
-                  onMouseOver={[Function]}
-                  style={
-                    Object {
-                      "fill": "#12939A",
-                      "opacity": 1,
-                      "stroke": "#12939A",
-                    }
-                  }
-                  transform="translate(0,0)"
-                />
-              </svg>
-            </div>
+            />
           </div>
         </div>
       </div>
@@ -5278,53 +5240,25 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
                   Object {
                     "height": 0,
                     "overflow": "visible",
-                    "width": 0,
                   }
                 }
               >
                 <div
-                  className="rv-xy-plot "
                   style={
                     Object {
-                      "height": "0px",
-                      "width": "0px",
+                      "height": 75,
+                      "width": "100%",
                     }
                   }
                 >
-                  <svg
-                    className="rv-xy-plot__inner"
-                    height={0}
-                    onClick={[Function]}
-                    onDoubleClick={[Function]}
-                    onMouseDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    onMouseMove={[Function]}
-                    onMouseUp={[Function]}
-                    onTouchCancel={[Function]}
-                    onTouchEnd={[Function]}
-                    onTouchMove={[Function]}
-                    onTouchStart={[Function]}
-                    onWheel={[Function]}
-                    width={0}
-                  >
-                    <path
-                      className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
-                      onClick={[Function]}
-                      onContextMenu={[Function]}
-                      onMouseOut={[Function]}
-                      onMouseOver={[Function]}
-                      style={
-                        Object {
-                          "fill": "#12939A",
-                          "opacity": 1,
-                          "stroke": "#12939A",
-                        }
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
                       }
-                      transform="translate(0,0)"
-                    />
-                  </svg>
+                    }
+                  />
                 </div>
               </div>
             </a>
@@ -5400,53 +5334,25 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
                   Object {
                     "height": 0,
                     "overflow": "visible",
-                    "width": 0,
                   }
                 }
               >
                 <div
-                  className="rv-xy-plot "
                   style={
                     Object {
-                      "height": "0px",
-                      "width": "0px",
+                      "height": 75,
+                      "width": "100%",
                     }
                   }
                 >
-                  <svg
-                    className="rv-xy-plot__inner"
-                    height={0}
-                    onClick={[Function]}
-                    onDoubleClick={[Function]}
-                    onMouseDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    onMouseMove={[Function]}
-                    onMouseUp={[Function]}
-                    onTouchCancel={[Function]}
-                    onTouchEnd={[Function]}
-                    onTouchMove={[Function]}
-                    onTouchStart={[Function]}
-                    onWheel={[Function]}
-                    width={0}
-                  >
-                    <path
-                      className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
-                      onClick={[Function]}
-                      onContextMenu={[Function]}
-                      onMouseOut={[Function]}
-                      onMouseOver={[Function]}
-                      style={
-                        Object {
-                          "fill": "#12939A",
-                          "opacity": 1,
-                          "stroke": "#12939A",
-                        }
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
                       }
-                      transform="translate(0,0)"
-                    />
-                  </svg>
+                    }
+                  />
                 </div>
               </div>
             </a>
@@ -5518,53 +5424,25 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
                   Object {
                     "height": 0,
                     "overflow": "visible",
-                    "width": 0,
                   }
                 }
               >
                 <div
-                  className="rv-xy-plot "
                   style={
                     Object {
-                      "height": "0px",
-                      "width": "0px",
+                      "height": 75,
+                      "width": "100%",
                     }
                   }
                 >
-                  <svg
-                    className="rv-xy-plot__inner"
-                    height={0}
-                    onClick={[Function]}
-                    onDoubleClick={[Function]}
-                    onMouseDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    onMouseMove={[Function]}
-                    onMouseUp={[Function]}
-                    onTouchCancel={[Function]}
-                    onTouchEnd={[Function]}
-                    onTouchMove={[Function]}
-                    onTouchStart={[Function]}
-                    onWheel={[Function]}
-                    width={0}
-                  >
-                    <path
-                      className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
-                      onClick={[Function]}
-                      onContextMenu={[Function]}
-                      onMouseOut={[Function]}
-                      onMouseOver={[Function]}
-                      style={
-                        Object {
-                          "fill": "#12939A",
-                          "opacity": 1,
-                          "stroke": "#12939A",
-                        }
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
                       }
-                      transform="translate(0,0)"
-                    />
-                  </svg>
+                    }
+                  />
                 </div>
               </div>
             </a>

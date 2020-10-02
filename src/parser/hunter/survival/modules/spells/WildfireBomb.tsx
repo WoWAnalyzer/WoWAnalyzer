@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -46,7 +46,9 @@ class WildfireBomb extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.active = !this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB_IMPACT), this.onDamage);
   }
@@ -63,7 +65,7 @@ class WildfireBomb extends Analyzer {
         average: 4,
         major: 6,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -75,7 +77,7 @@ class WildfireBomb extends Analyzer {
         average: 0.35,
         major: 0.3,
       },
-      style: 'percent',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -107,14 +109,14 @@ class WildfireBomb extends Analyzer {
     }
   }
 
-  suggestions(when: any) {
-    when(this.badWFBThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.badWFBThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You shouldn't refresh <SpellLink id={SPELLS.WILDFIRE_BOMB.id} /> since it doesn't pandemic. It's generally better to cast something else and wait for the DOT to drop off before reapplying.</>)
         .icon(SPELLS.WILDFIRE_BOMB.icon)
         .actual(`${actual} casts unnecessarily refreshed WFB`)
         .recommended(`<${recommended} is recommended`);
     });
-    when(this.uptimeThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>Try and maximize your uptime on <SpellLink id={SPELLS.WILDFIRE_BOMB.id} />. This is achieved through not unnecessarily refreshing the debuff as it doesn't pandemic. </>)
         .icon(SPELLS.WILDFIRE_BOMB.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
@@ -131,7 +133,8 @@ class WildfireBomb extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.WILDFIRE_BOMB}>
           <>
-            {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small><br />
+            {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small>
+            <br />
             {formatPercentage(this.uptimePercentage)}% <small> DoT uptime</small>
           </>
         </BoringSpellValueText>

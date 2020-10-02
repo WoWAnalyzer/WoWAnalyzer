@@ -30,7 +30,9 @@ class TipOfTheSpear extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.TIP_OF_THE_SPEAR_TALENT.id);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.onKillCommandCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onSpenderCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onDamage);

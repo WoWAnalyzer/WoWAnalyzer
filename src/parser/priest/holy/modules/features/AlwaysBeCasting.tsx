@@ -4,7 +4,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
-import { When } from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [
@@ -28,7 +28,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     when(deadTimePercentage).isGreaterThan(0.15)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)

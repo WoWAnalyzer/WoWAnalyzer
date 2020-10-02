@@ -125,6 +125,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        enabled: !combatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -147,15 +148,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: !combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id),
-      },
-      {
-        spell: SPELLS.LUMINOUS_BARRIER_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 3 * 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id),
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN,
@@ -272,6 +264,41 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LEVITATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MIND_BLAST,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MIND_SEAR,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MIND_SOOTHE,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.POWER_INFUSION,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SHADOW_WORD_DEATH,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },

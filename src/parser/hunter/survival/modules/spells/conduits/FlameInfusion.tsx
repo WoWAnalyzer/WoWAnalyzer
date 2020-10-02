@@ -27,7 +27,9 @@ class FlameInfusion extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FLAME_INFUSION_CONDUIT.id);
+
     if (!this.conduitRank) {
       this.active = false;
       return;

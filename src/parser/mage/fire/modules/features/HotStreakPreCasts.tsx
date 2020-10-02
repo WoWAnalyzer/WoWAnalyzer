@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD, HOT_STREAK_CONTRIBUTORS, PROC_BUFFER, COMBUSTION_BUFFER } from '../../constants';
 
@@ -92,13 +93,13 @@ class HotStreakPreCasts extends Analyzer {
         average: .75,
         major:.65,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
       when(this.castBeforeHotStreakThresholds)
-        .addSuggestion((suggest: any, actual: any, recommended: any) => {
+        .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>When <SpellLink id={SPELLS.COMBUSTION.id} /> is not active{this.hasFirestarter ? ' and the target is below 90% health' : ''} {this.hasSearingTouch ? ' and the target is over 30% health' : ''}, <SpellLink id={SPELLS.HOT_STREAK.id} /> procs should be used immediately after casting <SpellLink id={SPELLS.FIREBALL.id} /> {this.hasPyroclasm ? <> or after using a <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> proc </> : ''}. This way, if one of the two abilities crit you will gain a new <SpellLink id={SPELLS.HEATING_UP.id} /> proc, and if both crit you will get a new <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. You failed to do this {this.noCastBeforeHotStreak} times. If you have a <SpellLink id={SPELLS.HOT_STREAK.id} /> proc and need to move, you can hold the proc and cast <SpellLink id={SPELLS.SCORCH.id} /> once or twice until you are able to stop and cast <SpellLink id={SPELLS.FIREBALL.id} /> or you can use your procs while you move.</>)
             .icon(SPELLS.HOT_STREAK.icon)
             .actual(`${formatPercentage(this.castBeforeHotStreakUtil)}% Utilization`)

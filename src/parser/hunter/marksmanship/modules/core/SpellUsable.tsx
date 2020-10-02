@@ -19,9 +19,7 @@ class SpellUsable extends CoreSpellUsable {
         this.lastPotentialTriggerForRapidFireReset = null;
       }
     }
-    if (super.on_byPlayer_cast) {
-      super.on_byPlayer_cast(event);
-    }
+    super.on_byPlayer_cast(event);
   }
 
   beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {

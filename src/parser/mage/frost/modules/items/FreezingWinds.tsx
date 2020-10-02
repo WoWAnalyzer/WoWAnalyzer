@@ -10,7 +10,8 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber } from 'common/format';
-import { FREEZING_WINDS_ORB_REDUCTION } from '../../constants';
+
+const FROZEN_ORB_REDUCTION_MS = 2500;
 
 class FreezingWinds extends Analyzer {
   static dependencies = {
@@ -24,13 +25,13 @@ class FreezingWinds extends Analyzer {
 
   constructor(props: any) {
     super(props);
-    this.active = false;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FREEZING_WINDS.bonusID);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FROSTBOLT), this.onFrostbolt);
   }
 
   onFrostbolt(event: CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.FREEZING_WINDS.id) && this.spellUsable.isOnCooldown(SPELLS.FROZEN_ORB.id)) {
-      this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, FREEZING_WINDS_ORB_REDUCTION);
+      this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, FROZEN_ORB_REDUCTION_MS);
     }
   }
 

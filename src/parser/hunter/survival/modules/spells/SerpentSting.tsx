@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -48,6 +48,7 @@ class SerpentSting extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.hasBoP = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
     this.hasVV = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
 
@@ -70,7 +71,7 @@ class SerpentSting extends Analyzer {
         average: 3,
         major: 5,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -82,7 +83,7 @@ class SerpentSting extends Analyzer {
         average: 3,
         major: 5,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -95,7 +96,7 @@ class SerpentSting extends Analyzer {
           average: 0.55,
           major: 0.5,
         },
-        style: 'percentage',
+        style: ThresholdStyle.PERCENTAGE,
       };
     } else {
       return {
@@ -105,7 +106,7 @@ class SerpentSting extends Analyzer {
           average: 0.35,
           major: 0.4,
         },
-        style: 'percentage',
+        style: ThresholdStyle.PERCENTAGE,
       };
     }
   }
@@ -118,7 +119,7 @@ class SerpentSting extends Analyzer {
         average: 0.9,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -198,20 +199,20 @@ class SerpentSting extends Analyzer {
     }
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     if (this.hasBoP) {
       const suggestionText = this.hasVV ?
         <> You should make sure to keep up <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> by using it within the pandemic windows during <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />, so long as you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc. </> :
         <>With <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} /> talented and without <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> talented, you don't want to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> during <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} /> at all, which is a majority of the fight, therefore a low uptime of <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> is better than a high uptime. </>;
 
-      when(this.uptimeThresholdBoP).addSuggestion((suggest: any, actual: any, recommended: any) => {
+      when(this.uptimeThresholdBoP).addSuggestion((suggest, actual, recommended) => {
         return suggest(suggestionText)
           .icon(SPELLS.SERPENT_STING_SV.icon)
           .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
     } else {
-      when(this.uptimeThresholdNonBoP).addSuggestion((suggest: any, actual: any, recommended: any) => {
+      when(this.uptimeThresholdNonBoP).addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% duration remaining.</>)
           .icon(SPELLS.SERPENT_STING_SV.icon)
           .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
@@ -219,7 +220,7 @@ class SerpentSting extends Analyzer {
       });
     }
 
-    when(this.nonPandemicThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.nonPandemicThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% of the duration remaining. </>)
         .icon(SPELLS.SERPENT_STING_SV.icon)
         .actual(`${actual} Serpent Sting cast(s) were cast too early`)
@@ -249,7 +250,8 @@ class SerpentSting extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SERPENT_STING_SV}>
           <>
-            <ItemDamageDone amount={this.bonusDamage} /> <br />
+            <ItemDamageDone amount={this.bonusDamage} />
+            <br />
             <UptimeIcon /> {formatPercentage(this.uptimePercentage)}% <small>uptime</small>
           </>
         </BoringSpellValueText>

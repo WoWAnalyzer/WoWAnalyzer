@@ -7,6 +7,7 @@ import makeWclApiUrl from './makeWclApiUrl';
 export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
 export class CharacterNotFoundError extends ExtendableError {}
+export class GuildNotFoundError extends ExtendableError {}
 export class JsonParseError extends ExtendableError {
   originalError = null;
   raw = null;
@@ -99,6 +100,9 @@ async function rawFetchWcl(endpoint, queryParams) {
     }
     if (message === 'Invalid character name/server/region specified.') {
       throw new CharacterNotFoundError();
+    }
+    if (message === 'Invalid guild name/server/region specified.') {
+      throw new GuildNotFoundError();
     }
     throw new Error(message || json.error);
   }

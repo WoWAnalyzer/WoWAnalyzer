@@ -7,8 +7,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { SERPENT_STING_MM_BASE_DURATION, SERPENT_STING_MM_PANDEMIC } from 'parser/hunter/marksmanship/constants';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -58,7 +58,7 @@ class SerpentSting extends Analyzer {
         average: 3,
         major: 5,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -70,7 +70,7 @@ class SerpentSting extends Analyzer {
         average: 0.9,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -119,8 +119,8 @@ class SerpentSting extends Analyzer {
     }
   }
 
-  suggestions(when: any) {
-    when(this.nonPandemicThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.nonPandemicThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_MM_PANDEMIC, 0)}% of the duration remaining.
         </>)
@@ -129,7 +129,7 @@ class SerpentSting extends Analyzer {
         .recommended(`${recommended} non-pandemic refreshes is recommended`);
     });
 
-    when(this.uptimeThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           You should make sure to keep up <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> by using it within the pandemic windows to maximize it's damage potential.

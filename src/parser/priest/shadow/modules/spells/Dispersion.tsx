@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellLink from 'common/SpellLink';
 
@@ -62,14 +63,14 @@ class Disperion extends Analyzer {
     this._previousDispersionCast = null;
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     const dispersionUptime = this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id);
     const maxDispersionTime = Math.floor(calculateMaxCasts(DISPERSION_BASE_CD, this.owner.fightDuration)) * DISPERSION_UPTIME_MS;
     const dispersedTime = dispersionUptime / maxDispersionTime;
 
 
     when(dispersedTime).isGreaterThan(0.20)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You spent {Math.round(dispersionUptime / 1000)} seconds (out of a possible {Math.round(maxDispersionTime / 1000)} seconds) in <SpellLink id={SPELLS.DISPERSION.id} />. Consider using <SpellLink id={SPELLS.DISPERSION.id} /> less or cancel it early.</span>)
           .icon(SPELLS.DISPERSION.icon)
           .actual(`${formatPercentage(actual)}% Dispersion uptime`)

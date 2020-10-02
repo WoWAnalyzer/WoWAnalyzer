@@ -450,6 +450,16 @@ export interface EnergizeEvent extends Event<EventType.Energize> {
   itemLevel: number;
 }
 
+export interface InterruptEvent extends Event<EventType.Interrupt> {
+  ability: Ability;
+  extraAbility: Ability;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance: number;
+  targetIsFriendly: boolean;
+}
+
 export interface DeathEvent extends Event<EventType.Death> {
   source: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceIsFriendly: boolean;
@@ -481,7 +491,7 @@ export interface GlobalCooldownEvent extends Event<EventType.GlobalCooldown> {
   sourceID: number;
   targetID: number;
   timestamp: number;
-  trigger: CastEvent;
+  trigger: CastEvent | BeginChannelEvent;
   __fabricated: true;
 }
 

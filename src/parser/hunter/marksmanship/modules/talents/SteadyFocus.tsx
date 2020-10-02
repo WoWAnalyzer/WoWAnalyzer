@@ -1,5 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
-
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -41,7 +41,7 @@ class SteadyFocus extends Analyzer {
         average: 0.9,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -61,8 +61,8 @@ class SteadyFocus extends Analyzer {
     );
   }
 
-  suggestions(when: any) {
-    when(this.uptimeThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           Your uptime on the buff from <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> could be better. When using this talent you should always try and couple your <SpellLink id={SPELLS.STEADY_SHOT.id} /> together to maintain this buff.

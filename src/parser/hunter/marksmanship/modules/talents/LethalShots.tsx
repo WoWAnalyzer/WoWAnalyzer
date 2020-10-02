@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -36,7 +37,7 @@ class LethalShots extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LETHAL_SHOTS_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_TALENT]), this.castChecker);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE, SPELLS.CHIMAERA_SHOT_FROST_DAMAGE]), this.onPotentialProc);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE, SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE]), this.onPotentialProc);
   }
 
   castChecker(event: CastEvent) {
@@ -67,7 +68,7 @@ class LethalShots extends Analyzer {
         average: 3,
         major: 6,
       },
-      style: 'decimal',
+      style: ThresholdStyle.DECIMAL,
     };
   }
 
@@ -87,8 +88,8 @@ class LethalShots extends Analyzer {
     );
   }
 
-  suggestions(when: any) {
-    when(this.wastedPotentialCDR).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.wastedPotentialCDR).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           You cast {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_MM_TALENT) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_MM_TALENT.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} or <SpellLink id={SPELLS.MULTISHOT_MM} /> whilst <SpellLink id={SPELLS.RAPID_FIRE.id} /> wasn't on cooldown. You want to try and avoid this when using <SpellLink id={SPELLS.LETHAL_SHOTS_TALENT.id} />, as it is wasting potential cooldown reduction.

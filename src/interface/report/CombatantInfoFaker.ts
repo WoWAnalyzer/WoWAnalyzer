@@ -26,6 +26,12 @@ const SPEC_CONFIGS: { [specId: number]: FakeInfo } = {
     conduits: [{ spellID: 339750, name: 'One With the Beast', icon: 'spell_winston_rage', soulbindConduitID: 185, rank: 1 }],
     legendaryInfo: { slotId: 0, bonusId: 7003 },
   },
+  [SPECS.FROST_MAGE.id]: {
+    covenant: COVENANTS.VENTHYR,
+    soulbind: SOULBINDS.NADJIA_THE_MISTBLADE,
+    conduits: [{ spellID: 336569, name: 'Ice Bite', icon: 'spell_frost_frostblast', soulbindConduitID: 21, rank: 1 }],
+    legendaryInfo: { slotId: 14, bonusId: 6828 },
+  },
 };
 
 export function generateFakeCombatantInfo(player: any) {
