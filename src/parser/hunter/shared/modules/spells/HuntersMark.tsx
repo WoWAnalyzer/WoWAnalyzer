@@ -33,6 +33,7 @@ class HuntersMark extends Analyzer {
     enemies: Enemies,
     abilities: Abilities,
   };
+
   casts = 0;
   damage = 0;
   recasts = 0;
@@ -43,6 +44,7 @@ class HuntersMark extends Analyzer {
   markWindow: { [key: string]: { status: string; start: number } } = {};
   damageToTarget: { [key: string]: number } = {};
   enemyID: string = '';
+
   protected enemies!: Enemies;
   protected abilities!: Abilities;
 
@@ -66,10 +68,6 @@ class HuntersMark extends Analyzer {
 
   get uptimePercentage() {
     return this.enemies.getBuffUptime(SPELLS.HUNTERS_MARK.id) / this.owner.fightDuration;
-  }
-
-  get potentialPrecastConfirmation() {
-    return (this.refunds + this.recasts) > this.casts ? <li>We've detected a possible precast, and there might be a discrepancy in amount of total casts versus amount of refunds and casts whilst debuff was active on another target.</li> : '';
   }
 
   onCast(event: CastEvent) {
@@ -159,7 +157,6 @@ class HuntersMark extends Analyzer {
             <ul>
               <li>You had a total of {this.casts} casts of Hunter's Mark.</li>
               <li>You cast Hunter's Mark {this.recasts} times, whilst it was active on the target or another target.</li>
-              {this.potentialPrecastConfirmation}
             </ul>
           </>
         )}

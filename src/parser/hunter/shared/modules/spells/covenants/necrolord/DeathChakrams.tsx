@@ -17,17 +17,22 @@ class DeathChakrams extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
+
   damage: number = 0;
   focusGained: number = 0;
   focusWasted: number = 0;
+
   protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+
     if (!this.active) {
       return;
     }
+
     options.abilities.add({
       spell: SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -40,6 +45,7 @@ class DeathChakrams extends Analyzer {
         recommendedEfficiency: 0.9,
       },
     });
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]), this.onDamage);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE), this.onEnergize);
   }

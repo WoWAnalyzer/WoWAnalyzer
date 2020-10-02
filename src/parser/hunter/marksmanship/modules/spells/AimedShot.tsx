@@ -37,20 +37,6 @@ class AimedShot extends Analyzer {
   constructor(options: any) {
     super(options);
 
-    options.abilities.add({
-      spell: SPELLS.AIMED_SHOT,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      cooldown: (haste: number) => 12 / (1 + haste),
-      charges: 2,
-      gcd: {
-        base: 1500,
-      },
-      castEfficiency: {
-        suggestion: true,
-        recommendedEfficiency: 0.95,
-      },
-    });
-
     this.addEventListener(EventEmitter.catchAll, this.onEvent);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), (event: ApplyBuffEvent) => this.onAffectingBuffChange(event));

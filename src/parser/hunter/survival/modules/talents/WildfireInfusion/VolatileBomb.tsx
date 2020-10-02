@@ -31,6 +31,7 @@ class VolatileBomb extends Analyzer {
     enemies: Enemies,
     statTracker: StatTracker,
   };
+
   damage = 0;
   casts = 0;
   extendedSerpentStings = 0;
@@ -48,12 +49,15 @@ class VolatileBomb extends Analyzer {
       },
      */
   };
+
   protected enemies!: Enemies;
   protected statTracker!: StatTracker;
 
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this._serpentApplication);
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this._serpentApplication);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDebuffRemoval);
