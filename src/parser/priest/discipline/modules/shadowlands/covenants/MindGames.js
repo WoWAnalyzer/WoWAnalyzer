@@ -78,7 +78,7 @@ class Mindgames extends Analyzer {
             </>
         </BoringSpellValueText>
       </Statistic>
-    )
+    );
   }
 }
 
