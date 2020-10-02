@@ -130,7 +130,6 @@ exports[`Elemental Shaman integration test: example log CancelledCasts matches t
 >
   <div
     className="panel statistic small value"
-    label="test"
     position={10}
   >
     <div

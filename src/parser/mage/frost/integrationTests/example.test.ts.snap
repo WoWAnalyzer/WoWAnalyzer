@@ -630,7 +630,6 @@ exports[`Frost Mage integration test: example log CancelledCasts matches the sta
 >
   <div
     className="panel statistic small value"
-    label="test"
     position={10}
   >
     <div
