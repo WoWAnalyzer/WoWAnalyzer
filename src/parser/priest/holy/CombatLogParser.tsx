@@ -46,6 +46,7 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
+import CircleOfHealing from 'parser/priest/holy/modules/spells/CircleOfHealing';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyWordChastise: HolyWordChastise,
     holyWordSalvation: HolyWordSalvationCooldown,
     statWeights: StatWeights,
+    circleOfHealing: CircleOfHealing,
 
     spiritOfRedemption: SpiritOfRedemption,
     renew: Renew,
