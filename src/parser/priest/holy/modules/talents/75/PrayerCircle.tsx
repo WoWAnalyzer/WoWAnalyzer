@@ -36,7 +36,7 @@ class PrayerCircle extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = true; // this.selectedCombatant.hasTalent(SPELLS.PRAYER_CIRCLE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.PRAYER_CIRCLE_TALENT.id);
 
     if (this.active) {
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CIRCLE_OF_HEALING_TALENT), this.cohCast);
