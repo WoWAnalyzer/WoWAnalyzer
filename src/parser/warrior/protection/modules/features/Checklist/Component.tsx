@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -7,20 +6,25 @@ import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import Requirement, { RequirementThresholds } from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import Combatant from 'parser/core/Combatant';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 
-const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = props => (
+type Props = {
+  castEfficiency: CastEfficiency,
+  combatant: Combatant,
+  thresholds: { [name: string]: RequirementThresholds },
+};
+
+const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Props) => {
+  const AbilityRequirement = (props: { spell: number }) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
@@ -34,17 +38,17 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }) =
       >
         <AbilityRequirement spell={SPELLS.THUNDER_CLAP.id} />
         <Requirement
-          name={(<SpellLink id={SPELLS.SHIELD_SLAM.id} /> )}
+          name={(<SpellLink id={SPELLS.SHIELD_SLAM.id} />)}
           thresholds={thresholds.shieldSlam}
         />
         <AbilityRequirement spell={SPELLS.SHIELD_BLOCK.id} />
         <Requirement
           name={(<>Effective <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> Casts </>)}
           thresholds={thresholds.shieldBlock}
-          />
+        />
         {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
           <Requirement
-            name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> )}
+            name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} />)}
             thresholds={thresholds.demoShoutCD}
           />
         )}
@@ -56,28 +60,28 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }) =
         name="Defensive Cooldowns"
         description={(
           <>
-           Protection warriors have a multitude of defensive spells on a fairly short cooldown.  Be sure to use these to further mitigate incoming damage.
+            Protection warriors have a multitude of defensive spells on a fairly short cooldown. Be sure to use these to further mitigate incoming damage.
           </>
         )}
       >
         <Requirement
-          name={(<SpellLink id={SPELLS.SHIELD_WALL.id} /> )}
+          name={(<SpellLink id={SPELLS.SHIELD_WALL.id} />)}
           thresholds={thresholds.shieldWallCD}
-          />
+        />
         <Requirement
-          name={(<SpellLink id={SPELLS.LAST_STAND.id} /> )}
+          name={(<SpellLink id={SPELLS.LAST_STAND.id} />)}
           thresholds={thresholds.lastStandCD}
-          />
+        />
         <Requirement
-          name={(<>Magic damage with <SpellLink id={SPELLS.SPELL_REFLECTION.id} /></> )}
+          name={(<>Magic damage with <SpellLink id={SPELLS.SPELL_REFLECTION.id} /></>)}
           thresholds={thresholds.spellReflect}
-          />
+        />
         {!combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
-            <Requirement
-              name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> )}
-              thresholds={thresholds.demoShoutCD}
+          <Requirement
+            name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} />)}
+            thresholds={thresholds.demoShoutCD}
           />
-          )}
+        )}
       </Rule>
 
       <Rule
@@ -88,20 +92,20 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }) =
 
           </>
         )}
-        >
+      >
+        <Requirement
+          name={(<SpellLink id={SPELLS.AVATAR_TALENT.id} />)}
+          thresholds={thresholds.avatarCD}
+        />
+        {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
           <Requirement
-            name={(<SpellLink id={SPELLS.AVATAR_TALENT.id} /> )}
-            thresholds={thresholds.avatarCD}
+            name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} />)}
+            thresholds={thresholds.demoShoutCD}
           />
-          {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
-            <Requirement
-              name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> )}
-              thresholds={thresholds.demoShoutCD}
-          />
-          )}
-          {combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id) && <AbilityRequirement spell={SPELLS.RAVAGER_TALENT_PROTECTION.id} />}
+        )}
+        {combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id) && <AbilityRequirement spell={SPELLS.RAVAGER_TALENT_PROTECTION.id} />}
 
-        </Rule>
+      </Rule>
 
       <Rule
         name="Don't get too angry"
@@ -129,14 +133,6 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }) =
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-ProtectionWarriorChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default ProtectionWarriorChecklist;

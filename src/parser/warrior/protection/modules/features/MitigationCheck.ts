@@ -3,8 +3,8 @@ import SPELLS from 'common/SPELLS';
 
 
 class MitigationCheck extends CoreMitigationCheck {
-  constructor(...args){
-    super(...args);
+  constructor(options: any){
+    super(options);
     this.buffCheckPhysical = [
       SPELLS.SHIELD_BLOCK_BUFF.id,
     ];

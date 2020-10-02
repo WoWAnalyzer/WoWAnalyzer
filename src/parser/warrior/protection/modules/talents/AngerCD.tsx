@@ -1,13 +1,14 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { calculateCooldown } from 'parser/shared/modules/spells/bfa/essences/VisionsOfPerfection';
 import AngerManagement from './AngerManagement';
-import { calculateCooldown } from '../../../../shared/modules/spells/bfa/essences/VisionsOfPerfection';
-
 
 class AngerCD extends Analyzer {
   static dependencies = {
@@ -16,7 +17,11 @@ class AngerCD extends Analyzer {
     angerManagement: AngerManagement,
   };
 
-  DEMOTEXT;
+  protected spellUsable!: SpellUsable;
+  protected abilityTracker!: AbilityTracker;
+  protected angerManagement!: AngerManagement;
+
+  DEMOTEXT: JSX.Element;
   DEMOTEXTWITHBOOM = <>Cast <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> more often to maximise the DPS increase and rage generation provided by Booming Voice unless you need it to survive a specific mechanic. </>;
   DEMOTEXTWITHOUTBOOM = <>Cast <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> more often to reduce the incoming damage </>;
 
@@ -27,52 +32,48 @@ class AngerCD extends Analyzer {
   SHIELDWALLCD = 240000;
 
   hasAM = false;
+  usedAvatar = false;
 
   prepullCast = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.hasAM = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
     this.DEMOTEXT = this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) ? this.DEMOTEXTWITHBOOM : this.DEMOTEXTWITHOUTBOOM;
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AVATAR_TALENT), this.onAvatarCast);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.AVATAR_TALENT), this.onAvatarRemove);
+    this.addEventListener(Events.fightend, this.fightEnd);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
+  onAvatarCast() {
+    this.usedAvatar = true;
+  }
 
-    if (spellId === SPELLS.AVATAR_TALENT.id) {
-      this.usedAvatar = true;
+  onAvatarRemove() {
+    if (!this.usedAvatar) {
+      this.prepullCast = true;
     }
   }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-
-    if (SPELLS.AVATAR_TALENT.id === spellId) {
-      if (!this.usedAvatar){
-        this.prepullCast = true;
-      }
-    }
-  }
-
-  on_fightend(){
-    if(this.hasAM){
+  fightEnd() {
+    if (this.hasAM) {
       this.actualFightTime = (this.owner.fight.end_time - this.owner.fight.start_time) + this.angerManagement.effectiveReduction[SPELLS.DEMORALIZING_SHOUT.id] + this.angerManagement.wastedReduction[SPELLS.DEMORALIZING_SHOUT.id];
-    }else{
+    } else {
       this.actualFightTime = (this.owner.fight.end_time - this.owner.fight.start_time);
     }
   }
 
-  ratio(spellCD, spellid){
-    const possibleCasts = Math.ceil(this.actualFightTime/spellCD) || 1;
+  ratio(spellCD: number, spellid: number) {
+    const possibleCasts = Math.ceil(this.actualFightTime / spellCD) || 1;
     let actualCasts = this.abilityTracker.getAbility(spellid).casts || 0;
-    if(spellid === SPELLS.AVATAR_TALENT.id){
+    if (spellid === SPELLS.AVATAR_TALENT.id) {
       actualCasts = this.prepullCast ? actualCasts + 1 : actualCasts;
     }
     return actualCasts / possibleCasts;
   }
 
   //KLUDGE
-  get suggestionThresholdsDemoShout(){
+  get suggestionThresholdsDemoShout() {
     return {
       actual: this.ratio(this.DEMOSHOUTCD, SPELLS.DEMORALIZING_SHOUT.id),
       isLessThan: {
@@ -80,11 +81,11 @@ class AngerCD extends Analyzer {
         average: .80,
         major: .70,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
-  
-  get suggestionThresholdsAvatar(){
+
+  get suggestionThresholdsAvatar() {
     return {
       actual: this.ratio(this.AVATARCD, SPELLS.AVATAR_TALENT.id),
       isLessThan: {
@@ -92,11 +93,11 @@ class AngerCD extends Analyzer {
         average: .80,
         major: .70,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  get suggestionThresholdsLastStand(){
+  get suggestionThresholdsLastStand() {
     return {
       actual: this.ratio(this.LASTSTANDCD, SPELLS.LAST_STAND.id),
       isLessThan: {
@@ -104,11 +105,11 @@ class AngerCD extends Analyzer {
         average: .70,
         major: .60,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  get suggestionThresholdsShieldWall(){
+  get suggestionThresholdsShieldWall() {
     return {
       actual: this.ratio(this.SHIELDWALLCD, SPELLS.SHIELD_WALL.id),
       isLessThan: {
@@ -116,11 +117,11 @@ class AngerCD extends Analyzer {
         average: .70,
         major: .60,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
 
     when(this.suggestionThresholdsDemoShout).addSuggestion((suggest, actual, recommended) => {
       return suggest(
