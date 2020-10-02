@@ -24,9 +24,9 @@ export default {
     icon: 'spell_holy_wordfortitude',
     manaCost: 2000,
   },
-  SHADOW_WORD_DEATH: { 
-    id: 32379, 
-    name: 'Shadow Word: Death', 
+  SHADOW_WORD_DEATH: {
+    id: 32379,
+    name: 'Shadow Word: Death',
     icon: 'spell_shadow_demonicfortitude',
     manaCost: 800,
   },
@@ -138,7 +138,7 @@ export default {
   },
   LIGHTS_WRATH: {
     id: 207946,
-    name: "Light's Wrath",
+    name: 'Light\'s Wrath',
     icon: 'inv_staff_2h_artifacttome_d_01',
   },
   MIND_CONTROL: {
@@ -298,7 +298,7 @@ export default {
   },
   KAM_XIRAFF_BUFF: {
     id: 233997,
-    name: "Kam Xi'raff",
+    name: 'Kam Xi\'raff',
     icon: 'ability_priest_savinggrace',
   },
   TWIST_OF_FATE_BUFF: {
@@ -313,8 +313,13 @@ export default {
   },
   ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
     id: 214637,
-    name: "Dejahna's Inspiration",
+    name: 'Dejahna\'s Inspiration',
     icon: 'spell_holy_heal',
+  },
+  PRAYER_CIRCLE_BUFF: {
+    id: 321379,
+    name: 'Prayer Circle',
+    icon: 'spell_paladin_divinecircle',
   },
 
   // Talents:
@@ -635,8 +640,8 @@ export default {
 
   SHADOW_CRASH_TALENT_DAMAGE: {
     id: 205386,
-    name: "Shadow Crash",
-    icon: "spell_shadow_shadowfury",
+    name: 'Shadow Crash',
+    icon: 'spell_shadow_shadowfury',
   },
 
 };

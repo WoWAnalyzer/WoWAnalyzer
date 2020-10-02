@@ -889,3 +889,7 @@ export const MusicMeister: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/illidan/leviisa',
   }],
 };
+export const Moonrabbit: Contributor = {
+  nickname: 'Moonrabbit',
+  github: 'alliepet',
+};
