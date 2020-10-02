@@ -1,5 +1,6 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -8,6 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
 const HEAVY_REPERCUSSIONS_SHIELD_BLOCK_EXTEND_MS = 1000;
 const HEAVY_REPERCUSSIONS_SHIELD_SLAM_DAMAGE_BUFF = 0.3;
@@ -16,39 +18,35 @@ class HeavyRepercussions extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+  protected enemies!: Enemies;
 
   sbExtended = 0;
   sbCasts = 0;
   bonusDmg = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HEAVY_REPERCUSSIONS_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onSlamDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onSlamCast);
   }
 
   get shieldBlockuptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.SHIELD_BLOCK_BUFF.id);
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.SHIELD_SLAM.id || !this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
-      return;
-    }
-
-    this.bonusDmg += calculateEffectiveDamage(event, HEAVY_REPERCUSSIONS_SHIELD_SLAM_DAMAGE_BUFF);
-  }
-
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.SHIELD_SLAM.id) {
-      return;
-    }
-
-    this.sbCasts += 1;
-
+  onSlamDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
       return;
     }
+    this.bonusDmg += calculateEffectiveDamage(event, HEAVY_REPERCUSSIONS_SHIELD_SLAM_DAMAGE_BUFF);
+  }
 
+  onSlamCast(event: CastEvent) {
+    this.sbCasts += 1;
+    if (!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
+      return;
+    }
     this.sbExtended += 1;
   }
 
@@ -60,11 +58,11 @@ class HeavyRepercussions extends Analyzer {
         average: .85,
         major: .80,
       },
-      style: 'percent',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />'s during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of <SpellLink id={SPELLS.SHIELD_SLAM.id} />.</>)

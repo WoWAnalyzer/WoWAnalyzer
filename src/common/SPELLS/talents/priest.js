@@ -39,7 +39,7 @@ export default {
   // Holy
   ENLIGHTENMENT_TALENT: { id: 193155, name: 'Enlightenment', icon: 'spell_arcane_mindmastery' },
   TRAIL_OF_LIGHT_TALENT: { id: 200128, name: 'Trail of Light', icon: 'ability_priest_wordsofmeaning' },
-  ENDURING_RENEWAL_TALENT: { id: 200153, name: 'Enduring Renewal', icon: 'priest_icon_chakra' },
+  RENEWED_FAITH_TALENT: { id: 341997, name: 'Renewed Faith', icon: 'ability_pvp_innerrenewal' },
   ANGELS_MERCY_TALENT: { id: 238100, name: 'Angel\'s Mercy', icon: 'spell_holy_testoffaith' },
   PERSEVERANCE_TALENT: { id: 235189, name: 'Perseverance', icon: 'spell_holy_power' },
   COSMIC_RIPPLE_TALENT: { id: 238136, name: 'Cosmic Ripple', icon: 'spell_holy_summonlightwell' },

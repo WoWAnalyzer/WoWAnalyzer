@@ -1,12 +1,12 @@
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 
 class IgnorePain extends Analyzer {
 
-  get uptime() {
+  get uptime(): number {
     return this.selectedCombatant.getBuffUptime(SPELLS.IGNORE_PAIN.id) / this.owner.fightDuration;
   }
-
 
   get uptimeSuggestionThresholds() {
     return {
@@ -14,9 +14,9 @@ class IgnorePain extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: .8,
+        major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 }

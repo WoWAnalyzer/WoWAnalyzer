@@ -156,7 +156,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           100
           % 
           <small>
-             Arcane Power utilization
+             Cooldown utilization
           </small>
           <br />
           <a
@@ -180,7 +180,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           100
           % 
           <small>
-            Arcane Blast Cast utilization
+            Cast utilization
           </small>
         </div>
       </div>

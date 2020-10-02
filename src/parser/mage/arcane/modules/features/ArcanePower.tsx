@@ -285,7 +285,7 @@ class ArcanePower extends Analyzer {
                 marginBottom: '.15em',
               }}
             />
-            {' '}{formatPercentage(this.cooldownUtilization, 0)}% <small> Arcane Power utilization</small><br />
+            {' '}{formatPercentage(this.cooldownUtilization, 0)}% <small> Cooldown utilization</small><br />
             <SpellIcon
               id={SPELLS.ARCANE_BLAST.id}
               style={{
@@ -293,7 +293,7 @@ class ArcanePower extends Analyzer {
                 marginBottom: '.15em',
               }}
             />
-            {' '}{formatPercentage(this.castUtilization, 0)}% <small>Arcane Blast Cast utilization</small>
+            {' '}{formatPercentage(this.castUtilization, 0)}% <small>Cast utilization</small>
           </>
         </BoringSpellValueText>
       </Statistic>

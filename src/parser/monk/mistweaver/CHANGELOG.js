@@ -6,7 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 10, 1), <>Added Statistics for Tear of Morning and Ancient Teachings of the Monastery  </>, Abelito75),
+  change(date(2020, 10, 1), <>Updated spell data so stat weights will be accurate. </>, Abelito75),
+  change(date(2020, 10, 1), <>Added Statistics for Tear of Morning and Ancient Teachings of the Monastery. </>, Abelito75),
   change(date(2020, 9, 30), <>Integration Tests have been added for Mistweaver. </>, Anomoly),
   change(date(2020, 9, 30), <>Statistic created for the potency conduit Imbued Reflections. </>, Abelito75),
   change(date(2020, 9, 26), <>Added Yu'lon and Chi-ji to the cooldown tracker. </>, Abelito75),

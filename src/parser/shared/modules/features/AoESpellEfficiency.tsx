@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 /*
   Creates a suggestion for an AoE-Spell based on the amount of hits done and min. amount of hits possible
@@ -16,11 +18,13 @@ class AoESpellEfficiency extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
+  ability!: { id: number, name: string, icon: string };
   bonusDmg = 0;
-  casts = [];
+  casts: { timestamp: number, hits: number }[] = [];
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     if (event.ability.guid !== this.ability.id) {
       return;
     }
@@ -31,7 +35,7 @@ class AoESpellEfficiency extends Analyzer {
     });
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     if (event.ability.guid !== this.ability.id) {
       return;
     }
@@ -47,7 +51,7 @@ class AoESpellEfficiency extends Analyzer {
 
   get possibleHits() {
     const cooldownMS = this.abilityTracker.getAbility(this.ability.id).cooldown * 1000;
-    let lastCast = null;
+    let lastCast: number | null = null;
     let missedCasts = 0;
     let timeSum = 0;
 
@@ -66,7 +70,7 @@ class AoESpellEfficiency extends Analyzer {
       }
     });
 
-    timeSum += this.owner.currentTimestamp - lastCast;
+    timeSum += this.owner.currentTimestamp - (lastCast || 0);
     missedCasts += Math.floor(timeSum / cooldownMS);
     timeSum %= cooldownMS;
 
@@ -85,18 +89,18 @@ class AoESpellEfficiency extends Analyzer {
         average: 0.9,
         major: .8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.hitSuggestionThreshold)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but don't delay it too long or you'll miss out on casts and possible hits.</>)
-            .icon(this.ability.icon)
-            .actual(`${this.totalHits} total hits`)
-            .recommended(`${this.possibleHits} or more hits were possible`);
-        });
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but don't delay it too long or you'll miss out on casts and possible hits.</>)
+          .icon(this.ability.icon)
+          .actual(`${this.totalHits} total hits`)
+          .recommended(`${this.possibleHits} or more hits were possible`);
+      });
   }
 
   statistic() {
