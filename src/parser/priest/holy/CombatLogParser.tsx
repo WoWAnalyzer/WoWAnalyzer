@@ -9,6 +9,7 @@ import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart'
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
 import Abilities from './modules/Abilities';
+import AbilityTracker from 'parser/priest/holy/modules/core/AbilityTracker';
 
 import SpellManaCost from './modules/core/SpellManaCost';
 // Spell data
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellManaCost: SpellManaCost,
     abilities: Abilities,
     lowHealthHealing: LowHealthHealing,
+    abilityTracker: AbilityTracker,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
