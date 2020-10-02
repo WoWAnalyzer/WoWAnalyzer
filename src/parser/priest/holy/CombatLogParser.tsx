@@ -7,9 +7,9 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import AbilityTracker from 'parser/priest/holy/modules/core/AbilityTracker';
 
 import Abilities from './modules/Abilities';
-import AbilityTracker from 'parser/priest/holy/modules/core/AbilityTracker';
 
 import SpellManaCost from './modules/core/SpellManaCost';
 // Spell data

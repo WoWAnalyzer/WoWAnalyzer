@@ -1,7 +1,7 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
-import Events, { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -36,7 +36,7 @@ class PrayerCircle extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.PRAYER_CIRCLE_TALENT.id);
+    this.active = true; // this.selectedCombatant.hasTalent(SPELLS.PRAYER_CIRCLE_TALENT.id);
 
     if (this.active) {
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CIRCLE_OF_HEALING_TALENT), this.cohCast);
