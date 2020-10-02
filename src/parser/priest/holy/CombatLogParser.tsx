@@ -24,6 +24,8 @@ import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import HymnBuffBenefit from './modules/spells/HymnBuffBenefit';
 import Renew from './modules/spells/Renew';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
+import CircleOfHealing from './modules/spells/CircleOfHealing';
+
 //Talents
 import Talents from './modules/talents';
 // Features
@@ -46,7 +48,6 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
-import CircleOfHealing from 'parser/priest/holy/modules/spells/CircleOfHealing';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
