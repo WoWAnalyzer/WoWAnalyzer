@@ -28,7 +28,6 @@ class LightOfTheNaaru extends Analyzer {
   statistic() {
     return (
       <Statistic
-        talent={SPELLS.LIGHT_OF_THE_NAARU_TALENT.id}
         tooltip={(
           <>
             Serenity: {Math.ceil(this.serenity.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
@@ -41,7 +40,7 @@ class LightOfTheNaaru extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
         <BoringSpellValueText spell={SPELLS.LIGHT_OF_THE_NAARU_TALENT}>
-          {Math.ceil((this.sanctify.lightOfTheNaaruCooldownReduction + this.serenity.lightOfTheNaaruCooldownReduction + this.chastise.lightOfTheNaaruCooldownReduction) / 1000)}s Cooldown Reduction
+          {Math.ceil((this.sanctify.lightOfTheNaaruCooldownReduction + this.serenity.lightOfTheNaaruCooldownReduction + this.chastise.lightOfTheNaaruCooldownReduction) / 1000)}s <small>Cooldown Reduction</small>
         </BoringSpellValueText>
       </Statistic>
     );

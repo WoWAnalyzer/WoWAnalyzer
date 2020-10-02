@@ -212,7 +212,6 @@ exports[`Arcane Mage integration test: example log CancelledCasts matches the st
 >
   <div
     className="panel statistic small value"
-    label="test"
     position={10}
   >
     <div

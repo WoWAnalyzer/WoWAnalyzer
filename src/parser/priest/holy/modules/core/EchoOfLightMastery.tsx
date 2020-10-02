@@ -8,8 +8,9 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatNumber, formatPercentage } from 'common/format';
-import Tooltip, { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
@@ -127,7 +128,6 @@ class EchoOfLightMastery extends Analyzer {
     }
   }
 
-
   handleEolTick(event: EoLHealEvent) {
     const targetId = event.targetID;
 
@@ -154,8 +154,7 @@ class EchoOfLightMastery extends Analyzer {
 
     const rawCritValue = ((this.targetMasteryPool[targetId].pendingCritTotal || 0) * poolDrainPercent);
     const effectiveCritValue = rawCritValue - tickOverhealing;
-      this.targetMasteryPool[targetId].pendingCritTotal -= rawCritValue;
-
+    this.targetMasteryPool[targetId].pendingCritTotal -= rawCritValue;
 
     if (effectiveCritValue > 0) {
       event.eolCritAmount = effectiveCritValue;
@@ -285,41 +284,38 @@ class EchoOfLightMastery extends Analyzer {
   statistic() {
     return (
       <Statistic
+        size={'flexible'}
         position={STATISTIC_ORDER.CORE(2)}
-        icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT_MASTERY.id} />}
-        value={(
-          <Tooltip content={`Total Healing: ${formatNumber(this.effectiveHealing)} (${formatPercentage(this.overHealingPercent)}% OH)`}>
-            <ItemHealingDone amount={this.effectiveHealing} />
-          </Tooltip>
+        tooltip={(
+          <>
+            Total Healing: {formatNumber(this.effectiveHealing)} ({formatPercentage(this.overHealingPercent)}% OH)<br />
+            Expand for Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br /><br />
+            <strong>Please do note this may not be 100% accurate.</strong><br /><br />
+            Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.
+          </>
         )}
-        label={(
-          <TooltipElement
-            content={(
-              <>
-                Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br /><br />
-                <strong>Please do note this may not be 100% accurate.</strong><br /><br />
-                Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.
-              </>
-            )}
-          >
-            Echo of Light
-          </TooltipElement>
-        )}
+        dropdown={
+          <>
+            <div>Values under 1% of total are omitted.</div>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Spell</th>
+                  <th>Amount</th>
+                  <th>% of Total</th>
+                  <th>% OH</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.masteryTable}
+              </tbody>
+            </table>
+          </>
+        }
       >
-        <div>Values under 1% of total are omitted.</div>
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Spell</th>
-              <th>Amount</th>
-              <th>% of Total</th>
-              <th>% OH</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.masteryTable}
-          </tbody>
-        </table>
+        <BoringSpellValueText spell={SPELLS.ECHO_OF_LIGHT_MASTERY}>
+            <ItemHealingDone amount={this.effectiveHealing} />
+        </BoringSpellValueText>
       </Statistic>
     );
   }

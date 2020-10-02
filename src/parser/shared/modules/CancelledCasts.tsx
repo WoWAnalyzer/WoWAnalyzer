@@ -116,7 +116,6 @@ class CancelledCasts extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
         size="small"
-        label="test"
         className="value"
         tooltip={(
           <>
