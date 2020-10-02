@@ -7,7 +7,7 @@ import CooldownOverview from 'interface/others/CooldownOverview';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import Events, { Event, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, { Event, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent, SummonEvent, DeathEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 
 const debug = false;
@@ -29,6 +29,7 @@ export type CooldownSpell = {
   startBufferFilter?: EventFilter<any>,
   startBufferMS?: number,
   startBufferEvents?: number,
+  petID?: number,
 };
 
 export type TrackedCooldown = CooldownSpell & {
@@ -167,6 +168,39 @@ class CooldownThroughputTracker extends Analyzer {
 
   on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
     this.endCooldown(event);
+  }
+
+  on_byPlayer_summon(event: SummonEvent) {
+    const spellId = event.ability.guid;
+    const ctor = this.constructor as typeof CooldownThroughputTracker;
+    const cooldownSpell = ctor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    if (!cooldownSpell) {
+      return;
+    }
+
+    // This fixes weirdness were you can get the pet and the buff at the same time *cough yu'lon*
+    const index = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === spellId);
+    if (index !== -1) {
+      return;
+    }
+
+    const cooldown = this.addCooldown(cooldownSpell, event.timestamp);
+    cooldown.petID = event.targetID;
+    this.activeCooldowns.push(cooldown);
+    debug && console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
+  }
+
+  on_toPlayerPet_death(event: DeathEvent){
+    const petID = event.targetID;
+    const index = this.activeCooldowns.findIndex(cooldown => cooldown.petID === petID);
+    if (index === -1) {
+      return;
+    }
+
+    const cooldown = this.activeCooldowns[index];
+    cooldown.end = event.timestamp;
+    this.activeCooldowns.splice(index, 1);
+    debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
   }
 
   // endregion
