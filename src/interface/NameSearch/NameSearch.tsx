@@ -1,6 +1,6 @@
 import React, { FormEvent, RefObject } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import SelectSearch from 'react-select-search';
+import SelectSearch from 'react-select-search/dist/cjs';
 import { Trans, t } from '@lingui/macro';
 import REALMS from 'common/RealmList';
 import { makeGuildApiUrl, makeCharacterApiUrl } from 'common/makeApiUrl';
