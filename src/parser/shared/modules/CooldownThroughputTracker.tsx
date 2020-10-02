@@ -25,13 +25,13 @@ type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyB
 
 export type CooldownSpell = {
   spell: any,
-  summary: Array<BUILT_IN_SUMMARY_TYPES>,
+  summary: Array<BUILT_IN_SUMMARY_TYPES | any>,
   startBufferFilter?: EventFilter<any>,
   startBufferMS?: number,
   startBufferEvents?: number,
 };
 
-type TrackedCooldown = CooldownSpell & {
+export type TrackedCooldown = CooldownSpell & {
   start: number,
   end: number | null,
   events: Array<Event<any>>,
@@ -83,7 +83,7 @@ class CooldownThroughputTracker extends Analyzer {
       // Default to only including cast events by the player
       const filter = cooldownSpell.startBufferFilter || Events.cast.by(SELECTED_PLAYER);
       events = this.eventHistory.last(cooldownSpell.startBufferEvents, startBufferMS, filter);
-      if(startBufferMS) {
+      if (startBufferMS) {
         start = timestamp - startBufferMS;
       } else {
         // If filtering by only event count, set the start timestamp to the oldest event found

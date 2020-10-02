@@ -15,7 +15,8 @@
     "noEmit": true,
     "jsx": "preserve",
     "typeRoots": ["./node_modules/@types"],
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "downlevelIteration": true
   },
   "include": ["src", "./types/*.d.ts"]
 }
