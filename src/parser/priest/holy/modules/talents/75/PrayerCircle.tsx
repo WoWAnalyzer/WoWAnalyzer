@@ -9,8 +9,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import AbilityTracker from 'parser/priest/holy/modules/core/AbilityTracker';
 import Abilities from 'parser/priest/holy/modules/Abilities';
 
-const PR_BUFF_DURATION = 8000;
-
 /*
   Using Circle of Healing reduces the cast time of your Prayer of Healing by 25% for 8 sec.
 */
