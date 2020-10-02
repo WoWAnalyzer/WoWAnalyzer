@@ -3,8 +3,9 @@ import { AtonementOnPlayer1, AtonementOnPlayer2, DamagingEvent1, DamagingEvent2,
 import AtonementSuccessiveDamage from './AtonementSuccessiveDamage';
 
 describe('DisciplinePriest.Reordering', () => {
-  let atonementSuccessiveDamageNormalizer;
+  let atonementSuccessiveDamageNormalizer: any;
   beforeEach(() => {
+    // @ts-ignore
     atonementSuccessiveDamageNormalizer = new AtonementSuccessiveDamage({
       reorder: () => true,
       toPlayer: () => true,
@@ -34,7 +35,8 @@ describe('DisciplinePriest.Reordering', () => {
       AtonementOnPlayer2,
       DamagingEvent2,
       AtonementOnPlayer1,
-      AtonementOnPlayer2]);
+      AtonementOnPlayer2,
+    ]);
   });
 
   it('If the atonement of 2 events is correct, it stays untouched', () => {
@@ -56,7 +58,8 @@ describe('DisciplinePriest.Reordering', () => {
       AtonementOnPlayer2,
       DamagingEvent2,
       AtonementOnPlayer1,
-      AtonementOnPlayer2]);
+      AtonementOnPlayer2,
+    ]);
   });
 
   it('If the 2 damaging blocks scenario happens twice, both are corrected', () => {
