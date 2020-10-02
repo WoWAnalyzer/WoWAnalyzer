@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 2), 'Added pet tracking to the Cooldown tab.', Abelito75),
   change(date(2020, 10, 1), 'Converted charts to new library.', emallson),
   change(date(2020, 9, 26), 'Added a new search option to the homepage to view a guild\'s recent reports.', Dambroda),
   change(date(2020, 9, 26), 'Updated mana costs for all healers.', Abelito75),
