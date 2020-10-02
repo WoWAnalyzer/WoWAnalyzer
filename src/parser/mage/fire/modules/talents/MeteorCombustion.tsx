@@ -19,8 +19,6 @@ class MeteorCombustion extends Analyzer {
   protected enemies!: EnemyInstances;
   protected eventHistory!: EventHistory;
 
-  hasSunKingsBlessing: boolean = false;
-
   lastRuneCast = 0
   badMeteor = 0
   meteorCast = false;
@@ -34,7 +32,6 @@ class MeteorCombustion extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.hasSunKingsBlessing = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SUN_KINGS_BLESSING.bonusID);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.METEOR_DAMAGE), this.onMeteorDamage);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionStart);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionEnd);
