@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 
 import ItemHealingDone from 'interface/ItemHealingDone';
@@ -36,7 +36,7 @@ class NourishingChi extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.heal);
+    this.addEventListener(Events.heal, this.heal);
   }
 
   heal(event) {
