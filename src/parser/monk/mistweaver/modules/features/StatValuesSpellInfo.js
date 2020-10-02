@@ -206,7 +206,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.FAELINE_STOMP_ESSENCE_FONT]: {
+  [SPELLS.FAELINE_STOMP_ESSENCE_FONT.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
