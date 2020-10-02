@@ -1,7 +1,7 @@
 export default {
   //region Assassination
   DASHING_SCOUNDREL: {
-    id: 340081,
+    id: 340426,
     name: 'Dashing Scoundrel',
     icon: 'ability_rogue_venomouswounds',
   },
@@ -12,7 +12,7 @@ export default {
   },
   DUSKWALERS_PATCH: {
     id: 340084,
-    name: 'Duskwaler\'s Patch',
+    name: "Duskwaler's Patch",
     icon: 'inv_throwingknife_04',
   },
   ZOLDYCK_INSIGNIA: {
@@ -35,7 +35,7 @@ export default {
   },
   GREENSKINS_WICKERS: {
     id: 340085,
-    name: 'Greenskin\'s Wickers',
+    name: "Greenskin's Wickers",
     icon: 'ability_creature_cursed_04',
   },
   GUILE_CHARM: {
@@ -48,7 +48,7 @@ export default {
   //region Subtlety
   AKAARIS_SOUL_FRAGMENT: {
     id: 340090,
-    name: 'Akaari\'s Soul Fragment',
+    name: "Akaari's Soul Fragment",
     icon: 'ability_warlock_soullink',
   },
   AKAARIS_SOUL_FRAGMENT_SHADOWSTRIKE: {

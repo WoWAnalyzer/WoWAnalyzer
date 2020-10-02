@@ -45,6 +45,9 @@ import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingRepr
 import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
 import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
 
+// Legendaries
+import DashingScoundrel from './modules/spells/shadowlands/legendaries/DashingScoundrel';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
@@ -96,6 +99,9 @@ class CombatLogParser extends CoreCombatLogParser {
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
     sepsis: Sepsis,
+
+    // Legendaries
+    dashingScoundrel: DashingScoundrel,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

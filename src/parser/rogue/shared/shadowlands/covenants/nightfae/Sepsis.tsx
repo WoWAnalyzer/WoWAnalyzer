@@ -7,10 +7,12 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import { TooltipElement } from 'common/Tooltip';
+import { formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-class EchoingReprimand extends Analyzer {
+class Sepsis extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
@@ -21,7 +23,10 @@ class EchoingReprimand extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS),
+      this.onDamage,
+    );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS_POISON),
       this.onPoisonDamage,
@@ -44,12 +49,17 @@ class EchoingReprimand extends Analyzer {
           position={STATISTIC_ORDER.CORE()}
           size="flexible"
           category={STATISTIC_CATEGORY.COVENANTS}
+          tooltip={
+            <TooltipElement>
+              <ul>
+                <li>{formatNumber(this.damage)} damage done by Sepsis Ability</li>
+                <li>{formatNumber(this.poisonDamage)} damage done by Sepsis poison</li>
+              </ul>
+            </TooltipElement>
+          }
         >
           <BoringSpellValueText spell={SPELLS.SEPSIS}>
-            <>
-              <ItemDamageDone amount={this.damage} />
-              <ItemDamageDone amount={this.poisonDamage} />
-            </>
+            <ItemDamageDone amount={this.damage + this.poisonDamage} />
           </BoringSpellValueText>
         </Statistic>
       </>
@@ -57,4 +67,4 @@ class EchoingReprimand extends Analyzer {
   }
 }
 
-export default EchoingReprimand;
+export default Sepsis;

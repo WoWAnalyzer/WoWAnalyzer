@@ -2,20 +2,23 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent } from 'parser/core/Events';
-import { formatNumber } from 'common/format';
+import Events, { EnergizeEvent } from 'parser/core/Events';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ResourceIcon from 'common/ResourceIcon';
 
-class AkaarisSoulFragment extends Analyzer {
+class DashingScoundrel extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
 
-  damage: number = 0;
+  critCount: number = 0;
+  comboPointsGained: number = 0;
+  comboPointsWasted: number = 0;
   protected abilities!: Abilities;
 
   constructor(options: any) {
@@ -23,13 +26,15 @@ class AkaarisSoulFragment extends Analyzer {
     // this.active = this.selectedCombatant.hasLegendaryByBonusID();
     this.active = true;
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AKAARIS_SOUL_FRAGMENT_SHADOWSTRIKE),
-      this.onDamage,
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL),
+      this.onEnergize,
     );
   }
 
-  onDamage(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
+  onEnergize(event: EnergizeEvent) {
+    this.critCount += 1;
+    this.comboPointsGained += event.resourceChange;
+    this.comboPointsWasted += event.waste;
   }
 
   statistic() {
@@ -37,17 +42,19 @@ class AkaarisSoulFragment extends Analyzer {
       <>
         <Statistic
           position={STATISTIC_ORDER.CORE()}
-          size="flexible"
           category={STATISTIC_CATEGORY.ITEMS}
-          tooltip={(
+          tooltip={
             <>
-              Akaari's Soul Fragment contributed {formatNumber(this.damage)} total damage done with a secondary Shadowstrike.
+              Dashing Scoundrel was responsible for {this.critCount} critical hits resulting in{' '}
+              {this.comboPointsGained + this.comboPointsWasted} bonus ComboPoints being earned.
             </>
-          )}
+          }
         >
-          <BoringSpellValueText spell={SPELLS.AKAARIS_SOUL_FRAGMENT}>
+          <BoringSpellValueText spell={SPELLS.DASHING_SCOUNDREL}>
             <>
-              <ItemDamageDone amount={this.damage} />
+              <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
+              {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
+              <small> extra Combo Points gained.</small>
             </>
           </BoringSpellValueText>
         </Statistic>
@@ -56,4 +63,4 @@ class AkaarisSoulFragment extends Analyzer {
   }
 }
 
-export default AkaarisSoulFragment;
+export default DashingScoundrel;
