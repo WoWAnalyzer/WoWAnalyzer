@@ -7,6 +7,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import AbilityTracker from 'parser/priest/holy/modules/core/AbilityTracker';
 
 import Abilities from './modules/Abilities';
 
@@ -23,6 +24,8 @@ import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import HymnBuffBenefit from './modules/spells/HymnBuffBenefit';
 import Renew from './modules/spells/Renew';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
+import CircleOfHealing from './modules/spells/CircleOfHealing';
+
 //Talents
 import Talents from './modules/talents';
 // Features
@@ -53,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellManaCost: SpellManaCost,
     abilities: Abilities,
     lowHealthHealing: LowHealthHealing,
+    abilityTracker: AbilityTracker,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
@@ -82,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyWordChastise: HolyWordChastise,
     holyWordSalvation: HolyWordSalvationCooldown,
     statWeights: StatWeights,
+    circleOfHealing: CircleOfHealing,
 
     spiritOfRedemption: SpiritOfRedemption,
     renew: Renew,
@@ -105,7 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     PsychicVoice: Talents.t60.PsychicVoice,
 
     SurgeOfLight: Talents.t75.SurgeOfLight,
-    CircleOfHealing: Talents.t75.CircleOfHealing,
+    PrayerCircle: Talents.t75.PrayerCircle,
     BindingHeal: Talents.t75.BindingHeal,
 
     Halo: Talents.t90.Halo,
