@@ -71,7 +71,7 @@ class Combatant extends Entity {
     return SPECS[this.specId];
   }
   get race(): Race | null {
-    if (!this.owner.characterProfile) {
+    if (!this.owner.characterProfile || ! this.owner.characterProfile.race) {
       return null;
     }
     let raceId = this.owner.characterProfile.race;
