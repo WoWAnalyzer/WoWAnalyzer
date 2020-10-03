@@ -150,7 +150,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CIRCLE_OF_HEALING_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste: number) => 15 / (1 + haste),
-        enabled: combatant.hasTalent(SPELLS.CIRCLE_OF_HEALING_TALENT.id),
         gcd: {
           base: 1500,
         },
