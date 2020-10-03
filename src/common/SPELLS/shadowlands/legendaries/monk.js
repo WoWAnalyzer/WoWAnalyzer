@@ -19,6 +19,12 @@ export default {
     name: 'Ancient Teachings of the Monastery',
     icon: 'inv_jewelcrafting_jadeserpent',
   },
+  CLOUDED_FOCUS_BUFF:{
+    id: 337476,
+    name: 'Clouded Focus',
+    icon: 'ability_monk_surgingmist',
+  },
+
 
   //endregion
 
