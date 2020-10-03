@@ -10,7 +10,7 @@ import { formatNumber } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { AbsorbedEvent, HealEvent } from 'parser/core/Events';
 
 import AtonementDamageSource from '../../features/AtonementDamageSource';
 import isAtonement from '../../core/isAtonement';
@@ -19,24 +19,25 @@ class Mindgames extends Analyzer {
   static dependencies = {
     atonementDamageSource: AtonementDamageSource,
   };
+  protected atonementDamageSource!: AtonementDamageSource;
 
   atonementHealing = 0;
   directHealing = 0;
   preventedDamage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES_ABSORB), this.onMindgamesAbsorbed);
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     if (isAtonement(event)) {
 
       const atonenementDamageEvent = this.atonementDamageSource.event;
-      if (atonenementDamageEvent.ability.guid !== SPELLS.MINDGAMES.id) {
+      if (!atonenementDamageEvent || atonenementDamageEvent.ability.guid !== SPELLS.MINDGAMES.id) {
         return;
       }
 
@@ -51,7 +52,7 @@ class Mindgames extends Analyzer {
     }
   }
 
-  onMindgamesAbsorbed(event) {
+  onMindgamesAbsorbed(event: AbsorbedEvent) {
     this.preventedDamage += event.amount;
   }
 
@@ -69,11 +70,12 @@ class Mindgames extends Analyzer {
             </ul>
           </>
         )}
-        category={STATISTIC_CATEGORY.COVENANTS}>
-          <BoringSpellValueText spell={SPELLS.MINDGAMES}>
-            <>
-              <ItemHealingDone amount={this.atonementHealing + this.directHealing + this.preventedDamage} />
-            </>
+        category={STATISTIC_CATEGORY.COVENANTS}
+      >
+        <BoringSpellValueText spell={SPELLS.MINDGAMES}>
+          <>
+            <ItemHealingDone amount={this.atonementHealing + this.directHealing + this.preventedDamage} />
+          </>
         </BoringSpellValueText>
       </Statistic>
     );
