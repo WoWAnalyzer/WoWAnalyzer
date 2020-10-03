@@ -1,15 +1,13 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-
+import {Trans} from '@lingui/macro';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-
-import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class InvokeYulon extends Analyzer {
   soothHealing = 0;
@@ -33,28 +31,23 @@ class InvokeYulon extends Analyzer {
 
   statistic() {
     return (
-      <>
-        <StatisticBox
-          position={STATISTIC_ORDER.OPTIONAL(50)}
-          icon={<SpellIcon id={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id} />}
-          value={<ItemHealingDone amount={this.soothHealing + this.envelopHealing} />}
-          label={
-            <TooltipElement
-              content={
-                <>
-                  Healing Breakdown:
-                  <ul>
-                    <li>{formatNumber(this.soothHealing)} healing from Soothing Breath.</li>
-                    <li>{formatNumber(this.envelopHealing)} healing from Enveloping Breath.</li>
-                  </ul>
-                </>
-              }
-            >
-              Total Healing Contributed
-            </TooltipElement>
-          }
-        />
-      </>
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(50)}
+        size="flexible"
+        tooltip={
+          <Trans>
+                Healing Breakdown:
+                <ul>
+                  <li>{formatNumber(this.soothHealing)} healing from Soothing Breath.</li>
+                  <li>{formatNumber(this.envelopHealing)} healing from Enveloping Breath.</li>
+                </ul>
+          </Trans>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT}>
+          <ItemHealingDone amount={this.soothHealing + this.envelopHealing} /><br />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
