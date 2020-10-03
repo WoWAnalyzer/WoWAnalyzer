@@ -1,18 +1,16 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-
+import {Trans} from '@lingui/macro';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-
-import SpellIcon from 'common/SpellIcon';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { TooltipElement } from 'common/Tooltip';
 import { formatNumber } from 'common/format';
-
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemHealingDone from 'interface/ItemHealingDone';
 class InvokeChiJi extends Analyzer {
   gustHealing = 0;
-  envbHealing = 0;
+  envelopHealing = 0;
 
   constructor(...args) {
     super(...args);
@@ -27,33 +25,28 @@ class InvokeChiJi extends Analyzer {
   }
 
   handleEnvelopingBreath(event) {
-    this.envbHealing += (event.amount || 0) + (event.absorbed || 0);
+    this.envelopHealing += (event.amount || 0) + (event.absorbed || 0);
   }
 
   statistic() {
     return (
-      <>
-        <StatisticBox
+        <Statistic
           position={STATISTIC_ORDER.OPTIONAL(50)}
-          icon={<SpellIcon id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} />}
-          value={<ItemHealingDone amount={this.gustHealing + this.envbHealing} />}
-          label={
-            <TooltipElement
-              content={
-                <>
+          size="flexible"
+          tooltip={
+            <Trans>
                   Healing Breakdown:
                   <ul>
                     <li>{formatNumber(this.gustHealing)} healing from Chi-Ji Gust of Mist.</li>
-                    <li>{formatNumber(this.envbHealing)} healing from Enveloping Breath.</li>
+                    <li>{formatNumber(this.envelopHealing)} healing from Enveloping Breath.</li>
                   </ul>
-                </>
-              }
-            >
-              Total Healing Contributed
-            </TooltipElement>
+            </Trans>
           }
-        />
-      </>
+        >
+          <BoringSpellValueText spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT}>
+            <ItemHealingDone amount={this.gustHealing + this.envelopHealing} /><br />
+          </BoringSpellValueText>
+        </Statistic>
     );
   }
 }
