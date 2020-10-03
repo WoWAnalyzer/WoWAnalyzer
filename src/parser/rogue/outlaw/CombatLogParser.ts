@@ -21,7 +21,7 @@ import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker'
 import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
 import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
 import RestlessBlades from './modules/core/RestlessBlades';
-import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
+import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
 import Dispatch from './modules/spells/Dispatch';
 import Opportunity from './modules/spells/Opportunity';
 import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker';

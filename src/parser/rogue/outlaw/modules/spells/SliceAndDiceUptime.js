@@ -9,11 +9,6 @@ import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class SliceAndDiceUptime extends Analyzer {
-  constructor(...args) {
-    super(...args);
-    this.active = true;
-  }
-
   get percentUptime() {
     return (
       this.selectedCombatant.getBuffUptime(SPELLS.SLICE_AND_DICE.id) / this.owner.fightDuration

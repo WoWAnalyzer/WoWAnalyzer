@@ -14,11 +14,6 @@ class RollTheBonesCounter extends Analyzer {
     rollTheBonesCastTracker: RollTheBonesCastTracker,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.active = true
-  }
-
   rolltheBonesBuffDistributionChart() {
     const castTracker = this.rollTheBonesCastTracker;
     

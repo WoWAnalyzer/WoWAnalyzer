@@ -24,11 +24,6 @@ class RollTheBonesEfficiency extends Analyzer {
     rollTheBonesCastTracker: RollTheBonesCastTracker,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.active = true;
-  }
-
   get goodLowValueRolls(){
     const delayedRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE]
       .filter(cast => cast.RTB_IsDelayed).length;

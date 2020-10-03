@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 10, 1), <>Remove Slice and Dice Talent, update Rogue spec configs, update spells</>, [Tyndi]),
+  change(date(2020, 10, 1), 'Move Slice and Dice from talent to spell, update Rogue spec configs, update spells', [Tyndi]),
   change(date(2019, 12, 16), <>Updated <SpellLink id={SPELLS.MARKED_FOR_DEATH_TALENT.id} /> wasted combo point thresholds.</>, [soloxcx]),
   change(date(2019, 7, 20), 'Implemented an initial checklist.', [Coywolf]),
   change(date(2018, 11, 15), <>Fixed <SpellLink id={SPELLS.ARCANE_TORRENT_ENERGY.id} /> GCD.</>, [Aelexe]),

@@ -198,7 +198,7 @@ export default {
   },
   SHADOW_SATYRS_WALK_ENERGY_BASE: {
     id: 224914,
-    name: "Shadow Satyr's Walk",
+    name: 'Shadow Satyr\'s Walk',
     icon: 'inv_boots_mail_dungeonmail_c_04',
   },
   SHADOW_SATYRS_WALK_ENERGY_EXTRA: {

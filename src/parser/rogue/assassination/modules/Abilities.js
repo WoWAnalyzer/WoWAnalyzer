@@ -5,11 +5,6 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
-    console.log(`HASCOVENANT: ${combatant.hasCovenant(COVENANTS.NECROLORD.id)}`);
-    console.log(`HASCOVENANT: ${combatant.hasCovenant(COVENANTS.NIGHT_FAE.id)}`);
-    console.log(`HASCOVENANT: ${combatant.hasCovenant(COVENANTS.KYRIAN.id)}`);
-    console.log(`HASCOVENANT: ${combatant.hasCovenant(COVENANTS.VENTHYR.id)}`);
-    // console.log(`COMBATANT: ${JSON.stringify(combatant)}`);
     return [
       // Rotational
       {
@@ -268,7 +263,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SEPSIS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
-          static: 1000,
+          base: 1000,
         },
         cooldown: 90,
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
@@ -277,7 +272,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FLAGELLATION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
-          static: 1000,
+          base: 1000,
         },
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
@@ -285,7 +280,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ECHOING_REPRIMAND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
-          static: 1000,
+          base: 1000,
         },
         cooldown: 45,
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
@@ -294,7 +289,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SERRATED_BONE_SPIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
-          static: 1000,
+          base: 1000,
         },
         cooldown: 30,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),

@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -24,14 +23,8 @@ class EchoingReprimand extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND_ENERGIZE),
-      this.onEnergize,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND), this.onDamage);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND_ENERGIZE), this.onEnergize);
   }
 
   onDamage(event: DamageEvent) {
@@ -49,7 +42,6 @@ class EchoingReprimand extends Analyzer {
     return (
       <>
         <Statistic
-          position={STATISTIC_ORDER.CORE()}
           size="flexible"
           category={STATISTIC_CATEGORY.COVENANTS}
         >

@@ -15,11 +15,6 @@ class BetweenTheEyes extends Analyzer {
     betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.active = true;
-  }
-
   get thresholds() {
     const total = this.damageTracker.getAbility(SPELLS.BETWEEN_THE_EYES.id);
     const filtered = this.betweenTheEyesDamageTracker.getAbility(SPELLS.BETWEEN_THE_EYES.id);

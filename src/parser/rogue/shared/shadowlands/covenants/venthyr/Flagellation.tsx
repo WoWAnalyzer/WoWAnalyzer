@@ -4,13 +4,12 @@ import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-class EchoingReprimand extends Analyzer {
+class Flagellation extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
@@ -22,10 +21,7 @@ class EchoingReprimand extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION), this.onDamage);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION_LASH),
-      this.onLashDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION_LASH), this.onLashDamage);
   }
 
   onDamage(event: DamageEvent) {
@@ -39,22 +35,19 @@ class EchoingReprimand extends Analyzer {
 
   statistic() {
     return (
-      <>
-        <Statistic
-          position={STATISTIC_ORDER.CORE()}
-          size="flexible"
-          category={STATISTIC_CATEGORY.COVENANTS}
-        >
-          <BoringSpellValueText spell={SPELLS.FLAGELLATION}>
-            <>
-              <ItemDamageDone amount={this.damage} />
-              <ItemDamageDone amount={this.lashDamage} />
-            </>
-          </BoringSpellValueText>
-        </Statistic>
-      </>
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+      >
+        <BoringSpellValueText spell={SPELLS.FLAGELLATION}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+            <ItemDamageDone amount={this.lashDamage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
 
-export default EchoingReprimand;
+export default Flagellation;

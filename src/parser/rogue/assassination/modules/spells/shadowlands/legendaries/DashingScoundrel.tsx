@@ -5,9 +5,7 @@ import SPELLS from 'common/SPELLS';
 import Events, { EnergizeEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ResourceIcon from 'common/ResourceIcon';
 
@@ -23,12 +21,8 @@ class DashingScoundrel extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    // this.active = this.selectedCombatant.hasLegendaryByBonusID();
-    this.active = true;
-    this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL),
-      this.onEnergize,
-    );
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DASHING_SCOUNDREL.bonusID);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL), this.onEnergize);
   }
 
   onEnergize(event: EnergizeEvent) {
@@ -39,26 +33,23 @@ class DashingScoundrel extends Analyzer {
 
   statistic() {
     return (
-      <>
-        <Statistic
-          position={STATISTIC_ORDER.CORE()}
-          category={STATISTIC_CATEGORY.ITEMS}
-          tooltip={
-            <>
-              Dashing Scoundrel was responsible for {this.critCount} critical hits resulting in{' '}
-              {this.comboPointsGained + this.comboPointsWasted} bonus ComboPoints being earned.
-            </>
-          }
-        >
-          <BoringSpellValueText spell={SPELLS.DASHING_SCOUNDREL}>
-            <>
-              <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
-              {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
-              <small> extra Combo Points gained.</small>
-            </>
-          </BoringSpellValueText>
-        </Statistic>
-      </>
+      <Statistic
+        category={STATISTIC_CATEGORY.ITEMS}
+        tooltip={
+          <>
+            Dashing Scoundrel was responsible for {this.critCount} critical hits resulting in{' '}
+            {this.comboPointsGained + this.comboPointsWasted} bonus ComboPoints being earned.
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.DASHING_SCOUNDREL}>
+          <>
+            <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
+            {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
+            <small> extra Combo Points gained.</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

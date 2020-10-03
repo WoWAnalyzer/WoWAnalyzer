@@ -110,7 +110,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
           extraSuggestion: `Using Dreadblades on cooldown is very important and should only be delayed when you know you won't be able to attack for the majority of it's duration.`,
-        }
+        },
       },
       {
         spell: SPELLS.ADRENALINE_RUSH,

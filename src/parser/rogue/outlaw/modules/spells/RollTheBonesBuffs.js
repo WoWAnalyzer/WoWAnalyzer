@@ -12,12 +12,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { ROLL_THE_BONES_BUFFS } from '../../constants';
 
 class RollTheBonesBuffs extends Analyzer {
-  constructor(...args) {
-    super(...args);
-    // this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
-    this.active = true;
-  }
-
   percentUptime(spellid) {
     return this.selectedCombatant.getBuffUptime(spellid) / this.owner.fightDuration;
   }
