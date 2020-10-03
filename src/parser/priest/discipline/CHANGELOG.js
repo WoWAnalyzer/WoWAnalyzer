@@ -8,6 +8,7 @@ import ITEMS from 'common/ITEMS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 3), <>Update <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} /> cooldown.</>, [Reglitch]),
   change(date(2020, 10, 2), <>Implementation of <SpellLink id={SPELLS.MINDGAMES.id} /></>, [Oratio]),
   change(date(2020, 9, 30), <>Shadowlands Clean up.</>, [Oratio]),
   change(date(2020, 7, 20), <>Fixed a bug where the <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> Applicator Breakdown chart would sometimes not load due to an error.</>, [Tiphess]),
