@@ -87,8 +87,6 @@ class ManaUsageGraph extends React.Component {
       ],
     };
 
-    console.log(data);
-
     return (
       <AutoSizer disableHeight>
         {({ width }) => (

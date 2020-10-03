@@ -1,11 +1,14 @@
 import React from 'react';
 
-import { Anomoly, Gao, Zerotorescue, Abelito75, niseko, blazyb, JeremyDwayne, FraunchToost, Tyndi, Moonrabbit } from 'CONTRIBUTORS';
+import { Anomoly, Gao, Zerotorescue, Abelito75, niseko, blazyb, JeremyDwayne, FraunchToost, Tyndi, Moonrabbit, Vohrr } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 3), <>Updated Chiji statbox to include enveloping breath healing. </>, Vohrr),
+  change(date(2020, 10, 3), <>Added the Clouded Focus legendary. </>, Abelito75),
+  change(date(2020, 10, 2), <>Corrected Life Cocoon to track all hots. </>, Abelito75),
   change(date(2020, 10, 2), <>Corrected Nourshing Chi to track all hots. </>, Moonrabbit),
   change(date(2020, 10, 1), <>Updated spell data so stat weights will be accurate. </>, Abelito75),
   change(date(2020, 10, 1), <>Added Statistics for Tear of Morning and Ancient Teachings of the Monastery. </>, Abelito75),
