@@ -37,10 +37,9 @@ import DesperatePrayer from '../shared/modules/features/DesperatePrayer';
 import Contrition from './modules/spells/Contrition';
 import Grace from './modules/spells/Grace';
 import Schism from './modules/spells/Schism';
+import Mindgames from './modules/shadowlands/covenants/MindGames';
 
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
-
-import Mindgames from './modules/shadowlands/covenants/Mindgames';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
