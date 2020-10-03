@@ -11,6 +11,7 @@ import Contributor from 'interface/ContributorButton';
 // prettier-ignore
 export default [
   change(date(2020, 9, 27), 'Provide the ability to analyse anonymous reports.', AdamKelly),
+  change(date(2020, 9, 26), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),
   change(date(2020, 9, 22), 'Provide an EventType to Event map to make event handlers that listen to more than one event type easier to write.', Dambroda),
   change(date(2020, 9, 22), 'Fix an issue where it wasn\'t possible to view the character page', Putro),
   change(date(2020, 9, 21), 'Fix Armory link for characters on realms that contain spaces or apostrophes', Sharrq),

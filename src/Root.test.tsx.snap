@@ -514,7 +514,7 @@ exports[`Root matches snapshot 1`] = `
                                                             />,
                                                           ]
                                                         }
-                                                        id="Improve your performance with personal feedback and stats. Just enter the link of a <0>Warcraft Logs</0> report:"
+                                                        id="Improve your performance with personal feedback and stats. Just enter the link of a <0>Warcraft Logs</0> report below."
                                                       >
                                                         <I18n
                                                           update={true}
@@ -546,7 +546,7 @@ exports[`Root matches snapshot 1`] = `
                                                               }
                                                             }
                                                             i18nHash={null}
-                                                            id="Improve your performance with personal feedback and stats. Just enter the link of a <0>Warcraft Logs</0> report:"
+                                                            id="Improve your performance with personal feedback and stats. Just enter the link of a <0>Warcraft Logs</0> report below."
                                                           >
                                                             <Render
                                                               value={
@@ -559,7 +559,7 @@ exports[`Root matches snapshot 1`] = `
                                                                   >
                                                                     Warcraft Logs
                                                                   </a>,
-                                                                  " report:",
+                                                                  " report below.",
                                                                 ]
                                                               }
                                                             >
@@ -572,7 +572,7 @@ exports[`Root matches snapshot 1`] = `
                                                               >
                                                                 Warcraft Logs
                                                               </a>
-                                                               report:
+                                                               report below.
                                                             </Render>
                                                           </Trans>
                                                         </I18n>
@@ -586,6 +586,222 @@ exports[`Root matches snapshot 1`] = `
                                                           }
                                                         }
                                                       >
+                                                        <nav>
+                                                          <ul>
+                                                            <li
+                                                              className="active"
+                                                              key="report"
+                                                            >
+                                                              <a
+                                                                href="/"
+                                                                onClick={[Function]}
+                                                                style={
+                                                                  Object {
+                                                                    "padding": "5px",
+                                                                  }
+                                                                }
+                                                              >
+                                                                <Icon>
+                                                                  <svg
+                                                                    className="icon"
+                                                                    viewBox="0 0 64 64"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                  >
+                                                                    <g
+                                                                      transform="rotate(90 27 32)"
+                                                                    >
+                                                                      <rect
+                                                                        height="54"
+                                                                        width="6"
+                                                                      />
+                                                                      <rect
+                                                                        height="54"
+                                                                        width="6"
+                                                                        x="12"
+                                                                      />
+                                                                      <rect
+                                                                        height="54"
+                                                                        width="6"
+                                                                        x="24"
+                                                                      />
+                                                                      <rect
+                                                                        height="54"
+                                                                        width="6"
+                                                                        x="36"
+                                                                      />
+                                                                      <rect
+                                                                        height="54"
+                                                                        width="6"
+                                                                        x="48"
+                                                                      />
+                                                                    </g>
+                                                                  </svg>
+                                                                </Icon>
+                                                                <WithI18n
+                                                                  id="Report"
+                                                                >
+                                                                  <I18n
+                                                                    update={true}
+                                                                    withHash={true}
+                                                                  >
+                                                                    <Trans
+                                                                      i18n={
+                                                                        I18n {
+                                                                          "_activeMessages": Object {},
+                                                                          "_catalogs": Object {},
+                                                                          "_dev": Object {
+                                                                            "compile": [Function],
+                                                                            "loadLanguageData": [Function],
+                                                                          },
+                                                                          "_missing": undefined,
+                                                                          "plural": [Function],
+                                                                          "select": [Function],
+                                                                          "selectOrdinal": [Function],
+                                                                          "t": [Function],
+                                                                        }
+                                                                      }
+                                                                      i18nHash={null}
+                                                                      id="Report"
+                                                                    >
+                                                                      <Render
+                                                                        value="Report"
+                                                                      >
+                                                                        Report
+                                                                      </Render>
+                                                                    </Trans>
+                                                                  </I18n>
+                                                                </WithI18n>
+                                                              </a>
+                                                            </li>
+                                                            <li
+                                                              key="character"
+                                                            >
+                                                              <a
+                                                                href="/"
+                                                                onClick={[Function]}
+                                                                style={
+                                                                  Object {
+                                                                    "padding": "5px",
+                                                                  }
+                                                                }
+                                                              >
+                                                                <Icon>
+                                                                  <svg
+                                                                    className="icon"
+                                                                    viewBox="0 0 100 100"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                  >
+                                                                    <path
+                                                                      d="M51.7,46.5c-10.1,0-18.3-8.2-18.3-18.3S41.6,9.9,51.7,9.9S70,18.1,70,28.2S61.8,46.5,51.7,46.5z M51.7,14.9  c-7.4,0-13.3,6-13.3,13.3s6,13.3,13.3,13.3S65,35.6,65,28.2S59,14.9,51.7,14.9z"
+                                                                    />
+                                                                    <path
+                                                                      d="M51.7,88.5c-14.4,0-27.6-1.9-28.2-2l-2.1-0.3V65.4c0-8.5,7.7-15.8,19.5-18.8l1-0.2l0.9,0.5c5.5,3,12.5,3,18,0l0.9-0.5l1,0.2  C74.3,49.6,82,57,82,65.4v20.8l-2.1,0.3C79.3,86.6,66,88.5,51.7,88.5z M26.3,81.8c4.3,0.5,14.7,1.7,25.3,1.7c10.7,0,21-1.1,25.3-1.7  V65.4c0-5.8-5.9-11.2-14.8-13.7c-6.5,3.2-14.5,3.2-21,0c-8.9,2.5-14.8,7.9-14.8,13.7C26.3,65.4,26.3,81.8,26.3,81.8z"
+                                                                    />
+                                                                  </svg>
+                                                                </Icon>
+                                                                <WithI18n
+                                                                  id="Character"
+                                                                >
+                                                                  <I18n
+                                                                    update={true}
+                                                                    withHash={true}
+                                                                  >
+                                                                    <Trans
+                                                                      i18n={
+                                                                        I18n {
+                                                                          "_activeMessages": Object {},
+                                                                          "_catalogs": Object {},
+                                                                          "_dev": Object {
+                                                                            "compile": [Function],
+                                                                            "loadLanguageData": [Function],
+                                                                          },
+                                                                          "_missing": undefined,
+                                                                          "plural": [Function],
+                                                                          "select": [Function],
+                                                                          "selectOrdinal": [Function],
+                                                                          "t": [Function],
+                                                                        }
+                                                                      }
+                                                                      i18nHash={null}
+                                                                      id="Character"
+                                                                    >
+                                                                      <Render
+                                                                        value="Character"
+                                                                      >
+                                                                        Character
+                                                                      </Render>
+                                                                    </Trans>
+                                                                  </I18n>
+                                                                </WithI18n>
+                                                              </a>
+                                                            </li>
+                                                            <li
+                                                              key="guild"
+                                                            >
+                                                              <a
+                                                                href="/"
+                                                                onClick={[Function]}
+                                                                style={
+                                                                  Object {
+                                                                    "padding": "5px",
+                                                                  }
+                                                                }
+                                                              >
+                                                                <Icon>
+                                                                  <svg
+                                                                    className="icon"
+                                                                    viewBox="0 0 100 100"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                  >
+                                                                    <path
+                                                                      d="M47.7,36.5A14.5,14.5,0,1,0,33.2,51,14.5,14.5,0,0,0,47.7,36.5Zm-24.9,0A10.5,10.5,0,1,1,33.2,47,10.5,10.5,0,0,1,22.7,36.5Z"
+                                                                    />
+                                                                    <path
+                                                                      d="M90.4,68A20.5,20.5,0,0,0,69.9,47.5H63.7a20.4,20.4,0,0,0-17.3,9.6,20.3,20.3,0,0,0-10-2.6H30.1A20.5,20.5,0,0,0,9.6,75v10H56.8V78H90.4ZM52.8,80.9H13.6V75A16.5,16.5,0,0,1,30.1,58.5h6.3A16.5,16.5,0,0,1,52.8,75ZM86.4,74H56.8a20.4,20.4,0,0,0-7.2-14.6,16.4,16.4,0,0,1,14-7.9h6.3A16.5,16.5,0,0,1,86.4,68Z"
+                                                                    />
+                                                                    <path
+                                                                      d="M81.3,29.5A14.5,14.5,0,1,0,66.8,44,14.5,14.5,0,0,0,81.3,29.5Zm-24.9,0A10.5,10.5,0,1,1,66.8,40,10.5,10.5,0,0,1,56.3,29.5Z"
+                                                                    />
+                                                                  </svg>
+                                                                </Icon>
+                                                                <WithI18n
+                                                                  id="Guild"
+                                                                >
+                                                                  <I18n
+                                                                    update={true}
+                                                                    withHash={true}
+                                                                  >
+                                                                    <Trans
+                                                                      i18n={
+                                                                        I18n {
+                                                                          "_activeMessages": Object {},
+                                                                          "_catalogs": Object {},
+                                                                          "_dev": Object {
+                                                                            "compile": [Function],
+                                                                            "loadLanguageData": [Function],
+                                                                          },
+                                                                          "_missing": undefined,
+                                                                          "plural": [Function],
+                                                                          "select": [Function],
+                                                                          "selectOrdinal": [Function],
+                                                                          "t": [Function],
+                                                                        }
+                                                                      }
+                                                                      i18nHash={null}
+                                                                      id="Guild"
+                                                                    >
+                                                                      <Render
+                                                                        value="Guild"
+                                                                      >
+                                                                        Guild
+                                                                      </Render>
+                                                                    </Trans>
+                                                                  </I18n>
+                                                                </WithI18n>
+                                                              </a>
+                                                            </li>
+                                                          </ul>
+                                                        </nav>
                                                         <Connect(ReportSelecter)>
                                                           <ReportSelecter
                                                             push={[Function]}
@@ -726,75 +942,6 @@ exports[`Root matches snapshot 1`] = `
                                                             </form>
                                                           </ReportSelecter>
                                                         </Connect(ReportSelecter)>
-                                                        <WithI18n
-                                                          components={
-                                                            Array [
-                                                              <a
-                                                                href="/"
-                                                                onClick={[Function]}
-                                                              />,
-                                                            ]
-                                                          }
-                                                          id="or <0>search for a character</0>."
-                                                        >
-                                                          <I18n
-                                                            update={true}
-                                                            withHash={true}
-                                                          >
-                                                            <Trans
-                                                              components={
-                                                                Array [
-                                                                  <a
-                                                                    href="/"
-                                                                    onClick={[Function]}
-                                                                  />,
-                                                                ]
-                                                              }
-                                                              i18n={
-                                                                I18n {
-                                                                  "_activeMessages": Object {},
-                                                                  "_catalogs": Object {},
-                                                                  "_dev": Object {
-                                                                    "compile": [Function],
-                                                                    "loadLanguageData": [Function],
-                                                                  },
-                                                                  "_missing": undefined,
-                                                                  "plural": [Function],
-                                                                  "select": [Function],
-                                                                  "selectOrdinal": [Function],
-                                                                  "t": [Function],
-                                                                }
-                                                              }
-                                                              i18nHash={null}
-                                                              id="or <0>search for a character</0>."
-                                                            >
-                                                              <Render
-                                                                value={
-                                                                  Array [
-                                                                    "or ",
-                                                                    <a
-                                                                      href="/"
-                                                                      onClick={[Function]}
-                                                                    >
-                                                                      search for a character
-                                                                    </a>,
-                                                                    ".",
-                                                                  ]
-                                                                }
-                                                              >
-                                                                or 
-                                                                <a
-                                                                  href="/"
-                                                                  key="0"
-                                                                  onClick={[Function]}
-                                                                >
-                                                                  search for a character
-                                                                </a>
-                                                                .
-                                                              </Render>
-                                                            </Trans>
-                                                          </I18n>
-                                                        </WithI18n>
                                                       </div>
                                                     </div>
                                                   </div>
