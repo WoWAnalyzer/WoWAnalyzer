@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 4), 'Fixed cast efficiency calculations for channeled spells. They are now no longer adding channeled time on top of cooldown as time they were unavailable', Juko8),
   change(date(2020, 10, 3), 'Added dispel to filterable type for EventTab.', Moonrabbit),
   change(date(2020, 10, 2), 'Added Castle Nathria boss configs and updated the default report header image.', Sharrq),
   change(date(2020, 10, 2), 'Added pet tracking to the Cooldown tab.', Abelito75),
