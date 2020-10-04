@@ -16,7 +16,7 @@ import { HealEvent } from 'parser/core/Events';
 // had no issues with 85ms
 const BUFFER_MS = 85;
 
-interface HealingRainHit {
+interface HealingRainTickInfo {
   timestamp: number,
   hits: number
 }
@@ -28,7 +28,7 @@ class HealingRain extends Analyzer {
 
   protected combatants!: Combatants;
 
-  healingRainTicks: Array<HealingRainHit> = [];
+  healingRainTicks: Array<HealingRainTickInfo> = [];
 
   get averageHitsPerTick() {
     const totalHits = this.healingRainTicks.reduce((total, tick) => total + tick.hits, 0);
