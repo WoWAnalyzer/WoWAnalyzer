@@ -89,25 +89,28 @@ const Header = ({
     <header>
       <HeaderBackground boss={boss} />
 
+      <div className="subnavigation container">
+        {phases && Object.keys(phases).length > 0 && (
+          <div className="phaseselector">
+            <PhaseSelector
+              fight={fight}
+              phases={phases}
+              handlePhaseSelection={handlePhaseSelection}
+              selectedPhase={selectedPhase}
+              selectedInstance={selectedInstance}
+              isLoading={isLoading}
+            />
+          </div>
+        )}
+        <div className="timefilter">
+          <TimeFilter fight={fight} isLoading={isLoading} applyFilter={applyFilter} />
+        </div>
+      </div>
+
       <div className="info container">
         <div className="boss">
           <h2>{getDifficultyLabel(fight.difficulty)}</h2>
           <h1>{boss ? boss.name : getBossName(fight, false)}</h1>
-          <h2>
-            {phases && (
-              <PhaseSelector
-                fight={fight}
-                phases={phases}
-                handlePhaseSelection={handlePhaseSelection}
-                selectedPhase={selectedPhase}
-                selectedInstance={selectedInstance}
-                isLoading={isLoading}
-              />
-            )}
-          </h2>
-          <div className="timefilter">
-            <TimeFilter fight={fight} isLoading={isLoading} applyFilter={applyFilter} />
-          </div>
         </div>
         <div className="player">
           <div className="avatar">
