@@ -35,8 +35,7 @@ class Evangelism extends Analyzer {
   }
 
   get evangelismStatistics() {
-    // @ts-ignore
-    return Object.keys(this._evangelismStatistics).map((key: number) => this._evangelismStatistics[key]);
+    return Object.keys(this._evangelismStatistics).map(Number).map((key: number) => this._evangelismStatistics[key]);
   }
 
   on_byPlayer_cast(event: CastEvent) {

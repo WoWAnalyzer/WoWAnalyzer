@@ -6,8 +6,9 @@ import { TooltipElement } from 'common/Tooltip';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { DamageEvent, HealEvent } from 'parser/core/Events';
 import isAtonement from '../core/isAtonement';
-import Penance, { PenanceDamageEvent, PenanceHealEvent } from './Penance';
+import Penance, { IsPenanceDamageEvent, IsPenanceHealEvent } from './Penance';
 
 class Castigation extends Analyzer {
   static dependencies = {
@@ -24,7 +25,11 @@ class Castigation extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
   }
 
-  on_byPlayer_damage(event: PenanceDamageEvent) {
+  on_byPlayer_damage(event: DamageEvent ) {
+    if (!IsPenanceDamageEvent(event)) {
+      return;
+    }
+
     if (event.ability.guid !== SPELLS.PENANCE.id || event.penanceBoltNumber !== 3) {
       this._isCastigationBolt = false;
       return;
@@ -34,7 +39,11 @@ class Castigation extends Analyzer {
     this.damage += event.amount;
   }
 
-  on_byPlayer_heal(event: PenanceHealEvent) {
+  on_byPlayer_heal(event: HealEvent) {
+    if (!IsPenanceHealEvent(event)) {
+      return;
+    }
+
     const spellId = event.ability.guid;
 
     // Friendly Penance Healing

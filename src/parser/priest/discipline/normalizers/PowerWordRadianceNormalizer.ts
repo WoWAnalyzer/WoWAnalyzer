@@ -1,7 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import SPELLS from 'common/SPELLS';
-import { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, EventType, RefreshBuffEvent } from 'parser/core/Events';
+import { ApplyBuffEvent, CastEvent, Event, EventType } from 'parser/core/Events';
 
 const BUFFS_TO_MOVE = [
   SPELLS.ATONEMENT_BUFF.id,
@@ -16,8 +16,8 @@ const MAX_TIME_SINCE_CAST = 250; // ms
  events so that the applications are always right after the cast.
  */
 class PowerWordRadianceNormalizer extends EventsNormalizer {
-  normalize(events: Array<ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent | CastEvent>) {
-    const fixedEvents: Array<ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent | CastEvent> = [];
+  normalize(events: Array<Event<any>>) {
+    const fixedEvents: Array<Event<any>> = [];
 
     let lastRadianceTimestamp = 0;
     let lastRadianceIndex = 0;
@@ -26,7 +26,7 @@ class PowerWordRadianceNormalizer extends EventsNormalizer {
       fixedEvents.push(event);
 
       if (event.type === EventType.Cast) {
-        const spellId = event.ability.guid;
+        const spellId = (event as CastEvent).ability.guid;
         if (spellId === SPELLS.POWER_WORD_RADIANCE.id) {
           lastRadianceTimestamp = event.timestamp;
           lastRadianceIndex = eventIndex;
@@ -34,10 +34,9 @@ class PowerWordRadianceNormalizer extends EventsNormalizer {
       }
 
       if (event.type === EventType.ApplyBuff || event.type === EventType.RefreshBuff || event.type === EventType.ApplyBuffStack) {
-        const spellId = event.ability.guid;
+        const spellId = (event as ApplyBuffEvent).ability.guid;
         if ((event.timestamp - lastRadianceTimestamp) < MAX_TIME_SINCE_CAST && BUFFS_TO_MOVE.includes(spellId)) {
           event.timestamp = lastRadianceTimestamp;
-          // @ts-ignore
           event.__modified = true;
           fixedEvents.splice(lastRadianceIndex + 1, 0, event);
           fixedEvents.splice(-1, 1);

@@ -151,6 +151,7 @@ export interface Event<T extends string> {
   timestamp: number;
   prepull?: boolean;
   __fabricated?: boolean;
+  __modified?: boolean;
 }
 
 export interface BeginCastEvent extends Event<EventType.BeginCast> {

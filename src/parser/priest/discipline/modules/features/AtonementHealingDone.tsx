@@ -5,11 +5,11 @@ import SpellLink from 'common/SpellLink';
 import Panel from 'interface/statistics/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
-import { AbsorbedEvent, HealEvent } from 'parser/core/Events';
+import { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import isAtonement from '../core/isAtonement';
 import AtonementDamageSource from './AtonementDamageSource';
 import AtonementHealingBreakdown from './AtonementHealingBreakdown';
-import Penance, { PenanceDamageEvent } from '../spells/Penance';
+import Penance, { IsPenanceDamageEvent } from '../spells/Penance';
 
 class AtonementHealingDone extends Analyzer {
   static dependencies = {
@@ -34,8 +34,8 @@ class AtonementHealingDone extends Analyzer {
     this.total += event.amount || 0;
   }
 
-  on_byPlayer_damage(event: PenanceDamageEvent) {
-    if (event.ability.guid === SPELLS.PENANCE.id) {
+  on_byPlayer_damage(event: DamageEvent) {
+    if (event.ability.guid === SPELLS.PENANCE.id && IsPenanceDamageEvent(event)) {
       this._lastPenanceBoltNumber = event.penanceBoltNumber;
     }
   }

@@ -1,35 +1,35 @@
-import { DamageEvent, EventType, HealEvent } from 'parser/core/Events';
+import { DamageEvent, Event, EventType, HealEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import isAtonement from '../modules/core/isAtonement';
 import { ATONEMENT_DAMAGE_SOURCES } from '../constants';
 
 class AtonementSuccessiveDamage extends EventsNormalizer {
-  normalize(events: Array<ModifiedDamageEvent | ModifiedHealEvent>) {
-    const fixedEvents: Array<ModifiedDamageEvent | ModifiedHealEvent> = [];
+  normalize(events: Array<Event<any>>) {
+    const fixedEvents: Array<Event<any>> = [];
     const _damageEventIndexes: number[] = [];
 
     let _encounteredTargetIDs: number[] = [];
 
-    events.forEach((event: ModifiedDamageEvent | ModifiedHealEvent, eventIndex) => {
+    events.forEach((event: Event<any>, eventIndex) => {
       fixedEvents.push(event);
 
       if (
         event.type === EventType.Damage &&
-        event.sourceIsFriendly &&
-        !event.targetIsFriendly &&
-        ATONEMENT_DAMAGE_SOURCES[event.ability.guid]
+        (event as DamageEvent).sourceIsFriendly &&
+        !(event as DamageEvent).targetIsFriendly &&
+        ATONEMENT_DAMAGE_SOURCES[(event as DamageEvent).ability.guid]
       ) {
         _damageEventIndexes.push(eventIndex);
         _encounteredTargetIDs = [];
         return;
       }
 
-      if (event.type === EventType.Heal && isAtonement(event)) {
+      if (event.type === EventType.Heal && isAtonement((event as HealEvent))) {
         // We encountered a targetID we already encountered since the last damage
         // event. We push down the last damage event here
-        if (_encounteredTargetIDs.includes(event.targetID)) {
-          const lastDamageEvent: ModifiedDamageEvent | ModifiedHealEvent = fixedEvents.splice(
+        if (_encounteredTargetIDs.includes((event as HealEvent).targetID)) {
+          const lastDamageEvent: Event<any> = fixedEvents.splice(
             _damageEventIndexes[_damageEventIndexes.length - 1],
             1,
           )[0];
@@ -43,21 +43,13 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
         //  Because of latency issues, the atonement on self does not follow
         //  the same rules normal atonement does. We will handle these cases
         //  in another normalizer
-        if (event.sourceID !== event.targetID) {
-          _encounteredTargetIDs.push(event.targetID);
+        if ((event as HealEvent).sourceID !== (event as HealEvent).targetID) {
+          _encounteredTargetIDs.push((event as HealEvent).targetID);
         }
       }
     });
     return fixedEvents;
   }
-}
-
-interface ModifiedDamageEvent extends DamageEvent {
-  __modified: boolean
-}
-
-interface ModifiedHealEvent extends HealEvent {
-  __modified: boolean
 }
 
 export default AtonementSuccessiveDamage;

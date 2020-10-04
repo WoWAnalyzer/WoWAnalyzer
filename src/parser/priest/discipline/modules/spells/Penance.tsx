@@ -43,24 +43,24 @@ class Penance extends Analyzer {
     return [...this.eventGrouper].slice(-1)[0].length - 1; // -1 here for legacy code
   }
 
-  on_byPlayer_damage(event: PenanceDamageEvent) {
+  on_byPlayer_damage(event: DamageEvent) {
     if (!Penance.isPenance(event.ability.guid)) {
       return;
     }
 
     this.eventGrouper.processEvent(event);
 
-    event.penanceBoltNumber = this.currentBoltNumber;
+    (event as PenanceDamageEvent).penanceBoltNumber = this.currentBoltNumber;
   }
 
-  on_byPlayer_heal(event: PenanceHealEvent) {
+  on_byPlayer_heal(event: HealEvent) {
     if (!Penance.isPenance(event.ability.guid)) {
       return;
     }
 
     this.eventGrouper.processEvent(event);
 
-    event.penanceBoltNumber = this.currentBoltNumber;
+    (event as PenanceHealEvent).penanceBoltNumber = this.currentBoltNumber;
   }
 
   statistic() {
@@ -88,8 +88,16 @@ class Penance extends Analyzer {
   }
 }
 
+export function IsPenanceDamageEvent(event: DamageEvent): event is PenanceDamageEvent {
+  return (event as PenanceDamageEvent).penanceBoltNumber !== undefined;
+}
+
 export interface PenanceDamageEvent extends DamageEvent {
   penanceBoltNumber: number;
+}
+
+export function IsPenanceHealEvent(event: HealEvent): event is PenanceHealEvent {
+  return (event as PenanceHealEvent).penanceBoltNumber !== undefined;
 }
 
 export interface PenanceHealEvent extends HealEvent {

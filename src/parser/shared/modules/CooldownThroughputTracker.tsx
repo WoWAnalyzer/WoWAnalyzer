@@ -25,7 +25,7 @@ type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyB
 
 export type CooldownSpell = {
   spell: any,
-  summary: Array<BUILT_IN_SUMMARY_TYPES | any>,
+  summary: Array<BUILT_IN_SUMMARY_TYPES>,
   startBufferFilter?: EventFilter<any>,
   startBufferMS?: number,
   startBufferEvents?: number,

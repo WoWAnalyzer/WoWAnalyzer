@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {
@@ -60,7 +61,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_WORD_SOLACE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste:number) => 12 / (1 + haste),
+        cooldown: (haste) => 12 / (1 + haste),
         gcd: {
           base: 1500,
         },

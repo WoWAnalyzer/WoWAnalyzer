@@ -11,7 +11,7 @@ import { Event } from 'parser/core/Events';
 
 export default class EventGrouper {
   threshold: number;
-  cache: any;
+  cache: { [stem: number]: Event<any>[] };
 
   constructor(threshold: number) {
     this.threshold = threshold;
