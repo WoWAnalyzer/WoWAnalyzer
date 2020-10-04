@@ -123,7 +123,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).overheal;
     // Enveloping breath part -- same concern as above. would probably be messy to figure out which envs were cast during yulon/chiji
     spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
-    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).overheal
+    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).overheal;
     return spellInfo;
   }
 
