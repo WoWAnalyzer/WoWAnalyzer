@@ -298,9 +298,9 @@ class PlayerLoader extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  playerName: getPlayerName(state),
-  playerId: getPlayerId(state),
+const mapStateToProps = (state, props) => ({
+  playerName: getPlayerName(props.location.pathname),
+  playerId: getPlayerId(props.location.pathname),
 });
 export default compose(
   withRouter,

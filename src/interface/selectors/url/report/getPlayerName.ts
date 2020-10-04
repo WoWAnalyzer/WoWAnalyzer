@@ -1,7 +1,7 @@
 import getMatch from './getMatch';
 
-export default state => {
-  const match = getMatch(state);
+export default (pathname: string) => {
+  const match = getMatch(pathname);
   if (match && match.params.player) {
     const player = match.params.player;
     const index = player.indexOf('-');

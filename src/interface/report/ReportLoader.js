@@ -122,8 +122,8 @@ class ReportLoader extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  reportCode: getReportCode(state),
+const mapStateToProps = (state, props) => ({
+  reportCode: getReportCode(props.location.pathname),
 });
 export default compose(
   withRouter,

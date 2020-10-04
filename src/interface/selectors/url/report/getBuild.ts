@@ -1,6 +1,6 @@
 import getMatch from './getMatch';
 
-export default state => {
-  const match = getMatch(state);
+export default (pathname: string) => {
+  const match = getMatch(pathname);
   return match ? match.params.build : null;
 };

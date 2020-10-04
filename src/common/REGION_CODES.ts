@@ -1,5 +1,7 @@
 //used to get the correct region from the language-code
-export default {
+const REGION_CODES: {
+  [languageCode: string]: string;
+} = {
   'de-de': 'EU',
   'en-gb': 'EU',
   'es-es': 'EU',
@@ -14,3 +16,5 @@ export default {
   'zh-tw': 'TW',
   'zh-cn': 'CN',
 };
+
+export default REGION_CODES;

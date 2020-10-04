@@ -10,9 +10,7 @@ class SpellUsable extends CoreSpellUsable {
   lastPotentialTriggerForBarbedShotReset: CastEvent | null = null;
 
   on_byPlayer_cast(event: CastEvent) {
-    if (super.on_byPlayer_cast) {
-      super.on_byPlayer_cast(event);
-    }
+    super.on_byPlayer_cast(event);
     const spellId = event.ability.guid;
     if (spellId === SPELLS.AUTO_SHOT.id) {
       this.lastPotentialTriggerForBarbedShotReset = event;
@@ -24,7 +22,13 @@ class SpellUsable extends CoreSpellUsable {
   beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {
     if (spellId === SPELLS.BARBED_SHOT.id) {
       if (this.isOnCooldown(spellId)) {
-        this.endCooldown(spellId, undefined, this.lastPotentialTriggerForBarbedShotReset ? this.lastPotentialTriggerForBarbedShotReset.timestamp : undefined);
+        this.endCooldown(
+          spellId,
+          undefined,
+          this.lastPotentialTriggerForBarbedShotReset
+            ? this.lastPotentialTriggerForBarbedShotReset.timestamp
+            : undefined,
+        );
       }
     }
     super.beginCooldown(spellId, cooldownTriggerEvent);
