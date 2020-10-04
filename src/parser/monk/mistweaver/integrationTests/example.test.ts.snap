@@ -5507,6 +5507,53 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 </dfn>
               </div>
             </div>
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <div
+                  className="circle"
+                  style={
+                    Object {
+                      "background": "#03fcad",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=322101"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_monk_expelharm.jpg"
+                  />
+                   
+                  Expel Harm
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+              >
+                <dfn
+                  className=""
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={Object {}}
+                >
+                  0
+                  %
+                </dfn>
+              </div>
+            </div>
           </div>
           <div
             className="chart"
@@ -5556,6 +5603,8 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         Mastery: Gust of Mists
       </a>
        healing is added to the appropriate spell that caused the gust. 
+      <br />
+       
       <a
         href="http://wowhead.com/spell=191837"
         rel="noopener noreferrer"
@@ -5584,6 +5633,8 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         Essence Font
       </a>
        the second gust would not have happened. 
+      <br />
+       
       <a
         href="http://wowhead.com/spell=115151"
         rel="noopener noreferrer"
@@ -5639,7 +5690,65 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
          
         Vivify
       </a>
-       wouldn't have splashed.
+       wouldn't have splashed. 
+      <br />
+       
+      <a
+        href="http://wowhead.com/spell=124682"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt=""
+          className="icon game "
+          src="//render-us.worldofwarcraft.com/icons/56/spell_monk_envelopingmist.jpg"
+        />
+         
+        Enveloping Mist
+      </a>
+       is given the healing of 
+      <a
+        href="http://wowhead.com/spell=325209"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt=""
+          className="icon game "
+          src="//render-us.worldofwarcraft.com/icons/56/ability_monk_chiexplosion.jpg"
+        />
+         
+        Enveloping Breath
+      </a>
+       since without casting 
+      <a
+        href="http://wowhead.com/spell=124682"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt=""
+          className="icon game "
+          src="//render-us.worldofwarcraft.com/icons/56/spell_monk_envelopingmist.jpg"
+        />
+         
+        Enveloping Mist
+      </a>
+      , 
+      <a
+        href="http://wowhead.com/spell=325209"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt=""
+          className="icon game "
+          src="//render-us.worldofwarcraft.com/icons/56/ability_monk_chiexplosion.jpg"
+        />
+         
+        Enveloping Breath
+      </a>
+       healing would not occur.
     </small>
   </div>
   <div
