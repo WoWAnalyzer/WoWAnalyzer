@@ -12,6 +12,7 @@ const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
+  change(prepatch, 'Cleaned up the console a little bit.', Abelito75),
   change(prepatch, 'Added dispel to filterable type for EventTab.', Moonrabbit),
   change(prepatch, 'Added Castle Nathria boss configs and updated the default report header image.', Sharrq),
   change(prepatch, 'Added pet tracking to the Cooldown tab.', Abelito75),
