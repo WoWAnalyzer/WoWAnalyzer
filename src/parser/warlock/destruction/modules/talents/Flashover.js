@@ -10,7 +10,7 @@ import Tooltip from 'common/Tooltip';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const DAMAGE_BONUS = 0.25;
 const MAX_STACKS = 4;
@@ -67,7 +67,7 @@ class Flashover extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >

@@ -9,9 +9,10 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import Statistic from 'interface/statistics/Statistic';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 // limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
@@ -106,23 +107,14 @@ class DrainSoul extends Analyzer {
     const dps = damage / this.owner.fightDuration * 1000;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`${formatThousands(damage)} total damage`}
       >
-        <div className="pad">
-          <label><SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /></label>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex-main value">
-              <CriticalStrikeIcon /> {this._shardsGained} <small>shards sniped</small>
-            </div>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.DRAIN_SOUL_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small><br />
+          <CriticalStrikeIcon /> {this._shardsGained} <small>shards sniped</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }
