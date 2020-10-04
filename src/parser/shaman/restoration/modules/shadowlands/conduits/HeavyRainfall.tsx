@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -12,19 +12,16 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
-
+/**
+ * Whenever you cast healing tide totem you gain a buff that increases your healing rain healing by x% for 20 seconds
+ */
 class HeavyRainfall extends Analyzer {
-
   healingBoost = 0;
-
   healing = 0;
 
-  /**
-   * Whenever you cast healing tide totem you gain a buff that increases your healing rain healing by x% for 20 seconds
-   */
-  constructor(...args) {
-    super(...args);
-    this.active = false;//TODO actually check if conduit is active
+  constructor(options: any) {
+    super(options);
+    this.active = true;//TODO actually check if conduit is active
 
     this.healingBoost = 1.6;//TODO Get from combat data when they EXPORT IT >:c
 
@@ -35,7 +32,7 @@ class HeavyRainfall extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this.normalizeBoost);
   }
 
-  normalizeBoost(event){
+  normalizeBoost(event: HealEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.HEAVY_RAINFALL_BUFF.id)) {
       this.healing += calculateEffectiveHealing(event, this.healingBoost);
     }

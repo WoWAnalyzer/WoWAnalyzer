@@ -7,13 +7,15 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class TidalWaves extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
-  suggestions(when) {
+  suggestions(when: When) {
     const suggestedThresholds = this.suggestionThresholds;
     when(suggestedThresholds.actual).isGreaterThan(suggestedThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
@@ -48,7 +50,7 @@ class TidalWaves extends Analyzer {
         average: 0.8,
         major: 0.9,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 }

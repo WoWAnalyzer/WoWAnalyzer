@@ -6,15 +6,17 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import StatisticGroup from 'interface/statistics/StatisticGroup';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 class CastBehavior extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+
+  protected abilityTracker!: AbilityTracker;
 
   get twUsageRatioChart() {
     const riptide = this.abilityTracker.getAbility(SPELLS.RIPTIDE.id);
@@ -94,7 +96,7 @@ class CastBehavior extends Analyzer {
 
   statistic() {
     return (
-      <StatisticGroup position={STATISTIC_ORDER.CORE(40)}>
+      <StatisticGroup category={STATISTIC_CATEGORY.GENERAL} large={false} wide={false} style>
         <Statistic ultrawide>
           <div className="pad">
             <label><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</label>

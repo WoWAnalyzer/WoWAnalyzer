@@ -221,9 +221,10 @@ class UnleashLife extends Analyzer {
 
   statistic() {
     return (
-      <Statistic //style={{ height: '200px' }}
+      <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(15)}
+        size="flexible"
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> usage</label>

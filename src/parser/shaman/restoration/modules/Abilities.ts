@@ -216,7 +216,7 @@ class Abilities extends CoreAbilities {
         },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
-          casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
+          casts: (castCount: any) => (castCount.casts || 0) - (castCount.healingTwHits || 0),
         },
       },
       {
@@ -228,7 +228,7 @@ class Abilities extends CoreAbilities {
         },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
-          casts: castCount => castCount.healingTwHits || 0,
+          casts: (castCount: any) => castCount.healingTwHits || 0,
         },
       },
       {
@@ -239,7 +239,7 @@ class Abilities extends CoreAbilities {
         },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
-          casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
+          casts: (castCount: any) => (castCount.casts || 0) - (castCount.healingTwHits || 0),
         },
       },
       {
@@ -251,7 +251,7 @@ class Abilities extends CoreAbilities {
         },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
-          casts: castCount => castCount.healingTwHits || 0,
+          casts: (castCount: any) => castCount.healingTwHits || 0,
         },
       },
       {

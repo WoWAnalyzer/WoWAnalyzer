@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
+import { When } from 'parser/core/ParseResults';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [
@@ -19,9 +20,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.UNLEASH_LIFE_TALENT.id,
     SPELLS.EARTH_SHIELD_TALENT.id,
     SPELLS.DOWNPOUR_TALENT.id,
-  ];
+  ]; // TODO shadowlands abilities
 
-  suggestions(when) {
+  suggestions(when: When) {
     const nonHealingTimeSuggestionThresholds = this.nonHealingTimeSuggestionThresholds;
     const deadTimePercentage = this.downtimeSuggestionThresholds;
     when(nonHealingTimeSuggestionThresholds.actual).isGreaterThan(nonHealingTimeSuggestionThresholds.isGreaterThan.minor)

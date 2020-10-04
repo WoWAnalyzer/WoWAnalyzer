@@ -27,6 +27,16 @@ class Checklist extends BaseChecklist {
     earthenWallTotem: EarthenWallTotem,
   };
 
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected manaValues!: ManaValues;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected chainHeal!: ChainHeal;
+  protected healingRain!: HealingRain;
+  protected wellspring!: Wellspring;
+  protected earthenWallTotem!: EarthenWallTotem;
+
   render() {
     return (
       <Component

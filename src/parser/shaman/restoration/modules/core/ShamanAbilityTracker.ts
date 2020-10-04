@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { HealEvent } from 'parser/core/Events';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -7,10 +8,9 @@ const TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME = 100; // Minimal duration for which 
 
 class ShamanAbilityTracker extends AbilityTracker {
 
-  on_byPlayer_heal(event) {
-    if (super.on_byPlayer_heal) {
-      super.on_byPlayer_heal(event);
-    }
+  on_byPlayer_heal(event: HealEvent) {
+    super.on_byPlayer_heal(event);
+
     const spellId = event.ability.guid;
 
     if (spellId !== SPELLS.HEALING_WAVE.id && spellId !== SPELLS.HEALING_SURGE_RESTORATION.id) {

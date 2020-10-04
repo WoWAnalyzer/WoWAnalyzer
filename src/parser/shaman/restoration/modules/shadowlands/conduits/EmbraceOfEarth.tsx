@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 
@@ -13,20 +13,20 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 
 const EARTH_SHIELD_BOOST = .1;
 
+/**
+ * Earth Shield increases your healing done to the target by an additional x%
+ */
 class EmbraceOfEarth extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
+  protected combatants!: Combatants;
 
   boost = 0;
-
   healing = 0;
 
-  /**
-   * Earth Shield increases your healing done to the target by an additional x%
-   */
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = true;
 
     this.boost = .05;//TODO Get from combat data when they EXPORT IT >:c
@@ -38,14 +38,14 @@ class EmbraceOfEarth extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.normalizeBoost);
   }
 
-  normalizeBoost(event){
-    const target = this.combatants.players[event.targetID];
+  normalizeBoost(event: HealEvent) {
+    const target = this.combatants.getEntity(event);
 
-    if(!target){
+    if (!target) {
       return;
     }
 
-    if(target.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp, 0, 0)){
+    if (target.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp, 0, 0)) {
       // idea
       // heal = boostedHeal / (1.1 + x)
       // bonusHeal = heal * x
@@ -54,7 +54,7 @@ class EmbraceOfEarth extends Analyzer {
       const bonusHeal = heal * this.boost;
       const effectiveHealing = Math.max(0, (bonusHeal - (event.overheal || 0)));
       this.healing += effectiveHealing;
-  }
+    }
   }
 
   statistic() {
@@ -68,7 +68,7 @@ class EmbraceOfEarth extends Analyzer {
           <ItemHealingDone amount={this.healing} /><br />
         </BoringSpellValueText>
       </Statistic>
-  );
+    );
   }
 }
 
