@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,39 +8,19 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
-const prepatch = date(2020, 10, 13);
-
 // prettier-ignore
 export default [
-  change(prepatch, 'Added a new event map for catch-all event types.', Dambroda),
-  change(prepatch, 'Converted WCL API Access to TypeScript', Zeboot),
-  change(prepatch, 'Cleaned up the console a little bit.', Abelito75),
-  change(prepatch, 'Added a toggle-all button to the EventTab.', niseko),
-  change(prepatch, 'Added dispel to filterable type for EventTab.', Moonrabbit),
-  change(prepatch, 'Added Castle Nathria boss configs and updated the default report header image.', Sharrq),
-  change(prepatch, 'Added pet tracking to the Cooldown tab.', Abelito75),
-  change(prepatch, 'Converted charts to new library.', emallson),
-  change(prepatch, 'Added a new search option to the homepage to view a guild\'s recent reports.', Dambroda),
-  change(prepatch, 'Updated mana costs for all healers.', Abelito75),
-  change(prepatch, 'Updated abilities effiency tracker to default to 0 if no casts were possible.', Abelito75),
-  change(prepatch, 'Added holy power tracking for prot and holy paladin specs.', HolySchmidt),
-  change(prepatch, 'Updated search in Event tab to allow for multi-word searching in quotes.', Abelito75),
-  change(prepatch, 'Add some early checks to see if a player has a given conduit, soulbind or covenant.', Putro),
-  change(prepatch, 'Add some scripts for generating conduit information.', Putro),
-  change(date(2020, 10, 4), 'Fixed cast efficiency calculations for channeled spells. They are now no longer adding channeled time on top of cooldown as time they were unavailable', Juko8),
+  change(date(2020, 10, 4), 'Updated the report header design: moved phase and time selection slightly out of view.', Zerotorescue),
   change(date(2020, 10, 4), 'Removed remaining trackers', Zerotorescue),
   change(date(2020, 10, 2), 'Updated project dependencies.', Zerotorescue),
   change(date(2020, 9, 26), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),
   change(date(2020, 9, 22), 'Provide an EventType to Event map to make event handlers that listen to more than one event type easier to write.', Dambroda),
   change(date(2020, 9, 22), 'Fix an issue where it wasn\'t possible to view the character page', Putro),
   change(date(2020, 9, 21), 'Fix Armory link for characters on realms that contain spaces or apostrophes', Sharrq),
-  change(date(2020, 9, 20), 'Update checks for Enchants, Potions, Flasks, and Food for Shadowlands', Sharrq),
-  change(date(2020, 9, 15), 'Add the possibility to fake player information in development if it doesn\'t exist in combatantinfo', Putro),
-  change(date(2020, 8, 14), 'Added a boss name abbreviation function', Putro),
-  change(date(2020, 8, 13), 'Added a generic Execute module that should help in standardizing and maintaining execute modules across specs', Putro),
-  change(date(2020, 8, 8), 'Fixed an issue where changelogs wouldn\'t count in pull requests.', Putro),
+  change(date(2020, 9, 20), 'Update Shadowlands warning with github link for feedback/suggestions', Sharrq),
+  change(date(2020, 9, 8), 'Added a warning message for Shadowlands Prepatch.', Sharrq),
+  change(date(2020, 8, 5), 'Fix an issue where changelogs wouldn\'t count in pull requests.', Putro),
   change(date(2020, 8, 4), 'Fixed a bug causing the total fight duration field to be improperly calculated, leading to confusing downtime/death percentages', Dambroda),
-  change(date(2020, 8, 2), 'Remove Corruption in preparation for Shadowlands', Putro),
   change(date(2020, 7, 27), 'Updated contributor details to TypeScript and fixed contributor description not appearing when viewing those details', Dambroda),
   change(date(2020, 7, 27), 'Converted core log parser and other modules to TypeScript and added strict event typechecking to event listeners.', Dambroda),
   change(date(2020, 7, 24), 'Added missing allied races to race definitions', Dambroda),
@@ -67,8 +47,8 @@ export default [
   change(date(2020, 4, 26), <>Added <SpellLink id={SPELLS.BLOOD_FURY_PHYSICAL.id} /> to the core parser. </>, Putro),
   change(date(2020, 4, 16), <>Fixed a bug where the haste value gained <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS_RANK_THREE_FOUR.id} /> minor was extremely low if the buff never fell off.</>, Putro),
   change(date(2020, 4, 14), <>Using <ItemLink id={ITEMS.AZSHARAS_FONT_OF_POWER.id} /> no longer shows as downtime during the channel.</>, Sharrq),
-  change(date(2020, 3, 30), <>Added Flash of Insight corruption.</>, niseko),
-  change(date(2020, 3, 30), <>Added Severe, Expedient, Masterful and Versatile corruption effects.</>, niseko),
+  change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.FLASH_OF_INSIGHT.id} />.</>, niseko),
+  change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.SEVERE_T3.id} /> <SpellLink id={SPELLS.EXPEDIENT_T3.id} /> <SpellLink id={SPELLS.MASTERFUL_T3.id} /> <SpellLink id={SPELLS.VERSATILE_T3.id} />.</>, niseko),
   change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.ESSENCE_OF_THE_FOCUSING_IRIS_RANK_THREE_FOUR.id} /> and <SpellLink id={SPELLS.FOCUSED_ENERGY_BUFF.id} />.</>, Putro),
   change(date(2020, 3, 29), 'Add the possibility to modify stat multipliers to be able to support some of the new corruption effects.', niseko),
   change(date(2020, 3, 16), <>Adjusted <ItemLink id={ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id} /> for hotfixes.</>, niseko),
@@ -78,17 +58,17 @@ export default [
   change(date(2020, 2, 21), <>Added the possibility of adding item warnings, and added a warning for people using <ItemLink id={ITEMS.WHISPERING_ELDRITH_BOW.id} />.</>, Putro),
   change(date(2020, 2, 21), <>Added <SpellLink id={SPELLS.SYMBIOTIC_PRESENCE.id} />.</>, niseko),
   change(date(2020, 2, 17), <>Added <ItemLink id={ITEMS.FORBIDDEN_OBSIDIAN_CLAW.id} /> and <ItemLink id={ITEMS.HUMMING_BLACK_DRAGONSCALE.id} />.</>, niseko),
-  change(date(2020, 2, 14), <>Updated Void Ritual and Surging Vitality corruption effects with the hotfixed stat values.</>, niseko),
+  change(date(2020, 2, 14), <>Updated <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} /> and <SpellLink id={SPELLS.SURGING_VITALITY_BUFF.id} /> with the hotfixed stat values.</>, niseko),
   change(date(2020, 2, 13), 'Add a warning to the Skitra encounter page as the logs for the fight are only accurate if the analyzed player is the one logging.', Putro),
   change(date(2020, 2, 12), 'Implemented a corruption overview on the character page.', Putro),
   change(date(2020, 2, 12), 'Fixed a bug that breaks the player selection when there is incomplete information from warcraftlogs.', niseko),
   change(date(2020, 2, 9), 'Added statistics for the 8.3 Alchemist Stones.', niseko),
   change(date(2020, 2, 5), <> Implemented <ItemLink id={ITEMS.VOID_TWISTED_TITANSHARD.id} />, <ItemLink id={ITEMS.VITA_CHARGED_TITANSHARD.id} /> as well as an individual statistic for the set bonus <SpellLink id={SPELLS.TITANIC_EMPOWERMENT.id} />. </>, Putro),
-  change(date(2020, 2, 5), <>Added Honed Mind, Surging Vitality, Racing Pulse and Deadly Momentum corruption effects.</>, niseko),
-  change(date(2020, 2, 5), <>Added Void Ritual corruption effect.</>, niseko),
-  change(date(2020, 2, 5), <>Added the Siphoner corruption and fixed leech stat values in parses using this corruption.</>, niseko),
+  change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.HONED_MIND_BUFF.id} />, <SpellLink id={SPELLS.SURGING_VITALITY_BUFF.id} />, <SpellLink id={SPELLS.RACING_PULSE_BUFF.id} /> and <SpellLink id={SPELLS.DEADLY_MOMENTUM_BUFF.id} />.</>, niseko),
+  change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.VOID_RITUAL_BUFF.id} />.</>, niseko),
+  change(date(2020, 2, 5), <>Added <SpellLink id={SPELLS.SIPHONER_T3.id} /> and fixed leech stat values in parses using this corruption.</>, niseko),
   change(date(2020, 1, 30), <>Fixed bug in calcuating bonus crit damage from <SpellLink id={SPELLS.BLOOD_OF_THE_ENEMY.id} />.</>, Khazak),
-  change(date(2020, 1, 27), <>Added Ineffable Truth corruption effect.</>, niseko),
+  change(date(2020, 1, 27), <>Added <SpellLink id={SPELLS.INEFFABLE_TRUTH_BUFF.id} />.</>, niseko),
   change(date(2020, 1, 27), 'Added basic corruption effect support.', niseko),
   change(date(2020, 1, 24), 'Updated Zone list to include Ny\'alotha bosses.', Putro),
   change(date(2020, 1, 20), 'Updated Azerite Trait info for Patch 8.3.', emallson),
