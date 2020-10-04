@@ -4,7 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'common/Tooltip';
-import SPECS from 'game/SPECS';
+import SPECS, { Spec } from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
 import { formatNth, formatDuration } from 'common/format';
 
@@ -23,7 +23,7 @@ interface ChainHealInfo {
   target: {
     id: number | undefined,
     name: string,
-    spec: any, // SPECS[id]
+    spec: Spec,
     specClassName: string
   }
   timestamp: number,
