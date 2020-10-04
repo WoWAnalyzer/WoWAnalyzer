@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 4), 'Updated the report header design: moved phase and time selection slightly out of view.', Zerotorescue),
   change(date(2020, 10, 4), 'Removed remaining trackers', Zerotorescue),
   change(date(2020, 10, 2), 'Updated project dependencies.', Zerotorescue),
   change(date(2020, 9, 26), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),
