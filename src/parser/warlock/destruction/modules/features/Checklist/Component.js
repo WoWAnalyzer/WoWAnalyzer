@@ -100,7 +100,6 @@ DestructionWarlockChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasTrinket: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
   shardTracker: PropTypes.object.isRequired,

@@ -6,6 +6,8 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { ApplyDebuffEvent, ApplyDebuffStackEvent, CastEvent, EventType, RemoveDebuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
+import { MS_BUFFER } from 'parser/hunter/shared/constants';
+import { STEADY_AIM_MAX_STACKS } from 'parser/hunter/marksmanship/constants';
 
 /**
  * Steady Shot increases the damage of your next Aimed Shot against the target by X, stacking up to 5 times.
@@ -14,20 +16,7 @@ import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
  * https://www.warcraftlogs.com/reports/wPdQLfFnhTVYRyJm#fight=12&type=damage-done&source=640
  */
 
-const MAX_STACKS = 5;
-const MS_BUFFER = 100;
-
 class SteadyAim extends Analyzer {
-
-  constructor(options: any) {
-    super(options);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.STEADY_AIM.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShot);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STEADY_SHOT), this.onSteadyShot);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), (event: ApplyDebuffEvent) => this.onDebuffChange(event));
-    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), (event: ApplyDebuffStackEvent) => this.onDebuffChange(event));
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), (event: RemoveDebuffEvent) => this.onDebuffChange(event));
-  }
 
   applications = 0;
   _stacks = 0;
@@ -37,6 +26,20 @@ class SteadyAim extends Analyzer {
   wasted = 0;
   utilised = 0;
   removeDebuffTimestamp: number = 0;
+
+  constructor(options: any) {
+    super(options);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.STEADY_AIM.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShot);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STEADY_SHOT), this.onSteadyShot);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), this.onDebuffChange);
+    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), this.onDebuffChange);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.STEADY_AIM_DEBUFF), this.onDebuffChange);
+  }
+
+  get averageStacksPerAimed() {
+    return this.utilised / this.aimedShots;
+  }
 
   onAimedShot(event: CastEvent) {
     this.aimedShots += 1;
@@ -48,7 +51,7 @@ class SteadyAim extends Analyzer {
 
   onSteadyShot() {
     this.maxPossible += 1;
-    if (this._stacks === MAX_STACKS) {
+    if (this._stacks === STEADY_AIM_MAX_STACKS) {
       this.wasted += 1;
     }
   }
@@ -61,10 +64,6 @@ class SteadyAim extends Analyzer {
       this.applications += 1;
     }
     this._stacks = currentStacks(event);
-  }
-
-  get averageStacksPerAimed() {
-    return this.utilised / this.aimedShots;
   }
 
   statistic() {

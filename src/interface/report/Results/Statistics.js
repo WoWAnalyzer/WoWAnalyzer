@@ -67,6 +67,8 @@ class Statistics extends React.PureComponent {
         return i18n._(t`Statistics`);
       case STATISTIC_CATEGORY.TALENTS:
         return i18n._(t`Talents`);
+      case STATISTIC_CATEGORY.COVENANTS:
+        return i18n._(t`Covenants`);
       case STATISTIC_CATEGORY.AZERITE_POWERS:
         return i18n._(t`Azerite Powers`);
       case STATISTIC_CATEGORY.ITEMS:

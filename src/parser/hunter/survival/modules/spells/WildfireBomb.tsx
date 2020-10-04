@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -14,6 +14,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import { MS_BUFFER } from 'parser/hunter/shared/constants';
+import { WILDFIRE_BOMB_LEEWAY_BUFFER } from 'parser/hunter/survival/constants';
 
 /**
  * Hurl a bomb at the target, exploding for (45% of Attack power) Fire damage in a cone and coating enemies in wildfire, scorching them for (90% of Attack power) Fire damage over 6 sec.
@@ -21,9 +23,6 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
  * Example log:
  * https://www.warcraftlogs.com/reports/6GjD12YkQCnJqPTz#fight=25&type=damage-done&source=19&translate=true&ability=-259495
  */
-
-const GCD_BUFFER = 500; //People aren't robots, give them a bit of leeway in terms of when they cast WFB to avoid capping on charges
-const MS_BUFFER = 200;
 
 class WildfireBomb extends Analyzer {
   static dependencies = {
@@ -47,7 +46,9 @@ class WildfireBomb extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.active = !this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB_IMPACT), this.onDamage);
   }
@@ -64,7 +65,7 @@ class WildfireBomb extends Analyzer {
         average: 4,
         major: 6,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -76,7 +77,7 @@ class WildfireBomb extends Analyzer {
         average: 0.35,
         major: 0.3,
       },
-      style: 'percent',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -87,7 +88,7 @@ class WildfireBomb extends Analyzer {
   onCast(event: CastEvent) {
     this.casts += 1;
     this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
-    if (!this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id) || this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) < GCD_BUFFER + this.currentGCD) {
+    if (!this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id) || this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) < WILDFIRE_BOMB_LEEWAY_BUFFER + this.currentGCD) {
       this.acceptedCastDueToCapping = true;
     }
   }
@@ -108,14 +109,14 @@ class WildfireBomb extends Analyzer {
     }
   }
 
-  suggestions(when: any) {
-    when(this.badWFBThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.badWFBThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You shouldn't refresh <SpellLink id={SPELLS.WILDFIRE_BOMB.id} /> since it doesn't pandemic. It's generally better to cast something else and wait for the DOT to drop off before reapplying.</>)
         .icon(SPELLS.WILDFIRE_BOMB.icon)
         .actual(`${actual} casts unnecessarily refreshed WFB`)
         .recommended(`<${recommended} is recommended`);
     });
-    when(this.uptimeThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>Try and maximize your uptime on <SpellLink id={SPELLS.WILDFIRE_BOMB.id} />. This is achieved through not unnecessarily refreshing the debuff as it doesn't pandemic. </>)
         .icon(SPELLS.WILDFIRE_BOMB.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
@@ -126,13 +127,14 @@ class WildfireBomb extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(20)}
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.GENERAL}
       >
         <BoringSpellValueText spell={SPELLS.WILDFIRE_BOMB}>
           <>
-            {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small><br />
+            {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small>
+            <br />
             {formatPercentage(this.uptimePercentage)}% <small> DoT uptime</small>
           </>
         </BoringSpellValueText>

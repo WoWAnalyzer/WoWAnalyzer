@@ -89,6 +89,9 @@ const FILTERABLE_TYPES = {
   resurrect: {
     name: 'Resurrect',
   },
+  dispel:{
+    name: 'Dispel',
+  },
 };
 
 class EventsTab extends React.Component {
@@ -206,9 +209,8 @@ class EventsTab extends React.Component {
   render() {
     const { parser } = this.props;
 
-    const searchTerms = this.state.search
-      .split(' ')
-      .filter(searchTerm => searchTerm !== '');
+    const regex = /"([^"]*)"|(\S+)/g;
+    const searchTerms = (this.state.search.match(regex) || []).map(m => m.replace(regex, '$1$2'));
 
     const events = parser.eventHistory
       .filter(event => {

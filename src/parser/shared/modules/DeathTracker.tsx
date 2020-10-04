@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { BeginCastEvent, CastEvent, DamageEvent, DeathEvent, HealEvent } from '../../core/Events';
 
@@ -76,11 +77,11 @@ class DeathTracker extends Analyzer {
       isGreaterThan: {
         major: 0.00,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     const boss = this.owner.boss;
     const fight = this.owner.fight;
     const player = this.owner.player;
@@ -91,7 +92,7 @@ class DeathTracker extends Analyzer {
 
     if (!disableDeathSuggestion && !isWipeDeath) {
       when(this.timeDeadPercent).isGreaterThan(0)
-        .addSuggestion((suggest: any, actual: any) => {
+        .addSuggestion((suggest, actual) => {
           return suggest(<>
             You died during this fight and were dead for {formatPercentage(actual)}% of the fight duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant performance cost. View the <Link to={makeAnalyzerUrl(report, fight.id, player.id, 'death-recap')}>Death Recap</Link> to see the damage taken and what defensives and potions were still available.
           </>)
@@ -102,7 +103,7 @@ class DeathTracker extends Analyzer {
         });
     }
     when(this._didCast).isFalse()
-      .addSuggestion((suggest: any) => {
+      .addSuggestion((suggest) => {
         return suggest('You did not cast a single spell this fight. You were either dead for the entire fight, or were AFK.')
           .icon('ability_fiegndead')
           .major(this.deathSuggestionThresholds.isGreaterThan.major);

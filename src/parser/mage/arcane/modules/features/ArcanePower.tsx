@@ -14,6 +14,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import ArcaneChargeTracker from './ArcaneChargeTracker';
 import { ARCANE_POWER_MANA_THRESHOLD, ARCANE_POWER_SPELL_BLACKLIST } from '../../constants';
@@ -200,7 +201,7 @@ class ArcanePower extends Analyzer {
         average: 0.80,
         major: 0.60,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -212,7 +213,7 @@ class ArcanePower extends Analyzer {
         average: 0.95,
         major: 0.90,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -224,13 +225,13 @@ class ArcanePower extends Analyzer {
         average: 0.95,
         major: 0.90,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.arcanePowerCooldownThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> without proper setup {this.badUses} times. Arcane Power has a short duration so you should get the most out of it by meeting all requirements before casting it.
         <ul>
           <li>You have 4 <SpellLink id={SPELLS.ARCANE_CHARGE.id} /> - You had this {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts - this.lowChargesCast} out of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li>
@@ -243,14 +244,14 @@ class ArcanePower extends Analyzer {
           .recommended(`0 is recommended`);
       });
     when(this.arcanePowerCastThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You cast spells other than <SpellLink id={SPELLS.ARCANE_BLAST.id} />,<SpellLink id={SPELLS.ARCANE_MISSILES.id} />, <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />, and <SpellLink id={SPELLS.PRESENCE_OF_MIND.id} /> during <SpellLink id={SPELLS.ARCANE_POWER.id} />. Arcane Power is a short duration, so you should ensure that you are getting the most use out of it. Buff spells like Rune of Power should be cast immediately before casting Arcane Power. Other spells such as Charged Up, Blink/Shimmer, etc are acceptable during Arcane Power, but should be avoided if possible.</>)
           .icon(SPELLS.ARCANE_POWER.icon)
           .actual(`${formatPercentage(actual)}% Utilization`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
     when(this.arcanePowerManaUtilization)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You ran dangerously low or ran out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.outOfMana} times. Running out of mana during Arcane Power is a massive DPS loss and should be avoided at all costs. {!this.hasOverpowered ? 'To avoid this, ensure you have at least 40% mana before casting Arcane Power to ensure you have enough mana to finish Arcane Power.' : ''}</>)
           .icon(SPELLS.ARCANE_POWER.icon)
           .actual(`${formatPercentage(actual)}% Utilization`)
@@ -284,7 +285,7 @@ class ArcanePower extends Analyzer {
                 marginBottom: '.15em',
               }}
             />
-            {' '}{formatPercentage(this.cooldownUtilization, 0)}% <small> Arcane Power utilization</small><br />
+            {' '}{formatPercentage(this.cooldownUtilization, 0)}% <small> Cooldown utilization</small><br />
             <SpellIcon
               id={SPELLS.ARCANE_BLAST.id}
               style={{
@@ -292,7 +293,7 @@ class ArcanePower extends Analyzer {
                 marginBottom: '.15em',
               }}
             />
-            {' '}{formatPercentage(this.castUtilization, 0)}% <small>Arcane Blast Cast utilization</small>
+            {' '}{formatPercentage(this.castUtilization, 0)}% <small>Cast utilization</small>
           </>
         </BoringSpellValueText>
       </Statistic>

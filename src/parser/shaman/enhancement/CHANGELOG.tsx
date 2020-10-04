@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { HawkCorrigan, niseko, mtblanton, Draenal, Vetyst } from 'CONTRIBUTORS';
+import { HawkCorrigan, niseko, mtblanton, Draenal, Vetyst, MusicMeister } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 9, 23), <>Removed <SpellLink id={SPELLS.EARTH_ELEMENTAL.id} /> from recommended offensive spells.</>, [MusicMeister]),
+  change(date(2020, 8, 28), <>First go at removing obsolete Spells and Azerite.</>, [HawkCorrigan]),
   change(date(2020, 6, 1), <>Added <strong>Maintain your buffs</strong> checklist rule.</>, [Vetyst]),
   change(date(2020, 5, 27), <>Corrected damage gains of <SpellLink id={SPELLS.ROILING_STORM.id} /> and <SpellLink id={SPELLS.THUNDERAANS_FURY.id} />, they now scale with stats.</>, [Vetyst]),
   change(date(2020, 5, 25), <>Converted remaining Enhancement Shaman files to typescript and cleaned its modules.</>, [Vetyst]),

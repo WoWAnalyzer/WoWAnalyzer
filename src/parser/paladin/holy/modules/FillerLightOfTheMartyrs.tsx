@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events, { CastEvent } from 'parser/core/Events';
 
@@ -60,7 +61,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
         average: 2,
         major: 3,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
   get inefficientCpmSuggestionThresholds() {
@@ -71,13 +72,13 @@ class FillerLightOfTheMartyrs extends Analyzer {
         average: 0.25,
         major: 0.5,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.cpmSuggestionThresholds).addSuggestion(
-      (suggest: any, actual: any, recommended: any) => {
+      (suggest, actual, recommended) => {
         return suggest(
           <Trans>
             You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />
@@ -96,7 +97,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
       },
     );
 
-    when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest: any, actual: any) => {
+    when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest, actual) => {
       return suggest(
         <Trans>
           You cast {this.inefficientCasts.length} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s

@@ -60,6 +60,11 @@ import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEffici
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
+// Concduits
+
+// Potency
+import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
+
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
@@ -135,6 +140,10 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    // Conduits
+    // Potency
+    flashOfClarity: FlashOfClarity,
   };
 }
 

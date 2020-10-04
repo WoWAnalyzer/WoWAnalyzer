@@ -129,7 +129,7 @@ class StormElemental extends Analyzer {
         minor: 0,
         major: 1,
       },
-      style: 'absolute',
+      style: 'number',
     };
   }
 

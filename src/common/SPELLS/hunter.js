@@ -6,7 +6,7 @@
 
 export default {
 
-  // Beast Mastery:
+  //region Beast Mastery
   ASPECT_OF_THE_WILD: {
     id: 193530,
     name: 'Aspect of the Wild',
@@ -63,7 +63,7 @@ export default {
     icon: 'ability_hunter_longevity',
   },
   DIRE_BEAST_SUMMON: {
-    id: 306229,
+    id: 132764,
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
   },
@@ -72,23 +72,21 @@ export default {
     name: 'Stampede',
     icon: 'ability_hunter_bestialdiscipline',
   },
-  CHIMAERA_SHOT_NATURE_DAMAGE: {
-    id: 171457,
-    name: 'Chimaera Shot',
-    icon: 'ability_hunter_chimerashot2',
-  },
-  CHIMAERA_SHOT_FROST_DAMAGE: {
-    id: 171454,
-    name: 'Chimaera Shot',
-    icon: 'ability_hunter_chimerashot2',
-  },
   SPITTING_COBRA_DAMAGE: {
     id: 206685,
     name: 'Cobra Spit',
     icon: 'ability_creature_poison_02',
   },
-
-  //Beast Mastery BFA Buffs
+  CHIMAERA_SHOT_BM_NATURE_DAMAGE: {
+    id: 171457,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
+  CHIMAERA_SHOT_BM_FROST_DAMAGE: {
+    id: 171454,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
   BEAST_CLEAVE_BUFF: {
     id: 268877,
     name: 'Beast Cleave',
@@ -104,42 +102,42 @@ export default {
     name: 'Bestial Wrath Buff',
     icon: 'ability_druid_ferociousbite',
   },
-  BARBED_SHOT_BUFF: { //1st stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF: {
     id: 246152,
     name: 'Barbed Shot (1)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_2: { //2nd stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_2: {
     id: 246851,
     name: 'Barbed Shot (2)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_3: { //3rd stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_3: {
     id: 246852,
     name: 'Barbed Shot (3)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_4: { //4th stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_4: {
     id: 246853,
     name: 'Barbed Shot (4)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_5: { //5th stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_5: {
     id: 246854,
     name: 'Barbed Shot (5)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_6: { //6th stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_6: {
     id: 284255,
     name: 'Barbed Shot (6)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_7: { //7th stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_7: {
     id: 284257,
     name: 'Barbed Shot (7)',
     icon: 'ability_hunter_barbedshot',
   },
-  BARBED_SHOT_BUFF_STACK_8: { //8th stack of Barbed Shot on the player
+  BARBED_SHOT_BUFF_8: {
     id: 284258,
     name: 'Barbed Shot (8)',
     icon: 'ability_hunter_barbedshot',
@@ -154,27 +152,18 @@ export default {
     name: 'Thrill of the Hunt',
     icon: 'ability_hunter_thrillofthehunt',
   },
-  CHIMAERA_SHOT_FOCUS: {
-    id: 204304,
-    name: 'Chimaera Shot',
-    icon: 'ability_hunter_chimerashot2',
+  BLOODSHED_DEBUFF: {
+    id: 321538,
+    name: 'Bloodshed',
+    icon: 'ability_hunter_killcommand',
   },
+  //endregion
 
-  // Marksmanship Hunter:
+  //region Marksmanship
   AIMED_SHOT: {
     id: 19434,
     name: 'Aimed Shot',
     icon: 'inv_spear_07',
-  },
-  ARCANE_SHOT: {
-    id: 185358,
-    name: 'Arcane Shot',
-    icon: 'ability_impalingbolt',
-  },
-  STEADY_SHOT: {
-    id: 56641,
-    name: 'Steady Shot',
-    icon: 'ability_hunter_steadyshot',
   },
   STEADY_SHOT_FOCUS: {
     id: 77443,
@@ -206,7 +195,7 @@ export default {
     name: 'Rapid Fire',
     icon: 'ability_hunter_efficiency',
   },
-  RAPID_FIRE_TICKS: {
+  RAPID_FIRE_DAMAGE: {
     id: 257045,
     name: 'Rapid Fire',
     icon: 'ability_hunter_efficiency',
@@ -221,9 +210,7 @@ export default {
     name: 'Multi-Shot',
     icon: 'ability_upgrademoonglaive',
   },
-
-  //Marksmanship Buffs
-  MASTER_MARKSMAN_BUFF: {
+  MASTER_MARKSMAN_DEBUFF: {
     id: 269576,
     name: 'Master Marksman',
     icon: 'ability_hunter_mastermarksman',
@@ -273,13 +260,29 @@ export default {
     name: 'Lone Wolf',
     icon: 'spell_hunter_lonewolf',
   },
-  HUNTERS_MARK_FOCUS: {
-    id: 259558,
-    name: 'Hunter\'s Mark',
-    icon: 'ability_hunter_markedfordeath',
+  DEAD_EYE_BUFF: {
+    id: 321461,
+    name: 'Dead Eye',
+    icon: 'buff_epichunter',
   },
+  STREAMLINE_BUFF: {
+    id: 342076,
+    name: 'Streamline',
+    icon: 'ability_hunter_runningshot',
+  },
+  CHIMAERA_SHOT_MM_NATURE_DAMAGE: {
+    id: 344120,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
+  CHIMAERA_SHOT_MM_FROST_DAMAGE: {
+    id: 344121,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
+  //endregion
 
-  //Survival:
+  //region Survival
   ASPECT_OF_THE_EAGLE: {
     id: 186289,
     name: 'Aspect of the Eagle',
@@ -475,8 +478,34 @@ export default {
     name: 'Flanking Strike',
     icon: 'ability_hunter_invigeration',
   },
+  //endregion
 
-  //Shared BFA buffs/debuffs/misc
+  //region Shared
+  ARCANE_SHOT: {
+    id: 185358,
+    name: 'Arcane Shot',
+    icon: 'ability_impalingbolt',
+  },
+  STEADY_SHOT: {
+    id: 56641,
+    name: 'Steady Shot',
+    icon: 'ability_hunter_steadyshot',
+  },
+  KILL_SHOT_MM_BM: {
+    id: 53351,
+    name: 'Kill Shot',
+    icon: 'ability_hunter_assassinate2',
+  },
+  KILL_SHOT_SV: {
+    id: 320976,
+    name: 'Kill Shot',
+    icon: 'ability_hunter_assassinate2',
+  },
+  HUNTERS_MARK: {
+    id: 257284,
+    name: 'Hunter\'s Mark',
+    icon: 'ability_hunter_markedfordeath',
+  },
   POSTHASTE_BUFF: {
     id: 118922,
     name: 'Posthaste',
@@ -512,6 +541,104 @@ export default {
     name: 'Aspect of the Turtle',
     icon: 'ability_hunter_pet_turtle',
   },
+  CONCUSSIVE_SHOT: {
+    id: 5116,
+    name: 'Concussive Shot',
+    icon: 'spell_frost_stun',
+  },
+  DISENGAGE: {
+    id: 781,
+    name: 'Disengage',
+    icon: 'ability_rogue_feint',
+  },
+  EXHILARATION: {
+    id: 109304,
+    name: 'Exhilaration',
+    icon: 'ability_hunter_onewithnature',
+  },
+  FLARE: {
+    id: 1543,
+    name: 'Flare',
+    icon: 'spell_fire_flare',
+  },
+  FREEZING_TRAP: {
+    id: 187650,
+    name: 'Freezing Trap',
+    icon: 'spell_frost_chainsofice',
+  },
+  MISDIRECTION: {
+    id: 34477,
+    name: 'Misdrection',
+    icon: 'ability_hunter_misdirection',
+  },
+  TAR_TRAP: {
+    id: 187698,
+    name: 'Tar Trap',
+    icon: 'spell_yorsahj_bloodboil_black',
+  },
+  COUNTER_SHOT: {
+    id: 147362,
+    name: 'Counter Shot',
+    icon: 'inv_ammo_arrow_03',
+  },
+  AUTO_SHOT: {
+    id: 75,
+    name: 'Auto Shot',
+    icon: 'ability_whirlwind',
+  },
+  INTIMIDATION: {
+    id: 19577,
+    name: 'Intimidation',
+    icon: 'ability_devour',
+  },
+  CHIMAERA_SHOT_FOCUS: {
+    id: 204304,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
+  TRANQUILIZING_SHOT: {
+    id: 19801,
+    name: 'Tranquilizing Shot',
+    icon: 'spell_nature_drowsy',
+  },
+  //endregion
+
+  //region Pets
+  DISMISS_PET: {
+    id: 2641,
+    name: 'Dismiss Pet',
+    icon: 'spell_nature_spiritwolf',
+  },
+  PLAY_DEAD: {
+    id: 209997,
+    name: 'Play Dead',
+    icon: 'inv_misc_pelt_bear_03',
+  },
+  WAKE_UP: {
+    id: 210000,
+    name: 'Wake Up',
+    icon: 'warrior_disruptingshout',
+  },
+  FETCH: {
+    id: 125050,
+    name: 'Fetch',
+    icon: 'inv_misc_bone_01',
+  },
+  REVIVE_PET: {
+    id: 982,
+    name: 'Revive Pet',
+    icon: 'ability_hunter_beastsoothe',
+  },
+  MEND_PET: {
+    id: 136,
+    name: 'Mend Pet',
+    icon: 'ability_hunter_mendpet',
+  },
+  FEIGN_DEATH: {
+    id: 5384,
+    name: 'Feign Death',
+    icon: 'ability_rogue_feigndeath',
+  },
   CALL_PET_1: {
     id: 883,
     name: 'Call Pet 1',
@@ -537,98 +664,6 @@ export default {
     name: 'Call Pet 5',
     icon: 'ability_hunter_beastcall',
   },
-  CONCUSSIVE_SHOT: {
-    id: 5116,
-    name: 'Concussive Shot',
-    icon: 'spell_frost_stun',
-  },
-  DISENGAGE: {
-    id: 781,
-    name: 'Disengage',
-    icon: 'ability_rogue_feint',
-  },
-  EXHILARATION: {
-    id: 109304,
-    name: 'Exhilaration',
-    icon: 'ability_hunter_onewithnature',
-  },
-  FLARE: {
-    id: 1543,
-    name: 'Flare',
-    icon: 'spell_fire_flare',
-  },
-  FEIGN_DEATH: {
-    id: 5384,
-    name: 'Feign Death',
-    icon: 'ability_rogue_feigndeath',
-  },
-  FREEZING_TRAP: {
-    id: 187650,
-    name: 'Freezing Trap',
-    icon: 'spell_frost_chainsofice',
-  },
-  MISDIRECTION: {
-    id: 34477,
-    name: 'Misdrection',
-    icon: 'ability_hunter_misdirection',
-  },
-  REVIVE_PET: {
-    id: 982,
-    name: 'Revive Pet',
-    icon: 'ability_hunter_beastsoothe',
-  },
-  MEND_PET: {
-    id: 136,
-    name: 'Mend Pet',
-    icon: 'ability_hunter_mendpet',
-  },
-  TAR_TRAP: {
-    id: 187698,
-    name: 'Tar Trap',
-    icon: 'spell_yorsahj_bloodboil_black',
-  },
-  COUNTER_SHOT: {
-    id: 147362,
-    name: 'Counter Shot',
-    icon: 'inv_ammo_arrow_03',
-  },
-  DISMISS_PET: {
-    id: 2641,
-    name: 'Dismiss Pet',
-    icon: 'spell_nature_spiritwolf',
-  },
-  PLAY_DEAD: { //Is also Wake Up
-    id: 209997,
-    name: 'Play Dead',
-    icon: 'inv_misc_pelt_bear_03',
-  },
-  WAKE_UP: {
-    id: 210000,
-    name: 'Wake Up',
-    icon: 'warrior_disruptingshout',
-  },
-  FETCH: {
-    id: 125050,
-    name: 'Fetch',
-    icon: 'inv_misc_bone_01',
-  },
-  AUTO_SHOT: {
-    id: 75,
-    name: 'Auto Shot',
-    icon: 'ability_whirlwind',
-  },
-  EAGLE_EYE: {
-    id: 6197,
-    name: 'Eagle Eye',
-    icon: 'ability_hunter_eagleeye',
-  },
-  INTIMIDATION: {
-    id: 19577,
-    name: 'Intimidation',
-    icon: 'ability_devour',
-  },
-
-  //BFA Pet abilities
   PRIMAL_RAGE_1: {
     id: 264667,
     name: 'Primal Rage',
@@ -664,4 +699,23 @@ export default {
     name: 'Bite',
     icon: 'ability_druid_ferociousbite',
   },
+  //endregion
+
+  //region Miscellaneous
+  EAGLE_EYE: {
+    id: 6197,
+    name: 'Eagle Eye',
+    icon: 'ability_hunter_eagleeye',
+  },
+  EYES_OF_THE_BEAST: {
+    id: 321297,
+    name: 'Eyes of the Beast',
+    icon: 'ability_eyeoftheowl',
+  },
+  SCARE_BEAST: {
+    id: 1513,
+    name: 'Scare Beast',
+    icon: 'ability_druid_cower',
+  },
+  //endregion
 };

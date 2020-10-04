@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
@@ -10,11 +11,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
-
-// The potential amount of hits per target per stampede cast.
-// By checking through various Zek'voz logs, it seems to consistently hit the boss 18 times, except if the boss was moved.
-// By using this number, we can calculate the average amount of targets hit per cast.
-const STAMPEDE_POTENTIAL_HITS = 18;
+import { STAMPEDE_POTENTIAL_HITS } from 'parser/hunter/beastmastery/constants';
 
 /**
  * Summon a herd of stampeding animals from the wilds around you that deal damage to your enemies for 12 sec.
@@ -53,7 +50,7 @@ class Stampede extends Analyzer {
         average: 0,
         major: 1,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -87,8 +84,8 @@ class Stampede extends Analyzer {
     });
   }
 
-  suggestions(when: any) {
-    when(this.stampedeInefficientCastsThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.stampedeInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you've placed <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to deal it's full damage, or the enemy moved out of it. Avoid using <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will be moving out of it.</>)
         .icon(SPELLS.STAMPEDE_TALENT.icon)
         .actual(`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`)

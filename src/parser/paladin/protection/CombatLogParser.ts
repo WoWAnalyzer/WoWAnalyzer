@@ -26,6 +26,8 @@ import InspiringVanguard from './modules/spells/azeritetraits/InspiringVanguard'
 import LucidDreams from './modules/items/LucidDreams';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
+import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
+import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -58,6 +60,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
+    
+    // HolyPower
+    holyPowerTracker: HolyPowerTracker,
+    holyPowerDetails: HolyPowerDetails,
   };
 }
 

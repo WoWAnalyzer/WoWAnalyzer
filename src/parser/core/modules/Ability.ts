@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CombatLogParser from 'parser/core/CombatLogParser';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import Combatant from 'parser/core/Combatant';
 import { Event } from '../Events';
 import Abilities from './Abilities';
@@ -121,7 +122,7 @@ export interface SpellbookAbility {
      * If set, this suggestion will get this static importance value. Use this
      * ISSUE_IMPORTANCE enum for this.
      */
-    importance?: string;
+    importance?: ISSUE_IMPORTANCE;
   };
   /**
    * Whether the spell is enabled (available to the player) and should be

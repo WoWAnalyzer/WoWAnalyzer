@@ -33,16 +33,14 @@ import Castigation from './modules/spells/Castigation';
 import Atonement from './modules/spells/Atonement';
 import Evangelism from './modules/spells/Evangelism';
 import Penance from './modules/spells/Penance';
-import LuminousBarrier from './modules/spells/LuminousBarrier';
 import DesperatePrayer from '../shared/modules/features/DesperatePrayer';
 import Contrition from './modules/spells/Contrition';
 import Grace from './modules/spells/Grace';
 import Schism from './modules/spells/Schism';
 
-import DeathThroes from './modules/azeritetraits/DeathThroes';
-import DepthOfTheShadows from './modules/azeritetraits/DepthOfTheShadows';
-import EnduringLuminescence from './modules/azeritetraits/EnduringLuminescence';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
+
+import Mindgames from './modules/shadowlands/covenants/Mindgames';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -89,7 +87,6 @@ class CombatLogParser extends CoreCombatLogParser {
     castigation: Castigation,
     atonement: Atonement,
     evangelism: Evangelism,
-    luminousBarrier: LuminousBarrier,
     desperatePrayer: DesperatePrayer,
     contrition: Contrition,
     grace: Grace,
@@ -99,10 +96,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Essences
     lucidDreams: LucidDreams,
 
-    // Azerite Traits
-    enduringLuminescence: EnduringLuminescence,
-    depthOfTheShadows: DepthOfTheShadows,
-    deathThroes: DeathThroes,
+    // Covenants
+    mindgames: Mindgames,
   };
 }
 

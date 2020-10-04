@@ -5,8 +5,8 @@ import EventFilter, {
   SELECTED_PLAYER,
   SELECTED_PLAYER_PET,
 } from './EventFilter';
-import { SuggestionAssertion } from './ParseResults';
-import { Event } from './Events';
+import { When } from './ParseResults';
+import { MappedEvent } from './Events';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
 
@@ -82,7 +82,7 @@ class Analyzer extends EventSubscriber {
     super(options);
     addLegacyEventListenerSupport(this);
   }
-  addEventListener<ET extends string, E extends Event<ET>>(
+  addEventListener<ET extends string, E extends MappedEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, E>,
   ) {
@@ -102,7 +102,7 @@ class Analyzer extends EventSubscriber {
    * @deprecated Set the `position` property on the Statistic component instead.
    */
   statisticOrder?: number = undefined;
-  suggestions(when: (actual: object | any) => SuggestionAssertion) {}
+  suggestions(when: When) {}
   /**
    * @deprecated Return a `Panel` from the statistic method instead.
    */

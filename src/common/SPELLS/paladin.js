@@ -15,13 +15,13 @@ export default {
     id: 20271,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 600,
+    manaCost: 300,
   },
   JUDGMENT_CAST_HOLY: {
     id: 275773,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 600,
+    manaCost: 300,
   },
   JUDGMENT_CAST_PROTECTION: {
     id: 275779,
@@ -32,7 +32,7 @@ export default {
     id: 220637,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 600,
+    manaCost: 300,
   },
   DIVINE_STEED: {
     id: 190784,
@@ -84,6 +84,41 @@ export default {
     name: 'Hammer of Justice',
     icon: 'spell_holy_sealofmight',
   },
+  HAMMER_OF_WRATH: {
+    id: 24275,
+    name: 'Hammer of Wrath',
+    icon: 'spell_paladin_hammerofwrath',
+  },
+  WORD_OF_GLORY: {
+    id: 85673,
+    name: 'Word of Glory',
+    icon: 'inv_helmet_96',
+  },
+  CRUSADER_AURA: {
+    id: 32223,
+    name: 'Crusader Aura',
+    icon: 'spell_holy_crusaderaura',
+  },
+  RETRIBUTION_AURA: {
+    id: 183435,
+    name: 'Retribution Aura',
+    icon: 'spell_holy_crusade',
+  },
+  CONCENTRATION_AURA: {
+    id: 317920,
+    name: 'Concentration Aura',
+    icon: 'spell_holy_mindsooth',
+  },
+  DEVOTION_AURA: {
+    id: 465,
+    name: 'Devotion Aura',
+    icon: 'spell_holy_devotionaura',
+  },
+  TURN_EVIL: {
+    id: 10326,
+    name: 'Turn Evil',
+    icon: 'ability_paladin_turnevil',
+  },
 
   // Holy Paladin:
   MASTERY_LIGHTBRINGER: {
@@ -100,18 +135,19 @@ export default {
     id: 53563,
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
+    manaCost: 250,
   },
   FLASH_OF_LIGHT: {
     id: 19750,
     name: 'Flash of Light',
     icon: 'spell_holy_flashheal',
-    manaCost: 4400,
+    manaCost: 2200,
   },
   HOLY_SHOCK_CAST: {
     id: 20473,
     name: 'Holy Shock',
     icon: 'spell_holy_searinglight',
-    manaCost: 2000,
+    manaCost: 1400,
   },
   HOLY_SHOCK_HEAL: {
     id: 25914,
@@ -132,19 +168,18 @@ export default {
     id: 85222,
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
-    manaCost: 2800,
   },
   HOLY_LIGHT: {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 2600,
+    manaCost: 1600,
   },
   LIGHT_OF_THE_MARTYR: {
     id: 183998,
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
-    manaCost: 1400,
+    manaCost: 700,
   },
   LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN: {
     id: 196917,
@@ -225,6 +260,7 @@ export default {
     id: 4987,
     name: 'Cleanse',
     icon: 'spell_holy_purify',
+    manaCost: 650,
   },
   DEVOTION_AURA_BUFF: {
     id: 210320,
@@ -307,11 +343,6 @@ export default {
     name: 'Blade of Wrath',
     icon: 'ability_paladin_bladeofjusticeblue',
   },
-  RETRIBUTION_BUFF: {
-    id: 183436,
-    name: 'Retribution',
-    icon: 'spell_holy_crusade',
-  },
   GREATER_BLESSING_OF_KINGS: {
     id: 203538,
     name: 'Greater Blessing of Kings',
@@ -347,7 +378,17 @@ export default {
     name: 'Execution Sentence',
     icon: 'spell_paladin_executionsentence',
   },
-  // Traits:
+  WAKE_OF_ASHES: {
+    id: 255937,
+    name: 'Wake of Ashes',
+    icon: 'inv_sword_2h_artifactashbringerfire_d_03',
+  },
+  FINAL_VERDICT: {
+    id: 336872,
+    name: 'Final Verdict',
+    icon: 'spell_paladin_templarsverdict',
+  },
+
 	// Protection
   ARDENT_DEFENDER: {
     id: 31850,

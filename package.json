@@ -5,6 +5,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@lingui/react": "^2.9.0",
+    "@types/react-toggle": "^4.0.2",
     "@wowanalyzer/react-tooltip-lite": "3.1.1",
     "connected-react-router": "^6.6.1",
     "d3-dsv": "^1.1.1",
@@ -29,13 +30,15 @@
     "react-textfit": "^1.1.0",
     "react-toggle": "^4.0.2",
     "react-transition-group": "^1.2.1",
+    "react-vega": "^7.4.1",
     "react-virtualized": "^9.21.1",
-    "react-vis": "^1.11.7",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "sass-text-stroke": "1.0.1",
-    "universal-cookie": "^2.2.0"
+    "universal-cookie": "^2.2.0",
+    "vega": "^5.15.0",
+    "vega-lite": "^4.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",
@@ -50,6 +53,7 @@
     "@types/lingui__react": "^2.8.1",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
+    "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.2",
     "@types/react-test-renderer": "^16.9.1",
     "@types/react-virtualized": "^9.21.10",
@@ -61,13 +65,14 @@
     "dotenv": "^6.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "jest-canvas-mock": "^2.3.0",
     "jest-enzyme": "^7.1.2",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.14.0",
     "prettier": "^1.19.1",
     "react-app-rewired": "^2.1.6",
     "react-scripts": "^3.1.0",
     "react-test-renderer": "^16.8.6",
-    "typescript": "^3.7.3"
+    "typescript": "^3.8"
   },
   "scripts": {
     "start": "react-app-rewired start",
