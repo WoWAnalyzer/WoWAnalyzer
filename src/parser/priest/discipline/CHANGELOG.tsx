@@ -8,6 +8,7 @@ import ITEMS from 'common/ITEMS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 3), <>Update <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} /> cooldown.</>, [Reglitch]),
   change(date(2020, 10, 2), <>Converting all disc modules to Typescript.</>, [Khadaj]),
   change(date(2020, 10, 2), <>Implementation of <SpellLink id={SPELLS.MINDGAMES.id} /></>, [Oratio]),
   change(date(2020, 9, 30), <>Shadowlands Clean up.</>, [Oratio]),

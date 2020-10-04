@@ -89,6 +89,9 @@ const FILTERABLE_TYPES = {
   resurrect: {
     name: 'Resurrect',
   },
+  dispel:{
+    name: 'Dispel',
+  },
 };
 
 class EventsTab extends React.Component {
