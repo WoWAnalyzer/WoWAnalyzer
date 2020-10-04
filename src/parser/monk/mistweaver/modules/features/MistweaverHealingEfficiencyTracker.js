@@ -69,6 +69,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getEnvelopingMistsDetails(spellInfo) {
     spellInfo.healingDone = spellInfo.healingDone + this.envelopingMists.gustsHealing + this.envelopingMists.healingIncrease;
+    // Enveloping breath part
+    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
+    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).overheal;
+
     return spellInfo;
   }
 
@@ -112,18 +116,12 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // Get all soothing breath and enveloping breath healing since its all bc of yu'lon
     spellInfo.healingDone = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id).effective;
     spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id).overheal;
-    // Enveloping breath part -- should this be attributed to yulon? we attribute viv cleave healing to rem but here we don't attribute the envB to envM? will keep for now
-    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
-    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).overheal;
     return spellInfo;
   }
 
   getChijiDetails(spellInfo) {
     spellInfo.healingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).effective;
     spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).overheal;
-    // Enveloping breath part -- same concern as above. would probably be messy to figure out which envs were cast during yulon/chiji
-    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
-    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).overheal;
     return spellInfo;
   }
 
