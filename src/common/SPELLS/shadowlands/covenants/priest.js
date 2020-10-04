@@ -1,6 +1,15 @@
 export default {
   //region Kyrian
-
+  BOON_OF_THE_ASCENDED: {
+    id: 325013,
+    name: 'Boon of the Ascended',
+    icon: 'ability_bastion_priest',
+  },
+  ASCENDED_ERUPTION: {
+    id: 325326,
+    name: 'Ascended Eruption',
+    icon: 'ability_bastion_priest',
+  },
   //endregion
 
   //region Necrolord
