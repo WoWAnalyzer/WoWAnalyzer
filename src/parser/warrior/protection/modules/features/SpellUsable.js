@@ -15,17 +15,21 @@ class SpellUsable extends CoreSpellUsable {
 
   lastPotentialTriggerForShieldSlam = null;
   on_byPlayer_cast(event) {
-    if (super.on_byPlayer_cast) {
-      super.on_byPlayer_cast(event);
-    }
+    super.on_byPlayer_cast(event);
 
     const spellId = event.ability.guid;
     if (spellId === SPELLS.MELEE.id && this.hasDevastator) {
       this.lastPotentialTriggerForShieldSlam = event;
-    } else if (spellId === SPELLS.DEVASTATE.id || spellId === SPELLS.THUNDER_CLAP.id || spellId === SPELLS.REVENGE.id) {
+    } else if (
+      spellId === SPELLS.DEVASTATE.id ||
+      spellId === SPELLS.THUNDER_CLAP.id ||
+      spellId === SPELLS.REVENGE.id
+    ) {
       this.lastPotentialTriggerForShieldSlam = { ...event };
       //reset the cooldown to after the GCD of the resetting ability
-      this.lastPotentialTriggerForShieldSlam.timestamp += this.globalCooldown.getGlobalCooldownDuration(spellId);
+      this.lastPotentialTriggerForShieldSlam.timestamp += this.globalCooldown.getGlobalCooldownDuration(
+        spellId,
+      );
     } else if (spellId === SPELLS.SHIELD_SLAM.id) {
       this.lastPotentialTriggerForShieldSlam = null;
     }
@@ -34,7 +38,13 @@ class SpellUsable extends CoreSpellUsable {
   beginCooldown(spellId, cooldownTriggerEvent) {
     if (spellId === SPELLS.SHIELD_SLAM.id) {
       if (this.isOnCooldown(spellId)) {
-        this.endCooldown(spellId, undefined, this.lastPotentialTriggerForShieldSlam ? this.lastPotentialTriggerForShieldSlam.timestamp : undefined);
+        this.endCooldown(
+          spellId,
+          undefined,
+          this.lastPotentialTriggerForShieldSlam
+            ? this.lastPotentialTriggerForShieldSlam.timestamp
+            : undefined,
+        );
       }
     }
 
