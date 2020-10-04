@@ -36,7 +36,7 @@ class SpellHistory extends Analyzer {
   protected channeling!: Channeling;
 
   public historyBySpellId: {
-    [spellId: number]: Array<SpellHistoryEvent>;
+    [spellId: number]: SpellHistoryEvent[];
   } = {
     // This contains the raw event to have all information one might ever need and so that we don't construct additional objects that take their own memory.
     // [spellId]: [

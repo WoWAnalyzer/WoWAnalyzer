@@ -29,9 +29,9 @@ jobs:
         with:
           path: node_modules
           # path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node_modules2-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node_modules-
+            ${{ runner.os }}-node_modules2-
       - run: yarn --frozen-lockfile --production=false
       - name: Extract messages
         # We need to run extraction twice as Lingui has a bug where the second pass removes the default for messages with the same id as the default

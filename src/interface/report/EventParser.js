@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExtendableError from 'es6-error';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { getBuild } from 'interface/selectors/url/report';
 import sleep from 'common/sleep';
@@ -45,9 +47,11 @@ class EventParser extends React.PureComponent {
       type: PropTypes.string.isRequired,
     }).isRequired,
 
-    combatants: PropTypes.arrayOf(PropTypes.shape({
-      sourceID: PropTypes.number.isRequired,
-    })),
+    combatants: PropTypes.arrayOf(
+      PropTypes.shape({
+        sourceID: PropTypes.number.isRequired,
+      }),
+    ),
     applyTimeFilter: PropTypes.func.isRequired,
     applyPhaseFilter: PropTypes.func.isRequired,
     parserClass: PropTypes.func.isRequired,
@@ -72,15 +76,16 @@ class EventParser extends React.PureComponent {
     this.parse();
   }
   componentDidUpdate(prevProps, prevState, prevContext) {
-    const changed = this.props.report !== prevProps.report
-      || this.props.fight !== prevProps.fight
-      || this.props.player !== prevProps.player
-      || this.props.combatants !== prevProps.combatants
-      || this.props.parserClass !== prevProps.parserClass
-      || this.props.characterProfile !== prevProps.characterProfile
-      || this.props.events !== prevProps.events
-      || this.props.build !== prevProps.build
-      || this.props.builds !== prevProps.builds;
+    const changed =
+      this.props.report !== prevProps.report ||
+      this.props.fight !== prevProps.fight ||
+      this.props.player !== prevProps.player ||
+      this.props.combatants !== prevProps.combatants ||
+      this.props.parserClass !== prevProps.parserClass ||
+      this.props.characterProfile !== prevProps.characterProfile ||
+      this.props.events !== prevProps.events ||
+      this.props.build !== prevProps.build ||
+      this.props.builds !== prevProps.builds;
     if (changed) {
       this.setState({
         isLoading: true,
@@ -93,13 +98,31 @@ class EventParser extends React.PureComponent {
   }
 
   makeParser() {
-    const { report, fight, combatants, player, characterProfile, build, builds, parserClass } = this.props;
+    const {
+      report,
+      fight,
+      combatants,
+      player,
+      characterProfile,
+      build,
+      builds,
+      parserClass,
+    } = this.props;
     const buildKey = builds && Object.keys(builds).find(b => builds[b].url === build);
-    builds && Object.keys(builds).forEach(key => {
-      builds[key].active = key === buildKey;
-    });
+    builds &&
+      Object.keys(builds).forEach(key => {
+        builds[key].active = key === buildKey;
+      });
     //set current build to undefined if default build or non-existing build selected
-    const parser = new parserClass(report, player, fight, combatants, characterProfile, buildKey && build, builds);
+    const parser = new parserClass(
+      report,
+      player,
+      fight,
+      combatants,
+      characterProfile,
+      buildKey && build,
+      builds,
+    );
     parser.applyTimeFilter = this.props.applyTimeFilter;
     parser.applyPhaseFilter = this.props.applyPhaseFilter;
 
@@ -113,7 +136,7 @@ class EventParser extends React.PureComponent {
     // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
     events = events.filter(event => event.type !== EventType.CombatantInfo);
     //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
-    events = parser.normalize(events).sort((a,b) => a.timestamp - b.timestamp);
+    events = parser.normalize(events).sort((a, b) => a.timestamp - b.timestamp);
     return events;
   }
   async parse() {
@@ -135,7 +158,7 @@ class EventParser extends React.PureComponent {
           eventEmitter.triggerEvent(events[eventIndex]);
           eventIndex += 1;
 
-          if (!BENCHMARK && (Date.now() - start) > MAX_BATCH_DURATION) {
+          if (!BENCHMARK && Date.now() - start > MAX_BATCH_DURATION) {
             break;
           }
         }
@@ -164,8 +187,8 @@ class EventParser extends React.PureComponent {
     return this.props.children(this.state.isLoading, this.state.progress, this.state.parser);
   }
 }
-const mapStateToProps = (state, ownProps) => ({
-    // Because build comes from the URL we can't use local state
-    build: getBuild(state),
+const mapStateToProps = (state, props) => ({
+  // Because build comes from the URL we can't use local state
+  build: getBuild(props.location.pathname),
 });
-export default connect(mapStateToProps)(EventParser);
+export default compose(withRouter, connect(mapStateToProps))(EventParser);

@@ -6,9 +6,11 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 import DemoPets from '../pets/DemoPets';
 import { isWildImp } from '../pets/helpers';
@@ -42,13 +44,17 @@ class DemonicConsumption extends Analyzer {
     this.damage += calculateEffectiveDamage(event, this._currentBonus);
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<>Bonus <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /> dmg</>}
-        value={this.owner.formatItemDamageDone(this.damage)}
-        valueTooltip={`${formatThousands(this.damage)} damage`}
-      />
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={`${formatThousands(this.damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.DEMONIC_CONSUMPTION_TALENT}>
+          <ItemDamageDone amount={this.damage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
