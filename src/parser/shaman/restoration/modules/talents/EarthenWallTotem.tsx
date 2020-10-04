@@ -6,16 +6,23 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage, formatDuration, formatNth } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { AbsorbedEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 
 import Combatants from 'parser/shared/modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import { When } from 'parser/core/ParseResults';
 
 const RECOMMENDED_EFFICIENCY = 0.75;
 const MAGHAR_ORC_PET_HEALTH_INCREASE = 0.1;
+
+interface EarthenWallTotemInfo {
+  potentialHealing: number,
+  effectiveHealing: number,
+  timestamp: number
+}
 
 /**
  * Earthen Wall Totem
@@ -30,13 +37,15 @@ class EarthenWallTotem extends Analyzer {
     combatants: Combatants,
   };
 
-  earthenWallTotems = [];
+  earthenWallTotems: Array<EarthenWallTotemInfo> = [];
   castNumber = 0;
   prePullCast = true;
-  isMaghar = false;
+  isMaghar: boolean | null = false;
 
-  constructor(props) {
-    super(props);
+  protected combatants!: Combatants;
+
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id);
     this.isMaghar = this.selectedCombatant.race && this.selectedCombatant.race.name === "Mag'har Orc";
 
@@ -45,23 +54,23 @@ class EarthenWallTotem extends Analyzer {
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER_PET).spell(SPELLS.EARTHEN_WALL_TOTEM_ABSORB), this._onAbsorbed);
   }
 
-  _onCast(event) {
+  _onCast(event: CastEvent) {
     if (this.prePullCast) {
       this.prePullCast = false;
     }
 
     this.castNumber += 1;
     this.earthenWallTotems[this.castNumber] = {
-      potentialHealing: this.isMaghar ? Math.floor(event.maxHitPoints * (1 + MAGHAR_ORC_PET_HEALTH_INCREASE)) : event.maxHitPoints,
+      potentialHealing: this.isMaghar ? Math.floor(event.maxHitPoints || 0 * (1 + MAGHAR_ORC_PET_HEALTH_INCREASE)) : event.maxHitPoints || 0,
       effectiveHealing: 0,
       timestamp: event.timestamp,
     };
   }
 
-  _updateTotemHealth(event) {
+  _updateTotemHealth(event: DamageEvent) {
     if (this.prePullCast) {
       this.earthenWallTotems[this.castNumber] = {
-        potentialHealing: event.maxHitPoints, // this is taking the totems max HP, which is the same result as the players unless Mag'har Orc
+        potentialHealing: event.maxHitPoints || 0, // this is taking the totems max HP, which is the same result as the players unless Mag'har Orc
         effectiveHealing: (this.earthenWallTotems[this.castNumber] && this.earthenWallTotems[this.castNumber].effectiveHealing) || 0,
         timestamp: this.owner.fight.start_time,
       };
@@ -76,9 +85,9 @@ class EarthenWallTotem extends Analyzer {
     }
   }
 
-  _onAbsorbed(event) {
+  _onAbsorbed(event: AbsorbedEvent) {
     // Filtering out pets as healing on them is pointless, sadly
-    const combatant = this.combatants.players[event.targetID];
+    const combatant = this.combatants.getEntity(event);
     if (!combatant) {
       return;
     }
@@ -86,6 +95,8 @@ class EarthenWallTotem extends Analyzer {
     if (!this.earthenWallTotems[this.castNumber]) {
       this.earthenWallTotems[this.castNumber] = {
         effectiveHealing: 0,
+        potentialHealing: 0,
+        timestamp: event.timestamp // maybe change to combat start timestamp
       };
     }
     this.earthenWallTotems[this.castNumber].effectiveHealing += event.amount;
@@ -103,7 +114,7 @@ class EarthenWallTotem extends Analyzer {
     return this.totalEffectiveHealing / this.totalPotentialHealing;
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.earthenWallEfficiency).isLessThan(RECOMMENDED_EFFICIENCY)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs.</span>)

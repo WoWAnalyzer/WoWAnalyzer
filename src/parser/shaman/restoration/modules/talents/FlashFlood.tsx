@@ -10,19 +10,31 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
+import { BeginCastEvent, CastEvent } from 'parser/core/Events';
 
 const FLASH_FLOOD_HASTE = 0.2;
 const BUFFER_MS = 50;
+
+interface FlashFloodInfo {
+  [SpellID: number]: FlashFloodSpell
+}
+interface FlashFloodSpell {
+  timesBuffed: number,
+  timeSaved: number,
+  timeWasted: number
+}
 
 class FlashFlood extends Analyzer {
   static dependencies = {
     globalCooldown: GlobalCooldown,
   };
 
+  protected globalCooldown!: GlobalCooldown;
+
   beginCastTimestamp = 0;
   beginCastGlobalCooldown = 0;
 
-  spellsConsumingFlashFlood = {
+  spellsConsumingFlashFlood: FlashFloodInfo = {
     [SPELLS.HEALING_WAVE.id]: {
       timesBuffed: 0,
       timeSaved: 0,
@@ -45,11 +57,11 @@ class FlashFlood extends Analyzer {
     },
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id);
 
-    if(this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id)) { //-- always below GCD
+    if (this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id)) { //-- always below GCD
       this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id] = {
         timesBuffed: 0,
         timeSaved: 0,
@@ -58,7 +70,7 @@ class FlashFlood extends Analyzer {
     }
   }
 
-  on_byPlayer_begincast(event) {
+  on_byPlayer_begincast(event: BeginCastEvent) {
     const spellId = event.ability.guid;
     if (!this.spellsConsumingFlashFlood[spellId]) {
       return;
@@ -72,7 +84,7 @@ class FlashFlood extends Analyzer {
     this.beginCastGlobalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     if (!this.beginCastTimestamp) {
       return;
     }
@@ -83,7 +95,7 @@ class FlashFlood extends Analyzer {
       return;
     }
 
-    const hasFlashFlood = this.selectedCombatant.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, this.beginCastTimestamp+BUFFER_MS);
+    const hasFlashFlood = this.selectedCombatant.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, this.beginCastTimestamp + BUFFER_MS);
     if (!hasFlashFlood) {
       return;
     }
@@ -93,7 +105,7 @@ class FlashFlood extends Analyzer {
     this.beginCastTimestamp = 0;
     if (castTime <= this.beginCastGlobalCooldown) {
       // The next 2 lines together add up to the total reduction, but everything below the GCD is discarded
-      this.spellsConsumingFlashFlood[spellId].timeWasted += this.beginCastGlobalCooldown-castTime;
+      this.spellsConsumingFlashFlood[spellId].timeWasted += this.beginCastGlobalCooldown - castTime;
       this.spellsConsumingFlashFlood[spellId].timeSaved += Math.max((castTime) / (1 - FLASH_FLOOD_HASTE) - this.beginCastGlobalCooldown, 0);
       return;
     }
@@ -102,15 +114,15 @@ class FlashFlood extends Analyzer {
   }
 
   get totalTimeSaved() {
-    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => {return sum + spell.timeSaved;}, 0);
+    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => { return sum + spell.timeSaved; }, 0);
   }
 
   get totalTimeWasted() {
-    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => {return sum + spell.timeWasted;}, 0);
+    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => { return sum + spell.timeWasted; }, 0);
   }
 
   get flashFloodUsageRatioChart() {
-    const makeTooltip = (value) => (
+    const makeTooltip = (value: FlashFloodSpell) => (
       <>
         <strong>{(value.timeSaved / 1000).toFixed(2)} seconds saved</strong> <br />
         {(value.timeWasted / 1000).toFixed(2)} seconds reduced below GCD <br />
@@ -166,12 +178,11 @@ class FlashFlood extends Analyzer {
     );
   }
 
-  statistic() {
+  statistic() { //         style={{ height: '230px' }}
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(90)}
-        style={{ height: '230px' }}
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage</label>

@@ -14,24 +14,30 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Combatants from 'parser/shared/modules/Combatants';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
+import { When } from 'parser/core/ParseResults';
 
 class Wellspring extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
-  healing = 0;
-  wellspringCasts = [];
-  wellspringTimestamps = [];
-  castNumber = 0;
-  castEvent = {};
 
-  constructor(...args) {
-    super(...args);
+  protected combatants!: Combatants;
+  protected cooldownThroughputTracker!: CooldownThroughputTracker;
+
+  healing = 0;
+  wellspringCasts: Array<number> = [];
+  wellspringTimestamps: Array<number> = [];
+  castNumber = 0;
+  castEvent: CastEvent | undefined = undefined;
+
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id);
   }
 
-  on_byPlayer_begincast(event) {
+  on_byPlayer_begincast(event: BeginCastEvent) {
     if (event.ability.guid !== SPELLS.WELLSPRING_TALENT.id || event.isCancelled) {
       return;
     }
@@ -44,15 +50,15 @@ class Wellspring extends Analyzer {
     this.wellspringTimestamps[this.castNumber] = event.timestamp;
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.WELLSPRING_TALENT.id || event.isCancelled) {
+  on_byPlayer_cast(event: CastEvent) {
+    if (event.ability.guid !== SPELLS.WELLSPRING_TALENT.id) {
       return;
     }
 
     this.castEvent = event;
   }
 
-  on_byPlayer_heal(event) {
+  on_byPlayer_heal(event: HealEvent) {
     const spellId = event.ability.guid;
 
     if (spellId !== SPELLS.WELLSPRING_HEAL.id) {
@@ -66,7 +72,7 @@ class Wellspring extends Analyzer {
     this.healing += event.amount + (event.absorbed || 0);
 
     // Pets aren't really interesting to us as they don't work against the mechanic of wellspring
-    const combatant = this.combatants.players[event.targetID];
+    const combatant = this.combatants.getEntity(event);
     if (!combatant) {
       return;
     }
@@ -80,7 +86,7 @@ class Wellspring extends Analyzer {
   }
 
   on_fightend() {
-    if (this.wellspringCasts[this.castNumber] && this.wellspringCasts[this.castNumber] < 6 && !this.castEvent.meta) {
+    if (this.wellspringCasts[this.castNumber] && this.wellspringCasts[this.castNumber] < 6 && (this.castEvent && !this.castEvent.meta)) {
       this.registerInefficientCast();
     }
   }
@@ -113,7 +119,7 @@ class Wellspring extends Analyzer {
     return this.wellspringCasts.reduce((total, hits) => hits < 6 ? total + 1 : total, 0);
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     const suggestionThreshold = this.suggestionThreshold;
     when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
@@ -163,9 +169,9 @@ class Wellspring extends Analyzer {
             {
               this.wellspringCasts.map((hits, index) => (
                 <tr key={index}>
-                  <th scope="row">{ formatNth(index) }</th>
-                  <td>{ formatDuration((this.wellspringTimestamps[index] - this.owner.fight.start_time) / 1000) || 0 }</td>
-                  <td style={hits < 6 ? {color: 'red' , fontWeight: 'bold'} : {fontWeight: 'bold'}}>{ hits } hits</td>
+                  <th scope="row">{formatNth(index)}</th>
+                  <td>{formatDuration((this.wellspringTimestamps[index] - this.owner.fight.start_time) / 1000) || 0}</td>
+                  <td style={hits < 6 ? { color: 'red', fontWeight: 'bold' } : { fontWeight: 'bold' }}>{hits} hits</td>
                 </tr>
               ))
             }

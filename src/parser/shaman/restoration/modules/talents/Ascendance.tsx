@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -17,15 +17,17 @@ class Ascendance extends Analyzer {
   };
   healing = 0;
 
-  constructor(...args) {
-    super(...args);
+  protected cooldownThroughputTracker!: CooldownThroughputTracker;
+
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ASCENDANCE_HEAL), this._onHeal);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ASCENDANCE_INITIAL_HEAL), this._onHeal);
   }
 
-  _onHeal(event) {
+  _onHeal(event: HealEvent) {
     this.healing += event.amount + (event.absorbed || 0);
   }
 

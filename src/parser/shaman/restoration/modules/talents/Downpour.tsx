@@ -15,6 +15,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import { HealEvent } from 'parser/core/Events';
 
 const BUFFER = 100;
 const cooldownIncrease = 5000;
@@ -35,15 +36,19 @@ class Downpour extends Analyzer {
   downpourHitsSum = 0;
   downpourTimestamp = 0;
 
-  constructor(...args) {
-    super(...args);
+  protected cooldownThroughputTracker!: CooldownThroughputTracker;
+  protected spellUsable!: SpellUsable;
+  protected abilityTracker!: AbilityTracker;
+
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id);
   }
 
-  on_byPlayer_heal(event) {
+  on_byPlayer_heal(event: HealEvent) {
     // This spells cooldown gets increased depending on how many targets you heal
     // instead we set it to the maximum possible cooldown and reduce it by how many it fully overhealed or missed
-    if(this.downpourTimestamp && event.timestamp > this.downpourTimestamp + BUFFER) {
+    if (this.downpourTimestamp && event.timestamp > this.downpourTimestamp + BUFFER) {
       const reductionMS = (maxHits - this.downpourHits) * cooldownIncrease;
       this.spellUsable.reduceCooldown(SPELLS.DOWNPOUR_TALENT.id, reductionMS);
       this.downpourTimestamp = 0;
@@ -55,7 +60,7 @@ class Downpour extends Analyzer {
       return;
     }
 
-    if(event.amount) {
+    if (event.amount) {
       this.downpourHits += 1;
       this.downpourHitsSum += 1;
     }
@@ -68,7 +73,7 @@ class Downpour extends Analyzer {
     const downpour = this.abilityTracker.getAbility(SPELLS.DOWNPOUR_TALENT.id);
 
     const downpourCasts = downpour.casts || 0;
-    if(!downpourCasts) {
+    if (!downpourCasts) {
       return null;
     }
     // downpourHits are all hits and downpourHitsSum are only the ones with effective healing done

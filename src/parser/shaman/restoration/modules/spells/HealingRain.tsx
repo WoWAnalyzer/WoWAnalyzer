@@ -9,23 +9,33 @@ import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
+import { When } from 'parser/core/ParseResults';
+import { HealEvent } from 'parser/core/Events';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
 const BUFFER_MS = 85;
 
+interface HealingRainHit {
+  timestamp: number,
+  hits: number
+}
+
 class HealingRain extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  healingRainTicks = [];
+
+  protected combatants!: Combatants;
+
+  healingRainTicks: Array<HealingRainHit> = [];
 
   get averageHitsPerTick() {
     const totalHits = this.healingRainTicks.reduce((total, tick) => total + tick.hits, 0);
     return totalHits / this.healingRainTicks.length;
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     const suggestionThreshold = this.suggestionThreshold;
     when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
@@ -49,7 +59,7 @@ class HealingRain extends Analyzer {
     };
   }
 
-  on_byPlayer_heal(event) {
+  on_byPlayer_heal(event: HealEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HEALING_RAIN_HEAL.id) {
       return;
@@ -57,7 +67,7 @@ class HealingRain extends Analyzer {
 
     // Filter out pets, but only if it fully overhealed as Rain will prioritize injured pets over non-injured players
     // fully overhealing guarantees that there are not enough players in the healing rain
-    const combatant = this.combatants.players[event.targetID];
+    const combatant = this.combatants.getEntity(event);
     if (!combatant && event.overheal && event.amount === 0) {
       return;
     }

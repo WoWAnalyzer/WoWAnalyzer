@@ -19,6 +19,8 @@ class EarthShield extends EarthShieldCore {
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
 
+  protected cooldownThroughputTracker!: CooldownThroughputTracker;
+
   statistic() {
     return (
       <StatisticBox

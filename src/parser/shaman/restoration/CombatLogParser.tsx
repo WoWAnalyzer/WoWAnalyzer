@@ -155,8 +155,8 @@ class CombatLogParser extends CoreCombatLogParser {
     swirlingCurrents: SwirlingCurrents,
   };
 
-  generateResults(...args) {
-    const results = super.generateResults(...args);
+  generateResults(options: any) {
+    const results = super.generateResults(options);
 
     results.tabs = [
       ...results.tabs,

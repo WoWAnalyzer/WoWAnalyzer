@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import { BeginCastEvent, HealEvent, Event } from 'parser/core/Events';
 
 /**
  * Module to find the position of healing rain, and return how much extra healing spells modified by healing rain did.
@@ -9,33 +10,46 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
  * The position is calculated by gathering all coordinates of people getting healed by rain, finding the extremes and treating it as an ellipse.
  * Player position on heal is then compared against that.
  */
+
+interface Point {
+  x: number,
+  y: number
+}
+interface Location {
+  ellipseCenterPoint: Point;
+  ellipseWidth: number;
+  ellipseHeight: number;
+}
+
+
 class HealingRainLocation extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
   healingRainDiameter = 2100; // 5% margin of error
 
-  healingRainEvents = [];
+  protected combatants!: Combatants;
+  healingRainEvents: Array<HealEvent> = [];
   newHealingRain = false;
   lastHealingRainTick = 0;
   firstHealingRainTick = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
     if (this.active && this.selectedCombatant.hasTrait(SPELLS.OVERFLOWING_SHORES_TRAIT.id)) {
       this.healingRainDiameter = 2520; // 5% margin of error
     }
   }
 
-  on_byPlayer_heal(event) {
+  on_byPlayer_heal(event: HealEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HEALING_RAIN_HEAL.id) {
       return;
     }
 
     // Pets with their insane movement speed (or blinking) messed the size up, so I decided to filter them out
-    const combatant = this.combatants.players[event.targetID];
+    const combatant = this.combatants.getEntity(event);
     if (!combatant) {
       return;
     }
@@ -53,7 +67,7 @@ class HealingRainLocation extends Analyzer {
   // We use begincast instead of cast in this, and all modules depending on this, since it is the only event that is guaranteed
   // to occur after Healing Rain is done, and before the next one starts, as the cast event tends to be in the middle between
   // its own healing events, and we can't check for gaps in heal events as the cast time is faster than the time between ticks. 
-  on_byPlayer_begincast(event) {
+  on_byPlayer_begincast(event: BeginCastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) {
       return;
@@ -64,7 +78,7 @@ class HealingRainLocation extends Analyzer {
     this.newHealingRain = true;
   }
 
-  processHealingRain(eventsDuringRain, healIncrease) {
+  processHealingRain(eventsDuringRain: Array<Event<any>>, healIncrease: number) {
     if (this.healingRainEvents.length === 0) {
       return 0;
     }
@@ -85,9 +99,9 @@ class HealingRainLocation extends Analyzer {
     return this.sumHealing(filteredEvents, healIncrease, healingRainLocation);
   }
 
-  sumHealing(eventsDuringRain, healIncrease, healingRainLocation) {
+  sumHealing(eventsDuringRain: Array<Event<any>>, healIncrease: number, healingRainLocation: Location) {
     return eventsDuringRain.reduce((healing, event) => {
-      const pointToCheck = { x: event.x, y: event.y };
+      const pointToCheck = { x: (event as any).x, y: (event as any).y }; // this needs a better typing solution
       if (this._isPlayerInsideHealingRain(pointToCheck, healingRainLocation)) {
         return healing + calculateEffectiveHealing(event, healIncrease);
       }
@@ -95,7 +109,7 @@ class HealingRainLocation extends Analyzer {
     }, 0);
   }
 
-  locate(events) {
+  locate(events: Array<HealEvent>) {
     const { minY, maxY, minX, maxX } = events.reduce((result, event) => {
       result.minY = Math.min(event.y, result.minY);
       result.maxY = Math.max(event.y, result.maxY);
@@ -118,7 +132,7 @@ class HealingRainLocation extends Analyzer {
       return null;
     }
 
-    const ellipseCenterPoint = {
+    const ellipseCenterPoint: Point = {
       x: (maxX + minX) / 2,
       y: (maxY + minY) / 2,
     };
@@ -127,7 +141,7 @@ class HealingRainLocation extends Analyzer {
   }
 
   // also called: is point inside ellipse
-  _isPlayerInsideHealingRain(pointToCheck, location) {
+  _isPlayerInsideHealingRain(pointToCheck: Point, location: Location) {
     const xComponent = (Math.pow(pointToCheck.x - location.ellipseCenterPoint.x, 2) / Math.pow(location.ellipseWidth, 2));
     const yComponent = (Math.pow(pointToCheck.y - location.ellipseCenterPoint.y, 2) / Math.pow(location.ellipseHeight, 2));
 

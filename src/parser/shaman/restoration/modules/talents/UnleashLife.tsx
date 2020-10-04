@@ -14,11 +14,25 @@ import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 const UNLEASH_LIFE_HEALING_INCREASE = 0.45;
 const BUFFER_MS = 200;
 const UNLEASH_LIFE_DURATION = 10000;
 const debug = false;
+
+interface HealingBuffInfo {
+  [SpellID: number]: HealingBuffHot | HealingBuff
+}
+interface HealingBuffHot {
+  healing: number,
+  castAmount: number,
+  playersActive: Array<number>
+}
+interface HealingBuff {
+  healing: number,
+  castAmount: number
+}
 
 /**
  * Unleash Life:
@@ -29,8 +43,11 @@ class UnleashLife extends Analyzer {
   static dependencies = {
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
+
+  protected cooldownThroughputTracker!: CooldownThroughputTracker;
+
   healing = 0;
-  healingBuff = {
+  healingBuff: HealingBuffInfo = {
     [SPELLS.RIPTIDE.id]: {
       healing: 0,
       castAmount: 0,
@@ -39,14 +56,17 @@ class UnleashLife extends Analyzer {
     [SPELLS.CHAIN_HEAL.id]: {
       healing: 0,
       castAmount: 0,
+      playersActive: [],
     },
     [SPELLS.HEALING_WAVE.id]: {
       healing: 0,
       castAmount: 0,
+      playersActive: [],
     },
     [SPELLS.HEALING_SURGE_RESTORATION.id]: {
       healing: 0,
       castAmount: 0,
+      playersActive: [],
     },
   };
 
@@ -54,15 +74,15 @@ class UnleashLife extends Analyzer {
   unleashLifeRemaining = false;
   unleashLifeHealRemaining = 0;
 
-  buffedChainHealTimestamp = null;
-  lastUnleashLifeTimestamp = null;
+  buffedChainHealTimestamp: number = Number.MIN_SAFE_INTEGER;
+  lastUnleashLifeTimestamp: number = Number.MAX_SAFE_INTEGER;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
   }
 
-  on_byPlayer_heal(event) {
+  on_byPlayer_heal(event: HealEvent) {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
@@ -77,14 +97,14 @@ class UnleashLife extends Analyzer {
     }
 
     // Riptide HoT handling, ticks on whoever its active
-    if (spellId === SPELLS.RIPTIDE.id && this.healingBuff[spellId].playersActive.includes(event.targetID)) {
+    if (spellId === SPELLS.RIPTIDE.id && (this.healingBuff[spellId] as HealingBuffHot).playersActive.includes(event.targetID)) {
       if (event.tick) {
         this.healingBuff[spellId].healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
 
         // Initial Riptide Heal without Unleash Life
         // casting an unbuffed Riptide on a target that already has a buffed Riptide, will completely negate the buff, so we remove that person
       } else if (!event.tick && !this.unleashLifeHealRemaining) {
-        this.healingBuff[spellId].playersActive.splice(this.healingBuff[spellId].playersActive.indexOf(event.targetID), 1);
+        (this.healingBuff[spellId] as HealingBuffHot).playersActive.splice((this.healingBuff[spellId] as HealingBuffHot).playersActive.indexOf(event.targetID), 1);
       }
     }
 
@@ -96,7 +116,7 @@ class UnleashLife extends Analyzer {
 
       // I had to move the HoT application to the heal event as the buffapply event had too many false positives
       if (spellId === SPELLS.RIPTIDE.id) {
-        this.healingBuff[spellId].playersActive.push(event.targetID);
+        (this.healingBuff[spellId] as HealingBuffHot).playersActive.push(event.targetID);
         debug && console.log("HoT Applied:", spellId, event.targetID);
       }
 
@@ -110,7 +130,7 @@ class UnleashLife extends Analyzer {
   }
 
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
@@ -135,21 +155,17 @@ class UnleashLife extends Analyzer {
     }
   }
 
-  on_byPlayer_removebuff(event) {
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.RIPTIDE.id) {
       return;
     }
 
-    if (!this.healingBuff[spellId].playersActive.includes(event.targetID)) {
+    if (!(this.healingBuff[spellId] as HealingBuffHot).playersActive.includes(event.targetID)) {
       return;
     }
 
-    this.healingBuff[spellId].playersActive.splice(this.healingBuff[spellId].playersActive.indexOf(event.targetID), 1);
-  }
-
-  on_feed_heal(event) {
-    // rework
+    (this.healingBuff[spellId] as HealingBuffHot).playersActive.splice((this.healingBuff[spellId] as HealingBuffHot).playersActive.indexOf(event.targetID), 1);
   }
 
   get totalBuffedHealing() {
@@ -205,10 +221,9 @@ class UnleashLife extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
+      <Statistic //style={{ height: '200px' }}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(15)}
-        style={{ height: '200px' }}
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> usage</label>

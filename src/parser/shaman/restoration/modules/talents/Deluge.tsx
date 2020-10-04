@@ -11,6 +11,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import HealingRainLocation from '../core/HealingRainLocation';
+import { EventType, HealEvent, MappedEvent, Event, BeginCastEvent } from 'parser/core/Events';
 
 const DELUGE_HEALING_INCREASE = 0.20;
 
@@ -23,28 +24,30 @@ class Deluge extends Analyzer {
     healingRainLocation: HealingRainLocation,
   };
   healing = 0;
-  eventsDuringRain = [];
+  eventsDuringRain: Array<Event<any>> = [];
+  protected combatants!: Combatants;
+  protected healingRainLocation!: HealingRainLocation;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
   }
 
-  on_byPlayer_heal(event) {
+  on_byPlayer_heal(event: HealEvent) {
     const spellId = event.ability.guid;
 
     if (![SPELLS.CHAIN_HEAL.id, SPELLS.HEALING_WAVE.id, SPELLS.HEALING_SURGE_RESTORATION.id].includes(spellId)) {
       return;
     }
 
-    const combatant = this.combatants.players[event.targetID];
+    const combatant = this.combatants.getEntity(event);
     if (!combatant) {
       // Pet healing
       this.eventsDuringRain.push(event);
       return;
     }
 
-    const hasBuff = combatant.hasBuff(SPELLS.RIPTIDE.id, event.timestamp, undefined, undefined, this.owner.playerID);
+    const hasBuff = combatant.hasBuff(SPELLS.RIPTIDE.id, event.timestamp, undefined, undefined, this.owner.playerId);
     if (!hasBuff) {
       // We add events for the Healing Rain here, so that it doesn't double dip on targets with Riptide
       this.eventsDuringRain.push(event);
@@ -56,7 +59,7 @@ class Deluge extends Analyzer {
 
   // Due to the nature of having to wait until rain is over, to be able to find out its position,
   // we only start processing the healing contribution on the next cast of Healing Rain or at the end of combat.
-  on_byPlayer_begincast(event) {
+  on_byPlayer_begincast(event: BeginCastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) {
       return;
@@ -72,7 +75,7 @@ class Deluge extends Analyzer {
 
   recordHealing() {
     // filters out the first cast in combat if there was no pre-cast, or if there were no Chain Heal casts anyway.
-    if(this.eventsDuringRain.length === 0) {
+    if (this.eventsDuringRain.length === 0) {
       return;
     }
 

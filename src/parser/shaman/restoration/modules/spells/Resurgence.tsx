@@ -10,6 +10,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
+import { EnergizeEvent, HealEvent } from 'parser/core/Events';
 
 const SPELLS_PROCCING_RESURGENCE = {
   [SPELLS.HEALING_SURGE_RESTORATION.id]: 0.006,
@@ -20,13 +21,19 @@ const SPELLS_PROCCING_RESURGENCE = {
 };
 const MAX_MANA = 100000;
 
+interface ResurgenceInfo {
+  spellId: number,
+  resurgenceTotal: number,
+  castAmount: number
+}
+
 class Resurgence extends Analyzer {
   regenedMana = 0;
   otherManaGain = 0;
-  resurgence = [];
+  resurgence: Array<ResurgenceInfo> = [];
   totalResurgenceGain = 0;
 
-  on_byPlayer_heal(event) {
+  on_byPlayer_heal(event: HealEvent) {
     const spellId = event.ability.guid;
     const isAbilityProccingResurgence = SPELLS_PROCCING_RESURGENCE.hasOwnProperty(spellId);
 
@@ -48,7 +55,7 @@ class Resurgence extends Analyzer {
     }
   }
 
-  on_toPlayer_energize(event) {
+  on_toPlayer_energize(event: EnergizeEvent) {
     const spellId = event.ability.guid;
 
     if (spellId !== SPELLS.RESURGENCE.id) {

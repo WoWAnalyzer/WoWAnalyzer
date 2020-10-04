@@ -2,27 +2,30 @@ import React from 'react';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format'; 
+import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { When } from 'parser/core/ParseResults';
 
 class HealingSurge extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
 
-  get suggestedThreshold(){
+  protected abilityTracker!: AbilityTracker;
+
+  get suggestedThreshold() {
     const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
 
     const twHealingSurges = healingSurge.healingTwHits || 0;
     const healingSurgeCasts = healingSurge.casts || 0;
     const unbuffedHealingSurges = healingSurgeCasts - twHealingSurges;
     const unbuffedHealingSurgesPerc = unbuffedHealingSurges / healingSurgeCasts;
-    
+
     return {
-      actual: unbuffedHealingSurgesPerc ,
+      actual: unbuffedHealingSurgesPerc,
       isGreaterThan: {
         minor: 0.20,
         average: 0.40,
@@ -32,7 +35,7 @@ class HealingSurge extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     const suggestedThreshold = this.suggestedThreshold;
     when(suggestedThreshold.actual).isGreaterThan(suggestedThreshold.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {

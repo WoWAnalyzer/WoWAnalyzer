@@ -3,9 +3,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
-import { formatPercentage } from 'common/format'; 
+import { formatPercentage } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { BeginCastEvent, CastEvent } from 'parser/core/Events';
+import { When } from 'parser/core/ParseResults';
 
 class HealingWave extends Analyzer {
   static dependencies = {
@@ -13,8 +15,11 @@ class HealingWave extends Analyzer {
     spellUsable: SpellUsable,
   };
 
+  protected abilityTracker!: AbilityTracker;
+  protected spellUsable!: SpellUsable;
+
   _isCurrentCastInefficient = false;
-  on_byPlayer_begincast(event) {
+  on_byPlayer_begincast(event: BeginCastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HEALING_WAVE.id) {
       return;
@@ -26,7 +31,7 @@ class HealingWave extends Analyzer {
     }
   }
 
-  _isInefficientCastEvent(event) {
+  _isInefficientCastEvent(event: BeginCastEvent) {
     const hasTidalWave = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, -1);
     const hasFlashFlood = this.selectedCombatant.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, event.timestamp, -1);
     if (hasTidalWave || hasFlashFlood) {
@@ -44,7 +49,7 @@ class HealingWave extends Analyzer {
    * This marks spells as inefficient casts in the timeline.
    * @param event
    */
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HEALING_WAVE.id) {
       return;
@@ -56,16 +61,16 @@ class HealingWave extends Analyzer {
     }
   }
 
-  get suggestedThreshold(){
+  get suggestedThreshold() {
     const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
 
     const twHealingWaves = healingWave.healingTwHits || 0;
     const healingWaveCasts = healingWave.casts || 0;
     const unbuffedHealingWaves = healingWaveCasts - twHealingWaves;
     const unbuffedHealingWavesPerc = unbuffedHealingWaves / healingWaveCasts;
-    
+
     return {
-      actual: unbuffedHealingWavesPerc ,
+      actual: unbuffedHealingWavesPerc,
       isGreaterThan: {
         minor: 0.20,
         average: 0.40,
@@ -75,7 +80,7 @@ class HealingWave extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     const suggestedThreshold = this.suggestedThreshold;
     when(suggestedThreshold.actual).isGreaterThan(suggestedThreshold.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {

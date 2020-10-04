@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
@@ -16,6 +16,10 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 const HEAL_WINDOW_MS = 150;
 const bounceReduction = 0.7;
 const debug = false;
+
+interface BufferHealEvent extends HealEvent {
+  baseHealingDone: number
+}
 
 /**
  * High Tide:
@@ -33,17 +37,21 @@ class HighTide extends Analyzer {
     statTracker: StatTracker,
     critEffectBonus: CritEffectBonus,
   };
+
+  protected statTracker!: StatTracker;
+  protected critEffectBonus!: CritEffectBonus;
+
   healing = 0;
   chainHealTimestamp = 0;
-  buffer = [];
+  buffer: Array<BufferHealEvent> = [];
 
   // high tide efficiency trackers
   usedHighTides = 0;
   unusedHighTides = 0;
   currentHighTideBuff = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
@@ -57,27 +65,27 @@ class HighTide extends Analyzer {
   }
 
   // in the event of a High Tide buff, if a buff still exists adds it to unused then resets buff counter to 2
-  onHighTideBuff(event) {
+  onHighTideBuff(event: ApplyBuffEvent | ApplyBuffStackEvent) {
     this.unusedHighTides += this.currentHighTideBuff;
     this.currentHighTideBuff = 2;
   }
 
   // in the event of a High Tide remove buff, adds any existing buff to unused and sets buff counter to 0
-  onHighTideRemoveBuff(event) {
+  onHighTideRemoveBuff(event: RemoveBuffEvent) {
     this.unusedHighTides += this.currentHighTideBuff; //if there were leftovers when buff expires
     this.currentHighTideBuff = 0;
   }
 
   // on a chain heal cast and buff counter is greater than 0, adds one to used counter
   // and reduces buff counter by one.
-  onChainHealCast(event) {
+  onChainHealCast(event: CastEvent) {
     if (this.currentHighTideBuff > 0) {
       this.usedHighTides += 1;
       this.currentHighTideBuff -= 1;
     }
   }
 
-  chainHeal(event) {
+  chainHeal(event: HealEvent) {
     const hasHighTide = this.selectedCombatant.hasBuff(SPELLS.HIGH_TIDE_BUFF.id, null, 50, 20);
     if (!hasHighTide) {
       return;
@@ -130,11 +138,12 @@ class HighTide extends Analyzer {
   }
 
   processBuffer() {
-    this.buffer.sort((a, b) => parseFloat(b.baseHealingDone) - parseFloat(a.baseHealingDone));
+    this.buffer.sort((a, b) => b.baseHealingDone - a.baseHealingDone);
 
     for (const [index, event] of Object.entries(this.buffer)) {
       // 20%, 71%, 145%, 250% increase per hit over not having High Tide
-      const FACTOR_CONTRIBUTED_BY_HT_HIT = (SPELLS.HIGH_TIDE_BUFF.coefficient) / (SPELLS.CHAIN_HEAL.coefficient * bounceReduction ** index) - 1;
+      const i = parseInt(index); // why is it a string tho
+      const FACTOR_CONTRIBUTED_BY_HT_HIT = (SPELLS.HIGH_TIDE_BUFF.coefficient) / (SPELLS.CHAIN_HEAL.coefficient * bounceReduction ** i) - 1;
 
       this.healing += calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT);
       debug && this.log(`HT: ${this.owner.formatTimestamp(event.timestamp)} ${event.amount + (event.overheal || 0)} - ${FACTOR_CONTRIBUTED_BY_HT_HIT} - ${calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT)}`);

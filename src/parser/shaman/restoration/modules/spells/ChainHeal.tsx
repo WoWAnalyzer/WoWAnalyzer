@@ -8,15 +8,28 @@ import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
 import { formatNth, formatDuration } from 'common/format';
 
-import Events, { EventType } from 'parser/core/Events';
+import Events, { CastEvent, EventType, HealEvent, Event } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { When } from 'parser/core/ParseResults';
 
 const CHAIN_HEAL_TARGET_EFFICIENCY = 0.97;
 const HEAL_WINDOW_MS = 250;
+
+interface ChainHealInfo {
+  target: {
+    id: number | undefined,
+    name: string,
+    spec: any, // SPECS[id]
+    specClassName: string
+  }
+  timestamp: number,
+  castNo: number,
+  hits: number
+}
 
 class ChainHeal extends Analyzer {
   static dependencies = {
@@ -24,21 +37,25 @@ class ChainHeal extends Analyzer {
     combatants: Combatants,
   };
 
-  buffer = [];
-  chainHealHistory = [];
+  protected abilityTracker!: AbilityTracker;
+  protected combatants!: Combatants;
+
+  buffer: Array<HealEvent | CastEvent> = [];
+  chainHealHistory: Array<ChainHealInfo> = [];
   castIndex = 0;
   chainHealTimestamp = 0;
+  maxTargets = 4;
+  suggestedTargets = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.maxTargets = 4;
+  constructor(options: any) {
+    super(options);
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
   }
 
-  chainHeal(event) {
+  chainHeal(event: HealEvent | CastEvent) {
     if (!this.chainHealTimestamp || event.timestamp - this.chainHealTimestamp > HEAL_WINDOW_MS) {
       this.processBuffer();
       this.chainHealTimestamp = event.timestamp;
@@ -54,7 +71,7 @@ class ChainHeal extends Analyzer {
       return;
     }
     this.castIndex += 1;
-    this.chainHealHistory[this.castIndex] = {};
+    this.chainHealHistory[this.castIndex] = {} as ChainHealInfo;
     const currentCast = this.buffer.find(event => event.type === EventType.Cast);
     if (!currentCast) {
       return;
@@ -76,7 +93,7 @@ class ChainHeal extends Analyzer {
     this.buffer = [];
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     const suggestedThreshold = this.suggestionThreshold;
     if (isNaN(suggestedThreshold.actual)) {
       return;
