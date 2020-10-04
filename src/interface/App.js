@@ -28,7 +28,6 @@ import PortalTarget from 'interface/PortalTarget';
 
 import 'react-toggle/style.css';
 import './layout/App.scss';
-import Tracker from './Tracker';
 import Hotkeys from './Hotkeys';
 
 const CharacterPage = lazyLoadComponent(() =>
@@ -224,7 +223,6 @@ class App extends React.Component {
         {!error && <Footer />}
 
         <PortalTarget />
-        <Tracker />
         <Hotkeys />
       </>
     );

@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 4), 'Removed remaining trackers', Zerotorescue),
   change(date(2020, 10, 2), 'Updated project dependencies.', Zerotorescue),
   change(date(2020, 9, 26), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),
   change(date(2020, 9, 22), 'Provide an EventType to Event map to make event handlers that listen to more than one event type easier to write.', Dambroda),

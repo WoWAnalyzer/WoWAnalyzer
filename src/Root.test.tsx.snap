@@ -1649,7 +1649,6 @@ exports[`Root matches snapshot 1`] = `
                               id="portal-target"
                             />
                           </PortalTarget>
-                          <Tracker />
                           <Hotkeys />
                         </App>
                       </Connect(App)>
