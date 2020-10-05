@@ -1,11 +1,5 @@
 // Source: https://us.api.blizzard.com/wow/data/character/races?locale=en_US&accessToken=
 export default {
-  Anonymous: {
-    id: 0,
-    mask: 0,
-    side: 'Unknown',
-    name: 'Unknown',
-  },
   Human: {
     id: 1,
     mask: 1,
