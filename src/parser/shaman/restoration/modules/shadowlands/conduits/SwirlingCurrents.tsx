@@ -57,7 +57,7 @@ class SwirlingCurrents extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.SWIRLING_CURRENTS_BUFF.id)) {
       this.targetsWithBoostedRiptides[targetID] = true;
     } else {
-      this.targetsWithBoostedRiptides[targetID] = false;
+      delete this.targetsWithBoostedRiptides[targetID];
     }
   }
 

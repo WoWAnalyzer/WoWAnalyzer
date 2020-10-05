@@ -5,12 +5,13 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer from 'parser/core/Analyzer';
+import { EnergizeEvent, HealEvent } from 'parser/core/Events';
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import { EnergizeEvent, HealEvent } from 'parser/core/Events';
 
 const SPELLS_PROCCING_RESURGENCE = {
   [SPELLS.HEALING_SURGE_RESTORATION.id]: 0.006,
@@ -19,7 +20,6 @@ const SPELLS_PROCCING_RESURGENCE = {
   [SPELLS.UNLEASH_LIFE_TALENT.id]: 0.006,
   [SPELLS.RIPTIDE.id]: 0.006,
 };
-const MAX_MANA = 100000;
 
 interface ResurgenceInfo {
   spellId: number,
@@ -28,6 +28,12 @@ interface ResurgenceInfo {
 }
 
 class Resurgence extends Analyzer {
+  static dependencies = {
+    manaTracker: ManaTracker,
+  };
+
+  protected manaTracker!: ManaTracker;
+
   regenedMana = 0;
   otherManaGain = 0;
   resurgence: Array<ResurgenceInfo> = [];
@@ -50,7 +56,7 @@ class Resurgence extends Analyzer {
     }
 
     if (event.hitType === HIT_TYPES.CRIT) {
-      this.resurgence[spellId].resurgenceTotal += SPELLS_PROCCING_RESURGENCE[spellId] * MAX_MANA;
+      this.resurgence[spellId].resurgenceTotal += SPELLS_PROCCING_RESURGENCE[spellId] * this.manaTracker.maxResource;
       this.resurgence[spellId].castAmount += 1;
     }
   }
@@ -69,7 +75,7 @@ class Resurgence extends Analyzer {
   get totalMana() {
     this.regenedMana = ((this.owner.fightDuration / 1000) / 5) * 4000;
 
-    return this.regenedMana + this.totalResurgenceGain + MAX_MANA + this.otherManaGain;
+    return this.regenedMana + this.totalResurgenceGain + this.manaTracker.maxResource + this.otherManaGain;
   }
 
   statistic() {
