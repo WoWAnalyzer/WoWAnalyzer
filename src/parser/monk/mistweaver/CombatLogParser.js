@@ -35,6 +35,7 @@ import RenewingMist from './modules/spells/RenewingMist';
 import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
 import InvokeYulon from './modules/spells/InvokeYulon';
 import InvokeChiJi from './modules/talents/InvokeChiJi';
+import ExpelHarm from './modules/spells/ExpelHarm';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
@@ -116,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lifeCocoon: LifeCocoon,
     touchOfDeath: TouchOfDeath,
     invokeYulon: InvokeYulon,
+    expelHarm: ExpelHarm,
 
     // Talents
     chiBurst: ChiBurst,
