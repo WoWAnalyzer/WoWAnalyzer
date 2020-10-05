@@ -12,9 +12,9 @@ import DonutChart from 'interface/statistics/components/DonutChart';
 
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
-import { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 const UNLEASH_LIFE_HEALING_INCREASE = 0.45;
 const BUFFER_MS = 200;

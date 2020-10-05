@@ -11,11 +11,11 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
+import { HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
-import { HealEvent } from 'parser/core/Events';
 
 const BUFFER = 100;
 const cooldownIncrease = 5000;

@@ -7,11 +7,11 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import { HealEvent, Event, BeginCastEvent } from 'parser/core/Events';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import HealingRainLocation from '../core/HealingRainLocation';
-import { EventType, HealEvent, MappedEvent, Event, BeginCastEvent } from 'parser/core/Events';
 
 const DELUGE_HEALING_INCREASE = 0.20;
 

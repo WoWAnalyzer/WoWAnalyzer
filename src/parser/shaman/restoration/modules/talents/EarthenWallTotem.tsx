@@ -96,7 +96,7 @@ class EarthenWallTotem extends Analyzer {
       this.earthenWallTotems[this.castNumber] = {
         effectiveHealing: 0,
         potentialHealing: 0,
-        timestamp: event.timestamp // maybe change to combat start timestamp
+        timestamp: event.timestamp, // maybe change to combat start timestamp
       };
     }
     this.earthenWallTotems[this.castNumber].effectiveHealing += event.amount;

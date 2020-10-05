@@ -6,6 +6,8 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
+import { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -14,8 +16,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Combatants from 'parser/shared/modules/Combatants';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
-import { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
-import { When } from 'parser/core/ParseResults';
 
 class Wellspring extends Analyzer {
   static dependencies = {

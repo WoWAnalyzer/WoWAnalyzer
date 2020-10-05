@@ -8,7 +8,7 @@ import SPECS, { Spec } from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
 import { formatNth, formatDuration } from 'common/format';
 
-import Events, { CastEvent, EventType, HealEvent, Event } from 'parser/core/Events';
+import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';

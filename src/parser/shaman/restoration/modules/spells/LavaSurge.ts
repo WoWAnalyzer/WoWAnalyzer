@@ -20,7 +20,7 @@ class LavaSurge extends Analyzer {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.LAVA_BURST.id)) {
-      const reduction = this.abilities.getExpectedCooldownDuration(SPELLS.LAVA_BURST.id, this.spellUsable.cooldownTriggerEvent(SPELLS.LAVA_BURST.id))
+      const reduction = this.abilities.getExpectedCooldownDuration(SPELLS.LAVA_BURST.id, this.spellUsable.cooldownTriggerEvent(SPELLS.LAVA_BURST.id));
       if (reduction) {
         this.spellUsable.reduceCooldown(SPELLS.LAVA_BURST.id, reduction);
       }

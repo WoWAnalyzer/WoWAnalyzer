@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { niseko, blazyb, Torothin, Abelito75 } from 'CONTRIBUTORS';
+import { niseko, Abelito75 } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
