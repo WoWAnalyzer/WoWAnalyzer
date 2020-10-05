@@ -6,12 +6,11 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import { formatThousands, formatNumber } from 'common/format';
-import Tooltip from 'common/Tooltip';
-
-import Statistic from 'interface/statistics/Statistic';
+import { TooltipElement } from 'common/Tooltip';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
@@ -201,7 +200,6 @@ class Darkglare extends Analyzer {
     const totalDamage = this.bonusDotDamage + this.darkglareDamage;
 
     const formatDPS = (amount) => `${formatNumber(amount / this.owner.fightDuration * 1000)} DPS`;
-
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(4)}
@@ -216,38 +214,11 @@ class Darkglare extends Analyzer {
           </>
         )}
       >
-        <div className="pad">
-          <label><SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /></label>
-          <div className="flex">
-            <div className="flex-sub value">
-              {formatDPS(this.bonusDotDamage)}
-              <Tooltip
-                content={(
-                  <>
-                    damage from DoTs after they <u>should have fallen off</u>, but were extended instead
-                  </>
-                )}
-              >
-                <small style={{ marginLeft: 7 }}>bonus damage <sup>*</sup></small>
-              </Tooltip>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex-sub value">
-              {averageExtendedDots.toFixed(1)} <small>average DoTs extended</small>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex-sub value">
-              {formatDPS(totalDamage)}
-              <Tooltip
-                content="including pet damage"
-              >
-                <small style={{ marginLeft: 7 }}>total damage <sup>*</sup></small>
-              </Tooltip>
-            </div>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.SUMMON_DARKGLARE}>
+          {formatDPS(this.bonusDotDamage)}<TooltipElement content={(<>damage from DoTs after they <u>should have fallen off</u>, but were extended instead</>)}> <small>bonus damage <sup>*</sup></small></TooltipElement><br />
+          {averageExtendedDots.toFixed(1)} <small>average DoTs extended</small><br />
+          {formatDPS(totalDamage)}<TooltipElement content="including pet damage"> <small>total damage <sup>*</sup></small></TooltipElement>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

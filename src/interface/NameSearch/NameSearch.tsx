@@ -1,7 +1,7 @@
 import React, { FormEvent, RefObject } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-// @ts-ignore TODO "make a separate declare module file anyway so it can be extended later with actual typing"
-import SelectSearch from 'react-select-search';
+// @ts-ignore react-select-search has a broken import so we need to manually do it. See https://github.com/tbleckert/react-select-search/issues/120
+import SelectSearch from 'react-select-search/dist/cjs';
 import { Trans, t } from '@lingui/macro';
 import REALMS from 'common/RealmList';
 import { makeGuildApiUrl, makeCharacterApiUrl } from 'common/makeApiUrl';
@@ -10,17 +10,19 @@ import makeGuildPageUrl from 'common/makeGuildPageUrl';
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 
 export enum SearchType {
-  CHARACTER = "Character",
-  GUILD = "Guild",
+  CHARACTER = 'Character',
+  GUILD = 'Guild',
 }
 
 interface State {
-  loading: boolean,
-  currentRegion: string,
-  currentRealm: string,
+  loading: boolean;
+  currentRegion: string;
+  currentRealm: string;
 }
 
-interface Props extends RouteComponentProps {type: SearchType}
+interface Props extends RouteComponentProps {
+  type: SearchType;
+}
 
 class NameSearch extends React.PureComponent<Props, State> {
   state = {
@@ -52,7 +54,8 @@ class NameSearch extends React.PureComponent<Props, State> {
     const region = this.regionInput.current?.value;
     const realm = this.state.currentRealm;
     const name = this.nameInput.current?.value;
-    const makePageUrl = this.props.type === SearchType.CHARACTER ? makeCharacterPageUrl : makeGuildPageUrl;
+    const makePageUrl =
+      this.props.type === SearchType.CHARACTER ? makeCharacterPageUrl : makeGuildPageUrl;
     if (!region || !realm || !name) {
       alert(i18n._(t`Please select a region, realm, and guild.`));
       return;
@@ -73,7 +76,11 @@ class NameSearch extends React.PureComponent<Props, State> {
         response = await fetch(makeCharacterApiUrl(null, region, realm, name));
       }
       if (response.status === 500) {
-        alert(i18n._(t`It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`));
+        alert(
+          i18n._(
+            t`It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`,
+          ),
+        );
         this.setState({
           loading: false,
         });
@@ -85,7 +92,11 @@ class NameSearch extends React.PureComponent<Props, State> {
         });
         return;
       } else if (!response.ok) {
-        alert(i18n._(t`It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`));
+        alert(
+          i18n._(
+            t`It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`,
+          ),
+        );
         this.setState({
           loading: false,
         });
@@ -117,22 +128,27 @@ class NameSearch extends React.PureComponent<Props, State> {
           defaultValue={this.state.currentRegion}
           onChange={e => this.changeRegion(e.target.value)}
         >
-          {Object.keys(REALMS).map(elem =>
-            <option key={elem} value={elem}>{elem}</option>,
-          )}
+          {Object.keys(REALMS).map(elem => (
+            <option key={elem} value={elem}>
+              {elem}
+            </option>
+          ))}
         </select>
         <SelectSearch
-          options={REALMS[this.state.currentRegion].map((elem) => ({
+          key={this.state.currentRegion}
+          className="realm"
+          search
+          options={REALMS[this.state.currentRegion].map(elem => ({
             value: elem.name,
             name: elem.name,
           }))}
-          className="realm"
           value={this.state.currentRealm}
           onChange={(value: any) => {
-            this.setState({ currentRealm: value.value });
+            this.setState({
+              currentRealm: value.value,
+            });
           }}
           placeholder={i18n._(t`Realm`)}
-          key={this.state.currentRegion}
         />
         <input
           type="text"
@@ -144,7 +160,12 @@ class NameSearch extends React.PureComponent<Props, State> {
           spellCheck="false"
           placeholder={i18n._(namePlaceholder)}
         />
-        <button type="submit" className={`btn btn-primary analyze animated-button ${this.state.loading ? 'fill-button' : ''}`}>
+        <button
+          type="submit"
+          className={`btn btn-primary analyze animated-button ${
+            this.state.loading ? 'fill-button' : ''
+          }`}
+        >
           <Trans>Search</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </form>
