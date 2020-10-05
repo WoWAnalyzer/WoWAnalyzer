@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import { CastEvent, EventType, HealEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -22,28 +22,37 @@ class NaturesGuardian extends Analyzer {
     eventEmitter: EventEmitter,
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
+
+  protected eventEmitter!: EventEmitter;
+  protected cooldownThroughputTracker!: CooldownThroughputTracker;
+
   healing = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id);
   }
 
-  on_byPlayer_heal(event) {
+  on_byPlayer_heal(event: HealEvent) {
     const spellId = event.ability.guid;
 
     if (spellId !== SPELLS.NATURES_GUARDIAN_HEAL.id) {
       return;
     }
 
-    this.eventEmitter.fabricateEvent({
-      ...event,
-      type: EventType.Cast,
+    const fabricatedCastEvent: CastEvent = {
       ability: {
         ...event.ability,
         guid: SPELLS.NATURES_GUARDIAN_TALENT.id,
       },
-    }, event);
+      sourceID: event.sourceID,
+      sourceIsFriendly: event.sourceIsFriendly,
+      targetIsFriendly: event.targetIsFriendly,
+      timestamp: event.timestamp,
+      type: EventType.Cast,
+    };
+
+    this.eventEmitter.fabricateEvent(fabricatedCastEvent, event);
 
     this.healing += event.amount + (event.absorbed || 0);
   }

@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import { ApplyBuffEvent, CastEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -25,29 +25,34 @@ class CloudburstTotem extends Analyzer {
     eventEmitter: EventEmitter,
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
+
+  protected eventEmitter!: EventEmitter;
+  protected cooldownThroughputTracker!: CooldownThroughputTracker;
+
+
   healing = 0;
   cbtActive = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
   }
 
-  on_byPlayer_heal(event) {
+  on_byPlayer_heal(event: HealEvent) {
     const spellId = event.ability.guid;
 
     if (spellId !== SPELLS.CLOUDBURST_TOTEM_HEAL.id) {
       return;
     }
-    if(this.cbtActive) {
-      this._createFabricatedEvent(event, EventType.RemoveBuff);
+    if (this.cbtActive) {
+      this._createFabricatedEvent(event, EventType.RemoveBuff, event.timestamp);
       this.cbtActive = false;
     }
 
     this.healing += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
 
     if (spellId !== SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
@@ -58,24 +63,26 @@ class CloudburstTotem extends Analyzer {
     // this turns out to be around 200ms and causes it to not collect healing from
     // spells casted right before it, essentially removing pre-feeding.
     // This adds those 200ms to it so you can visually see that the feeding starts later.
-    const manipulatedEvent = {...event};
-    manipulatedEvent.timestamp = manipulatedEvent.timestamp + DELAY_MS;
-
-    this._createFabricatedEvent(manipulatedEvent, EventType.ApplyBuff);
+    const timestamp = event.timestamp + DELAY_MS;
+    this._createFabricatedEvent(event, EventType.ApplyBuff, timestamp);
     this.cbtActive = true;
   }
 
-  _createFabricatedEvent(event, type) {
-    this.eventEmitter.fabricateEvent({
-      ...event,
+  _createFabricatedEvent(event: CastEvent | HealEvent, type: EventType.ApplyBuff | EventType.RemoveBuff, timestamp: number) {
+    const fabricatedEvent: ApplyBuffEvent | RemoveBuffEvent = {
       ability: {
         ...event.ability,
         guid: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
       },
-      type: type,
+      sourceID: event.sourceID,
       targetID: event.sourceID,
-      targetIsFriendly: event.sourceIsFriendly,
-    }, event);
+      sourceIsFriendly: event.sourceIsFriendly,
+      targetIsFriendly: event.targetIsFriendly,
+      timestamp: timestamp,
+      type: type,
+    };
+
+    this.eventEmitter.fabricateEvent(fabricatedEvent, event);
   }
 
   subStatistic() {
