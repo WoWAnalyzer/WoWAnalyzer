@@ -16,6 +16,7 @@ import RenewingMist from 'parser/monk/mistweaver/modules/spells/RenewingMist';
 import Vivify from 'parser/monk/mistweaver/modules/spells/Vivify';
 import RefreshingJadeWind from 'parser/monk/mistweaver/modules/talents/RefreshingJadeWind';
 
+
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
     manaTracker: ManaTracker,
@@ -68,6 +69,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getEnvelopingMistsDetails(spellInfo) {
     spellInfo.healingDone = spellInfo.healingDone + this.envelopingMists.gustsHealing + this.envelopingMists.healingIncrease;
+    // Enveloping breath part
+    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
+    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).overheal;
+
     return spellInfo;
   }
 
@@ -103,23 +108,20 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getRisingSunKickDetails(spellInfo) {
     // Since I don't want messy code right now it will only give the rising mist healing not any of the other fun stuff it gives indirectly
     spellInfo.healingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).effective;
-    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).effective;
+    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).overheal;
     return spellInfo;
   }
 
   getYulonDetails(spellInfo) {
     // Get all soothing breath and enveloping breath healing since its all bc of yu'lon
     spellInfo.healingDone = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id).effective;
-    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id).effective;
-    // Enveloping breath part
-    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
-    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
+    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id).overheal;
     return spellInfo;
   }
 
   getChijiDetails(spellInfo) {
     spellInfo.healingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).effective;
-    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).effective;
+    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).overheal;
     return spellInfo;
   }
 

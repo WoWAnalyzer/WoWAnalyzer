@@ -4,11 +4,13 @@ import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 class LegionStrike extends Analyzer {
@@ -67,12 +69,15 @@ class LegionStrike extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FELGUARD_LEGION_STRIKE.id} />}
-        value={this.owner.formatItemDamageDone(this.damage)}
-        label="Legion Strike damage"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(5)}
+        size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.FELGUARD_LEGION_STRIKE}>
+          <ItemDamageDone amount={this.damage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

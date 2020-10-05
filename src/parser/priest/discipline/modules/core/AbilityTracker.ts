@@ -5,7 +5,10 @@ import { Ability, CastEvent } from 'parser/core/Events';
 
 class AbilityTracker extends CoreAbilityTracker {
   getAbility(spellId: number, abilityInfo: Ability | null = null) {
-    if (spellId === SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id || spellId === SPELLS.LIGHTSPAWN.id) {
+    if (
+      spellId === SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id ||
+      spellId === SPELLS.LIGHTSPAWN.id
+    ) {
       return super.getAbility(SPELLS.SHADOWFIEND.id, abilityInfo);
     }
     return super.getAbility(spellId, abilityInfo);

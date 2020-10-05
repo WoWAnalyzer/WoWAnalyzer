@@ -755,7 +755,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "88.07534231836863%",
+                      "width": "82.21020392061227%",
                     }
                   }
                 />
@@ -770,7 +770,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              88.08%
+              82.21%
             </td>
             <td
               style={
@@ -3241,7 +3241,7 @@ Array [
   Object {
     "details": null,
     "icon": "ability_animusdraw",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <React.Fragment>
       <WithI18n
         components={
@@ -3263,7 +3263,7 @@ Array [
           Object {
             "0": 4,
             "1": 5,
-            "2": "88",
+            "2": "82",
           }
         }
       />
@@ -4964,7 +4964,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "93.54088992016754%",
+                  "width": "78.65498952781942%",
                 }
               }
             />
@@ -5141,7 +5141,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  88.08%
+                  82.21%
                    
                    
                 </div>
@@ -5161,9 +5161,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "87.08177984033509%",
+                        "width": "57.30997905563886%",
                       }
                     }
                   />
