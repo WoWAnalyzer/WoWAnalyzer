@@ -13,6 +13,7 @@ const prepatch = date(2020, 10, 13);
 // prettier-ignore
 export default [
   change(prepatch, 'Converted url parsers to TypeScript', Zakeovich),
+  change(prepatch, 'Cleaned up the console a little bit.', Abelito75),
   change(prepatch, 'Added a toggle-all button to the EventTab.', niseko),
   change(prepatch, 'Added dispel to filterable type for EventTab.', Moonrabbit),
   change(prepatch, 'Added Castle Nathria boss configs and updated the default report header image.', Sharrq),

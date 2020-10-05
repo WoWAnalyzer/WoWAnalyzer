@@ -216,7 +216,7 @@ class HotTracker extends Analyzer {
    */
   addAttribution(attribution, targetId, spellId) {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
-      console.warn(`Tried to add attribution ${attribution.name} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
+      debug && console.warn(`Tried to add attribution ${attribution.name} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
       return;
     }
     attribution.procs += 1;
@@ -237,7 +237,7 @@ class HotTracker extends Analyzer {
    */
   addExtension(attribution, amount, targetId, spellId, timestamp, tickClamps = true, pandemicClamps = false) {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
-      console.warn(`Tried to add extension ${attribution.name || 'NO-ATT'} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
+      debug && console.warn(`Tried to add extension ${attribution.name || 'NO-ATT'} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
       return;
     }
 
@@ -412,10 +412,10 @@ class HotTracker extends Analyzer {
 
     if ([EventType.RemoveBuff, EventType.RefreshBuff, EventType.Heal].includes(event.type) &&
       (!this.hots[targetId] || !this.hots[targetId][spellId])) {
-      console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of that HoT being added...`);
+      debug && console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of that HoT being added...`);
       return false;
     } else if (event.type === EventType.ApplyBuff && this.hots[targetId] && this.hots[targetId][spellId]) {
-      console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that HoT is recorded as already added...`);
+      debug && console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that HoT is recorded as already added...`);
       return false;
     }
 
