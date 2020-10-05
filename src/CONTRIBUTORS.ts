@@ -924,3 +924,19 @@ export const Vohrr: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/malganis/vohrbloom',
   }],
 };
+export const Zakeovich: Contributor = {
+  nickname: 'Zakeovich',
+  github: 'nikodyring',
+  discord: 'Zake#9023',
+  twitter: 'NikoDyring',
+  about: 'A danish coke drinking synthwave addict',
+  avatar: require('./interface/images/avatars/Zake-avatar.jpg'),
+  mains: [{
+    name: 'Zakelaine',
+    spec: SPECS.RETRIBUTION_PALADIN,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/Zakelaine',
+  }],
+  links: {
+    'twitch':'https://twitch.tv/Zakeovich',
+  },
+};
