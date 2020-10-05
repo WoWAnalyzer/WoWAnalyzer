@@ -198,6 +198,11 @@ export default {
     name: 'Gust of Mists',
     icon: 'monk_stance_redcrane',
   },
+  EXPEL_HARM_TARGET_HEAL: {
+    id: 344939,
+    name: 'Expel Harm',
+    icon: 'ability_monk_expelharm',
+  },
   // Lifecycles buffs
   LIFECYCLES_VIVIFY_BUFF: {
     id: 197916,
