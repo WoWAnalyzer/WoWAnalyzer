@@ -24,6 +24,7 @@ export default [
   change(prepatch, 'Updated search in Event tab to allow for multi-word searching in quotes.', Abelito75),
   change(prepatch, 'Add some early checks to see if a player has a given conduit, soulbind or covenant.', Putro),
   change(prepatch, 'Add some scripts for generating conduit information.', Putro),
+  change(date(2020, 10, 4), 'Fixed cast efficiency calculations for channeled spells. They are now no longer adding channeled time on top of cooldown as time they were unavailable', Juko8),
   change(date(2020, 10, 4), 'Removed remaining trackers', Zerotorescue),
   change(date(2020, 10, 2), 'Updated project dependencies.', Zerotorescue),
   change(date(2020, 9, 26), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),
