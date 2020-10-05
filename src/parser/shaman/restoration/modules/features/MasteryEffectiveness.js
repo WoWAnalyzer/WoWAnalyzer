@@ -27,7 +27,7 @@ class MasteryEffectiveness extends Analyzer {
   masteryHealEvents = [];
 
   on_byPlayer_heal(event) {
-    const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.includes(event.ability.guid);
+    const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.some(s => s.id === event.ability.guid);
     if (!isAbilityAffectedByMastery) {
       return;
     }
@@ -129,7 +129,7 @@ class MasteryEffectiveness extends Analyzer {
 
   get spellReport() {
     const statsBySpellId = this.masteryHealEvents.reduce((obj, event) => {
-      if (!BASE_ABILITIES_AFFECTED_BY_MASTERY.includes(event.ability.guid)) {
+      if (!BASE_ABILITIES_AFFECTED_BY_MASTERY.some(s => s.id === event.ability.guid)) {
         return obj;
       }
       // Update the spell-totals
