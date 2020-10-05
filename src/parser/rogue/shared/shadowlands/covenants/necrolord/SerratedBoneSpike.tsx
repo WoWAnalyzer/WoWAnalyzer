@@ -26,7 +26,7 @@ class SerratedBoneSpike extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    // this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE), this.onDamage);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_ENERGIZE), this.onEnergize);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_DEBUFF), this.onSBSRemoveDebuff);

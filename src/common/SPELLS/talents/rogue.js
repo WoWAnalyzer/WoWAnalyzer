@@ -9,6 +9,7 @@ export default {
   ELUSIVENESS_TALENT: { id: 79008, name: 'Elusiveness', icon: 'ability_rogue_turnthetables' },
   PREY_ON_THE_WEAK_TALENT: { id: 131511, name: 'Prey on the Weak', icon: 'ability_rogue_preyontheweak' },
   ALACRITY_TALENT: { id: 193539, name: 'Alacrity', icon: 'ability_paladin_speedoflight' },
+  ALACRITY_TALENT_BUFF: { id: 193538, name: 'Alacrity', icon: 'ability_paladin_speedoflight' },
   // Subtlety
   PREMEDITATION_TALENT: { id: 343160, name: 'Premeditation', icon: 'spell_shadow_possession' },
   GLOOMBLADE_TALENT: { id: 200758, name: 'Gloomblade', icon: 'ability_ironmaidens_convulsiveshadows', energyCost: 35 },

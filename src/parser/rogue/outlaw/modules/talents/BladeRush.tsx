@@ -33,7 +33,7 @@ class BladeRush extends Analyzer {
 
   onFinishMove(event: CastEvent) {
     if (this.spellUsable.isOnCooldown(SPELLS.BLADE_RUSH_TALENT.id)) {
-      const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.BLADE_RUSH_TALENT.id)
+      const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.BLADE_RUSH_TALENT.id);
       if (cooldownRemaining) {
         if (getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id)) {
           const cpCost = getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id).cost;

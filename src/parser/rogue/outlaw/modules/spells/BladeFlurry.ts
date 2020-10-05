@@ -2,7 +2,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
-import Events, { CastEvent, ApplyBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 
 class BladeFlurry extends Analyzer {

@@ -284,7 +284,31 @@ class Abilities extends CoreAbilities {
         charges: 3,
         cooldown: 30,
         gcd: {
-          base: standardGcd,
+          static: standardGcd,
+        },
+      },
+      {
+        spell: SPELLS.SEPSIS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        gcd: {
+          static: standardGcd,
+        },
+      },
+      {
+        spell: SPELLS.ECHOING_REPRIMAD,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: !combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        gcd: {
+          static: standardGcd,
+        },
+      },
+      {
+        spell: SPELLS.FLAGELLATION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: !combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        gcd: {
+          static: standardGcd,
         },
       },
     ];
