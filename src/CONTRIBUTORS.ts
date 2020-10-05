@@ -873,3 +873,7 @@ export const Tiphess: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/tjphess',
   }],
 };
+export const ChagriAli: Contributor = {
+  nickname: 'chagriali',
+  github: 'chagriali',
+};
