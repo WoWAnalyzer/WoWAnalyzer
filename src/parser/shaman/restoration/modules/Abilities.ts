@@ -405,12 +405,12 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: SPELLS.EARTH_SHIELD_TALENT,
+        spell: SPELLS.EARTH_SHIELD,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.EARTH_SHIELD.id),
         timelineSortIndex: 80,
         healSpellIds: [
           SPELLS.EARTH_SHIELD_HEAL.id,

@@ -35,7 +35,6 @@ import UnleashLife from './modules/talents/UnleashLife';
 import Deluge from './modules/talents/Deluge';
 import Undulation from './modules/talents/Undulation';
 import FlashFlood from './modules/talents/FlashFlood';
-import EarthShield from './modules/talents/EarthShield';
 import AncestralVigor from './modules/talents/AncestralVigor';
 import EarthenWallTotem from './modules/talents/EarthenWallTotem';
 import Downpour from './modules/talents/Downpour';
@@ -108,7 +107,6 @@ class CombatLogParser extends CoreCombatLogParser {
     undulation: Undulation,
     deluge: Deluge,
     flashFlood: FlashFlood,
-    earthShield: EarthShield,
     ancestralVigor: AncestralVigor,
     earthenWallTotem: EarthenWallTotem,
     downpour: Downpour,
@@ -142,6 +140,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
     astralShift: AstralShift,
+    earthShield: EarthShield,
 
     // Essences
     lucidDreams: LucidDreams,
