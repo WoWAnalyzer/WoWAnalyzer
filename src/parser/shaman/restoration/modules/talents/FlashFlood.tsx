@@ -178,11 +178,12 @@ class FlashFlood extends Analyzer {
     );
   }
 
-  statistic() { //         style={{ height: '230px' }}
+  statistic() {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(90)}
+        size="flexible"
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage</label>
