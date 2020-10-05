@@ -26,9 +26,10 @@ class HealingRainLocation extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  healingRainDiameter = 2100; // 5% margin of error
 
   protected combatants!: Combatants;
+
+  healingRainDiameter = 2100; // 5% margin of error
   healingRainEvents: Array<HealEvent> = [];
   newHealingRain = false;
   lastHealingRainTick = 0;

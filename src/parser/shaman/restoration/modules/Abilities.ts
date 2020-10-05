@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import { AbilityTrackerAbility } from 'parser/core/modules/Ability';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 import { calculateCooldown } from '../../../shared/modules/spells/bfa/essences/VisionsOfPerfection';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): Array<SpellbookAbility> { 
     const combatant = this.selectedCombatant;
     return [
       {
@@ -217,7 +217,7 @@ class Abilities extends CoreAbilities {
         },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
-          casts: (castCount: AbilityTrackerAbility) => (castCount.casts || 0) - (castCount.healingTwHits || 0),
+          casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
         },
       },
       {
@@ -229,7 +229,7 @@ class Abilities extends CoreAbilities {
         },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
-          casts: (castCount: AbilityTrackerAbility) => castCount.healingTwHits || 0,
+          casts: castCount => castCount.healingTwHits || 0,
         },
       },
       {
@@ -240,7 +240,7 @@ class Abilities extends CoreAbilities {
         },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
-          casts: (castCount: AbilityTrackerAbility) => (castCount.casts || 0) - (castCount.healingTwHits || 0),
+          casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
         },
       },
       {
@@ -252,7 +252,7 @@ class Abilities extends CoreAbilities {
         },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
-          casts: (castCount: AbilityTrackerAbility) => castCount.healingTwHits || 0,
+          casts: castCount => castCount.healingTwHits || 0,
         },
       },
       {

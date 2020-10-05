@@ -31,14 +31,15 @@ class Downpour extends Analyzer {
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
   };
-  healing = 0;
-  downpourHits = 0;
-  downpourHitsSum = 0;
-  downpourTimestamp = 0;
 
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
   protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
+
+  healing = 0;
+  downpourHits = 0;
+  downpourHitsSum = 0;
+  downpourTimestamp = 0;
 
   constructor(options: any) {
     super(options);

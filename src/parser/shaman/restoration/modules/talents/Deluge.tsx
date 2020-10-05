@@ -23,10 +23,11 @@ class Deluge extends Analyzer {
     combatants: Combatants,
     healingRainLocation: HealingRainLocation,
   };
-  healing = 0;
-  eventsDuringRain: Array<Event<any>> = [];
   protected combatants!: Combatants;
   protected healingRainLocation!: HealingRainLocation;
+
+  healing = 0;
+  eventsDuringRain: Array<Event<any>> = [];
 
   constructor(options: any) {
     super(options);
