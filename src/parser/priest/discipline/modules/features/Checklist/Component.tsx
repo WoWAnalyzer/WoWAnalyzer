@@ -13,8 +13,10 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import Combatant from 'parser/core/Combatant';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 
-const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: {combatant: Combatant, castEfficiency: CastEfficiency, thresholds: any }) => {
   const AbilityRequirement = (props: { spell: number }) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}

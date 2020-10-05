@@ -23,9 +23,15 @@ export enum BUILT_IN_SUMMARY_TYPES {
 
 type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
 
+export type SummaryDef = {
+  label: string,
+  tooltip: string,
+  value: number | string,
+}
+
 export type CooldownSpell = {
   spell: any,
-  summary: Array<BUILT_IN_SUMMARY_TYPES>,
+  summary: Array<BUILT_IN_SUMMARY_TYPES | SummaryDef>,
   startBufferFilter?: EventFilter<any>,
   startBufferMS?: number,
   startBufferEvents?: number,

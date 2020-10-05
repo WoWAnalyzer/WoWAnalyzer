@@ -48,7 +48,7 @@ class Schism extends Analyzer {
 
   // Privates
   _lastSchismCast: DamageEvent | null = null;
-  _badSchisms = {};
+  _badSchisms: any = {};
 
   // Schism data
   directDamage = 0;
@@ -97,8 +97,7 @@ class Schism extends Analyzer {
     this._lastSchismCast = event;
 
     // Assume every schism is bad
-    // @ts-ignore
-    this._badSchisms[event] = true;
+    this._badSchisms[event.timestamp] = true;
 
     // Calculate direct schism damage
     const { smiteDamage } = this.smiteEstimation();
@@ -150,8 +149,7 @@ class Schism extends Analyzer {
       return;
     }
 
-    // @ts-ignore
-    this._badSchisms[this._lastSchismCast] = false;
+    this._badSchisms[this._lastSchismCast.timestamp] = false;
   }
 
   // The Atonement from Schism's direct damage component

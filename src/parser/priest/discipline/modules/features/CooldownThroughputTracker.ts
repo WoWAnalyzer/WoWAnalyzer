@@ -34,21 +34,23 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.EVANGELISM_TALENT.id) {
       // When Evangelism is cast we want to see it in our cooldowns, but since it isn't a buff we can't use the regular `cooldownSpells`.
-      // const atonedPlayers = this.atonementModule.numAtonementsActive;
+      const atonedPlayers = this.atonementModule.numAtonementsActive;
+
+
       this.lastEvangelism = this.addCooldown({
         spell: SPELLS.EVANGELISM_TALENT,
         summary: [
           BUILT_IN_SUMMARY_TYPES.HEALING,
-          // {
-          //   value: atonedPlayers,
-          //   label: 'Atonements',
-          //   tooltip: 'The amount of atonements that were up at time of casting Evangelism.',
-          // },
-          // {
-          //   value: `${atonedPlayers * 6}s`,
-          //   label: 'Duration gained',
-          //   tooltip: 'The total Atonement duration gained from casting Evangelism.',
-          // },
+          {
+            value: atonedPlayers,
+            label: 'Atonements',
+            tooltip: 'The amount of atonements that were up at time of casting Evangelism.',
+          },
+          {
+            value: `${atonedPlayers * 6}s`,
+            label: 'Duration gained',
+            tooltip: 'The total Atonement duration gained from casting Evangelism.',
+          },
         ],
       }, event.timestamp);
 

@@ -83,7 +83,7 @@ class PurgeTheWicked extends Analyzer {
         return suggest(<span>Your <SpellLink id={this.dotSpell.id} /> uptime can be improved.</span>)
           .icon(this.dotSpell.icon)
           .actual(`${formatPercentage(uptime)}% uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .recommended(`>${formatPercentage(recommended, 0)}% is recommended`)
           .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular).major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major);
       });
   }

@@ -118,6 +118,7 @@ class Atonement extends Analyzer {
       this.eventEmitter.fabricateEvent({
         type: 'atonement_refresh_improper',
         // @ts-ignore
+        timestamp: event.timestamp,
         sourceID: event.sourceID,
         targetID: event.targetID,
       }, event);
@@ -139,6 +140,7 @@ class Atonement extends Analyzer {
     this.eventEmitter.fabricateEvent({
       type: 'atonement_refresh',
       // @ts-ignore
+      timestamp: event.timestamp,
       sourceID: event.sourceID,
       targetID: event.targetID,
     }, event);
