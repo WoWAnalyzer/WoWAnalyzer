@@ -1,14 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Combatants from 'parser/shared/modules/Combatants';
 import Events from 'parser/core/Events';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+
 
 class ExpelHarm extends Analyzer {
-    static dependencies = {
-        abilityTracker: AbilityTracker,
-        combatants: Combatants,
-    };
 
     selfHealing = 0;
     targetHealing = 0;
