@@ -111,6 +111,10 @@ class EventsTab extends React.Component {
       search: '',
     };
     this.handleRowClick = this.handleRowClick.bind(this);
+    this.toggleAllOff = Object.keys(FILTERABLE_TYPES).reduce((obj, type) => {
+      obj[type] = false;
+      return obj;
+    }, {});
   }
 
   findEntity(id) {
@@ -192,10 +196,7 @@ class EventsTab extends React.Component {
   }
 
   toggleAllFiltersOff() {
-    this.setState(Object.keys(FILTERABLE_TYPES).reduce((obj, type) => {
-      obj[type] = false;
-      return obj;
-    }, {}),);
+    this.setState(this.toggleAllOff);
   }
 
   renderSearchBox() {
@@ -275,9 +276,9 @@ class EventsTab extends React.Component {
             {Object.keys(FILTERABLE_TYPES).map(type => this.renderEventTypeToggle(type))}
             <br />
             <div className="flex" style={{ paddingLeft: 5 }} >
-              <a href="javascript:" onClick={() => this.toggleAllFiltersOff()}>
+              <button className="btn btn-link" onClick={() => this.toggleAllFiltersOff()}>
                 Toggle off all filters
-              </a>
+              </button>
             </div>
             <br />
             {this.renderToggle('showFabricated', 'Fabricated events', 'These events were not originally found in the combatlog. They were created by us to fix bugs, inconsistencies, or to provide new functionality. You can recognize these events by their green background.')}
