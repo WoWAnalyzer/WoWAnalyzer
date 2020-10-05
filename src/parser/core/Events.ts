@@ -95,7 +95,10 @@ type MappedEventTypes = {
 
   // Time Filtering:
   [EventType.FilterCooldownInfo]: FilterCooldownInfoEvent,
+  [EventType.FilterBuffInfo]: FilterBuffInfoEvent,
 }
+
+export type AnyEvent<ET extends keyof MappedEventTypes = keyof MappedEventTypes> = MappedEventTypes[ET];
 
 export interface Ability {
   name: string;
@@ -228,6 +231,10 @@ export interface CastEvent extends ICastEvent<EventType.Cast> {
 }
 
 export interface FilterCooldownInfoEvent extends ICastEvent<EventType.FilterCooldownInfo> {
+  trigger: EventType;
+}
+
+export interface FilterBuffInfoEvent extends Event<EventType.FilterBuffInfo> {
   trigger: EventType;
 }
 
