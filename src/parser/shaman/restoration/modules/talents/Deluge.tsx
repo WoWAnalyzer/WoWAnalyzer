@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import { HealEvent, Event, BeginCastEvent } from 'parser/core/Events';
+import { HealEvent, BeginCastEvent } from 'parser/core/Events';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -27,7 +27,7 @@ class Deluge extends Analyzer {
   protected healingRainLocation!: HealingRainLocation;
 
   healing = 0;
-  eventsDuringRain: Array<Event<any>> = [];
+  eventsDuringRain: Array<HealEvent> = [];
 
   constructor(options: any) {
     super(options);

@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import { BeginCastEvent, HealEvent, Event } from 'parser/core/Events';
+import { BeginCastEvent, HealEvent } from 'parser/core/Events';
 
 /**
  * Module to find the position of healing rain, and return how much extra healing spells modified by healing rain did.
@@ -79,7 +79,7 @@ class HealingRainLocation extends Analyzer {
     this.newHealingRain = true;
   }
 
-  processHealingRain(eventsDuringRain: Array<Event<any>>, healIncrease: number) {
+  processHealingRain(eventsDuringRain: Array<HealEvent>, healIncrease: number) {
     if (this.healingRainEvents.length === 0) {
       return 0;
     }
@@ -100,9 +100,9 @@ class HealingRainLocation extends Analyzer {
     return this.sumHealing(filteredEvents, healIncrease, healingRainLocation);
   }
 
-  sumHealing(eventsDuringRain: Array<Event<any>>, healIncrease: number, healingRainLocation: Location) {
+  sumHealing(eventsDuringRain: Array<HealEvent>, healIncrease: number, healingRainLocation: Location) {
     return eventsDuringRain.reduce((healing, event) => {
-      const pointToCheck = { x: (event as any).x, y: (event as any).y }; // this needs a better typing solution
+      const pointToCheck = { x: event.x, y: event.y };
       if (this._isPlayerInsideHealingRain(pointToCheck, healingRainLocation)) {
         return healing + calculateEffectiveHealing(event, healIncrease);
       }
