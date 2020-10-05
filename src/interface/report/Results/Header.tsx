@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { ComponentType, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -75,15 +76,13 @@ const Header = ({
     playerThumbnail = `/specs/${spec.className}-${spec.specName}.jpg`.replace(/ /, '');
   }
 
-  const renderBuild = (build: Build, active: boolean) => {
-    return (
-      <Link to={makeBuildUrl(selectedTab, build.url)}>
-        <span className={'build ' + (active ? 'active' : '')}>
-          <TooltipElement content={build.name}>{build.icon}</TooltipElement>
-        </span>
-      </Link>
-    );
-  };
+  const renderBuild = (build: Build, active: boolean) => (
+    <Link to={makeBuildUrl(selectedTab, build.url)}>
+      <span className={'build ' + (active ? 'active' : '')}>
+        <TooltipElement content={build.name}>{build.icon}</TooltipElement>
+      </span>
+    </Link>
+  );
 
   return (
     <header>
@@ -121,7 +120,7 @@ const Header = ({
               {builds && (
                 <>
                   Build:
-                  {Object.keys(builds).map(b => renderBuild(builds[b], build === builds[b].url))}
+                  {Object.keys(builds).map((b) => renderBuild(builds[b], build === builds[b].url))}
                   {renderBuild(DEFAULT_BUILD, !build)}
                 </>
               )}
