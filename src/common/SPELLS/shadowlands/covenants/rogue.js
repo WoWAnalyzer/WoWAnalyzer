@@ -28,6 +28,11 @@ export default {
     name: 'Serrated Bone Spike',
     icon: 'ability_maldraxxus_rogue',
   },
+  SERRATED_BONE_SPIKE_DEBUFF: {
+    id: 324073,
+    name: 'Serrated Bone Spike',
+    icon: 'ability_maldraxxus_rogue',
+  },
   //endregion
 
   //region Night Fae

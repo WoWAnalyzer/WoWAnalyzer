@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -12,6 +13,10 @@ class Abilities extends CoreAbilities {
     const standardGcd = combatant => 1000 * (1 - (combatant.hasBuff(SPELLS.ADRENALINE_RUSH.id) ? 0.2 : 0));
     
     return [
+      // // Base class resource
+      {
+        spell: SPELLS.COMBO_POINT,
+      },
       // Rotational
       {
         spell: SPELLS.AMBUSH,
@@ -33,7 +38,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: standardGcd,
         },
-        // enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
         spell: SPELLS.SLICE_AND_DICE,
@@ -41,7 +45,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: standardGcd,
         },
-        enabled: combatant.hasTalent(SPELLS.SLICE_AND_DICE.id),
       },
       {
         spell: SPELLS.SINISTER_STRIKE,
@@ -92,8 +95,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLADE_FLURRY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: 25,
-        charges: 2,
+        cooldown: 30,
         gcd: {
           static: standardGcd,
         },
@@ -116,9 +118,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ADRENALINE_RUSH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        gcd: {
-          static: standardGcd,
-        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -276,7 +275,18 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-      },      
+      },
+      // Covenant Abilities
+      {
+        spell: SPELLS.SERRATED_BONE_SPIKE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: !combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        charges: 3,
+        cooldown: 30,
+        gcd: {
+          base: standardGcd,
+        },
+      },
     ];
   }
 }

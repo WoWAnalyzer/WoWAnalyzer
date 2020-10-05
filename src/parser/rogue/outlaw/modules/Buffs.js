@@ -20,6 +20,11 @@ class Buffs extends CoreBuffs {
         timelineHightlight: true,
       },
 
+      // Talents
+      {
+        spellId: SPELLS.ALACRITY_TALENT.id,
+      },
+
       // Roll the Bones
       {
         spellId: SPELLS.ROLL_THE_BONES.id,

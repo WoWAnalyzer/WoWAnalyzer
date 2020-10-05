@@ -34,6 +34,9 @@ import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingRepr
 import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
 import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
 
+import BladeRush from './modules/talents/BladeRush';
+import BladeFlurry from './modules/spells/BladeFlurry';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Feature
@@ -69,10 +72,10 @@ class CombatLogParser extends CoreCombatLogParser {
     rollTheBonesCounter: RollTheBonesCounter,
     rollTheBonesEfficiency: RollTheBonesEfficiency,
     finishers: Finishers,
-
-    //Talents
     sliceAndDiceUptime: SliceAndDiceUptime,
-
+    bladeFlurry: BladeFlurry,
+    //Talents
+    bladeRush: BladeRush,
     // Covenants
     serratedBoneSpike: SerratedBoneSpike,
     echoingReprimand: EchoingReprimand,

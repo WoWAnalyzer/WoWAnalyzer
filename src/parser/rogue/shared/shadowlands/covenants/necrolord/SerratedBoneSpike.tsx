@@ -1,8 +1,9 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, EnergizeEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -14,17 +15,21 @@ import ResourceIcon from 'common/ResourceIcon';
 class SerratedBoneSpike extends Analyzer {
   static dependencies = {
     abilities: Abilities,
+    spellUsable: SpellUsable,
   };
   damage: number = 0;
   comboPointsGained: number = 0;
   comboPointsWasted: number = 0;
+
   protected abilities!: Abilities;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+    // this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE), this.onDamage);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_ENERGIZE), this.onEnergize);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_DEBUFF), this.onSBSRemoveDebuff);
   }
 
   onDamage(event: DamageEvent) {
@@ -38,6 +43,16 @@ class SerratedBoneSpike extends Analyzer {
     }
   }
 
+  onSBSRemoveDebuff(event: RemoveDebuffEvent) {
+    if (this.spellUsable.isOnCooldown(SPELLS.SERRATED_BONE_SPIKE.id)) {
+      const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(SPELLS.SERRATED_BONE_SPIKE.id, this.spellUsable.cooldownTriggerEvent(SPELLS.SERRATED_BONE_SPIKE.id));
+      if (expectedCooldownDuration) {
+        const newChargeCDR = expectedCooldownDuration - this.spellUsable.cooldownRemaining(SPELLS.SERRATED_BONE_SPIKE.id);
+        this.spellUsable.endCooldown(SPELLS.SERRATED_BONE_SPIKE.id, false, event.timestamp, newChargeCDR);
+      }
+    }
+  }
+
   statistic() {
     return (
       <>
@@ -45,7 +60,7 @@ class SerratedBoneSpike extends Analyzer {
           size="flexible"
           category={STATISTIC_CATEGORY.COVENANTS}
         >
-          <BoringSpellValueText spell={SPELLS.SERRATED_BONE_SPIKE}>
+          <BoringSpellValueText spell={SPELLS.SERRATED_BONE_SPIKE_DEBUFF}>
             <>
               <ItemDamageDone amount={this.damage} />
               <br />
