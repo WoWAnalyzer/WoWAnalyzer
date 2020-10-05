@@ -5507,53 +5507,6 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 </dfn>
               </div>
             </div>
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-sub"
-              >
-                <div
-                  className="circle"
-                  style={
-                    Object {
-                      "background": "#03fcad",
-                    }
-                  }
-                />
-              </div>
-              <div
-                className="flex-main"
-              >
-                <a
-                  href="http://wowhead.com/spell=322101"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_monk_expelharm.jpg"
-                  />
-                   
-                  Expel Harm
-                </a>
-              </div>
-              <div
-                className="flex-sub"
-              >
-                <dfn
-                  className=""
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onTouchStart={[Function]}
-                  style={Object {}}
-                >
-                  0
-                  %
-                </dfn>
-              </div>
-            </div>
           </div>
           <div
             className="chart"
