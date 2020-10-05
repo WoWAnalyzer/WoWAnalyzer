@@ -130,6 +130,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
   getExpelHarmDetails(spellInfo) {
     spellInfo.healingDone = spellInfo.healingDone + this.expelHarm.gustsHealing + this.expelHarm.selfHealing + this.expelHarm.targetHealing;
+    spellInfo.overhealingDone = spellInfo.overhealingDone + this.expelHarm.selfOverheal + this.expelHarm.targetOverheal;
     return spellInfo;
   }
 

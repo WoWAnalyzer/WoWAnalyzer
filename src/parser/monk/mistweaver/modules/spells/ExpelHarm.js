@@ -6,7 +6,9 @@ import Events from 'parser/core/Events';
 class ExpelHarm extends Analyzer {
 
     selfHealing = 0;
+    selfOverheal = 0;
     targetHealing = 0;
+    targetOverheal = 0;
     gustsHealing = 0;
     lastCastTarget = null;
     sourceTarget = null;
@@ -21,12 +23,14 @@ class ExpelHarm extends Analyzer {
 
     handleExpelHarm(event) {
         this.selfHealing += (event.amount || 0) + (event.absorbed || 0);
+        this.selfOverheal += (event.overheal || 0);
         this.numberToCount += 1;
         this.sourceTarget = event.targetID;
     }
 
     handleTargetExpelHarm(event) {
         this.targetHealing += (event.amount || 0 ) + (event.absorbed || 0);
+        this.targetOverheal += (event.overheal || 0);
         this.numberToCount +=1;
         this.lastCastTarget = event.targetID;
     }
