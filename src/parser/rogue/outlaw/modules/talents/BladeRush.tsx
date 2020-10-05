@@ -17,6 +17,7 @@ class BladeRush extends Analyzer {
 
   constructor(options: any) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISPATCH, SPELLS.EVISCERATE, SPELLS.KIDNEY_SHOT, SPELLS.BETWEEN_THE_EYES, SPELLS.SLICE_AND_DICE]), this.onFinishMove);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TRUE_BEARING), this.onApplyTrueBearing);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TRUE_BEARING), this.onRemoveTrueBearing);
