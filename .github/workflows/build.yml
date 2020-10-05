@@ -23,9 +23,9 @@ jobs:
         with:
           path: node_modules
           # path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node_modules2-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node_modules-
+            ${{ runner.os }}-node_modules2-
       - run: yarn --frozen-lockfile --production=false
       - run: tar -czf dependencies.tar.gz node_modules
       - uses: actions/upload-artifact@v1

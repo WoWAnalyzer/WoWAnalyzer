@@ -4,16 +4,17 @@ import CoreAbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 class AbilityTracker extends CoreAbilityTracker {
   getAbility(spellId, abilityInfo = null) {
-    if (spellId === SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id || spellId === SPELLS.LIGHTSPAWN.id) {
+    if (
+      spellId === SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id ||
+      spellId === SPELLS.LIGHTSPAWN.id
+    ) {
       return super.getAbility(SPELLS.SHADOWFIEND.id, abilityInfo);
     }
     return super.getAbility(spellId, abilityInfo);
   }
 
   on_byPlayer_cast(event) {
-    if (super.on_byPlayer_cast) {
-      super.on_byPlayer_cast(event);
-    }
+    super.on_byPlayer_cast(event);
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 
