@@ -4,7 +4,7 @@ import { captureException } from 'common/errorLogger';
 
 import { Event } from 'parser/core/Events';
 import makeWclApiUrl from './makeWclApiUrl';
-import { QueryParams } from './makeApiUrl';
+import { QueryParams } from './QueryParams';
 import { WclOptions, WCLResponseJSON, WCLFightsResponse, WCLEventsResponse } from './WCL_TYPES';
 
 export class ApiDownError extends ExtendableError {}
