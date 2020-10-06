@@ -58,6 +58,9 @@ import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
 
+// Covenants
+import FallenOrder from '../shared/modules/covenants/FallenOrder';
+
 // Conduits
 // Endurance
 import GroundingBreath from '../shared/modules/conduits/GroundingBreath';
@@ -136,6 +139,9 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTracker: ManaTracker,
     hpmDetails: MistweaverHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    // Covenants
+    fallenOrder: FallenOrder,
 
     // Conduits
     // Endurance
