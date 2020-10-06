@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 6), 'Moved chi-jis statistic box to the correct location.', Moonrabbit),
   change(date(2020, 10, 3), <>Updated Chiji statbox to include enveloping breath healing. </>, Vohrr),
   change(date(2020, 10, 3), <>Added the Clouded Focus legendary. </>, Abelito75),
   change(date(2020, 10, 2), <>Corrected Life Cocoon to track all hots. </>, Abelito75),
