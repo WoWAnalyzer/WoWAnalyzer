@@ -26,7 +26,9 @@ export interface AbilityTrackerAbility {
   damageCriticalAbsorbed?: number;
 
   // TODO: Fix this proper
-  healingIolHits?: number
+  healingIolHits?: number;
+  // TODO: Fix this proper as well
+  healingTwHits?: number;
 }
 export interface SpellbookAbility {
   /**

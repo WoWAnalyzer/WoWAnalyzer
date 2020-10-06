@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Chizu, Gwelican, Putro } from 'CONTRIBUTORS';
+import { Chizu, Gwelican, Putro, Sharrq } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 2), 'Deleted Azerite Traits, Updated Statistic Boxes and added Integration Tests.', Sharrq),
   change(date(2020, 6, 12), 'Moved probability helpers to a shared folder.', Putro),
   change(date(2019, 4, 3), <>Add <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /> power tracker. </>, [Gwelican]),
   change(date(2019, 4, 2), 'Fixed a bug where pets showed up as they were summoned before the pull.', [Gwelican]),

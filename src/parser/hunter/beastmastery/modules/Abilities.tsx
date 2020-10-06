@@ -21,7 +21,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: -1,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.85,
+          recommendedEfficiency: 0.9,
           extraSuggestion: (
             <>
               <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.BARBED_SHOT.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.
@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: 0.85,
         },
       },
       {
@@ -59,7 +59,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
-        cooldown: haste => hastedCooldown(12, haste),
+        cooldown: haste => hastedCooldown(this.selectedCombatant.hasConduitBySpellID(SPELLS.BLOODLETTING_CONDUIT.id) ? 11 : 12, haste),
         gcd: {
           base: 1500,
         },
@@ -81,7 +81,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: -1,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.95,
         },
       },
       //endregion

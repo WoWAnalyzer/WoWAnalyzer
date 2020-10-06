@@ -41,6 +41,7 @@ class ButcheryCarve extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.spellKnown), this.onDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.spellKnown), this.onCast);
   }

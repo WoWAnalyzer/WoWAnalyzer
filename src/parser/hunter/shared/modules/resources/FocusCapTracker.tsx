@@ -5,7 +5,6 @@ import { formatPercentage, formatThousands } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
-import SpellFocusCost from 'parser/hunter/shared/modules/resources/SpellFocusCost';
 import StatisticBar from 'interface/statistics/StatisticBar';
 
 import { AutoSizer } from 'react-virtualized';
@@ -21,14 +20,12 @@ import { HUNTER_BASE_FOCUS_MAX, HUNTER_BASE_FOCUS_REGEN } from 'parser/hunter/sh
 class FocusCapTracker extends RegenResourceCapTracker {
   static dependencies = {
     ...RegenResourceCapTracker.dependencies,
-    // Needed for the `resourceCost` prop of events
-    spellResourceCost: SpellFocusCost,
   };
+
   static resourceType = RESOURCE_TYPES.FOCUS;
   static baseRegenRate = HUNTER_BASE_FOCUS_REGEN;
   static isRegenHasted = true;
   bySecond: { [key: number]: number } = {};
-  protected spellResourceCost!: SpellFocusCost;
 
   get wastedPercent() {
     return (this.missedRegen / this.naturalRegen) || 0;

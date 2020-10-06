@@ -8,7 +8,6 @@ import CastEfficiencyComponent from 'interface/CastEfficiency';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
-import Channeling from 'parser/shared/modules/Channeling';
 import Abilities from 'parser/core/modules/Abilities';
 
 import AbilityTracker from './AbilityTracker';
@@ -42,13 +41,11 @@ class CastEfficiency extends Analyzer {
     haste: Haste,
     spellHistory: SpellHistory,
     abilities: Abilities,
-    channeling: Channeling,
   };
   protected abilityTracker!: AbilityTracker;
   protected haste!: Haste;
   protected spellHistory!: SpellHistory;
   protected abilities!: Abilities;
-  protected channeling!: Channeling;
 
   /**
    * Gets info about spell's cooldown behavior. All values are as of the
@@ -127,7 +124,6 @@ class CastEfficiency extends Analyzer {
     }
 
     let beginCastTimestamp: number | undefined;
-    let beginChannelTimestamp: number | undefined;
     const timeSpentCasting = history.reduce((acc, event) => {
       if (event.type === EventType.BeginCast) {
         beginCastTimestamp = event.timestamp;
@@ -140,19 +136,6 @@ class CastEfficiency extends Analyzer {
           : 0;
         beginCastTimestamp = undefined;
         return acc + castTime;
-      } else if (event.type === EventType.BeginChannel) {
-        beginChannelTimestamp = beginCastTimestamp
-          ? undefined
-          : event.timestamp;
-        return acc;
-      } else if (event.type === EventType.EndChannel) {
-        //limit by start time in case of pre phase events
-        const channelTime = beginChannelTimestamp
-          ? event.timestamp -
-            Math.max(beginChannelTimestamp, this.owner.fight.start_time)
-          : 0;
-        beginCastTimestamp = undefined;
-        return acc + channelTime;
       } else {
         return acc;
       }

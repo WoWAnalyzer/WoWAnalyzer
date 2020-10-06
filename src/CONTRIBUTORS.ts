@@ -889,3 +889,38 @@ export const MusicMeister: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/illidan/leviisa',
   }],
 };
+export const Moonrabbit: Contributor = {
+  nickname: 'Moonrabbit',
+  github: 'alliepet',
+};
+export const Vohrr: Contributor = {
+  nickname: 'Vohrr',
+  github: 'pingypong',
+  discord: 'Vohrr#1414',
+  about: 'MW Vet in Peak of Serenity discord',
+  mains:[{
+    name: 'Vohrr',
+    spec: SPECS.MISTWEAVER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/vohrr',
+  }],
+  alts: [{
+    name: 'Vokori',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/vokori',
+  },
+  {
+    name: 'Vohrpal',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/vohrpal',
+  },
+  {
+    name: 'Zappyvohr',
+    spec: SPECS.RESTORATION_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/zappyvohr',
+  },
+  {
+    name: 'Vohrbloom',
+    spec: SPECS.RESTORATION_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/vohrbloom',
+  }],
+};

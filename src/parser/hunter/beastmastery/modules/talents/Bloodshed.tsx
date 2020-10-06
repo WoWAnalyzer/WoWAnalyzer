@@ -24,9 +24,11 @@ class Bloodshed extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+
   bleedDamage = 0;
   increasedDamage = 0;
   pets: { petName: string, sourceID: number | undefined, damage: number }[] = [];
+
   protected enemies!: Enemies;
 
   constructor(options: any) {

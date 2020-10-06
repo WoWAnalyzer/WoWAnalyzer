@@ -23,12 +23,13 @@ class StingingStrike extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.STINGING_STRIKE_CONDUIT.id);
+
     if (!this.conduitRank) {
       this.active = false;
       return;
     }
-
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onRaptorMongooseDamage);
   }

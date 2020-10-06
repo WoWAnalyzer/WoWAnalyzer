@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import fetchWcl from 'common/fetchWclApi';
+import { WCLHealingTableResponse, WCLHealing } from "common/WCL_TYPES";
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
@@ -42,7 +43,7 @@ class GuardianSpirit extends Analyzer {
   }
 
   load() {
-    return fetchWcl(`report/tables/healing/${this.owner.report.code}`, {
+    return fetchWcl<WCLHealingTableResponse>(`report/tables/healing/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: this.filter,
@@ -53,7 +54,7 @@ class GuardianSpirit extends Analyzer {
           // we need to do some "approximations" using the total overheal in tandem with the total healing. We do not want to naively
           // assume all healing was fully effective, as this would drastically overweight the power of the buff in situations where a
           // lot of overhealing occurs.
-          (healingFromBuff: any, entry: any) => healingFromBuff + ((entry.total - entry.total / (1 + GUARDIAN_SPIRIT_HEALING_INCREASE)) * (entry.total / (entry.total + (entry.overheal || 0)))),
+          (healingFromBuff: any, entry: WCLHealing) => healingFromBuff + ((entry.total - entry.total / (1 + GUARDIAN_SPIRIT_HEALING_INCREASE)) * (entry.total / (entry.total + (entry.overheal || 0)))),
           0,
         );
       });

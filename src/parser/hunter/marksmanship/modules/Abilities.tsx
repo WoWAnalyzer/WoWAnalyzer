@@ -7,10 +7,6 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       /**
-       * Marksmanship specific spells handled in their own files:
-       * Aimed Shot
-       * Rapid Fire
-       *
        * Shared spells handled in their own files:
        * Binding Shot
        * Hunters Mark
@@ -19,6 +15,31 @@ class Abilities extends CoreAbilities {
        *
        */
       //region Baseline Rotational
+      {
+        spell: SPELLS.AIMED_SHOT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: (haste: number) => 12 / (1 + haste),
+        charges: 2,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+        },
+      },
+      {
+        spell: SPELLS.RAPID_FIRE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+        },
+      },
       {
         spell: SPELLS.ARCANE_SHOT,
         buffSpellId: SPELLS.PRECISE_SHOTS.id,

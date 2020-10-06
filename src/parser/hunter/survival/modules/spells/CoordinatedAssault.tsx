@@ -34,6 +34,7 @@ class CoordinatedAssault extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
   }
@@ -58,7 +59,6 @@ class CoordinatedAssault extends Analyzer {
       return;
     }
     this.playerDamage += calculateEffectiveDamage(event, COORDINATED_ASSAULT_DMG_MOD);
-
   }
 
   statistic() {

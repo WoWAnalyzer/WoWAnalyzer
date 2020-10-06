@@ -25,6 +25,7 @@ class VipersVenom extends Analyzer {
     statTracker: StatTracker,
     globalCooldown: GlobalCooldown,
   };
+
   buffedSerpentSting = false;
   bonusDamage = 0;
   procs = 0;
@@ -33,15 +34,19 @@ class VipersVenom extends Analyzer {
   currentGCD = 0;
   wastedProcs = 0;
   spellKnown = SPELLS.RAPTOR_STRIKE;
+
   protected statTracker!: StatTracker;
   protected globalCooldown!: GlobalCooldown;
 
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
+
     if (this.active && this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id)) {
       this.spellKnown = SPELLS.MONGOOSE_BITE_TALENT;
     }
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDamage);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VIPERS_VENOM_BUFF), this.onApplyBuff);

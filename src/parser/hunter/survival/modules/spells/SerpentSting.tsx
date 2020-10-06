@@ -48,6 +48,7 @@ class SerpentSting extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.hasBoP = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
     this.hasVV = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
 
@@ -249,7 +250,8 @@ class SerpentSting extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SERPENT_STING_SV}>
           <>
-            <ItemDamageDone amount={this.bonusDamage} /> <br />
+            <ItemDamageDone amount={this.bonusDamage} />
+            <br />
             <UptimeIcon /> {formatPercentage(this.uptimePercentage)}% <small>uptime</small>
           </>
         </BoringSpellValueText>

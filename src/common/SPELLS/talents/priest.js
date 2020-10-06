@@ -51,6 +51,8 @@ export default {
   LIGHT_OF_THE_NAARU_TALENT: { id: 196985, name: 'Light of the Naaru', icon: 'inv_pet_naaru' },
   APOTHEOSIS_TALENT: { id: 200183, name: 'Apotheosis', icon: 'ability_priest_ascension' },
   HOLY_WORD_SALVATION_TALENT: { id: 265202, name: 'Holy Word: Salvation', icon: 'ability_priest_archangel', manaCost: 3000 },
+  PRAYER_CIRCLE_TALENT: { id: 321377, name: 'Prayer Circle', icon: 'spell_paladin_divinecircle' },
+
   // Discipline
   SCHISM_TALENT: { id: 214621, name: 'Schism', icon: 'spell_warlock_focusshadow', manaCost: 250 },
   MASOCHISM_TALENT: { id: 193063, name: 'Masochism', icon: 'spell_shadow_misery' },

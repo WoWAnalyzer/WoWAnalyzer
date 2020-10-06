@@ -8,12 +8,12 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?
 const ERADICATION_DAMAGE_BONUS = 0.1;
@@ -139,7 +139,7 @@ class Eradication extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`Bonus damage: ${formatThousands(this.bonusDmg)}`}
       >
@@ -147,9 +147,9 @@ class Eradication extends Analyzer {
           {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small> <br />
           <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small> <br />
           {formatPercentage(this.CBpercentage, 0)} %
-          <Tooltip content={`${this._buffedCB} / ${this._totalCB} Chaos Bolts`}>
-            <small style={{ marginLeft: 7 }}>buffed Chaos Bolts <sup>*</sup></small>
-          </Tooltip>
+          <TooltipElement content={`${this._buffedCB} / ${this._totalCB} Chaos Bolts`}>
+            <small>buffed Chaos Bolts <sup>*</sup></small>
+          </TooltipElement>
         </BoringSpellValueText>
       </Statistic>
     );

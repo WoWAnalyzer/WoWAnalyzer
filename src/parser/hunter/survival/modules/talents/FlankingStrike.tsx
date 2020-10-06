@@ -26,7 +26,9 @@ class FlankingStrike extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLANKING_STRIKE_TALENT.id);
+
     this.flankingStrikes.push({
       name: this.selectedCombatant.name,
       sourceID: this.owner.playerId,
@@ -34,6 +36,7 @@ class FlankingStrike extends Analyzer {
       effectiveFocus: 0,
       possibleFocus: 0,
     });
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.FLANKING_STRIKE_PET), this.onPetDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLANKING_STRIKE_PLAYER), this.onPlayerDamage);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER_PET).spell(SPELLS.FLANKING_STRIKE_PET), this.onPetEnergize);

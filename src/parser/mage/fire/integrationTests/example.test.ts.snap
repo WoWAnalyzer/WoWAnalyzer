@@ -332,7 +332,6 @@ exports[`Fire Mage integration test: example log CancelledCasts matches the stat
 >
   <div
     className="panel statistic small value"
-    label="test"
     position={10}
   >
     <div
@@ -1661,7 +1660,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "31.81279189162333%",
+                      "width": "29.168957636381705%",
                     }
                   }
                 />
@@ -1676,7 +1675,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              31.81%
+              29.17%
             </td>
             <td
               style={

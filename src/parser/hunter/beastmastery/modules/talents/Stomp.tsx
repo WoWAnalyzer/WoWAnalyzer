@@ -23,6 +23,7 @@ import { AMOUNT_OF_PETS_WITH_AC } from '../../constants';
  */
 
 class Stomp extends Analyzer {
+
   damage = 0;
   hits = 0;
   casts = 0;

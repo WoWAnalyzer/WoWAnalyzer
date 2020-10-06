@@ -1,13 +1,6 @@
-import React from 'react';
-
 import { Putro } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
-import ResourceLink from 'common/ResourceLink';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
-  change(date(2020, 9, 21), 'Updated Marksmanship to include a checklist that\'s ready for Shadowlands', Putro),
-  change(date(2020, 8, 14), 'Updated Marksmanship module following beta build 35522', Putro),
-  change(date(2020, 8, 12), <> Generalized the hunter <ResourceLink id={RESOURCE_TYPES.FOCUS.id} /> module and fixed a few issues with it. </>, Putro),
-  change(date(2020, 8, 8), 'Marksmanship modules updated for Shadowlands', Putro),
+  change(date(2020, 10, 1), 'Updated all Marksmanship modules for Shadowlands as well as adding a checklist', Putro),
 ];

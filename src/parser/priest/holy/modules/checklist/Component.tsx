@@ -38,15 +38,13 @@ const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
         <AbilityRequirement spell={SPELLS.HOLY_WORD_SERENITY.id} />
         <AbilityRequirement spell={SPELLS.HOLY_WORD_SANCTIFY.id} />
         <AbilityRequirement spell={SPELLS.PRAYER_OF_MENDING_CAST.id} />
+        <AbilityRequirement spell={SPELLS.CIRCLE_OF_HEALING_TALENT.id} />
 
         {combatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.DIVINE_STAR_TALENT.id} />
         )}
         {combatant.hasTalent(SPELLS.HALO_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.HALO_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.CIRCLE_OF_HEALING_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CIRCLE_OF_HEALING_TALENT.id} />
         )}
 
       </Rule>

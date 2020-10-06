@@ -4,10 +4,11 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
-
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 class BilescourgeBombers extends Analyzer {
   damage = 0;
@@ -22,13 +23,17 @@ class BilescourgeBombers extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.BILESCOURGE_BOMBERS_TALENT.id} /> dmg</>}
-        value={this.owner.formatItemDamageDone(this.damage)}
-        valueTooltip={`${formatThousands(this.damage)} damage`}
-      />
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={`${formatThousands(this.damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.BILESCOURGE_BOMBERS_TALENT}>
+          <ItemDamageDone amount={this.damage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

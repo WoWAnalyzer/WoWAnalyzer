@@ -20,17 +20,22 @@ class ResonatingArrow extends Analyzer {
     abilities: Abilities,
     enemies: Enemies,
   };
+
   casts: number = 0;
   debuffs: number = 0;
+
   protected abilities!: Abilities;
   protected enemies!: Enemies;
 
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+
     if (!this.active) {
       return;
     }
+
     options.abilities.add({
       spell: SPELLS.RESONATING_ARROW,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -43,6 +48,7 @@ class ResonatingArrow extends Analyzer {
         recommendedEfficiency: 0.9,
       },
     });
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW), this.onCast);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DEBUFF), this.onDebuff);
   }

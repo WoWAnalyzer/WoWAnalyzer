@@ -6,12 +6,12 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const BONUS_PER_STACK = 0.03;
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
@@ -121,33 +121,24 @@ class ShadowEmbrace extends Analyzer {
     const uptimes = this.stackedUptime;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <div className="pad">
-          <label><SpellLink id={SPELLS.SHADOW_EMBRACE_TALENT.id} /></label>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatPercentage(this.totalUptimePercentage)} %
-              <Tooltip content={(
-                <>
-                  No stacks: {formatPercentage(uptimes[0])} %<br />
-                  1 stack: {formatPercentage(uptimes[1])} %<br />
-                  2 stacks: {formatPercentage(uptimes[2])} %<br />
-                  3 stacks: {formatPercentage(uptimes[3])} %
-                </>
-              )}>
-                <small style={{ marginLeft: 7 }}>uptime <sup>*</sup></small>
-              </Tooltip>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
-            </div>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE_TALENT}>
+          {formatPercentage(this.totalUptimePercentage)} %
+                <TooltipElement content={(
+                  <>
+                    No stacks: {formatPercentage(uptimes[0])} %<br />
+                    1 stack: {formatPercentage(uptimes[1])} %<br />
+                    2 stacks: {formatPercentage(uptimes[2])} %<br />
+                    3 stacks: {formatPercentage(uptimes[3])} %
+                  </>
+                )}>
+                  <small>uptime <sup>*</sup></small>
+                </TooltipElement><br />
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }
