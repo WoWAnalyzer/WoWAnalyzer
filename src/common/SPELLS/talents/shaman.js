@@ -9,7 +9,6 @@ export default {
   // Enhancement
   BOULDERFIST_TALENT: { id: 246035, name: 'Boulderfist', icon: 'ability_earthenfury_giftofearth' },
   HOT_HAND_TALENT: { id: 201900, name: 'Hot Hand', icon: 'spell_fire_playingwithfire' },
-  LIGHTNING_SHIELD_TALENT: { id: 192106, name: 'Lightning Shield', icon: 'spell_nature_lightningshield' },
   LANDSLIDE_TALENT: { id: 197992, name: 'Landslide', icon: 'inv_ore_blackrock_nugget' },
   FORCEFUL_WINDS_TALENT: { id: 262647, name: 'Forceful Winds', icon: 'spell_shaman_unleashweapon_wind' },
   SEARING_ASSAULT_TALENT: { id: 192087, name: 'Searing Assault', icon: 'ability_rhyolith_magmaflow_wave' },
