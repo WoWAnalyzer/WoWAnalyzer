@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import EarthShield from 'parser/shaman/shared/talents/EarthShield';
 import Torrent from './Torrent';
 import UnleashLife from './UnleashLife';
 import Undulation from './Undulation';
@@ -26,7 +25,6 @@ class TalentStatisticBox extends Analyzer {
     unleashLife: UnleashLife,
     undulation: Undulation,
     deluge: Deluge,
-    earthShield: EarthShield,
     earthenWallTotem: EarthenWallTotem,
     naturesGuardian: NaturesGuardian,
     downpour: Downpour,
@@ -56,7 +54,7 @@ class TalentStatisticBox extends Analyzer {
         {this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id) ? this.unleashLife.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.UNDULATION_TALENT.id) ? this.undulation.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id) ? this.deluge.subStatistic() : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD.id) ? this.earthShield.subStatistic() : ''}
+
         {this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) ? this.earthenWallTotem.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id) ? this.naturesGuardian.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id) ? this.downpour.subStatistic() : ''}
