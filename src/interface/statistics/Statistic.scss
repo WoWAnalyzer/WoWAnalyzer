@@ -33,6 +33,9 @@
 .statistic svg text {
   fill: currentColor;
 }
+#vg-tooltip-element.dark-theme {
+  border: 1px solid black;
+}
 .statistic.panel .panel-body {
   padding: 0;
   position: relative; /* a lot of children need relative rendering */

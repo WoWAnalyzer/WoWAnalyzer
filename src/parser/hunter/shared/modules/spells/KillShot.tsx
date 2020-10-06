@@ -4,7 +4,7 @@ import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Events, { ApplyBuffEvent, FightEndEvent } from 'parser/core/Events';
+import Events from 'parser/core/Events';
 import { KILL_SHOT_EXECUTE_RANGE } from 'parser/hunter/shared/constants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
@@ -13,6 +13,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SPECS from 'game/SPECS';
 import ExecuteHelper from 'parser/shared/ExecuteHelper';
+import FlayedShot from 'parser/hunter/shared/modules/spells/covenants/venthyr/FlayedShot';
 
 class KillShot extends ExecuteHelper {
   static executeSpells = [
@@ -27,6 +28,7 @@ class KillShot extends ExecuteHelper {
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
+    flayedShot: FlayedShot,
   };
 
   maxCasts: number = 0;
@@ -34,10 +36,11 @@ class KillShot extends ExecuteHelper {
 
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
+  protected flayedShot!: FlayedShot;
 
   constructor(options: any) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.flayedShotProc);
+
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
 
     options.abilities.add({
@@ -56,19 +59,12 @@ class KillShot extends ExecuteHelper {
     });
   }
 
-  flayedShotProc(event: ApplyBuffEvent) {
-    this.maxCasts += 1;
-    if (this.spellUsable.isOnCooldown(this.activeKillShotSpell.id)) {
-      this.spellUsable.endCooldown(this.activeKillShotSpell.id, false, event.timestamp);
-    }
-  }
-
-  adjustMaxCasts(event: FightEndEvent) {
-    super.onFightEnd(event);
+  adjustMaxCasts() {
     this.maxCasts += Math.ceil(this.totalExecuteDuration / 10000);
     if (this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id)) {
       this.maxCasts += 1;
     }
+    this.maxCasts += this.flayedShot.totalProcs;
   }
 
   statistic() {

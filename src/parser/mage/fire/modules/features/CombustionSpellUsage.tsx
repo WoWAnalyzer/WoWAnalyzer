@@ -4,6 +4,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent, EventType } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -24,10 +25,10 @@ class CombustionSpellUsage extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), (event: CastEvent) => this.fireballCasts(event));
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), (event: BeginCastEvent) => this.fireballCasts(event));
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), (event: CastEvent) => this.scorchCasts(event));
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), (event: BeginCastEvent) => this.scorchCasts(event));
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.fireballCasts);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.fireballCasts);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), this.scorchCasts);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), this.scorchCasts);
   }
 
   //Because Fireball has a longer cast time than Scorch, the player should never cast Fireball during Combustion.
@@ -94,7 +95,7 @@ class CombustionSpellUsage extends Analyzer {
         average: 1,
         major: 2,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -106,20 +107,20 @@ class CombustionSpellUsage extends Analyzer {
         average: 0.5,
         major: 1,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.scorchDuringCombustionThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You started to cast <SpellLink id={SPELLS.SCORCH.id} /> {this.scorchCastsStarted} times ({this.badScorchesPerCombustion.toFixed(2)} per Combustion), and completed {this.scorchCastsCompleted} casts, while you had charges of <SpellLink id={SPELLS.FIRE_BLAST.id} />  or <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Scorch during Combustion.</>)
           .icon(SPELLS.COMBUSTION.icon)
           .actual(`${this.badScorchesPerCombustion.toFixed(2)} Casts Per Combustion`)
           .recommended(`${formatNumber(recommended)} is recommended`);
       });
     when(this.fireballDuringCombustionThresholds)
-    .addSuggestion((suggest: any, actual: any, recommended: any) => {
+    .addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You started to cast <SpellLink id={SPELLS.FIREBALL.id} /> {this.fireballCastsStarted} times ({this.fireballCastsPerCombustion.toFixed(2)} per Combustion), and completed {this.fireballCastsCompleted} casts, during <SpellLink id={SPELLS.COMBUSTION.id} />. Combustion has a short duration, so you are better off using instant abilities like <SpellLink id={SPELLS.FIRE_BLAST.id} /> or <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />. If you run out of instant cast abilities, use <SpellLink id={SPELLS.SCORCH.id} /> instead of Fireball since it has a shorter cast time.</>)
         .icon(SPELLS.COMBUSTION.icon)
         .actual(`${this.fireballCastsPerCombustion.toFixed(2)} Casts Per Combustion`)

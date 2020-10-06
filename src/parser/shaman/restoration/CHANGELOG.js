@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { niseko, blazyb, Torothin } from 'CONTRIBUTORS';
+import { niseko, blazyb, Torothin, Abelito75 } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 9, 27), <>Added the potency conduits Embrace Of Earth, Heavy Rainfall and Swirling Currents.</>, Abelito75),
   change(date(2020, 4, 14), <>Fixed a bug with the <SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} /> that caused it to be valued lower than it should have been.</>, niseko),
   change(date(2020, 3, 16), <><SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} /> buff usage added as a value tooltip for Hight Tide healing.</>, [Torothin]),
   change(date(2020, 3, 16), <>Filtered out pet healing from the <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> module by default.</>, niseko),

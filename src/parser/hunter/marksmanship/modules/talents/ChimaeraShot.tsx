@@ -10,12 +10,11 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { DamageEvent } from 'parser/core/Events';
 
 /**
- * A two-headed shot that hits your primary target and another nearby target, dealing 720% Nature damage to one and 720% Frost damage to the other.
+ * A two-headed shot that hits your primary target for (65% of Attack power)% Nature damage and another nearby target for  [(65% of Attack power)% * 0.5] Frost damage.
  * Replaces Arcane Shot.
  *
  * Example log:
  *
- * TODO: New Chimaera Shot spells added to follow up on.
  */
 
 class ChimaeraShot extends Analyzer {
@@ -30,7 +29,7 @@ class ChimaeraShot extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHIMAERA_SHOT_MM_TALENT), () => {
       this.casts += 1;
     });
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.CHIMAERA_SHOT_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE]), this.onChimaeraDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE]), this.onChimaeraDamage);
   }
 
   onChimaeraDamage(event: DamageEvent) {

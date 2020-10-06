@@ -8,7 +8,7 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
-const FrostMageChecklist = ({ combatant, castEfficiency, thresholds, owner }: any) => {
+const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
   const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -46,7 +46,7 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds, owner }: an
           </>
         )}
       >
-        <Requirement name="Ice Lance into Winter's Chill" thresholds={thresholds.wintersChillIceLance} tooltip="Using Brain Freeze will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance after every instant cast Flurry so that the Ice Lance hits the target while Winter's Chill is up." />
+        <Requirement name="Ice Lance into Winter's Chill" thresholds={thresholds.wintersChillShatter} tooltip="Using Brain Freeze will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance after every instant cast Flurry so that the Ice Lance hits the target while Winter's Chill is up." />
         <Requirement name="Hardcast into Winter's Chill" thresholds={thresholds.wintersChillHardCasts} tooltip="Flurry travels faster than your other spells, so you can pre-cast Frostbolt, Ebonbolt, or Glacial Spike before using your instant cast Flurry. This will result in the pre-cast spell landing in the Winter's Chill debuff and dealing bonus shatter damage." />
       </Rule>
       <Rule
@@ -99,10 +99,8 @@ FrostMageChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasTrinket: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
-  owner: PropTypes.object.isRequired,
 };
 
 export default FrostMageChecklist;

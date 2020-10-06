@@ -8,6 +8,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, ChangeBuffStackEvent } from 'parser/core/Events';
 import { SHATTER_DEBUFFS } from '../../constants';
 import { CAST_BUFFER } from '../../constants';
@@ -92,7 +93,7 @@ class IceLance extends Analyzer {
         average: 0.85,
         major: 0.70,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -104,13 +105,13 @@ class IceLance extends Analyzer {
         average: 0.15,
         major: 0.25,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.nonShatteredIceLanceThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(actual)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</>)
           .icon(SPELLS.ICE_LANCE.icon)
           .actual(`${formatPercentage(actual)}% missed`)

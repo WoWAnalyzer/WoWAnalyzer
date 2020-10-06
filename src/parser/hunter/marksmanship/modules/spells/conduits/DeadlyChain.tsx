@@ -16,7 +16,6 @@ import { DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE, TRICK_SHOTS_BASELINE_DAMAGE } 
  *
  * Example log
  *
- * TODO: Verify how this applies to Trick Shots (Multiplicate or Additive)
  */
 class DeadlyChain extends Analyzer {
 
@@ -27,12 +26,11 @@ class DeadlyChain extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false;
-    if (!this.active) {
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.DEADLY_CHAIN_CONDUIT.id);
+    if (!this.conduitRank) {
+      this.active = false;
       return;
     }
-
-    this.conduitRank = 1; //TODO: Find out the proper way of parsing conduit ranks
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.AIMED_SHOT, SPELLS.RAPID_FIRE]), this.onTricksAffectedCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.AIMED_SHOT, SPELLS.RAPID_FIRE_DAMAGE]), this.onTricksAffectedDamage);

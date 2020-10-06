@@ -132,7 +132,6 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Death Knight
-    [SPELLS.VAMPIRIC_AURA.id]: { leech: (230 * 0.20 * 100) }, // Gives 20% Leech // TODO make non static so can use this.leechRatingPerPercent ??
     // endregion
 
     // region Druid

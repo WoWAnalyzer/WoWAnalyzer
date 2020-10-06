@@ -10,18 +10,34 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import WintersChill from './modules/features/WintersChill';
 import BrainFreeze from './modules/features/BrainFreeze';
 import IceLance from './modules/features/IceLance';
-import ThermalVoid from './modules/features/ThermalVoid';
-import GlacialSpike from './modules/features/GlacialSpike';
-import BoneChilling from './modules/talents/BoneChilling';
-import RuneOfPower from '../shared/modules/features/RuneOfPower';
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
-import SplittingIce from './modules/features/SplittingIce';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import ColdSnap from './modules/cooldowns/ColdSnap';
+
+//Talents
 import WaterElemental from './modules/features/WaterElemental';
 import LonelyWinter from './modules/talents/LonelyWinter';
+import SplittingIce from './modules/talents/SplittingIce';
+import ThermalVoid from './modules/talents/ThermalVoid';
+import GlacialSpike from './modules/talents/GlacialSpike';
+import BoneChilling from './modules/talents/BoneChilling';
+import RuneOfPower from '../shared/modules/features/RuneOfPower';
+import FocusMagic from '../shared/modules/features/FocusMagic';
+
+//Legendaries
+import FreezingWinds from './modules/items/FreezingWinds';
+import ColdFront from './modules/items/ColdFront';
+
+//Conduits
+import IceBite from './modules/items/IceBite';
+import IcyPropulsion from './modules/items/IcyPropulsion';
+import ShiveringCore from './modules/items/ShiveringCore';
+import UnrelentingCold from './modules/items/UnrelentingCold';
+import DivertedEnergy from '../shared/modules/items/DivertedEnergy';
+import GroundingSurge from '../shared/modules/items/GroundingSurge';
+import IreOfTheAscended from '../shared/modules/items/IreOfTheAscended';
 
 class CombatLogParser extends CoreCombatLogParser {
    static specModules = {
@@ -39,28 +55,32 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneIntellect: ArcaneIntellect,
     waterElemental: WaterElemental,
 
-    // region Talents (T30 and T75 don't need analyzers)
-    // T15 TODO - Ice Nova, Lonely Winter
+    // Talents
     boneChilling: BoneChilling,
     lonelyWinter: LonelyWinter,
-
-    // T45 TODO - Incanters Flow
     mirrorImage: MirrorImage,
+    focusMagic: FocusMagic,
     runeOfPower: RuneOfPower,
-
-    // T60 TODO - Frozen Touch, Chain Reaction, Ebonbolt
-
-    // T90 TODO - Freezing Rain, Comet Storm
     splittingIce: SplittingIce,
-
-    // T100 TODO - Ray of Frost
     thermalVoid: ThermalVoid,
     glacialSpike: GlacialSpike,
-    // endregion
 
 	  // Cooldowns
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
+
+    //Legendaries
+    freezingWinds: FreezingWinds,
+    coldFront: ColdFront,
+
+    //Conduits
+    iceBite: IceBite,
+    icyPropulsion: IcyPropulsion,
+    shiveringCore: ShiveringCore,
+    unrelentingCold: UnrelentingCold,
+    divertedEnergy: DivertedEnergy,
+    groundingSurge: GroundingSurge,
+    ireOfTheAscended: IreOfTheAscended,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

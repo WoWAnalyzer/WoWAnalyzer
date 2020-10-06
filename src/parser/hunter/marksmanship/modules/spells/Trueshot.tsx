@@ -1,15 +1,11 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import SPELLS from 'common/SPELLS/hunter';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
-import Abilities from 'parser/core/modules/Abilities';
-import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -22,10 +18,6 @@ import Events, { CastEvent } from 'parser/core/Events';
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=auras&source=25&ability=288613
  */
 class Trueshot extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-    abilities: Abilities,
-  };
 
   trueshotCasts = 0;
   accumulatedFocusAtTSCast = 0;
@@ -45,18 +37,6 @@ class Trueshot extends Analyzer {
 
   get averageFocus() {
     return formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
-  }
-
-  get aimedShotThreshold() {
-    return {
-      actual: this.averageAimedShots,
-      isLessThan: {
-        minor: 3,
-        average: 2.5,
-        major: 2,
-      },
-      style: 'decimal',
-    };
   }
 
   onTrueshotCast(event: CastEvent) {
@@ -112,15 +92,6 @@ class Trueshot extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
-  }
-
-  suggestions(when: any) {
-    when(this.aimedShotThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
-      return suggest(<>You only cast {actual.toFixed(1)} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.</>)
-        .icon(SPELLS.TRUESHOT.icon)
-        .actual(`Average of ${actual.toFixed(1)} Aimed Shots per Trueshot.`)
-        .recommended(`>${recommended} is recommended`);
-    });
   }
 }
 

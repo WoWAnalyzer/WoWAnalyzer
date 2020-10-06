@@ -159,9 +159,9 @@ export const Khazak: Contributor = {
   avatar: require('./interface/images/avatars/khazak-avatar.jpg'),
   discord: 'Khazak#3360',
   mains: [{
-    name: 'Khazakk',
+    name: 'Khazak',
     spec: SPECS.FROST_DEATH_KNIGHT,
-    link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/khazakk',
+    link: 'https://worldofwarcraft.com/en-us/character/us/illidan/khazak',
   }],
 };
 export const Bicepspump: Contributor = {
@@ -871,5 +871,56 @@ export const Tiphess: Contributor = {
     name: 'Tjphess',
     spec: SPECS.DISCIPLINE_PRIEST,
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/tjphess',
+  }],
+};
+export const Tyndi: Contributor = {
+  nickname: 'Tyndi',
+  github: 'darthelit',
+  discord: 'Tyndi#4337',
+  avatar: require('./interface/images/avatars/tyndi-avatar.png'),
+};
+export const MusicMeister: Contributor = {
+  nickname: 'MusicMeister',
+  github: 'TheMusicMeister',
+  discord: 'The Music Meister#8236',
+  mains: [{
+    name: 'Leviisa',
+    spec: SPECS.ENHANCEMENT_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/illidan/leviisa',
+  }],
+};
+export const Moonrabbit: Contributor = {
+  nickname: 'Moonrabbit',
+  github: 'alliepet',
+};
+export const Vohrr: Contributor = {
+  nickname: 'Vohrr',
+  github: 'pingypong',
+  discord: 'Vohrr#1414',
+  about: 'MW Vet in Peak of Serenity discord',
+  mains:[{
+    name: 'Vohrr',
+    spec: SPECS.MISTWEAVER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/vohrr',
+  }],
+  alts: [{
+    name: 'Vokori',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/vokori',
+  },
+  {
+    name: 'Vohrpal',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/vohrpal',
+  },
+  {
+    name: 'Zappyvohr',
+    spec: SPECS.RESTORATION_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/zappyvohr',
+  },
+  {
+    name: 'Vohrbloom',
+    spec: SPECS.RESTORATION_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/vohrbloom',
   }],
 };

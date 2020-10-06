@@ -17,7 +17,7 @@ import { BRUTAL_PROJECTILES_RAMP_DAMAGE } from 'parser/hunter/marksmanship/const
  *
  * TODO: If the buff goes live with 15 seconds despite Rapid Fire being 20 seconds cooldown, make some check for unlucky procs(?)
  * TODO: Verify these two buffs work like indicated in the spell data
- * Maybe even add a Binom chart to this, even it ends up being impactful?
+ * TODO: Maybe even add a Binom chart to this, even it ends up being impactful?
  *
  */
 class BrutalProjectiles extends Analyzer {
@@ -30,12 +30,11 @@ class BrutalProjectiles extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false;
-    if (!this.active) {
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.BRUTAL_PROJECTILES_CONDUIT.id);
+    if (!this.conduitRank) {
+      this.active = false;
       return;
     }
-
-    this.conduitRank = 1; //TODO: Find out the proper way of parsing conduit ranks
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE), this.onRapidFireDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.onRapidFireCast);

@@ -11,6 +11,11 @@ export default {
     name: 'Artifice of the Archmage',
     icon: 'spell_druid_swarm',
   },
+  ARTIFICE_OF_THE_ARCHMAGE_ENERGIZE: {
+    id: 337244,
+    name: 'Artifice of the Archmage',
+    icon: 'spell_druid_swarm',
+  },
   MAGIS_BRAND: {
     id: 337192,
     name: 'Magi\'s Brand',
@@ -74,6 +79,11 @@ export default {
   },
   DIVERTED_ENERGY: {
     id: 337136,
+    name: 'Diverted Energy',
+    icon: 'inv_soulbarrier',
+  },
+  DIVERTED_ENERGY_HEAL: {
+    id: 337137,
     name: 'Diverted Energy',
     icon: 'inv_soulbarrier',
   },

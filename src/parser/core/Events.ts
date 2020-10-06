@@ -60,6 +60,43 @@ export enum EventType {
   FilterBuffInfo = 'filterbuffinfo',
 }
 
+type MappedEventTypes = {
+  [EventType.Heal]: HealEvent,
+  [EventType.Absorbed]: AbsorbedEvent,
+  [EventType.Damage]: DamageEvent,
+  [EventType.BeginCast]: BeginCastEvent,
+  [EventType.Cast]: CastEvent,
+  [EventType.ApplyBuff]: ApplyBuffEvent,
+  [EventType.ApplyDebuff]: ApplyDebuffEvent,
+  [EventType.ApplyBuffStack]: ApplyBuffStackEvent,
+  [EventType.ApplyDebuffStack]: ApplyDebuffStackEvent,
+  [EventType.RemoveBuffStack]: RemoveBuffStackEvent,
+  [EventType.RemoveDebuffStack]: RemoveDebuffStackEvent,
+  [EventType.ChangeBuffStack]: ChangeBuffStackEvent,
+  [EventType.RefreshBuff]: RefreshBuffEvent,
+  [EventType.RefreshDebuff]: RefreshDebuffEvent,
+  [EventType.RemoveBuff]: RemoveBuffEvent,
+  [EventType.RemoveDebuff]: RemoveDebuffEvent,
+  [EventType.Summon]: SummonEvent,
+  [EventType.Energize]: EnergizeEvent,
+  [EventType.Death]: DeathEvent,
+  [EventType.CombatantInfo]: CombatantInfoEvent,
+
+  // Fabricated:
+  [EventType.FightEnd]: FightEndEvent,
+  [EventType.GlobalCooldown]: GlobalCooldownEvent,
+  [EventType.BeginChannel]: BeginChannelEvent,
+  [EventType.EndChannel]: EndChannelEvent,
+  [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent,
+  [EventType.ChangeStats]: ChangeStatsEvent,
+  // Phases:
+  [EventType.PhaseStart]: PhaseStartEvent,
+  [EventType.PhaseEnd]: PhaseEndEvent,
+
+  // Time Filtering:
+  [EventType.FilterCooldownInfo]: FilterCooldownInfoEvent,
+}
+
 export interface Ability {
   name: string;
   guid: number;
@@ -104,6 +141,9 @@ export function HasSource<T extends string>(event: Event<T>): event is SourcedEv
 export function HasTarget<T extends string>(event: Event<T>): event is TargettedEvent<T> {
   return (event as TargettedEvent<T>).targetID !== undefined;
 }
+
+export type MappedEvent<T extends string> =
+  T extends keyof MappedEventTypes ? MappedEventTypes[T] : Event<T>;
 
 // TODO Eventually convert this back from string to EventType (once the edge cases of raw string filters are removed)
 export interface Event<T extends string> {
@@ -249,7 +289,7 @@ export interface DamageEvent extends Event<EventType.Damage> {
   sourceID?: number;
   sourceIsFriendly: true;
   targetID: number;
-  targetInstance: number,
+  targetInstance: number;
   targetIsFriendly: false;
   ability: Ability;
   hitType: number;
@@ -410,6 +450,16 @@ export interface EnergizeEvent extends Event<EventType.Energize> {
   itemLevel: number;
 }
 
+export interface InterruptEvent extends Event<EventType.Interrupt> {
+  ability: Ability;
+  extraAbility: Ability;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance: number;
+  targetIsFriendly: boolean;
+}
+
 export interface DeathEvent extends Event<EventType.Death> {
   source: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceIsFriendly: boolean;
@@ -441,7 +491,7 @@ export interface GlobalCooldownEvent extends Event<EventType.GlobalCooldown> {
   sourceID: number;
   targetID: number;
   timestamp: number;
-  trigger: CastEvent;
+  trigger: CastEvent | BeginChannelEvent;
   __fabricated: true;
 }
 
@@ -502,6 +552,17 @@ export interface ChangeHasteEvent extends Event<EventType.ChangeHaste> {
   newHaste: number
 }
 
+export interface DispelEvent extends Event<EventType.Dispel>{
+  ability: Ability;
+  extraAbility: Ability;
+  isBuff: number;
+  sourceID?: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance: number;
+  targetIsFriendly: boolean;
+}
+
 export interface IPhaseEvent<T extends string> extends Event<T> {
   phase: PhaseConfig;
   __fabricated: true;
@@ -547,6 +608,27 @@ export interface Trait {
   icon: string;
   slot: number;
   isMajor: boolean;
+}
+
+export interface Covenant {
+  name: string;
+  description: string;
+  id: number;
+}
+
+export interface Soulbind {
+  name: string;
+  id: number;
+  covenantID: number;
+  garrisonTalentTreeId: number;
+}
+
+export interface Conduit {
+  rank: number;
+  spellID: number;
+  name: string;
+  soulbindConduitID: number;
+  icon: string;
 }
 
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
@@ -596,6 +678,9 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     isMajor: false;
   }>;
   heartOfAzeroth: Array<Trait>;
+  covenant: Covenant, //TODO: Verify this is the structure in the combatlog
+  soulbind: Soulbind, //TODO: Verify this is the structure in the combatlog
+  conduits: Array<Conduit>, //TODO: Verify this is the structure in the combatlog
 }
 
 const Events = {

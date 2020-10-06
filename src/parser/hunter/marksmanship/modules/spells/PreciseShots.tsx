@@ -9,6 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ARCANE_SHOT_MAX_TRAVEL_TIME, PRECISE_SHOTS_ASSUMED_PROCS, PRECISE_SHOTS_MODIFIER } from 'parser/hunter/marksmanship/constants';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 /**
  * Aimed Shot causes your next 1-2 Arcane Shots, Chimaera Shots or Multi-Shots to deal 100% more damage.
@@ -34,7 +35,7 @@ class PreciseShots extends Analyzer {
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsStackApplication);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_TALENT]), this.onPreciseCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.checkForBuff);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE]), this.onPreciseDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE]), this.onPreciseDamage);
   }
 
   onPreciseShotsApplication() {
@@ -84,6 +85,22 @@ class PreciseShots extends Analyzer {
     if (this.buffedShotInFlight > event.timestamp + ARCANE_SHOT_MAX_TRAVEL_TIME) {
       this.buffedShotInFlight = null;
     }
+  }
+
+  get preciseShotsUtilizationPercentage() {
+    return this.minOverwrittenProcs / (this.buffsSpent + this.minOverwrittenProcs);
+  }
+
+  get preciseShotsWastedThreshold() {
+    return {
+      actual: this.preciseShotsUtilizationPercentage,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.85,
+        major: 0.8,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   statistic() {

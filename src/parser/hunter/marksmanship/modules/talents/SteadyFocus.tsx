@@ -1,5 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
-
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -9,6 +9,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import HasteIcon from 'interface/icons/Haste';
 import { formatPercentage } from 'common/format';
 import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
+import SpellLink from 'common/SpellLink';
 
 /**
  * Using Steady Shot twice in a row increases your Haste by 7% for 15 sec.
@@ -32,6 +33,18 @@ class SteadyFocus extends Analyzer {
     return this.uptime * STEADY_FOCUS_HASTE_PERCENT;
   }
 
+  get uptimeThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   statistic() {
     return (
       <Statistic
@@ -48,6 +61,18 @@ class SteadyFocus extends Analyzer {
     );
   }
 
+  suggestions(when: When) {
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(
+        <>
+          Your uptime on the buff from <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> could be better. When using this talent you should always try and couple your <SpellLink id={SPELLS.STEADY_SHOT.id} /> together to maintain this buff.
+        </>,
+      )
+        .icon(SPELLS.STEADY_FOCUS_TALENT.icon)
+        .actual(`${formatPercentage(actual)}% uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
+  }
 }
 
 export default SteadyFocus;

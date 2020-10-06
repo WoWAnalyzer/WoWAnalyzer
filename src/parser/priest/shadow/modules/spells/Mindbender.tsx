@@ -1,10 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
-import { SummonEvent } from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
+import Events, { SummonEvent } from 'parser/core/Events';
 import Pet from '../core/Pet';
 import Voidform from './Voidform';
-
-const MINDBENDER_UPTIME_MS = 15000;
+import { MINDBENDER_UPTIME_MS } from '../../constants';
 
 class Mindbender extends Pet {
   static dependencies = {
@@ -19,6 +20,7 @@ class Mindbender extends Pet {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
+    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.MINDBENDER_TALENT_SHADOW), this.onMindbenderSummon);
   }
 
   get suggestionStackThresholds() {
@@ -29,7 +31,7 @@ class Mindbender extends Pet {
         average: 12,
         major: 10,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     });
   }
 
@@ -37,12 +39,7 @@ class Mindbender extends Pet {
     return Object.keys(this._mindbenders).map(timestamp => this._mindbenders[timestamp]);
   }
 
-  on_byPlayer_summon(event: SummonEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MINDBENDER_TALENT_SHADOW.id) {
-      return;
-    }
-
+  onMindbenderSummon(event: SummonEvent) {
     this._mindbenders[event.timestamp] = {
       voidformStacks: (this.voidform.inVoidform && this.voidform.currentVoidform.stacks[this.voidform.currentVoidform.stacks.length - 1].stack) || 0,
     };

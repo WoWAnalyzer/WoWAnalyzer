@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -16,6 +16,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { HUNTERS_MARK_MODIFIER, MS_BUFFER } from 'parser/hunter/shared/constants';
+import SpellLink from 'common/SpellLink';
 
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
@@ -32,6 +33,7 @@ class HuntersMark extends Analyzer {
     enemies: Enemies,
     abilities: Abilities,
   };
+
   casts = 0;
   damage = 0;
   recasts = 0;
@@ -42,6 +44,7 @@ class HuntersMark extends Analyzer {
   markWindow: { [key: string]: { status: string; start: number } } = {};
   damageToTarget: { [key: string]: number } = {};
   enemyID: string = '';
+
   protected enemies!: Enemies;
   protected abilities!: Abilities;
 
@@ -56,6 +59,7 @@ class HuntersMark extends Analyzer {
     options.abilities.add({
       spell: SPELLS.HUNTERS_MARK,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 20,
       gcd: {
         base: 1000,
       },
@@ -64,10 +68,6 @@ class HuntersMark extends Analyzer {
 
   get uptimePercentage() {
     return this.enemies.getBuffUptime(SPELLS.HUNTERS_MARK.id) / this.owner.fightDuration;
-  }
-
-  get potentialPrecastConfirmation() {
-    return (this.refunds + this.recasts) > this.casts ? <li>We've detected a possible precast, and there might be a discrepancy in amount of total casts versus amount of refunds and casts whilst debuff was active on another target.</li> : '';
   }
 
   onCast(event: CastEvent) {
@@ -134,6 +134,18 @@ class HuntersMark extends Analyzer {
     }
   }
 
+  get uptimeThresholds() {
+    return {
+      actual: this.uptimePercentage,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.925,
+        major: 0.9,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   statistic() {
     return (
       <Statistic
@@ -145,7 +157,6 @@ class HuntersMark extends Analyzer {
             <ul>
               <li>You had a total of {this.casts} casts of Hunter's Mark.</li>
               <li>You cast Hunter's Mark {this.recasts} times, whilst it was active on the target or another target.</li>
-              {this.potentialPrecastConfirmation}
             </ul>
           </>
         )}
@@ -159,6 +170,19 @@ class HuntersMark extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  suggestions(when: When) {
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(
+        <>
+          Your uptime on the debuff from <SpellLink id={SPELLS.HUNTERS_MARK.id} /> could be better. You should try and keep <SpellLink id={SPELLS.HUNTERS_MARK.id} /> up on a mob that you're actively hitting as much as possible.
+        </>,
+      )
+        .icon(SPELLS.HUNTERS_MARK.icon)
+        .actual(`${formatPercentage(actual)}% uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 }
 

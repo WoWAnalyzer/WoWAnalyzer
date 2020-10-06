@@ -3,20 +3,16 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'parser/core/Analyzer';
-import { CastEvent, RemoveBuffEvent, ApplyBuffStackEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Events, { CastEvent, RemoveBuffEvent, ApplyBuffStackEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
-import Panel from 'interface/others/Panel';
 
 import Insanity from '../core/Insanity';
-import VoidformsTab from './VoidformsTab';
+import { VOID_FORM_ACTIVATORS } from '../../constants';
 
 const debug = false;
 const logger = (message: any, color: any) => debug && console.log(`%c${message.join('  ')}`, `color: ${color}`);
-
-const VOID_FORM_ACTIVATORS = [
-  SPELLS.VOID_ERUPTION.id,
-];
 
 class Voidform extends Analyzer {
   static dependencies = {
@@ -32,6 +28,15 @@ class Voidform extends Analyzer {
   _inVoidform = false;
 
   _voidforms: any = {};
+
+  constructor(options: any) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(VOID_FORM_ACTIVATORS), this.onCast);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.VOIDFORM_BUFF), this.onVoidFormRemoved);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.VOIDFORM_BUFF), this.onVoidFormStack);
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.LINGERING_INSANITY), this.onLingeringInsanityRemoved);
+    this.addEventListener(Events.fightend, this.onFinished);
+  }
 
   get voidforms() {
     return Object.keys(this._voidforms).map(key => this._voidforms[key]);
@@ -152,37 +157,27 @@ class Voidform extends Analyzer {
     }, 0)) / (this.currentVoidform.duration / 1000);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (VOID_FORM_ACTIVATORS.includes(spellId)) {
+  onCast(event: CastEvent) {
+    this.startVoidform(event);
+  }
+
+  onVoidFormRemoved(event: RemoveBuffEvent) {
+    this.endVoidform(event);
+  }
+
+  onVoidFormStack(event: ApplyBuffStackEvent) {
+    if (!this.currentVoidform) {
+      // for prepull voidforms
       this.startVoidform(event);
     }
+    this.addVoidformStack(event);
   }
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-      this.endVoidform(event);
-    }
+  onLingeringInsanityRemoved(event: RemoveBuffStackEvent) {
+    this.removeLingeringInsanityStack(event);
   }
 
-  on_byPlayer_applybuffstack(event: ApplyBuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-      if (!this.currentVoidform) {
-        // for prepull voidforms
-        this.startVoidform(event);
-      }
-      this.addVoidformStack(event);
-    }
-  }
-
-  on_byPlayer_removebuffstack(event: RemoveBuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.LINGERING_INSANITY.id) this.removeLingeringInsanityStack(event);
-  }
-
-  on_fightend() {
+  onFinished() {
     if (this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
       // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
       const averageVoidformStacks = this.voidforms.slice(0, -1).reduce((p, c) => p + c.stacks.length, 0) / (this.voidforms.length - 1);
@@ -207,7 +202,7 @@ class Voidform extends Analyzer {
         average: 0.65,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -219,13 +214,13 @@ class Voidform extends Analyzer {
         average: 19,
         major: 18,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     });
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.suggestionUptimeThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.
           <br /><br />
           Use the generators with the priority: <br />
@@ -237,23 +232,6 @@ class Voidform extends Analyzer {
           .actual(`${formatPercentage(actual)}% Voidform uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
-  }
-
-  tab() {
-    return {
-      title: 'Voidforms',
-      url: 'voidforms',
-      render: () => (
-        <Panel>
-          <VoidformsTab
-            voidforms={this.voidforms}
-            insanityEvents={this.insanity.events}
-            fightEnd={this.owner.fight.end_time}
-            surrenderToMadness={!!this.selectedCombatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
-          />
-        </Panel>
-      ),
-    };
   }
 }
 

@@ -33,8 +33,8 @@ export const LONE_WOLF_AFFECTED_SPELLS = [
   SPELLS.STEADY_SHOT,
   SPELLS.BARRAGE_TALENT,
   SPELLS.A_MURDER_OF_CROWS_DEBUFF,
-  SPELLS.CHIMAERA_SHOT_FROST_DAMAGE,
-  SPELLS.CHIMAERA_SHOT_NATURE_DAMAGE,
+  SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE,
+  SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE,
   SPELLS.ARCANE_SHOT,
   SPELLS.BURSTING_SHOT,
   SPELLS.EXPLOSIVE_SHOT_DAMAGE,
@@ -90,6 +90,11 @@ export const LNL_COST_MULTIPLIER = 0;
 export const LETHAL_SHOTS_CHANCE = 0.3;
 //Lethal Shot procs reduce cooldown of Rapid Fire
 export const LETHAL_SHOTS_REDUCTION = 5000;
+/** Serpent Sting */
+//Serpent Sting has a 18 second duration for Marksmanship
+export const SERPENT_STING_MM_BASE_DURATION = 18000;
+//Serpent Sting pandemics at 30%
+export const SERPENT_STING_MM_PANDEMIC = 0.3;
 //endregion
 
 //region Resources

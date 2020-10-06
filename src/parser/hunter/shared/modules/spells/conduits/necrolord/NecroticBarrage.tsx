@@ -9,6 +9,7 @@ import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { NECROTIC_BARRAGE_DAMAGE_INCREASE } from 'parser/hunter/shared/constants';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 /**
  * Death Chakram generates an additional 2 Focus and the damage is increased by 5.0%.
@@ -25,12 +26,12 @@ class NecroticBarrage extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id) && this.selectedCombatant.hasConduitBySpellID(SPELLS.NECROTIC_BARRAGE_CONDUIT.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = 1; //TODO: Find out the proper way of parsing conduit ranks
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.NECROTIC_BARRAGE_CONDUIT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]), this.onDeathChakramDamage);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE), this.onEnergize);

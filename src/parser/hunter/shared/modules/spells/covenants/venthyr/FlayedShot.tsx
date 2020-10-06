@@ -1,7 +1,7 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -14,12 +14,14 @@ import SpellLink from 'common/SpellLink';
 import { FLAYED_SHOT_RESET_CHANCE } from 'parser/hunter/shared/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPECS from 'game/SPECS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class FlayedShot extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
+
   damage: number = 0;
   damageTicks: number = 0;
   totalProcs: number = 0;
@@ -32,25 +34,29 @@ class FlayedShot extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = false; //TODO: Once we can parse from WCL this should be changed to activate
+
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+
     if (!this.active) {
       return;
     }
-      options.abilities.add({
-        spell: SPELLS.FLAYED_SHOT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      });
+
+    options.abilities.add({
+      spell: SPELLS.FLAYED_SHOT,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 30,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.9,
+      },
+    });
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAYED_SHOT), this.onDamage);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.onProc);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.onRefresh);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.onProc);
   }
 
   get expectedProcs() {
@@ -62,18 +68,14 @@ class FlayedShot extends Analyzer {
     this.damageTicks += 1;
   }
 
-  onProc(event: ApplyBuffEvent) {
+  onProc(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.totalProcs += 1;
-    //The Kill Shot module ends the cooldown of Kill Shot after a Flayed Shot proc.
     if (this.spellUsable.isOnCooldown(this.activeKillShotSpell.id)) {
+      this.spellUsable.endCooldown(this.activeKillShotSpell.id, false, event.timestamp);
       this.resets += 1;
     } else {
       this.offCDProcs += 1;
     }
-  }
-
-  onRefresh() {
-
   }
 
   statistic() {

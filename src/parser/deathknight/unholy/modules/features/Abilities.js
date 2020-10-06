@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.SUMMON_GARGOYLE_TALENT,
+        spell: [SPELLS.SUMMON_GARGOYLE_TALENT, SPELLS.DARK_ARBITER_TALENT_GLYPH],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: {
@@ -214,6 +214,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.DEATHS_ADVANCE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.DEATH_STRIKE,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
@@ -222,7 +229,7 @@ class Abilities extends CoreAbilities {
       },
       // utility
       {
-        spell: SPELLS.RAISE_DEAD,
+        spell: SPELLS.RAISE_DEAD_UNHOLY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: {

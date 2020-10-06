@@ -6,79 +6,59 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events from 'parser/core/Events';
+import EventHistory from 'parser/shared/modules/EventHistory';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { PROC_BUFFER } from '../../constants';
 
 const debug = false;
 
-// If you have at least this many icicles *during* your frostbolt cast you should hold the proc for glacial spike, if talented. If you have fewer, the proc should be used immediately.
-const MIN_ICICLES_DURING_FB_CAST_FOR_HOLD = 3;
-
 class BrainFreeze extends Analyzer {
-  
-  hasGlacialSpike: boolean;
-  
-  lastFlurryTimestamp = 0;
+  static dependencies = {
+    eventHistory: EventHistory,
+  };
+  protected eventHistory!: EventHistory;
+
+  usedProcs = 0;
   overwrittenProcs = 0;
-  okOverwrittenProcs = 0;
   expiredProcs = 0;
   totalProcs = 0;
-  flurryWithoutProc = 0;
+  flurryHardCast = 0;
 
   // Tracks whether the last brain freeze generator to be cast was Ebonbolt or Frostbolt
   wasLastGeneratorEB = false;
 
   constructor(options: any) {
     super(options);
-    this.hasGlacialSpike = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE), this.brainFreezeApplied);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE), this.brainFreezeRefreshed);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE), this.brainFreezeRemoved);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FROSTBOLT,SPELLS.EBONBOLT_TALENT,SPELLS.FLURRY]), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLURRY), this.onFlurryCast);
   }
 
-  brainFreezeApplied(event: ApplyBuffEvent) {
+  brainFreezeApplied() {
     this.totalProcs += 1;
   }
 
-  brainFreezeRefreshed(event: RefreshBuffEvent) {
+  brainFreezeRefreshed() {
     this.totalProcs += 1;
+    this.overwrittenProcs += 1;
+    debug && this.debug("Brain Freeze overwritten");
+  }
 
-    if (!this.hasGlacialSpike || this.wasLastGeneratorEB) {
-      this.overwrittenProcs += 1;
-      debug && this.debug("Brain Freeze proc overwritten w/o GS talented or by EB");
-      return;
-    }
-
-    // Get the number of icicles the player has *after* the cast of the frostbolt
-    const buff: any = this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id);
-
-    // The icicle const relates to the number of icicles the player had *during* the cast of frostbolt, so increment by 1 to check against icicles *after* the cast
-    if (buff && buff.stacks < (MIN_ICICLES_DURING_FB_CAST_FOR_HOLD + 1)) {
-      this.overwrittenProcs += 1;
-      debug && this.debug("Brain Freeze proc overwritten w/ GS talented with too few icicles");
+  brainFreezeRemoved() {
+    const previousSpell = this.eventHistory.last(1, PROC_BUFFER, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLURRY));
+    if (previousSpell.length !== 0) {
+      this.usedProcs += 1;
     } else {
-      this.okOverwrittenProcs += 1;
-      debug && this.debug("Acceptable Brain Freeze proc overwritten w/ GS talented");
-    }
-  }
-
-  brainFreezeRemoved(event: RemoveBuffEvent) {
-    if (!this.lastFlurryTimestamp || this.lastFlurryTimestamp + PROC_BUFFER < this.owner.currentTimestamp) {
-      this.expiredProcs += 1; // it looks like Brain Freeze is always removed after the cast, and always on same timestamp
+      this.expiredProcs += 1; // If Flurry was not the spell that was cast immediately before this, then the proc must have expired.
       debug && this.debug("Brain Freeze proc expired");
     }
   }
 
-  onCast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.FROSTBOLT.id || spellId === SPELLS.EBONBOLT_TALENT.id) {
-      this.wasLastGeneratorEB = spellId === SPELLS.EBONBOLT_TALENT.id;
-    } else if (spellId === SPELLS.FLURRY.id) {
-      this.lastFlurryTimestamp = this.owner.currentTimestamp;
-      if (!this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE.id)) {
-        this.flurryWithoutProc += 1;
-      }
+  onFlurryCast() {
+    if (!this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE.id)) {
+      this.flurryHardCast += 1;
     }
   }
 
@@ -88,11 +68,6 @@ class BrainFreeze extends Analyzer {
 
   get wastedPercent() {
     return (this.wastedProcs / this.totalProcs) || 0;
-  }
-
-  get usedProcs() {
-    // Even though okOverwrittenProcs do not count against the player, they are not used procs
-    return this.totalProcs - this.wastedProcs - this.okOverwrittenProcs;
   }
 
   get utilPercent() {
@@ -107,7 +82,7 @@ class BrainFreeze extends Analyzer {
         average: 0.90,
         major: 0.80,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -120,7 +95,7 @@ class BrainFreeze extends Analyzer {
         average: 0.05,
         major: 0.10,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -133,46 +108,40 @@ class BrainFreeze extends Analyzer {
         average: 0.03,
         major: 0.06,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   get flurryWithoutBrainFreezeThresholds() {
     return {
-      actual: this.flurryWithoutProc,
+      actual: this.flurryHardCast,
       isGreaterThan: {
         minor: 0,
         average: 0,
         major: 3,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.brainFreezeOverwritenThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
-        let suggestBuilder;
-        if (this.hasGlacialSpike) {
-          suggestBuilder = suggest(<>You overwrote {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You should use <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> immediately following <SpellLink id={SPELLS.FROSTBOLT.id} /> if you have fewer than {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast. If you have {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast, save the <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />.</>);
-          // suggestBuilder = suggest(<>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs incorrectly. You should only hold <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have {CONST_NAME} icicles, or would have {CONST_NAME} <SpellLink id={SPELLS.ICICLES_BUFF.id} /> after your current <SpellLink id={SPELLS.FROSTBOLT.id} /> cast. If you have {MIN_ICICLES_DURING_FB_CAST_FOR_HOLD} or more <SpellLink id={SPELLS.ICICLES_BUFF.id} /> during the <SpellLink id={SPELLS.FROSTBOLT.id} /> cast, save the <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />.</>);
-        } else {
-          suggestBuilder = suggest(<>You overwrote {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as possible to avoid this.</>);
-        }
-        return suggestBuilder.icon(SPELLS.BRAIN_FREEZE.icon)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>You overwrite {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. You should use your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs as soon as possible and avoid letting them expire or be overwritten whenever possible. There are not any situations where it would be advantageous to hold your <SpellLink id={SPELLS.BRAIN_FREEZE.id} />.</>)
+          .icon(SPELLS.BRAIN_FREEZE.icon)
           .actual(`${formatPercentage(actual)}% overwritten`)
           .recommended(`Overwriting none is recommended`);
       });
     when(this.brainFreezeExpiredThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<>You allowed {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</>)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>You allowed {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Make sure you are using your procs as soon as possible to avoid this.</>)
           .icon(SPELLS.BRAIN_FREEZE.icon)
           .actual(`${formatPercentage(actual)}% expired`)
           .recommended(`Letting none expire is recommended`);
       });
     when(this.flurryWithoutBrainFreezeThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {actual} times.</>)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {actual} times. <SpellLink id={SPELLS.FLURRY.id} /> does not debuff the target with <SpellLink id={SPELLS.WINTERS_CHILL.id} /> unless you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc, so you should never cast <SpellLink id={SPELLS.FLURRY.id} /> unless you have <SpellLink id={SPELLS.BRAIN_FREEZE.id} />.</>)
           .icon(SPELLS.FLURRY.icon)
           .actual(`${formatNumber(actual)} casts`)
           .recommended(`Casting none is recommended`);
@@ -189,7 +158,7 @@ class BrainFreeze extends Analyzer {
             You got {this.totalProcs} total procs.
             <ul>
               <li>{this.usedProcs} used</li>
-              <li>{this.overwrittenProcs + this.okOverwrittenProcs} overwritten{this.okOverwrittenProcs > 0 && ` (${this.okOverwrittenProcs} of which were acceptable holds for Glacial Spike)`}</li>
+              <li>{this.overwrittenProcs} overwritten</li>
               <li>{this.expiredProcs} expired</li>
             </ul>
           </>

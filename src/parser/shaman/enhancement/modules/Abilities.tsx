@@ -1,9 +1,7 @@
-import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import SpellLink from 'common/SpellLink';
 import { STORMSTRIKE_CAST_SPELLS } from '../constants';
 
 class Abilities extends CoreAbilities {
@@ -48,13 +46,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          extraSuggestion: (
-            <>
-              The total damage that it deals is equal to 2-3 GCDs. Additionally their attacks have a chance to trigger <SpellLink id={SPELLS.STORMBRINGER_BUFF.id} />, weapon enchantments, azerite traits and essence effects. (Corruption effects have not been confirmed.)
-            </>
-          ),
+          suggestion: false,
         },
       },
       {

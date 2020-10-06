@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 
@@ -25,6 +24,17 @@ class Abilities extends CoreAbilities {
         ],
       },
       {
+        spell: SPELLS.NATURES_SWIFTNESS,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,//TODO include conduit reduction
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
         spell: SPELLS.INNERVATE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
@@ -38,7 +48,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.IRONBARK,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (60 - (combatant.hasTalent(SPELLS.STONEBARK_TALENT.id) ? 15 : 0)) * (combatant.hasHands(ITEMS.XONIS_CARESS.id) ? 0.8 : 1),
+        cooldown: (60 - (combatant.hasTalent(SPELLS.STONEBARK_TALENT.id) ? 15 : 0)),
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,

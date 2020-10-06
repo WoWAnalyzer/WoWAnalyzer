@@ -2,12 +2,13 @@ import React from 'react';
 
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 
-import SPELLS from 'common/SPELLS';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import CrossIcon from 'interface/icons/Cross';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
 /**
  * Tracks the amount of cancelled casts in %.
@@ -22,28 +23,28 @@ class CancelledCasts extends CoreCancelledCasts {
     super(options);
     this.IGNORED_ABILITIES = [
       //Include the spells that you do not want to be tracked and spells that are castable while casting
-      SPELLS.EXPLOSIVE_SHOT_DAMAGE.id,
+      ...CASTS_THAT_ARENT_CASTS,
     ];
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.cancelledPercentage,
-      isGreaterThan: {
-        minor: 0.025,
-        average: 0.05,
-        major: 0.1,
+      actual: 1 - this.cancelledPercentage,
+      isLessThan: {
+        minor: 0.975,
+        average: 0.95,
+        major: 0.9,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
-    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</>)
         .icon('inv_misc_map_01')
-        .actual(`${formatPercentage(actual)}% casts cancelled`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`);
+        .actual(`${formatPercentage(1 - actual)}% casts cancelled`)
+        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`);
     });
   }
 
