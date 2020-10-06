@@ -1,19 +1,19 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { EventType } from 'parser/core/Events';
+import { Event, EventType, ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 
 class Combustion extends EventsNormalizer {
   /**
    * @param {Array} events
    * @returns {Array}
    */
-  normalize(events: any) {
-    const fixedEvents: any = [];
-    events.forEach((event: any, eventIndex: any) => {
+  normalize(events: Event<any>[]) {
+    const fixedEvents: Event<any>[] = [];
+    events.forEach((event: Event<any>, eventIndex: number) => {
       fixedEvents.push(event);
 
-      if (event.type === EventType.Cast && event.ability.guid === SPELLS.COMBUSTION.id) {
+      if (event.type === EventType.Cast && (event as CastEvent).ability.guid === SPELLS.COMBUSTION.id) {
         const castTimestamp = event.timestamp;
 
         for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
@@ -21,7 +21,7 @@ class Combustion extends EventsNormalizer {
           if ((castTimestamp - previousEvent.timestamp) > 50) {
             break;
           }
-          if (previousEvent.type === EventType.ApplyBuff && previousEvent.ability.guid === SPELLS.COMBUSTION.id && previousEvent.sourceID === event.sourceID) {
+          if (previousEvent.type === EventType.ApplyBuff && (previousEvent as ApplyBuffEvent).ability.guid === SPELLS.COMBUSTION.id && (previousEvent as ApplyBuffEvent).sourceID === (event as CastEvent).sourceID) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;
