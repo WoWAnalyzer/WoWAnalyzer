@@ -73,6 +73,16 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.EXPEL_HARM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 500,
+        },
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
         spell: SPELLS.CHI_WAVE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
@@ -165,9 +175,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ENERGIZING_ELIXIR_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
-        gcd: {
-          static: 1000,
-        },
         enabled: combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id),
       },
       // Utility
@@ -245,13 +252,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1000,
           minimum: 750,
-        },
-      },
-      {
-        spell: SPELLS.EXPEL_HARM,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: {
-          static: 500,
         },
       },
       {
