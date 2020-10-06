@@ -33,7 +33,7 @@ class EarthShield extends Analyzer {
 
   healing = 0;
   buffHealing = 0;
-  category = STATISTIC_CATEGORY.GENERAL;
+  category = STATISTIC_CATEGORY.TALENTS;
 
   constructor(options: any) {
     super(options);
