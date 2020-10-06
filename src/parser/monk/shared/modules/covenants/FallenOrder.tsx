@@ -10,14 +10,14 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatNumber } from 'common/format';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class FallenOrder extends Analyzer {
   static dependencies = {
-    spellUsable: SpellUsable,
     abilities: Abilities,
   };
+
+  protected abilities!: Abilities;
 
   windDamage: number = 0;
   brewDamage: number = 0;
@@ -39,7 +39,7 @@ class FallenOrder extends Analyzer {
       return;
     }
 
-    options.abilities.add({
+    this.abilities.add({
       spell: SPELLS.FALLEN_ORDER_CAST,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 180,
@@ -93,14 +93,10 @@ class FallenOrder extends Analyzer {
     }
 
     const id: number = event.sourceID;
-    //if we are not tracking this guy we don't know what it is
-    if(!this.cloneMap.has(id)){
-      return;
-    }
 
     const cloneType: number | undefined = this.cloneMap.get(id);
     //because typescript won't let me just do this.cloneMap.get(id) i might as well add a null check too
-    if(!cloneType){
+    if(cloneType === undefined){
       return;
     }
 
