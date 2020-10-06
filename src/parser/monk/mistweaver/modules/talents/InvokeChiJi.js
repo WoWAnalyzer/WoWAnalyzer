@@ -16,6 +16,13 @@ import ItemManaGained from 'interface/ItemManaGained';
 const MANA_REDUCED_PER_STACK = .33;
 const MAX_STACKS = 3;
 
+/** 
+ * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick generate stacks of Invoke Chi-Ji, the Red Crane, which reduce the cast time and mana 
+ * cost of Enveloping Mist by 33% per stack, up to 3 stacks.
+ * These abilities also heal 2 nearby allies for a Gust of Mist heal.
+ * Casting Enveloping Mist while Chiji is active applies Enveloping Breath on up to 6 nearby allies within 10 yards.
+*/
+
 class InvokeChiJi extends Analyzer {
   //healing breakdown vars
   gustHealing = 0;
