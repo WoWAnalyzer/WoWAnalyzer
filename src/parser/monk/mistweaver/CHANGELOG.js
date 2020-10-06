@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 4), <>Added stack management breakdown to InvokeChiji talent module. </>, Vohrr),
   change(date(2020, 10, 4), <>Added Expel Harm module and updated relevant files. </>, Vohrr),
   change(date(2020, 10, 4), <>Corrected overhealing a few spells in MistweaverHealingEfficiencyTracker. </>, Vohrr),
   change(date(2020, 10, 3), <>Updated Chiji statbox to include enveloping breath healing. </>, Vohrr),
