@@ -7,11 +7,9 @@ import { formatNumber, formatThousands } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import SpellLink from 'common/SpellLink';
 import ItemManaGained from 'interface/ItemManaGained';
-
 
 const MANA_REDUCED_PER_STACK = .33;
 const MAX_STACKS = 3;
@@ -22,7 +20,6 @@ const MAX_STACKS = 3;
  * These abilities also heal 2 nearby allies for a Gust of Mist heal.
  * Casting Enveloping Mist while Chiji is active applies Enveloping Breath on up to 6 nearby allies within 10 yards.
 */
-
 class InvokeChiJi extends Analyzer {
   //healing breakdown vars
   gustHealing = 0;
@@ -90,7 +87,6 @@ class InvokeChiJi extends Analyzer {
       }
 
       if(this.chijiActive && this.selectedCombatant.hasBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id)) {
-
         if (this.chijiStackCount === MAX_STACKS) {
           this.manaSaved += manaCost;
           this.freeCasts += 1;
