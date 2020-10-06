@@ -884,3 +884,7 @@ export const AdamKelly: Contributor = {
     link: 'https://worldofwarcraft.com/en-gb/character/eu/defias-brotherhood/Karagus',
   }],
 };
+export const ChristopherKiss: Contributor = {
+  nickname: 'Chris',
+  github: 'ChristopherKiss',
+};
