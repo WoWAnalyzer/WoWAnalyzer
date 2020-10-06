@@ -36,6 +36,7 @@ import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
 
 import BladeRush from './modules/talents/BladeRush';
 import BladeFlurry from './modules/spells/BladeFlurry';
+import GuileCharm from './modules/spells/shadowlands/legendaries/GuileCharm';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rollTheBonesCastTracker: RollTheBonesCastTracker,
 
     //Items
+    guileCharm: GuileCharm,
 
     //Casts
     dispatch: Dispatch,

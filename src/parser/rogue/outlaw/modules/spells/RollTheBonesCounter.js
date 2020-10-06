@@ -55,7 +55,6 @@ class RollTheBonesCounter extends Analyzer {
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.ROLL_THE_BONES.id} /> distribution</label>
-
           {this.rolltheBonesBuffDistributionChart()}
         </div>
       </Statistic>

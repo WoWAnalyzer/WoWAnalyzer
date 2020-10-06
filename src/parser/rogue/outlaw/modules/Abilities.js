@@ -280,7 +280,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SERRATED_BONE_SPIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: !combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
         charges: 3,
         cooldown: 30,
         gcd: {
@@ -290,7 +290,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SEPSIS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
         gcd: {
           static: standardGcd,
         },
@@ -298,7 +298,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ECHOING_REPRIMAD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: !combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
         gcd: {
           static: standardGcd,
         },
@@ -306,7 +306,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLAGELLATION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: !combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
         gcd: {
           static: standardGcd,
         },

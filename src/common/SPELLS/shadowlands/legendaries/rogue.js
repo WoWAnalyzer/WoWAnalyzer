@@ -50,6 +50,21 @@ export default {
     name: 'Guile Charm',
     icon: 'ability_rogue_preyontheweak',
   },
+  SHALLOW_INSIGHT_BUFF: {
+    id: 340582,
+    name: 'Shallow Insight',
+    icon: 'inv_bijou_green',
+  },
+  MODERATE_INSIGHT_BUFF: {
+    id: 340583,
+    name: 'Moderate Insight',
+    icon: 'inv_bijou_yellow',
+  },
+  DEEP_INSIGHT_BUFF: {
+    id: 340584,
+    name: 'Deep Insight',
+    icon: 'inv_bijou_red',
+  },
   //endregion
 
   //region Subtlety
