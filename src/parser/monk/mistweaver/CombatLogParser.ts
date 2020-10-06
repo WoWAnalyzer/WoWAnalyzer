@@ -35,6 +35,7 @@ import RenewingMist from './modules/spells/RenewingMist';
 import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
 import InvokeYulon from './modules/spells/InvokeYulon';
 import InvokeChiJi from './modules/talents/InvokeChiJi';
+import ExpelHarm from './modules/spells/ExpelHarm';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
@@ -56,6 +57,9 @@ import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
+
+// Covenants
+import FallenOrder from '../shared/modules/covenants/FallenOrder';
 
 // Conduits
 // Endurance
@@ -116,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lifeCocoon: LifeCocoon,
     touchOfDeath: TouchOfDeath,
     invokeYulon: InvokeYulon,
+    expelHarm: ExpelHarm,
 
     // Talents
     chiBurst: ChiBurst,
@@ -134,6 +139,9 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTracker: ManaTracker,
     hpmDetails: MistweaverHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    // Covenants
+    fallenOrder: FallenOrder,
 
     // Conduits
     // Endurance

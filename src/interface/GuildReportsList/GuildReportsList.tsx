@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { WCLGuildReportsResponse } from 'interface/GuildReports/GuildReports';
 import { makePlainUrl }from 'interface/common/makeAnalyzerUrl';
 import ZONES from 'game/ZONES';
+import { WCLGuildReport } from "common/WCL_TYPES";
 
 interface Props {
-  reports: Array<WCLGuildReportsResponse>,
+  reports: Array<WCLGuildReport>,
 }
 
 function zoneNameById(id: number): string | undefined {

@@ -6,6 +6,7 @@ export default function makeApiUrl(endpoint: string, queryParams: QueryParams = 
 }
 
 type Fragment = string | null
+
 export function makeCharacterApiUrl(
   characterId: Fragment = null,
   region: Fragment = null,
@@ -28,7 +29,6 @@ export function makeGuildApiUrl(region: Fragment = null, realm: Fragment = null,
   if (region && realm && name) {
     parts.push(region, realm, name);
   }
-
   return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
 }
 
