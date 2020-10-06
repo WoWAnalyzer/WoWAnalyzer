@@ -7,6 +7,7 @@ import { formatNumber, formatThousands } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import SpellLink from 'common/SpellLink';
 import ItemManaGained from 'interface/ItemManaGained';
