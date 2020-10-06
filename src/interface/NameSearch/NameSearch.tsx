@@ -73,7 +73,7 @@ class NameSearch extends React.PureComponent<Props, State> {
       if (this.props.type === SearchType.GUILD) {
         response = await fetch(makeGuildApiUrl(region, realm, name));
       } else {
-        response = await fetch(makeCharacterApiUrl(null, region, realm, name));
+        response = await fetch(makeCharacterApiUrl(undefined, region, realm, name));
       }
       if (response.status === 500) {
         alert(
