@@ -15,6 +15,8 @@ import SoothingMist from 'parser/monk/mistweaver/modules/spells/SoothingMist';
 import RenewingMist from 'parser/monk/mistweaver/modules/spells/RenewingMist';
 import Vivify from 'parser/monk/mistweaver/modules/spells/Vivify';
 import RefreshingJadeWind from 'parser/monk/mistweaver/modules/talents/RefreshingJadeWind';
+import ExpelHarm from 'parser/monk/mistweaver/modules/spells/ExpelHarm.js';
+
 
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -33,6 +35,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     renewingMist: RenewingMist,
     vivify: Vivify,
     refreshingJadeWind: RefreshingJadeWind,
+    expelHarm: ExpelHarm,
   };
 
   getCustomSpellStats(spellInfo, spellId) {
@@ -54,6 +57,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getYulonDetails(spellInfo);
     } else if (spellId === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
       spellInfo = this.getChijiDetails(spellInfo);
+    } else if (spellId === SPELLS.EXPEL_HARM.id) {
+      spellInfo = this.getExpelHarmDetails(spellInfo);
     }
 
     return spellInfo;
@@ -68,6 +73,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getEnvelopingMistsDetails(spellInfo) {
     spellInfo.healingDone = spellInfo.healingDone + this.envelopingMists.gustsHealing + this.envelopingMists.healingIncrease;
+    // Enveloping breath part
+    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
+    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).overheal;
+
     return spellInfo;
   }
 
@@ -103,27 +112,28 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getRisingSunKickDetails(spellInfo) {
     // Since I don't want messy code right now it will only give the rising mist healing not any of the other fun stuff it gives indirectly
     spellInfo.healingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).effective;
-    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).effective;
+    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).overheal;
     return spellInfo;
   }
 
   getYulonDetails(spellInfo) {
     // Get all soothing breath and enveloping breath healing since its all bc of yu'lon
     spellInfo.healingDone = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id).effective;
-    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id).effective;
-    // Enveloping breath part
-    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
-    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
+    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id).overheal;
     return spellInfo;
   }
 
   getChijiDetails(spellInfo) {
     spellInfo.healingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).effective;
-    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).effective;
+    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).overheal;
+    return spellInfo;
+  }
+  getExpelHarmDetails(spellInfo) {
+    spellInfo.healingDone = spellInfo.healingDone + this.expelHarm.gustsHealing + this.expelHarm.selfHealing + this.expelHarm.targetHealing;
+    spellInfo.overhealingDone = spellInfo.overhealingDone + this.expelHarm.selfOverheal + this.expelHarm.targetOverheal;
     return spellInfo;
   }
 
-  
 }
 
 export default MistweaverHealingEfficiencyTracker;

@@ -5,9 +5,9 @@ import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const BUFF_DURATION = 12000;
 const BUFFER = 100;
@@ -43,8 +43,8 @@ class Nightfall extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
-        size="small"
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.NIGHTFALL_TALENT}>
           {this.wastedProcs} <small>wasted procs</small>

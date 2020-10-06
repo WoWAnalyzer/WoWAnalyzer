@@ -2077,7 +2077,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               31
-              /43
+              /57
                
               casts
             </td>
@@ -2096,7 +2096,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "73.48506129172212%",
+                      "width": "54.70854260271051%",
                     }
                   }
                 />
@@ -2111,7 +2111,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              73.49%
+              54.71%
             </td>
             <td
               style={
@@ -5507,6 +5507,53 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 </dfn>
               </div>
             </div>
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <div
+                  className="circle"
+                  style={
+                    Object {
+                      "background": "#03fcad",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=322101"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_monk_expelharm.jpg"
+                  />
+                   
+                  Expel Harm
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+              >
+                <dfn
+                  className=""
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={Object {}}
+                >
+                  0
+                  %
+                </dfn>
+              </div>
+            </div>
           </div>
           <div
             className="chart"
@@ -5556,6 +5603,8 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         Mastery: Gust of Mists
       </a>
        healing is added to the appropriate spell that caused the gust. 
+      <br />
+       
       <a
         href="http://wowhead.com/spell=191837"
         rel="noopener noreferrer"
@@ -5584,6 +5633,8 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         Essence Font
       </a>
        the second gust would not have happened. 
+      <br />
+       
       <a
         href="http://wowhead.com/spell=115151"
         rel="noopener noreferrer"
@@ -5639,7 +5690,65 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
          
         Vivify
       </a>
-       wouldn't have splashed.
+       wouldn't have splashed. 
+      <br />
+       
+      <a
+        href="http://wowhead.com/spell=124682"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt=""
+          className="icon game "
+          src="//render-us.worldofwarcraft.com/icons/56/spell_monk_envelopingmist.jpg"
+        />
+         
+        Enveloping Mist
+      </a>
+       is given the healing of 
+      <a
+        href="http://wowhead.com/spell=325209"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt=""
+          className="icon game "
+          src="//render-us.worldofwarcraft.com/icons/56/ability_monk_chiexplosion.jpg"
+        />
+         
+        Enveloping Breath
+      </a>
+       since without casting 
+      <a
+        href="http://wowhead.com/spell=124682"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt=""
+          className="icon game "
+          src="//render-us.worldofwarcraft.com/icons/56/spell_monk_envelopingmist.jpg"
+        />
+         
+        Enveloping Mist
+      </a>
+      , 
+      <a
+        href="http://wowhead.com/spell=325209"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt=""
+          className="icon game "
+          src="//render-us.worldofwarcraft.com/icons/56/ability_monk_chiexplosion.jpg"
+        />
+         
+        Enveloping Breath
+      </a>
+       healing would not occur.
     </small>
   </div>
   <div
@@ -5908,9 +6017,9 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="performance-bar"
                 style={
                   Object {
-                    "backgroundColor": "#4ec04e",
+                    "backgroundColor": "#a6c34c",
                     "transition": "background-color 800ms",
-                    "width": "100%",
+                    "width": "83.67029548989113%",
                   }
                 }
               />
@@ -5963,7 +6072,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            197k
+            643k
           </td>
           <td
             width="20%"
@@ -5975,9 +6084,9 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="performance-bar"
                 style={
                   Object {
-                    "backgroundColor": "#df7102",
+                    "backgroundColor": "#4ec04e",
                     "transition": "background-color 800ms",
-                    "width": "36.61710037174721%",
+                    "width": "100%",
                   }
                 }
               />
@@ -6044,7 +6153,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "30.66914498141264%",
+                    "width": "25.660964230171075%",
                   }
                 }
               />
@@ -6097,7 +6206,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            232k
+            236k
           </td>
           <td
             width="20%"
@@ -6111,7 +6220,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#df7102",
                     "transition": "background-color 800ms",
-                    "width": "43.12267657992565%",
+                    "width": "36.70295489891136%",
                   }
                 }
               />
@@ -6178,7 +6287,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "5.204460966542751%",
+                    "width": "4.354587869362364%",
                   }
                 }
               />

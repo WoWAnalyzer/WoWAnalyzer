@@ -10,7 +10,7 @@ import NameSearch, { SearchType } from 'interface/NameSearch';
 import ReportIcon from 'interface/icons/Events';
 import CharacterIcon from 'interface/icons/Person';
 import GuildIcon from 'interface/icons/People';
-import ReportSelecter from '../others/ReportSelecter';
+import ReportSelecter from '../ReportSelecter';
 import ReportHistory from './ReportHistory';
 
 import '../Header.scss';

@@ -5,7 +5,7 @@ class ManaTracker extends ResourceTracker {
   constructor(...args) {
     super(...args);
     this.resource = RESOURCE_TYPES.MANA;
-    this.maxResource = 50000; //TODO check for chest enchant that increases max mana by 6%
+    this.maxResource = 50000; // 6% mana chest enchant gets added automatically
   }
 }
 
