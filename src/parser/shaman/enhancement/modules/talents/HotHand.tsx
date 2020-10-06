@@ -39,16 +39,6 @@ class HotHand extends Analyzer {
     }
 
     this.addEventListener(
-      Events.applybuff.spell(SPELLS.LANDSLIDE_BUFF),
-      this.onHotHandBuff,
-    );
-
-    this.addEventListener(
-      Events.refreshbuff.spell(SPELLS.LANDSLIDE_BUFF),
-      this.onHotHandBuff,
-    );
-
-    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
         .spell(SPELLS.LAVA_LASH),
       this.onLavaLashDamage,

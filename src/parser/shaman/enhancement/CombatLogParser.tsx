@@ -38,8 +38,8 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromDetails: MaelstromDetails,
 
     // Shaman Core
-    flametongue: Flametongue,
-    flametongueRefresh: FlametongueRefresh,
+    //flametongue: Flametongue,
+    //flametongueRefresh: FlametongueRefresh,
     stormbringer: Stormbringer,
 
     // Features
@@ -52,15 +52,16 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     //lashingFlames: LashingFlames,
     forcefulWinds: ForcefulWinds,
-    //elementalBlase: ElementalBlast,
+    //elementalBlast: ElementalBlast,
     //stormfury: Stormfury,
     hotHand: HotHand,
-    //icyStrike: IcyStrike,
+    //iceStrike: IceStrike,
     spiritWolf: SpiritWolf,
     earthShield: EarthShield,
     staticCharge: StaticCharge,
     //elementalAssault: ElementalAssault,
     hailstorm: Hailstorm,
+    //fireNova: FireNova,
     naturesGuardian: NaturesGuardian,
     crashingStorm: CrashingStorm,
     //stormkeeper: Stormkeeper,

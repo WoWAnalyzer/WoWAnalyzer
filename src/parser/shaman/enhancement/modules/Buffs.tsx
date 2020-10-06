@@ -6,18 +6,6 @@ class Buffs extends CoreBuffs {
   buffs() {
     return [
       {
-        spellId: SPELLS.FLAMETONGUE_BUFF.id,
-        timelineHightlight: true,
-      },
-      {
-        spellId: SPELLS.FROSTBRAND.id,
-        timelineHightlight: true,
-      },
-      {
-        spellId: SPELLS.FURY_OF_AIR_TALENT.id,
-        timelineHightlight: true,
-      },
-      {
         spellId: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id,
         timelineHightlight: true,
       },
@@ -27,6 +15,10 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.BERSERKING.id,
+        timelineHightlight: true,
+      },
+      {
+        spellId: SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL.id,
         timelineHightlight: true,
       },
       {

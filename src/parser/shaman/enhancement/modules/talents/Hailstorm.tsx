@@ -17,6 +17,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
  *
  * Example Log:
  */
+// TODO: needs update for shadowlands overhaul
 class Hailstorm extends Analyzer {
   constructor(options: any) {
     super(options);

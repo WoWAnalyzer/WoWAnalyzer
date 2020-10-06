@@ -2,34 +2,34 @@ export default {
   // Shared
   ECHO_OF_THE_ELEMENTS_TALENT: { id: 108283, name: 'Echo of the Elements', icon: 'ability_shaman_echooftheelements' },
   SPIRIT_WOLF_TALENT: { id: 260878, name: 'Spirit Wolf', icon: 'spell_hunter_lonewolf' },
-  EARTH_SHIELD_TALENT: { id: 974, name: 'Earth Shield', icon: 'spell_nature_skinofearth', manaCost: 2000 },
+  // Earth Shield is baseline for resto
+  EARTH_SHIELD_TALENT: { id: 974, name: 'Earth Shield', icon: 'spell_nature_skinofearth', manaCost: 1000 },
   STATIC_CHARGE_TALENT: { id: 265046, name: 'Static Charge', icon: 'spell_nature_brilliance' },
   NATURES_GUARDIAN_TALENT: { id: 30884, name: 'Nature\'s Guardian', icon: 'spell_nature_natureguardian' },
   WIND_RUSH_TOTEM_TALENT: { id: 192077, name: 'Wind Rush Totem', icon: 'ability_shaman_windwalktotem' },
   CLOUDBURST_TOTEM_TALENT: { id: 157153, name: 'Cloudburst Totem', icon: 'ability_shaman_condensationtotem', manaCost: 860 },
   // Enhancement
-  BOULDERFIST_TALENT: { id: 246035, name: 'Boulderfist', icon: 'ability_earthenfury_giftofearth' },
-  HOT_HAND_TALENT: { id: 201900, name: 'Hot Hand', icon: 'spell_fire_playingwithfire' },
-  LIGHTNING_SHIELD_TALENT: { id: 192106, name: 'Lightning Shield', icon: 'spell_nature_lightningshield' },
-  LANDSLIDE_TALENT: { id: 197992, name: 'Landslide', icon: 'inv_ore_blackrock_nugget' },
+  LASHING_FLAMES_TALENT: { id: 334046, name: 'Lashing Flames', icon: 'spell_shaman_improvelavalash' },
   FORCEFUL_WINDS_TALENT: { id: 262647, name: 'Forceful Winds', icon: 'spell_shaman_unleashweapon_wind' },
-  SEARING_ASSAULT_TALENT: { id: 192087, name: 'Searing Assault', icon: 'ability_rhyolith_magmaflow_wave' },
-  HAILSTORM_TALENT: { id: 210853, name: 'Hailstorm', icon: 'spell_frost_frostbrand' },
-  OVERCHARGE_TALENT: { id: 210727, name: 'Overcharge', icon: 'spell_nature_callstorm' },
+  STORMFLURRY_TALENT: { id: 344357, name: 'Stormflurry', icon: 'ability_shaman_stormstrike' },
+  HOT_HAND_TALENT: { id: 201900, name: 'Hot Hand', icon: 'spell_fire_playingwithfire' },
+  ICE_STIRKE_TALENT: { id: 342240, name: 'Ice Strike', icon: 'spell_frost_frostbolt', manaCost: 330 },
+  ELEMENTAL_ASSAULT_TALENT: { id: 210853, name: 'Elemental Assault', icon: 'shaman_talent_unleashedfury' },
+  HAILSTORM_TALENT: { id: 334195, name: 'Hailstorm', icon: 'spell_frost_icestorm' },
+  FIRE_NOVA_TALENT: { id: 333974, name: 'Fire Nova', icon: 'spell_shaman_improvedfirenova', manaCost: 550 },
   FERAL_LUNGE_TALENT: { id: 196884, name: 'Feral Lunge', icon: 'spell_beastmaster_wolf' },
   CRASHING_STORM_TALENT: { id: 192246, name: 'Crashing Storm', icon: 'spell_nature_unrelentingstorm' },
-  FURY_OF_AIR_TALENT: { id: 197211, name: 'Fury of Air', icon: 'ability_ironmaidens_swirlingvortex', maelstromCost: 3 },
-  SUNDERING_TALENT: { id: 197214, name: 'Sundering', icon: 'ability_rhyolith_lavapool', maelstromCost: 20 },
+  STORMKEEPER_TALENT_ENHANCEMENT: { id: 320137, name: 'Stormkeeper', icon: 'ability_thunderking_lightningwhip' },
+  SUNDERING_TALENT: { id: 197214, name: 'Sundering', icon: 'ability_rhyolith_lavapool', manaCost: 600 },
   ELEMENTAL_SPIRITS_TALENT: { id: 262624, name: 'Elemental Spirits', icon: 'spell_shaman_feralspirit' },
-  EARTHEN_SPIKE_TALENT: { id: 188089, name: 'Earthen Spike', icon: 'ability_earthen_pillar', maelstromCost: 20 },
-  TOTEM_MASTERY_TALENT_ENHANCEMENT: { id: 262395, name: 'Totem Mastery', icon: 'spell_nature_wrathofair_totem' },
+  EARTHEN_SPIKE_TALENT: { id: 188089, name: 'Earthen Spike', icon: 'ability_earthen_pillar', manaCost: 375 },
   ASCENDANCE_TALENT_ENHANCEMENT: { id: 114051, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },
-  
+
   // Elemental
   // 15
   EARTHEN_RAGE_TALENT: { id: 170374, name: 'Earthen Rage', icon: 'ability_earthen_pillar' },
   // Echo of the Elements is shared
-  ELEMENTAL_BLAST_TALENT: { id: 117014, name: 'Elemental Blast', icon: 'shaman_talent_elementalblast' },
+  ELEMENTAL_BLAST_TALENT: { id: 117014, name: 'Elemental Blast', icon: 'shaman_talent_elementalblast', manaCost: 275 },
   // 30
   AFTERSHOCK_TALENT: { id: 273221, name: 'Aftershock', icon: 'spell_nature_stormreach' },
   CALL_THE_THUNDER_TALENT: { id: 260897, name: 'Call the Thunder', icon: 'ability_thunderking_thunderstruck' },

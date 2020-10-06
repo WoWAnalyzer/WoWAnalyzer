@@ -71,9 +71,15 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
       },
       {
-        spell: SPELLS.LIGHTNING_BOLT_ENHANCE,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: haste => (combatant.hasTalent(SPELLS.OVERCHARGE_TALENT) ? 9 * (1 + haste) : 0),
+        spell: SPELLS.LIGHTNING_BOLT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.CHAIN_LIGHTNING,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
@@ -83,21 +89,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 12,
         gcd: undefined,
-      },
-      {
-        spell: SPELLS.FROSTBRAND,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.FLAMETONGUE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: haste => 12 / (1 + haste),
       },
       {
         spell: STORMSTRIKE_CAST_SPELLS,
@@ -224,14 +215,6 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: SPELLS.FURY_OF_AIR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id),
-      },
-      {
         spell: SPELLS.SUNDERING_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
@@ -241,12 +224,11 @@ class Abilities extends CoreAbilities {
         cooldown: 40,
       },
       {
-        spell: SPELLS.LIGHTNING_SHIELD_TALENT,
+        spell: SPELLS.LIGHTNING_SHIELD,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0,

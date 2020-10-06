@@ -394,27 +394,6 @@ export default {
     icon: 'spell_fire_immolation',
   },
   // Enhancement Shaman
-  ROCKBITER: {
-    id: 193786,
-    name: 'Rockbiter',
-    icon: 'spell_nature_rockbiter',
-  },
-  FROSTBRAND: {
-    id: 196834,
-    name: 'Frostbrand',
-    icon: 'spell_shaman_unleashweapon_frost',
-    maelstrom: 20,
-  },
-  FLAMETONGUE: {
-    id: 193796,
-    name: 'Flametongue',
-    icon: 'spell_fire_flametounge',
-  },
-  FLAMETONGUE_BUFF: {
-    id: 194084,
-    name: 'Flametongue',
-    icon: 'spell_fire_flametounge',
-  },
   CRASH_LIGHTNING: {
     id: 187874,
     name: 'Crash Lightning',
@@ -521,11 +500,6 @@ export default {
     manaCost: 2400,
     maelstrom: 20,
   },
-  LIGHTNING_BOLT_ENHANCE: {
-    name: "Lightning Bolt",
-    id: 187837,
-    icon: "spell_nature_lightning",
-  },
   FERAL_LUNGE: {
     id: 196881,
     name: 'Feral Lunge',
@@ -608,11 +582,6 @@ export default {
     name: 'Spirit of the Maelstrom',
     icon: 'ability_shaman_freedomwolf',
   },
-  FURY_OF_AIR_DAMAGE: {
-    id: 197385,
-    name: 'Fury of Air',
-    icon: 'ability_ironmaidens_swirlingvortex',
-  },
   WINDFURY_ATTACK_BUFF: {
     id: 204608,
     name: 'Windfury Attack',
@@ -628,13 +597,8 @@ export default {
     name: 'Hailstorm',
     icon: 'spell_frost_frostbrand',
   },
-  LANDSLIDE_BUFF: {
-    id: 202004,
-    name: 'Landslide',
-    icon: 'inv_ore_blackrock_nugget',
-  },
   LIGHTNING_SHIELD:{
-    id: 273324,
+    id: 192106,
     name: 'Lightning Shield',
     icon: 'spell_nature_lightningshield',
   },
@@ -642,11 +606,6 @@ export default {
     id: 262652,
     name: 'Forceful Winds Buff',
     icon: 'spell_shaman_unleashweapon_wind',
-  },
-  SEARING_ASSAULT_DAMAGE: {
-    id: 268429,
-    name: 'Searing Assault Damage',
-    icon: 'ability_rhyolith_magmaflow_wave',
   },
   HOT_HAND_BUFF: {
     id: 215785,
