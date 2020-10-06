@@ -1,4 +1,6 @@
-import { QueryParams } from "./QueryParams";
+export interface QueryParams {
+  [key: string]: string;
+}
 
 export default function makeQueryString(queryParams: QueryParams = {}): string {
   const entries = Object.entries(queryParams);
