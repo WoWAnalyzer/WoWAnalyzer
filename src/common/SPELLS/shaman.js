@@ -78,7 +78,7 @@ export default {
     id: 974, 
     name: 'Earth Shield', 
     icon: 'spell_nature_skinofearth', 
-    manaCost: 2000,
+    manaCost: 1000,
   },
   EARTH_SHIELD_HEAL: {
     id: 379,
@@ -100,6 +100,16 @@ export default {
     id: 51886,
     name: 'Cleanse Spirit',
     icon: 'ability_shaman_cleansespirit',
+  },
+  LIGHTNING_SHIELD: {
+    id: 192106,
+    name: 'Lightning Shield',
+    icon: 'spell_nature_lightningshield',
+  },
+  FROST_SHOCK: {
+    id: 196840,
+    name: 'Frost Shock',
+    icon: 'spell_frost_frostshock',
   },
   // Hex and its variations
   HEX: {
@@ -168,7 +178,7 @@ export default {
     id: 51505,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
-    manaCost: 1200,
+    manaCost: 250,
     coefficient: 0.53125,
   },
   LAVA_BURST_DAMAGE: {
@@ -317,11 +327,6 @@ export default {
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
     max_maelstrom: 20,
-  },
-  FROST_SHOCK: {
-    id: 196840,
-    name: 'Frost Shock',
-    icon: 'spell_frost_frostshock',
   },
   FROST_SHOCK_ENERGIZE: {
     icon: "spell_frost_frostshock",
@@ -639,11 +644,6 @@ export default {
     name: 'Landslide',
     icon: 'inv_ore_blackrock_nugget',
   },
-  LIGHTNING_SHIELD:{
-    id: 273324,
-    name: 'Lightning Shield',
-    icon: 'spell_nature_lightningshield',
-  },
   FORCEFUL_WINDS_BUFF: {
     id: 262652,
     name: 'Forceful Winds Buff',
@@ -840,5 +840,20 @@ export default {
     name: 'High Tide',
     icon: 'spell_shaman_hightide',
     coefficient: 1.68,
+  },
+  MANA_TIDE_TOTEM_CAST: {
+    id: 16191,
+    name: 'Mana Tide Totem',
+    icon: 'spell_frost_summonwaterelemental',
+  },
+  MANA_TIDE_TOTEM_BUFF: {
+    id: 320763,
+    name: 'Mana Tide Totem',
+    icon: 'spell_frost_summonwaterelemental',
+  },
+  WATER_SHIELD: {
+    id: 52127,
+    name: 'Water Shield',
+    icon: 'ability_shaman_watershield',
   },
 };
