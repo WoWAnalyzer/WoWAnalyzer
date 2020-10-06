@@ -6,6 +6,7 @@ import Events from 'parser/core/Events';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
 class InvokeChiJi extends Analyzer {
@@ -32,6 +33,7 @@ class InvokeChiJi extends Analyzer {
     return (
         <Statistic
           position={STATISTIC_ORDER.OPTIONAL(50)}
+          category={STATISTIC_CATEGORY.TALENTS}
           size="flexible"
           tooltip={
             <Trans>
