@@ -9,6 +9,7 @@ import { change, date } from 'common/changelog';
 export default [
   change(date(2020, 10, 6), <>Updated <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> and <SpellLink id={SPELLS.ESSENCE_FONT.id} /> modules to use Event Listeners.</>, [Anomoly]),
   change(date(2020, 10, 6), <>Updated <SpellLink id={SPELLS.RENEWING_MIST.id} /> to use Event Listeners.</>, [Anomoly]),
+  change(date(2020, 10, 6), <>Added Fallen Order statistic.</>, Abelito75),
   change(date(2020, 10, 6), <>Updated core spec module files to TypeScript.</>, [Anomoly]),
   change(date(2020, 10, 6), <>Moved <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} /> statistic box to the correct location.</>, [Moonrabbit]),
   change(date(2020, 10, 4), <>Added Expel Harm module and updated relevant files.</>, [Vohrr]),

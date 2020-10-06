@@ -1,4 +1,4 @@
-import { Juko8 } from 'CONTRIBUTORS';
+import { Juko8, Abelito75 } from 'CONTRIBUTORS';
 
 import React from 'react';
 import SPELLS from 'common/SPELLS';
@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 6), <>Added Fallen Order statistic.</>, Abelito75),
   change(date(2020, 9, 9), 'Updated for 9.0 Shadowlands', Juko8),
   change(date(2020, 1, 15), 'Marked as up to date for 8.3', Juko8),
   change(date(2019, 10, 14), <>Updated cooldown calculations with <SpellLink id={SPELLS.SERENITY_TALENT.id} /> and added statistic showing its effective damage increase and cooldown reductions.</>, Juko8),

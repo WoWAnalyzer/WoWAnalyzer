@@ -33,6 +33,10 @@ import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import ExpelHarmNorm from './normalizers/ExpelHarm';
 
+// Covenants
+import FallenOrder from '../shared/modules/covenants/FallenOrder';
+
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -72,6 +76,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // normalizers
     gotoxNorm: GiftOfTheOx,
     ehNorm: ExpelHarmNorm,
+
+    // Covenants
+    fallenOrder: FallenOrder,
   };
 }
 

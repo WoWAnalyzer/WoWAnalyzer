@@ -27,6 +27,11 @@ import ArcaneFamiliar from './modules/talents/ArcaneFamiliar';
 //Conduits
 import ArcaneProdigy from './modules/items/ArcaneProdigy';
 import ArtificeOfTheArchmage from './modules/items/ArtificeOfTheArchmage';
+import DivertedEnergy from '../shared/modules/items/DivertedEnergy';
+import GroundingSurge from '../shared/modules/items/GroundingSurge';
+import IreOfTheAscended from '../shared/modules/items/IreOfTheAscended';
+import TempestBarrier from '../shared/modules/items/TempestBarrier';
+import SiphonedMalice from '../shared/modules/items/SiphonedMalice';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -60,6 +65,11 @@ class CombatLogParser extends CoreCombatLogParser {
     //Conduits
     arcaneProdigy: ArcaneProdigy,
     artificeOfTheArchmage: ArtificeOfTheArchmage,
+    divertedEnergy: DivertedEnergy,
+    groundingSurge: GroundingSurge,
+    ireOfTheAscended: IreOfTheAscended,
+    tempestBarrier: TempestBarrier,
+    siphonedMalice: SiphonedMalice,
   };
 }
 
