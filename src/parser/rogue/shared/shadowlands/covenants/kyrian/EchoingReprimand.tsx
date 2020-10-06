@@ -40,22 +40,20 @@ class EchoingReprimand extends Analyzer {
 
   statistic() {
     return (
-      <>
-        <Statistic
-          size="flexible"
-          category={STATISTIC_CATEGORY.COVENANTS}
-        >
-          <BoringSpellValueText spell={SPELLS.ECHOING_REPRIMAND}>
-            <>
-              <ItemDamageDone amount={this.damage} />
-              <br />
-              <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
-              {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
-              <small> Combo Points gained</small>
-            </>
-          </BoringSpellValueText>
-        </Statistic>
-      </>
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+      >
+        <BoringSpellValueText spell={SPELLS.ECHOING_REPRIMAND}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+            <br />
+            <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
+            {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
+            <small> Combo Points gained</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

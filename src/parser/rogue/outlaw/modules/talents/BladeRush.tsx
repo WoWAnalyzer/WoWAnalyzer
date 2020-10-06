@@ -11,7 +11,6 @@ class BladeRush extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  hasTrueBearing: boolean = false;
   protected abilities!: Abilities;
   protected spellUsable!: SpellUsable;
 
@@ -19,16 +18,6 @@ class BladeRush extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISPATCH, SPELLS.EVISCERATE, SPELLS.KIDNEY_SHOT, SPELLS.BETWEEN_THE_EYES, SPELLS.SLICE_AND_DICE]), this.onFinishMove);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TRUE_BEARING), this.onApplyTrueBearing);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TRUE_BEARING), this.onRemoveTrueBearing);
-  }
-
-  onRemoveTrueBearing() {
-    this.hasTrueBearing = false;
-  }
-
-  onApplyTrueBearing() {
-    this.hasTrueBearing = true;
   }
 
   onFinishMove(event: CastEvent) {
@@ -37,10 +26,7 @@ class BladeRush extends Analyzer {
       if (cooldownRemaining) {
         if (getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id)) {
           const cpCost = getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id).cost;
-          let extraCDR = 0;
-          if (this.hasTrueBearing) {
-            extraCDR = cpCost * 1000;
-          }
+          const extraCDR = this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id) ? (cpCost * 1000) : 0;
           const cooldownReduction = (cpCost * 1000) + extraCDR;
           const newChargeCDR = cooldownRemaining - cooldownReduction;
           if (newChargeCDR < 0) {

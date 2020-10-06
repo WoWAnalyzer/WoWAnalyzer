@@ -55,22 +55,20 @@ class SerratedBoneSpike extends Analyzer {
 
   statistic() {
     return (
-      <>
-        <Statistic
-          size="flexible"
-          category={STATISTIC_CATEGORY.COVENANTS}
-        >
-          <BoringSpellValueText spell={SPELLS.SERRATED_BONE_SPIKE_DEBUFF}>
-            <>
-              <ItemDamageDone amount={this.damage} />
-              <br />
-              <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
-              {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
-              <small> gained Combo Points</small>
-            </>
-          </BoringSpellValueText>
-        </Statistic>
-      </>
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+      >
+        <BoringSpellValueText spell={SPELLS.SERRATED_BONE_SPIKE_DEBUFF}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+            <br />
+            <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
+            {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
+            <small> gained Combo Points</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
