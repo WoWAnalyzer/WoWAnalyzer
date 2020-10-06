@@ -1,13 +1,9 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-
 import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import SpellLink from 'common/SpellLink';
 
 class SliceAndDiceUptime extends Analyzer {

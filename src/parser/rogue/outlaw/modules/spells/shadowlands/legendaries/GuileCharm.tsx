@@ -1,12 +1,9 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent } from 'parser/core/Events';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Statistic from 'interface/statistics/Statistic';
 import { formatPercentage } from 'common/format';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import SpellLink from 'common/SpellLink';
 
