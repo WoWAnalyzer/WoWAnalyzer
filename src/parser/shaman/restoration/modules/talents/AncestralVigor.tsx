@@ -14,20 +14,29 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
-import { EventType } from 'parser/core/Events';
+import { DamageEvent, EventType } from 'parser/core/Events';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
+
+interface Query {
+  start: number,
+  end: number,
+  filter: string,
+}
 
 class AncestralVigor extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
+
+  protected combatants!: Combatants;
+
   loaded = false;
-  lifeSavingEvents = [];
+  lifeSavingEvents: Array<DamageEvent> = [];
   disableStatistics = false;
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = !!this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
     if (!this.active) {
       return;
@@ -40,10 +49,11 @@ class AncestralVigor extends Analyzer {
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
-  fetchAll(pathname, query) {
-    const checkAndFetch = async _query => {
+  fetchAll(pathname: string, query: Query) {
+    const checkAndFetch: any = async (_query: Query) => {
       const json = await fetchWcl(pathname, _query);
-      this.lifeSavingEvents.push(...json.events);
+      const events = json.events as Array<DamageEvent>;
+      this.lifeSavingEvents.push(...events);
       if (json.nextPageTimestamp) {
         return checkAndFetch(Object.assign(query, {
           start: json.nextPageTimestamp,
@@ -121,7 +131,10 @@ class AncestralVigor extends Analyzer {
               {
                 this.lifeSavingEvents
                   .map((event, index) => {
-                    const combatant = this.combatants.players[event.targetID];
+                    const combatant = this.combatants.getEntity(event);
+                    if (combatant === null) {
+                      return null;
+                    }
                     const spec = SPECS[combatant.specId];
                     const specClassName = spec.className.replace(' ', '');
 
@@ -133,7 +146,7 @@ class AncestralVigor extends Analyzer {
                           <SpellLink id={event.ability.guid} icon={false}>
                             <Icon icon={event.ability.abilityIcon} />
                           </SpellLink></td>
-                        <td>{formatPercentage(event.hitPoints / event.maxHitPoints)}%</td>
+                        <td>{(formatPercentage((event.hitPoints || NaN) / (event.maxHitPoints || NaN)))}%</td>
                       </tr>
                     );
                   },
