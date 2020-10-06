@@ -18,16 +18,16 @@ const ReportDurationWarning = ({ duration }: Props) => {
   };
 
   return (
-      <div className="container">
-        <Warning style={{ marginBottom: 30 }}>
-          <h2><Trans>Report exceeds supported duration</Trans></h2>
-          <Trans>
-            The current report contains data collected over <strong>{formatNumber(durationInDays())} {durationInDays() > 1 ? 'days' : 'day'}</strong>.
+    <div className="container">
+      <Warning style={{ marginBottom: 30 }}>
+        <h2><Trans>Report exceeds supported duration</Trans></h2>
+        <Trans>
+          The current report contains data collected over <strong>{formatNumber(durationInDays())} {durationInDays() > 1 ? 'days' : 'day'}</strong>.
             This could lead to parsing issues with fights later in the report.
             We recommend that you split your logs before uploading them to warcraftlogs.com.
           </Trans>
-        </Warning>
-      </div>
+      </Warning>
+    </div>
   );
 };
 
