@@ -877,3 +877,7 @@ export const ChagriAli: Contributor = {
   nickname: 'chagriali',
   github: 'chagriali',
 };
+export const ChristopherKiss: Contributor = {
+  nickname: 'Chris',
+  github: 'ChristopherKiss',
+};
