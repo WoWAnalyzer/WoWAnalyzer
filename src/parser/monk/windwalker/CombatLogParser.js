@@ -24,6 +24,10 @@ import BlackoutKick from './modules/spells/BlackoutKick';
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
 
+// Covenants
+import FallenOrder from '../shared/modules/covenants/FallenOrder';
+
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -54,6 +58,9 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
+
+    // Covenants
+    fallenOrder: FallenOrder,
   };
 }
 
