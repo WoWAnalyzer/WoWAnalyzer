@@ -42,7 +42,7 @@ describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
     parser = new TestCombatLogParser();
     module = parser.loadModule(HealingRain, {
       combatants: {
-        players,
+        getEntity: (event) => { return players.includes(event.targetID); },
       },
     });
   });
