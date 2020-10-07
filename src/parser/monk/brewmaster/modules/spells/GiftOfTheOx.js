@@ -99,7 +99,7 @@ export default class GiftOfTheOx extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={GIFT_OF_THE_OX_SPELLS[0].id} />}
-        label={"Gift of the Ox Healing"}
+        label="Gift of the Ox Healing"
         value={`${formatNumber(this.totalHealing / (this.owner.fightDuration / 1000))} HPS`}
         tooltip={(
           <>

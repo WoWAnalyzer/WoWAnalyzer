@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
 
 import ITEMS from 'common/ITEMS';
@@ -24,7 +24,7 @@ class HummingBlackDragonscale extends Analyzer {
   hasteRating: number = 0;
   speedRating: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.item = this.selectedCombatant.getTrinket(ITEMS.HUMMING_BLACK_DRAGONSCALE.id);
@@ -36,7 +36,7 @@ class HummingBlackDragonscale extends Analyzer {
 
     this.hasteRating = calculateSecondaryStatDefault(430, 383, this.item?.itemLevel);
     this.speedRating = calculateSecondaryStatJewelry(430, 170, this.item?.itemLevel);
-    options.statTracker.add(SPELLS.HUMMING_BLACK_DRAGONSCALE_BUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.HUMMING_BLACK_DRAGONSCALE_BUFF.id, {
       haste: this.hasteRating,
       speed: this.speedRating,
     });

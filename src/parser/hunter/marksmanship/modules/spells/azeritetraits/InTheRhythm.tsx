@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -38,7 +38,7 @@ class InTheRhythm extends Analyzer {
   wastedUptime = 0;
   protected statTracker!: StatTracker;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.IN_THE_RHYTHM.id);
     if (!this.active) {
@@ -47,7 +47,7 @@ class InTheRhythm extends Analyzer {
     const { haste } = inTheRhythmStats(this.selectedCombatant.traitsBySpellId[SPELLS.IN_THE_RHYTHM.id]);
     this.haste = haste;
 
-    options.statTracker.add(SPELLS.IN_THE_RHYTHM_BUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.IN_THE_RHYTHM_BUFF.id, {
       haste: this.haste,
     });
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IN_THE_RHYTHM_BUFF), this.itrApplication);

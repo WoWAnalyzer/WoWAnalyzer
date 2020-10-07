@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -33,7 +33,7 @@ class LethalShots extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LETHAL_SHOTS_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_TALENT]), this.castChecker);
@@ -89,16 +89,14 @@ class LethalShots extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.wastedPotentialCDR).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.wastedPotentialCDR).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You cast {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_MM_TALENT) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_MM_TALENT.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} or <SpellLink id={SPELLS.MULTISHOT_MM} /> whilst <SpellLink id={SPELLS.RAPID_FIRE.id} /> wasn't on cooldown. You want to try and avoid this when using <SpellLink id={SPELLS.LETHAL_SHOTS_TALENT.id} />, as it is wasting potential cooldown reduction.
         </>,
       )
         .icon(SPELLS.LETHAL_SHOTS_TALENT.icon)
         .actual(`${actual} Lethal Shot trigger casts while Rapid Fire wasn't on cooldown`)
-        .recommended(`${recommended} bad casts are recommended`);
-    });
+        .recommended(`${recommended} bad casts are recommended`));
   }
 }
 

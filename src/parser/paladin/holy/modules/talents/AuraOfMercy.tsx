@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -17,7 +17,7 @@ class AuraOfMercy extends Analyzer {
   };
   protected readonly abilityTracker!: AbilityTracker;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AURA_OF_MERCY_TALENT.id);
   }
@@ -48,8 +48,7 @@ class AuraOfMercy extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <Trans>
           The healing done by your <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> is low. Try to
           find a better moment to cast it or consider changing to{' '}
@@ -59,8 +58,7 @@ class AuraOfMercy extends Analyzer {
       )
         .icon(SPELLS.AURA_OF_MERCY_TALENT.icon)
         .actual(<Trans>{formatNumber(actual)} HPS</Trans>)
-        .recommended(<Trans>&gt;{formatNumber(recommended)} HPS is recommended</Trans>);
-    });
+        .recommended(<Trans>&gt;{formatNumber(recommended)} HPS is recommended</Trans>));
   }
   statistic() {
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -33,7 +33,7 @@ class EarthenSpike extends Analyzer {
 
   protected damageGained: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     if(!this.selectedCombatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id)) {

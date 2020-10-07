@@ -65,10 +65,8 @@ class BonesOfTheDamned extends Analyzer{
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>{formatPercentage(actual)}% <SpellLink id={SPELLS.MARROWREND.id} /> casts locked you out of possible <SpellLink id={SPELLS.BONES_OF_THE_DAMNED.id} /> procs. Only cast <SpellLink id={SPELLS.MARROWREND.id} /> at {this.marrowrendUsage.refreshWithStacks} stacks or below to maximize the benefit of this trait.</>)
-          .icon(SPELLS.BONES_OF_THE_DAMNED.icon);
-      });
+      .addSuggestion((suggest, actual, recommended) => suggest(<>{formatPercentage(actual)}% <SpellLink id={SPELLS.MARROWREND.id} /> casts locked you out of possible <SpellLink id={SPELLS.BONES_OF_THE_DAMNED.id} /> procs. Only cast <SpellLink id={SPELLS.MARROWREND.id} /> at {this.marrowrendUsage.refreshWithStacks} stacks or below to maximize the benefit of this trait.</>)
+          .icon(SPELLS.BONES_OF_THE_DAMNED.icon));
   }
 
   get bonesOfTheDamnedProcPercentage() {

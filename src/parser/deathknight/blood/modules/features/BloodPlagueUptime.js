@@ -29,12 +29,10 @@ class BloodPlagueUptime extends Analyzer {
 
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Blood Plague uptime can be improved. Keeping Blood Boil on cooldown should keep it up at all times.')
+        .addSuggestion((suggest, actual, recommended) => suggest('Your Blood Plague uptime can be improved. Keeping Blood Boil on cooldown should keep it up at all times.')
             .icon(SPELLS.BLOOD_PLAGUE.icon)
             .actual(`${formatPercentage(actual)}% Blood Plague uptime`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`);
-        });
+            .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

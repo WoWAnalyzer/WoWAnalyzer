@@ -104,16 +104,14 @@ class JadeSerpentStatue extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You selected <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> as your talent. To gain the most value out of this talent you should have it casting on someone as often as possible. The priority should be tanks or any raid member taking heavy damage, such as from a specific DOT or boss mechanic.
         </>,
       )
         .icon(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`${formatPercentage(recommended)}% uptime is recommended`);
-    });
+        .recommended(`${formatPercentage(recommended)}% uptime is recommended`));
   }
 
   statistic() {
@@ -122,7 +120,7 @@ class JadeSerpentStatue extends Analyzer {
         talent={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(25)}
         value={`${formatPercentage(this.jadeSerpentStatueUptime)}`}
-        label={(`% Uptime`)}
+        label="% Uptime"
       />
     );
   }

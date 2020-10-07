@@ -11,8 +11,7 @@ const RootLocalizationProvider = (
   {
     children,
   },
-) => {
-  return (
+) => (
     <LocalizationLoader>
       {({ language, catalogs }) => (
         <I18nProvider i18n={i18n} language={language} catalogs={catalogs}>
@@ -21,7 +20,6 @@ const RootLocalizationProvider = (
       )}
     </LocalizationLoader>
   );
-};
 
 RootLocalizationProvider.propTypes = {
   children: PropTypes.node.isRequired,

@@ -46,7 +46,7 @@ class GroundingBreath extends Analyzer {
     this.resourceReturned += event.resourceChange;
   }
 
-  statistic() { 
+  statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}

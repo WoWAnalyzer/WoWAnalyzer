@@ -7,6 +7,7 @@ import { formatNumber, formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Haste from 'parser/shared/modules/Haste';
+
 import BaseHealerAzerite from './BaseHealerAzerite';
 
 const TIDAL_WAVE_HASTE = 0.3;
@@ -32,7 +33,7 @@ class TurnOfTheTide extends BaseHealerAzerite {
 
   constructor(...args) {
     super(...args);
-    this.active = !!this.hasTrait;
+    this.active = Boolean(this.hasTrait);
     if (!this.active) {
       return;
     }

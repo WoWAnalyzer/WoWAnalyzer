@@ -1,7 +1,7 @@
 import GENERATED_REALMS from 'common/REALMS';
 
 interface RealmList {
-  [region: string]: Array<Realm>
+  [region: string]: Realm[]
 }
 
 interface Realm {

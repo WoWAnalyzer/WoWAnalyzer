@@ -34,8 +34,7 @@ class RuleOfLaw extends Analyzer {
     };
   }
   suggestions(when) {
-    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <Trans>
           Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping
           at least 1 charge on cooldown; you should (almost) never be at max charges.
@@ -43,8 +42,7 @@ class RuleOfLaw extends Analyzer {
       )
         .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
         .actual(<Trans>{formatPercentage(actual)}% uptime</Trans>)
-        .recommended(<Trans>&gt;{formatPercentage(recommended)}% is recommended</Trans>);
-    });
+        .recommended(<Trans>&gt;{formatPercentage(recommended)}% is recommended</Trans>));
   }
   statistic() {
     const history = this.selectedCombatant.getBuffHistory(SPELLS.RULE_OF_LAW_TALENT.id);

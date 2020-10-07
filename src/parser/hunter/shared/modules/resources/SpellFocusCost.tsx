@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { CastEvent } from 'parser/core/Events';
 import { LNL_COST_MULTIPLIER } from 'parser/hunter/marksmanship/constants';
 import { VIPERS_VENOM_COST_MULTIPLIER } from 'parser/hunter/survival/constants';
+import { Options } from 'parser/core/Analyzer';
 
 class SpellFocusCost extends SpellResourceCost {
   static resourceType = RESOURCE_TYPES.FOCUS;
@@ -12,7 +13,7 @@ class SpellFocusCost extends SpellResourceCost {
   lockAndLoad: boolean;
   vipersVenom: boolean;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.lockAndLoad = this.selectedCombatant.hasTalent(SPELLS.LOCK_AND_LOAD_TALENT.id);
     this.vipersVenom = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);

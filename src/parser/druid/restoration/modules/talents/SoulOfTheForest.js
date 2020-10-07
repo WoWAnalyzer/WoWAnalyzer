@@ -123,13 +123,11 @@ class SoulOfTheForest extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You did not consume all your <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buffs with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>You did not consume all your <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buffs with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
           Try to use <SpellLink id={SPELLS.WILD_GROWTH.id} /> every time you get a <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buff.</span>)
           .icon(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.icon)
           .actual(`Wild growth consumed ${formatPercentage(this.wgUsagePercent)}% of all the buffs.`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`);
-      });
+          .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 
   statistic() {

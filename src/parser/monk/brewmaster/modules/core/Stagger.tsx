@@ -3,12 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Events, { EventType } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 import StatisticBox from 'interface/others/StatisticBox';
 
-import StaggerFabricator, { StaggerEventType, AddStaggerEvent, RemoveStaggerEvent } from './StaggerFabricator';
+import StaggerFabricator, { AddStaggerEvent, RemoveStaggerEvent } from './StaggerFabricator';
 
 const debug = false;
 const PHYSICAL_DAMAGE = 1;
@@ -25,11 +25,11 @@ class Stagger extends Analyzer {
   totalStaggerTaken = 0;
   staggerMissingFromFight = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
-    this.addEventListener(new EventFilter(StaggerEventType.Add), this._addstagger);
-    this.addEventListener(new EventFilter(StaggerEventType.Remove), this._removestagger);
+    this.addEventListener(new EventFilter(EventType.AddStagger), this._addstagger);
+    this.addEventListener(new EventFilter(EventType.RemoveStagger), this._removestagger);
     this.addEventListener(Events.fightend, this._fightend);
   }
 

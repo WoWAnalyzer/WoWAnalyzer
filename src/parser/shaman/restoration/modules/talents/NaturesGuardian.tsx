@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { CastEvent, EventType, HealEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
@@ -28,7 +28,7 @@ class NaturesGuardian extends Analyzer {
 
   healing = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id);
   }

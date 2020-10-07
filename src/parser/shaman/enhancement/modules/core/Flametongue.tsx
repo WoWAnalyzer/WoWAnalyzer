@@ -37,8 +37,7 @@ class Flametongue extends Analyzer {
   suggestions(when: When) {
     when(this.flametongueUptimeThreshold)
       .addSuggestion(
-        (suggest, actual, recommended) => {
-          return suggest(
+        (suggest, actual, recommended) => suggest(
             <Trans>
               Your Flametongue uptime of {formatPercentage(this.flametongueUptime)}% is below 95%, try to get as close to 100% as possible
             </Trans>,
@@ -53,8 +52,7 @@ class Flametongue extends Analyzer {
               <Trans>
                 {formatPercentage(recommended, 0)}% is recommended
               </Trans>,
-            );
-        },
+            ),
       );
   }
 

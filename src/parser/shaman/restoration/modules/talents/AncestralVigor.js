@@ -28,7 +28,7 @@ class AncestralVigor extends Analyzer {
   disableStatistics = false;
   constructor(...args) {
     super(...args);
-    this.active = !!this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
+    this.active = Boolean(this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id));
     if (!this.active) {
       return;
     }
@@ -82,7 +82,7 @@ class AncestralVigor extends Analyzer {
 
   statistic() {
     // filter out non-players
-    this.loaded && (this.lifeSavingEvents = this.lifeSavingEvents.filter(event => !!this.combatants.players[event.targetID]));
+    this.loaded && (this.lifeSavingEvents = this.lifeSavingEvents.filter(event => Boolean(this.combatants.players[event.targetID])));
     const tooltip = this.loaded
       ? 'The amount of players that would have died without your Ancestral Vigor buff.'
       : 'Click to analyze how many lives were saved by the ancestral vigor buff.';

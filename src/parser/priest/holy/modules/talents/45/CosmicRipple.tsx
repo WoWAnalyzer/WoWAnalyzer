@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
@@ -17,7 +17,7 @@ class CosmicRipple extends Analyzer {
   totalRipples = 0;
   lastRippleTimeStamp = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.COSMIC_RIPPLE_TALENT.id);
   }

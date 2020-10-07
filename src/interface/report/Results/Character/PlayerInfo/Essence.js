@@ -85,8 +85,9 @@ class Essence extends React.PureComponent {
             essence: newEssence,
           });
         })
-        .catch(err => {
-        }); // ignore errors
+        .catch(() => {
+          // ignore errors
+        });
     });
   }
 

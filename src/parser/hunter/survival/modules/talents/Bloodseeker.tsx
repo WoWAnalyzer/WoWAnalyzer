@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { BLOODSEEKER_ATTACK_SPEED_GAIN } from 'parser/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
@@ -26,7 +26,7 @@ class Bloodseeker extends Analyzer {
   kcCastTimestamp: number = 0;
   damage: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODSEEKER_TALENT.id);

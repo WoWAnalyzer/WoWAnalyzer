@@ -24,7 +24,7 @@ class Evangelism extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !!this.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
+    this.active = Boolean(this.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id));
   }
 
   get evangelismStatistics() {
