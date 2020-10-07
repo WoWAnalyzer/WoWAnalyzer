@@ -34,7 +34,7 @@ class PowerWordRadianceNormalizer extends EventsNormalizer {
       }
 
       if (event.type === EventType.ApplyBuff || event.type === EventType.RefreshBuff || event.type === EventType.ApplyBuffStack) {
-        const spellId = (event as CastEvent).ability.guid;
+        const spellId = event.ability.guid;
         if ((event.timestamp - lastRadianceTimestamp) < MAX_TIME_SINCE_CAST && BUFFS_TO_MOVE.includes(spellId)) {
           event.timestamp = lastRadianceTimestamp;
           event.__modified = true;
