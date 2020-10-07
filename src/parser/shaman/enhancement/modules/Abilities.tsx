@@ -16,6 +16,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
+        damageSpellIds: [ SPELLS.ASCENDANCE_INITIAL_DAMAGE ],
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1.0,
@@ -62,15 +63,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        enabled: combatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id),
-        gcd: {
-          base: 1000,
-        },
-        cooldown: 120,
-      },
-      {
         spell: SPELLS.LIGHTNING_BOLT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -85,15 +77,44 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.ELEMENTAL_BLAST_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id),
+        cooldown: 12,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+        },
+      },
+      {
         spell: SPELLS.WIND_SHEAR,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 12,
         gcd: undefined,
       },
       {
+        spell: SPELLS.FLAME_SHOCK,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 6 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.FROST_SHOCK,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 6 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: STORMSTRIKE_CAST_SPELLS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: haste => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -104,6 +125,20 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        cooldown: haste => 12 / (1 + haste),
+      },
+      {
+        spell: SPELLS.STORMKEEPER_TALENT_ENHANCEMENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
       },
       {
         spell: SPELLS.CRASH_LIGHTNING,
@@ -111,16 +146,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 6 / (1 + haste),
-      },
-      {
-        spell: SPELLS.FERAL_LUNGE,
-        enabled: combatant.hasTalent(SPELLS.FERAL_LUNGE_TALENT),
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 500,
-        },
+        cooldown: haste => 9 / (1 + haste),
       },
       {
         spell: SPELLS.FERAL_LUNGE_TALENT,
@@ -129,6 +155,17 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         gcd: {
           base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.WINDFURY_TOTEM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 1,
         },
       },
       {
@@ -178,13 +215,6 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
       },
       {
-        spell: SPELLS.HEALING_SURGE_ENHANCE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.PURGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
@@ -194,7 +224,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEX,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
+        cooldown: 20,
         gcd: {
           base: 1500,
         },
@@ -222,6 +252,15 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.SUNDERING_TALENT.id),
         cooldown: 40,
+      },
+      {
+        spell: SPELLS.ICE_STRIKE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.ICE_STRIKE_TALENT.id),
+        cooldown: 14,
       },
       {
         spell: SPELLS.LIGHTNING_SHIELD,

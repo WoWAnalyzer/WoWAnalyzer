@@ -26,7 +26,7 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
     <Checklist>
       <Rule
         name="Always be casting"
-        description={<>You should try to avoid doing nothing during the fight. If you have to move, try casting something instant with range like <SpellLink id={SPELLS.FLAME_SHOCK.id} />, <SpellLink id={SPELLS.FROST_SHOCK.id} />, or instant <SpellLink id={SPELLS.LIGHTNING_BOLT.id} />/<SpellLink id={SPELLS.CHAIN_LIGHTNING.id} /></>}
+        description={<>You should try to avoid doing nothing during the fight. If you have to move, try casting something instant with range like <SpellLink id={SPELLS.FLAME_SHOCK.id} />, <SpellLink id={SPELLS.FROST_SHOCK.id} />, or an instant <SpellLink id={SPELLS.LIGHTNING_BOLT.id} />/<SpellLink id={SPELLS.CHAIN_LIGHTNING.id} /></>}
       >
         <Requirement name="Downtime" thresholds={thresholds.alwaysBeCasting} />
       </Rule>
@@ -43,16 +43,19 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
         <AbilityRequirement spell={SPELLS.EARTH_ELEMENTAL.id} />
         {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) &&
         <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />}
+        {combatant.hasTalent(SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id) &&
+        <AbilityRequirement spell={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id} />}
         {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT.id} />}
       </Rule>
 
-      <Rule
+      {/* <Rule
         name="Maintain your buffs"
         description={"You should maintain your buffs in order to passively increase your damage done to targets without refreshing them to early."}
       >
         <Requirement name={<> <SpellLink id={SPELLS.LIGHTNING_SHIELD.id} /> uptime</>} thresholds={thresholds.lightningShieldUptime} />
-      </Rule>
+        TODO: ADD LASHING FLAMES UPTIME IF TALENTED
+      </Rule> */}
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

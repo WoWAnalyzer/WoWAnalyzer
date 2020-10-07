@@ -12,8 +12,8 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/checklist/Module';
 import Buffs from './modules/Buffs';
 // Enhancement Core
-import Flametongue from './modules/core/Flametongue';
-import FlametongueRefresh from './modules/core/FlametongueRefresh';
+// import Flametongue from './modules/core/Flametongue';
+// import FlametongueRefresh from './modules/core/FlametongueRefresh';
 import Stormbringer from './modules/core/Stormbringer';
 // Talents
 import HotHand from './modules/talents/HotHand';
@@ -26,6 +26,7 @@ import NaturesGuardian from './modules/talents/NaturesGuardian';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import Sundering from './modules/talents/Sundering';
 import EarthenSpike from './modules/talents/EarthenSpike';
+import ElementalBlast from './modules/talents/ElementalBlast';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -34,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
 
     // Resources
+
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,
 
@@ -52,7 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     //lashingFlames: LashingFlames,
     forcefulWinds: ForcefulWinds,
-    //elementalBlast: ElementalBlast,
+    elementalBlast: ElementalBlast,
     //stormfury: Stormfury,
     hotHand: HotHand,
     //iceStrike: IceStrike,

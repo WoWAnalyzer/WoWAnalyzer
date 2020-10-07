@@ -13,7 +13,7 @@ export default {
   FORCEFUL_WINDS_TALENT: { id: 262647, name: 'Forceful Winds', icon: 'spell_shaman_unleashweapon_wind' },
   STORMFLURRY_TALENT: { id: 344357, name: 'Stormflurry', icon: 'ability_shaman_stormstrike' },
   HOT_HAND_TALENT: { id: 201900, name: 'Hot Hand', icon: 'spell_fire_playingwithfire' },
-  ICE_STIRKE_TALENT: { id: 342240, name: 'Ice Strike', icon: 'spell_frost_frostbolt', manaCost: 330 },
+  ICE_STRIKE_TALENT: { id: 342240, name: 'Ice Strike', icon: 'spell_frost_frostbolt', manaCost: 330 },
   ELEMENTAL_ASSAULT_TALENT: { id: 210853, name: 'Elemental Assault', icon: 'shaman_talent_unleashedfury' },
   HAILSTORM_TALENT: { id: 334195, name: 'Hailstorm', icon: 'spell_frost_icestorm' },
   FIRE_NOVA_TALENT: { id: 333974, name: 'Fire Nova', icon: 'spell_shaman_improvedfirenova', manaCost: 550 },

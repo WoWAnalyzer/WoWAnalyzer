@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HawkCorrigan, Vetyst } from 'CONTRIBUTORS';
+import { HawkCorrigan, Vetyst, Vonn } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import Warning from 'interface/Alert/Warning';
 
@@ -8,7 +8,7 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [HawkCorrigan, Vetyst],
+  contributors: [HawkCorrigan, Vetyst, Vonn],
   patchCompatibility: '8.3',
   isSupported: false,
   description: (

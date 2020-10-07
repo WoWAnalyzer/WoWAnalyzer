@@ -924,3 +924,15 @@ export const Vohrr: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/malganis/vohrbloom',
   }],
 };
+
+export const Vonn: Contributor = {
+  nickname: 'Vonn',
+  github: 'kenrms',
+  discord: 'vønn#2776',
+  avatar: require('./interface/images/avatars/vonn-avatar.jpg'),
+  mains: [{
+    name: 'Vønn',
+    spec: SPECS.ENHANCEMENT_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/turalyon/vønn',
+  }],
+};

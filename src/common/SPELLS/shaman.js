@@ -36,7 +36,7 @@ export default {
     id: 370,
     name: 'Purge',
     icon: 'spell_nature_purge',
-    manaCost: 800,
+    manaCost: 1000,
   },
   FAR_SIGHT: {
     id: 6196,
@@ -94,6 +94,7 @@ export default {
     id: 51886,
     name: 'Cleanse Spirit',
     icon: 'ability_shaman_cleansespirit',
+    manaCost: 650,
   },
   // Hex and its variations
   HEX: {
@@ -398,7 +399,7 @@ export default {
     id: 187874,
     name: 'Crash Lightning',
     icon: 'spell_shaman_crashlightning',
-    maelstrom: 20,
+    manaCost: 550
   },
   FERAL_SPIRIT: {
     id: 51533,
@@ -406,7 +407,7 @@ export default {
     icon: 'spell_shaman_feralspirit',
   },
   FERAL_SPIRIT_MAELSTROM_BUFF: {
-    id: 190185,
+    id: 333957,
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
   },
@@ -429,7 +430,7 @@ export default {
     id: 17364,
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
-    maelstrom: 30,
+    manaCost: 200,
   },
   STORMSTRIKE_DAMAGE: {
     id: 32175,
@@ -441,11 +442,15 @@ export default {
     name: 'Stormstrike Off-Hand',
     icon: 'ability_shaman_stormstrike',
   },
+  ASCENDANCE_INITIAL_DAMAGE: {
+    id: 344548,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+  },
   WINDSTRIKE_CAST: {
     id: 115356,
     name: 'Windstrike',
     icon: 'ability_skyreach_four_wind',
-    maelstrom: 30,
   },
   WINDSTRIKE_DAMAGE: {
     id: 115357,
@@ -461,7 +466,12 @@ export default {
     id: 60103,
     name: 'Lava Lash',
     icon: 'ability_shaman_lavalash',
-    maelstrom: 40,
+    manaCost: 400,
+  },
+  FIRE_NOVA_DAMAGE: {
+    id: 333977,
+    name: 'Fire Nova',
+    icon: 'spell_shaman_improvedfirenova',
   },
   DOOM_WINDS: {
     id: 204945,
@@ -483,6 +493,11 @@ export default {
     name: 'Maelstrom Weapon',
     icon: 'spell_shaman_maelstromweapon',
   },
+  MAELSTROM_WEAPON_BUFF: {
+    id: 344179,
+    name: 'Maelstrom Weapon',
+    icon: 'spell_shaman_maelstromweapon',
+  },
   DOOM_VORTEX: {
     id: 199116,
     name: 'Doom Vortex',
@@ -492,13 +507,6 @@ export default {
     id: 2645,
     name: 'Ghost Wolf',
     icon: 'spell_nature_spiritwolf',
-  },
-  HEALING_SURGE_ENHANCE: {
-    id: 188070,
-    name: 'Healing Surge',
-    icon: 'spell_nature_healingway',
-    manaCost: 2400,
-    maelstrom: 20,
   },
   FERAL_LUNGE: {
     id: 196881,
@@ -551,6 +559,17 @@ export default {
     id: 25504,
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
+  },
+  WINDFURY_TOTEM: {
+    id: 8512,
+    name: 'Windfury Totem',
+    icon: 'spell_nature_windfury',
+    manaCost: 1200,
+  },
+  WINDFURY_TOTEM_BUFF: {
+    id: 327942,
+    name: 'Windfury Totem',
+    icon: 'spell_nature_windfury',
   },
   ELEMENTAL_HEALING: {
     id: 198249,
@@ -634,7 +653,7 @@ export default {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 2400,
+    manaCost: 2400, // TODO enh/ele cost is 2616 for some reason
     color: '#40b3bf',
     coefficient: 1.57,
   },
