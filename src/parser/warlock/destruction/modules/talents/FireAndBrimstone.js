@@ -12,7 +12,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const debug = false;
 class FireAndBrimstone extends Analyzer {
@@ -74,7 +74,7 @@ class FireAndBrimstone extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(3)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`${formatThousands(this.bonusDmg)} bonus cleaved damage`}
       >

@@ -38,6 +38,8 @@ import UnrelentingCold from './modules/items/UnrelentingCold';
 import DivertedEnergy from '../shared/modules/items/DivertedEnergy';
 import GroundingSurge from '../shared/modules/items/GroundingSurge';
 import IreOfTheAscended from '../shared/modules/items/IreOfTheAscended';
+import TempestBarrier from '../shared/modules/items/TempestBarrier';
+import SiphonedMalice from '../shared/modules/items/SiphonedMalice';
 
 class CombatLogParser extends CoreCombatLogParser {
    static specModules = {
@@ -81,6 +83,8 @@ class CombatLogParser extends CoreCombatLogParser {
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
     ireOfTheAscended: IreOfTheAscended,
+    tempestBarrier: TempestBarrier,
+    siphonedMalice: SiphonedMalice,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

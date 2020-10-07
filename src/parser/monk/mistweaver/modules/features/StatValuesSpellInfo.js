@@ -174,6 +174,14 @@ export default {
     mastery: false,
     vers: true,
   },
+  [SPELLS.EXPEL_HARM_TARGET_HEAL.id]: {
+    int: true,
+    crit: true,
+    hastHpm: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
   [SPELLS.TEAR_OF_MORNING_HEAL.id]: { 
     int: false,
     crit: false,

@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { t, Trans } from '@lingui/macro';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Toggle from 'react-toggle';
+import { compose } from 'redux';
 
 import getFightName from 'common/getFightName';
 import Tooltip from 'common/Tooltip';
@@ -55,22 +56,31 @@ class FightSelection extends React.PureComponent {
                 <Link to="/">
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                   <label>
-                    {' '}<Trans>Home</Trans>
+                    {' '}
+                    <Trans>Home</Trans>
                   </label>
                 </Link>
               </Tooltip>
             </div>
-            <h1 style={{ lineHeight: 1.4, margin: 0 }}><Trans>Fight selection</Trans></h1>
-            <small style={{ marginTop: -5 }}><Trans>Select the fight you wish to analyze.</Trans></small>
+            <h1 style={{ lineHeight: 1.4, margin: 0 }}>
+              <Trans>Fight selection</Trans>
+            </h1>
+            <small style={{ marginTop: -5 }}>
+              <Trans>Select the fight you wish to analyze.</Trans>
+            </small>
           </div>
           <div className="flex-sub">
             <div>
-              <Tooltip content={<Trans>This will refresh the fights list which can be useful if you're live logging.</Trans>}>
-                <Link
-                  to={makeAnalyzerUrl(report)}
-                  onClick={refreshReport}
-                >
-                  <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> <Trans>Refresh</Trans>
+              <Tooltip
+                content={
+                  <Trans>
+                    This will refresh the fights list which can be useful if you're live logging.
+                  </Trans>
+                }
+              >
+                <Link to={makeAnalyzerUrl(report)} onClick={refreshReport}>
+                  <span className="glyphicon glyphicon-refresh" aria-hidden="true" />{' '}
+                  <Trans>Refresh</Trans>
                 </Link>
               </Tooltip>
               <span className="toggle-control" style={{ marginLeft: 5 }}>
@@ -81,21 +91,19 @@ class FightSelection extends React.PureComponent {
                   id="kills-only-toggle"
                 />
                 <label htmlFor="kills-only-toggle">
-                  {' '}<Trans>Kills only</Trans>
+                  {' '}
+                  <Trans>Kills only</Trans>
                 </label>
               </span>
             </div>
           </div>
         </div>
 
-        {reportDuration > MAX_REPORT_DURATION &&
-        <ReportDurationWarning duration={reportDuration} />}
+        {reportDuration > MAX_REPORT_DURATION && (
+          <ReportDurationWarning duration={reportDuration} />
+        )}
 
-        <FightSelectionPanel
-          report={report}
-          refreshReport={refreshReport}
-          killsOnly={killsOnly}
-        />
+        <FightSelectionPanel report={report} refreshReport={refreshReport} killsOnly={killsOnly} />
       </div>
     );
   }
@@ -110,7 +118,11 @@ class FightSelection extends React.PureComponent {
     return (
       <>
         {/* TODO: Refactor the DocumentTitle away */}
-        <DocumentTitle title={fight ? i18n._(t`${getFightName(report, fight)} in ${report.title}`) : report.title} />
+        <DocumentTitle
+          title={
+            fight ? i18n._(t`${getFightName(report, fight)} in ${report.title}`) : report.title
+          }
+        />
 
         {this.props.children(fight)}
       </>
@@ -118,8 +130,8 @@ class FightSelection extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
   // Because fightId comes from the URL we can't use local state
-  fightId: getFightId(state),
+  fightId: getFightId(props.location.pathname),
 });
-export default connect(mapStateToProps)(FightSelection);
+export default compose(withRouter, connect(mapStateToProps))(FightSelection);

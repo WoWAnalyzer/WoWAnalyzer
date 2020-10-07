@@ -32,7 +32,7 @@ class TurnOfTheTide extends BaseHealerAzerite {
 
   constructor(...args) {
     super(...args);
-    this.active = this.hasTrait;
+    this.active = !!this.hasTrait;
     if (!this.active) {
       return;
     }

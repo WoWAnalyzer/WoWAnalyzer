@@ -15,6 +15,7 @@ import Vivify from 'parser/monk/mistweaver/modules/spells/Vivify';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import Statistic from 'interface/statistics/Statistic';
+import ExpelHarm from 'parser/monk/mistweaver/modules/spells/ExpelHarm';
 
 const debug = false;
 
@@ -25,6 +26,7 @@ class MasteryStats extends Analyzer {
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
     vivify: Vivify,
+    expelHarm: ExpelHarm,
   };
 
   get totalMasteryHealing() {
@@ -32,7 +34,8 @@ class MasteryStats extends Analyzer {
             + (this.renewingMist.gustsHealing || 0)
             + (this.envelopingMists.gustsHealing || 0)
             + (this.soothingMist.gustsHealing || 0)
-            + (this.essenceFontMastery.healing || 0);
+            + (this.essenceFontMastery.healing || 0)
+            + (this.expelHarm.gustsHealing || 0);
   }
 
   renderMasterySourceChart() {
@@ -72,6 +75,13 @@ class MasteryStats extends Analyzer {
         value: this.essenceFontMastery.healing,
         valueTooltip: formatThousands(this.essenceFontMastery.healing),
       },
+      {
+        color: '#03fcad',
+        label: 'Expel Harm',
+        spellId: SPELLS.EXPEL_HARM.id,
+        value: this.expelHarm.gustsHealing,
+        valueTooltip: formatThousands(this.expelHarm.gustsHealing),
+      },
     ];
 
     return (
@@ -88,6 +98,7 @@ class MasteryStats extends Analyzer {
       console.log(`Enveloping:${this.envelopingMists.gustsHealing}`);
       console.log(`Soothing:${this.soothingMist.gustsHealing}`);
       console.log(`Essence font:${this.essenceFontMastery.healing}`);
+      console.log(`Expel Harm:${this.expelHarm.gustsHealing}`);
       console.log(`Total Mastery healing:${this.totalMasteryHealing}`);
     }
   }

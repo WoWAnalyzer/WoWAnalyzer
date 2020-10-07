@@ -8,7 +8,7 @@ import { formatThousands } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import RainOfFire from '../features/RainOfFire';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
@@ -51,7 +51,7 @@ class Inferno extends Analyzer {
     const estimatedChaosBoltDamage = Math.floor(fragments / FRAGMENTS_PER_CHAOS_BOLT) * this.averageChaosBoltDamage;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(3)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="small"
         tooltip={(
           <>

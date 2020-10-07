@@ -1,13 +1,5 @@
-export interface Fight {
-  filtered?: boolean;
-  phase?: string;
-  instance?: number;
-  // eslint-disable-next-line camelcase
-  offset_time: number;
-  // eslint-disable-next-line camelcase
-  original_end_time: number;
-
-  // Below are WCL properties, above are generated or applied properties
+// WCL properties 
+export interface WCLFight {
   id: number,
   // eslint-disable-next-line camelcase
   start_time: number,
@@ -18,6 +10,17 @@ export interface Fight {
   size?: number,
   difficulty?: number,
   kill?: boolean,
+}
+
+//generated or applied properties
+export interface Fight extends WCLFight {
+  filtered?: boolean;
+  phase?: string;
+  instance?: number;
+  // eslint-disable-next-line camelcase
+  offset_time: number;
+  // eslint-disable-next-line camelcase
+  original_end_time: number;
 }
 
 export default Fight;

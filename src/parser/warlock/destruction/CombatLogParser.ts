@@ -32,14 +32,6 @@ import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 
-import RollingHavoc from './modules/azerite/RollingHavoc';
-import BurstingFlare from './modules/azerite/BurstingFlare';
-import Flashpoint from './modules/azerite/Flashpoint';
-import CrashingChaosChaoticInfernoCore from './modules/azerite/CrashingChaosChaoticInfernoCore';
-import CrashingChaos from './modules/azerite/CrashingChaos';
-import ChaoticInferno from './modules/azerite/ChaoticInferno';
-import ChaosShards from './modules/azerite/ChaosShards';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -76,15 +68,6 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
     channelDemonfire: ChannelDemonfire,
-
-    // Azerite traits
-    burstingFlare: BurstingFlare,
-    flashpoint: Flashpoint,
-    rollingHavoc: RollingHavoc,
-    crashingChaosChaoticInfernoCore: CrashingChaosChaoticInfernoCore,
-    crashingChaos: CrashingChaos,
-    chaoticInferno: ChaoticInferno,
-    chaosShards: ChaosShards,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

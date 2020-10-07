@@ -7,14 +7,17 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { DamageEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import EventHistory from 'parser/shared/modules/EventHistory';
 
 class MeteorCombustion extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     enemies: EnemyInstances,
+    eventHistory: EventHistory,
   };
   protected abilityTracker!: AbilityTracker;
   protected enemies!: EnemyInstances;
+  protected eventHistory!: EventHistory;
 
   lastRuneCast = 0
   badMeteor = 0
@@ -41,10 +44,18 @@ class MeteorCombustion extends Analyzer {
   }
 
   onCombustionStart(event: ApplyBuffEvent) {
-    this.combustionActive = true;
+    //The Sun King's Blessing Legendary effect has a chance to trigger a 6sec Combust which was throwing this stat off, so we are just checking to see if Combustion was cast within 100ms of the buff being applied.
+    const lastCast = this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION));
+    if (lastCast.length !== 0) {
+      this.combustionActive = true;
+    }
   }
 
   onCombustionEnd(event: RemoveBuffEvent) {
+    if (!this.combustionActive) {
+      return;
+    }
+
     if (this.meteorCast) {
       this.meteorInCombustion += 1;
     }

@@ -12,6 +12,8 @@ This guide is an excellent introduction and explains all the jargon we may use: 
 
 If you ever get stuck or want to have a chat, join us on our [Discord](https://wowanalyzer.com/discord) server. We love to hear what you're (going to be) working on!
 
+Our docs aren't very good, but we have a really fun and helpful developer community on Discord. So please consider joining and reaching out if you need help. Be bold!
+
 ## Getting started
 
 First make sure you have the following:
