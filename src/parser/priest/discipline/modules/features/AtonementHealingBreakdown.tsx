@@ -17,7 +17,7 @@ interface State {
 }
 
 class AtonementHealingBreakdown extends React.Component<Props, State> {
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.state = {
       absolute: false,

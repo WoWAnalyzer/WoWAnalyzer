@@ -16,7 +16,7 @@ class Penance extends Analyzer {
   hits = 0;
   eventGrouper: EventGrouper = new EventGrouper(PENANCE_MINIMUM_RECAST_TIME);
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     // Castigation Penance bolt count to 4 (from 3)

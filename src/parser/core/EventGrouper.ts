@@ -11,7 +11,7 @@ import { Event } from 'parser/core/Events';
 
 export default class EventGrouper {
   threshold: number;
-  cache: { [stem: number]: Array<Event<any>> };
+  cache: { [stem: number]: Array<AnyEvent> };
 
   constructor(threshold: number) {
     this.threshold = threshold;
@@ -22,7 +22,7 @@ export default class EventGrouper {
     return Object.entries(this.cache).map(item => item[1])[Symbol.iterator]();
   }
 
-  processEvent(event: Event<any>) {
+  processEvent(event: AnyEvent) {
     const stemTimestamp = this.getStemTimestamp(event);
     if (!stemTimestamp) {
       this.addNewStemTimestamp(event);
@@ -35,7 +35,7 @@ export default class EventGrouper {
     ];
   }
 
-  getStemTimestamp(event: Event<any>) {
+  getStemTimestamp(event: AnyEvent) {
     return Object.keys(this.cache).map(Number).filter(this.withinThreshold(event.timestamp))[0] || null;
   }
 
@@ -43,7 +43,7 @@ export default class EventGrouper {
     return (stemTimestamp: number) => (timestamp <= (stemTimestamp + this.threshold)) && (timestamp > stemTimestamp);
   }
 
-  addNewStemTimestamp(event: Event<any>) {
+  addNewStemTimestamp(event: AnyEvent) {
     this.cache[event.timestamp] = [event];
   }
 }

@@ -21,7 +21,7 @@ class Castigation extends Analyzer {
 
   _isCastigationBolt = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
   }

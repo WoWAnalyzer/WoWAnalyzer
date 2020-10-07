@@ -13,6 +13,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemy from 'parser/core/Enemy';
 import { DamageEvent, HealEvent } from 'parser/core/Events';
+
 import isAtonement from '../core/isAtonement';
 import Penance from './Penance';
 import AtonementDamageSource from '../features/AtonementDamageSource';
@@ -61,7 +62,7 @@ class Schism extends Analyzer {
   }
 
   // Methods
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(
@@ -198,7 +199,7 @@ class Schism extends Analyzer {
             The effective damage contributed by the Schism bonus was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageFromBuff))}% of total damage done. <br />
           </>
         )}
-        alignIcon={'center'}
+        alignIcon="center"
       />
     );
   }
@@ -218,8 +219,7 @@ class Schism extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.badSchismThresholds).addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => {
-        return suggest(
+    when(this.badSchismThresholds).addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => suggest(
           <>
             Don't cast <SpellLink id={SPELLS.SCHISM_TALENT.id} /> without also
             casting <SpellLink id={SPELLS.PENANCE.id} />,{' '}
@@ -229,8 +229,7 @@ class Schism extends Analyzer {
         )
           .icon(SPELLS.SCHISM_TALENT.icon)
           .actual(`You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`)
-          .recommended(`${recommended} is recommended`);
-      },
+          .recommended(`${recommended} is recommended`),
     );
   }
 }

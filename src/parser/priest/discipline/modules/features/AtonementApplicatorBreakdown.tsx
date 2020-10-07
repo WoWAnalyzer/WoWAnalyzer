@@ -32,7 +32,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
   _hasEL = false;
   _hasDepth = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this._hasEL = this.selectedCombatant.hasTrait(SPELLS.ENDURING_LUMINESCENCE.id);

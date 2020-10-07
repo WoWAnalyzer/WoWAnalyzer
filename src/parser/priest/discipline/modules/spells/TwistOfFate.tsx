@@ -19,7 +19,7 @@ class TwistOfFate extends Analyzer {
   healing = 0;
   damage = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id);
   }

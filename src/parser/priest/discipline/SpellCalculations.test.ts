@@ -32,7 +32,6 @@ describe('Overhealing Calculations', () => {
 
 describe('[PENANCE] Spell Calculations', () => {
   it('Estimates Offensive Penance Bolts Correctly', () => {
-    // @ts-ignore
     const boltEstimator = OffensivePenanceBoltEstimation(mockStatTracker());
 
     expect(boltEstimator()).toEqual({
@@ -43,7 +42,6 @@ describe('[PENANCE] Spell Calculations', () => {
 
   it('Estimates Offensive Penance Bolts Correctly with Versatility', () => {
     const boltEstimator = OffensivePenanceBoltEstimation(
-      // @ts-ignore
       mockStatTracker(100, 0.25),
     );
 

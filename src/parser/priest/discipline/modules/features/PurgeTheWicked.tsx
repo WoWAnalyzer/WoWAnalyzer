@@ -28,7 +28,7 @@ class PurgeTheWicked extends Analyzer {
   ptwCleaveTracker: any = {};
   ptwCleaveDamage = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     if (this.selectedCombatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id)) {
       this.dotSpell = SPELLS.PURGE_THE_WICKED_BUFF;

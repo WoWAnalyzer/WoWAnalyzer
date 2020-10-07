@@ -64,7 +64,7 @@ class Atonement extends Analyzer {
     return this.numAtonementsActive >= 3;
   }
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = true;
   }

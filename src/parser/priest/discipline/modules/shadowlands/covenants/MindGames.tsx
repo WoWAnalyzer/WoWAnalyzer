@@ -26,7 +26,7 @@ class Mindgames extends Analyzer {
   directHealing = 0;
   preventedDamage = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
 

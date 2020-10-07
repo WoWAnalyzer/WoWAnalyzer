@@ -30,7 +30,7 @@ class Evangelism extends Analyzer {
     }
   } = {};
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
   }

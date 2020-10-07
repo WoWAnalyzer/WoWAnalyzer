@@ -13,7 +13,7 @@ class Channeling extends CoreChanneling {
   _hasCastigation: boolean = false;
   _bolt: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this._hasCastigation = this.selectedCombatant.hasTalent(
       SPELLS.CASTIGATION_TALENT.id,

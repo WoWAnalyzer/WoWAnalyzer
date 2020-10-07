@@ -19,7 +19,7 @@ class Lenience extends Analyzer {
     return this.totalDamageTakenDuringAtonement / (1 - LENIENCE_DR) * LENIENCE_DR;
   }
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LENIENCE_TALENT.id);
   }

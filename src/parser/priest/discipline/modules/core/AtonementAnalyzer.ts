@@ -21,7 +21,7 @@ export default class AtonementAnalyzer extends Analyzer {
 
   _atonementSource: DamageEvent | null = null;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._processAtonement);

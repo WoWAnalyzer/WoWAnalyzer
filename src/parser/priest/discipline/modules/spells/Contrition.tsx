@@ -24,7 +24,7 @@ class Contrition extends Analyzer {
   damagePenalty = 0;
   penanceBoltEstimation: any
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(
       SPELLS.CONTRITION_TALENT.id,

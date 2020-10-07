@@ -11,9 +11,7 @@ const SMITE_DAMAGE_BUFF = 0.5;
  * Wraps a spell calculation to accept the stats module
  * Essentially lets you compose modules with spell estimations
  */
-const statWrapper = (spellCalculation: any) => (stats: StatTracker) => (...args: any[]) => {
-  return spellCalculation(stats, ...args);
-};
+const statWrapper = (spellCalculation: any) => (stats: StatTracker) => (...args: any[]) => spellCalculation(stats, ...args);
 
 // Returns the overhealing of a given spell
 export const calculateOverhealing = (estimateHealing: number, healing: number, overhealing: number = 0) => {
@@ -48,8 +46,7 @@ export const OffensivePenanceBoltEstimation = statWrapper(
 );
 
 // Estimation of how much output a Smite will do
-export const SmiteEstimation = (stats: StatTracker, sins: SinsOfTheMany) => {
-  return () => {
+export const SmiteEstimation = (stats: StatTracker, sins: SinsOfTheMany) => () => {
     const currentIntellect = stats.currentIntellectRating;
     const currentVers = 1 + stats.currentVersatilityPercentage;
     const currentMastery = 1 + stats.currentMasteryPercentage;
@@ -69,5 +66,4 @@ export const SmiteEstimation = (stats: StatTracker, sins: SinsOfTheMany) => {
       smiteDamage,
       smiteHealing,
     };
-  };
-}
+  }

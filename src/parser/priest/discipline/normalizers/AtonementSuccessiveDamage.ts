@@ -5,13 +5,13 @@ import isAtonement from '../modules/core/isAtonement';
 import { ATONEMENT_DAMAGE_SOURCES } from '../constants';
 
 class AtonementSuccessiveDamage extends EventsNormalizer {
-  normalize(events: Array<Event<any>>) {
-    const fixedEvents: Array<Event<any>> = [];
+  normalize(events: Array<AnyEvent>) {
+    const fixedEvents: Array<AnyEvent> = [];
     const _damageEventIndexes: number[] = [];
 
     let _encounteredTargetIDs: number[] = [];
 
-    events.forEach((event: Event<any>, eventIndex) => {
+    events.forEach((event: AnyEvent, eventIndex) => {
       fixedEvents.push(event);
 
       if (
@@ -29,7 +29,7 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
         // We encountered a targetID we already encountered since the last damage
         // event. We push down the last damage event here
         if (_encounteredTargetIDs.includes((event as HealEvent).targetID)) {
-          const lastDamageEvent: Event<any> = fixedEvents.splice(
+          const lastDamageEvent: AnyEvent = fixedEvents.splice(
             _damageEventIndexes[_damageEventIndexes.length - 1],
             1,
           )[0];

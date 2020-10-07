@@ -46,7 +46,7 @@ class SinsOfTheMany extends Analyzer {
   bonusDamage = 0;
   bonusHealing = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SINS_OF_THE_MANY_TALENT.id);
   }
