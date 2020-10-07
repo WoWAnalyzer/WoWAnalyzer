@@ -1,11 +1,12 @@
 import { AnyEvent, HasTarget } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 import Entities from './Entities';
 import Combatant from '../../core/Combatant';
 
 class Combatants extends Entities {
-  players: Array<Combatant> = [];
+  players: { [playerId: number]: Combatant } = {};
   get playerCount() {
-    return this.players.length;
+    return Object.keys(this.players).length;
   }
   getEntities() {
     return this.players;
@@ -27,7 +28,7 @@ class Combatants extends Entities {
     return this._selected;
   }
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.owner.combatantInfoEvents.forEach(combatantInfo => {
       if (combatantInfo.error) {
