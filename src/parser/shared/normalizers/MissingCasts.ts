@@ -18,7 +18,7 @@ class MissingCasts extends EventsNormalizer {
     // Just in case someone chooses to extend this module to modify missingCastBuffs instead of adding to it here...
     const ctor = this.constructor as typeof MissingCasts;
     const missingCastEvents = events
-    .filter((event): event is ApplyBuffEvent => event.type === EventType.ApplyBuff && ctor.missingCastBuffs.includes((event).ability.guid))
+    .filter((event): event is ApplyBuffEvent => event.type === EventType.ApplyBuff && ctor.missingCastBuffs.includes(event.ability.guid))
     .map(event => ctor._fabricateCastEvent(event));
     missingCastEvents.forEach(event => {
       const index = events.findIndex(e => e.timestamp >= event.timestamp);
@@ -28,6 +28,9 @@ class MissingCasts extends EventsNormalizer {
   }
 
   static _fabricateCastEvent(event: ApplyBuffEvent): CastEvent {
+    if(event.sourceID === undefined) {
+      throw new Error('applybuff event defined in MissingCasts does not contain a sourceID for the fabricated event');
+    }
     return {
       type: EventType.Cast,
       ability: event.ability,

@@ -48,7 +48,11 @@ class ApplyBuff extends EventsNormalizer {
         const spellId = event.ability.guid;
         this._buffsAppliedByPlayerId[targetId].push(spellId);
       }
-      if ([EventType.RemoveBuff, EventType.ApplyBuffStack, EventType.RemoveBuffStack, EventType.RefreshBuff, EventType.FilterBuffInfo].includes(event.type)) {
+      if (event.type === EventType.RemoveBuff ||
+        event.type === EventType.ApplyBuffStack ||
+        event.type === EventType.RemoveBuffStack ||
+        event.type === EventType.RefreshBuff ||
+        event.type === EventType.FilterBuffInfo) {
         const spellId = event.ability.guid;
         if (this._buffsAppliedByPlayerId[targetId].includes(spellId)) {
           // This buff has an `applybuff` event and so isn't broken :D
