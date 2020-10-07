@@ -14,13 +14,9 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import { ApplyDebuffEvent, CastEvent, Event, EventType, HasSource } from 'parser/core/Events';
+import { WCLEventsResponse, WclOptions } from 'common/WCL_TYPES';
 
 //RQXjBJ1kG9pAC2DV/21-Mythic++Atal'Dazar+-+Kill+(51:52)/Koorshaman/
-interface Query {
-  start: number,
-  end: number,
-  filter: string,
-}
 
 class AncestralProtectionTotem extends Analyzer {
   static dependencies = {
@@ -37,9 +33,9 @@ class AncestralProtectionTotem extends Analyzer {
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
-  fetchAll(pathname: string, query: Query) {
-    const checkAndFetch: any = async (_query: Query) => {
-      const json = await fetchWcl(pathname, _query);
+  fetchAll(pathname: string, query: WclOptions) {
+    const checkAndFetch: any = async (_query: WclOptions) => {
+      const json = await fetchWcl(pathname, _query) as WCLEventsResponse;
       const events = json.events as Array<Event<EventType.Cast | EventType.ApplyDebuff>>;
       this.aptEvents.push(...events);
       if (json.nextPageTimestamp) {
@@ -55,7 +51,7 @@ class AncestralProtectionTotem extends Analyzer {
 
   load() {
     this.aptEvents = [];
-    const query: Query = {
+    const query: WclOptions = {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(
@@ -65,6 +61,7 @@ class AncestralProtectionTotem extends Analyzer {
         OR
         (type='${EventType.Cast}' AND ability.id=${SPELLS.TOTEMIC_REVIVAL_CAST.id})
       )`,
+      timeout: 2000,
     };
     return this.fetchAll(`report/events/${this.owner.report.code}`, query);
   }

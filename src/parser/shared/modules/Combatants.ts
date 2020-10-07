@@ -1,16 +1,16 @@
-import { Event, HasTarget, HealEvent } from 'parser/core/Events';
+import { AnyEvent, HasTarget } from 'parser/core/Events';
 import Entities from './Entities';
 import Combatant from '../../core/Combatant';
 
 class Combatants extends Entities {
   players: Array<Combatant> = [];
   get playerCount() {
-    return Object.keys(this.players).length;
+    return this.players.length;
   }
   getEntities() {
     return this.players;
   }
-  getEntity(event: HealEvent) {
+  getEntity(event: AnyEvent) {
     if (!HasTarget(event)) {
       return null;
     }
