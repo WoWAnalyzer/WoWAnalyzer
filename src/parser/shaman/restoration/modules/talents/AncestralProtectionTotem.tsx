@@ -13,7 +13,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
-import { ApplyDebuffEvent, CastEvent, Event, EventType, HasSource } from 'parser/core/Events';
+import { Event, EventType, HasAbility, HasSource } from 'parser/core/Events';
 import { WCLEventsResponse, WclOptions } from 'common/WCL_TYPES';
 
 //RQXjBJ1kG9pAC2DV/21-Mythic++Atal'Dazar+-+Kill+(51:52)/Koorshaman/
@@ -107,7 +107,7 @@ class AncestralProtectionTotem extends Analyzer {
             <tbody>
               {
                 this.aptEvents.map((event, index) => {
-                  if (!HasSource(event)) {
+                  if (!HasSource(event) || !HasAbility(event)) {
                     return null;
                   }
                   const combatant: any = this.combatants.players[event.sourceID];
@@ -123,8 +123,8 @@ class AncestralProtectionTotem extends Analyzer {
                       <th scope="row">{formatDuration((event.timestamp - this.owner.fight.start_time) / 1000, 0)}</th>
                       <td className={specClassName}>{combatant.name}</td>
                       <td style={{ textAlign: 'center' }}>
-                        <SpellLink id={(event as ApplyDebuffEvent | CastEvent).ability.guid} icon={false}>
-                          <Icon icon={(event as ApplyDebuffEvent | CastEvent).ability.abilityIcon} /> {this.spellToText((event as ApplyDebuffEvent | CastEvent).ability.guid)}
+                        <SpellLink id={event.ability.guid} icon={false}>
+                          <Icon icon={event.ability.abilityIcon} /> {this.spellToText(event.ability.guid)}
                         </SpellLink></td>
                     </tr>
                   );

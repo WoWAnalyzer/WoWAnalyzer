@@ -125,28 +125,26 @@ class AncestralVigor extends Analyzer {
             </thead>
             <tbody>
               {
-                this.lifeSavingEvents
-                  .map((event, index) => {
-                    const combatant = this.combatants.getEntity(event);
-                    if (combatant === null) {
-                      return null;
-                    }
-                    const spec = SPECS[combatant.specId];
-                    const specClassName = spec.className.replace(' ', '');
+                this.lifeSavingEvents.map((event, index) => {
+                  const combatant = this.combatants.getEntity(event);
+                  if (combatant === null) {
+                    return null;
+                  }
+                  const spec = SPECS[combatant.specId];
+                  const specClassName = spec.className.replace(' ', '');
 
-                    return (
-                      <tr key={index}>
-                        <th scope="row">{formatDuration((event.timestamp - this.owner.fight.start_time) / 1000, 0)}</th>
-                        <td className={specClassName}>{combatant.name}</td>
-                        <td style={{ textAlign: 'center' }}>
-                          <SpellLink id={event.ability.guid} icon={false}>
-                            <Icon icon={event.ability.abilityIcon} />
-                          </SpellLink></td>
-                        <td>{(formatPercentage((event.hitPoints || NaN) / (event.maxHitPoints || NaN)))}%</td>
-                      </tr>
-                    );
-                  },
-                  )
+                  return (
+                    <tr key={index}>
+                      <th scope="row">{formatDuration((event.timestamp - this.owner.fight.start_time) / 1000, 0)}</th>
+                      <td className={specClassName}>{combatant.name}</td>
+                      <td style={{ textAlign: 'center' }}>
+                        <SpellLink id={event.ability.guid} icon={false}>
+                          <Icon icon={event.ability.abilityIcon} />
+                        </SpellLink></td>
+                      <td>{(formatPercentage((event.hitPoints || NaN) / (event.maxHitPoints || NaN)))}%</td>
+                    </tr>
+                  );
+                })
               }
             </tbody>
           </table>
