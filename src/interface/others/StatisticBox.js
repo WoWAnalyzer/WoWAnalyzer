@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Statistic from 'interface/statistics/Statistic';
+
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 import './StatisticBox.css';
 

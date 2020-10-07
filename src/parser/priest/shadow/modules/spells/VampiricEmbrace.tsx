@@ -9,6 +9,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemHealingDone from 'interface/ItemHealingDone';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import { formatNumber } from 'common/format';
+
 import AbilityTracker from '../core/AbilityTracker';
 
 // Example log: /report/TzhG7rkfJAWP8MQp/32-Mythic+G'huun+-+Wipe+11+(8:21)/16-Constiince/changelog

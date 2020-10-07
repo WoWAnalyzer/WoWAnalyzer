@@ -1,4 +1,5 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
+
 // core
 import AbilityTracker from './modules/core/AbilityTracker';
 import Insanity from './modules/core/Insanity';

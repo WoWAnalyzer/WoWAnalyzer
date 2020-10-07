@@ -36,12 +36,12 @@ class Resurgence extends Analyzer {
 
   regenedMana = 0;
   otherManaGain = 0;
-  resurgence: Array<ResurgenceInfo> = [];
+  resurgence: ResurgenceInfo[] = [];
   totalResurgenceGain = 0;
 
   on_byPlayer_heal(event: HealEvent) {
     const spellId = event.ability.guid;
-    const isAbilityProccingResurgence = SPELLS_PROCCING_RESURGENCE.hasOwnProperty(spellId);
+    const isAbilityProccingResurgence = SPELLS_PROCCING_RESURGENCE[spellId];
 
     if (!isAbilityProccingResurgence || event.tick) {
       return;

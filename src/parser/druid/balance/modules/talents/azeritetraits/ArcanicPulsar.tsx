@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import Statistic from 'interface/statistics/Statistic';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -29,7 +29,7 @@ class ArcanicPulsar extends Analyzer {
   protected bonusDamage = 0;
   protected celestialAlignmentTriggers = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     if (!this.selectedCombatant.hasTrait(SPELLS.ARCANIC_PULSAR_TRAIT.id)) {

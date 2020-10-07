@@ -89,7 +89,7 @@ class NightbladeUptime extends Analyzer {
         position={STATISTIC_ORDER.CORE(120)}
         icon={<SpellIcon id={SPELLS.NIGHTBLADE.id} />}
         value={`${formatPercentage(this.buffedPercent)}%`}
-        label={`Damage Buffed by Nightblade`}
+        label="Damage Buffed by Nightblade"
         tooltip={<>You buffed <b> {formatPercentage(this.buffedPercent)}% </b> of your damage by Nightblade. <br />The total increase was <b>{formatNumber(this.damageBonus/this.owner.fightDuration * 1000)} DPS </b></>}
       />
     );

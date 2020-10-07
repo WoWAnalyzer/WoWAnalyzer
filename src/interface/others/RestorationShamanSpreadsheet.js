@@ -71,9 +71,7 @@ const RestorationShamanSpreadsheet = props => {
       <button className="btn btn-primary btn-lg" onClick={() => {navigator.clipboard.writeText(output.toString().replace(/,/g,'\n'));}}>Click to copy table contents</button><br />
         <table style={styles.table} >
           <tbody>
-            {output.map(row => {
-              return (<tr><td>{row}</td></tr>);
-            })}
+            {output.map((row, i) => (<tr key={i}><td>{row}</td></tr>))}
           </tbody>
         </table>
     </div>

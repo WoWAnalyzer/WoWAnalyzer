@@ -2,6 +2,7 @@ import { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
+
 import BaseHealerAzerite from './BaseHealerAzerite';
 
 /**

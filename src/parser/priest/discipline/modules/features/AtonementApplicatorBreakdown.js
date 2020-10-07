@@ -54,14 +54,14 @@ class AtonementApplicatorBreakdown extends Analyzer{
             "applicatorId": SPELLS.SHADOW_MEND.id,
         }, null);
     }
-    
+
     storePowerWordShieldsCasts(event){
         this._castsApplyBuffsMap.set({
             "event": event,
             "applicatorId": SPELLS.POWER_WORD_SHIELD.id,
         }, null);
     }
-    
+
     storePowerWordRadiancesCastTimestamp(event){
         this._lastRadianceCastTimestamp = event.timestamp;
     }
@@ -85,7 +85,7 @@ class AtonementApplicatorBreakdown extends Analyzer{
                     "timestamp": this._lastRadianceCastTimestamp,
                 },
                 "applicatorId": SPELLS.POWER_WORD_RADIANCE.id,
-            }, 
+            },
             {
                 "applyBuff": event,
                 "atonementEvents": [],
@@ -135,7 +135,7 @@ class AtonementApplicatorBreakdown extends Analyzer{
                 return healEvent.amount;
             }
         }
-        
+
         return 0;
     }
 
@@ -163,25 +163,25 @@ class AtonementApplicatorBreakdown extends Analyzer{
             }
         });
     }
-    
+
     handleEvangelismCasts(event){
         this._castsApplyBuffsMap.forEach((atonement, cast) => {
             if(atonement === null){
                 return;
             }
-            
+
             if(cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id){
-                if(event.timestamp > atonement.applyBuff.timestamp 
+                if(event.timestamp > atonement.applyBuff.timestamp
                 && event.timestamp < atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration){
                     atonement.extendedByEvangelism = true;
                 }
             } else if (cast.applicatorId === SPELLS.POWER_WORD_SHIELD.id){
-                if(event.timestamp > atonement.applyBuff.timestamp 
+                if(event.timestamp > atonement.applyBuff.timestamp
                 && event.timestamp < atonement.applyBuff.timestamp + SPELLS.POWER_WORD_SHIELD.atonementDuration){
                     atonement.extendedByEvangelism = true;
                 }
             } else if (cast.applicatorId === SPELLS.SHADOW_MEND.id){
-                if(event.timestamp > atonement.applyBuff.timestamp 
+                if(event.timestamp > atonement.applyBuff.timestamp
                 && event.timestamp < atonement.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration){
                     atonement.extendedByEvangelism = true;
                 }
@@ -235,7 +235,7 @@ class AtonementApplicatorBreakdown extends Analyzer{
             <Statistic
               position={STATISTIC_ORDER.CORE(20)}
               size="flexible"
-              tooltip={`The Atonement healing contributed by each Atonement applicator.`}
+              tooltip="The Atonement healing contributed by each Atonement applicator."
             >
                 <div className="pad">
                     <label><SpellLink id={SPELLS.ATONEMENT_BUFF.id}>Atonement</SpellLink> applicators breakdown</label>

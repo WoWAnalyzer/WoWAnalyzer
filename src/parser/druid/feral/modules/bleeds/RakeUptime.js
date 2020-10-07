@@ -30,16 +30,14 @@ class RakeUptime extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your <SpellLink id={SPELLS.RAKE.id} /> uptime can be improved. Unless the current application was buffed by Prowl you should refresh the DoT once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off.
         </>,
       )
         .icon(SPELLS.RAKE.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

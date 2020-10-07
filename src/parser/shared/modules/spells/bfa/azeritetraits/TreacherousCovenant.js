@@ -63,11 +63,11 @@ class TreacherousCovenant extends Analyzer {
     });
   }
 
-  _applyDebuff(event) {
+  _applyDebuff() {
     this.debuffActive = true;
   }
 
-  _removeDebuff(event) {
+  _removeDebuff() {
     this.debuffActive = false;
   }
 

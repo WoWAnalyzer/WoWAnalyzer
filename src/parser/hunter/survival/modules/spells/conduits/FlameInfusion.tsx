@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { AFFECTED_BY_GUERRILLA_TACTICS, FLAME_INFUSION_WFB_DAMAGE_INCREASE } from 'parser/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
@@ -25,7 +25,7 @@ class FlameInfusion extends Analyzer {
   spentStacks: number = 0;
   potentialStacks: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FLAME_INFUSION_CONDUIT.id);

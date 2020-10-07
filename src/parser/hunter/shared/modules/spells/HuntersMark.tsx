@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -48,7 +48,7 @@ class HuntersMark extends Analyzer {
   protected enemies!: Enemies;
   protected abilities!: Abilities;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onCast);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffRemoval);
@@ -56,7 +56,7 @@ class HuntersMark extends Analyzer {
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffRefresh);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.calculateMarkDamage);
 
-    options.abilities.add({
+    (options.abilities as Abilities).add({
       spell: SPELLS.HUNTERS_MARK,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 20,
@@ -173,16 +173,14 @@ class HuntersMark extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your uptime on the debuff from <SpellLink id={SPELLS.HUNTERS_MARK.id} /> could be better. You should try and keep <SpellLink id={SPELLS.HUNTERS_MARK.id} /> up on a mob that you're actively hitting as much as possible.
         </>,
       )
         .icon(SPELLS.HUNTERS_MARK.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
 

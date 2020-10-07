@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
 import Abilities from './modules/Abilities';
 // Shared Shaman
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';

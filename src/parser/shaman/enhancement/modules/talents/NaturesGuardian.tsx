@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
@@ -19,7 +19,7 @@ class NaturesGuardian extends Analyzer {
   protected healthGained: number = 0;
   protected procCount: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     if(!this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id)) {

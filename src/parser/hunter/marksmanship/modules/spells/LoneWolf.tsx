@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -26,7 +26,7 @@ class LoneWolf extends Analyzer {
   loneWolfModifier = 0;
   lwAppliedOrRemoved = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LONE_WOLF_BUFF), this.onLoneWolfApplication);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LONE_WOLF_BUFF), this.onLoneWolfRemoval);

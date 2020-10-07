@@ -5,6 +5,7 @@ import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import colorForPerformance from 'common/colorForPerformance';
 import { BoolThreshold, NumberThreshold, Threshold, ThresholdStyle } from 'parser/core/ParseResults';
+
 import performanceForThresholds from './helpers/performanceForThresholds';
 import { RuleContext } from './Rule';
 

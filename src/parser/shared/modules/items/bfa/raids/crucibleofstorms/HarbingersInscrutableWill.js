@@ -76,16 +76,14 @@ class HarbingersInscrutableWill extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestedSilences).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestedSilences).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You are getting silenced by <SpellLink id={SPELLS.OBLIVION_SPEAR_SILENCE.id} />. Try to dodge <ItemLink id={ITEMS.HARBINGERS_INSCRUTABLE_WILL.id} />'s spears to avoid the silence.
         </>,
       )
         .icon(ITEMS.HARBINGERS_INSCRUTABLE_WILL.icon)
         .actual(`You got silenced by ${formatPercentage(actual)}% of spears.`)
-        .recommended(`<10% is recommended`);
-    });
+        .recommended(`<10% is recommended`));
   }
 
 }

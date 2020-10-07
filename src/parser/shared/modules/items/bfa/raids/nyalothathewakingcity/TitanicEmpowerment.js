@@ -26,7 +26,7 @@ class TitanicEmpowerment extends Analyzer {
     super(...args);
     this._vitaItem = this.selectedCombatant.getTrinket(ITEMS.VITA_CHARGED_TITANSHARD.id);
     this._voidItem = this.selectedCombatant.getTrinket(ITEMS.VOID_TWISTED_TITANSHARD.id);
-    this.active = !!this._vitaItem && !!this._voidItem;
+    this.active = Boolean(this._vitaItem) && Boolean(this._voidItem);
 
     if (this.active) {
       this.statBuff = calculatePrimaryStat(445, 1091, Math.floor((this._voidItem.itemLevel + this._vitaItem.itemLevel) / 2));

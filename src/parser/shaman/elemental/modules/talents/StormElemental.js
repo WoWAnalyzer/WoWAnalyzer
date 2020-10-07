@@ -136,12 +136,10 @@ class StormElemental extends Analyzer {
   suggestions(when) {
     const abilities = `Lightning Bolt/Chain Lightning and Earth Shock/Earthquake`;
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
           .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
           .actual(`${actual} other casts with Storm Elemental up`)
-          .recommended(`Only cast ${abilities} while Storm Elemental is up.`);
-      });
+          .recommended(`Only cast ${abilities} while Storm Elemental is up.`));
   }
 
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

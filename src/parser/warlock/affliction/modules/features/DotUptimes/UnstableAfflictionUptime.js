@@ -78,16 +78,14 @@ class UnstableAfflictionUptime extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      .addSuggestion((suggest, actual, recommended) => suggest(
           <>
             Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime is too low. Try spacing out your UAs a little more so that you get the most out of the internal 10% damage bonus, unless you're pooling for <SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /> or focusing priority targets.
           </>,
         )
           .icon(SPELLS.UNSTABLE_AFFLICTION_CAST.icon)
           .actual(`${formatPercentage(actual)}% Unstable Affliction uptime.`)
-          .recommended(`> ${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {

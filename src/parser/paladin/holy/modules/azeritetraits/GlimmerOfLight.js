@@ -224,8 +224,7 @@ class GlimmerOfLight extends Analyzer {
 
   suggestions(when) {
     if (this.owner.builds.GLIMMER.active) {
-      when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => suggest(
           <Trans>
             Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved. To maximize
             the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />, try to keep as
@@ -241,13 +240,11 @@ class GlimmerOfLight extends Analyzer {
               this.earlyGlimmerRefreshLoss,
             )}%`,
           )
-          .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`);
-      });
+          .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`));
     }
 
     if (this.owner.builds.GLIMMER.active) {
-      when(this.suggestGlimmerCap).addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      when(this.suggestGlimmerCap).addSuggestion((suggest, actual, recommended) => suggest(
           <Trans>
             Patch 8.3 implemented a{' '}
             <a href="https://www.wowhead.com/news=295502.3/blizzard-official-class-changes-for-patch-8-3-visions-of-nzoth">
@@ -266,8 +263,7 @@ class GlimmerOfLight extends Analyzer {
               this.overCapGlimmerLoss,
             )}%`,
           )
-          .recommended(`< ${this.suggestGlimmerCap.isGreaterThan.minor * 100}% is reccommended`);
-      });
+          .recommended(`< ${this.suggestGlimmerCap.isGreaterThan.minor * 100}% is reccommended`));
     }
   }
 }

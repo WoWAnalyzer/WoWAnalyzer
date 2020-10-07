@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
 import { SPELLS_WHICH_REMOVE_BOC } from '../../constants';
 
 const debug = false;
@@ -75,13 +76,11 @@ class BlackoutCombo extends Analyzer {
     const wastedPerc = (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
 
     when(wastedPerc).isGreaterThan(0.1)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You wasted {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
           .icon(SPELLS.BLACKOUT_COMBO_BUFF.icon)
           .actual(`${formatPercentage(actual)}% unused`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(recommended + 0.1).major(recommended + 0.2);
-      });
+          .regular(recommended + 0.1).major(recommended + 0.2));
   }
 
   statistic() {
@@ -100,7 +99,7 @@ class BlackoutCombo extends Analyzer {
               {Object.keys(this.spellsBOCWasUsedOn)
                 .sort((a, b) => this.spellsBOCWasUsedOn[b] - this.spellsBOCWasUsedOn[a])
                 .map(type => (
-                  <li><em>{SPELLS[type].name || 'Unknown'}</em> was used {this.spellsBOCWasUsedOn[type]} time{this.spellsBOCWasUsedOn[type] === 1 ? '' : 's'} ({formatPercentage(this.spellsBOCWasUsedOn[type] / this.blackoutComboConsumed)}%)</li>),
+                  <li key={type}><em>{SPELLS[type].name || 'Unknown'}</em> was used {this.spellsBOCWasUsedOn[type]} time{this.spellsBOCWasUsedOn[type] === 1 ? '' : 's'} ({formatPercentage(this.spellsBOCWasUsedOn[type] / this.blackoutComboConsumed)}%)</li>),
                 )}
             </ul>
           </>

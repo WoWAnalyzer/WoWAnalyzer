@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 // Core
 import HealingDone from './modules/core/HealingDone';
 import DamageTaken from './modules/core/DamageTaken';

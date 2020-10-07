@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
 
@@ -15,6 +15,7 @@ import StatisticBox from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Combatants from 'parser/shared/modules/Combatants';
+
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
 class Wellspring extends Analyzer {
@@ -27,12 +28,12 @@ class Wellspring extends Analyzer {
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
 
   healing = 0;
-  wellspringCasts: Array<number> = [];
-  wellspringTimestamps: Array<number> = [];
+  wellspringCasts: number[] = [];
+  wellspringTimestamps: number[] = [];
   castNumber = 0;
   castEvent: CastEvent | undefined = undefined;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id);
   }
@@ -122,13 +123,11 @@ class Wellspring extends Analyzer {
   suggestions(when: When) {
     const suggestionThreshold = this.suggestionThreshold;
     when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You're not making full use of the potential of <SpellLink id={SPELLS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured players with 6 people or more.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>You're not making full use of the potential of <SpellLink id={SPELLS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured players with 6 people or more.</span>)
           .icon(SPELLS.WELLSPRING_TALENT.icon)
           .actual(`${formatPercentage(suggestionThreshold.actual)}% efficiency`)
           .recommended(`>${formatPercentage(suggestionThreshold.isLessThan.minor)}% efficiency is recommended`)
-          .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average);
-      });
+          .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
   }
 
   get suggestionThreshold() {

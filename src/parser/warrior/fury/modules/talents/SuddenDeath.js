@@ -5,6 +5,7 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+
 import SpellUsable from '../features/SpellUsable';
 
 /**
@@ -74,9 +75,7 @@ class SuddenDeath extends Analyzer {
   }
 
   get damageAboveThreshold() {
-    return this.executeDamageEvents.reduce((total, event) => {
-      return event.isMainTargetAboveThreshold ? total + event.damageDone : total;
-    }, 0);
+    return this.executeDamageEvents.reduce((total, event) => event.isMainTargetAboveThreshold ? total + event.damageDone : total, 0);
   }
 
   get damagePercent() {
@@ -88,9 +87,7 @@ class SuddenDeath extends Analyzer {
   }
 
   get effectiveExecuteCDR() {
-    return this.spellUsable.executeCdrEvents.reduce((total, cdrValue, index) => {
-      return this.executeDamageEvents[index] && !this.executeDamageEvents[index].isMainTargetAboveThreshold ? total + cdrValue : total;
-    }, 0);
+    return this.spellUsable.executeCdrEvents.reduce((total, cdrValue, index) => this.executeDamageEvents[index] && !this.executeDamageEvents[index].isMainTargetAboveThreshold ? total + cdrValue : total, 0);
   }
 
   statistic() {

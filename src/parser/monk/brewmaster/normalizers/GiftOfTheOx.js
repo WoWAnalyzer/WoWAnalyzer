@@ -1,5 +1,6 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { EventType } from 'parser/core/Events';
+
 import { GIFT_OF_THE_OX_SPELL_IDS } from '../constants';
 
 export const GOTOX_GENERATED_EVENT = 'orb-generated';

@@ -1,17 +1,14 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import Events, { Event, AbsorbedEvent, DeathEvent, DamageEvent, CastEvent, Ability } from 'parser/core/Events';
+import Events, { Event, AbsorbedEvent, DeathEvent, DamageEvent, CastEvent, Ability, EventType, AnyEvent } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
 
 import HighTolerance, { HIGH_TOLERANCE_HASTE } from '../spells/HighTolerance';
 
-const PURIFY_BASE = 0.5;
+type StaggerEventType = EventType.AddStagger | EventType.RemoveStagger
 
-export enum StaggerEventType {
-  Add = 'addstagger',
-  Remove = 'removestagger',
-}
+const PURIFY_BASE = 0.5;
 
 const STAGGER_THRESHOLDS = {
   HEAVY: 0.6,
@@ -19,7 +16,7 @@ const STAGGER_THRESHOLDS = {
   LIGHT: 0.0,
 };
 
-export interface AddStaggerEvent extends Event<StaggerEventType.Add> {
+export interface AddStaggerEvent extends Event<EventType.AddStagger> {
   amount: number;
   overheal: number;
   newPooledDamage: number;
@@ -27,14 +24,14 @@ export interface AddStaggerEvent extends Event<StaggerEventType.Add> {
   trigger?: AbsorbedEvent;
 }
 
-export interface RemoveStaggerEvent extends Event<StaggerEventType.Remove> {
+export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
   amount: number;
   overheal: number;
   newPooledDamage: number;
   trigger?: CastEvent | DeathEvent;
 }
 
-export type MaxHPEvent = Event<any> & { maxHitPoints?: number; }
+export type MaxHPEvent = AnyEvent & { maxHitPoints?: number; }
 
 /**
  * Fabricate events corresponding to stagger pool updates. Each stagger
@@ -55,7 +52,7 @@ class StaggerFabricator extends Analyzer {
   _lastKnownMaxHp = 0;
   _initialized = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     //count as uninitialized if fight didn't start at actual fight start time (aka phase)
@@ -77,7 +74,7 @@ class StaggerFabricator extends Analyzer {
 
   addStagger(event: MaxHPEvent, amount: number) {
     this._staggerPool += amount;
-    const staggerEvent = this._fab(StaggerEventType.Add, event, amount);
+    const staggerEvent = this._fab(EventType.AddStagger, event, amount);
     this.eventEmitter.fabricateEvent(staggerEvent, event);
     if (this.ht && this.ht.active) {
       this._updateHaste(event, staggerEvent);
@@ -92,7 +89,7 @@ class StaggerFabricator extends Analyzer {
     //
     // other sources of flat reduction may also hit this condition
     this._staggerPool = Math.max(this._staggerPool, 0);
-    const staggerEvent = this._fab(StaggerEventType.Remove, event, amount, overage);
+    const staggerEvent = this._fab(EventType.RemoveStagger, event, amount, overage);
     this.eventEmitter.fabricateEvent(staggerEvent, event);
     if (this.ht && this.ht.active) {
       this._updateHaste(event, staggerEvent);

@@ -1,4 +1,5 @@
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+
 import Penance from '../spells/Penance';
 
 /**

@@ -28,7 +28,7 @@ class LayeredMane extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.LAYERED_MANE.id);
-    if (!this.active) return;
+    if (!this.active) {return;}
 
     this.agility = layeredManeStats(this.selectedCombatant);
     this.statTracker.add(SPELLS.IRONFUR.id, { agility: this.agility });

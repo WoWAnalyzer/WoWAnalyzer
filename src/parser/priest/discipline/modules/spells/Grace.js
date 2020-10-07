@@ -19,7 +19,7 @@ const PRIEST_WHITELIST = Object.entries({
   ...PRIEST_TALENTS,
 }).map(ability => ability[1].id);
 
-class grace extends Analyzer {
+class Grace extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     statTracker: StatTracker,
@@ -53,7 +53,7 @@ class grace extends Analyzer {
     }
 
     const target = this.combatants.getEntity(event);
-    if (!target) return;
+    if (!target) {return;}
 
     if(this.absorbApplicationWasMasteryBuffed(event)){
       this.graceHealing += this.getGraceHealing(event);
@@ -78,7 +78,7 @@ class grace extends Analyzer {
     }
 
     const target = this.combatants.getEntity(event);
-    if (!target) return;
+    if (!target) {return;}
 
     this.applyAbsorbEvents.push({
       applyBuffEvent: event,
@@ -97,7 +97,7 @@ class grace extends Analyzer {
     }
 
     const target = this.combatants.getEntity(event);
-    if (!target) return;
+    if (!target) {return;}
 
     if (!target.hasBuff(SPELLS.ATONEMENT_BUFF.id)) {
       this.healingUnbuffedByMastery += event.amount;
@@ -151,4 +151,4 @@ class grace extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
-export default grace;
+export default Grace;

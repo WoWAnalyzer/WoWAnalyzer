@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+
 import { RAKE_BASE_DURATION, THRASH_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
 
 const EARLY_BLEED_EXPIRE_TO_COUNT_AS_DEATH = 500;
@@ -95,7 +96,7 @@ class SpellUsable extends CoreSpellUsable {
   }
 
   isBleed(spellId) {
-    return !!Object.keys(BLEED_BASE_DURATIONS).includes(spellId.toString());
+    return Boolean(Object.keys(BLEED_BASE_DURATIONS).includes(spellId.toString()));
   }
 
   beginCooldown(spellId, cooldownTriggerEvent) {

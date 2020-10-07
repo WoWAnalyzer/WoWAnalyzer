@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+
 import { ATONEMENT_COEFFICIENT } from './constants';
 
 // 50% dmg increase passive
@@ -8,9 +9,7 @@ const SMITE_DAMAGE_BUFF = 0.5;
  * Wraps a spell calculation to accept the stats module
  * Essentially lets you compose modules with spell estimations
  */
-const statWrapper = spellCalculation => (stats) => (...args) => {
-  return spellCalculation(stats, ...args);
-};
+const statWrapper = spellCalculation => (stats) => (...args) => spellCalculation(stats, ...args);
 
 // Returns the overhealing of a given spell
 export const calculateOverhealing = (estimateHealing, healing, overhealing = 0) => {
@@ -45,8 +44,7 @@ export const OffensivePenanceBoltEstimation = statWrapper(
 );
 
 // Estimation of how much output a Smite will do
-export const SmiteEstimation = (stats, sins) => {
-  return () => {
+export const SmiteEstimation = (stats, sins) => () => {
     const currentIntellect = stats.currentIntellectRating;
     const currentVers = 1 + stats.currentVersatilityPercentage;
     const currentMastery = 1 + stats.currentMasteryPercentage;
@@ -67,4 +65,3 @@ export const SmiteEstimation = (stats, sins) => {
       smiteHealing,
     };
   };
-};

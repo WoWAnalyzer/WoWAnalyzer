@@ -4,6 +4,7 @@ import Haste from 'parser/shared/modules/Haste';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import { EventType } from 'parser/core/Events';
+
 import Mastery from '../Mastery';
 
 const PANDEMIC_FACTOR = 1.3;

@@ -56,12 +56,10 @@ class BlindFury extends Analyzer{
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Cast <SpellLink id={SPELLS.EYE_BEAM.id} /> with 50 or less Fury when you take the <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> talent to minimize Fury waste and maximize DPS.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Cast <SpellLink id={SPELLS.EYE_BEAM.id} /> with 50 or less Fury when you take the <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> talent to minimize Fury waste and maximize DPS.</>)
           .icon(SPELLS.BLIND_FURY_TALENT.icon)
           .actual(<>{actual} bad <SpellLink id={SPELLS.EYE_BEAM.id} /> casts above 50 Fury. </>)
-          .recommended(`${formatPercentage(recommended)}% is recommended.`);
-      });
+          .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 
 

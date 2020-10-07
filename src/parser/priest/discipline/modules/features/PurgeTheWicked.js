@@ -8,6 +8,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+
 import SuggestionThresholds from '../../SuggestionThresholds';
 
 class PurgeTheWicked extends Analyzer {
@@ -82,13 +83,11 @@ class PurgeTheWicked extends Analyzer {
     const uptime = this.uptime || 0;
 
     when(uptime).isLessThan(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={this.dotSpell.id} /> uptime can be improved.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={this.dotSpell.id} /> uptime can be improved.</span>)
           .icon(this.dotSpell.icon)
           .actual(`${formatPercentage(uptime)}% uptime`)
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`)
-          .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular).major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major);
-      });
+          .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular).major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major));
   }
 
   statistic() {
