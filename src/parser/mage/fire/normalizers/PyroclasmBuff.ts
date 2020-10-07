@@ -1,17 +1,14 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { EventType } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 
 class PyroclasmBuff extends EventsNormalizer {
-  /**
-   * @param {Array} events
-   * @returns {Array}
-   */
+
   //Ensures that the  ApplyBuff, RefreshBuff, and RemoveBuff events are not occuring before the pyroblast events... so the buff doesnt get applied, removed, or refreshed before the pyroblast actually casts
-  normalize(events: any) {
-    const fixedEvents: any = [];
-    events.forEach((event: any, eventIndex: any) => {
+  normalize(events: AnyEvent[]) {
+    const fixedEvents: AnyEvent[] = [];
+    events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
       if (event.type === EventType.Cast && event.ability.guid === SPELLS.PYROBLAST.id) {

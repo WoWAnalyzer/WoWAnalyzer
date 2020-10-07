@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import { Event, CastEvent } from 'parser/core/Events';
+import { AnyEvent, CastEvent } from 'parser/core/Events';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
@@ -33,7 +33,7 @@ class SpellUsable extends CoreSpellUsable {
     }
   }
 
-  beginCooldown(spellId: number, cooldownTriggerEvent: Event<any>) {
+  beginCooldown(spellId: number, cooldownTriggerEvent: AnyEvent) {
     if (spellId === SPELLS.SHIELD_SLAM.id) {
       if (this.isOnCooldown(spellId)) {
         this.endCooldown(spellId, undefined, this.lastPotentialTriggerForShieldSlam ? this.lastPotentialTriggerForShieldSlam.timestamp : undefined);

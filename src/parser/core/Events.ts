@@ -95,7 +95,10 @@ type MappedEventTypes = {
 
   // Time Filtering:
   [EventType.FilterCooldownInfo]: FilterCooldownInfoEvent,
+  [EventType.FilterBuffInfo]: FilterBuffInfoEvent,
 }
+
+export type AnyEvent<ET extends keyof MappedEventTypes = keyof MappedEventTypes> = MappedEventTypes[ET];
 
 export interface Ability {
   name: string;
@@ -232,6 +235,10 @@ export interface FilterCooldownInfoEvent extends ICastEvent<EventType.FilterCool
   trigger: EventType;
 }
 
+export interface FilterBuffInfoEvent extends BuffEvent<EventType.FilterBuffInfo> {
+  trigger: EventType;
+}
+
 export interface HealEvent extends Event<EventType.Heal> {
   sourceID: number;
   sourceIsFriendly: boolean;
@@ -322,7 +329,7 @@ export interface BuffEvent<T extends string> extends Event<T> {
 }
 
 export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {
-  sourceID: number;
+  // confirmed that not all applybuff events contain a sourceID; e.g. wind rush from totem
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
   targetInstance?: number;
