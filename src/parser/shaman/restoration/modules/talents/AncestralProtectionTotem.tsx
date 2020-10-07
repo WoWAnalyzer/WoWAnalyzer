@@ -13,7 +13,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
-import { Event, EventType, HasAbility, HasSource } from 'parser/core/Events';
+import { ApplyDebuffEvent, CastEvent, EventType, HasSource } from 'parser/core/Events';
 import { WCLEventsResponse, WclOptions } from 'common/WCL_TYPES';
 
 //RQXjBJ1kG9pAC2DV/21-Mythic++Atal'Dazar+-+Kill+(51:52)/Koorshaman/
@@ -26,7 +26,7 @@ class AncestralProtectionTotem extends Analyzer {
   protected combatants!: Combatants;
 
   loaded = false;
-  aptEvents: Array<Event<EventType.Cast | EventType.ApplyDebuff>> = [];
+  aptEvents: Array<CastEvent | ApplyDebuffEvent> = [];
   constructor(options: any) {
     super(options);
     this.active = !!this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id);
@@ -36,7 +36,7 @@ class AncestralProtectionTotem extends Analyzer {
   fetchAll(pathname: string, query: WclOptions) {
     const checkAndFetch: any = async (_query: WclOptions) => {
       const json = await fetchWcl(pathname, _query) as WCLEventsResponse;
-      const events = json.events as Array<Event<EventType.Cast | EventType.ApplyDebuff>>;
+      const events = json.events as Array<CastEvent | ApplyDebuffEvent>;
       this.aptEvents.push(...events);
       if (json.nextPageTimestamp) {
         return checkAndFetch(Object.assign(query, {
@@ -107,7 +107,7 @@ class AncestralProtectionTotem extends Analyzer {
             <tbody>
               {
                 this.aptEvents.map((event, index) => {
-                  if (!HasSource(event) || !HasAbility(event)) {
+                  if (!HasSource(event)) {
                     return null;
                   }
                   const combatant = this.combatants.players[event.sourceID];
