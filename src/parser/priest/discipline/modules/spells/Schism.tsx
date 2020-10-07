@@ -56,7 +56,7 @@ class Schism extends Analyzer {
   healing = 0;
   target: Enemy | null = null;
 
-  get smiteEstimation () {
+  get smiteEstimation() {
     return SmiteEstimation(this.statTracker, this.sins);
   }
 
@@ -229,7 +229,8 @@ class Schism extends Analyzer {
         )
           .icon(SPELLS.SCHISM_TALENT.icon)
           .actual(`You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`)
-          .recommended(`${recommended} is recommended`),
+          .recommended(`${recommended} is recommended`);
+      },
     );
   }
 }

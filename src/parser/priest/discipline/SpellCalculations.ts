@@ -70,3 +70,4 @@ export const SmiteEstimation = (stats: StatTracker, sins: SinsOfTheMany) => {
       smiteHealing,
     };
   };
+}
