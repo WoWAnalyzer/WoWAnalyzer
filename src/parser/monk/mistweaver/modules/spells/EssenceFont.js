@@ -25,8 +25,6 @@ class EssenceFont extends Analyzer {
   totalOverhealing = 0;
   totalAbsorbs = 0;
 
-  channelTime = 0;
-
   castEF = 0;
   targetsEF = 0;
   efHotHeal = 0;
