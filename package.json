@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",
+    "@emico/eslint-config": "^2.0.0",
     "@lingui/cli": "^2.9.0",
     "@lingui/core": "^2.9.0",
     "@lingui/loader": "^2.9.0",
@@ -103,5 +104,8 @@
   },
   "jest": {
     "snapshotResolver": "./snapshotResolver.js"
+  },
+  "eslintConfig": {
+    "extends": "@emico/eslint-config"
   }
 }
