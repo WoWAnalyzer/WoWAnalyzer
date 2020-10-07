@@ -6572,29 +6572,6 @@ Array [
 ]
 `;
 
-exports[`Mistweaver Monk integration test: example log SpinningCraneKick matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "ability_monk_cranekick_new",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      You are not utilizing your 
-      <ForwardRef
-        id={101546}
-      />
-       spell as effectively as you should. You should work on both your positioning spell. Always aim for the highest concentration of enemies, which is normally melee.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      2 Spinning Crane Kicks that hit fewer than 3 enemies
-       (
-      Aim to hit 3 or more targets with Spinning Crane Kick if there is less than 3 targets then Rising Sunkick, Blackout Kick or Tiger's palm
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Mistweaver Monk integration test: example log StatValues matches the statistic snapshot 1`] = `
 <div
   className="col-lg-6 col-md-6 col-sm-6 col-xs-12"
