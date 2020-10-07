@@ -101,16 +101,14 @@ class FangsOfIntertwinedEssence extends Analyzer {
     };
   }
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your usage of <ItemLink id={ITEMS.FANGS_OF_INTERTWINED_ESSENCE.id} /> can be improved. Try to cast at least {MAX_RESTORES_PER_USE} spells in the {BUFF_DURATION} seconds after activating it to benefit from the full mana restoration it can provide.
         </>,
       )
         .icon(ITEMS.FANGS_OF_INTERTWINED_ESSENCE.icon)
         .actual(`${formatPercentage(actual)}% of mana restoration triggered`)
-        .recommended(`${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }
 

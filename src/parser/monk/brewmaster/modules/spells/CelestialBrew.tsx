@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, AbsorbedEvent, RemoveBuffEvent, ApplyBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
@@ -25,7 +25,7 @@ class CelestialBrew extends Analyzer {
   _currentChiStacks: number = 0;
   _expireTime: number | null = null;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this._absorbs = [];

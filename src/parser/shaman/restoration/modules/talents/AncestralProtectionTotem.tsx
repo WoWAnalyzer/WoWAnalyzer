@@ -29,7 +29,7 @@ class AncestralProtectionTotem extends Analyzer {
   aptEvents: Array<CastEvent | ApplyDebuffEvent> = [];
   constructor(options: any) {
     super(options);
-    this.active = !!this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id);
+    this.active = Boolean(this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id));
   }
 
   // recursively fetch events until no nextPageTimestamp is returned

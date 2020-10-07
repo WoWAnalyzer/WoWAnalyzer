@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'common/Tooltip';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -57,7 +57,7 @@ class FlashFlood extends Analyzer {
     },
   };
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id);
 
@@ -114,11 +114,11 @@ class FlashFlood extends Analyzer {
   }
 
   get totalTimeSaved() {
-    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => { return sum + spell.timeSaved; }, 0);
+    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => sum + spell.timeSaved, 0);
   }
 
   get totalTimeWasted() {
-    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => { return sum + spell.timeWasted; }, 0);
+    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => sum + spell.timeWasted, 0);
   }
 
   get flashFloodUsageRatioChart() {

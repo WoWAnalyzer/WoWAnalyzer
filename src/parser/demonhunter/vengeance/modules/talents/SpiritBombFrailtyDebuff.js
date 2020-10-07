@@ -38,12 +38,10 @@ class SpiritBombFrailtyDebuff extends Analyzer {
   }
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This is easy to maintain and an important source of healing.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This is easy to maintain and an important source of healing.</>)
           .icon(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.icon)
           .actual(`${formatPercentage(actual)}% Frailty uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

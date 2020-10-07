@@ -16,7 +16,6 @@ type ContributorProps = {
 }
 
 class ContributorDetails extends React.PureComponent<ContributorProps> {
-
   constructor(props: any) {
     super(props);
     this.filterChangelog = this.filterChangelog.bind(this);
@@ -65,7 +64,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
       return null;
     }
 
-    const value: Array<ReactNode> = [];
+    const value: ReactNode[] = [];
     Object.keys(object).forEach((key) => {
       value.push(
         <div>
@@ -88,10 +87,10 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
       return null;
     }
 
-    const value: Array<React.ReactNode> = [];
+    const value: React.ReactNode[] = [];
     Object.keys(object).forEach((key) => {
       if (Array.isArray(object[key])) {
-        const subvalue: Array<React.ReactNode> = [];
+        const subvalue: React.ReactNode[] = [];
         object[key].forEach((elem: any) => {
           subvalue.push(<div>{elem}</div>);
         });
@@ -190,6 +189,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
 
     document.body.classList.toggle('no-scroll');
   }
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps: any) {
     if (this.props.ownPage) {
       return;
@@ -215,7 +215,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
       return this.invalidContributor();
     }
 
-    const initial: {[id: number]: Array<ChangelogEntry>} = { 0: CoreChangelog };
+    const initial: {[id: number]: ChangelogEntry[]} = { 0: CoreChangelog };
     const contributions = AVAILABLE_CONFIGS.reduce((obj, elem) => {
       obj[elem.spec.id] = elem.changelog;
       return obj;

@@ -4,7 +4,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { EventType, RemoveDebuffEvent, CastEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
@@ -15,7 +15,7 @@ import FooterChart, { formatTime } from 'interface/others/FooterChart';
 
 import SharedBrews from '../core/SharedBrews';
 import BrewCDR from '../core/BrewCDR';
-import { AddStaggerEvent, RemoveStaggerEvent, StaggerEventType } from '../core/StaggerFabricator';
+import { AddStaggerEvent, RemoveStaggerEvent } from '../core/StaggerFabricator';
 
 const PURIFY_DELAY_THRESHOLD = 500; // with the removal of ISB, i'm cutting the delay threshold.
 
@@ -67,12 +67,12 @@ class PurifyingBrew extends Analyzer {
   _lastHit?: AddStaggerEvent | RemoveStaggerEvent;
   _msTilPurify = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER).spell(SPELLS.HEAVY_STAGGER_DEBUFF), this._removeHeavyStagger);
-    this.addEventListener(new EventFilter(StaggerEventType.Add), this._addstagger);
-    this.addEventListener(new EventFilter(StaggerEventType.Remove), this._removestagger);
+    this.addEventListener(new EventFilter(EventType.AddStagger), this._addstagger);
+    this.addEventListener(new EventFilter(EventType.RemoveStagger), this._removestagger);
   }
 
   private _removeHeavyStagger(event: RemoveDebuffEvent) {
@@ -190,19 +190,15 @@ class PurifyingBrew extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
+    when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) => suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
         .actual(`${actual.toFixed(2)}s Average Delay`)
-        .recommended(`< ${recommended.toFixed(2)}s is recommended`);
-    });
+        .recommended(`< ${recommended.toFixed(2)}s is recommended`));
 
-    when(this.purifyHeavySuggestion).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You should avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, you should often aim to save your purifies for these parts of the fight.</>)
+    when(this.purifyHeavySuggestion).addSuggestion((suggest, actual, recommended) => suggest(<>You should avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, you should often aim to save your purifies for these parts of the fight.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
         .actual(`${formatPercentage(actual)}% of your purifies were less than Heavy Stagger`)
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

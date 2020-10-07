@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent, DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -9,7 +9,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-export const DAMAGE_BONUS: {[rank: number]:number } = {
+export const DAMAGE_BONUS: {[rank: number]: number } = {
   1: .03,
   2: .035,
   3: .04,
@@ -28,7 +28,6 @@ export const DAMAGE_BONUS: {[rank: number]:number } = {
 };
 
 class InfernalCascade extends Analyzer {
-
   conduitRank: number = 0;
 
   bonusDamage = 0;
@@ -57,19 +56,16 @@ class InfernalCascade extends Analyzer {
     }
     this.bonusDamage += calculateEffectiveDamage(event,DAMAGE_BONUS[this.conduitRank] * buff.stacks);
   }
-
-  onBuffStack(event: ApplyBuffEvent | ApplyBuffStackEvent) {
+  onBuffStack() {
     const buff = this.selectedCombatant.getBuff(SPELLS.INFERNAL_CASCADE_BUFF.id);
     if (buff && buff.stacks > this.buffStack) {
       this.buffStack = buff.stacks;
     }
   }
-
-  onCombustionStart(event: ApplyBuffEvent) {
+  onCombustionStart() {
     this.combustionCount += 1;
   }
-
-  onCombustionEnd(event: RemoveBuffEvent) {
+  onCombustionEnd() {
     this.totalBuffs += this.buffStack;
     this.buffStack = 0;
   }

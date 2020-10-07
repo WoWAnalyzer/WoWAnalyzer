@@ -110,7 +110,7 @@ export default class NullDynamo extends Analyzer {
     } else {
       minorDamage = (
         <>
-          <TooltipElement content={"No actual damage done. This estimates the amount it would deal at Rank 3."}>
+          <TooltipElement content="No actual damage done. This estimates the amount it would deal at Rank 3.">
             <ItemDamageDone amount={this._hypotheticalMinorDamage} />
           </TooltipElement>
         </>
@@ -118,7 +118,7 @@ export default class NullDynamo extends Analyzer {
 
       majorDamage = (
         <>
-          <TooltipElement content={"No actual damage done. This estimates the amount it would deal at Rank 3."}>
+          <TooltipElement content="No actual damage done. This estimates the amount it would deal at Rank 3.">
             <ItemDamageDone amount={this._hypotheticalMajorDamage} />
           </TooltipElement>
         </>

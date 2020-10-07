@@ -14,7 +14,7 @@ class MissingCasts extends EventsNormalizer {
     SPELLS.IGNITION_MAGES_FUSE_BUFF.id,
   ];
 
-  normalize(events: Array<AnyEvent>) {
+  normalize(events: AnyEvent[]) {
     // Just in case someone chooses to extend this module to modify missingCastBuffs instead of adding to it here...
     const ctor = this.constructor as typeof MissingCasts;
     const missingCastEvents = events

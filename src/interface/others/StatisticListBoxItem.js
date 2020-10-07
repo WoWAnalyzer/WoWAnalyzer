@@ -5,8 +5,7 @@ import { TooltipElement } from 'common/Tooltip';
 /**
  * @deprecated Use `interface/statistic/Statistic` instead.
  */
-const StatisticListBoxItem = ({ title, value, titleTooltip, valueTooltip}) => {
-  return (
+const StatisticListBoxItem = ({ title, value, titleTooltip, valueTooltip}) => (
     <div className="flex">
       <div className="flex-main">
         {titleTooltip ? <TooltipElement content={titleTooltip}>{title}</TooltipElement> : title}
@@ -16,7 +15,6 @@ const StatisticListBoxItem = ({ title, value, titleTooltip, valueTooltip}) => {
       </div>
     </div>
   );
-};
 StatisticListBoxItem.propTypes = {
   title: PropTypes.node.isRequired,
   value: PropTypes.node.isRequired,

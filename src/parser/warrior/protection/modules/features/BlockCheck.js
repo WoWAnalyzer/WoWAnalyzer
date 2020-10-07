@@ -82,15 +82,14 @@ class BlockCheck extends Analyzer {
       });
     });
 
-    const that = this;
-    this.listOfEvents.forEach(function(event){
+    this.listOfEvents.forEach((event) => {
       if(blockableSet.has(event.ability.guid)){//if it ain't been blocked over the whole fight it prob aint blockable
         if (event.prot.shieldBlock || event.prot.bloster) {//they got block up when it happened?
-          that.physicalHitsWithBlock += 1;
-          that.rawDamageWithBlock += (event.unmitigatedAmount || 0);
+          this.physicalHitsWithBlock += 1;
+          this.rawDamageWithBlock += (event.unmitigatedAmount || 0);
         } else {
-          that.physicalHitsWithoutBlock += 1;
-          that.rawDamageWithoutBlock += (event.unmitigatedAmount || 0);
+          this.physicalHitsWithoutBlock += 1;
+          this.rawDamageWithoutBlock += (event.unmitigatedAmount || 0);
         }
       }
     });
@@ -111,12 +110,10 @@ class BlockCheck extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You only had <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} /> or <SpellLink id={SPELLS.LAST_STAND.id} /> for {formatPercentage(actual)}% of physical damage taken. You should have one of the two up to mitigate as much physical damage as possible.</>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<>You only had <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} /> or <SpellLink id={SPELLS.LAST_STAND.id} /> for {formatPercentage(actual)}% of physical damage taken. You should have one of the two up to mitigate as much physical damage as possible.</>)
             .icon(SPELLS.SHIELD_BLOCK_BUFF.icon)
             .actual(`${formatPercentage(actual)}% was mitigated by a block spell`)
-            .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended but this may vary between fights`);
-        });
+            .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended but this may vary between fights`));
   }
 
   statistic() {

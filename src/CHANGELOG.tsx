@@ -13,6 +13,7 @@ const prepatch = date(2020, 10, 13);
 // prettier-ignore
 export default [
   change(prepatch, 'Converted Combatants to TypeScript', niseko),
+  change(prepatch, 'Changed code quality rules.', Zerotorescue),
   change(prepatch, 'Added a new event map for catch-all event types.', Dambroda),
   change(prepatch, 'Converted WCL API Access to TypeScript', Zeboot),
   change(prepatch, 'Cleaned up the console a little bit.', Abelito75),

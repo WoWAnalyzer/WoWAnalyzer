@@ -1,5 +1,5 @@
 import Events, { ApplyBuffEvent, DamageEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { formatDuration } from 'common/format';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
@@ -14,7 +14,7 @@ class ExecuteHelper extends Analyzer {
    * Array of objects from common/SPELLS
    * This should contain any execute spells such as Kill Shot, Execute etc.
    */
-  static executeSpells: { id: number, name: string, icon: string }[] = [];
+  static executeSpells: Array<{ id: number, name: string, icon: string }> = [];
 
   /**
    * SELECTED_PLAYER or SELECTED_PLAYER_PET for usage in the eventfilter
@@ -25,7 +25,7 @@ class ExecuteHelper extends Analyzer {
    * Array of objects from common/SPELLS
    * This should contain any SPELLS object that allows execute to be used outside normal execute range
    */
-  static executeOutsideRangeEnablers: { id: number, name: string, icon: string }[] = [];
+  static executeOutsideRangeEnablers: Array<{ id: number, name: string, icon: string }> = [];
 
   /**
    * The lower threshold where execute is enabled, shown in decimals.
@@ -142,7 +142,7 @@ class ExecuteHelper extends Analyzer {
 
   //endregion
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.by(this.executeSources), this.onGeneralDamage);
     this.addEventListener(Events.cast.by(this.executeSources).spell(this.executeSpells), this.onExecuteCast);

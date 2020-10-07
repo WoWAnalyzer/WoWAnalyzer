@@ -86,7 +86,7 @@ class Channeling extends Analyzer {
     }
 
     // TODO: Account for pre-pull `begincast`
-    const isChanneling = !!this._currentChannel;
+    const isChanneling = Boolean(this._currentChannel);
     if (!isChanneling) {
       return;
     }
@@ -98,7 +98,7 @@ class Channeling extends Analyzer {
     }
   }
   isChanneling() {
-    return !!this._currentChannel;
+    return Boolean(this._currentChannel);
   }
   isChannelingSpell(spellId) {
     return this._currentChannel && this._currentChannel.ability.guid === spellId;

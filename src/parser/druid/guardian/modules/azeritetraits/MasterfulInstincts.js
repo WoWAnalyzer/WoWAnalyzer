@@ -33,7 +33,7 @@ class MasterfulInstincts extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.MASTERFUL_INSTINCTS.id);
 
-    if (!this.active) return;
+    if (!this.active) {return;}
     const { mastery, armor } = masterfulInstinctsStats(this.selectedCombatant);
     this.mastery = mastery;
     this.armor = armor;

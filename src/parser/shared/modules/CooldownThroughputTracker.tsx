@@ -25,7 +25,7 @@ type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyB
 
 export type CooldownSpell = {
   spell: any,
-  summary: Array<BUILT_IN_SUMMARY_TYPES>,
+  summary: BUILT_IN_SUMMARY_TYPES[],
   startBufferFilter?: EventFilter<any>,
   startBufferMS?: number,
   startBufferEvents?: number,
@@ -35,7 +35,7 @@ export type CooldownSpell = {
 type TrackedCooldown = CooldownSpell & {
   start: number,
   end: number | null,
-  events: Array<AnyEvent>,
+  events: AnyEvent[],
 };
 
 class CooldownThroughputTracker extends Analyzer {
@@ -44,7 +44,7 @@ class CooldownThroughputTracker extends Analyzer {
   };
   protected eventHistory!: EventHistory;
 
-  static cooldownSpells: Array<CooldownSpell> = [
+  static cooldownSpells: CooldownSpell[] = [
     {
       spell: SPELLS.INNERVATE,
       summary: [
@@ -61,8 +61,8 @@ class CooldownThroughputTracker extends Analyzer {
     ...CASTS_THAT_ARENT_CASTS,
   ];
 
-  pastCooldowns: Array<TrackedCooldown> = [];
-  activeCooldowns: Array<TrackedCooldown> = [];
+  pastCooldowns: TrackedCooldown[] = [];
+  activeCooldowns: TrackedCooldown[] = [];
 
   startCooldown(event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent) {
     const spellId = event.ability.guid;
@@ -77,7 +77,7 @@ class CooldownThroughputTracker extends Analyzer {
   }
 
   addCooldown(cooldownSpell: CooldownSpell, timestamp: number): TrackedCooldown {
-    let events: Array<AnyEvent> = [];
+    let events: AnyEvent[] = [];
     let start = timestamp;
     const startBufferMS = cooldownSpell.startBufferMS;
     if (startBufferMS || cooldownSpell.startBufferEvents) {

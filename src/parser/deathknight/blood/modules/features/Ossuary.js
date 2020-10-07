@@ -20,7 +20,7 @@ class Ossuary extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) return;
+    if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) {return;}
 
     if (this.selectedCombatant.hasBuff(SPELLS.OSSUARY.id)) {
       this.dsWithOS += 1;
@@ -59,12 +59,10 @@ class Ossuary extends Analyzer {
 
   suggestions(when) {
     when(this.efficiencySuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Ossuary usage can be improved. Avoid casting Death Strike while not having Ossuary up as you lose Runic Power by doing so.')
+        .addSuggestion((suggest, actual, recommended) => suggest('Your Ossuary usage can be improved. Avoid casting Death Strike while not having Ossuary up as you lose Runic Power by doing so.')
             .icon(SPELLS.OSSUARY.icon)
             .actual(`${formatPercentage(actual)}% Ossuary efficiency`)
-            .recommended(`${formatPercentage(recommended)}% is recommended`);
-        });
+            .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

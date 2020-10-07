@@ -175,14 +175,12 @@ class ShieldBlock extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <> You had uneventful <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast(s) where there was either no blockable damage events or you didn't cast shield slam enough. </>,
       )
         .icon(SPELLS.SHIELD_BLOCK.icon)
         .actual(`${this.goodCast} good casts of shield block`)
-        .recommended(`${Math.floor(recommended * (this.goodCast + this.badCast))} is recommended`);
-    });
+        .recommended(`${Math.floor(recommended * (this.goodCast + this.badCast))} is recommended`));
   }
 
   statistic() {

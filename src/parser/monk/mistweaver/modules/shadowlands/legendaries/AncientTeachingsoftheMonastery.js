@@ -53,7 +53,7 @@ class AncientTeachingsoftheMonastery extends Analyzer {
     const totmHealing = (this.damageSpellToHealing.get(SPELLS.BLACKOUT_KICK_TOTM.id) || 0);
     const tpHealing = (this.damageSpellToHealing.get(SPELLS.TIGER_PALM.id) || 0);
     const totalHealing = rskHealing + bokHealing + totmHealing + tpHealing;
-    
+
     const items = [
       {
         color: '#ffc425',

@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 
 class Pet extends Analyzer {
@@ -6,14 +6,14 @@ class Pet extends Analyzer {
   _sourceId = null;
   _pets: any = {}
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this._pets = this.owner.report.friendlyPets.filter((pet: any) => pet.petOwner === this.owner.player.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
 
     if (this._pets !== undefined) {
       const pet = this.fetchPet(this._pets);
-      if (pet) this._sourceId = pet.id;
+      if (pet) {this._sourceId = pet.id;}
     }
   }
 

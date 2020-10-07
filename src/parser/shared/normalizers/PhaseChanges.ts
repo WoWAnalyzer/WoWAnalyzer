@@ -6,7 +6,7 @@ import { AnyEvent, EventType } from 'parser/core/Events';
  */
 class FightEnd extends EventsNormalizer {
 
-  normalize(events: Array<AnyEvent>) {
+  normalize(events: AnyEvent[]) {
 
     const phaseEvents = events.filter(event => event.type === EventType.PhaseStart || event.type === EventType.PhaseEnd);
     const nonPhaseEvents = events.filter(event => event.type !== EventType.PhaseStart && event.type !== EventType.PhaseEnd);

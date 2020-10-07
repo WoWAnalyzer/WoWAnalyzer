@@ -31,9 +31,10 @@ class AncestralVigor extends Analyzer {
   loaded = false;
   lifeSavingEvents: Array<DamageEvent> = [];
   disableStatistics = false;
+
   constructor(options: Options) {
     super(options);
-    this.active = !!this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
+    this.active = Boolean(this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id));
   }
 
   // recursively fetch events until no nextPageTimestamp is returned

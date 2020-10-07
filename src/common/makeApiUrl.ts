@@ -1,10 +1,10 @@
 import makeUrl from './makeUrl';
 
 export interface QueryParams {
-  [key:string]: string | number | boolean | undefined;
+  [key: string]: string | number | boolean | undefined;
 }
 
-export default function makeApiUrl(endpoint:string, queryParams:QueryParams = {}) {
+export default function makeApiUrl(endpoint: string, queryParams: QueryParams = {}) {
   return makeUrl(`${process.env.REACT_APP_SERVER_BASE}${process.env.REACT_APP_API_BASE}${endpoint}`, queryParams);
 }
 export function makeCharacterApiUrl(characterId?: string, region?: string, realm?: string, name?: string) {

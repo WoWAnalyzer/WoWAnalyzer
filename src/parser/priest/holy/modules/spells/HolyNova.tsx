@@ -116,12 +116,10 @@ class HolyNova extends Analyzer {
 
   suggestions(when: When) {
     when(this.holyNovaThreshold)
-      .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You should only cast <SpellLink id={SPELLS.HOLY_NOVA.id} /> when you will hit 5 or more targets.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You should only cast <SpellLink id={SPELLS.HOLY_NOVA.id} /> when you will hit 5 or more targets.</>)
             .icon(SPELLS.HOLY_NOVA.icon)
             .actual(<>You hit an average of {actual} targets when you cast Holy Nova.</>)
-            .recommended(`An average of ${recommended} or more healing hits per cast is recommended.`);
-        },
+            .recommended(`An average of ${recommended} or more healing hits per cast is recommended.`),
       );
   }
 }

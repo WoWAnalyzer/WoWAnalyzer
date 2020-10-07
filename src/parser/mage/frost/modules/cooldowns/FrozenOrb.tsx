@@ -3,6 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+
 import { BLIZZARD_ORB_REDUCTION } from '../../constants';
 
 class FrozenOrb extends Analyzer {
@@ -21,7 +22,6 @@ class FrozenOrb extends Analyzer {
       this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, BLIZZARD_ORB_REDUCTION);
     }
   }
-
 }
 
 export default FrozenOrb;

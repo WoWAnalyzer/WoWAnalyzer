@@ -7,7 +7,7 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
 class EndlessRage extends Analyzer {
   rageGen = 0;
-    
+
   constructor(...args) {
     super(...args);
 

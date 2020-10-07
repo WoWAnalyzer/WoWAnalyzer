@@ -9,7 +9,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS: {[rank: number]:number } = {
+const DAMAGE_BONUS: {[rank: number]: number } = {
   1: .01,
   2: .01,
   3: .01,

@@ -80,8 +80,7 @@ class InoculatingExtract extends Analyzer{
   suggestions(when){
     const chargeEff = this.charges / (this.uses * 5);
     when(chargeEff).isLessThan(MINOR)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      .addSuggestion((suggest, actual, recommended) => suggest(
           <>
             You had wasted charges from your <ItemLink id={ITEMS.INOCULATING_EXTRACT.id} />.
             Make sure that every buff placed on a target is consumed.
@@ -89,8 +88,7 @@ class InoculatingExtract extends Analyzer{
         ).icon(ITEMS.INOCULATING_EXTRACT.icon)
           .actual(`${formatPercentage(actual)}% charges used.`)
           .recommended(` ${formatPercentage(recommended)}% is recommended`)
-          .regular(AVERAGE).major(MAJOR);
-      });
+          .regular(AVERAGE).major(MAJOR));
   }
 
 }

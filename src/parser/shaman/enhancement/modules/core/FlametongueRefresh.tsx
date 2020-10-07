@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
 
@@ -15,7 +15,7 @@ class FlametongueRefresh extends Analyzer {
   protected flametongueCasts: number = 0;
   protected earlyRefresh: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = !this.selectedCombatant.hasTalent(SPELLS.SEARING_ASSAULT_TALENT.id);
@@ -75,8 +75,7 @@ class FlametongueRefresh extends Analyzer {
   suggestions(when: When) {
     when(this.flametongueEarlyRefreshThreshold)
       .addSuggestion(
-        (suggest, actual, recommended) => {
-          return suggest(
+        (suggest, actual, recommended) => suggest(
             <>Avoid refreshing Flametongue with more then 4.5 sec left on the buff.
               Some early refreshes are unavoidable.</>)
             .icon(SPELLS.FLAMETONGUE_BUFF.icon)
@@ -90,8 +89,7 @@ class FlametongueRefresh extends Analyzer {
             )
             .recommended(
               <Trans>{recommended} recommended</Trans>,
-            );
-        },
+            ),
       );
   }
 }

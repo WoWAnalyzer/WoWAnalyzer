@@ -418,9 +418,7 @@ class Results extends React.PureComponent {
         {parser && parser.disabledModules && (
           <DegradedExperience disabledModules={parser.disabledModules} />
         )}
-        {
-          //Warning Message for Shadowlands Prepatch (Remove after Shadowlands Launch)
-          <div className="container">
+        <div className="container">
             <Warning style={{ marginBottom: 30 }}>
               In an effort to focus on Shadowlands and Castle Nathria, we will be removing support
               for Azerite, Essences, Corruption, and other BFA items with the launch of Prepatch. As
@@ -434,7 +432,6 @@ https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3
               </a>
             </Warning>
           </div>
-        }
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>{boss.fight.resultsWarning}</Warning>

@@ -7,7 +7,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -35,7 +35,7 @@ class RuneOfPower extends Analyzer {
   hasROP = false;
   damage = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     if (this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id)) {
@@ -94,15 +94,13 @@ class RuneOfPower extends Analyzer {
   suggestions(when: When) {
     if (!this.hasROP) {
       when(SUGGEST_ROP[this.selectedCombatant.specId]).isTrue()
-        .addSuggestion((suggest) => {
-          return suggest(
+        .addSuggestion((suggest) => suggest(
             <>
             It is highly recommended to talent into <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> when playing this spec.
             While it can take some practice to master, when played correctly it outputs substantially more DPS than <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} /> or <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />.
             </>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
-            .staticImportance(SUGGESTION_IMPORTANCE.REGULAR);
-        });
+            .staticImportance(SUGGESTION_IMPORTANCE.REGULAR));
       return;
     }
 
@@ -111,21 +109,17 @@ class RuneOfPower extends Analyzer {
     }
 
     when(this.damageSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
           .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
           .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`)
-          .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`);
-      });
+          .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`));
 
     if (this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts > 0) {
       when(this.roundedSecondsSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.</>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<>You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.</>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
             .actual(`Average ${this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power`)
-            .recommended(`the full duration of ${formatNumber(RUNE_DURATION)}s is recommended`);
-        });
+            .recommended(`the full duration of ${formatNumber(RUNE_DURATION)}s is recommended`));
     }
 
   }

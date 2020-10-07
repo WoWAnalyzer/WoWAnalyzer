@@ -21,8 +21,8 @@ class AtonementHealingBreakdown extends React.Component {
     }).isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(options) {
+    super(options);
     this.state = {
       absolute: false,
     };
@@ -93,7 +93,7 @@ class AtonementHealingBreakdown extends React.Component {
                   }
 
                   return (
-                    <tr>
+                    <tr key={index}>
                       <td style={{ width: '30%', paddingLeft: 50 }}>
                         <SpellLink id={ability.guid} icon={false}>
                           <Icon icon={ability.abilityIcon} />{' '}

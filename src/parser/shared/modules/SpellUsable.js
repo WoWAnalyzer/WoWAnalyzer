@@ -83,7 +83,7 @@ class SpellUsable extends Analyzer {
    */
   isOnCooldown(spellId) {
     const canSpellId = this._getCanonicalId(spellId);
-    return !!this._currentCooldowns[canSpellId];
+    return Boolean(this._currentCooldowns[canSpellId]);
   }
   /**
    * Returns the amount of time remaining on the cooldown.

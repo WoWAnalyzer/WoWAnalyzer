@@ -94,7 +94,9 @@ class Azerite extends React.PureComponent {
             azerite: newAzerite,
           });
         })
-        .catch(err => {}); // ignore errors
+        .catch(() => {
+          // ignore errors
+        });
     });
   }
 }

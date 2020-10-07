@@ -25,7 +25,7 @@ class StealthCasts extends Analyzer {
       !this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id) &&
       !this.selectedCombatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id) &&
       !this.selectedCombatant.hasBuff(SPELLS.MASTER_ASSASSIN_BUFF.id)) {
-      
+
       if (this.latestStealth) {
         this.latestStealth = null;
       }

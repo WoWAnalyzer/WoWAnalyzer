@@ -10,6 +10,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+
 import isAtonement from '../core/isAtonement';
 import Atonement from './Atonement';
 
@@ -52,7 +53,7 @@ class SinsOfTheMany extends Analyzer {
     const activeBuffs = this.atonement.numAtonementsActive;
 
     // Return an override, if necessary
-    if (BONUS_DAMAGE_MAP[activeBuffs]) return BONUS_DAMAGE_MAP[activeBuffs];
+    if (BONUS_DAMAGE_MAP[activeBuffs]) {return BONUS_DAMAGE_MAP[activeBuffs];}
 
     // Return the floor if we have more atonements than in the map
     return SINS_OF_THE_MANY_FLOOR_BONUS;

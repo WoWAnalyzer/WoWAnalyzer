@@ -13,7 +13,7 @@ import { calculatePrimaryStat } from 'common/stats';
 /**
  * Gilded Loa Figurine -
  * Equip: Your spells and abilities have a chance to increase your primary stat by 814 for 10 sec.
- * 
+ *
  * Test Log(int): https://www.warcraftlogs.com/reports/7Bzx2VWX9TPtYGdK#fight=48&type=damage-done&source=6
  * Test Log(agi): https://www.warcraftlogs.com/reports/JRYakMh4PyVtBxFq#fight=8&type=damage-done&source=270
  * Test log(str): https://www.warcraftlogs.com/reports/rw2H3AKDfN1ghv4B#fight=3&type=damage-done&source=24
