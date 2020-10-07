@@ -31,7 +31,7 @@ class Lenience extends Analyzer {
       end: this.owner.fight.end_time,
       filter: `(IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.selectedCombatant.name}' TO type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,
     })
-      .then(json => {
+      .then((json: any) => {
         console.log('Received LR damage taken', json);
         this.totalDamageTakenDuringAtonement = json.entries.reduce((damageTaken: number, entry: any) => damageTaken + entry.total, 0);
       });
