@@ -4,7 +4,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { AnyEvent, EventType } from 'parser/core/Events';
 
 class Combustion extends EventsNormalizer {
-  normalize(events: AnyEvent[]): AnyEvent[] {
+  normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);

@@ -4,10 +4,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { AnyEvent, EventType } from 'parser/core/Events';
 
 class Flamestrike extends EventsNormalizer {
-  /**
-   * @param {Array} events
-   * @returns {Array}
-   */
+
   normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event, eventIndex) => {
