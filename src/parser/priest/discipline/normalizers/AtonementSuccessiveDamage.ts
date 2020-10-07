@@ -16,19 +16,19 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
 
       if (
         event.type === EventType.Damage &&
-        (event as DamageEvent).sourceIsFriendly &&
-        !(event as DamageEvent).targetIsFriendly &&
-        ATONEMENT_DAMAGE_SOURCES[(event as DamageEvent).ability.guid]
+        event.sourceIsFriendly &&
+        !event.targetIsFriendly &&
+        ATONEMENT_DAMAGE_SOURCES[event.ability.guid]
       ) {
         _damageEventIndexes.push(eventIndex);
         _encounteredTargetIDs = [];
         return;
       }
 
-      if (event.type === EventType.Heal && isAtonement((event as HealEvent))) {
+      if (event.type === EventType.Heal && isAtonement(event)) {
         // We encountered a targetID we already encountered since the last damage
         // event. We push down the last damage event here
-        if (_encounteredTargetIDs.includes((event as HealEvent).targetID)) {
+        if (_encounteredTargetIDs.includes(event.targetID)) {
           const lastDamageEvent: AnyEvent = fixedEvents.splice(
             _damageEventIndexes[_damageEventIndexes.length - 1],
             1,
@@ -43,8 +43,8 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
         //  Because of latency issues, the atonement on self does not follow
         //  the same rules normal atonement does. We will handle these cases
         //  in another normalizer
-        if ((event as HealEvent).sourceID !== (event as HealEvent).targetID) {
-          _encounteredTargetIDs.push((event as HealEvent).targetID);
+        if (event.sourceID !== event.targetID) {
+          _encounteredTargetIDs.push(event.targetID);
         }
       }
     });
