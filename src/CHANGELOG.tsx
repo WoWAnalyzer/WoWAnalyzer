@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 7), 'Updated the report header design: moved phase and time selection slightly out of view.', Zerotorescue),
   change(date(2020, 10, 6), 'Provide the ability to analyse anonymous reports.', AdamKelly),
   change(date(2020, 10, 6), 'Fixed guild and character search so they can be submitted.', ChristopherKiss),
   change(date(2020, 10, 5), 'Convert TimeInput/TimeFilter to typescript', ChagriAli),
