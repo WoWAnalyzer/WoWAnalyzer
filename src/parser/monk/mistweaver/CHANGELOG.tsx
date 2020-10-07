@@ -7,6 +7,7 @@ import { change, date } from 'common/changelog';
 
 
 export default [
+  change(date(2020, 10, 7), <>Updated <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> and <SpellLink id={SPELLS.SOOTHING_MIST.id} /> modules to use Event Listeners.</>, [Anomoly]),
   change(date(2020, 10, 6), <>Updated <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> and <SpellLink id={SPELLS.ESSENCE_FONT.id} /> modules to use Event Listeners.</>, [Anomoly]),
   change(date(2020, 10, 6), <>Updated most talents to use action listeners.</>, Abelito75),
   change(date(2020, 10, 6), <>Updated <SpellLink id={SPELLS.RENEWING_MIST.id} /> to use Event Listeners.</>, [Anomoly]),
