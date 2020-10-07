@@ -110,7 +110,7 @@ class AncestralProtectionTotem extends Analyzer {
                   if (!HasSource(event) || !HasAbility(event)) {
                     return null;
                   }
-                  const combatant: any = this.combatants.players[event.sourceID];
+                  const combatant = this.combatants.players[event.sourceID];
                   if (!combatant) {
                     return null; // pet or something
                   }
