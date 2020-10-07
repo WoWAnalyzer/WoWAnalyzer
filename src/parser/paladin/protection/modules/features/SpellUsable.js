@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable, { INVALID_COOLDOWN_CONFIG_LAG_MARGIN } from 'parser/shared/modules/SpellUsable';
+
 import GrandCrusader from '../core/GrandCrusader';
 
 class SpellUsable extends CoreSpellUsable {

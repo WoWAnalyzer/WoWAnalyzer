@@ -19,10 +19,10 @@ const FullscreenError = ({
   background,
   children,
   errorDetails,
-}: Props) => {
+}: Props) => 
   // I want this to permanently block rendering since we need people to refresh to load the new version. If they don't refresh they might try requests that may not work anymore.
   // Do note there's another part to this page; below at AppBackgroundImage we're overriding the background image as well.
-  return (
+   (
     <div className="container" style={{ fontSize: '2em' }}>
       <h1
         style={{
@@ -43,7 +43,7 @@ const FullscreenError = ({
       {errorDetails && <div style={{ marginTop: 30 }}>{errorDetails}</div>}
       <AppBackgroundImage image={background} />
     </div>
-  );
-};
+  )
+;
 
 export default FullscreenError;

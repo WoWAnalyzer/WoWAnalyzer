@@ -1,11 +1,11 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Events, { EnergizeEvent } from 'parser/core/Events';
 
 class Insanity extends Analyzer {
   _insanityEvents: any = [];
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onInsanityEnergize);
   }

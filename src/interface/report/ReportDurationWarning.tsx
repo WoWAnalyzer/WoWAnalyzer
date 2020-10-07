@@ -2,6 +2,7 @@ import React from 'react';
 import { Trans } from '@lingui/macro';
 
 import Warning from 'interface/Alert/Warning';
+
 import { formatNumber } from '../../common/format';
 
 interface Props {
@@ -13,9 +14,7 @@ export const MAX_REPORT_DURATION = DAYS_IN_MS * 7;
 
 const ReportDurationWarning = ({ duration }: Props) => {
 
-  const durationInDays = () => {
-    return duration / DAYS_IN_MS;
-  };
+  const durationInDays = () => duration / DAYS_IN_MS;
 
   return (
     <div className="container">

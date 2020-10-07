@@ -54,7 +54,7 @@ class RisingSunRevival extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={(
-        <> 
+        <>
           Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUse/1000)} Seconds<br />
           Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted/1000)} Seconds
         </>

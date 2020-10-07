@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Channeling from 'parser/shared/modules/Channeling';
 import Events, {
@@ -49,7 +49,7 @@ class SpellHistory extends Analyzer {
     // ]
   };
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener<EventType.BeginCast, BeginCastEvent>(Events.begincast.by(SELECTED_PLAYER), this.append);
     this.addEventListener<EventType.Cast, CastEvent>(Events.cast.by(SELECTED_PLAYER), this.append);

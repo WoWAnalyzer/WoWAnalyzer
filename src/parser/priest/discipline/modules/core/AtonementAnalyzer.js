@@ -44,9 +44,9 @@ export default class AtonementAnalyzer extends Analyzer {
    * @param {Object} damageEvent A damaging event
    */
   _processAtonementDamageSource(damageEvent) {
-    if (!ATONEMENT_DAMAGE_SOURCES[damageEvent.ability.guid]) return;
-    if (damageEvent.targetIsFriendly) return; // Friendly fire doesn't cause atonement
-    if (!AtonementAnalyzer.validHitTypes[damageEvent.hitType]) return;
+    if (!ATONEMENT_DAMAGE_SOURCES[damageEvent.ability.guid]) {return;}
+    if (damageEvent.targetIsFriendly) {return;} // Friendly fire doesn't cause atonement
+    if (!AtonementAnalyzer.validHitTypes[damageEvent.hitType]) {return;}
 
     this._atonementSource = damageEvent;
 
@@ -72,8 +72,8 @@ export default class AtonementAnalyzer extends Analyzer {
    */
   _processAtonement(healEvent) {
     const damageEvent = this._atonementSource;
-    if (!damageEvent) return;
-    if (!isAtonement(healEvent)) return;
+    if (!damageEvent) {return;}
+    if (!isAtonement(healEvent)) {return;}
 
     this.eventEmitter.fabricateEvent({
       healEvent,

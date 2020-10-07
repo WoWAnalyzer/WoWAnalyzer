@@ -2,11 +2,11 @@ import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import { i18n } from 'interface/RootLocalizationProvider';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 
 class InefficientLightOfTheMartyrs extends Analyzer {
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_THE_MARTYR),

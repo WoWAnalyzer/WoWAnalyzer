@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import TooltipProvider from 'interface/common/TooltipProvider';
 
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+
 import ResourceIcon from './ResourceIcon';
 
 class ResourceLink extends React.PureComponent {

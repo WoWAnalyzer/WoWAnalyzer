@@ -31,7 +31,7 @@ class FesteringStrikeEfficiency extends Analyzer {
   zeroWoundCasts = 0;
 
   onWoundApply(event){
-		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;	
+		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
   }
 
   onWoundRemove(event){
@@ -40,27 +40,25 @@ class FesteringStrikeEfficiency extends Analyzer {
 
   onCast(event){
     this.totalCasts += 1;
-    if(this.targets.hasOwnProperty(encodeTargetString(event.targetID, event.targetInstance))){
+    if(this.targets[encodeTargetString(event.targetID, event.targetInstance)]){
       const currentTargetWounds = this.targets[encodeTargetString(event.targetID, event.targetInstance)];
       if(currentTargetWounds < 1){
         this.zeroWoundCasts += 1;
       }
     } else {
     this.zeroWoundCasts += 1;
-    }    
+    }
   }
 
   suggestions(when) {
     const percentCastZeroWounds = this.zeroWoundCasts/this.totalCasts;
     const strikeEfficiency = 1 - percentCastZeroWounds;
     when(strikeEfficiency).isLessThan(0.80)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You are casting <SpellLink id={this.activeSpell.id} /> too often.  When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></span>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<span>You are casting <SpellLink id={this.activeSpell.id} /> too often.  When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></span>)
             .icon(this.activeSpell.icon)
             .actual(`${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.20).major(recommended - 0.40);
-        });
+            .regular(recommended - 0.20).major(recommended - 0.40));
   }
 
   statistic() {

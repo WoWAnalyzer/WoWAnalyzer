@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
@@ -22,9 +22,9 @@ class FlankingStrike extends Analyzer {
 
   damage = 0;
 
-  flankingStrikes: { name: string, sourceID: number, damage: number, effectiveFocus: number, possibleFocus: number }[] = [];
+  flankingStrikes: Array<{ name: string, sourceID: number, damage: number, effectiveFocus: number, possibleFocus: number }> = [];
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLANKING_STRIKE_TALENT.id);

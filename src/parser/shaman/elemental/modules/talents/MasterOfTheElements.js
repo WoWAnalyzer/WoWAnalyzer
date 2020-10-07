@@ -115,12 +115,10 @@ class MasterOfTheElements extends Analyzer {
 
   suggestions(when){
     when(this.suggestionThresholds)
-      .addSuggestion((suggest) => {
-        return suggest(<>Master Of the Elements bugged out and you lost out on at least {formatNumber(this.reverseEffectiveDamageDonePerSecond(this.damageGained,MASTER_OF_THE_ELEMENTS.INCREASE))} DPS.
+      .addSuggestion((suggest) => suggest(<>Master Of the Elements bugged out and you lost out on at least {formatNumber(this.reverseEffectiveDamageDonePerSecond(this.damageGained,MASTER_OF_THE_ELEMENTS.INCREASE))} DPS.
           Consider getting this weakaura: <a href="https://wago.io/motecheck">MotE-Checker</a> to be notified when MotE goes belly up again.</>)
           .icon(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
-      });
+          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
   }
 
   statistic() {

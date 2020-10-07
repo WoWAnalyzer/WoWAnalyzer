@@ -4,32 +4,24 @@ const SECOND = 1000;
 const MINUTE = 60 * SECOND;
 
 interface Props {
-  name: String;
+  name: string;
   time: number;
   min: number;
   max: number;
   onChange: (time: number) => void;
 }
 
-const toMinute = (ms: number) => {
-  return Math.trunc(ms / MINUTE);
-};
+const toMinute = (ms: number) => Math.trunc(ms / MINUTE);
 
-const toSecond = (ms: number) => {
-  return Math.trunc((ms % MINUTE) / SECOND);
-};
+const toSecond = (ms: number) => Math.trunc((ms % MINUTE) / SECOND);
 
-const toMillisecond = (ms: number) => {
-  return Math.trunc(ms % SECOND);
-};
+const toMillisecond = (ms: number) => Math.trunc(ms % SECOND);
 
-const convertTime = (time: number) => {
-  return {
+const convertTime = (time: number) => ({
     milliseconds: toMillisecond(time),
     seconds: toSecond(time),
     minutes: toMinute(time),
-  };
-};
+  });
 
 const TimeInput = (props: Props) => {
   const mRef = React.createRef<HTMLInputElement>();
@@ -91,9 +83,7 @@ const TimeInput = (props: Props) => {
     props.onChange(time);
   };
 
-  const pad = (number: number, digits: number) => {
-    return number.toString().padStart(digits, '0');
-  };
+  const pad = (number: number, digits: number) => number.toString().padStart(digits, '0');
 
   const { name } = props;
   return (

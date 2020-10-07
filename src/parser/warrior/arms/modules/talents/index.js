@@ -1,6 +1,7 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+
 // Talents
 import AngerManagement from './AngerManagement';
 import Skullsplitter from './Skullsplitter';

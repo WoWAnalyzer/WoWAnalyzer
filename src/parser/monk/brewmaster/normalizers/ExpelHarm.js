@@ -1,6 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
+
 import { GIFT_OF_THE_OX_SPELL_IDS } from '../constants';
 
 function isGotOxHeal(event) {

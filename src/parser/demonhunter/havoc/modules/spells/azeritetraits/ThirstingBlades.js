@@ -21,9 +21,9 @@ const azeriteTraitStats = traits => Object.values(traits).reduce((obj, rank) => 
 /**
  * Thirsting Blades Azerite Power
  * Requires Demon Hunter (Havoc)
- * 
+ *
  * Every 1.5 sec, increase the damage of Chaos Strike by 10 and reduce its cost by 1 Fury. This effect stacks
- * 
+ *
  * Heavily borrowed from RevolvingBlades.js to make this module
  */
 class ThirstingBlades extends Analyzer {
@@ -43,7 +43,7 @@ class ThirstingBlades extends Analyzer {
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER), this.onApplyBuffStack);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveThirstingBlades);
-    
+
     const { damage } = azeriteTraitStats(this.selectedCombatant.traitsBySpellId[SPELLS.THIRSTING_BLADES.id]);
     this.damagePerThirstingBlades = damage;
 

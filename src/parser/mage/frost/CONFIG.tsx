@@ -6,6 +6,7 @@ import Config from 'parser/Config';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {

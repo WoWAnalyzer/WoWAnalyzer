@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
@@ -20,7 +20,7 @@ import SpellLink from 'common/SpellLink';
 
 class SteadyFocus extends Analyzer {
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STEADY_FOCUS_TALENT.id);
   }
@@ -62,16 +62,14 @@ class SteadyFocus extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your uptime on the buff from <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> could be better. When using this talent you should always try and couple your <SpellLink id={SPELLS.STEADY_SHOT.id} /> together to maintain this buff.
         </>,
       )
         .icon(SPELLS.STEADY_FOCUS_TALENT.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
 

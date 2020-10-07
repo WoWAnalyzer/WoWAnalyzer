@@ -122,8 +122,7 @@ class CrusadersMight extends Analyzer {
 
   suggestions(when) {
     if (this.owner.builds.GLIMMER.active) {
-      when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) => suggest(
           <>
             You cast <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />{' '}
             {this.wastedHolyShockReductionCount} times when
@@ -147,8 +146,7 @@ class CrusadersMight extends Analyzer {
               Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
             } missed.`,
           )
-          .recommended(`Casting Holy Shock on cooldown is recommended.`);
-      });
+          .recommended(`Casting Holy Shock on cooldown is recommended.`));
     }
   }
 

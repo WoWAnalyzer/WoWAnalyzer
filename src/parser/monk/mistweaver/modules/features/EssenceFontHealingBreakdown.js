@@ -11,6 +11,7 @@ import EssenceFontMastery from 'parser/monk/mistweaver/modules/features/EssenceF
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import Statistic from 'interface/statistics/Statistic';
+
 import EssenceFont from '../spells/EssenceFont';
 
 //const debug = false;

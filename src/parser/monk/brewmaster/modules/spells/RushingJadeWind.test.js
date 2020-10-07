@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+
 import RushingJadeWind from './RushingJadeWind';
 
 const talentlessCombatant = {

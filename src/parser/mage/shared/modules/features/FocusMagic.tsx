@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
@@ -17,7 +17,7 @@ class FocusMagic extends Analyzer {
   highStackTimestamp = 0;
   intUptime = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FOCUS_MAGIC_TALENT.id);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.FOCUS_MAGIC_CRIT_BUFF), this.onBuffApplied);
@@ -68,12 +68,10 @@ class FocusMagic extends Analyzer {
 
   suggestions(when: When) {
     when(this.focusMagicBuffUptimeThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You had low uptime on <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />. In order to get benefit from this talent, ensure that you are putting <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} /> on another player or trading the buff with another mage before the pull. If you buffed a player for the entire fight but still had low uptime, consider giving the buff to a player that will crit with direct damage (Non DoT) abilities more often so the buff can trigger as many times as possible.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You had low uptime on <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />. In order to get benefit from this talent, ensure that you are putting <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} /> on another player or trading the buff with another mage before the pull. If you buffed a player for the entire fight but still had low uptime, consider giving the buff to a player that will crit with direct damage (Non DoT) abilities more often so the buff can trigger as many times as possible.</>)
           .icon(SPELLS.FOCUS_MAGIC_TALENT.icon)
           .actual(`${formatPercentage(this.critBuffUptime)}% Focus Magic Uptime`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

@@ -73,7 +73,7 @@ class Tier45Comparison extends Analyzer {
 
   endFight() {
     this.totalManaSpent = this.totalManaSpent();
-    
+
     // --- get mana from talents --- //
     if(this.sotc.selected){
       this.sotc.manaFrom = (this.spiritOfTheCrane.manaReturnSotc || 0);
@@ -111,7 +111,7 @@ class Tier45Comparison extends Analyzer {
       this.best = this.manatea;
     }
     // --- end picking best --- //
-    
+
     // -- sees what it takes for the other ones to equal the best -- //
     this.calculateOthers();
 
@@ -127,7 +127,7 @@ class Tier45Comparison extends Analyzer {
 
     if(this.sotc !== this.best){
       //sotc gives .65% mana per totm stack used so (max mana * .0065) = mana per totm
-      //mana from best talent / mana per totom = totm stacks need but gotta round up since you can't have .5 of a totm stack 
+      //mana from best talent / mana per totom = totm stacks need but gotta round up since you can't have .5 of a totm stack
       this.sotc.requiredTps = Math.ceil(this.best.manaFrom / (this.manaTracker.maxResource * .0065));
     }
 
@@ -153,7 +153,7 @@ class Tier45Comparison extends Analyzer {
     const manaPercentFromSotc = sotcBlackOutKicks * .0065;
     const rawManaFromSotc = manaPercentFromSotc * this.manaTracker.maxResource;
     return rawManaFromSotc || 0;
-  } 
+  }
 
   //anaylze current play style and see how much mana they would have saved (so average mana per second / total mt time)
   generateManaTea(){
@@ -195,26 +195,24 @@ class Tier45Comparison extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           With your current playstyle you are not using the most effective tier 45 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
         </>,
       )
         .icon(this.best.icon)
         .actual(`${formatNumber(this.returnedFromSelected)} mana returned through ${this.best.name}`)
-        .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`);
-    });
+        .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`));
   }
 
-  
+
   statistic() {
     return (
       <TalentStatisticBox
         talent={this.best.id}
         position={STATISTIC_ORDER.CORE(30)}
         value={`${formatNumber(this.best.manaFrom)} Mana from ${this.best.name}`}
-        label={`Tier 45 Comparison`}
+        label="Tier 45 Comparison"
         tooltip={(
           <>
           <ul>

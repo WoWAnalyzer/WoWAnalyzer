@@ -42,9 +42,7 @@ function checklist(parser: CombatLogParser) {
         return dep as typeof Module;
       }
     })
-    .find(m => {
-      return m.prototype instanceof BaseChecklist;
-    });
+    .find(m => m.prototype instanceof BaseChecklist);
   if (checklistModule === undefined) {
     return 'no checklist';
   }

@@ -7,7 +7,7 @@ import { AnyEvent, EventType, FightEndEvent } from 'parser/core/Events';
  * ensure that pending analyzer logic completes cleanly.
  */
 class FightEnd extends EventsNormalizer {
-  normalize(events: Array<AnyEvent>) {
+  normalize(events: AnyEvent[]) {
     const event: FightEndEvent = {
       timestamp: this.owner.fight.end_time,
       type: EventType.FightEnd,

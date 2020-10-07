@@ -1,5 +1,5 @@
-import { Event } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
+import { AnyEvent } from 'parser/core/Events';
 
 export interface WCLGuildReport {
   "id": string;
@@ -18,7 +18,7 @@ export interface WCLFightsResponse {
 }
 
 export interface WCLEventsResponse {
-  events: Event<any>[];
+  events: AnyEvent[];
   nextPageTimestamp?: number;
 }
 
