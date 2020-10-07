@@ -47,7 +47,7 @@ class Penance extends Analyzer {
 
     this.eventGrouper.processEvent(event);
 
-    (event).penanceBoltNumber = this.currentBoltNumber;
+    event.penanceBoltNumber = this.currentBoltNumber;
   }
 
   on_byPlayer_heal(event) {
@@ -57,7 +57,7 @@ class Penance extends Analyzer {
 
     this.eventGrouper.processEvent(event);
 
-    (event).penanceBoltNumber = this.currentBoltNumber;
+    event.penanceBoltNumber = this.currentBoltNumber;
   }
 
   statistic() {

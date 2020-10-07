@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { TooltipElement } from 'common/Tooltip';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -23,7 +23,7 @@ class Contrition extends Analyzer {
 
   healing = 0;
   damagePenalty = 0;
-  penanceBoltEstimation: any
+  penanceBoltEstimation: any;
 
   constructor(options: Options) {
     super(options);

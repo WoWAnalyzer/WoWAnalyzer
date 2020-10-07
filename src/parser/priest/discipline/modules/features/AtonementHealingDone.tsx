@@ -11,7 +11,7 @@ import { IsPenanceDamageEvent } from 'parser/priest/discipline/modules/spells/He
 import isAtonement from '../core/isAtonement';
 import AtonementDamageSource from './AtonementDamageSource';
 import AtonementHealingBreakdown from './AtonementHealingBreakdown';
-import Penance  from '../spells/Penance';
+import Penance from '../spells/Penance';
 
 class AtonementHealingDone extends Analyzer {
   static dependencies = {
