@@ -37,7 +37,6 @@ class MeteorRune extends Analyzer {
   }
 
   onMeteor(event: CastEvent) {
-    console.log(event.timestamp - this.lastRuneCast);
     if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id) && event.timestamp - this.lastRuneCast > RUNE_OF_POWER_DELAY) {
       this.badMeteor += 1;
     }
