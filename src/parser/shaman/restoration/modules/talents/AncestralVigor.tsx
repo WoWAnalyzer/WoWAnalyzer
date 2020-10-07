@@ -16,6 +16,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import { DamageEvent, EventType } from 'parser/core/Events';
 import { WCLEventsResponse, WclOptions } from 'common/WCL_TYPES';
+import { Options } from 'parser/core/Module';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
@@ -30,17 +31,9 @@ class AncestralVigor extends Analyzer {
   loaded = false;
   lifeSavingEvents: Array<DamageEvent> = [];
   disableStatistics = false;
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = !!this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-
-    const restoShamans = Object.values(this.combatants.players).filter(combatant => (combatant._combatantInfo.specID === SPECS.RESTORATION_SHAMAN.id) && (combatant !== this.selectedCombatant));
-    if (restoShamans && restoShamans.some(shaman => shaman.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id))) {
-      this.disableStatistics = true;
-    }
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
@@ -87,8 +80,11 @@ class AncestralVigor extends Analyzer {
   }
 
   statistic() {
-    // filter out non-players
-    this.loaded && (this.lifeSavingEvents = this.lifeSavingEvents.filter(event => !!this.combatants.players[event.targetID]));
+    const players = this.combatants.getEntities();
+    const restoShamans = Object.values(players).filter(combatant => (combatant.specId === SPECS.RESTORATION_SHAMAN.id) && (combatant !== this.selectedCombatant));
+    if (restoShamans && restoShamans.some(shaman => shaman.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id))) {
+      this.disableStatistics = true;
+    }
     const tooltip = this.loaded
       ? 'The amount of players that would have died without your Ancestral Vigor buff.'
       : 'Click to analyze how many lives were saved by the ancestral vigor buff.';
@@ -127,7 +123,7 @@ class AncestralVigor extends Analyzer {
               {
                 this.lifeSavingEvents.map((event, index) => {
                   const combatant = this.combatants.getEntity(event);
-                  if (combatant === null) {
+                  if (!combatant) {
                     return null;
                   }
                   const spec = SPECS[combatant.specId];
