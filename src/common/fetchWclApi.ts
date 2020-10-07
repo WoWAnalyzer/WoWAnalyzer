@@ -2,16 +2,19 @@ import ExtendableError from 'es6-error';
 
 import { captureException } from 'common/errorLogger';
 
+import { Event } from 'parser/core/Events';
 import makeWclApiUrl from './makeWclApiUrl';
+import { QueryParams } from './makeApiUrl';
+import { WclOptions, WCLResponseJSON, WCLFightsResponse, WCLEventsResponse } from './WCL_TYPES';
 
 export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
 export class CharacterNotFoundError extends ExtendableError {}
 export class GuildNotFoundError extends ExtendableError {}
 export class JsonParseError extends ExtendableError {
-  originalError = null;
-  raw = null;
-  constructor(originalError, raw) {
+  originalError?: ExtendableError;
+  raw?: string;
+  constructor(originalError?: ExtendableError, raw?: string) {
     super();
     this.originalError = originalError;
     this.raw = raw;
@@ -35,12 +38,12 @@ const HTTP_CODES = {
 };
 const WCL_API_ERROR_TEXT = 'Warcraft Logs API error';
 
-function fixControlCharacters(text) {
+function fixControlCharacters(text: string) {
   // Try to replace non-ascii chars on "unexpected character"-errors
   // hotfixes the german logs that have control-characters in their names
   return text.replace(/[^\x20-\x7E]/g, '');
 }
-function fixSpellNameEscaping(text) {
+function fixSpellNameEscaping(text: string) {
   // WCL fails to escape spell names when using translate=true, leading to invalid JSON.
   // this fixes these logs by removing those
   const regex = /"name": ?"(.+?)",/g;
@@ -57,7 +60,7 @@ function fixSpellNameEscaping(text) {
   }
   return text;
 }
-export async function toJson(response) {
+export async function toJson(response: string | Response) {
   // Manually parse the response JSON so we keep the original data in memory so we can pass it to Sentry if something is wrong.
   let text = typeof response === 'string' ? response : await response.text();
   try {
@@ -81,7 +84,7 @@ export async function toJson(response) {
   }
 }
 
-async function rawFetchWcl(endpoint, queryParams) {
+async function rawFetchWcl(endpoint: string, queryParams: QueryParams) {
   if (process.env.NODE_ENV === 'test') {
     throw new Error('Unable to query WCL during test');
   }
@@ -116,18 +119,18 @@ async function rawFetchWcl(endpoint, queryParams) {
   return json;
 }
 
-const defaultOptions = {
+const defaultOptions: WclOptions = {
   timeout: 10000,
 };
-export default function fetchWcl(endpoint, queryParams, options) {
+export default function fetchWcl<T extends WCLResponseJSON>(endpoint: string, queryParams: QueryParams, options?: WclOptions): Promise<T> {
   options = !options ? defaultOptions : { ...defaultOptions, ...options };
 
-  return new Promise((resolve, reject) => {
+  return new Promise<T>((resolve, reject) => {
     let timedOut = false;
     const timeoutTimer = setTimeout(() => {
       timedOut = true;
       reject(new Error('Request timed out. This usually happens because the Warcraft Logs API did not respond in a timely fashion. Try again.'));
-    }, options.timeout);
+    }, options!.timeout);
 
     rawFetchWcl(endpoint, queryParams)
       .then(results => {
@@ -147,13 +150,13 @@ export default function fetchWcl(endpoint, queryParams, options) {
   });
 }
 
-function rawFetchFights(code, refresh = false, translate = true) {
-  return fetchWcl(`report/fights/${code}`, {
+function rawFetchFights(code: string, refresh = false, translate = true) {
+  return fetchWcl<WCLFightsResponse>(`report/fights/${code}`, {
     _: refresh ? +new Date() : undefined,
     translate: translate ? true : undefined, // so long as we don't have the entire site localized, it's better to have 1 consistent language
   });
 }
-export async function fetchFights(code, refresh = false) {
+export async function fetchFights(code: string, refresh = false) {
   // This deals with a bunch of bugs in the fights API so implementers don't have to
   let json = await rawFetchFights(code, refresh);
   if (!json.fights) {
@@ -170,8 +173,8 @@ export async function fetchFights(code, refresh = false) {
 
   return json;
 }
-function rawFetchEventsPage(code, start, end, actorId = undefined, filter = undefined) {
-  return fetchWcl(`report/events/${code}`, {
+function rawFetchEventsPage(code:string, start:number, end:number, actorId?: number, filter?: string) {
+  return fetchWcl<WCLEventsResponse>(`report/events/${code}`, {
     start,
     end,
     actorid: actorId,
@@ -179,10 +182,10 @@ function rawFetchEventsPage(code, start, end, actorId = undefined, filter = unde
     translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
   });
 }
-export async function fetchEvents(reportCode, fightStart, fightEnd, actorId = undefined, filter = undefined, maxPages = 3) {
+export async function fetchEvents(reportCode:string, fightStart:number, fightEnd:number, actorId?: number, filter?: string, maxPages = 3) {
   let pageStartTimestamp = fightStart;
 
-  let events = [];
+  let events: Event<any>[] = [];
   let page = 0;
   // eslint-disable-next-line no-constant-condition
   while (true) {
@@ -190,7 +193,7 @@ export async function fetchEvents(reportCode, fightStart, fightEnd, actorId = un
     const json = await rawFetchEventsPage(reportCode, pageStartTimestamp, fightEnd, actorId, filter);
     events = [
       ...events,
-      ...json.events,
+      ...json.events!,
     ];
     if (json.nextPageTimestamp) {
       if (json.nextPageTimestamp > fightEnd) {
@@ -207,6 +210,6 @@ export async function fetchEvents(reportCode, fightStart, fightEnd, actorId = un
   }
   return events;
 }
-export function fetchCombatants(code, start, end) {
+export function fetchCombatants(code: string, start: number, end: number) {
   return fetchEvents(code, start, end, undefined, 'type="combatantinfo"');
 }

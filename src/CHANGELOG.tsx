@@ -12,6 +12,8 @@ const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
+  change(prepatch, 'Added a new event map for catch-all event types.', Dambroda),
+  change(prepatch, 'Converted WCL API Access to TypeScript', Zeboot),
   change(prepatch, 'Cleaned up the console a little bit.', Abelito75),
   change(prepatch, 'Added a toggle-all button to the EventTab.', niseko),
   change(prepatch, 'Added dispel to filterable type for EventTab.', Moonrabbit),

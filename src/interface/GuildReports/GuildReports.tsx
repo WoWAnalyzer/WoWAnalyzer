@@ -4,6 +4,7 @@ import { t, Trans } from '@lingui/macro';
 
 import ZONES from 'game/ZONES';
 import fetchWcl, { GuildNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
+import { WCLGuildReport, WCLGuildReportsResponse } from "common/WCL_TYPES";
 import { captureException } from 'common/errorLogger';
 import retryingPromise from 'common/retryingPromise';
 import { makeGuildApiUrl } from 'common/makeApiUrl';
@@ -37,15 +38,6 @@ const ERRORS = {
   NOT_RESPONDING: t`Request timed out`,
 };
 
-export interface WCLGuildReportsResponse {
-  "id": string,
-  "title": string,
-  "owner": string,
-  "zone": number,
-  "start": number,
-  "end": number,
-}
-
 interface Props {
   region: string,
   realm: string,
@@ -54,7 +46,7 @@ interface Props {
 
 interface State {
   activeZoneID: number,
-  reports: Array<WCLGuildReportsResponse>,
+  reports: Array<WCLGuildReport>,
   reportsToShow: number,
   isLoading: boolean,
   error: any, // TODO MessageDescriptor? convert to enum?
@@ -192,7 +184,7 @@ class GuildReports extends React.Component<Props, State> {
     const filterStart = new Date();
     // TODO allow selection of a date range?
     filterStart.setMonth(filterStart.getMonth() - MONTHS_BACK_SEARCH);
-    return fetchWcl(
+    return fetchWcl<WCLGuildReportsResponse>(
       `reports/guild/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`,
       {
         start: filterStart.getTime(),
