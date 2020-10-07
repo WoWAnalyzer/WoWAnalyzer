@@ -24,7 +24,7 @@ class SpinningCraneKick extends Analyzer{
     currentTime = 0;
 
     castSpinningCraneKick(event) {
-        if (this.enemiesHitSCK) { //this nested is needed due to weird logs
+        if (this.enemiesHitSCK.length > 0) { //this nested is needed due to weird logs
             this.checkSCK();
         }
         this.currentTime = this.owner.currentTimestamp - this.owner.fight.start_time;
