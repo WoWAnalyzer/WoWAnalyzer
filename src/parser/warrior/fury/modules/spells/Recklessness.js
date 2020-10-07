@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';

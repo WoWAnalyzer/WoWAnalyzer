@@ -13,7 +13,7 @@ import BoringItemValueText from 'interface/statistics/components/BoringItemValue
 /**
  * Construct Overcharger -
  * Equip: Your attacks have a chance to increase your Haste by X for 10 sec, stacking up to 8 times.
- * 
+ *
  * Test Log: https://www.warcraftlogs.com/reports/vwm4Xaz9kMcp1LGB#fight=1&type=summary&source=24
  */
 

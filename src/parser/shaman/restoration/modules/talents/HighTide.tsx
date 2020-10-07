@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -50,7 +50,7 @@ class HighTide extends Analyzer {
   unusedHighTides = 0;
   currentHighTideBuff = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id);
 

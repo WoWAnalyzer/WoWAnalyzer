@@ -16,7 +16,6 @@ type ContributorProps = {
 }
 
 class ContributorDetails extends React.PureComponent<ContributorProps> {
-
   constructor(props: any) {
     super(props);
     this.filterChangelog = this.filterChangelog.bind(this);
@@ -190,6 +189,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
 
     document.body.classList.toggle('no-scroll');
   }
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps: any) {
     if (this.props.ownPage) {
       return;

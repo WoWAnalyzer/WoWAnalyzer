@@ -4,9 +4,16 @@ import { Boss, findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ModuleError from 'parser/core/ModuleError';
-import { AnyEvent, CombatantInfoEvent, Event, HasSource, HasTarget, MappedEvent } from 'parser/core/Events';
+import {
+  AnyEvent,
+  CombatantInfoEvent,
+  Event, EventType,
+  HasSource,
+  HasTarget,
+  MappedEvent,
+} from 'parser/core/Events';
 
-import Module from './Module';
+import Module, { Options } from './Module';
 import Fight from './Fight';
 import Analyzer from './Analyzer';
 import EventFilter from './EventFilter';
@@ -197,15 +204,33 @@ import Ashjrakamas from '../shared/modules/items/bfa/Ashjrakamas';
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
 import EventEmitter from './modules/EventEmitter';
+import Combatant from './Combatant';
+
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
 const isMinified = process.env.NODE_ENV === 'production';
 
-type DependencyDefinition = typeof Module | readonly [typeof Module, {[option: string]: any}];
-export type DependenciesDefinition = {[desiredName: string]: DependencyDefinition};
+type DependencyDefinition = typeof Module | readonly [typeof Module, { [option: string]: any }];
+export type DependenciesDefinition = { [desiredName: string]: DependencyDefinition };
+
+interface Talent {
+  id: number;
+}
+export interface Player {
+  id: number;
+  name: string;
+  talents: Talent[];
+  artifact: unknown;
+  heartOfAzeroth: unknown;
+  gear: unknown;
+  auras: unknown;
+}
+
 class CombatLogParser {
+  /** @deprecated Move this kind of info to the Abilities config */
   static abilitiesAffectedByHealingIncreases: number[] = [];
+  /** @deprecated Move this kind of info to the Abilities config */
   static abilitiesAffectedByDamageIncreases: number[] = [];
 
   static internalModules: DependenciesDefinition = {
@@ -412,7 +437,7 @@ class CombatLogParser {
 
   // TODO create report type
   report: any;
-  // Character info from the Battle.net API (optional)
+  /** Character info from the Battle.net API (optional) */
   // TODO create profile type
   characterProfile: any;
 
@@ -425,18 +450,17 @@ class CombatLogParser {
   boss: Boss | null;
   combatantInfoEvents: CombatantInfoEvent[];
 
-
   //Disabled Modules
-  disabledModules!: {[state in ModuleError]: any[]};
+  disabledModules!: { [state in ModuleError]: any[] };
 
   adjustForDowntime = true;
   get hasDowntime() {
     return this.getModule(TotalDowntime).totalBaseDowntime > 0;
   }
 
-  _modules: {[name: string]: Module} = {};
+  _modules: { [name: string]: Module } = {};
   get activeModules() {
-    return Object.values(this._modules).filter(module => module.active);
+    return Object.values(this._modules).filter((module) => module.active);
   }
 
   get playerId() {
@@ -451,35 +475,49 @@ class CombatLogParser {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
   get fightDuration() {
-    return this.currentTimestamp - this.fight.start_time - (this.adjustForDowntime ? this.getModule(TotalDowntime).totalBaseDowntime : 0);
+    return (
+      this.currentTimestamp -
+      this.fight.start_time -
+      (this.adjustForDowntime ? this.getModule(TotalDowntime).totalBaseDowntime : 0)
+    );
   }
   finished = false;
 
-  get players() {
+  get players(): Player[] {
     return this.report.friendlies;
   }
-  /** @var {Combatant} */
-  get selectedCombatant() {
+  get selectedCombatant(): Combatant {
     return this.getModule(Combatants).selected;
   }
 
-  constructor(report: any, selectedPlayer: SelectedPlayer, selectedFight: Fight, combatantInfoEvents: CombatantInfoEvent[], characterProfile: any, build: string, builds: Builds) {
+  constructor(
+    report: any,
+    selectedPlayer: SelectedPlayer,
+    selectedFight: Fight,
+    combatantInfoEvents: CombatantInfoEvent[],
+    characterProfile: any,
+    build: string,
+    builds: Builds,
+  ) {
     this.report = report;
     this.player = selectedPlayer;
-    this.playerPets = report.friendlyPets.filter((pet: { petOwner: any; }) => pet.petOwner === selectedPlayer.id);
+    this.playerPets = report.friendlyPets.filter(
+      (pet: { petOwner: any }) => pet.petOwner === selectedPlayer.id,
+    );
     this.fight = selectedFight;
     this.build = build;
     this.builds = builds;
     this.combatantInfoEvents = combatantInfoEvents;
     // combatantinfo events aren't included in the regular events, but they're still used to analysis. We should have them show in the history to make it complete.
-    combatantInfoEvents.forEach(event => this.eventHistory.push(event));
+    combatantInfoEvents.forEach((event) => this.eventHistory.push(event));
     this.characterProfile = characterProfile;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore populated dynamically but object keys still strongly typed
     this.disabledModules = {};
     //initialize disabled modules for each state
-    Object.values(ModuleError).forEach(key => {
+    Object.values(ModuleError).forEach((key) => {
       this.disabledModules[key] = [];
     });
     const ctor = this.constructor as typeof CombatLogParser;
@@ -494,11 +532,16 @@ class CombatLogParser {
     /** @var {EventEmitter} */
     const emitter = this.getModule(EventEmitter);
     console.log(
-      'Events triggered:', emitter.numTriggeredEvents,
-      'Event listeners added:', emitter.numEventListeners,
-      'Listeners called:', emitter.numListenersCalled,
-      'Listeners called (after filters):', emitter.numActualExecutions,
-      'Listeners filtered away:', emitter.numListenersCalled - emitter.numActualExecutions,
+      'Events triggered:',
+      emitter.numTriggeredEvents,
+      'Event listeners added:',
+      emitter.numEventListeners,
+      'Listeners called:',
+      emitter.numListenersCalled,
+      'Listeners called (after filters):',
+      emitter.numActualExecutions,
+      'Listeners filtered away:',
+      emitter.numListenersCalled - emitter.numActualExecutions,
     );
   }
 
@@ -515,10 +558,10 @@ class CombatLogParser {
     return [moduleClass, options];
   }
   _resolveDependencies(dependencies: { [desiredName: string]: typeof Module }) {
-    const availableDependencies: {[name: string]: Module} = {};
+    const availableDependencies: { [name: string]: Module } = {};
     const missingDependencies: Array<typeof Module> = [];
     if (dependencies) {
-      Object.keys(dependencies).forEach(desiredDependencyName => {
+      Object.keys(dependencies).forEach((desiredDependencyName) => {
         const dependencyClass = dependencies[desiredDependencyName];
 
         const dependencyModule = this.getOptionalModule(dependencyClass);
@@ -536,7 +579,11 @@ class CombatLogParser {
    * @param {object} [options]
    * @param {string} [desiredModuleName]  Deprecated: will be removed Soon™.
    */
-  loadModule<T extends typeof Module>(moduleClass: T, options: {[prop: string]: any; priority: number}, desiredModuleName = `module${Object.keys(this._modules).length}`) {
+  loadModule<T extends typeof Module>(
+    moduleClass: T,
+    options: { [prop: string]: any; priority: number },
+    desiredModuleName = `module${Object.keys(this._modules).length}`,
+  ) {
     // eslint-disable-next-line new-cap
     const module = new moduleClass({
       ...options,
@@ -545,7 +592,8 @@ class CombatLogParser {
     if (options) {
       // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
       // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
-      Object.keys(options).forEach(key => {
+      Object.keys(options).forEach((key) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         module[key] = options[key];
       });
@@ -558,13 +606,15 @@ class CombatLogParser {
   initializeModules(modules: DependenciesDefinition, iteration = 1) {
     // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
     const failedModules: string[] = [];
-    Object.keys(modules).forEach(desiredModuleName => {
+    Object.keys(modules).forEach((desiredModuleName) => {
       const moduleConfig = modules[desiredModuleName];
       if (!moduleConfig) {
         return;
       }
       const [moduleClass, options] = this._getModuleClass(moduleConfig);
-      const [availableDependencies, missingDependencies] = this._resolveDependencies(moduleClass.dependencies);
+      const [availableDependencies, missingDependencies] = this._resolveDependencies(
+        moduleClass.dependencies,
+      );
       const hasMissingDependency = missingDependencies.length === 0;
 
       if (hasMissingDependency) {
@@ -572,55 +622,82 @@ class CombatLogParser {
           if (Object.keys(availableDependencies).length === 0) {
             console.log('Loading', moduleClass.name);
           } else {
-            console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
+            console.log(
+              'Loading',
+              moduleClass.name,
+              'with dependencies:',
+              Object.keys(availableDependencies),
+            );
           }
         }
         // The priority goes from lowest (most important) to highest, seeing as modules are loaded after their dependencies are loaded, just using the count of loaded modules is sufficient.
         const priority = Object.keys(this._modules).length;
         try {
-          this.loadModule(moduleClass, {
-            ...options,
-            ...availableDependencies,
-            priority,
-          }, desiredModuleName);
+          this.loadModule(
+            moduleClass,
+            {
+              ...options,
+              ...availableDependencies,
+              priority,
+            },
+            desiredModuleName,
+          );
         } catch (e) {
           if (process.env.NODE_ENV !== 'production') {
             throw e;
           }
-          this.disabledModules[ModuleError.INITIALIZATION].push({ key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass, error: e });
-          debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization: ', e);
+          this.disabledModules[ModuleError.INITIALIZATION].push({
+            key: isMinified ? desiredModuleName : moduleClass.name,
+            module: moduleClass,
+            error: e,
+          });
+          debugDependencyInjection &&
+            console.warn(moduleClass.name, 'disabled due to error during initialization: ', e);
         }
-
       } else {
         const disabledDependencies = missingDependencies
-          .map(d => d.name)
-          .filter(x =>
-            this.disabledModules[ModuleError.INITIALIZATION]
-              .map(d => d.module.name)
-              .includes(x),
+          .map((d) => d.name)
+          .filter((x) =>
+            this.disabledModules[ModuleError.INITIALIZATION].map((d) => d.module.name).includes(x),
           ); // see if a dependency was previously disabled due to an error
         if (disabledDependencies.length !== 0) {
           // if a dependency was already marked as disabled due to an error, mark this module as disabled
-          this.disabledModules[ModuleError.DEPENDENCY].push({ key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass });
-          debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization of a dependency.');
+          this.disabledModules[ModuleError.DEPENDENCY].push({
+            key: isMinified ? desiredModuleName : moduleClass.name,
+            module: moduleClass,
+          });
+          debugDependencyInjection &&
+            console.warn(
+              moduleClass.name,
+              'disabled due to error during initialization of a dependency.',
+            );
         } else {
-          debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
+          debugDependencyInjection &&
+            console.warn(
+              moduleClass.name,
+              'could not be loaded, missing dependencies:',
+              missingDependencies.map((d) => d.name),
+            );
           failedModules.push(desiredModuleName);
         }
       }
     });
 
     if (failedModules.length !== 0) {
-      debugDependencyInjection && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => {
-        const def = modules[key];
-        if (def instanceof Array) {
-          return def[0].name;
-        } else {
-          return (def as typeof Module).name;
-        }
-      }));
+      debugDependencyInjection &&
+        console.warn(
+          `${failedModules.length} modules failed to load, trying again:`,
+          failedModules.map((key) => {
+            const def = modules[key];
+            if (def instanceof Array) {
+              return def[0].name;
+            } else {
+              return (def as typeof Module).name;
+            }
+          }),
+        );
       const newBatch: DependenciesDefinition = {};
-      failedModules.forEach(key => {
+      failedModules.forEach((key) => {
         newBatch[key] = modules[key];
       });
       if (iteration > MAX_DI_ITERATIONS) {
@@ -638,18 +715,18 @@ class CombatLogParser {
     // Executed when module initialization is complete
   }
   _moduleCache = new Map();
-  getOptionalModule<T extends Module>(type: { new(options: any): T }): T|undefined {
+  getOptionalModule<T extends Module>(type: { new (options: Options): T }): T | undefined {
     // We need to use a cache and can't just set this on initialization because we sometimes search by the inheritance chain.
     const cacheEntry = this._moduleCache.get(type);
     if (cacheEntry !== undefined) {
       return cacheEntry;
     }
     // Search for a specific module by its type, accepting any modules that have the type somewhere in the inheritance chain
-    const module = Object.values(this._modules).find(module => module instanceof type);
+    const module = Object.values(this._modules).find((module) => module instanceof type);
     this._moduleCache.set(type, module);
     return module as T;
   }
-  getModule<T extends Module>(type: { new(options: any): T }): T {
+  getModule<T extends Module>(type: { new (options: Options): T }): T {
     const module = this.getOptionalModule(type);
     if (module === undefined) {
       throw new Error(`Module not found: ${type.name}`);
@@ -658,10 +735,10 @@ class CombatLogParser {
   }
   normalize(events: AnyEvent[]) {
     this.activeModules
-      .filter(module => module instanceof EventsNormalizer)
-      .map(module => module as EventsNormalizer)
+      .filter((module) => module instanceof EventsNormalizer)
+      .map((module) => module as EventsNormalizer)
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(normalizer => {
+      .forEach((normalizer) => {
         if (normalizer.normalize) {
           events = normalizer.normalize(events);
         }
@@ -669,49 +746,58 @@ class CombatLogParser {
     return events;
   }
 
-  /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
+  /** The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
-  eventHistory: Array<Event<any>> = [];
-  addEventListener<ET extends string, E extends MappedEvent<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, E>, module: Module) {
+  eventHistory: AnyEvent[] = [];
+  addEventListener<ET extends EventType, E extends MappedEvent<ET>>(
+    eventFilter: ET | EventFilter<ET>,
+    listener: EventListener<ET, E>,
+    module: Module,
+  ) {
     this.getModule(EventEmitter).addEventListener(eventFilter, listener, module);
   }
 
-  deepDisable(module: Module, state: ModuleError, error: Error|undefined = undefined) {
+  deepDisable(module: Module, state: ModuleError, error: Error | undefined = undefined) {
     if (!module.active) {
       return; //return early
     }
     console.error('Disabling', isMinified ? module.key : module.constructor.name);
-    this.disabledModules[state].push({ key: isMinified ? module.key : module.constructor.name, module: module.constructor, ...(error && { error: error }) });
+    this.disabledModules[state].push({
+      key: isMinified ? module.key : module.constructor.name,
+      module: module.constructor,
+      ...(error && { error: error }),
+    });
     module.active = false;
-    this.activeModules.forEach(active => {
-        const ctor = active.constructor as typeof Module;
-        const deps = ctor.dependencies;
-        // Inspectors may light up `module instanceof depClass` because of the constructor cast
-        if (deps && Object.values(deps).find(depClass => module instanceof depClass)) {
-          this.deepDisable(active, ModuleError.DEPENDENCY);
-        }
-      },
-    );
+    this.activeModules.forEach((active) => {
+      const ctor = active.constructor as typeof Module;
+      const deps = ctor.dependencies;
+      // Inspectors may light up `module instanceof depClass` because of the constructor cast
+      if (deps && Object.values(deps).find((depClass) => module instanceof depClass)) {
+        this.deepDisable(active, ModuleError.DEPENDENCY);
+      }
+    });
   }
 
-  byPlayer<ET extends string>(event: Event<ET>, playerId = this.player.id) {
-      return HasSource(event) && event.sourceID === playerId;
+  byPlayer<ET extends EventType>(event: Event<ET>, playerId = this.player.id) {
+    return HasSource(event) && event.sourceID === playerId;
   }
-  toPlayer<ET extends string>(event: Event<ET>, playerId = this.player.id) {
-    return HasTarget(event) && (event.targetID === playerId);
+  toPlayer<ET extends EventType>(event: Event<ET>, playerId = this.player.id) {
+    return HasTarget(event) && event.targetID === playerId;
   }
-  byPlayerPet<ET extends string>(event: Event<ET>) {
-    return HasSource(event) && this.playerPets.some(pet => pet.id === event.sourceID);
+  byPlayerPet<ET extends EventType>(event: Event<ET>) {
+    return HasSource(event) && this.playerPets.some((pet) => pet.id === event.sourceID);
   }
-  toPlayerPet<ET extends string>(event: Event<ET>) {
-    return HasTarget(event) && this.playerPets.some(pet => pet.id === event.targetID);
+  toPlayerPet<ET extends EventType>(event: Event<ET>) {
+    return HasTarget(event) && this.playerPets.some((pet) => pet.id === event.targetID);
   }
 
   getPercentageOfTotalHealingDone(healingDone: number) {
     return healingDone / this.getModule(HealingDone).total.effective;
   }
   formatItemHealingDone(healingDone: number) {
-    return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
+    return `${formatPercentage(
+      this.getPercentageOfTotalHealingDone(healingDone),
+    )} % / ${formatNumber((healingDone / this.fightDuration) * 1000)} HPS`;
   }
   formatItemAbsorbDone(absorbDone: number) {
     return `${formatNumber(absorbDone)}`;
@@ -720,7 +806,9 @@ class CombatLogParser {
     return damageDone / this.getModule(DamageDone).total.effective;
   }
   formatItemDamageDone(damageDone: number) {
-    return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;
+    return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(
+      (damageDone / this.fightDuration) * 1000,
+    )} DPS`;
   }
   getPercentageOfTotalDamageTaken(damageTaken: number) {
     return damageTaken / this.getModule(DamageTaken).total.effective;
@@ -735,10 +823,11 @@ class CombatLogParser {
     let results: ParseResults = new ParseResults();
 
     const addStatistic = (statistic: any, basePosition: number, key: string) => {
-      if(!statistic) {
+      if (!statistic) {
         return;
       }
-      const position = statistic.props.position !== undefined ? statistic.props.position : basePosition;
+      const position =
+        statistic.props.position !== undefined ? statistic.props.position : basePosition;
       results.statistics.push(
         React.cloneElement(statistic, {
           key,
@@ -747,20 +836,25 @@ class CombatLogParser {
       );
     };
 
-    const attemptResultGeneration = () => Object.keys(this._modules)
-        .filter(key => this._modules[key].active)
+    const attemptResultGeneration = () =>
+      Object.keys(this._modules)
+        .filter((key) => this._modules[key].active)
         .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
         .every((key, index) => {
           const module = this._modules[key];
 
           try {
-            if(module instanceof Analyzer) {
+            if (module instanceof Analyzer) {
               const analyzer = module as Analyzer;
               if (analyzer.statistic) {
                 let basePosition = index;
                 if (analyzer.statisticOrder !== undefined) {
                   basePosition = analyzer.statisticOrder;
-                  console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d', module);
+                  console.warn(
+                    'DEPRECATED',
+                    "Setting the position of a statistic via a module's `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d",
+                    module,
+                  );
                 }
 
                 // TODO - confirm removing i18n doesn't actually change anything here
@@ -785,7 +879,8 @@ class CombatLogParser {
                 analyzer.suggestions(results.suggestions.when);
               }
             }
-          } catch (e) { //error occured during results generation of module, disable module and all modules depending on it
+          } catch (e) {
+            //error occured during results generation of module, disable module and all modules depending on it
             if (process.env.NODE_ENV !== 'production') {
               throw e;
             }
@@ -809,10 +904,10 @@ class CombatLogParser {
   }
 }
 export type SelectedPlayer = {
-  name: string,
-  id: number,
-  guid: number,
-  type: string,
-}
+  name: string;
+  id: number;
+  guid: number;
+  type: string;
+};
 
 export default CombatLogParser;

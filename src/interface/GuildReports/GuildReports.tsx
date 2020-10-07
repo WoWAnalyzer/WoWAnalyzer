@@ -16,14 +16,14 @@ import { i18n } from 'interface/RootLocalizationProvider';
 
 import './GuildReports.scss';
 import ReportsList from '../GuildReportsList';
+import ALLIANCE_PICTURE from './images/ally_guild_banner_bwl.jpg'
+import HORDE_PICTURE from './images/horde_guild_banner_onyx.jpg'
 
 const loadRealms = () =>
   retryingPromise(() =>
     import('common/RealmList').then(exports => exports.default),
   );
 
-const ALLIANCE_PICTURE = require('./images/ally_guild_banner_bwl.jpg');
-const HORDE_PICTURE = require('./images/horde_guild_banner_onyx.jpg');
 const ZONE_ALL = -1;
 const ZONE_DEFAULT = ZONE_ALL;
 const REPORTS_TO_SHOW = [25, 50, 100];

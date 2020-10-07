@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { formatPercentage } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
@@ -17,7 +17,7 @@ class ArcaneMissiles extends Analyzer {
 
 	castWithoutClearcasting = 0;
 
-	constructor(options: any) {
+	constructor(options: Options) {
     super(options);
 			this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_MISSILES, SPELLS.ARCANE_BARRAGE]), this.onCast);
   }

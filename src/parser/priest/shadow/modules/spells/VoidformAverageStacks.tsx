@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -18,7 +18,7 @@ class VoidformAverageStacks extends Analyzer {
   };
   protected voidform!: Voidform;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = true;
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent } from 'parser/core/Events';
+import Events from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import Statistic from 'interface/statistics/Statistic';
 import SpellIcon from 'common/SpellIcon';
@@ -24,7 +24,7 @@ class ColdFront extends Analyzer {
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF), this.onBuffApplied);
   }
 
-  onBuffApplied(event: ApplyBuffEvent) {
+  onBuffApplied() {
     const buffRemovedEvent = this.eventHistory.last(1,500,Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF));
     if (buffRemovedEvent) {
       this.bonusFrozenOrbs += 1;
@@ -44,8 +44,6 @@ class ColdFront extends Analyzer {
       </Statistic>
     );
   }
-
-
 }
 
 export default ColdFront;

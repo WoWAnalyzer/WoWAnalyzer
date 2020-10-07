@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
@@ -17,7 +17,7 @@ class FocusMagic extends Analyzer {
   highStackTimestamp = 0;
   intUptime = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FOCUS_MAGIC_TALENT.id);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.FOCUS_MAGIC_CRIT_BUFF), this.onBuffApplied);

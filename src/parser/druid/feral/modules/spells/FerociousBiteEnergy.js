@@ -62,7 +62,7 @@ class FerociousBiteEnergy extends Analyzer {
       // ignore parry/dodge/miss events as they'll refund energy anyway
       return;
     }
-    
+
     if (this.lastBiteCast.energyAvailable < this.lastBiteCast.energyForFullDamage) {
       const actualDamage = event.amount + event.absorbed;
       const lostDamage = this._calcPotentialBiteDamage(actualDamage, this.lastBiteCast) - actualDamage;
@@ -144,9 +144,9 @@ class FerociousBiteEnergy extends Analyzer {
     };
   }
 
-  suggestions(when) {    
-    const berserkOrIncarnationId = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ? 
-      SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id : 
+  suggestions(when) {
+    const berserkOrIncarnationId = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ?
+      SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id :
       SPELLS.BERSERK.id;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>

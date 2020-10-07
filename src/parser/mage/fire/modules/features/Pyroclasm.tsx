@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, BeginCastEvent, ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
@@ -25,7 +25,7 @@ class Pyroclasm extends Analyzer {
   castEvent?: CastEvent;
   buffAppliedEvent?: ApplyBuffEvent | ApplyBuffStackEvent;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST), this.onPyroblastBeginCast);

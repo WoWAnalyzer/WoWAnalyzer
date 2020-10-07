@@ -15,22 +15,22 @@ class FuriousSlashUptime extends Analyzer {
     statTracker: StatTracker,
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
   };
-  
-  	constructor(...args) {
+
+	constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FURIOUS_SLASH_TALENT.id);
     }
-  
+
   get furiousSlashTimesByStack(){
 	  return this.furiousSlashTimesByStacks.furiousSlashTimesByStacks;
   }
-  
+
   get numberTimesDropped(){
     return this.furiousSlashTimesByStack[0].length-1;
   }
 
   get uptime(){
-    const stacks = Object.values(this.furiousSlashTimesByStack).map((e, i) => e.reduce((a, b) => a + b, 0));
+    const stacks = Object.values(this.furiousSlashTimesByStack).map((e) => e.reduce((a, b) => a + b, 0));
     stacks.shift();
     let value = 0;
     stacks.forEach(function(i){
@@ -39,7 +39,7 @@ class FuriousSlashUptime extends Analyzer {
 	  return value;
 	  //find the highest stack count possible, and return the uptime at that amount of stacks
   }
-  
+
   get uptimeSuggestionThresholds(){
 	  return{
 		  actual: this.numberTimesDropped,
@@ -51,7 +51,7 @@ class FuriousSlashUptime extends Analyzer {
 		  style: 'number',
 	  };
   }
-  
+
   suggestions(when){
 		  when(this.uptimeSuggestionThresholds)
 		  .addSuggestion((suggest, actual, recommended) => suggest(<>You dropped <SpellLink id={SPELLS.FURIOUS_SLASH_TALENT.id} /> multiply times throughout the fight. This can be improved.</>)
@@ -59,11 +59,11 @@ class FuriousSlashUptime extends Analyzer {
 		  .actual(`${formatNumber(actual)} times Furious Slash dropped`)
 		  .recommended(`${formatNumber(recommended)} is recommended`));
   }
-  
+
   statistic() {
 	  return (
 	  <StatisticBox icon={<SpellIcon id={SPELLS.FURIOUS_SLASH_TALENT.id} />} value={`${formatPercentage(this.uptime / this.owner.fightDuration)}%`} label="Furious Slash Stack Buff Uptime">
-	  
+
 	    <table className="table table-condensed">
             <thead>
               <tr>
@@ -83,7 +83,7 @@ class FuriousSlashUptime extends Analyzer {
             </tbody>
           </table>
         </StatisticBox>
-		
+
 		);
   }
   statisticOrder = STATISTIC_ORDER.CORE(59); //4 IS A PLACEHOLDER VALUE!

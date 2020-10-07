@@ -30,6 +30,7 @@ export enum EventType {
   Instakill = 'instakill',
 
   // Fabricated:
+  Event = 'event', // everything
   FightEnd = 'fightend',
   GlobalCooldown = 'globalcooldown',
   BeginChannel = 'beginchannel',
@@ -50,6 +51,10 @@ export enum EventType {
   Dispel = 'dispel',
   Time = 'time',
   Test = 'test',
+
+  // Monk
+  AddStagger = 'addstagger',
+  RemoveStagger = 'removestagger',
 
   // Phases:
   PhaseStart = 'phasestart',
@@ -133,19 +138,19 @@ export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
 export type SourcedEvent<T extends string> = Event<T> & { sourceID: number };
 export type TargettedEvent<T extends string> = Event<T> & { targetID: number };
 
-export function HasAbility<T extends string>(event: Event<T>): event is AbilityEvent<T> {
+export function HasAbility<T extends EventType>(event: Event<T>): event is AbilityEvent<T> {
   return (event as AbilityEvent<T>).ability !== undefined;
 }
 
-export function HasSource<T extends string>(event: Event<T>): event is SourcedEvent<T> {
+export function HasSource<T extends EventType>(event: Event<T>): event is SourcedEvent<T> {
   return (event as SourcedEvent<T>).sourceID !== undefined;
 }
 
-export function HasTarget<T extends string>(event: Event<T>): event is TargettedEvent<T> {
+export function HasTarget<T extends EventType>(event: Event<T>): event is TargettedEvent<T> {
   return (event as TargettedEvent<T>).targetID !== undefined;
 }
 
-export type MappedEvent<T extends string> =
+export type MappedEvent<T extends EventType> =
   T extends keyof MappedEventTypes ? MappedEventTypes[T] : Event<T>;
 
 // TODO Eventually convert this back from string to EventType (once the edge cases of raw string filters are removed)
@@ -188,7 +193,7 @@ export interface EndChannelEvent extends Event<EventType.EndChannel> {
   beginChannel: BeginChannelEvent;
 }
 
-export interface ICastEvent<T extends string> extends Event<T> {
+export interface BaseCastEvent<T extends string> extends Event<T> {
   ability: Ability;
   absorb?: number;
   armor?: number;
@@ -228,9 +233,9 @@ export interface ICastEvent<T extends string> extends Event<T> {
   };
 }
 
-export type CastEvent = ICastEvent<EventType.Cast>
+export type CastEvent = BaseCastEvent<EventType.Cast>
 
-export interface FilterCooldownInfoEvent extends ICastEvent<EventType.FilterCooldownInfo> {
+export interface FilterCooldownInfoEvent extends BaseCastEvent<EventType.FilterCooldownInfo> {
   trigger: EventType;
 }
 
@@ -570,16 +575,16 @@ export interface DispelEvent extends Event<EventType.Dispel>{
   targetIsFriendly: boolean;
 }
 
-export interface IPhaseEvent<T extends string> extends Event<T> {
+export interface BasePhaseEvent<T extends string> extends Event<T> {
   phase: PhaseConfig;
   __fabricated: true;
 }
 
-export type PhaseEvent = IPhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>
+export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>
 
-export type PhaseStartEvent = IPhaseEvent<EventType.PhaseStart>
+export type PhaseStartEvent = BasePhaseEvent<EventType.PhaseStart>
 
-export type PhaseEndEvent = IPhaseEvent<EventType.PhaseEnd>
+export type PhaseEndEvent = BasePhaseEvent<EventType.PhaseEnd>
 
 export interface Item {
   id: number;

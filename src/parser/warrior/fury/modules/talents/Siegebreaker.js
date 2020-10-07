@@ -31,7 +31,7 @@ class Siegebreaker extends Analyzer {
       if (!this.active) {
         return;
       }
-      
+
       this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SIEGEBREAKER_TALENT), this.siegeTurnOn);
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.playerCastedRecklessness);
@@ -45,7 +45,7 @@ class Siegebreaker extends Analyzer {
     this.lastRecklessness = event;
   }
 
-  siegeTurnOn(event){
+  siegeTurnOn(){
     if(this.inValidRecklessness){
       this.siegeCasted = true;
     }

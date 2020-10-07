@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellLink from 'common/SpellLink';
@@ -21,7 +21,7 @@ class Disperion extends Analyzer {
   _dispersions: any = {};
   _previousDispersionCast: any;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DISPERSION), this.onBuffApplied);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DISPERSION), this.onBuffRemoved);

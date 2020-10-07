@@ -1,8 +1,7 @@
 import ExtendableError from 'es6-error';
 
 import { captureException } from 'common/errorLogger';
-
-import { Event } from 'parser/core/Events';
+import { AnyEvent } from 'parser/core/Events';
 
 import makeWclApiUrl from './makeWclApiUrl';
 import { QueryParams } from './makeApiUrl';
@@ -186,7 +185,7 @@ function rawFetchEventsPage(code: string, start: number, end: number, actorId?: 
 export async function fetchEvents(reportCode: string, fightStart: number, fightEnd: number, actorId?: number, filter?: string, maxPages = 3) {
   let pageStartTimestamp = fightStart;
 
-  let events: Array<Event<any>> = [];
+  let events: AnyEvent[] = [];
   let page = 0;
   // eslint-disable-next-line no-constant-condition
   while (true) {

@@ -24,7 +24,6 @@ class ColdSnap extends Analyzer {
       }
     });
   }
-
 }
 
 export default ColdSnap;

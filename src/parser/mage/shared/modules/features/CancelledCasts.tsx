@@ -5,10 +5,10 @@ import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import { Options } from 'parser/core/Analyzer';
 
 class CancelledCasts extends CoreCancelledCasts {
-
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.IGNORED_ABILITIES = [
       //Include the spells that you do not want to be tracked and spells that are castable while casting (Like Fire Blast, Combustion, or Shimmer)

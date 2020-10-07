@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS/index';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/priest/holy/modules/features/SpellUsable';
 import { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
@@ -110,7 +110,7 @@ class HolyWordBase extends Analyzer {
     return this.baseCooldownReduction + this.lightOfTheNaaruCooldownReduction + this.apotheosisCooldownReduction;
   }
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     // Set up proper serendipity reduction values

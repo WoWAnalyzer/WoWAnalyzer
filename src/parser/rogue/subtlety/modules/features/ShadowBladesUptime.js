@@ -13,7 +13,7 @@ class ShadowBladesUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-  
+
   statistic() {
     const shadowBladesUptime = this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_BLADES.id) / this.owner.fightDuration;
     return (

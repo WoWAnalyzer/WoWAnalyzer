@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 
@@ -17,7 +17,7 @@ class Bolster extends Analyzer {
   wastedBlockTime = 0;
   buffStartTime = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(BUFFS), this.applyBlockBuff);

@@ -134,12 +134,14 @@ class EchoOfLightMastery extends Analyzer {
 
     // As far as I can tell, this happens when the combat log is out of order. You shouldn't receive a tick of EoL without a target having a buff apply event.
     if (!this.targetMasteryPool[targetId]) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       DEBUG && console.warn(`[${event.timestamp}] There was a mastery tick for ${event.amount + (event.absorbed || 0)} (${event.overheal || 0} OH) on target ${this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''} (${targetId}) that doesn't have a mastery pool!`);
       return;
     }
 
     if (this.targetMasteryPool[targetId].remainingTicks < 1) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       DEBUG && console.warn(`[${event.timestamp}] There was a mastery tick for ${event.amount + (event.absorbed || 0)} (${event.overheal || 0} OH) on target ${this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''} (${targetId}) whos mastery pool is empty!`);
       this.targetMasteryPool[targetId].remainingTicks = 1;
@@ -227,6 +229,7 @@ class EchoOfLightMastery extends Analyzer {
       // This code compensates for that.
       if (this.targetMasteryPool[targetId]) {
         if (event.timestamp === this.targetMasteryPool[targetId].applicationTime) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
           // @ts-ignore
           DEBUG && console.warn(`[${event.timestamp}] There was a double application of EoL tick on target ${this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''} (${targetId}). Applying 4 ticks.`);
           this.targetMasteryPool[targetId].remainingTicks = 4;

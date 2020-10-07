@@ -5,7 +5,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import Abilities from '../Abilities';
 
-
 class LavaSurge extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,

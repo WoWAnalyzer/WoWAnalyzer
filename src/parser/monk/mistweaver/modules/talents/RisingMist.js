@@ -78,7 +78,7 @@ class RisingMist extends Analyzer {
     if(!this.hotTracker.hots[targetId] || !this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]){
       return;
     }
-    
+
     const object = this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id];
 
     if(object.originalEnd < event.timestamp){

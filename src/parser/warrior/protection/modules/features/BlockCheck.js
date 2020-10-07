@@ -82,15 +82,14 @@ class BlockCheck extends Analyzer {
       });
     });
 
-    const that = this;
-    this.listOfEvents.forEach(function(event){
+    this.listOfEvents.forEach((event) => {
       if(blockableSet.has(event.ability.guid)){//if it ain't been blocked over the whole fight it prob aint blockable
         if (event.prot.shieldBlock || event.prot.bloster) {//they got block up when it happened?
-          that.physicalHitsWithBlock += 1;
-          that.rawDamageWithBlock += (event.unmitigatedAmount || 0);
+          this.physicalHitsWithBlock += 1;
+          this.rawDamageWithBlock += (event.unmitigatedAmount || 0);
         } else {
-          that.physicalHitsWithoutBlock += 1;
-          that.rawDamageWithoutBlock += (event.unmitigatedAmount || 0);
+          this.physicalHitsWithoutBlock += 1;
+          this.rawDamageWithoutBlock += (event.unmitigatedAmount || 0);
         }
       }
     });

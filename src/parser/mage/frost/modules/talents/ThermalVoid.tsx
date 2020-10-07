@@ -4,7 +4,7 @@ import { formatDuration, formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
 
 import { ICY_VEINS_BASE_DURATION } from '../../constants';
@@ -15,7 +15,7 @@ import { ICY_VEINS_BASE_DURATION } from '../../constants';
  */
 class ThermalVoid extends Analyzer {
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
   }

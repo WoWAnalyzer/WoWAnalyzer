@@ -75,7 +75,7 @@ class RollTheBonesBuffs extends Analyzer {
           </tbody>
         </table>
       </StatisticBox>
-    );  
+    );
   }
 }
 

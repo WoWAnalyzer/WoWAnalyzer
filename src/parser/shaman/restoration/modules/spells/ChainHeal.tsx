@@ -9,7 +9,7 @@ import SpecIcon from 'common/SpecIcon';
 import { formatNth, formatDuration } from 'common/format';
 
 import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -47,7 +47,7 @@ class ChainHeal extends Analyzer {
   maxTargets = 4;
   suggestedTargets = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
 
@@ -71,7 +71,6 @@ class ChainHeal extends Analyzer {
       return;
     }
     this.castIndex += 1;
-    this.chainHealHistory[this.castIndex] = {} as ChainHealInfo;
     const currentCast = this.buffer.find(event => event.type === EventType.Cast);
     if (!currentCast) {
       return;
@@ -80,16 +79,17 @@ class ChainHeal extends Analyzer {
     if (!combatant) {
       return;
     }
-    this.chainHealHistory[this.castIndex].target = {
-      id: currentCast.targetID,
-      name: combatant.name,
-      spec: SPECS[combatant.specId],
-      specClassName: SPECS[combatant.specId].className.replace(' ', ''),
+    this.chainHealHistory[this.castIndex] = {
+      target: {
+        id: currentCast.targetID,
+        name: combatant.name,
+        spec: SPECS[combatant.specId],
+        specClassName: SPECS[combatant.specId].className.replace(' ', ''),
+      },
+      timestamp: currentCast.timestamp,
+      castNo: this.castIndex,
+      hits: this.buffer.filter(event => event.type === EventType.Heal).length,
     };
-
-    this.chainHealHistory[this.castIndex].timestamp = currentCast.timestamp;
-    this.chainHealHistory[this.castIndex].castNo = this.castIndex;
-    this.chainHealHistory[this.castIndex].hits = this.buffer.filter(event => event.type === EventType.Heal).length;
     this.buffer = [];
   }
 

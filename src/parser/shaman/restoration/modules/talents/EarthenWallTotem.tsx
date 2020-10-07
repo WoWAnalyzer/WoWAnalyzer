@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage, formatDuration, formatNth } from 'common/format';
 
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 
 import Combatants from 'parser/shared/modules/Combatants';
@@ -44,7 +44,7 @@ class EarthenWallTotem extends Analyzer {
 
   protected combatants!: Combatants;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id);
     this.isMaghar = this.selectedCombatant.race && this.selectedCombatant.race.name === "Mag'har Orc";

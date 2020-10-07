@@ -58,22 +58,22 @@ class Whirlwind extends Analyzer {
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_BUFF), this.noHadBuff);
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_BUFF), this.hadBuff);
-    
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.wasValidWW);
   }
 
-  noHadBuff(event){
+  noHadBuff(){
     this.hasWWBuff = false;
   }
 
-  hadBuff(event){
+  hadBuff(){
     this.hasWWBuff = true;
   }
 
   //just check what else they could have casted
   spellCheck(event){
     this.lastEvent = event;
-    
+
     this.btWasAvailable = this.spellUsable.isAvailable(SPELLS.BLOODTHIRST.id);
     this.rbWasAvailable = this.spellUsable.isAvailable(SPELLS.RAGING_BLOW.id);
     this.ramWasAvailable = this.rageTracker.current >= this.rampageCost ? this.spellUsable.isAvailable(SPELLS.RAMPAGE.id) : false;
@@ -109,12 +109,12 @@ class Whirlwind extends Analyzer {
     this.lastCastWW = false;
 
     let badCast = this.btWasAvailable || this.rbWasAvailable || this.ramWasAvailable || this.exWasAvailable;
-    
+
     if(this.wasEnraged){
       badCast = badCast || (this.hasBladeStorm ? this.bsWasAvailable : false);
       badCast = badCast || (this.hasDragonsRoar ? this.drWasAvailable : false);
     }
-    
+
     if(this.enemiesHitWW.length>=2 && !this.hasWWBuff){
       badCast = false;
     }
@@ -149,7 +149,7 @@ class Whirlwind extends Analyzer {
         .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 
-  
+
 }
 
 export default Whirlwind;

@@ -81,13 +81,13 @@ class SoothingMist extends Analyzer {
     this.soomInProgress = false;
     this.checkChannelTiming();
     this.castsInSoom = 0;
-    
+
   }
 
   checkChannelTiming() {
     this.totalSoomCasts += 1;
     let duration = this.endStamp - this.startStamp;
-    
+
     if (duration < this.startGCD) {
       return;
     }

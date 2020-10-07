@@ -60,7 +60,7 @@ class ThunderFocusTea extends Analyzer {
       if (SPELLS.RISING_SUN_KICK.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftRsk += 1;
-        
+
         if(this.rmActive){
           this.correctCasts +=1;
         }

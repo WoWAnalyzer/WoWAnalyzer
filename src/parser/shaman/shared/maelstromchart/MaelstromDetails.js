@@ -70,6 +70,7 @@ class MaelstromDetails extends Analyzer {
     return [
       (
         <StatisticBox
+          key="StatisticBox"
           position={STATISTIC_ORDER.CORE(1)}
           icon={<Icon icon="spell_shadow_mindflay" />}
           value={`${formatPercentage(this.wastedPercent)} %`}
@@ -79,6 +80,7 @@ class MaelstromDetails extends Analyzer {
       ),
       (
         <Panel
+          key="Panel"
           title="Maelstrom usage"
           position={200}
           pad={false}

@@ -31,7 +31,7 @@ class FesteringStrikeEfficiency extends Analyzer {
   zeroWoundCasts = 0;
 
   onWoundApply(event){
-		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;	
+		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
   }
 
   onWoundRemove(event){
@@ -40,14 +40,14 @@ class FesteringStrikeEfficiency extends Analyzer {
 
   onCast(event){
     this.totalCasts += 1;
-    if(this.targets.hasOwnProperty(encodeTargetString(event.targetID, event.targetInstance))){
+    if(this.targets[encodeTargetString(event.targetID, event.targetInstance)]){
       const currentTargetWounds = this.targets[encodeTargetString(event.targetID, event.targetInstance)];
       if(currentTargetWounds < 1){
         this.zeroWoundCasts += 1;
       }
     } else {
     this.zeroWoundCasts += 1;
-    }    
+    }
   }
 
   suggestions(when) {

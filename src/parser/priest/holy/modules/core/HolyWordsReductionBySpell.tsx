@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
 import HolyWordSalvation from 'parser/priest/holy/modules/spells/holyword/HolyWordSalvation';
@@ -26,7 +26,7 @@ class HolyWordsReductionBySpell extends Analyzer {
   protected chastise!: HolyWordChastise;
   protected salvation!: HolyWordSalvation;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.lightOfTheNaaruActive = this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id);
     this.apotheosisActive = this.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id);

@@ -73,7 +73,7 @@ class ManaLevelChartComponent extends React.PureComponent {
       };
     }));
 
-    const bossData = this.state.bossHealth.series.map((series, i) => {
+    const bossData = this.state.bossHealth.series.map((series) => {
       const data = series.data.map(([timestamp, health]) => ({ x: timestamp - start, y: health }));
 
       return {

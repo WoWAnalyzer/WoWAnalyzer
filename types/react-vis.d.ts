@@ -1,10 +1,10 @@
+/* eslint-disable */
 declare module 'react-vis' {
 
   import {
     Component,
     PureComponent,
     ReactChild,
-    ReactNode,
     SFC,
     MouseEventHandler,
     TouchEventHandler,

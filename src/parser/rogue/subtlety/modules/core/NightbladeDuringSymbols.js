@@ -13,7 +13,7 @@ class NightbladeDuringSymbols extends Analyzer {
     damageTracker: DamageTracker,
     symbolsDamageTracker: SymbolsDamageTracker,
   };
-  
+
   constructor(...args) {
     super(...args);
 

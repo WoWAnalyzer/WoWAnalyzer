@@ -24,7 +24,7 @@ class SoulCleaveSoulsConsumed extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
   }
 
-  get suggestionThresholdsEfficiency() {    
+  get suggestionThresholdsEfficiency() {
     const totalAvailable = this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.soulsWasted;
     const fractionOnSoulCleave = (totalAvailable === 0) ? 0 : (this.soulFragmentsConsume.soulCleaveSouls() / totalAvailable);
     return {

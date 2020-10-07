@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -22,7 +22,6 @@ import { MS_BUFFER } from 'parser/hunter/shared/constants';
  * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1
  */
 class BeastCleave extends Analyzer {
-
   damage = 0;
   cleaveUp = false;
   beastCleaveHits = 0;
@@ -30,7 +29,7 @@ class BeastCleave extends Analyzer {
   castsWithoutHits = 0;
   timestamp = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF), this.onApplyBuff);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF), this.onRemoveBuff);

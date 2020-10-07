@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, ApplyBuffEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -26,7 +26,7 @@ class HotStreakWastedCrits extends Analyzer {
   pyromaniacProc = false;
   hotStreakRemoved = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.hasPyromaniac = this.selectedCombatant.hasTalent(SPELLS.PYROMANIAC_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(HOT_STREAK_CONTRIBUTORS), this._onCast);

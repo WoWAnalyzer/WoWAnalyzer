@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 class CrusaderStrike extends Analyzer {
 
   wasteHP = false;
-  
+
   constructor(...args) {
     super(...args);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRUSADER_STRIKE), this.onCrusaderStrikeCast);

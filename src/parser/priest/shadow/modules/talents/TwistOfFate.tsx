@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
@@ -15,7 +15,7 @@ import { TWIST_OF_FATE_INCREASE } from '../../constants';
 class TwistOfFate extends Analyzer {
   damage = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT_SHADOW.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);

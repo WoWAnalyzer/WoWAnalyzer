@@ -188,8 +188,9 @@ class MasteryEffectiveness extends Analyzer {
       debug &&
         console.warn(
           forWho,
-          `distance since previous event (${Math.round(timeSince / 100) /
-            10}s ago) was ${Math.round(distance * 10) / 10} yards:`,
+          `distance since previous event (${Math.round(timeSince / 100) / 10}s ago) was ${
+            Math.round(distance * 10) / 10
+          } yards:`,
           event.type,
           event,
           lastPositionUpdate.type,
@@ -252,7 +253,7 @@ class MasteryEffectiveness extends Analyzer {
     // console.log('total mastery healing done', this.owner.formatItemHealingDone(this.totalMasteryHealingDone));
 
     return [
-      <Statistic position={STATISTIC_ORDER.CORE(10)}>
+      <Statistic key="Statistic" position={STATISTIC_ORDER.CORE(10)}>
         <div className="pad" style={{ position: 'relative' }}>
           <label>
             <Trans>Mastery effectiveness</Trans>
@@ -290,6 +291,7 @@ class MasteryEffectiveness extends Analyzer {
         </div>
       </Statistic>,
       <Panel
+        key="Panel"
         title={<Trans>Mastery effectiveness breakdown</Trans>}
         explanation={
           <Trans>
@@ -317,7 +319,8 @@ class MasteryEffectiveness extends Analyzer {
     };
   }
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
         <Trans>
           Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by
           sticking with melee.
@@ -325,7 +328,8 @@ class MasteryEffectiveness extends Analyzer {
       )
         .icon('inv_hammer_04')
         .actual(i18n._(t`${formatPercentage(actual)}% mastery effectiveness`))
-        .recommended(i18n._(t`>${formatPercentage(recommended)}% is recommended`)));
+        .recommended(i18n._(t`>${formatPercentage(recommended)}% is recommended`)),
+    );
   }
 }
 

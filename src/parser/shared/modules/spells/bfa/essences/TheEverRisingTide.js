@@ -116,7 +116,7 @@ class TheEverRisingTide extends Analyzer {
     this.stacks = event.stack || 1;
   }
 
-  _removebuff(event) {
+  _removebuff() {
     this.byCast[this.casts].maxStacks = this.stacks;
     this.buffActive = false;
   }
@@ -125,7 +125,7 @@ class TheEverRisingTide extends Analyzer {
     this.manaGained += event.resourceChange;
   }
 
-  _fightend(event) {
+  _fightend() {
     if (this.buffActive) {
       this.byCast[this.casts].maxStacks = this.stacks;
     }

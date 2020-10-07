@@ -124,7 +124,7 @@ class MalformedHeraldsLegwraps extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestedUptime).addSuggestion((suggest, actual, recommended) => suggest(
+    when(this.suggestedUptime).addSuggestion((suggest, actual) => suggest(
         <>
           Your usage of <ItemLink id={ITEMS.MALFORMED_HERALDS_LEGWRAPS.id} /> can be improved. Try to use it when you will get the most duration out of the haste buff without having to step out of it (and without losing uses).
         </>,

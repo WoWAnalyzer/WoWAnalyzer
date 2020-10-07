@@ -83,7 +83,7 @@ class HealingWave extends Analyzer {
   suggestions(when: When) {
     const suggestedThreshold = this.suggestedThreshold;
     when(suggestedThreshold.actual).isGreaterThan(suggestedThreshold.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Casting <SpellLink id={SPELLS.HEALING_WAVE.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> is slow and generally inefficient. Consider casting a riptide first to generate <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /></span>)
+      .addSuggestion((suggest) => suggest(<span>Casting <SpellLink id={SPELLS.HEALING_WAVE.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> is slow and generally inefficient. Consider casting a riptide first to generate <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /></span>)
           .icon(SPELLS.HEALING_WAVE.icon)
           .actual(`${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`)
           .recommended(`${formatPercentage(suggestedThreshold.isGreaterThan.minor)}% of unbuffed Healing Waves`)

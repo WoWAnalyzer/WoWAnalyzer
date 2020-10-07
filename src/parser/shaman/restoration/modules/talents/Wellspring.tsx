@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
 
@@ -33,7 +33,7 @@ class Wellspring extends Analyzer {
   castNumber = 0;
   castEvent: CastEvent | undefined = undefined;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id);
   }

@@ -9,7 +9,7 @@ import { formatMilliseconds } from 'common/format';
 const debug = false;
 
 class SpinningCraneKick extends Analyzer{
-    
+
     goodSCKcount = 0;
     goodSCKTimeList = [];
     badSCKcount = 0;

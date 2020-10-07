@@ -18,7 +18,7 @@ class TidalWaves extends Analyzer {
   suggestions(when: When) {
     const suggestedThresholds = this.suggestionThresholds;
     when(suggestedThresholds.actual).isGreaterThan(suggestedThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing, consider casting more of them if you are running into mana issues ({formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).</span>)
+      .addSuggestion((suggest) => suggest(<span><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing, consider casting more of them if you are running into mana issues ({formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).</span>)
           .icon(SPELLS.TIDAL_WAVES_BUFF.icon)
           .actual(`${formatPercentage(suggestedThresholds.actual)}% unused Tidal waves`)
           .recommended(`Less than ${formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)}% unused Tidal Waves`)

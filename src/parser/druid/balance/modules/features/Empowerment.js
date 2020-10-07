@@ -21,7 +21,7 @@ class Empowerment extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.STARSURGE_MOONKIN.id){
-      return; 
+      return;
     }
     const buff = this.selectedCombatant.getBuff(this.empowermentBuff.id);
     if (!buff) {
@@ -77,7 +77,7 @@ class Empowerment extends Analyzer {
       style: 'percentage',
     };
   }
-  
+
   suggestions(when) {
     when(this.suggestionThresholdsInverted).addSuggestion((suggest, actual, recommended) => suggest(<>You overcapped {this.wasted} {this.empowermentPrefix} Empowerments by casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> while already at 3 stacks. Try to always spend your empowerments before casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> if you are not going to overcap Astral Power.</>)
         .icon(this.icon)

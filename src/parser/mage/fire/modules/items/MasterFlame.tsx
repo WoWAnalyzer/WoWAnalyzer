@@ -28,7 +28,6 @@ export const DAMAGE_BONUS: {[rank: number]: number } = {
 };
 
 class MasterFlame extends Analyzer {
-
   conduitRank: number = 0;
 
   bonusDamage = 0;

@@ -39,16 +39,16 @@ class FesteringStrike extends Analyzer {
 
   onWoundRemove(event){
     this.targets[event.targetID] = event.stack || 0;
-  }  
+  }
 
   onCast(event){
       this.totalFesteringStrikeCasts += 1;
-      if(this.targets.hasOwnProperty(event.targetID)){
+      if(this.targets[event.targetID]){
         const currentTargetWounds = this.targets[event.targetID];
         if(currentTargetWounds > 3){
           this.festeringStrikeCastsOverThreeStacks += 1;
         }
-      }    
+      }
   }
 
   suggestions(when) {

@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, HealEvent, SummonEvent } from 'parser/core/Events';
@@ -28,7 +28,7 @@ class FallenOrder extends Analyzer {
   cloneMap: Map<number, number> = new Map<number, number>();
 
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     // In my testing this line always returns false but its what putput uses so I have faith

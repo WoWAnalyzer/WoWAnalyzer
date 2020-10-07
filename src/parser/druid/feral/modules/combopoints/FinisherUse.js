@@ -26,13 +26,13 @@ const MAX_COMBO = 5;
 /**
  * Although all finishers are most efficient at 5 combo points, in some situations use at fewer combo points
  * will be a damage increase compared to waiting for the full 5.
- * 
+ *
  * Situations where <5 combo point use of an ability is fine:
  *  Fresh Rip on a target which doesn't yet have it.
  *  Rip on a target that already has Rip if it upgrades the snapshot, so long as player is using Sabertooth.
  *  [NYI] Maim on a target where the stun is effective and useful.
  *  [NYI] Possibly when using Savage Roar? Will need theorycrafting.
- * 
+ *
  */
 class FinisherUse extends Analyzer {
   static dependencies = {

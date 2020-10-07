@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { Options } from 'parser/core/Analyzer';
 
 import HolyWordBase from './HolyWordBase';
 
@@ -7,7 +8,7 @@ const FLASH_HEAL_SERENDIPITY_REDUCTION = 6000;
 const BINDING_HEAL_SERENDIPITY_REDUCTION = 3000;
 
 class HolyWordSerenity extends HolyWordBase {
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.spellId = SPELLS.HOLY_WORD_SERENITY.id;

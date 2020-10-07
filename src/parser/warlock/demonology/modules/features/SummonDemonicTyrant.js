@@ -12,8 +12,6 @@ import SpellLink from 'common/SpellLink';
 import DemoPets from '../pets/DemoPets';
 import { isWildImp } from '../pets/helpers';
 
-
-
 class SummonDemonicTyrant extends Analyzer {
   static dependencies = {
     demoPets: DemoPets,
@@ -31,7 +29,7 @@ class SummonDemonicTyrant extends Analyzer {
     this._hasDemonicConsumption = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id);
   }
 
-  summonDemonicTyrantCast(event) {
+  summonDemonicTyrantCast() {
     const pets = this.demoPets.currentPets;
     const countsPerCast = {};
     let tyrantPower = 0;

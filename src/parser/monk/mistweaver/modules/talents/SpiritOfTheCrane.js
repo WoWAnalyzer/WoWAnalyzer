@@ -49,7 +49,7 @@ class SpiritOfTheCrane extends Analyzer {
       this.buffTotm += 1;
       this.lastTotmBuffTimestamp = event.timestamp;
       debug && console.log(`ToTM at ${this.buffTotm}`);
-    
+
   }
 
   gainStacks(event) {
@@ -65,7 +65,7 @@ class SpiritOfTheCrane extends Analyzer {
       this.buffTotm = 0;
       debug && console.log('ToTM Buff Wasted');
     }
-    this.buffTotm = 0;    
+    this.buffTotm = 0;
   }
 
   stacksToMana(event) {

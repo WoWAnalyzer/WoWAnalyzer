@@ -3,12 +3,12 @@ import { AutoSizer } from 'react-virtualized';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DeathEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { DeathEvent, DamageEvent, HealEvent, EventType } from 'parser/core/Events';
 import Panel from 'interface/others/Panel';
 import BaseChart, { formatTime } from 'interface/others/BaseChart';
 
-import { AddStaggerEvent, RemoveStaggerEvent, StaggerEventType } from '../core/StaggerFabricator';
+import { AddStaggerEvent, RemoveStaggerEvent } from '../core/StaggerFabricator';
 
 import StaggerFabricator from '../core/StaggerFabricator';
 
@@ -51,14 +51,14 @@ class StaggerPoolGraph extends Analyzer {
   _lastHp: number | null = null;
   _lastMaxHp: number | null = null;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this._death);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._damage);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this._heal);
-    this.addEventListener(StaggerEventType.Add, this._addstagger);
-    this.addEventListener(StaggerEventType.Remove, this._removestagger);
+    this.addEventListener(EventType.AddStagger, this._addstagger);
+    this.addEventListener(EventType.RemoveStagger, this._removestagger);
   }
 
   _addstagger(event: AddStaggerEvent) {

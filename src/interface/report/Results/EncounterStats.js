@@ -181,7 +181,7 @@ class EncounterStats extends React.PureComponent {
       //fetch all missing icons from bnet-api and display them
       this.fillMissingIcons();
 
-    }).catch((err) => {
+    }).catch(() => {
       this.setState({
         message: 'Something went wrong.',
       });
@@ -207,8 +207,9 @@ class EncounterStats extends React.PureComponent {
 
             this.forceUpdate();
           })
-          .catch(err => {
-          }); // ignore errors;
+          .catch(() => {
+            // ignore errors;
+          });
       }
       return null;
     });

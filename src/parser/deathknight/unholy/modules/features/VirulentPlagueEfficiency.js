@@ -38,7 +38,7 @@ class VirulentPlagueEfficiency extends Analyzer {
 
   onApply(event) {
     this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.timestamp + 1000 * this.VirulentDuration - 1000 * 0.3 * this.VirulentDuration;
-    //Removing 3.15 seconds when buff is only applied. This is for cases when the target does not benefit from the epidemic effect (Dots spreading to adds not staying by target for instance.)    
+    //Removing 3.15 seconds when buff is only applied. This is for cases when the target does not benefit from the epidemic effect (Dots spreading to adds not staying by target for instance.)
   }
 
   onCastOutbreak(event) {
@@ -48,7 +48,7 @@ class VirulentPlagueEfficiency extends Analyzer {
       if (((this.targets[encodeTargetString(event.targetID, event.targetInstance)]) - event.timestamp) >= 0) {
         this.totalTimeWasted += ((this.targets[encodeTargetString(event.targetID, event.targetInstance)]) - event.timestamp) / 1000;
       }
-    }    
+    }
   }
 
   get averageTimeWasted() {

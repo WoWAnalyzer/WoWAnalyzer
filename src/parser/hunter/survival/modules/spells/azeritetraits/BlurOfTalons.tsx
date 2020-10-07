@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
@@ -39,7 +39,7 @@ class BlurOfTalons extends Analyzer {
 
   protected statTracker!: StatTracker;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.BLUR_OF_TALONS.id);
     if (!this.active) {
@@ -49,7 +49,7 @@ class BlurOfTalons extends Analyzer {
     this.agility = agility;
     this.blurOfTalonStacks = Array.from({ length: MAX_BLUR_OF_TALONS_STACKS + 1 }, x => []);
 
-    options.statTracker.add(SPELLS.BLUR_OF_TALONS_BUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.BLUR_OF_TALONS_BUFF.id, {
       agility: this.agility,
     });
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLUR_OF_TALONS_BUFF), this.handleStacks);

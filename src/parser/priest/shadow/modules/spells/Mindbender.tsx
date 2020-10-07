@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { SummonEvent } from 'parser/core/Events';
 
@@ -18,7 +18,7 @@ class Mindbender extends Pet {
   _pet = PETS.MINDBENDER;
   _mindbenders: any = {};
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
     this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.MINDBENDER_TALENT_SHADOW), this.onMindbenderSummon);

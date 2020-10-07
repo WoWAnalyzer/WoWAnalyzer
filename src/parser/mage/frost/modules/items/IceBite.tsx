@@ -52,7 +52,7 @@ class IceBite extends Analyzer {
 
   onIceLanceDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
-    if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp))) {  
+    if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp))) {
       this.bonusDamage += calculateEffectiveDamage(event,DAMAGE_BONUS[this.conduitRank]);
     }
   }

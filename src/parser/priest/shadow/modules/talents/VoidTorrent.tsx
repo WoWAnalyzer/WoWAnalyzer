@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
@@ -24,7 +24,7 @@ class VoidTorrent extends Analyzer {
   };
   protected voidform!: Voidform;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOID_TORRENT_TALENT), this.onVoidTorrentCast);

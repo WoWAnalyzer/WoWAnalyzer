@@ -13,7 +13,7 @@ const HIGH_TIER_REFRESH_TIME = 3000;
 /**
  * Roll the Bones is pretty complex with a number of rules around when to use it. I've done my best to break this down into four main suggestions
  * Ruthless Precision and Grand Melee are the two 'good' buffs. The other four are 'bad' buffs
- * 
+ *
  * 1 - Uptime (handled in separate module, as close to 100% as possible)
  * 2 - Low value rolls (1 'bad' buff, reroll as soon as you can)
  * 3 - Mid value rolls (2 'bad' buffs, reroll at the pandemic window)
@@ -100,7 +100,7 @@ class RollTheBonesEfficiency extends Analyzer {
         suggestionThresholds: this.rollSuggestionThreshold(this.goodHighValueRolls, rtbCastValues[ROLL_THE_BONES_CATEGORIES.HIGH_VALUE].length),
       },
     ];
-  }  
+  }
 
   suggestions(when) {
     this.rollSuggestions.forEach(suggestion => {

@@ -28,7 +28,6 @@ const DAMAGE_BONUS: {[rank: number]: number } = {
 };
 
 class UnrelentingCold extends Analyzer {
-
   conduitRank: number = 0;
 
   bonusDamage = 0;

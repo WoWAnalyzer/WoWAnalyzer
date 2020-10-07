@@ -5,8 +5,17 @@ import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import traitIdMap from 'common/TraitIdMap';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids';
-import CombatLogParser from 'parser/core/CombatLogParser';
-import { Buff, CombatantInfoEvent, EventType, Item, Trait, Soulbind, Conduit, Covenant } from 'parser/core/Events';
+import CombatLogParser, { Player } from 'parser/core/CombatLogParser';
+import {
+  Buff,
+  CombatantInfoEvent,
+  EventType,
+  Item,
+  Trait,
+  Soulbind,
+  Conduit,
+  Covenant,
+} from 'parser/core/Events';
 
 import Entity from './Entity';
 
@@ -26,25 +35,11 @@ type Spell = {
   id: number;
 };
 
-type Player = {
-  id: number;
-  name: string;
-  talents: Talent[];
-  artifact: any;
-  heartOfAzeroth: any;
-  gear: any;
-  auras: any;
-};
-
 export type Race = {
-  id: number,
-  mask?: number,
-  side: string,
-  name: string,
-}
-
-type Talent = {
   id: number;
+  mask?: number;
+  side: string;
+  name: string;
 };
 
 class Combatant extends Entity {
@@ -74,7 +69,7 @@ class Combatant extends Entity {
       return raceId;
     }
 
-    let race = Object.values(RACES).find(race => race.id === raceId);
+    let race = Object.values(RACES).find((race) => race.id === raceId);
     if (race === undefined) {
       throw new Error(`Unknown race id ${raceId}`);
     }
@@ -103,9 +98,7 @@ class Combatant extends Entity {
     this._combatantInfo = {
       // In super rare cases `playerInfo` can be undefined, not taking this
       // into account would cause the log to be unparsable
-      name: (
-        playerInfo && playerInfo.name
-      ) || 'undefined',
+      name: (playerInfo && playerInfo.name) || 'undefined',
       ...combatantInfo,
     };
 
@@ -122,7 +115,7 @@ class Combatant extends Entity {
   // region Talents
   _talentsByRow: { [key: number]: number } = {};
 
-  _parseTalents(talents: Talent[]) {
+  _parseTalents(talents: Array<{ id: number; icon: string }>) {
     talents.forEach(({ id }, index: number) => {
       this._talentsByRow[index] = id;
     });
@@ -139,27 +132,21 @@ class Combatant extends Entity {
   get lv15Talent() {
     return this._getTalent(TALENT_ROWS.LV15);
   }
-
   get lv30Talent() {
     return this._getTalent(TALENT_ROWS.LV30);
   }
-
   get lv45Talent() {
     return this._getTalent(TALENT_ROWS.LV45);
   }
-
   get lv60Talent() {
     return this._getTalent(TALENT_ROWS.LV60);
   }
-
   get lv75Talent() {
     return this._getTalent(TALENT_ROWS.LV75);
   }
-
   get lv90Talent() {
     return this._getTalent(TALENT_ROWS.LV90);
   }
-
   get lv100Talent() {
     return this._getTalent(TALENT_ROWS.LV100);
   }
@@ -227,8 +214,7 @@ class Combatant extends Entity {
   }
 
   hasMajor(traitId: number) {
-    return this.essencesByTraitID[traitId] &&
-      this.essencesByTraitID[traitId].isMajor;
+    return this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].isMajor;
   }
 
   essenceRank(traitId: number) {
@@ -465,14 +451,12 @@ class Combatant extends Entity {
   // trinket The PSCD never has actual gems in it, since it is a one-time quest
   // reward
   get trinket1Punchcard() {
-    const punchcard =
-      this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET1) || undefined;
+    const punchcard = this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET1) || undefined;
     return punchcard;
   }
 
   get trinket2Punchcard() {
-    const punchcard =
-      this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET2) || undefined;
+    const punchcard = this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET2) || undefined;
     return punchcard;
   }
 

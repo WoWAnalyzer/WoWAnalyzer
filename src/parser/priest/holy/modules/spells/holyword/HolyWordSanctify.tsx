@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
+import { Options } from 'parser/core/Analyzer';
 
 import HolyWordBase from './HolyWordBase';
 
@@ -8,7 +9,7 @@ const WORD_OF_MENDING_SERENDIPITY_REDUCTION = 2000;
 const BINDING_HEAL_SERENDIPITY_REDUCTION = 3000;
 
 class HolyWordSanctify extends HolyWordBase {
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.serendipityReduction = 6000;

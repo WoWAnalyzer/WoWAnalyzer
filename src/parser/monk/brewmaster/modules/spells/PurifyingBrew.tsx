@@ -4,7 +4,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { EventType, RemoveDebuffEvent, CastEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
@@ -15,7 +15,7 @@ import FooterChart, { formatTime } from 'interface/others/FooterChart';
 
 import SharedBrews from '../core/SharedBrews';
 import BrewCDR from '../core/BrewCDR';
-import { AddStaggerEvent, RemoveStaggerEvent, StaggerEventType } from '../core/StaggerFabricator';
+import { AddStaggerEvent, RemoveStaggerEvent } from '../core/StaggerFabricator';
 
 const PURIFY_DELAY_THRESHOLD = 500; // with the removal of ISB, i'm cutting the delay threshold.
 
@@ -67,12 +67,12 @@ class PurifyingBrew extends Analyzer {
   _lastHit?: AddStaggerEvent | RemoveStaggerEvent;
   _msTilPurify = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER).spell(SPELLS.HEAVY_STAGGER_DEBUFF), this._removeHeavyStagger);
-    this.addEventListener(new EventFilter(StaggerEventType.Add), this._addstagger);
-    this.addEventListener(new EventFilter(StaggerEventType.Remove), this._removestagger);
+    this.addEventListener(new EventFilter(EventType.AddStagger), this._addstagger);
+    this.addEventListener(new EventFilter(EventType.RemoveStagger), this._removestagger);
   }
 
   private _removeHeavyStagger(event: RemoveDebuffEvent) {

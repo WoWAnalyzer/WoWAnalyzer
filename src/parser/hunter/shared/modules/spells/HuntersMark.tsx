@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -48,7 +48,7 @@ class HuntersMark extends Analyzer {
   protected enemies!: Enemies;
   protected abilities!: Abilities;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onCast);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffRemoval);
@@ -56,7 +56,7 @@ class HuntersMark extends Analyzer {
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.onDebuffRefresh);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.calculateMarkDamage);
 
-    options.abilities.add({
+    (options.abilities as Abilities).add({
       spell: SPELLS.HUNTERS_MARK,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 20,

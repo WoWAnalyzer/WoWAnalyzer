@@ -5,7 +5,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import Combatant from 'parser/core/Combatant';
 
-import { Event } from '../Events';
+import { AnyEvent } from '../Events';
 import Abilities from './Abilities';
 
 export interface AbilityTrackerAbility {
@@ -65,7 +65,7 @@ export interface SpellbookAbility {
    * for more complicated calls or even to check for buffs. Parameters
    * provided: `hastePercentage`, `selectedCombatant`
    */
-  cooldown?: ((haste: number, trigger?: Event<any>) => number) | number;
+  cooldown?: ((haste: number, trigger?: AnyEvent) => number) | number;
   /**
    * NYI, do not use
    */
@@ -372,7 +372,7 @@ class Ability {
   get cooldown() {
     return this.getCooldown(this.owner.haste.current);
   }
-  getCooldown(haste: number, cooldownTriggerEvent?: Event<any>) {
+  getCooldown(haste: number, cooldownTriggerEvent?: AnyEvent) {
     if (this._cooldown === undefined) {
       // Most abilities will always be active and don't provide this prop at all
       return 0;
@@ -466,11 +466,13 @@ class Ability {
       });
     }
     Object.keys(props).forEach(prop => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this._setProp(prop, props[prop]);
     });
   }
   _setProp(prop: string, value: any) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this[prop] = value;
   }

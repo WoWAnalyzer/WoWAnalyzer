@@ -6,7 +6,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
@@ -20,7 +20,7 @@ class ArcaneOrb extends Analyzer {
 	badCasts = 0;
 	orbCast = false;
 
-	constructor(options: any) {
+	constructor(options: Options) {
     super(options);
 	   this.active = this.selectedCombatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id);
 		 this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_ORB_TALENT), this.onOrbCast);

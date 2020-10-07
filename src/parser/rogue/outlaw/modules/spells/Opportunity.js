@@ -23,7 +23,7 @@ class Opportunity extends Analyzer {
       (s) => `Pistol Shot should be used as your builder during Opportunity`,
     );
   }
-  
+
   get thresholds() {
     const total = this.damageTracker.getAbility(SPELLS.SINISTER_STRIKE.id);
     const filtered = this.opportunityDamageTracker.getAbility(SPELLS.SINISTER_STRIKE.id);

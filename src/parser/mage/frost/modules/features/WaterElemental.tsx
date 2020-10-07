@@ -7,7 +7,7 @@ import { formatPercentage, formatNumber, formatThousands, formatDuration } from 
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 
@@ -31,7 +31,7 @@ class WaterElemental extends Analyzer {
   _timestampLastCast = 0;
   _timestampFirstCast = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id);
 

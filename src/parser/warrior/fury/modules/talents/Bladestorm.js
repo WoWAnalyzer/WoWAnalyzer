@@ -21,7 +21,7 @@ class Bladestorm extends Analyzer {
     if (!this.active) {
       return;
     }
-    
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM_TALENT), this.enrageCheck);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BLADESTORM_DAMAGE, SPELLS.BLADESTORM_OH_DAMAGE]), this.onBladestormDamage);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM_TALENT), this.onBladestormEnergize);

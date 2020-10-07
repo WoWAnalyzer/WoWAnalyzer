@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS/index';
+import { Options } from 'parser/core/Analyzer';
 
 import HolyWordBase from './HolyWordBase';
 
 const SMITE_SERENDIPITY_REDUCTION = 4000;
 
 class HolyWordSanctify extends HolyWordBase {
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.spellId = SPELLS.HOLY_WORD_CHASTISE.id;

@@ -15,7 +15,7 @@ import Analyzer from 'parser/core/Analyzer';
  * Twitching Tentacle of Xalzaix -
  * Equip: Your spells have a chance to grant you the Lingering Power of Xalzaix for 30 sec.
  * When it reaches 5 charges the power is released, increasing your Intellect by 159 for 12 sec.
- * 
+ *
  * Test Log: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Halshuggen/statistics
  *
  * @property {StatTracker} statTracker

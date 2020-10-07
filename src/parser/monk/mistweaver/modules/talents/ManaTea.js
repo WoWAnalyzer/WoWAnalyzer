@@ -37,7 +37,7 @@ class ManaTea extends Analyzer {
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_TALENT), this.applyBuff);
   }
 
-  applyBuff(event) {
+  applyBuff() {
     this.manateaCount += 1;//count the number of mana teas to make an average over teas
   }
 
@@ -50,7 +50,7 @@ class ManaTea extends Analyzer {
 
   handleCast(event) {
     const name = event.ability.name;
-    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id) && event.ability.guid !== SPELLS.MANA_TEA_TALENT.id) {//we check both since melee doesn't havea classResource 
+    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id) && event.ability.guid !== SPELLS.MANA_TEA_TALENT.id) {//we check both since melee doesn't havea classResource
       if(event.classResources && event.classResources[0].cost){ //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
         this.manaSavedMT += event.rawResourceCost[0]/2;
       }
@@ -127,7 +127,7 @@ class ManaTea extends Analyzer {
             <ul>
             {
               arrayOfKeys.map(spell => (
-                <li>
+                <li key={spell}>
                   {this.casts.get(spell)} {spell} casts
                 </li>
               ))

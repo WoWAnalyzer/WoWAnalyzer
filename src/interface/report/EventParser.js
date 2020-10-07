@@ -108,6 +108,7 @@ class EventParser extends React.PureComponent {
       builds,
       parserClass,
     } = this.props;
+    console.log(report)
     const buildKey = builds && Object.keys(builds).find(b => builds[b].url === build);
     builds &&
       Object.keys(builds).forEach(key => {

@@ -52,8 +52,6 @@ class FreezingWinds extends Analyzer {
       </Statistic>
     );
   }
-
-
 }
 
 export default FreezingWinds;

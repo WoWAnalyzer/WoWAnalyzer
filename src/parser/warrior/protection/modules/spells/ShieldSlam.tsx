@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -28,10 +28,11 @@ class ShieldBlock extends Analyzer {
 
   totalCastsAssumed = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.lastCast = this.owner.fight.start_time / 1000;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHEILD_SLAM), this.onSlamCast);
+    this.addEventListener(Events.fightend, this.handleFightEnd);
   }
 
   onSlamCast(event: CastEvent) {
@@ -53,7 +54,7 @@ class ShieldBlock extends Analyzer {
     this.totalCastsAssumed += 1;
   }
 
-  on_fightend() {
+  handleFightEnd() {
     this.actualCasts = this.abilityTracker.getAbility(SPELLS.SHIELD_SLAM.id).casts;
     if ((this.owner.fight.end_time / 1000 - this.lastCast) * 1.05 > this.currentCd) {
       this.timeOnCd += this.owner.fight.end_time / 1000 - this.lastCast;

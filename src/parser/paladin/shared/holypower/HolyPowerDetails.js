@@ -46,6 +46,7 @@ class HolyPowerDetails extends Analyzer {
     return [
       (
         <Statistic
+          key="Statistic"
           size="small"
           position={STATISTIC_ORDER.CORE(4)}
           tooltip={`${formatPercentage(this.wastedHolyPowerPercent)}% wasted`}
@@ -59,6 +60,7 @@ class HolyPowerDetails extends Analyzer {
       ),
       (
         <Panel
+          key="Panel"
           title="Holy power usage"
           pad={false}
         >

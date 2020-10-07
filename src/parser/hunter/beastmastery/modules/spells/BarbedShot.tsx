@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -22,12 +22,11 @@ import { MAX_FRENZY_STACKS } from '../../constants';
  */
 
 class BarbedShot extends Analyzer {
-
   barbedShotStacks: number[][] = [];
   lastBarbedShotStack: number = 0;
   lastBarbedShotUpdate: number = this.owner.fight.start_time;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.barbedShotStacks = Array.from({ length: MAX_FRENZY_STACKS + 1 }, x => []);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);

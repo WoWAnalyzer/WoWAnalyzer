@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -24,7 +24,7 @@ class SpellReflect extends Analyzer {
   magicDamageReduced = 0;
   totalDamage = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamage);
     debug && this.addEventListener(Events.fightend, this.fightEndDebug);

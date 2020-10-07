@@ -9,6 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import CrossIcon from 'interface/icons/Cross';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import { Options } from 'parser/core/Analyzer';
 
 /**
  * Tracks the amount of cancelled casts in %.
@@ -16,10 +17,8 @@ import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
  * Example log:
  * https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
  */
-
 class CancelledCasts extends CoreCancelledCasts {
-
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.IGNORED_ABILITIES = [
       //Include the spells that you do not want to be tracked and spells that are castable while casting

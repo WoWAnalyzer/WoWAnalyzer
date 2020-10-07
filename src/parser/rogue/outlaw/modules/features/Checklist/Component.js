@@ -38,11 +38,12 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
             thresholds={thresholds.rollTheBonesBuffs}
           />
           {thresholds.rollTheBonesEfficiency.map(suggestion => (
-              <Requirement
-                name={`Reroll ${suggestion.label} efficiency`}
-                thresholds={suggestion.suggestionThresholds}
-              />
-            ))}
+            <Requirement
+              key={suggestion.label}
+              name={`Reroll ${suggestion.label} efficiency`}
+              thresholds={suggestion.suggestionThresholds}
+            />
+          ))}
         </Rule>
       )}
       <Rule

@@ -2,13 +2,14 @@ import React from 'react';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 import SPELLS from 'common/SPELLS';
-import { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ExecuteHelper from 'parser/shared/ExecuteHelper';
+
 
 import { KILLER_INSTINCT_MULTIPLIER, KILLER_INSTINCT_THRESHOLD } from '../../constants';
 
@@ -19,14 +20,13 @@ import { KILLER_INSTINCT_MULTIPLIER, KILLER_INSTINCT_THRESHOLD } from '../../con
  * https://www.warcraftlogs.com/reports/DFZVfmhkj9bYa6rn#fight=1&type=damage-done
  */
 class KillerInstinct extends ExecuteHelper {
-
   static executeSpells = [SPELLS.KILL_COMMAND_DAMAGE_BM];
   static executeSources = SELECTED_PLAYER_PET;
   static lowerThreshold = KILLER_INSTINCT_THRESHOLD;
   static modifiesDamage = true;
   static damageModifier = KILLER_INSTINCT_MULTIPLIER;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.KILLER_INSTINCT_TALENT.id);
   }

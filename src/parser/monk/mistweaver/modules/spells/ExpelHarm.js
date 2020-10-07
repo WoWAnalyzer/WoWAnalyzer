@@ -13,7 +13,7 @@ class ExpelHarm extends Analyzer {
     lastCastTarget = null;
     sourceTarget = null;
     numberToCount = 0;
-    
+
     constructor(...args) {
         super(...args);
         this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM), this.handleExpelHarm);

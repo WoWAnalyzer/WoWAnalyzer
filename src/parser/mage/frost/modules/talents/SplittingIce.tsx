@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -23,7 +23,7 @@ class SplittingIce extends Analyzer {
 
   castTarget = ""; // player's last directly targeted foe, used to tell which hit was on primary target
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 	   this.active = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
      this.hasGlacialSpike = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);

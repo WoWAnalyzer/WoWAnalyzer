@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DistanceMoved from 'parser/shared/modules/others/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -43,7 +43,7 @@ class Renew extends Analyzer {
   lastGCD: GlobalCooldownEvent | null = null;
   lastCast: CastEvent | null = null;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     if (this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id)) {

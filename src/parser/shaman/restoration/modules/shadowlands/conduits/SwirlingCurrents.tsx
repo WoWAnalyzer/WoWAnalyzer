@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
@@ -22,7 +22,7 @@ class SwirlingCurrents extends Analyzer {
   targetsWithBoostedRiptides: boolean[] = [];
 
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = true;
 

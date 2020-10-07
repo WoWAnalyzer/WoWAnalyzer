@@ -11,7 +11,6 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 
 import FuryTracker from './FuryTracker';
 
-
 const furyIcon = 'ability_demonhunter_eyebeam';
 
 class FuryDetails extends Analyzer {
@@ -43,21 +42,19 @@ class FuryDetails extends Analyzer {
   }
 
   statistic() {
-    return [
-      (
-        <Statistic
-          size="small"
-          position={STATISTIC_ORDER.CORE(4)}
-          tooltip={`${formatPercentage(this.wastedFuryPercent)}% wasted`}
-        >
-          <BoringResourceValue
-            resource={RESOURCE_TYPES.FURY}
-            value={formatNumber(this.furyTracker.wasted)}
-            label="Fury Wasted"
-          />
-        </Statistic>
-      ),
-    ];
+    return (
+      <Statistic
+        size="small"
+        position={STATISTIC_ORDER.CORE(4)}
+        tooltip={`${formatPercentage(this.wastedFuryPercent)}% wasted`}
+      >
+        <BoringResourceValue
+          resource={RESOURCE_TYPES.FURY}
+          value={formatNumber(this.furyTracker.wasted)}
+          label="Fury Wasted"
+        />
+      </Statistic>
+    );
   }
 
   tab() {

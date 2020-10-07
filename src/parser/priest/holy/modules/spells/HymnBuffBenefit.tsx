@@ -5,9 +5,7 @@ import fetchWcl from 'common/fetchWclApi';
 import { WCLHealingTableResponse, WCLHealing } from "common/WCL_TYPES";
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-
 import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
-
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 

@@ -4,7 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import Events, { EventType, ChangeHasteEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Abilities from '../Abilities';
@@ -29,7 +29,7 @@ class BrewCDR extends Analyzer {
   _newHaste = 0;
   _lastHasteChange = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this._lastHasteChange = this.owner.fight.start_time;
 

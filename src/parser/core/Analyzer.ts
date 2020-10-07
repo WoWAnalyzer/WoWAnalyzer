@@ -1,14 +1,15 @@
 import React from 'react';
 
-import EventSubscriber, { EventListener } from './EventSubscriber';
+import EventSubscriber, { EventListener, Options as _Options } from './EventSubscriber';
 import EventFilter, {
   SELECTED_PLAYER,
   SELECTED_PLAYER_PET,
 } from './EventFilter';
 import { When } from './ParseResults';
-import { MappedEvent } from './Events';
+import { EventType, MappedEvent } from './Events';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
+export type Options = _Options
 
 const EVENT_LISTENER_REGEX = /on_((by|to)Player(Pet)?_)?(.+)/;
 
@@ -41,7 +42,7 @@ function addLegacyEventListenerSupport(object: Analyzer) {
       return;
     }
     const [listener, , playerFilter, pet, eventType] = match;
-    const filter = new EventFilter(eventType);
+    const filter = new EventFilter(eventType as EventType);
 
     // This only shows available filters used by the legacy method.
     // For a full list of supported properties see the core CombatLogParser
@@ -62,6 +63,7 @@ function addLegacyEventListenerSupport(object: Analyzer) {
     }
     filter.to(to);
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     object.addEventListener(filter, object[listener]);
     hasLegacyEventListener = true;
@@ -78,11 +80,11 @@ class Analyzer extends EventSubscriber {
    * initialized. Use this method to toggle the module on/off based on having
    * items equipped, talents selected, etc.
    */
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     addLegacyEventListenerSupport(this);
   }
-  addEventListener<ET extends string, E extends MappedEvent<ET>>(
+  addEventListener<ET extends EventType, E extends MappedEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, E>,
   ) {
@@ -102,6 +104,7 @@ class Analyzer extends EventSubscriber {
    * @deprecated Set the `position` property on the Statistic component instead.
    */
   statisticOrder?: number = undefined;
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   suggestions(when: When) {}
   /**
    * @deprecated Return a `Panel` from the statistic method instead.
@@ -110,6 +113,7 @@ class Analyzer extends EventSubscriber {
     title: string;
     url: string;
     render: React.FC;
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
   } | void {}
 }
 

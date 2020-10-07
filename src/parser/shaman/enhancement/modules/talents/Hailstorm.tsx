@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
@@ -18,7 +18,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
  * Example Log:
  */
 class Hailstorm extends Analyzer {
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);
   }

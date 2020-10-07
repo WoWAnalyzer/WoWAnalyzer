@@ -11,35 +11,35 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 
 const DARKMOON_DECK_BLOCKADES_CARDS = {
   276204: {
-    name: "Ace",
+    name: 'Ace',
     staminaIncrease: 72,
   },
   276205: {
-    name: "Two",
+    name: 'Two',
     staminaIncrease: 146,
   },
   276206: {
-    name: "Three",
+    name: 'Three',
     staminaIncrease: 218,
   },
   276207: {
-    name: "Four",
+    name: 'Four',
     staminaIncrease: 291,
   },
   276208: {
-    name: "Five",
+    name: 'Five',
     staminaIncrease: 364,
   },
   276209: {
-    name: "Six",
+    name: 'Six',
     staminaIncrease: 437,
   },
   276210: {
-    name: "Seven",
+    name: 'Seven',
     staminaIncrease: 510,
   },
   276211: {
-    name: "Eight",
+    name: 'Eight',
     staminaIncrease: 583,
   },
 };
@@ -63,7 +63,11 @@ class DarkmoonDeckBlockades extends Analyzer {
     if (this.active) {
       Object.keys(DARKMOON_DECK_BLOCKADES_CARDS).forEach((buffId) => {
         const defaultCard = DARKMOON_DECK_BLOCKADES_CARDS[buffId];
-        const actualStaminaIncrease = calculatePrimaryStat(355, defaultCard.staminaIncrease, this.selectedCombatant.getItem(ITEMS.DARKMOON_DECK_BLOCKADES.id).itemLevel);
+        const actualStaminaIncrease = calculatePrimaryStat(
+          355,
+          defaultCard.staminaIncrease,
+          this.selectedCombatant.getItem(ITEMS.DARKMOON_DECK_BLOCKADES.id).itemLevel,
+        );
         this.actualStaminaIncreasePerCard[buffId] = actualStaminaIncrease;
       });
     }
@@ -87,7 +91,7 @@ class DarkmoonDeckBlockades extends Analyzer {
     if (!this._isBlockadesCard(spellId)) {
       return;
     }
-    if (!this.cardTracker.hasOwnProperty(spellId)) {
+    if (!this.cardTracker[spellId]) {
       this.cardTracker[spellId] = [];
     }
     this.cardTracker[spellId].push({
@@ -101,10 +105,12 @@ class DarkmoonDeckBlockades extends Analyzer {
     if (!this._isBlockadesCard(spellId)) {
       return;
     }
-    if (!this.cardTracker.hasOwnProperty(spellId)) {
+    if (!this.cardTracker[spellId]) {
       return;
     }
-    const lastOccurrenceOfThisCard = this.cardTracker[spellId][this.cardTracker[spellId].length -1];
+    const lastOccurrenceOfThisCard = this.cardTracker[spellId][
+      this.cardTracker[spellId].length - 1
+    ];
     lastOccurrenceOfThisCard.end = event.timestamp;
   }
 
@@ -142,8 +148,6 @@ class DarkmoonDeckBlockades extends Analyzer {
       averageStaminaIncrease: totalStaminaIncrease / totalDuration,
     };
   }
-
-
 
   statistic() {
     const summary = this.staminaSummary;

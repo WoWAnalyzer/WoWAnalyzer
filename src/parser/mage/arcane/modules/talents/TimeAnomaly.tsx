@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent } from 'parser/core/Events';
 
@@ -16,7 +16,7 @@ class TimeAnomaly extends Analyzer {
 	};
 	protected abilityTracker!: AbilityTracker;
 
-	constructor(options: any) {
+	constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TIME_ANOMALY_TALENT.id);
 		this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE), this.onBarrageCast);

@@ -1,6 +1,6 @@
-import Module from 'parser/core/Module';
+import Module, { Options } from 'parser/core/Module';
 
-import { Event } from '../Events';
+import { AnyEvent } from '../Events';
 import Ability, { SpellbookAbility } from './Ability';
 import AbilityTracker from '../../shared/modules/AbilityTracker';
 import Haste from '../../shared/modules/Haste';
@@ -41,7 +41,7 @@ class Abilities extends Module {
 
   abilities: Ability[] = [];
   activeAbilities: Ability[] = [];
-  constructor(args: any) {
+  constructor(args: Options) {
     super(args);
     this.loadSpellbook(this.spellbook());
   }
@@ -84,7 +84,7 @@ class Abilities extends Module {
   /**
    * Returns the expected cooldown (in seconds) of the given spellId at the current timestamp (or undefined if there is no such spellInfo)
    */
-  getExpectedCooldownDuration(spellId: number, cooldownTriggerEvent: Event<any> | undefined) {
+  getExpectedCooldownDuration(spellId: number, cooldownTriggerEvent: AnyEvent | undefined) {
     const ability = this.getAbility(spellId);
     return ability ? Math.round(ability.getCooldown(this.haste.current, cooldownTriggerEvent) * 1000) : undefined;
   }

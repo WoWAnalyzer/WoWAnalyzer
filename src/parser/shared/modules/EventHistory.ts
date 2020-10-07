@@ -1,5 +1,5 @@
 import Module from 'parser/core/Module';
-import { Event, MappedEvent } from 'parser/core/Events';
+import { AnyEvent, EventType, MappedEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
@@ -11,8 +11,8 @@ class EventHistory extends Module {
    * @param filterDef an optional EventFilter to apply to all events
    * @returns the last `count` events that match the given filters, with the oldest events first
    */
-  public last<ET extends string, E extends MappedEvent<ET>>(count?: number, maxTime?: number, filterDef?: EventFilter<ET>): E[] {
-    let filter = (event: Event<any>) => true;
+  public last<ET extends EventType, E extends MappedEvent<ET>>(count?: number, maxTime?: number, filterDef?: EventFilter<ET>): E[] {
+    let filter = (event: AnyEvent) => true;
 
     if (maxTime) {
       const minTime = this.owner.currentTimestamp - maxTime;

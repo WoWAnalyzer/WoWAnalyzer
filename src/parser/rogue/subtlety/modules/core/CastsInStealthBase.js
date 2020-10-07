@@ -8,8 +8,8 @@ class CastsInStealthBase extends Analyzer {
   constructor(...args) {
     super(...args);
 
-    this.backstabSpell = this.selectedCombatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id) 
-    ? SPELLS.GLOOMBLADE_TALENT 
+    this.backstabSpell = this.selectedCombatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id)
+    ? SPELLS.GLOOMBLADE_TALENT
     : SPELLS.BACKSTAB;
     this.badStealthSpells = [this.backstabSpell];
   }
@@ -55,7 +55,7 @@ class CastsInStealthBase extends Analyzer {
   get stealthActualCasts() {
     return 0;
   }
-  
+
   get castsInStealthThresholds() {
     return {
       actual: this.stealthActualCasts / this.stealthMaxCasts,

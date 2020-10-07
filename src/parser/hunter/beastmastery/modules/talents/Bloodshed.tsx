@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -11,6 +11,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { BLOODSHED_DAMAGE_AMP } from 'parser/hunter/beastmastery/constants';
 import Enemies from 'parser/shared/modules/Enemies';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+
 
 /**
  * Command your pet to tear into your target, causing your target to bleed for
@@ -31,7 +32,7 @@ class Bloodshed extends Analyzer {
 
   protected enemies!: Enemies;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODSHED_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLOODSHED_DEBUFF), this.onDamage);

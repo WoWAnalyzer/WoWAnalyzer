@@ -1,5 +1,5 @@
 import Events, { ApplyBuffEvent, DamageEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { formatDuration } from 'common/format';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
@@ -142,7 +142,7 @@ class ExecuteHelper extends Analyzer {
 
   //endregion
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.by(this.executeSources), this.onGeneralDamage);
     this.addEventListener(Events.cast.by(this.executeSources).spell(this.executeSpells), this.onExecuteCast);

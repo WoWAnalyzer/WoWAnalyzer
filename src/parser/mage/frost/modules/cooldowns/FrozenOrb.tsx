@@ -22,7 +22,6 @@ class FrozenOrb extends Analyzer {
       this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, BLIZZARD_ORB_REDUCTION);
     }
   }
-
 }
 
 export default FrozenOrb;

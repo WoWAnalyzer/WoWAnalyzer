@@ -6,6 +6,28 @@ export const abilityFilter = { //filter used for abilities that don't use the de
   "dispel": "stoppedability",
 };
 
+function createPhaseStartEvent(timestamp, phase, events) {
+  const phaseStartEvent = {
+    timestamp: timestamp,
+    phase: phase,
+    type: EventType.PhaseStart,
+    __fabricated: true,
+  };
+
+  events.push(phaseStartEvent);
+}
+
+function createPhaseEndEvent(timestamp, phase, events) {
+  const phaseEndEvent = {
+    timestamp: timestamp,
+    phase: phase,
+    type: EventType.PhaseEnd,
+    __fabricated: true,
+  };
+
+  events.push(phaseEndEvent);
+}
+
 /**
  * Creates Phase filter events as defined in boss configs via phase.filter.type
  * All filters can be passed a filter.offset attribute that shifts how many milliseconds after the specicifed event the phase starts (can be negative)
@@ -181,7 +203,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
   }
 
   phaseEvents.sort((a, b) => a.start - b.start);
-  phaseEvents.filter((event, index, array) => 
+  phaseEvents.filter((event, index, array) =>
      index === 0 || event.key !== array[index - 1].key //only keep events that arent preceded by another start event of the same phase
   ).forEach((event, _, array) => {
     if (!event.end) {
@@ -200,26 +222,4 @@ export function fabricateBossPhaseEvents(events, report, fight) {
     phaseInstances[event.key] += 1;
   });
   return bossPhaseEvents;
-}
-
-function createPhaseStartEvent(timestamp, phase, events) {
-  const phaseStartEvent = {
-    timestamp: timestamp,
-    phase: phase,
-    type: EventType.PhaseStart,
-    __fabricated: true,
-  };
-
-  events.push(phaseStartEvent);
-}
-
-function createPhaseEndEvent(timestamp, phase, events) {
-  const phaseEndEvent = {
-    timestamp: timestamp,
-    phase: phase,
-    type: EventType.PhaseEnd,
-    __fabricated: true,
-  };
-
-  events.push(phaseEndEvent);
 }

@@ -18,6 +18,7 @@ class HolyPriestHealingEfficiencyDetails extends Analyzer {
       render: () => (
           <Panel>
             <HealingEfficiencyBreakdown
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
               // @ts-ignore
               tracker={this.healingEfficiencyTracker}
               showSpenders

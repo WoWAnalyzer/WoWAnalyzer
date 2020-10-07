@@ -182,7 +182,7 @@ class CharacterParses extends React.Component {
     return filteredParses.slice(0, RENDER_LIMIT);
   }
 
-  changeParseStructure(rawParses, charClass) {
+  changeParseStructure(rawParses) {
     const updatedTrinkets = { ...this.state.trinkets };
     const parses = rawParses.map(elem => {
       // get missing trinket-icons later
@@ -225,7 +225,9 @@ class CharacterParses extends React.Component {
               trinkets: updatedTrinkets,
             });
           })
-          .catch(err => {}); // ignore errors;;
+          .catch(() => {
+            // ignore errors;;
+          });
       }
       return null;
     });

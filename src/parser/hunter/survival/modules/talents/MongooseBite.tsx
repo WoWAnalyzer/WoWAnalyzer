@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { formatNumber, formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -33,7 +33,7 @@ class MongooseBite extends Analyzer {
   accumulatedFocusAtMomentOfCast = 0;
   windowCheckedForFocus: boolean = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id);

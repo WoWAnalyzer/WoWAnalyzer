@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -46,7 +46,7 @@ class ShadowWordPain extends Analyzer {
   darkVoidShadowWordPainApplications = 0;
   darkVoidShadowWordPainRefreshes = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN), this.onCast);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN), this.onDebuffApplied);
