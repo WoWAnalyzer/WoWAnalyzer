@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options } from 'parser/core/Module';
 
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import DonutChart from 'interface/statistics/components/DonutChart';

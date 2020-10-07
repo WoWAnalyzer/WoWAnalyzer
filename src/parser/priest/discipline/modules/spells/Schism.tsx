@@ -13,6 +13,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemy from 'parser/core/Enemy';
 import { DamageEvent, HealEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
 import isAtonement from '../core/isAtonement';
 import Penance from './Penance';

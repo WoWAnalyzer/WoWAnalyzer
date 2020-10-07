@@ -12,7 +12,7 @@ export interface Options {
 class Module {
   static dependencies: { [desiredPropName: string]: typeof Module } = {};
 
-  public readonly owner!: CombatLogParser;
+  protected readonly owner!: CombatLogParser;
   /** Whether or not this module is active, usually depends on specific items or talents. */
   active: boolean = true;
   /** This module's execution priority, this makes sure dependencies are executed before modules that depend on them. */

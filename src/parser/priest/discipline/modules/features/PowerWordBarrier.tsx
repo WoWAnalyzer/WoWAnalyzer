@@ -30,7 +30,7 @@ class PowerWordBarrier extends Analyzer {
       end: this.owner.fight.end_time,
       filter: `IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} TO type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} GROUP BY target ON target END`,
     })
-      .then(json => {
+      .then((json: any) => {
         this.totalDamageTakenDuringPWB = json.entries.reduce((damageTaken: number, entry: any) => damageTaken + entry.total, 0);
       });
   }

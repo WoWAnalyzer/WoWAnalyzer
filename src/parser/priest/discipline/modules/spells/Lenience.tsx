@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
+import { Options } from 'parser/core/Module';
 
 import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 

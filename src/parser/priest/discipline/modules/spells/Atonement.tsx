@@ -8,7 +8,8 @@ import Combatants from 'parser/shared/modules/Combatants';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
-import { ApplyBuffEvent, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
 import isAtonement from '../core/isAtonement';
 import AtonementApplicationSource from '../features/AtonementApplicationSource';
@@ -84,14 +85,10 @@ class Atonement extends Analyzer {
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
     this.currentAtonementTargets.push(atonement);
     this.totalAtones += 1;
-    // @ts-ignore
     debug && console.log(`%c${this.combatants.players[atonement.target].name} gained an atonement`, 'color:green', this.currentAtonementTargets);
     this.eventEmitter.fabricateEvent({
-      type: 'atonement_applied',
-      // @ts-ignore
-      timestamp: event.timestamp,
-      sourceID: event.sourceID,
-      targetID: event.targetID,
+      ...event,
+      type: EventType.AtonementApplied,
     }, event);
   }
 
@@ -114,14 +111,10 @@ class Atonement extends Analyzer {
     const timeSinceApplication = event.timestamp - refreshedTarget.lastAtonementAppliedTimestamp;
     if (timeSinceApplication < ((this.atonementDuration) - IMPROPER_REFRESH_TIME)) {
       this.improperAtonementRefreshes.push(refreshedTarget);
-      // @ts-ignore
       debug && console.log(`%c${this.combatants.players[event.targetID].name} refreshed an atonement too early %c${timeSinceApplication}`, 'color:red', this.currentAtonementTargets);
       this.eventEmitter.fabricateEvent({
-        type: 'atonement_refresh_improper',
-        // @ts-ignore
-        timestamp: event.timestamp,
-        sourceID: event.sourceID,
-        targetID: event.targetID,
+        ...event,
+        type: EventType.AtonementRefreshImproper,
       }, event);
     }
 
@@ -136,14 +129,10 @@ class Atonement extends Analyzer {
 
     this.totalAtones += 1;
     this.totalAtonementRefreshes += 1;
-    // @ts-ignore
     debug && console.log(`%c${this.combatants.players[atonement.target].name} refreshed an atonement`, 'color:orange', this.currentAtonementTargets);
     this.eventEmitter.fabricateEvent({
-      type: 'atonement_refresh',
-      // @ts-ignore
-      timestamp: event.timestamp,
-      sourceID: event.sourceID,
-      targetID: event.targetID,
+      ...event,
+      type: EventType.AtonementRefresh,
     }, event);
   }
 
@@ -157,13 +146,10 @@ class Atonement extends Analyzer {
       lastAtonementAppliedTimestamp: event.timestamp,
     };
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
-    // @ts-ignore
     debug && console.log(`%c${this.combatants.players[atonement.target].name} lost an atonement`, 'color:red', this.currentAtonementTargets);
     this.eventEmitter.fabricateEvent({
-      type: 'atonement_faded',
-      // @ts-ignore
-      sourceID: event.sourceID,
-      targetID: event.targetID,
+      ...event,
+      type: EventType.AtonementFaded,
     }, event);
   }
 

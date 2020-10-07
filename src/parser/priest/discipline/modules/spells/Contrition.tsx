@@ -8,6 +8,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { HealEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
 import Penance from './Penance';
 import { calculateOverhealing, OffensivePenanceBoltEstimation } from '../../SpellCalculations';

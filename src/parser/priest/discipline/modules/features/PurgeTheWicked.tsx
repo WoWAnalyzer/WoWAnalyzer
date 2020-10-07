@@ -9,6 +9,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
+import { Options } from 'parser/core/Module';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 

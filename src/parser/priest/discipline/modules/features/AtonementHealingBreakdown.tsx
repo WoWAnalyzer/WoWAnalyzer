@@ -7,9 +7,11 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 import AtonementHealingDone from 'parser/priest/discipline/modules/features/AtonementHealingDone';
+import CombatLogParser from 'parser/core/CombatLogParser';
 
 interface Props {
-  analyzer: AtonementHealingDone
+  analyzer: AtonementHealingDone,
+  owner: CombatLogParser,
 }
 
 interface State {
@@ -17,7 +19,7 @@ interface State {
 }
 
 class AtonementHealingBreakdown extends React.Component<Props, State> {
-  constructor(options: Options) {
+  constructor(options: any) {
     super(options);
     this.state = {
       absolute: false,
@@ -34,8 +36,8 @@ class AtonementHealingBreakdown extends React.Component<Props, State> {
   }
 
   renderTableBody() {
-    const { analyzer } = this.props;
-    const { totalAtonement, bySource, total, owner: parser } = analyzer;
+    const { analyzer, owner } = this.props;
+    const { totalAtonement, bySource, total } = analyzer;
 
     const highestHealing = Object.keys(bySource)
       .map(key => bySource[key])
@@ -77,7 +79,7 @@ class AtonementHealingBreakdown extends React.Component<Props, State> {
                   </td>
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                     <TooltipElement content={`Total: ${formatNumber(healing.effective)}`}>
-                      {formatNumber(healing.effective / parser.fightDuration * 1000)} HPS
+                      {formatNumber(healing.effective / owner.fightDuration * 1000)} HPS
                     </TooltipElement>
                   </td>
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
@@ -109,7 +111,7 @@ class AtonementHealingBreakdown extends React.Component<Props, State> {
                       </td>
                       <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                         <TooltipElement content={`Total: ${formatNumber(value.effective)}`}>
-                          {formatNumber(value.effective / parser.fightDuration * 1000)} HPS
+                          {formatNumber(value.effective / owner.fightDuration * 1000)} HPS
                         </TooltipElement>
                       </td>
                       <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>

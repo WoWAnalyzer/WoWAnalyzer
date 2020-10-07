@@ -7,6 +7,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { DamageEvent, HealEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
 import isAtonement from '../core/isAtonement';
 import Penance, { IsPenanceDamageEvent, IsPenanceHealEvent } from './Penance';

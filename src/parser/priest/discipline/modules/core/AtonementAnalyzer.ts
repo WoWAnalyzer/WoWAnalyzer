@@ -1,5 +1,5 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import EventFilter from 'parser/core/EventFilter';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -32,7 +32,7 @@ export default class AtonementAnalyzer extends Analyzer {
    * Event filter for damage events that will cause
    */
   get atonementDamageSourceFilter() {
-    return new EventFilter('atonementDamageSource');
+    return new EventFilter(EventType.AtonementDamage);
   }
 
   /**
@@ -65,7 +65,7 @@ export default class AtonementAnalyzer extends Analyzer {
    * Contains both the healEvent and damageEvent
    */
   get atonementEventFilter() {
-    return new EventFilter('atonement');
+    return new EventFilter(EventType.Atonement);
   }
 
   /**
@@ -83,11 +83,7 @@ export default class AtonementAnalyzer extends Analyzer {
       return;
     }
 
-
     this.eventEmitter.fabricateEvent({
-      // The disc modules are injecting things that probably should be typed differently.
-      // I'll try and clean this bit up later.
-      // @ts-ignore
       healEvent,
       damageEvent,
       sourceID: healEvent.sourceID,

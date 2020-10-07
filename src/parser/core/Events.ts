@@ -56,6 +56,14 @@ export enum EventType {
   AddStagger = 'addstagger',
   RemoveStagger = 'removestagger',
 
+  // Priest
+  Atonement ='atonement',
+  AtonementDamage = 'atonementDamageSource',
+  AtonementApplied = 'atonement_applied',
+  AtonementFaded = 'atonement_faded',
+  AtonementRefresh = 'atonement_refresh',
+  AtonementRefreshImproper = 'atonement_refresh_improper',
+
   // Phases:
   PhaseStart = 'phasestart',
   PhaseEnd = 'phaseend',

@@ -8,6 +8,7 @@ import EventGrouper from 'parser/core/EventGrouper';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 import { DamageEvent, HealEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
@@ -27,7 +28,6 @@ class Penance extends Analyzer {
     spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id || spellId === SPELLS.PENANCE_CAST.id;
 
   get missedBolts(): number {
-    // @ts-ignore
     return [...this.eventGrouper].reduce(
       (missedBolts: any, cast: any) => missedBolts + (this._boltCount - cast.length),
       0,
@@ -39,7 +39,6 @@ class Penance extends Analyzer {
   }
 
   get currentBoltNumber() {
-    // @ts-ignore
     return [...this.eventGrouper].slice(-1)[0].length - 1; // -1 here for legacy code
   }
 

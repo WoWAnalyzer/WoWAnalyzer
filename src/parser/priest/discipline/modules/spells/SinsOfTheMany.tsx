@@ -10,6 +10,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { DamageEvent, HealEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import { Options } from 'parser/core/Module';
 
 import isAtonement from '../core/isAtonement';
 import Atonement from './Atonement';

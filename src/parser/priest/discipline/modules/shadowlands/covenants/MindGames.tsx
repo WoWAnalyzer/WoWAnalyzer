@@ -11,6 +11,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, HealEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
 import AtonementDamageSource from '../../features/AtonementDamageSource';
 import isAtonement from '../../core/isAtonement';

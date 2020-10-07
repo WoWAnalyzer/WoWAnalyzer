@@ -10,6 +10,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
+import { Options } from 'parser/core/Module';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
 

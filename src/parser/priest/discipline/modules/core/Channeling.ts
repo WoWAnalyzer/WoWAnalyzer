@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
 import { Ability, CastEvent, EndChannelEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
 import Penance from '../spells/Penance';
 

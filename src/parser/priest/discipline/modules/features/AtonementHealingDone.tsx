@@ -89,7 +89,7 @@ class AtonementHealingDone extends Analyzer {
         position={90}
         pad={false}
       >
-        <AtonementHealingBreakdown analyzer={this} />
+        <AtonementHealingBreakdown analyzer={this} owner={this.owner} />
       </Panel>
     );
   }

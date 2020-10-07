@@ -19,11 +19,11 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
 
-  protected combatants!: Combatants
-  protected castEfficiency!: CastEfficiency
-  protected alwaysBeCasting!: AlwaysBeCasting
-  protected manaValues!: ManaValues
-  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected manaValues!: ManaValues;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
 
   render() {
     return (
