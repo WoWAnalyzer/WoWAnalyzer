@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { Khazak, JacobFowler } from 'CONTRIBUTORS';
+import { Khazak } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-    change(date(2020, 10, 7), <>Updating localization for UI strings</>, [JacobFowler]),
     change(date(2020, 8, 11), 'Converted Frost Death Knight modules to Typescript', [Khazak]),
     change(date(2020, 5, 11), <>Fixed issue where <SpellLink id={SPELLS.ICECAP_TALENT.id} /> was not properly counting the internal cooldown</>, [Khazak]),
     change(date(2020, 4, 28), <>Added <SpellLink id={SPELLS.CHILL_STREAK_TALENT.id} /> to Abilities</>, [Khazak]),
