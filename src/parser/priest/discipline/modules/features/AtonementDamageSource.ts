@@ -1,5 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import { DamageEvent } from 'parser/core/Events';
+
 import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
 
 class AtonementDamageSource extends Analyzer {

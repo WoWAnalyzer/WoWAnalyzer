@@ -105,7 +105,7 @@ class SinsOfTheMany extends Analyzer {
             The direct damage contributed by Sins of the Many was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of total damage done.
           </>
         )}
-        alignIcon={'center'}
+        alignIcon="center"
       />
     );
   }

@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES, TrackedCooldown } from 'parser/shared/modules/CooldownThroughputTracker';
 import { CastEvent, HealEvent } from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
+
 import isAtonement from '../core/isAtonement';
 import Atonement from '../spells/Atonement';
 

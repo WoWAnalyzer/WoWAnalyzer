@@ -237,7 +237,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(20)}
         size="flexible"
-        tooltip={`The Atonement healing contributed by each Atonement applicator.`}
+        tooltip="The Atonement healing contributed by each Atonement applicator."
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.ATONEMENT_BUFF.id}>Atonement</SpellLink> applicators breakdown</label>

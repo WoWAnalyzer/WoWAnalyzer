@@ -6,6 +6,7 @@ import Panel from 'interface/statistics/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+
 import isAtonement from '../core/isAtonement';
 import AtonementDamageSource from './AtonementDamageSource';
 import AtonementHealingBreakdown from './AtonementHealingBreakdown';

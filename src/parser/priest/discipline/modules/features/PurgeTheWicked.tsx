@@ -9,6 +9,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
+
 import SuggestionThresholds from '../../SuggestionThresholds';
 
 class PurgeTheWicked extends Analyzer {
@@ -79,13 +80,11 @@ class PurgeTheWicked extends Analyzer {
     const uptime = this.uptime || 0;
 
     when(uptime).isLessThan(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.minor)
-      .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => {
-        return suggest(<span>Your <SpellLink id={this.dotSpell.id} /> uptime can be improved.</span>)
+      .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => suggest(<span>Your <SpellLink id={this.dotSpell.id} /> uptime can be improved.</span>)
           .icon(this.dotSpell.icon)
           .actual(`${formatPercentage(uptime)}% uptime`)
           .recommended(`>${formatPercentage(recommended, 0)}% is recommended`)
-          .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular).major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major);
-      });
+          .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular).major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major));
   }
 
   statistic() {

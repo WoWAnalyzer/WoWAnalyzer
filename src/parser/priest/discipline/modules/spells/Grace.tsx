@@ -11,6 +11,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import PRIEST_SPELLS from 'common/SPELLS/priest';
 import PRIEST_TALENTS from 'common/SPELLS/talents/priest';
 import { AbsorbedEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Events';
+
 import isAtonement from '../core/isAtonement';
 
 // Use the priest spell list to whitelist abilities
@@ -30,7 +31,7 @@ class Grace extends Analyzer {
   applyAbsorbEvents: Array<{
     applyBuffEvent: ApplyBuffEvent,
     masteryBuffed: boolean,
-    eventsAssociated: Array<ApplyBuffEvent>,
+    eventsAssociated: ApplyBuffEvent[],
   }> = [];
 
   graceHealing = 0;

@@ -8,6 +8,7 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { CastEvent, HealEvent } from 'parser/core/Events';
 import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+
 import isAtonement from '../core/isAtonement';
 import Atonement from './Atonement';
 

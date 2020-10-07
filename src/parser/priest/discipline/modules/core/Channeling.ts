@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
 import { Ability, CastEvent, EndChannelEvent } from 'parser/core/Events';
+
 import Penance from '../spells/Penance';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another

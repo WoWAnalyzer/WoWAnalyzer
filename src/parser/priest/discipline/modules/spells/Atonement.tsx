@@ -9,6 +9,7 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import { ApplyBuffEvent, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+
 import isAtonement from '../core/isAtonement';
 import AtonementApplicationSource from '../features/AtonementApplicationSource';
 
@@ -37,8 +38,8 @@ class Atonement extends Analyzer {
   healing = 0;
   totalAtones = 0;
   totalAtonementRefreshes = 0;
-  currentAtonementTargets: Array<AtonementTarget> = [];
-  improperAtonementRefreshes: Array<AtonementTarget> = [];
+  currentAtonementTargets: AtonementTarget[] = [];
+  improperAtonementRefreshes: AtonementTarget[] = [];
 
   get atonementDuration() {
     const applicatorEvent = this.atonementApplicationSource.event;
