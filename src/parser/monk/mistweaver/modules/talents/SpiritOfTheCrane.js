@@ -5,7 +5,8 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -30,73 +31,68 @@ class SpiritOfTheCrane extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
-  }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.TEACHINGS_OF_THE_MONASTERY.id) {
-      this.buffTotm += 1;
-      this.lastTotmBuffTimestamp = event.timestamp;
-      debug && console.log(`ToTM at ${this.buffTotm}`);
-    }
-  }
-
-  on_byPlayer_applybuffstack(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.TEACHINGS_OF_THE_MONASTERY.id) {
-      this.buffTotm += 1;
-      this.lastTotmBuffTimestamp = event.timestamp;
-      debug && console.log(`ToTM at ${this.buffTotm}`);
-    }
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-
-    if (SPELLS.TEACHINGS_OF_THE_MONASTERY.id === spellId) {
-      debug && console.log(event.timestamp);
-      if ((event.timestamp - this.lastTotmBuffTimestamp) > SPELLS.TEACHINGS_OF_THE_MONASTERY.buffDur) {
-        this.totmBuffWasted += 1;
-        this.buffTotm = 0;
-        debug && console.log('ToTM Buff Wasted');
-      }
-      this.buffTotm = 0;
-      // debug && console.log('ToTM Buff Zero');
-    }
-  }
-
-  on_byPlayer_energize(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.SPIRIT_OF_THE_CRANE_BUFF.id) {
-      this.manaReturnSotc += event.resourceChange - event.waste;
-      this.sotcWasted += event.waste;
-      debug && console.log(`SotC Entergize: ${event.resourceChange - event.waste} Total: ${this.manaReturnSotc}`);
-      debug && console.log(`SotC Waste: ${event.waste} Total: ${this.sotcWasted} Timestamp: ${event.timestamp}`);
-    }
-  }
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if (!this.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
-      // console.log('No TotM Buff');
+    if(!this.active){
       return;
     }
 
-    // Need to track when you over cap Teachings stacks.  There is no apply aura event fired, so manually tracking stacks.
-    if (spellId === SPELLS.TIGER_PALM.id && this.buffTotm === 3) {
-      debug && console.log(`TP Casted at 3 stacks ${event.timestamp}`);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY), this.firstStack);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY), this.gainStacks);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY), this.lostStacks);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_THE_CRANE_BUFF), this.stacksToMana);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT), this.tigerPalm);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT), this.blackoutKick);
+  }
+
+  firstStack(event) {
+
+      this.buffTotm += 1;
       this.lastTotmBuffTimestamp = event.timestamp;
-      this.totmOverCap += 1;
+      debug && console.log(`ToTM at ${this.buffTotm}`);
+    
+  }
+
+  gainStacks(event) {
+    this.buffTotm += 1;
+    this.lastTotmBuffTimestamp = event.timestamp;
+    debug && console.log(`ToTM at ${this.buffTotm}`);
+  }
+
+  lostStacks(event) {
+    debug && console.log(event.timestamp);
+    if ((event.timestamp - this.lastTotmBuffTimestamp) > SPELLS.TEACHINGS_OF_THE_MONASTERY.buffDur) {
+      this.totmBuffWasted += 1;
+      this.buffTotm = 0;
+      debug && console.log('ToTM Buff Wasted');
+    }
+    this.buffTotm = 0;    
+  }
+
+  stacksToMana(event) {
+    this.manaReturnSotc += event.resourceChange - event.waste;
+    this.sotcWasted += event.waste;
+    debug && console.log(`SotC Entergize: ${event.resourceChange - event.waste} Total: ${this.manaReturnSotc}`);
+    debug && console.log(`SotC Waste: ${event.waste} Total: ${this.sotcWasted} Timestamp: ${event.timestamp}`);
+  }
+
+  tigerPalm(event){
+    if (!this.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
+      return;
     }
 
-    if (spellId === SPELLS.BLACKOUT_KICK.id && this.buffTotm > 0) {
+    debug && console.log(`TP Casted at 3 stacks ${event.timestamp}`);
+    this.lastTotmBuffTimestamp = event.timestamp;
+    this.totmOverCap += 1;
+  }
+
+  blackoutKick(event) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
+      return;
+    }
+
+    if (this.buffTotm > 0) {
       if (this.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
         this.totalTotmBuffs += this.buffTotm;
-        // this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
         debug && console.log(`Black Kick Casted with Totm at ${this.buffTotm} stacks`);
       }
     }

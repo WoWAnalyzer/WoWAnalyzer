@@ -7,9 +7,10 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-import Analyzer from 'parser/core/Analyzer';
-
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 class ManaTea extends Analyzer {
   static dependencies = {
@@ -30,23 +31,24 @@ class ManaTea extends Analyzer {
     if(!this.active){
       return;
     }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.heal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_TALENT), this.applyBuff);
   }
 
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.MANA_TEA_TALENT.id === spellId) {
-      this.manateaCount += 1;//count the number of mana teas to make an average over teas
-    }
+  applyBuff(event) {
+    this.manateaCount += 1;//count the number of mana teas to make an average over teas
   }
 
-  on_byPlayer_heal(event){
+  heal(event){
     if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {//if this is in a mana tea window
       this.effectiveHealing += (event.amount || 0) + (event.absorbed || 0);
       this.overhealing +=(event.overheal || 0);
     }
   }
 
-  on_byPlayer_cast(event) {
+  handleCast(event) {
     const name = event.ability.name;
     if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id) && event.ability.guid !== SPELLS.MANA_TEA_TALENT.id) {//we check both since melee doesn't havea classResource 
       if(event.classResources && event.classResources[0].cost){ //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
