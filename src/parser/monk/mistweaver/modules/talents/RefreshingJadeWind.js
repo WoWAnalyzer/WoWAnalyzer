@@ -4,9 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
-
-const debug = false;
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 const TARGETSPERCAST = 78;
 
@@ -19,25 +18,22 @@ class RefreshingJadeWind extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
-  }
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.REFRESHING_JADE_WIND_TALENT.id) {
-      this.castRJW += 1;
+    if(!this.active){
+      return;
     }
+
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT), this.rjwBuff);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT), this.rjwHeal);
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
+  rjwBuff(event) {
+    this.castRJW += 1;
+  }
 
-    if (spellId === SPELLS.REFRESHING_JADE_WIND_HEAL.id) {
-      this.healsRJW += 1;
-      this.healingRJW += event.amount;
-      if (event.overheal) {
-        this.overhealingRJW += event.amount;
-      }
-    }
+  rjwHeal(event) {
+    this.healsRJW += 1;
+    this.healingRJW += (event.amount || 0) + (event.absorbed || 0);
+    this.overhealingRJW += event.overheal || 0;
   }
 
   get avgTargetsHitPerRJWPercentage() {
@@ -72,16 +68,6 @@ class RefreshingJadeWind extends Analyzer {
           .actual(`${formatPercentage(this.avgRJWTargetsPercentage)}% of targets hit per Refreshing Jade Wind`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
-  }
-
-  on_fightend() {
-    if (debug) {
-      console.log(`RJW Casts: ${this.castRJW}`);
-      console.log(`RJW Targets Hit: ${this.healsRJW}`);
-      console.log('RJW Targets Hit per Cast: ', (this.healsRJW / this.castRJW));
-      console.log(`Avg Heals per Cast: ${this.healingRJW / this.castRJW}`);
-      console.log(`Avg Heals Amount: ${this.healingRJW / this.healsRJW}`);
-    }
   }
 }
 

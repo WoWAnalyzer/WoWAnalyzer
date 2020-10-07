@@ -8,11 +8,13 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
 import ManaTea from './ManaTea';
 import SpiritOfTheCrane from './SpiritOfTheCrane';
 import Lifecycles from './Lifecycles';
+
 
 
 const debug = false;
@@ -65,9 +67,11 @@ class Tier45Comparison extends Analyzer {
     this.sotc.selected = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
     this.manatea.selected = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
     this.lifecycles.selected = !(this.hasSotc || this.manatea.selected);
+    this.addEventListener(Events.fightend, this.endFight);
+
   }
 
-  on_fightend() {
+  endFight() {
     this.totalManaSpent = this.totalManaSpent();
     
     // --- get mana from talents --- //
