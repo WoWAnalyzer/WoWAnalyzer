@@ -9,6 +9,9 @@ import Events from 'parser/core/Events';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class Apocalypse extends Analyzer {
   static dependencies = {
     enemies: EnemyInstances,
@@ -42,7 +45,7 @@ class Apocalypse extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>You are casting <SpellLink id={SPELLS.APOCALYPSE.id} /> with too few <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target. When casting <SpellLink id={SPELLS.APOCALYPSE.id} />, make sure to have at least 4 <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target.</span>)
             .icon(SPELLS.APOCALYPSE.icon)
-            .actual(`An average ${(actual)} of Festering Wounds were popped by Apocalypse`)
+            .actual(i18n._(t('deathknight.unholy.suggestions.apocalypse.efficiency')`An average ${(actual)} of Festering Wounds were popped by Apocalypse`))
             .recommended(`${(recommended)} is recommended`)
             .regular(recommended - 1).major(recommended - 2);
         });

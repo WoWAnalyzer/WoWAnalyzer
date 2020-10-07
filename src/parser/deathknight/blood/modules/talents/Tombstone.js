@@ -7,6 +7,8 @@ import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { TooltipElement } from 'common/Tooltip';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const RPPERCHARGE = 6;
 const MAXCHARGES = 5;
@@ -87,7 +89,7 @@ class Tombstone extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You casted {this.wastedCasts} <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} /> with less than 5 charges causing a reduced absorb shield.</>)
           .icon(SPELLS.TOMBSTONE_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% bad Tombstone casts`)
+          .actual(i18n._(t('deathknight.blood.suggestions.tomestone.badCasts')`${formatPercentage(actual)}% bad Tombstone casts`))
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }

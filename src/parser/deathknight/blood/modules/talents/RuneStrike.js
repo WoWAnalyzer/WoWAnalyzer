@@ -7,6 +7,8 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatPercentage, formatDuration } from 'common/format';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import RuneTracker from '../../../shared/RuneTracker';
 
 const MS_REDUCTION_PER_RUNE = 1000;
@@ -90,7 +92,7 @@ class RuneStrike extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>You wasted {formatDuration(this.wastedReduction / 1000)} worth of reduction by capping out on <SpellLink id={SPELLS.RUNE_STRIKE_TALENT.id} /> charges.</>)
             .icon(SPELLS.RUNE_STRIKE_TALENT.icon)
-            .actual(`${formatPercentage(this.cooldownReductionEfficiency)}% cooldown reduction used`)
+            .actual(i18n._(t('deathknight.blood.suggestions.runeStrike.wastedReduction')`${formatPercentage(this.cooldownReductionEfficiency)}% cooldown reduction used`))
             .recommended(`${formatPercentage(recommended)}% is recommended`);
         });
   }

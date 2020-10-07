@@ -4,6 +4,8 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const RANGE_WHERE_YOU_SHOULDNT_DC = 12; // yrd
 
@@ -98,7 +100,7 @@ class DeathsCaress extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<>Avoid casting <SpellLink id={SPELLS.DEATHS_CARESS.id} /> unless you're out of melee range and about to cap your runes while <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> and <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> are on cooldown. Dump runes primarily with <SpellLink id={SPELLS.HEART_STRIKE.id} />.</>)
             .icon(SPELLS.DEATHS_CARESS.icon)
-            .actual(`${formatPercentage(this.badDcCasts / this.dcCasts)}% bad ${SPELLS.DEATHS_CARESS.name} casts`)
+            .actual(i18n._(t('deathknight.blood.suggestions.deathCaress.badCasts')`${formatPercentage(this.badDcCasts / this.dcCasts)}% bad ${SPELLS.DEATHS_CARESS.name} casts`))
             .recommended(`0% are recommended`);
         });
   }

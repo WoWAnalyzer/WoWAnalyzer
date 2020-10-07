@@ -11,6 +11,9 @@ import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class FesteringStrikeEfficiency extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -57,7 +60,7 @@ class FesteringStrikeEfficiency extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>You are casting <SpellLink id={this.activeSpell.id} /> too often.  When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></span>)
             .icon(this.activeSpell.icon)
-            .actual(`${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`)
+            .actual(i18n._(t('deathknight.unholy.suggestions.scourgeStrike.efficiency')`${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`))
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
             .regular(recommended - 0.20).major(recommended - 0.40);
         });
