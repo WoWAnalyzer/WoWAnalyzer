@@ -235,7 +235,7 @@ export interface FilterCooldownInfoEvent extends ICastEvent<EventType.FilterCool
   trigger: EventType;
 }
 
-export interface FilterBuffInfoEvent extends Event<EventType.FilterBuffInfo> {
+export interface FilterBuffInfoEvent extends BuffEvent<EventType.FilterBuffInfo> {
   trigger: EventType;
 }
 
@@ -329,7 +329,7 @@ export interface BuffEvent<T extends string> extends Event<T> {
 }
 
 export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {
-  sourceID: number;
+  // confirmed that not all applybuff events contain a sourceID; e.g. wind rush from totem
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
   targetInstance?: number;
