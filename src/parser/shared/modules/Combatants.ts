@@ -1,31 +1,36 @@
+import { AnyEvent, HasTarget } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
+import Combatant from 'parser/core/Combatant';
+
 import Entities from './Entities';
-import Combatant from '../../core/Combatant';
 
 class Combatants extends Entities {
-  players = {};
+  players: { [playerId: number]: Combatant } = {};
   get playerCount() {
     return Object.keys(this.players).length;
   }
   getEntities() {
     return this.players;
   }
-  getEntity(event) {
-    const targetId = event.targetID;
-    const combatant = this.players[targetId];
+  getEntity(event: AnyEvent) {
+    if (!HasTarget(event)) {
+      return null;
+    }
+    const combatant = this.players[event.targetID];
     if (!combatant) {
       return null; // a pet or something probably, either way we don't care.
     }
     return combatant;
   }
 
-  _selected = null;
+  _selected: Combatant;
   /** @returns Combatant */
   get selected() {
     return this._selected;
   }
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.owner.combatantInfoEvents.forEach(combatantInfo => {
       if (combatantInfo.error) {
         console.error(`Error retrieving combatant information for player with sourceID ${combatantInfo.sourceID}`);

@@ -13,7 +13,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
-import { EventType } from 'parser/core/Events';
+import { ApplyDebuffEvent, CastEvent, EventType, HasSource } from 'parser/core/Events';
+import { WCLEventsResponse, WclOptions } from 'common/WCL_TYPES';
 
 //RQXjBJ1kG9pAC2DV/21-Mythic++Atal'Dazar+-+Kill+(51:52)/Koorshaman/
 
@@ -21,18 +22,22 @@ class AncestralProtectionTotem extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
+
+  protected combatants!: Combatants;
+
   loaded = false;
-  aptEvents = [];
-  constructor(...args) {
-    super(...args);
+  aptEvents: Array<CastEvent | ApplyDebuffEvent> = [];
+  constructor(options: any) {
+    super(options);
     this.active = Boolean(this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id));
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
-  fetchAll(pathname, query) {
-    const checkAndFetch = async _query => {
-      const json = await fetchWcl(pathname, _query);
-      this.aptEvents.push(...json.events);
+  fetchAll(pathname: string, query: WclOptions) {
+    const checkAndFetch: any = async (_query: WclOptions) => {
+      const json = await fetchWcl(pathname, _query) as WCLEventsResponse;
+      const events = json.events as Array<CastEvent | ApplyDebuffEvent>;
+      this.aptEvents.push(...events);
       if (json.nextPageTimestamp) {
         return checkAndFetch(Object.assign(query, {
           start: json.nextPageTimestamp,
@@ -46,7 +51,7 @@ class AncestralProtectionTotem extends Analyzer {
 
   load() {
     this.aptEvents = [];
-    const query = {
+    const query: WclOptions = {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(
@@ -56,11 +61,12 @@ class AncestralProtectionTotem extends Analyzer {
         OR
         (type='${EventType.Cast}' AND ability.id=${SPELLS.TOTEMIC_REVIVAL_CAST.id})
       )`,
+      timeout: 2000,
     };
     return this.fetchAll(`report/events/${this.owner.report.code}`, query);
   }
 
-  spellToText(ability) {
+  spellToText(ability: number) {
     switch (ability) {
       case SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id:
         return "Totem placed";
@@ -101,6 +107,9 @@ class AncestralProtectionTotem extends Analyzer {
             <tbody>
               {
                 this.aptEvents.map((event, index) => {
+                  if (!HasSource(event)) {
+                    return null;
+                  }
                   const combatant = this.combatants.players[event.sourceID];
                   if (!combatant) {
                     return null; // pet or something

@@ -690,6 +690,7 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   covenant: Covenant, //TODO: Verify this is the structure in the combatlog
   soulbind: Soulbind, //TODO: Verify this is the structure in the combatlog
   conduits: Conduit[], //TODO: Verify this is the structure in the combatlog
+  error?: any, //TODO: Verify, is this a bool? string?
 }
 
 const Events = {
