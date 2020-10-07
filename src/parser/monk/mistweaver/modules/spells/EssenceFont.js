@@ -2,27 +2,28 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import CoreChanneling from 'parser/shared/modules/Channeling';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 
-const debug = false;
-
 class EssenceFont extends Analyzer {
-  static dependencies = {
-    channeling: CoreChanneling,
-  };
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.castEssenceFont);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.handleEssenceFont);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.handleEssenceFontBuff);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.applyEssenceFontBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.refreshEssenceFontBuff);
+  }
 
   totalHealing = 0;
   totalOverhealing = 0;
   totalAbsorbs = 0;
-
-  channelTime = 0;
 
   castEF = 0;
   targetsEF = 0;
@@ -33,63 +34,37 @@ class EssenceFont extends Analyzer {
   uniqueTargets = new Set();
   total = 0;
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
+  castEssenceFont(event) {
+    this.castEF += 1;
+    this.total += this.uniqueTargets.size || 0;
+    this.uniqueTargets.clear();
+  }
 
-    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id && event.tick === true) {
+  handleEssenceFont(event) {
+    this.totalHealing += event.amount || 0;
+    this.totalOverhealing += event.overheal || 0;
+    this.totalAbsorbs += event.absorbed || 0;
+  }
+
+  handleEssenceFontBuff(event) {
+    if (event.tick === true) {
       this.efHotHeal += (event.amount || 0) + (event.absorbed || 0);
       this.efHotOverheal += event.overheal || 0;
     }
 
-    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      this.totalHealing += event.amount || 0;
-      this.totalOverhealing += event.overheal || 0;
-      this.totalAbsorbs += event.absorbed || 0;
-      this.uniqueTargets.add(event.targetID);
-    }
-
-    if (spellId === SPELLS.ESSENCE_FONT.id) {
-      this.totalHealing += event.amount || 0;
-      this.totalOverhealing += event.overheal || 0;
-      this.totalAbsorbs += event.absorbed || 0;
-    }
+    this.totalHealing += event.amount || 0;
+    this.totalOverhealing += event.overheal || 0;
+    this.totalAbsorbs += event.absorbed || 0;
+    this.uniqueTargets.add(event.targetID);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.ESSENCE_FONT.id) {
-      this.castEF += 1;
-      this.total += this.uniqueTargets.size || 0;
-      this.uniqueTargets.clear();
-    }
+  applyEssenceFontBuff(event) {
+    this.targetsEF += 1;
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      this.targetsEF += 1;
-    }
-  }
-
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      this.targetsEF += 1;
-      this.targetOverlap += 1;
-    }
-  }
-
-  on_fightend() {
-    if (debug) {
-      const averageHits = this.total / this.castEF;
-      console.log(`Average uniqueTargets hit: ${averageHits}`);
-      console.log(`EF Casts: ${this.castEF}`);
-      console.log(`EF Targets Hit: ${this.targetsEF}`);
-      console.log(`EF Avg Targets Hit per Cast: ${this.targetsEF / this.castEF}`);
-    }
+  refreshEssenceFontBuff(event) {
+    this.targetsEF += 1;
+    this.targetOverlap += 1;
   }
 
   get efHotHealing() {
@@ -103,6 +78,7 @@ class EssenceFont extends Analyzer {
   get avgTargetsHitPerEF() {
     return (this.targetsEF / this.castEF) || 0;
   }
+  
   get efHotOverlap() {
     return ((this.targetOverlap / this.targetsEF) || 0).toFixed(2);
   }
@@ -145,7 +121,6 @@ class EssenceFont extends Analyzer {
       />
     );
   }
-
 }
 
 export default EssenceFont;

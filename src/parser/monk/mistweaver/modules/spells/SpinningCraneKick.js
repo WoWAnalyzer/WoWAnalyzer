@@ -3,12 +3,17 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { formatMilliseconds } from 'common/format';
 
-const debug = false;
-
 class SpinningCraneKick extends Analyzer{
+    constructor(...args) {
+        super(...args);
+        this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.castSpinningCraneKick);
+        this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.handleSpinningCraneKick);
+        this.addEventListener(Events.fightend, this.fightEnd);
+    }
 
     goodSCKcount = 0;
     goodSCKTimeList = [];
@@ -18,45 +23,33 @@ class SpinningCraneKick extends Analyzer{
     enemiesHitSCK = [];
     currentTime = 0;
 
-    on_byPlayer_cast(event){
-        const spellId = event.ability.guid;
-
-        if(spellId === SPELLS.SPINNING_CRANE_KICK.id){
-            if(this.enemiesHitSCK){//this nested is needed due to weird logs
-                this.checkSCK();
-            }
-            this.currentTime = this.owner.currentTimestamp - this.owner.fight.start_time;
-            this.enemiesHitSCK = [];
+    castSpinningCraneKick(event) {
+        if (this.enemiesHitSCK.length > 0) { //this nested is needed due to weird logs
+            this.checkSCK();
         }
+        this.currentTime = this.owner.currentTimestamp - this.owner.fight.start_time;
+        this.enemiesHitSCK = [];
     }
 
     //tracking channel time isn't needed due to the fact it is the same as a gcd so they have to have another cast event
-    on_byPlayer_damage(event){
+    handleSpinningCraneKick(event) {
         const enemy = `${event.targetID} ${event.targetInstance || 0}`;
-        const spellId = event.ability.guid;
-
-        if(spellId === SPELLS.SPINNING_CRANE_KICK_DAMAGE.id && !this.enemiesHitSCK.includes(enemy)){
+        if (!this.enemiesHitSCK.includes(enemy)) {
             this.enemiesHitSCK.push(enemy);
         }
     }
 
-    on_fightend(){
-        if(this.enemiesHitSCK){
+    fightEnd(event){
+        if (this.enemiesHitSCK) {
             this.checkSCK();
-        }
-        if(debug){
-            console.log("Good casts: " + this.goodSCKcount);
-            console.log("Good casts Time: " + this.goodSCKTimeList);
-            console.log("Bad casts: " + this.badSCKcount);
-            console.log("Bad casts Time: " + this.badSCKTimeList);
         }
     }
 
     checkSCK(){
-        if(this.enemiesHitSCK.length>2){
+        if (this.enemiesHitSCK.length > 2) {
             this.goodSCKcount += 1;
             this.goodSCKTimeList.push(formatMilliseconds(this.currentTime));
-        } else{
+        } else {
             this.badSCKcount += 1;
             this.badSCKTimeList.push(formatMilliseconds(this.currentTime));
         }
