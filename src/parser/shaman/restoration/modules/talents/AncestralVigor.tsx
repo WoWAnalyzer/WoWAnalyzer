@@ -29,7 +29,7 @@ class AncestralVigor extends Analyzer {
   protected combatants!: Combatants;
 
   loaded = false;
-  lifeSavingEvents: Array<DamageEvent> = [];
+  lifeSavingEvents: DamageEvent[] = [];
   disableStatistics = false;
 
   constructor(options: Options) {
@@ -41,7 +41,7 @@ class AncestralVigor extends Analyzer {
   fetchAll(pathname: string, query: WclOptions) {
     const checkAndFetch: any = async (_query: WclOptions) => {
       const json = await fetchWcl(pathname, _query) as WCLEventsResponse;
-      const events = json.events as Array<DamageEvent>;
+      const events = json.events as DamageEvent[];
       this.lifeSavingEvents.push(...events);
       if (json.nextPageTimestamp) {
         return checkAndFetch(Object.assign(query, {

@@ -1,7 +1,8 @@
 import { AnyEvent, HasTarget } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import Combatant from 'parser/core/Combatant';
+
 import Entities from './Entities';
-import Combatant from '../../core/Combatant';
 
 class Combatants extends Entities {
   players: { [playerId: number]: Combatant } = {};
