@@ -143,9 +143,9 @@ class NameSearch extends React.PureComponent<Props, State> {
             name: elem.name,
           }))}
           value={this.state.currentRealm}
-          onChange={(value: any) => {
+          onChange={(value: string) => {
             this.setState({
-              currentRealm: value.value,
+              currentRealm: value,
             });
           }}
           placeholder={i18n._(t`Realm`)}

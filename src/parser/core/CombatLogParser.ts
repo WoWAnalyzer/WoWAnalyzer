@@ -4,7 +4,7 @@ import { Boss, findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ModuleError from 'parser/core/ModuleError';
-import { CombatantInfoEvent, Event, HasSource, HasTarget, MappedEvent } from 'parser/core/Events';
+import { AnyEvent, CombatantInfoEvent, Event, HasSource, HasTarget, MappedEvent } from 'parser/core/Events';
 import Module from './Module';
 import Fight from './Fight';
 import Analyzer from './Analyzer';
@@ -655,7 +655,7 @@ class CombatLogParser {
     }
     return module;
   }
-  normalize(events: Array<Event<any>>) {
+  normalize(events: Array<AnyEvent>) {
     this.activeModules
       .filter(module => module instanceof EventsNormalizer)
       .map(module => module as EventsNormalizer)

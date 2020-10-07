@@ -7,7 +7,8 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 
 class JadeSerpentStatue extends Analyzer {
@@ -27,31 +28,31 @@ class JadeSerpentStatue extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id);
+    if(!this.active){
+      return;
+    }
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE), this.jssHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE), this.jssApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE), this.jssRemoveBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE), this.jssRefreshBuff);
+    this.addEventListener(Events.fightend, this.endFight);
   }
 
-  on_heal(event) {
-    if (event.ability.guid === SPELLS.SOOTHING_MIST_STATUE.id) {
+  jssHeal(event) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
       this.overHealing += event.overheal || 0;
       this.casts += 1;
-    }
+    
   }
 
-  on_byPlayerPet_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOOTHING_MIST_STATUE.id) {
-      return;
-    }
+  jssApplyBuff(event) {
 
     this.lastBuffApplyTimestamp = event.timestamp;
     this.jssCasting = true;
   }
 
-  on_byPlayerPet_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOOTHING_MIST_STATUE.id) {
-      return;
-    }
+  jssRemoveBuff(event) {
     
     // Care for buff application before fight.
     if (this.lastBuffApplyTimestamp === null) {
@@ -63,7 +64,7 @@ class JadeSerpentStatue extends Analyzer {
     this.jssCasting = false;
   }
 
-  on_byPlayerPet_refreshbuff(event) {
+  jssRefreshBuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.SOOTHING_MIST_STATUE.id) {
       return;
@@ -80,14 +81,10 @@ class JadeSerpentStatue extends Analyzer {
     this.jssCasting = true;
   }
 
-  on_fightend() {
+  endFight() {
     if(this.jssCasting) {
       this.soothingMistUptime += this.owner.fight.end_time - this.lastBuffApplyTimestamp;
     }
-  }
-
-  get jadeSerpentStatueOverHealing() {
-    return (this.overHealing / (this.healing + this.overHealing)).toFixed(4) || 0;
   }
 
   get jadeSerpentStatueUptime() {

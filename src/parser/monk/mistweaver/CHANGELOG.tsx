@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 
 export default [
   change(date(2020, 10, 6), <>Updated <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> and <SpellLink id={SPELLS.ESSENCE_FONT.id} /> modules to use Event Listeners.</>, [Anomoly]),
+  change(date(2020, 10, 6), <>Updated most talents to use action listeners.</>, Abelito75),
   change(date(2020, 10, 6), <>Updated <SpellLink id={SPELLS.RENEWING_MIST.id} /> to use Event Listeners.</>, [Anomoly]),
   change(date(2020, 10, 6), <>Added Fallen Order statistic.</>, Abelito75),
   change(date(2020, 10, 6), <>Updated core spec module files to TypeScript.</>, [Anomoly]),
