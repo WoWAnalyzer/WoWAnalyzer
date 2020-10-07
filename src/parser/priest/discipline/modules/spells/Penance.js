@@ -7,29 +7,27 @@ import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import EventGrouper from 'parser/core/EventGrouper';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
-import { DamageEvent, HealEvent } from 'parser/core/Events';
-import { Options } from 'parser/core/Module';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
 class Penance extends Analyzer {
   _boltCount = 3;
   hits = 0;
-  eventGrouper: EventGrouper = new EventGrouper(PENANCE_MINIMUM_RECAST_TIME);
+  eventGrouper = new EventGrouper(PENANCE_MINIMUM_RECAST_TIME);
 
-  constructor(options: Options) {
+  constructor(options) {
     super(options);
 
     // Castigation Penance bolt count to 4 (from 3)
     this._boltCount = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id) ? 4 : 3;
   }
 
-  static isPenance = (spellId: number) =>
+  static isPenance = (spellId) =>
     spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id || spellId === SPELLS.PENANCE_CAST.id;
 
-  get missedBolts(): number {
+  get missedBolts() {
     return [...this.eventGrouper].reduce(
-      (missedBolts: any, cast: any) => missedBolts + (this._boltCount - cast.length),
+      (missedBolts, cast) => missedBolts + (this._boltCount - cast.length),
       0,
     );
   }
@@ -42,24 +40,24 @@ class Penance extends Analyzer {
     return [...this.eventGrouper].slice(-1)[0].length - 1; // -1 here for legacy code
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
+  on_byPlayer_damage(event) {
     if (!Penance.isPenance(event.ability.guid)) {
       return;
     }
 
     this.eventGrouper.processEvent(event);
 
-    (event as PenanceDamageEvent).penanceBoltNumber = this.currentBoltNumber;
+    (event).penanceBoltNumber = this.currentBoltNumber;
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  on_byPlayer_heal(event) {
     if (!Penance.isPenance(event.ability.guid)) {
       return;
     }
 
     this.eventGrouper.processEvent(event);
 
-    (event as PenanceHealEvent).penanceBoltNumber = this.currentBoltNumber;
+    (event).penanceBoltNumber = this.currentBoltNumber;
   }
 
   statistic() {
@@ -85,22 +83,6 @@ class Penance extends Analyzer {
       </Statistic>
     );
   }
-}
-
-export function IsPenanceDamageEvent(event: DamageEvent): event is PenanceDamageEvent {
-  return (event as PenanceDamageEvent).penanceBoltNumber !== undefined;
-}
-
-export interface PenanceDamageEvent extends DamageEvent {
-  penanceBoltNumber: number;
-}
-
-export function IsPenanceHealEvent(event: HealEvent): event is PenanceHealEvent {
-  return (event as PenanceHealEvent).penanceBoltNumber !== undefined;
-}
-
-export interface PenanceHealEvent extends HealEvent {
-  penanceBoltNumber: number;
 }
 
 export default Penance;

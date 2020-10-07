@@ -6,11 +6,12 @@ import Panel from 'interface/statistics/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import { IsPenanceDamageEvent } from 'parser/priest/discipline/modules/spells/Helper';
 
 import isAtonement from '../core/isAtonement';
 import AtonementDamageSource from './AtonementDamageSource';
 import AtonementHealingBreakdown from './AtonementHealingBreakdown';
-import Penance, { IsPenanceDamageEvent } from '../spells/Penance';
+import Penance  from '../spells/Penance';
 
 class AtonementHealingDone extends Analyzer {
   static dependencies = {

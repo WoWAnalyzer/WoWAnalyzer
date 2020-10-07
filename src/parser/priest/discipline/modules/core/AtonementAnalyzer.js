@@ -1,5 +1,5 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EventType, HealEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import EventFilter from 'parser/core/EventFilter';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -11,7 +11,6 @@ export default class AtonementAnalyzer extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
   };
-  protected eventEmitter!: EventEmitter;
 
   static validHitTypes = {
     [HIT_TYPES.NORMAL]: true,
@@ -19,9 +18,9 @@ export default class AtonementAnalyzer extends Analyzer {
     [HIT_TYPES.ABSORB]: true,
   };
 
-  _atonementSource: DamageEvent | null = null;
+  _atonementSource = null;
 
-  constructor(options: Options) {
+  constructor(options) {
     super(options);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._processAtonement);
@@ -41,7 +40,7 @@ export default class AtonementAnalyzer extends Analyzer {
    *
    * @param {Object} damageEvent A damaging event
    */
-  _processAtonementDamageSource(damageEvent: DamageEvent) {
+  _processAtonementDamageSource(damageEvent) {
     if (!ATONEMENT_DAMAGE_SOURCES[damageEvent.ability.guid]) {
       return;
     }
@@ -74,7 +73,7 @@ export default class AtonementAnalyzer extends Analyzer {
    *
    * @param {Object} healEvent A healing event
    */
-  _processAtonement(healEvent: HealEvent) {
+  _processAtonement(healEvent) {
     const damageEvent = this._atonementSource;
     if (!damageEvent) {
       return;
