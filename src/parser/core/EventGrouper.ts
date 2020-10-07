@@ -1,4 +1,4 @@
-import { Event } from 'parser/core/Events';
+import { AnyEvent } from 'parser/core/Events';
 
 /**
  * Groups events based on a given timestamp threshold
@@ -11,7 +11,7 @@ import { Event } from 'parser/core/Events';
 
 export default class EventGrouper {
   threshold: number;
-  cache: { [stem: number]: Array<AnyEvent> };
+  cache: { [stem: number]: AnyEvent[] };
 
   constructor(threshold: number) {
     this.threshold = threshold;

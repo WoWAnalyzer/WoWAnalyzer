@@ -1,12 +1,12 @@
-import { DamageEvent, Event, EventType, HealEvent } from 'parser/core/Events';
+import { AnyEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import isAtonement from '../modules/core/isAtonement';
 import { ATONEMENT_DAMAGE_SOURCES } from '../constants';
 
 class AtonementSuccessiveDamage extends EventsNormalizer {
-  normalize(events: Array<AnyEvent>) {
-    const fixedEvents: Array<AnyEvent> = [];
+  normalize(events: AnyEvent[]) {
+    const fixedEvents: AnyEvent[] = [];
     const _damageEventIndexes: number[] = [];
 
     let _encounteredTargetIDs: number[] = [];

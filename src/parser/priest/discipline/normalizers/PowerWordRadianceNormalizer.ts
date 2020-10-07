@@ -1,7 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import SPELLS from 'common/SPELLS';
-import { ApplyBuffEvent, CastEvent, Event, EventType } from 'parser/core/Events';
+import { AnyEvent, ApplyBuffEvent, CastEvent, EventType } from 'parser/core/Events';
 
 const BUFFS_TO_MOVE = [
   SPELLS.ATONEMENT_BUFF.id,
@@ -16,8 +16,8 @@ const MAX_TIME_SINCE_CAST = 250; // ms
  events so that the applications are always right after the cast.
  */
 class PowerWordRadianceNormalizer extends EventsNormalizer {
-  normalize(events: Array<AnyEvent>) {
-    const fixedEvents: Array<AnyEvent> = [];
+  normalize(events: AnyEvent[]) {
+    const fixedEvents: AnyEvent[] = [];
 
     let lastRadianceTimestamp = 0;
     let lastRadianceIndex = 0;
