@@ -8,6 +8,7 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
+
 import RageTracker from '../core/RageTracker';
 
 class Vengeance extends Analyzer {
@@ -63,12 +64,10 @@ class Vengeance extends Analyzer {
 
   suggestions(when: When) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>Avoid casting <SpellLink id={SPELLS.IGNORE_PAIN.id} /> and <SpellLink id={SPELLS.REVENGE.id} /> back to back without using it's counterpart. <SpellLink id={SPELLS.VENGEANCE_TALENT.id} /> requires you to weave between those two spells to get the most rage and damage out of it.</>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<>Avoid casting <SpellLink id={SPELLS.IGNORE_PAIN.id} /> and <SpellLink id={SPELLS.REVENGE.id} /> back to back without using it's counterpart. <SpellLink id={SPELLS.VENGEANCE_TALENT.id} /> requires you to weave between those two spells to get the most rage and damage out of it.</>)
             .icon(SPELLS.VENGEANCE_TALENT.icon)
             .actual(`${formatPercentage(actual)}% overwritten`)
-            .recommended(`${formatPercentage(recommended)}% recommended`);
-        });
+            .recommended(`${formatPercentage(recommended)}% recommended`));
   }
 
   statistic() {

@@ -48,8 +48,7 @@ class AuraOfMercy extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <Trans>
           The healing done by your <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> is low. Try to
           find a better moment to cast it or consider changing to{' '}
@@ -59,8 +58,7 @@ class AuraOfMercy extends Analyzer {
       )
         .icon(SPELLS.AURA_OF_MERCY_TALENT.icon)
         .actual(<Trans>{formatNumber(actual)} HPS</Trans>)
-        .recommended(<Trans>&gt;{formatNumber(recommended)} HPS is recommended</Trans>);
-    });
+        .recommended(<Trans>&gt;{formatNumber(recommended)} HPS is recommended</Trans>));
   }
   statistic() {
     return (

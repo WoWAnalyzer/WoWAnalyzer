@@ -181,9 +181,9 @@ export function fabricateBossPhaseEvents(events, report, fight) {
   }
 
   phaseEvents.sort((a, b) => a.start - b.start);
-  phaseEvents.filter((event, index, array) => {
-    return index === 0 || event.key !== array[index - 1].key; //only keep events that arent preceded by another start event of the same phase
-  }).forEach((event, _, array) => {
+  phaseEvents.filter((event, index, array) => 
+     index === 0 || event.key !== array[index - 1].key //only keep events that arent preceded by another start event of the same phase
+  ).forEach((event, _, array) => {
     if (!event.end) {
       const nextMainPhase = array.find(next => !next.end && next.key !== event.key);
       if (nextMainPhase) {

@@ -8,6 +8,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+
 import { SPLITTABLE_CASTS, SPLITTABLE_DAMAGE, SPLITTING_ICE_DAMAGE_BONUS, GLACIAL_SPIKE_DAMAGE_BONUS } from '../../constants';
 
 const debug = false;

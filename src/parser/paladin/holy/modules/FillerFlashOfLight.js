@@ -97,8 +97,7 @@ class FillerFlashOfLight extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual) => suggest(
         <Trans>
           You started casting {this.inefficientCasts.length} filler{' '}
           <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s while{' '}
@@ -135,8 +134,7 @@ class FillerFlashOfLight extends Analyzer {
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
         .actual(<Trans>{actual} casts while Holy Shock was available</Trans>)
-        .recommended(<Trans>No inefficient casts is recommended</Trans>);
-    });
+        .recommended(<Trans>No inefficient casts is recommended</Trans>));
   }
 }
 

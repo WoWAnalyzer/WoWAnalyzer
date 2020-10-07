@@ -22,7 +22,7 @@ class FlankingStrike extends Analyzer {
 
   damage = 0;
 
-  flankingStrikes: { name: string, sourceID: number, damage: number, effectiveFocus: number, possibleFocus: number }[] = [];
+  flankingStrikes: Array<{ name: string, sourceID: number, damage: number, effectiveFocus: number, possibleFocus: number }> = [];
 
   constructor(options: any) {
     super(options);

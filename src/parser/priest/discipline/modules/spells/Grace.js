@@ -53,7 +53,7 @@ class grace extends Analyzer {
     }
 
     const target = this.combatants.getEntity(event);
-    if (!target) return;
+    if (!target) {return;}
 
     if(this.absorbApplicationWasMasteryBuffed(event)){
       this.graceHealing += this.getGraceHealing(event);
@@ -78,7 +78,7 @@ class grace extends Analyzer {
     }
 
     const target = this.combatants.getEntity(event);
-    if (!target) return;
+    if (!target) {return;}
 
     this.applyAbsorbEvents.push({
       applyBuffEvent: event,
@@ -97,7 +97,7 @@ class grace extends Analyzer {
     }
 
     const target = this.combatants.getEntity(event);
-    if (!target) return;
+    if (!target) {return;}
 
     if (!target.hasBuff(SPELLS.ATONEMENT_BUFF.id)) {
       this.healingUnbuffedByMastery += event.amount;

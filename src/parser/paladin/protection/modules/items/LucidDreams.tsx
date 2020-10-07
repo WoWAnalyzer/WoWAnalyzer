@@ -6,6 +6,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+
 import SpellUsable from '../features/SpellUsable';
 import Seraphim from '../talents/Seraphim';
 

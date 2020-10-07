@@ -70,12 +70,10 @@ class VirulentPlagueEfficiency extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> You are casting <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> too often. Try to cast <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> as close to it falling off as possible.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<> You are casting <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> too often. Try to cast <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> as close to it falling off as possible.</>)
           .icon(SPELLS.VIRULENT_PLAGUE.icon)
           .actual(`${(this.averageTimeWasted).toFixed(1)} seconds of Virulent Plague uptime was wasted on average for each cast of Outbreak`)
-          .recommended(`<${recommended} is recommended`);
-      });
+          .recommended(`<${recommended} is recommended`));
   }
 
   statistic() {

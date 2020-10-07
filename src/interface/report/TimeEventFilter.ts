@@ -25,13 +25,13 @@ interface Props {
   phase: string,
   phaseinstance: number,
   bossPhaseEvents: PhaseEvent[],
-  events: Event<any>[],
-  children: (isLoading: boolean, events?: Event<any>[], fight?: any) => any,
+  events: Array<Event<any>>,
+  children: (isLoading: boolean, events?: Array<Event<any>>, fight?: any) => any,
 }
 
 interface State {
   isLoading: boolean,
-  events?: Event<any>[],
+  events?: Array<Event<any>>,
   fight?: Fight,
 }
 
@@ -120,7 +120,7 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
 
 }
 
-function findRelevantPostFilterEvents(events: Event<any>[]) {
+function findRelevantPostFilterEvents(events: Array<Event<any>>) {
   return events.filter((e: Event<any>) => e.type === EventType.Cast && SECOND_POTIONS.includes((e as CastEvent).ability.guid)).map(e => ({ ...e, type: EventType.FilterCooldownInfo, trigger: e.type }));
 }
 
@@ -128,13 +128,13 @@ function findRelevantPostFilterEvents(events: Event<any>[]) {
 type StackEvent = ApplyBuffStackEvent | ApplyDebuffStackEvent | RemoveBuffStackEvent | RemoveDebuffStackEvent;
 type BuffEvent = ApplyBuffEvent | ApplyDebuffEvent | RemoveBuffEvent | RemoveDebuffEvent;
 type CastRelevantEvent = CastEvent | FilterCooldownInfoEvent;
-function findRelevantPreFilterEvents(events: Event<any>[]) {
+function findRelevantPreFilterEvents(events: Array<Event<any>>) {
   const buffEvents: BuffEvent[] = []; //(de)buff apply events for (de)buffs that stay active going into the time period
   const stackEvents: StackEvent[] = []; //stack events related to the above buff events that happen after the buff is applied
   const castEvents: CastRelevantEvent[] = []; //latest cast event of each cast by player for cooldown tracking
 
   const buffIsMarkedActive = (e: BuffEvent) => buffEvents.find(e2 => e.ability.guid === e2.ability.guid && e.targetID === e2.targetID && e.sourceID === e2.targetID) !== undefined;
-  const buffIsRemoved = (e: BuffEvent, buffRelevantEvents: Event<any>[]) => buffRelevantEvents.find(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2 as BuffEvent)) !== undefined;
+  const buffIsRemoved = (e: BuffEvent, buffRelevantEvents: Array<Event<any>>) => buffRelevantEvents.find(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2 as BuffEvent)) !== undefined;
   const castHappenedLater = (e: CastEvent) => castEvents.find(e2 => e.ability.guid === e2.ability.guid && e.sourceID === e2.sourceID) !== undefined;
 
   events.forEach((e, index) => {
@@ -205,7 +205,7 @@ function findRelevantPreFilterEvents(events: Event<any>[]) {
  * @return {Array}
  *  List of filtered events
  */
-export function filterEvents(events: Event<any>[], start: number, end: number) {
+export function filterEvents(events: Array<Event<any>>, start: number, end: number) {
   const phaseEvents = events.filter(event =>
     event.timestamp >= start
     && event.timestamp <= end,

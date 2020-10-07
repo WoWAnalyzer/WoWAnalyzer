@@ -1,5 +1,6 @@
 import React from 'react';
 import { captureException } from 'common/errorLogger';
+
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
 enum AssertionMode {
@@ -325,7 +326,7 @@ export type When = <T extends ValidThresholds>(threshold: T) => GenericSuggestio
 class ParseResults {
   tabs: React.ReactNode[] = [];
   statistics: React.ReactNode[] = [];
-  issues: Array<Issue> = [];
+  issues: Issue[] = [];
 
   constructor() {
     this.addIssue = this.addIssue.bind(this);

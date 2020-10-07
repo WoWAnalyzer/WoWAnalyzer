@@ -70,13 +70,11 @@ class Disperion extends Analyzer {
 
 
     when(dispersedTime).isGreaterThan(0.20)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You spent {Math.round(dispersionUptime / 1000)} seconds (out of a possible {Math.round(maxDispersionTime / 1000)} seconds) in <SpellLink id={SPELLS.DISPERSION.id} />. Consider using <SpellLink id={SPELLS.DISPERSION.id} /> less or cancel it early.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>You spent {Math.round(dispersionUptime / 1000)} seconds (out of a possible {Math.round(maxDispersionTime / 1000)} seconds) in <SpellLink id={SPELLS.DISPERSION.id} />. Consider using <SpellLink id={SPELLS.DISPERSION.id} /> less or cancel it early.</span>)
           .icon(SPELLS.DISPERSION.icon)
           .actual(`${formatPercentage(actual)}% Dispersion uptime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended, unless the encounter requires it.`)
-          .regular(recommended + 0.05).major(recommended + 0.15);
-      });
+          .regular(recommended + 0.05).major(recommended + 0.15));
   }
 }
 

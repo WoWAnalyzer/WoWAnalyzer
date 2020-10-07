@@ -10,6 +10,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, ChangeBuffStackEvent } from 'parser/core/Events';
+
 import { SHATTER_DEBUFFS } from '../../constants';
 import { CAST_BUFFER } from '../../constants';
 
@@ -111,12 +112,10 @@ class IceLance extends Analyzer {
 
   suggestions(when: When) {
     when(this.nonShatteredIceLanceThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(actual)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(actual)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</>)
           .icon(SPELLS.ICE_LANCE.icon)
           .actual(`${formatPercentage(actual)}% missed`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
@@ -124,7 +123,7 @@ class IceLance extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(30)}
         size="flexible"
-        tooltip={'This is the percentage of Ice Lance casts that were shattered. The only time it is acceptable to cast Ice Lance without Shatter is if you are moving and you cant use anything else.'}
+        tooltip="This is the percentage of Ice Lance casts that were shattered. The only time it is acceptable to cast Ice Lance without Shatter is if you are moving and you cant use anything else."
       >
         <BoringSpellValueText spell={SPELLS.ICE_LANCE}>
           {`${formatPercentage(this.shatteredPercent, 0)}%`} <small>Casts shattered</small>

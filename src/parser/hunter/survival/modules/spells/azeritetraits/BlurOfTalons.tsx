@@ -33,7 +33,7 @@ class BlurOfTalons extends Analyzer {
   };
 
   agility: number = 0;
-  blurOfTalonStacks: Array<Array<number>> = [];
+  blurOfTalonStacks: number[][] = [];
   lastBlurStack: number = 0;
   lastBlurUpdate: number = this.owner.fight.start_time;
 
@@ -67,9 +67,7 @@ class BlurOfTalons extends Analyzer {
   }
 
   get avgAgility() {
-    const avgAgi = this.blurOfTalonStacks.reduce((sum, innerArray, outerArrayIndex) => {
-      return sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.agility) / this.owner.fightDuration), 0);
-    }, 0);
+    const avgAgi = this.blurOfTalonStacks.reduce((sum, innerArray, outerArrayIndex) => sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.agility) / this.owner.fightDuration), 0), 0);
     return avgAgi;
   }
 

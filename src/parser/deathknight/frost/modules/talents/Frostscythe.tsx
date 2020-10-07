@@ -66,15 +66,13 @@ class Frostscythe extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you can hit 2+ targets.
         </>)
         .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
         .actual(`${formatPercentage(actual)}% Frostscythe efficiency`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

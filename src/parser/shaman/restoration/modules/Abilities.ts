@@ -2,10 +2,11 @@ import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+
 import { calculateCooldown } from '../../../shared/modules/spells/bfa/essences/VisionsOfPerfection';
 
 class Abilities extends CoreAbilities {
-  spellbook(): Array<SpellbookAbility> { 
+  spellbook(): SpellbookAbility[] { 
     const combatant = this.selectedCombatant;
     return [
       {

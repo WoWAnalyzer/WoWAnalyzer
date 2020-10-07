@@ -3,6 +3,7 @@ import ExtendableError from 'es6-error';
 import { captureException } from 'common/errorLogger';
 
 import { Event } from 'parser/core/Events';
+
 import makeWclApiUrl from './makeWclApiUrl';
 import { QueryParams } from './makeApiUrl';
 import { WclOptions, WCLResponseJSON, WCLFightsResponse, WCLEventsResponse } from './WCL_TYPES';
@@ -152,7 +153,7 @@ export default function fetchWcl<T extends WCLResponseJSON>(endpoint: string, qu
 
 function rawFetchFights(code: string, refresh = false, translate = true) {
   return fetchWcl<WCLFightsResponse>(`report/fights/${code}`, {
-    _: refresh ? +new Date() : undefined,
+    _: refresh ? Number(new Date()) : undefined,
     translate: translate ? true : undefined, // so long as we don't have the entire site localized, it's better to have 1 consistent language
   });
 }
@@ -173,7 +174,7 @@ export async function fetchFights(code: string, refresh = false) {
 
   return json;
 }
-function rawFetchEventsPage(code:string, start:number, end:number, actorId?: number, filter?: string) {
+function rawFetchEventsPage(code: string, start: number, end: number, actorId?: number, filter?: string) {
   return fetchWcl<WCLEventsResponse>(`report/events/${code}`, {
     start,
     end,
@@ -182,10 +183,10 @@ function rawFetchEventsPage(code:string, start:number, end:number, actorId?: num
     translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
   });
 }
-export async function fetchEvents(reportCode:string, fightStart:number, fightEnd:number, actorId?: number, filter?: string, maxPages = 3) {
+export async function fetchEvents(reportCode: string, fightStart: number, fightEnd: number, actorId?: number, filter?: string, maxPages = 3) {
   let pageStartTimestamp = fightStart;
 
-  let events: Event<any>[] = [];
+  let events: Array<Event<any>> = [];
   let page = 0;
   // eslint-disable-next-line no-constant-condition
   while (true) {

@@ -43,12 +43,10 @@ class RunicPowerDetails extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
           .icon('inv_sword_62')
           .actual(`${formatPercentage(actual)}% wasted`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

@@ -91,12 +91,10 @@ class Siegebreaker extends Analyzer {
   }
 
   suggestions(when){
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You're not casting <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} /> and <SpellLink id={SPELLS.RECKLESSNESS.id} /> together.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're not casting <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} /> and <SpellLink id={SPELLS.RECKLESSNESS.id} /> together.</>)
         .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of Recklessnesses casts without a Siegebreaker cast`)
-        .recommended(`${formatPercentage(recommended)}+% is recommended`);
-    });
+        .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 
   statistic() {

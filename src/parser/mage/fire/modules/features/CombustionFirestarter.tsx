@@ -6,6 +6,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+
 import { FIRESTARTER_THRESHOLD, HOT_STREAK_CONTRIBUTORS } from '../../constants';
 
 const debug = false;
@@ -55,11 +56,9 @@ class CombustionFirestarter extends Analyzer {
 
   suggestions(when: When) {
     when(this.SuggestionThresholds)
-      .addSuggestion((suggest) => {
-        return suggest(<>You used <SpellLink id={SPELLS.COMBUSTION.id} /> while <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} /> was active (While the boss was at 90% health or higher). Since Firestarter makes your spells a guaranteed crit anyway, you should wait until the boss is at 89% to use your Combustion.</>)
+      .addSuggestion((suggest) => suggest(<>You used <SpellLink id={SPELLS.COMBUSTION.id} /> while <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} /> was active (While the boss was at 90% health or higher). Since Firestarter makes your spells a guaranteed crit anyway, you should wait until the boss is at 89% to use your Combustion.</>)
           .icon(SPELLS.COMBUSTION.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
-      });
+          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
   }
 }
 export default CombustionFirestarter;

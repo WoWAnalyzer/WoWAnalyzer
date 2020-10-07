@@ -88,7 +88,7 @@ class SummonDemonicTyrant extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
-        tooltip={`Number of pets empowered by each Demonic Tyrant summon.`}
+        tooltip="Number of pets empowered by each Demonic Tyrant summon."
         dropdown={petTable}
         footer={tyrantFooter}
       >

@@ -12,6 +12,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { TooltipElement } from 'common/Tooltip';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+
 import { SHATTER_DEBUFFS } from '../../constants';
 
 class GlacialSpike extends Analyzer {
@@ -112,8 +113,7 @@ class GlacialSpike extends Analyzer {
 
   suggestions(when: When) {
     when(this.glacialSpikeUtilizationThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      .addSuggestion((suggest, actual, recommended) => suggest(
           <>
             You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> without <SpellLink id={SPELLS.SHATTER.id} />ing it {this.spikeNotShattered} times. Because it is such a potent ability, it is important to maximize it's damage by only casting it if the target is
             <TooltipElement
@@ -124,8 +124,7 @@ class GlacialSpike extends Analyzer {
           </>)
           .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
           .actual(`${formatPercentage(actual, 1)}% utilization`)
-          .recommended(`${formatPercentage(recommended, 1)}% is recommended`);
-      });
+          .recommended(`${formatPercentage(recommended, 1)}% is recommended`));
   }
 
   statistic() {

@@ -5,6 +5,7 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ModuleError from 'parser/core/ModuleError';
 import { AnyEvent, CombatantInfoEvent, Event, HasSource, HasTarget, MappedEvent } from 'parser/core/Events';
+
 import Module from './Module';
 import Fight from './Fight';
 import Analyzer from './Analyzer';
@@ -204,8 +205,8 @@ const isMinified = process.env.NODE_ENV === 'production';
 type DependencyDefinition = typeof Module | readonly [typeof Module, {[option: string]: any}];
 export type DependenciesDefinition = {[desiredName: string]: DependencyDefinition};
 class CombatLogParser {
-  static abilitiesAffectedByHealingIncreases: Array<number> = [];
-  static abilitiesAffectedByDamageIncreases: Array<number> = [];
+  static abilitiesAffectedByHealingIncreases: number[] = [];
+  static abilitiesAffectedByDamageIncreases: number[] = [];
 
   static internalModules: DependenciesDefinition = {
     fightEndNormalizer: FightEndNormalizer,
@@ -417,12 +418,12 @@ class CombatLogParser {
 
   // Player info from WCL - required
   player: SelectedPlayer;
-  playerPets: Array<any>;
+  playerPets: any[];
   fight: Fight;
   build: string;
   builds: Builds;
   boss: Boss | null;
-  combatantInfoEvents: Array<CombatantInfoEvent>;
+  combatantInfoEvents: CombatantInfoEvent[];
 
 
   //Disabled Modules
@@ -462,7 +463,7 @@ class CombatLogParser {
     return this.getModule(Combatants).selected;
   }
 
-  constructor(report: any, selectedPlayer: SelectedPlayer, selectedFight: Fight, combatantInfoEvents: Array<CombatantInfoEvent>, characterProfile: any, build: string, builds: Builds) {
+  constructor(report: any, selectedPlayer: SelectedPlayer, selectedFight: Fight, combatantInfoEvents: CombatantInfoEvent[], characterProfile: any, build: string, builds: Builds) {
     this.report = report;
     this.player = selectedPlayer;
     this.playerPets = report.friendlyPets.filter((pet: { petOwner: any; }) => pet.petOwner === selectedPlayer.id);
@@ -556,7 +557,7 @@ class CombatLogParser {
   }
   initializeModules(modules: DependenciesDefinition, iteration = 1) {
     // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
-    const failedModules: Array<string> = [];
+    const failedModules: string[] = [];
     Object.keys(modules).forEach(desiredModuleName => {
       const moduleConfig = modules[desiredModuleName];
       if (!moduleConfig) {
@@ -655,7 +656,7 @@ class CombatLogParser {
     }
     return module;
   }
-  normalize(events: Array<AnyEvent>) {
+  normalize(events: AnyEvent[]) {
     this.activeModules
       .filter(module => module instanceof EventsNormalizer)
       .map(module => module as EventsNormalizer)
@@ -746,8 +747,7 @@ class CombatLogParser {
       );
     };
 
-    const attemptResultGeneration = () => {
-      return Object.keys(this._modules)
+    const attemptResultGeneration = () => Object.keys(this._modules)
         .filter(key => this._modules[key].active)
         .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
         .every((key, index) => {
@@ -795,7 +795,6 @@ class CombatLogParser {
           }
           return true;
         });
-    };
 
     //keep trying to generate results until no "new" errors are found anymore to weed out all the inaccurate / errored modules
     let generated = false;

@@ -13,6 +13,7 @@ import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import { i18n } from 'interface/RootLocalizationProvider';
+
 import './GuildReports.scss';
 import ReportsList from '../GuildReportsList';
 
@@ -46,7 +47,7 @@ interface Props {
 
 interface State {
   activeZoneID: number,
-  reports: Array<WCLGuildReport>,
+  reports: WCLGuildReport[],
   reportsToShow: number,
   isLoading: boolean,
   error: any, // TODO MessageDescriptor? convert to enum?
@@ -141,9 +142,7 @@ class GuildReports extends React.Component<Props, State> {
     if (this.state.activeZoneID !== ZONE_ALL) {
       filteredReports = filteredReports.filter(elem => this.state.activeZoneID === elem.zone);
     }
-    filteredReports.sort((a, b) => {
-      return b.start - a.start;
-    });
+    filteredReports.sort((a, b) => b.start - a.start);
     return filteredReports.slice(0, this.state.reportsToShow);
   }
 

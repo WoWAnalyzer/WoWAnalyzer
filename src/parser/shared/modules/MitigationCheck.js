@@ -181,7 +181,7 @@ class MitigationCheck extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={spellIconId} />}
         value={`${formatPercentage(passSum / (passSum + failSum))} %`}
-        label={`Soft mitigation checks passed.`}
+        label="Soft mitigation checks passed."
         tooltip={(
           <>
             Checks if one of the following buffs or debuffs were up during the mechanic:

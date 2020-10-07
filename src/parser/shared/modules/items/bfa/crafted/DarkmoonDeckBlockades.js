@@ -70,7 +70,7 @@ class DarkmoonDeckBlockades extends Analyzer {
   }
 
   _isBlockadesCard(spellId) {
-    const cardId = '' + spellId;
+    const cardId = String(spellId);
     const darkmoonSpells = Object.keys(DARKMOON_DECK_BLOCKADES_CARDS);
     return darkmoonSpells.includes(cardId);
   }

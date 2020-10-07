@@ -208,16 +208,14 @@ class TheEverRisingTide extends Analyzer {
                 </thead>
                 <tbody>
                   {
-                    Object.values(this.byCast).map((cast, index) => {
-                      return (
+                    Object.values(this.byCast).map((cast, index) => (
                         <tr key={index}>
                           <th>{formatNth(index + 1)}</th>
                           <td>{formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000) || 0}</td>
                           <td>{cast.maxStacks}</td>
                           <td>{formatNumber(cast.healing)}</td>
                         </tr>
-                      );
-                    })
+                      ))
                   }
                 </tbody>
               </table>
@@ -227,7 +225,7 @@ class TheEverRisingTide extends Analyzer {
               <div className="value">
                 <ItemHealingDone amount={this.healing} /><br />
                 <ItemManaGained amount={this.manaLost * -1} />
-                {rank > 2 && (<><StatIcon stat={"haste"} /> {formatNumber(this.majorHasteGain)} <small>average haste gained</small><br /></>)}
+                {rank > 2 && (<><StatIcon stat="haste" /> {formatNumber(this.majorHasteGain)} <small>average haste gained</small><br /></>)}
               </div>
             </div>
           </ItemStatistic>

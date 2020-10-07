@@ -37,14 +37,12 @@ class ArcaneManaValues extends ManaValues {
   suggestions(when: When) {
     if (!this.deadOnKill) {
       when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('You had mana left at the end of the fight. You should be aiming to complete the fight with as little mana as possible regardless of whether your cooldowns will be coming up or not. So dont be afraid to burn your mana before the boss dies.')
+      .addSuggestion((suggest, actual, recommended) => suggest('You had mana left at the end of the fight. You should be aiming to complete the fight with as little mana as possible regardless of whether your cooldowns will be coming up or not. So dont be afraid to burn your mana before the boss dies.')
           .icon('inv_elemental_mote_mana')
           .actual(`${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) mana left`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.suggestionThresholds.isGreaterThan.average)
-          .major(this.suggestionThresholds.isGreaterThan.major);
-      });
+          .major(this.suggestionThresholds.isGreaterThan.major));
     }
   }
 }

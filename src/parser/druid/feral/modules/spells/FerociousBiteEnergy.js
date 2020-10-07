@@ -148,16 +148,14 @@ class FerociousBiteEnergy extends Analyzer {
     const berserkOrIncarnationId = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ? 
       SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id : 
       SPELLS.BERSERK.id;
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You didn't always give <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> enough energy to get the full damage bonus. You should aim to have {ENERGY_FOR_FULL_DAMAGE_BITE} energy before using Ferocious Bite, or {(ENERGY_FOR_FULL_DAMAGE_BITE * BERSERK_ENERGY_COST_MULTIPLIER).toFixed(0)} during <SpellLink id={berserkOrIncarnationId} />. Your Ferocious Bite damage was reduced by {formatNumber(this._dpsLostFromLowEnergyBites)} DPS due to lack of energy.
         </>,
       )
         .icon(SPELLS.FEROCIOUS_BITE.icon)
         .actual(`${(actual * 100).toFixed(1)}% average damage bonus from energy on Ferocious Bite.`)
-        .recommended(`${(recommended * 100).toFixed(1)}% is recommended.`);
-    });
+        .recommended(`${(recommended * 100).toFixed(1)}% is recommended.`));
   }
 }
 

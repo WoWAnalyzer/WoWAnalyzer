@@ -33,19 +33,19 @@ class Abilities extends Module {
    * This will be called *once* during initialization. See the Ability class for the available properties. This should contain ALL spells available to a player of your spec, including utility such as interrupts, dispells, etc
    * @returns {object[]}
    */
-  spellbook(): Array<SpellbookAbility> {
+  spellbook(): SpellbookAbility[] {
     // This list will NOT be recomputed during the fight. If a cooldown changes based on something like Haste or a Buff you need to put it in a function.
     // While you can put checks for talents/traits outside of the cooldown prop, you generally should aim to keep everything about a single spell together. In general only move a prop up if you're regularly checking for the same talent/trait in multiple spells.
     return [];
   }
 
-  abilities: Array<Ability> = [];
-  activeAbilities: Array<Ability> = [];
+  abilities: Ability[] = [];
+  activeAbilities: Ability[] = [];
   constructor(args: any) {
     super(args);
     this.loadSpellbook(this.spellbook());
   }
-  loadSpellbook(spellbook: Array<SpellbookAbility>) {
+  loadSpellbook(spellbook: SpellbookAbility[]) {
     this.abilities = spellbook.map(options => new Ability(this, options));
     this.activeAbilities = this.abilities.filter(ability => ability.enabled);
   }
@@ -75,7 +75,7 @@ class Abilities extends Module {
     });
 
     if(ability && ability.spell instanceof Array && ability.primaryOverride === undefined) {
-      ability.primaryOverride = ability.spell.findIndex((spell) => { return spell.id === spellId; });
+      ability.primaryOverride = ability.spell.findIndex((spell) => spell.id === spellId);
     }
 
     return ability;

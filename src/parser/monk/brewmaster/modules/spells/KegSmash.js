@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
+
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../core/SharedBrews';
 

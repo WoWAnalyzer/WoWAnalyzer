@@ -85,7 +85,7 @@ class HolyWordsReductionBySpell extends Analyzer {
         <table className="table table-condensed">
           <thead>
             <tr>
-              <td className={'text-left'}>Spell</td>
+              <td className="text-left">Spell</td>
               <td>Base</td>
               {this.apotheosisActive && <th>Apotheosis</th>}
               {this.lightOfTheNaaruActive && <th>Light of the Naaru</th>}
@@ -94,7 +94,7 @@ class HolyWordsReductionBySpell extends Analyzer {
           <tbody>
             {Object.keys(reductionBySpell).map((e, i) => (
               <tr key={i}>
-                <td className={'text-left'}><SpellIcon id={Number(e)} /> {SPELLS[e].name}</td>
+                <td className="text-left"><SpellIcon id={Number(e)} /> {SPELLS[e].name}</td>
                 <td>{Math.ceil(reductionBySpell[e].base / 1000)}s</td>
                 {this.apotheosisActive && <td>{Math.ceil(reductionBySpell[e].apotheosis / 1000)}s</td>}
                 {this.lightOfTheNaaruActive && <td>{Math.ceil(reductionBySpell[e].lightOfTheNaaru / 1000)}s</td>}

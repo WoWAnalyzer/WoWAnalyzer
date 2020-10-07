@@ -74,15 +74,15 @@ class FallenOrder extends Analyzer {
     this.mistOverhealing += event.overheal || 0;
   }
 
-  brewDamageTracker(event:DamageEvent){
+  brewDamageTracker(event: DamageEvent){
     this.brewDamage += event.amount || 0;
   }
 
-  windDamageTracker(event:DamageEvent){
+  windDamageTracker(event: DamageEvent){
     this.windDamage += event.amount || 0;
   }
 
-  mistDamageTracker(event:DamageEvent){
+  mistDamageTracker(event: DamageEvent){
     this.mistDamage += event.amount || 0;
   }
 

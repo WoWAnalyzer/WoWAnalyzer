@@ -55,13 +55,11 @@ class FesteringStrike extends Analyzer {
     const percentCastsOverThreeStacks = this.festeringStrikeCastsOverThreeStacks/this.totalFesteringStrikeCasts;
     const strikeEfficiency = 1 - percentCastsOverThreeStacks;
     when(strikeEfficiency).isLessThan(0.60)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often.  When spending runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></span>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<span>You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often.  When spending runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></span>)
             .icon(SPELLS.FESTERING_STRIKE.icon)
             .actual(`${formatPercentage(actual)}% of Festering Strikes did not risk overcapping Festering Wounds`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.30).major(recommended - 0.40);
-        });
+            .regular(recommended - 0.30).major(recommended - 0.40));
   }
 
   statistic() {

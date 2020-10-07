@@ -75,12 +75,10 @@ export default function snapshotTest(
   suppressLog = true,
   suppressWarn = true,
 ) {
-  return () => {
-    return loadLog(key).then(log => {
+  return () => loadLog(key).then(log => {
       const parser = parseLog(parserClass, log, suppressLog, suppressWarn);
       expectSnapshot(parser, moduleClass, propFn);
     });
-  };
 }
 
 export function expectSnapshot(parser, moduleClass, propFn = statistic) {

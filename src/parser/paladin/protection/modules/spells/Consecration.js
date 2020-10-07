@@ -34,12 +34,10 @@ class Consecration extends Analyzer {
 
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.')
+        .addSuggestion((suggest, actual, recommended) => suggest('Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.')
             .icon(SPELLS.CONSECRATION_CAST.icon)
             .actual(`${formatPercentage(actual)}% of hits were mitigated by Consecration `)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`);
-        });
+            .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

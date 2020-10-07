@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import Combatant from 'parser/core/Combatant';
+
 import { Event } from '../Events';
 import Abilities from './Abilities';
 
@@ -421,7 +422,7 @@ class Ability {
   enabled = true;
   timelineSortIndex: number | null = null;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
-  buffSpellId: number | Array<number> | null = null;
+  buffSpellId: number | number[] | null = null;
   shownSpell = null;
 
   /**

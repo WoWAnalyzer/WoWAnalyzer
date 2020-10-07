@@ -35,7 +35,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected prayerOfMending!: PrayerOfMending;
   protected echoOfLight!: EchoOfLightMastery;
 
-  getCustomSpellStats(spellInfo: any, spellId: number, healingSpellIds: Array<number>) {
+  getCustomSpellStats(spellInfo: any, spellId: number, healingSpellIds: number[]) {
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
     if (spellId === SPELLS.RENEW.id) {
       spellInfo = this.getRenewDetails(spellInfo);
@@ -83,7 +83,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     return spellInfo;
   }
 
-  addEcho(spellInfo: any, healingSpellIds: Array<number>) {
+  addEcho(spellInfo: any, healingSpellIds: number[]) {
     if (this.echoOfLight.masteryHealingBySpell[spellInfo.spell.id]) {
       spellInfo.healingDone += this.echoOfLight.masteryHealingBySpell[spellInfo.spell.id].effectiveHealing;
       spellInfo.overhealingDone += this.echoOfLight.masteryHealingBySpell[spellInfo.spell.id].overHealing;

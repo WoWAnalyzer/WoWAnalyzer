@@ -10,6 +10,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import Events, { DamageEvent } from 'parser/core/Events';
 import { formatNumber, formatPercentage } from 'common/format';
+
 import { BONE_CHILLING_SPELLS, BONE_CHILLING_BONUS_PER_STACK } from '../../constants';
 
 class BoneChilling extends Analyzer {

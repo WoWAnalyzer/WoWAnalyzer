@@ -1,6 +1,7 @@
 import PETS from 'common/PETS';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+
 import Pet from '../core/Pet';
 import { CALL_TO_THE_VOID_INSANITY_GEN_PER_TICK } from '../../constants';
 

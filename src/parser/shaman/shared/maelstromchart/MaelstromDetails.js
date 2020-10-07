@@ -60,12 +60,10 @@ class MaelstromDetails extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholdsWasted)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`You overcapped ${this.wasted} Maelstrom. Always prioritize spending it over avoiding the overcap of any other ability.`)
+      .addSuggestion((suggest, actual, recommended) => suggest(`You overcapped ${this.wasted} Maelstrom. Always prioritize spending it over avoiding the overcap of any other ability.`)
           .icon('spell_shadow_mindflay')
           .actual(`${formatPercentage(actual)}% overcapped Maelstrom`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

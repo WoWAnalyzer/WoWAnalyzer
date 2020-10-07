@@ -43,7 +43,7 @@ class HighTide extends Analyzer {
 
   healing = 0;
   chainHealTimestamp = 0;
-  buffer: Array<BufferHealEvent> = [];
+  buffer: BufferHealEvent[] = [];
 
   // high tide efficiency trackers
   usedHighTides = 0;

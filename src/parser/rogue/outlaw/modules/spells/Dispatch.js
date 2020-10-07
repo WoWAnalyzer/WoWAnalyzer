@@ -50,12 +50,10 @@ class Dispatch extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.thresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You casted <SpellLink id={SPELLS.DISPATCH.id} /> while <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was available. {this.delayedCastSuggestion}</>)
+    when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted <SpellLink id={SPELLS.DISPATCH.id} /> while <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was available. {this.delayedCastSuggestion}</>)
         .icon(SPELLS.DISPATCH.icon)
         .actual(`${formatPercentage(actual)}% inefficient casts`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`);
-    });
+          .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }
 

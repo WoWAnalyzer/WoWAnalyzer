@@ -32,7 +32,7 @@ class SerpentSting extends Analyzer {
   hasBoP: boolean = false;
 
   //Used for handling when parsing
-  serpentStingTargets: { timestamp: number, serpentStingDuration: number }[] = [];
+  serpentStingTargets: Array<{ timestamp: number, serpentStingDuration: number }> = [];
   vipersVenomBuffUp: boolean = false;
 
   //Used for statistics
@@ -205,27 +205,21 @@ class SerpentSting extends Analyzer {
         <> You should make sure to keep up <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> by using it within the pandemic windows during <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />, so long as you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc. </> :
         <>With <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} /> talented and without <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> talented, you don't want to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> during <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} /> at all, which is a majority of the fight, therefore a low uptime of <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> is better than a high uptime. </>;
 
-      when(this.uptimeThresholdBoP).addSuggestion((suggest, actual, recommended) => {
-        return suggest(suggestionText)
+      when(this.uptimeThresholdBoP).addSuggestion((suggest, actual, recommended) => suggest(suggestionText)
           .icon(SPELLS.SERPENT_STING_SV.icon)
           .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`<${formatPercentage(recommended)}% is recommended`));
     } else {
-      when(this.uptimeThresholdNonBoP).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% duration remaining.</>)
+      when(this.uptimeThresholdNonBoP).addSuggestion((suggest, actual, recommended) => suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% duration remaining.</>)
           .icon(SPELLS.SERPENT_STING_SV.icon)
           .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
     }
 
-    when(this.nonPandemicThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% of the duration remaining. </>)
+    when(this.nonPandemicThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% of the duration remaining. </>)
         .icon(SPELLS.SERPENT_STING_SV.icon)
         .actual(`${actual} Serpent Sting cast(s) were cast too early`)
-        .recommended(`<${recommended} is recommended`);
-    });
+        .recommended(`<${recommended} is recommended`));
   }
 
   statistic() {

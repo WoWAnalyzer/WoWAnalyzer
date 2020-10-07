@@ -110,19 +110,15 @@ class RapidReload extends Analyzer {
 
   suggestions(when: When) {
     when(this.multiShotsWithoutRRProcs).addSuggestion((
-      suggest, actual, recommended) => {
-      return suggest(<><SpellLink id={SPELLS.RAPID_RELOAD.id} /> only has an effect on 3+ targets, if an encounter doesn't have enough scenarios where you can reliably hit 3 targets with <SpellLink id={this.multishotSpell} />, you might want to consider a different azerite trait.</>)
+      suggest, actual, recommended) => suggest(<><SpellLink id={SPELLS.RAPID_RELOAD.id} /> only has an effect on 3+ targets, if an encounter doesn't have enough scenarios where you can reliably hit 3 targets with <SpellLink id={this.multishotSpell} />, you might want to consider a different azerite trait.</>)
         .icon(SPELLS.RAPID_RELOAD.icon)
         .actual(`${actual} ${actual === 1 ? 'cast' : 'casts'} without a Rapid Reload proc`)
-        .recommended(`${recommended} is recommended`);
-    });
+        .recommended(`${recommended} is recommended`));
     when(this.multiShotCasts).addSuggestion((
-      suggest) => {
-      return suggest(<>When using <SpellLink id={SPELLS.RAPID_RELOAD.id} /> it is important to remember to cast <SpellLink id={this.multishotSpell} /> in order to gain value from the azerite trait - however you should never cast <SpellLink id={this.multishotSpell} /> on single-target regardless. </>)
+      suggest) => suggest(<>When using <SpellLink id={SPELLS.RAPID_RELOAD.id} /> it is important to remember to cast <SpellLink id={this.multishotSpell} /> in order to gain value from the azerite trait - however you should never cast <SpellLink id={this.multishotSpell} /> on single-target regardless. </>)
         .icon(SPELLS.RAPID_RELOAD.icon)
         .actual('You cast Multi-Shot 0 times')
-        .recommended('>0 is recommended');
-    });
+        .recommended('>0 is recommended'));
   }
 
   statistic() {

@@ -32,7 +32,7 @@ class Entities extends Analyzer {
     this.addEventListener(Events.removedebuffstack, this.updateBuffStack);
   }
 
-  getEntities(): Array<Entity> {
+  getEntities(): Entity[] {
     throw new Error('Not implemented');
   }
 

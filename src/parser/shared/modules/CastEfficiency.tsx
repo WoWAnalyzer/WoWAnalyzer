@@ -401,8 +401,7 @@ class CastEfficiency extends Analyzer {
       };
 
       when(suggestionThresholds).addSuggestion(
-        (suggest, actual, recommended) => {
-          return suggest(
+        (suggest, actual, recommended) => suggest(
             <>
               <Trans>
                 Try to cast <SpellLink id={mainSpell.id} /> more often.
@@ -423,8 +422,7 @@ class CastEfficiency extends Analyzer {
                 &gt;{formatPercentage(recommended, 0)}% is recommended
               </Trans>,
             )
-            .staticImportance(ability.castEfficiency.importance || null);
-        },
+            .staticImportance(ability.castEfficiency.importance || null),
       );
     });
   }

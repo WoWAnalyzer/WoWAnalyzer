@@ -14,6 +14,7 @@ import { TooltipElement } from 'common/Tooltip';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
+
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
 const DEBUG = false;
@@ -237,12 +238,10 @@ class EchoOfLightMastery extends Analyzer {
   }
 
   get masteryTable() {
-    const spellDetails = Object.keys(this.masteryHealingBySpell).map((key) => {
-      return {
+    const spellDetails = Object.keys(this.masteryHealingBySpell).map((key) => ({
         spellId: key,
         ...this.masteryHealingBySpell[key],
-      };
-    }).sort((a, b) => b.effectiveHealing - a.effectiveHealing);
+      })).sort((a, b) => b.effectiveHealing - a.effectiveHealing);
 
     const rows = [];
 
@@ -284,7 +283,7 @@ class EchoOfLightMastery extends Analyzer {
   statistic() {
     return (
       <Statistic
-        size={'flexible'}
+        size="flexible"
         position={STATISTIC_ORDER.CORE(2)}
         tooltip={(
           <>

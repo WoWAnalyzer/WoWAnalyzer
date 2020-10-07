@@ -38,7 +38,7 @@ class FocusTracker extends ResourceTracker {
 
   //We're not interested in the fabricated events that are created prepull, as these tend to add focus costs things such as potion usage, Bestial Wrath, Trueshot or the likes whereas these don't cost focus.
   shouldProcessCastEvent(event: CastEvent) {
-    return !event.__fabricated && !!this.getResource(event);
+    return !event.__fabricated && Boolean(this.getResource(event));
   }
 }
 

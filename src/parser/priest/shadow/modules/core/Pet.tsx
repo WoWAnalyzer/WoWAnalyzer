@@ -13,7 +13,7 @@ class Pet extends Analyzer {
 
     if (this._pets !== undefined) {
       const pet = this.fetchPet(this._pets);
-      if (pet) this._sourceId = pet.id;
+      if (pet) {this._sourceId = pet.id;}
     }
   }
 

@@ -89,16 +89,14 @@ class LethalShots extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.wastedPotentialCDR).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.wastedPotentialCDR).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You cast {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_MM_TALENT) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_MM_TALENT.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} or <SpellLink id={SPELLS.MULTISHOT_MM} /> whilst <SpellLink id={SPELLS.RAPID_FIRE.id} /> wasn't on cooldown. You want to try and avoid this when using <SpellLink id={SPELLS.LETHAL_SHOTS_TALENT.id} />, as it is wasting potential cooldown reduction.
         </>,
       )
         .icon(SPELLS.LETHAL_SHOTS_TALENT.icon)
         .actual(`${actual} Lethal Shot trigger casts while Rapid Fire wasn't on cooldown`)
-        .recommended(`${recommended} bad casts are recommended`);
-    });
+        .recommended(`${recommended} bad casts are recommended`));
   }
 }
 

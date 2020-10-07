@@ -6,6 +6,7 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatis
 import { calculateAzeriteEffects } from 'common/stats';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Combatants from 'parser/shared/modules/Combatants';
+
 import { getSpellInfo } from '../../../SpellInfo';
 import StatWeights from '../../features/StatWeights';
 import Mastery from '../../core/Mastery';

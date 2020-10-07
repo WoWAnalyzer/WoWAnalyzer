@@ -6,13 +6,13 @@ import ReadableListing from 'interface/ReadableListing';
 import Contributor from 'interface/ContributorButton';
 
 interface Props {
-  changelog: ReturnType<typeof change>[];
+  changelog: Array<ReturnType<typeof change>>;
   limit?: number;
   includeCore?: boolean;
 }
 
 const Changelog = ({ changelog, limit, includeCore = true }: Props) => {
-  const mergedChangelog: ReturnType<typeof change>[] = includeCore
+  const mergedChangelog: Array<ReturnType<typeof change>> = includeCore
     ? [...CORE_CHANGELOG, ...changelog].sort((a: any, b: any) => b.date - a.date)
     : changelog;
 

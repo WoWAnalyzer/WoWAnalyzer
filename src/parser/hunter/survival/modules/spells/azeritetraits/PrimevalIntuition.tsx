@@ -33,7 +33,7 @@ class PrimevalIntuition extends Analyzer {
   };
 
   crit: number = 0;
-  intuitionStacks: Array<Array<number>> = [];
+  intuitionStacks: number[][] = [];
   lastIntuitionStack: number = 0;
   lastIntuitionUpdate: number = this.owner.fight.start_time;
 
@@ -67,9 +67,7 @@ class PrimevalIntuition extends Analyzer {
   }
 
   get avgCrit() {
-    const avgCrit = this.intuitionStacks.reduce((sum, innerArray, outerArrayIndex) => {
-      return sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.crit) / this.owner.fightDuration), 0);
-    }, 0);
+    const avgCrit = this.intuitionStacks.reduce((sum, innerArray, outerArrayIndex) => sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.crit) / this.owner.fightDuration), 0), 0);
     return avgCrit;
   }
 

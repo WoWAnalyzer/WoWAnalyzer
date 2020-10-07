@@ -18,7 +18,7 @@ export interface WCLFightsResponse {
 }
 
 export interface WCLEventsResponse {
-  events: Event<any>[];
+  events: Array<Event<any>>;
   nextPageTimestamp?: number;
 }
 

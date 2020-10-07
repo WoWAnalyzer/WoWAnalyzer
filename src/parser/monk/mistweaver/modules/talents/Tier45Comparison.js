@@ -195,16 +195,14 @@ class Tier45Comparison extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           With your current playstyle you are not using the most effective tier 45 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
         </>,
       )
         .icon(this.best.icon)
         .actual(`${formatNumber(this.returnedFromSelected)} mana returned through ${this.best.name}`)
-        .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`);
-    });
+        .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`));
   }
 
   
@@ -214,7 +212,7 @@ class Tier45Comparison extends Analyzer {
         talent={this.best.id}
         position={STATISTIC_ORDER.CORE(30)}
         value={`${formatNumber(this.best.manaFrom)} Mana from ${this.best.name}`}
-        label={`Tier 45 Comparison`}
+        label="Tier 45 Comparison"
         tooltip={(
           <>
           <ul>

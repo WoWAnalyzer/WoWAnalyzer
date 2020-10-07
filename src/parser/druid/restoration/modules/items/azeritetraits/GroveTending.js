@@ -4,6 +4,7 @@ import Mastery from 'parser/druid/restoration/modules/core/Mastery';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+
 import StatWeights from '../../features/StatWeights';
 import { getPrimaryStatForItemLevel, findItemLevelByPrimaryStat } from './/common';
 

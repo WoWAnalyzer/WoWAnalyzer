@@ -3,6 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import {formatPercentage, formatNumber} from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+
 import StatWeights from '../../features/StatWeights';
 import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from './/common';
 

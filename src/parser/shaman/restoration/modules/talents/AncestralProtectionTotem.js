@@ -25,7 +25,7 @@ class AncestralProtectionTotem extends Analyzer {
   aptEvents = [];
   constructor(...args) {
     super(...args);
-    this.active = !!this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id);
+    this.active = Boolean(this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id));
   }
 
   // recursively fetch events until no nextPageTimestamp is returned

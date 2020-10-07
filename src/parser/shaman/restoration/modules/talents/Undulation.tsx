@@ -15,12 +15,12 @@ const BUFFER_MS = 300;
 class Undulation extends Analyzer {
   healing = 0;
 
-  constructor(options : any) {
+  constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UNDULATION_TALENT.id);
   }
 
-  on_byPlayer_heal(event : HealEvent) {
+  on_byPlayer_heal(event: HealEvent) {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.HEALING_WAVE.id || spellId === SPELLS.HEALING_SURGE_RESTORATION.id) {

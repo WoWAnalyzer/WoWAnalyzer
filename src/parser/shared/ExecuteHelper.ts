@@ -14,7 +14,7 @@ class ExecuteHelper extends Analyzer {
    * Array of objects from common/SPELLS
    * This should contain any execute spells such as Kill Shot, Execute etc.
    */
-  static executeSpells: { id: number, name: string, icon: string }[] = [];
+  static executeSpells: Array<{ id: number, name: string, icon: string }> = [];
 
   /**
    * SELECTED_PLAYER or SELECTED_PLAYER_PET for usage in the eventfilter
@@ -25,7 +25,7 @@ class ExecuteHelper extends Analyzer {
    * Array of objects from common/SPELLS
    * This should contain any SPELLS object that allows execute to be used outside normal execute range
    */
-  static executeOutsideRangeEnablers: { id: number, name: string, icon: string }[] = [];
+  static executeOutsideRangeEnablers: Array<{ id: number, name: string, icon: string }> = [];
 
   /**
    * The lower threshold where execute is enabled, shown in decimals.

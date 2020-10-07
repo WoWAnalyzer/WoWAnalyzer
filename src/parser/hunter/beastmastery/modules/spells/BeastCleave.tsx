@@ -96,12 +96,10 @@ class BeastCleave extends Analyzer {
 
   suggestions(when: When) {
     if (this.casts > 0) {
-      when(this.beastCleavesWithoutHits).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} {actual === 1 ? 'time' : 'times'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
+      when(this.beastCleavesWithoutHits).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} {actual === 1 ? 'time' : 'times'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
           .icon(SPELLS.MULTISHOT_BM.icon)
           .actual(`${actual} ${actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage`)
-          .recommended(`${recommended} is recommended`);
-      });
+          .recommended(`${recommended} is recommended`));
     }
   }
 

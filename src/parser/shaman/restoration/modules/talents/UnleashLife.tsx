@@ -27,7 +27,7 @@ interface HealingBuffInfo {
 interface HealingBuffHot {
   healing: number,
   castAmount: number,
-  playersActive: Array<number>
+  playersActive: number[]
 }
 interface HealingBuff {
   healing: number,

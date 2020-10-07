@@ -104,12 +104,10 @@ class RollTheBonesEfficiency extends Analyzer {
 
   suggestions(when) {
     this.rollSuggestions.forEach(suggestion => {
-      when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a {suggestion.label} roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}</>)
+      when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a {suggestion.label} roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}</>)
           .icon(SPELLS.ROLL_THE_BONES.icon)
           .actual(`${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`${formatPercentage(recommended)}% is recommended`));
     });
   }
 }

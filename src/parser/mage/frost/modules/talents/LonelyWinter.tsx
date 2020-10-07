@@ -9,6 +9,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import Events, { DamageEvent } from 'parser/core/Events';
 import { formatNumber } from 'common/format';
+
 import { LONELY_WINTER_DAMAGE_BONUS, LONELY_WINTER_AFFECTED_SPELLS } from '../../constants';
 
 // You can no longer summon your Water Elemental, but Frostbolt, Ice Lance, and Flurry deal 25% increased damage.

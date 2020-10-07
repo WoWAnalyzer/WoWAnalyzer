@@ -86,7 +86,7 @@ class ManaLevelChartComponent extends React.PureComponent {
     let deaths = [];
     if (this.state.bossHealth.deaths) {
       deaths = this.state.bossHealth.deaths
-        .filter(death => !!death.targetIsFriendly)
+        .filter(death => Boolean(death.targetIsFriendly))
         .map(({ timestamp, targetID, killingAbility }) => ({
           x: timestamp - start,
           name: combatants.players[targetID].name,

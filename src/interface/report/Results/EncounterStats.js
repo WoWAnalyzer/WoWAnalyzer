@@ -158,25 +158,15 @@ class EncounterStats extends React.PureComponent {
         talents.push(talentRow);
       });
 
-      trinkets.sort((a, b) => {
-        return (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0);
-      });
+      trinkets.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
 
-      azerite.sort((a, b) => {
-        return (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0);
-      });
+      azerite.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
 
-      essences.sort((a, b) => {
-        return (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0);
-      });
+      essences.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
 
-      similiarKillTimes.sort((a, b) => {
-        return a.variance - b.variance;
-      });
+      similiarKillTimes.sort((a, b) => a.variance - b.variance);
 
-      closestKillTimes.sort((a, b) => {
-        return a.variance - b.variance;
-      });
+      closestKillTimes.sort((a, b) => a.variance - b.variance);
 
       this.setState({
         mostUsedTrinkets: trinkets.slice(0, this.SHOW_TOP_ENTRYS),

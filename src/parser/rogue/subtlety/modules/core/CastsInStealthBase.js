@@ -32,12 +32,10 @@ class CastsInStealthBase extends Analyzer {
 
   suggestWrongCast(when, spell, thresholds) {
     when(thresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={spell.id} /> during {this.stealthCondition}. </>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={spell.id} /> during {this.stealthCondition}. </>)
           .icon(spell.icon)
           .actual(`${actual} ${spell.name} casts`)
-          .recommended(`${recommended} is recommended`);
-      });
+          .recommended(`${recommended} is recommended`));
   }
 
   validStealthSpellIds = [
@@ -72,12 +70,10 @@ class CastsInStealthBase extends Analyzer {
 
   suggestAvgCasts(when, spell) {
     when(this.castsInStealthThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Try to cast {this.maxCastsPerStealth} spells during {this.stealthCondition}</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast {this.maxCastsPerStealth} spells during {this.stealthCondition}</>)
           .icon(spell.icon)
           .actual(`${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`)
-          .recommended(`${this.maxCastsPerStealth} in each ${this.stealthCondition} window`);
-      });
+          .recommended(`${this.maxCastsPerStealth} in each ${this.stealthCondition} window`));
   }
 }
 

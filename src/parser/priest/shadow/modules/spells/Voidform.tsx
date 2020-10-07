@@ -99,7 +99,7 @@ class Voidform extends Analyzer {
   }
 
   addVoidformStack(event: any) {
-    if (!this.currentVoidform) return;
+    if (!this.currentVoidform) {return;}
     this.currentVoidform.stacks = [
       ...this.currentVoidform.stacks,
       { stack: event.stack, timestamp: this.normalizeTimestamp(event) },
@@ -220,8 +220,7 @@ class Voidform extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionUptimeThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.
           <br /><br />
           Use the generators with the priority: <br />
           <SpellLink id={SPELLS.VOID_BOLT.id} /> <br />
@@ -230,8 +229,7 @@ class Voidform extends Analyzer {
         </>)
           .icon(SPELLS.VOIDFORM_BUFF.icon)
           .actual(`${formatPercentage(actual)}% Voidform uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
 

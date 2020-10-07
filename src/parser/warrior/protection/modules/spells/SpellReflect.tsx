@@ -59,16 +59,14 @@ class SpellReflect extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Try to cast <SpellLink id={SPELLS.SPELL_REFLECTION.id} />  more often when magic damage is going out to take less damage.
         </>,
       )
         .icon(SPELLS.SPELL_REFLECTION.icon)
         .actual(`${formatPercentage(actual)} % magic damage With Spell Reflect Up`)
-        .recommended(`${formatPercentage(recommended)} % recommended`);
-    });
+        .recommended(`${formatPercentage(recommended)} % recommended`));
   }
 }
 

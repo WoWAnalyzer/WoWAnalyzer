@@ -19,7 +19,7 @@ class SwirlingCurrents extends Analyzer {
 
   healingBoost = 0;
   healing = 0;
-  targetsWithBoostedRiptides: Array<boolean> = [];
+  targetsWithBoostedRiptides: boolean[] = [];
 
 
   constructor(options: any) {

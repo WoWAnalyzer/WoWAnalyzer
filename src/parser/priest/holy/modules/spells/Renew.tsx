@@ -186,14 +186,12 @@ class Renew extends Analyzer {
 
   suggestions(when: When) {
     when(this.badRenewThreshold)
-      .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You should cast <SpellLink id={SPELLS.RENEW.id} /> less.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You should cast <SpellLink id={SPELLS.RENEW.id} /> less.</>)
             .icon(SPELLS.RENEW.icon)
             .actual(<>
               You used Renew {this.badRenews} times when another spell would have been more productive.
               Renew is one of the least efficient spells Holy Priests have, and should only be cast when moving with no other instants available.</>)
-            .recommended(`Two or less per minute is recommended, except for movement heavy fights.`);
-        },
+            .recommended(`Two or less per minute is recommended, except for movement heavy fights.`),
       );
   }
 }

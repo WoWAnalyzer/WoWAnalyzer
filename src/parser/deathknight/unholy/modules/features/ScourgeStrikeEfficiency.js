@@ -54,13 +54,11 @@ class FesteringStrikeEfficiency extends Analyzer {
     const percentCastZeroWounds = this.zeroWoundCasts/this.totalCasts;
     const strikeEfficiency = 1 - percentCastZeroWounds;
     when(strikeEfficiency).isLessThan(0.80)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You are casting <SpellLink id={this.activeSpell.id} /> too often.  When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></span>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<span>You are casting <SpellLink id={this.activeSpell.id} /> too often.  When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></span>)
             .icon(this.activeSpell.icon)
             .actual(`${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.20).major(recommended - 0.40);
-        });
+            .regular(recommended - 0.20).major(recommended - 0.40));
   }
 
   statistic() {

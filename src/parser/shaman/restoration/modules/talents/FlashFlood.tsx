@@ -114,11 +114,11 @@ class FlashFlood extends Analyzer {
   }
 
   get totalTimeSaved() {
-    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => { return sum + spell.timeSaved; }, 0);
+    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => sum + spell.timeSaved, 0);
   }
 
   get totalTimeWasted() {
-    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => { return sum + spell.timeWasted; }, 0);
+    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => sum + spell.timeWasted, 0);
   }
 
   get flashFloodUsageRatioChart() {

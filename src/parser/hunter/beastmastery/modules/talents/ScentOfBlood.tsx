@@ -7,6 +7,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events from 'parser/core/Events';
 import { SCENT_OF_BLOOD_BARBED_SHOT_RECHARGE } from 'parser/hunter/beastmastery/constants';
+
 import SpellUsable from '../core/SpellUsable';
 
 /**

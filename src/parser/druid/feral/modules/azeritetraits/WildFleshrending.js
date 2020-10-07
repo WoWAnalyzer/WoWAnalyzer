@@ -209,28 +209,24 @@ class WildFleshrending extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.shredBenefitThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.shredBenefitThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You're not getting the full benefit of your <SpellLink id={SPELLS.WILD_FLESHRENDING.id} /> Azerite trait on <SpellLink id={SPELLS.SHRED.id} />. To receive the trait's bonus damage you must have <SpellLink id={SPELLS.THRASH_FERAL.id} /> active on the target when you hit it with <SpellLink id={SPELLS.SHRED.id} />.
         </>,
       )
         .icon(SPELLS.WILD_FLESHRENDING.icon)
         .actual(`${(actual * 100).toFixed(0)}% of Shreds benefited from Wild Fleshrending.`)
-        .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`);
-    });
+        .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`));
 
     const swipeSpell = this.selectedCombatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id) ? SPELLS.BRUTAL_SLASH_TALENT : SPELLS.SWIPE_CAT;
-    when(this.swipeBenefitThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.swipeBenefitThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You're not getting the full benefit of your <SpellLink id={SPELLS.WILD_FLESHRENDING.id} /> Azerite trait on <SpellLink id={swipeSpell.id} />. To receive the trait's bonus damage you must have <SpellLink id={SPELLS.THRASH_FERAL.id} /> active on the target when you hit it with <SpellLink id={swipeSpell.id} />.
         </>,
       )
         .icon(SPELLS.WILD_FLESHRENDING.icon)
         .actual(`${(actual * 100).toFixed(0)}% of ${swipeSpell.name} hits benefited from Wild Fleshrending.`)
-        .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`);
-    });
+        .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`));
   }
 }
 

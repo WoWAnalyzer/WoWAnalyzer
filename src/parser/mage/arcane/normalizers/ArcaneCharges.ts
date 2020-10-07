@@ -1,6 +1,7 @@
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { AnyEvent, EventType } from 'parser/core/Events';
+
 import { ARCANE_CHARGE_SPELLS } from '../constants';
 
 class ArcaneCharges extends EventsNormalizer {

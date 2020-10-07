@@ -111,12 +111,10 @@ class BlockCheck extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You only had <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} /> or <SpellLink id={SPELLS.LAST_STAND.id} /> for {formatPercentage(actual)}% of physical damage taken. You should have one of the two up to mitigate as much physical damage as possible.</>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<>You only had <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} /> or <SpellLink id={SPELLS.LAST_STAND.id} /> for {formatPercentage(actual)}% of physical damage taken. You should have one of the two up to mitigate as much physical damage as possible.</>)
             .icon(SPELLS.SHIELD_BLOCK_BUFF.icon)
             .actual(`${formatPercentage(actual)}% was mitigated by a block spell`)
-            .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended but this may vary between fights`);
-        });
+            .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended but this may vary between fights`));
   }
 
   statistic() {

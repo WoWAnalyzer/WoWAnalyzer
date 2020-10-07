@@ -1,4 +1,5 @@
 import safeMerge from 'common/safeMerge';
+
 import General from './general';
 import Hunter from './hunter';
 import Paladin from './paladin';

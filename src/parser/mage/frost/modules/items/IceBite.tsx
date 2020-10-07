@@ -9,6 +9,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Enemies from 'parser/shared/modules/Enemies';
+
 import { SHATTER_DEBUFFS } from '../../constants';
 
 const DAMAGE_BONUS: {[rank: number]: number } = {

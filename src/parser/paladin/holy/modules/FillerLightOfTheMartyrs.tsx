@@ -78,8 +78,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
 
   suggestions(when: When) {
     when(this.cpmSuggestionThresholds).addSuggestion(
-      (suggest, actual, recommended) => {
-        return suggest(
+      (suggest, actual, recommended) => suggest(
           <Trans>
             You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />
             s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the
@@ -93,12 +92,10 @@ class FillerLightOfTheMartyrs extends Analyzer {
               {this.cpm.toFixed(2)} casts per minute - {this.casts} casts total
             </Trans>,
           )
-          .recommended(<Trans>&lt;{recommended} casts per minute is recommended</Trans>);
-      },
+          .recommended(<Trans>&lt;{recommended} casts per minute is recommended</Trans>),
     );
 
-    when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest, actual) => {
-      return suggest(
+    when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest, actual) => suggest(
         <Trans>
           You cast {this.inefficientCasts.length} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s
           while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was{' '}
@@ -134,8 +131,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
       )
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
         .actual(<Trans>{this.inefficientCasts.length} casts while Holy Shock was available</Trans>)
-        .recommended(<Trans>No inefficient casts is recommended</Trans>);
-    });
+        .recommended(<Trans>No inefficient casts is recommended</Trans>));
   }
 }
 

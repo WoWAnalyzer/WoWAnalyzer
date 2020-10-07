@@ -98,12 +98,10 @@ class VoidTorrent extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You interrupted <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> early, wasting {formatSeconds(this.totalWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You interrupted <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> early, wasting {formatSeconds(this.totalWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</>)
           .icon(SPELLS.VOID_TORRENT_TALENT.icon)
           .actual(`Lost ${formatSeconds(actual)} seconds of Void Torrent.`)
-          .recommended('No time wasted is recommended.');
-      });
+          .recommended('No time wasted is recommended.'));
   }
 
   statistic() {

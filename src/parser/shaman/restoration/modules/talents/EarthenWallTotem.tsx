@@ -37,7 +37,7 @@ class EarthenWallTotem extends Analyzer {
     combatants: Combatants,
   };
 
-  earthenWallTotems: Array<EarthenWallTotemInfo> = [];
+  earthenWallTotems: EarthenWallTotemInfo[] = [];
   castNumber = 0;
   prePullCast = true;
   isMaghar: boolean | null = false;
@@ -116,13 +116,11 @@ class EarthenWallTotem extends Analyzer {
 
   suggestions(when: When) {
     when(this.earthenWallEfficiency).isLessThan(RECOMMENDED_EFFICIENCY)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Try to cast <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs.</span>)
           .icon(SPELLS.EARTHEN_WALL_TOTEM_TALENT.icon)
           .actual(`${this.earthenWallEfficiency.toFixed(2)}%`)
           .recommended(`${recommended}%`)
-          .regular(recommended - .15).major(recommended - .3);
-      });
+          .regular(recommended - .15).major(recommended - .3));
   }
 
   get suggestionThreshold() {

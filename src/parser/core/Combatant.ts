@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { Buff, CombatantInfoEvent, EventType, Item, Trait, Soulbind, Conduit, Covenant } from 'parser/core/Events';
+
 import Entity from './Entity';
 
 export interface CombatantInfo extends CombatantInfoEvent {
@@ -28,7 +29,7 @@ type Spell = {
 type Player = {
   id: number;
   name: string;
-  talents: Array<Talent>;
+  talents: Talent[];
   artifact: any;
   heartOfAzeroth: any;
   gear: any;
@@ -121,7 +122,7 @@ class Combatant extends Entity {
   // region Talents
   _talentsByRow: { [key: number]: number } = {};
 
-  _parseTalents(talents: Array<Talent>) {
+  _parseTalents(talents: Talent[]) {
     talents.forEach(({ id }, index: number) => {
       this._talentsByRow[index] = id;
     });
@@ -179,9 +180,9 @@ class Combatant extends Entity {
   // endregion
 
   // region Traits
-  traitsBySpellId: { [key: number]: Array<number> } = {};
+  traitsBySpellId: { [key: number]: number[] } = {};
 
-  _parseTraits(traits: Array<Trait>) {
+  _parseTraits(traits: Trait[]) {
     traits.forEach(({ traitID, rank }) => {
       const spellId = traitIdMap[traitID];
       if (spellId === undefined) {
@@ -207,12 +208,12 @@ class Combatant extends Entity {
   // region Essences
   essencesByTraitID: { [key: number]: Essence } = {};
 
-  _parseEssences(essences: Array<Essence>) {
+  _parseEssences(essences: Essence[]) {
     if (essences === undefined) {
       return;
     }
     essences.forEach((essence: Essence) => {
-      if (Boolean(this.essencesByTraitID[essence.traitID])) {
+      if (this.essencesByTraitID[essence.traitID]) {
         essence.isMajor = true;
       }
       this.essencesByTraitID[essence.traitID] = essence;
@@ -273,7 +274,7 @@ class Combatant extends Entity {
   //region Conduits
   conduitsByConduitID: { [key: number]: Conduit } = {};
 
-  _parseConduits(conduits: Array<Conduit>) {
+  _parseConduits(conduits: Conduit[]) {
     if (!conduits) {
       return;
     }
@@ -297,7 +298,7 @@ class Combatant extends Entity {
   // region Gear
   _gearItemsBySlotId: { [key: number]: Item } = {};
 
-  _parseGear(gear: Array<Item>) {
+  _parseGear(gear: Item[]) {
     gear.forEach((item, index) => {
       this._gearItemsBySlotId[index] = item;
     });
@@ -529,7 +530,7 @@ class Combatant extends Entity {
 
   // endregion
 
-  _parsePrepullBuffs(buffs: Array<Buff>) {
+  _parsePrepullBuffs(buffs: Buff[]) {
     // TODO: We only apply prepull buffs in the `auras` prop of combatantinfo,
     // but not all prepull buffs are in there and ApplyBuff finds more. We
     // should update ApplyBuff to add the other buffs to the auras prop of the

@@ -116,16 +116,14 @@ class FinisherUse extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.badFinishersThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.badFinishersThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You are unnecessarily using finishers at less than full combo points. Generally the only finisher you should use without full combo points is <SpellLink id={SPELLS.RIP.id} /> when applying it to a target that doesn't have it active yet.
         </>,
       )
         .icon('creatureportrait_bubble')
         .actual(`${(actual * 100).toFixed(0)}% of finishers were incorrectly used without full combo points`)
-        .recommended(`${(recommended * 100).toFixed(0)}% is recommended`);
-    });
+        .recommended(`${(recommended * 100).toFixed(0)}% is recommended`));
   }
 
   statistic() {

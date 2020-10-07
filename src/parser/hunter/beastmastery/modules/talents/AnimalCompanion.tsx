@@ -21,7 +21,7 @@ import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 class AnimalCompanion extends Analyzer {
   damage = 0;
-  pets: { petName: string, sourceID: number | undefined, damage: number }[] = [];
+  pets: Array<{ petName: string, sourceID: number | undefined, damage: number }> = [];
   mainPetName: string = '';
 
   constructor(options: any) {

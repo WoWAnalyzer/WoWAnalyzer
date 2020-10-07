@@ -1,4 +1,5 @@
 import ModuleError from 'parser/core/ModuleError';
+
 import Events, { HasAbility, MappedEvent } from '../Events';
 import Module from '../Module';
 import { EventListener } from '../EventSubscriber';
@@ -34,7 +35,7 @@ class EventEmitter extends Module {
     }
   }
 
-  _eventListenersByEventType: { [eventType: string]: BoundListener<any, any>[] } = {};
+  _eventListenersByEventType: { [eventType: string]: Array<BoundListener<any, any>> } = {};
   numEventListeners = 0;
   /**
    * @param {string|EventFilter} eventFilter

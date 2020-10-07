@@ -36,7 +36,7 @@ class Resurgence extends Analyzer {
 
   regenedMana = 0;
   otherManaGain = 0;
-  resurgence: Array<ResurgenceInfo> = [];
+  resurgence: ResurgenceInfo[] = [];
   totalResurgenceGain = 0;
 
   on_byPlayer_heal(event: HealEvent) {

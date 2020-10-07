@@ -317,8 +317,7 @@ class MasteryEffectiveness extends Analyzer {
     };
   }
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <Trans>
           Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by
           sticking with melee.
@@ -326,8 +325,7 @@ class MasteryEffectiveness extends Analyzer {
       )
         .icon('inv_hammer_04')
         .actual(i18n._(t`${formatPercentage(actual)}% mastery effectiveness`))
-        .recommended(i18n._(t`>${formatPercentage(recommended)}% is recommended`));
-    });
+        .recommended(i18n._(t`>${formatPercentage(recommended)}% is recommended`)));
   }
 }
 

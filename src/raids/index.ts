@@ -1,7 +1,7 @@
 import { Race } from 'parser/core/Combatant';
 
 interface Raid {
-  bosses: Array<Boss>,
+  bosses: Boss[],
 }
 export type Boss = {
   id: number,

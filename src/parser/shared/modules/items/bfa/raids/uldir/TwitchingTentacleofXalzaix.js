@@ -31,7 +31,7 @@ class TwitchingTentacleofXalzaix extends Analyzer {
   constructor(...args) {
     super(...args);
     this._item = this.selectedCombatant.getTrinket(ITEMS.TWITCHING_TENTACLE_OF_XALZAIX.id);
-    this.active = !!this._item;
+    this.active = Boolean(this._item);
 
     if (this.active) {
       this.statBuff = calculatePrimaryStat(340, 850, this._item.itemLevel);

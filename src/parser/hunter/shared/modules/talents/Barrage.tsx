@@ -25,7 +25,7 @@ import { BARRAGE_HITS_PER_CAST } from 'parser/hunter/shared/constants';
 class Barrage extends Analyzer {
 
   damage = 0;
-  casts: { averageHits: number, hits: number }[] = [];
+  casts: Array<{ averageHits: number, hits: number }> = [];
   hits = 0;
   uniqueTargets: string[] = [];
   uniqueTargetsHit = 0;
@@ -88,12 +88,10 @@ class Barrage extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your target when channelling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. </>)
+    when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your target when channelling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. </>)
         .icon(SPELLS.BARRAGE_TALENT.icon)
         .actual(`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`)
-        .recommended(`${recommended} is recommended`);
-    });
+        .recommended(`${recommended} is recommended`));
   }
 
   statistic() {

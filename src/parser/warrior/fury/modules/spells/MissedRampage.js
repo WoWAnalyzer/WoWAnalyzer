@@ -73,8 +73,7 @@ class MissedRampage extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           There were {actual} times you casted a rage generating ability when you should have cast <SpellLink id={SPELLS.RAMPAGE.id} />.
           <SpellLink id={SPELLS.RAMPAGE.id} /> is your 2nd highest damage ability behind <SpellLink id={SPELLS.EXECUTE_FURY.id} /> and causes you to <SpellLink id={SPELLS.ENRAGE.id} />, increasing all of your damage done.
@@ -83,9 +82,7 @@ class MissedRampage extends Analyzer {
       )
         .icon(SPELLS.RAMPAGE.icon)
         .actual(`${actual} missed Rampages.`)
-        .recommended(`${recommended} is recommended.`);
-        
-    });
+        .recommended(`${recommended} is recommended.`));
   }
 }
 

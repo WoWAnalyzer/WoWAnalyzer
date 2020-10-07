@@ -34,7 +34,7 @@ class BaseHealerAzerite extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !!this.constructor.TRAIT;
+    this.active = Boolean(this.constructor.TRAIT);
     if (!this.active) {
       return;
     }
@@ -44,9 +44,7 @@ class BaseHealerAzerite extends Analyzer {
     const healingPerTrait = ranks.map((rank) => calculateAzeriteEffects(this.constructor.TRAIT.id, rank)[0]);
     const totalHealingPotential = healingPerTrait.reduce((total, bonus) => total + bonus, 0);
 
-    this.azerite = ranks.map((rank, index) => {
-      return this.trait((healingPerTrait[index] / totalHealingPotential), healingPerTrait[index], rank);
-    });
+    this.azerite = ranks.map((rank, index) => this.trait((healingPerTrait[index] / totalHealingPotential), healingPerTrait[index], rank));
     // as we can't find out which azerite piece a trait belongs to, might as well sort it by itemlevel
     this.azerite.sort((a, b) => a.itemlevel - b.itemlevel);
 
@@ -119,16 +117,14 @@ class BaseHealerAzerite extends Analyzer {
                 </tr>
               </thead>
               <tbody>
-                {this.azerite.slice().reverse().map((trait, index) => {
-                  return (
+                {this.azerite.slice().reverse().map((trait, index) => (
                     <tr key={index}>
                       {numTraits > 1 && (<td>{formatNth(index + 1)}</td>)}
                       <td>{trait.itemlevel}</td>
                       <td>{formatNumber(trait.healing)}</td>
                       <td>{formatPercentage(trait.overhealing / (trait.healing + trait.overhealing))}%</td>
                     </tr>
-                  );
-                })}
+                  ))}
               </tbody>
             </table>
           </>

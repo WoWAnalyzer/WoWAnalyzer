@@ -5,7 +5,7 @@ import ZONES from 'game/ZONES';
 import { WCLGuildReport } from "common/WCL_TYPES";
 
 interface Props {
-  reports: Array<WCLGuildReport>,
+  reports: WCLGuildReport[],
 }
 
 function zoneNameById(id: number): string | undefined {

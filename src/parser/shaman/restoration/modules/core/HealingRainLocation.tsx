@@ -30,7 +30,7 @@ class HealingRainLocation extends Analyzer {
   protected combatants!: Combatants;
 
   healingRainDiameter = 2100; // 5% margin of error
-  healingRainEvents: Array<HealEvent> = [];
+  healingRainEvents: HealEvent[] = [];
   newHealingRain = false;
   lastHealingRainTick = 0;
   firstHealingRainTick = 0;
@@ -79,7 +79,7 @@ class HealingRainLocation extends Analyzer {
     this.newHealingRain = true;
   }
 
-  processHealingRain(eventsDuringRain: Array<HealEvent>, healIncrease: number) {
+  processHealingRain(eventsDuringRain: HealEvent[], healIncrease: number) {
     if (this.healingRainEvents.length === 0) {
       return 0;
     }
@@ -100,7 +100,7 @@ class HealingRainLocation extends Analyzer {
     return this.sumHealing(filteredEvents, healIncrease, healingRainLocation);
   }
 
-  sumHealing(eventsDuringRain: Array<HealEvent>, healIncrease: number, healingRainLocation: Location) {
+  sumHealing(eventsDuringRain: HealEvent[], healIncrease: number, healingRainLocation: Location) {
     return eventsDuringRain.reduce((healing, event) => {
       const pointToCheck = { x: event.x, y: event.y };
       if (this._isPlayerInsideHealingRain(pointToCheck, healingRainLocation)) {
@@ -110,7 +110,7 @@ class HealingRainLocation extends Analyzer {
     }, 0);
   }
 
-  locate(events: Array<HealEvent>) {
+  locate(events: HealEvent[]) {
     const { minY, maxY, minX, maxX } = events.reduce((result, event) => {
       result.minY = Math.min(event.y, result.minY);
       result.maxY = Math.max(event.y, result.maxY);

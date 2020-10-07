@@ -75,16 +75,14 @@ class SpinningCraneKick extends Analyzer{
       }
 
     suggestions(when) {
-        when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-            return suggest(
+        when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
               <>
                 You are not utilizing your <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> spell as effectively as you should. You should work on both your positioning spell. Always aim for the highest concentration of enemies, which is normally melee.
               </>,
             )
               .icon(SPELLS.SPINNING_CRANE_KICK.icon)
               .actual(`${this.badSCKcount} Spinning Crane Kicks that hit fewer than 3 enemies`)
-              .recommended('Aim to hit 3 or more targets with Spinning Crane Kick if there is less than 3 targets then Rising Sunkick, Blackout Kick or Tiger\'s palm');
-          });
+              .recommended('Aim to hit 3 or more targets with Spinning Crane Kick if there is less than 3 targets then Rising Sunkick, Blackout Kick or Tiger\'s palm'));
       }
 
 }

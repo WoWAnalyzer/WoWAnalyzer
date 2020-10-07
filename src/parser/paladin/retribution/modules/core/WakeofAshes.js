@@ -79,12 +79,10 @@ class WakeofAshes extends Analyzer {
 
     suggestions(when) {
         when(this.badCastsThresholds)
-            .addSuggestion((suggest, actual, recommended) => {
-                return suggest(<><SpellLink id={SPELLS.WAKE_OF_ASHES.id} /> hit 0 targets {actual} time(s). <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} /> has the same range of 12yds. You can use this as a guideline to tell if targets will be in range.</>)
+            .addSuggestion((suggest, actual, recommended) => suggest(<><SpellLink id={SPELLS.WAKE_OF_ASHES.id} /> hit 0 targets {actual} time(s). <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} /> has the same range of 12yds. You can use this as a guideline to tell if targets will be in range.</>)
                     .icon(SPELLS.WAKE_OF_ASHES.icon)
                     .actual(`${actual} casts with no targets hit.`)
-                    .recommended(`${recommended} is recommended`);
-            });
+                    .recommended(`${recommended} is recommended`));
     }
 
     statistic() {

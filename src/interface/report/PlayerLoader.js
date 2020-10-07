@@ -24,6 +24,7 @@ import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/Rep
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
 import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
+
 import handleApiError from './handleApiError';
 
 const defaultState = {
@@ -114,13 +115,11 @@ class PlayerLoader extends React.PureComponent {
         if (!exportedCharacter) {
           return Promise.resolve();
         }
-        return fetchCharacter(friendly.guid, exportedCharacter.region, exportedCharacter.server, exportedCharacter.name).then(data => {
-          return Promise.resolve(data);
-        }).catch(() => {
+        return fetchCharacter(friendly.guid, exportedCharacter.region, exportedCharacter.server, exportedCharacter.name).then(data => Promise.resolve(data)).catch(() => 
           // This guy failed to load - this is nice to have data
           // We can ignore this and we'll just drop him from the overall averages later
-          return Promise.resolve();
-        });
+           Promise.resolve()
+        );
       });
       let characterDatas = await Promise.all(characterDataPromises);
       // Filter for only loaded characterDatas

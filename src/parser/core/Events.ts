@@ -228,8 +228,7 @@ export interface ICastEvent<T extends string> extends Event<T> {
   };
 }
 
-export interface CastEvent extends ICastEvent<EventType.Cast> {
-}
+export type CastEvent = ICastEvent<EventType.Cast>
 
 export interface FilterCooldownInfoEvent extends ICastEvent<EventType.FilterCooldownInfo> {
   trigger: EventType;
@@ -576,14 +575,11 @@ export interface IPhaseEvent<T extends string> extends Event<T> {
   __fabricated: true;
 }
 
-export interface PhaseEvent extends IPhaseEvent<EventType.PhaseStart | EventType.PhaseEnd> {
-}
+export type PhaseEvent = IPhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>
 
-export interface PhaseStartEvent extends IPhaseEvent<EventType.PhaseStart> {
-}
+export type PhaseStartEvent = IPhaseEvent<EventType.PhaseStart>
 
-export interface PhaseEndEvent extends IPhaseEvent<EventType.PhaseEnd> {
-}
+export type PhaseEndEvent = IPhaseEvent<EventType.PhaseEnd>
 
 export interface Item {
   id: number;
@@ -592,7 +588,7 @@ export interface Item {
   itemLevel: number;
   bonusIDs?: number[];
   permanentEnchant?: number;
-  gems?: Array<Gem>;
+  gems?: Gem[];
 }
 
 export interface Gem {
@@ -642,8 +638,8 @@ export interface Conduit {
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   pin: string;
   sourceID: number;
-  gear: Array<Item>;
-  auras: Array<Buff>;
+  gear: Item[];
+  auras: Buff[];
   faction: number;
   specID: number;
   strength: number;
@@ -685,10 +681,10 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     slot: number;
     isMajor: false;
   }>;
-  heartOfAzeroth: Array<Trait>;
+  heartOfAzeroth: Trait[];
   covenant: Covenant, //TODO: Verify this is the structure in the combatlog
   soulbind: Soulbind, //TODO: Verify this is the structure in the combatlog
-  conduits: Array<Conduit>, //TODO: Verify this is the structure in the combatlog
+  conduits: Conduit[], //TODO: Verify this is the structure in the combatlog
 }
 
 const Events = {

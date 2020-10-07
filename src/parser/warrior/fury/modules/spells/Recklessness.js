@@ -26,7 +26,7 @@ class Recklessness extends Analyzer {
   onPlayerEnergize(event) {
     const resource = event.classResources && event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.RAGE.id);
 
-    if (!resource) return;
+    if (!resource) {return;}
 
     if (this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS.id)) {
       this.reckRageGen += event.resourceChange / 2;

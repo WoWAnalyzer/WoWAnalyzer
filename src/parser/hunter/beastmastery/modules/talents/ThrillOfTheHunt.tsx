@@ -20,7 +20,7 @@ import { CRIT_PER_THRILL_STACK, MAX_THRILL_STACKS } from 'parser/hunter/beastmas
 
 class ThrillOfTheHunt extends Analyzer {
 
-  thrillStacks: Array<Array<number>> = [];
+  thrillStacks: number[][] = [];
   lastThrillStack = 0;
   lastThrillUpdate = this.owner.fight.start_time;
 

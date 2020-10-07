@@ -7,6 +7,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DeathEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import Panel from 'interface/others/Panel';
 import BaseChart, { formatTime } from 'interface/others/BaseChart';
+
 import { AddStaggerEvent, RemoveStaggerEvent, StaggerEventType } from '../core/StaggerFabricator';
 
 import StaggerFabricator from '../core/StaggerFabricator';

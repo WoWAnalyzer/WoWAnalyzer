@@ -10,6 +10,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+
 import HotTrackerMW from '../core/HotTrackerMW';
 
 const debug = false;

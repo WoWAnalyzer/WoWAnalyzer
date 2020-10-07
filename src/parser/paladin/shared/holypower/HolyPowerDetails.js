@@ -8,6 +8,7 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 import Statistic from 'interface/statistics/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
+
 import HolyPowerTracker from './HolyPowerTracker';
 
 
@@ -35,12 +36,10 @@ class HolyPowerDetails extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(`You wasted ${formatNumber(this.holyPowerTracker.wasted)} Holy Power.`)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatNumber(this.holyPowerTracker.wasted)} Holy Power.`)
         .icon(holyPowerIcon)
         .actual(`${formatPercentage(this.wastedHolyPowerPercent)}% Holy Power wasted`)
-        .recommended(`Wasting <${formatPercentage(1 - recommended)}% is recommended`);
-    });
+        .recommended(`Wasting <${formatPercentage(1 - recommended)}% is recommended`));
   }
 
   statistic() {

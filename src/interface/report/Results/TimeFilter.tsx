@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Fight from 'parser/core/Fight';
+
 import TimeInput from './TimeInput';
 
 interface Props {
@@ -8,13 +9,11 @@ interface Props {
   applyFilter: (start: number, end: number) => void;
 }
 
-const generateBoundary = (fight: Fight) => {
-  return {
+const generateBoundary = (fight: Fight) => ({
     start: fight.offset_time,
     end: fight.end_time - fight.start_time + fight.offset_time,
     max: (fight.original_end_time || fight.end_time) - fight.start_time + fight.offset_time,
-  };
-};
+  });
 
 const TimeFilter = (props: Props) => {
   const [start, setStart] = useState<number>(0);
@@ -46,13 +45,9 @@ const TimeFilter = (props: Props) => {
     props.applyFilter(0, max);
   };
 
-  const invalidTimes = () => {
-    return end <= start || end < 0 || end > max || start < 0 || start > max;
-  };
+  const invalidTimes = () => end <= start || end < 0 || end > max || start < 0 || start > max;
 
-  const isReset = () => {
-    return props.fight.offset_time === 0 && props.fight.end_time === props.fight.original_end_time;
-  };
+  const isReset = () => props.fight.offset_time === 0 && props.fight.end_time === props.fight.original_end_time;
 
   const { isLoading } = props;
   return (

@@ -62,16 +62,14 @@ class SteadyFocus extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your uptime on the buff from <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> could be better. When using this talent you should always try and couple your <SpellLink id={SPELLS.STEADY_SHOT.id} /> together to maintain this buff.
         </>,
       )
         .icon(SPELLS.STEADY_FOCUS_TALENT.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
 

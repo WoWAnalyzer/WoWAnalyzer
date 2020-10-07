@@ -41,8 +41,7 @@ class Hailstorm extends Analyzer {
 
   suggestions(when: When) {
     when(this.frostbrandUptimeThresholds).addSuggestion(
-      (suggest, actual, recommended) => {
-        return suggest(
+      (suggest, actual, recommended) => suggest(
           <Trans>
             Try to make sure the Frostbrand is always up, when it drops you should refresh it as soon as possible
           </Trans>,
@@ -57,8 +56,7 @@ class Hailstorm extends Analyzer {
             <Trans>
               {formatPercentage(recommended, 0)}% is recommended
             </Trans>,
-          );
-      },
+          ),
     );
   }
 

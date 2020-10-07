@@ -3,7 +3,7 @@ export const SELECTED_PLAYER_PET = 2;
 const VALID_BY_FLAGS = SELECTED_PLAYER | SELECTED_PLAYER_PET;
 
 export type SpellInfo = { id: number };
-export type SpellFilter = SpellInfo | Array<SpellInfo>;
+export type SpellFilter = SpellInfo | SpellInfo[];
 
 class EventFilter<T extends string> {
   eventType: T;

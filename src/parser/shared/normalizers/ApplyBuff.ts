@@ -10,15 +10,15 @@ const debug = false;
  */
 class ApplyBuff extends EventsNormalizer {
   // We need to track `combatantinfo` events this way since they aren't included in the `events` passed to `normalize` due to technical reasons (it's a different API call). We still need `combatantinfo` for all players, so cache it manually.
-  _combatantInfoEvents: Array<CombatantInfoEvent> | undefined = [];
+  _combatantInfoEvents: CombatantInfoEvent[] | undefined = [];
   constructor(options: any) {
     super(options);
     this._combatantInfoEvents = this.owner.combatantInfoEvents;
   }
 
-  _buffsAppliedByPlayerId: {[playerid: number]: Array<number>} = {};
+  _buffsAppliedByPlayerId: {[playerid: number]: number[]} = {};
 
-  normalize(events: Array<AnyEvent>) {
+  normalize(events: AnyEvent[]) {
     const firstEventIndex = this.getFightStartIndex(events);
     const firstStartTimestamp = this.owner.fight.start_time;
     const playersById = this.owner.players.reduce((obj: {[id: number]: any}, player: any) => {

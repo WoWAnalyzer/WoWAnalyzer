@@ -173,16 +173,14 @@ class HuntersMark extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your uptime on the debuff from <SpellLink id={SPELLS.HUNTERS_MARK.id} /> could be better. You should try and keep <SpellLink id={SPELLS.HUNTERS_MARK.id} /> up on a mob that you're actively hitting as much as possible.
         </>,
       )
         .icon(SPELLS.HUNTERS_MARK.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
 

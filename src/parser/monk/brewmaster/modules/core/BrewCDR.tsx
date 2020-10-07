@@ -6,6 +6,7 @@ import Events, { EventType, ChangeHasteEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
 import Abilities from '../Abilities';
 import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';

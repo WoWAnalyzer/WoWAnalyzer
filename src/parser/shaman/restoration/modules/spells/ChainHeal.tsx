@@ -41,7 +41,7 @@ class ChainHeal extends Analyzer {
   protected combatants!: Combatants;
 
   buffer: Array<HealEvent | CastEvent> = [];
-  chainHealHistory: Array<ChainHealInfo> = [];
+  chainHealHistory: ChainHealInfo[] = [];
   castIndex = 0;
   chainHealTimestamp = 0;
   maxTargets = 4;
@@ -99,13 +99,11 @@ class ChainHeal extends Analyzer {
       return;
     }
     when(suggestedThreshold.actual).isLessThan(suggestedThreshold.isLessThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {this.maxTargets} potential targets.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {this.maxTargets} potential targets.</span>)
           .icon(SPELLS.CHAIN_HEAL.icon)
           .actual(`${suggestedThreshold.actual.toFixed(2)} average targets healed`)
           .recommended(`${suggestedThreshold.isLessThan.minor} average targets healed`)
-          .regular(suggestedThreshold.isLessThan.average).major(suggestedThreshold.isLessThan.major);
-      });
+          .regular(suggestedThreshold.isLessThan.average).major(suggestedThreshold.isLessThan.major));
   }
 
   get avgHits() {

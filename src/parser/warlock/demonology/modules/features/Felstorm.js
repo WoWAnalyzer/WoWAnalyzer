@@ -59,12 +59,10 @@ class Felstorm extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You should use your Felguard's <SpellLink id={SPELLS.FELSTORM_BUFF.id} /> more often, preferably on cooldown.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You should use your Felguard's <SpellLink id={SPELLS.FELSTORM_BUFF.id} /> more often, preferably on cooldown.</>)
           .icon(SPELLS.FELSTORM_BUFF.icon)
           .actual(`${this.mainPetFelstormCount} out of ${this.maxCasts} (${formatPercentage(actual)} %) Felstorm casts.`)
-          .recommended(`> ${formatPercentage(recommended)} % is recommended`);
-      });
+          .recommended(`> ${formatPercentage(recommended)} % is recommended`));
   }
 }
 

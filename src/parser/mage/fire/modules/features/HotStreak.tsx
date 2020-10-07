@@ -8,6 +8,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+
 import HotStreakPreCasts from './HotStreakPreCasts';
 import { PROC_BUFFER } from '../../constants';
 
@@ -79,12 +80,10 @@ class HotStreak extends Analyzer {
 
   suggestions(when: When) {
     when(this.hotStreakUtilizationThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You allowed {formatPercentage(this.expiredProcsPercent)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You allowed {formatPercentage(this.expiredProcsPercent)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</>)
           .icon(SPELLS.HOT_STREAK.icon)
           .actual(`${formatPercentage(this.hotStreakUtil)}% expired`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

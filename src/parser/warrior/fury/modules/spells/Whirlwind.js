@@ -9,6 +9,7 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SpellLink from 'common/SpellLink';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+
 import RageTracker from '../core/RageTracker';
 
 class Whirlwind extends Analyzer {
@@ -142,12 +143,10 @@ class Whirlwind extends Analyzer {
   }
 
   suggestions(when){
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> poorly. Try to only use it if your other abilities are on cooldown.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> poorly. Try to only use it if your other abilities are on cooldown.</>)
         .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of bad Whirlwind casts`)
-        .recommended(`${formatPercentage(recommended)}+% is recommended`);
-    });
+        .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 
   

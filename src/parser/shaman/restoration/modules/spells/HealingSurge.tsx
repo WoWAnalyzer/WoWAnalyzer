@@ -38,13 +38,11 @@ class HealingSurge extends Analyzer {
   suggestions(when: When) {
     const suggestedThreshold = this.suggestedThreshold;
     when(suggestedThreshold.actual).isGreaterThan(suggestedThreshold.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Casting <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Casting <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary.</span>)
           .icon(SPELLS.HEALING_SURGE_RESTORATION.icon)
           .actual(`${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Surges`)
           .recommended(`${formatPercentage(suggestedThreshold.isGreaterThan.minor)}% of unbuffed Healing Surges`)
-          .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major);
-      });
+          .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major));
   }
 
 }
