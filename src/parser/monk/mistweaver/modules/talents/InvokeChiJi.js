@@ -11,7 +11,6 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import SpellLink from 'common/SpellLink';
 import ItemManaGained from 'interface/ItemManaGained';
 
-const MANA_REDUCED_PER_STACK = .33;
 const MAX_STACKS = 3;
 
 /** 
@@ -30,9 +29,8 @@ class InvokeChiJi extends Analyzer {
   wastedStacks = 0;
   chijiActive = false;
   freeCasts = 0;
-  manaSaved = 0;
-  hasInnervate = false;
-  hasManaTea = false;
+  missedGlobals = 0;
+  timeStamp = 0;
 
   constructor(...args) {
     super(...args);
@@ -58,8 +56,9 @@ class InvokeChiJi extends Analyzer {
   // end
 
   //stackbreakown management
-  handleChijiStart() {
+  handleChijiStart(event) {
     this.chijiActive = true;
+    this.timeStamp = event.timeStamp;
   }
 
   handleChijiEnd() {
@@ -75,23 +74,10 @@ class InvokeChiJi extends Analyzer {
   }
 
   handleEnvelopCast(event) {
-      //account for mana cost reductions
-      let manaCost = event.rawResourceCost ? event.rawResourceCost[0] : 0;
-      this.hasInnervate = (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id));
-      this.hasManaTea = (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id));
-
-      if(this.hasInnervate) {
-          manaCost = 0;
-      } else if(this.hasManaTea) {
-          manaCost /= 2;
-      }
-
       if(this.chijiActive && this.selectedCombatant.hasBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id)) {
         if (this.chijiStackCount === MAX_STACKS) {
-          this.manaSaved += manaCost;
           this.freeCasts += 1;
         } else if (this.chijiStackCount < MAX_STACKS) {
-          this.manaSaved += manaCost * this.chijiStackCount * MANA_REDUCED_PER_STACK;
           this.castsBelowMaxStacks += 1;
         }
       this.chijiStackCount = 0;
@@ -117,7 +103,6 @@ class InvokeChiJi extends Analyzer {
                     <li>{formatNumber(this.freeCasts)} free Enveloping Mist cast(s).</li>
                     <li>{formatNumber(this.castsBelowMaxStacks)} Enveloping Mist cast(s) below max ({MAX_STACKS}) Chi-Ji stacks.</li>
                     <li>{formatNumber(this.wastedStacks)} stack(s) wasted from overcapping Chi-Ji stacks.</li>
-                    <li>{formatThousands(this.manaSaved)} mana saved from consuming Chi-Ji stacks with Enveloping Mist.</li>
                     </ul>
             </Trans>
           }
@@ -125,7 +110,7 @@ class InvokeChiJi extends Analyzer {
           <div className="pad">
             <label><SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} /></label>
             <div className="value"><ItemHealingDone amount={this.gustHealing + this.envelopHealing} /></div>
-            <div className="value"><ItemManaGained amount={this.manaSaved} /></div>
+            <div className="value">{this.missedGlobals} missed GCDs</div>
           </div>
         </Statistic>
     );

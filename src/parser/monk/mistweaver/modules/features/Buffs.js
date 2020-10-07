@@ -24,10 +24,19 @@ class Buffs extends CoreBuffs {
         enabled: combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT),
         timelineHightlight: true,
       },
+      {
+        spellId: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id,
+        enabled: combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT),
+      },
       // Throughput Cooldown
       {
         spellId: SPELLS.MANA_TEA_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.MANA_TEA_TALENT),
+        timelineHightlight: true,
+      },
+      {
+        spellId: SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id,
+        enabled: !combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT),
         timelineHightlight: true,
       },
 
