@@ -222,6 +222,7 @@ const spells: SpellList<MonkSpell> = {
     name: 'Invoke Chi-Ji, the Red Crane',
     icon: 'monk_stance_redcrane',
     buffDur: 20000,
+    maxStacks: 3,
   },
   // Mastery
   GUSTS_OF_MISTS: {

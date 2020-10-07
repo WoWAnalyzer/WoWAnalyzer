@@ -10,8 +10,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import SpellLink from 'common/SpellLink';
 
-const MAX_STACKS = 3;
-
 /** 
  * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick generate stacks of Invoke Chi-Ji, the Red Crane, which reduce the cast time and mana 
  * cost of Enveloping Mist by 33% per stack, up to 3 stacks.
@@ -86,7 +84,7 @@ class InvokeChiJi extends Analyzer {
   
   //stackbreakown management
   handleApplyChijiStack() {
-      if (this.chijiStackCount === MAX_STACKS) {
+      if (this.chijiStackCount === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.maxStacks) {
           this.wastedStacks += 1;
       } else {
           this.chijiStackCount += 1;
@@ -96,9 +94,9 @@ class InvokeChiJi extends Analyzer {
   handleEnvelopCast(event: CastEvent) {
     //in some cases the last envelop is cast after chiji has expired but the buff can still be consumed
       if(this.chijiActive || this.selectedCombatant.hasBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id)) {
-        if (this.chijiStackCount === MAX_STACKS) {
+        if (this.chijiStackCount === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.maxStacks) {
           this.freeCasts += 1;
-        } else if (this.chijiStackCount < MAX_STACKS) {
+        } else if (this.chijiStackCount < SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.maxStacks) {
           this.castsBelowMaxStacks += 1;
         }
       this.chijiStackCount = 0;
@@ -121,7 +119,7 @@ class InvokeChiJi extends Analyzer {
                   Stack Breakdown:
                     <ul>
                     <li>{formatNumber(this.freeCasts)} free Enveloping Mist cast(s).</li>
-                    <li>{formatNumber(this.castsBelowMaxStacks)} Enveloping Mist cast(s) below max ({MAX_STACKS}) Chi-Ji stacks.</li>
+                    <li>{formatNumber(this.castsBelowMaxStacks)} Enveloping Mist cast(s) below max ({SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.maxStacks}) Chi-Ji stacks.</li>
                     <li>{formatNumber(this.wastedStacks)} stack(s) wasted from overcapping Chi-Ji stacks.</li>
                     </ul>
                   Activity:
