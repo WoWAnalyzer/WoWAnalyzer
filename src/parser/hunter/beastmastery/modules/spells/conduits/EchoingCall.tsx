@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -20,7 +20,7 @@ class EchoingCall extends Analyzer {
   conduitRank: number = 0;
   procChances: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ECHOING_CALL_CONDUIT.id);
     if (!this.conduitRank) {

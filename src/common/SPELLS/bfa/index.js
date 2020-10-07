@@ -1,4 +1,5 @@
 import safeMerge from 'common/safeMerge';
+
 import Dungeons from './dungeons';
 import Raids from './raids';
 import AzeriteTraits from './azeritetraits';

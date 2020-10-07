@@ -4,6 +4,7 @@ import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
+
 import BaseHealerAzerite from './BaseHealerAzerite';
 
 const HEAL_WINDOW_MS = 100;
@@ -28,7 +29,7 @@ class SoothingWaters extends BaseHealerAzerite {
 
   constructor(...args) {
     super(...args);
-    this.active = this.hasTrait;
+    this.active = Boolean(this.hasTrait);
     if (!this.active) {
       return;
     }

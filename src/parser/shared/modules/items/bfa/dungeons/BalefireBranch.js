@@ -66,7 +66,7 @@ class BalefireBranch extends Analyzer {
   constructor(...args) {
     super(...args);
     this._item = this.selectedCombatant.getTrinket(ITEMS.BALEFIRE_BRANCH.id);
-    this.active = !!this._item;
+    this.active = Boolean(this._item);
 
     if (this.active) {
       const itemLevel = this._item.itemLevel;

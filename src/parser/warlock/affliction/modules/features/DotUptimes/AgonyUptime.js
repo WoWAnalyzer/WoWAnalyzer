@@ -39,12 +39,10 @@ class AgonyUptime extends Analyzer {
       text = <>Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of Soul Shards. Try to pay more attention to your Agony on the boss, perhaps use some debuff tracker.</>;
     }
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(text)
+      .addSuggestion((suggest, actual, recommended) => suggest(text)
           .icon(SPELLS.AGONY.icon)
           .actual(`${formatPercentage(actual)}% Agony uptime`)
-          .recommended(`> ${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {

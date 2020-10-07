@@ -81,13 +81,13 @@ class SoothingMist extends Analyzer {
     this.soomInProgress = false;
     this.checkChannelTiming();
     this.castsInSoom = 0;
-    
+
   }
 
   checkChannelTiming() {
     this.totalSoomCasts += 1;
     let duration = this.endStamp - this.startStamp;
-    
+
     if (duration < this.startGCD) {
       return;
     }
@@ -149,26 +149,22 @@ class SoothingMist extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest) => {
-        return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest) => suggest(
           <>
             You are allowing <SpellLink id={SPELLS.SOOTHING_MIST.id} /> to channel for an extended period of time. <SpellLink id={SPELLS.SOOTHING_MIST.id} /> does little healing, so your time is better spent DPS'ing throug the use of <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
           </>,
         )
           .icon(SPELLS.SOOTHING_MIST.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
-      });
+          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
 
-    when(this.suggestionThresholdsCasting).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholdsCasting).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You were channeling <SpellLink id={SPELLS.SOOTHING_MIST.id} /> without casting spells during it. Replace this channel time with damage abilities like <SpellLink id={SPELLS.RISING_SUN_KICK.id} />.
         </>,
       )
         .icon(SPELLS.SOOTHING_MIST.icon)
         .actual(`${formatPercentage(this.badSooms / this.totalSoomCasts)} % of Soothing Mist casts with max spells casted`)
-        .recommended(`${recommended} is recommended`);
-    });
+        .recommended(`${recommended} is recommended`));
   }
 }
 

@@ -36,13 +36,11 @@ class DivineHymn extends Analyzer {
     const missedHymnTicks = (this.casts * 5) - this.ticks;
 
     when(missedHymnTicks).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('You wasted Divine Hymn ticks. Try to avoid clipping the end of Divine Hymn as well as positioning such that you will not have to move during its duration. ')
+      .addSuggestion((suggest, actual, recommended) => suggest('You wasted Divine Hymn ticks. Try to avoid clipping the end of Divine Hymn as well as positioning such that you will not have to move during its duration. ')
           .icon('spell_holy_divinehymn')
           .actual(`${actual} missed Hymn ticks`)
           .recommended('0 is recommended')
-          .regular(recommended).major(recommended);
-      });
+          .regular(recommended).major(recommended));
   }
 }
 

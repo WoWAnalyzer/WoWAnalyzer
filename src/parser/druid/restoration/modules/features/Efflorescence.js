@@ -63,12 +63,10 @@ class Efflorescence extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime can be improved.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime can be improved.</span>)
           .icon(SPELLS.EFFLORESCENCE_CAST.icon)
           .actual(`${formatPercentage(this.uptimePercent)}% uptime`)
-          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);
-      });
+          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
 
     // TODO suggestion for early refreshes
   }

@@ -38,12 +38,10 @@ class SoulShardDetails extends Analyzer {
   suggestions(when) {
     const fragmentsWasted = this.soulShardTracker.wasted;
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
+      .addSuggestion((suggest, actual, recommended) => suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
           .icon(SPELLS.SOUL_SHARDS.icon)
           .actual(`${fragmentsWasted} Soul Shard Fragments wasted (${actual.toFixed(2)} per minute)`)
-          .recommended(`< ${recommended} Soul Shard Fragments per minute wasted are recommended`);
-      });
+          .recommended(`< ${recommended} Soul Shard Fragments per minute wasted are recommended`));
   }
 
   statistic() {

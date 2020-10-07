@@ -10,7 +10,7 @@ import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TY
 const ReportHistory = props => {
   const { reportHistory } = props;
 
-  const now = (+new Date()) / 1000;
+  const now = (Number(new Date())) / 1000;
 
   return (
     <ul className="list selection" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>

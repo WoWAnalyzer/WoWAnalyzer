@@ -229,8 +229,7 @@ class Schism extends Analyzer {
         )
           .icon(SPELLS.SCHISM_TALENT.icon)
           .actual(`You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`)
-          .recommended(`${recommended} is recommended`);
-      },
+          .recommended(`${recommended} is recommended`),
     );
   }
 }

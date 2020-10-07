@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+
 import FlametongueRefresh from './FlametongueRefresh';
 
 describe('Flametongue Refresh module', () => {

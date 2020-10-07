@@ -44,10 +44,10 @@ class HotTracker extends Analyzer {
     if(!this.hotInfo){
       this.active = false;
     }
-    
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(this.hotList), this.hotApplied); 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this.hotList), this.hotHeal); 
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(this.hotList), this.hotReapplied); 
+
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(this.hotList), this.hotApplied);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this.hotList), this.hotHeal);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(this.hotList), this.hotReapplied);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(this.hotList), this.hotRemoved);
   }
 
@@ -133,10 +133,10 @@ class HotTracker extends Analyzer {
       att.healing += healing;
     });
     hot.boosts.forEach(att => {
-      att.healing += calculateEffectiveHealing(event, att.boost); 
+      att.healing += calculateEffectiveHealing(event, att.boost);
     });
 
-    if(event.hitType === HIT_TYPES.CRIT && this.hotInfo[spellId].effectOnCrit){//if the heal crits and it does something fancy on crits do that 
+    if(event.hitType === HIT_TYPES.CRIT && this.hotInfo[spellId].effectOnCrit){//if the heal crits and it does something fancy on crits do that
       hot.effectOnCrit(event);
     }
     // extensions handled when HoT falls, using ticks list
@@ -216,7 +216,7 @@ class HotTracker extends Analyzer {
    */
   addAttribution(attribution, targetId, spellId) {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
-      console.warn(`Tried to add attribution ${attribution.name} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
+      debug && console.warn(`Tried to add attribution ${attribution.name} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
       return;
     }
     attribution.procs += 1;
@@ -237,7 +237,7 @@ class HotTracker extends Analyzer {
    */
   addExtension(attribution, amount, targetId, spellId, timestamp, tickClamps = true, pandemicClamps = false) {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
-      console.warn(`Tried to add extension ${attribution.name || 'NO-ATT'} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
+      debug && console.warn(`Tried to add extension ${attribution.name || 'NO-ATT'} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
       return;
     }
 
@@ -412,10 +412,10 @@ class HotTracker extends Analyzer {
 
     if ([EventType.RemoveBuff, EventType.RefreshBuff, EventType.Heal].includes(event.type) &&
       (!this.hots[targetId] || !this.hots[targetId][spellId])) {
-      console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of that HoT being added...`);
+      debug && console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of that HoT being added...`);
       return false;
     } else if (event.type === EventType.ApplyBuff && this.hots[targetId] && this.hots[targetId][spellId]) {
-      console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that HoT is recorded as already added...`);
+      debug && console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that HoT is recorded as already added...`);
       return false;
     }
 
@@ -427,7 +427,7 @@ class HotTracker extends Analyzer {
    *    duration: xxxx,                 //base duration
    *    tickPeriod: xxxx,               //rate at which it heals
    *    effectOnCrit: function,         //if anything special happens on crit
-   *    maxDuration: function,          //how to caculate max non-pandmic duration (return the max duration) 
+   *    maxDuration: function,          //how to caculate max non-pandmic duration (return the max duration)
    *    bouncy: boolean,                //if a hot will bounce to another target on any event
    *    durationConditions: functions,  //function that will fire if the duration of the hot depend on event info
    *    id: SPELLS.NAME.id,             //store again for dynamic listeners

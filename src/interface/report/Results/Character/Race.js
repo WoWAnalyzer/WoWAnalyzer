@@ -5,8 +5,7 @@ const Race = (
   {
     race,
   },
-) => {
-  return (
+) => (
     <>
       <div className="row">
         <div className="col-md-12">
@@ -22,7 +21,6 @@ const Race = (
       </div>
     </>
   );
-};
 
 Race.propTypes = {
   race: PropTypes.any.isRequired,

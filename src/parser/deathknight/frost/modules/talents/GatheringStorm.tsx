@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, DamageEvent, RemoveBuffEvent, CastEvent } from 'parser/core/Events';
 
@@ -25,7 +25,7 @@ class GatheringStorm extends Analyzer {
   currentStacks: number = 0;
   extendedDuration: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GATHERING_STORM_TALENT.id);
     if (!this.active) {

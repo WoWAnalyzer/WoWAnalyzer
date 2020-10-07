@@ -7,7 +7,7 @@ import CooldownOverview from 'interface/others/CooldownOverview';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import Events, { Event, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent, SummonEvent, DeathEvent } from 'parser/core/Events';
+import Events, { AnyEvent, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent, SummonEvent, DeathEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 
 const debug = false;
@@ -41,7 +41,7 @@ export type CooldownSpell = {
 export type TrackedCooldown = CooldownSpell & {
   start: number,
   end: number | null,
-  events: Array<Event<any>>,
+  events: AnyEvent[],
 };
 
 class CooldownThroughputTracker extends Analyzer {
@@ -50,7 +50,7 @@ class CooldownThroughputTracker extends Analyzer {
   };
   protected eventHistory!: EventHistory;
 
-  static cooldownSpells: Array<CooldownSpell> = [
+  static cooldownSpells: CooldownSpell[] = [
     {
       spell: SPELLS.INNERVATE,
       summary: [
@@ -67,8 +67,8 @@ class CooldownThroughputTracker extends Analyzer {
     ...CASTS_THAT_ARENT_CASTS,
   ];
 
-  pastCooldowns: Array<TrackedCooldown> = [];
-  activeCooldowns: Array<TrackedCooldown> = [];
+  pastCooldowns: TrackedCooldown[] = [];
+  activeCooldowns: TrackedCooldown[] = [];
 
   startCooldown(event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent) {
     const spellId = event.ability.guid;
@@ -83,7 +83,7 @@ class CooldownThroughputTracker extends Analyzer {
   }
 
   addCooldown(cooldownSpell: CooldownSpell, timestamp: number): TrackedCooldown {
-    let events: Array<Event<any>> = [];
+    let events: AnyEvent[] = [];
     let start = timestamp;
     const startBufferMS = cooldownSpell.startBufferMS;
     if (startBufferMS || cooldownSpell.startBufferEvents) {

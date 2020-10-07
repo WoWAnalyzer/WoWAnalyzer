@@ -65,13 +65,11 @@ class GalacticGuardian extends Analyzer {
   suggestions(when) {
     const unusedGGProcs = 1 - (this.consumedGGProc / this.GGProcsTotal);
     when(unusedGGProcs).isGreaterThan(0.3)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You wasted {formatPercentage(unusedGGProcs)}% of your <SpellLink id={SPELLS.GALACTIC_GUARDIAN.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(unusedGGProcs)}% of your <SpellLink id={SPELLS.GALACTIC_GUARDIAN.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
           .icon(SPELLS.GALACTIC_GUARDIAN.icon)
           .actual(`${formatPercentage(unusedGGProcs)}% unused`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(recommended + 0.15).major(recommended + 0.3);
-      });
+          .regular(recommended + 0.15).major(recommended + 0.3));
   }
 
   statistic() {

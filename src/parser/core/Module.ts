@@ -4,7 +4,7 @@ import CombatLogParser from './CombatLogParser';
 import Combatant from './Combatant';
 
 export interface Options {
-  [prop: string]: any;
+  [prop: string]: unknown;
   owner: CombatLogParser;
   priority: number;
 }
@@ -37,6 +37,7 @@ class Module {
     // properties.
     // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
     Object.keys(others).forEach(key => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this[key] = others[key];
     });
@@ -48,16 +49,16 @@ class Module {
     );
     return [fightDuration, `(module: ${this.constructor.name})`];
   }
-  debug(...args: any[]) {
+  debug(...args: unknown[]) {
     console.debug(...this.consoleMeta, ...args);
   }
-  log(...args: any[]) {
+  log(...args: unknown[]) {
     console.log(...this.consoleMeta, ...args);
   }
-  warn(...args: any[]) {
+  warn(...args: unknown[]) {
     console.warn(...this.consoleMeta, ...args);
   }
-  error(...args: any[]) {
+  error(...args: unknown[]) {
     console.error(...this.consoleMeta, ...args);
   }
 }

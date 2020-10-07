@@ -167,12 +167,10 @@ class TreeOfLife extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</>)
           .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
           .actual(`${formatPercentage(actual)}% healing`)
-          .recommended(`>${formatPercentage(recommended, 0)}% is recommended`);
-      });
+          .recommended(`>${formatPercentage(recommended, 0)}% is recommended`));
   }
 
   statistic() {

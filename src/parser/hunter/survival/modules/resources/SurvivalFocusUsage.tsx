@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 
 class SurvivalFocusUsage extends SharedHunterFocusUsage {
 
-  static listOfResourceSpenders: { id: number, name: string, icon: string }[] = [
+  static listOfResourceSpenders: Array<{ id: number, name: string, icon: string }> = [
     ...LIST_OF_FOCUS_SPENDERS_SV,
   ];
 

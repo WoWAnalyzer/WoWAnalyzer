@@ -19,7 +19,7 @@ const PRIEST_WHITELIST = Object.entries({
   ...PRIEST_TALENTS,
 }).map(ability => ability[1].id);
 
-class grace extends Analyzer {
+class Grace extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     statTracker: StatTracker,
@@ -166,4 +166,4 @@ class grace extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
-export default grace;
+export default Grace;

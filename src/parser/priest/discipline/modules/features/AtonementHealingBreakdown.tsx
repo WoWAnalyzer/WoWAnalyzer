@@ -91,7 +91,7 @@ class AtonementHealingBreakdown extends React.Component<Props, State> {
                   }
 
                   return (
-                    <tr>
+                    <tr key={index}>
                       <td style={{ width: '30%', paddingLeft: 50 }}>
                         <SpellLink id={ability.guid} icon={false}>
                           <Icon icon={ability.abilityIcon} />{' '}

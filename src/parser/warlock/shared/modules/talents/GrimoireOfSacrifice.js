@@ -39,12 +39,10 @@ class GrimoireOfSacrifice extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your uptime on <SpellLink id={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id} /> is too low. If you picked this talent, you should always have your pet sacrificed. If you died or summoned your pet, make sure to sacrifice it again to gain this buff.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your uptime on <SpellLink id={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id} /> is too low. If you picked this talent, you should always have your pet sacrificed. If you died or summoned your pet, make sure to sacrifice it again to gain this buff.</>)
           .icon(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.icon)
           .actual(`${formatPercentage(actual)} % Grimoire of Sacrifice uptime.`)
-          .recommended(`>= ${formatPercentage(recommended)} % is recommended`);
-      });
+          .recommended(`>= ${formatPercentage(recommended)} % is recommended`));
   }
 
   statistic() {

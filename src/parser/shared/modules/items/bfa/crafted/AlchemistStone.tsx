@@ -12,7 +12,7 @@ import PrimaryStatIcon from 'interface/icons/PrimaryStat';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Events, { HealEvent, EnergizeEvent, Item } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
 const HEAL_SPELLS = [
@@ -41,21 +41,24 @@ class AlchemistStone extends Analyzer {
   statAmount = 0;
   item: Item | undefined;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
-    this.item = this.selectedCombatant.getItem(ITEMS.PEERLESS_ALCHEMIST_STONE.id) ?? this.selectedCombatant.getItem(ITEMS.AWAKENED_ALCHEMIST_STONE.id) ?? this.selectedCombatant.getItem(ITEMS.UNBOUND_ALCHEMIST_STONE.id);
-    this.active = Boolean(this.item);
-    if (!this.active) {
+    this.item =
+      this.selectedCombatant.getItem(ITEMS.PEERLESS_ALCHEMIST_STONE.id) ??
+      this.selectedCombatant.getItem(ITEMS.AWAKENED_ALCHEMIST_STONE.id) ??
+      this.selectedCombatant.getItem(ITEMS.UNBOUND_ALCHEMIST_STONE.id);
+    if (!this.item) {
+      this.active = false;
       return;
     }
-    this.statAmount = calculatePrimaryStat(470, 2752, this.item!.itemLevel);
-    options.statTracker.add(SPELLS.ALCHEMISTS_STRENGTH, {
+    this.statAmount = calculatePrimaryStat(470, 2752, this.item.itemLevel);
+    (options.statTracker as StatTracker).add(SPELLS.ALCHEMISTS_STRENGTH, {
       strength: this.statAmount,
     });
-    options.statTracker.add(SPELLS.ALCHEMISTS_AGILITY, {
+    (options.statTracker as StatTracker).add(SPELLS.ALCHEMISTS_AGILITY, {
       agility: this.statAmount,
     });
-    options.statTracker.add(SPELLS.ALCHEMISTS_INTELLECT, {
+    (options.statTracker as StatTracker).add(SPELLS.ALCHEMISTS_INTELLECT, {
       intellect: this.statAmount,
     });
 
@@ -73,10 +76,12 @@ class AlchemistStone extends Analyzer {
 
   get averageMainstat() {
     return (
-      this.selectedCombatant.getBuffUptime(SPELLS.ALCHEMISTS_STRENGTH.id) +
-      this.selectedCombatant.getBuffUptime(SPELLS.ALCHEMISTS_AGILITY.id) +
-      this.selectedCombatant.getBuffUptime(SPELLS.ALCHEMISTS_INTELLECT.id)
-    ) / this.owner.fightDuration * this.statAmount;
+      ((this.selectedCombatant.getBuffUptime(SPELLS.ALCHEMISTS_STRENGTH.id) +
+        this.selectedCombatant.getBuffUptime(SPELLS.ALCHEMISTS_AGILITY.id) +
+        this.selectedCombatant.getBuffUptime(SPELLS.ALCHEMISTS_INTELLECT.id)) /
+        this.owner.fightDuration) *
+      this.statAmount
+    );
   }
 
   statistic() {
@@ -84,11 +89,16 @@ class AlchemistStone extends Analyzer {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
         <BoringItemValueText item={this.item!}>
-          <ItemHealingDone amount={this.healing} /><br />
-          {(this.manaGained > 0) && (
-            <><ItemManaGained amount={this.manaGained} /><br /></>
+          <ItemHealingDone amount={this.healing} />
+          <br />
+          {this.manaGained > 0 && (
+            <>
+              <ItemManaGained amount={this.manaGained} />
+              <br />
+            </>
           )}
-          <PrimaryStatIcon stat={primaryStat} /> {formatNumber(this.averageMainstat)} <small>average {primaryStat} gained</small>
+          <PrimaryStatIcon stat={primaryStat} /> {formatNumber(this.averageMainstat)}{' '}
+          <small>average {primaryStat} gained</small>
         </BoringItemValueText>
       </Statistic>
     );

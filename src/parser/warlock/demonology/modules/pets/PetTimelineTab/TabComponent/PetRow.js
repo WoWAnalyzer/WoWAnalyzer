@@ -15,7 +15,7 @@ const PetRow = props => {
         const barLeft = (pet.spawn - start) / 1000 * secondWidth;
         const maxWidth = totalWidth - barLeft; // don't expand beyond the container width
         const width = Math.min(maxWidth, ((pet.realDespawn || pet.expectedDespawn) - pet.spawn) / 1000 * secondWidth);
-        const isSummonAbilityKnown = !!SPELLS[pet.summonAbility];
+        const isSummonAbilityKnown = Boolean(SPELLS[pet.summonAbility]);
         const hasTooltip = pet.meta.tooltip !== '';
         return (
           <>

@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
@@ -12,7 +12,7 @@ class AngelicFeather extends Analyzer {
   angelicFeatherCasts = 0;
   angelicFeatherEffects = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id);
   }

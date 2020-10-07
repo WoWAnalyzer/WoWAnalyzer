@@ -30,6 +30,7 @@ export enum EventType {
   Instakill = 'instakill',
 
   // Fabricated:
+  Event = 'event', // everything
   FightEnd = 'fightend',
   GlobalCooldown = 'globalcooldown',
   BeginChannel = 'beginchannel',
@@ -50,6 +51,10 @@ export enum EventType {
   Dispel = 'dispel',
   Time = 'time',
   Test = 'test',
+
+  // Monk
+  AddStagger = 'addstagger',
+  RemoveStagger = 'removestagger',
 
   // Phases:
   PhaseStart = 'phasestart',
@@ -95,7 +100,10 @@ type MappedEventTypes = {
 
   // Time Filtering:
   [EventType.FilterCooldownInfo]: FilterCooldownInfoEvent,
+  [EventType.FilterBuffInfo]: FilterBuffInfoEvent,
 }
+
+export type AnyEvent<ET extends keyof MappedEventTypes = keyof MappedEventTypes> = MappedEventTypes[ET];
 
 export interface Ability {
   name: string;
@@ -130,19 +138,19 @@ export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
 export type SourcedEvent<T extends string> = Event<T> & { sourceID: number };
 export type TargettedEvent<T extends string> = Event<T> & { targetID: number };
 
-export function HasAbility<T extends string>(event: Event<T>): event is AbilityEvent<T> {
+export function HasAbility<T extends EventType>(event: Event<T>): event is AbilityEvent<T> {
   return (event as AbilityEvent<T>).ability !== undefined;
 }
 
-export function HasSource<T extends string>(event: Event<T>): event is SourcedEvent<T> {
+export function HasSource<T extends EventType>(event: Event<T>): event is SourcedEvent<T> {
   return (event as SourcedEvent<T>).sourceID !== undefined;
 }
 
-export function HasTarget<T extends string>(event: Event<T>): event is TargettedEvent<T> {
+export function HasTarget<T extends EventType>(event: Event<T>): event is TargettedEvent<T> {
   return (event as TargettedEvent<T>).targetID !== undefined;
 }
 
-export type MappedEvent<T extends string> =
+export type MappedEvent<T extends EventType> =
   T extends keyof MappedEventTypes ? MappedEventTypes[T] : Event<T>;
 
 // TODO Eventually convert this back from string to EventType (once the edge cases of raw string filters are removed)
@@ -185,7 +193,7 @@ export interface EndChannelEvent extends Event<EventType.EndChannel> {
   beginChannel: BeginChannelEvent;
 }
 
-export interface ICastEvent<T extends string> extends Event<T> {
+export interface BaseCastEvent<T extends string> extends Event<T> {
   ability: Ability;
   absorb?: number;
   armor?: number;
@@ -225,10 +233,13 @@ export interface ICastEvent<T extends string> extends Event<T> {
   };
 }
 
-export interface CastEvent extends ICastEvent<EventType.Cast> {
+export type CastEvent = BaseCastEvent<EventType.Cast>
+
+export interface FilterCooldownInfoEvent extends BaseCastEvent<EventType.FilterCooldownInfo> {
+  trigger: EventType;
 }
 
-export interface FilterCooldownInfoEvent extends ICastEvent<EventType.FilterCooldownInfo> {
+export interface FilterBuffInfoEvent extends BuffEvent<EventType.FilterBuffInfo> {
   trigger: EventType;
 }
 
@@ -322,7 +333,7 @@ export interface BuffEvent<T extends string> extends Event<T> {
 }
 
 export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {
-  sourceID: number;
+  // confirmed that not all applybuff events contain a sourceID; e.g. wind rush from totem
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
   targetInstance?: number;
@@ -564,19 +575,16 @@ export interface DispelEvent extends Event<EventType.Dispel>{
   targetIsFriendly: boolean;
 }
 
-export interface IPhaseEvent<T extends string> extends Event<T> {
+export interface BasePhaseEvent<T extends string> extends Event<T> {
   phase: PhaseConfig;
   __fabricated: true;
 }
 
-export interface PhaseEvent extends IPhaseEvent<EventType.PhaseStart | EventType.PhaseEnd> {
-}
+export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>
 
-export interface PhaseStartEvent extends IPhaseEvent<EventType.PhaseStart> {
-}
+export type PhaseStartEvent = BasePhaseEvent<EventType.PhaseStart>
 
-export interface PhaseEndEvent extends IPhaseEvent<EventType.PhaseEnd> {
-}
+export type PhaseEndEvent = BasePhaseEvent<EventType.PhaseEnd>
 
 export interface Item {
   id: number;
@@ -585,7 +593,7 @@ export interface Item {
   itemLevel: number;
   bonusIDs?: number[];
   permanentEnchant?: number;
-  gems?: Array<Gem>;
+  gems?: Gem[];
 }
 
 export interface Gem {
@@ -635,8 +643,8 @@ export interface Conduit {
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   pin: string;
   sourceID: number;
-  gear: Array<Item>;
-  auras: Array<Buff>;
+  gear: Item[];
+  auras: Buff[];
   faction: number;
   specID: number;
   strength: number;
@@ -678,10 +686,11 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     slot: number;
     isMajor: false;
   }>;
-  heartOfAzeroth: Array<Trait>;
+  heartOfAzeroth: Trait[];
   covenant: Covenant, //TODO: Verify this is the structure in the combatlog
   soulbind: Soulbind, //TODO: Verify this is the structure in the combatlog
-  conduits: Array<Conduit>, //TODO: Verify this is the structure in the combatlog
+  conduits: Conduit[], //TODO: Verify this is the structure in the combatlog
+  error?: any, //TODO: Verify, is this a bool? string?
 }
 
 const Events = {

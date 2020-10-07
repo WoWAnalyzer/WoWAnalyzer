@@ -75,13 +75,11 @@ class IronFur extends Analyzer {
   suggestions(when) {
 
     when(this.percentOfHitsMitigated).isLessThan(0.90)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You only had the <SpellLink id={SPELLS.IRONFUR.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have the Ironfur buff up to mitigate as much physical damage as possible.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>You only had the <SpellLink id={SPELLS.IRONFUR.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have the Ironfur buff up to mitigate as much physical damage as possible.</span>)
           .icon(SPELLS.IRONFUR.icon)
           .actual(`${formatPercentage(actual)}% was mitigated by Ironfur`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
-          .regular(recommended - 0.10).major(recommended - 0.2);
-      });
+          .regular(recommended - 0.10).major(recommended - 0.2));
   }
 
   statistic() {

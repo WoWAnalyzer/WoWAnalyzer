@@ -1,6 +1,7 @@
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SinsOfTheMany from 'parser/priest/discipline/modules/spells/SinsOfTheMany';
 import SPELLS from 'common/SPELLS';
+
 import { ATONEMENT_COEFFICIENT } from './constants';
 
 // 50% dmg increase passive
@@ -69,4 +70,3 @@ export const SmiteEstimation = (stats: StatTracker, sins: SinsOfTheMany) => {
       smiteHealing,
     };
   };
-};

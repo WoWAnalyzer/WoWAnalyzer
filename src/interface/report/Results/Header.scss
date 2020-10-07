@@ -4,7 +4,7 @@
   position: relative;
   z-index: 0;
   background: #0e0b0b;
-  min-height: 500px;
+  min-height: 600px;
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
@@ -38,13 +38,52 @@
     }
   }
 
+  .subnavigation {
+    flex: 0 0 auto;
+    margin-top: 85px;
+    padding: 15px;
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    opacity: 0.4;
+    transition: opacity 400ms ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    .phaseselector {
+      flex: 1 1 auto;
+    }
+
+    .timefilter {
+      flex: 1 1 auto;
+      text-align: right;
+
+      form div {
+        display: inline-block;
+      }
+
+      .time-input input {
+        width: auto;
+        display: inline-block;
+      }
+
+      .time-input input:last-child{
+        margin-right: 5px;
+      }
+
+      button.filter {
+        margin-right: 5px;
+      }
+    }
+  }
+
   .info {
     flex: 1 1 auto;
     min-height: 100%;
     display: flex;
     align-items: flex-end;
     flex-wrap: wrap;
-    padding-top: 100px; // does nothing for big screens, but for mobile it ensures the boss/player are below the nav
 
     > * {
       flex: 1 1 auto;
@@ -65,32 +104,6 @@
     }
     .boss {
       line-height: 1;
-    }
-    .timefilter {
-      font-weight: 600;
-      margin: 5px 5px 5px 0px;
-
-      form div {
-        display: inline-block;
-      }
-
-      .buttons{
-          margin-top: 5px;
-          margin-bottom: 5px;
-      }
-
-      .time-input input {
-        width: auto;
-        display: inline-block;
-      }
-
-      .time-input input:last-child{
-        margin-right: 5px;
-      }
-
-      button.filter {
-        margin-right: 5px;
-      }
     }
     .player {
       line-height: 1;

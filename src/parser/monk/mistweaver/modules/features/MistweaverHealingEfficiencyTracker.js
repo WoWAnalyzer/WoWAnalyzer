@@ -15,6 +15,7 @@ import SoothingMist from 'parser/monk/mistweaver/modules/spells/SoothingMist';
 import RenewingMist from 'parser/monk/mistweaver/modules/spells/RenewingMist';
 import Vivify from 'parser/monk/mistweaver/modules/spells/Vivify';
 import RefreshingJadeWind from 'parser/monk/mistweaver/modules/talents/RefreshingJadeWind';
+import ExpelHarm from 'parser/monk/mistweaver/modules/spells/ExpelHarm.js';
 
 
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
@@ -34,6 +35,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     renewingMist: RenewingMist,
     vivify: Vivify,
     refreshingJadeWind: RefreshingJadeWind,
+    expelHarm: ExpelHarm,
   };
 
   getCustomSpellStats(spellInfo, spellId) {
@@ -55,6 +57,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getYulonDetails(spellInfo);
     } else if (spellId === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
       spellInfo = this.getChijiDetails(spellInfo);
+    } else if (spellId === SPELLS.EXPEL_HARM.id) {
+      spellInfo = this.getExpelHarmDetails(spellInfo);
     }
 
     return spellInfo;
@@ -124,8 +128,12 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).overheal;
     return spellInfo;
   }
+  getExpelHarmDetails(spellInfo) {
+    spellInfo.healingDone = spellInfo.healingDone + this.expelHarm.gustsHealing + this.expelHarm.selfHealing + this.expelHarm.targetHealing;
+    spellInfo.overhealingDone = spellInfo.overhealingDone + this.expelHarm.selfOverheal + this.expelHarm.targetOverheal;
+    return spellInfo;
+  }
 
-  
 }
 
 export default MistweaverHealingEfficiencyTracker;

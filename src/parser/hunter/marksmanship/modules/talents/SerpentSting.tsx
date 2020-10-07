@@ -7,7 +7,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { SERPENT_STING_MM_BASE_DURATION, SERPENT_STING_MM_PANDEMIC } from 'parser/hunter/marksmanship/constants';
@@ -28,7 +28,7 @@ class SerpentSting extends Analyzer {
     enemies: Enemies,
   };
 
-  serpentStingTargets: { timestamp: number, serpentStingDuration: number }[] = [];
+  serpentStingTargets: Array<{ timestamp: number, serpentStingDuration: number }> = [];
   damage: number = 0;
   timesRefreshed: number = 0;
   nonPandemicRefresh: number = 0;
@@ -36,7 +36,7 @@ class SerpentSting extends Analyzer {
 
   protected enemies!: Enemies;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT), this.onCast);
@@ -120,24 +120,20 @@ class SerpentSting extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.nonPandemicThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.nonPandemicThreshold).addSuggestion((suggest, actual, recommended) => suggest(
         <>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_MM_PANDEMIC, 0)}% of the duration remaining.
         </>)
         .icon(SPELLS.SERPENT_STING_TALENT.icon)
         .actual(`You refreshed Serpent Sting ${actual} times when it wasn't in the pandemic window`)
-        .recommended(`${recommended} non-pandemic refreshes is recommended`);
-    });
+        .recommended(`${recommended} non-pandemic refreshes is recommended`));
 
-    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You should make sure to keep up <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> by using it within the pandemic windows to maximize it's damage potential.
         </>)
         .icon(SPELLS.SERPENT_STING_TALENT.icon)
         .actual(`You had an uptime of ${formatPercentage(actual, 0)}%`)
-        .recommended(`An uptime of >${formatPercentage(recommended, 0)}% is recommended`);
-    });
+        .recommended(`An uptime of >${formatPercentage(recommended, 0)}% is recommended`));
   }
 
   statistic() {

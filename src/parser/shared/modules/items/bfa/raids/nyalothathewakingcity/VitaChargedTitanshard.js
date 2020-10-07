@@ -22,7 +22,7 @@ class VitaChargedTitanshard extends Analyzer {
   constructor(...args) {
     super(...args);
     this._item = this.selectedCombatant.getTrinket(ITEMS.VITA_CHARGED_TITANSHARD.id);
-    this.active = !!this._item;
+    this.active = Boolean(this._item);
 
     if (this.active) {
       this.hasteRating = calculateSecondaryStatDefault(445, 1525, this._item.itemLevel);
