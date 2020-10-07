@@ -13,7 +13,7 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
-import { calcShredBonus, calcSwipeBonus, isAffectedByWildFleshrending } from '../azeritetraits/WildFleshrending';
+import { calcShredBonus, calcSwipeBonus, isAffectedByWildFleshrending } from "./WildFleshrending";
 import Abilities from '../Abilities.js';
 
 const debug = false;
