@@ -1,7 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import SPELLS from 'common/SPELLS';
-import { AnyEvent, ApplyBuffEvent, CastEvent, EventType } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 
 const BUFFS_TO_MOVE = [
   SPELLS.ATONEMENT_BUFF.id,
