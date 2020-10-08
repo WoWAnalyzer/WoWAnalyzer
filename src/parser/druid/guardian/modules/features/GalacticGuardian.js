@@ -5,6 +5,8 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const GG_DURATION = 10000;
 const debug = false;
@@ -67,7 +69,7 @@ class GalacticGuardian extends Analyzer {
     when(unusedGGProcs).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(unusedGGProcs)}% of your <SpellLink id={SPELLS.GALACTIC_GUARDIAN.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
           .icon(SPELLS.GALACTIC_GUARDIAN.icon)
-          .actual(`${formatPercentage(unusedGGProcs)}% unused`)
+          .actual(i18n._(t('druid.guardian.suggestions.galacticGuardian.unused')`${formatPercentage(unusedGGProcs)}% unused`))
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
           .regular(recommended + 0.15).major(recommended + 0.3));
   }

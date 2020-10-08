@@ -5,8 +5,14 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
+<<<<<<< HEAD
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 
+=======
+import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTracker';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+>>>>>>> 5facf9d54... druid internationalization changes
 import SpellEnergyCost from './SpellEnergyCost';
 
 const BASE_ENERGY_REGEN = 11;
@@ -83,8 +89,14 @@ class EnergyCapTracker extends RegenResourceCapTracker {
         </>,
       )
         .icon('spell_shadow_shadowworddominate')
+<<<<<<< HEAD
         .actual(`${formatPercentage(actual)}% regenerated energy lost per minute due to being capped.`)
         .recommended(`<${recommended}% is recommended.`));
+=======
+        .actual(i18n._(t('druid.feral.suggestions.energy.efficiency')`${formatPercentage(actual)}% regenerated energy lost per minute due to being capped.`))
+        .recommended(`<${recommended}% is recommended.`);
+    });
+>>>>>>> 5facf9d54... druid internationalization changes
   }
 
   statistic() {

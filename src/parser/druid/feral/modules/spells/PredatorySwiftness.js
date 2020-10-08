@@ -5,6 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
@@ -131,7 +133,7 @@ class PredatorySwiftness extends Analyzer {
         </>,
       )
         .icon(SPELLS.PREDATORY_SWIFTNESS.icon)
-        .actual(`${formatPercentage(actual)}% of Predatory Swiftness buffs wasted.`)
+        .actual(i18n._(t('druid.feral.suggestions.predatorySwiftness.wasted')`${formatPercentage(actual)}% of Predatory Swiftness buffs wasted.`))
         .recommended(`${recommended}% is recommended`));
   }
 

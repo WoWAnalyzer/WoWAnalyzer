@@ -3,7 +3,12 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+<<<<<<< HEAD
 
+=======
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+>>>>>>> 5facf9d54... druid internationalization changes
 import EnergyTracker from '../features/EnergyTracker';
 import Predator from '../talents/Predator';
 
@@ -44,7 +49,7 @@ class TigersFuryEnergy extends Analyzer {
         </>,
       )
         .icon(SPELLS.TIGERS_FURY.icon)
-        .actual(`${formatPercentage(actual)}% of generated energy wasted.`)
+        .actual(i18n._(t('druid.feral.suggestions.tigerFuryEnergy.energyWasted')`${formatPercentage(actual)}% of generated energy wasted.`))
         .recommended(`No waste is recommended`));
   }
 }
