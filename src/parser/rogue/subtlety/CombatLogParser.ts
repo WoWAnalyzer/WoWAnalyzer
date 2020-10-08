@@ -17,10 +17,7 @@ import StealthDamageTracker from '../shared/casttracker/StealthDamageTracker';
 import EnergyCapTracker from '../shared/resources/EnergyCapTracker';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
-import NightbladeDuringSymbols from './modules/core/NightbladeDuringSymbols';
-import NightbladeEarlyRefresh from './modules/core/NightbladeEarlyRefresh';
 import CastsInShadowDance from './modules/core/CastsInShadowDance';
-import NightbladeUptime from './modules/core/NightbladeUptime';
 import CastsInStealth from './modules/core/CastsInStealth';
 import ShadowBladesUptime from './modules/features/ShadowBladesUptime';
 import SymbolsOfDeathUptime from './modules/features/SymbolsOfDeathUptime';
@@ -29,7 +26,6 @@ import ComboPoints from './modules/core/ComboPoints';
 import Energy from './modules/core/Energy';
 import SymbolsDamageTracker from './modules/core/SymbolsDamageTracker';
 import DanceDamageTracker from './modules/core/DanceDamageTracker';
-import DarkShadowNightblade from './modules/talents/DarkShadow/DarkShadowNightblade';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
 
 import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
@@ -37,7 +33,11 @@ import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingRepr
 import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
 import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
 
-import AkaarisSoulFragment from './modules/spell/shadowlands/legendaries/AkaarisSoulFragment';
+import AkaarisSoulFragment from './modules/spells/shadowlands/legendaries/AkaarisSoulFragment';
+import TheRotten from './modules/spells/shadowlands/legendaries/TheRotten';
+
+import DeeperDaggers from '../shared/shadowlands/conduits/DeeperDaggers';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
@@ -70,15 +70,11 @@ class CombatLogParser extends CoreCombatLogParser {
     //Casts
     symbolsOfDeathUptime: SymbolsOfDeathUptime,
     shadowBladesUptime: ShadowBladesUptime,
-    nightbladeUptime: NightbladeUptime,
-    nightbladeDuringSymbols: NightbladeDuringSymbols,
-    nightbladeEarlyRefresh: NightbladeEarlyRefresh,
     castsInShadowDance: CastsInShadowDance,
     castsInStealth: CastsInStealth,
 
     //Talents
     darkShadowContribution: DarkShadowContribution,
-    darkShadowNightblade: DarkShadowNightblade,
 
     // Covenants
     serratedBoneSpike: SerratedBoneSpike,
@@ -88,6 +84,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries
     akaarisSoulFragment: AkaarisSoulFragment,
+    theRotten: TheRotten,
+
+    // Conduits
+    deeperDaggers: DeeperDaggers,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

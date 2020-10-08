@@ -20,7 +20,7 @@ class BladeFlurry extends Analyzer {
   }
 
   onFinishMove(event: CastEvent) {
-    if (getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id)) {
+    if (!getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id)) {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.BLADE_FLURRY.id)) {

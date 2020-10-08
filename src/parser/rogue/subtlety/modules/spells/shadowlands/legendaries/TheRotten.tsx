@@ -3,32 +3,32 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { EnergizeEvent } from 'parser/core/Events';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceIcon from 'common/ResourceIcon';
 
-class DashingScoundrel extends Analyzer {
+class TheRotten extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
 
-  critCount: number = 0;
-  comboPointsGained: number = 0;
-  comboPointsWasted: number = 0;
+  cpGained: number = 0;
+  cpWasted: number = 0;
   protected abilities!: Abilities;
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DASHING_SCOUNDREL.bonusID);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL), this.onEnergize);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.THE_ROTTEN.bonusID);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell([SPELLS.SHADOWSTRIKE, SPELLS.BACKSTAB, SPELLS.GLOOMBLADE_TALENT]), this.onDamage);
   }
 
-  onEnergize(event: EnergizeEvent) {
-    this.critCount += 1;
-    this.comboPointsGained += event.resourceChange;
-    this.comboPointsWasted += event.waste;
+  onDamage(event: EnergizeEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.SYMBOLS_OF_DEATH.id)) {
+      this.cpGained += event.resourceChange;
+      this.cpWasted += event.waste;
+    }
   }
 
   statistic() {
@@ -37,14 +37,13 @@ class DashingScoundrel extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
-            Dashing Scoundrel was responsible for {this.critCount} critical hits resulting in{' '}
-            {this.comboPointsGained + this.comboPointsWasted} bonus ComboPoints being earned.
+            The Rotten helped you gain {this.cpGained + this.cpWasted} extra Combo Points with {this.cpWasted} Combo Points being wasted.
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DASHING_SCOUNDREL}>
+        <BoringSpellValueText spell={SPELLS.THE_ROTTEN}>
           <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
-          {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
+          {this.cpGained}/{this.cpWasted + this.cpGained}
           <small> extra Combo Points gained.</small>
         </BoringSpellValueText>
       </Statistic>
@@ -52,4 +51,4 @@ class DashingScoundrel extends Analyzer {
   }
 }
 
-export default DashingScoundrel;
+export default TheRotten;
