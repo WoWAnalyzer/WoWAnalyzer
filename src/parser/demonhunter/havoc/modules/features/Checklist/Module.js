@@ -31,7 +31,6 @@ import DemonicAppetite from '../../talents/DemonicAppetite';
 import DemonBlades from '../../talents/DemonBlades';
 
 import Component from './Component';
-import FuriousGaze from '../../spells/azeritetraits/FuriousGaze';
 
 class Checklist extends BaseModule {
   static dependencies = {
@@ -50,7 +49,6 @@ class Checklist extends BaseModule {
     demonic: Demonic,
     felBarrage: FelBarrage,
     felEruption: FelEruption,
-    furiousGaze: FuriousGaze,
 
     // Maintain buffs/debuffs
     momentum: Momentum,
@@ -83,7 +81,6 @@ class Checklist extends BaseModule {
           demonicBadCasts: this.demonic.suggestionThresholds,
           felBarrageBadCasts: this.felBarrage.suggestionThresholds,
           felEruptionBadCasts: this.felEruption.suggestionThresholds,
-          furiousGazeBadCasts: this.furiousGaze.suggestionThresholds,
 
           // Maintain buffs/debuffs
           momentumBuffUptime: this.momentum.suggestionThresholds,

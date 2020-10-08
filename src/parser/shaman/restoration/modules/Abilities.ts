@@ -3,8 +3,6 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
-import { calculateCooldown } from '../../../shared/modules/spells/bfa/essences/VisionsOfPerfection';
-
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] { 
     const combatant = this.selectedCombatant;
@@ -179,7 +177,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_TIDE_TOTEM_CAST,
         buffSpellId: SPELLS.HEALING_TIDE_TOTEM_CAST.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 180) : 180,
+        cooldown: 180,
         gcd: {
           static: 1000, // totem GCD
         },

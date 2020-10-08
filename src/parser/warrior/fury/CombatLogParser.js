@@ -29,11 +29,6 @@ import Siegebreaker from './modules/talents/Siegebreaker';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 
-import ColdStealHotBlood from './modules/azerite/ColdSteelHotBlood';
-import RecklessFlurry from './modules/azerite/RecklessFlurry';
-import SimmeringRage from './modules/azerite/SimmeringRage';
-import UnbridledFerocity from './modules/azerite/UnbridledFerocity';
-
 import RageTracker from './modules/core/RageTracker';
 import RageDetails from './modules/core/RageDetails';
 import Buffs from './modules/features/Buffs';
@@ -74,11 +69,6 @@ class CombatLogParser extends CoreCombatLogParser {
     siegebreaker: Siegebreaker,
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
-
-    coldStealHotBlood: ColdStealHotBlood,
-    recklessFlurry: RecklessFlurry,
-    simmeringRage: SimmeringRage,
-    unbridledFerocity: UnbridledFerocity,
   };
 }
 

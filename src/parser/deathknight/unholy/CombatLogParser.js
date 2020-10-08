@@ -17,9 +17,6 @@ import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import RuneTracker from './modules/features/RuneTracker';
 import RuneDetails from '../shared/RuneDetails';
 
-//Azerite Traits
-import BoneSpikeGraveyard from '../shared/spells/azeritetraits/BoneSpikeGraveyard';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -42,9 +39,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //RuneTracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
-
-    //AzeriteTraits
-    boneSpikeGraveyard: BoneSpikeGraveyard,
   };
 }
 

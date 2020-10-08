@@ -41,12 +41,6 @@ import RapidDecomposition from './modules/talents/RapidDecomposition';
 import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
 import Consumption from './modules/talents/Consumption';
 
-// Azerite Traits
-import BonesOfTheDamned from './modules/spells/azeritetraits/BonesOfTheDamned';
-import BoneSpikeGraveyard from '../shared/spells/azeritetraits/BoneSpikeGraveyard';
-import EternalRuneWeapon from './modules/spells/azeritetraits/EternalRuneWeapon';
-import BloodyRuneblade from './modules/spells/azeritetraits/BloodyRuneblade';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -94,12 +88,6 @@ class CombatLogParser extends CoreCombatLogParser {
     willOfTheNecropolis: WillOfTheNecropolis,
     ossuary: Ossuary,
     consumption: Consumption,
-
-    // Azerite Traits
-    bonesOfTheDamned: BonesOfTheDamned,
-    boneSpikeGraveyard: BoneSpikeGraveyard,
-    eternalRuneWeapon: EternalRuneWeapon,
-    bloodyRuneblade: BloodyRuneblade,
   };
 }
 

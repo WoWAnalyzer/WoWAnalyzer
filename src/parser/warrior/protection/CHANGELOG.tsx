@@ -3,10 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { Abelito75, Dambroda } from 'CONTRIBUTORS';
+import { Abelito75, Dambroda, Sharrq } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 13), 'Removed BFA Azerite Traits.', [Sharrq]),
   change(date(2020, 9, 25),'Update spec to TypeScript.', Dambroda),
   change(date(2020, 1, 18),<>Included Lucid dream statistic.</>,Abelito75),
   change(date(2020, 1, 15),<>Updated for 8.3 </>,Abelito75),

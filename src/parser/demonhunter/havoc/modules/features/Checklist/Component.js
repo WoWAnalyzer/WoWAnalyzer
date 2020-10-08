@@ -88,16 +88,6 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
             thresholds={thresholds.felBarrageBadCasts}
           />
         )}
-        {combatant.hasTrait(SPELLS.FURIOUS_GAZE.id) &&(
-          <Requirement
-            name={(
-              <>
-              <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> buffs wasted
-              </>
-            )}
-            thresholds={thresholds.furiousGazeBadCasts}
-          />
-        )}
       </Rule>
 
       <Rule

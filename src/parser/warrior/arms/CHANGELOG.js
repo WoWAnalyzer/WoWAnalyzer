@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-
+  change(date(2020, 10, 13), 'Removed BFA Azerite Traits.', [Sharrq]),
   change(date(2020, 3, 30), <>Added <SpellLink id={SPELLS.OVERPOWER.id} /> wasted statistic to the statisitcs tab</>, [Torothin]),
   change(date(2019, 2, 3), <>Added a suggestion to not use <SpellLink id={SPELLS.SWEEPING_STRIKES.id} /> during <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> / <SpellLink id={SPELLS.WARBREAKER_TALENT.id} />.</>, [Korebian]),
   change(date(2019, 2, 2), <>Added more information to the <SpellLink id={SPELLS.CRUSHING_ASSAULT_TRAIT.id} /> module. Added <SpellLink id={SPELLS.LORD_OF_WAR.id} /> module.</>, [Korebian]),

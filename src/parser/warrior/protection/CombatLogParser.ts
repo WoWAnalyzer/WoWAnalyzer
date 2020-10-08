@@ -1,9 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-//essence
-import LucidDreamsRage from 'parser/shared/modules/spells/bfa/essences/LucidDreamsRage';
-
 import Haste from './modules/core/Haste';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -32,9 +29,6 @@ import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
 import AngerCD from './modules/talents/AngerCD';
 import SpellReflect from './modules/spells/SpellReflect';
-
-//azerite
-import BraceForImpact from './modules/azerite/BraceForImpact';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -71,12 +65,6 @@ class CombatLogParser extends CoreCombatLogParser {
     punish: Punish,
     dragonRoar: DragonRoar,
     //Items
-
-    //Azerite
-    braceForImpact: BraceForImpact,
-
-    //Essences
-    lucidDreamsRage: LucidDreamsRage,
 
     // Doesn't generate enough rage to be a valid cast
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

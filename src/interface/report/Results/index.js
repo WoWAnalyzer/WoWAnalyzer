@@ -420,8 +420,8 @@ class Results extends React.PureComponent {
         )}
         <div className="container">
             <Warning style={{ marginBottom: 30 }}>
-              In an effort to focus on Shadowlands and Castle Nathria, we will be removing support
-              for Azerite, Essences, Corruption, and other BFA items with the launch of Prepatch. As
+              In an effort to focus on Shadowlands and Castle Nathria, we have removed support
+              for Azerite, Essences, Corruption, and other BFA items. As
               a result, analysis of Prepatch encounters may be inaccurate. If you would like to
               follow your spec's Shadowlands development or provide suggestions/feedback,{' '}
               <a

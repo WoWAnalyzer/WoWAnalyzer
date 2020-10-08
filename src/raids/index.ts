@@ -40,10 +40,6 @@ export interface Phase extends PhaseConfig {
 const raids = {
   // Battle for Azeroth
   Dungeons: require('./dungeons').default,
-  Uldir: require('./uldir').default, // tier 22
-  BattleOfDazaralor: require('./battleofdazaralor').default, // tier 23
-  CrucibleOfStorms: require('./crucibleofstorms').default, //tier 23.5
-  AzsharasEternalPalace: require('./azsharaseternalpalace').default, //tier 24
   NyalothaTheWakingCity: require('./nyalothathewakingcity').default, //tier 25
   CastleNathria: require('./castlenathria').default, //tier 26
 };

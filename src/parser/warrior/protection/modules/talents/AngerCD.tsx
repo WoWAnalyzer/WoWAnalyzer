@@ -7,7 +7,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { calculateCooldown } from 'parser/shared/modules/spells/bfa/essences/VisionsOfPerfection';
 
 import AngerManagement from './AngerManagement';
 
@@ -28,7 +27,7 @@ class AngerCD extends Analyzer {
 
   actualFightTime = 0;
   DEMOSHOUTCD = 45000;
-  AVATARCD = this.selectedCombatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(this.selectedCombatant.neck.itemLevel, 90) * 1000 : 90000;
+  AVATARCD = 90000;
   LASTSTANDCD = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id) ? 180000 - 60000 : 180000;
   SHIELDWALLCD = 240000;
 

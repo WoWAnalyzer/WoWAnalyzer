@@ -39,12 +39,6 @@ import SwipeHitCount from './modules/spells/SwipeHitCount';
 import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
 import Shadowmeld from './modules/racials/Shadowmeld';
 
-import WildFleshrending from './modules/azeritetraits/WildFleshrending';
-import UntamedFerocity from './modules/azeritetraits/UntamedFerocity';
-import JungleFury from './modules/azeritetraits/JungleFury';
-import IronJaws from './modules/azeritetraits/IronJaws';
-import GushingLacerations from './modules/azeritetraits/GushingLacerations';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
@@ -91,13 +85,6 @@ class CombatLogParser extends CoreCombatLogParser {
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
     finisherUse: FinisherUse,
-
-    // azerite traits
-    wildFleshrending: WildFleshrending,
-    untamedFerocity: UntamedFerocity,
-    jungleFury: JungleFury,
-    ironJaws: IronJaws,
-    gushingLacerations: GushingLacerations,
   };
 }
 

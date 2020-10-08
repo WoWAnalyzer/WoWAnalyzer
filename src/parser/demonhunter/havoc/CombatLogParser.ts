@@ -37,13 +37,6 @@ import Demonic from './modules/talents/Demonic';
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
 
-// Azerite Traits
-import FuriousGaze from './modules/spells/azeritetraits/FuriousGaze';
-import EyesofRage from './modules/spells/azeritetraits/EyesofRage';
-import ChaoticTransformation from './modules/spells/azeritetraits/ChaoticTransformation';
-import RevolvingBlades from './modules/spells/azeritetraits/RevolvingBlades';
-import ThirstingBlades from './modules/spells/azeritetraits/ThirstingBlades';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -81,13 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     darkSlash: DarkSlash,
     cycleOfHatred: CycleOfHatred,
     demonic: Demonic,
-
-    // Azerite Traits
-    furiousGaze: FuriousGaze,
-    eyesofRage: EyesofRage,
-    chaoticTransformation: ChaoticTransformation,
-    revolvingBlades: RevolvingBlades,
-    thirstingBlades: ThirstingBlades,
 
     //Resources
     furyTracker: FuryTracker,

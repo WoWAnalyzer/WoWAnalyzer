@@ -12,6 +12,7 @@ const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
+  change(prepatch, 'Removed BFA Items, Essences, and Traits', Sharrq),
   change(prepatch, 'Converted Combatants to TypeScript', niseko),
   change(prepatch, 'Changed code quality rules.', Zerotorescue),
   change(prepatch, 'Added a new event map for catch-all event types.', Dambroda),

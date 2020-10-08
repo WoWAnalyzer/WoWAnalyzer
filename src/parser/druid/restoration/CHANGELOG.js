@@ -1,10 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 
-import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75, Anatta336, JeremyDwayne } from 'CONTRIBUTORS';
+import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75, Anatta336, JeremyDwayne, Sharrq } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [  
+  change(date(2020, 10, 13), 'Removed BFA Azerite Traits.', [Sharrq]),
   change(date(2020, 9, 26), 'Added Flash of Clarity conduit.', [Abelito75]),
   change(date(2020, 5, 26), 'Fixed an issue where HPCT would constantly grow.', [Abelito75]),
   change(date(2020, 5, 26), 'Added HPCT to stat weights.', [Abelito75]),
