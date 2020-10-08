@@ -606,7 +606,7 @@ export default {
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
   },
-  CRASHING_STORM_BUFF: {
+  CRASHING_STORM_DAMAGE: {
     id: 210801,
     name: 'Crashing Storm',
     icon: 'spell_nature_unrelentingstorm',
