@@ -8,6 +8,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
 import Statistic from 'interface/statistics/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import FuryTracker from './FuryTracker';
 
 
@@ -38,7 +40,7 @@ class FuryDetails extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
         .icon(furyIcon)
-        .actual(`${formatPercentage(actual)}% Fury wasted`)
+        .actual(i18n._(t('demonhunter.havoc.suggestions.fury.wasted')`${formatPercentage(actual)}% Fury wasted`))
         .recommended(`<${formatPercentage(recommended)}% is recommended.`);
     });
   }

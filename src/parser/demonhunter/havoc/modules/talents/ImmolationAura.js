@@ -6,6 +6,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
@@ -59,7 +61,7 @@ class ImmolationAura extends Analyzer{
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<> Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> when close to max Fury.</>)
           .icon(SPELLS.IMMOLATION_AURA_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% Fury wasted`)
+          .actual(i18n._(t('demonhunter.havoc.suggestions.immolationAura.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
           .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }

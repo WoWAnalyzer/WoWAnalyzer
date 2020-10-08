@@ -6,6 +6,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
@@ -55,7 +57,7 @@ class DemonBite extends Analyzer{
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<> Try not to cast <SpellLink id={SPELLS.DEMONS_BITE.id} /> when close to max Fury.</>)
           .icon(SPELLS.DEMONS_BITE.icon)
-          .actual(`${formatPercentage(actual)}% Fury wasted`)
+          .actual(i18n._(t('demonhunter.havoc.suggestions.demonsBite.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
           .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }

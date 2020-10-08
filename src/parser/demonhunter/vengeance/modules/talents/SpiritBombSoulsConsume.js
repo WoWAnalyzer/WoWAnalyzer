@@ -7,6 +7,8 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const MS_BUFFER = 100;
 
@@ -95,7 +97,7 @@ class SpiritBombSoulsConsume extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls.</>)
           .icon(SPELLS.SPIRIT_BOMB_TALENT.icon)
-          .actual(`${formatPercentage(this.percentGoodCasts)}% of casts at 4+ souls.`)
+          .actual(i18n._(t('demonhunter.vengeance.suggestions.spiritBomb.soulsConsumed')`${formatPercentage(this.percentGoodCasts)}% of casts at 4+ souls.`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
   }
