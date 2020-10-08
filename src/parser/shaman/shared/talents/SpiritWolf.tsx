@@ -22,7 +22,7 @@ class SpiritWolf extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);
   }
 
-  damageTaken(event : DamageEvent) {
+  damageTaken(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_WOLF_BUFF.id)) {
       return;
     }

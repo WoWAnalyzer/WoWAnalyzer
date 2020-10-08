@@ -50,7 +50,7 @@ class EarthShield extends Analyzer {
   }
 
   get uptime() {
-    return Object.values((this.combatants.players as Array<Combatant>)).reduce((uptime: number, player: Combatant) => uptime + player.getBuffUptime(SPELLS.EARTH_SHIELD.id, this.owner.playerId), 0);
+    return Object.values((this.combatants.players as Combatant[])).reduce((uptime: number, player: Combatant) => uptime + player.getBuffUptime(SPELLS.EARTH_SHIELD.id, this.owner.playerId), 0);
   }
 
   get uptimePercent() {

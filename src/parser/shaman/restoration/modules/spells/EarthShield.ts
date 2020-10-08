@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+
 import EarthShieldCore from '../../../shared/talents/EarthShield';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
