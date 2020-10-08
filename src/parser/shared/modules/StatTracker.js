@@ -360,6 +360,37 @@ class StatTracker extends Analyzer {
     [STAT.SPEED]: 3.05, // 10 @ 60
   };
 
+  /** Secondary stat scaling thresholds
+   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
+   * Search for 21024 in the first column for secondary stat scaling
+   */
+  secondaryStatPenaltyThresholds = [
+    /** Secondary stat scaling thresholds */
+    { base: 0, scaled: 0, penaltyAboveThis: 0 },
+    { base: 0.3, scaled: 0.3, penaltyAboveThis: 0.1 },
+    { base: 0.4, scaled: 0.39, penaltyAboveThis: 0.2 },
+    { base: 0.5, scaled: 0.47, penaltyAboveThis: 0.3 },
+    { base: 0.6, scaled: 0.54, penaltyAboveThis: 0.4 },
+    { base: 0.8, scaled: 0.66, penaltyAboveThis: 0.5 },
+    { base: 1, scaled: 0.76, penaltyAboveThis: 0.5 },
+    { base: 2, scaled: 1.26, penaltyAboveThis: 1 },
+  ];
+
+  /** Tertiary stat scaling thresholds
+   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
+   * Search for 21025 in the first column for tertiary stat scaling
+   */
+  tertiaryStatPenaltyThresholds = [
+    /** Tertiary stat scaling thresholds */
+    { base: 0, scaled: 0, penaltyAboveThis: 0 },
+    { base: 0.05, scaled: 0.05, penaltyAboveThis: 0 },
+    { base: 0.1, scaled: 0.1, penaltyAboveThis: 0 },
+    { base: 0.15, scaled: 0.14, penaltyAboveThis: 0.2 },
+    { base: 0.20, scaled: 0.17, penaltyAboveThis: 0.4 },
+    { base: 0.25, scaled: 0.19, penaltyAboveThis: 0.6 },
+    { base: 1, scaled: 0.49, penaltyAboveThis: 1 },
+  ];
+
   constructor(...args) {
     super(...args);
     // TODO: Use combatantinfo event directly
@@ -636,31 +667,7 @@ class StatTracker extends Analyzer {
    * @returns {number}
    */
   calculateStatPercentage(rating, baselineRatingPerPercent, returnRatingForNextPercent = false, isSecondaryScaling = true, coef = 1) {
-    /** Penalty and Thresholds taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
-     * Search for 21024 in the first column for secondary stat scaling
-     * Search for 21025 in the first column for tertiary stat scaling
-     */
-    const penaltyThresholds = isSecondaryScaling ? [
-        /** Secondary stat scaling thresholds */
-        { base: 0, scaled: 0, penaltyAboveThis: 0 },
-        { base: 0.3, scaled: 0.3, penaltyAboveThis: 0.1 },
-        { base: 0.4, scaled: 0.39, penaltyAboveThis: 0.2 },
-        { base: 0.5, scaled: 0.47, penaltyAboveThis: 0.3 },
-        { base: 0.6, scaled: 0.54, penaltyAboveThis: 0.4 },
-        { base: 0.8, scaled: 0.66, penaltyAboveThis: 0.5 },
-        { base: 1, scaled: 0.76, penaltyAboveThis: 0.5 },
-        { base: 2, scaled: 1.26, penaltyAboveThis: 1 },
-      ] :
-      [
-        /** Tertiary stat scaling thresholds */
-        { base: 0, scaled: 0, penaltyAboveThis: 0 },
-        { base: 0.05, scaled: 0.05, penaltyAboveThis: 0 },
-        { base: 0.1, scaled: 0.1, penaltyAboveThis: 0 },
-        { base: 0.15, scaled: 0.14, penaltyAboveThis: 0.2 },
-        { base: 0.20, scaled: 0.17, penaltyAboveThis: 0.4 },
-        { base: 0.25, scaled: 0.19, penaltyAboveThis: 0.6 },
-        { base: 1, scaled: 0.49, penaltyAboveThis: 1 },
-      ];
+    const penaltyThresholds = isSecondaryScaling ? this.secondaryStatPenaltyThresholds : this.tertiaryStatPenaltyThresholds;
     const baselinePercent = rating / baselineRatingPerPercent / 100;
     if (baselinePercent > penaltyThresholds[penaltyThresholds.length - 1].base) {
       if (returnRatingForNextPercent) {
@@ -683,7 +690,7 @@ class StatTracker extends Analyzer {
     }
   }
 
-  ratingNeededForNextPercentage(rating, baselineRatingPerPercent, coef = 1,  isSecondary = true,) {
+  ratingNeededForNextPercentage(rating, baselineRatingPerPercent, coef = 1, isSecondary = true) {
     return this.calculateStatPercentage(rating, baselineRatingPerPercent, true, isSecondary, coef);
   }
 
