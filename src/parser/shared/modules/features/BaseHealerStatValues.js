@@ -212,7 +212,7 @@ class BaseHealerStatValues extends Analyzer {
       return 0; // Leech doesn't proc from multipliers such as Velen's Future Sight
     }
     if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
-      const healIncreaseFromOneLeech = this.statTracker.statMultiplier.leech / this.statTracker.leechRatingPerPercent;
+      const healIncreaseFromOneLeech = this.statTracker.statMultiplier.leech / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentLeechRating, this.statTracker.statBaselineRatingPerPercent[STAT.LEECH], 1, false);
       return healVal.raw * healIncreaseFromOneLeech;
     }
     return 0;
@@ -228,7 +228,7 @@ class BaseHealerStatValues extends Analyzer {
   _getCritChance(event) {
     const rating = this.statTracker.currentCritRating;
     const baseCritChance = this.statTracker.baseCritPercentage;
-    const ratingCritChance = rating / this.statTracker.critRatingPerPercent;
+    const ratingCritChance = rating / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]);
 
     return { baseCritChance, ratingCritChance };
   }
@@ -243,7 +243,7 @@ class BaseHealerStatValues extends Analyzer {
       const { baseCritChance, ratingCritChance } = this._getCritChance(event);
 
       const totalCritChance = baseCritChance + ratingCritChance;
-      if (totalCritChance > (1 + 1 / this.statTracker.critRatingPerPercent)) {
+      if (totalCritChance > (1 + 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]))) {
         // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
         return 0;
       }
@@ -261,12 +261,12 @@ class BaseHealerStatValues extends Analyzer {
   }
   _hasteHpct(event, healVal) {
     const currHastePerc = this.statTracker.currentHastePercentage;
-    const healIncreaseFromOneHaste = this.statTracker.statMultiplier.haste / this.statTracker.hasteRatingPerPercent;
+    const healIncreaseFromOneHaste = this.statTracker.statMultiplier.haste / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.HASTE]);
     const baseHeal = healVal.effective / (1 + currHastePerc);
     return baseHeal * healIncreaseFromOneHaste;
   }
   _hasteHpm(event, healVal) {
-    const healIncreaseFromOneHaste = this.statTracker.statMultiplier.haste / this.statTracker.hasteRatingPerPercent;
+    const healIncreaseFromOneHaste = this.statTracker.statMultiplier.haste / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.HASTE]);
     const noHasteHealing = healVal.effective / (1 + this.statTracker.currentHastePercentage);
     return noHasteHealing * healIncreaseFromOneHaste;
   }
@@ -279,7 +279,7 @@ class BaseHealerStatValues extends Analyzer {
       return 0;
     }
     const currVersPerc = this.statTracker.currentVersatilityPercentage;
-    const healIncreaseFromOneVers = this.statTracker.statMultiplier.versatility / this.statTracker.versatilityRatingPerPercent;
+    const healIncreaseFromOneVers = this.statTracker.statMultiplier.versatility / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentVersatilityRating, this.statTracker.statBaselineRatingPerPercent[STAT.VERSATILITY], 1, false);
     const baseHeal = healVal.effective / (1 + currVersPerc);
     return baseHeal * healIncreaseFromOneVers;
   }
@@ -296,7 +296,7 @@ class BaseHealerStatValues extends Analyzer {
   _versatilityDamageReduction(event, damageVal) {
     const amount = damageVal.effective;
     const currentVersDamageReductionPercentage = this.statTracker.currentVersatilityPercentage / 2;
-    const damageReductionIncreaseFromOneVers = this.statTracker.statMultiplier.versatility / this.statTracker.versatilityRatingPerPercent / 2; // the DR part is only 50% of the Versa percentage
+    const damageReductionIncreaseFromOneVers = this.statTracker.statMultiplier.versatility / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentVersatilityRating, this.statTracker.statBaselineRatingPerPercent[STAT.VERSATILITY], 1, false) / 2; // the DR part is only 50% of the Versa percentage
 
     const noVersDamage = amount / (1 - currentVersDamageReductionPercentage);
     return noVersDamage * damageReductionIncreaseFromOneVers;
