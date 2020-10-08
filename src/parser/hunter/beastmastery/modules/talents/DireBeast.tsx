@@ -63,7 +63,8 @@ class DireBeast extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.DIRE_BEAST_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /> <br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% Haste<br />
           </>
         </BoringSpellValueText>

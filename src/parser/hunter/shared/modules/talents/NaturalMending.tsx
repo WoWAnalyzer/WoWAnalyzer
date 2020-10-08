@@ -14,8 +14,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { BM_CDR_PER_FOCUS, MM_SV_CDR_PER_FOCUS } from 'parser/hunter/shared/constants';
 
 /**
- * Every 20 (MM/SV) or 30 (BM) focus you spend reducxes the remaining cooldown
- * of Exhilaration by 1 sec.
+ * Every 20 (MM/SV) or 30 (BM) focus you spend reduces the remaining cooldown of Exhilaration by 1 sec.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/GWwtNLVQD8adn6q9#fight=5&type=summary&source=18
@@ -44,8 +43,8 @@ class NaturalMending extends Analyzer {
     const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
     if (!resource) {
       return;
-
     }
+
     this.lastFocusCost = resource.cost || 0;
     const cooldownReductionMS = this.cdrPerFocus * this.lastFocusCost;
     if (!this.spellUsable.isOnCooldown(SPELLS.EXHILARATION.id)) {

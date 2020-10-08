@@ -16,6 +16,7 @@ import BestialWrath from '../spells/BestialWrath';
 import CobraShot from '../spells/CobraShot';
 import KillerCobra from '../talents/KillerCobra';
 import Component from './Component';
+import QaplaEredunWarOrder from '../items/QaplaEredunWarOrder';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -31,6 +32,7 @@ class Checklist extends BaseChecklist {
     focusCapTracker: BeastMasteryFocusCapTracker,
     beastCleave: BeastCleave,
     basicAttacks: BasicAttacks,
+    qaplaEredunWarOrder: QaplaEredunWarOrder,
   };
 
   //region Core
@@ -49,7 +51,10 @@ class Checklist extends BaseChecklist {
 
   //region Talents
   protected killerCobra!: KillerCobra;
+  //endregion
 
+  //region Legendaries (and sets.. maybe, please blizzard)
+  protected qaplaEredunWarOrder!: QaplaEredunWarOrder;
   //endregion
 
   //region Resources
@@ -85,6 +90,10 @@ class Checklist extends BaseChecklist {
 
           //region Talents
           wastedKillerCobraThreshold: this.killerCobra.wastedKillerCobraThreshold,
+          //endregion
+
+          //region Legendaries
+          qaplaEfficiencyThreshold: this.qaplaEredunWarOrder.cdrEfficiencyKillCommandThreshold,
           //endregion
 
           //region Resources

@@ -82,7 +82,14 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && <Requirement name={<> Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets </>} thresholds={thresholds.wastedKillerCobraThreshold} />}
       </Rule>
       <Rule
-        name={<>Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> focus capping</>}
+        name="Legendaries"
+        description="The throughput gain of some legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly, even after trying to improve your usage of said legendary."
+      >
+        {combatant.hasLegendaryByBonusID(SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.bonusID) &&
+        <Requirement name={<><SpellLink id={SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.id} /> CDR efficiency</>} thresholds={thresholds.qaplaEfficiencyThreshold} />}
+      </Rule>
+      <Rule
+        name="Downtime & resource generators"
         description={(
           <>
             As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.
