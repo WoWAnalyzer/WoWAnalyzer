@@ -9,7 +9,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { HealEvent } from 'parser/core/Events';
 
-const TORRENT_HEALING_INCREASE = 0.3;
+const TORRENT_HEALING_INCREASE = 0.2;
 
 class Torrent extends Analyzer {
   healing = 0;

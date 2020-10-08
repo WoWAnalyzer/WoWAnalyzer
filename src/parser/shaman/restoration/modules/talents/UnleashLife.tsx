@@ -56,17 +56,14 @@ class UnleashLife extends Analyzer {
     [SPELLS.CHAIN_HEAL.id]: {
       healing: 0,
       castAmount: 0,
-      playersActive: [],
     },
     [SPELLS.HEALING_WAVE.id]: {
       healing: 0,
       castAmount: 0,
-      playersActive: [],
     },
     [SPELLS.HEALING_SURGE_RESTORATION.id]: {
       healing: 0,
       castAmount: 0,
-      playersActive: [],
     },
   };
 
