@@ -32,7 +32,6 @@ class ArcaneHarmony extends Analyzer {
   onBarrageCast(event: CastEvent) {
     const buff = this.selectedCombatant.getBuff(SPELLS.ARCANE_HARMONY_BUFF.id);
     if (buff && buff.stacks) {
-      this.log(buff.stacks);
       this.stacks = buff.stacks;
     }
   }
