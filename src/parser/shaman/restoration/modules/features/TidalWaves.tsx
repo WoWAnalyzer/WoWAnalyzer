@@ -33,12 +33,11 @@ class TidalWaves extends Analyzer {
     }
   }
 
-  _counter = 0;
   _onHealingWave(event: BeginCastEvent) {
     if (event.isCancelled) {
       return;
     }
-    this._counter++;
+
     const hasTw = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, 0, TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME);
     if (hasTw) {
       const cast = this.abilityTracker.getAbility(event.ability.guid, event.ability);
