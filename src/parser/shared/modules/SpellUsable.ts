@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { AnyEvent, CastEvent, ChangeHasteEvent, EventType, UpdateSpellUsableEvent } from 'parser/core/Events';
+import { AnyEvent, CastEvent, ChangeHasteEvent, EventType, FilterCooldownInfoEvent, UpdateSpellUsableEvent } from 'parser/core/Events';
 
 import Abilities from '../../core/modules/Abilities';
 
@@ -72,7 +72,7 @@ class SpellUsable extends Analyzer {
     if (!this.isOnCooldown(canSpellId)) {
       return true;
     }
-    const maxCharges = this.abilities.getMaxCharges(canSpellId);
+    const maxCharges = this.abilities.getMaxCharges(canSpellId) || 1;
     if (maxCharges > this._currentCooldowns[canSpellId].chargesOnCooldown) {
       return true;
     }
@@ -87,10 +87,7 @@ class SpellUsable extends Analyzer {
    */
   chargesAvailable(spellId: number) {
     const canSpellId = this._getCanonicalId(spellId);
-    const maxCharges = this.abilities.getMaxCharges(canSpellId);
-    if (maxCharges === undefined) {
-      throw new Error(`Attempting to get charge count for spell with no ability info: ${spellId}`);
-    }
+    const maxCharges = this.abilities.getMaxCharges(canSpellId) || 1;
     if (this.isOnCooldown(canSpellId)) {
       return maxCharges - this._currentCooldowns[canSpellId].chargesOnCooldown;
     } else {
@@ -317,6 +314,8 @@ class SpellUsable extends Analyzer {
       timePassed: cooldown ? timestamp - cooldown.start : undefined,
       sourceID: this.owner.playerId,
       targetID: this.owner.playerId,
+      // __fabricated is technically added in eventemitter, but it makes typing much simpler to add it here
+      __fabricated: true,
       ...cooldown,
       ...others,
     };
@@ -349,7 +348,7 @@ class SpellUsable extends Analyzer {
     this.eventEmitter.fabricateEvent(event);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  on_byPlayer_cast(event: CastEvent | FilterCooldownInfoEvent) {
     const spellId = event.ability.guid;
     this.beginCooldown(spellId, event);
   }
@@ -366,7 +365,7 @@ class SpellUsable extends Analyzer {
     });
   }
 
-  _lastTimestamp = null;
+  _lastTimestamp: number = -1;
 
   on_event(event: AnyEvent) {
     const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
@@ -393,6 +392,9 @@ class SpellUsable extends Analyzer {
       const progress = timePassed / originalExpectedDuration;
 
       const cooldownDurationWithCurrentHaste = this.abilities.getExpectedCooldownDuration(Number(spellId), cooldownTriggerEvent);
+      if (cooldownDurationWithCurrentHaste === undefined) {
+        throw new Error(`Attempting to get cooldown duration for spell with no ability info: ${spellId}`);
+      }
       // The game only works with integers so round the new expected duration
       const newExpectedDuration = Math.round(timePassed + this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste));
       // NOTE: This does NOT scale any cooldown reductions applicable, their reduction time is static. (confirmed for absolute reductions (1.5 seconds), percentual reductions might differ but it is unlikely)
