@@ -61,8 +61,6 @@ const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: any) =
 
         <Requirement name={<><SpellLink id={SPELLS.PRECISE_SHOTS.id} /> utilization</>} thresholds={thresholds.preciseShotsThresholds} />
 
-        <Requirement name={<><SpellLink id={SPELLS.HUNTERS_MARK.id} /> debuff uptime</>} thresholds={thresholds.huntersMarkThresholds} />
-
         {combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id) && <Requirement name={<><SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> uptime</>} thresholds={thresholds.serpentStingUptimeThresholds} />}
 
         {combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id) && <Requirement name={<>Refreshes of <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> that didn't pandemic </>} thresholds={thresholds.serpentStingNonPandemicThresholds} />}

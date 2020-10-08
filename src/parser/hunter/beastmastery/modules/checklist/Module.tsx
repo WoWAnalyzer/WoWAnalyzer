@@ -1,6 +1,5 @@
 import FocusDetails from 'parser/hunter/shared/modules/resources/FocusDetails';
 
-import HuntersMark from 'parser/hunter/shared/modules/spells/HuntersMark';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 
@@ -32,7 +31,6 @@ class Checklist extends BaseChecklist {
     focusCapTracker: BeastMasteryFocusCapTracker,
     beastCleave: BeastCleave,
     basicAttacks: BasicAttacks,
-    huntersMark: HuntersMark,
   };
 
   //region Core
@@ -44,7 +42,6 @@ class Checklist extends BaseChecklist {
 
   //region Spells
   protected beastCleave!: BeastCleave;
-  protected huntersMark!: HuntersMark;
   protected cobraShot!: CobraShot;
   protected barbedShot!: BarbedShot;
   protected bestialWrath!: BestialWrath;
@@ -84,7 +81,6 @@ class Checklist extends BaseChecklist {
           cobraShotCDREfficiencyThreshold: this.cobraShot.cdrEfficiencyCobraShotThreshold,
           wastedCobraShotsThreshold: this.cobraShot.wastedCobraShotsThreshold,
           beastCleaveThresholds: this.beastCleave.beastCleavesWithoutHits,
-          huntersMarkThresholds: this.huntersMark.uptimeThresholds,
           //endregion
 
           //region Talents
