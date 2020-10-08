@@ -16,7 +16,7 @@ class Apocalypse extends Analyzer {
   static dependencies = {
     enemies: EnemyInstances,
   };
-  
+
   totalApocalypseCasts = 0;
   apocalypseWoundsPopped = 0;
 
@@ -27,32 +27,32 @@ class Apocalypse extends Analyzer {
   }
 
   //Logic that both counts the amount of Apocalypse cast by the player, as well as the amount of wounds popped by those apocalypse.
-  onCast(event){  
-		this.totalApocalypseCasts+=1;
-		const target = this.enemies.getEntity(event);
-		const currentTargetWounds = target && target.hasBuff(SPELLS.FESTERING_WOUND.id) ? target.getBuff(SPELLS.FESTERING_WOUND.id).stacks: 0;
-		if(currentTargetWounds > 4){
-			this.apocalypseWoundsPopped=this.apocalypseWoundsPopped + 4;
+  onCast(event) {
+    this.totalApocalypseCasts += 1;
+    const target = this.enemies.getEntity(event);
+    const currentTargetWounds = target && target.hasBuff(SPELLS.FESTERING_WOUND.id) ? target.getBuff(SPELLS.FESTERING_WOUND.id).stacks : 0;
+    if (currentTargetWounds > 4) {
+      this.apocalypseWoundsPopped = this.apocalypseWoundsPopped + 4;
     } else {
-			this.apocalypseWoundsPopped=this.apocalypseWoundsPopped + currentTargetWounds;
-	  }
+      this.apocalypseWoundsPopped = this.apocalypseWoundsPopped + currentTargetWounds;
+    }
   }
 
   suggestions(when) {
-    const averageWoundsPopped = (this.apocalypseWoundsPopped/this.totalApocalypseCasts).toFixed(1);
-	//Getting 6 wounds on every Apocalypse isn't difficult and should be expected
+    const averageWoundsPopped = +((this.apocalypseWoundsPopped / this.totalApocalypseCasts).toFixed(1));
+    //Getting 6 wounds on every Apocalypse isn't difficult and should be expected
     when(averageWoundsPopped).isLessThan(4)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You are casting <SpellLink id={SPELLS.APOCALYPSE.id} /> with too few <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target. When casting <SpellLink id={SPELLS.APOCALYPSE.id} />, make sure to have at least 4 <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target.</span>)
-            .icon(SPELLS.APOCALYPSE.icon)
-            .actual(i18n._(t('deathknight.unholy.suggestions.apocalypse.efficiency')`An average ${(actual)} of Festering Wounds were popped by Apocalypse`))
-            .recommended(`${(recommended)} is recommended`)
-            .regular(recommended - 1).major(recommended - 2);
-        });
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You are casting <SpellLink id={SPELLS.APOCALYPSE.id} /> with too few <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target. When casting <SpellLink id={SPELLS.APOCALYPSE.id} />, make sure to have at least 4 <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target.</span>)
+          .icon(SPELLS.APOCALYPSE.icon)
+          .actual(i18n._(t('deathknight.unholy.suggestions.apocalypse.efficiency')`An average ${(actual)} of Festering Wounds were popped by Apocalypse`))
+          .recommended(`${(recommended)} is recommended`)
+          .regular(recommended - 1).major(recommended - 2);
+      });
   }
 
   statistic() {
-    const averageWoundsPopped = (this.apocalypseWoundsPopped/this.totalApocalypseCasts).toFixed(1);
+    const averageWoundsPopped = (this.apocalypseWoundsPopped / this.totalApocalypseCasts).toFixed(1);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.APOCALYPSE.id} />}

@@ -53,7 +53,7 @@ class AspectOfTheWild extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.OPTIONAL(5)}
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.ASPECT_OF_THE_WILD}>

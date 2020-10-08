@@ -1,18 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  FlexibleWidthXYPlot as XYPlot,
-  XAxis,
-  YAxis,
-  AreaSeries,
-  LineSeries,
-  MarkSeries,
-  Hint,
-} from 'react-vis';
-
-import { formatPercentage } from 'common/format';
-
-import './OneVariableBinomialChart.scss';
+import { AutoSizer } from 'react-virtualized';
+import BaseChart from 'interface/others/BaseChart';
 
 class OneVariableBinomialChart extends React.Component {
   static propTypes = {
@@ -28,24 +17,13 @@ class OneVariableBinomialChart extends React.Component {
     }).isRequired,
     xAxis: PropTypes.shape({
       title: PropTypes.string.isRequired,
-      tickFormat: PropTypes.func.isRequired,
+      tickFormat: PropTypes.string.isRequired,
     }).isRequired,
     yAxis: PropTypes.shape({
       title: PropTypes.string.isRequired,
-      tickFormat: PropTypes.func.isRequired,
     }),
-    tooltip: PropTypes.func.isRequired,
-    curve: PropTypes.string,
-    xDomain: PropTypes.array,
-    yDomain: PropTypes.array,
-  };
-
-  static defaultProps = {
-    curve: 'curveCardinal',
-    yAxis: {
-      title: 'Likelihood',
-      tickFormat: (value) => `${formatPercentage(value, 0)}%`,
-    },
+    yDomain: PropTypes.arrayOf(PropTypes.number),
+    tooltip: PropTypes.string.isRequired,
   };
 
   state = {
@@ -58,52 +36,84 @@ class OneVariableBinomialChart extends React.Component {
       actualEvent,
       xAxis,
       yAxis,
-      tooltip,
-      curve,
-      xDomain,
       yDomain,
+      tooltip,
     } = this.props;
+
+    const data = {
+      probabilities,
+      actual: actualEvent,
+    };
+
+    const spec = {
+      encoding: {
+        x: {
+          field: 'x',
+          type: 'quantitative',
+          title: xAxis.title,
+          axis: {
+            grid: false,
+            format: xAxis.tickFormat,
+          },
+        },
+        y: {
+          field: 'y',
+          type: 'quantitative',
+          title: yAxis.title,
+          axis: {
+            grid: false,
+            format: '.0%',
+          },
+          scale: {
+            domain: yDomain,
+          },
+        },
+      },
+      layer: [
+        {
+          data: {
+            name: 'probabilities',
+          },
+          mark: {
+            type: 'area',
+            color: 'rgba(250, 183, 0, 0.15)',
+            line: {
+              color: '#fab700',
+              strokeWidth: 1,
+            },
+          },
+        },
+        {
+          data: {
+            name: 'actual',
+          },
+          mark: {
+            type: 'point',
+            filled: true,
+            color: '#00ff96',
+            size: 60,
+          },
+          encoding: {
+            tooltip: [
+              { field: 'x', title: tooltip },
+            ],
+          },
+        },
+      ],
+    };
+
+
     return (
-      <XYPlot
-        height={150}
-        xDomain={xDomain}
-        yDomain={yDomain}
-        onMouseLeave={() => this.setState({ hover: null })}
-      >
-        <XAxis {...xAxis} />
-        <YAxis {...yAxis} />
-        <AreaSeries
-          data={probabilities}
-          color="rgba(255, 139, 45, 0.2)"
-          stroke="transparent"
-          curve={curve}
-        />
-        <LineSeries
-          data={probabilities}
-          stroke="rgba(255, 139, 45, 1)"
-          strokeStyle="solid"
-          curve={curve}
-        />
-        <MarkSeries
-          data={[ actualEvent ]}
-          color="#00ff96"
-          onNearestX={d => this.setState({ hover: d })}
-          size={3}
-        />
-        {this.state.hover && (
-          <Hint
-            value={this.state.hover}
-            align={{
-              horizontal: 'right',
-              vertical: 'bottom',
-            }}
-          >
-            <div className="react-tooltip-lite value-tooltip">
-              {tooltip(this.state.hover)}
-            </div>
-          </Hint>
+      <AutoSizer disableHeight>
+        {({width}) => (
+          <BaseChart
+            height={150}
+            width={width}
+            spec={spec}
+            data={data}
+          />
         )}
-      </XYPlot>
+      </AutoSizer>
     );
   }
 }

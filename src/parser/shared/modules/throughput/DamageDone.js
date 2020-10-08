@@ -1,17 +1,15 @@
 import React from 'react';
-import { XYPlot, AreaSeries } from 'react-vis';
 import { AutoSizer } from 'react-virtualized';
-import 'react-vis/dist/style.css';
 
 import { formatThousands, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
-import groupDataForChart from 'common/groupDataForChart';
 import makeWclUrl from 'common/makeWclUrl';
 import StatisticBar from 'interface/statistics/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 import Tooltip from 'common/Tooltip';
+import FlushLineChart from 'interface/others/FlushLineChart';
 
 import DamageValue from '../DamageValue';
 
@@ -57,7 +55,8 @@ class DamageDone extends Analyzer {
       return null;
     }
 
-    const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration, item => item.effective);
+    const data = Object.entries(this.bySecond).map(([sec, val]) => ({'time': sec, 'val': val.effective}));
+
     const perSecond = this.total.effective / this.owner.fightDuration * 1000;
     const wclUrl = makeWclUrl(this.owner.report.code, {
       fight: this.owner.fightId,
@@ -109,21 +108,9 @@ class DamageDone extends Analyzer {
           <div className="flex-main chart">
             <a href={wclUrl}>
               {perSecond > 0 && (
-                <AutoSizer>
-                  {({ width, height }) => (
-                    <XYPlot
-                      margin={0}
-                      width={width}
-                      height={height}
-                    >
-                      <AreaSeries
-                        data={Object.keys(groupedData).map(x => ({
-                          x: x / width,
-                          y: groupedData[x],
-                        }))}
-                        className="primary"
-                      />
-                    </XYPlot>
+                <AutoSizer disableWidth>
+                  {({ height }) => (
+                    <FlushLineChart data={data} duration={this.owner.fightDuration / 1000} height={height} />
                   )}
                 </AutoSizer>
               )}

@@ -5,9 +5,10 @@ import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
-
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
@@ -28,20 +29,19 @@ class SoulStrike extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  subStatistic() {
+  statistic() {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_STRIKE_SHARD_GEN.id);
     return (
-      <>
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.SOUL_STRIKE_TALENT.id} /> dmg</>}
-          value={this.owner.formatItemDamageDone(this.damage)}
-          valueTooltip={`${formatThousands(this.damage)} damage`}
-        />
-        <StatisticListBoxItem
-          title={<>Shards generated with <SpellLink id={SPELLS.SOUL_STRIKE_TALENT.id} /></>}
-          value={shardsGained}
-        />
-      </>
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={`${formatThousands(this.damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.SOUL_STRIKE_TALENT}>
+          <ItemDamageDone amount={this.damage} /><br />
+          {shardsGained} <small>Shards generated</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

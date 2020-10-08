@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { Event, ApplyBuffEvent, CombatantInfoEvent, EventType, HasAbility, HasTarget, HasSource } from 'parser/core/Events';
+import { AnyEvent, ApplyBuffEvent, CombatantInfoEvent, EventType, HasAbility, HasTarget, HasSource } from 'parser/core/Events';
 
 const debug = false;
 
@@ -18,7 +18,7 @@ class ApplyBuff extends EventsNormalizer {
 
   _buffsAppliedByPlayerId: {[playerid: number]: Array<number>} = {};
 
-  normalize(events: Array<Event<any>>) {
+  normalize(events: Array<AnyEvent>) {
     const firstEventIndex = this.getFightStartIndex(events);
     const firstStartTimestamp = this.owner.fight.start_time;
     const playersById = this.owner.players.reduce((obj: {[id: number]: any}, player: any) => {
@@ -31,7 +31,7 @@ class ApplyBuff extends EventsNormalizer {
     // This catches most relevant buffs and is most accurate. If a player is good at juggling certain buffs they can achieve 100% uptime, if that happens `removebuff` is never called, so we also check for other indicators that are just as reliable, such as `applybuffstack`, `removebuffstack` and `refreshbuff`.
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
-      if(!HasAbility(event) || !HasTarget(event)) {
+      if (!HasAbility(event) || !HasTarget(event)) {
         continue;
       }
       const targetId = event.targetID;
@@ -48,7 +48,11 @@ class ApplyBuff extends EventsNormalizer {
         const spellId = event.ability.guid;
         this._buffsAppliedByPlayerId[targetId].push(spellId);
       }
-      if ([EventType.RemoveBuff, EventType.ApplyBuffStack, EventType.RemoveBuffStack, EventType.RefreshBuff, EventType.FilterBuffInfo].includes(event.type)) {
+      if (event.type === EventType.RemoveBuff ||
+        event.type === EventType.ApplyBuffStack ||
+        event.type === EventType.RemoveBuffStack ||
+        event.type === EventType.RefreshBuff ||
+        event.type === EventType.FilterBuffInfo) {
         const spellId = event.ability.guid;
         if (this._buffsAppliedByPlayerId[targetId].includes(spellId)) {
           // This buff has an `applybuff` event and so isn't broken :D
@@ -57,7 +61,7 @@ class ApplyBuff extends EventsNormalizer {
 
         debug && this.warn('Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'that was applied before the pull:', event.ability.name, spellId, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
         const targetInfo = this._combatantInfoEvents && this._combatantInfoEvents.find(combatantInfoEvent => combatantInfoEvent.sourceID === targetId);
-        const applybuff = {
+        const applybuff: ApplyBuffEvent = {
           // These are all the properties a normal `applybuff` event would have.
           timestamp: (event.type === EventType.FilterBuffInfo) ? firstStartTimestamp - this.owner.fight.offset_time : firstStartTimestamp,
           type: EventType.ApplyBuff,

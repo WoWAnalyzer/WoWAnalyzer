@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';

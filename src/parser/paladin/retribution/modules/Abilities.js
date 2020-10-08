@@ -3,20 +3,18 @@ import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
-import { calculateCooldown } from 'parser/shared/modules/spells/bfa/essences/VisionsOfPerfection';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.WAKE_OF_ASHES_TALENT,
+        spell: SPELLS.WAKE_OF_ASHES,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.WAKE_OF_ASHES_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -27,7 +25,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CRUSADE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         buffSpellId: SPELLS.CRUSADE_TALENT.id,
-        cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 120) : 120,
+        cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
         gcd: {
           base: 1500,
@@ -43,7 +41,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVENGING_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         buffSpellId: SPELLS.AVENGING_WRATH.id,
-        cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 120) : 120,
+        cooldown: 120,
         enabled: !combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
         gcd: {
           base: 1500,
@@ -89,9 +87,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HAMMER_OF_WRATH_TALENT,
+        spell: SPELLS.HAMMER_OF_WRATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.HAMMER_OF_WRATH_TALENT.id),
         cooldown: haste => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
@@ -112,18 +109,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.INQUISITION_TALENT,
-        buffSpellId: SPELLS.INQUISITION_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.INQUISITION_TALENT.id),
-      },
-      {
         spell: SPELLS.EXECUTION_SENTENCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },
@@ -133,13 +121,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CONSECRATION_TALENT,
+        spell: SPELLS.CONSECRATION_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 20,
+        cooldown: 9,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.CONSECRATION_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -178,14 +165,11 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.EYE_FOR_AN_EYE_TALENT.id),
       },
       {
-        spell: SPELLS.WORD_OF_GLORY_TALENT,
+        spell: SPELLS.WORD_OF_GLORY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        charges: 2,
-        cooldown: 60,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.WORD_OF_GLORY_TALENT.id),
       },
       {
         spell: SPELLS.BLINDING_LIGHT_TALENT,
@@ -272,6 +256,19 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.REBUKE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
+      },
+      {
+        spell: SPELLS.SERAPHIM_TALENT,
+        buffSpellId: SPELLS.SERAPHIM_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.SERAPHIM_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.DIVINE_SHIELD,

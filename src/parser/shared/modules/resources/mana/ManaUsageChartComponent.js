@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { TooltipElement } from 'common/Tooltip';
-
 import ManaUsageGraph from './ManaUsageGraph';
 
 class HealingDoneGraph extends React.PureComponent {
@@ -13,13 +11,6 @@ class HealingDoneGraph extends React.PureComponent {
     healingBySecond: PropTypes.object.isRequired,
     manaUpdates: PropTypes.array.isRequired,
   };
-
-  constructor() {
-    super();
-    this.state = {
-      interval: 5,
-    };
-  }
 
   groupHealingBySeconds(healingBySecond, interval) {
     return Object.keys(healingBySecond)
@@ -40,7 +31,9 @@ class HealingDoneGraph extends React.PureComponent {
   render() {
     const { start, end, offset, healingBySecond, manaUpdates } = this.props;
 
-    const interval = this.state.interval;
+    // TODO: move this to vega-lite window transform
+    // e.g. { window: [{op: 'mean', field: 'hps', as: 'hps'}], frame: [-2, 2] }
+    const interval = 5;
     const healingPerFrame = this.groupHealingBySeconds(healingBySecond, interval);
 
     let max = 0;
@@ -90,21 +83,13 @@ class HealingDoneGraph extends React.PureComponent {
     const manaUsed = Object.values(manaUsagePerFrame).map((value, i) => ({ x: labels[i], y: value * max }));
 
     return (
-      <>
-        <div className="pull-right form-inline">
-          <TooltipElement content="This groups events by the provided amount of seconds to smooth out the graph.">
-            Smoothing
-          </TooltipElement>: <input type="number" min="1" max="30" value={interval} className="form-control" onChange={e => this.setState({ interval: Number(e.target.value) || 5 })} /> seconds
-        </div>
-
-        <div className="graph-container" style={{ marginBottom: 20 }}>
-          <ManaUsageGraph
-            mana={mana}
-            healing={healing}
-            manaUsed={manaUsed}
-          />
-        </div>
-      </>
+      <div className="graph-container" style={{ marginBottom: 20 }}>
+        <ManaUsageGraph
+          mana={mana}
+          healing={healing}
+          manaUsed={manaUsed}
+        />
+      </div>
     );
   }
 }

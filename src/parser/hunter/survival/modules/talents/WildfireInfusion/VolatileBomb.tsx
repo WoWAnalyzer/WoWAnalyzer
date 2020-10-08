@@ -1,11 +1,12 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { SERPENT_STING_SV_BASE_DURATION } from 'parser/hunter/survival/constants';
+import { SERPENT_STING_SV_BASE_DURATION, SV_SERPENT_STING_COST } from 'parser/hunter/survival/constants';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatDuration } from 'common/format';
 import SpellLink from 'common/SpellLink';
@@ -25,16 +26,11 @@ import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuff
  * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=summary&source=329
  */
 
-const SERPENT_STING_FOCUS_COST = 20;
-
 class VolatileBomb extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     statTracker: StatTracker,
   };
-
-  protected enemies!: Enemies;
-  protected statTracker!: StatTracker;
 
   damage = 0;
   casts = 0;
@@ -42,7 +38,6 @@ class VolatileBomb extends Analyzer {
   extendedInMs = 0;
   focusSaved = 0;
   missedSerpentResets = 0;
-
   activeSerpentStings: { [key: string]: { targetName: string, cast: number, expectedEnd: number, extendStart: number, extendExpectedEnd: number } } = {
     /*
     [encodedTargetString]: {
@@ -55,15 +50,32 @@ class VolatileBomb extends Analyzer {
      */
   };
 
+  protected enemies!: Enemies;
+  protected statTracker!: StatTracker;
+
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this._serpentApplication);
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this._serpentApplication);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDebuffRemoval);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VOLATILE_BOMB_WFI_DOT), this._maybeSerpentStingExtend);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOLATILE_BOMB_WFI), this.onBombCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.VOLATILE_BOMB_WFI_DOT, SPELLS.VOLATILE_BOMB_WFI_IMPACT]), this.onBombDamage);
+  }
+
+  get missedResetsThresholds() {
+    return {
+      actual: this.missedSerpentResets,
+      isGreaterThan: {
+        minor: 1,
+        average: 2,
+        major: 3,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
   }
 
   _serpentApplication(event: ApplyDebuffEvent | RefreshDebuffEvent) {
@@ -93,7 +105,7 @@ class VolatileBomb extends Analyzer {
       this.activeSerpentStings[target].extendExpectedEnd = event.timestamp + (this.activeSerpentStings[target].expectedEnd - this.activeSerpentStings[target].cast);
 
       this.extendedInMs += this.activeSerpentStings[target].extendExpectedEnd - this.activeSerpentStings[target].expectedEnd;
-      this.focusSaved += SERPENT_STING_FOCUS_COST;
+      this.focusSaved += SV_SERPENT_STING_COST;
       this.extendedSerpentStings += 1;
     } else {
       this.missedSerpentResets += 1;
@@ -111,18 +123,6 @@ class VolatileBomb extends Analyzer {
 
   onBombCast() {
     this.casts += 1;
-  }
-
-  get missedResetsThresholds() {
-    return {
-      actual: this.missedSerpentResets,
-      isGreaterThan: {
-        minor: 1,
-        average: 2,
-        major: 3,
-      },
-      style: 'number',
-    };
   }
 
   statistic() {
@@ -165,8 +165,8 @@ class VolatileBomb extends Analyzer {
     );
   }
 
-  suggestions(when: any) {
-    when(this.missedResetsThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.missedResetsThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>You shouldn't cast <SpellLink id={SPELLS.VOLATILE_BOMB_WFI.id} /> if your target doesn't have <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on.</>)
         .icon(SPELLS.VOLATILE_BOMB_WFI.icon)
         .actual(`${actual} casts without ${<SpellLink id={SPELLS.SERPENT_STING_SV.id} />} on`)

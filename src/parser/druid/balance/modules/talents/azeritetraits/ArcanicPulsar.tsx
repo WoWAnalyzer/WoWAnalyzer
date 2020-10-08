@@ -10,6 +10,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { calculateAzeriteEffects } from 'common/stats';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const STARSURGE_SP_COEFFICENT_MODIFIER = 2.3; // 230%
 
@@ -86,7 +87,7 @@ class ArcanicPulsar extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={'ITEMS'}
+        category={STATISTIC_CATEGORY.ITEMS}
         tooltip={`Celestial Alignment was triggered ${this.celestialAlignmentTriggers} times.`}
       >
         <BoringSpellValueText spell={SPELLS.ARCANIC_PULSAR_TRAIT}>

@@ -7,7 +7,12 @@ import { formatPercentage } from 'common/format';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Icon from 'common/Icon';
+<<<<<<< HEAD
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
+=======
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
+
+>>>>>>> upstream/shadowlands
 import RunicPowerTracker from './RunicPowerTracker';
 
 

@@ -1,11 +1,12 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
-import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -31,7 +32,7 @@ class RunicPowerDetails extends Analyzer {
         average: 0.90,
         major: .85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -43,12 +44,12 @@ class RunicPowerDetails extends Analyzer {
         average: 0.1,
         major: .15,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
-    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
           .icon('inv_sword_62')
           .actual(i18n._(t('deathknight.frost.suggestions.runicPower.wasted')`${formatPercentage(actual)}% wasted`))

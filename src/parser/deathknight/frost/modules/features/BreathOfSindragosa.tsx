@@ -8,8 +8,8 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, {CastEvent, RemoveBuffEvent, FightEndEvent} from 'parser/core/Events';
 
 const GOOD_BREATH_DURATION_MS = 20000;
@@ -56,9 +56,9 @@ class BreathOfSindragosa extends Analyzer {
     }
   }
 
-  suggestions(when: any){
+  suggestions(when: When){
     when(this.suggestionThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<> You are not getting good uptime from your <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. Your cast should last <b>at least</b> 15 seconds to take full advantage of the <SpellLink id={SPELLS.PILLAR_OF_FROST.id} /> buff.  A good cast is one that lasts 20 seconds or more.  To ensure a good duration, make you sure have 60+ Runic Power pooled and have less than 5 Runes available before you start the cast.  Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> before you cast Breath of Sindragosa. {this.tickingOnFinishedString}</>)
           .icon(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.icon)
           .actual(i18n._(t('deathknight.frost.suggestions.breathOfSindragosa.uptime')`You averaged ${(this.averageDuration).toFixed(1)} seconds of uptime per cast`))
@@ -82,7 +82,7 @@ class BreathOfSindragosa extends Analyzer {
         average: 17.5,
         major: 15.0,
       },
-      style: 'seconds',
+      style: ThresholdStyle.SECONDS,
       suffix: 'Average',
     };
   }

@@ -12,8 +12,6 @@ import DonutChart from 'interface/statistics/components/DonutChart';
 import Statistic from 'interface/statistics/Statistic';
 import Events from 'parser/core/Events';
 
-const ENDURING_LUMINESCENCE_BONUS_MS = 1500;
-const DEPTH_OF_THE_SHADOWS_BONUS_MS = 2000;
 const EVANGELISM_BONUS_MS = 6000;
 
 //Needed to count healing for the rare situations where atonement heal events happens at the exact moment it expires
@@ -117,13 +115,11 @@ class AtonementApplicatorBreakdown extends Analyzer{
     getAtonementDuration(cast){
         let duration = 0;
         if(cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id){
-            duration += SPELLS.POWER_WORD_RADIANCE.atonementDuration
-                     + (this._hasEL ? ENDURING_LUMINESCENCE_BONUS_MS : 0);
+            duration += SPELLS.POWER_WORD_RADIANCE.atonementDuration;
         } else if (cast.applicatorId === SPELLS.POWER_WORD_SHIELD.id){
             duration += SPELLS.POWER_WORD_SHIELD.atonementDuration;
         } else if (cast.applicatorId === SPELLS.SHADOW_MEND.id){
-            duration += SPELLS.SHADOW_MEND.atonementDuration
-                     + (this._hasDepth ? DEPTH_OF_THE_SHADOWS_BONUS_MS : 0);
+            duration += SPELLS.SHADOW_MEND.atonementDuration;
         }
         return (duration + FAIL_SAFE_MS);
     }
@@ -176,7 +172,7 @@ class AtonementApplicatorBreakdown extends Analyzer{
             
             if(cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id){
                 if(event.timestamp > atonement.applyBuff.timestamp 
-                && event.timestamp < atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration + (this._hasEL ? ENDURING_LUMINESCENCE_BONUS_MS : 0)){
+                && event.timestamp < atonement.applyBuff.timestamp + SPELLS.POWER_WORD_RADIANCE.atonementDuration){
                     atonement.extendedByEvangelism = true;
                 }
             } else if (cast.applicatorId === SPELLS.POWER_WORD_SHIELD.id){
@@ -186,7 +182,7 @@ class AtonementApplicatorBreakdown extends Analyzer{
                 }
             } else if (cast.applicatorId === SPELLS.SHADOW_MEND.id){
                 if(event.timestamp > atonement.applyBuff.timestamp 
-                && event.timestamp < atonement.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration + (this._hasDepth ? DEPTH_OF_THE_SHADOWS_BONUS_MS : 0)){
+                && event.timestamp < atonement.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration){
                     atonement.extendedByEvangelism = true;
                 }
             }

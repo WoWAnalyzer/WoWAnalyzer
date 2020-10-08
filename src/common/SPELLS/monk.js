@@ -3,7 +3,6 @@
  * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
-
 export default {
   // Shared
   MYSTIC_TOUCH: {
@@ -21,6 +20,11 @@ export default {
     name: 'Crackling Jade Lightning',
     icon: 'ability_monk_cracklingjadelightning',
   },
+  FORTIFYING_BREW: {
+    id: 243435,
+    name: 'Fortifying Brew',
+    icon: 'ability_monk_fortifyingelixir',
+  },
   PARALYSIS: {
     id: 115078,
     name: 'Paralysis',
@@ -30,7 +34,7 @@ export default {
     id: 107428,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
-    manaCost: 1500,
+    manaCost: 750,
   },
   ROLL: {
     id: 109132,
@@ -46,7 +50,7 @@ export default {
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaCost: 1000,
+    manaCost: 500,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -57,6 +61,11 @@ export default {
     id: 100780,
     name: 'Tiger Palm',
     icon: 'ability_monk_tigerpalm',
+  },
+  TOUCH_OF_DEATH: {
+    id: 322109,
+    name: 'Touch of Death',
+    icon: 'ability_monk_touchofdeath',
   },
   TRANSCENDENCE: {
     id: 101643,
@@ -89,7 +98,7 @@ export default {
     id: 124682,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-    manaCost: 5200,
+    manaCost: 3000,
   },
   ENVELOPING_MIST_TFT: {
     id: 274062,
@@ -100,7 +109,7 @@ export default {
     id: 191837,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
-    manaCost: 7200,
+    manaCost: 3600,
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
@@ -111,13 +120,13 @@ export default {
     id: 116849,
     name: 'Life Cocoon',
     icon: 'ability_monk_chicocoon',
-    manaCost: 2400,
+    manaCost: 1200,
   },
   RENEWING_MIST: {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaCost: 2500,
+    manaCost: 1100,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -128,7 +137,7 @@ export default {
     id: 115310,
     name: 'Revival',
     icon: 'spell_monk_revival',
-    manaCost: 4374,
+    manaCost: 2187,
   },
   THUNDER_FOCUS_TEA: {
     id: 116680,
@@ -139,17 +148,33 @@ export default {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 3500,
+    manaCost: 2050,
   },
   SOOTHING_MIST: {
     id: 115175,
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
-    manaCost: 400,
+    manaCost: 200,
   },
   SOOTHING_MIST_STATUE: {
     id: 198533,
     name: 'Soothing Mist',
+    icon: 'ability_monk_soothingmists',
+  },
+  INVOKE_YULON_THE_JADE_SERPENT: {
+    id: 322118,
+    name: 'Invoke Yu\'lon, the Jade Serpent',
+    icon: 'ability_monk_dragonkick',
+    manaCost: 2500,
+  },
+  ENVELOPING_BREATH: {
+    id: 325209,
+    name: 'Enveloping Breath',
+    icon: 'ability_monk_chiexplosion',
+  },
+  SOOTHING_BREATH: {
+    id: 343737,
+    name: 'Soothing Breath',
     icon: 'ability_monk_soothingmists',
   },
   SPIRIT_OF_THE_CRANE_BUFF: {
@@ -168,11 +193,15 @@ export default {
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
   },
-  // Ch-Ji Heal
-  CRANE_HEAL: {
-    id: 198756,
-    name: 'Crane Heal',
-    icon: 'inv_pet_cranegod',
+  GUST_OF_MISTS_CHIJI: {
+    id: 343819,
+    name: 'Gust of Mists',
+    icon: 'monk_stance_redcrane',
+  },
+  EXPEL_HARM_TARGET_HEAL: {
+    id: 344939,
+    name: 'Expel Harm',
+    icon: 'ability_monk_expelharm',
   },
   // Lifecycles buffs
   LIFECYCLES_VIVIFY_BUFF: {
@@ -201,15 +230,10 @@ export default {
     buffDur: 12000,
     manaRet: 0.0065,
   },
-  BLACKOUT_KICK_TOTM : {//blackoutkick from totm
+  BLACKOUT_KICK_TOTM : { //Backout Kick from TotM
     id: 228649,
     name: 'Blackout Kick',
     icon: 'ability_monk_roundhousekick',
-  },
-  WAY_OF_THE_CRANE: {
-    id: 216113,
-    name: 'Way of the Crane',
-    icon: 'monk_stance_redcrane',
   },
 
   // Utility / Other
@@ -217,31 +241,24 @@ export default {
     id: 115450,
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
-    manaCost: 1300,
-  },
-  FORTIFYING_BREW: {
-    id: 243435,
-    name: 'Fortifying Brew',
-    icon: 'ability_monk_fortifyingelixir',
-  },
-
-  // Mistweaver Azerite Traits
-  OVERFLOWING_MISTS_HEAL: {
-    id: 273354,
-    name: 'Overflowing Mists',
-    icon: 'spell_monk_envelopingmist',
-  },
-  BURST_OF_LIFE_HEAL: {
-  id: 278564,
-  name: 'Burst of Life',
-  icon: 'ability_monk_chicocoon',
+    manaCost: 650,
   },
 
   // Brewmaster
-  BLACKOUT_STRIKE: {
+  INVOKE_NIUZAO_THE_BLACK_OX: {
+    id: 132578,
+    name: 'Invoke Niuzao, the Black Ox',
+    icon: 'spell_monk_brewmaster_spec',
+  },
+  BLACKOUT_KICK_BRM: {
     id: 205523,
-    name: 'Blackout Strike',
-    icon: 'ability_monk_blackoutstrike',
+    name: 'Blackout Kick',
+    icon: 'ability_monk_roundhousekick',
+  },
+  SPINNING_CRANE_KICK_BRM: {
+    id: 322729,
+    name: 'Spinning Crane Kick',
+    icon: 'ability_monk_cranekick_new',
   },
   CELESTIAL_FORTUNE_HEAL: {
     id: 216521,
@@ -258,20 +275,20 @@ export default {
     name: 'Keg Smash',
     icon: 'achievement_brewery_2',
   },
-  IRONSKIN_BREW: {
-    id: 115308,
-    name: 'Ironskin Brew',
-    icon: 'ability_monk_ironskinbrew',
-  },
-  IRONSKIN_BREW_BUFF: {
-    id: 215479,
-    name: 'Ironskin Brew',
-    icon: 'ability_monk_ironskinbrew',
-  },
   PURIFYING_BREW: {
     id: 119582,
     name: 'Purifying Brew',
     icon: 'inv_misc_beer_06',
+  },
+  PURIFIED_CHI: {
+    id: 325092,
+    name: 'Purified Chi',
+    icon: 'inv_misc_beer_06',
+  },
+  CELESTIAL_BREW: {
+    id: 322507,
+    name: 'Celestial Brew',
+    icon: 'ability_monk_ironskinbrew',
   },
   BREATH_OF_FIRE: {
     id: 115181,
@@ -329,7 +346,7 @@ export default {
     icon: 'ability_monk_rushingjadewind',
   },
   EXPEL_HARM: {
-    id: 115072,
+    id: 322101,
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
   },
@@ -485,16 +502,6 @@ export default {
     name: 'Blackout Kick!',
     icon: 'ability_monk_roundhousekick',
   },
-  TOUCH_OF_DEATH: {
-    id: 115080,
-    name: 'Touch of Death',
-    icon: 'ability_monk_touchofdeath',
-  },
-  TOUCH_OF_DEATH_DAMAGE: {
-    id: 229980,
-    name: 'Touch of Death',
-    icon: 'ability_monk_touchofdeath',
-  },
   CYCLONE_STRIKES: {
     id: 220357,
     name: 'Cyclone Strikes',
@@ -560,19 +567,14 @@ export default {
     name: 'Disable',
     icon: 'ability_shockwave',
   },
-  REVERSE_HARM: {
-    id: 287771,
-    name: 'Reverse Harm',
-    icon: 'ability_monk_expelharm',
-  },
-  REVERSE_HARM_DAMAGE: {
-    id: 290461,
-    name: 'Reverse Harm',
-    icon: 'ability_monk_expelharm',
-  },
   WINDWALKING: {
     id: 166646,
     name: 'Windwalking',
     icon: 'monk_stance_whitetiger',
+  },
+  INVOKE_XUEN_THE_WHITE_TIGER: {
+    id: 123904,
+    name: 'Invoke Xuen, the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
   },
 };

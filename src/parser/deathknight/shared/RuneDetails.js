@@ -1,20 +1,13 @@
 import React from 'react';
-import {
-  FlexibleWidthXYPlot as XYPlot,
-  DiscreteColorLegend,
-  XAxis,
-  YAxis,
-  LineSeries,
-} from 'react-vis';
+import { AutoSizer } from 'react-virtualized';
 
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
-import { formatDuration, formatNumber } from 'common/format';
+import BaseChart, { formatTime } from 'interface/others/BaseChart';
 
 import RuneBreakdown from './RuneBreakdown';
 import RuneTracker from './RuneTracker';
 
-import './RuneDetails.scss';
 
 class RuneDetails extends Analyzer {
   static dependencies = {
@@ -23,32 +16,52 @@ class RuneDetails extends Analyzer {
 
   tab() {
     const data = this.runeTracker.runesReady;
+
+    const spec = {
+      data: {
+        name: 'runes',
+      },
+      mark: {
+        type: 'line',
+        color: 'rgb(196, 31, 59)',
+      },
+      encoding: {
+        x: {
+          field: 'x',
+          type: 'quantitative',
+          axis: {
+            labelExpr: formatTime('datum.value * 1000'),
+            grid: false,
+          },
+          title: null,
+        },
+        y: {
+          field: 'y',
+          type: 'quantitative',
+          title: '# of Runes',
+          axis: {
+            grid: false,
+            tickMinStep: 1,
+          },
+        },
+      },
+    };
+
     return {
       title: 'Rune usage',
       url: 'rune-usage',
       render: () => (
         <Panel>
-          <XYPlot
-            xDomain={[0, this.owner.fightDuration / 1000]}
-            height={400}
-            margin={{
-              top: 30,
-            }}
-          >
-            <DiscreteColorLegend
-              items={[
-                { title: 'Runes', color: 'rgb(196, 31, 59)' },
-              ]}
-              orientation="horizontal"
-            />
-            <XAxis tickFormat={value => formatDuration(value, 0)} style={{ fill: 'white' }} />
-            <YAxis tickValues={[0, 1, 2, 3, 4, 5, 6]} tickFormat={value => formatNumber(value)} style={{ fill: 'white' }} />
-            <LineSeries
-              data={data}
-              color="rgb(196, 31, 59)"
-              strokeWidth={2}
-            />
-          </XYPlot>
+          <AutoSizer disableHeight>
+            {({width}) => (
+              <BaseChart
+                width={width}
+                height={400}
+                spec={spec}
+                data={{ runes: data }}
+              />
+            )}
+          </AutoSizer>
           <RuneBreakdown
             tracker={this.runeTracker}
             showSpenders

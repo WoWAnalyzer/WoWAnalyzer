@@ -33,6 +33,7 @@ class KillCommand extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLANKERS_ADVANTAGE), this.onFlankersProc);
   }
 
@@ -51,7 +52,7 @@ class KillCommand extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(18)}
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.KILL_COMMAND_CAST_SV}>

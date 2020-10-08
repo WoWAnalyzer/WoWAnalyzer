@@ -9,6 +9,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import { SV_KILL_COMMAND_FOCUS_GAIN } from 'parser/hunter/survival/constants';
+import { MS_BUFFER } from 'parser/hunter/shared/constants';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -20,15 +22,10 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
  * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=summary&source=329
  */
 
-const KILL_COMMAND_FOCUS_GAIN = 15;
-const MS_BUFFER = 100;
-
 class PheromoneBomb extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-
-  protected enemies!: Enemies;
 
   damage = 0;
   casts = 0;
@@ -36,9 +33,13 @@ class PheromoneBomb extends Analyzer {
   focusGained = 0;
   resets = 0;
 
+  protected enemies!: Enemies;
+
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV), this.onPetDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.PHEROMONE_BOMB_WFI_DOT, SPELLS.PHEROMONE_BOMB_WFI_IMPACT]), this.onPlayerDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHEROMONE_BOMB_WFI), this.onBombCast);
@@ -51,7 +52,7 @@ class PheromoneBomb extends Analyzer {
       return;
     }
     if (event.timestamp < (this.kcCastTimestamp + MS_BUFFER)) {
-      this.focusGained += KILL_COMMAND_FOCUS_GAIN;
+      this.focusGained += SV_KILL_COMMAND_FOCUS_GAIN;
       this.resets += 1;
     }
   }
@@ -63,7 +64,8 @@ class PheromoneBomb extends Analyzer {
   onBombCast() {
     this.casts += 1;
   }
-  onKillCommandCast(event:CastEvent) {
+
+  onKillCommandCast(event: CastEvent) {
     this.kcCastTimestamp = event.timestamp;
   }
 

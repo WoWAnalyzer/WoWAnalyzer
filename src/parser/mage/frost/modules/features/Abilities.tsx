@@ -2,6 +2,42 @@ import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
 
+const WINTERS_PROTECTION_REDUCTION_MS: {[rank: number]:number } = {
+  1: 30,
+  2: 34,
+  3: 38,
+  4: 43,
+  5: 47,
+  6: 51,
+  7: 55,
+  8: 60,
+  9: 64,
+  10: 68,
+  11: 72,
+  12: 77,
+  13: 81,
+  14: 85,
+  15: 90,
+};
+
+const FLOW_OF_TIME_REDUCTION_SEC: {[rank: number]:number } = {
+  1: 1,
+  2: 1.25,
+  3: 1.5,
+  4: 1.75,
+  5: 2,
+  6: 2.25,
+  7: 2.5,
+  8: 2.75,
+  9: 3,
+  10: 3.25,
+  11: 3.5,
+  12: 3.75,
+  13: 4,
+  14: 4.250,
+  15: 5,
+};
+
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
@@ -15,6 +51,19 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 1,
         damageSpellIds: [SPELLS.FROSTBOLT_DAMAGE.id],
+      },
+      {
+        spell: SPELLS.FIRE_BLAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: null,
+        cooldown: (haste: any) => 12 / (1 + haste),
+      },
+      {
+        spell: SPELLS.ARCANE_EXPLOSION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.ICE_LANCE,
@@ -138,13 +187,12 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.FROZEN_ORB_DAMAGE.id],
       },
       {
-        spell: SPELLS.MIRROR_IMAGE_TALENT,
+        spell: SPELLS.MIRROR_IMAGE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
         },
         cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -158,8 +206,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 40,
-        charges: 2,
+        cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -203,7 +250,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ICE_BLOCK,
         buffSpellId: SPELLS.ICE_BLOCK.id,
-        cooldown: 240,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.WINTERS_PROTECTION.id) ? 240 - WINTERS_PROTECTION_REDUCTION_MS[combatant.conduitRankBySpellID(SPELLS.WINTERS_PROTECTION.id)] : 240,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
           base: 1500,
@@ -231,13 +278,13 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
-        cooldown: 15,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id) ? 15 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)] : 15,
       },
       {
         spell: SPELLS.SHIMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
-        cooldown: 20,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id) ? 25 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME)] : 25,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
       },
@@ -265,6 +312,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SPELL_STEAL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.FOCUS_MAGIC_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.ALTER_TIME,
+        buffSpellId: SPELLS.ALTER_TIME_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -301,7 +363,7 @@ class Abilities extends CoreAbilities {
           SPELLS.POLYMORPH_PORCUPINE, SPELLS.POLYMORPH_TURTLE,
           SPELLS.POLYMORPH_TURKEY, SPELLS.POLYMORPH_PENGUIN,
           SPELLS.POLYMORPH_BUMBLEBEE, SPELLS.POLYMORPH_PEACOCK,
-          SPELLS.POLYMORPH_DIREHORN],
+          SPELLS.POLYMORPH_DIREHORN, SPELLS.POLYMORPH_MAWRAT],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,

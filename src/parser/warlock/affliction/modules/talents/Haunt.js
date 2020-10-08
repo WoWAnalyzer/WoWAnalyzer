@@ -9,8 +9,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
@@ -88,7 +89,7 @@ class Haunt extends Analyzer {
     const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={(
           <>
@@ -97,19 +98,10 @@ class Haunt extends Analyzer {
           </>
         )}
       >
-        <div className="pad">
-          <label><SpellLink id={SPELLS.HAUNT_TALENT.id} /></label>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatPercentage(this.uptime)} % <small>uptime</small>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
-            </div>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.HAUNT_TALENT}>
+          {formatPercentage(this.uptime)} % <small>uptime</small><br />
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

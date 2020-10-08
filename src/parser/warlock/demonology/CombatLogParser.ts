@@ -42,13 +42,6 @@ import SacrificedSouls from './modules/talents/SacrificedSouls';
 import DemonicConsumption from './modules/talents/DemonicConsumption';
 import NetherPortal from './modules/talents/NetherPortal';
 
-import ShadowsBite from './modules/azerite/ShadowsBite';
-import ExplosivePotential from './modules/azerite/ExplosivePotential';
-import DemonicMeteor from './modules/azerite/DemonicMeteor';
-import UmbralBlaze from './modules/azerite/UmbralBlaze';
-import SupremeCommander from './modules/azerite/SupremeCommander';
-import BalefulInvocation from './modules/azerite/BalefulInvocation';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -96,14 +89,6 @@ class CombatLogParser extends CoreCombatLogParser {
     sacrificedSouls: SacrificedSouls,
     demonicConsumption: DemonicConsumption,
     netherPortal: NetherPortal,
-
-    // Azerite traits
-    demonicMeteor: DemonicMeteor,
-    explosivePotential: ExplosivePotential,
-    umbralBlaze: UmbralBlaze,
-    supremeCommander: SupremeCommander,
-    shadowsBite: ShadowsBite,
-    balefulInvocation: BalefulInvocation,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

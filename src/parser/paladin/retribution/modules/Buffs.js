@@ -8,12 +8,7 @@ class Buffs extends CoreBuffs {
     return [
       {
         spellId: SPELLS.EMPYREAN_POWER_BUFF.id,
-        enabled: combatant.hasTrait(SPELLS.EMPYREAN_POWER.id),
-        timelineHightlight: true,
-      },
-      {
-        spellId: SPELLS.INQUISITION_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.INQUISITION_TALENT),
+        enabled: combatant.hasTalent(SPELLS.EMPYREAN_POWER_TALENT.id),
         timelineHightlight: true,
       },
       {
@@ -22,21 +17,10 @@ class Buffs extends CoreBuffs {
         timelineHightlight: true,
       },
       {
-        spellId: SPELLS.RETRIBUTION_BUFF.id,
-      },
-      {
         spellId: SPELLS.THE_FIRES_OF_JUSTICE_BUFF.id,
       },
       {
         spellId: SPELLS.RIGHTEOUS_VERDICT_BUFF.id,
-      },
-      {
-        spellId: SPELLS.AVENGERS_MIGHT_BUFF.id,
-        enabled: combatant.hasTrait(SPELLS.AVENGERS_MIGHT.id),
-      },
-      {
-        spellId: SPELLS.RELENTLESS_INQUISITOR_BUFF.id,
-        enabled: combatant.hasTrait(SPELLS.RELENTLESS_INQUISITOR.id),
       },
       // Throughput cooldowns
       {

@@ -10,19 +10,41 @@ export default {
     id: 132157,
     name: 'Holy Nova',
     icon: 'spell_holy_holynova',
-    manaCost: 1600,
+    manaCost: 800,
   },
   HOLY_NOVA_HEAL: {
     id: 281265,
     name: 'Holy Nova',
     icon: 'spell_holy_holynova',
-    manaCost: 1600,
+    manaCost: 800,
   },
   POWER_WORD_FORTITUDE: {
     id: 21562,
     name: 'Power Word: Fortitude',
     icon: 'spell_holy_wordfortitude',
-    manaCost: 4000,
+    manaCost: 2000,
+  },
+  SHADOW_WORD_DEATH: {
+    id: 32379,
+    name: 'Shadow Word: Death',
+    icon: 'spell_shadow_demonicfortitude',
+    manaCost: 800,
+  },
+  POWER_INFUSION: {
+    id: 265314,
+    name: 'Power Infusion',
+    icon: 'spell_holy_powerinfusion',
+  },
+  DESPERATE_PRAYER: {
+    id: 19236,
+    name: 'Desperate Prayer',
+    icon: 'spell_holy_testoffaith',
+  },
+  MIND_SOOTHE: {
+    id: 453,
+    name: 'Mind Soothe',
+    icon: 'spell_holy_mindsooth',
+    manaCost: 500,
   },
   // Discipline Priest:
   GRACE: {
@@ -34,7 +56,7 @@ export default {
     id: 47666,
     name: 'Penance',
     icon: 'spell_holy_penance',
-    manaCost: 30800,
+    manaCost: 800,
     coefficient: 0.4,
   },
   PENANCE_HEAL: {
@@ -42,33 +64,33 @@ export default {
     id: 47750,
     name: 'Penance',
     icon: 'spell_holy_penance',
-    manaCost: 30800,
+    manaCost: 800,
   },
   PENANCE_CAST: {
     id: 47540,
     name: 'Penance',
     icon: 'spell_holy_penance',
-    manaCost: 400,
+    manaCost: 800,
   },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
-    manaCost: 2500,
+    manaCost: 1550,
     atonementDuration: 15000,
   },
   SMITE: {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
-    manaCost: 500,
+    manaCost: 200,
     coefficient: 0.47,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power-word',
-    manaCost: 6500,
+    manaCost: 3250,
     atonementDuration: 9000,
   },
   SHADOW_MEND: {
@@ -76,57 +98,60 @@ export default {
     name: 'Shadow Mend',
     icon: 'spell_shadow_shadowmend',
     atonementDuration: 15000,
+    manaCost: 1750,
   },
   RAPTURE: {
     id: 47536,
     name: 'Rapture',
     icon: 'spell_holy_rapture',
+    manaCost: 1550,
   },
   PAIN_SUPPRESSION: {
     id: 33206,
     name: 'Pain Suppression',
     icon: 'spell_holy_painsupression',
-    manaCost: 1600,
+    manaCost: 800,
   },
   MASS_DISPEL: {
     id: 32375,
     name: 'Mass Dispel',
     icon: 'spell_arcane_massdispel',
-    manaCost: 8000,
+    manaCost: 4000,
   },
   DISPEL_MAGIC: {
     id: 528,
     name: 'Dispel Magic',
     icon: 'spell_nature_nullifydisease',
-    manaCost: 4000,
+    manaCost: 800,
   },
   LEAP_OF_FAITH: {
     id: 73325,
     name: 'Leap of Faith',
     icon: 'priest_spell_leapoffaith_a',
-    manaCost: 2600,
+    manaCost: 1300,
   },
   LEVITATE: {
     id: 1706,
     name: 'Levitate',
     icon: 'spell_holy_layonhands',
-    manaCost: 900,
+    manaCost: 450,
   },
   LIGHTS_WRATH: {
     id: 207946,
-    name: "Light's Wrath",
+    name: 'Light\'s Wrath',
     icon: 'inv_staff_2h_artifacttome_d_01',
   },
   MIND_CONTROL: {
     id: 605,
     name: 'Mind Control',
     icon: 'spell_shadow_shadowworddominate',
-    manaCost: 500,
+    manaCost: 1000,
   },
   POWER_WORD_BARRIER_CAST: {
     id: 62618,
     name: 'Power Word: Barrier',
     icon: 'spell_holy_powerwordbarrier',
+    manaCost: 2000,
   },
   POWER_WORD_BARRIER_BUFF: {
     id: 81782,
@@ -137,13 +162,13 @@ export default {
     id: 527,
     name: 'Purify',
     icon: 'spell_holy_dispelmagic',
-    manaCost: 1300,
+    manaCost: 650,
   },
   SHACKLE_UNDEAD: {
     id: 9484,
     name: 'Shackle Undead',
     icon: 'spell_nature_slow',
-    manaCost: 4000,
+    manaCost: 600,
   },
   SHADOWFIEND: {
     id: 34433,
@@ -184,7 +209,7 @@ export default {
     id: 8122,
     name: 'Psychic Scream',
     icon: 'spell_shadow_psychicscream',
-    manaCost: 3000,
+    manaCost: 600,
   },
   ATONEMENT_HEAL_NON_CRIT: {
     id: 81751,
@@ -273,7 +298,7 @@ export default {
   },
   KAM_XIRAFF_BUFF: {
     id: 233997,
-    name: "Kam Xi'raff",
+    name: 'Kam Xi\'raff',
     icon: 'ability_priest_savinggrace',
   },
   TWIST_OF_FATE_BUFF: {
@@ -288,8 +313,13 @@ export default {
   },
   ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
     id: 214637,
-    name: "Dejahna's Inspiration",
+    name: 'Dejahna\'s Inspiration',
     icon: 'spell_holy_heal',
+  },
+  PRAYER_CIRCLE_BUFF: {
+    id: 321379,
+    name: 'Prayer Circle',
+    icon: 'spell_paladin_divinecircle',
   },
 
   // Talents:
@@ -319,6 +349,12 @@ export default {
     icon: 'spell_holy_greaterheal',
     manaCost: 1900,
   },
+  CIRCLE_OF_HEALING_TALENT: {
+    id: 204883,
+    name: 'Circle of Healing',
+    icon: 'spell_holy_circleofrenewal',
+    manaCost: 1650,
+  },
   FLASH_HEAL: {
     id: 2061,
     name: 'Flash Heal',
@@ -329,7 +365,7 @@ export default {
     id: 33076,
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
-    manaCost: 2000,
+    manaCost: 1000,
   },
   PRAYER_OF_MENDING_HEAL: {
     id: 33110,
@@ -345,7 +381,7 @@ export default {
     id: 596,
     name: 'Prayer of Healing',
     icon: 'spell_holy_prayerofhealing02',
-    manaCost: 4500,
+    manaCost: 2500,
   },
   ECHO_OF_LIGHT_MASTERY: {
     id: 77485,
@@ -361,30 +397,25 @@ export default {
     id: 139,
     name: 'Renew',
     icon: 'spell_holy_renew',
-    manaCost: 1800,
+    manaCost: 900,
   },
   HOLY_WORD_SERENITY: {
     id: 2050,
     name: 'Holy Word: Serenity',
     icon: 'spell_holy_persuitofjustice',
-    manaCost: 4000,
+    manaCost: 2000,
   },
   HOLY_WORD_SANCTIFY: {
     id: 34861,
     name: 'Holy Word: Sanctify',
     icon: 'spell_holy_divineprovidence',
-    manaCost: 5000,
-  },
-  DESPERATE_PRAYER: {
-    id: 19236,
-    name: 'Desperate Prayer',
-    icon: 'spell_holy_testoffaith',
+    manaCost: 2500,
   },
   GUARDIAN_SPIRIT: {
     id: 47788,
     name: 'Guardian Spirit',
     icon: 'spell_holy_guardianspirit',
-    manaCost: 900,
+    manaCost: 450,
   },
   GUARDIAN_SPIRIT_HEAL: {
     id: 48153,
@@ -395,7 +426,7 @@ export default {
     id: 64843,
     name: 'Divine Hymn',
     icon: 'spell_holy_divinehymn',
-    manaCost: 4400,
+    manaCost: 2200,
   },
   DIVINE_HYMN_HEAL: {
     id: 64844,
@@ -411,25 +442,25 @@ export default {
     id: 14914,
     name: 'Holy Fire',
     icon: 'spell_holy_searinglight',
-    manaCost: 1000,
+    manaCost: 500,
   },
   HOLY_WORD_CHASTISE: {
     id: 88625,
     name: 'Holy Word: Chastise',
     icon: 'spell_holy_chastise',
-    manaCost: 2000,
+    manaCost: 1000,
   },
   HOLY_WORD_CHASTISE_CENSURE_INCAPACITATE: {
     id: 200196,
     name: 'Holy Word: Chastise',
     icon: 'spell_holy_chastise',
-    manaCost: 2000,
+    manaCost: 1000,
   },
   HOLY_WORD_CHASTISE_CENSURE_STUN: {
     id: 200200,
     name: 'Holy Word: Chastise',
     icon: 'spell_holy_chastise',
-    manaCost: 2000,
+    manaCost: 1000,
   },
   SYMBOL_OF_HOPE: {
     id: 64901,
@@ -463,8 +494,8 @@ export default {
     id: 8092,
     name: 'Mind Blast',
     icon: 'spell_shadow_unholyfrenzy',
+    manaCost: 1250,
   },
-
   MIND_FLAY: {
     id: 15407,
     name: 'Mind Flay',
@@ -474,6 +505,11 @@ export default {
     id: 34914,
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
+  },
+  DEVOURING_PLAGUE: {
+    id: 335467,
+    name: 'Devouring Plague',
+    icon: 'spell_shadow_devouringplague',
   },
   VOID_ERUPTION: {
     id: 228260,
@@ -553,6 +589,7 @@ export default {
     id: 48045,
     name: 'Mind Sear',
     icon: 'spell_shadow_mindshear',
+    manaCost: 300,
   },
 
   SHADOWY_APPARITION: {
@@ -587,48 +624,24 @@ export default {
     icon: 'spell_shadow_twistedfaith',
   },
 
+  DARK_PASSION: {
+    id: 342855,
+    name: 'Dark Passion',
+    icon: 'spell_shadow_twistedfaith',
+  },
+
+  DARK_THOUGHTS: {
+    id: 341205,
+    name: 'Dark Thoughts',
+    icon: 'ability_priest_thoughtsteal01',
+  },
+
   // Shadow items:
-
-  SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE: {
-    id: 242273,
-    name: 'T20 4 Set Bonus',
-    icon: 'spell_shadow_shadowwordpain',
-  },
-
-  ANUNDS_SEARED_SHACKLES_BUFF: {
-    id: 215210,
-    name: "Anund's Last Breath",
-    icon: 'ability_ironmaidens_convulsiveshadows',
-  },
-
-  HEART_OF_THE_VOID_HEAL: {
-    id: 248219,
-    name: 'Heart of the Void',
-    icon: 'spell_priest_void-blast',
-  },
-
-  THE_TWINS_PAINFUL_TOUCH: {
-    id: 207724,
-    name: "The Twins' Painful Touch",
-    icon: 'spell_shadow_mindflay',
-  },
-
-  SHADOW_PRIEST_T21_2SET_BONUS_PASSIVE: {
-    id: 251845,
-    name: 'Shadow Priest T21 2P Bonus',
-    icon: 'ability_priest_ascension',
-  },
-
-  SHADOW_PRIEST_T21_4SET_BONUS_PASSIVE: {
-    id: 251846,
-    name: 'Shadow Priest T21 4P Bonus',
-    icon: 'ability_priest_ascension',
-  },
 
   SHADOW_CRASH_TALENT_DAMAGE: {
     id: 205386,
-    name: "Shadow Crash",
-    icon: "spell_shadow_shadowfury",
+    name: 'Shadow Crash',
+    icon: 'spell_shadow_shadowfury',
   },
 
 };

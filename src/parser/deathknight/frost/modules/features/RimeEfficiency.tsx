@@ -1,5 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, RemoveBuffEvent, RefreshBuffEvent, GlobalCooldownEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -79,14 +80,14 @@ class RimeEfficiency extends Analyzer {
         average: .90,
         major: .85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
       suffix: 'Average',
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
+      .addSuggestion((suggest, actual, recommended) => {
         return suggest(<> You are wasting <SpellLink id={SPELLS.RIME.id} /> procs. You should be casting <SpellLink id={SPELLS.HOWLING_BLAST.id} /> as soon as possible when you have a Rime proc to avoid wasting it.</>)
           .icon(SPELLS.RIME.icon)
           .actual(i18n._(t('deathknight.frost.suggestions.rime.wastedProcs')`${formatPercentage(this.wastedProcRate)}% of Rime procs were either refreshed and lost or expired without being used`))

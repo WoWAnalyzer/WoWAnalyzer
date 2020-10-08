@@ -3,17 +3,16 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
+import { BOP_CA_EXTENSION_PER_CAST, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
-
-const EXTENSION_PER_CAST = 1500;
-const MS_BUFFER = 100;
+import { MS_BUFFER } from 'parser/hunter/shared/constants';
 
 /** Bird of Prey
  * Attacking your pet's target with Mongoose Bite, Raptor Strike, Butchery or Carve extends the duration of Coordinated Assault by  1.5 sec.
@@ -34,11 +33,37 @@ class BirdOfPrey extends Analyzer {
 
   constructor(options: any) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
+    
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([...RAPTOR_MONGOOSE_VARIANTS, SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]), this.onPlayerDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]), this.onAoECast);
     this.addEventListener(Events.fightend, this.aoeCheck);
+  }
+
+  get birdPercentEffectiveness() {
+    return {
+      actual: this.percentExtension,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.85,
+        major: 0.75,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  get timeExtendedInSeconds() {
+    return this.coordinatedAssaultExtended / 1000;
+  }
+
+  get extensionTimeLostInSeconds() {
+    return this.wastedExtension / 1000;
+  }
+
+  get percentExtension() {
+    return this.coordinatedAssaultExtended / (this.coordinatedAssaultExtended + this.wastedExtension);
   }
 
   onAoECast() {
@@ -63,49 +88,25 @@ class BirdOfPrey extends Analyzer {
       this.timestampAoE = event.timestamp;
     } else {
       if (this.playerTarget === this.petTarget) {
-        this.coordinatedAssaultExtended += EXTENSION_PER_CAST;
+        this.coordinatedAssaultExtended += BOP_CA_EXTENSION_PER_CAST;
       } else {
-        this.wastedExtension += EXTENSION_PER_CAST;
+        this.wastedExtension += BOP_CA_EXTENSION_PER_CAST;
       }
     }
   }
 
   aoeCheck() {
     if (this.targetsHitAoE.includes(true)) {
-      this.coordinatedAssaultExtended += EXTENSION_PER_CAST;
+      this.coordinatedAssaultExtended += BOP_CA_EXTENSION_PER_CAST;
     } else {
-      this.wastedExtension += EXTENSION_PER_CAST;
+      this.wastedExtension += BOP_CA_EXTENSION_PER_CAST;
     }
     this.targetsHitAoE = [];
     this.aoeChecked = true;
   }
 
-  get birdPercentEffectiveness() {
-    return {
-      actual: this.percentExtension,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.85,
-        major: 0.75,
-      },
-      style: 'percentage',
-    };
-  }
-
-  get timeExtendedInSeconds() {
-    return this.coordinatedAssaultExtended / 1000;
-  }
-
-  get extensionTimeLostInSeconds() {
-    return this.wastedExtension / 1000;
-  }
-
-  get percentExtension() {
-    return this.coordinatedAssaultExtended / (this.coordinatedAssaultExtended + this.wastedExtension);
-  }
-
-  suggestions(when: any) {
-    when(this.birdPercentEffectiveness).addSuggestion((suggest: any, actual: any, recommended: any) => {
+  suggestions(when: When) {
+    when(this.birdPercentEffectiveness).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>When talented into <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} />, it's important to cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />, <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, <SpellLink id={SPELLS.CARVE.id} /> or <SpellLink id={SPELLS.BUTCHERY_TALENT.id} /> on the same target as your pet is attacking.</>)
         .icon(SPELLS.BIRDS_OF_PREY_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of abilities extending CA were used on your pets target`)
