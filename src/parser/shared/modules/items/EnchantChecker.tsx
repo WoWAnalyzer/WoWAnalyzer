@@ -1,4 +1,3 @@
-import React from 'react';
 
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -6,6 +5,10 @@ import SPECS from 'game/SPECS';
 
 import Analyzer from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import { When } from 'parser/core/ParseResults';
+import { Item } from 'parser/core/Events';
+
+import React from 'react';
 
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
@@ -125,9 +128,9 @@ class EnchantChecker extends Analyzer {
   ];
 
   get enchantableGear() {
-    const enchantSlots = AGI_SPECS.includes(this.selectedCombatant.specId) ? this.constructor.AGI_ENCHANTABLE_SLOTS : STR_SPECS.includes(this.selectedCombatant.specId) ? this.constructor.STR_ENCHANTABLE_SLOTS : this.constructor.INT_ENCHANTABLE_SLOTS;
-    return Object.keys(enchantSlots).reduce((obj, slot) => {
-      const item = this.selectedCombatant._getGearItemBySlotId(slot);
+    const enchantSlots = AGI_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.AGI_ENCHANTABLE_SLOTS : STR_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.STR_ENCHANTABLE_SLOTS : EnchantChecker.INT_ENCHANTABLE_SLOTS;
+    return Object.keys(enchantSlots).reduce((obj: {[key: number]: Item}, slot) => {
+      const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));
 
       // If there is no offhand, disregard the item.
       // If the icon has `offhand` in the name, we know it's not a weapon and doesn't need an enchant.
@@ -135,7 +138,7 @@ class EnchantChecker extends Analyzer {
       if (item.id === 0 || item.icon.includes('offhand') || item.icon.includes('shield')) {
         return obj;
       }
-      obj[slot] = this.selectedCombatant._getGearItemBySlotId(slot);
+      obj[Number(slot)] = this.selectedCombatant._getGearItemBySlotId(Number(slot));
 
       return obj;
     }, {});
@@ -145,33 +148,33 @@ class EnchantChecker extends Analyzer {
   }
   get slotsMissingEnchant() {
     const gear = this.enchantableGear;
-    return Object.keys(gear).filter(slot => !this.hasEnchant(gear[slot]));
+    return Object.keys(gear).filter(slot => !this.hasEnchant(gear[Number(slot)]));
   }
   get numSlotsMissingEnchant() {
     return this.slotsMissingEnchant.length;
   }
   get slotsMissingMaxEnchant() {
     const gear = this.enchantableGear;
-    return Object.keys(gear).filter(slot => this.hasEnchant(gear[slot]) && !this.hasMaxEnchant(gear[slot]));
+    return Object.keys(gear).filter(slot => this.hasEnchant(gear[Number(slot)]) && !this.hasMaxEnchant(gear[Number(slot)]));
   }
   get numSlotsMissingMaxEnchant() {
     return this.slotsMissingMaxEnchant.length;
   }
-  hasEnchant(item) {
+  hasEnchant(item: Item) {
     return Boolean(item.permanentEnchant);
   }
-  hasMaxEnchant(item) {
-    return this.constructor.MAX_ENCHANT_IDS.includes(item.permanentEnchant);
+  hasMaxEnchant(item: Item) {
+    return EnchantChecker.MAX_ENCHANT_IDS.includes(item.permanentEnchant);
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     const gear = this.enchantableGear;
-    const enchantSlots = AGI_SPECS.includes(this.selectedCombatant.specId) ? this.constructor.AGI_ENCHANTABLE_SLOTS : STR_SPECS.includes(this.selectedCombatant.specId) ? this.constructor.STR_ENCHANTABLE_SLOTS : this.constructor.INT_ENCHANTABLE_SLOTS;
+    const enchantSlots: {[key: number]: string} = AGI_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.AGI_ENCHANTABLE_SLOTS : STR_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.STR_ENCHANTABLE_SLOTS : EnchantChecker.INT_ENCHANTABLE_SLOTS;
     // iterating with keys instead of value because the values don't store what slot is being looked at
     Object.keys(gear)
       .forEach(slot => {
-        const item = gear[slot];
-        const slotName = enchantSlots[slot];
+        const item = gear[Number(slot)];
+        const slotName = enchantSlots[Number(slot)];
         const hasEnchant = this.hasEnchant(item);
 
         when(hasEnchant).isFalse()
