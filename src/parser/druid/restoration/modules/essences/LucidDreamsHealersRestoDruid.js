@@ -39,7 +39,7 @@ class LucidDreamsRestoDruid extends LucidDreamsHealers {
               <TooltipElement content={<>Assuming mana used to fill with Rejuvs: <strong>≈{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.manaRestoredMinor)))}%</strong> healing)</>}>
                 <ItemManaGained amount={this.manaRestoredMinor} /><br />
               </TooltipElement>
-              {rank > 2 && (<><StatIcon stat={"versatility"} /> {formatNumber(this.minorBuffUptime * this.versGain)} <small>average versatility gained</small><br /></>)}
+              {rank > 2 && (<><StatIcon stat="versatility" /> {formatNumber(this.minorBuffUptime * this.versGain)} <small>average versatility gained</small><br /></>)}
             </div>
           </div>
         </ItemStatistic>
@@ -51,7 +51,7 @@ class LucidDreamsRestoDruid extends LucidDreamsHealers {
                 <TooltipElement content={<>Does not take into account if you used Lucid Dreams while you were capped on mana. Assuming mana used to fill with Rejuvs: <strong>≈{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.manaRestoredMajor)))}%</strong> healing)</>}>
                   <ItemManaGained amount={this.manaRestoredMajor} /><br />
                 </TooltipElement>
-                {rank > 2 && (<><StatIcon stat={"leech"} /> {formatNumber(this.majorBuffUptime * this.leechGain)} <small>average leech gained</small><br /></>)}
+                {rank > 2 && (<><StatIcon stat="leech" /> {formatNumber(this.majorBuffUptime * this.leechGain)} <small>average leech gained</small><br /></>)}
               </div>
             </div>
           </ItemStatistic>

@@ -5,6 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
+
 import Mastery from '../core/Mastery';
 
 class CenarionWard extends Analyzer {

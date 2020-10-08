@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -19,7 +19,7 @@ class ResourceUsage extends Analyzer {
   /**
    * Array of objects from common/SPELLS
    */
-  static listOfResourceSpenders: { id: number, name: string, icon: string }[] = [];
+  static listOfResourceSpenders: Array<{ id: number, name: string, icon: string }> = [];
 
   /**
    * We might want some spells to show as other spells, if some buff can alter their spellID, but the spell is otherwise essentially the same.
@@ -54,7 +54,7 @@ class ResourceUsage extends Analyzer {
   listOfSpellsUsed: { [key: string]: { casts: number, resourceUsed: number } } = {};
   ctor = this.constructor as typeof ResourceUsage;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.resourceSpenders), this.onCast);
   }
@@ -121,7 +121,7 @@ class ResourceUsage extends Analyzer {
   }
 
   get resourceUsageChart() {
-    const items: { color: string, label: string, spellId: number, value: number, valueTooltip: JSX.Element }[] = [];
+    const items: Array<{ color: string, label: string, spellId: number, value: number, valueTooltip: JSX.Element }> = [];
     let colourIndex = 0;
     this.resourceSpenders.forEach(spell => {
       if (this.listOfSpellsUsed[spell.id] && this.listOfSpellsUsed[spell.id].resourceUsed > 0) {

@@ -31,7 +31,7 @@ class Siegebreaker extends Analyzer {
       if (!this.active) {
         return;
       }
-      
+
       this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SIEGEBREAKER_TALENT), this.siegeTurnOn);
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.playerCastedRecklessness);
@@ -45,7 +45,7 @@ class Siegebreaker extends Analyzer {
     this.lastRecklessness = event;
   }
 
-  siegeTurnOn(event){
+  siegeTurnOn(){
     if(this.inValidRecklessness){
       this.siegeCasted = true;
     }
@@ -91,12 +91,10 @@ class Siegebreaker extends Analyzer {
   }
 
   suggestions(when){
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You're not casting <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} /> and <SpellLink id={SPELLS.RECKLESSNESS.id} /> together.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're not casting <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} /> and <SpellLink id={SPELLS.RECKLESSNESS.id} /> together.</>)
         .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of Recklessnesses casts without a Siegebreaker cast`)
-        .recommended(`${formatPercentage(recommended)}+% is recommended`);
-    });
+        .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 
   statistic() {

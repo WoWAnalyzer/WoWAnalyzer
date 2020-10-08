@@ -142,17 +142,13 @@ class EarlyDotRefreshes extends Analyzer {
 
   //Returns the dot object
   getDot(spellId) {
-    const dot = this.constructor.dots.find(element => {
-      return element.debuffId === spellId;
-    });
+    const dot = this.constructor.dots.find(element => element.debuffId === spellId);
     return dot;
   }
 
   //Returns the dot object
   getDotByCast(spellId) {
-    const dot = this.constructor.dots.find(element => {
-      return element.castId === spellId;
-    });
+    const dot = this.constructor.dots.find(element => element.castId === spellId);
     return dot;
   }
 
@@ -180,7 +176,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   badCastsEffectivePercent(spellId) {
-    if(!this.casts[spellId].addedDuration) return 1;
+    if(!this.casts[spellId].addedDuration) {return 1;}
     return this.casts[spellId].addedDuration / (this.casts[spellId].addedDuration+this.casts[spellId].wastedDuration);
   }
 

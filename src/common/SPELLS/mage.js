@@ -56,6 +56,11 @@ export default {
     name: 'Rune of Power',
     icon: 'spell_mage_runeofpower',
   },
+  RUNE_OF_POWER_AUTOCAST: {
+    id: 342130,
+    name: 'Rune of Power',
+    icon: 'spell_mage_runeofpower',
+  },
   MIRROR_IMAGE: { 
     id: 55342, 
     name: 'Mirror Image', 

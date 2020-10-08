@@ -12,6 +12,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
+
 import { ABILITIES_AFFECTED_BY_MASTERY, BASE_ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 class MasteryEffectiveness extends Analyzer {
@@ -76,6 +77,7 @@ class MasteryEffectiveness extends Analyzer {
     return [
       (
         <StatisticBox
+          key="StatisticBox"
           icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
           value={`${formatPercentage(this.masteryEffectivenessPercent)} %`}
           position={STATISTIC_ORDER.CORE(30)}
@@ -88,6 +90,7 @@ class MasteryEffectiveness extends Analyzer {
       ),
       (
         <Panel
+          key="Panel"
           title="Mastery effectiveness breakdown"
           position={200}
           pad={false}

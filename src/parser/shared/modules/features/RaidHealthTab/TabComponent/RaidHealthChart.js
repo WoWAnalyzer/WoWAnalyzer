@@ -110,9 +110,7 @@ class RaidHealthChart extends React.Component {
       },
     };
     const data = {
-      hp: [].concat(...players.map(p => {
-        return p.data.map(datum => ({...datum, title: p.title }));
-      })),
+      hp: [].concat(...players.map(p => p.data.map(datum => ({...datum, title: p.title })))),
       deaths,
     };
 

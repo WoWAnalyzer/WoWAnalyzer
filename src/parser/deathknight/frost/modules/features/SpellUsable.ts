@@ -2,9 +2,10 @@ import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { DamageEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Analyzer';
 
 /**
- * 
+ *
 Your Frost Strike, Frostscythe, and Obliterate critical strikes reduce the remaining cooldown of Pillar of Frost by 3 sec.
  */
 const ICECAP_COOLDOWN_REDUCTION_MS = 3000;
@@ -26,7 +27,7 @@ class SpellUsable extends CoreSpellUsable {
   lastCritTime: number = -2000;
   hasIcecap: boolean;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.hasIcecap = this.selectedCombatant.hasTalent(SPELLS.ICECAP_TALENT.id);
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -12,6 +12,9 @@ const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
+  change(prepatch, 'Converted Combatants to TypeScript', niseko),
+  change(prepatch, 'Changed code quality rules.', Zerotorescue),
+  change(prepatch, 'Added a new event map for catch-all event types.', Dambroda),
   change(prepatch, 'Converted WCL API Access to TypeScript', Zeboot),
   change(prepatch, 'Cleaned up the console a little bit.', Abelito75),
   change(prepatch, 'Added a toggle-all button to the EventTab.', niseko),
@@ -26,7 +29,11 @@ export default [
   change(prepatch, 'Updated search in Event tab to allow for multi-word searching in quotes.', Abelito75),
   change(prepatch, 'Add some early checks to see if a player has a given conduit, soulbind or covenant.', Putro),
   change(prepatch, 'Add some scripts for generating conduit information.', Putro),
-  change(date(2020, 10, 4), 'Fixed cast efficiency calculations for channeled spells. They are now no longer adding channeled time on top of cooldown as time they were unavailable', Juko8),
+  change(prepatch, 'Fixed cast efficiency calculations for channeled spells. They are now no longer adding channeled time on top of cooldown as time they were unavailable', Juko8),
+  change(date(2020, 10, 7), 'Updated the report header design: moved phase and time selection slightly out of view.', Zerotorescue),
+  change(date(2020, 10, 6), 'Provide the ability to analyse anonymous reports.', AdamKelly),
+  change(date(2020, 10, 6), 'Fixed guild and character search so they can be submitted.', ChristopherKiss),
+  change(date(2020, 10, 5), 'Convert TimeInput/TimeFilter to typescript', ChagriAli),
   change(date(2020, 10, 4), 'Removed remaining trackers', Zerotorescue),
   change(date(2020, 10, 2), 'Updated project dependencies.', Zerotorescue),
   change(date(2020, 9, 26), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),

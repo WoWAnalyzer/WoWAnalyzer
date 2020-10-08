@@ -4,7 +4,7 @@ import Events, { InterruptEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const COOLDOWN_REDUCTION_MS: {[rank: number]:number } = {
+const COOLDOWN_REDUCTION_MS: {[rank: number]: number } = {
   1: 1000,
   2: 1500,
   3: 2000,

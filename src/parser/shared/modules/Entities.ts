@@ -1,6 +1,6 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, ApplyDebuffEvent, ApplyDebuffStackEvent, Event, EventType, RemoveBuffEvent, RemoveBuffStackEvent, RemoveDebuffEvent, RemoveDebuffStackEvent } from 'parser/core/Events';
+import Events, { AnyEvent, ApplyBuffEvent, ApplyBuffStackEvent, ApplyDebuffEvent, ApplyDebuffStackEvent, EventType, RemoveBuffEvent, RemoveBuffStackEvent, RemoveDebuffEvent, RemoveDebuffStackEvent } from 'parser/core/Events';
 import Entity, { TrackedBuffEvent } from 'parser/core/Entity';
 
 const debug = false;
@@ -14,7 +14,7 @@ class Entities extends Analyzer {
   };
   readonly eventEmitter!: EventEmitter;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applybuff, this.applyBuff);
     this.addEventListener(Events.applydebuff, this.applyBuff);
@@ -32,11 +32,11 @@ class Entities extends Analyzer {
     this.addEventListener(Events.removedebuffstack, this.updateBuffStack);
   }
 
-  getEntities(): Array<Entity> {
+  getEntities(): { [entityId: number]: Entity } {
     throw new Error('Not implemented');
   }
 
-  getEntity(event: Event<any>): Entity | null {
+  getEntity(event: AnyEvent): Entity | null {
     throw new Error('Not implemented');
   }
 

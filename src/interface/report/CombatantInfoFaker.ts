@@ -9,7 +9,7 @@ const debugGear = false;
 type FakeInfo = {
   covenant: Covenant,
   soulbind: Soulbind,
-  conduits: Array<Conduit>
+  conduits: Conduit[]
   legendaryInfo: { slotId: number, bonusId: number } //slotId 0 would be head slot, and bonusID is the bonusID that is added to an item with the given legendary effect
 }
 

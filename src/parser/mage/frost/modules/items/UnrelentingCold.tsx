@@ -9,7 +9,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS: {[rank: number]:number } = {
+const DAMAGE_BONUS: {[rank: number]: number } = {
   1: .1,
   2: .12,
   3: .14,
@@ -28,7 +28,6 @@ const DAMAGE_BONUS: {[rank: number]:number } = {
 };
 
 class UnrelentingCold extends Analyzer {
-
   conduitRank: number = 0;
 
   bonusDamage = 0;

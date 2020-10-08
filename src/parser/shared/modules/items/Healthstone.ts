@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS/index';
 
 import Combatants from 'parser/shared/modules/Combatants';
 import { Class } from 'parser/core/Events';
+
 import Potion from './Potion';
 /**
  * Tracks Healthstone cooldown.

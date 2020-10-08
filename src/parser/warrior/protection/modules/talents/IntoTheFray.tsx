@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -19,7 +19,7 @@ class IntoTheFray extends Analyzer {
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INTO_THE_FRAY_TALENT.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);

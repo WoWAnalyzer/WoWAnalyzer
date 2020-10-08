@@ -10,7 +10,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -41,7 +41,7 @@ class Downpour extends Analyzer {
   downpourHitsSum = 0;
   downpourTimestamp = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id);
   }

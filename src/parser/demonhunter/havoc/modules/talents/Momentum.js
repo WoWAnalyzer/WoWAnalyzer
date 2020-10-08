@@ -42,12 +42,10 @@ class Momentum extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Maintain the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to maximize damage.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<> Maintain the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to maximize damage.</>)
           .icon(SPELLS.MOMENTUM_TALENT.icon)
           .actual(`${formatPercentage(actual)}% buff uptime`)
-          .recommended(`${formatPercentage(recommended)}% is recommended.`);
-      });
+          .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 
   statistic() {

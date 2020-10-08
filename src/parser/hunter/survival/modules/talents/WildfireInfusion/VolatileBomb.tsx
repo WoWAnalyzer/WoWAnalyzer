@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
@@ -53,7 +53,7 @@ class VolatileBomb extends Analyzer {
   protected enemies!: Enemies;
   protected statTracker!: StatTracker;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
@@ -166,12 +166,10 @@ class VolatileBomb extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.missedResetsThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You shouldn't cast <SpellLink id={SPELLS.VOLATILE_BOMB_WFI.id} /> if your target doesn't have <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on.</>)
+    when(this.missedResetsThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You shouldn't cast <SpellLink id={SPELLS.VOLATILE_BOMB_WFI.id} /> if your target doesn't have <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on.</>)
         .icon(SPELLS.VOLATILE_BOMB_WFI.icon)
         .actual(`${actual} casts without ${<SpellLink id={SPELLS.SERPENT_STING_SV.id} />} on`)
-        .recommended(`<${recommended} is recommended`);
-    });
+        .recommended(`<${recommended} is recommended`));
 
   }
 }

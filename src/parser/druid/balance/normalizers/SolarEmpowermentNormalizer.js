@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+
 import EmpowermentNormalizer from './EmpowermentNormalizer';
 
 class SolarEmpowermentNormalizer extends EmpowermentNormalizer {

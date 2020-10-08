@@ -27,8 +27,8 @@ import RuneOfPower from '../shared/modules/features/RuneOfPower';
 import FocusMagic from '../shared/modules/features/FocusMagic';
 
 //Legendaries
-import FreezingWinds from './modules/items/FreezingWinds';
 import ColdFront from './modules/items/ColdFront';
+import FreezingWinds from './modules/items/FreezingWinds';
 
 //Conduits
 import IceBite from './modules/items/IceBite';
@@ -72,8 +72,8 @@ class CombatLogParser extends CoreCombatLogParser {
     coldSnap: ColdSnap,
 
     //Legendaries
-    freezingWinds: FreezingWinds,
     coldFront: ColdFront,
+    freezingWinds: FreezingWinds,
 
     //Conduits
     iceBite: IceBite,

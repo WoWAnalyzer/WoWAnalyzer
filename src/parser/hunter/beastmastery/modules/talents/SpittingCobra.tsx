@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
@@ -7,6 +7,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+
+
 import { SPITTING_COBRA_DAMAGE_INCREASE } from '../../constants';
 
 /**
@@ -24,7 +26,7 @@ class SpittingCobra extends Analyzer {
   casts = 0;
   totalIncrease = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BESTIAL_WRATH, SPELLS.COBRA_SHOT]), this.bestialWrathCobraShotCasts);

@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, EnergizeEvent, DeathEvent } from 'parser/core/Events';
 
 const debug = false;
@@ -8,7 +8,7 @@ class ArcaneChargeTracker extends Analyzer {
 
 	charges = 0;
 
-	constructor(options: any) {
+	constructor(options: Options) {
     super(options);
 			this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
 			this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE), this.onBarrage);

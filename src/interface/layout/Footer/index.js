@@ -8,8 +8,7 @@ import Logo from 'interface/images/logo.svg';
 
 import './style.scss';
 
-const Footer = props => {
-  return (
+const Footer = props => (
     <footer>
       <div className="container text-center">
         <div>
@@ -79,6 +78,5 @@ const Footer = props => {
       </div>
     </footer>
   );
-};
 
 export default Footer;

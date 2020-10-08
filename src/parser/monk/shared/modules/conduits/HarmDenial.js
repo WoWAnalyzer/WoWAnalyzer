@@ -31,7 +31,7 @@ class HarmDenial extends Analyzer {
 
     this.healingBoost = .2;
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM), this.extraHealing);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.EXPEL_HARM, SPELLS.EXPEL_HARM_TARGET_HEAL]), this.extraHealing);
   }
 
   extraHealing(event) {

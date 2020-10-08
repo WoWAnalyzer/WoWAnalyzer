@@ -2,6 +2,7 @@ import React from 'react';
 
 import { tsabo } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
+
 import CHANGELOG from './CHANGELOG';
 
 export default {

@@ -13,15 +13,15 @@ export type Contributor = {
   twitter?: string, // Currently unused
   avatar?: any,
   about?: string,
-  mains?: Array<Character>,
-  alts?: Array<Character>,
+  mains?: Character[],
+  alts?: Character[],
   others?: any,
   links?: { [name: string]: string }
 }
 export type ChangelogEntry = {
   date: Date,
   changes: React.ReactNode,
-  contributors: Array<Contributor>
+  contributors: Contributor[]
 }
 export function date(year: number, month: number, day: number) {
   // months are 0 indexed in javascript's Date parameters

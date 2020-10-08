@@ -7,13 +7,11 @@ import GiftOfTheOx from './GiftOfTheOx';
 
 describe('GiftOfTheOx', () => {
   let parser = null;
-  beforeAll(() => {
-    return loadLog(
+  beforeAll(() => loadLog(
       path.resolve(__dirname, '../../integrationTests/example.zip'),
     ).then(_log => {
       parser = parseLog(CombatLogParser, _log);
-    });
-  });
+    }));
 
   it('should have wdps and agility healing sum to totalHealing', () => {
     const gotox = parser.getModule(GiftOfTheOx);

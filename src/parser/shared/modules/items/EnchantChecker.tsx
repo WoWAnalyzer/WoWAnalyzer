@@ -160,7 +160,7 @@ class EnchantChecker extends Analyzer {
     return this.slotsMissingMaxEnchant.length;
   }
   hasEnchant(item: Item) {
-    return !!item.permanentEnchant;
+    return Boolean(item.permanentEnchant);
   }
   hasMaxEnchant(item: Item) {
     return EnchantChecker.MAX_ENCHANT_IDS.includes(item.permanentEnchant);
@@ -177,27 +177,23 @@ class EnchantChecker extends Analyzer {
         const hasEnchant = this.hasEnchant(item);
 
         when(hasEnchant).isFalse()
-          .addSuggestion((suggest, actual, recommended) => {
-            return suggest(
+          .addSuggestion((suggest, actual, recommended) => suggest(
               <>
                 Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
               </>,
             )
               .icon(item.icon)
-              .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
-          });
+              .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
 
         const noMaxEnchant = hasEnchant && !this.hasMaxEnchant(item);
         when(noMaxEnchant).isTrue()
-          .addSuggestion((suggest, actual, recommended) => {
-            return suggest(
+          .addSuggestion((suggest, actual, recommended) => suggest(
               <>
                 Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
               </>,
             )
               .icon(item.icon)
-              .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
-          });
+              .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
       });
   }
 }

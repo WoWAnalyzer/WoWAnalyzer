@@ -5,6 +5,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
+
 import ManaTracker from './ManaTracker';
 
 class HealingEfficiencyTracker extends Analyzer {

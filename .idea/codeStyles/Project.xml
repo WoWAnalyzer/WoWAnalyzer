@@ -6,6 +6,7 @@
       </value>
     </option>
     <option name="RIGHT_MARGIN" value="999" />
+    <option name="SOFT_MARGINS" value="80,100" />
     <CssCodeStyleSettings>
       <option name="BLANK_LINES_BETWEEN_BLOCKS" value="0" />
     </CssCodeStyleSettings>
@@ -220,7 +221,7 @@
       <option name="DOWHILE_BRACE_FORCE" value="3" />
       <option name="WHILE_BRACE_FORCE" value="3" />
       <option name="FOR_BRACE_FORCE" value="3" />
-      <option name="SOFT_MARGINS" value="100" />
+      <option name="SOFT_MARGINS" value="80,100" />
       <indentOptions>
         <option name="INDENT_SIZE" value="2" />
         <option name="CONTINUATION_INDENT_SIZE" value="2" />

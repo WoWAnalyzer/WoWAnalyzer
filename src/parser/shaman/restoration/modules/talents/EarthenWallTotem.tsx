@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage, formatDuration, formatNth } from 'common/format';
 
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 
 import Combatants from 'parser/shared/modules/Combatants';
@@ -37,14 +37,14 @@ class EarthenWallTotem extends Analyzer {
     combatants: Combatants,
   };
 
-  earthenWallTotems: Array<EarthenWallTotemInfo> = [];
+  earthenWallTotems: EarthenWallTotemInfo[] = [];
   castNumber = 0;
   prePullCast = true;
   isMaghar: boolean | null = false;
 
   protected combatants!: Combatants;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id);
     this.isMaghar = this.selectedCombatant.race && this.selectedCombatant.race.name === "Mag'har Orc";
@@ -116,13 +116,11 @@ class EarthenWallTotem extends Analyzer {
 
   suggestions(when: When) {
     when(this.earthenWallEfficiency).isLessThan(RECOMMENDED_EFFICIENCY)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Try to cast <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs.</span>)
           .icon(SPELLS.EARTHEN_WALL_TOTEM_TALENT.icon)
           .actual(`${this.earthenWallEfficiency.toFixed(2)}%`)
           .recommended(`${recommended}%`)
-          .regular(recommended - .15).major(recommended - .3);
-      });
+          .regular(recommended - .15).major(recommended - .3));
   }
 
   get suggestionThreshold() {

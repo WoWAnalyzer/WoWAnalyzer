@@ -3,6 +3,7 @@ import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/Res
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Analyzer';
 
 const VENGEANCE_RAGE_REDUCTION = 0.33; //percent
 const RAGE_GEN_FROM_MELEE_HIT_ICD = 1000; //ms
@@ -15,7 +16,7 @@ class RageTracker extends ResourceTracker {
 
   maxResource = 100;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.RAGE;
   }

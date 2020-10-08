@@ -97,11 +97,9 @@ class FoodChecker extends Analyzer {
       importance = SUGGESTION_IMPORTANCE.MAJOR;
     }
     when(this.higherFoodSuggestionThresholds)
-      .addSuggestion((suggest) => {
-        return suggest(suggestionText)
+      .addSuggestion((suggest) => suggest(suggestionText)
           .icon(SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_INT.icon)
-          .staticImportance(importance);
-      });
+          .staticImportance(importance));
   }
 }
 export default FoodChecker;

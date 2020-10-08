@@ -17,12 +17,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC)...')
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC)...')
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`${formatPercentage(recommended)}% or less is recommended`);
-      });
+          .recommended(`${formatPercentage(recommended)}% or less is recommended`));
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(4);

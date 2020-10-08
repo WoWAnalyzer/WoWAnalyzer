@@ -82,7 +82,7 @@ class EarthShield extends Analyzer {
         value={
           (
             <div>
-              <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small><br />     
+              <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small><br />
               <ItemHealingDone amount={this.healing + this.buffHealing} />
             </div>
           )

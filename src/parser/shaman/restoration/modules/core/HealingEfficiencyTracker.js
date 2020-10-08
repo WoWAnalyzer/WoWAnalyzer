@@ -5,6 +5,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import CoreHealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import SPELLS from 'common/SPELLS';
+
 import HealingDone from './HealingDone';
 import Resurgence from '../spells/Resurgence';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';

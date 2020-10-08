@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
 // the buff events all use this spell
-export const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER; 
+export const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER;
 
 class RushingJadeWind extends Analyzer {
   get uptimeThreshold() {
@@ -38,12 +38,10 @@ class RushingJadeWind extends Analyzer {
   // purely offensive
   suggestions(when) {
     when(this.uptimeThreshold)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You had low uptime on <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} />. Try to maintain 100% uptime by refreshing the buff before it drops.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You had low uptime on <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} />. Try to maintain 100% uptime by refreshing the buff before it drops.</>)
           .icon(SPELLS.RUSHING_JADE_WIND.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`);
-      });
+          .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 }
 

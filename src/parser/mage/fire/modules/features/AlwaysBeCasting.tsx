@@ -14,13 +14,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     if (!boss || !boss.fight.disableDowntimeSuggestion) {
       when(deadTimePercentage).isGreaterThan(0.2)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting <SpellLink id={SPELLS.SCORCH.id} />.</span>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting <SpellLink id={SPELLS.SCORCH.id} />.</span>)
             .icon('spell_mage_altertime')
             .actual(`${formatPercentage(actual)}% downtime`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended + 0.15).major(recommended + 0.2);
-        });
+            .regular(recommended + 0.15).major(recommended + 0.2));
     }
   }
 

@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { HealEvent } from 'parser/core/Events';
@@ -14,7 +14,7 @@ const TORRENT_HEALING_INCREASE = 0.3;
 class Torrent extends Analyzer {
   healing = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TORRENT_TALENT.id);
   }

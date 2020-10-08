@@ -27,7 +27,7 @@ class VoidTwistedTitanshard extends Analyzer {
   constructor(...args) {
     super(...args);
     this._item = this.selectedCombatant.getTrinket(ITEMS.VOID_TWISTED_TITANSHARD.id);
-    this.active = !!this._item;
+    this.active = Boolean(this._item);
 
     if (this.active) {
       this.critRating = calculateSecondaryStatDefault(460, 1543, this._item.itemLevel);

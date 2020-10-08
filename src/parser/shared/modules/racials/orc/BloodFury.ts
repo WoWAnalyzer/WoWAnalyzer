@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 
 /**
@@ -14,7 +14,10 @@ class BloodFury extends Analyzer {
   castEfficiency = 0.8;
   extraSuggestion = null;
 
-  constructor(options: any) {
+  constructor(options: Options & {
+    castEfficiency?: number
+    abilities: Abilities
+  }) {
     super(options);
     this.active = this.selectedCombatant.race === RACES.Orc;
     if (!this.active) {

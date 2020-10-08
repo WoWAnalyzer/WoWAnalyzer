@@ -1,5 +1,6 @@
 import React, { FormEvent, RefObject } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore react-select-search has a broken import so we need to manually do it. See https://github.com/tbleckert/react-select-search/issues/120
 import SelectSearch from 'react-select-search/dist/cjs';
 import { Trans, t } from '@lingui/macro';
@@ -143,9 +144,9 @@ class NameSearch extends React.PureComponent<Props, State> {
             name: elem.name,
           }))}
           value={this.state.currentRealm}
-          onChange={(value: any) => {
+          onChange={(value: string) => {
             this.setState({
-              currentRealm: value.value,
+              currentRealm: value,
             });
           }}
           placeholder={i18n._(t`Realm`)}

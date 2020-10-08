@@ -41,21 +41,17 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
   suggestions(when) {
     when(this.nonHealingTimePercentage).isGreaterThan(this.nonHealingTimeSuggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.')
+      .addSuggestion((suggest, actual, recommended) => suggest('Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.')
           .icon('petbattle_health-down')
           .actual(`${formatPercentage(actual)}% non healing time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major);
-      });
+          .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major));
     when(this.downtimePercentage).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
+      .addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major);
-      });
+          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major));
   }
 }
 

@@ -83,13 +83,11 @@ class ChaoticTransformation extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> You wasted {this.noResetEyeBeam} possible <SpellLink id={SPELLS.EYE_BEAM.id} /> and {this.noResetBladeDance} possible <SpellLink id={SPELLS.BLADE_DANCE.id} /> resets.<br />
+      .addSuggestion((suggest, actual, recommended) => suggest(<> You wasted {this.noResetEyeBeam} possible <SpellLink id={SPELLS.EYE_BEAM.id} /> and {this.noResetBladeDance} possible <SpellLink id={SPELLS.BLADE_DANCE.id} /> resets.<br />
                        Please make sure these spells are on cooldown before casting <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> to maximize your DPS.</>)
           .icon(SPELLS.CHAOTIC_TRANSFORMATION.icon)
           .actual(`${(actual)} total resets wasted`)
-          .recommended(`${(recommended)} is recommended.`);
-      });
+          .recommended(`${(recommended)} is recommended.`));
   }
 
   statistic() {

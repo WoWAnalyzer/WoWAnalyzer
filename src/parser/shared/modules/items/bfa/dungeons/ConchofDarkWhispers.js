@@ -13,7 +13,7 @@ import { calculateSecondaryStatDefault } from 'common/stats';
 /**
  * Conch of Dark Whispers -
  * Equip: Your spells have a chance to grant you 455 Critical Strike for 15 sec. (Approximately 1 procs per minute)
- * 
+ *
  * Test Log: https://www.warcraftlogs.com/reports/aPkxWyCg9Q4q81Xw#fight=4&type=damage-done
  */
 class ConchofDarkWhispers extends Analyzer {

@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -24,7 +24,7 @@ class DeadlyChain extends Analyzer {
   trickShotsCastTimestamp: number = 0;
   firstHitConnected: boolean = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.DEADLY_CHAIN_CONDUIT.id);
     if (!this.conduitRank) {

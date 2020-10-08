@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import SPECS from 'game/SPECS';
@@ -43,7 +43,7 @@ class BornToBeWild extends Analyzer {
 
   hasEagle = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
     this.hasEagle = this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER;

@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
+
 import ExecuteRange from './Execute/ExecuteRange';
 import SpellUsable from '../features/SpellUsable';
 
@@ -57,12 +58,10 @@ class Slam extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.badCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Try to avoid using <SpellLink id={SPELLS.SLAM.id} /> when <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> or <SpellLink id={SPELLS.EXECUTE.id} /> is available as it is more rage efficient.</>)
+    when(this.badCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to avoid using <SpellLink id={SPELLS.SLAM.id} /> when <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> or <SpellLink id={SPELLS.EXECUTE.id} /> is available as it is more rage efficient.</>)
         .icon(SPELLS.SLAM.icon)
         .actual(`Slam was cast ${this.badCast} times accounting for ${formatPercentage(actual)}% of total casts, while Mortal Strike or Execute was available.`)
-        .recommended(`${recommended}% is recommended`);
-    });
+        .recommended(`${recommended}% is recommended`));
   }
 
 }

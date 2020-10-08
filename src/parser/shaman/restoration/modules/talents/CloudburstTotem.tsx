@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ApplyBuffEvent, CastEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
@@ -33,7 +33,7 @@ class CloudburstTotem extends Analyzer {
   healing = 0;
   cbtActive = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
   }

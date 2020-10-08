@@ -162,21 +162,17 @@ class Innervate extends Analyzer {
     }
 
     when(this.averageManaSavedSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
               Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</>)
           .icon(SPELLS.INNERVATE.icon)
           .actual(`${formatNumber(this.averageManaSaved.toFixed(0))} avg mana spent.`)
-          .recommended(`>${formatNumber(recommended)} is recommended`);
-      });
+          .recommended(`>${formatNumber(recommended)} is recommended`));
 
     when(this.secondsCappedSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</>)
           .icon(SPELLS.INNERVATE.icon)
           .actual(`~${this.wholeSecondsCapped} seconds capped`)
-          .recommended(`${recommended} is recommended`);
-      });
+          .recommended(`${recommended} is recommended`));
   }
 
   statistic() {

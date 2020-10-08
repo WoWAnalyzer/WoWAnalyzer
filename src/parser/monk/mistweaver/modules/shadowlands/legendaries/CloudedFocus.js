@@ -16,7 +16,7 @@ import ItemManaGained from 'interface/ItemManaGained';
 const BUFF_AMOUNT_PER_STACK = .15;
 
 /**
- * Whenever you cast a vivify or enveloping mist during soothing mist's channel you gain a stack of clouded focus which increases their healing by 15% and descreases their 
+ * Whenever you cast a vivify or enveloping mist during soothing mist's channel you gain a stack of clouded focus which increases their healing by 15% and descreases their
  * mana cost by 15% as well. You can have up to 3 stack but you lose all the stacks when you stop channeling soothing mist.
  */
 class CloudedFocus extends Analyzer {

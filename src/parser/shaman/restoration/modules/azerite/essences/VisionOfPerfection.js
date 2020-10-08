@@ -107,9 +107,9 @@ class VisionOfPerfection extends Analyzer {
           <div className="pad">
             <label><SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> - Minor Rank {rank}</label>
             <div className="value">
-              <StatIcon stat={"haste"} /> {(this.minorSavedTime / HTT_BASE_COOLDOWN).toFixed(2)} <small>extra casts gained</small><br />
+              <StatIcon stat="haste" /> {(this.minorSavedTime / HTT_BASE_COOLDOWN).toFixed(2)} <small>extra casts gained</small><br />
               {rank > 1 && (<><ItemHealingDone amount={this.minorHealing} /><br /></>)}
-              {rank > 2 && (<><StatIcon stat={"versatility"} /> {formatNumber(this.minorVersatility)} <small>Versatility gained</small><br /></>)}
+              {rank > 2 && (<><StatIcon stat="versatility" /> {formatNumber(this.minorVersatility)} <small>Versatility gained</small><br /></>)}
             </div>
           </div>
         </ItemStatistic>
@@ -129,7 +129,7 @@ class VisionOfPerfection extends Analyzer {
                 )}>
                   <ItemHealingDone amount={this.majorHealing} /></TooltipElement><br />
                 <EventsIcon /> {this.summons} <small>procs</small><br />
-                {rank > 2 && (<><StatIcon stat={"haste"} /> {formatNumber(this.majorHasteGain)} <small>average Haste gained</small><br /></>)}
+                {rank > 2 && (<><StatIcon stat="haste" /> {formatNumber(this.majorHasteGain)} <small>average Haste gained</small><br /></>)}
               </div>
             </div>
           </ItemStatistic>
