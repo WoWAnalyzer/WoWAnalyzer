@@ -9,6 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import CrossIcon from 'interface/icons/Cross';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import { Options } from 'parser/core/Analyzer';
 
 /**
  * Tracks the amount of cancelled casts in %.
@@ -16,10 +17,8 @@ import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
  * Example log:
  * https://www.warcraftlogs.com/reports/Pp17Crv6gThLYmdf#fight=8&type=damage-done&source=76
  */
-
 class CancelledCasts extends CoreCancelledCasts {
-
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.IGNORED_ABILITIES = [
       //Include the spells that you do not want to be tracked and spells that are castable while casting
@@ -40,12 +39,10 @@ class CancelledCasts extends CoreCancelledCasts {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</>)
         .icon('inv_misc_map_01')
         .actual(`${formatPercentage(1 - actual)}% casts cancelled`)
-        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`);
-    });
+        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`));
   }
 
   statistic() {

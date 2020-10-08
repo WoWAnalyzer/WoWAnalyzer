@@ -80,12 +80,10 @@ class FinisherTracker extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Try to use your finishers at {this.maximumComboPoints} combo points. {this.extraSuggestion()}</React.Fragment>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<React.Fragment>Try to use your finishers at {this.maximumComboPoints} combo points. {this.extraSuggestion()}</React.Fragment>)
         .icon(this.suggestionIcon())
         .actual(`${formatPercentage(actual)}% (${this.inefficientFinisherCount} out of ${this.totalFinisherCount}) inefficient casts`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 }
 

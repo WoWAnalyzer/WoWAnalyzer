@@ -23,19 +23,19 @@ const azeriteTraitStats = traits => Object.values(traits).reduce((obj, rank) => 
  * Infernal Armor Azerite Power
  * Immolation Aura increases your Armor by 725, and causes melee attackers to take 513 Fire damage.
  *
- * example logs: 
+ * example logs:
  * 480 Azerite Piece with 2 traits
  * https://www.warcraftlogs.com/reports/pDNAdyrWRtVcGwB7#fight=23&type=summary&source=2
- * 
+ *
  * 435 Azerite Piece with one trait:
  * https://www.warcraftlogs.com/reports/dWtVhxLm2baGwfry#fight=12&type=damage-done&ability=273239
- * 
+ *
  * No traits:
  * https://www.warcraftlogs.com/reports/aLPjR3Nm49n8hXyD#fight=1&type=damage-done&source=1
- * 
+ *
  * 3 Traits 435,450,450
  * https://www.warcraftlogs.com/reports/W1HRnpJPB7FZkwht#fight=6&type=damage-done&source=14&ability=273239
- * 
+ *
  */
 class InfernalArmor extends Analyzer {
 
@@ -50,10 +50,10 @@ class InfernalArmor extends Analyzer {
     if (!this.active) {
       return;
     }
-  
+
     const { armor } = azeriteTraitStats(this.selectedCombatant.traitsBySpellId[SPELLS.INFERNAL_ARMOR.id]);
     this.infernalArmorArmor = armor;
-    
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.INFERNAL_ARMOR_DAMAGE), this.onDamage);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INFERNAL_ARMOR_BUFF), this.onBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INFERNAL_ARMOR_BUFF), this.onRemoveBuff);
@@ -68,7 +68,7 @@ class InfernalArmor extends Analyzer {
   onBuff(event) {
     this.buffActive = true;
     this.applyBuffTime = event.timestamp;
-    
+
   }
 
   onRemoveBuff(event) {
@@ -95,7 +95,7 @@ class InfernalArmor extends Analyzer {
           <br />
           <ArmorIcon /> {this.infernalArmorArmor} Armor  <small>{formatPercentage(buffUptimePercent)} % uptime</small>
         </BoringSpellValueText>
-        
+
       </AzeritePowerStatistic>
     );
   }

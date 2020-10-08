@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
 import FocusTracker from 'parser/hunter/shared/modules/resources/FocusTracker';
+
 import { BARBED_SHOT_FOCUS_REGEN_BUFFS, FOCUS_THRESHOLD_AVG, FOCUS_THRESHOLD_MAJOR, FOCUS_THRESHOLD_MINOR } from '../../constants';
 
 class Focus extends Analyzer {

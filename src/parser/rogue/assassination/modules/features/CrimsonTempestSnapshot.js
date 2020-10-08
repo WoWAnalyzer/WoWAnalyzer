@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+
 import Snapshot from '../core/Snapshot';
 
 const BASE_DURATION = 2000;

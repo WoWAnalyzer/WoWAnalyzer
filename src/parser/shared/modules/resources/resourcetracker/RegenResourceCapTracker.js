@@ -294,7 +294,7 @@ class RegenResourceCapTracker extends Analyzer {
       timestamp = this.owner.currentTimestamp;
     }
     const buffHistory = this.selectedCombatant.getBuffHistory(buffId);
-    return !!buffHistory.find(buff => (buff.start <= timestamp && (!buff.end || buff.end > timestamp)));
+    return Boolean(buffHistory.find(buff => (buff.start <= timestamp && (!buff.end || buff.end > timestamp))));
   }
 
   on_fightend() {

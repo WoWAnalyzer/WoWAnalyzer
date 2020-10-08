@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
@@ -13,6 +13,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import Events, { CastEvent } from 'parser/core/Events';
+
 import { BARBED_SHOT_BESTIAL_WRATH_CDR_MS, BESTIAL_WRATH_BASE_CD } from '../../constants';
 
 /**
@@ -33,7 +34,7 @@ class BestialWrath extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BESTIAL_WRATH), this.onBestialWrathCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT), this.onBarbedShotCast);
@@ -106,18 +107,14 @@ class BestialWrath extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {formatNumber(this.averageFocusAtBestialWrathCast)} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</>)
+    when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {formatNumber(this.averageFocusAtBestialWrathCast)} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</>)
         .icon(SPELLS.BESTIAL_WRATH.icon)
         .actual(`Average of ${formatNumber(this.averageFocusAtBestialWrathCast)} focus at start of Bestial Wrath`)
-        .recommended(`>${recommended} focus is recommended`);
-    });
-    when(this.cdrEfficiencyBestialWrathThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>A crucial part of <SpellLink id={SPELLS.BARBED_SHOT.id} /> is the cooldown reduction of <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> it provides. Therefore it's important to be casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> as often as possible to ensure you'll be wasting as little potential cooldown reduction as possible.</>)
+        .recommended(`>${recommended} focus is recommended`));
+    when(this.cdrEfficiencyBestialWrathThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>A crucial part of <SpellLink id={SPELLS.BARBED_SHOT.id} /> is the cooldown reduction of <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> it provides. Therefore it's important to be casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> as often as possible to ensure you'll be wasting as little potential cooldown reduction as possible.</>)
         .icon(SPELLS.BESTIAL_WRATH.icon)
         .actual(`You had ${formatPercentage(actual)}% effective cooldown reduction of Bestial Wrath`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
@@ -130,32 +127,32 @@ class BestialWrath extends Analyzer {
             <table className="table table-condensed">
               <thead>
                 <tr>
-                  <td className={'text-left'}><b>Statistic</b></td>
+                  <td className="text-left"><b>Statistic</b></td>
                   <td><b>Info</b></td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td className={'text-left'}>Average focus on cast</td>
+                  <td className="text-left">Average focus on cast</td>
                   <td><>{formatNumber(this.averageFocusAtBestialWrathCast)}
                     <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /></>
                   </td>
                 </tr>
                 <tr>
-                  <td className={'text-left'}>Gained Bestial Wraths</td>
+                  <td className="text-left">Gained Bestial Wraths</td>
                   <td><>{this.gainedBestialWraths.toFixed(1)}
                     <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /></>
                   </td>
                 </tr>
                 <tr>
-                  <td className={'text-left'}>CDR Efficiency</td>
+                  <td className="text-left">CDR Efficiency</td>
                   <td><>{formatNumber(this.effectiveBWReduction /
                     1000)}s / {this.totalPossibleCDR / 1000}s
                   </>
                   </td>
                 </tr>
                 <tr>
-                  <td className={'text-left'}>CDR Efficiency %</td>
+                  <td className="text-left">CDR Efficiency %</td>
                   <td>{formatPercentage(this.effectiveBWReduction /
                     this.totalPossibleCDR)}%
                   </td>

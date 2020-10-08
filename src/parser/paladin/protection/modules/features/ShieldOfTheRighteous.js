@@ -202,12 +202,10 @@ class ShieldOfTheRighteous extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>{formatPercentage(actual)}% of your <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts were <em>good</em> (they mitigated at least 2 auto-attacks or 1 tankbuster, or prevented capping charges). You should have Shield of the Righteous up to mitigate as much physical damage as possible.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>{formatPercentage(actual)}% of your <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts were <em>good</em> (they mitigated at least 2 auto-attacks or 1 tankbuster, or prevented capping charges). You should have Shield of the Righteous up to mitigate as much physical damage as possible.</>)
           .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
           .actual(`${formatPercentage(actual)}% good Shield of the Righteous casts`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`);
-      });
+          .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`));
   }
 
   statistic() {

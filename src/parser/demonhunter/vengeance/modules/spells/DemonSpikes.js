@@ -59,12 +59,10 @@ class DemonSpikes extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(this.hitsWithDSOffCDPercent)}% of physical hits.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(this.hitsWithDSOffCDPercent)}% of physical hits.</>)
           .icon(SPELLS.DEMON_SPIKES.icon)
           .actual(`${formatPercentage(actual)}% unmitigated physical hits`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
 

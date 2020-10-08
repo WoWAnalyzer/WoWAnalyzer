@@ -1,15 +1,14 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { EventType } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 
 class ArcanePowerNormalizer extends EventsNormalizer {
 
   //Ensures that the apply buff event for Arcane Power is sorted after the Arcane Power cast.
-
-  normalize(events: any) {
-    const fixedEvents: any = [];
-    events.forEach((event: any, eventIndex: any) => {
+  normalize(events: AnyEvent[]) {
+    const fixedEvents: AnyEvent[] = [];
+    events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
       if (event.type === EventType.Cast && event.ability.guid === SPELLS.ARCANE_POWER.id) {

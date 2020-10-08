@@ -7,7 +7,7 @@ import CooldownOverview from 'interface/others/CooldownOverview';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import Events, { Event, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent, SummonEvent, DeathEvent } from 'parser/core/Events';
+import Events, { AnyEvent, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent, SummonEvent, DeathEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 
 const debug = false;
@@ -23,19 +23,25 @@ export enum BUILT_IN_SUMMARY_TYPES {
 
 type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
 
+export type SummaryDef = {
+  label: string,
+  tooltip: string,
+  value: number | string,
+}
+
 export type CooldownSpell = {
   spell: any,
-  summary: Array<BUILT_IN_SUMMARY_TYPES>,
+  summary: Array<BUILT_IN_SUMMARY_TYPES | SummaryDef>,
   startBufferFilter?: EventFilter<any>,
   startBufferMS?: number,
   startBufferEvents?: number,
   petID?: number,
 };
 
-type TrackedCooldown = CooldownSpell & {
+export type TrackedCooldown = CooldownSpell & {
   start: number,
   end: number | null,
-  events: Array<Event<any>>,
+  events: AnyEvent[],
 };
 
 class CooldownThroughputTracker extends Analyzer {
@@ -44,7 +50,7 @@ class CooldownThroughputTracker extends Analyzer {
   };
   protected eventHistory!: EventHistory;
 
-  static cooldownSpells: Array<CooldownSpell> = [
+  static cooldownSpells: CooldownSpell[] = [
     {
       spell: SPELLS.INNERVATE,
       summary: [
@@ -61,8 +67,8 @@ class CooldownThroughputTracker extends Analyzer {
     ...CASTS_THAT_ARENT_CASTS,
   ];
 
-  pastCooldowns: Array<TrackedCooldown> = [];
-  activeCooldowns: Array<TrackedCooldown> = [];
+  pastCooldowns: TrackedCooldown[] = [];
+  activeCooldowns: TrackedCooldown[] = [];
 
   startCooldown(event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent) {
     const spellId = event.ability.guid;
@@ -77,14 +83,14 @@ class CooldownThroughputTracker extends Analyzer {
   }
 
   addCooldown(cooldownSpell: CooldownSpell, timestamp: number): TrackedCooldown {
-    let events: Array<Event<any>> = [];
+    let events: AnyEvent[] = [];
     let start = timestamp;
     const startBufferMS = cooldownSpell.startBufferMS;
     if (startBufferMS || cooldownSpell.startBufferEvents) {
       // Default to only including cast events by the player
       const filter = cooldownSpell.startBufferFilter || Events.cast.by(SELECTED_PLAYER);
       events = this.eventHistory.last(cooldownSpell.startBufferEvents, startBufferMS, filter);
-      if(startBufferMS) {
+      if (startBufferMS) {
         start = timestamp - startBufferMS;
       } else {
         // If filtering by only event count, set the start timestamp to the oldest event found

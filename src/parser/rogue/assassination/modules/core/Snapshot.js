@@ -230,12 +230,10 @@ class Snapshot extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You overwrote your snapshotted <SpellLink id={this.constructor.spellCastId} />. Try to always let a snapshotted <SpellLink id={this.constructor.spellCastId} /> expire before applying a non buffed one.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You overwrote your snapshotted <SpellLink id={this.constructor.spellCastId} />. Try to always let a snapshotted <SpellLink id={this.constructor.spellCastId} /> expire before applying a non buffed one.</>)
         .icon(this.constructor.spellIcon)
         .actual(`${formatPercentage(actual)}% snapshot time lost`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
 }

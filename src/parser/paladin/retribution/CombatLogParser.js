@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
 import Haste from './modules/core/Haste';
 
 import Abilities from './modules/Abilities';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -18,15 +18,14 @@ class VoidformAverageStacks extends Analyzer {
   };
   protected voidform!: Voidform;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = true;
   }
 
   suggestions(when: When) {
     when(this.voidform.averageVoidformStacks).isLessThan(21.5)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      .addSuggestion((suggest, actual, recommended) => suggest(
           <>
             Your <SpellLink id={SPELLS.VOIDFORM.id} /> stacks can be improved. Try to maximize the uptime by using <SpellLink id={SPELLS.VOID_BOLT.id} />, <SpellLink id={SPELLS.MIND_BLAST.id} />, and <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.<br /><br />
 
@@ -38,8 +37,7 @@ class VoidformAverageStacks extends Analyzer {
           .icon(SPELLS.VOIDFORM_BUFF.icon)
           .actual(`${formatNumber(actual)} average Voidform stacks.`)
           .recommended(`>${formatNumber(recommended)} stacks is recommended.`)
-          .regular(recommended).major(recommended - 5);
-      });
+          .regular(recommended).major(recommended - 5));
   }
 
   statistic() {

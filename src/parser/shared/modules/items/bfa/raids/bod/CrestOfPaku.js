@@ -40,7 +40,7 @@ class CrestOfPaku extends Analyzer {
   constructor(...args) {
     super(...args);
     this._item = this.selectedCombatant.getTrinket(ITEMS.CREST_OF_PAKU_ALLIANCE.id) || this.selectedCombatant.getTrinket(ITEMS.CREST_OF_PAKU_HORDE.id);
-    this.active = !!this._item;
+    this.active = Boolean(this._item);
 
     if (this.active) {
       this.hasteRating = calculateSecondaryStatDefault(385, 467, this._item.itemLevel);

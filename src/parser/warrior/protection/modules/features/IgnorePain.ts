@@ -3,7 +3,6 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 
 class IgnorePain extends Analyzer {
-
   get uptime(): number {
     return this.selectedCombatant.getBuffUptime(SPELLS.IGNORE_PAIN.id) / this.owner.fightDuration;
   }

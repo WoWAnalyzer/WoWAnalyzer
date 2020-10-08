@@ -103,12 +103,10 @@ class FuriousGaze extends Analyzer{
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Try to not interupt the channeling of <SpellLink id={SPELLS.EYE_BEAM.id} /> to get the <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> buff from its azerite trait for a DPS gain.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Try to not interupt the channeling of <SpellLink id={SPELLS.EYE_BEAM.id} /> to get the <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> buff from its azerite trait for a DPS gain.</>)
           .icon(SPELLS.FURIOUS_GAZE.icon)
           .actual(<>{actual} cancelled <SpellLink id={SPELLS.EYE_BEAM.id} /> channels. </>)
-          .recommended(`No cancelled channels is recommended.`);
-      });
+          .recommended(`No cancelled channels is recommended.`));
   }
 
   statistic() {

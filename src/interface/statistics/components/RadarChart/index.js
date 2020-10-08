@@ -67,6 +67,7 @@ const RadarChart = props => {
           {/* the background circles */}
           {[...Array(3).keys()].reverse().map(level => (
             <circle
+              key={level}
               className="gridCircle"
               r={radius / levels * (level + 1)}
               style={{
@@ -82,6 +83,7 @@ const RadarChart = props => {
           {/* don't merge with the above loop since we need text to overlap ALL circles */}
           {[...Array(3).keys()].reverse().map(level => (
             <text
+              key={level}
               className="axisLabel"
               x={4}
               y={-(level + 1) * radius / levels}
@@ -94,7 +96,7 @@ const RadarChart = props => {
           ))}
           {/* Create the straight lines radiating outward from the center */}
           {allAxis.map((label, i) => (
-            <g className="axis">
+            <g key={i} className="axis">
               <line
                 className="line"
                 x1={0}
@@ -123,7 +125,7 @@ const RadarChart = props => {
           ))}
           {/* Draw the radar chart blobs (value blobs) */}
           {data.map((series, i) => (
-            <g className="radarWrapper">
+            <g key={i} className="radarWrapper">
               {/* The backgrounds */}
               <path
                 className="radarArea"
@@ -147,6 +149,7 @@ const RadarChart = props => {
               {/* Circles on the axis to show exact cross over */}
               {series.points.map((point, pointIndex) => (
                 <circle
+                  key={pointIndex}
                   className="radarCircle"
                   r={dotRadius}
                   cx={rScale(point.value) * Math.cos(angleSlice * pointIndex - Math.PI / 2)}

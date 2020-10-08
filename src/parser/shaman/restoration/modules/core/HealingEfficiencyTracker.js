@@ -6,6 +6,7 @@ import CoreHealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingE
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import EarthShield from 'parser/shaman/shared/talents/EarthShield';
 import SPELLS from 'common/SPELLS';
+
 import HealingDone from './HealingDone';
 import Resurgence from '../spells/Resurgence';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';

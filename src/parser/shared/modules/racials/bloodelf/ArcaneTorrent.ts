@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 
 class ArcaneTorrent extends Analyzer {
@@ -12,7 +12,13 @@ class ArcaneTorrent extends Analyzer {
   castEfficiency = 0.8;
   extraSuggestion = null;
 
-  constructor(options: any) {
+  constructor(
+    options: Options & {
+      gcd?: number;
+      castEfficiency?: number;
+      abilities: Abilities
+    },
+  ) {
     super(options);
     this.active = this.selectedCombatant.race === RACES.BloodElf;
     if (!this.active) {
@@ -21,9 +27,7 @@ class ArcaneTorrent extends Analyzer {
 
     this.gcd = options.gcd === undefined ? this.gcd : options.gcd;
     this.castEfficiency =
-      options.castEfficiency === undefined
-        ? this.castEfficiency
-        : options.castEfficiency;
+      options.castEfficiency === undefined ? this.castEfficiency : options.castEfficiency;
 
     options.abilities.add({
       spell: [

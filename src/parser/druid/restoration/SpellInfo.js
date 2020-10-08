@@ -208,6 +208,4 @@ export const DRUID_HEAL_INFO = {
   // TODO - blazyb add all bfa specific spells of interest
 };
 
-export const getSpellInfo = id => {
-  return DRUID_HEAL_INFO[id] || DEFAULT_INFO;
-};
+export const getSpellInfo = id => DRUID_HEAL_INFO[id] || DEFAULT_INFO;

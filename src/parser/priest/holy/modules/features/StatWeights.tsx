@@ -5,6 +5,7 @@ import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatV
 import Combatants from 'parser/shared/modules/Combatants';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
+
 import Mastery from '../core/EchoOfLightMastery';
 
 import PRIEST_HEAL_INFO from './StatValuesSpellInfo';

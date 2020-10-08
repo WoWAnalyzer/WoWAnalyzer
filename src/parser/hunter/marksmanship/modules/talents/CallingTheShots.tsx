@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -32,7 +32,7 @@ class CallingTheShots extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CALLING_THE_SHOTS_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE, SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE]), this.onCTSPotentialProc);
@@ -72,15 +72,13 @@ class CallingTheShots extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.callingTheShotsEfficacyThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.callingTheShotsEfficacyThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           When talented into <SpellLink id={SPELLS.CALLING_THE_SHOTS_TALENT.id} />, it is important to maximize its potential by not casting {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_MM_TALENT.id) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_MM_TALENT.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} or <SpellLink id={SPELLS.MULTISHOT_MM.id} /> while <SpellLink id={SPELLS.TRUESHOT.id} /> isn't on cooldown.
         </>)
         .icon(SPELLS.CALLING_THE_SHOTS_TALENT.icon)
         .actual(`You had ${formatPercentage(actual)}% effective cooldown reduction from Calling the Shots`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import { HealEvent, BeginCastEvent } from 'parser/core/Events';
@@ -27,9 +27,9 @@ class Deluge extends Analyzer {
   protected healingRainLocation!: HealingRainLocation;
 
   healing = 0;
-  eventsDuringRain: Array<HealEvent> = [];
+  eventsDuringRain: HealEvent[] = [];
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
   }

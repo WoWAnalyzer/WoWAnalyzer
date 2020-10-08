@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
@@ -18,13 +18,12 @@ import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
  * Example log:
  * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1
  */
-
 class AnimalCompanion extends Analyzer {
   damage = 0;
-  pets: { petName: string, sourceID: number | undefined, damage: number }[] = [];
+  pets: Array<{ petName: string, sourceID: number | undefined, damage: number }> = [];
   mainPetName: string = '';
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANIMAL_COMPANION_TALENT.id);
 

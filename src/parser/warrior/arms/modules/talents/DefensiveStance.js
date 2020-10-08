@@ -105,17 +105,13 @@ class DefensiveStance extends Analyzer {
 
   suggestions(when) {
     when(this.totalDamageLost).isGreaterThan(this.totalDamageMitigated)
-      .addSuggestion((suggest, dl, dr) => {
-        return suggest('While Defensive Stance was up, your damage done was reduced by more than the damage you mitigated. Ensure that you are only using Defensive Stance when you are about to take a lot of damage and that you cancel it quickly to minimize the time spent dealing less damage.')
+      .addSuggestion((suggest, dl, dr) => suggest('While Defensive Stance was up, your damage done was reduced by more than the damage you mitigated. Ensure that you are only using Defensive Stance when you are about to take a lot of damage and that you cancel it quickly to minimize the time spent dealing less damage.')
           .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon)
           .actual(`A total of ${formatNumber(dl)} of your damage has been reduced compared to ${formatNumber(dr)} of the damage from the boss.`)
-          .recommended('Reduced damage taken should be higher than your reduced damage.');
-      });
+          .recommended('Reduced damage taken should be higher than your reduced damage.'));
     when(this.totalDamageMitigated).isLessThan(1)
-      .addSuggestion((suggest) => {
-        return suggest(<> You never used <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to reduce incoming damage or use another talent that would be more useful. </>)
-          .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon);
-      });
+      .addSuggestion((suggest) => suggest(<> You never used <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to reduce incoming damage or use another talent that would be more useful. </>)
+          .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon));
   }
 }
 

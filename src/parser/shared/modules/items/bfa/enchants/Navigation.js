@@ -52,9 +52,7 @@ class Navigation extends Analyzer {
   get averageStat() {
     const buffStacks = this.selectedCombatant.getStackBuffUptimes(this.constructor.smallBuffId);
 
-    const smallBuffDuration = Object.keys(buffStacks).reduce((total, stackSize) => {
-      return total + (buffStacks[stackSize] * stackSize);
-    }, 0);
+    const smallBuffDuration = Object.keys(buffStacks).reduce((total, stackSize) => total + (buffStacks[stackSize] * stackSize), 0);
 
     const smallBuffIncrease = smallBuffDuration * this.constructor.statPerStack;
     const bigBuffIncrease = this.maxStackBuffUptime * this.constructor.statAtMax;

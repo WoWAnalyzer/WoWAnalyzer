@@ -41,12 +41,10 @@ class ChiDetails extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
         .icon('creatureportrait_bubble')
         .actual(`${this.chiWasted} Chi wasted (${(actual.toFixed(2))} per minute)`)
-        .recommended(`${recommended} Chi wasted is recommended`);
-    });
+        .recommended(`${recommended} Chi wasted is recommended`));
   }
 
   statistic() {

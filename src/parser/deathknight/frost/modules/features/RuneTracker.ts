@@ -1,4 +1,5 @@
 import { ThresholdStyle } from 'parser/core/ParseResults';
+
 import CoreRuneTracker from '../../../shared/RuneTracker';
 
 class RuneTracker extends CoreRuneTracker {

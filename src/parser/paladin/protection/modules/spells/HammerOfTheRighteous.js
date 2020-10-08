@@ -58,11 +58,9 @@ export default class HammerOfTheRighteous extends Analyzer {
 
   suggestions(when) {
     when(this.badCastThreshold)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You should avoid casting <SpellLink id={this.activeSpell.id} /> while better spells (namely <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> and <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />) are available. This is a <em>filler</em> ability and should only be used when you have no better spells to cast.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You should avoid casting <SpellLink id={this.activeSpell.id} /> while better spells (namely <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> and <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />) are available. This is a <em>filler</em> ability and should only be used when you have no better spells to cast.</>)
         .icon(this.activeSpell.icon)
         .actual(`${formatPercentage(this.badCastRatio)}% of casts while better spells were available`)
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`);
-      });
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 }

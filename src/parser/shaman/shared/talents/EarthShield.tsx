@@ -39,7 +39,7 @@ class EarthShield extends Analyzer {
     super(options);
     const isRsham = this.selectedCombatant.specId === SPECS.RESTORATION_SHAMAN.id;
     this.active = isRsham || this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD.id);
-    
+
     if (isRsham) {
       this.category = STATISTIC_CATEGORY.GENERAL;
     }
@@ -72,11 +72,11 @@ class EarthShield extends Analyzer {
     };
   }
 
-  onEarthShieldHeal(event : HealEvent) {
+  onEarthShieldHeal(event: HealEvent) {
     this.healing += (event.amount + (event.absorbed || 0));
   }
 
-  onEarthShieldAmpSpellHeal(event : HealEvent) {
+  onEarthShieldAmpSpellHeal(event: HealEvent) {
     const combatant = this.combatants.getEntity(event);
     if (combatant && combatant.hasBuff(SPELLS.EARTH_SHIELD.id, event.timestamp)) {
       this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
@@ -94,7 +94,7 @@ class EarthShield extends Analyzer {
         value={
           (
             <div>
-              <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small><br />     
+              <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small><br />
               <ItemHealingDone amount={this.healing + this.buffHealing + feeding} />
             </div>
           )

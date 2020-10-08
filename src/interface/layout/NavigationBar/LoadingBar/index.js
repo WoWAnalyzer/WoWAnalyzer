@@ -19,6 +19,7 @@ class LoadingBar extends React.PureComponent {
     };
   }
 
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(newProps) {
     if (newProps.chunks !== this.props.chunks) {
       this.setState({

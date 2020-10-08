@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+
 import RunicPowerTracker from '../runicpower/RunicPowerTracker';
 
 class RedThirst extends Analyzer {

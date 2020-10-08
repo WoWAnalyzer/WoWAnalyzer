@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
 
-const WINTERS_PROTECTION_REDUCTION_MS: {[rank: number]:number } = {
+const WINTERS_PROTECTION_REDUCTION_MS: {[rank: number]: number } = {
   1: 30,
   2: 34,
   3: 38,
@@ -20,7 +20,7 @@ const WINTERS_PROTECTION_REDUCTION_MS: {[rank: number]:number } = {
   15: 90,
 };
 
-const FLOW_OF_TIME_REDUCTION_SEC: {[rank: number]:number } = {
+const FLOW_OF_TIME_REDUCTION_SEC: {[rank: number]: number } = {
   1: 1,
   2: 1.25,
   3: 1.5,

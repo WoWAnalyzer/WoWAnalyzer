@@ -11,6 +11,7 @@ import CrossIcon from 'interface/icons/Cross';
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+
 import { CastEvent } from '../../core/Events';
 
 const debug = false;

@@ -101,13 +101,11 @@ class SurgeOfPower extends Analyzer {
 
   suggestions(when){
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should aim to empower all of your Stormkeeper lightning bolts with Surge of Power. You can accomplish this
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>You should aim to empower all of your Stormkeeper lightning bolts with Surge of Power. You can accomplish this
         consistently by pooling to 95+ maelstrom right before Stormkeeper is available, then casting ES {'->'} SK {'->'} LB {'->'} LvB {'->'} ES {'->'} LB.</span>)
           .icon(SPELLS.SURGE_OF_POWER_TALENT.icon)
           .actual(`${formatPercentage(actual)}% of Stormkeeper Lightning Bolts empowered with Surge`)
-          .recommended(`100% is recommended.`);
-      });
+          .recommended(`100% is recommended.`));
   }
 }
 

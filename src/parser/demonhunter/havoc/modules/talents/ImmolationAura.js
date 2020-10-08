@@ -56,12 +56,10 @@ class ImmolationAura extends Analyzer{
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> when close to max Fury.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<> Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> when close to max Fury.</>)
           .icon(SPELLS.IMMOLATION_AURA_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Fury wasted`)
-          .recommended(`${formatPercentage(recommended)}% is recommended.`);
-      });
+          .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 
   statistic(){

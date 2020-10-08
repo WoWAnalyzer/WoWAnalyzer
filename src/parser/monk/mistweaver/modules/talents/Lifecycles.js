@@ -5,9 +5,11 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
-import Analyzer from 'parser/core/Analyzer';
 
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 const LC_MANA_PER_SECOND_RETURN_MINOR = 80;
 const LC_MANA_PER_SECOND_RETURN_AVERAGE = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
@@ -27,15 +29,15 @@ class Lifecycles extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id);
+    if(!this.active){
+      return;
+    }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.envelopingMistCast);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    
-
-    // Checking to ensure player has cast Vivify and has the mana reduction buff.
-    if (spellId === SPELLS.VIVIFY.id && this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
+  vivifyCast(event){
+    if (this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
 
       // Checking for TFT->Viv and classify as non-reduced Viv
       if (this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
@@ -46,18 +48,19 @@ class Lifecycles extends Analyzer {
       this.manaSavedViv += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
       this.castsRedViv += 1;
       debug && console.log('Viv Reduced');
-    }
-    if (spellId === SPELLS.VIVIFY.id && !this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
+    } else {
       this.castsNonRedViv += 1;
     }
+  }
+
+  envelopingMistCast(event){
     // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
-    if (spellId === SPELLS.ENVELOPING_MIST.id && this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
       this.manaSaved += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
       this.manaSavedEnm += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
       this.castsRedEnm += 1;
       debug && console.log('ENM Reduced');
-    }
-    if (spellId === SPELLS.ENVELOPING_MIST.id && !this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
+    } else {
       this.castsNonRedEnm += 1;
     }
   }
@@ -75,16 +78,14 @@ class Lifecycles extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
           <>
             Your current spell usage is not taking full advantage of the <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> talent. You should be trying to alternate the use of these spells as often as possible to take advantage of the buff.
           </>,
         )
           .icon(SPELLS.LIFECYCLES_TALENT.icon)
           .actual(`${formatNumber(actual)} mana saved through Lifecycles`)
-          .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`);
-      });
+          .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`));
   }
 
   statistic() {

@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 // Core
 import HealingDone from './modules/core/HealingDone';
 import DamageTaken from './modules/core/DamageTaken';
@@ -32,6 +33,10 @@ import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
 // normalizers
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import ExpelHarmNorm from './normalizers/ExpelHarm';
+
+// Covenants
+import FallenOrder from '../shared/modules/covenants/FallenOrder';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -72,6 +77,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // normalizers
     gotoxNorm: GiftOfTheOx,
     ehNorm: ExpelHarmNorm,
+
+    // Covenants
+    fallenOrder: FallenOrder,
   };
 }
 
