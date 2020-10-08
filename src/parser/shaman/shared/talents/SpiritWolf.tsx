@@ -7,23 +7,29 @@ import { formatThousands, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 const SPIRIT_WOLF_DAMAGE_REDUCTION_PER_STACK = 0.05;
 
 class SpiritWolf extends Analyzer {
   damageReduced = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_WOLF_TALENT.id);
+
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);
   }
 
-  on_toPlayer_damage(event) {
+  damageTaken(event : DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_WOLF_BUFF.id)) {
       return;
     }
-    const stacks = this.selectedCombatant.getBuff(SPELLS.SPIRIT_WOLF_BUFF.id).stacks;
+    const stacks = this.selectedCombatant.getBuff(SPELLS.SPIRIT_WOLF_BUFF.id)?.stacks;
+    if (!stacks) {
+      return;
+    }
     const damageTaken = event.amount + (event.absorbed || 0);
     this.damageReduced += damageTaken / (1 - (SPIRIT_WOLF_DAMAGE_REDUCTION_PER_STACK * stacks)) * (SPIRIT_WOLF_DAMAGE_REDUCTION_PER_STACK * stacks);
   }
@@ -33,7 +39,6 @@ class SpiritWolf extends Analyzer {
   }
 
   statistic() {
-
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(45)}

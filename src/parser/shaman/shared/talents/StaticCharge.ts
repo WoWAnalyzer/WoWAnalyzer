@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 // Static Charge can only reduce the cooldown down to 40 seconds
@@ -11,17 +12,16 @@ class StaticCharge extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  constructor(...args) {
-    super(...args);
+  protected spellUsable!: SpellUsable;
+
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STATIC_CHARGE_TALENT.id);
+
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER_PET).spell(SPELLS.STATIC_CHARGE_DEBUFF), this.stunApplication);
   }
 
-  on_byPlayerPet_applydebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.STATIC_CHARGE_DEBUFF.id) {
-      return;
-    }
-
+  stunApplication() {
     const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.CAPACITOR_TOTEM.id);
     if (cooldownRemaining <= minimumCooldown) {
       return;
