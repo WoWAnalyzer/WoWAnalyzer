@@ -1,8 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const StatisticsSectionTitle = props => {
-  const { children, rightAddon } = props;
+interface Props {
+  rightAddon: JSX.Element,
+  premium: boolean
+}
+
+const StatisticsSectionTitle: React.FC<Props> = (props) => {
+  const { rightAddon, children } = props;
 
   return (
     <div className="statistics-section-title">
@@ -16,11 +20,6 @@ const StatisticsSectionTitle = props => {
       </h1>
     </div>
   );
-};
-
-StatisticsSectionTitle.propTypes = {
-  children: PropTypes.node,
-  rightAddon: PropTypes.node,
 };
 
 StatisticsSectionTitle.defaultProps = {
