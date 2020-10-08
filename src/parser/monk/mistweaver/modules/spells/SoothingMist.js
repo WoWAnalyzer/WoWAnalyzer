@@ -31,47 +31,50 @@ class SoothingMist extends Analyzer {
   constructor(...args) {
     super(...args);
     this.assumedGCD = 1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating)) *.95;
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.castSoothingMist);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleSoothingMist);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.castSoothingMist);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.castSoothingMistVivify);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.castSoothingMistEnvelopingMist);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.handleSoothingMist);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.masterySoothingMist);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.removeBuffSoothingMist);
+
     this.addEventListener(Events.fightend, this.end);
   }
 
   handleSoothingMist(event) {
-    const spellId = event.ability.guid;
+    this.soomTicks += 1;
+    this.lastSoomTickTimestamp = event.timestamp;
+  }
 
-    if (spellId === SPELLS.SOOTHING_MIST.id) {
-      this.soomTicks += 1;
-      this.lastSoomTickTimestamp = event.timestamp;
-    }
-
-    if (spellId === SPELLS.GUSTS_OF_MISTS.id && this.lastSoomTickTimestamp === event.timestamp && this.gustProc < Math.ceil(this.soomTicks / 8)) {
+  masterySoothingMist(event) {
+    if (this.lastSoomTickTimestamp === event.timestamp && this.gustProc < Math.ceil(this.soomTicks / 8)) {
       this.gustProc += 1;
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
-  castSoothingMist(event) {
-    const spellId = event.ability.guid;
-
+  castSoothingMistVivify(event) {
     if (this.soomInProgress) {
-      if (spellId === SPELLS.VIVIFY.id || spellId === SPELLS.ENVELOPING_MIST.id) {
-        this.castsInSoom += 1;
-      }
-
-      if (spellId === SPELLS.SOOTHING_MIST.id) {//if they refresh soom for some stupid reason
-        this.endStamp = event.timestamp;
-        this.checkChannelTiming();
-        this.castsInSoom = 0;
-      }
+      this.castsInSoom += 1;
     }
+  }
 
-    if (spellId === SPELLS.SOOTHING_MIST.id) {
-      this.startStamp = event.timestamp;
-      this.soomInProgress = true;
-      const gcd = 1000 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
-      this.startGCD = Math.max(750, gcd) * .95;
+  castSoothingMistEnvelopingMist(event) {
+    if (this.soomInProgress) {
+      this.castsInSoom += 1;
     }
+  }
+
+  castSoothingMist(event) {
+    //if they refresh soom for some stupid reason
+    this.endStamp = event.timestamp;
+    this.checkChannelTiming();
+    this.castsInSoom = 0;
+
+    this.startStamp = event.timestamp;
+    this.soomInProgress = true;
+    const gcd = 1000 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
+    this.startGCD = Math.max(750, gcd) * .95;
   }
 
   removeBuffSoothingMist(event) {
