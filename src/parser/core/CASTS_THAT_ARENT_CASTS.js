@@ -30,6 +30,7 @@ export default [
   285503, // Lady Jaina Proudmoore boss mechanic (picking up munitions barrel)
   285347, // Plague of Fire - King Rastakhan mechanic
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
+  SPELLS.SPIRITWALKERS_GRACE.id,
   316944, // Dragon's Flight - Feather Fall (DNT)
 
   //region Hunter
@@ -43,4 +44,5 @@ export default [
   SPELLS.WILD_MARK.id, //The debuff applied from enemies inside Wild Spirits
   //endregion
   //endregion
+  324748, //Celestial Guidance enchant proc
 ];

@@ -15,7 +15,6 @@ import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
 import Abilities from './modules/Abilities';
 
 import HealingDone from './modules/core/HealingDone';
-import ShamanAbilityTracker from './modules/core/ShamanAbilityTracker';
 import HealingRainLocation from './modules/core/HealingRainLocation';
 
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
@@ -68,8 +67,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
-    // Override the ability tracker so we also get stats for Tidal Waves and beacon healing
-    abilityTracker: ShamanAbilityTracker,
     lowHealthHealing: LowHealthHealing,
     healingDone: HealingDone,
     abilities: Abilities,
