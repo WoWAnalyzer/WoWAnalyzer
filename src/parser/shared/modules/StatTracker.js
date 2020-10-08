@@ -148,7 +148,7 @@ class StatTracker extends Analyzer {
 
     /****************************************\
      *                    BFA:                *
-    \****************************************/
+     \****************************************/
 
     // region Azerite Traits
     // region General
@@ -343,7 +343,7 @@ class StatTracker extends Analyzer {
     [SPELLS.WARSCROLL_OF_INTELLECT.id]: { intellect: 1.07 },
     [SPELLS.BATTLE_SHOUT.id]: { strength: 1.1, agility: 1.1 },
     [SPELLS.WARSCROLL_OF_BATTLE_SHOUT.id]: { strength: 1.07, agility: 1.07 },
-  }
+  };
 
   constructor(...args) {
     super(...args);
@@ -453,36 +453,47 @@ class StatTracker extends Analyzer {
   get startingStrengthRating() {
     return this._pullStats.strength;
   }
+
   get startingAgilityRating() {
     return this._pullStats.agility;
   }
+
   get startingIntellectRating() {
     return this._pullStats.intellect;
   }
+
   get startingStaminaRating() {
     return this._pullStats.stamina;
   }
+
   get startingCritRating() {
     return this._pullStats.crit;
   }
+
   get startingHasteRating() {
     return this._pullStats.haste;
   }
+
   get startingMasteryRating() {
     return this._pullStats.mastery;
   }
+
   get startingVersatilityRating() {
     return this._pullStats.versatility;
   }
+
   get startingAvoidanceRating() {
     return this._pullStats.avoidance;
   }
+
   get startingLeechRating() {
     return this._pullStats.leech;
   }
+
   get startingSpeedRating() {
     return this._pullStats.speed;
   }
+
   get startingArmorRating() {
     return this._pullStats.armor;
   }
@@ -493,41 +504,51 @@ class StatTracker extends Analyzer {
   get currentStrengthRating() {
     return this._currentStats.strength;
   }
+
   get currentAgilityRating() {
     return this._currentStats.agility;
   }
+
   get currentIntellectRating() {
     return this._currentStats.intellect;
   }
+
   get currentStaminaRating() {
     return this._currentStats.stamina;
   }
+
   get currentCritRating() {
     return this._currentStats.crit;
   }
+
   get currentHasteRating() {
     return this._currentStats.haste;
   }
+
   get currentMasteryRating() {
     return this._currentStats.mastery;
   }
+
   get currentVersatilityRating() {
     return this._currentStats.versatility;
   }
+
   get currentAvoidanceRating() {
     return this._currentStats.avoidance;
   }
+
   get currentLeechRating() {
     return this._currentStats.leech;
   }
+
   get currentSpeedRating() {
     return this._currentStats.speed;
   }
+
   get currentArmorRating() {
     return this._currentStats.armor;
   }
 
-  // TODO: I think these should be ratings. They behave like ratings and I think the only reason they're percentages here is because that's how they're **displayed** in-game, but not because it's more correct.
   /*
    * For percentage stats, the percentage you'd have with zero rating.
    * These values don't change.
@@ -564,71 +585,155 @@ class StatTracker extends Analyzer {
         return critChance;
     }
   }
+
   get baseHastePercentage() {
     return 0;
   }
+
   get baseMasteryPercentage() {
     const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
     return spellPoints * this.selectedCombatant.spec.masteryCoefficient / 100;
   }
+
   get baseVersatilityPercentage() {
     return 0;
   }
+
   get baseAvoidancePercentage() {
     return 0;
   }
+
   get baseLeechPercentage() {
     return 0;
   }
+
   get baseSpeedPercentage() {
     return 0;
   }
 
   /*
    * For percentage stats, this is the divider to go from rating to percent (expressed from 0 to 1)
-   * These values don't change.
-   * TODO: Verify these values at Shadowlands launch (33 haste, 35 crit, 35 mastery, 40 versatility)
-   * TODO: Account for DR in the rating to percent functions
+   */
+
+  get calculateStatPercentage(rating, baselineRatingPerPercent, returnRatingForNextPercent = false) {
+    const penaltyThresholds = [
+      { base: 0, scaled: 0, penalties: 0 },
+      { base: 0.3, scaled: 0.3, penalties: 0.1 },
+      { base: 0.4, scaled: 0.39, penalties: 0.2 },
+      { base: 0.5, scaled: 0.47, penalties: 0.3 },
+      { base: 0.6, scaled: 0.54, penalties: 0.4 },
+      { base: 0.8, scaled: 0.66, penalties: 0.5 },
+      { base: 1, scaled: 0.76, penalties: 0.5 },
+      { base: 2, scaled: 1.26, penalties: 1 },
+    ];
+    const baselinePercent = rating / baselineRatingPerPercent / 100;
+    for (const idx in penaltyThresholds) {
+      if (baselinePercent > penaltyThresholds[idx].base) {
+        continue;
+      }
+      if (returnRatingForNextPercent) {
+        return baselineRatingPerPercent / (1 - penaltyThresholds[idx - 1].penalties);
+      } else {
+        const knownStat = penaltyThresholds[idx - 1].scaled;
+        const calculateRemaining = (baselinePercent - penaltyThresholds[idx - 1].base) * (1 - penaltyThresholds[idx - 1].penalties);
+        return knownStat + calculateRemaining;
+      }
+    }
+    if (returnRatingForNextPercent) {
+      return Infinity;
+    } else {
+      return penaltyThresholds[penaltyThresholds.length - 1].scaled;
+    }
+  }
+
+  get ratingNeededForNextPercentage(rating, baselineRatingPerPercent) {
+    return this.calculateStatPercentage(rating, baselineRatingPerPercent, true);
+  }
+
+  /**
+   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
+   * @returns {number}
    */
   get critRatingPerPercent() {
     return 72 * 100;
   }
+
   critPercentage(rating, withBase = false) {
-    return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
+    const BASE_CRIT_RATING_PER_PERCENT = 10.67; //TODO: Change this to 33 at Shadowlands launch
+    return (withBase ? this.baseCritPercentage : 0) + this.calculateStatPercentage(rating, BASE_CRIT_RATING_PER_PERCENT);
   }
+
+  /**
+   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
+   * @returns {number}
+   */
   get hasteRatingPerPercent() {
     return 68 * 100;
   }
+
   hastePercentage(rating, withBase = false) {
-    return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
+    const BASE_HASTE_RATING_PER_PERCENT = 10.06; //TODO Change this to 35 at Shadowlands launch
+    return (withBase ? this.baseHastePercentage : 0) + this.calculateStatPercentage(rating, BASE_HASTE_RATING_PER_PERCENT);
   }
+
+  /**
+   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
+   * @returns {number}
+   */
   get masteryRatingPerPercent() {
     return 72 * 100 / this.selectedCombatant.spec.masteryCoefficient;
   }
+
   masteryPercentage(rating, withBase = false) {
-    return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
+    const BASE_MASTERY_RATING_PER_PERCENT = 10.67; //TODO Change this to 35 at Shadowlands launch
+    return (withBase ? this.baseMasteryPercentage : 0) + this.calculateStatPercentage(rating, BASE_MASTERY_RATING_PER_PERCENT);
   }
+
+  /**
+   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
+   * @returns {number}
+   */
   get versatilityRatingPerPercent() {
     return 85 * 100;
   }
+
   versatilityPercentage(rating, withBase = false) {
-    return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
+    const BASE_VERSATILITY_RATING_PER_PERCENT = 12.20; //TODO Change this to 40 at Shadowlands launch
+    return (withBase ? this.baseVersatilityPercentage : 0) + this.calculateStatPercentage(rating, BASE_VERSATILITY_RATING_PER_PERCENT);
   }
+
+  /**
+   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
+   * @returns {number}
+   */
   get avoidanceRatingPerPercent() {
     return 28 * 100;
   }
+
   avoidancePercentage(rating, withBase = false) {
     return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
   }
+
+  /**
+   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
+   * @returns {number}
+   */
   get leechRatingPerPercent() {
     return 40 * 100;
   }
+
   leechPercentage(rating, withBase = false) {
     return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
   }
+
+  /**
+   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
+   * @returns {number}
+   */
   get speedRatingPerPercent() {
     return 20 * 100;
   }
+
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
   }
@@ -639,23 +744,29 @@ class StatTracker extends Analyzer {
   get currentCritPercentage() {
     return this.critPercentage(this.currentCritRating, true);
   }
+
   // This is only the percentage from BASE + RATING.
   // If you're looking for current haste percentage including buffs like Bloodlust, check the Haste module.
   get currentHastePercentage() {
     return this.hastePercentage(this.currentHasteRating, true);
   }
+
   get currentMasteryPercentage() {
     return this.masteryPercentage(this.currentMasteryRating, true);
   }
+
   get currentVersatilityPercentage() {
     return this.versatilityPercentage(this.currentVersatilityRating, true);
   }
+
   get currentAvoidancePercentage() {
     return this.avoidancePercentage(this.currentAvoidanceRating, true);
   }
+
   get currentLeechPercentage() {
     return this.leechPercentage(this.currentLeechRating, true);
   }
+
   get currentSpeedPercentage() {
     return this.speedPercentage(this.currentSpeedRating, true);
   }
