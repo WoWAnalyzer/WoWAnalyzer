@@ -42,16 +42,18 @@ class Potion extends Analyzer {
   maxCasts = 1;
   lastDeathWithPotionReady?: number;
 
-  constructor(args: Options) {
-    super(args);
+  get static(){
+    return this.constructor as typeof Potion;
+  }
 
+  constructor(options: Options) {
+    super(options);
     if (!this.isAvailable) {
       this.active = false;
       return;
-    }
-
-    this.abilities.add({
-      spell: Potion.spells,
+    } 
+    (options.abilities as Abilities).add({
+      spell: this.static.spells,
       category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
       cooldown: (_, cooldownTriggerEvent) => {
         if (cooldownTriggerEvent && cooldownTriggerEvent.prepull) {
@@ -65,14 +67,14 @@ class Potion extends Analyzer {
         suggestion: false,
         maxCasts: () => this.maxCasts,
       },
-      ...Potion.extraAbilityInfo,
+      ...this.static.extraAbilityInfo,
     });
-    if (Potion.extraAbilityInfo.buffSpellId) {
+    if (this.static.extraAbilityInfo.buffSpellId) {
       //assign each buff its corresponding spell ID
-      Potion.extraAbilityInfo.buffSpellId.forEach((buff, buffIndex) => {
-        this.buffs.add({
+      this.static.extraAbilityInfo.buffSpellId.forEach((buff, buffIndex) => {
+        (options.buffs as Buffs).add({
           spellId: buff,
-          triggeredBySpellId: Potion.spells.find((_, spellIndex) => spellIndex === buffIndex)!.id,
+          triggeredBySpellId: this.static.spells.find((_, spellIndex) => spellIndex === buffIndex)!.id,
         });
       });
     }
@@ -84,7 +86,7 @@ class Potion extends Analyzer {
   }
 
   get spellId() {
-    const spells = Potion.spells;
+    const spells = this.static.spells;
     const ability = this.abilities.getAbility(spells[0].id)!;
     return ability.primarySpell.id;
   }
@@ -128,7 +130,7 @@ class Potion extends Analyzer {
     return {
       actual: this.potionCasts / this.maxCasts,
       isLessThan: {
-        minor: Potion.recommendedEfficiency,
+        minor: this.static.recommendedEfficiency,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
