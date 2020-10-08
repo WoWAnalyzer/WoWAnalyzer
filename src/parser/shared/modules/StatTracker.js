@@ -7,6 +7,7 @@ import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { EventType } from 'parser/core/Events';
+import STAT from 'parser/shared/modules/features/STAT';
 
 const ARMOR_INT_BONUS = .05;
 
@@ -345,6 +346,20 @@ class StatTracker extends Analyzer {
     [SPELLS.WARSCROLL_OF_BATTLE_SHOUT.id]: { strength: 1.07, agility: 1.07 },
   };
 
+  //TODO Update these values on Shadowlands Launch
+  //Values taken from https://github.com/simulationcraft/simc/blob/shadowlands/engine/dbc/generated/sc_scale_data.inc
+  statBaselineRatingPerPercent = {
+    /** Secondaries */
+    [STAT.CRITICAL_STRIKE]: 10.67, //33 @ 60
+    [STAT.HASTE]: 10.06, //35 @ 60
+    [STAT.MASTERY]: 10.67, //33 @ 60
+    [STAT.VERSATILITY]: 12.20, //40 @ 60
+    /** Tertiaries */
+    [STAT.AVOIDANCE]: 4.27, //14 @ 60
+    [STAT.LEECH]: 6.4, //21 @ 60
+    [STAT.SPEED]: 3.05, // 10 @ 60
+  };
+
   constructor(...args) {
     super(...args);
     // TODO: Use combatantinfo event directly
@@ -611,131 +626,93 @@ class StatTracker extends Analyzer {
     return 0;
   }
 
-  /*
-   * For percentage stats, this is the divider to go from rating to percent (expressed from 0 to 1)
+  /**
+   *
+   * @param rating
+   * @param baselineRatingPerPercent
+   * @param returnRatingForNextPercent
+   * @param isSecondaryScaling
+   * @param coef
+   * @returns {number}
    */
-
-  get calculateStatPercentage(rating, baselineRatingPerPercent, returnRatingForNextPercent = false) {
-    const penaltyThresholds = [
-      { base: 0, scaled: 0, penalties: 0 },
-      { base: 0.3, scaled: 0.3, penalties: 0.1 },
-      { base: 0.4, scaled: 0.39, penalties: 0.2 },
-      { base: 0.5, scaled: 0.47, penalties: 0.3 },
-      { base: 0.6, scaled: 0.54, penalties: 0.4 },
-      { base: 0.8, scaled: 0.66, penalties: 0.5 },
-      { base: 1, scaled: 0.76, penalties: 0.5 },
-      { base: 2, scaled: 1.26, penalties: 1 },
-    ];
+  calculateStatPercentage(rating, baselineRatingPerPercent, returnRatingForNextPercent = false, isSecondaryScaling = true, coef = 1) {
+    /** Penalty and Thresholds taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
+     * Search for 21024 in the first column for secondary stat scaling
+     * Search for 21025 in the first column for tertiary stat scaling
+     */
+    const penaltyThresholds = isSecondaryScaling ? [
+        /** Secondary stat scaling thresholds */
+        { base: 0, scaled: 0, penaltyAboveThis: 0 },
+        { base: 0.3, scaled: 0.3, penaltyAboveThis: 0.1 },
+        { base: 0.4, scaled: 0.39, penaltyAboveThis: 0.2 },
+        { base: 0.5, scaled: 0.47, penaltyAboveThis: 0.3 },
+        { base: 0.6, scaled: 0.54, penaltyAboveThis: 0.4 },
+        { base: 0.8, scaled: 0.66, penaltyAboveThis: 0.5 },
+        { base: 1, scaled: 0.76, penaltyAboveThis: 0.5 },
+        { base: 2, scaled: 1.26, penaltyAboveThis: 1 },
+      ] :
+      [
+        /** Tertiary stat scaling thresholds */
+        { base: 0, scaled: 0, penaltyAboveThis: 0 },
+        { base: 0.05, scaled: 0.05, penaltyAboveThis: 0 },
+        { base: 0.1, scaled: 0.1, penaltyAboveThis: 0 },
+        { base: 0.15, scaled: 0.14, penaltyAboveThis: 0.2 },
+        { base: 0.20, scaled: 0.17, penaltyAboveThis: 0.4 },
+        { base: 0.25, scaled: 0.19, penaltyAboveThis: 0.6 },
+        { base: 1, scaled: 0.49, penaltyAboveThis: 1 },
+      ];
     const baselinePercent = rating / baselineRatingPerPercent / 100;
+    if (baselinePercent > penaltyThresholds[penaltyThresholds.length - 1].base) {
+      if (returnRatingForNextPercent) {
+        return Infinity;
+      } else {
+        return penaltyThresholds[penaltyThresholds.length - 1].scaled * coef;
+      }
+    }
     for (const idx in penaltyThresholds) {
       if (baselinePercent > penaltyThresholds[idx].base) {
         continue;
       }
       if (returnRatingForNextPercent) {
-        return baselineRatingPerPercent / (1 - penaltyThresholds[idx - 1].penalties);
+        return (baselineRatingPerPercent / (1 - penaltyThresholds[idx - 1].penaltyAboveThis)) / coef;
       } else {
         const knownStat = penaltyThresholds[idx - 1].scaled;
-        const calculateRemaining = (baselinePercent - penaltyThresholds[idx - 1].base) * (1 - penaltyThresholds[idx - 1].penalties);
-        return knownStat + calculateRemaining;
+        const calculateRemaining = (baselinePercent - penaltyThresholds[idx - 1].base) * (1 - penaltyThresholds[idx - 1].penaltyAboveThis);
+        return (knownStat + calculateRemaining) * coef;
       }
     }
-    if (returnRatingForNextPercent) {
-      return Infinity;
-    } else {
-      return penaltyThresholds[penaltyThresholds.length - 1].scaled;
-    }
   }
 
-  get ratingNeededForNextPercentage(rating, baselineRatingPerPercent) {
-    return this.calculateStatPercentage(rating, baselineRatingPerPercent, true);
-  }
-
-  /**
-   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
-   * @returns {number}
-   */
-  get critRatingPerPercent() {
-    return 72 * 100;
+  ratingNeededForNextPercentage(rating, baselineRatingPerPercent, coef = 1,  isSecondary = true,) {
+    return this.calculateStatPercentage(rating, baselineRatingPerPercent, true, isSecondary, coef);
   }
 
   critPercentage(rating, withBase = false) {
-    const BASE_CRIT_RATING_PER_PERCENT = 10.67; //TODO: Change this to 33 at Shadowlands launch
-    return (withBase ? this.baseCritPercentage : 0) + this.calculateStatPercentage(rating, BASE_CRIT_RATING_PER_PERCENT);
-  }
-
-  /**
-   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
-   * @returns {number}
-   */
-  get hasteRatingPerPercent() {
-    return 68 * 100;
+    return (withBase ? this.baseCritPercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]);
   }
 
   hastePercentage(rating, withBase = false) {
-    const BASE_HASTE_RATING_PER_PERCENT = 10.06; //TODO Change this to 35 at Shadowlands launch
-    return (withBase ? this.baseHastePercentage : 0) + this.calculateStatPercentage(rating, BASE_HASTE_RATING_PER_PERCENT);
-  }
-
-  /**
-   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
-   * @returns {number}
-   */
-  get masteryRatingPerPercent() {
-    return 72 * 100 / this.selectedCombatant.spec.masteryCoefficient;
+    return (withBase ? this.baseHastePercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.HASTE]);
   }
 
   masteryPercentage(rating, withBase = false) {
-    const BASE_MASTERY_RATING_PER_PERCENT = 10.67; //TODO Change this to 35 at Shadowlands launch
-    return (withBase ? this.baseMasteryPercentage : 0) + this.calculateStatPercentage(rating, BASE_MASTERY_RATING_PER_PERCENT);
-  }
-
-  /**
-   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
-   * @returns {number}
-   */
-  get versatilityRatingPerPercent() {
-    return 85 * 100;
+    return (withBase ? this.baseMasteryPercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.MASTERY], false, true, this.selectedCombatant.spec.masteryCoefficient);
   }
 
   versatilityPercentage(rating, withBase = false) {
-    const BASE_VERSATILITY_RATING_PER_PERCENT = 12.20; //TODO Change this to 40 at Shadowlands launch
-    return (withBase ? this.baseVersatilityPercentage : 0) + this.calculateStatPercentage(rating, BASE_VERSATILITY_RATING_PER_PERCENT);
-  }
-
-  /**
-   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
-   * @returns {number}
-   */
-  get avoidanceRatingPerPercent() {
-    return 28 * 100;
+    return (withBase ? this.baseVersatilityPercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.VERSATILITY]);
   }
 
   avoidancePercentage(rating, withBase = false) {
-    return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
-  }
-
-  /**
-   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
-   * @returns {number}
-   */
-  get leechRatingPerPercent() {
-    return 40 * 100;
+    return (withBase ? this.baseAvoidancePercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.AVOIDANCE], false, false);
   }
 
   leechPercentage(rating, withBase = false) {
-    return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
-  }
-
-  /**
-   * @deprecated Deprecated in favour of ratingNeededForNextPercentage because of the implemented DR for stats in Shadowlands
-   * @returns {number}
-   */
-  get speedRatingPerPercent() {
-    return 20 * 100;
+    return (withBase ? this.baseLeechPercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.LEECH], false, false);
   }
 
   speedPercentage(rating, withBase = false) {
-    return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
+    return (withBase ? this.baseSpeedPercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.SPEED], false, false);
   }
 
   /*
