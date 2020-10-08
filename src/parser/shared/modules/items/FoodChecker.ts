@@ -1,6 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Events, { ApplyBuffEvent } from 'parser/core/Events';
 
 const LOWER_FOOD_IDS = [
   //BFA Food
@@ -51,7 +53,13 @@ class FoodChecker extends Analyzer {
   lowerFoodUp = false;
   midTierFoodUp = false;
   higherFoodUp = false;
-  on_toPlayer_applybuff(event) {
+
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplybuff.bind(this));
+  }
+
+  onApplybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (event.prepull) {
       if (LOWER_FOOD_IDS.includes(spellId)) {
@@ -69,17 +77,17 @@ class FoodChecker extends Analyzer {
     return {
       actual: this.higherFoodUp,
       isEqual: false,
-      style: 'boolean',
+      style: ThresholdStyle.BOOLEAN,
     };
   }
   get isPresentFoodSuggestionThresholds() {
     return {
       actual: this.higherFoodUp || this.lowerFoodUp || this.midTierFoodUp,
       isEqual: false,
-      style: 'boolean',
+      style: ThresholdStyle.BOOLEAN,
     };
   }
-  suggestions(when) {
+  suggestions(when: When) {
     let importance = SUGGESTION_IMPORTANCE.MINOR;
     let suggestionText = 'You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.';
     if (!this.higherFoodUp && (this.lowerFoodUp || this.midTierFoodUp)) {

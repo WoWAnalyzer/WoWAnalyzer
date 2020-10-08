@@ -1,6 +1,8 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import SPELLS from 'common/SPELLS/index';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Events, { ApplyBuffEvent } from 'parser/core/Events';
 
 const MIN_FLASK_IDS = [
   SPELLS.GREATER_FLASK_OF_THE_CURRENTS.id,
@@ -18,7 +20,12 @@ class FlaskChecker extends Analyzer {
   startFightWithFlaskUp = false;
   strongFlaskUsed = false;
 
-  on_toPlayer_applybuff(event) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplybuff.bind(this));
+  }
+
+  onApplybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (MIN_FLASK_IDS.includes(spellId) && event.prepull) {
       this.startFightWithFlaskUp = true;
@@ -32,17 +39,17 @@ class FlaskChecker extends Analyzer {
     return {
       actual: this.strongFlaskUsed,
       isEqual: false,
-      style: 'boolean',
+      style: ThresholdStyle.BOOLEAN,
     };
   }
   get flaskSuggestionThresholds() {
     return {
       actual: this.startFightWithFlaskUp,
       isEqual: false,
-      style: 'boolean',
+      style: ThresholdStyle.BOOLEAN,
     };
   }
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.flaskSuggestionThresholds)
       .addSuggestion((suggest) => suggest('You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.')
           .icon(SPELLS.SPECTRAL_FLASK_OF_POWER.icon)

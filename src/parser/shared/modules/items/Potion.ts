@@ -1,8 +1,11 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Spell from 'common/SPELLS/Spell';
+import { DeathEvent } from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const ONE_HOUR_MS = 3600000; // one hour
 const COOLDOWN_MS = 60000; // one minute
@@ -26,23 +29,31 @@ class Potion extends Analyzer {
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
   };
-  static spells = null;
-  static recommendedEfficiency = null;
-  static extraAbilityInfo = {};
+
+  protected abilities!: Abilities;
+  protected buffs!: Buffs;
+  protected spellUsable!: SpellUsable;
+  protected abilityTracker!: AbilityTracker;
+
+  static spells: Spell[];
+  static recommendedEfficiency: number;
+  static extraAbilityInfo: {name?: string, buffSpellId?: number[], isDefensive?: boolean,};
 
   maxCasts = 1;
-  lastDeathWithPotionReady = null;
+  lastDeathWithPotionReady?: number;
 
-  constructor(...args) {
-    super(...args);
+  get static(){
+    return this.constructor as typeof Potion;
+  }
 
+  constructor(options: Options) {
+    super(options);
     if (!this.isAvailable) {
       this.active = false;
       return;
-    }
-
-    this.abilities.add({
-      spell: this.constructor.spells,
+    } 
+    (options.abilities as Abilities).add({
+      spell: this.static.spells,
       category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
       cooldown: (_, cooldownTriggerEvent) => {
         if (cooldownTriggerEvent && cooldownTriggerEvent.prepull) {
@@ -56,14 +67,14 @@ class Potion extends Analyzer {
         suggestion: false,
         maxCasts: () => this.maxCasts,
       },
-      ...this.constructor.extraAbilityInfo,
+      ...this.static.extraAbilityInfo,
     });
-    if (this.constructor.extraAbilityInfo.buffSpellId) {
+    if (this.static.extraAbilityInfo.buffSpellId) {
       //assign each buff its corresponding spell ID
-      this.constructor.extraAbilityInfo.buffSpellId.forEach((buff, buffIndex) => {
-        this.buffs.add({
+      this.static.extraAbilityInfo.buffSpellId.forEach((buff, buffIndex) => {
+        (options.buffs as Buffs).add({
           spellId: buff,
-          triggeredBySpellId: this.constructor.spells.find((_, spellIndex) => spellIndex === buffIndex).id,
+          triggeredBySpellId: this.static.spells.find((_, spellIndex) => spellIndex === buffIndex)!.id,
         });
       });
     }
@@ -75,12 +86,12 @@ class Potion extends Analyzer {
   }
 
   get spellId() {
-    const spells = this.constructor.spells;
-    const ability = this.abilities.getAbility(spells[0].id);
+    const spells = this.static.spells;
+    const ability = this.abilities.getAbility(spells[0].id)!;
     return ability.primarySpell.id;
   }
 
-  on_toPlayer_death(event) {
+  on_toPlayer_death(event: DeathEvent) {
     if (!this.spellUsable.isOnCooldown(this.spellId)) {
       // If the potion was not on cooldown, only increase maxCasts if it would have been ready again since the previous death.
       if (this.lastDeathWithPotionReady) {
@@ -103,7 +114,7 @@ class Potion extends Analyzer {
     this.increaseMaxCasts(event);
   }
 
-  increaseMaxCasts(event) {
+  increaseMaxCasts(event: DeathEvent) {
     // If the death starts the cooldown and there is more than 60 seconds remaining of the encounter another cast was possible.
     const nextAvailablePotionCast = event.timestamp + COOLDOWN_MS;
     if (nextAvailablePotionCast < this.owner.fight.end_time) {
@@ -119,9 +130,9 @@ class Potion extends Analyzer {
     return {
       actual: this.potionCasts / this.maxCasts,
       isLessThan: {
-        minor: this.constructor.efficiency,
+        minor: this.static.recommendedEfficiency,
       },
-      style: 'percent',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 }
