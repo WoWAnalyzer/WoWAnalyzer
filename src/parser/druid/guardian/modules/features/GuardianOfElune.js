@@ -89,13 +89,11 @@ class GuardianOfElune extends Analyzer {
     const unusedGoEProcs = 1 - (this.consumedGoEProc / this.GoEProcsTotal);
 
     when(unusedGoEProcs).isGreaterThan(0.3)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You wasted {formatPercentage(unusedGoEProcs)}% of your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(unusedGoEProcs)}% of your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
           .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
           .actual(`${formatPercentage(unusedGoEProcs)}% unused`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(recommended + 0.15).major(recommended + 0.3);
-      });
+          .regular(recommended + 0.15).major(recommended + 0.3));
   }
 
   statistic() {

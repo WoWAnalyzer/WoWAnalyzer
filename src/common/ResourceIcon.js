@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+
 import ResourceLink from './ResourceLink';
 import Icon from './Icon';
 

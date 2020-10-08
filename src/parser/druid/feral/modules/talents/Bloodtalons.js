@@ -162,7 +162,7 @@ class Bloodtalons extends Analyzer {
   }
 
   isSpender(spellId) {
-    return !!POTENTIAL_SPENDERS.find(spender => spender.id === spellId);
+    return Boolean(POTENTIAL_SPENDERS.find(spender => spender.id === spellId));
   }
 
   isAlreadyAccountedForAoE(spellId, timestamp) {
@@ -206,16 +206,14 @@ class Bloodtalons extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You are overwriting charges of <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. Try to use both charges before you generate more from casting <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} />.
         </>,
       )
         .icon(SPELLS.BLOODTALONS_TALENT.icon)
         .actual(`${actual.toFixed(1)} wasted charges of Bloodtalons per minute.`)
-        .recommended(`${recommended} is recommended`);
-    });
+        .recommended(`${recommended} is recommended`));
   }
 
   get combinedChart() {

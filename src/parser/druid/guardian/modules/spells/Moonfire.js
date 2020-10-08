@@ -16,13 +16,11 @@ class Moonfire extends Analyzer {
     const moonfireUptimePercentage = this.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
 
     when(moonfireUptimePercentage).isLessThan(0.95)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime was {formatPercentage(moonfireUptimePercentage)}%, unless you have extended periods of downtime it should be near 100%.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime was {formatPercentage(moonfireUptimePercentage)}%, unless you have extended periods of downtime it should be near 100%.</span>)
           .icon(SPELLS.MOONFIRE_BEAR.icon)
           .actual(`${formatPercentage(moonfireUptimePercentage)}% uptime`)
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.15);
-      });
+          .regular(recommended - 0.05).major(recommended - 0.15));
   }
 
   statistic() {

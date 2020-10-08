@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
@@ -26,7 +25,7 @@ class Recklessness extends Analyzer {
   onPlayerEnergize(event) {
     const resource = event.classResources && event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.RAGE.id);
 
-    if (!resource) return;
+    if (!resource) {return;}
 
     if (this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS.id)) {
       this.reckRageGen += event.resourceChange / 2;

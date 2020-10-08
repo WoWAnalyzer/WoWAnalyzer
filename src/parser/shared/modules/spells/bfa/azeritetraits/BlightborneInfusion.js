@@ -18,7 +18,7 @@ const blightborneInfusionStats = traits => Object.values(traits).reduce((total, 
  * Blightborne Infusion:
  * Your spells and abilities have a chance to draw a Wandering Soul from Thros to serve you for 14 sec.
  * The Soul increases your Critical Strike by 768.
- * 
+ *
  * Test Log: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Rhonk/statistics
  */
 class BlightborneInfusion extends Analyzer {

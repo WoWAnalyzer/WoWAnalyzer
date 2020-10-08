@@ -74,12 +74,10 @@ class ComboBreaker extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
           .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
           .actual(`${formatPercentage(actual)}% used Combo Breaker procs`)
-          .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`);
-    });
+          .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`));
   }
 
   statistic() {

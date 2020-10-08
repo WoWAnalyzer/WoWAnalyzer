@@ -86,10 +86,10 @@ class TridentOfDeepOcean extends Analyzer {
             You spent: <br />
             <ul>
             {
-              Object.keys(buffStacks).map((stackSize) => {
+              Object.keys(buffStacks).map((stackSize, i) => {
                 const totalStackDuration = buffStacks[stackSize];
                   return (
-                    <li>
+                    <li key={i}>
                       <b>{(totalStackDuration / 1000).toFixed(0)}s</b> ({formatPercentage(totalStackDuration / this.owner.fightDuration)}%) at <b>{stackSize}</b> stack{stackSize !== '1' && `s`}.
                     </li>
                   );

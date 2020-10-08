@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
@@ -17,7 +17,7 @@ import UptimeIcon from 'interface/icons/Uptime';
  */
 class Trailblazer extends Analyzer {
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TRAILBLAZER_TALENT.id);
   }

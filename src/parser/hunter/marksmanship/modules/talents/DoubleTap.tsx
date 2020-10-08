@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -23,7 +23,7 @@ class DoubleTap extends Analyzer {
   aimedUsage = 0;
   RFUsage = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DOUBLE_TAP_TALENT.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DOUBLE_TAP_TALENT), this.onDoubleTapApplication);

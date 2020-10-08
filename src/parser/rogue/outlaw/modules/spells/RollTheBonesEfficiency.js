@@ -13,7 +13,7 @@ const HIGH_TIER_REFRESH_TIME = 3000;
 /**
  * Roll the Bones is pretty complex with a number of rules around when to use it. I've done my best to break this down into four main suggestions
  * Ruthless Precision and Grand Melee are the two 'good' buffs. The other four are 'bad' buffs
- * 
+ *
  * 1 - Uptime (handled in separate module, as close to 100% as possible)
  * 2 - Low value rolls (1 'bad' buff, reroll as soon as you can)
  * 3 - Mid value rolls (2 'bad' buffs, reroll at the pandemic window)
@@ -100,16 +100,14 @@ class RollTheBonesEfficiency extends Analyzer {
         suggestionThresholds: this.rollSuggestionThreshold(this.goodHighValueRolls, rtbCastValues[ROLL_THE_BONES_CATEGORIES.HIGH_VALUE].length),
       },
     ];
-  }  
+  }
 
   suggestions(when) {
     this.rollSuggestions.forEach(suggestion => {
-      when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a {suggestion.label} roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}</>)
+      when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a {suggestion.label} roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}</>)
           .icon(SPELLS.ROLL_THE_BONES.icon)
           .actual(`${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`${formatPercentage(recommended)}% is recommended`));
     });
   }
 }

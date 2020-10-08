@@ -164,7 +164,7 @@ class Upwelling extends Analyzer {
         talent={SPELLS.UPWELLING_TALENT.id}
         position={STATISTIC_ORDER.CORE(10)}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealingAll))}% Total Healing`}
-        label={`Upwelling Healing`}
+        label="Upwelling Healing"
         tooltip={(
           <>
           <div>

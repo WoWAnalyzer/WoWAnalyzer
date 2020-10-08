@@ -6,7 +6,7 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import PlayerHits from 'interface/statistics/components/PlayerHits';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import './LightOfDawn.scss';
@@ -15,7 +15,7 @@ class LightOfDawn extends Analyzer {
   protected casts = 0;
   protected heals = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST),

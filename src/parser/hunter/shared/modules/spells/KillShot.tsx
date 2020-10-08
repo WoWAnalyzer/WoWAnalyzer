@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -38,12 +38,12 @@ class KillShot extends ExecuteHelper {
   protected abilities!: Abilities;
   protected flayedShot!: FlayedShot;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
 
-    options.abilities.add({
+    (options.abilities as Abilities).add({
       spell: this.activeKillShotSpell,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       charges: this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) ? 2 : 1,

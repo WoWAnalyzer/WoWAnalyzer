@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
@@ -24,7 +24,7 @@ class DeathChakrams extends Analyzer {
 
   protected abilities!: Abilities;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
@@ -33,7 +33,7 @@ class DeathChakrams extends Analyzer {
       return;
     }
 
-    options.abilities.add({
+    (options.abilities as Abilities).add({
       spell: SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 45,

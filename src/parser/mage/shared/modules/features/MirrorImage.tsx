@@ -51,12 +51,10 @@ class MirrorImage extends Analyzer {
 
   suggestions(when: When) {
     when(this.damageSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.MIRROR_IMAGE.id} /> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.MIRROR_IMAGE.id} /> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
           .icon(SPELLS.MIRROR_IMAGE.icon)
           .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Mirror Image`)
-          .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`);
-        });
+          .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`));
   }
 
   statistic() {

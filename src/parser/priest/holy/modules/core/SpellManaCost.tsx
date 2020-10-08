@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
 import { CastEvent } from 'parser/core/Events';
+
 import { ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT } from '../../constants';
 
 const debug = false;

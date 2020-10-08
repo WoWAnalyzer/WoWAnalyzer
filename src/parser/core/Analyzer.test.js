@@ -238,8 +238,8 @@ describe('Core/Analyzer', () => {
           super(options);
           this.addEventListener('success', this.on_success);
         }
-        on_success() {
-        }
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        on_success() {}
       }
       expect(() => {
         parser.loadModule(MyModule);

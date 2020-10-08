@@ -38,7 +38,7 @@ class FlashOfClarity extends Analyzer {
 
   checkIfClearCasting(event){
     const targetID = event.targetID;
-    // Currently this is bugged so when you are innervated each 
+    // Currently this is bugged so when you are innervated each
     // !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)
     if(this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
       this.targetsWithClearCastingRegrowth[targetID] = targetID;

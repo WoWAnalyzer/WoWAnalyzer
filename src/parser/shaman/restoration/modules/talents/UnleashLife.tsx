@@ -10,7 +10,7 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
@@ -27,7 +27,7 @@ interface HealingBuffInfo {
 interface HealingBuffHot {
   healing: number,
   castAmount: number,
-  playersActive: Array<number>
+  playersActive: number[]
 }
 interface HealingBuff {
   healing: number,
@@ -77,7 +77,7 @@ class UnleashLife extends Analyzer {
   buffedChainHealTimestamp: number = Number.MIN_SAFE_INTEGER;
   lastUnleashLifeTimestamp: number = Number.MAX_SAFE_INTEGER;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
   }

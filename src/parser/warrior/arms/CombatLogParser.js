@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
 // Normalizers
 import OverpowerStacks from './normalizers/OverpowerStacks';
 import CrushingAssaultBuff from './normalizers/CrushingAssaultBuff';

@@ -5,7 +5,6 @@ import Analyzer from 'parser/core/Analyzer';
 import TabComponent from './TabComponent';
 
 class ManaTab extends Analyzer {
-
   tab() {
     return {
       title: 'Mana',

@@ -118,7 +118,7 @@ class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {
         <div
           className={`panel statistic ${size} ${className}`}
           // only add zIndex property if a dropdown exists, to preserve backwards compatiblity with StatisticBox utilizing Statistic
-          style={!!dropdown ? { zIndex: this.state.expanded ? 2 : 1 } : undefined}
+          style={dropdown ? { zIndex: this.state.expanded ? 2 : 1 } : undefined}
           {...others}
         >
           <div className="panel-body">

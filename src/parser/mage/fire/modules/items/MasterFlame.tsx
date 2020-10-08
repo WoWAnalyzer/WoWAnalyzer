@@ -9,7 +9,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-export const DAMAGE_BONUS: {[rank: number]:number } = {
+export const DAMAGE_BONUS: {[rank: number]: number } = {
   1: .06,
   2: .07,
   3: .08,
@@ -28,7 +28,6 @@ export const DAMAGE_BONUS: {[rank: number]:number } = {
 };
 
 class MasterFlame extends Analyzer {
-
   conduitRank: number = 0;
 
   bonusDamage = 0;

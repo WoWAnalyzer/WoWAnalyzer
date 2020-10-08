@@ -41,12 +41,10 @@ class TouchOfKarma extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<> You consumed a low amount of your total <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage shouldn't be expected on lower difficulty encounters </>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<> You consumed a low amount of your total <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage shouldn't be expected on lower difficulty encounters </>)
         .icon(SPELLS.TOUCH_OF_KARMA_CAST.icon)
         .actual(`${formatPercentage(actual)}% Touch of Karma absorb used`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

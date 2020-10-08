@@ -73,13 +73,11 @@ class Gore extends Analyzer {
     const unusedGoreProcs = 1 - (this.consumedGoreProc / this.totalProcs);
 
     when(unusedGoreProcs).isGreaterThan(0.3)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You wasted {formatPercentage(unusedGoreProcs)}% of your <SpellLink id={SPELLS.GORE_BEAR.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(unusedGoreProcs)}% of your <SpellLink id={SPELLS.GORE_BEAR.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
           .icon(SPELLS.GORE_BEAR.icon)
           .actual(`${formatPercentage(unusedGoreProcs)}% unused`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(recommended + 0.15).major(recommended + 0.3);
-      });
+          .regular(recommended + 0.15).major(recommended + 0.3));
   }
 
   statistic() {
