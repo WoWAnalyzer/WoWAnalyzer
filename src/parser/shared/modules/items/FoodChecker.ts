@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
@@ -54,7 +54,7 @@ class FoodChecker extends Analyzer {
   midTierFoodUp = false;
   higherFoodUp = false;
 
-  constructor(options:any){
+  constructor(options: Options){
     super(options);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplybuff.bind(this));
   }

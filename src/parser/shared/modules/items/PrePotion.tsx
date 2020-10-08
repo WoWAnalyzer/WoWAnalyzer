@@ -1,4 +1,3 @@
-import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import SPECS from 'game/SPECS';
@@ -6,9 +5,11 @@ import ITEMS from 'common/ITEMS/index';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
 import Events, { ApplyBuffEvent, CastEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+
+import React from 'react';
 
 const debug = false;
 
@@ -146,7 +147,7 @@ class PrePotion extends Analyzer {
   alternatePotion = null;
   isHealer = false;
 
-  constructor(...args: any[]) {
+  constructor(args: Options) {
     super(args);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this._applybuff);
     this.addEventListener(Events.prefiltercd.by(SELECTED_PLAYER), this._cast);

@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -42,7 +42,7 @@ class Potion extends Analyzer {
   maxCasts = 1;
   lastDeathWithPotionReady?: number;
 
-  constructor(...args: any[]) {
+  constructor(args: Options) {
     super(args);
 
     if (!this.isAvailable) {

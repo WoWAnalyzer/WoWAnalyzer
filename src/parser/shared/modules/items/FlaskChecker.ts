@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import SPELLS from 'common/SPELLS/index';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
@@ -20,7 +20,7 @@ class FlaskChecker extends Analyzer {
   startFightWithFlaskUp = false;
   strongFlaskUsed = false;
 
-  constructor(options: any){
+  constructor(options: Options){
     super(options);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplybuff.bind(this));
   }
