@@ -1,4 +1,3 @@
-import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import DonutChart from 'interface/statistics/components/DonutChart';
@@ -7,6 +6,10 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events, { CastEvent } from 'parser/core/Events';
 import ResourceLink from 'common/ResourceLink';
 import { formatNumber } from 'common/format';
+
+import Spell from 'common/SPELLS/Spell';
+
+import React from 'react';
 
 class ResourceUsage extends Analyzer {
 
@@ -19,7 +22,7 @@ class ResourceUsage extends Analyzer {
   /**
    * Array of objects from common/SPELLS
    */
-  static listOfResourceSpenders: Array<{ id: number, name: string, icon: string }> = [];
+  static listOfResourceSpenders: Spell[] = [];
 
   /**
    * We might want some spells to show as other spells, if some buff can alter their spellID, but the spell is otherwise essentially the same.
