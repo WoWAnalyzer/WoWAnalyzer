@@ -212,7 +212,7 @@ export class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
   }
 }
 
-type SuggestionFactory = (suggest: React.ReactNode) => Suggestion;
+export type SuggestionFactory = (suggest: React.ReactNode) => Suggestion;
 
 class Suggestion {
   _text: React.ReactNode;
