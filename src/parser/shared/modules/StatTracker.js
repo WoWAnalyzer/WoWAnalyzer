@@ -657,43 +657,71 @@ class StatTracker extends Analyzer {
     return 0;
   }
 
+  /*
+   * For percentage stats, the current stat percentage gained from stat ratings.
+   */
+
   /**
+   * This function handles the diminishing returns system for stats implemented in Shadowlands.
+   * It will return either current stat percentage gained from rating OR the rating needed for 1% at current rating amounts
    *
-   * @param rating
-   * @param baselineRatingPerPercent
-   * @param returnRatingForNextPercent
-   * @param isSecondaryScaling
-   * @param coef
+   * @param rating - number -- The current rating the player has.
+   * @param baselineRatingPerPercent - number -- The baseline rating needing for 1% before any penalties.
+   * @param returnRatingForNextPercent - boolean -- Whether this function should return the rating needed for 1% at current rating levels or not
+   * @param isSecondary - boolean -- Whether we are calculating a secondary or tertiary stat
+   * @param coef - number -- Any stat coefficient, currently only used for Mastery.
    * @returns {number}
    */
-  calculateStatPercentage(rating, baselineRatingPerPercent, returnRatingForNextPercent = false, isSecondaryScaling = true, coef = 1) {
-    const penaltyThresholds = isSecondaryScaling ? this.secondaryStatPenaltyThresholds : this.tertiaryStatPenaltyThresholds;
+  calculateStatPercentage(rating, baselineRatingPerPercent, returnRatingForNextPercent = false, isSecondary = true, coef = 1) {
+    //Which penalty thresholds we should use based on type of stat
+    const penaltyThresholds = isSecondary ? this.secondaryStatPenaltyThresholds : this.tertiaryStatPenaltyThresholds;
+    //The percentage of stats we would have if diminishing return was not a thing
     const baselinePercent = rating / baselineRatingPerPercent / 100;
+    //If we have more stats baseline than the threshold where we can no longer gain stat percentages from ratings
     if (baselinePercent > penaltyThresholds[penaltyThresholds.length - 1].base) {
       if (returnRatingForNextPercent) {
+        //At this point we can't gain more % of the given stat from rating
         return Infinity;
       } else {
+        //We are at the maximum % so we use the maximum scaled value and multiply it by the coefficient
         return penaltyThresholds[penaltyThresholds.length - 1].scaled * coef;
       }
     }
+    //Loop through each of our penaltythresholds until we find the first one where we have more baseline stats than that curvepoint
     for (const idx in penaltyThresholds) {
+      //If we have a higher percent than the baseline, we can move on immediately
       if (baselinePercent >= penaltyThresholds[idx].base) {
         continue;
       }
       if (returnRatingForNextPercent) {
+        //Returns the rating needed for 1% at current rating levels
         return (baselineRatingPerPercent / (1 - penaltyThresholds[idx - 1].penaltyAboveThis)) / coef;
       } else {
-        const knownStat = penaltyThresholds[idx - 1].scaled;
-        const calculateRemaining = (baselinePercent - penaltyThresholds[idx - 1].base) * (1 - penaltyThresholds[idx - 1].penaltyAboveThis);
-        return (knownStat + calculateRemaining) * coef;
+        //Since we no longer have more base stats than the current curve point, we know that we atleast have the scaled value of the last curve point
+        const statFromLastCurvePoint = penaltyThresholds[idx - 1].scaled;
+        //Using the known stat from last curve point, we can calculate the remaining stat gain by subtracting the last curve point from our baseline percentage and multiplying it by (1-penalty) of the penalty applied to stats from the last curve point.
+        const calculateStatGainWithinCurrentCurvePoint = (baselinePercent - penaltyThresholds[idx - 1].base) * (1 - penaltyThresholds[idx - 1].penaltyAboveThis);
+        return (statFromLastCurvePoint + calculateStatGainWithinCurrentCurvePoint) * coef;
       }
     }
   }
 
+  /**
+   * This function makes it easier to utilize calculateStatPercentage to get the rating needed for 1% at current rating levels
+   *
+   * @param rating - number -- The current rating the player has.
+   * @param baselineRatingPerPercent - number -- The baseline rating needing for 1% before any penalties.
+   * @param coef - number -- Any stat coefficient, currently only used for Mastery.
+   * @param isSecondary - boolean -- Whether we are calculating a secondary or tertiary stat
+   * @returns {number}
+   */
   ratingNeededForNextPercentage(rating, baselineRatingPerPercent, coef = 1, isSecondary = true) {
     return this.calculateStatPercentage(rating, baselineRatingPerPercent, true, isSecondary, coef);
   }
 
+  /*
+   * For percentage stats, returns the combined base stat values and the values gained from ratings -- this does not include percentage increases such as Bloodlust
+   */
   critPercentage(rating, withBase = false) {
     return (withBase ? this.baseCritPercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]);
   }
