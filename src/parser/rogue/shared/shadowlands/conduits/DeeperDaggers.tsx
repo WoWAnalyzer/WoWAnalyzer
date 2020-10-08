@@ -13,7 +13,7 @@ class DeeperDaggers extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    // this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.DEEPER_DAGGERS.id);
+    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.DEEPER_DAGGERS.id);
   }
 
   get percentUptime() {
