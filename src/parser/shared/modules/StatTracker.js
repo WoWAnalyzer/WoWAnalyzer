@@ -670,7 +670,7 @@ class StatTracker extends Analyzer {
       }
     }
     for (const idx in penaltyThresholds) {
-      if (baselinePercent > penaltyThresholds[idx].base) {
+      if (baselinePercent >= penaltyThresholds[idx].base) {
         continue;
       }
       if (returnRatingForNextPercent) {
