@@ -43,7 +43,7 @@ class Resurgence extends Analyzer {
     super(options);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE_RESTORATION, SPELLS.HEALING_WAVE, SPELLS.CHAIN_HEAL, SPELLS.UNLEASH_LIFE_TALENT, SPELLS.RIPTIDE]), this.onRelevantHeal);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.RESURGENCE), this.onResurgenceProc);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.RESURGENCE), this.onResurgenceProc);
   }
 
   onRelevantHeal(event: HealEvent) {
