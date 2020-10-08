@@ -5,6 +5,8 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const GOE_DURATION = 15000;
 const debug = false;
@@ -92,7 +94,7 @@ class GuardianOfElune extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You wasted {formatPercentage(unusedGoEProcs)}% of your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
           .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
-          .actual(`${formatPercentage(unusedGoEProcs)}% unused`)
+          .actual(i18n._(t('druid.guardian.suggestions.guardianOfElune.unused')`${formatPercentage(unusedGoEProcs)}% unused`))
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
           .regular(recommended + 0.15).major(recommended + 0.3);
       });

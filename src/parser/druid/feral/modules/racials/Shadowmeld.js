@@ -7,6 +7,8 @@ import { formatPercentage } from 'common/format';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const BUFF_WINDOW_TIME = 60;
 
@@ -108,7 +110,7 @@ class Shadowmeld extends Analyzer {
         </React.Fragment>,
       )
         .icon(SPELLS.SHADOWMELD.icon)
-        .actual(`${(actual * 100).toFixed(0)}% cast efficiency.`)
+        .actual(i18n._(t('druid.feral.suggetions.shadowmeld.efficiency')`${(actual * 100).toFixed(0)}% cast efficiency.`))
         .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`);
     });
 
@@ -119,7 +121,7 @@ class Shadowmeld extends Analyzer {
         </React.Fragment>,
       )
         .icon(SPELLS.SHADOWMELD.icon)
-        .actual(`${this.wastedDuringStealth} cast${this.wastedDuringStealth === 1 ? '' : 's'} when already stealthed.`)
+        .actual(i18n._(t('druid.feral.suggetions.shadowmeld.wasted')`${this.wastedDuringStealth} cast${this.wastedDuringStealth === 1 ? '' : 's'} when already stealthed.`))
         .recommended('0 is recommended');
     });
   }
