@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { EventType } from 'parser/core/Events';
+import { AnyEvent, CastEvent, ChangeHasteEvent, EventType, UpdateSpellUsableEvent } from 'parser/core/Events';
 
 import Abilities from '../../core/modules/Abilities';
 
@@ -10,10 +10,17 @@ const debug = false;
 export const INVALID_COOLDOWN_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 let fullExplanation = true;
 
-function spellName(spellId) {
+function spellName(spellId: number) {
   return SPELLS[spellId] ? SPELLS[spellId].name : '???';
 }
 
+type CooldownInfo = {
+  start: number,
+  chargesOnCooldown: number,
+  expectedDuration: number,
+  totalReductionTime: number,
+  cooldownTriggerEvent: AnyEvent,
+}
 /**
  * @property {EventEmitter} eventEmitter
  * @property {Abilities} abilities
@@ -23,13 +30,17 @@ class SpellUsable extends Analyzer {
     eventEmitter: EventEmitter,
     abilities: Abilities,
   };
+  protected eventEmitter!: EventEmitter;
+  protected abilities!: Abilities;
 
-  _currentCooldowns = {};
+  _currentCooldowns: { [spellId: number]: CooldownInfo } = {};
   _errors = 0;
+
   get errorsPerMinute() {
     const minutesElapsed = (this.owner.fightDuration / 1000) / 60;
     return this._errors / minutesElapsed;
   }
+
   get isAccurate() {
     return this.errorsPerMinute < 1.5;
   }
@@ -39,7 +50,7 @@ class SpellUsable extends Analyzer {
    * is just the spell ID. For abilities with shared CDs / charges, this is
    * the first ability in the list of abilities that share with it.
    */
-  _getCanonicalId(spellId) {
+  _getCanonicalId(spellId: number) {
     const ability = this.abilities.getAbility(spellId);
     if (!ability) {
       return spellId; // not a class ability
@@ -52,46 +63,56 @@ class SpellUsable extends Analyzer {
   }
 
   /**
-   * Whether the spell can be cast. This is not the opposite of `isOnCooldown`! A spell with 2 charges, 1 available and 1 on cooldown would be both available and on cooldown at the same time
+   * Whether the spell can be cast. This is not the opposite of `isOnCooldown`!
+   * A spell with 2 charges, 1 available and 1 on cooldown would be both
+   * available and on cooldown at the same time
    */
-  isAvailable(spellId) {
+  isAvailable(spellId: number) {
     const canSpellId = this._getCanonicalId(spellId);
-    if (this.isOnCooldown(canSpellId)) {
-      const maxCharges = this.abilities.getMaxCharges(canSpellId);
-      if (maxCharges > this._currentCooldowns[canSpellId].chargesOnCooldown) {
-        return true;
-      }
-      return false;
-    } else {
+    if (!this.isOnCooldown(canSpellId)) {
       return true;
+    }
+    const maxCharges = this.abilities.getMaxCharges(canSpellId);
+    if (maxCharges > this._currentCooldowns[canSpellId].chargesOnCooldown) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * For abilities with charges, gets the number of charges currently available.
+   * @param spellId An ability spell id.
+   * @returns The number of charges available for the given spell.
+   * @throws Error if no ability definition found.
+   */
+  chargesAvailable(spellId: number) {
+    const canSpellId = this._getCanonicalId(spellId);
+    const maxCharges = this.abilities.getMaxCharges(canSpellId);
+    if (maxCharges === undefined) {
+      throw new Error(`Attempting to get charge count for spell with no ability info: ${spellId}`);
+    }
+    if (this.isOnCooldown(canSpellId)) {
+      return maxCharges - this._currentCooldowns[canSpellId].chargesOnCooldown;
+    } else {
+      return maxCharges;
     }
   }
 
   /**
-   * For abilities with charges. Returns the number of charges that are available for a particular spell.
-   */
-  chargesAvailable(spellId) {
-    const canSpellId = this._getCanonicalId(spellId);
-    if (this.isOnCooldown(canSpellId)) {
-      return this.abilities.getMaxCharges(canSpellId) - this._currentCooldowns[canSpellId].chargesOnCooldown;
-    } else {
-      return this.abilities.getMaxCharges(canSpellId);
-    }
-  }
-  /**
    * Whether the spell is on cooldown. If a spell has multiple charges with 1 charge on cooldown and 1 available, this will return `true`. Use `isAvailable` if you just want to know if a spell is castable. Use this if you want to know if a spell is current cooling down, regardless of being able to cast it.
    */
-  isOnCooldown(spellId) {
+  isOnCooldown(spellId: number) {
     const canSpellId = this._getCanonicalId(spellId);
     return Boolean(this._currentCooldowns[canSpellId]);
   }
+
   /**
    * Returns the amount of time remaining on the cooldown.
    * @param {number} spellId
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
    * @returns {number}
    */
-  cooldownRemaining(spellId, timestamp = this.owner.currentTimestamp) {
+  cooldownRemaining(spellId: number, timestamp = this.owner.currentTimestamp) {
     const canSpellId = this._getCanonicalId(spellId);
     if (!this.isOnCooldown(canSpellId)) {
       throw new Error(`Tried to retrieve the remaining cooldown of ${canSpellId}, but it's not on cooldown.`);
@@ -100,7 +121,8 @@ class SpellUsable extends Analyzer {
     const expectedEnd = Math.round(cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime);
     return expectedEnd - timestamp;
   }
-  cooldownTriggerEvent(spellId) {
+
+  cooldownTriggerEvent(spellId: number) {
     const canSpellId = this._getCanonicalId(spellId);
     if (!this.isOnCooldown(canSpellId)) {
       throw new Error(`Tried to retrieve the remaining cooldown of ${canSpellId}, but it's not on cooldown.`);
@@ -108,12 +130,13 @@ class SpellUsable extends Analyzer {
     const cooldown = this._currentCooldowns[canSpellId];
     return cooldown.cooldownTriggerEvent;
   }
+
   /**
    * Start the cooldown for the provided spell.
    * @param {number} spellId The ID of the spell.
    * @param {object} cooldownTriggerEvent Which event triggered the cooldown. This MUST include a timestamp. This is used by potions to determine if it was a prepull cast, but may be used for other things too.
    */
-  beginCooldown(spellId, cooldownTriggerEvent) {
+  beginCooldown(spellId: number, cooldownTriggerEvent: AnyEvent) {
     if (process.env.NODE_ENV === 'development') {
       if (cooldownTriggerEvent.timestamp === undefined) {
         throw new Error('cooldownTriggerEvent must at least have a timestamp property.');
@@ -169,6 +192,7 @@ class SpellUsable extends Analyzer {
       }
     }
   }
+
   /**
    * Finishes the cooldown for the provided spell.
    * @param {number} spellId The ID of the spell.
@@ -177,7 +201,7 @@ class SpellUsable extends Analyzer {
    * @param {number} remainingCDR For abilities with charges, the remaining cooldown reduction if the reduction is more than the remaining cooldown of the charge and more than 1 charge is on cooldown
    * @returns {*}
    */
-  endCooldown(spellId, resetAllCharges = false, timestamp = this.owner.currentTimestamp, remainingCDR = 0) {
+  endCooldown(spellId: number, resetAllCharges = false, timestamp = this.owner.currentTimestamp, remainingCDR = 0): number {
     const canSpellId = this._getCanonicalId(spellId);
     if (!this.isOnCooldown(canSpellId)) {
       // We want implementers to check this themselves so they *have* to think about how to handle it properly in whatever module they're working on.
@@ -205,12 +229,13 @@ class SpellUsable extends Analyzer {
     }
     return 0;
   }
+
   /**
    * Refresh (restart) the cooldown for the provided spell.
    * @param {number} spellId The ID of the spell.
    * @param {object} cooldownTriggerEvent Which event triggered the cooldown. This MUST include a timestamp. This is used by potions to determine if it was a prepull cast, but may be used for other things too.
    */
-  refreshCooldown(spellId, cooldownTriggerEvent) {
+  refreshCooldown(spellId: number, cooldownTriggerEvent: { timestamp: number }) {
     const canSpellId = this._getCanonicalId(spellId);
     if (!this.isOnCooldown(canSpellId)) {
       throw new Error(`Tried to refresh the cooldown of ${canSpellId}, but it's not on cooldown.`);
@@ -226,6 +251,7 @@ class SpellUsable extends Analyzer {
     this._currentCooldowns[canSpellId].totalReductionTime = 0;
     this._triggerEvent(this._makeEvent(canSpellId, cooldownTriggerEvent.timestamp, EventType.RefreshCooldown));
   }
+
   /**
    * Reduces the cooldown for the provided spell by the provided duration.
    * @param {number} spellId The ID of the spell.
@@ -233,7 +259,7 @@ class SpellUsable extends Analyzer {
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
    * @returns {number}
    */
-  reduceCooldown(spellId, reductionMs, timestamp = this.owner.currentTimestamp) {
+  reduceCooldown(spellId: number, reductionMs: number, timestamp = this.owner.currentTimestamp) {
     const canSpellId = this._getCanonicalId(spellId);
     if (!this.isOnCooldown(canSpellId)) {
       throw new Error(`Tried to reduce the cooldown of ${canSpellId}, but it's not on cooldown.`);
@@ -256,7 +282,7 @@ class SpellUsable extends Analyzer {
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
    * @returns {*}
    */
-  extendCooldown(spellId, extensionMS, timestamp = this.owner.currentTimestamp) {
+  extendCooldown(spellId: number, extensionMS: number, timestamp = this.owner.currentTimestamp) {
     const canSpellId = this._getCanonicalId(spellId);
     if (!this.isOnCooldown(canSpellId)) {
       throw new Error(`Tried to extend the cooldown of ${canSpellId}, but it's not on cooldown.`);
@@ -267,7 +293,7 @@ class SpellUsable extends Analyzer {
     return extensionMS;
   }
 
-  _makeEvent(spellId, timestamp, trigger, others = {}) {
+  _makeEvent(spellId: number, timestamp: number, trigger: UpdateSpellUsableEvent['trigger'], others = {}): UpdateSpellUsableEvent {
     const cooldown = this._currentCooldowns[spellId];
     const chargesOnCooldown = cooldown ? cooldown.chargesOnCooldown : 0;
     const ability = this.abilities.getAbility(spellId);
@@ -295,7 +321,8 @@ class SpellUsable extends Analyzer {
       ...others,
     };
   }
-  _triggerEvent(event) {
+
+  _triggerEvent(event: UpdateSpellUsableEvent) {
     if (debug) {
       const spellId = event.ability.guid;
       switch (event.trigger) {
@@ -322,12 +349,13 @@ class SpellUsable extends Analyzer {
     this.eventEmitter.fabricateEvent(event);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
     this.beginCooldown(spellId, event);
   }
-  _checkCooldownExpiry(timestamp) {
-    Object.keys(this._currentCooldowns).forEach(spellId => {
+
+  _checkCooldownExpiry(timestamp: number) {
+    Object.keys(this._currentCooldowns).map(Number).forEach(spellId => {
       const remainingDuration = this.cooldownRemaining(spellId, timestamp);
       if (remainingDuration <= 0) {
         const cooldown = this._currentCooldowns[spellId];
@@ -337,11 +365,13 @@ class SpellUsable extends Analyzer {
       }
     });
   }
+
   _lastTimestamp = null;
-  on_event(event) {
+
+  on_event(event: AnyEvent) {
     const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
     //if cast event from previous phase was found, add it to the cooldown tracker without adding it to the phase itself
-    if(event.type === EventType.FilterCooldownInfo && event.sourceID === this.owner.playerId){
+    if (event.type === EventType.FilterCooldownInfo && event.sourceID === this.owner.playerId) {
       this.on_byPlayer_cast(event);
     }
     if (timestamp === this._lastTimestamp) {
@@ -350,10 +380,11 @@ class SpellUsable extends Analyzer {
     this._lastTimestamp = timestamp;
     this._checkCooldownExpiry(timestamp);
   }
+
   // Haste-based cooldowns gets longer/shorter when your Haste changes
   // `newDuration = timePassed + (newCooldownDuration * (1 - progress))` (where `timePassed` is the time since the spell went on cooldown, `newCooldownDuration` is the full cooldown duration based on the new Haste, `progress` is the percentage of progress cooling down the spell)
-  on_changehaste(event) {
-    Object.keys(this._currentCooldowns).forEach(spellId => {
+  on_changehaste(event: ChangeHasteEvent) {
+    Object.keys(this._currentCooldowns).map(Number).forEach(spellId => {
       const cooldown = this._currentCooldowns[spellId];
       const originalExpectedDuration = cooldown.expectedDuration;
       const cooldownTriggerEvent = cooldown.cooldownTriggerEvent;
@@ -371,10 +402,11 @@ class SpellUsable extends Analyzer {
       debug && this.log('Adjusted', spellName(spellId), spellId, 'cooldown duration due to Haste change; old duration without CDRs:', originalExpectedDuration, 'CDRs:', cooldown.totalReductionTime, 'time expired:', timePassed, 'progress:', `${formatPercentage(progress)}%`, 'cooldown duration with current Haste:', cooldownDurationWithCurrentHaste, '(without CDRs)', 'actual new expected duration:', newExpectedDuration, '(without CDRs)');
     });
   }
+
   on_fightend() {
     const timestamp = this.owner.fight.end_time;
     // Get the remaining cooldowns in order of expiration
-    const expiringCooldowns = Object.keys(this._currentCooldowns).map(spellId => {
+    const expiringCooldowns = Object.keys(this._currentCooldowns).map(Number).map(spellId => {
       const remainingDuration = this.cooldownRemaining(spellId, timestamp);
       return {
         spellId,
@@ -389,7 +421,8 @@ class SpellUsable extends Analyzer {
       this.endCooldown(Number(spellId), false, expectedEnd);
     });
   }
-  _calculateNewCooldownDuration(progress, newDuration) {
+
+  _calculateNewCooldownDuration(progress: number, newDuration: number) {
     return newDuration * (1 - progress);
   }
 }

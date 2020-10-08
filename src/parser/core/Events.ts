@@ -94,6 +94,7 @@ type MappedEventTypes = {
   [EventType.Energize]: EnergizeEvent,
   [EventType.Death]: DeathEvent,
   [EventType.CombatantInfo]: CombatantInfoEvent,
+  [EventType.Dispel]: DispelEvent,
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent,
@@ -528,7 +529,7 @@ export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsabl
   isAvailable: boolean
   chargesAvailable: number
   maxCharges: number
-  timePassed: number
+  timePassed?: number
   sourceID: number
   targetID: number
 
