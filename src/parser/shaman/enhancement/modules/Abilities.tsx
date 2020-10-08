@@ -63,13 +63,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LIGHTNING_BOLT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.CHAIN_LIGHTNING,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
@@ -96,15 +89,8 @@ class Abilities extends CoreAbilities {
         gcd: undefined,
       },
       {
-        spell: SPELLS.FLAME_SHOCK,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 6 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.FROST_SHOCK,
+        name: `${SPELLS.FLAME_SHOCK.name} / ${SPELLS.FROST_SHOCK.name}`,
+        spell: [ SPELLS.FROST_SHOCK, SPELLS.FLAME_SHOCK ],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 6 / (1 + haste),
         gcd: {
@@ -128,6 +114,21 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 12 / (1 + haste),
       },
       {
+        spell: SPELLS.CRASH_LIGHTNING,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: haste => 9 / (1 + haste),
+      },
+      {
+        spell: SPELLS.LIGHTNING_BOLT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.STORMKEEPER_TALENT_ENHANCEMENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
@@ -139,14 +140,6 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-      },
-      {
-        spell: SPELLS.CRASH_LIGHTNING,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: haste => 9 / (1 + haste),
       },
       {
         spell: SPELLS.FERAL_LUNGE_TALENT,
@@ -283,6 +276,29 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: undefined,
         isUndetectable: true,
+      },
+      {
+        spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          static: 1000,
+        },
+        cooldown: 30,
+        healSpellIds: [ SPELLS.HEALING_STREAM_TOTEM_HEAL.id ],
+      },
+      {
+        spell: SPELLS.CHAIN_HEAL,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.HEALING_SURGE_RESTORATION,
+        gcd: {
+          base: 1500,
+        },
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
     ];
   }

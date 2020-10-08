@@ -399,7 +399,7 @@ export default {
     id: 187874,
     name: 'Crash Lightning',
     icon: 'spell_shaman_crashlightning',
-    manaCost: 550
+    manaCost: 550,
   },
   FERAL_SPIRIT: {
     id: 51533,
@@ -612,9 +612,9 @@ export default {
     icon: 'spell_nature_unrelentingstorm',
   },
   HAILSTORM_BUFF: {
-    id: 210854,
+    id: 334196,
     name: 'Hailstorm',
-    icon: 'spell_frost_frostbrand',
+    icon: 'spell_frost_icestorm',
   },
   LIGHTNING_SHIELD:{
     id: 192106,
