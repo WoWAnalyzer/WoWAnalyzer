@@ -522,8 +522,8 @@ export interface FightEndEvent extends Event<EventType.FightEnd> {
 }
 
 export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsable> {
-  ability: Ability;
-  name: string
+  ability: Omit<Ability, 'type'>;
+  name?: string
   trigger: EventType.BeginCooldown | EventType.EndCooldown | EventType.RefreshCooldown | EventType.AddCooldownCharge | EventType.RestoreCharge;
   isOnCooldown: boolean
   isAvailable: boolean
