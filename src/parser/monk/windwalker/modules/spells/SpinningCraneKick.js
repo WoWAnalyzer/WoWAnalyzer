@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
@@ -10,6 +9,8 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
 
+const isEqual = (a, b) => a.id === b.id && a.instance === b.instance
+
 class SpinningCraneKick extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -18,10 +19,26 @@ class SpinningCraneKick extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.MARK_OF_THE_CRANE), this.onMarkApplication);
-    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.MARK_OF_THE_CRANE), this.onMarkRefresh);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.SPINNING_CRANE_KICK), this.onSCKCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE), this.onSCKDamage);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.MARK_OF_THE_CRANE),
+      this.onMarkApplication,
+    );
+    this.addEventListener(
+      Events.refreshdebuff
+        .by(SELECTED_PLAYER | SELECTED_PLAYER_PET)
+        .spell(SPELLS.MARK_OF_THE_CRANE),
+      this.onMarkRefresh,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.SPINNING_CRANE_KICK),
+      this.onSCKCast,
+    );
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER | SELECTED_PLAYER_PET)
+        .spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE),
+      this.onSCKDamage,
+    );
   }
 
   cycloneStrikesMarks = [];
@@ -35,15 +52,21 @@ class SpinningCraneKick extends Analyzer {
 
   onMarkApplication(event) {
     const targetInstance = this._verifyTargetInstance(event.targetInstance);
-    const markOfTheCrane = { target: { id: event.targetID, instance: targetInstance} , timestamp: event.timestamp };
+    const markOfTheCrane = {
+      target: { id: event.targetID, instance: targetInstance },
+      timestamp: event.timestamp,
+    };
     this.cycloneStrikesMarks.push(markOfTheCrane);
   }
 
   onMarkRefresh(event) {
     const targetInstance = this._verifyTargetInstance(event.targetInstance);
-    const refreshedMark = { target: { id: event.targetID, instance: targetInstance} , timestamp: event.timestamp };
+    const refreshedMark = {
+      target: { id: event.targetID, instance: targetInstance },
+      timestamp: event.timestamp,
+    };
     this.cycloneStrikesMarks.forEach((mark) => {
-      if (_.isEqual(mark.target, refreshedMark.target)) {
+      if (isEqual(mark.target, refreshedMark.target)) {
         mark.timestamp = refreshedMark.timestamp;
       }
     });
@@ -51,12 +74,13 @@ class SpinningCraneKick extends Analyzer {
 
   onSCKCast(event) {
     // Filter out expired targets
-    this.cycloneStrikesMarks = this.cycloneStrikesMarks.filter((mark => event.timestamp - mark.timestamp <= 15000));
+    this.cycloneStrikesMarks = this.cycloneStrikesMarks.filter(
+      (mark) => event.timestamp - mark.timestamp <= 15000,
+    );
     if (this.selectedCombatant.hasBuff(SPELLS.DANCE_OF_CHIJI_BUFF.id)) {
       event.meta = event.meta || {};
       event.meta.isEnhancedCast = true;
       event.meta.enhancedCastReason = 'This cast was empowered by Dance of Chi-Ji';
-      return;
     }
   }
 
@@ -87,8 +111,9 @@ class SpinningCraneKick extends Analyzer {
           tooltip="Spinning Crane Kick hits all nearby enemies 4 times over its duration. Mark of the crane, which increases the damage of your Spinning Crane Kick, is applied by your single target abilities and is capped at 5 targets."
         >
           <BoringSpellValueText spell={SPELLS.SPINNING_CRANE_KICK}>
-            {(this.averageMarks).toFixed(2)} <small>Average marks</small><br />
-            {(this.averageEnemiesHit).toFixed(2)} <small>Average enemies hit</small>
+            {this.averageMarks.toFixed(2)} <small>Average marks</small>
+            <br />
+            {this.averageEnemiesHit.toFixed(2)} <small>Average enemies hit</small>
           </BoringSpellValueText>
         </Statistic>
       );

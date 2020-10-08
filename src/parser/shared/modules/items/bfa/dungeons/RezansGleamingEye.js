@@ -12,7 +12,7 @@ import { calculateSecondaryStatDefault } from 'common/stats';
 
 /**
  * Equip: Your attacks have a chance to grant you 510 Haste for 15 sec.
- * 
+ *
  * Example log: /report/mx1NKYzjwQncGk4J/33-Mythic+Fetid+Devourer+-+Kill+(4:47)/6-Jaelaw
  */
 

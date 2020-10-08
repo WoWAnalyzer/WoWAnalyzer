@@ -53,6 +53,11 @@ export function tab(analyzer, parser = null) {
   return renderWithParser(tab, parser);
 }
 
+export function expectSnapshot(parser, moduleClass, propFn = statistic) {
+  const result = propFn(parser.getModule(moduleClass), parser);
+  expect(result).toMatchSnapshot();
+}
+
 /**
  * Perform a test using the Jest snapshot tool (https://jestjs.io/docs/en/snapshot-testing#snapshot-testing-with-jest).
  *
@@ -75,15 +80,8 @@ export default function snapshotTest(
   suppressLog = true,
   suppressWarn = true,
 ) {
-  return () => {
-    return loadLog(key).then(log => {
+  return () => loadLog(key).then(log => {
       const parser = parseLog(parserClass, log, suppressLog, suppressWarn);
       expectSnapshot(parser, moduleClass, propFn);
     });
-  };
-}
-
-export function expectSnapshot(parser, moduleClass, propFn = statistic) {
-  const result = propFn(parser.getModule(moduleClass), parser);
-  expect(result).toMatchSnapshot();
 }

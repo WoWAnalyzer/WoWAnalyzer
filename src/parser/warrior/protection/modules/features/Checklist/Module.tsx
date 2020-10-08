@@ -5,6 +5,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 import RageDetails from '../../core/RageDetails';

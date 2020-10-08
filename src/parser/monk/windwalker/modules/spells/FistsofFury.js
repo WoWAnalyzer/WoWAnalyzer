@@ -58,11 +58,9 @@ class FistsofFury extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
         .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(`${actual.toFixed(2)} average ticks on each Fists of Fury cast`)
-        .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`);
-    });
+        .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`));
   }
 
   statistic() {

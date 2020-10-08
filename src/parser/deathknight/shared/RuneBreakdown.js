@@ -50,7 +50,7 @@ class RuneBreakdown extends ResourceBreakdown {
             {generated && generated
               .filter(ability => ability.abilityId === SPELLS.RUNE_1.id)
               .map(ability => (
-                <tr>
+                <tr key={ability.abilityId}>
                   <td style={{ width: '30%' }}>
                     <SpellIcon id={ability.abilityId} noLink />{' '}
                     Passive Rune regeneration
@@ -78,7 +78,7 @@ class RuneBreakdown extends ResourceBreakdown {
             {generated && generated
               .filter(ability => ability.abilityId !== SPELLS.RUNE_1.id)
               .map(ability => (
-                <tr>
+                <tr key={ability.abilityId}>
                   <td style={{ width: '30%' }}>
                     <SpellLink id={ability.abilityId} />
                   </td>
@@ -116,7 +116,7 @@ class RuneBreakdown extends ResourceBreakdown {
             <tbody>
               {spent && spent
                 .map(ability => (
-                  <tr>
+                  <tr key={ability.abilityId}>
                     <td style={{ width: '30%' }}>
                       <SpellLink id={ability.abilityId} />
                     </td>

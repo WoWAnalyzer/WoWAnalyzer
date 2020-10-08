@@ -265,26 +265,20 @@ class PrePotion extends Analyzer {
     this.potionAdjuster(this.selectedCombatant.specId);
     this.setStrongPotionForSpec(this.selectedCombatant.specId);
     when(this.prePotionSuggestionThresholds)
-      .addSuggestion((suggest) => {
-          return suggest(<>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={this.strongPotionId} /> can be very effective, especially during shorter encounters. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>,
+      .addSuggestion((suggest) => suggest(<>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={this.strongPotionId} /> can be very effective, especially during shorter encounters. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>,
           )
             .icon(this.strongPotionIcon)
-            .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
-        },
+            .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
       );
     when(this.secondPotionSuggestionThresholds)
-      .addSuggestion((suggest) => {
-        return suggest(<>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {this.isHealer ? 'either' : ''} increasing output through <ItemLink id={this.strongPotionId} />{this.isHealer ? <> or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} /> or <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /></> : ''}. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>)
+      .addSuggestion((suggest) => suggest(<>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {this.isHealer ? 'either' : ''} increasing output through <ItemLink id={this.strongPotionId} />{this.isHealer ? <> or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} /> or <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /></> : ''}. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>)
           .icon(this.strongPotionIcon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
-      });
+          .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
     if ((this.usedPrePotion || this.usedSecondPotion) && !this.usedStrongPrePotion) {
       when(this.prePotionStrengthSuggestion)
-        .addSuggestion((suggest) => {
-          return suggest(<>You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</>)
+        .addSuggestion((suggest) => suggest(<>You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</>)
             .icon(this.strongPotionIcon)
-            .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
-        });
+            .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
     }
   }
 }

@@ -251,6 +251,7 @@ class ResultsLoader extends React.PureComponent {
   }
 }
 
+// TODO: Turn all the loaders and shit into hooks
 const Report = () => (
   // TODO: Error boundary so all sub components don't need the errorHandler with the silly withRouter dependency. Instead just throw the error and let the boundary catch it - if possible.
   <>

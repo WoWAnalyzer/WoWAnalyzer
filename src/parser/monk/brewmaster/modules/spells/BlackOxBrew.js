@@ -5,6 +5,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+
 import Abilities from '../Abilities';
 
 class BlackOxBrew extends Analyzer {
@@ -57,12 +58,10 @@ class BlackOxBrew extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThreshold)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> usage can be improved.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> usage can be improved.</>)
           .icon(SPELLS.BLACK_OX_BREW_TALENT.icon)
           .actual(`${formatPercentage(actual)}% of Cooldown Reduction wasted`)
-          .recommended(`< ${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 }
 

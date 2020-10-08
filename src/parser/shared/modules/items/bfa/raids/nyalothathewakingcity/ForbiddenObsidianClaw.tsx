@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { Item, DamageEvent, EnergizeEvent, HealEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 
@@ -24,7 +24,7 @@ class ForbiddenObsidianClaw extends Analyzer {
   healingDone: number = 0;
   manaGained: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.item = this.selectedCombatant.getTrinket(ITEMS.FORBIDDEN_OBSIDIAN_CLAW.id);
@@ -34,12 +34,12 @@ class ForbiddenObsidianClaw extends Analyzer {
       return;
     }
 
-    options.abilities.add({
+    (options.abilities as Abilities).add({
       spell: SPELLS.FORBIDDEN_OBSIDIAN_CLAW_DAMAGE,
       name: ITEMS.FORBIDDEN_OBSIDIAN_CLAW.name,
       category: Abilities.SPELL_CATEGORIES.ITEMS,
       cooldown: 120,
-      gcd: null, // technically this has a GCD but isn't affected by the GCD, no idea how to express that 
+      gcd: null, // technically this has a GCD but isn't affected by the GCD, no idea how to express that
     });
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FORBIDDEN_OBSIDIAN_CLAW_DAMAGE), this.damage);

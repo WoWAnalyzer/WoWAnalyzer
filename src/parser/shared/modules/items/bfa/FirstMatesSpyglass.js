@@ -14,7 +14,7 @@ import { formatPercentage } from 'common/format';
 /**
  * First Mate's Spyglass -
  * Use: Increase your Critical Strike by 768 for 15 sec. (2 Min Cooldown)
- * 
+ *
  * Test Log: https://www.warcraftlogs.com/reports/Q273n64m9JGNLqBh#fight=4&type=damage-done&source=17
  */
 class FirstMatesSpyglass extends Analyzer {

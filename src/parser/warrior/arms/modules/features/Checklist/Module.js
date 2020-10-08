@@ -3,6 +3,7 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import DeepWoundsUptime from '../../core/Dots/DeepWoundsUptime';
 import RendUptime from '../../core/Dots/RendUptime';

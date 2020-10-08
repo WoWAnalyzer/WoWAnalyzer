@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import Statistic from 'interface/statistics/Statistic';
@@ -27,7 +27,7 @@ class BindingShot extends Analyzer {
   category: STATISTIC_CATEGORY;
   protected abilities!: Abilities;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id) || this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER;
     this.category = this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER ? STATISTIC_CATEGORY.GENERAL : STATISTIC_CATEGORY.TALENTS;
@@ -35,7 +35,7 @@ class BindingShot extends Analyzer {
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_TETHER), this.onTether);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_TALENT), this.onCast);
     if (this.active) {
-      options.abilities.add({
+      (options.abilities as Abilities).add({
         spell: SPELLS.BINDING_SHOT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,

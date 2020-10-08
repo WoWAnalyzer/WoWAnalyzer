@@ -83,7 +83,7 @@ class EternalRuneWeapon extends Analyzer {
         if (this.bonusDurations.length === 0) {
           this.bonusDurations.push([]);
         }
-        
+
         this.bonusDurations[this.bonusDurations.length - 1].push(DANCING_RUNE_WEAPON_BONUS_DURATION_PER_TRAIT * this.traits * runeCost);
       });
   }

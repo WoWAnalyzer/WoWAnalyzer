@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DistanceMoved from 'parser/shared/modules/others/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -43,7 +43,7 @@ class Renew extends Analyzer {
   lastGCD: GlobalCooldownEvent | null = null;
   lastCast: CastEvent | null = null;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     if (this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id)) {
@@ -186,14 +186,12 @@ class Renew extends Analyzer {
 
   suggestions(when: When) {
     when(this.badRenewThreshold)
-      .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You should cast <SpellLink id={SPELLS.RENEW.id} /> less.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You should cast <SpellLink id={SPELLS.RENEW.id} /> less.</>)
             .icon(SPELLS.RENEW.icon)
             .actual(<>
               You used Renew {this.badRenews} times when another spell would have been more productive.
               Renew is one of the least efficient spells Holy Priests have, and should only be cast when moving with no other instants available.</>)
-            .recommended(`Two or less per minute is recommended, except for movement heavy fights.`);
-        },
+            .recommended(`Two or less per minute is recommended, except for movement heavy fights.`),
       );
   }
 }

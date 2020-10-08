@@ -5,10 +5,10 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
-
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 import DemoPets from '../pets/DemoPets';
 import PETS from '../pets/PETS';
@@ -24,18 +24,20 @@ class GrimoireFelguard extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id);
   }
 
-  subStatistic() {
+  statistic() {
     const damage = this.demoPets.getPetDamage(PETS.GRIMOIRE_FELGUARD.guid);
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} /> dmg</>}
-        value={this.owner.formatItemDamageDone(damage)}
-        valueTooltip={`${formatThousands(damage)} damage`}
-      />
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={`${formatThousands(damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.GRIMOIRE_FELGUARD_TALENT}>
+          <ItemDamageDone amount={damage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(3);
 }
 
 export default GrimoireFelguard;

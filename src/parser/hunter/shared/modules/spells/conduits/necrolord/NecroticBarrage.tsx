@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
@@ -24,7 +24,7 @@ class NecroticBarrage extends Analyzer {
   wastedFocus: number = 0;
   addedDamage: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id) && this.selectedCombatant.hasConduitBySpellID(SPELLS.NECROTIC_BARRAGE_CONDUIT.id);
     if (!this.active) {

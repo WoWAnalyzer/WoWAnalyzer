@@ -1,5 +1,6 @@
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SPELLS from 'common/SPELLS';
+
 import Empowerment from './Empowerment';
 
 class SolarEmpowerment extends Empowerment {

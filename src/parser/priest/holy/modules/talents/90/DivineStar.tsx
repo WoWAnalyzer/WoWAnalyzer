@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import ItemHealingDone from 'interface/ItemHealingDone';
@@ -16,7 +16,7 @@ class DivineStar extends Analyzer {
   divineStarOverhealing = 0;
   divineStarCasts = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id);
   }

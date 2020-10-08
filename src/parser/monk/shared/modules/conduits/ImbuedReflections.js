@@ -33,7 +33,7 @@ class ImbuedReflections extends Analyzer {
     if (!this.active) {
       return;
     }
-    
+
     //summon events (need to track this to get melees)
     this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell([SPELLS.FALLEN_ORDER_OX_CLONE, SPELLS.FALLEN_ORDER_TIGER_CLONE, SPELLS.FALLEN_ORDER_CRANE_CLONE]), this.trackSummons);
 

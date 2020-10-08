@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
@@ -26,7 +26,7 @@ class Afterlife extends Analyzer {
     return this.timeInSoR - (SPIRIT_OF_REDEMPTION_DURATION * this.sorCount);
   }
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AFTERLIFE_TALENT.id);
   }

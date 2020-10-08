@@ -8,8 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands } from 'common/format';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import UptimeIcon from 'interface/icons/Uptime';
 
 class Doom extends Analyzer {
   static dependencies = {
@@ -46,31 +49,26 @@ class Doom extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</>)
           .icon(SPELLS.DOOM_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Doom uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <>
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.DOOM_TALENT.id} /> dmg</>}
-          value={this.owner.formatItemDamageDone(this.damage)}
-          valueTooltip={`${formatThousands(this.damage)} damage`}
-        />
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime</>}
-          value={`${formatPercentage(this.uptime)} %`}
-        />
-      </>
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={`${formatThousands(this.damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.DOOM_TALENT}>
+          <ItemDamageDone amount={this.damage} /><br />
+          <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Uptime</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default Doom;

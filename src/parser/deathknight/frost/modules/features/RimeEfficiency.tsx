@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, RemoveBuffEvent, RefreshBuffEvent, GlobalCooldownEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
@@ -24,7 +24,7 @@ class RimeEfficiency extends Analyzer {
   refreshedRimeProcs: number = 0;
   expiredRimeProcs: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIME), this.onApplyBuff);
@@ -85,12 +85,10 @@ class RimeEfficiency extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> You are wasting <SpellLink id={SPELLS.RIME.id} /> procs. You should be casting <SpellLink id={SPELLS.HOWLING_BLAST.id} /> as soon as possible when you have a Rime proc to avoid wasting it.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<> You are wasting <SpellLink id={SPELLS.RIME.id} /> procs. You should be casting <SpellLink id={SPELLS.HOWLING_BLAST.id} /> as soon as possible when you have a Rime proc to avoid wasting it.</>)
           .icon(SPELLS.RIME.icon)
           .actual(`${formatPercentage(this.wastedProcRate)}% of Rime procs were either refreshed and lost or expired without being used`)
-          .recommended(`<${recommended} is recommended`);
-      });
+          .recommended(`<${recommended} is recommended`));
   }
 
   statistic() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,7 @@ import { formatPercentage } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { calculateCooldown } from 'parser/shared/modules/spells/bfa/essences/VisionsOfPerfection';
+
 import AngerManagement from './AngerManagement';
 
 class AngerCD extends Analyzer {
@@ -36,7 +37,7 @@ class AngerCD extends Analyzer {
 
   prepullCast = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.hasAM = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
     this.DEMOTEXT = this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) ? this.DEMOTEXTWITHBOOM : this.DEMOTEXTWITHOUTBOOM;
@@ -123,47 +124,39 @@ class AngerCD extends Analyzer {
 
   suggestions(when: When) {
 
-    when(this.suggestionThresholdsDemoShout).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholdsDemoShout).addSuggestion((suggest, actual, recommended) => suggest(
         this.DEMOTEXT,
       )
         .icon(SPELLS.DEMORALIZING_SHOUT.icon)
         .actual(`${formatPercentage(actual)}% Demoralizing Shout`)
-        .recommended(`${formatPercentage(recommended)}% casts recommended`);
-    });
+        .recommended(`${formatPercentage(recommended)}% casts recommended`));
 
-    when(this.suggestionThresholdsAvatar).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholdsAvatar).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Using  <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important for the increased damage output and rage generation so try to get the maximum casts out of it.
         </>,
       )
         .icon(SPELLS.AVATAR_TALENT.icon)
         .actual(`${formatPercentage(actual)}% Avatar casts`)
-        .recommended(`${formatPercentage(recommended)}% casts recommended`);
-    });
+        .recommended(`${formatPercentage(recommended)}% casts recommended`));
 
-    when(this.suggestionThresholdsLastStand).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholdsLastStand).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Remember to cast <SpellLink id={SPELLS.LAST_STAND.id} /> more frequently. If you have <SpellLink id={SPELLS.BOLSTER_TALENT.id} /> talented you can use this to fill gaps between your <SpellLink id={SPELLS.SHIELD_BLOCK.id} />.
         </>,
       )
         .icon(SPELLS.LAST_STAND.icon)
         .actual(`${formatPercentage(actual)}% Last Stand casts`)
-        .recommended(`${formatPercentage(recommended)}% casts recommended`);
-    });
+        .recommended(`${formatPercentage(recommended)}% casts recommended`));
 
-    when(this.suggestionThresholdsShieldWall).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholdsShieldWall).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Try to use <SpellLink id={SPELLS.SHIELD_WALL.id} /> more often as it reduces both physical and magical damage - unless you need it for a specific mechanic in the fight.
         </>,
       )
         .icon(SPELLS.SHIELD_WALL.icon)
         .actual(`${formatPercentage(actual)}% Shield Wall casts`)
-        .recommended(`${formatPercentage(recommended)}% casts recommended`);
-    });
+        .recommended(`${formatPercentage(recommended)}% casts recommended`));
   }
 }
 

@@ -462,7 +462,7 @@ class BeaconUptime extends Analyzer {
     );
 
     return (
-      <Statistic position={STATISTIC_ORDER.CORE(60)} size={'flexible'}>
+      <Statistic position={STATISTIC_ORDER.CORE(60)} size="flexible">
         <label style={{ margin: '10px' }}>
           <Trans>Beacon Uptime</Trans>
         </label>

@@ -106,19 +106,15 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   }
   suggestions(when) {
     when(this.nonHealingTimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your time spent healing can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
+      .addSuggestion((suggest, actual, recommended) => suggest('Your time spent healing can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
           .icon('petbattle_health-down')
           .actual(`${1 - formatPercentage(actual)}% time spent healing`)
-          .recommended(`>${formatPercentage(1 - recommended)}% is recommended`);
-      });
+          .recommended(`>${formatPercentage(1 - recommended)}% is recommended`));
     when(this.downtimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
+      .addSuggestion((suggest, actual, recommended) => suggest('Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(1 - actual)}% active time`)
-          .recommended(`>${formatPercentage(1 - recommended)}% is recommended`);
-      });
+          .recommended(`>${formatPercentage(1 - recommended)}% is recommended`));
   }
 }
 

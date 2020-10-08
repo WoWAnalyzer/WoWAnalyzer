@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -20,7 +20,7 @@ class NessingwarysTrappingApparatus extends Analyzer {
   focusGained: number = 0;
   focusWasted: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESSINGWARYS_TRAPPING_APPARATUS_ENERGIZE.bonusID);
     if (!this.active) {

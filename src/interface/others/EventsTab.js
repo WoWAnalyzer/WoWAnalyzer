@@ -89,6 +89,9 @@ const FILTERABLE_TYPES = {
   resurrect: {
     name: 'Resurrect',
   },
+  dispel:{
+    name: 'Dispel',
+  },
 };
 
 class EventsTab extends React.Component {
@@ -108,6 +111,10 @@ class EventsTab extends React.Component {
       search: '',
     };
     this.handleRowClick = this.handleRowClick.bind(this);
+    this.toggleAllOff = Object.keys(FILTERABLE_TYPES).reduce((obj, type) => {
+      obj[type] = false;
+      return obj;
+    }, {});
   }
 
   findEntity(id) {
@@ -168,7 +175,7 @@ class EventsTab extends React.Component {
           </div>
         )}
         <Toggle
-          defaultChecked={this.state[prop]}
+          checked={this.state[prop]}
           icons={false}
           onChange={event => this.setState({ [prop]: event.target.checked })}
           id={`${prop}-toggle`}
@@ -186,6 +193,10 @@ class EventsTab extends React.Component {
   }
   handleRowClick({ rowData }) {
     console.log(rowData);
+  }
+
+  toggleAllFiltersOff() {
+    this.setState(this.toggleAllOff);
   }
 
   renderSearchBox() {
@@ -263,6 +274,12 @@ class EventsTab extends React.Component {
             {this.renderSearchBox()}
             <br />
             {Object.keys(FILTERABLE_TYPES).map(type => this.renderEventTypeToggle(type))}
+            <br />
+            <div className="flex" style={{ paddingLeft: 5 }} >
+              <button className="btn btn-link" onClick={() => this.toggleAllFiltersOff()}>
+                Toggle off all filters
+              </button>
+            </div>
             <br />
             {this.renderToggle('showFabricated', 'Fabricated events', 'These events were not originally found in the combatlog. They were created by us to fix bugs, inconsistencies, or to provide new functionality. You can recognize these events by their green background.')}
             {this.renderToggle('rawNames', 'Raw names')}

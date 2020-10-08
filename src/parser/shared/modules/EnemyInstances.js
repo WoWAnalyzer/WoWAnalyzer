@@ -1,6 +1,15 @@
 import Enemies from './Enemies';
 import EnemyInstance from '../../core/EnemyInstance';
 
+export function encodeTargetString(id, instance = 0) {
+  return `${id}.${instance}`;
+}
+
+export function decodeTargetString(string) {
+  const [ id, instance = 0 ] = string.split('.');
+  return { id, instance };
+}
+
 const debug = false;
 
 class EnemyInstances extends Enemies {
@@ -27,12 +36,3 @@ class EnemyInstances extends Enemies {
 }
 
 export default EnemyInstances;
-
-export function encodeTargetString(id, instance = 0) {
-  return `${id}.${instance}`;
-}
-
-export function decodeTargetString(string) {
-  const [ id, instance = 0 ] = string.split('.');
-  return { id, instance };
-}

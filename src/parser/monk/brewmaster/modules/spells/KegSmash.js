@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
+
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../core/SharedBrews';
 
@@ -21,7 +22,7 @@ class KegSmash extends Analyzer {
   wastedBocCDR = 0;
 
   _bocBuffActive = false;
-  
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if(SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {

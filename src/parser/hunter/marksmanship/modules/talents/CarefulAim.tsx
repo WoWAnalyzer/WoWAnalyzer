@@ -1,5 +1,5 @@
 import React from 'react';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatDuration, formatNumber } from 'common/format';
@@ -57,7 +57,7 @@ class CarefulAim extends ExecuteHelper {
   protected statTracker!: StatTracker;
   protected enemies!: Enemies;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
     this.owner.report.enemies.forEach((enemy: { fights: any[]; type: string; id: number; }) => {

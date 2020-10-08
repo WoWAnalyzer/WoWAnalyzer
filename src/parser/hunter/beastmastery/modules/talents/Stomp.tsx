@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
@@ -9,6 +9,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
+
 import { AMOUNT_OF_PETS_WITH_AC } from '../../constants';
 
 /**
@@ -23,13 +24,12 @@ import { AMOUNT_OF_PETS_WITH_AC } from '../../constants';
  */
 
 class Stomp extends Analyzer {
-
   damage = 0;
   hits = 0;
   casts = 0;
   hasAC = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STOMP_TALENT.id);
     this.hasAC = this.selectedCombatant.hasTalent(SPELLS.ANIMAL_COMPANION_TALENT.id);

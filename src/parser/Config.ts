@@ -67,7 +67,7 @@ interface Config {
   /**
    * The contents of your changelog.
    */
-  changelog: ReturnType<typeof change>[];
+  changelog: Array<ReturnType<typeof change>>;
   /**
    * The CombatLogParser class for your spec.
    */

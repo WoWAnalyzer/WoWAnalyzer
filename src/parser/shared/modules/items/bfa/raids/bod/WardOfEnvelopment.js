@@ -143,16 +143,14 @@ class WardOfEnvelopment extends Analyzer {
     };
   }
   suggestions(when) {
-    when(this.suggestedShieldValue).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestedShieldValue).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your usage of <ItemLink id={ITEMS.WARD_OF_ENVELOPMENT.id} /> can be improved. Try to place the it in an area with more allies to increase the overall abosorption it provides.
         </>,
       )
         .icon(ITEMS.WARD_OF_ENVELOPMENT.icon)
         .actual(`Average ${actual.toFixed(2)} out of ${MAX_ALLIES_HIT} allies hit.`)
-        .recommended(`5 is recommended`);
-    });
+        .recommended(`5 is recommended`));
   }
 }
 

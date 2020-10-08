@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -23,7 +23,7 @@ class Sundering extends Analyzer {
   protected casts: number = 0;
   protected hits: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     if(!this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id)) {

@@ -1,6 +1,15 @@
 import { findByBossId } from 'raids';
 import { abilityFilter } from 'common/fabricateBossPhaseEvents';
 
+function createDecimalFilter(target){
+  //find number of decimals by checking if decimals exist, and if they do, splitting the string at the decimal point and counting digits
+  const decimals = Math.floor(target) !== target ? (target.toString().split(".")[1].length || 0) : 0;
+  const accuracy = Math.pow(10, decimals); //we want only integers (without decimals) as the filter only supports those, we have to therefore shift the value by the decimal count
+  //adjust threshold to remove decimals by multiplying with accuracy
+  const threshold = Math.floor(target * accuracy);
+  return {accuracy, threshold};
+}
+
 export function makeWclBossPhaseFilter(fight) {
   const bossConfig = findByBossId(fight.boss);
   if (bossConfig && bossConfig.fight && bossConfig.fight.phases && bossConfig.fight.phases.length !== 0) {
@@ -23,13 +32,4 @@ export function makeWclBossPhaseFilter(fight) {
     return filters.join(' OR ');
   }
   return undefined;
-}
-
-function createDecimalFilter(target){
-  //find number of decimals by checking if decimals exist, and if they do, splitting the string at the decimal point and counting digits
-  const decimals = Math.floor(target) !== target ? (target.toString().split(".")[1].length || 0) : 0;
-  const accuracy = Math.pow(10, decimals); //we want only integers (without decimals) as the filter only supports those, we have to therefore shift the value by the decimal count
-  //adjust threshold to remove decimals by multiplying with accuracy
-  const threshold = Math.floor(target * accuracy);
-  return {accuracy, threshold};
 }

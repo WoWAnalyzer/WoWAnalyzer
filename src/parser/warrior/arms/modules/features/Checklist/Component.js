@@ -42,8 +42,8 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
           </>
         )}
       >
-        {<AbilityRequirement spell={combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT.id : SPELLS.COLOSSUS_SMASH.id} />}
-        {<AbilityRequirement spell={combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id) ? SPELLS.RAVAGER_TALENT_ARMS.id : SPELLS.BLADESTORM.id} />}
+        <AbilityRequirement spell={combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT.id : SPELLS.COLOSSUS_SMASH.id} />
+        <AbilityRequirement spell={combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id) ? SPELLS.RAVAGER_TALENT_ARMS.id : SPELLS.BLADESTORM.id} />
         {combatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT.id) && <AbilityRequirement spell={SPELLS.SKULLSPLITTER_TALENT.id} />}
         <AbilityRequirement spell={SPELLS.OVERPOWER.id} />
         {combatant.hasTalent(SPELLS.AVATAR_TALENT.id) && <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />}
