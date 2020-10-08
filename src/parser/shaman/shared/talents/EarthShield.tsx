@@ -16,20 +16,17 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Combatants from 'parser/shared/modules/Combatants';
-import CooldownThroughputTracker from 'parser/shaman/restoration/modules/features/CooldownThroughputTracker';
 
 import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from '../constants';
 
-const EARTHSHIELD_HEALING_INCREASE = 0.10; // TODO add conduit
+const EARTHSHIELD_HEALING_INCREASE = 0.20; // TODO add conduit
 
 class EarthShield extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    restoCooldownThroughputTracker: CooldownThroughputTracker,
   };
 
   protected combatants!: Combatants;
-  protected restoCooldownThroughputTracker!: CooldownThroughputTracker;
 
   healing = 0;
   buffHealing = 0;
@@ -83,8 +80,12 @@ class EarthShield extends Analyzer {
     }
   }
 
+  // gets overriden by the rshaman module
+  getFeeding() {
+    return 0;
+  }
+
   statistic() {
-    const feeding = this.restoCooldownThroughputTracker.getIndirectHealing(SPELLS.EARTH_SHIELD_HEAL.id);
     return (
       <StatisticBox
         label={<SpellLink id={SPELLS.EARTH_SHIELD.id} />}
@@ -95,7 +96,7 @@ class EarthShield extends Analyzer {
           (
             <div>
               <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small><br />
-              <ItemHealingDone amount={this.healing + this.buffHealing + feeding} />
+              <ItemHealingDone amount={this.healing + this.buffHealing + this.getFeeding()} />
             </div>
           )
         }

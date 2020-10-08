@@ -74,10 +74,10 @@ export default {
     name: 'Spirit Wolf',
     icon: 'spell_hunter_lonewolf',
   },
-  EARTH_SHIELD: { 
-    id: 974, 
-    name: 'Earth Shield', 
-    icon: 'spell_nature_skinofearth', 
+  EARTH_SHIELD: {
+    id: 974,
+    name: 'Earth Shield',
+    icon: 'spell_nature_skinofearth',
     manaCost: 1000,
   },
   EARTH_SHIELD_HEAL: {

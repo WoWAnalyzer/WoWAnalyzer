@@ -57,7 +57,7 @@ import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
-import EarthShield from '../shared/talents/EarthShield';
+import EarthShield from './modules/spells/EarthShield'; // technically shared
 import AstralShift from '../shared/spells/AstralShift';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
