@@ -10,7 +10,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import SpellIcon from 'common/SpellIcon';
 
 /**
- * Launching a Flare into your Tar Trap causes all enemies inside of the Tar Trap to burn for (210% of Attack power) Fire damage over 12 sec.
+ * Launching a Flare into your Tar Trap causes all enemies inside of the Tar Trap to burn for (150% of Attack power) Fire damage over 12 sec.
  *
  * Example log:
  *
