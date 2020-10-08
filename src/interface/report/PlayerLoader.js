@@ -33,7 +33,7 @@ const defaultState = {
   combatantsFightId: null,
 };
 
-const FAKE_PLAYER_IF_DEV_ENV = true;
+const FAKE_PLAYER_IF_DEV_ENV = false;
 
 class PlayerLoader extends React.PureComponent {
   tanks = 0;
@@ -118,20 +118,19 @@ class PlayerLoader extends React.PureComponent {
         return fetchCharacter(friendly.guid, exportedCharacter.region, exportedCharacter.server, exportedCharacter.name).then(data => Promise.resolve(data)).catch(() =>
           // This guy failed to load - this is nice to have data
           // We can ignore this and we'll just drop him from the overall averages later
-           Promise.resolve()
+          Promise.resolve(),
         );
       });
       let characterDatas = await Promise.all(characterDataPromises);
       // Filter for only loaded characterDatas
       characterDatas = characterDatas.filter(value => value);
       combatants.forEach(player => {
+        if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
+          console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.');
+          player = generateFakeCombatantInfo(player);
+        }
         if (player.error || player.specID === -1) {
-          if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
-            console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.');
-            player = generateFakeCombatantInfo(player);
-          } else {
-            return;
-          }
+          return;
         }
         const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
         if (!friendly) {
