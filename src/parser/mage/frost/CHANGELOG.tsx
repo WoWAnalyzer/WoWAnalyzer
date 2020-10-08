@@ -8,7 +8,7 @@ import { change, date } from 'common/changelog';
 const prepatch = date(2020, 10, 13);
 
 export default [
-  change(prepatch, <>Removed <SpellLink id={SPELLS.FREEZING_WINDS.id} /> and adjusted <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />. </>, Sharrq),
+  change(prepatch, <>Adjusted <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />. </>, Sharrq),
   change(prepatch, <>Added support for the <SpellLink id={SPELLS.SIPHONED_MALICE.id} /> and <SpellLink id={SPELLS.TEMPEST_BARRIER.id} /> conduits. </>, Sharrq),
   change(prepatch, <>Added support for the <SpellLink id={SPELLS.IRE_OF_THE_ASCENDED.id} />, <SpellLink id={SPELLS.GROUNDING_SURGE.id} />, and <SpellLink id={SPELLS.DIVERTED_ENERGY.id} /> conduits. </>, Sharrq),
   change(prepatch, <>Added support for the <SpellLink id={SPELLS.ICE_BITE.id} />, <SpellLink id={SPELLS.ICY_PROPULSION.id} />, <SpellLink id={SPELLS.UNRELENTING_COLD.id} />, and <SpellLink id={SPELLS.SHIVERING_CORE.id} /> conduits. </>, Sharrq),
