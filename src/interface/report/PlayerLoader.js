@@ -1,10 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
-import { Trans, t } from '@lingui/macro';
-
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
 import getAverageItemLevel from 'game/getAverageItemLevel';
@@ -24,6 +17,13 @@ import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/Rep
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
 import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { Trans, t } from '@lingui/macro';
 
 import handleApiError from './handleApiError';
 
@@ -115,7 +115,7 @@ class PlayerLoader extends React.PureComponent {
         if (!exportedCharacter) {
           return Promise.resolve();
         }
-        return fetchCharacter(friendly.guid, exportedCharacter.region, exportedCharacter.server, exportedCharacter.name).then(data => Promise.resolve(data)).catch(() => 
+        return fetchCharacter(friendly.guid, exportedCharacter.region, exportedCharacter.server, exportedCharacter.name).then(data => Promise.resolve(data)).catch(() =>
           // This guy failed to load - this is nice to have data
           // We can ignore this and we'll just drop him from the overall averages later
            Promise.resolve()
