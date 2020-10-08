@@ -647,8 +647,8 @@ export interface Soulbind {
 export interface Conduit {
   rank: number;
   spellID: number;
-  name: string;
-  soulbindConduitID: number;
+  name: string; //TODO Verify this started showing up in logs as it currently is not there
+  soulbindConduitID: number; //TODO Verify if this is still called traitID as it is currently
   icon: string;
 }
 
