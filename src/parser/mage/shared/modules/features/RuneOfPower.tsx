@@ -42,7 +42,6 @@ class RuneOfPower extends Analyzer {
   }
 
   onRune(event: SummonEvent) {
-    this.log("RUNE");
     this.totalRunes += 1;
   }
 
