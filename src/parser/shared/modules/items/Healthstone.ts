@@ -12,6 +12,8 @@ class Healthstone extends Potion {
     combatants: Combatants,
   };
 
+  protected combatants!: Combatants;
+
   static spells = [
     SPELLS.HEALTHSTONE,
   ];

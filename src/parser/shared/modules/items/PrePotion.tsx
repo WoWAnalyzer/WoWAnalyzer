@@ -5,16 +5,17 @@ import SPECS from 'game/SPECS';
 import ITEMS from 'common/ITEMS/index';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 const debug = false;
 
 // these suggestions are all based on Icy Veins guide recommendations, i.e. which potion to use in which situation.
 // most guides recommend to use Battle Potion of Primary Stat, but I have broken out the class/spec combos whose guides
 // recommend to use Rising Death or Bursting Blood in certain situations.
-const AGI_SPECS = [
+const AGI_SPECS: number[] = [
   SPECS.GUARDIAN_DRUID.id,
   SPECS.FERAL_DRUID.id,
   SPECS.BEAST_MASTERY_HUNTER.id,
@@ -30,7 +31,7 @@ const AGI_SPECS = [
   SPECS.SURVIVAL_HUNTER.id, //They use agi pot for AoE
 ];
 
-const STR_SPECS = [
+const STR_SPECS: number[] = [
   SPECS.PROTECTION_PALADIN.id,
   SPECS.PROTECTION_WARRIOR.id,
   SPECS.BLOOD_DEATH_KNIGHT.id,
@@ -41,7 +42,7 @@ const STR_SPECS = [
   SPECS.UNHOLY_DEATH_KNIGHT.id,
 ];
 
-const INT_SPECS = [
+const INT_SPECS: number[] = [
   SPECS.SHADOW_PRIEST.id, //They use int pot for AoE
   SPECS.FROST_MAGE.id, //They use int pot for AoE
   SPECS.AFFLICTION_WARLOCK.id,
@@ -53,7 +54,7 @@ const INT_SPECS = [
   SPECS.BALANCE_DRUID.id,
 ];
 
-const HEALER_SPECS = [
+const HEALER_SPECS: number[] = [
   SPECS.HOLY_PALADIN.id,
   SPECS.RESTORATION_DRUID.id,
   SPECS.HOLY_PRIEST.id,
@@ -62,28 +63,28 @@ const HEALER_SPECS = [
   SPECS.RESTORATION_SHAMAN.id,
 ];
 
-const DEADLY_FIXATION = [
+const DEADLY_FIXATION: number[] = [
   //Deadly Fixation Potion specs
 ];
 
-const EMPOWERED_EXORCISMS = [
+const EMPOWERED_EXORCISMS: number[] = [
   //Empowered Exorcism Potion Specs
 ];
 
-const PHANTOM_FIRE = [
+const PHANTOM_FIRE: number[] = [
   //Phantom Fire Potion Specs
 ];
 
-const DIVINE_AWAKENING = [
+const DIVINE_AWAKENING: number[] = [
   //Divine Awakening Potion Specs
 ];
 
-const SACRIFICIAL_ANIMA = [
+const SACRIFICIAL_ANIMA: number[] = [
   //Sacrificial Anima Potion Specs
 ];
 
 
-const WEAK_PRE_POTIONS = [
+const WEAK_PRE_POTIONS: number[] = [
   SPELLS.BATTLE_POTION_OF_INTELLECT.id,
   SPELLS.BATTLE_POTION_OF_STRENGTH.id,
   SPELLS.BATTLE_POTION_OF_AGILITY.id,
@@ -102,7 +103,7 @@ const WEAK_PRE_POTIONS = [
   SPELLS.POTION_OF_EMPOWERED_PROXIMITY.id,
 ];
 
-const STRONG_PRE_POTIONS = [
+const STRONG_PRE_POTIONS: number[] = [
   SPELLS.POTION_OF_SPECTRAL_AGILITY.id,
   SPELLS.POTION_OF_SPECTRAL_INTELLECT.id,
   SPELLS.POTION_OF_SPECTRAL_STRENGTH.id,
@@ -114,7 +115,7 @@ const STRONG_PRE_POTIONS = [
   SPELLS.POTION_OF_SACRIFICIAL_ANIMA.id,
 ];
 
-export const SECOND_POTIONS = [
+export const SECOND_POTIONS: number[] = [
   SPELLS.POTION_OF_SPECTRAL_AGILITY.id,
   SPELLS.POTION_OF_SPECTRAL_INTELLECT.id,
   SPELLS.POTION_OF_SPECTRAL_STRENGTH.id,
@@ -145,15 +146,15 @@ class PrePotion extends Analyzer {
   alternatePotion = null;
   isHealer = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(...args: any[]) {
+    super(args);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this._applybuff);
     this.addEventListener(Events.prefiltercd.by(SELECTED_PLAYER), this._cast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._cast);
     this.addEventListener(Events.fightend, this._fightend);
   }
 
-  _applybuff(event){
+  _applybuff(event: ApplyBuffEvent){
     const spellId = event.ability.guid;
     if (WEAK_PRE_POTIONS.includes(spellId) && event.prepull && event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time) {
       this.usedPrePotion = true;
@@ -164,7 +165,7 @@ class PrePotion extends Analyzer {
     }
   }
 
-  _cast(event) {
+  _cast(event: CastEvent | FilterCooldownInfoEvent) {
     const spellId = event.ability.guid;
 
     if (SECOND_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
@@ -194,25 +195,25 @@ class PrePotion extends Analyzer {
     return {
       actual: this.usedPrePotion,
       isEqual: false,
-      style: 'boolean',
+      style: ThresholdStyle.BOOLEAN,
     };
   }
   get prePotionStrengthSuggestion() {
     return {
       actual: this.usedStrongPrePotion,
       isEqual: false,
-      style: 'boolean',
+      style: ThresholdStyle.BOOLEAN,
     };
   }
   get secondPotionSuggestionThresholds() {
     return {
       actual: this.usedSecondPotion,
       isEqual: false,
-      style: 'boolean',
+      style: ThresholdStyle.BOOLEAN,
     };
   }
 
-  potionAdjuster(specID) {
+  potionAdjuster(specID: number) {
     this.alternatePotion = STR_SPECS.includes(specID) ? ITEMS.POTION_OF_SPECTRAL_STRENGTH.id : AGI_SPECS.includes(specID) ? ITEMS.POTION_OF_SPECTRAL_AGILITY.id : ITEMS.POTION_OF_SPECTRAL_INTELLECT.id;
     if (DEADLY_FIXATION.includes(specID)) {
       this.potionId = ITEMS.POTION_OF_DEADLY_FIXATION.id;
@@ -248,7 +249,7 @@ class PrePotion extends Analyzer {
     }
   }
 
-  setStrongPotionForSpec(specID) {
+  setStrongPotionForSpec(specID: number) {
     if (AGI_SPECS.includes(specID)) {
       this.strongPotionId = ITEMS.POTION_OF_SPECTRAL_AGILITY.id;
       this.strongPotionIcon = ITEMS.POTION_OF_SPECTRAL_AGILITY.icon;
@@ -261,7 +262,7 @@ class PrePotion extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     this.potionAdjuster(this.selectedCombatant.specId);
     this.setStrongPotionForSpec(this.selectedCombatant.specId);
     when(this.prePotionSuggestionThresholds)
