@@ -35,6 +35,11 @@ export default {
     icon: 'ability_creature_cursed_04',
     bonusID: 6926,
   },
+  ARCANE_HARMONY_BUFF: {
+    id: 332777,
+    name: 'Arcane Harmony',
+    icon: 'ability_creature_cursed_04',
+  },
   SIPHON_STORM: {
     id: 332928,
     name: 'Siphon Storm',
@@ -52,6 +57,11 @@ export default {
     name: 'Fevered Incantation',
     icon: 'inv_misc_enchantedpearld',
     bonusID: 6931,
+  },
+  FEVERED_INCANTATION_BUFF: {
+    id: 333049,
+    name: 'Fevered Incantation',
+    icon: 'inv_misc_enchantedpearld',
   },
   FIRESTORM: {
     id: 333097,

@@ -34,6 +34,9 @@ import MeteorRune from './modules/talents/MeteorRune';
 import MeteorCombustion from './modules/talents/MeteorCombustion';
 import Kindling from './modules/talents/Kindling';
 
+//Legendaries
+import FeveredIncantation from './modules/items/FeveredIncantation';
+
 //Conduits
 import MasterFlame from './modules/items/MasterFlame';
 import ControlledDestruction from './modules/items/ControlledDestruction';
@@ -79,6 +82,9 @@ class CombatLogParser extends CoreCombatLogParser {
     meteor: Meteor,
     meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
+
+    //Legendaries
+    feveredIncantation: FeveredIncantation,
 
     //Conduits
     masterFlame: MasterFlame,
