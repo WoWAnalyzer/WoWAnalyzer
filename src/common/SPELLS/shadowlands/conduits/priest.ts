@@ -1,7 +1,6 @@
 import { SpellList } from "common/SPELLS/Spell";
 
 const conduits: SpellList = {
-
   //region Covenants Conduits
   COURAGEOUS_ASCENSION: {  //kyrian
     id: 337966,
@@ -179,12 +178,15 @@ const conduits: SpellList = {
     icon: 'spell_arcane_mindmastery',
   },
   MIND_DEVOURER_BUFF: {
-    id: 338332,
+    id: 338333,
     name: 'Mind Devourer',
     icon: 'spell_arcane_mindmastery',
   },
-
+  RABID_SHADOWS: {
+    id: 338338,
+    name: 'Rabid Shadows',
+    icon: 'spell_deathknight_gnaw_ghoul',
+  },
   //endregion
-
 };
 export default conduits;
