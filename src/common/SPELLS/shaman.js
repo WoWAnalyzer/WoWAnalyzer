@@ -616,6 +616,11 @@ export default {
     name: 'Hailstorm',
     icon: 'spell_frost_icestorm',
   },
+  LASHING_FLAMES_DEBUFF: {
+    id: 334168,
+    name: 'Lashing Flames',
+    icon: 'spell_shaman_improvelavalash',
+  },
   LIGHTNING_SHIELD:{
     id: 192106,
     name: 'Lightning Shield',

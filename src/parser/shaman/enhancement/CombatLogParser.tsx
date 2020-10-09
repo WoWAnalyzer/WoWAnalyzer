@@ -16,6 +16,7 @@ import Buffs from './modules/Buffs';
 // import FlametongueRefresh from './modules/core/FlametongueRefresh';
 import Stormbringer from './modules/core/Stormbringer';
 // Talents
+import LashingFlames from "./modules/talents/LashingFlames";
 import HotHand from './modules/talents/HotHand';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import SpiritWolf from '../shared/talents/SpiritWolf';
@@ -26,7 +27,7 @@ import NaturesGuardian from './modules/talents/NaturesGuardian';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import Sundering from './modules/talents/Sundering';
 import EarthenSpike from './modules/talents/EarthenSpike';
-import ElementalBlast from './modules/talents/ElementalBlast';
+import ElementalBlast from '../shared/talents/ElementalBlast';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -52,7 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
 
     // Talents
-    //lashingFlames: LashingFlames,
+    lashingFlames: LashingFlames,
     forcefulWinds: ForcefulWinds,
     elementalBlast: ElementalBlast,
     //stormfury: Stormfury,
