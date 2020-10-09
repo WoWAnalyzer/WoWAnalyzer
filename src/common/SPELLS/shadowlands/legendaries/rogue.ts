@@ -1,6 +1,6 @@
-import { SpellList } from "common/SPELLS/Spell";
+import { SpellList, LegendarySpell } from "common/SPELLS/Spell";
 
-const legendaries: SpellList = {
+const legendaries: SpellList<LegendarySpell> = {
   //region Assassination
   DASHING_SCOUNDREL: {
     id: 340426,
