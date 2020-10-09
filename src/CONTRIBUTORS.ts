@@ -75,6 +75,10 @@ export const Zerotorescue: Contributor = {
     link: 'https://worldofwarcraft.com/en-gb/character/alakir/Zerotohunt',
   }],
 };
+export const Anontyro: Contributor = {
+  nickname: 'anontyro',
+  github: 'anontyro'
+};
 export const blazyb: Contributor = {
   nickname: 'blazyb',
   github: 'buimichael',
