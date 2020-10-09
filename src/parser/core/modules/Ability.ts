@@ -1,12 +1,18 @@
+import CombatLogParser from 'parser/core/CombatLogParser';
+
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+
+import Combatant from 'parser/core/Combatant';
+
+import Spell from 'common/SPELLS/Spell';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CombatLogParser from 'parser/core/CombatLogParser';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import Combatant from 'parser/core/Combatant';
 
 import { AnyEvent } from '../Events';
 import Abilities from './Abilities';
+
 
 export interface AbilityTrackerAbility {
   casts: number;
@@ -40,16 +46,8 @@ export interface SpellbookAbility {
    * shared cooldown)
    */
   spell:
-    | {
-        id: number;
-        name: string;
-        icon: string;
-      }
-    | Array<{
-        id: number;
-        name: string;
-        icon: string;
-      }>;
+    | Spell
+    | Spell[];
   /**
    * The name to use if it is different from the name provided by the `spell`
    * object. This should only be used in rare situations.
@@ -174,11 +172,7 @@ export interface SpellbookAbility {
   /**
    * The spell that'll forcibly shown on the timeline if set.
    */
-  shownSpell?: {
-    id: number;
-    name: string;
-    icon: string;
-  };
+  shownSpell?: Spell;
 }
 
 class Ability {
