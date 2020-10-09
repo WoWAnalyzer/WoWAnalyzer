@@ -52,6 +52,7 @@ class InvokeChiJi extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.handleEnvelopCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT), this.handleChijiStart);
     this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.handleChijiDeath);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BLACKOUT_KICK, SPELLS.RISING_SUN_KICK_SECOND, SPELLS.BLACKOUT_KICK_TOTM]), this.handleOvercapStacks)
     //need a different eventlistener beacause chiji currently only applies 1 stack per cast of sck, not on each dmg event
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.handleOvercapStacks);
@@ -91,14 +92,14 @@ class InvokeChiJi extends Analyzer {
   }
 
   handleEssenceFontStart(event) { 
-    if(this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)) { 
+    if(this.chijiActive && this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)) { 
        this.efChannelStart = this.lastGlobal = event.timestamp;
     }
   }
 
   handleEssenceFontEnd(event) {
     const gcd = 1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
-    if(this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)) { 
+    if(this.chijiActive && this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)) { 
       this.efChannelEnd = event.timestamp;
       let duration = this.efChannelEnd - this.efChannelStart;
       if(duration > gcd) { 
