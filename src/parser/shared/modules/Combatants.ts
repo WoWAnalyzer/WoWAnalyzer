@@ -4,7 +4,7 @@ import Combatant from 'parser/core/Combatant';
 
 import Entities from './Entities';
 
-class Combatants extends Entities {
+class Combatants extends Entities<Combatant> {
   players: { [playerId: number]: Combatant } = {};
   get playerCount() {
     return Object.keys(this.players).length;
