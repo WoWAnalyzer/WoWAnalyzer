@@ -5,15 +5,9 @@ export default interface Spell {
   manaCost?: number;
 };
 
-export interface MonkSpell extends Spell {
-  manaPercRed?: number;
-  buffDur?: number;
-  manaRet?: number;
-}
-
-export interface DemonHunterSpell extends Spell {
-  painCost?: number;
-  firstStrikeSpellId?: number;
+export interface DemonHunterSpell extends Spell{
+    painCost?: number;
+    firstStrikeSpellId?: number;
 }
 
 export interface PriestSpell extends Spell {
