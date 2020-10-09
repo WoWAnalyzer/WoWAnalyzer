@@ -20,7 +20,7 @@ const covenants: SpellList = {
   ASCENDED_ERUPTION: {
     id: 325326,
     name: 'Ascended Eruption',
-    icon: 'ability_bastion_priest'
+    icon: 'ability_bastion_priest',
   },
   //endregion
 

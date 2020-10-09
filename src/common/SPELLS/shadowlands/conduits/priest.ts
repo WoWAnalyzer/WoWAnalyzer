@@ -15,7 +15,7 @@ const conduits: SpellList = {
   FAE_FERMATA: {  //Night Fae
     id: 338305,
     name: 'Fae Fermata',
-    icon: 'spell_animaardenweald_buff'
+    icon: 'spell_animaardenweald_buff',
   },
   WRATHFUL_FAERIE_FERMATA: {  //Night Fae
     id: 345452,
@@ -43,7 +43,7 @@ const conduits: SpellList = {
   CHARITABLE_SOUL: {
     id: 337715,
     name: 'Charitable Soul',
-    icon: 'ability_priest_clarityofwill'
+    icon: 'ability_priest_clarityofwill',
   },
   CHARITABLE_SOUL_BUFF: {
     id: 337716,
@@ -63,7 +63,7 @@ const conduits: SpellList = {
   TRANSLUCENT_IMAGE: {
     id: 337662,
     name: 'Translucent Image',
-    icon: 'spell_nature_invisibilty'
+    icon: 'spell_nature_invisibilty',
   },
   //endregion
 
