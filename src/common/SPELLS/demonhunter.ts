@@ -4,8 +4,8 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList, DemonHunterSpell } from "./Spell";
-const spells: SpellList<DemonHunterSpell> = {
+import { SpellList } from "./Spell";
+const spells: SpellList = {
   // Common Spells
   GLIDE: {
     id: 131347,
@@ -44,19 +44,16 @@ const spells: SpellList<DemonHunterSpell> = {
   // Abilities:
   FRACTURE: { //Fracture replaces shear when you take the fracture talent
     id: 209795,
-    painCost: 30,
     name: "Fracture",
     icon: "ability_creature_felsunder",
   },
   FRACTURE_MAIN_HAND: {
     id: 225919,
-    painCost: 30,
     name: "Fracture(Main Hand)",
     icon: "ability_creature_felsunder",
   },
   FRACTURE_OFF_HAND: {
     id: 225921,
-    painCost: 30,
     name: "Fracture(Off Hand)",
     icon: "ability_creature_felsunder",
   },
@@ -151,11 +148,9 @@ const spells: SpellList<DemonHunterSpell> = {
     id: 228477,
     name: 'Soul Cleave',
     icon: 'ability_demonhunter_soulcleave',
-    painCost: 30,
   },
   IMMOLATION_AURA: {
     id: 178740,
-    firstStrikeSpellId: 187727,
     name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },

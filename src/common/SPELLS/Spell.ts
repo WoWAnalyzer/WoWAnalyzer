@@ -1,18 +1,15 @@
 export default interface Spell {
-  id: number;
-  name: string;
-  icon: string;
-  manaCost?: number;
+    id: number;
+    name: string;
+    icon: string;
+    resourceCost?: number;
+    manaCost?: number;
+    castTime?: number;
 };
 
-export interface DemonHunterSpell extends Spell{
-    painCost?: number;
-    firstStrikeSpellId?: number;
-}
-
-export interface PriestSpell extends Spell {
-  atonementDuration?: number;
-  coefficient?: number;
+export interface PriestSpell extends Spell{
+    atonementDuration?: number;
+    coefficient?: number;
 }
 
 export interface ShamanSpell extends Spell {
