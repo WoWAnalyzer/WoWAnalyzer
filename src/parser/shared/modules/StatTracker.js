@@ -776,6 +776,7 @@ class StatTracker extends Analyzer {
       type: EventType.ChangeStats,
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
+      targetIsFriendly: true,
       before,
       delta,
       after,
