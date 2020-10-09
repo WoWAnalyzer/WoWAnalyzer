@@ -14,6 +14,7 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import ManaTea from './ManaTea';
 import SpiritOfTheCrane from './SpiritOfTheCrane';
 import Lifecycles from './Lifecycles';
+import { LIFECYCLES_MANA_PERC_REDUCTION } from 'parser/monk/mistweaver/constants';
 
 
 
@@ -169,8 +170,8 @@ class Tier45Comparison extends Analyzer {
   generateLifeCycles(){
     const envCasts = this.abilityTracker.getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
     const vivCasts = this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1;
-    const manaDiscountOnViv = Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.manaCost * SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed;
-    const manaDiscountOnEnv = Math.min(vivCasts, envCasts) * SPELLS.ENVELOPING_MIST.manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed;
+    const manaDiscountOnViv = Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
+    const manaDiscountOnEnv = Math.min(vivCasts, envCasts) * SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
     return (manaDiscountOnEnv + manaDiscountOnViv) || 0;
   }
 

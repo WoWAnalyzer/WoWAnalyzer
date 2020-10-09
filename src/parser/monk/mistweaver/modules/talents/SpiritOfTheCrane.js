@@ -7,6 +7,7 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { TEACHINGS_OF_THE_MONASTERY_DURATION } from 'parser/monk/mistweaver/constants';
 
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -60,7 +61,7 @@ class SpiritOfTheCrane extends Analyzer {
 
   lostStacks(event) {
     debug && console.log(event.timestamp);
-    if ((event.timestamp - this.lastTotmBuffTimestamp) > SPELLS.TEACHINGS_OF_THE_MONASTERY.buffDur) {
+    if ((event.timestamp - this.lastTotmBuffTimestamp) > TEACHINGS_OF_THE_MONASTERY_DURATION) {
       this.totmBuffWasted += 1;
       this.buffTotm = 0;
       debug && console.log('ToTM Buff Wasted');

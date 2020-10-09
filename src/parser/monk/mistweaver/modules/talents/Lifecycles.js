@@ -10,6 +10,7 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { LIFECYCLES_MANA_PERC_REDUCTION } from 'parser/monk/mistweaver/constants';
 
 const LC_MANA_PER_SECOND_RETURN_MINOR = 80;
 const LC_MANA_PER_SECOND_RETURN_AVERAGE = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
@@ -44,8 +45,8 @@ class Lifecycles extends Analyzer {
         this.castsNonRedViv += 1;
         return;
       }
-      this.manaSaved += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
-      this.manaSavedViv += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
+      this.manaSaved += SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
+      this.manaSavedViv += SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
       this.castsRedViv += 1;
       debug && console.log('Viv Reduced');
     } else {
@@ -56,8 +57,8 @@ class Lifecycles extends Analyzer {
   envelopingMistCast(event){
     // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
     if (this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
-      this.manaSaved += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-      this.manaSavedEnm += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+      this.manaSaved += SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
+      this.manaSavedEnm += SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
       this.castsRedEnm += 1;
       debug && console.log('ENM Reduced');
     } else {
