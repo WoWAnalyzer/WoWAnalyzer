@@ -4,10 +4,10 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import { HealEvent, BeginCastEvent } from 'parser/core/Events';
+import Events, { HealEvent, BeginCastEvent } from 'parser/core/Events';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -32,15 +32,13 @@ class Deluge extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE_RESTORATION]), this._onHeal);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_CAST), this._onHealingRainBegincast);
+    this.addEventListener(Events.fightend, this._onFightend);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
-    if (![SPELLS.CHAIN_HEAL.id, SPELLS.HEALING_WAVE.id, SPELLS.HEALING_SURGE_RESTORATION.id].includes(spellId)) {
-      return;
-    }
-
+  _onHeal(event: HealEvent) {
     const combatant = this.combatants.getEntity(event);
     if (!combatant) {
       // Pet healing
@@ -60,9 +58,8 @@ class Deluge extends Analyzer {
 
   // Due to the nature of having to wait until rain is over, to be able to find out its position,
   // we only start processing the healing contribution on the next cast of Healing Rain or at the end of combat.
-  on_byPlayer_begincast(event: BeginCastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) {
+  _onHealingRainBegincast(event: BeginCastEvent) {
+    if (event.isCancelled) {
       return;
     }
 
@@ -70,7 +67,7 @@ class Deluge extends Analyzer {
     this.eventsDuringRain.length = 0;
   }
 
-  on_fightend() {
+  _onFightend() {
     this.recordHealing();
   }
 

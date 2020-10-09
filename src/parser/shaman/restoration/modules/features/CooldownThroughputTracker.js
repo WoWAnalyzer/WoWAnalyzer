@@ -280,8 +280,8 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     this.activeCooldowns.forEach((cooldown) => {
       const cooldownId = cooldown.spell.id;
 
-      if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id && ABILITIES_FEEDING_INTO_CBT.includes(spellId)) ||
-        (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id && !ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.includes(spellId))) {
+      if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id && ABILITIES_FEEDING_INTO_CBT.some(s => s.id === spellId)) ||
+        (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id && !ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.some(s => s.id === spellId))) {
         if (!cooldown.feed[spellId]) {
           cooldown.feed[spellId] = [];
           cooldown.feed[spellId].healing = 0;

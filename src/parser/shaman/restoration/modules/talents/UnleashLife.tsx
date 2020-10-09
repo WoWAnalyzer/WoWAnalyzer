@@ -10,13 +10,13 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
-const UNLEASH_LIFE_HEALING_INCREASE = 0.45;
+const UNLEASH_LIFE_HEALING_INCREASE = 0.35;
 const BUFFER_MS = 200;
 const UNLEASH_LIFE_DURATION = 10000;
 const debug = false;
@@ -56,17 +56,14 @@ class UnleashLife extends Analyzer {
     [SPELLS.CHAIN_HEAL.id]: {
       healing: 0,
       castAmount: 0,
-      playersActive: [],
     },
     [SPELLS.HEALING_WAVE.id]: {
       healing: 0,
       castAmount: 0,
-      playersActive: [],
     },
     [SPELLS.HEALING_SURGE_RESTORATION.id]: {
       healing: 0,
       castAmount: 0,
-      playersActive: [],
     },
   };
 
@@ -80,9 +77,14 @@ class UnleashLife extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
+
+    const spellFilter = [SPELLS.RIPTIDE, SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE_RESTORATION]; // TODO ADD CHAIN HARVEST
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(spellFilter), this._onHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this._onRiptideRemoval);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  _onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
@@ -130,7 +132,7 @@ class UnleashLife extends Analyzer {
   }
 
 
-  on_byPlayer_cast(event: CastEvent) {
+  _onCast(event: CastEvent) {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
@@ -155,12 +157,8 @@ class UnleashLife extends Analyzer {
     }
   }
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
+  _onRiptideRemoval(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.RIPTIDE.id) {
-      return;
-    }
-
     if (!(this.healingBuff[spellId] as HealingBuffHot).playersActive.includes(event.targetID)) {
       return;
     }
