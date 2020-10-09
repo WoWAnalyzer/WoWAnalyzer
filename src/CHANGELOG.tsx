@@ -1,4 +1,3 @@
-import React from 'react';
 
 import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
@@ -8,10 +7,14 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
+import React from 'react';
+
 const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
+  change(prepatch, 'Converted Spells to TypeScript', Zeboot),
+  change(prepatch, 'Converted Consumable Checkers to TypeScript', Zeboot),
   change(prepatch, 'Converted Combatants to TypeScript', niseko),
   change(prepatch, 'Changed code quality rules.', Zerotorescue),
   change(prepatch, 'Added a new event map for catch-all event types.', Dambroda),

@@ -115,7 +115,7 @@ class Combatant extends Entity {
   // region Talents
   _talentsByRow: { [key: number]: number } = {};
 
-  _parseTalents(talents: Array<{ id: number; icon: string }>) {
+  _parseTalents(talents: Spell[]) {
     talents.forEach(({ id }, index: number) => {
       this._talentsByRow[index] = id;
     });

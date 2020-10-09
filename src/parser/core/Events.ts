@@ -1,7 +1,11 @@
-import React from 'react';
 import { PhaseConfig } from 'raids';
 
+import Spell from 'common/SPELLS/Spell';
+
+import React from 'react';
+
 import EventFilter from './EventFilter';
+
 
 export enum EventType {
   Heal = 'heal',
@@ -677,15 +681,15 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   versatilityHealingDone: number;
   versatilityDamageReduction: number;
   talents: [
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
+    Spell,
+    Spell,
+    Spell,
+    Spell,
+    Spell,
+    Spell,
+    Spell,
   ];
-  pvpTalents: Array<{ id: number; icon: string }>;
+  pvpTalents: Spell[];
   artifact: Array<{
     traitID: number;
     rank: number;
