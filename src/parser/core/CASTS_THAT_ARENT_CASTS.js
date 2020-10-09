@@ -32,10 +32,12 @@ export default [
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
   SPELLS.SPIRITWALKERS_GRACE.id,
   316944, // Dragon's Flight - Feather Fall (DNT)
+  SPELLS.CELESTIAL_GUIDANCE_CAST.id, //Celestial Guidance enchant proc
 
   //region Hunter
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
   SPELLS.DIRE_BEAST_SUMMON.id,
+  //endregion
 
   //region Covenants
   SPELLS.RESONATING_ARROW_DEBUFF.id, //The debuff applied to mobs inside Kyrian hunter ability resonating arrow area of effect
@@ -43,6 +45,4 @@ export default [
   SPELLS.COMBAT_MEDITATION_PICK_UP.id, //The Spell ID that is "cast" when an orb is picked up
   SPELLS.WILD_MARK.id, //The debuff applied from enemies inside Wild Spirits
   //endregion
-  //endregion
-  324748, //Celestial Guidance enchant proc
 ];

@@ -7,7 +7,12 @@ export default {
   CELESTIAL_GUIDANCE: {
     id: 309627,
     name: 'Celestial Guidance',
-    icon: 'trade_engraving',
+    icon: 'inv_elemental_spiritofharmony_2',
+  },
+  CELESTIAL_GUIDANCE_CAST: {
+    id: 324748,
+    name: 'Celestial Guidance',
+    icon: 'inv_elemental_spiritofharmony_2',
   },
   ETERNAL_GRACE: {
     id: 309621,

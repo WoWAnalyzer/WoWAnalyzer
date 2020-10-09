@@ -12,7 +12,7 @@ class EarthShield extends EarthShieldCore {
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
 
   getFeeding() {
-    return this.cooldownThroughputTracker.getIndirectHealing(SPELLS.EARTH_SHIELD_HEAL.id);;
+    return this.cooldownThroughputTracker.getIndirectHealing(SPELLS.EARTH_SHIELD_HEAL.id);
   }
 }
 
