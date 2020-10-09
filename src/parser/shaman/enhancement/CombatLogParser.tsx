@@ -26,6 +26,7 @@ import Hailstorm from './modules/talents/Hailstorm';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import Sundering from './modules/talents/Sundering';
+import Stormkeeper from './modules/talents/Stormkeeper';
 import EarthenSpike from './modules/talents/EarthenSpike';
 import ElementalBlast from '../shared/talents/ElementalBlast';
 
@@ -67,7 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //fireNova: FireNova,
     naturesGuardian: NaturesGuardian,
     crashingStorm: CrashingStorm,
-    //stormkeeper: Stormkeeper,
+    stormkeeper: Stormkeeper,
     sundering: Sundering,
     //elementalSpirits: ElementalSpirits,
     earthenSpike: EarthenSpike,

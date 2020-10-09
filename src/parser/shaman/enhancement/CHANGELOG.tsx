@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 9), <>Added damage statistics for <SpellLink id={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id} />.</>, [Vonn]),
   change(date(2020, 10, 9), <>Added damage statistics for <SpellLink id={SPELLS.LASHING_FLAMES_TALENT.id} />.</>, [Vonn]),
   change(date(2020, 10, 6), <>Updated spells and abilities for current Shadowlands beta.</>, [Vonn]),
   change(date(2020, 9, 23), <>Removed <SpellLink id={SPELLS.EARTH_ELEMENTAL.id} /> from recommended offensive spells.</>, [MusicMeister]),
