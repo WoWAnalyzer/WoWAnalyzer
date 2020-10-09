@@ -58,14 +58,6 @@ class Stormbringer extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER_BUFF.id)) {
       return;
     }
-
-    if (this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
-      this.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id);
-    }
-
-    if (this.spellUsable.isOnCooldown(SPELLS.WINDSTRIKE_CAST.id)) {
-      this.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id);
-    }
   }
 
   onStrikeDamage(event: DamageEvent) {
