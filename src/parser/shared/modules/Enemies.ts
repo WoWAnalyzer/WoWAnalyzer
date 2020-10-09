@@ -1,25 +1,37 @@
+import Enemy from 'parser/core/Enemy';
+import { TrackedBuffEvent } from 'parser/core/Entity';
+import { AnyEvent, HasTarget } from 'parser/core/Events';
+
 import Entities from './Entities';
-import Enemy from '../../core/Enemy';
 
 const debug = false;
 
-class Enemies extends Entities {
-  enemies = {};
+type EnemyBuffHistory = {
+  start: number,
+  end: number,
+}
+class Enemies extends Entities<Enemy> {
+  enemies: { [enemyId: number]: Enemy } = {};
+
   getEntities() {
     return this.enemies;
   }
+
   /**
    * @param {object} event
    * @returns {Enemy|null}
    */
-  getEntity(event) {
+  getEntity(event: AnyEvent): Enemy | null {
+    if (!HasTarget(event)) {
+      return null;
+    }
     if (event.targetIsFriendly) {
       return null;
     }
     const targetId = event.targetID;
     let enemy = this.enemies[targetId];
     if (!enemy) {
-      const baseInfo = this.owner.report.enemies.find(enemy => enemy.id === targetId);
+      const baseInfo = this.owner.report.enemies.find((enemy: { id: number }) => enemy.id === targetId);
       if (!baseInfo) {
         debug && console.warn('Enemy not noteworthy enough:', targetId, event);
         return null;
@@ -35,14 +47,14 @@ class Enemies extends Entities {
    * @param spellIds Variable number of debuff IDs
    * @returns {Array} Combined debuff history for the debuffs
    */
-  getCombinedDebuffHistory(...spellIds) {
-    const events = [];
+  getCombinedDebuffHistory(spellIds: number[]) {
+    const events: EnemyBuffHistory[] = [];
     spellIds.forEach(spellId => {
       events.push(...this.getDebuffHistory(spellId));
     });
 
     const history = [];
-    let current = null;
+    let current: EnemyBuffHistory | null = null;
     events.sort((a, b) => a.start - b.start)
       .forEach(event => {
         if (current === null) {
@@ -84,8 +96,13 @@ class Enemies extends Entities {
    * @param spellId ID of the debuff
    * @returns {Array} History of the debuff
    */
-  getDebuffHistory(spellId) {
-    const events = [];
+  getDebuffHistory(spellId: number): EnemyBuffHistory[] {
+    type TempBuffInfo = {
+      timestamp: number,
+      type: 'apply' | 'remove',
+      buff: TrackedBuffEvent,
+    };
+    const events: TempBuffInfo[] = [];
     const enemies = this.getEntities();
     Object.values(enemies)
       .forEach(enemy => {
@@ -104,22 +121,24 @@ class Enemies extends Entities {
           });
       });
 
-    const history = [];
-    let current = null;
+    const history: EnemyBuffHistory[] = [];
+    let current: EnemyBuffHistory | null = null;
     let active = 0;
     events.sort((a, b) => a.timestamp - b.timestamp)
       .forEach(event => {
         if (event.type === 'apply') {
           if (current === null) {
-            current = { start: event.timestamp, end: null };
+            current = { start: event.timestamp, end: this.owner.currentTimestamp };
           }
           active += 1;
         }
         if (event.type === 'remove') {
           active -= 1;
           if (active === 0) {
-            current.end = event.timestamp;
-            history.push(current);
+            // We know for a fact that there will be a temp 'apply' before a temp 'remove'
+            // because of the previous forEach, so its safe to non-null assert these
+            current!.end = event.timestamp;
+            history.push(current!);
             current = null;
           }
         }
