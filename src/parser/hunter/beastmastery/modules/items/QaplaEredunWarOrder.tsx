@@ -39,7 +39,7 @@ class QaplaEredunWarOrder extends Analyzer {
   }
 
   get totalPossibleCDR() {
-    return this.wastedKCReduction + this.effectiveKCReduction;
+    return Math.max(this.wastedKCReduction + this.effectiveKCReduction, 1);
   }
 
   get effectiveKillCommandCDRPercent() {

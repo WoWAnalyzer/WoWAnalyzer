@@ -24,9 +24,9 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
  */
 class DireCommand extends Analyzer {
 
-  damage = 0;
+  damage: number = 0;
   activeDireBeasts: string[] = [];
-  targetId = '';
+  targetId: string = '';
   direCommandProcs: number = 0;
   killCommandHits: number = 0;
 

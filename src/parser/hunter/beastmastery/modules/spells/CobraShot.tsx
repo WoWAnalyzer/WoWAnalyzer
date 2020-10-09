@@ -42,7 +42,7 @@ class CobraShot extends Analyzer {
   }
 
   get totalPossibleCDR() {
-    return this.casts * COBRA_SHOT_CDR_MS;
+    return Math.max(this.casts * COBRA_SHOT_CDR_MS, 1);
   }
 
   get wastedCDR() {
