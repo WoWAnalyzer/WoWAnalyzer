@@ -13,6 +13,7 @@ const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
+  change(prepatch, 'Converted Enemy and Enemies to TypeScript', Dambroda),
   change(prepatch, 'Converted Items to TypeScript', Zeboot),
   change(prepatch, 'Converted Spells to TypeScript', Zeboot),
   change(prepatch, 'Converted Consumable Checkers to TypeScript', Zeboot),
