@@ -7,21 +7,11 @@ export default interface Spell {
     castTime?: number;
 };
 
-export interface PriestSpell extends Spell{
-    atonementDuration?: number;
+export interface ShamanSpell extends Spell{
+    maelstrom?: number;
+    max_maelstrom?: number;
     coefficient?: number;
-}
-
-export interface ShamanSpell extends Spell {
-  maelstrom?: number;
-  max_maelstrom?: number;
-  coefficient?: number;
-  color?: string;
-  castTime?: number;
-}
-
-export interface HunterSpell extends Spell {
-  focusCost?: number;
+    color?: string;
 }
 
 export interface LegendarySpell extends Spell {

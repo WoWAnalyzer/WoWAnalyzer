@@ -4,8 +4,8 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList, PriestSpell } from "./Spell";
-const spells: SpellList<PriestSpell> = {
+import { SpellList } from "./Spell";
+const spells: SpellList = {
   // Shared
   HOLY_NOVA: {
     id: 132157,
@@ -58,7 +58,6 @@ const spells: SpellList<PriestSpell> = {
     name: 'Penance',
     icon: 'spell_holy_penance',
     manaCost: 800,
-    coefficient: 0.4,
   },
   PENANCE_HEAL: {
     // Penance on a friendly player
@@ -78,27 +77,23 @@ const spells: SpellList<PriestSpell> = {
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
     manaCost: 1550,
-    atonementDuration: 15000,
   },
   SMITE: {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
     manaCost: 200,
-    coefficient: 0.47,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power-word',
     manaCost: 3250,
-    atonementDuration: 9000,
   },
   SHADOW_MEND: {
     id: 186263,
     name: 'Shadow Mend',
     icon: 'spell_shadow_shadowmend',
-    atonementDuration: 15000,
     manaCost: 1750,
   },
   RAPTURE: {

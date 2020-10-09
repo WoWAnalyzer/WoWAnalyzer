@@ -48,7 +48,7 @@ class Atonement extends Analyzer {
       return 15;
     }
     const applicatorSpellId = applicatorEvent.ability.guid;
-    let duration = this.atonementApplicationSource.duration.get(applicatorSpellId);
+    let duration = this.atonementApplicationSource.duration.get(applicatorSpellId) || 0;
 
     if (applicatorSpellId === SPELLS.POWER_WORD_SHIELD.id && this.selectedCombatant.hasBuff(SPELLS.RAPTURE.id, applicatorEvent.timestamp)) {
       duration += 6;
