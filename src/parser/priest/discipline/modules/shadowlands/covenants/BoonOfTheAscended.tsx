@@ -26,46 +26,28 @@ class BoonOfTheAscended extends Analyzer {
 
   atonementHealing = 0;
   directHealing = 0;
-  damageDealt = 0; 
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]), this.onHeal);
   }
 
   onHeal(event: HealEvent) {
     if (isAtonement(event)) {
-
+      
       const atonenementDamageEvent = this.atonementDamageSource.event;
 
-      if (!atonenementDamageEvent || atonenementDamageEvent.ability.guid !== SPELLS.ASCENDED_BLAST.id 
-        || atonenementDamageEvent.ability.guid !== SPELLS.ASCENDED_NOVA.id 
-        || atonenementDamageEvent.ability.guid !== SPELLS.ASCENDED_ERUPTION.id) {
-        return;
-      }
-
-      this.atonementHealing += event.amount + (event.absorbed || 0);
-      return;
-    }
-
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.ASCENDED_BLAST.id) {
+        if (!atonenementDamageEvent) {
+          return;
+        }
+        this.atonementHealing += event.amount + (event.absorbed || 0);
+    } else {
       this.directHealing += event.amount + (event.absorbed || 0);
-      return;
-    }
-    
-    if (spellId === SPELLS.ASCENDED_NOVA.id) {
-      this.directHealing += event.amount + (event.absorbed || 0);
-      return;
-    }
-    if (spellId === SPELLS.ASCENDED_ERUPTION.id) {
-      this.directHealing += event.amount + (event.absorbed || 0);
-      return;
     }
   }
-
+    
   statistic() {
     return (
       <Statistic
