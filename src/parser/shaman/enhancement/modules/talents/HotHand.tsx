@@ -11,10 +11,11 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import ResourceGenerated from 'interface/others/ResourceGenerated';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { LAVA_LASH_MAELSTROM_COST } from 'parser/shaman/enhancement/constants';
 
 const HOT_HAND = {
   INCREASE: 1.0,
-  COST_REDUCTION: SPELLS.LAVA_LASH.maelstrom,
+  COST_REDUCTION: LAVA_LASH_MAELSTROM_COST,
 };
 
 /**

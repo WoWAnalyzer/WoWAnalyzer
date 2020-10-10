@@ -6,7 +6,7 @@ import { SpellbookAbility } from 'parser/core/modules/Ability';
 const totemGCD = 1000;
 
 class Abilities extends CoreAbilities {
-  spellbook(): SpellbookAbility[] { 
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {

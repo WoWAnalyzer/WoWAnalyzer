@@ -11,6 +11,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
+import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';
 
 const FLASH_FLOOD_HASTE = 0.2;
 const BUFFER_MS = 50;
@@ -126,28 +127,28 @@ class FlashFlood extends Analyzer {
     );
     const items = [
       {
-        color: SPELLS.CHAIN_HEAL.color,
+        color: RESTORATION_COLORS.CHAIN_HEAL,
         label: 'Chain Heal',
         spellId: SPELLS.CHAIN_HEAL.id,
         value: this.spellsConsumingFlashFlood[SPELLS.CHAIN_HEAL.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.CHAIN_HEAL.id]),
       },
       {
-        color: SPELLS.HEALING_WAVE.color,
+        color: RESTORATION_COLORS.HEALING_WAVE,
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
         value: this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id]),
       },
       {
-        color: SPELLS.HEALING_SURGE_RESTORATION.color,
+        color: RESTORATION_COLORS.HEALING_SURGE,
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE_RESTORATION.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE_RESTORATION.id]),
       },
       {
-        color: SPELLS.RIPTIDE.color,
+        color: RESTORATION_COLORS.RIPTIDE,
         label: 'Healing Rain',
         spellId: SPELLS.HEALING_RAIN_CAST.id,
         value: this.spellsConsumingFlashFlood[SPELLS.HEALING_RAIN_CAST.id].timeSaved,

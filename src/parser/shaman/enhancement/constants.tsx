@@ -13,3 +13,5 @@ export const STORMSTRIKE_DAMAGE_SPELLS = [
 ];
 
 export const STORMSTRIKE_COEFFICIENT = 1.074; // 107.4%
+
+export const LAVA_LASH_MAELSTROM_COST = 40;

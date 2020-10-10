@@ -15,6 +15,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';
 
 const UNLEASH_LIFE_HEALING_INCREASE = 0.35;
 const BUFFER_MS = 200;
@@ -179,31 +180,31 @@ class UnleashLife extends Analyzer {
 
     const items = [
       {
-        color: SPELLS.CHAIN_HEAL.color,
+        color: RESTORATION_COLORS.CHAIN_HEAL,
         label: 'Chain Heal',
         spellId: SPELLS.CHAIN_HEAL.id,
         value: this.healingBuff[SPELLS.CHAIN_HEAL.id].castAmount,
       },
       {
-        color: SPELLS.HEALING_WAVE.color,
+        color: RESTORATION_COLORS.HEALING_WAVE,
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
         value: this.healingBuff[SPELLS.HEALING_WAVE.id].castAmount,
       },
       {
-        color: SPELLS.HEALING_SURGE_RESTORATION.color,
+        color: RESTORATION_COLORS.HEALING_SURGE,
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: this.healingBuff[SPELLS.HEALING_SURGE_RESTORATION.id].castAmount,
       },
       {
-        color: SPELLS.RIPTIDE.color,
+        color: RESTORATION_COLORS.RIPTIDE,
         label: 'Riptide',
         spellId: SPELLS.RIPTIDE.id,
         value: this.healingBuff[SPELLS.RIPTIDE.id].castAmount,
       },
       {
-        color: '#CC3D20',
+        color: RESTORATION_COLORS.UNUSED,
         label: 'Unused Buffs',
         tooltip: `The amount of Unleash Life buffs you did not use out of the total available. You cast ${this.unleashLifeCasts} Unleash Lifes, of which you used ${this.totalUses}.`,
         value: unusedUL,

@@ -10,6 +10,7 @@ import StatisticGroup from 'interface/statistics/StatisticGroup';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';
 
 class CastBehavior extends Analyzer {
   static dependencies = {
@@ -35,19 +36,19 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: SPELLS.HEALING_WAVE.color,
+        color: RESTORATION_COLORS.HEALING_WAVE,
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
         value: twHealingWaves,
       },
       {
-        color: SPELLS.HEALING_SURGE_RESTORATION.color,
+        color: RESTORATION_COLORS.HEALING_SURGE,
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: twHealingSurges,
       },
       {
-        color: '#CC3D20',
+        color: RESTORATION_COLORS.UNUSED,
         label: 'Unused Tidal Waves',
         tooltip: `The amount of Tidal Waves you did not use out of the total available. You cast ${riptideCasts} Riptides and ${chainHealCasts} Chain Heals which gave you ${totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.`,
         value: unusedTw,
@@ -74,13 +75,13 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: SPELLS.HEALING_WAVE.color,
+        color: RESTORATION_COLORS.HEALING_WAVE,
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
         value: fillerHealingWaves,
       },
       {
-        color: SPELLS.HEALING_SURGE_RESTORATION.color,
+        color: RESTORATION_COLORS.HEALING_SURGE,
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: fillerHealingSurges,
