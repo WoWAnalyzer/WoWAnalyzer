@@ -17,6 +17,8 @@ import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RemoveDebuffEvent } f
 import Abilities from 'parser/core/modules/Abilities';
 import { HUNTERS_MARK_MODIFIER, MS_BUFFER } from 'parser/hunter/shared/constants';
 import SpellLink from 'common/SpellLink';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
@@ -179,7 +181,7 @@ class HuntersMark extends Analyzer {
         </>,
       )
         .icon(SPELLS.HUNTERS_MARK.icon)
-        .actual(`${formatPercentage(actual)}% uptime`)
+        .actual(i18n._(t('hunter.marksmanship.suggestions.huntersMark.uptime')`${formatPercentage(actual)}% uptime`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }

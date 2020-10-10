@@ -9,6 +9,8 @@ import { formatNumber } from 'common/format';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 
 import { BASIC_ATTACK_SPELLS, MACRO_TIME_BETWEEN_BASIC_ATK, MAX_TIME_BETWEEN_BASIC_ATK, NO_DELAY_TIME_BETWEEN_BASIC_ATK } from '../../constants';
@@ -85,7 +87,7 @@ class BasicAttacks extends Analyzer {
   suggestions(when: When) {
     when(this.totalAttacksFromBasicAttacks).addSuggestion((suggest, actual, recommended) => suggest(<> Make sure that your pet is casting it's Basic Attacks, such as <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />.</>)
         .icon(SPELLS.BITE_BASIC_ATTACK.icon)
-        .actual(`Your pet didn't cast any Basic Attacks this fight`)
+        .actual(i18n._(t('hunter.beastmastery.suggestions.pet.basicAttacks')`Your pet didn't cast any Basic Attacks this fight`))
         .recommended('Your pet should be autocast Basic Attacks'));
   }
 
