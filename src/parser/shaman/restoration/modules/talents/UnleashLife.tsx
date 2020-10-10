@@ -15,8 +15,9 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 
-import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';
+
+import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
 const UNLEASH_LIFE_HEALING_INCREASE = 0.35;
 const BUFFER_MS = 200;
