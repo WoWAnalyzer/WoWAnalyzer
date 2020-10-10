@@ -9,6 +9,8 @@ import Events from 'parser/core/Events';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
@@ -139,7 +141,7 @@ class ThunderFocusTea extends Analyzer {
             </>,
           )
             .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
-            .actual(`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`)
+            .actual(i18n._(t('monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts')`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`))
             .recommended(`<${recommended} incorrect cast is recommended`));
   }
 

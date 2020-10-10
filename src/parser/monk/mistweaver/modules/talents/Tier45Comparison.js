@@ -11,6 +11,9 @@ import Analyzer from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import ManaTea from './ManaTea';
 import SpiritOfTheCrane from './SpiritOfTheCrane';
 import Lifecycles from './Lifecycles';
@@ -201,7 +204,7 @@ class Tier45Comparison extends Analyzer {
         </>,
       )
         .icon(this.best.icon)
-        .actual(`${formatNumber(this.returnedFromSelected)} mana returned through ${this.best.name}`)
+        .actual(i18n._(t('monk.mistweaver.suggestions.tier45Talent.efficiency')`${formatNumber(this.returnedFromSelected)} mana returned through ${this.best.name}`))
         .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`));
   }
 

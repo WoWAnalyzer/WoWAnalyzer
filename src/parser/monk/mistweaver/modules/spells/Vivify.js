@@ -14,6 +14,8 @@ import Combatants from 'parser/shared/modules/Combatants';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 //const debug = false;
 
@@ -84,7 +86,7 @@ class Vivify extends Analyzer {
           </>,
         )
           .icon(SPELLS.VIVIFY.icon)
-          .actual(`${this.averageRemPerVivify.toFixed(2)} Renewing Mists per Vivify`)
+          .actual(i18n._(t('monk.mistweaver.suggestions.vivify.renewingMistsPerVivify')`${this.averageRemPerVivify.toFixed(2)} Renewing Mists per Vivify`))
           .recommended(`${recommended} Renewing Mists are recommended per Vivify`));
   }
 

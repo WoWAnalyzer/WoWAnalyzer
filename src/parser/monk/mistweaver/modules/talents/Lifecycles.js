@@ -10,6 +10,8 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const LC_MANA_PER_SECOND_RETURN_MINOR = 80;
 const LC_MANA_PER_SECOND_RETURN_AVERAGE = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
@@ -84,7 +86,7 @@ class Lifecycles extends Analyzer {
           </>,
         )
           .icon(SPELLS.LIFECYCLES_TALENT.icon)
-          .actual(`${formatNumber(actual)} mana saved through Lifecycles`)
+          .actual(i18n._(t('monk.mistweaver.suggestions.lifecycles.manaSaved')`${formatNumber(actual)} mana saved through Lifecycles`))
           .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`));
   }
 

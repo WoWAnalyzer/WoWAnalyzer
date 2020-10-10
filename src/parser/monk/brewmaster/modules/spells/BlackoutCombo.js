@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import { SPELLS_WHICH_REMOVE_BOC } from '../../constants';
 
@@ -78,7 +80,7 @@ class BlackoutCombo extends Analyzer {
     when(wastedPerc).isGreaterThan(0.1)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
           .icon(SPELLS.BLACKOUT_COMBO_BUFF.icon)
-          .actual(`${formatPercentage(actual)}% unused`)
+          .actual(i18n._(t('monk.brewmaster.suggestions.blackoutCombo.wasted')`${formatPercentage(actual)}% unused`))
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
           .regular(recommended + 0.1).major(recommended + 0.2));
   }

@@ -10,6 +10,8 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class JadeSerpentStatue extends Analyzer {
   static dependencies = {
@@ -110,7 +112,7 @@ class JadeSerpentStatue extends Analyzer {
         </>,
       )
         .icon(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% uptime`)
+        .actual(i18n._(t('monk.mistweaver.jadeSerpentStatue.uptime')`${formatPercentage(actual)}% uptime`))
         .recommended(`${formatPercentage(recommended)}% uptime is recommended`));
   }
 

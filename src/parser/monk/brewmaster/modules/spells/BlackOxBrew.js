@@ -5,6 +5,8 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import Abilities from '../Abilities';
 
@@ -60,7 +62,7 @@ class BlackOxBrew extends Analyzer {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> usage can be improved.</>)
           .icon(SPELLS.BLACK_OX_BREW_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% of Cooldown Reduction wasted`)
+          .actual(i18n._(t('monk.brewmaster.suggestions.blackOxBrew.cdrWasted')`${formatPercentage(actual)}% of Cooldown Reduction wasted`))
           .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 }
