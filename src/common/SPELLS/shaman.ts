@@ -664,7 +664,6 @@ const spells: SpellList = {
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
     manaCost: 1500,
-    castTime: 2.5,
   },
   HEALING_SURGE_RESTORATION: {
     id: 8004,
