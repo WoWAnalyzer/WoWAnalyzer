@@ -1,5 +1,3 @@
-
-
 const MAGIC_SCHOOLS: { 
   names: { [id: number]: string }, 
   ids: { [name: string]: number } 
