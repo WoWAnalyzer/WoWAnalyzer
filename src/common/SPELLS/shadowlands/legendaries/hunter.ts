@@ -1,6 +1,6 @@
-import { SpellList, LegendarySpell } from "common/SPELLS/Spell";
+import { SpellList } from "common/SPELLS/Spell";
 
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries: SpellList = {
   //region Beast Mastery
   DIRE_COMMAND_EFFECT: {
     id: 336819,
