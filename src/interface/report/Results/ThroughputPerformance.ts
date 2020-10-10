@@ -8,7 +8,7 @@ import { WCLRanking, WCLRankingsResponse } from 'common/WCL_TYPES';
 const DAYS_PER_WEEK = 7;
 const SECONDS_PER_DAY = 86400;
 const TOTAL_SPECS = SPECS.count;
-export const UNAVAILABLE = 'UNAVAILABLE';
+export const UNAVAILABLE = -1;
 
 interface Props {
   children: (state: State) => ReactNode;
@@ -48,8 +48,8 @@ class ThroughputPerformance extends React.PureComponent<Props, State> {
       const topRank = this._getRank(rankings, 100);
       if (!topRank) {
         this.setState({
-          performance: -1,
-          topThroughput: -1,
+          performance: UNAVAILABLE,
+          topThroughput: UNAVAILABLE,
         });
         return;
       }
@@ -62,8 +62,8 @@ class ThroughputPerformance extends React.PureComponent<Props, State> {
     } catch (err) {
       console.error('Failed to load encounter rankings. Not logging since this will happen as expected when WCL partitions the data.', err);
       this.setState({
-        performance: -1,
-        topThroughput: -1,
+        performance: UNAVAILABLE,
+        topThroughput: UNAVAILABLE,
       });
     }
   }

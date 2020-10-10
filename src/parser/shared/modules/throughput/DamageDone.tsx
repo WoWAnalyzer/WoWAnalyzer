@@ -5,7 +5,7 @@ import { formatThousands, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import makeWclUrl from 'common/makeWclUrl';
 import StatisticBar from 'interface/statistics/StatisticBar';
-import ThroughputPerformance from 'interface/report/Results/ThroughputPerformance';
+import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Tooltip from 'common/Tooltip';
@@ -18,8 +18,8 @@ class DamageDone extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onByPlayerDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this._onByPlayerPetDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onByPlayerDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onByPlayerPetDamage);
   }
 
   _total = new DamageValue();
@@ -41,7 +41,7 @@ class DamageDone extends Analyzer {
 
   bySecond: { [secondsIntoFight: number]: DamageValue } = {};
 
-  _onByPlayerDamage(event: DamageEvent) {
+  onByPlayerDamage(event: DamageEvent) {
     if (!event.targetIsFriendly) {
       this._total = this._total.add(event.amount, event.absorbed, event.blocked, event.overkill);
 
@@ -49,7 +49,7 @@ class DamageDone extends Analyzer {
       this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || new DamageValue()).add(event.amount, event.absorbed, event.blocked, event.overkill);
     }
   }
-  _onByPlayerPetDamage(event: DamageEvent) {
+  onByPlayerPetDamage(event: DamageEvent) {
     if (!event.targetIsFriendly) {
       this._total = this._total.add(event.amount, event.absorbed, event.blocked, event.overkill);
       const petId = event.sourceID;
@@ -99,7 +99,7 @@ class DamageDone extends Analyzer {
           </Tooltip>
           <div className="flex-sub" style={{ width: 110, textAlign: 'center', padding: '10px 5px' }}>
             <ThroughputPerformance throughput={perSecond} metric="dps">
-              {({ performance, topThroughput }) => performance && performance !== -1 && (
+              {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
                 <Tooltip
                   content={(
                     <>

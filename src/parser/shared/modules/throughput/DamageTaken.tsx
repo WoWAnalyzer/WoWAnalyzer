@@ -23,7 +23,7 @@ class DamageTaken extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamage);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onToPlayerDamage);
   }
 
   _total = new DamageValue(); // consider this "protected", so don't change this from other modules. If you want special behavior you must add that code to an extended version of this module.
@@ -49,7 +49,7 @@ class DamageTaken extends Analyzer {
     return this._byMagicSchool[magicSchool];
   }
 
-  _onDamage(event: DamageEvent) {
+  onToPlayerDamage(event: DamageEvent) {
     this._addDamage(event, event.amount, event.absorbed, event.blocked, event.overkill);
   }
 

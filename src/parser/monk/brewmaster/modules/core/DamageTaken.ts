@@ -7,11 +7,11 @@ class DamageTaken extends CoreDamageTaken {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER), this._onToPlayerAbsorbed);
+    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER), this.onToPlayerAbsorbed);
   }
 
   _staggeredDamage: { [guid: number]: number } = {};
-  _onToPlayerAbsorbed(event: AbsorbedEvent) {
+  onToPlayerAbsorbed(event: AbsorbedEvent) {
     // The `damage` events of Brewmaster Monks always includes the amount staggered as "absorbed" damage,
     // but this absorbed damage might also include absorbs received from other people (e.g. Power Word:
     // Shield) so we can't just ignore it completely.Luckily the logs give us another event that shows

@@ -6,7 +6,7 @@ import rankingColor from 'common/getRankingColor';
 import makeWclUrl from 'common/makeWclUrl';
 import Tooltip from 'common/Tooltip';
 import StatisticBar from 'interface/statistics/StatisticBar';
-import ThroughputPerformance from 'interface/report/Results/ThroughputPerformance';
+import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import FlushLineChart from 'interface/others/FlushLineChart';
@@ -18,9 +18,9 @@ class HealingDone extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this._onHeal);
-    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this._onAbsorbed);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this._onRemovebuff);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onAbsorbed);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onRemovebuff);
   }
 
   _total = new HealingValue();
@@ -42,13 +42,13 @@ class HealingDone extends Analyzer {
     return this._byAbility[spellId];
   }
 
-  _onHeal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     this._addHealing(event, event.amount, event.absorbed, event.overheal);
   }
-  _onAbsorbed(event: AbsorbedEvent) {
+  onAbsorbed(event: AbsorbedEvent) {
     this._addHealingByAbsorb(event, event.amount, 0, 0);
   }
-  _onRemovebuff(event: RemoveBuffEvent) {
+  onRemovebuff(event: RemoveBuffEvent) {
     if (event.absorb) {
       this._addHealingByAbsorb(event, 0, 0, event.absorb);
     }
@@ -117,7 +117,7 @@ class HealingDone extends Analyzer {
           </Tooltip>
           <div className="flex-sub" style={{ width: 110, textAlign: 'center', padding: '10px 5px' }}>
             <ThroughputPerformance throughput={perSecond} metric="hps">
-              {({ performance, topThroughput }) => performance && performance !== -1 && (
+              {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
                 <Tooltip
                   content={(
                     <>
