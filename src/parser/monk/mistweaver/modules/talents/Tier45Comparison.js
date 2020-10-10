@@ -11,11 +11,11 @@ import Analyzer from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
+import { LIFECYCLES_MANA_PERC_REDUCTION } from 'parser/monk/mistweaver/constants';
+
 import ManaTea from './ManaTea';
 import SpiritOfTheCrane from './SpiritOfTheCrane';
 import Lifecycles from './Lifecycles';
-import { LIFECYCLES_MANA_PERC_REDUCTION } from 'parser/monk/mistweaver/constants';
-
 
 
 const debug = false;
@@ -76,17 +76,17 @@ class Tier45Comparison extends Analyzer {
     this.totalManaSpent = this.totalManaSpent();
 
     // --- get mana from talents --- //
-    if(this.sotc.selected){
+    if (this.sotc.selected) {
       this.sotc.manaFrom = (this.spiritOfTheCrane.manaReturnSotc || 0);
       this.returnedFromSelected = this.sotc.manaFrom;
     }
 
-    if(this.manatea.selected){
+    if (this.manatea.selected) {
       this.manatea.manaFrom = (this.manaTea.manaSavedMT || 0);
       this.returnedFromSelected = this.manatea.manaFrom;
     }
 
-    if(this.lifecycles.selected){
+    if (this.lifecycles.selected) {
       this.lifecycles.manaFrom = this.lifeCycles.manaSaved;
       this.returnedFromSelected = this.lifecycles.manaFrom;
     }
@@ -99,16 +99,16 @@ class Tier45Comparison extends Analyzer {
     // --- end setup talents that were not selected --- //
 
     // --- pick best --- //
-    if(this.sotc.manaFrom > this.manatea.manaFrom && this.sotc.manaFrom > this.lifecycles.manaFrom){
+    if (this.sotc.manaFrom > this.manatea.manaFrom && this.sotc.manaFrom > this.lifecycles.manaFrom) {
       this.best = this.sotc;
     }
-    if(this.manatea.manaFrom > this.sotc.manaFrom && this.manatea.manaFrom > this.lifecycles.manaFrom){
+    if (this.manatea.manaFrom > this.sotc.manaFrom && this.manatea.manaFrom > this.lifecycles.manaFrom) {
       this.best = this.manatea;
     }
-    if(this.lifecycles.manaFrom > this.manatea.manaFrom && this.lifecycles.manaFrom > this.sotc.manaFrom){
+    if (this.lifecycles.manaFrom > this.manatea.manaFrom && this.lifecycles.manaFrom > this.sotc.manaFrom) {
       this.best = this.lifecycles;
     }
-    if(!this.best){
+    if (!this.best) {
       this.best = this.manatea;
     }
     // --- end picking best --- //
@@ -117,39 +117,39 @@ class Tier45Comparison extends Analyzer {
     this.calculateOthers();
 
     // -- logging for debug --//
-    if(debug){
+    if (debug) {
       console.log(this.manatea);
       console.log(this.sotc);
       console.log(this.lifecycles);
     }
   }
 
-  calculateOthers(){
+  calculateOthers() {
 
-    if(this.sotc !== this.best){
+    if (this.sotc !== this.best) {
       //sotc gives .65% mana per totm stack used so (max mana * .0065) = mana per totm
       //mana from best talent / mana per totom = totm stacks need but gotta round up since you can't have .5 of a totm stack
       this.sotc.requiredTps = Math.ceil(this.best.manaFrom / (this.manaTracker.maxResource * .0065));
     }
 
-    if(this.lifecycles !== this.best){
+    if (this.lifecycles !== this.best) {
       //life cycles reduces mana cost of two spells if you casted the other before hand
       //so best = (x-1) * 3500 * .25 + x * 5200 * .25 = (best + 875) / 2715 = x
       //x-1 since you viv first in all fights
       this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + 875) / 2715);
-      this.lifecycles.requiredVivs = this.lifecycles.requiredEnvs-1;
+      this.lifecycles.requiredVivs = this.lifecycles.requiredEnvs - 1;
     }
 
-    if(this.manatea !== this.best){
-      const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time)/1000;
+    if (this.manatea !== this.best) {
+      const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time) / 1000;
       const manaTeasPossible = (Math.ceil(fightLength / 90) || 1);
-      this.manatea.requiredPerTea = this.best.manaFrom/manaTeasPossible;
+      this.manatea.requiredPerTea = this.best.manaFrom / manaTeasPossible;
     }
   }
 
   //sotc gives mana back while the other two save mana
   //anaylze current play style and see how much mana they would have gained from this talent
-  generateSotc(){
+  generateSotc() {
     const sotcBlackOutKicks = this.abilityTracker.getAbility(SPELLS.BLACKOUT_KICK_TOTM.id).damageHits || 0;
     const manaPercentFromSotc = sotcBlackOutKicks * .0065;
     const rawManaFromSotc = manaPercentFromSotc * this.manaTracker.maxResource;
@@ -157,17 +157,17 @@ class Tier45Comparison extends Analyzer {
   }
 
   //anaylze current play style and see how much mana they would have saved (so average mana per second / total mt time)
-  generateManaTea(){
-    const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time)/1000;
+  generateManaTea() {
+    const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time) / 1000;
     const manaTeasPossible = (Math.ceil(fightLength / 90) || 1);
-    const manaPerTwelve = (this.totalManaSpent/fightLength) * 12;//duration of mana Tea
+    const manaPerTwelve = (this.totalManaSpent / fightLength) * 12;//duration of mana Tea
     const manaPerTea = manaTeasPossible * manaPerTwelve;
     return manaPerTea || 0;
   }
 
   //anaylze current play style and see how much mana they would have saved (so avarage )
   //assume that each env casted has a viv before it and that first viv is not effected
-  generateLifeCycles(){
+  generateLifeCycles() {
     const envCasts = this.abilityTracker.getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
     const vivCasts = this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1;
     const manaDiscountOnViv = Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.resourceCost * LIFECYCLES_MANA_PERC_REDUCTION;
@@ -175,11 +175,11 @@ class Tier45Comparison extends Analyzer {
     return (manaDiscountOnEnv + manaDiscountOnViv) || 0;
   }
 
-  totalManaSpent(){
+  totalManaSpent() {
     let manaSpent = 0;
     let lastMana = this.manaTracker.maxResource;
-    this.manaTracker.resourceUpdates.forEach(function(event){
-      if(event.used !== 0){
+    this.manaTracker.resourceUpdates.forEach(function(event) {
+      if (event.used !== 0) {
         manaSpent += Math.abs(lastMana - event.used);
       }
       lastMana = event.current;
@@ -197,15 +197,14 @@ class Tier45Comparison extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          With your current playstyle you are not using the most effective tier 45 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
-        </>,
-      )
-        .icon(this.best.icon)
-        .actual(`${formatNumber(this.returnedFromSelected)} mana returned through ${this.best.name}`)
-        .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`));
+      <>
+        With your current playstyle you are not using the most effective tier 45 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
+      </>,
+    )
+      .icon(this.best.icon)
+      .actual(`${formatNumber(this.returnedFromSelected)} mana returned through ${this.best.name}`)
+      .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`));
   }
-
 
   statistic() {
     return (
@@ -216,51 +215,50 @@ class Tier45Comparison extends Analyzer {
         label="Tier 45 Comparison"
         tooltip={(
           <>
-          <ul>
-            <li>LC = Life cycles</li>
-            <li>SOTC = Spirit of the Crane</li>
-            <li>MT = mana Tea</li>
-          </ul>
+            <ul>
+              <li>LC = Life cycles</li>
+              <li>SOTC = Spirit of the Crane</li>
+              <li>MT = mana Tea</li>
+            </ul>
           </>
         )}
       >
-      <div className="pad">
-        <div>
-          This is an infographic for tier 45 talents to see what is required to equal the best pick for how you played. This also attempts to calculate the other talents based on how you played for the difference row, for the equals row it shows the requirements in general, ignoring how you played.
-        </div>
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th />
-              <th>LC</th>
-              <th>SOTC</th>
-              <th>MT</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Difference</td>
-              <td>{formatNumber(this.best.manaFrom - this.lifecycles.manaFrom)}</td>
-              <td>{formatNumber(this.best.manaFrom - this.sotc.manaFrom)}</td>
-              <td>{formatNumber(this.best.manaFrom - this.manatea.manaFrom)}</td>
-            </tr>
-            <tr>
-              <td>Equal</td>
-              <td>
-                Viv:{this.lifecycles.requiredVivs}
-                <br />
-                Env:{this.lifecycles.requiredEnvs}
-              </td>
-              <td>Totm Stacks {this.sotc.requiredTps}</td>
-              <td>Mana {formatNumber(this.manatea.requiredPerTea)} per tea</td>
-            </tr>
+        <div className="pad">
+          <div>
+            This is an infographic for tier 45 talents to see what is required to equal the best pick for how you played. This also attempts to calculate the other talents based on how you played for the difference row, for the equals row it shows the requirements in general, ignoring how you played.
+          </div>
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th />
+                <th>LC</th>
+                <th>SOTC</th>
+                <th>MT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Difference</td>
+                <td>{formatNumber(this.best.manaFrom - this.lifecycles.manaFrom)}</td>
+                <td>{formatNumber(this.best.manaFrom - this.sotc.manaFrom)}</td>
+                <td>{formatNumber(this.best.manaFrom - this.manatea.manaFrom)}</td>
+              </tr>
+              <tr>
+                <td>Equal</td>
+                <td>
+                  Viv:{this.lifecycles.requiredVivs}
+                  <br />
+                  Env:{this.lifecycles.requiredEnvs}
+                </td>
+                <td>Totm Stacks {this.sotc.requiredTps}</td>
+                <td>Mana {formatNumber(this.manatea.requiredPerTea)} per tea</td>
+              </tr>
             </tbody>
-         </table>
+          </table>
         </div>
       </TalentStatisticBox>
     );
   }
-
 
 }
 
