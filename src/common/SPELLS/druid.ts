@@ -151,7 +151,7 @@ const spells: SpellList = {
     id: 740,
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',
-    manaCost: 1840,
+    resourceCost: 1840,
   },
   TRANQUILITY_HEAL: {
     id: 157982,
@@ -177,25 +177,25 @@ const spells: SpellList = {
     id: 48438,
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
-    manaCost: 2200,
+    resourceCost: 2200,
   },
   REJUVENATION: {
     id: 774,
     name: 'Rejuvenation',
     icon: 'spell_nature_rejuvenation',
-    manaCost: 1100,
+    resourceCost: 1100,
   },
   REGROWTH: {
     id: 8936,
     name: 'Regrowth',
     icon: 'spell_nature_resistnature',
-    manaCost: 1700,
+    resourceCost: 1700,
   },
   LIFEBLOOM_HOT_HEAL: {
     id: 33763,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
-    manaCost: 800,
+    resourceCost: 800,
   },
   LIFEBLOOM_BLOOM_HEAL: {
     id: 33778,
@@ -211,7 +211,7 @@ const spells: SpellList = {
     id: 145205,
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
-    manaCost: 1700,
+    resourceCost: 1700,
   },
   EFFLORESCENCE_HEAL: {
     id: 81269,
@@ -228,7 +228,7 @@ const spells: SpellList = {
     id: 18562,
     name: 'Swiftmend',
     icon: 'inv_relics_idolofrejuvenation',
-    manaCost: 800,
+    resourceCost: 800,
   },
   ABUNDANCE_BUFF: {
     id: 207640,

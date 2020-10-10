@@ -11,7 +11,7 @@ class HolyWordSalvation extends HolyWordBase {
 
     this.serendipityReduction = 30000;
     this.spellId = SPELLS.HOLY_WORD_SALVATION_TALENT.id;
-    this.manaCost = 6000;
+    this.resourceCost = 6000;
     this.serendipityProccers = {
       [SPELLS.HOLY_WORD_SERENITY.id]: {
         baseReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,

@@ -22,7 +22,7 @@ class SurgeOfLight extends Analyzer {
   freeFlashHealPending = false;
 
   get solManaSaved() {
-    return this.solFlashHeals * SPELLS.FLASH_HEAL.manaCost;
+    return this.solFlashHeals * SPELLS.FLASH_HEAL.resourceCost;
   }
 
   constructor(options: Options) {

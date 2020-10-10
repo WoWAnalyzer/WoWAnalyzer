@@ -45,8 +45,8 @@ class Lifecycles extends Analyzer {
         this.castsNonRedViv += 1;
         return;
       }
-      this.manaSaved += SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
-      this.manaSavedViv += SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
+      this.manaSaved += SPELLS.VIVIFY.resourceCost * LIFECYCLES_MANA_PERC_REDUCTION;
+      this.manaSavedViv += SPELLS.VIVIFY.resourceCost * LIFECYCLES_MANA_PERC_REDUCTION;
       this.castsRedViv += 1;
       debug && console.log('Viv Reduced');
     } else {
@@ -57,8 +57,8 @@ class Lifecycles extends Analyzer {
   envelopingMistCast(event){
     // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
     if (this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
-      this.manaSaved += SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
-      this.manaSavedEnm += SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
+      this.manaSaved += SPELLS.ENVELOPING_MIST.resourceCost * LIFECYCLES_MANA_PERC_REDUCTION;
+      this.manaSavedEnm += SPELLS.ENVELOPING_MIST.resourceCost * LIFECYCLES_MANA_PERC_REDUCTION;
       this.castsRedEnm += 1;
       debug && console.log('ENM Reduced');
     } else {

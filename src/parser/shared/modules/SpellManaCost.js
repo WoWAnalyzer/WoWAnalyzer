@@ -10,7 +10,7 @@ class SpellManaCost extends SpellResourceCost {
   getHardcodedManaCost(event) {
     const spellId = event.ability.guid;
     const spell = SPELLS[spellId];
-    return (spell && spell.manaCost) ? spell.manaCost : null;
+    return (spell && spell.resourceCost) ? spell.resourceCost : null;
   }
 
   getRawResourceCost(event) {
@@ -20,7 +20,7 @@ class SpellManaCost extends SpellResourceCost {
     if (hardcodedCost !== null && actualCost && hardcodedCost !== actualCost) {
       this.incorrectCosts[event.ability.guid] = {
         ...SPELLS[event.ability.guid],
-        manaCost: undefined, // delete if it's set in SPELLS
+        resourceCost: undefined, // delete if it's set in SPELLS
         actualCost: actualCost,
         hardcodedCost: hardcodedCost,
       };

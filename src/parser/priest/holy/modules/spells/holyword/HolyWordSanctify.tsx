@@ -14,7 +14,7 @@ class HolyWordSanctify extends HolyWordBase {
 
     this.serendipityReduction = 6000;
     this.spellId = SPELLS.HOLY_WORD_SANCTIFY.id;
-    this.manaCost = 5000;
+    this.resourceCost = 5000;
     this.serendipityProccers = {
       [SPELLS.PRAYER_OF_HEALING.id]: {
         baseReduction: () => PRAYER_OF_HEALING_SERENDIPITY_REDUCTION,

@@ -17,7 +17,7 @@ const ALL_BOOST = 0.15;
 const ALL_MULT = 1.15;
 const REJUV_BOOST = 0.50;
 const REJUV_MANA_SAVED = 0.30;
-const REJUV_MANA_COST = SPELLS.REJUVENATION.manaCost;
+const REJUV_MANA_COST = SPELLS.REJUVENATION.resourceCost;
 const WG_INCREASE = (8 / 6) - 1;
 const TOL_DURATION = 30000;
 

@@ -10,7 +10,7 @@ class HolyWordBase extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   spellId = 0;
-  manaCost = 0;
+  resourceCost = 0;
   baseCooldown = 60000;
   serendipityReduction = 6000;
   remainingCooldown = 0;
@@ -126,7 +126,7 @@ class HolyWordBase extends Analyzer {
       this.remainingCooldown = this.baseCooldown;
 
       if (this.apotheosisActive) {
-        this.apotheosisManaReduction += this.manaCost;
+        this.apotheosisManaReduction += this.resourceCost;
         this.holyWordApotheosisCasts += 1;
       }
 

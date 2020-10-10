@@ -24,7 +24,7 @@ class LucidDreamsRestoDruid extends LucidDreamsHealers {
   };
 
   _getManaSavedHealing(mana) {
-    return (mana / SPELLS.REJUVENATION.manaCost) * this.rejuvenation.avgRejuvHealing;
+    return (mana / SPELLS.REJUVENATION.resourceCost) * this.rejuvenation.avgRejuvHealing;
   }
 
   statistic() {

@@ -35,7 +35,7 @@ const spells: SpellList = {
     id: 107428,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
-    manaCost: 750,
+    resourceCost: 750,
   },
   ROLL: {
     id: 109132,
@@ -51,7 +51,7 @@ const spells: SpellList = {
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaCost: 500,
+    resourceCost: 500,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -99,7 +99,7 @@ const spells: SpellList = {
     id: 124682,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-    manaCost: 3000,
+    resourceCost: 3000,
   },
   ENVELOPING_MIST_TFT: {
     id: 274062,
@@ -110,7 +110,7 @@ const spells: SpellList = {
     id: 191837,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
-    manaCost: 3600,
+    resourceCost: 3600,
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
@@ -121,13 +121,13 @@ const spells: SpellList = {
     id: 116849,
     name: 'Life Cocoon',
     icon: 'ability_monk_chicocoon',
-    manaCost: 1200,
+    resourceCost: 1200,
   },
   RENEWING_MIST: {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaCost: 1100,
+    resourceCost: 1100,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -138,7 +138,7 @@ const spells: SpellList = {
     id: 115310,
     name: 'Revival',
     icon: 'spell_monk_revival',
-    manaCost: 2187,
+    resourceCost: 2187,
   },
   THUNDER_FOCUS_TEA: {
     id: 116680,
@@ -149,13 +149,13 @@ const spells: SpellList = {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 2050,
+    resourceCost: 2050,
   },
   SOOTHING_MIST: {
     id: 115175,
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
-    manaCost: 200,
+    resourceCost: 200,
   },
   SOOTHING_MIST_STATUE: {
     id: 198533,
@@ -166,7 +166,7 @@ const spells: SpellList = {
     id: 322118,
     name: 'Invoke Yu\'lon, the Jade Serpent',
     icon: 'ability_monk_dragonkick',
-    manaCost: 2500,
+    resourceCost: 2500,
   },
   ENVELOPING_BREATH: {
     id: 325209,
@@ -237,7 +237,7 @@ const spells: SpellList = {
     id: 115450,
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
-    manaCost: 650,
+    resourceCost: 650,
   },
 
   // Brewmaster

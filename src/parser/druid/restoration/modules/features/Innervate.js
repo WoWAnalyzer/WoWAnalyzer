@@ -55,25 +55,25 @@ class Innervate extends Analyzer {
       }
       if (SPELLS.REJUVENATION.id === spellId) {
         if (this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
-          this.manaSaved += SPELLS.REJUVENATION.manaCost * (1 - TOL_REJUVENATION_REDUCTION);
+          this.manaSaved += SPELLS.REJUVENATION.resourceCost * (1 - TOL_REJUVENATION_REDUCTION);
         } else {
-          this.manaSaved += SPELLS.REJUVENATION.manaCost;
+          this.manaSaved += SPELLS.REJUVENATION.resourceCost;
         }
         this.castsUnderInnervate += 1;
         this.rejuvenations += 1;
       }
       if (SPELLS.WILD_GROWTH.id === spellId) {
-        this.manaSaved += SPELLS.WILD_GROWTH.manaCost;
+        this.manaSaved += SPELLS.WILD_GROWTH.resourceCost;
         this.castsUnderInnervate += 1;
         this.wildGrowths += 1;
       }
       if (SPELLS.EFFLORESCENCE_CAST.id === spellId) {
-        this.manaSaved += SPELLS.EFFLORESCENCE_CAST.manaCost;
+        this.manaSaved += SPELLS.EFFLORESCENCE_CAST.resourceCost;
         this.castsUnderInnervate += 1;
         this.efflorescences += 1;
       }
       if (SPELLS.CENARION_WARD_TALENT.id === spellId) {
-        this.manaSaved += SPELLS.CENARION_WARD_TALENT.manaCost;
+        this.manaSaved += SPELLS.CENARION_WARD_TALENT.resourceCost;
         this.castsUnderInnervate += 1;
         this.cenarionWards += 1;
       }
@@ -81,23 +81,23 @@ class Innervate extends Analyzer {
         if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
           this.freeRegrowths += 1;
         } else {
-          this.manaSaved += SPELLS.REGROWTH.manaCost;
+          this.manaSaved += SPELLS.REGROWTH.resourceCost;
         }
         this.castsUnderInnervate += 1;
         this.regrowths += 1;
       }
       if (SPELLS.LIFEBLOOM_HOT_HEAL.id === spellId) {
-        this.manaSaved += SPELLS.LIFEBLOOM_HOT_HEAL.manaCost;
+        this.manaSaved += SPELLS.LIFEBLOOM_HOT_HEAL.resourceCost;
         this.castsUnderInnervate += 1;
         this.lifeblooms += 1;
       }
       if (SPELLS.SWIFTMEND.id === spellId) {
-        this.manaSaved += SPELLS.SWIFTMEND.manaCost;
+        this.manaSaved += SPELLS.SWIFTMEND.resourceCost;
         this.castsUnderInnervate += 1;
         this.swiftmends += 1;
       }
       if (SPELLS.TRANQUILITY_CAST.id === spellId) {
-        this.manaSaved += SPELLS.TRANQUILITY_CAST.manaCost;
+        this.manaSaved += SPELLS.TRANQUILITY_CAST.resourceCost;
         this.castsUnderInnervate += 1;
         this.tranquilities += 1;
       }

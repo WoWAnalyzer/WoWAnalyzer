@@ -12,7 +12,7 @@ class HolyWordSerenity extends HolyWordBase {
     super(options);
 
     this.spellId = SPELLS.HOLY_WORD_SERENITY.id;
-    this.manaCost = 4000;
+    this.resourceCost = 4000;
     this.serendipityProccers = {
       [SPELLS.GREATER_HEAL.id]: {
         baseReduction: () => GREATER_HEAL_SERENDIPITY_REDUCTION,

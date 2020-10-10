@@ -82,7 +82,7 @@ class HealingEfficiencyTracker extends Analyzer {
     for (const index in this.abilities.abilities) {
       const ability = this.abilities.abilities[index];
 
-      if (ability.spell && ability.spell.manaCost && ability.spell.manaCost > 0) {
+      if (ability.spell && ability.spell.resourceCost && ability.spell.resourceCost > 0) {
         if (includeCooldowns || ability.category !== 'Cooldown') {
           spells[ability.spell.id] = this.getSpellStats(ability.spell.id, ability.healSpellIds);
 
