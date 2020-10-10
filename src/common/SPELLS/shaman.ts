@@ -667,7 +667,11 @@ const spells: SpellList = {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
+<<<<<<< HEAD
     manaCost: 300,
+=======
+    manaCost: 1500,
+>>>>>>> 94da45d1c... [Core] Remove castTime from the Spell type and add it to constant file where used
   },
   HEALING_SURGE: {
     id: 8004,
