@@ -8,47 +8,54 @@ import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import rankingColor from 'common/getRankingColor';
 import StatisticBar from 'interface/statistics/StatisticBar';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Tooltip from 'common/Tooltip';
 import FlushLineChart from 'interface/others/FlushLineChart';
+import Events, { AbsorbedEvent, DamageEvent } from 'parser/core/Events';
 
 import DamageValue from '../DamageValue';
 
+const IGNORED_ABILITIES = [
+  SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id,
+];
+
 class DamageTaken extends Analyzer {
-  static IGNORED_ABILITIES = [
-    SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id,
-  ];
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamage);
+  }
 
   _total = new DamageValue(); // consider this "protected", so don't change this from other modules. If you want special behavior you must add that code to an extended version of this module.
   get total() {
     return this._total;
   }
 
-  bySecond = {};
+  bySecond: { [secondsIntoFight: number]: DamageValue } = {};
 
-  _byAbility = {};
-  byAbility(spellId) {
+  _byAbility: { [spellId: number]: DamageValue } = {};
+  byAbility(spellId: number) {
     if (!this._byAbility[spellId]) {
       return new DamageValue();
     }
     return this._byAbility[spellId];
   }
 
-  _byMagicSchool = {};
-  byMagicSchool(magicSchool) {
+  _byMagicSchool: { [magicSchool: number]: DamageValue } = {};
+  byMagicSchool(magicSchool: number) {
     if (!this._byMagicSchool[magicSchool]) {
       return new DamageValue();
     }
     return this._byMagicSchool[magicSchool];
   }
 
-  on_toPlayer_damage(event) {
+  _onDamage(event: DamageEvent) {
     this._addDamage(event, event.amount, event.absorbed, event.blocked, event.overkill);
   }
 
-  _addDamage(event, amount = 0, absorbed = 0, blocked = 0, overkill = 0, ability = event.ability) {
+  _addDamage(event: DamageEvent | AbsorbedEvent, amount = 0, absorbed = 0, blocked = 0, overkill = 0, ability = event.ability) {
     const spellId = ability.guid;
-    if (this.constructor.IGNORED_ABILITIES.includes(spellId)) {
+    if (IGNORED_ABILITIES.includes(spellId)) {
       // Some player abilities (mostly of healers) cause damage as a side-effect, these shouldn't be included in the damage taken.
       return;
     }
@@ -70,7 +77,7 @@ class DamageTaken extends Analyzer {
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || new DamageValue()).add(amount, absorbed, blocked, overkill);
   }
-  _subtractDamage(event, amount = 0, absorbed = 0, blocked = 0, overkill = 0, ability = event.ability) {
+  _subtractDamage(event: DamageEvent | AbsorbedEvent, amount = 0, absorbed = 0, blocked = 0, overkill = 0, ability = event.ability) {
     return this._addDamage(event, -amount, -absorbed, -blocked, -overkill, ability);
   }
 
@@ -88,6 +95,7 @@ class DamageTaken extends Analyzer {
         <strong>Damage taken by magic school:</strong>
         <ul>
           {Object.keys(this._byMagicSchool)
+            .map(Number)
             .filter(type => this._byMagicSchool[type].effective !== 0)
             .map(type => (
               <li key={type}>
@@ -106,7 +114,7 @@ class DamageTaken extends Analyzer {
       return null;
     }
 
-    const data = Object.entries(this.bySecond).map(([sec, val]) => ({'time': sec, 'val': val.effective}));
+    const data = Object.entries(this.bySecond).map(([sec, val]) => ({ 'time': sec, 'val': val.effective }));
 
     const perSecond = this.total.effective / this.owner.fightDuration * 1000;
     const wclUrl = makeWclUrl(this.owner.report.code, {
@@ -119,6 +127,8 @@ class DamageTaken extends Analyzer {
       <StatisticBar
         position={STATISTIC_ORDER.CORE(3)}
         ultrawide
+        wide={false}
+        large={false}
         style={{ marginBottom: 0, overflow: 'hidden' }} // since this is in a group, reducing margin should be fine
       >
         <div className="flex">

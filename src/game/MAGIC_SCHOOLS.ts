@@ -1,4 +1,9 @@
-export default {
+
+
+const MAGIC_SCHOOLS: { 
+  names: { [id: number]: string }, 
+  ids: { [name: string]: number } 
+} = {
   names: {
     1: 'Physical',
     2: 'Holy',
@@ -28,3 +33,5 @@ export default {
     ARCANE: 64,
   },
 };
+
+export default MAGIC_SCHOOLS;
