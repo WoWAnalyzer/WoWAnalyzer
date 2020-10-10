@@ -8,6 +8,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { findByBossId } from 'raids/index';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const VALOR_BUFFER_TIME = 100;
 const VALOR_GAIN_THRESHOLD = 2000;
@@ -204,7 +206,7 @@ class ShieldOfTheRighteous extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>{formatPercentage(actual)}% of your <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts were <em>good</em> (they mitigated at least 2 auto-attacks or 1 tankbuster, or prevented capping charges). You should have Shield of the Righteous up to mitigate as much physical damage as possible.</>)
           .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
-          .actual(`${formatPercentage(actual)}% good Shield of the Righteous casts`)
+          .actual(i18n._(t('paladin.protection.suggestions.shieldOfTheRighteous.goodCasts')`${formatPercentage(actual)}% good Shield of the Righteous casts`))
           .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`));
   }
 
