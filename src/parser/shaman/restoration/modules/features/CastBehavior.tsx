@@ -12,6 +12,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { Trans } from '@lingui/macro';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
+import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';
 
 class CastBehavior extends Analyzer {
   static dependencies = {
@@ -37,19 +38,19 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: SPELLS.HEALING_WAVE.color,
+        color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
         spellId: SPELLS.HEALING_WAVE.id,
         value: twHealingWaves,
       },
       {
-        color: SPELLS.HEALING_SURGE.color,
+        color: RESTORATION_COLORS.HEALING_SURGE,
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE.id,
         value: twHealingSurges,
       },
       {
-        color: '#CC3D20',
+        color: RESTORATION_COLORS.UNUSED,
         label: <Trans id="shaman.restoration.castBehaviour.unusedTW">Unused Tidal Waves</Trans>,
         tooltip: <Trans id="shaman.restoration.castBehaviour.unusedTW.tooltip">The amount of Tidal Waves you did not use out of the total available. You cast {riptideCasts} Riptides and {chainHealCasts} Chain Heals which gave you {totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.</Trans>,
         value: unusedTw,
@@ -76,13 +77,13 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: SPELLS.HEALING_WAVE.color,
+        color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
         spellId: SPELLS.HEALING_WAVE.id,
         value: fillerHealingWaves,
       },
       {
-        color: SPELLS.HEALING_SURGE.color,
+        color: RESTORATION_COLORS.HEALING_SURGE,
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE.id,
         value: fillerHealingSurges,

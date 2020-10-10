@@ -12,6 +12,7 @@ import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
+import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';
 
 const FLASH_FLOOD_HASTE = 0.2;
 const BUFFER_MS = 50;
@@ -19,6 +20,7 @@ const BUFFER_MS = 50;
 interface FlashFloodInfo {
   [SpellID: number]: FlashFloodSpell
 }
+
 interface FlashFloodSpell {
   timesBuffed: number,
   timeSaved: number,
@@ -127,28 +129,28 @@ class FlashFlood extends Analyzer {
     );
     const items = [
       {
-        color: SPELLS.CHAIN_HEAL.color,
+        color: RESTORATION_COLORS.CHAIN_HEAL,
         label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
         spellId: SPELLS.CHAIN_HEAL.id,
         value: this.spellsConsumingFlashFlood[SPELLS.CHAIN_HEAL.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.CHAIN_HEAL.id]),
       },
       {
-        color: SPELLS.HEALING_WAVE.color,
+        color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
         spellId: SPELLS.HEALING_WAVE.id,
         value: this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id]),
       },
       {
-        color: SPELLS.HEALING_SURGE.color,
+        color: RESTORATION_COLORS.HEALING_SURGE,
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE.id,
         value: this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE.id]),
       },
       {
-        color: SPELLS.RIPTIDE.color,
+        color: RESTORATION_COLORS.RIPTIDE,
         label: <Trans id="shaman.restoration.spell.healingRain">Healing Rain</Trans>,
         spellId: SPELLS.HEALING_RAIN_CAST.id,
         value: this.spellsConsumingFlashFlood[SPELLS.HEALING_RAIN_CAST.id].timeSaved,

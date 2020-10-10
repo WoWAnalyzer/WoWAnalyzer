@@ -13,6 +13,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { Trans } from '@lingui/macro';
+import { CHAIN_HEAL_COEFFICIENT, HIGH_TIDE_COEFFICIENT } from 'parser/shaman/restoration/constants';
 
 const HEAL_WINDOW_MS = 150;
 const bounceReduction = 0.7;
@@ -144,7 +145,7 @@ class HighTide extends Analyzer {
     for (const [index, event] of Object.entries(this.buffer)) {
       // 20%, 71%, 145%, 250% increase per hit over not having High Tide
       const i = parseInt(index); // why is it a string tho
-      const FACTOR_CONTRIBUTED_BY_HT_HIT = (SPELLS.HIGH_TIDE_BUFF.coefficient) / (SPELLS.CHAIN_HEAL.coefficient * bounceReduction ** i) - 1;
+      const FACTOR_CONTRIBUTED_BY_HT_HIT = (HIGH_TIDE_COEFFICIENT) / (CHAIN_HEAL_COEFFICIENT * bounceReduction ** i) - 1;
 
       this.healing += calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT);
       debug && this.log(`HT: ${this.owner.formatTimestamp(event.timestamp)} ${event.amount + (event.overheal || 0)} - ${FACTOR_CONTRIBUTED_BY_HT_HIT} - ${calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT)}`);

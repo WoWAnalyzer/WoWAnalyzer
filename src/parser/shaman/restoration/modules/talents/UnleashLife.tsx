@@ -16,6 +16,7 @@ import Events, { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Event
 import { Trans } from '@lingui/macro';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';
 
 const UNLEASH_LIFE_HEALING_INCREASE = 0.35;
 const BUFFER_MS = 200;
@@ -25,11 +26,13 @@ const debug = false;
 interface HealingBuffInfo {
   [SpellID: number]: HealingBuffHot | HealingBuff
 }
+
 interface HealingBuffHot {
   healing: number,
   castAmount: number,
   playersActive: number[]
 }
+
 interface HealingBuff {
   healing: number,
   castAmount: number
@@ -95,7 +98,7 @@ class UnleashLife extends Analyzer {
     }
 
     if (this.unleashLifeHealRemaining > 0 && (this.lastUnleashLifeTimestamp + UNLEASH_LIFE_DURATION) <= event.timestamp) {
-      debug && console.log("Heal Timed out", event.timestamp);
+      debug && console.log('Heal Timed out', event.timestamp);
       this.unleashLifeHealRemaining = 0;
     }
 
@@ -115,12 +118,12 @@ class UnleashLife extends Analyzer {
     if (this.unleashLifeHealRemaining > 0 && ((spellId === SPELLS.HEALING_WAVE.id) || (spellId === SPELLS.HEALING_SURGE.id) || (spellId === SPELLS.RIPTIDE.id && !event.tick))) {
       this.healingBuff[spellId].healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
       this.unleashLifeHealRemaining = 0;
-      debug && console.log("Heal:", spellId);
+      debug && console.log('Heal:', spellId);
 
       // I had to move the HoT application to the heal event as the buffapply event had too many false positives
       if (spellId === SPELLS.RIPTIDE.id) {
         (this.healingBuff[spellId] as HealingBuffHot).playersActive.push(event.targetID);
-        debug && console.log("HoT Applied:", spellId, event.targetID);
+        debug && console.log('HoT Applied:', spellId, event.targetID);
       }
 
       // Chain heal has up to 4 events, setting the variable to -1 to indicate that there might be more events coming
@@ -128,10 +131,9 @@ class UnleashLife extends Analyzer {
       this.healingBuff[spellId].healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
       this.unleashLifeHealRemaining = -1;
       this.buffedChainHealTimestamp = event.timestamp;
-      debug && console.log("Heal:", spellId);
+      debug && console.log('Heal:', spellId);
     }
   }
-
 
   _onCast(event: CastEvent) {
     const spellId = event.ability.guid;
@@ -140,12 +142,12 @@ class UnleashLife extends Analyzer {
       this.unleashLifeCasts += 1;
       this.unleashLifeRemaining = true;
       this.lastUnleashLifeTimestamp = event.timestamp;
-      debug && console.log("New Unleash", event.timestamp);
+      debug && console.log('New Unleash', event.timestamp);
     }
 
     if (this.unleashLifeRemaining && (this.lastUnleashLifeTimestamp + UNLEASH_LIFE_DURATION) <= event.timestamp) {
       this.unleashLifeRemaining = false;
-      debug && console.log("Cast Timed out", event.timestamp);
+      debug && console.log('Cast Timed out', event.timestamp);
       return;
     }
 
@@ -153,7 +155,7 @@ class UnleashLife extends Analyzer {
       if (this.healingBuff[spellId]) {
         this.healingBuff[spellId].castAmount += 1;
         this.unleashLifeRemaining = false;
-        debug && console.log("Cast:", spellId);
+        debug && console.log('Cast:', spellId);
       }
     }
   }
@@ -180,31 +182,31 @@ class UnleashLife extends Analyzer {
 
     const items = [
       {
-        color: SPELLS.CHAIN_HEAL.color,
+        color: RESTORATION_COLORS.CHAIN_HEAL,
         label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
         spellId: SPELLS.CHAIN_HEAL.id,
         value: this.healingBuff[SPELLS.CHAIN_HEAL.id].castAmount,
       },
       {
-        color: SPELLS.HEALING_WAVE.color,
+        color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
         spellId: SPELLS.HEALING_WAVE.id,
         value: this.healingBuff[SPELLS.HEALING_WAVE.id].castAmount,
       },
       {
-        color: SPELLS.HEALING_SURGE.color,
+        color: RESTORATION_COLORS.HEALING_SURGE,
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE.id,
         value: this.healingBuff[SPELLS.HEALING_SURGE.id].castAmount,
       },
       {
-        color: SPELLS.RIPTIDE.color,
+        color: RESTORATION_COLORS.RIPTIDE,
         label: <Trans id="shaman.restoration.spell.riptide">Riptide</Trans>,
         spellId: SPELLS.RIPTIDE.id,
         value: this.healingBuff[SPELLS.RIPTIDE.id].castAmount,
       },
       {
-        color: '#CC3D20',
+        color: RESTORATION_COLORS.UNUSED,
         label: <Trans id="shaman.restoration.unleashLife.chart.unused.label">Unused Buffs</Trans>,
         tooltip: <Trans id="shaman.restoration.unleashLife.chart.unused.label.tooltip">The amount of Unleash Life buffs you did not use out of the total available. You cast {this.unleashLifeCasts} Unleash Lifes, of which you used {this.totalUses}.</Trans>,
         value: unusedUL,
