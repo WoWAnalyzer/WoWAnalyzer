@@ -47,7 +47,6 @@ class MasterOfTheElements extends Analyzer {
   moteActivationTimestamp: number|null = null;
   moteConsumptionTimestamp: number|null = null;
   damageGained: number = 0;
-  bugCheckNecessary: boolean = false;
 
   constructor(options: Options) {
     super(options);
@@ -66,11 +65,11 @@ class MasterOfTheElements extends Analyzer {
   }
 
   _onCast(event: CastEvent){
-    if(this.moteActivationTimestamp===null){ //the buff is a clusterfuck so we just track it manually
+    if(this.moteActivationTimestamp === null){ //the buff is a clusterfuck so we just track it manually
       return;
     }
-    this.moteConsumptionTimestamp=event.timestamp;
-    this.moteActivationTimestamp=null;
+    this.moteConsumptionTimestamp = event.timestamp;
+    this.moteActivationTimestamp = null;
     event.meta = event.meta || {};
     event.meta.isEnhancedCast = true;
     this.moteBuffedAbilities[event.ability.guid] += 1;
@@ -79,12 +78,13 @@ class MasterOfTheElements extends Analyzer {
 
   _onLvBCast(event: CastEvent){
     this.moteActivationTimestamp = event.timestamp;
-    this.bugCheckNecessary = true;
   }
 
   _onDamage(event: DamageEvent){
-    if (event.timestamp < (this.moteConsumptionTimestamp || 0)
-      || event.timestamp>(this.moteConsumptionTimestamp ||0) +MASTER_OF_THE_ELEMENTS.WINDOW_DURATION){
+    if (event.timestamp < (this.moteConsumptionTimestamp || 0)) {
+      return;
+    }
+    if (event.timestamp>(this.moteConsumptionTimestamp || Infinity) +MASTER_OF_THE_ELEMENTS.WINDOW_DURATION){
       return;
     }
     this.damageGained += calculateEffectiveDamage(event, MASTER_OF_THE_ELEMENTS.INCREASE);
