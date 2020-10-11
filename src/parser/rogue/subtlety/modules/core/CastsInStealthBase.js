@@ -1,6 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -34,7 +36,7 @@ class CastsInStealthBase extends Analyzer {
     when(thresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={spell.id} /> during {this.stealthCondition}. </>)
           .icon(spell.icon)
-          .actual(`${actual} ${spell.name} casts`)
+          .actual(i18n._(t('rogue.subtlety.suggestions.castsInStealth.casts')`${actual} ${spell.name} casts`))
           .recommended(`${recommended} is recommended`));
   }
 
