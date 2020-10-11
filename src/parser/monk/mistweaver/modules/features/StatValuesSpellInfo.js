@@ -102,8 +102,8 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.LIFE_COCOON.id]: {
-    int: true,
+  [SPELLS.LIFE_COCOON.id]: {//life cocoon scales off of hp
+    int: false,
     crit: false,
     hasteHpm: false,
     hasteHpct: false,

@@ -10,7 +10,6 @@ import Torrent from './Torrent';
 import UnleashLife from './UnleashLife';
 import Undulation from './Undulation';
 import Deluge from './Deluge';
-import EarthShield from './EarthShield';
 import EarthenWallTotem from './EarthenWallTotem';
 import NaturesGuardian from './NaturesGuardian';
 import Downpour from './Downpour';
@@ -26,7 +25,6 @@ class TalentStatisticBox extends Analyzer {
     unleashLife: UnleashLife,
     undulation: Undulation,
     deluge: Deluge,
-    earthShield: EarthShield,
     earthenWallTotem: EarthenWallTotem,
     naturesGuardian: NaturesGuardian,
     downpour: Downpour,
@@ -35,6 +33,18 @@ class TalentStatisticBox extends Analyzer {
     wellspring: Wellspring,
     highTide: HighTide,
   };
+
+  protected torrent!: Torrent;
+  protected unleashLife!: UnleashLife;
+  protected undulation!: Undulation;
+  protected deluge!: Deluge;
+  protected earthenWallTotem!: EarthenWallTotem;
+  protected naturesGuardian!: NaturesGuardian;
+  protected downpour!: Downpour;
+  protected cloudburstTotem!: CloudburstTotem;
+  protected ascendance!: Ascendance;
+  protected wellspring!: Wellspring;
+  protected highTide!: HighTide;
 
   statistic() {
     return (
@@ -50,13 +60,13 @@ class TalentStatisticBox extends Analyzer {
         )}
         position={STATISTIC_ORDER.CORE(1)}
         category={STATISTIC_CATEGORY.TALENTS}
+        bodyStyle={{}} // idk
       >
         <div style={{ borderBottom: 0, marginBottom: 0, paddingBottom: 0 }} />
         {this.selectedCombatant.hasTalent(SPELLS.TORRENT_TALENT.id) ? this.torrent.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id) ? this.unleashLife.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.UNDULATION_TALENT.id) ? this.undulation.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id) ? this.deluge.subStatistic() : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id) ? this.earthShield.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) ? this.earthenWallTotem.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id) ? this.naturesGuardian.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id) ? this.downpour.subStatistic() : ''}

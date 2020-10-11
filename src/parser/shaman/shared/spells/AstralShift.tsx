@@ -6,14 +6,21 @@ import { formatThousands, formatNumber } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 const ASTRAL_SHIFT_DR = 0.4;
 
 class AstralShift extends Analyzer {
   damageReduced = 0;
 
-  on_toPlayer_damage(event) {
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);
+  }
+
+  damageTaken(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.ASTRAL_SHIFT.id)) {
       return;
     }

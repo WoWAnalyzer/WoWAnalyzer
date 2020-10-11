@@ -4,13 +4,13 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
 import CoreHealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+import EarthShield from 'parser/shaman/shared/talents/EarthShield';
 import SPELLS from 'common/SPELLS';
 
 import HealingDone from './HealingDone';
 import Resurgence from '../spells/Resurgence';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 import UnleashLife from '../talents/UnleashLife';
-import EarthShield from '../talents/EarthShield';
 
 class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   static dependencies = {
@@ -34,7 +34,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
       this.getUnleashLifeDetails(spellInfo);
     } else if (this.unleashLife.healingBuff[spellId]) {
       this.getUnleashLifeBuffDetails(spellInfo, spellId);
-    } else if (spellId === SPELLS.EARTH_SHIELD_TALENT.id) {
+    } else if (spellId === SPELLS.EARTH_SHIELD.id) {
       this.getEarthShieldBuffDetails(spellInfo);
     } else if (spellId === SPELLS.LAVA_BURST.id) {
       this.getLavaBurstDamageDetails(spellInfo);
