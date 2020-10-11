@@ -389,6 +389,7 @@ export interface ApplyDebuffStackEvent extends BuffEvent<EventType.ApplyDebuffSt
   sourceID: number;
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
+  targetInstance?: number;
   stack: number;
 }
 
@@ -434,6 +435,7 @@ export interface RemoveDebuffStackEvent extends BuffEvent<EventType.RemoveDebuff
   sourceID: number;
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
+  targetInstance?: number;
   stack: number;
 }
 

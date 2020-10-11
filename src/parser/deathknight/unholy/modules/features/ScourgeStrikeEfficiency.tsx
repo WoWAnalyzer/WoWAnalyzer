@@ -5,40 +5,49 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { ApplyDebuffStackEvent, RemoveDebuffStackEvent, RemoveDebuffEvent, CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { When } from 'parser/core/ParseResults';
 
 class FesteringStrikeEfficiency extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-  constructor(...args) {
-    super(...args);
+
+  protected enemies!: Enemies;
+
+  constructor(options: Options) {
+    super(options);
     this.activeSpell = this.selectedCombatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id) ? SPELLS.CLAWING_SHADOWS_TALENT : SPELLS.SCOURGE_STRIKE;
 
     this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onWoundApply);
     this.addEventListener(Events.removedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onWoundRemove);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onWoundRemove);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onAllWoundRemove);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this.onCast);
   }
-  // used to track how many stacks a target has
-  targets = {};
 
+  activeSpell: any;
+  // used to track how many stacks a target has
+  targets: { [key: string]: number } = {};
   totalCasts = 0;
   zeroWoundCasts = 0;
 
-  onWoundApply(event){
-		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
+  onWoundApply(event: ApplyDebuffStackEvent){
+		this.targets[encodeTargetString(event.targetID, undefined)] = event.stack;
   }
 
-  onWoundRemove(event){
-		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack || 0;
+  onWoundRemove(event: RemoveDebuffStackEvent){
+		this.targets[encodeTargetString(event.targetID, undefined)] = event.stack;
   }
 
-  onCast(event){
+  onAllWoundRemove(event: RemoveDebuffEvent){
+    this.targets[encodeTargetString(event.targetID, event.targetInstance)] = 0;
+  }
+
+  onCast(event: CastEvent){
     this.totalCasts += 1;
     if(this.targets[encodeTargetString(event.targetID, event.targetInstance)]){
       const currentTargetWounds = this.targets[encodeTargetString(event.targetID, event.targetInstance)];
@@ -50,7 +59,7 @@ class FesteringStrikeEfficiency extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     const percentCastZeroWounds = this.zeroWoundCasts/this.totalCasts;
     const strikeEfficiency = 1 - percentCastZeroWounds;
     when(strikeEfficiency).isLessThan(0.80)

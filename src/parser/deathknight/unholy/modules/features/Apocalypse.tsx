@@ -5,7 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
+import { When } from 'parser/core/ParseResults';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -14,17 +15,19 @@ class Apocalypse extends Analyzer {
     enemies: EnemyInstances,
   };
 
+  protected enemies!: EnemyInstances;
+
   totalApocalypseCasts = 0;
   apocalypseWoundsPopped = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.APOCALYPSE), this.onCast);
   }
 
   //Logic that both counts the amount of Apocalypse cast by the player, as well as the amount of wounds popped by those apocalypse.
-  onCast(event) {
+  onCast(event: CastEvent) {
     this.totalApocalypseCasts += 1;
     const target = this.enemies.getEntity(event);
     const currentTargetWounds = target && target.hasBuff(SPELLS.FESTERING_WOUND.id) ? target.getBuff(SPELLS.FESTERING_WOUND.id).stacks : 0;
@@ -35,7 +38,7 @@ class Apocalypse extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     const averageWoundsPopped = Number((this.apocalypseWoundsPopped / this.totalApocalypseCasts).toFixed(1));
     //Getting 6 wounds on every Apocalypse isn't difficult and should be expected
     when(averageWoundsPopped).isLessThan(4)
