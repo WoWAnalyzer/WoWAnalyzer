@@ -532,7 +532,9 @@ class Combatant extends Entity {
           type: 0,
         },
         sourceID: buff.source,
+        sourceIsFriendly: true,
         targetID: this.id,
+        targetIsFriendly: true,
         start: timestamp,
       });
     });

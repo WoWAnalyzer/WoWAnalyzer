@@ -313,6 +313,7 @@ class SpellUsable extends Analyzer {
       maxCharges,
       timePassed: cooldown ? timestamp - cooldown.start : undefined,
       sourceID: this.owner.playerId,
+      targetIsFriendly: true,
       targetID: this.owner.playerId,
       // __fabricated is technically added in eventemitter, but it makes typing much simpler to add it here
       __fabricated: true,
