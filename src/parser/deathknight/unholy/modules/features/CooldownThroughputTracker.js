@@ -12,15 +12,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
   ];
-
-  trackEvent(event) {
-    this.activeCooldowns = this.activeCooldowns.filter(cooldown => !cooldown.end || event.timestamp < cooldown.end);
-    super.trackEvent(event);
-  }
-
-  on_byPlayerPet_damage(event) {
-    this.trackEvent(event);
-  }
 }
 
 export default CooldownThroughputTracker;
