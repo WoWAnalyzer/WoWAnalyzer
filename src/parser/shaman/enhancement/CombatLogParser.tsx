@@ -22,7 +22,7 @@ import ForcefulWinds from './modules/talents/ForcefulWinds';
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import EarthShield from '../shared/talents/EarthShield';
 import StaticCharge from '../shared/talents/StaticCharge';
-// import Hailstorm from './modules/talents/Hailstorm';
+import Hailstorm from './modules/talents/Hailstorm';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import Sundering from './modules/talents/Sundering';
@@ -65,7 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     earthShield: EarthShield,
     staticCharge: StaticCharge,
     //elementalAssault: ElementalAssault,
-    //hailstorm: Hailstorm,
+    hailstorm: Hailstorm,
     //fireNova: FireNova,
     naturesGuardian: NaturesGuardian,
     crashingStorm: CrashingStorm,
