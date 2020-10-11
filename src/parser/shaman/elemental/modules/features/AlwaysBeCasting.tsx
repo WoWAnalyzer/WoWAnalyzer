@@ -19,7 +19,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your downtime can be improved. If you need to move use <SpellLink id={SPELLS.FLAME_SHOCK.id} />, <SpellLink id={SPELLS.EARTH_SHOCK.id}/> or <SpellLink id={SPELLS.FROST_SHOCK.id} /></>)
       .icon('spell_mage_altertime')
       .actual(`${formatPercentage(1 - actual)}% downtime`)
       .recommended(`<${formatPercentage(1 - recommended)}% is recommended`));

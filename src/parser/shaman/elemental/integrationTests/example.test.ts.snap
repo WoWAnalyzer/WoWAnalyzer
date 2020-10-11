@@ -4613,203 +4613,6 @@ exports[`Elemental Shaman integration test: example log MasterOfTheElements matc
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log Overload matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=168534"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Elemental Overload"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_nature_lightningoverload.jpg"
-            />
-          </a>
-           
-          Overload procs
-        </label>
-        <div
-          className="value"
-        >
-          <ul
-            style={
-              Object {
-                "listStyle": "none",
-                "paddingLeft": 0,
-              }
-            }
-          >
-            <li>
-              <a
-                href="http://wowhead.com/spell=77451"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt="Lava Burst Overload"
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_shaman_lavaburst.jpg"
-                  style={
-                    Object {
-                      "height": "1.3em",
-                      "marginTop": "-.1em",
-                    }
-                  }
-                />
-              </a>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": "0.5em",
-                    "textAlign": "left",
-                  }
-                }
-              >
-                0
-                 / 
-              </span>
-            </li>
-            <li>
-              <a
-                href="http://wowhead.com/spell=45284"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt="Lightning Bolt Overload"
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_nature_lightning.jpg"
-                  style={
-                    Object {
-                      "height": "1.3em",
-                      "marginTop": "-.1em",
-                    }
-                  }
-                />
-              </a>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": "0.5em",
-                    "textAlign": "left",
-                  }
-                }
-              >
-                10
-                 / 
-                27
-              </span>
-            </li>
-            <li>
-              <a
-                href="http://wowhead.com/spell=45297"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt="Chain Lightning Overload"
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_nature_chainlightning.jpg"
-                  style={
-                    Object {
-                      "height": "1.3em",
-                      "marginTop": "-.1em",
-                    }
-                  }
-                />
-              </a>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": "0.5em",
-                    "textAlign": "left",
-                  }
-                }
-              >
-                22
-                 / 
-                23
-              </span>
-            </li>
-            <li>
-              <a
-                href="http://wowhead.com/spell=219271"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt="Icefury Overload"
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_frost_iceshard.jpg"
-                  style={
-                    Object {
-                      "height": "1.3em",
-                      "marginTop": "-.1em",
-                    }
-                  }
-                />
-              </a>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": "0.5em",
-                    "textAlign": "left",
-                  }
-                }
-              >
-                2
-                 / 
-                8
-              </span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Elemental Shaman integration test: example log OverwhelmingPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -5467,7 +5270,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "85.48418199271332%",
+                  "width": "78.22627298906997%",
                 }
               }
             />
@@ -5525,7 +5328,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
             className="col-md-12"
           >
             Using your core abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible, unless you need to save them for a priority burst phase that is coming up soon.
-             
+             
             <a
               href="https://stormearthandlava.com/guide/general/priority_list.html"
               rel="noopener noreferrer"
@@ -5538,78 +5341,6 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
         <div
           className="row"
         >
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  href="http://wowhead.com/spell=198067"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_fire_elemental_totem.jpg"
-                  />
-                   
-                  Fire Elemental
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  100.00%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
           <div
             className="col-md-6"
           >
@@ -5759,7 +5490,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -5783,8 +5514,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "76.5184335902511%",
+                  "backgroundColor": "#df7102",
+                  "width": "44.10001829508857%",
                 }
               }
             />
@@ -5953,9 +5684,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "93.15528823313379%",
+                        "width": "28.318457642808703%",
                       }
                     }
                   />
@@ -6574,7 +6305,6 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
       </div>
     </div>
   </li>
-  
   <li
     className="expandable expanded failed"
   >
