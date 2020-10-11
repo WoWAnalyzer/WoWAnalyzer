@@ -75,11 +75,12 @@ class CarefulAim extends ExecuteHelper {
     const spellId = event.ability.guid;
     const healthPercent = event.hitPoints && event.maxHitPoints && event.hitPoints / event.maxHitPoints;
     const targetID = event.targetID;
-    let target;
+    let target: string;
     const outsideCarefulAim = healthPercent && healthPercent < CAREFUL_AIM_THRESHOLD;
     if (event.maxHitPoints && this.bossIDs.includes(targetID)) {
-      const enemy = this.enemies.getEntity(event);
-      target = enemy && enemy.name && abbreviateBossNames(enemy.name);
+      // I believe we can assume this is not null because otherwise it wouldn't be in this.bossIDs?
+      const enemy = this.enemies.getEntity(event)!;
+      target = abbreviateBossNames(enemy.name);
       if (!this.carefulAimPeriods[target]) {
         this.carefulAimPeriods[target] = {
           caDamage: 0,

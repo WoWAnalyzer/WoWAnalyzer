@@ -342,13 +342,13 @@ export interface DamageEvent extends Event<EventType.Damage> {
 export interface BuffEvent<T extends string> extends Event<T> {
   ability: Ability;
   targetID: number;
+  targetIsFriendly: boolean;
   sourceID?: number;
+  sourceIsFriendly: boolean;
 }
 
 export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {
   // confirmed that not all applybuff events contain a sourceID; e.g. wind rush from totem
-  sourceIsFriendly: boolean;
-  targetIsFriendly: boolean;
   targetInstance?: number;
   absorb?: number;
   __fromCombatantinfo?: boolean;
@@ -356,8 +356,6 @@ export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {
 
 export interface ApplyDebuffEvent extends BuffEvent<EventType.ApplyDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
-  sourceIsFriendly: boolean;
-  targetIsFriendly: boolean;
   targetInstance?: number;
   absorb?: number;
   __fromCombatantinfo?: boolean;
@@ -365,38 +363,28 @@ export interface ApplyDebuffEvent extends BuffEvent<EventType.ApplyDebuff> {
 
 export interface RemoveBuffEvent extends BuffEvent<EventType.RemoveBuff> {
   sourceID: number;
-  sourceIsFriendly: boolean;
-  targetIsFriendly: boolean;
   targetInstance?: number;
   absorb?: number;
 }
 
 export interface RemoveDebuffEvent extends BuffEvent<EventType.RemoveDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
-  sourceIsFriendly: boolean;
   targetInstance: number;
-  targetIsFriendly: boolean;
   absorb?: number;
 }
 
 export interface ApplyBuffStackEvent extends BuffEvent<EventType.ApplyBuffStack> {
   sourceID: number;
-  sourceIsFriendly: boolean;
-  targetIsFriendly: boolean;
   stack: number;
 }
 
 export interface ApplyDebuffStackEvent extends BuffEvent<EventType.ApplyDebuffStack> {
   sourceID: number;
-  sourceIsFriendly: boolean;
-  targetIsFriendly: boolean;
   stack: number;
 }
 
 export interface RemoveBuffStackEvent extends BuffEvent<EventType.RemoveBuffStack> {
   sourceID: number;
-  sourceIsFriendly: boolean;
-  targetIsFriendly: boolean;
   stack: number;
 }
 
@@ -406,7 +394,6 @@ export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStac
   newStacks: number;
   oldStacks: number;
   sourceID: number;
-  sourceIsFriendly: boolean;
   stack?: number;
   stackHistory: {
     stacks: number;
@@ -415,7 +402,6 @@ export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStac
   stacks: number;
   stacksGained: number;
   start: number;
-  targetIsFriendly: boolean;
   trigger: {
     end?: number;
     isDebuff?: boolean;
@@ -433,22 +419,16 @@ export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStac
 
 export interface RemoveDebuffStackEvent extends BuffEvent<EventType.RemoveDebuffStack> {
   sourceID: number;
-  sourceIsFriendly: boolean;
-  targetIsFriendly: boolean;
   stack: number;
 }
 
 export interface RefreshBuffEvent extends BuffEvent<EventType.RefreshBuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
-  sourceIsFriendly: boolean;
-  targetIsFriendly: boolean;
 }
 
 export interface RefreshDebuffEvent extends BuffEvent<EventType.RefreshDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
-  sourceIsFriendly: boolean;
   targetInstance: number;
-  targetIsFriendly: boolean;
 }
 
 export interface EnergizeEvent extends Event<EventType.Energize> {
@@ -515,6 +495,7 @@ export interface GlobalCooldownEvent extends Event<EventType.GlobalCooldown> {
   duration: number;
   sourceID: number;
   targetID: number;
+  targetIsFriendly: boolean;
   timestamp: number;
   trigger: CastEvent | BeginChannelEvent;
   __fabricated: true;
@@ -536,7 +517,7 @@ export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsabl
   timePassed?: number
   sourceID: number
   targetID: number
-
+  targetIsFriendly: boolean;
   start: number;
   end?: number;
   expectedDuration: number;
@@ -563,18 +544,19 @@ export interface Stats {
   versatility: number
 }
 
-// TODO `type` was not set here before? confirm that it should be set
 export interface ChangeStatsEvent extends Event<EventType.ChangeStats> {
-  targetID: number
-  trigger: any
-  after: Stats
-  before: Stats
-  delta: Stats
+  sourceID: number;
+  targetID: number;
+  targetIsFriendly: true;
+  trigger: AnyEvent;
+  after: Stats;
+  before: Stats;
+  delta: Stats;
 }
 
 export interface ChangeHasteEvent extends Event<EventType.ChangeHaste> {
-  oldHaste: number
-  newHaste: number
+  oldHaste: number;
+  newHaste: number;
 }
 
 export interface DispelEvent extends Event<EventType.Dispel>{
