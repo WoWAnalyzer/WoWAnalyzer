@@ -34,7 +34,7 @@ import SubtletyRogue from './rogue/subtlety/CONFIG';
 import AssassinationRogue from './rogue/assassination/CONFIG';
 import OutlawRogue from './rogue/outlaw/CONFIG';
 
-import ElementalShaman from 'parser/shaman/elemental/CONFIG';
+import ElementalShaman from './shaman/elemental/CONFIG';
 import EnhancementShaman from './shaman/enhancement/CONFIG';
 import RestorationShaman from './shaman/restoration/CONFIG';
 
