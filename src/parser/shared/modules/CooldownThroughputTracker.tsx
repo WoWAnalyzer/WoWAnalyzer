@@ -71,7 +71,7 @@ class CooldownThroughputTracker extends Analyzer {
   static castCooldowns: CooldownSpell[] = [
     // Some cooldowns cannot be tracked by a buff such as the Destruction 'Summon Infernal'. This is usually because they are temporary pet summons.
     // If you want to add some spells specific to your spec, redefine this array in your spec CooldownThroughputTracker similarly to cooldownSpells (see Destruction Warlock for example)
-  ]
+  ];
 
   pastCooldowns: TrackedCooldown[] = [];
   activeCooldowns: TrackedCooldown[] = [];
@@ -80,7 +80,7 @@ class CooldownThroughputTracker extends Analyzer {
     const spellId = event.ability.guid;
     const ctor = this.constructor as typeof CooldownThroughputTracker;
     let cooldownSpell: CooldownSpell | undefined;
-    if(isCastCooldown) {
+    if (isCastCooldown) {
       cooldownSpell = ctor.castCooldowns.find(cooldownSpell => cooldownSpell.spell.id === spellId);
     } else {
       cooldownSpell = ctor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
@@ -144,7 +144,10 @@ class CooldownThroughputTracker extends Analyzer {
 
   // region Event tracking
   trackEvent(event: TrackedEvent) {
-    this.activeCooldowns = this.activeCooldowns.filter(cooldown => !cooldown.end || event.timestamp < cooldown.end);
+    const ctor = this.constructor as typeof CooldownThroughputTracker;
+    if (ctor.castCooldowns.length) {
+      this.activeCooldowns = this.activeCooldowns.filter(cooldown => !cooldown.end || event.timestamp < cooldown.end);
+    }
 
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.events.push(event);
@@ -220,7 +223,7 @@ class CooldownThroughputTracker extends Analyzer {
     debug && console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
   }
 
-  on_toPlayerPet_death(event: DeathEvent){
+  on_toPlayerPet_death(event: DeathEvent) {
     const petID = event.targetID;
     const index = this.activeCooldowns.findIndex(cooldown => cooldown.petID === petID);
     if (index === -1) {
