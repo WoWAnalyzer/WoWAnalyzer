@@ -37,10 +37,10 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
   }
 
   get refreshThreshold() {
+    const casts: any = this.casts;
     return {
       spell: SPELLS.FLAME_SHOCK,
-      //@ts-ignore
-      count: this.casts[SPELLS.FLAME_SHOCK.id].badCasts,
+      count: casts[SPELLS.FLAME_SHOCK.id].badCasts,
       actual: this.badCastsPercent(SPELLS.FLAME_SHOCK.id),
       isGreaterThan: {
         minor: 0.10,
