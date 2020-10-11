@@ -6,14 +6,15 @@ import SPELLS from 'common/SPELLS';
 export const MAX_FRENZY_STACKS: number = 3;
 //Frenzy lasts 8 seconds normally, but can be adjusted by some effects
 export const ORIGINAL_FRENZY_DURATION = 8000;
+/** Cobra Shot */
+//Cobra Shot reduces the cooldown of Kill Command by 1 second by default
+export const COBRA_SHOT_CDR_MS = 1000;
+//A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
+export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
 /** Bestial Wrath */
 //Bestial Wrath
 export const BARBED_SHOT_BESTIAL_WRATH_CDR_MS = 12000;
 export const BESTIAL_WRATH_BASE_CD = 90000;
-/** Cobra Shot */
-//Cobra Shot
-export const COBRA_SHOT_CDR_MS = 1000;
-export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50; //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 /** Aspect of the Wild */
 //Aspect of the Wild reduces the GCD of certain abilities
 export const AOTW_GCD_REDUCTION_AFFECTED_ABILITIES = [
