@@ -225,7 +225,7 @@ class Combatant extends Entity {
 
   //region Shadowlands Systems
 
-  //region Covenants
+  //region Covenants TODO Verify if this isn't simply a number passed as covenantID
   covenantsByCovenantID: { [key: number]: Covenant } = {};
 
   _parseCovenant(covenant: Covenant) {
@@ -241,7 +241,7 @@ class Combatant extends Entity {
 
   //endregion
 
-  //region Soulbinds
+  //region Soulbinds TODO Verify if this isn't simply a number passed as soulbindID
   soulbindsBySoulbindID: { [key: number]: Soulbind } = {};
 
   _parseSoulbind(soulbind: Soulbind) {
@@ -257,7 +257,7 @@ class Combatant extends Entity {
 
   //endregion
 
-  //region Conduits
+  //region Conduits TODO Verify where these are parsed (is it still in heartOfAzeroth?) and how are they parsed
   conduitsByConduitID: { [key: number]: Conduit } = {};
 
   _parseConduits(conduits: Conduit[]) {
