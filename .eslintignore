@@ -4,3 +4,4 @@ node_modules
 /src/localization/*/*.js
 /scripts/localization/*.js
 /scripts/azerite/extract.js
+/scripts/raid-spell-ids/extract_spells.js
