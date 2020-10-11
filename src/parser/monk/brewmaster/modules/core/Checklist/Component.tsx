@@ -1,22 +1,54 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
-import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import Rule, { PERFORMANCE_METHOD } from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 const Component = ({ combatant, castEfficiency, thresholds }: any) => {
-  const AbilityRequirement = (props: { spell: number }) => (
+  const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
+  AbilityRequirement.propTypes = {
+    spell: PropTypes.number.isRequired,
+    name: PropTypes.any,
+  };
+
+
+  // TODO: "Good" CB casts. CDR?
 
   return (
-    <Checklist>
+   <Checklist>
+     <Rule name={<>Use <SpellLink id={SPELLS.CELESTIAL_BREW.id} onClick={e => e.preventDefault()} /> effectively</>}>
+       <AbilityRequirement spell={SPELLS.CELESTIAL_BREW.id} name={<><SpellLink id={SPELLS.CELESTIAL_BREW.id} /> cast efficiency</>} />
+     </Rule>
+     <Rule name={<>Use <SpellLink id={SPELLS.PURIFYING_BREW.id} onClick={e => e.preventDefault()} /> effectively</>}
+           performanceMethod={PERFORMANCE_METHOD.HARMONIC}
+           description={(
+             <>
+               Effective use of <SpellLink id={SPELLS.PURIFYING_BREW.id} /> is fundamental to playing Brewmaster successfully. While we cannot <em>automatically</em> tell whether a purify is effective or not, there are some simple guidelines that naturally lead to more effective purifies:
+               <ul>
+                 <li>Avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> at less than <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. In a raid environment, <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> is not dangerous in itself. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, this remains a good rule of thumb.</li>
+                 <li>If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from <SpellLink id={SPELLS.STAGGER.id} />.</li>
+               </ul>
+               For more information on effective use of <SpellLink id={SPELLS.PURIFYING_BREW.id} />, see the <a href="https://www.peakofserenity.com/bfa/brewmaster/purifying/">Peak of Serenity guide</a>.
+             </>
+           )}
+     >
+       <AbilityRequirement spell={SPELLS.PURIFYING_BREW.id} name={<><SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast efficiency</>} />
+       <Requirement name={<>Maintain <SpellLink id={SPELLS.SHUFFLE.id} /> while tanking</>} thresholds={thresholds.shuffleHits}
+                    tooltip="Shuffle increases the power of your Purifies. Maintain it by casting your rotational abilities." />
+       <Requirement name={<>Inefficient <SpellLink id={SPELLS.PURIFYING_BREW.id} /> casts.</>} thresholds={thresholds.purifyHeavy}
+                    tooltip="A purify is 'inefficient' if it occurs with (relatively) low stagger. The warning threshold is calculated based on how much time you spent in Heavy Stagger." />
+       <Requirement name="Average Purification Delay" thresholds={thresholds.purifyDelay}
+                    tooltip="The delay is tracked from the most recent time you were able to purify after a hit. If the hit occurred when no charges were available, you are not penalized." />
+     </Rule>
       <Rule name="Top the Damage Charts"
             description={(
               <>

@@ -24,6 +24,7 @@ import BlackOxBrew from './modules/spells/BlackOxBrew';
 import HighTolerance from './modules/spells/HighTolerance';
 import CelestialFortune from './modules/spells/CelestialFortune';
 import GiftOfTheOxStat from './modules/spells/GiftOfTheOx';
+import Shuffle from './modules/spells/Shuffle';
 import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
 // Features
 import Abilities from './modules/Abilities';
@@ -72,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     highTolerance: HighTolerance,
     cf: CelestialFortune,
     gotox: GiftOfTheOxStat,
+    shuffle: Shuffle,
     touchOfDeath: TouchOfDeath,
 
     // Items

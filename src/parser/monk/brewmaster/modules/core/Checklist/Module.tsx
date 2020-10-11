@@ -8,6 +8,8 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 import BlackoutCombo from '../../spells/BlackoutCombo';
 import TigerPalm from '../../spells/TigerPalm';
 import RushingJadeWind from '../../spells/RushingJadeWind';
+import PurifyingBrew from '../../spells/PurifyingBrew';
+import Shuffle from '../../spells/Shuffle';
 
 import Component from './Component';
 
@@ -19,6 +21,8 @@ export default class Checklist extends BaseChecklist {
     boc: BlackoutCombo,
     tp: TigerPalm,
     rjw: RushingJadeWind,
+    pb: PurifyingBrew,
+    shuffle: Shuffle,
   };
 
   protected combatants!: Combatants;
@@ -27,6 +31,8 @@ export default class Checklist extends BaseChecklist {
   protected boc!: BlackoutCombo;
   protected tp!: TigerPalm;
   protected rjw!: RushingJadeWind;
+  protected pb!: PurifyingBrew;
+  protected shuffle!: Shuffle;
 
   render() {
     return (
@@ -38,6 +44,9 @@ export default class Checklist extends BaseChecklist {
           bocDpsWaste: this.boc.dpsWasteThreshold,
           bocTp: this.tp.bocEmpoweredThreshold,
           rjw: this.rjw.uptimeThreshold,
+          purifyHeavy: this.pb.purifyHeavySuggestion,
+          purifyDelay: this.pb.purifyDelaySuggestion,
+          shuffleHits: this.shuffle.uptimeSuggestionThreshold,
         }}
       />
     );
