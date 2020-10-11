@@ -68,8 +68,6 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds}: any)
         )}>
         <Requirement name={(<><SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime</> )} thresholds={thresholds.flameShockUptime} />
         <Requirement name={( <> Bad <SpellLink id={SPELLS.FLAME_SHOCK.id} /> refreshes </> )} thresholds={thresholds.flameShockRefreshes} />
-        <Requirement name={(<><SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime</> )} thresholds={thresholds.flameShockUptime} />
-        <Requirement name={( <> Bad <SpellLink id={SPELLS.FLAME_SHOCK.id} /> refreshes </> )} thresholds={thresholds.flameShockRefreshes} />
       </Rule>
       {
         combatant.hasTalent(SPELLS.ICEFURY_TALENT.id) &&
