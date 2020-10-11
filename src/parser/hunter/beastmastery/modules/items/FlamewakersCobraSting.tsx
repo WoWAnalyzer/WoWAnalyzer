@@ -72,7 +72,7 @@ class FlamewakersCobraSting extends Analyzer {
         <BoringSpellValueText spell={SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT}>
           {this.utilizedFlamewakerBuffs}/{this.wastedFlamewakerBuffs + this.utilizedFlamewakerBuffs} <small> Procs utilized </small>
           <br />
-          {this.utilizedFlamewakerBuffs * SPELLS.KILL_COMMAND_CAST_BM.focusCost} <small> Focus saved</small>
+          {this.utilizedFlamewakerBuffs * SPELLS.KILL_COMMAND_CAST_BM.resourceCost} <small> Focus saved</small>
         </BoringSpellValueText>
       </Statistic>
     );
