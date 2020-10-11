@@ -11,6 +11,7 @@ import SharedBrews from './modules/core/SharedBrews';
 import StaggerFabricator from './modules/core/StaggerFabricator';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/core/Channeling';
+import Checklist from './modules/core/Checklist/Module';
 // Spells
 import PurifyingBrew from './modules/spells/PurifyingBrew';
 import CelestialBrew from './modules/spells/CelestialBrew';
@@ -52,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
+    checklist: Checklist,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
