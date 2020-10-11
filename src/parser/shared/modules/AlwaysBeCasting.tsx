@@ -32,15 +32,18 @@ class AlwaysBeCasting extends Analyzer {
   get totalTimeWasted() {
     return this.owner.fightDuration - this.activeTime;
   }
+
   get downtimePercentage() {
     return 1 - this.activeTimePercentage;
   }
+
   get activeTimePercentage() {
     return this.activeTime / this.owner.fightDuration;
   }
 
   activeTime = 0;
   _lastGlobalCooldownDuration = 0;
+
   on_globalcooldown(event: GlobalCooldownEvent) {
     this._lastGlobalCooldownDuration = event.duration;
     if (event.trigger.prepull) {
@@ -54,6 +57,7 @@ class AlwaysBeCasting extends Analyzer {
     this.activeTime += event.duration;
     return true;
   }
+
   on_endchannel(event: EndChannelEvent) {
     // If the channel was shorter than the GCD then use the GCD as active time
     let amount = event.duration;
@@ -70,6 +74,7 @@ class AlwaysBeCasting extends Analyzer {
     activeTime: '/img/sword.png',
     downtime: '/img/afk.png',
   };
+
   statistic() {
     const boss = this.owner.boss;
     if (!this.showStatistic || (boss && boss.fight.disableDowntimeStatistic)) {
@@ -129,6 +134,7 @@ class AlwaysBeCasting extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
+
   suggestions(when: When) {
     when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.')

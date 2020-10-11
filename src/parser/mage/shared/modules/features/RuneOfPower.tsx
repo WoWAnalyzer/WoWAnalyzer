@@ -6,10 +6,9 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { SummonEvent, DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
@@ -27,21 +26,23 @@ const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 
 // FIXME due to interactions with Ignite, the damage boost number will be underrated for Fire Mages. Still fine for Arcane and Frost.
 class RuneOfPower extends Analyzer {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-  };
-  protected abilityTracker!: AbilityTracker;
 
-  hasROP = false;
-  damage = 0;
+  hasROP: boolean = false;
+  damage: number = 0;
+  totalRunes: number = 0;
 
   constructor(options: Options) {
     super(options);
 
     if (this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id)) {
       this.hasROP = true;
+      this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell([SPELLS.RUNE_OF_POWER_AUTOCAST, SPELLS.RUNE_OF_POWER_TALENT]), this.onRune);
       this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
     }
+  }
+
+  onRune(event: SummonEvent) {
+    this.totalRunes += 1;
   }
 
   onPlayerDamage(event: DamageEvent) {
@@ -63,7 +64,7 @@ class RuneOfPower extends Analyzer {
   }
 
   get roundedSecondsPerCast() {
-    return ((this.uptimeMS / this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts) / 1000);
+    return ((this.uptimeMS / this.totalRunes) / 1000);
   }
 
   get damageSuggestionThresholds() {
@@ -114,7 +115,7 @@ class RuneOfPower extends Analyzer {
           .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`)
           .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`));
 
-    if (this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts > 0) {
+    if (this.totalRunes > 0) {
       when(this.roundedSecondsSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.</>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)

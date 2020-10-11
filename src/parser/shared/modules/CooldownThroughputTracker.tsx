@@ -23,16 +23,22 @@ export enum BUILT_IN_SUMMARY_TYPES {
 
 type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
 
+export type SummaryDef = {
+  label: string,
+  tooltip: string,
+  value: number | string,
+}
+
 export type CooldownSpell = {
   spell: any,
-  summary: BUILT_IN_SUMMARY_TYPES[],
+  summary: Array<BUILT_IN_SUMMARY_TYPES | SummaryDef>,
   startBufferFilter?: EventFilter<any>,
   startBufferMS?: number,
   startBufferEvents?: number,
   petID?: number,
 };
 
-type TrackedCooldown = CooldownSpell & {
+export type TrackedCooldown = CooldownSpell & {
   start: number,
   end: number | null,
   events: AnyEvent[],
@@ -84,7 +90,7 @@ class CooldownThroughputTracker extends Analyzer {
       // Default to only including cast events by the player
       const filter = cooldownSpell.startBufferFilter || Events.cast.by(SELECTED_PLAYER);
       events = this.eventHistory.last(cooldownSpell.startBufferEvents, startBufferMS, filter);
-      if(startBufferMS) {
+      if (startBufferMS) {
         start = timestamp - startBufferMS;
       } else {
         // If filtering by only event count, set the start timestamp to the oldest event found

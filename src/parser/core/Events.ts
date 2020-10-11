@@ -1,7 +1,11 @@
-import React from 'react';
 import { PhaseConfig } from 'raids';
 
+import Spell from 'common/SPELLS/Spell';
+
+import React from 'react';
+
 import EventFilter from './EventFilter';
+
 
 export enum EventType {
   Heal = 'heal',
@@ -55,6 +59,14 @@ export enum EventType {
   // Monk
   AddStagger = 'addstagger',
   RemoveStagger = 'removestagger',
+
+  // Priest
+  Atonement ='atonement',
+  AtonementDamage = 'atonementDamageSource',
+  AtonementApplied = 'atonement_applied',
+  AtonementFaded = 'atonement_faded',
+  AtonementRefresh = 'atonement_refresh',
+  AtonementRefreshImproper = 'atonement_refresh_improper',
 
   // Phases:
   PhaseStart = 'phasestart',
@@ -669,15 +681,15 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   versatilityHealingDone: number;
   versatilityDamageReduction: number;
   talents: [
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
+    Spell,
+    Spell,
+    Spell,
+    Spell,
+    Spell,
+    Spell,
+    Spell,
   ];
-  pvpTalents: Array<{ id: number; icon: string }>;
+  pvpTalents: Spell[];
   artifact: Array<{
     traitID: number;
     rank: number;
@@ -690,6 +702,7 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   covenant: Covenant, //TODO: Verify this is the structure in the combatlog
   soulbind: Soulbind, //TODO: Verify this is the structure in the combatlog
   conduits: Conduit[], //TODO: Verify this is the structure in the combatlog
+  error?: any, //TODO: Verify, is this a bool? string?
 }
 
 const Events = {

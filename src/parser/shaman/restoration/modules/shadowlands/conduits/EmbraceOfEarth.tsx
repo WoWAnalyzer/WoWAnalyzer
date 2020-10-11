@@ -28,12 +28,7 @@ class EmbraceOfEarth extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = true;
-
     this.boost = .05;//TODO Get from combat data when they EXPORT IT >:c
-
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.normalizeBoost);
   }
@@ -45,7 +40,7 @@ class EmbraceOfEarth extends Analyzer {
       return;
     }
 
-    if (target.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp, 0, 0)) {
+    if (target.hasBuff(SPELLS.EARTH_SHIELD.id, event.timestamp, 0, 0)) {
       // idea
       // heal = boostedHeal / (1.1 + x)
       // bonusHeal = heal * x
