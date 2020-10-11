@@ -71,9 +71,10 @@ class CastEfficiency extends Analyzer {
 
     let lastRechargeTimestamp: number | undefined = undefined;
     let recharges = 0;
-    const completedRechargeTime = (history.filter(
-      event => event.type === EventType.UpdateSpellUsable,
-    ) as UpdateSpellUsableEvent[]).reduce((acc, event) => {
+    const completedRechargeTime = history.filter(
+      (event): event is UpdateSpellUsableEvent =>
+        event.type === EventType.UpdateSpellUsable
+    ).reduce((acc, event) => {
       if (event.trigger === EventType.BeginCooldown) {
         lastRechargeTimestamp = event.timestamp;
         return acc;
@@ -88,8 +89,16 @@ class CastEfficiency extends Analyzer {
       } else if (event.trigger === EventType.RestoreCharge) {
         //limit by start time in case of pre phase events
         recharges += 1;
+        let timePassed = event.timePassed;
+        if(timePassed === undefined) {
+          // This should never happen...
+          if(process.env.NODE_ENV === 'development') {
+            throw new Error('timePassed not set on restorecharge updatespellusable event');
+          }
+          timePassed = 0;
+        }
         lastRechargeTimestamp = event.timestamp;
-        return acc + event.timePassed;
+        return acc + timePassed;
       } else {
         return acc;
       }
