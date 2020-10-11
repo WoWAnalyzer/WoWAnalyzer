@@ -10,8 +10,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { HealEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -44,9 +44,11 @@ class Downpour extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id);
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHeal);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  _onHeal(event: HealEvent) {
     // This spells cooldown gets increased depending on how many targets you heal
     // instead we set it to the maximum possible cooldown and reduce it by how many it fully overhealed or missed
     if (this.downpourTimestamp && event.timestamp > this.downpourTimestamp + BUFFER) {

@@ -31,9 +31,6 @@ export const MULTI_SHOTS_LIST = [
   SPELLS.MULTISHOT_BM,
   SPELLS.MULTISHOT_MM,
 ];
-/** Hunters Mark */
-//Hunters Mark increases all damage done by 5%
-export const HUNTERS_MARK_MODIFIER = 0.05;
 /** Aspects */
 //This is the baseline cooldown of Aspect of the Turtle / Cheetah
 export const BASELINE_TURTLE_CHEETAH_CD = 180000;
