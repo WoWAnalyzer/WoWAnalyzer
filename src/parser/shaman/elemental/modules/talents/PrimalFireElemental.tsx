@@ -27,7 +27,7 @@ class PrimalFireElemental extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.usedCasts = {
-      [SPELLS.METEOR.id] : false,
+      [SPELLS.FIRE_ELEMENTAL_METEOR.id] : false,
       [SPELLS.IMMOLATE.id] : false,
       [SPELLS.FIRE_BLAST.id]: false,
     };
