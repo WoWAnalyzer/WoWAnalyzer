@@ -123,7 +123,6 @@ class Ascendance extends Analyzer {
       actual: this.numCasts.others,
       isGreaterThan: {
         major: 0,
-        minor: 0,
       },
       style: ThresholdStyle.NUMBER,
     };
