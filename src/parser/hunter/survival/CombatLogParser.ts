@@ -25,7 +25,6 @@ import SerpentSting from './modules/spells/SerpentSting';
 import CoordinatedAssault from './modules/spells/CoordinatedAssault';
 import WildfireBomb from './modules/spells/WildfireBomb';
 import RaptorStrike from './modules/spells/RaptorStrike';
-import HuntersMark from '../shared/modules/spells/HuntersMark';
 import KillShot from '../shared/modules/spells/KillShot';
 
 //Focus
@@ -120,7 +119,6 @@ class CombatLogParser extends CoreCombatLogParser {
     coordinatedAssault: CoordinatedAssault,
     wildfireBomb: WildfireBomb,
     raptorStrike: RaptorStrike,
-    huntersMark: HuntersMark,
     killShot: KillShot,
 
     //Talents
