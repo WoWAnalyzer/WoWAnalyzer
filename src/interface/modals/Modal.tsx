@@ -14,7 +14,7 @@ interface Props {
   closeModal: () => void
 }
 
-const ModalFunc = ({ children, onClose, openModal, closeModal }: Props) => {
+const Modal = ({ children, onClose, openModal, closeModal }: Props) => {
   useEffect(() => {
     openModal()
     return closeModal
@@ -42,4 +42,4 @@ export default connect(
     openModal,
     closeModal,
   },
-)(ModalFunc);
+)(Modal);
