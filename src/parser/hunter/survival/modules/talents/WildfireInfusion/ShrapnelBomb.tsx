@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Enemies from 'parser/shared/modules/Enemies';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -26,16 +26,18 @@ class ShrapnelBomb extends Analyzer {
     enemies: Enemies,
   };
 
-  protected enemies!: Enemies;
-
   damage = 0;
   bleedDamage = 0;
   stacks = 0;
   applications = 0;
 
-  constructor(options: any) {
+  protected enemies!: Enemies;
+
+  constructor(options: Options) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SHRAPNEL_BOMB_WFI_DOT, SPELLS.SHRAPNEL_BOMB_WFI_IMPACT, SPELLS.INTERNAL_BLEEDING_SV]), this.onDamage);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV), this.onDebuffApplication);
     this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV), this.onDebuffApplication);

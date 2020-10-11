@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatDuration, formatNumber } from 'common/format';
@@ -10,55 +10,54 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
-import ItemDamageDone from '../../../../../interface/ItemDamageDone';
-
-const HIGHER_HP_THRESHOLD = 0.8;
-const LOWER_HP_THRESHOLD = 0.2;
-const CA_MODIFIER = .5;
+import { CA_MODIFIER, CAREFUL_AIM_THRESHOLD } from 'parser/hunter/marksmanship/constants';
+import ExecuteHelper from 'parser/shared/ExecuteHelper';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import { abbreviateBossNames } from 'common/abbreviateLongNames';
 
 /**
- * Aimed Shot deals 50% bonus damage to targets who are above 80% health or below 20% health.
+ * Aimed Shot deals 50% bonus damage to targets who are above 70% health.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=damage-done&source=25&ability=-19434
+ *
+ * TODO: Optimize this for Execute Helper
  */
-class CarefulAim extends Analyzer {
+class CarefulAim extends ExecuteHelper {
   static dependencies = {
     statTracker: StatTracker,
     enemies: Enemies,
   };
 
-  protected statTracker!: StatTracker;
-  protected enemies!: Enemies;
+  static executeSpells = [SPELLS.AIMED_SHOT];
+  static executeSources = SELECTED_PLAYER;
+  static upperThreshold = CAREFUL_AIM_THRESHOLD;
+  static modifiesDamage = true;
+  static damageModifier = CA_MODIFIER;
 
   caProcs = 0;
-  damageContribution = 0;
   bossIDs: number[] = [];
-  carefulAimPeriods: { [key: string]: { timestampSub20: number; aimedShotsInCA: number; bossName: string; timestampSub100: number; caDamage: number; timestampSub80: number; timestampDead: number } } = {
+  carefulAimPeriods: { [key: string]: { aimedShotsInCA: number; timestampSub100: number; caDamage: number; timestampSub70: number; } } = {
     /*
-    [bossID]: {
-          bossName: name,
+    [bossName]: {
           caDamage: 0,
           aimedShotsInCA: count,
           timestampSub100: timestamp,
-          timestampSub80: timestamp,
-          timestampSub20: timestamp,
-          timestampDead: timestamp,
+          timestampSub70: timestamp,
           },
         };
      */
-    'others': {
-      bossName: 'Adds',
+    'Adds': {
       caDamage: 0,
       aimedShotsInCA: 0,
       timestampSub100: 0,
-      timestampSub80: 0,
-      timestampSub20: 0,
-      timestampDead: 0,
+      timestampSub70: 0,
     },
   };
+  protected statTracker!: StatTracker;
+  protected enemies!: Enemies;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
     this.owner.report.enemies.forEach((enemy: { fights: any[]; type: string; id: number; }) => {
@@ -77,32 +76,26 @@ class CarefulAim extends Analyzer {
     const healthPercent = event.hitPoints && event.maxHitPoints && event.hitPoints / event.maxHitPoints;
     const targetID = event.targetID;
     let target;
-    const outsideCarefulAim = healthPercent && healthPercent < HIGHER_HP_THRESHOLD && healthPercent > LOWER_HP_THRESHOLD; //True if target is below 80% and above 20%
+    const outsideCarefulAim = healthPercent && healthPercent < CAREFUL_AIM_THRESHOLD;
     if (event.maxHitPoints && this.bossIDs.includes(targetID)) {
       const enemy = this.enemies.getEntity(event);
-      target = enemy && enemy.name;
+      target = enemy && enemy.name && abbreviateBossNames(enemy.name);
       if (!this.carefulAimPeriods[target]) {
         this.carefulAimPeriods[target] = {
-          bossName: target,
           caDamage: 0,
           aimedShotsInCA: 0,
           timestampSub100: 0,
-          timestampSub80: 0,
-          timestampSub20: 0,
-          timestampDead: 0,
+          timestampSub70: 0,
         };
       }
-      if (healthPercent && healthPercent > HIGHER_HP_THRESHOLD) {
+      if (healthPercent && healthPercent > CAREFUL_AIM_THRESHOLD) {
         this.carefulAimPeriods[target].timestampSub100 = this.carefulAimPeriods[target].timestampSub100 || event.timestamp;
       }
       if (healthPercent && outsideCarefulAim) {
-        this.carefulAimPeriods[target].timestampSub80 = this.carefulAimPeriods[target].timestampSub80 || event.timestamp;
-      }
-      if (healthPercent && healthPercent < LOWER_HP_THRESHOLD) {
-        this.carefulAimPeriods[target].timestampSub20 = this.carefulAimPeriods[target].timestampSub20 || event.timestamp;
+        this.carefulAimPeriods[target].timestampSub70 = this.carefulAimPeriods[target].timestampSub70 || event.timestamp;
       }
     } else {
-      target = 'others';
+      target = 'Adds';
     }
     if (spellId !== SPELLS.AIMED_SHOT.id || outsideCarefulAim) {
       return;
@@ -111,13 +104,12 @@ class CarefulAim extends Analyzer {
     this.carefulAimPeriods[target].caDamage += damageFromCA;
     this.carefulAimPeriods[target].aimedShotsInCA += 1;
     this.caProcs += 1;
-    this.damageContribution += damageFromCA;
   }
 
   calculateCarefulAimPeriods() {
     Object.values(this.carefulAimPeriods).forEach(boss => {
       boss.timestampSub100 = boss.timestampSub100 || this.owner.fight.start_time;
-      boss.timestampDead = boss.timestampDead || this.owner.fight.end_time;
+      boss.timestampSub70 = boss.timestampSub70 || this.owner.fight.end_time;
     });
   }
 
@@ -133,20 +125,20 @@ class CarefulAim extends Analyzer {
               <thead>
                 <tr>
                   <th>Boss</th>
-                  <th>Dmg</th>
+                  <th>Damage</th>
                   <th>Hits</th>
-                  <th>Dur</th>
+                  <th>Duration</th>
                 </tr>
               </thead>
               <tbody>
-                {Object.values(this.carefulAimPeriods).map((boss, index) => (
+                {Object.entries(this.carefulAimPeriods).map((boss, index) => (
                   <tr key={index}>
-                    <td>{boss.bossName}</td>
-                    <td>{formatNumber(boss.caDamage)}</td>
-                    <td>{boss.aimedShotsInCA}</td>
-                    <td>{boss.bossName === 'Adds' ?
+                    <td>{boss[0]}</td>
+                    <td>{formatNumber(boss[1].caDamage)}</td>
+                    <td>{boss[1].aimedShotsInCA}</td>
+                    <td>{boss[0] === 'Adds' ?
                       'N/A' :
-                      formatDuration((boss.timestampSub80 - boss.timestampSub100 + boss.timestampDead - boss.timestampSub20) / 1000)}</td>
+                      formatDuration((boss[1].timestampSub70 - boss[1].timestampSub100) / 1000)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -156,8 +148,9 @@ class CarefulAim extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.CAREFUL_AIM_TALENT}>
           <>
-            <ItemDamageDone amount={this.damageContribution} /><br />
-            {this.caProcs} <small>hits for</small> ≈ {formatNumber(this.damageContribution / this.caProcs)} <small>each</small>
+            <ItemDamageDone amount={this.damage} />
+            <br />
+            {this.caProcs} <small>hits for</small> ≈ {formatNumber(this.damage / this.caProcs)} <small>each</small>
           </>
         </BoringSpellValueText>
       </Statistic>

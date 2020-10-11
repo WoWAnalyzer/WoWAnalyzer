@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
+import { compose } from 'redux';
 
 import { findByBossId } from 'raids';
 import lazyLoadComponent from 'common/lazyLoadComponent';
@@ -43,8 +44,22 @@ import ReportDurationWarning, { MAX_REPORT_DURATION } from '../ReportDurationWar
 import ScrollToTop from './ScrollToTop';
 import TABS from './TABS';
 
-const TimelineTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(exports => exports.default)), 0);
-const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
+const TimelineTab = lazyLoadComponent(
+  () =>
+    retryingPromise(() =>
+      import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(
+        exports => exports.default,
+      ),
+    ),
+  0,
+);
+const EventsTab = lazyLoadComponent(() =>
+  retryingPromise(() =>
+    import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(
+      exports => exports.default,
+    ),
+  ),
+);
 
 class Results extends React.PureComponent {
   static propTypes = {
@@ -165,13 +180,15 @@ class Results extends React.PureComponent {
     return null;
   }
   get isLoading() {
-    return this.props.isLoadingParser
-      || this.props.isLoadingEvents
-      || this.props.bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING
-      || this.props.isLoadingCharacterProfile
-      || this.props.isLoadingPhases
-      || this.props.isFilteringEvents
-      || this.props.parsingState !== EVENT_PARSING_STATE.DONE;
+    return (
+      this.props.isLoadingParser ||
+      this.props.isLoadingEvents ||
+      this.props.bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING ||
+      this.props.isLoadingCharacterProfile ||
+      this.props.isLoadingPhases ||
+      this.props.isFilteringEvents ||
+      this.props.parsingState !== EVENT_PARSING_STATE.DONE
+    );
   }
 
   renderContent(selectedTab, results) {
@@ -183,27 +200,18 @@ class Results extends React.PureComponent {
           return this.renderLoadingIndicator();
         }
         const checklist = parser.getOptionalModule(Checklist);
-        return (
-          <Overview
-            checklist={checklist && checklist.render()}
-            issues={results.issues}
-          />
-        );
+        return <Overview checklist={checklist && checklist.render()} issues={results.issues} />;
       }
       case TABS.STATISTICS:
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
-        return (
-          <Statistics parser={parser}>{results.statistics}</Statistics>
-        );
+        return <Statistics parser={parser}>{results.statistics}</Statistics>;
       case TABS.TIMELINE:
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
-        return (
-          <TimelineTab parser={parser} />
-        );
+        return <TimelineTab parser={parser} />;
       case TABS.EVENTS:
         if (this.isLoading) {
           return this.renderLoadingIndicator();
@@ -220,10 +228,7 @@ class Results extends React.PureComponent {
         const statTracker = parser.getModule(StatTracker);
         return (
           <div className="container">
-            <Character
-              statTracker={statTracker}
-              combatant={parser.selectedCombatant}
-            />
+            <Character statTracker={statTracker} combatant={parser.selectedCombatant} />
 
             {premium === false && (
               <div style={{ margin: '40px 0' }}>
@@ -259,80 +264,86 @@ class Results extends React.PureComponent {
 
         return (
           <div className="container">
-            <ErrorBoundary>
-              {tab ? tab.render() : '404 tab not found'}
-            </ErrorBoundary>
+            <ErrorBoundary>{tab ? tab.render() : '404 tab not found'}</ErrorBoundary>
           </div>
         );
       }
     }
   }
   renderLoadingIndicator() {
-    const { progress, isLoadingParser, isLoadingEvents, bossPhaseEventsLoadingState, isLoadingCharacterProfile, isLoadingPhases, isFilteringEvents, parsingState } = this.props;
+    const {
+      progress,
+      isLoadingParser,
+      isLoadingEvents,
+      bossPhaseEventsLoadingState,
+      isLoadingCharacterProfile,
+      isLoadingPhases,
+      isFilteringEvents,
+      parsingState,
+    } = this.props;
 
     return (
       <div className="container" style={{ marginBottom: 40 }}>
-        <Panel
-          title="Loading..."
-          className="loading-indicators"
-        >
+        <Panel title="Loading..." className="loading-indicators">
           <LoadingBar progress={progress} style={{ marginBottom: 30 }} />
 
           <div className="row">
-            <div className="col-md-8">
-              Spec analyzer from WoWAnalyzer
-            </div>
+            <div className="col-md-8">Spec analyzer from WoWAnalyzer</div>
             <div className={`col-md-4 ${isLoadingParser ? 'loading' : 'ok'}`}>
               {isLoadingParser ? 'Loading...' : 'OK'}
             </div>
           </div>
           <div className="row">
-            <div className="col-md-8">
-              Player events from Warcraft Logs
-            </div>
+            <div className="col-md-8">Player events from Warcraft Logs</div>
             <div className={`col-md-4 ${isLoadingEvents ? 'loading' : 'ok'}`}>
               {isLoadingEvents ? 'Loading...' : 'OK'}
             </div>
           </div>
           <div className="row">
-            <div className="col-md-8">
-              Boss events from Warcraft Logs
-            </div>
-            <div className={`col-md-4 ${bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING ? 'loading' : (bossPhaseEventsLoadingState === BOSS_PHASES_STATE.SKIPPED ? 'skipped' : 'ok')}`}>
+            <div className="col-md-8">Boss events from Warcraft Logs</div>
+            <div
+              className={`col-md-4 ${
+                bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING
+                  ? 'loading'
+                  : bossPhaseEventsLoadingState === BOSS_PHASES_STATE.SKIPPED
+                  ? 'skipped'
+                  : 'ok'
+              }`}
+            >
               {bossPhaseEventsLoadingState === BOSS_PHASES_STATE.SKIPPED && 'Skipped'}
               {bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING && 'Loading...'}
               {bossPhaseEventsLoadingState === BOSS_PHASES_STATE.DONE && 'OK'}
             </div>
           </div>
           <div className="row">
-            <div className="col-md-8">
-              Character info from Blizzard
-            </div>
+            <div className="col-md-8">Character info from Blizzard</div>
             <div className={`col-md-4 ${isLoadingCharacterProfile ? 'loading' : 'ok'}`}>
               {isLoadingCharacterProfile ? 'Loading...' : 'OK'}
             </div>
           </div>
           <div className="row">
-            <div className="col-md-8">
-              Analyzing phases
-            </div>
+            <div className="col-md-8">Analyzing phases</div>
             <div className={`col-md-4 ${isLoadingPhases ? 'loading' : 'ok'}`}>
               {isLoadingPhases ? 'Loading...' : 'OK'}
             </div>
           </div>
           <div className="row">
-            <div className="col-md-8">
-              Filtering events
-            </div>
+            <div className="col-md-8">Filtering events</div>
             <div className={`col-md-4 ${isFilteringEvents ? 'loading' : 'ok'}`}>
               {isFilteringEvents ? 'Loading...' : 'OK'}
             </div>
           </div>
           <div className="row">
-            <div className="col-md-8">
-              Analyzing events
-            </div>
-            <div className={`col-md-4 ${parsingState === EVENT_PARSING_STATE.WAITING ? 'waiting' : (parsingState === EVENT_PARSING_STATE.PARSING ? 'loading' : 'ok')}`}>
+            <div className="col-md-8">Analyzing events</div>
+            <div
+              className={`col-md-4 ${
+                parsingState === EVENT_PARSING_STATE.WAITING
+                  ? 'waiting'
+                  : parsingState === EVENT_PARSING_STATE.PARSING
+                  ? 'loading'
+                  : 'ok'
+              }`}
+            >
               {parsingState === EVENT_PARSING_STATE.WAITING && 'Waiting'}
               {parsingState === EVENT_PARSING_STATE.PARSING && 'Loading...'}
               {parsingState === EVENT_PARSING_STATE.DONE && 'OK'}
@@ -343,14 +354,39 @@ class Results extends React.PureComponent {
     );
   }
   render() {
-    const { parser, report, fight, player, build, characterProfile, makeBuildUrl, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase, selectedInstance, phases, applyFilter, timeFilter } = this.props;
+    const {
+      parser,
+      report,
+      fight,
+      player,
+      build,
+      characterProfile,
+      makeBuildUrl,
+      makeTabUrl,
+      selectedTab,
+      premium,
+      handlePhaseSelection,
+      selectedPhase,
+      selectedInstance,
+      phases,
+      applyFilter,
+      timeFilter,
+    } = this.props;
     const config = this.context.config;
 
     const boss = findByBossId(fight.boss);
 
     const results = !this.isLoading && parser.generateResults(this.state.adjustForDowntime);
 
-    const contributorinfo = <ReadableListing>{(config.contributors.length !== 0) ? config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED'}</ReadableListing>;
+    const contributorinfo = (
+      <ReadableListing>
+        {config.contributors.length !== 0
+          ? config.contributors.map(contributor => (
+              <Contributor key={contributor.nickname} {...contributor} />
+            ))
+          : 'CURRENTLY UNMAINTAINED'}
+      </ReadableListing>
+    );
 
     const reportDuration = report.end - report.start;
 
@@ -375,38 +411,50 @@ class Results extends React.PureComponent {
           isLoading={this.isLoading}
         />
 
-        {fight.end_time > MAX_REPORT_DURATION &&
-        <ReportDurationWarning duration={reportDuration} />}
+        {fight.end_time > MAX_REPORT_DURATION && (
+          <ReportDurationWarning duration={reportDuration} />
+        )}
 
-        {parser && parser.disabledModules && <DegradedExperience disabledModules={parser.disabledModules} />}
-        {
-          //Warning Message for Shadowlands Prepatch (Remove after Shadowlands Launch)
-          <div className="container">
-            <Warning style={{ marginBottom: 30}}>
-              In an effort to focus on Shadowlands and Castle Nathria, we will be removing support for Azerite, Essences, Corruption, and other BFA items with the launch of Prepatch. As a result, analysis of Prepatch encounters may be inaccurate. If you would like to follow your spec's Shadowlands development or provide suggestions/feedback, <a href="
-https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3AShadowlands">Click Here</a>
+        {parser && parser.disabledModules && (
+          <DegradedExperience disabledModules={parser.disabledModules} />
+        )}
+        <div className="container">
+            <Warning style={{ marginBottom: 30 }}>
+              In an effort to focus on Shadowlands and Castle Nathria, we will be removing support
+              for Azerite, Essences, Corruption, and other BFA items with the launch of Prepatch. As
+              a result, analysis of Prepatch encounters may be inaccurate. If you would like to
+              follow your spec's Shadowlands development or provide suggestions/feedback,{' '}
+              <a
+                href="
+https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3AShadowlands"
+              >
+                Click Here
+              </a>
             </Warning>
           </div>
-        }
         {boss && boss.fight.resultsWarning && (
           <div className="container">
-            <Warning style={{ marginBottom: 30 }}>
-              {boss.fight.resultsWarning}
-            </Warning>
+            <Warning style={{ marginBottom: 30 }}>{boss.fight.resultsWarning}</Warning>
           </div>
         )}
-        {parser && parser.selectedCombatant.gear && <ItemWarning gear={parser.selectedCombatant.gear} />}
+        {parser && parser.selectedCombatant.gear && (
+          <ItemWarning gear={parser.selectedCombatant.gear} />
+        )}
         {timeFilter && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
-              These results are filtered to the selected time period. Time filtered results are under development and may not be entirely accurate. <br /> Please report any issues you may find on our GitHub or Discord.
+              These results are filtered to the selected time period. Time filtered results are
+              under development and may not be entirely accurate. <br /> Please report any issues
+              you may find on our GitHub or Discord.
             </Warning>
           </div>
         )}
         {build && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
-              These results are analyzed under build different from the standard build. While this will make some modules more accurate, some may also not provide the information you expect them to. <br /> Please report any issues you may find on our GitHub or Discord.
+              These results are analyzed under build different from the standard build. While this
+              will make some modules more accurate, some may also not provide the information you
+              expect them to. <br /> Please report any issues you may find on our GitHub or Discord.
             </Warning>
           </div>
         )}
@@ -417,23 +465,37 @@ https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3
             <div className="col-md-8">
               <small>Provided by</small>
               <div style={{ fontSize: 16 }}>
-                <Trans>{config.spec.specName} {config.spec.className} analysis has been provided by {contributorinfo}. They love hearing what you think, so please let them know! <Link to={makeTabUrl('about')}>More information about this spec's analyzer.</Link></Trans>
+                <Trans>
+                  {config.spec.specName} {config.spec.className} analysis has been provided by{' '}
+                  {contributorinfo}. They love hearing what you think, so please let them know!{' '}
+                  <Link to={makeTabUrl('about')}>More information about this spec's analyzer.</Link>
+                </Trans>
               </div>
             </div>
             <div className="col-md-3">
-              <small>View on</small><br />
+              <small>View on</small>
+              <br />
               <Tooltip content={i18n._(t`Opens in a new tab. View the original report.`)}>
                 <a
-                  href={makeWclUrl(report.code, { fight: fight.id, source: parser ? parser.playerId : undefined })}
+                  href={makeWclUrl(report.code, {
+                    fight: fight.id,
+                    source: parser ? parser.playerId : undefined,
+                  })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
                   style={{ fontSize: 20, padding: '6px 0' }}
                 >
-                  <WarcraftLogsIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Warcraft Logs
+                  <WarcraftLogsIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Warcraft
+                  Logs
                 </a>
-              </Tooltip><br />
-              <Tooltip content={i18n._(t`Opens in a new tab. View insights and timelines for raid encounters.`)}>
+              </Tooltip>
+              <br />
+              <Tooltip
+                content={i18n._(
+                  t`Opens in a new tab. View insights and timelines for raid encounters.`,
+                )}
+              >
                 <a
                   href={`https://www.wipefest.net/report/${report.code}/fight/${fight.id}`}
                   target="_blank"
@@ -463,14 +525,14 @@ https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3
   }
 }
 
-const mapStateToProps = state => ({
-  selectedTab: getResultTab(state),
+const mapStateToProps = (state, props) => ({
+  selectedTab: getResultTab(props.location.pathname),
   premium: hasPremium(state),
 });
 
-export default connect(
-  mapStateToProps,
-  {
+export default compose(
+  withRouter,
+  connect(mapStateToProps, {
     appendReportHistory,
-  },
+  }),
 )(Results);

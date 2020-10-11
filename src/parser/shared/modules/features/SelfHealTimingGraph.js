@@ -1,23 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  FlexibleWidthXYPlot as XYPlot,
-  XAxis,
-  YAxis,
-  LineSeries,
-  AreaSeries,
-  MarkSeries,
-  DiscreteColorLegend,
-  Hint,
-} from 'react-vis';
-import VerticalLine from 'interface/others/charts/VerticalLine';
+import { AutoSizer } from 'react-virtualized';
+
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
-import { formatNumber, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import './SelfHealTimingGraph.scss';
+import BaseChart, { formatTime } from 'interface/others/BaseChart';
 
 const DEATH_BUFFER = 200;
 
@@ -64,7 +53,7 @@ class SelfHealTimingGraph extends Analyzer {
       const p = (hitPoints / maxHitPoints) || 0;
       const percentage = Math.min(Math.round(p * 100), 100);
       return {
-        timestamp,
+        x: timestamp - this.owner.fight.start_time,
         percentage,
         ability,
       };
@@ -74,7 +63,7 @@ class SelfHealTimingGraph extends Analyzer {
       .map(({ timestamp, hitPoints, maxHitPoints }) => {
         const p = (hitPoints / maxHitPoints) || 0;
         return {
-          x: timestamp,
+          x: timestamp - this.owner.fight.start_time,
           y: Math.min(Math.round(p * 100), 100),
         };
       });
@@ -84,7 +73,7 @@ class SelfHealTimingGraph extends Analyzer {
       const p = (startingHP / event.maxHitPoints) || 0;
       const percentage = Math.min(Math.round(p * 100), 100);
       return {
-        x: event.timestamp,
+        x: event.timestamp - this.owner.fight.start_time,
         y: percentage,
         ability: event.ability,
         amount: event.amount || 0,
@@ -93,15 +82,99 @@ class SelfHealTimingGraph extends Analyzer {
       };
     });
 
+    const baseEncoding = {
+      x: {
+        field: 'x',
+        type: 'quantitative',
+        axis: {
+          labelExpr: formatTime('datum.value'),
+          grid: false,
+        },
+        title: null,
+        scale: { zero: true },
+      },
+      y: {
+        field: 'y',
+        type: 'quantitative',
+        title: null,
+        axis: {
+          grid: false,
+        },
+      },
+    };
+
+    const spec = {
+      layer: [
+        {
+          data: {
+            name: 'hp',
+          },
+          mark: {
+            type: 'area',
+            line: {
+              interpolate: 'linear',
+              color: '#fab700',
+              strokeWidth: 1,
+            },
+            color: 'rgba(250, 183, 0, 0.15)',
+          },
+          encoding: baseEncoding,
+        },
+        {
+          data: {
+            name: 'casts',
+          },
+          mark: {
+            type: 'point',
+            size: 60,
+            color: 'white',
+            filled: true,
+          },
+          encoding: {
+            ...baseEncoding,
+            tooltip: [
+              { field: 'ability.name', type: 'nominal', title: 'Ability' },
+              { field: 'hitPoints', type: 'quantitative', title: 'Hit Points', format: '.3~s' },
+              { field: 'amount', type: 'quantitative', title: 'Healing', format: '.3~s' },
+              { field: 'overheal', type: 'quantitative', title: 'Overhealing', format: '.3~s' },
+            ],
+          },
+        },
+        {
+          data: {
+            name: 'deaths',
+          },
+          mark: {
+            type: 'rule',
+            color: 'red',
+            strokeWidth: 2,
+          },
+          encoding: {
+            x: baseEncoding.x,
+            tooltip: [
+              { field: 'ability.name', type: 'nominal', title: 'Killing Ability' },
+              { field: 'percentage', type: 'quantitative', title: 'HP % When Hit' },
+            ],
+          },
+        },
+      ],
+    };
+    const data = {
+      hp: [{x: 0, y: 100}].concat(_hp),
+      casts: _casts,
+      deaths: _deaths,
+    };
+
     return (
-      <div className="graph-container">
-        <SelfHealChart
-          selfHealSpell={this.selfHealSpell}
-          casts={_casts}
-          hp={_hp}
-          deaths={_deaths}
-          startTime={this.owner.fight.start_time}
-        />
+      <div className="graph-container" style={{
+        width: '100%',
+        minHeight: 200,
+      }}>
+        <AutoSizer>
+          {({ width, height }) => (
+            <BaseChart width={width} height={height} spec={spec} data={data} />
+          )}
+        </AutoSizer>
       </div>
     );
   }
@@ -112,6 +185,7 @@ class SelfHealTimingGraph extends Analyzer {
       url: this.tabURL,
       render: () => (
         <Panel
+          title={this.tabTitle}
           explanation={(
             <>
               This plot shows you your <SpellLink id={this.selfHealSpell.id} /> casts relative to your Health Points to help you improve your <SpellLink id={this.selfHealSpell.id} /> timings.<br />
@@ -123,116 +197,6 @@ class SelfHealTimingGraph extends Analyzer {
         </Panel>
       ),
     };
-  }
-}
-
-class SelfHealChart extends React.Component {
-  static propTypes = {
-    selfHealSpell: PropTypes.object.isRequired,
-    startTime: PropTypes.number.isRequired,
-    hp: PropTypes.array.isRequired,
-    casts: PropTypes.array.isRequired,
-    deaths: PropTypes.array.isRequired,
-  };
-
-  state = {
-    hoveredCast: null,
-    hoveredHp: null,
-  };
-
-  colors = {
-    DEATH: '#ff2222',
-    HEALTH: 'rgb(255, 139, 45)',
-    HEALTH_FILL: 'rgba(255, 139, 45, 0.2)',
-    SELF_HEAL: '#ffffff',
-  };
-
-  render() {
-    const { selfHealSpell, startTime, hp, casts, deaths } = this.props;
-    return (
-      <XYPlot
-        height={300}
-        yDomain={[0, 100]}
-        style={{
-          fill: '#fff',
-          stroke: '#fff',
-        }}
-        margin={{
-          top: 30,
-        }}
-        onMouseLeave={() => this.setState({ hoveredHp: null })}
-      >
-        <DiscreteColorLegend
-          orientation="horizontal"
-          strokeWidth={2}
-          items={[
-            { title: 'Player Death', color: this.colors.DEATH },
-            { title: 'Health', color: this.colors.HEALTH },
-            { title: `${selfHealSpell.name} Cast`, color: this.colors.SELF_HEAL },
-          ]}
-        />
-        <XAxis title="Time" tickFormat={value => formatDuration((value - startTime) / 1000)} />
-        <YAxis title="Health %" position="middle" tickFormat={value => formatNumber(value)} />
-        <AreaSeries
-          data={hp}
-          color={this.colors.HEALTH_FILL}
-          stroke="transparent"
-        />
-        <LineSeries
-          data={hp}
-          color={this.colors.HEALTH}
-          onNearestXY={d => this.setState({ hoveredHp: d })}
-        />
-        <MarkSeries
-          data={casts}
-          color={this.colors.SELF_HEAL}
-          size={3}
-          onValueMouseOver={d => this.setState({ hoveredCast: d })}
-          onValueMouseOut={() => this.setState({ hoveredCast: null })}
-        />
-        {deaths.map(death => (
-          <VerticalLine
-            value={death.timestamp}
-            style={{
-              line: { background: this.colors.DEATH },
-            }}
-          >
-            <strong>{formatDuration((death.timestamp - startTime) / 1000)}</strong><br />
-            Player died when hit by {(death.ability && death.ability.name) || 'an unknown ability'} at {formatNumber(death.percentage)}% HP.
-          </VerticalLine>
-        ))}
-        {this.state.hoveredCast && (
-          <Hint
-            align={{
-              horizontal: 'right',
-              vertical: 'bottom',
-            }}
-            value={this.state.hoveredCast}
-          >
-            <div className="react-tooltip-lite selfheal-value-tooltip">
-              <strong>{formatDuration((this.state.hoveredCast.x - startTime) / 1000)}</strong><br />
-              {selfHealSpell.name} for {formatNumber(this.state.hoveredCast.amount)}
-              {this.state.hoveredCast.overheal > 0 && ` (${formatNumber(this.state.hoveredCast.overheal)} overhealing)`}
-              &nbsp;at {formatNumber(this.state.hoveredCast.hitPoints)} HP ({this.state.hoveredCast.y}%)
-            </div>
-          </Hint>
-        )}
-        {this.state.hoveredHp && !this.state.hoveredCast && (
-          <Hint
-            align={{
-              horizontal: 'right',
-              vertical: 'bottom',
-            }}
-            value={this.state.hoveredHp}
-          >
-            <div className="react-tooltip-lite selfheal-value-tooltip">
-              <strong>{formatDuration((this.state.hoveredHp.x - startTime) / 1000)}</strong><br />
-              Health: {this.state.hoveredHp.y} %
-            </div>
-          </Hint>
-        )}
-      </XYPlot>
-    );
   }
 }
 

@@ -4,14 +4,13 @@ import Analyzer , {SELECTED_PLAYER} from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SpellLink from 'common/SpellLink';
 
 import DemoPets from '../pets/DemoPets';
 import { isWildImp } from '../pets/helpers';
-
-
 
 class SummonDemonicTyrant extends Analyzer {
   static dependencies = {
@@ -30,7 +29,7 @@ class SummonDemonicTyrant extends Analyzer {
     this._hasDemonicConsumption = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id);
   }
 
-  summonDemonicTyrantCast(event) {
+  summonDemonicTyrantCast() {
     const pets = this.demoPets.currentPets;
     const countsPerCast = {};
     let tyrantPower = 0;
@@ -44,7 +43,6 @@ class SummonDemonicTyrant extends Analyzer {
     this.demonicTyrantPower.push(tyrantPower);
     this._petsPerCast.push(countsPerCast);
   }
-
 
   statistic() {
     const avgPets = (this._petsPerCast.reduce((total, cast) =>
@@ -62,8 +60,8 @@ class SummonDemonicTyrant extends Analyzer {
     Object.keys(mergedPets).forEach(demonSource => {
       petTableRows.push(
         <tr key={demonSource}>
-          <td><SpellLink id={Number(demonSource)} /></td>
-          <td>{(mergedPets[demonSource]/this._petsPerCast.length).toFixed(2)}</td>
+          <td align="left"><SpellLink id={Number(demonSource)} /></td>
+          <td align="middle">{(mergedPets[demonSource]/this._petsPerCast.length).toFixed(2)}</td>
         </tr>,
       );
     });
@@ -76,7 +74,7 @@ class SummonDemonicTyrant extends Analyzer {
         <thead>
           <tr>
             <th>Pet Source</th>
-            <th>Average Pets Per Cast</th>
+            <th>Avg Pets per Cast</th>
           </tr>
         </thead>
         <tbody>
@@ -84,19 +82,18 @@ class SummonDemonicTyrant extends Analyzer {
         </tbody>
       </>
     ) : null;
-
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SUMMON_DEMONIC_TYRANT.id} />}
-        value={`${avgPets.toFixed(2)}`} // Rather than formatNumber, because this value will always be low and the decimal points matter.
+      <Statistic
+        position={STATISTIC_ORDER.CORE(6)}
+        size="flexible"
+        tooltip="Number of pets empowered by each Demonic Tyrant summon."
+        dropdown={petTable}
         footer={tyrantFooter}
-        label={`Average Demons Empowered`}
-        tooltip={`Number of pets empowered by each Demonic Tyrant summon.`}
       >
-        <table className="table table-condensed" style={{fontWeight: 'bold'}}>
-          {petTable}
-        </table>
-      </StatisticBox>
+        <BoringSpellValueText spell={SPELLS.SUMMON_DEMONIC_TYRANT}>
+          {`${avgPets.toFixed(2)}`} <small>Avg. demons empowered</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

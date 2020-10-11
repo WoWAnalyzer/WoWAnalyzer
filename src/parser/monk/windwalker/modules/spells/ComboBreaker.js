@@ -8,7 +8,8 @@ import Analyzer from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 
-const CB_DURATION = 15000;
+const COMBO_BREAKER_DURATION = 15000;
+const COMBO_BREAKER_PROC_CHANCE = 0.08;
 const debug = false;
 
 class ComboBreaker extends Analyzer {
@@ -47,7 +48,7 @@ class ComboBreaker extends Analyzer {
      if (this.lastCBProcTime === null) {
         return;
       }
-      const cbTimeframe = this.lastCBProcTime + CB_DURATION;
+      const cbTimeframe = this.lastCBProcTime + COMBO_BREAKER_DURATION;
       if (event.timestamp <= cbTimeframe) {
        this.consumedCBProc += 1;
         debug && console.log(`CB Proc Consumed / Timestamp: ${event.timestamp}`);
@@ -73,16 +74,14 @@ class ComboBreaker extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
           .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
           .actual(`${formatPercentage(actual)}% used Combo Breaker procs`)
-          .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`);
-    });
+          .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`));
   }
 
   statistic() {
-    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * (this.selectedCombatant.hasTrait(SPELLS.PRESSURE_POINT.id) ? 0.1 : 0.08);
+    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * COMBO_BREAKER_PROC_CHANCE;
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}

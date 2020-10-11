@@ -7,9 +7,9 @@ import { formatPercentage, formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
 import Statistic from 'interface/statistics/Statistic';
-import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
-import FuryTracker from './FuryTracker';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 
+import FuryTracker from './FuryTracker';
 
 const furyIcon = 'ability_demonhunter_eyebeam';
 
@@ -35,30 +35,26 @@ class FuryDetails extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
         .icon(furyIcon)
         .actual(`${formatPercentage(actual)}% Fury wasted`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended.`);
-    });
+        .recommended(`<${formatPercentage(recommended)}% is recommended.`));
   }
 
   statistic() {
-    return [
-      (
-        <Statistic
-          size="small"
-          position={STATISTIC_ORDER.CORE(4)}
-          tooltip={`${formatPercentage(this.wastedFuryPercent)}% wasted`}
-        >
-          <BoringResourceValue
-            resource={RESOURCE_TYPES.FURY}
-            value={formatNumber(this.furyTracker.wasted)}
-            label="Fury Wasted"
-          />
-        </Statistic>
-      ),
-    ];
+    return (
+      <Statistic
+        size="small"
+        position={STATISTIC_ORDER.CORE(4)}
+        tooltip={`${formatPercentage(this.wastedFuryPercent)}% wasted`}
+      >
+        <BoringResourceValue
+          resource={RESOURCE_TYPES.FURY}
+          value={formatNumber(this.furyTracker.wasted)}
+          label="Fury Wasted"
+        />
+      </Statistic>
+    );
   }
 
   tab() {

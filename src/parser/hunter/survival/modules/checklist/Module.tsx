@@ -6,6 +6,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import Component from 'parser/hunter/survival/modules/checklist/Component';
+
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import MongooseBite from '../../modules/talents/MongooseBite';
 import BirdOfPrey from '../../modules/talents/BirdOfPrey';

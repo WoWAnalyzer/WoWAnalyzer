@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
 import Haste from './modules/core/Haste';
 
 import Abilities from './modules/Abilities';
@@ -13,22 +14,15 @@ import DivinePurpose from './modules/talents/DivinePurpose';
 import ArtOfWar from './modules/core/ArtOfWar';
 import BladeofJustice from './modules/core/BladeofJustice';
 import CrusaderStrike from './modules/core/CrusaderStrike';
-import Retribution from './modules/core/Retribution';
 import Crusade from './modules/talents/Crusade';
-import WakeofAshes from './modules/talents/WakeofAshes';
+import WakeofAshes from './modules/core/WakeofAshes';
 import Consecration from './modules/talents/Consecration';
-import HammerofWrath from './modules/talents/HammerofWrath';
-import Inquisition from './modules/talents/Inquisition';
+import HammerofWrath from './modules/core/HammerofWrath';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
 
-import HolyPowerTracker from './modules/holypower/HolyPowerTracker';
-import HolyPowerDetails from './modules/holypower/HolyPowerDetails';
-
-import RelentlessInquisitor from './modules/core/azeritetraits/RelentlessInquisitor';
-import RelentlessInquisitorStackHandler from './modules/core/azeritetraits/RelentlessInquisitorStackHandler';
-import LightsDecree from './modules/core/azeritetraits/LightsDecree';
-import IndomitableJustice from './modules/core/azeritetraits/IndomitableJustice';
+import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
+import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -45,7 +39,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bladeofJustice: BladeofJustice,
     crusaderStrike: CrusaderStrike,
     judgment: Judgment,
-    retribution: Retribution,
     shieldOfVengeance: ShieldOfVengeance,
 
     // Talents
@@ -54,19 +47,12 @@ class CombatLogParser extends CoreCombatLogParser {
     wakeofAshes: WakeofAshes,
     consecration: Consecration,
     hammerofWrath: HammerofWrath,
-    inquisition: Inquisition,
     righteousVerdict: RighteousVerdict,
     executionSentence: ExecutionSentence,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
-
-    // Azerite
-    relentlessInquisitor: RelentlessInquisitor,
-    relentlessInquisitorStackHandler: RelentlessInquisitorStackHandler,
-    lightsDecree: LightsDecree,
-    indomitableJustice: IndomitableJustice,
   };
 }
 

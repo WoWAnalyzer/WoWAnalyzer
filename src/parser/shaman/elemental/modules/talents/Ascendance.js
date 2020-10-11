@@ -125,19 +125,17 @@ class Ascendance extends Analyzer {
       isGreaterThan: {
         major: 1,
       },
-      style: 'absolute',
+      style: 'number',
     };
   }
 
   suggestions(when) {
     const abilities = `Lava Burst${this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id) ? `, Elemental Blast ` : ``} and Earth Shock`;
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Maximize your damage during ascendance by only using ${this.abilites}.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Maximize your damage during ascendance by only using ${this.abilites}.</span>)
           .icon(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.icon)
           .actual(`${actual} other casts during Ascendence`)
-          .recommended(`Only cast ${abilities} during Ascendence.`);
-      });
+          .recommended(`Only cast ${abilities} during Ascendence.`));
   }
 
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

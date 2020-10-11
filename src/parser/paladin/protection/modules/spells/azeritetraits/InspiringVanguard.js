@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatPercentage } from 'common/format';
+
 import GrandCrusader from '../../core/GrandCrusader';
 import SpellUsable from '../../features/SpellUsable';
 

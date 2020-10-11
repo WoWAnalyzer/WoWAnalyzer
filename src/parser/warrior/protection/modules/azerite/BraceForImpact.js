@@ -78,7 +78,7 @@ class BraceForImpact extends Analyzer {
     if(spellId !== SPELLS.BRACE_FOR_IMPACT_BUFF.id){
       return;
     }
-    
+
     this.currentStack = 1;
 
     if(!this.stackMap.has(this.currentStack)){
@@ -157,7 +157,7 @@ class BraceForImpact extends Analyzer {
         size="flexible"
         tooltip={(
           <div>
-            The damage this calculates doesn't factor into damage increases from non-warrior sources. 
+            The damage this calculates doesn't factor into damage increases from non-warrior sources.
         </div>
         )}
       >
@@ -177,7 +177,7 @@ class BraceForImpact extends Analyzer {
           <tbody>
             {
               stacks.map(stack => (
-                <tr>
+                <tr key={stack}>
                 <td>{stack}</td>
                 <td>{formatDuration(this.stackMap.get(stack).uptime/1000)}</td>
                 <td>{formatNumber(this.stackMap.get(stack).damage)}</td>

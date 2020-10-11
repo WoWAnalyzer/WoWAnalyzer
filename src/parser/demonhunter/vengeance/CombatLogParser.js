@@ -1,10 +1,5 @@
-import React from 'react';
-
-import Panel from 'interface/others/Panel';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import PainChart from './modules/painchart/Pain';
 import PainTracker from './modules/pain/PainTracker';
 import PainDetails from './modules/pain/PainDetails';
 
@@ -81,30 +76,6 @@ class CombatLogParser extends CoreCombatLogParser {
     revelInPain: RevelInPain,
     infernalArmor: InfernalArmor,
   };
-
-  generateResults(...args) {
-    const results = super.generateResults(...args);
-
-    results.tabs = [
-      ...results.tabs,
-      { // TODO: Move this to an Analyzer module
-        title: 'Pain Chart',
-        url: 'pain',
-        render: () => (
-          <Panel style={{ padding: '15px 22px' }}>
-            <PainChart
-              reportCode={this.report.code}
-              actorId={this.playerId}
-              start={this.fight.start_time}
-              end={this.fight.end_time}
-            />
-          </Panel>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

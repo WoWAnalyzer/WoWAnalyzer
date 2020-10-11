@@ -1,7 +1,9 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import 'jest-enzyme'; // better matchers
+import 'jest-canvas-mock';
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -21,5 +23,3 @@ jest.mock('react-router-dom', () => ({
   Switch: props => <switch {...props} />,
   withRouter: Component => props => <routerified><Component {...props} /></routerified>,
 }));
-// react-vis needs browser interface or it crashes
-jest.mock('react-vis/dist/make-vis-flexible.js');

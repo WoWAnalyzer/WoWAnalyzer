@@ -129,8 +129,7 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
             </thead>
             <tbody>
               {
-                Object.keys(this.byCast).map(cast => {
-                  return (
+                Object.keys(this.byCast).map(cast => (
                     <tr key={cast}>
                       <th>{formatDuration((this.byCast[cast].time + this.owner.fight.offset_time) / 1000)}</th>
                       <td>{formatNumber(this.byCast[cast].healing)}</td>
@@ -138,8 +137,7 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
                       <td>{formatNumber(this.byCast[cast].damage)}</td>
                       <td>{formatNumber(this.byCast[cast].friendlyDamage)}</td>
                     </tr>
-                  );
-                })
+                  ))
               }
             </tbody>
           </table>
@@ -203,26 +201,22 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestedWasted).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestedWasted).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your usage of <ItemLink id={ITEMS.IDOL_OF_INDISCRIMINATE_CONSUMPTION.id} /> can be improved. Try to use it when you are on low health.
         </>,
       )
         .icon(ITEMS.IDOL_OF_INDISCRIMINATE_CONSUMPTION.icon)
         .actual(`${formatPercentage(actual)}% of casts at above ${formatPercentage(this.constructor.hpSuggestionThreshold)}% HP.`)
-        .recommended(`<20% is recommended`);
-    });
-    when(this.suggestedHitCount).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+        .recommended(`<20% is recommended`));
+    when(this.suggestedHitCount).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your usage of <ItemLink id={ITEMS.IDOL_OF_INDISCRIMINATE_CONSUMPTION.id} /> can be improved. Try to hit enough targets to heal to full.
         </>,
       )
         .icon(ITEMS.IDOL_OF_INDISCRIMINATE_CONSUMPTION.icon)
         .actual(`${formatPercentage(actual)}% of casts could've hit additional targets without causing overhealing.`)
-        .recommended(`<10% is recommended`);
-    });
+        .recommended(`<10% is recommended`));
   }
 
 }

@@ -18,7 +18,7 @@ class HighNoon extends Analyzer {
     statTracker: StatTracker,
   };
   /**
-   * HighNoon increases the tick damage from Sunfire so lets track it and 
+   * HighNoon increases the tick damage from Sunfire so lets track it and
    * see what % of your Sunfire damage it was
    */
 

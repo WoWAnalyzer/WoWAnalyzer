@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -17,14 +17,14 @@ import Events, { DamageEvent } from 'parser/core/Events';
  * Example log:
  * https://www.warcraftlogs.com/reports/ayK6THQGAB4Y8h9N#fight=15&type=summary&source=1415&translate=true
  */
-
 class AlphaPredator extends Analyzer {
-
   damage = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id);
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV), this.onPetDamage);
   }
 

@@ -1,100 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Unholy Death Knight integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          Downtime
-        </label>
-        <div
-          className="value"
-        >
-          13.90 %
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
-          <div
-            className="statistic-box-bar"
-          >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={
-                Object {
-                  "width": "86.09590692638477%",
-                }
-              }
-            >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-            >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Unholy Death Knight integration test: example log Apocalypse matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -3052,7 +2957,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
-                href="http://wowhead.com/spell=301308"
+                href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3064,7 +2969,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_potiona5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3073,7 +2978,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   }
                 />
                  
-                Abyssal Healing Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -3084,7 +2989,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0.52
+              0.00
             </td>
             <td
               className="text-right"
@@ -3094,7 +2999,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -3114,7 +3019,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -3129,7 +3034,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -3149,7 +3054,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
-                href="http://wowhead.com/spell=300714"
+                href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3161,7 +3066,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_potionf_5.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3181,7 +3086,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0.52
+              0.00
             </td>
             <td
               className="text-right"
@@ -3191,7 +3096,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -3211,7 +3116,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -3226,7 +3131,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -3340,56 +3245,19 @@ exports[`Unholy Death Knight integration test: example log DistanceMoved matches
           <div
             style={
               Object {
-                "height": 0,
-                "overflow": "visible",
-                "width": 0,
+                "height": 75,
+                "width": "100%",
               }
             }
           >
             <div
-              className="rv-xy-plot "
               style={
                 Object {
-                  "height": "0px",
-                  "width": "0px",
+                  "overflow": "visible",
+                  "width": 0,
                 }
               }
-            >
-              <svg
-                className="rv-xy-plot__inner"
-                height={0}
-                onClick={[Function]}
-                onDoubleClick={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onMouseMove={[Function]}
-                onMouseUp={[Function]}
-                onTouchCancel={[Function]}
-                onTouchEnd={[Function]}
-                onTouchMove={[Function]}
-                onTouchStart={[Function]}
-                onWheel={[Function]}
-                width={0}
-              >
-                <path
-                  className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                  d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
-                  onClick={[Function]}
-                  onContextMenu={[Function]}
-                  onMouseOut={[Function]}
-                  onMouseOver={[Function]}
-                  style={
-                    Object {
-                      "fill": "#12939A",
-                      "opacity": 1,
-                      "stroke": "#12939A",
-                    }
-                  }
-                  transform="translate(0,0)"
-                />
-              </svg>
-            </div>
+            />
           </div>
         </div>
       </div>
@@ -3413,6 +3281,177 @@ exports[`Unholy Death Knight integration test: example log DistanceMoved matches
     </div>
   </div>
 </div>
+`;
+
+exports[`Unholy Death Knight integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_chest_plate_nzothraid_d_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4824,
+              1517,
+              4786,
+              6510,
+            ],
+            "icon": "inv_chest_plate_nzothraid_d_01.jpg",
+            "id": 174164,
+            "itemLevel": 480,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={174164}
+        quality={4}
+      >
+        Chest
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_glove_plate_nzothraid_d_01.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              6412,
+              4803,
+              6515,
+              6578,
+              6579,
+              6474,
+              6455,
+              1507,
+              4786,
+            ],
+            "icon": "inv_glove_plate_nzothraid_d_01.jpg",
+            "id": 173456,
+            "itemLevel": 450,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={173456}
+        quality={3}
+      >
+        Gloves
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_ring_80_05b.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              6536,
+              6578,
+              6579,
+              6559,
+              6513,
+              1647,
+              4786,
+            ],
+            "icon": "inv_ring_80_05b.jpg",
+            "id": 159461,
+            "itemLevel": 475,
+            "permanentEnchant": 6109,
+            "quality": 3,
+          }
+        }
+        icon={false}
+        id={159461}
+        quality={3}
+      >
+        Ring
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_70_raid_ring8d.jpg",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              4824,
+              6578,
+              6579,
+              6560,
+              6513,
+              1517,
+              4786,
+            ],
+            "icon": "inv_70_raid_ring8d.jpg",
+            "id": 174530,
+            "itemLevel": 475,
+            "permanentEnchant": 6109,
+            "quality": 4,
+          }
+        }
+        icon={false}
+        id={174530}
+        quality={4}
+      >
+        Ring
+      </ItemLink>
+       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ItemLink
+        details={
+          Object {
+            "bonusIDs": Array [
+              6590,
+              1472,
+            ],
+            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+            "id": 169223,
+            "itemLevel": 500,
+            "quality": 5,
+          }
+        }
+        icon={false}
+        id={169223}
+        quality={5}
+      >
+        Cloak
+      </ItemLink>
+       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+    </React.Fragment>,
+    "stat": null,
+  },
+]
 `;
 
 exports[`Unholy Death Knight integration test: example log EssenceOfTheFocusingIris matches the statistic snapshot 1`] = `
@@ -3494,83 +3533,6 @@ exports[`Unholy Death Knight integration test: example log EssenceOfTheFocusingI
             </small>
                         
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Unholy Death Knight integration test: example log Expedient matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=315546"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Expedient"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_mage_netherwindpresence.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=315546"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Expedient
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 50 50"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 25L25 0l25 25H37.4v25h-25V25H0z"
-            />
-          </svg>
-           
-          48
-          % 
-          <small>
-            Haste Multiplier
-          </small>
-          <br />
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
-            />
-          </svg>
-           
-          1833
-           
-          <small>
-            average Haste gained
-          </small>
         </div>
       </div>
     </div>
@@ -3702,6 +3664,30 @@ exports[`Unholy Death Knight integration test: example log FesteringStrikeEffici
 </div>
 `;
 
+exports[`Unholy Death Knight integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
+exports[`Unholy Death Knight integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
+    "importance": "minor",
+    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
 exports[`Unholy Death Knight integration test: example log OverwhelmingPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -3797,65 +3783,46 @@ exports[`Unholy Death Knight integration test: example log OverwhelmingPower mat
 </div>
 `;
 
-exports[`Unholy Death Knight integration test: example log RacingPulse matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=318227"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Racing Pulse"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_warrior_bloodfrenzy.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=318227"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Racing Pulse
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
-            />
-          </svg>
-           
-          758
-           
-          <small>
-            average Haste
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+exports[`Unholy Death Knight integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_yellow",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
+      
+       increasing output through 
+      <ItemLink
+        icon={true}
+        id={171275}
+      />
+      
+      . 
+      
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_yellow",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You used a weak potion. 
+      <ItemLink
+        icon={true}
+        id={171275}
+      />
+       can be used instead of 
+      <ItemLink
+        icon={true}
+        id={171275}
+      />
+       in order to get a slightly higher damage output.
+    </React.Fragment>,
+    "stat": null,
+  },
+]
 `;
 
 exports[`Unholy Death Knight integration test: example log RuneTracker matches the statistic snapshot 1`] = `
@@ -3889,7 +3856,7 @@ exports[`Unholy Death Knight integration test: example log RuneTracker matches t
         <div
           className="value"
         >
-          8.76 %
+          3.21 %
         </div>
       </div>
       <div
@@ -4062,53 +4029,25 @@ exports[`Unholy Death Knight integration test: example log ThroughputStatisticGr
                   Object {
                     "height": 0,
                     "overflow": "visible",
-                    "width": 0,
                   }
                 }
               >
                 <div
-                  className="rv-xy-plot "
                   style={
                     Object {
-                      "height": "0px",
-                      "width": "0px",
+                      "height": 75,
+                      "width": "100%",
                     }
                   }
                 >
-                  <svg
-                    className="rv-xy-plot__inner"
-                    height={0}
-                    onClick={[Function]}
-                    onDoubleClick={[Function]}
-                    onMouseDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    onMouseMove={[Function]}
-                    onMouseUp={[Function]}
-                    onTouchCancel={[Function]}
-                    onTouchEnd={[Function]}
-                    onTouchMove={[Function]}
-                    onTouchStart={[Function]}
-                    onWheel={[Function]}
-                    width={0}
-                  >
-                    <path
-                      className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
-                      onClick={[Function]}
-                      onContextMenu={[Function]}
-                      onMouseOut={[Function]}
-                      onMouseOver={[Function]}
-                      style={
-                        Object {
-                          "fill": "#12939A",
-                          "opacity": 1,
-                          "stroke": "#12939A",
-                        }
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
                       }
-                      transform="translate(0,0)"
-                    />
-                  </svg>
+                    }
+                  />
                 </div>
               </div>
             </a>
@@ -4184,53 +4123,25 @@ exports[`Unholy Death Knight integration test: example log ThroughputStatisticGr
                   Object {
                     "height": 0,
                     "overflow": "visible",
-                    "width": 0,
                   }
                 }
               >
                 <div
-                  className="rv-xy-plot "
                   style={
                     Object {
-                      "height": "0px",
-                      "width": "0px",
+                      "height": 75,
+                      "width": "100%",
                     }
                   }
                 >
-                  <svg
-                    className="rv-xy-plot__inner"
-                    height={0}
-                    onClick={[Function]}
-                    onDoubleClick={[Function]}
-                    onMouseDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    onMouseMove={[Function]}
-                    onMouseUp={[Function]}
-                    onTouchCancel={[Function]}
-                    onTouchEnd={[Function]}
-                    onTouchMove={[Function]}
-                    onTouchStart={[Function]}
-                    onWheel={[Function]}
-                    width={0}
-                  >
-                    <path
-                      className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
-                      onClick={[Function]}
-                      onContextMenu={[Function]}
-                      onMouseOut={[Function]}
-                      onMouseOver={[Function]}
-                      style={
-                        Object {
-                          "fill": "#12939A",
-                          "opacity": 1,
-                          "stroke": "#12939A",
-                        }
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
                       }
-                      transform="translate(0,0)"
-                    />
-                  </svg>
+                    }
+                  />
                 </div>
               </div>
             </a>
@@ -4302,53 +4213,25 @@ exports[`Unholy Death Knight integration test: example log ThroughputStatisticGr
                   Object {
                     "height": 0,
                     "overflow": "visible",
-                    "width": 0,
                   }
                 }
               >
                 <div
-                  className="rv-xy-plot "
                   style={
                     Object {
-                      "height": "0px",
-                      "width": "0px",
+                      "height": 75,
+                      "width": "100%",
                     }
                   }
                 >
-                  <svg
-                    className="rv-xy-plot__inner"
-                    height={0}
-                    onClick={[Function]}
-                    onDoubleClick={[Function]}
-                    onMouseDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    onMouseMove={[Function]}
-                    onMouseUp={[Function]}
-                    onTouchCancel={[Function]}
-                    onTouchEnd={[Function]}
-                    onTouchMove={[Function]}
-                    onTouchStart={[Function]}
-                    onWheel={[Function]}
-                    width={0}
-                  >
-                    <path
-                      className="rv-xy-plot__series rv-xy-plot__series--line primary"
-                      d="MNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0LNaN,0Z"
-                      onClick={[Function]}
-                      onContextMenu={[Function]}
-                      onMouseOut={[Function]}
-                      onMouseOver={[Function]}
-                      style={
-                        Object {
-                          "fill": "#12939A",
-                          "opacity": 1,
-                          "stroke": "#12939A",
-                        }
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
                       }
-                      transform="translate(0,0)"
-                    />
-                  </svg>
+                    }
+                  />
                 </div>
               </div>
             </a>
@@ -5067,7 +4950,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  13.90%
+                  9.60%
                    
                    
                 </div>
@@ -5220,7 +5103,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  91.24%
+                  96.79%
                    
                    
                 </div>
@@ -5422,7 +5305,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -5446,8 +5329,8 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "16.666666666666664%",
                 }
               }
             />
@@ -5542,7 +5425,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                    
                   3
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -5561,9 +5444,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "50%",
                       }
                     }
                   />
@@ -5601,9 +5484,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  3
+                  1
                    
-                  / 3
+                  / 6
                    
                 </div>
               </div>
@@ -5622,9 +5505,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "16.666666666666664%",
                       }
                     }
                   />
@@ -5722,7 +5605,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -5742,9 +5625,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -5782,7 +5665,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -5802,9 +5685,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -5842,7 +5725,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -5862,9 +5745,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -5962,7 +5845,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -5982,9 +5865,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

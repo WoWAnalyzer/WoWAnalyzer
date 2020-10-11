@@ -38,7 +38,7 @@ class HarlansLoadedDice extends Analyzer {
   constructor(...args) {
     super(...args);
     this._item = this.selectedCombatant.getTrinket(ITEMS.HARLANS_LOADED_DICE.id);
-    this.active = !!this._item;
+    this.active = Boolean(this._item);
     if (this.active) {
       this.smallBuffValue = calculateSecondaryStatDefault(355, 169, this.selectedCombatant.getItem(ITEMS.HARLANS_LOADED_DICE.id).itemLevel);
       this.bigBuffValue = calculateSecondaryStatDefault(355, 284, this.selectedCombatant.getItem(ITEMS.HARLANS_LOADED_DICE.id).itemLevel);

@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
@@ -10,15 +10,17 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
 import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
+import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
+
 
 /**
  * Summons a powerful wild beast that attacks the target and roars, increasing your Haste by 5% for 8 sec.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/TY846VxkCwAfPLbG#fight=46&type=damage-done&source=411
+ *
+ * TODO: Ensure it doesn't conflict with Dire Command legendary.
  */
-
-export const HASTE_PERCENT = 0.05;
 
 class DireBeast extends Analyzer {
 
@@ -26,7 +28,7 @@ class DireBeast extends Analyzer {
   activeDireBeasts: string[] = [];
   targetId = '';
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
@@ -61,8 +63,9 @@ class DireBeast extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.DIRE_BEAST_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /> <br />
-            <Haste /> {formatPercentage(HASTE_PERCENT * this.uptime)}% Haste<br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
+            <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% Haste<br />
           </>
         </BoringSpellValueText>
       </Statistic>

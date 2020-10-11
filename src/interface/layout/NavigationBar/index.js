@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
 
@@ -37,12 +39,16 @@ const NavigationBar = props => {
         )}
         {report && (
           <div className="menu-item">
-            <Link to={makeAnalyzerUrl(report)}>{fight ? getFightName(report, fight) : <Trans>Fight selection</Trans>}</Link>
+            <Link to={makeAnalyzerUrl(report)}>
+              {fight ? getFightName(report, fight) : <Trans>Fight selection</Trans>}
+            </Link>
           </div>
         )}
         {report && (fight || playerName) && (
           <div className="menu-item">
-            <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>{playerName || <Trans>Player selection</Trans>}</Link>
+            <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>
+              {playerName || <Trans>Player selection</Trans>}
+            </Link>
           </div>
         )}
         <div className="spacer" />
@@ -56,7 +62,10 @@ const NavigationBar = props => {
           ) : (
             <Tooltip content={<Trans>Premium</Trans>}>
               <Link to="/premium" className="premium">
-                <PremiumIcon /> <span className="optional"><Trans>Premium</Trans></span>
+                <PremiumIcon />{' '}
+                <span className="optional">
+                  <Trans>Premium</Trans>
+                </span>
               </Link>
             </Tooltip>
           )}
@@ -102,17 +111,12 @@ NavigationBar.propTypes = {
   ]),
 };
 
-const mapStateToProps = state => ({
-  playerName: getPlayerName(state),
+const mapStateToProps = (state, props) => ({
+  playerName: getPlayerName(props.location.pathname),
 
-  report: getReportCode(state) && getReport(state),
-  fight: getFightById(state, getFightId(state)),
+  report: getReportCode(props.location.pathname) && getReport(state),
+  fight: getFightById(state, getFightId(props.location.pathname)),
   user: getUser(state),
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    // openModal,
-  },
-)(NavigationBar);
+export default compose(withRouter, connect(mapStateToProps))(NavigationBar);

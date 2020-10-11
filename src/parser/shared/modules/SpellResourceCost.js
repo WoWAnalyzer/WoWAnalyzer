@@ -7,9 +7,9 @@ import Analyzer from 'parser/core/Analyzer';
  * cost reductions so we need to check for conditions and apply it ourselves. Using SpellResourceCost
  * allows you to apply that reduction just once and have the information available wherever the cast
  * event gets processed.
- * 
+ *
  * If you're dealing with mana you should use parser/core/Modules/SpellManaCost instead.
- * 
+ *
  * An example implementation can be found at parser/Druid/Feral/Modules/Features/SpellEnergyCost
  * Check the "IMPLEMENTME" comments for what typically needs to be customised.
  */

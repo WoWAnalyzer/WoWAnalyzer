@@ -6,7 +6,7 @@ export default function lazyLoadComponent(load, delay = 1000) {
   class ComponentLazyLoader extends React.PureComponent {
     static loadedComponent = null;
     state = {
-      loaded: !!ComponentLazyLoader.loadedComponent,
+      loaded: Boolean(ComponentLazyLoader.loadedComponent),
     };
 
     constructor() {

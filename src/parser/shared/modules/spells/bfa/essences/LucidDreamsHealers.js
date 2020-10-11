@@ -99,7 +99,7 @@ class LucidDreamsHealers extends Analyzer {
             <div className="value">
               <ItemHealingDone amount={this.healing} /><br />
               <ItemManaGained amount={this.manaRestoredMinor} /><br />
-              {rank > 2 && (<><StatIcon stat={"versatility"} /> {formatNumber(this.minorBuffUptime * this.versGain)} <small>average versatility gained</small><br /></>)}
+              {rank > 2 && (<><StatIcon stat="versatility" /> {formatNumber(this.minorBuffUptime * this.versGain)} <small>average versatility gained</small><br /></>)}
             </div>
           </div>
         </ItemStatistic>
@@ -108,10 +108,10 @@ class LucidDreamsHealers extends Analyzer {
             <div className="pad">
               <label><SpellLink id={SPELLS.LUCID_DREAMS.id} /> - Major Rank {rank}</label>
               <div className="value">
-                <TooltipElement content={"Does not take into account if you used Lucid Dreams while you were capped on mana."}>
+                <TooltipElement content="Does not take into account if you used Lucid Dreams while you were capped on mana.">
                   <ItemManaGained amount={this.manaRestoredMajor} /><br />
                 </TooltipElement>
-                {rank > 2 && (<><StatIcon stat={"leech"} /> {formatNumber(this.majorBuffUptime * this.leechGain)} <small>average leech gained</small><br /></>)}
+                {rank > 2 && (<><StatIcon stat="leech" /> {formatNumber(this.majorBuffUptime * this.leechGain)} <small>average leech gained</small><br /></>)}
               </div>
             </div>
           </ItemStatistic>

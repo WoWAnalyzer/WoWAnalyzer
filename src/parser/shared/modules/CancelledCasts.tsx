@@ -6,10 +6,12 @@ import {
   formatPercentage,
 } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CrossIcon from 'interface/icons/Cross';
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+
 import { CastEvent } from '../../core/Events';
 
 const debug = false;
@@ -91,7 +93,7 @@ class CancelledCasts extends Analyzer {
         average: 0.05,
         major: 0.15,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -115,7 +117,6 @@ class CancelledCasts extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
         size="small"
-        label="test"
         className="value"
         tooltip={(
           <>

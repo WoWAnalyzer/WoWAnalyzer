@@ -3,7 +3,7 @@ import React from 'react';
 import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
-import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
 
@@ -60,12 +60,10 @@ class AstralPowerDetails extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholdsWasted)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`You overcapped ${this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.`)
+      .addSuggestion((suggest, actual, recommended) => suggest(`You overcapped ${this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.`)
           .icon('ability_druid_cresentburn')
           .actual(`${formatPercentage(actual)}% overcapped Astral Power`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

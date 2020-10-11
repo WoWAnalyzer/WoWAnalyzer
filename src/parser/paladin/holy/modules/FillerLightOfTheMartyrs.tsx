@@ -4,7 +4,8 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events, { CastEvent } from 'parser/core/Events';
 
@@ -17,7 +18,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
   };
   protected spellUsable!: SpellUsable;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_THE_MARTYR),
@@ -60,7 +61,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
         average: 2,
         major: 3,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
   get inefficientCpmSuggestionThresholds() {
@@ -71,14 +72,13 @@ class FillerLightOfTheMartyrs extends Analyzer {
         average: 0.25,
         major: 0.5,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.cpmSuggestionThresholds).addSuggestion(
-      (suggest: any, actual: any, recommended: any) => {
-        return suggest(
+      (suggest, actual, recommended) => suggest(
           <Trans>
             You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />
             s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the
@@ -92,12 +92,10 @@ class FillerLightOfTheMartyrs extends Analyzer {
               {this.cpm.toFixed(2)} casts per minute - {this.casts} casts total
             </Trans>,
           )
-          .recommended(<Trans>&lt;{recommended} casts per minute is recommended</Trans>);
-      },
+          .recommended(<Trans>&lt;{recommended} casts per minute is recommended</Trans>),
     );
 
-    when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest: any, actual: any) => {
-      return suggest(
+    when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest, actual) => suggest(
         <Trans>
           You cast {this.inefficientCasts.length} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s
           while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was{' '}
@@ -133,8 +131,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
       )
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
         .actual(<Trans>{this.inefficientCasts.length} casts while Holy Shock was available</Trans>)
-        .recommended(<Trans>No inefficient casts is recommended</Trans>);
-    });
+        .recommended(<Trans>No inefficient casts is recommended</Trans>));
   }
 }
 

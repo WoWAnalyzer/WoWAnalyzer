@@ -32,12 +32,10 @@ class RuptureUptime extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Your <SpellLink id={SPELLS.RUPTURE.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.RUPTURE.id} /> on the boss.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.RUPTURE.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.RUPTURE.id} /> on the boss.</>)
         .icon(SPELLS.RUPTURE.icon)
         .actual(`${formatPercentage(actual)}% Rupture uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

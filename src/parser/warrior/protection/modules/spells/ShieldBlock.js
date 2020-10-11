@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const debug = false;
 
@@ -169,19 +170,17 @@ class ShieldBlock extends Analyzer {
         average: .80,
         major: .70,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <> You had uneventful <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast(s) where there was either no blockable damage events or you didn't cast shield slam enough. </>,
       )
         .icon(SPELLS.SHIELD_BLOCK.icon)
         .actual(`${this.goodCast} good casts of shield block`)
-        .recommended(`${Math.floor(recommended * (this.goodCast + this.badCast))} is recommended`);
-    });
+        .recommended(`${Math.floor(recommended * (this.goodCast + this.badCast))} is recommended`));
   }
 
   statistic() {
@@ -203,12 +202,12 @@ class ShieldBlock extends Analyzer {
             Overall bad casts: {totalCasts - goodCasts}<br />
             Good offensive casts: {offensiveCasts}<br />
             Good offensive casts where you cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> during the <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> buff to take advantage of increased <SpellLink id={SPELLS.SHIELD_SLAM.id} /> damage.
-          <br /><br />
+            <br /><br />
             Good defensive casts: {defensiveCasts}<br />
             Good defensive casts where you blocked several hits.
-          <br /><br />
+            <br /><br />
             Some casts may be good both offensively and defensively.
-          <br /><br />
+            <br /><br />
             Try to maximize the efficiency of your <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> casts by ensuring that you take advantage of the offensive or defensive effects each time.
           </>
         )}

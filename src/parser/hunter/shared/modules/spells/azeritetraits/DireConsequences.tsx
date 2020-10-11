@@ -1,14 +1,14 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
 import UptimeIcon from 'interface/icons/Uptime';
-import Events, { ApplyBuffEvent } from 'parser/core/Events';
+import Events from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import { HASTE_PERCENT } from 'parser/hunter/beastmastery/modules/talents/DireBeast';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
 
 /**
  * Kill Command deals n additional damage, and has a chance to summon a Dire
@@ -24,7 +24,7 @@ class DireConsequences extends Analyzer {
 
   procs = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.DIRE_CONSEQUENCES.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_BUFF), this.buffApplication);
@@ -34,7 +34,7 @@ class DireConsequences extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
   }
 
-  buffApplication(event: ApplyBuffEvent) {
+  buffApplication() {
     this.procs += 1;
   }
 
@@ -46,7 +46,7 @@ class DireConsequences extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.DIRE_CONSEQUENCES}>
           <>
-            <Haste /> {formatPercentage(HASTE_PERCENT * this.uptime)}% <small>Haste</small><br />
+            <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% <small>Haste</small><br />
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small><br />
             {this.procs} <small>procs</small>
           </>

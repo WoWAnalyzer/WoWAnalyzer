@@ -93,8 +93,7 @@ class DirectBeaconHealing extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds.actual)
       .isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      .addSuggestion((suggest, actual, recommended) => suggest(
           <Trans>
             You cast a lot of direct heals on beacon targets. Direct healing beacon targets is
             inefficient. Try to only cast on beacon targets when they would otherwise die.
@@ -108,8 +107,7 @@ class DirectBeaconHealing extends Analyzer {
           )
           .recommended(<Trans>&lt;{formatPercentage(recommended)}% is recommended</Trans>)
           .regular(this.suggestionThresholds.isGreaterThan.average)
-          .major(this.suggestionThresholds.isGreaterThan.major);
-      });
+          .major(this.suggestionThresholds.isGreaterThan.major));
   }
   statistic() {
     return (

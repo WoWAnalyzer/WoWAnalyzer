@@ -1,6 +1,5 @@
 import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
 import React from 'react';
-import { formatNumber, formatPercentage } from 'common/format';
 
 /**
  * pn is the mean value of procs
@@ -77,7 +76,7 @@ function binomialDistribution(n: number, k: number) {
 }
 
 function resetProbabilityArray(actualProcs: number, procAttempts: number, procChance: number | number[]) {
-  const procProbabilities: { x: number; y: number; }[] = Array.from({ length: procAttempts }, (_x, i: number) => {
+  const procProbabilities: Array<{ x: number; y: number; }> = Array.from({ length: procAttempts }, (_x, i: number) => {
     if (typeof procChance === 'number') {
       return { x: i, y: binomialPMF(i, procAttempts, procChance) };
     } else {
@@ -177,24 +176,15 @@ export function plotOneVariableBinomChart(
   procAttempts: number,
   procChance: number | number[],
   trackedName: string = 'Procs',
-  tooltipText: string = `${trackedName}: `,
-  tooltipFormula: (point: { x: number }) => string = (point: { x: number; }) => `${tooltipText} ${formatNumber(point.x)}`,
+  tooltipText: string = trackedName,
   yDomain: number[] = [0, 0.4],
   xAxis: any = {
     title: trackedName,
-    tickFormat: (value: number) => formatNumber(value),
-    style: {
-      fill: 'white',
-    },
+    tickFormat: '~k',
   },
   yAxis: any = {
     title: 'Likelihood',
-    tickFormat: (value: number) => `${formatPercentage(value, 0)}%`,
-    style: {
-      fill: 'white',
-    },
   },
-  curve: string = 'curveMonotoneX',
 ) {
 
   const { procProbabilities, rangeMin, rangeMax } = setMinMaxProbabilities(actualProcs, procAttempts, procChance);
@@ -206,8 +196,7 @@ export function plotOneVariableBinomChart(
       yDomain={yDomain}
       xAxis={xAxis}
       yAxis={yAxis}
-      curve={curve}
-      tooltip={tooltipFormula}
+      tooltip={tooltipText}
     />
   );
 }

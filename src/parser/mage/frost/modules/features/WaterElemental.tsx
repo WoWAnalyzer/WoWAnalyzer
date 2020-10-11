@@ -7,8 +7,10 @@ import { formatPercentage, formatNumber, formatThousands, formatDuration } from 
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent, DamageEvent } from 'parser/core/Events';
+
 import AlwaysBeCasting from './AlwaysBeCasting';
 
 class WaterElemental extends Analyzer {
@@ -29,7 +31,7 @@ class WaterElemental extends Analyzer {
   _timestampLastCast = 0;
   _timestampFirstCast = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id);
 
@@ -102,7 +104,7 @@ class WaterElemental extends Analyzer {
         average: this.abc.activeTimePercentage - 0.25,
         major: this.abc.activeTimePercentage -0.30,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -115,31 +117,27 @@ class WaterElemental extends Analyzer {
         average: 10000, // 5 - 10 seconds after pull should give the player time for fetid/mythrax-like pulls
         major: 20000, //
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.waterElementalUptimeThresholds)
-    .addSuggestion((suggest: any, actual: any, recommended: any) => {
-      return suggest(<>
+    .addSuggestion((suggest, actual, recommended) => suggest(<>
                       Your <SpellLink id={SPELLS.SUMMON_WATER_ELEMENTAL.id} /> uptime can be improved.
                       The uptime of your Water Elemental should more or less mirror your own uptime, higher being better.
                       Ensure you have your it summoned pre-pull and that it's always attacking.
                       </>)
           .icon(SPELLS.SUMMON_WATER_ELEMENTAL.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
-          .recommended(`mirroring your own uptime (${formatPercentage(this.abc.activeTimePercentage)}% or more) is recommended`);
-      });
+          .recommended(`mirroring your own uptime (${formatPercentage(this.abc.activeTimePercentage)}% or more) is recommended`));
     when(this.waterElementalPrepullThresholds)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<>
+      .addSuggestion((suggest, actual, recommended) => suggest(<>
                       Your Water Elemental should be able to cast Waterbolt right when the fight starts. Therefore, cast <SpellLink id={SPELLS.SUMMON_WATER_ELEMENTAL.id} /> before the fight.
                       </>)
           .icon(SPELLS.WATERBOLT.icon)
           .actual(`${(this._timestampFirstCast === 0 ? 'Never attacked or not summoned' : 'First attack: ' + formatDuration((this._timestampFirstCast - this.owner.fight.start_time)/1000) + ' into the fight')}`)
-          .recommended(`summoning pre-fight is recommended`);
-    });
+          .recommended(`summoning pre-fight is recommended`));
   }
 
   statistic() {

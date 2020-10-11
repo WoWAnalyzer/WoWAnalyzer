@@ -1,7 +1,8 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { formatNumber, formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SpellLink from 'common/SpellLink';
@@ -12,15 +13,10 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
-
-const MAX_STACKS: number = 5;
-
-const MAX_TRAVEL_TIME = 700;
+import { MONGOOSE_BITE_MAX_STACKS, MONGOOSE_BITE_MAX_TRAVEL_TIME, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 
 /**
- * Mongoose Fury increases Mongoose Bite damage by 15% for 14 sec, stacking up to 5 times. Successive
- * attacks do not increase duration.
+ * Mongoose Fury increases Mongoose Bite damage by 15% for 14 sec, stacking up to 5 times. Successive attacks do not increase duration.
  *
  * Example log: https://www.warcraftlogs.com/reports/CDL6mZfWdcgQX9wT#fight=2&type=damage-done&source=23
  */
@@ -37,10 +33,13 @@ class MongooseBite extends Analyzer {
   accumulatedFocusAtMomentOfCast = 0;
   windowCheckedForFocus: boolean = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id);
-    this.mongooseBiteStacks = Array.from({ length: MAX_STACKS + 1 }, x => 0);
+
+    this.mongooseBiteStacks = Array.from({ length: MONGOOSE_BITE_MAX_STACKS + 1 }, x => 0);
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.handleDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), this.handleStacks);
@@ -48,10 +47,54 @@ class MongooseBite extends Analyzer {
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MONGOOSE_FURY), this.handleStacks);
   }
 
+  get mongooseBiteByStacks() {
+    return this.mongooseBiteStacks;
+  }
+
+  get totalMongooseBites() {
+    return this.mongooseBiteStacks.reduce((totalHits: number, stackHits: number) => totalHits + stackHits, 0);
+  }
+
+  get fiveStackMongooseBites() {
+    return this.mongooseBiteStacks[MONGOOSE_BITE_MAX_STACKS];
+  }
+
+  get averageFocusOnMongooseWindowStart() {
+    return this.accumulatedFocusAtMomentOfCast / this.totalWindowsStarted;
+  }
+
+  get percentMaxStacksHit() {
+    return this.mongooseBiteStacks[MONGOOSE_BITE_MAX_STACKS] / this.totalMongooseBites;
+  }
+
+  get focusOnMongooseWindowThreshold() {
+    return {
+      actual: this.averageFocusOnMongooseWindowStart,
+      isLessThan: {
+        minor: 65,
+        average: 60,
+        major: 55,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  get mongoose5StackHitThreshold() {
+    return {
+      actual: this.percentMaxStacksHit,
+      isLessThan: {
+        minor: 0.30,
+        average: 0.29,
+        major: 0.28,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   handleDamage(event: DamageEvent) {
     // Because Aspect of the Eagle applies a traveltime to Mongoose Bite, it sometimes applies the buff before it hits, despite not increasing the damage.
     // This fixes that, ensuring we reduce by 1, and later increasing it by one.
-    if (this.lastMongooseBiteStack === 1 && event.timestamp < this.buffApplicationTimestamp + MAX_TRAVEL_TIME) {
+    if (this.lastMongooseBiteStack === 1 && event.timestamp < this.buffApplicationTimestamp + MONGOOSE_BITE_MAX_TRAVEL_TIME) {
       this.lastMongooseBiteStack -= 1;
       this.aspectOfTheEagleFixed = true;
     }
@@ -69,7 +112,7 @@ class MongooseBite extends Analyzer {
 
   handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent) {
     this.lastMongooseBiteStack = currentStacks(event);
-    if (this.lastMongooseBiteStack === MAX_STACKS) {
+    if (this.lastMongooseBiteStack === MONGOOSE_BITE_MAX_STACKS) {
       this.fiveBiteWindows += 1;
     }
     if (event.type === EventType.ApplyBuff) {
@@ -79,50 +122,6 @@ class MongooseBite extends Analyzer {
     if (event.type === EventType.RemoveBuff) {
       this.windowCheckedForFocus = false;
     }
-  }
-
-  get mongooseBiteByStacks() {
-    return this.mongooseBiteStacks;
-  }
-
-  get totalMongooseBites() {
-    return this.mongooseBiteStacks.reduce((totalHits: number, stackHits: number) => totalHits + stackHits, 0);
-  }
-
-  get fiveStackMongooseBites() {
-    return this.mongooseBiteStacks[MAX_STACKS];
-  }
-
-  get averageFocusOnMongooseWindowStart() {
-    return this.accumulatedFocusAtMomentOfCast / this.totalWindowsStarted;
-  }
-
-  get percentMaxStacksHit() {
-    return this.mongooseBiteStacks[MAX_STACKS] / this.totalMongooseBites;
-  }
-
-  get focusOnMongooseWindowThreshold() {
-    return {
-      actual: formatNumber(this.averageFocusOnMongooseWindowStart),
-      isLessThan: {
-        minor: 65,
-        average: 60,
-        major: 55,
-      },
-      style: 'number',
-    };
-  }
-
-  get mongoose5StackHitThreshold() {
-    return {
-      actual: this.percentMaxStacksHit,
-      isLessThan: {
-        minor: 0.30,
-        average: 0.29,
-        major: 0.28,
-      },
-      style: 'percentage',
-    };
   }
 
   onCast(event: CastEvent) {
@@ -152,7 +151,7 @@ class MongooseBite extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            You hit an average of {(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had {MAX_STACKS} stacks of Mongoose Fury. <br />
+            You hit an average of {(this.mongooseBiteStacks[MONGOOSE_BITE_MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had {MONGOOSE_BITE_MAX_STACKS} stacks of Mongoose Fury. <br />
             You hit an average of {(this.totalMongooseBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.
           </>
         )}
@@ -171,7 +170,7 @@ class MongooseBite extends Analyzer {
                   <tr key={i}>
                     <th>{i}</th>
                     <td>{e}</td>
-                    <td>{formatPercentage(+e / this.totalMongooseBites)}%</td>
+                    <td>{formatPercentage(Number(e) / this.totalMongooseBites)}%</td>
                   </tr>
                 ))}
               </tbody>
@@ -189,19 +188,15 @@ class MongooseBite extends Analyzer {
     );
   }
 
-  suggestions(when: any) {
-    when(this.focusOnMongooseWindowThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
-      return suggest(<>When talented into <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, it's important to have accumulated a good amount of focus before you open a <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> window in order to maximize the number of <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s at high stacks.</>)
+  suggestions(when: When) {
+    when(this.focusOnMongooseWindowThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>When talented into <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, it's important to have accumulated a good amount of focus before you open a <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> window in order to maximize the number of <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s at high stacks.</>)
         .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
         .actual(`${formatNumber(actual)} average focus on new window.`)
-        .recommended(`>${formatNumber(recommended)} is recommended`);
-    });
-    when(this.mongoose5StackHitThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
-      return suggest(<>It's important to cast as much <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s as possible when having max(5) stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} />.</>)
+        .recommended(`>${formatNumber(recommended)} is recommended`));
+    when(this.mongoose5StackHitThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>It's important to cast as much <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s as possible when having max(5) stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} />.</>)
         .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
         .actual(`${formatPercentage(actual)}% casts on max stacks.`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
 

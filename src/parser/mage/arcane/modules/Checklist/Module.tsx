@@ -5,11 +5,11 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
-import ArcaneFamiliar from '../features/ArcaneFamiliar';
-import ArcaneOrb from '../features/ArcaneOrb';
+import ArcaneFamiliar from '../talents/ArcaneFamiliar';
+import ArcaneOrb from '../talents/ArcaneOrb';
 import ArcanePower from '../features/ArcanePower';
-import RuleOfThrees from '../features/RuleOfThrees';
-import TimeAnomaly from '../features/TimeAnomaly';
+import RuleOfThrees from '../talents/RuleOfThrees';
+import TimeAnomaly from '../talents/TimeAnomaly';
 import ArcaneMissiles from '../features/ArcaneMissiles';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ManaValues from '../ManaChart/ManaValues';

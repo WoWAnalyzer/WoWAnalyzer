@@ -1,10 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
-import { Trans, t } from '@lingui/macro';
-
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
 import getAverageItemLevel from 'game/getAverageItemLevel';
@@ -23,6 +16,15 @@ import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
+import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { Trans, t } from '@lingui/macro';
+
 import handleApiError from './handleApiError';
 
 const defaultState = {
@@ -30,6 +32,8 @@ const defaultState = {
   combatants: null,
   combatantsFightId: null,
 };
+
+const FAKE_PLAYER_IF_DEV_ENV = false;
 
 class PlayerLoader extends React.PureComponent {
   tanks = 0;
@@ -111,24 +115,26 @@ class PlayerLoader extends React.PureComponent {
         if (!exportedCharacter) {
           return Promise.resolve();
         }
-        return fetchCharacter(friendly.guid, exportedCharacter.region, exportedCharacter.server, exportedCharacter.name).then(data => {
-          return Promise.resolve(data);
-        }).catch(() => {
+        return fetchCharacter(friendly.guid, exportedCharacter.region, exportedCharacter.server, exportedCharacter.name).then(data => Promise.resolve(data)).catch(() =>
           // This guy failed to load - this is nice to have data
           // We can ignore this and we'll just drop him from the overall averages later
-          return Promise.resolve();
-        });
+          Promise.resolve(),
+        );
       });
       let characterDatas = await Promise.all(characterDataPromises);
       // Filter for only loaded characterDatas
       characterDatas = characterDatas.filter(value => value);
       combatants.forEach(player => {
+        if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
+          console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.');
+          player = generateFakeCombatantInfo(player);
+        }
         if (player.error || player.specID === -1) {
           return;
         }
         const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
-        if(!friendly) {
-          console.error("friendly missing from report for player", player.sourceID);
+        if (!friendly) {
+          console.error('friendly missing from report for player', player.sourceID);
           return;
         }
         const characterData = characterDatas ? characterDatas.find(data => data.id === friendly.guid) : null;
@@ -145,7 +151,8 @@ class PlayerLoader extends React.PureComponent {
           case ROLES.DPS.RANGED:
             this.ranged += 1;
             break;
-          default: break;
+          default:
+            break;
         }
         // Gear may be null for broken combatants
         this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
@@ -298,9 +305,9 @@ class PlayerLoader extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  playerName: getPlayerName(state),
-  playerId: getPlayerId(state),
+const mapStateToProps = (state, props) => ({
+  playerName: getPlayerName(props.location.pathname),
+  playerId: getPlayerId(props.location.pathname),
 });
 export default compose(
   withRouter,

@@ -4,46 +4,48 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatThousands } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
-import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTracker';
-import SpellFocusCost from 'parser/hunter/shared/modules/resources/SpellFocusCost';
+import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import StatisticBar from 'interface/statistics/StatisticBar';
 
 import { AutoSizer } from 'react-virtualized';
-import { XYPlot, AreaSeries } from 'react-vis';
-import groupDataForChart from 'common/groupDataForChart';
+import FlushLineChart from 'interface/others/FlushLineChart';
 import { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
-
-const BASE_FOCUS_REGEN = 3;
-
-const BASE_FOCUS_MAX = 100;
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { HUNTER_BASE_FOCUS_MAX, HUNTER_BASE_FOCUS_REGEN } from 'parser/hunter/shared/constants';
 
 /**
  * Sets up RegenResourceCapTracker to accurately track the regenerating focus of hunters.
- * Taking into account the effect of buffs, talents, and items on the focus cost of abilities,
- * the maximum focus amount, and the regeneration rate.
+ * Taking into account the effect of buffs, talents, and items on the focus cost of abilities, the maximum focus amount, and the regeneration rate.
  */
 class FocusCapTracker extends RegenResourceCapTracker {
   static dependencies = {
     ...RegenResourceCapTracker.dependencies,
-    // Needed for the `resourceCost` prop of events
-    spellResourceCost: SpellFocusCost,
   };
 
-  protected spellResourceCost!: SpellFocusCost;
-
   static resourceType = RESOURCE_TYPES.FOCUS;
-  static baseRegenRate = BASE_FOCUS_REGEN;
+  static baseRegenRate = HUNTER_BASE_FOCUS_REGEN;
   static isRegenHasted = true;
-
-  currentMaxResource() {
-    return BASE_FOCUS_MAX;
-  }
+  bySecond: { [key: number]: number } = {};
 
   get wastedPercent() {
     return (this.missedRegen / this.naturalRegen) || 0;
   }
 
-  bySecond: {[key: number]: number} = {};
+  get focusNaturalRegenWasteThresholds() {
+    return {
+      actual: 1 - this.wastedPercent,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.85,
+        major: 0.8,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  currentMaxResource() {
+    return HUNTER_BASE_FOCUS_MAX;
+  }
 
   on_byPlayer_energize(event: EnergizeEvent) {
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
@@ -62,29 +64,15 @@ class FocusCapTracker extends RegenResourceCapTracker {
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }
 
-  get focusNaturalRegenWasteThresholds() {
-    return {
-      actual: 1 - this.wastedPercent,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.85,
-        major: 0.8,
-      },
-      style: 'percentage',
-    };
-  }
-
-  suggestions(when: any) {
-    when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
-      return suggest(<>You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.</>)
+  suggestions(when: When) {
+    when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.</>)
         .icon('ability_hunter_focusfire')
         .actual(`${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`)
-        .recommended(`<${formatPercentage(recommended, 0)}% is recommended.`);
-    });
+        .recommended(`<${formatPercentage(1 - recommended, 0)}% is recommended.`));
   }
 
   statistic() {
-    const groupedData: any = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const data = Object.entries(this.bySecond).map(([sec, val]) => ({'time': sec, 'val': val}));
     return (
       <StatisticBar
         position={STATISTIC_ORDER.CORE(1)}
@@ -109,21 +97,9 @@ class FocusCapTracker extends RegenResourceCapTracker {
             </div>
             <div className="flex-main chart">
               {this.missedRegen > 0 && (
-                <AutoSizer>
-                  {({ width, height}) => (
-                    <XYPlot
-                      margin={0}
-                      width={width}
-                      height={height}
-                    >
-                      <AreaSeries
-                        data={Object.keys(groupedData).map(x => ({
-                          x: +x / width,
-                          y: groupedData[x],
-                        }))}
-                        className="primary"
-                      />
-                    </XYPlot>
+                <AutoSizer disableWidth>
+                  {({ height }) => (
+                    <FlushLineChart data={data} duration={this.owner.fightDuration / 1000} height={height} />
                   )}
                 </AutoSizer>
               )}

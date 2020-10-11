@@ -1,7 +1,8 @@
 import { Race } from 'parser/core/Combatant';
+import { Spec } from 'game/SPECS';
 
 interface Raid {
-  bosses: Array<Boss>,
+  bosses: Boss[],
 }
 export type Boss = {
   id: number,
@@ -18,15 +19,16 @@ type EncounterConfig = {
     magical: [],
   },
   phases?: { [key: string]: PhaseConfig },
-  raceTranslation?: (race: Race, spec: any) => Race,
+  raceTranslation?: (race: Race, spec: Spec) => Race,
   disableDeathSuggestion?: boolean,
   disableDowntimeSuggestion?: boolean,
+  disableDowntimeStatistic?: boolean,
 }
 export interface PhaseConfig {
   name: string,
   key: string,
   difficulties: number[],
-  filter?: any,
+  filter?: unknown,
   multiple?: boolean,
   instance?: number,
 }
@@ -43,6 +45,7 @@ const raids = {
   CrucibleOfStorms: require('./crucibleofstorms').default, //tier 23.5
   AzsharasEternalPalace: require('./azsharaseternalpalace').default, //tier 24
   NyalothaTheWakingCity: require('./nyalothathewakingcity').default, //tier 25
+  CastleNathria: require('./castlenathria').default, //tier 26
 };
 export default raids;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -14,16 +15,14 @@ class FrostFeverUptime extends Analyzer {
 
   protected enemies!: Enemies;
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     const frostfeverUptime = this.enemies.getBuffUptime(SPELLS.FROST_FEVER.id) / this.owner.fightDuration;
     when(frostfeverUptime).isLessThan(0.95)
-        .addSuggestion((suggest: any, actual: any, recommended: any) => {
-          return suggest(<span>Your <SpellLink id={SPELLS.FROST_FEVER.id} /> uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to refresh Frost Fever. Using a debuff tracker can help.</span>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.FROST_FEVER.id} /> uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to refresh Frost Fever. Using a debuff tracker can help.</span>)
             .icon(SPELLS.FROST_FEVER.icon)
             .actual(`${formatPercentage(actual)}% Frost Fever uptime`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.05).major(recommended - 0.15);
-        });
+            .regular(recommended - 0.05).major(recommended - 0.15));
   }
 
   statistic() {

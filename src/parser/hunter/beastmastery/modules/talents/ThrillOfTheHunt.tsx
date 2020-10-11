@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
@@ -9,6 +9,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import CriticalStrike from 'interface/icons/CriticalStrike';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
+import { CRIT_PER_THRILL_STACK, MAX_THRILL_STACKS } from 'parser/hunter/beastmastery/constants';
 
 /**
  * Barbed Shot increases your critical strike chance by 3% for 8 sec, stacking up to 3 times.
@@ -17,16 +18,13 @@ import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
  * https://www.warcraftlogs.com/reports/Q9LghKR7ZPnAwFaH#fight=48&type=auras&source=280&ability=257946
  */
 
-const MAX_THRILL_STACKS = 3;
-const CRIT_PER_STACK = 0.03;
-
 class ThrillOfTheHunt extends Analyzer {
 
-  thrillStacks: Array<Array<number>> = [];
+  thrillStacks: number[][] = [];
   lastThrillStack = 0;
   lastThrillUpdate = this.owner.fight.start_time;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.THRILL_OF_THE_HUNT_TALENT.id);
     if (!this.active) {
@@ -44,13 +42,13 @@ class ThrillOfTheHunt extends Analyzer {
   }
 
   get currentThrillCritPercentage() {
-    return this.lastThrillStack * CRIT_PER_STACK;
+    return this.lastThrillStack * CRIT_PER_THRILL_STACK;
   }
 
   get averageCritPercent() {
     let averageCrit = 0;
     this.thrillStacks.forEach((elem, index) => {
-      averageCrit += elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration * index * CRIT_PER_STACK;
+      averageCrit += elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration * index * CRIT_PER_THRILL_STACK;
     });
     return formatPercentage(averageCrit);
   }
@@ -87,7 +85,7 @@ class ThrillOfTheHunt extends Analyzer {
                     <th>{i}</th>
                     <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
                     <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
-                    <td>{formatPercentage(CRIT_PER_STACK * i, 0)}%</td>
+                    <td>{formatPercentage(CRIT_PER_THRILL_STACK * i, 0)}%</td>
                   </tr>
                 ))}
               </tbody>

@@ -6,10 +6,10 @@ import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
-
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+
 
 const AC_DAMAGE_BONUS = 0.15;
 
@@ -33,8 +33,8 @@ class AbsoluteCorruption extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(2)}
-        size="small"
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={(
           <>
             {formatThousands(this.bonusDmg)} bonus damage<br /><br />
@@ -43,12 +43,9 @@ class AbsoluteCorruption extends Analyzer {
           </>
         )}
       >
-        <div className="pad">
-          <label><SpellLink id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> bonus damage</label>
-          <div className="value">
-            {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.ABSOLUTE_CORRUPTION_TALENT}>
+        {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

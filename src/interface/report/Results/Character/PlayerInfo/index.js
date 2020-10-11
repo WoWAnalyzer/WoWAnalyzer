@@ -2,19 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import traitIdMap from 'common/TraitIdMap';
-import corruptionIdMap from 'common/corruptionIdMap';
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import Combatant from 'parser/core/Combatant';
 
 import './PlayerInfo.scss';
 import Azerite from './Azerite';
 import Essence from './Essence';
-import Corruption from './Corruption';
 import Enchants from './Enchants';
 import Gear from './Gear';
 import Gems from './Gems';
 import PlayerGearHeader from './PlayerGearHeader';
 import Talents from './Talents';
+
+function _parseTalents(talents) {
+  return talents.reduce((talentsByRow, { id }) => talentsByRow.concat(id), []);
+}
+function _parseTraits(traits) {
+  const traitsBySlot = {};
+  traits.forEach(({ traitID, slot }) => {
+    const spellId = traitIdMap[traitID];
+    if (spellId === undefined) {
+      return;
+    }
+    if (!traitsBySlot[slot]) {
+      traitsBySlot[slot] = [];
+    }
+    traitsBySlot[slot].push(spellId);
+  });
+
+  return traitsBySlot;
+}
+function _parseGear(gear) {
+  return gear.reduce((gearItemsBySlotId, item) => gearItemsBySlotId.concat(item), []);
+}
 
 class PlayerInfo extends React.PureComponent {
   static propTypes = {
@@ -26,7 +46,6 @@ class PlayerInfo extends React.PureComponent {
     traits: {},
     talents: [],
     essences: {},
-    corruptions: {},
   };
 
   static getDerivedStateFromProps(props) {
@@ -36,7 +55,6 @@ class PlayerInfo extends React.PureComponent {
       traits: _parseTraits(combatant._combatantInfo.artifact),
       talents: _parseTalents(combatant._combatantInfo.talents),
       essences: combatant._combatantInfo.heartOfAzeroth,
-      corruptions: _parseCorruption(combatant._combatantInfo.gear),
     };
   }
 
@@ -69,61 +87,10 @@ class PlayerInfo extends React.PureComponent {
           <div className="player-details-essences">
             <Essence essences={this.state.essences} />
           </div>
-          <div className="player-details-corruptions">
-            <Corruption corruptions={this.state.corruptions} />
-          </div>
         </div>
       </div>
     );
   }
-}
-
-function _parseTalents(talents) {
-  return talents.reduce((talentsByRow, { id }) => talentsByRow.concat(id), []);
-}
-
-function _parseTraits(traits) {
-  const traitsBySlot = {};
-  traits.forEach(({ traitID, slot }) => {
-    const spellId = traitIdMap[traitID];
-    if (spellId === undefined) {
-      return;
-    }
-    if (!traitsBySlot[slot]) {
-      traitsBySlot[slot] = [];
-    }
-    traitsBySlot[slot].push(spellId);
-  });
-
-  return traitsBySlot;
-}
-
-function _parseGear(gear) {
-  return gear.reduce((gearItemsBySlotId, item) => gearItemsBySlotId.concat(item), []);
-}
-
-function _parseCorruption(gear) {
-  const corruptionBySpellId = {};
-  gear.forEach((item) => {
-    const bonusId = item.bonusIDs?.find(x => Object.keys(corruptionIdMap)
-      .includes(x.toString()));
-    if (bonusId === undefined) {
-      return;
-    }
-    const corr = corruptionIdMap[bonusId];
-
-    if (!corruptionBySpellId[corr.spellId]) {
-      corruptionBySpellId[corr.spellId] = {
-        name: corr.name,
-        corruption: corr.corruption,
-        rank: corr.rank,
-        count: 1,
-      };
-    } else {
-      corruptionBySpellId[corr.spellId].count += 1;
-    }
-  });
-  return corruptionBySpellId;
 }
 
 export default PlayerInfo;

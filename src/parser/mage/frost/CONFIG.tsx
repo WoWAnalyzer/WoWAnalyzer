@@ -7,7 +7,6 @@ import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import NoIceLance from './icons/noicelance.jpg';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
@@ -32,14 +31,6 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/BTmaxzd4vKy2GXD1/5-Heroic+Maut+-+Kill+(3:24)/Sareo/standard',
-  builds: {
-    NO_IL: {
-      url: "noil",
-      name: "No Ice Lance",
-      icon: <img src={NoIceLance} alt="No Ice lance" className="icon" />,
-      visible: true,
-    },
-  },
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.FROST_MAGE,

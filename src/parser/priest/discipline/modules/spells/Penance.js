@@ -15,18 +15,14 @@ class Penance extends Analyzer {
   hits = 0;
   eventGrouper = new EventGrouper(PENANCE_MINIMUM_RECAST_TIME);
 
-  constructor(...args) {
-    super(...args);
+  constructor(options) {
+    super(options);
 
     // Castigation Penance bolt count to 4 (from 3)
-    this._boltCount = this.selectedCombatant.hasTalent(
-      SPELLS.CASTIGATION_TALENT.id,
-    )
-      ? 4
-      : 3;
+    this._boltCount = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id) ? 4 : 3;
   }
 
-  static isPenance = spellId =>
+  static isPenance = (spellId) =>
     spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id || spellId === SPELLS.PENANCE_CAST.id;
 
   get missedBolts() {

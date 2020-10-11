@@ -1,11 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+
 import SpellUsable from '../features/SpellUsable';
 import Seraphim from '../talents/Seraphim';
 
@@ -20,7 +21,7 @@ class LucidDreams extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected sera!: Seraphim;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasEssence(SPELLS.LUCID_DREAMS.traitId);
 
@@ -29,7 +30,7 @@ class LucidDreams extends Analyzer {
     }
 
     if (this.selectedCombatant.hasMajor(SPELLS.LUCID_DREAMS.traitId)) {
-      options.abilities.add({
+      (options.abilities as Abilities).add({
         spell: SPELLS.LUCID_DREAMS_MAJOR,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 120,

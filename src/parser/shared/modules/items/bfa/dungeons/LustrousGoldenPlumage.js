@@ -14,7 +14,7 @@ import Abilities from 'parser/core/modules/Abilities';
 /**
  * Lustrous Golden Plumage -
  * Use: Increase your Versatility by 614 for 20 sec. (2 Min Cooldown)
- * 
+ *
  * Test Log: https://www.warcraftlogs.com/reports/atXvYRMFQZf4nC6d#fight=50&type=damage-done
  */
 class LustrousGoldenPlumage extends Analyzer {

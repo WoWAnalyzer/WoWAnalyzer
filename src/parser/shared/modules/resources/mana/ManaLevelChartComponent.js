@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import fetchWcl from 'common/fetchWclApi';
 
-import ManaStyles from 'interface/others/ManaStyles.js';
 import ManaLevelGraph from 'interface/others/charts/ManaLevelGraph';
 
 class ManaLevelChartComponent extends React.PureComponent {
@@ -12,6 +11,7 @@ class ManaLevelChartComponent extends React.PureComponent {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
+    combatants: PropTypes.object.isRequired,
     manaUpdates: PropTypes.array.isRequired,
   };
 
@@ -57,30 +57,28 @@ class ManaLevelChartComponent extends React.PureComponent {
       );
     }
 
-    const { start, end, offset, manaUpdates } = this.props;
+    const { start, offset, manaUpdates, combatants } = this.props;
     const initial = manaUpdates[0] ? (manaUpdates[0].current / manaUpdates[0].max) : 1; // if first event is defined, use it to copy first value, otherwise use 100%
     const mana = offset === 0 ?
-      [{ x: start, y: 100 }] :
+      [{ x: 0, y: 100 }] :
       [{
-        x: start,
+        x: 0,
         y: 100 * initial,
       }]; // start with full mana if we start at the beginning of the fight, otherwise copy first value
     mana.push(...manaUpdates.map(({ timestamp, current, max }) => {
-      const x = Math.max(timestamp, start);
+      const x = Math.max(timestamp, start) - start;
       return {
         x,
         y: (current / max) * 100,
       };
     }));
 
-    const bossData = this.state.bossHealth.series.map((series, i) => {
-      const data = series.data.map(([timestamp, health]) => ({ x: timestamp, y: health }));
+    const bossData = this.state.bossHealth.series.map((series) => {
+      const data = series.data.map(([timestamp, health]) => ({ x: timestamp - start, y: health }));
 
       return {
         id: series.id,
         title: `${series.name} Health`,
-        backgroundColor: ManaStyles[`Boss-${i % 6}`].backgroundColor,
-        borderColor: ManaStyles[`Boss-${i % 6}`].borderColor,
         data,
       };
     });
@@ -88,9 +86,11 @@ class ManaLevelChartComponent extends React.PureComponent {
     let deaths = [];
     if (this.state.bossHealth.deaths) {
       deaths = this.state.bossHealth.deaths
-        .filter(death => !!death.targetIsFriendly)
-        .map(({ timestamp }) => ({
-          x: timestamp,
+        .filter(death => Boolean(death.targetIsFriendly))
+        .map(({ timestamp, targetID, killingAbility }) => ({
+          x: timestamp - start,
+          name: combatants.players[targetID].name,
+          ability: killingAbility ? killingAbility.name : 'Unknown Ability',
         }));
     }
 
@@ -100,9 +100,6 @@ class ManaLevelChartComponent extends React.PureComponent {
           mana={mana}
           bossData={bossData}
           deaths={deaths}
-          startTime={start}
-          endTime={end}
-          offsetTime={offset}
         />
       </div>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -18,7 +18,7 @@ class HardHowlingBlastCasts extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected enemies!: Enemies;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOWLING_BLAST), this.onCast);

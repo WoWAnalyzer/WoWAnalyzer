@@ -1,8 +1,9 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
+import { Options } from 'parser/core/Analyzer';
 
 class RunicPowerTracker extends ResourceTracker {
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.RUNIC_POWER;
   }

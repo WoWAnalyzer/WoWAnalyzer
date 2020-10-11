@@ -35,12 +35,10 @@ class MarkOfBlood extends Analyzer {
 
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>Your <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> uptime can be improved.</>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> uptime can be improved.</>)
             .icon(SPELLS.MARK_OF_BLOOD_TALENT.icon)
             .actual(`${formatPercentage(actual)}% Mark Of Blood Uptime`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`);
-        });
+            .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

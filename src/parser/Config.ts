@@ -38,6 +38,8 @@ interface Config {
     | '8.1.5'
     | '8.2.5'
     | '8.3'
+    | '9.0.1'
+    | '9.0.2'
     | string;
   /**
    * If set to `false`, the spec will show up as unsupported.
@@ -65,7 +67,7 @@ interface Config {
   /**
    * The contents of your changelog.
    */
-  changelog: ReturnType<typeof change>[];
+  changelog: Array<ReturnType<typeof change>>;
   /**
    * The CombatLogParser class for your spec.
    */

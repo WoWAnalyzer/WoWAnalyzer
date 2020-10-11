@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -26,14 +26,16 @@ class SteelTrap extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  protected spellUsable!: SpellUsable;
-
   damage = 0;
   casts = 0;
 
-  constructor(options: any) {
+  protected spellUsable!: SpellUsable;
+
+  constructor(options: Options) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STEEL_TRAP_TALENT), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STEEL_TRAP_DEBUFF), this.onDamage);
   }

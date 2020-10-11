@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
 // Features
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -18,15 +19,15 @@ import FistsofFury from './modules/spells/FistsofFury';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import ComboStrikes from './modules/spells/ComboStrikes';
 import TouchOfKarma from './modules/spells/TouchOfKarma';
-import TouchOfDeath from './modules/spells/TouchOfDeath';
+import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
 import BlackoutKick from './modules/spells/BlackoutKick';
-import ReverseHarm from './modules/spells/ReverseHarm';
 // Talents
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
-// Azerite
-import GloryOfTheDawn from './modules/spells/azeritetraits/GloryOfTheDawn';
-import FuryOfXuen from './modules/spells/azeritetraits/FuryOfXuen';
+
+// Covenants
+import FallenOrder from '../shared/modules/covenants/FallenOrder';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -58,11 +59,9 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
-    reverseHarm: ReverseHarm,
 
-    // Azerite
-    gloryOfTheDawn: GloryOfTheDawn,
-    furyOfXuen: FuryOfXuen,
+    // Covenants
+    fallenOrder: FallenOrder,
   };
 }
 

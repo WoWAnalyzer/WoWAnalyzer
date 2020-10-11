@@ -6,8 +6,8 @@ import { formatPercentage } from 'common/format';
 import Panel from 'interface/statistics/Panel';
 import CastEfficiencyComponent from 'interface/CastEfficiency';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
-import Channeling from 'parser/shared/modules/Channeling';
 import Abilities from 'parser/core/modules/Abilities';
 
 import AbilityTracker from './AbilityTracker';
@@ -41,13 +41,11 @@ class CastEfficiency extends Analyzer {
     haste: Haste,
     spellHistory: SpellHistory,
     abilities: Abilities,
-    channeling: Channeling,
   };
   protected abilityTracker!: AbilityTracker;
   protected haste!: Haste;
   protected spellHistory!: SpellHistory;
   protected abilities!: Abilities;
-  protected channeling!: Channeling;
 
   /**
    * Gets info about spell's cooldown behavior. All values are as of the
@@ -73,9 +71,10 @@ class CastEfficiency extends Analyzer {
 
     let lastRechargeTimestamp: number | undefined = undefined;
     let recharges = 0;
-    const completedRechargeTime = (history.filter(
-      event => event.type === EventType.UpdateSpellUsable,
-    ) as UpdateSpellUsableEvent[]).reduce((acc, event) => {
+    const completedRechargeTime = history.filter(
+      (event): event is UpdateSpellUsableEvent =>
+        event.type === EventType.UpdateSpellUsable
+    ).reduce((acc, event) => {
       if (event.trigger === EventType.BeginCooldown) {
         lastRechargeTimestamp = event.timestamp;
         return acc;
@@ -90,8 +89,16 @@ class CastEfficiency extends Analyzer {
       } else if (event.trigger === EventType.RestoreCharge) {
         //limit by start time in case of pre phase events
         recharges += 1;
+        let timePassed = event.timePassed;
+        if(timePassed === undefined) {
+          // This should never happen...
+          if(process.env.NODE_ENV === 'development') {
+            throw new Error('timePassed not set on restorecharge updatespellusable event');
+          }
+          timePassed = 0;
+        }
         lastRechargeTimestamp = event.timestamp;
-        return acc + event.timePassed;
+        return acc + timePassed;
       } else {
         return acc;
       }
@@ -126,7 +133,6 @@ class CastEfficiency extends Analyzer {
     }
 
     let beginCastTimestamp: number | undefined;
-    let beginChannelTimestamp: number | undefined;
     const timeSpentCasting = history.reduce((acc, event) => {
       if (event.type === EventType.BeginCast) {
         beginCastTimestamp = event.timestamp;
@@ -139,19 +145,6 @@ class CastEfficiency extends Analyzer {
           : 0;
         beginCastTimestamp = undefined;
         return acc + castTime;
-      } else if (event.type === EventType.BeginChannel) {
-        beginChannelTimestamp = beginCastTimestamp
-          ? undefined
-          : event.timestamp;
-        return acc;
-      } else if (event.type === EventType.EndChannel) {
-        //limit by start time in case of pre phase events
-        const channelTime = beginChannelTimestamp
-          ? event.timestamp -
-            Math.max(beginChannelTimestamp, this.owner.fight.start_time)
-          : 0;
-        beginCastTimestamp = undefined;
-        return acc + channelTime;
       } else {
         return acc;
       }
@@ -337,7 +330,7 @@ class CastEfficiency extends Analyzer {
     let efficiency;
     if (ability.castEfficiency.maxCasts) {
       // legacy support for custom maxCasts
-      efficiency = Math.min(1, casts / rawMaxCasts!);
+      efficiency = Math.min(1, ((casts / rawMaxCasts!)||0));
     } else {
       // Cast efficiency calculated as the percent of fight time spell was unavailable
       // The spell is considered unavailable if it is on cooldown, the time since it came off cooldown is less than the cast time or the cooldown was reset through a proc during a GCD
@@ -391,7 +384,7 @@ class CastEfficiency extends Analyzer {
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     const castEfficiencyInfo = this.getCastEfficiency();
     castEfficiencyInfo.forEach(abilityInfo => {
       if (
@@ -413,11 +406,11 @@ class CastEfficiency extends Analyzer {
           average: abilityInfo.averageIssueEfficiency,
           major: abilityInfo.majorIssueEfficiency,
         },
+        style: ThresholdStyle.PERCENTAGE,
       };
 
       when(suggestionThresholds).addSuggestion(
-        (suggest: any, actual: any, recommended: any) => {
-          return suggest(
+        (suggest, actual, recommended) => suggest(
             <>
               <Trans>
                 Try to cast <SpellLink id={mainSpell.id} /> more often.
@@ -438,8 +431,7 @@ class CastEfficiency extends Analyzer {
                 &gt;{formatPercentage(recommended, 0)}% is recommended
               </Trans>,
             )
-            .staticImportance(ability.castEfficiency.importance);
-        },
+            .staticImportance(ability.castEfficiency.importance || null),
       );
     });
   }

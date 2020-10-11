@@ -1,6 +1,6 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -21,10 +21,6 @@ class MemoryOfLucidDreams extends Analyzer {
     spellUsable: SpellUsable,
     statTracker: StatTracker,
   };
-  protected abilities!: Abilities;
-  protected spellUsable!: SpellUsable;
-  protected statTracker!: StatTracker;
-
   hasLucidMajor?: boolean;
   lastTimestamp = 0;
   minorReductionMs = 0;
@@ -38,8 +34,11 @@ class MemoryOfLucidDreams extends Analyzer {
   lucidDuration = 12000;
   versGain = 0;
   leechGain = 0;
+  protected abilities!: Abilities;
+  protected spellUsable!: SpellUsable;
+  protected statTracker!: StatTracker;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasEssence(SPELLS.LUCID_DREAMS.traitId);
     if (!this.active) {
@@ -59,7 +58,7 @@ class MemoryOfLucidDreams extends Analyzer {
     }
 
     if (this.hasLucidMajor) {
-      options.abilities.add({
+      (options.abilities as Abilities).add({
         spell: SPELLS.LUCID_DREAMS_MAJOR,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 120,
@@ -73,10 +72,10 @@ class MemoryOfLucidDreams extends Analyzer {
       });
     }
 
-    options.statTracker.add(SPELLS.LUCID_DREAMS_MINOR_STAT_BUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.LUCID_DREAMS_MINOR_STAT_BUFF.id, {
       versatility: this.versGain,
     });
-    options.statTracker.add(SPELLS.LUCID_DREAMS_MAJOR.id, {
+    (options.statTracker as StatTracker).add(SPELLS.LUCID_DREAMS_MAJOR.id, {
       leech: this.leechGain,
     });
 
@@ -84,6 +83,14 @@ class MemoryOfLucidDreams extends Analyzer {
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.LUCID_DREAMS_MAJOR), this.onLucidApplied);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.LUCID_DREAMS_MAJOR), this.onLucidRemoved);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.LUCID_DREAMS_MINOR_RESOURCE_REFUND_FOCUS), this.onLucidEnergize);
+  }
+
+  get minorBuffUptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.LUCID_DREAMS_MINOR_STAT_BUFF.id) / this.owner.fightDuration;
+  }
+
+  get majorBuffUptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.LUCID_DREAMS_MAJOR.id) / this.owner.fightDuration;
   }
 
   onEvent(event: any) {
@@ -123,14 +130,6 @@ class MemoryOfLucidDreams extends Analyzer {
     this.minorFocusGain += event.resourceChange - event.waste;
     this.minorFocusWaste += event.waste;
     this.minorProcs += 1;
-  }
-
-  get minorBuffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.LUCID_DREAMS_MINOR_STAT_BUFF.id) / this.owner.fightDuration;
-  }
-
-  get majorBuffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.LUCID_DREAMS_MAJOR.id) / this.owner.fightDuration;
   }
 
   statistic() {
