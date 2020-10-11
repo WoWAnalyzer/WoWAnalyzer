@@ -36,6 +36,7 @@ export type CooldownSpell = {
   startBufferMS?: number,
   startBufferEvents?: number,
   petID?: number,
+  duration?: number,
 };
 
 export type TrackedCooldown = CooldownSpell & {
@@ -61,22 +62,34 @@ class CooldownThroughputTracker extends Analyzer {
     },
   ];
 
-  static ignoredSpells = [
-    // general spells that you don't want to see in the Cooldown overview (could be boss mechanics etc.) should belong here
-    // if you want to add some spells specific to your spec, redefine this array in your spec CooldownThroughputTracker similarly to cooldownSpells (see Marksmanship Hunter for example)
+  static ignoredSpells: number[] = [
+    // General spells that you don't want to see in the Cooldown overview (could be boss mechanics etc.) should belong here.
+    // If you want to add some spells specific to your spec, redefine this array in your spec CooldownThroughputTracker similarly to cooldownSpells (see Marksmanship Hunter for example)
     ...CASTS_THAT_ARENT_CASTS,
   ];
+
+  static castCooldowns: CooldownSpell[] = [
+    // Some cooldowns cannot be tracked by a buff such as the Destruction 'Summon Infernal'. This is usually because they are temporary pet summons.
+    // If you want to add some spells specific to your spec, redefine this array in your spec CooldownThroughputTracker similarly to cooldownSpells (see Destruction Warlock for example)
+  ]
 
   pastCooldowns: TrackedCooldown[] = [];
   activeCooldowns: TrackedCooldown[] = [];
 
-  startCooldown(event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent) {
+  startCooldown(event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent, isCastCooldown: boolean = false) {
     const spellId = event.ability.guid;
     const ctor = this.constructor as typeof CooldownThroughputTracker;
-    const cooldownSpell = ctor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    let cooldownSpell: CooldownSpell | undefined;
+    if(isCastCooldown) {
+      cooldownSpell = ctor.castCooldowns.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    } else {
+      cooldownSpell = ctor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    }
+
     if (!cooldownSpell) {
       return;
     }
+
     const cooldown = this.addCooldown(cooldownSpell, event.timestamp);
     this.activeCooldowns.push(cooldown);
     debug && console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
@@ -100,7 +113,7 @@ class CooldownThroughputTracker extends Analyzer {
     const cooldown = {
       ...cooldownSpell,
       start: start,
-      end: null,
+      end: cooldownSpell.duration ? cooldownSpell.duration * 1000 + timestamp : null,
       events: events,
     };
 
@@ -131,6 +144,8 @@ class CooldownThroughputTracker extends Analyzer {
 
   // region Event tracking
   trackEvent(event: TrackedEvent) {
+    this.activeCooldowns = this.activeCooldowns.filter(cooldown => !cooldown.end || event.timestamp < cooldown.end);
+
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.events.push(event);
     });
@@ -138,10 +153,15 @@ class CooldownThroughputTracker extends Analyzer {
 
   on_byPlayer_cast(event: CastEvent) {
     const ctor = this.constructor as typeof CooldownThroughputTracker;
-    if (ctor.ignoredSpells.includes(event.ability.guid)) {
+    const spellId = event.ability.guid;
+    if (ctor.ignoredSpells.includes(spellId)) {
       return;
     }
-    this.trackEvent(event);
+    if (ctor.castCooldowns.findIndex(cooldown => cooldown.spell.id === spellId) !== -1) {
+      this.startCooldown(event, true);
+    } else {
+      this.trackEvent(event);
+    }
   }
 
   on_byPlayer_heal(event: HealEvent) {
@@ -153,6 +173,10 @@ class CooldownThroughputTracker extends Analyzer {
   }
 
   on_byPlayer_damage(event: DamageEvent) {
+    this.trackEvent(event);
+  }
+
+  on_byPlayerPet_damage(event: DamageEvent) {
     this.trackEvent(event);
   }
 
