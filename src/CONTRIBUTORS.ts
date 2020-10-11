@@ -943,3 +943,8 @@ export const ChagriAli: Contributor = {
   nickname: 'chagriali',
   github: 'chagriali',
 };
+
+export const Barter: Contributor = {
+  nickname: 'barter',
+  github: 'giubatt'
+}
