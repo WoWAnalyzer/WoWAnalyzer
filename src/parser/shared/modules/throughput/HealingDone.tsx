@@ -10,7 +10,7 @@ import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/Thr
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import FlushLineChart from 'interface/others/FlushLineChart';
-import Events, { AbsorbedEvent, AnyEvent, DamageEvent, HasAbility, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { AbsorbedEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 import HealingValue from '../HealingValue';
 
@@ -54,11 +54,8 @@ class HealingDone extends Analyzer {
     }
   }
 
-  _addHealing(event: AnyEvent, amount = 0, absorbed = 0, overheal = 0) {
+  _addHealing(event: HealEvent | AbsorbedEvent | RemoveBuffEvent | DamageEvent, amount = 0, absorbed = 0, overheal = 0) {
     this._total = this._total.add(amount, absorbed, overheal);
-    if (!HasAbility(event)) {
-      return;
-    }
 
     const spellId = event.ability.guid;
     this._byAbility[spellId] = (this._byAbility[spellId] || new HealingValue()).add(amount, absorbed, overheal);
