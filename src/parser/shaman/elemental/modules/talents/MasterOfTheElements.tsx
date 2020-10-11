@@ -1,15 +1,15 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { formatNumber, formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import SpellLink from 'common/SpellLink';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events from 'parser/core/Events';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import Statistic from 'interface/statistics/Statistic';
 
 const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.2,
@@ -43,14 +43,14 @@ const MASTER_OF_THE_ELEMENTS = {
 };
 
 class MasterOfTheElements extends Analyzer {
-  moteBuffedAbilities = {};
-  moteActivationTimestamp = null;
-  moteConsumptionTimestamp = null;
-  damageGained = 0;
-  bugCheckNecessary = false;
+  moteBuffedAbilities: {[key: number]: number} = {};
+  moteActivationTimestamp: number|null = null;
+  moteConsumptionTimestamp: number|null = null;
+  damageGained: number = 0;
+  bugCheckNecessary: boolean = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id);
 
     for (const key in MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS) {
@@ -65,7 +65,7 @@ class MasterOfTheElements extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(MASTER_OF_THE_ELEMENTS.AFFECTED_DAMAGE), this._onDamage);
   }
 
-  _onCast(event){
+  _onCast(event: CastEvent){
     if(this.moteActivationTimestamp===null){ //the buff is a clusterfuck so we just track it manually
       return;
     }
@@ -77,64 +77,26 @@ class MasterOfTheElements extends Analyzer {
 
   }
 
-  _onLvBCast(event){
+  _onLvBCast(event: CastEvent){
     this.moteActivationTimestamp = event.timestamp;
     this.bugCheckNecessary = true;
   }
 
-  _onDamage(event){
-    if (event.timestamp<this.moteConsumptionTimestamp || event.timestamp>this.moteConsumptionTimestamp+MASTER_OF_THE_ELEMENTS.WINDOW_DURATION){
+  _onDamage(event: DamageEvent){
+    if (event.timestamp < (this.moteConsumptionTimestamp || 0)
+      || event.timestamp>(this.moteConsumptionTimestamp ||0) +MASTER_OF_THE_ELEMENTS.WINDOW_DURATION){
       return;
     }
     this.damageGained += calculateEffectiveDamage(event, MASTER_OF_THE_ELEMENTS.INCREASE);
   }
 
-  get damagePercent() {
-    return this.owner.getPercentageOfTotalDamageDone(this.damageGained);
-  }
-
-  get damagePerSecond() {
-    return this.damageGained / (this.owner.fightDuration / 1000);
-  }
-
-  get isBugged() {
-    return this.bugCheckNecessary && (this.selectedCombatant.getBuffUptime(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id) || 0) === 0;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.isBugged,
-      isEqual: true,
-      style: 'boolean',
-    };
-  }
-
-  reverseEffectiveDamageDonePerSecond(number, increase){
-    return number*(1 + increase)/this.owner.fightDuration*1000;
-  }
-
-  suggestions(when){
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest) => suggest(<>Master Of the Elements bugged out and you lost out on at least {formatNumber(this.reverseEffectiveDamageDonePerSecond(this.damageGained,MASTER_OF_THE_ELEMENTS.INCREASE))} DPS.
-          Consider getting this weakaura: <a href="https://wago.io/motecheck">MotE-Checker</a> to be notified when MotE goes belly up again.</>)
-          .icon(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
-  }
-
   statistic() {
-    let value = `${formatPercentage(this.damagePercent)} %`;
-    let label = `Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage, excluding EQ).`;
-    if (this.isBugged) {
-      value = `BUGGED`;
-      label = `Master Of The Elements can bug out and not work sometimes. Check the Suggestions for more information.`;
-    }
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
-        icon={<SpellIcon id={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id} />}
-        value={value}
-        label={label}
-      >
+        size="flexible"
+        dropdown={(
+          <>
         <table className="table table-condensed">
           <thead>
             <tr>
@@ -146,12 +108,20 @@ class MasterOfTheElements extends Analyzer {
             {Object.keys(this.moteBuffedAbilities).map((e) => (
               <tr key={e}>
                 <th><SpellLink id={Number(e)} /></th>
-                <td>{this.moteBuffedAbilities[e]}</td>
+                <td>{this.moteBuffedAbilities[Number(e)]}</td>
               </tr>
             ))}
           </tbody>
         </table>
-      </StatisticBox>
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damageGained}/>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

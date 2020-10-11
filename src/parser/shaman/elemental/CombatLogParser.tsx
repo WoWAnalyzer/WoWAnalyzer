@@ -1,31 +1,30 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import Abilities from './modules/Abilities';
-import CancelledCasts from './modules/features/CancelledCasts';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Overload from './modules/features/Overload';
+import Buffs from 'parser/shaman/elemental/modules/Buffs';
 
-import FlameShock from './modules/core/FlameShock';
-import LavaSurge from './modules/core/LavaSurge';
-import StormFireElemental from './modules/features/StormFireElemental';
+import Abilities from 'parser/shaman/elemental/modules/Abilities';
 
-import Aftershock from './modules/talents/Aftershock';
-import Ascendance from './modules/talents/Ascendance';
-import EarthenRage from './modules/talents/EarthenRage';
-import ElementalBlast from './modules/talents/ElementalBlast';
-import LiquidMagmaTotem from './modules/talents/LiquidMagmaTotem';
-import MasterOfTheElements from './modules/talents/MasterOfTheElements';
-import PrimalFireElemental from './modules/talents/PrimalFireElemental';
-import PrimalStormElemental from './modules/talents/PrimalStormElemental';
-import StormElemental from './modules/talents/StormElemental';
-import Stormkeeper from './modules/talents/Stormkeeper';
-import UnlimitedPower from './modules/talents/UnlimitedPower';
-import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesByStacks';
-import SurgeOfPower from './modules/talents/SurgeOfPower';
-import Icefury from './modules/talents/Icefury';
+import AlwaysBeCasting from 'parser/shaman/elemental/modules/features/AlwaysBeCasting';
 
-import Checklist from './modules/checklist/Module';
-import Buffs from './modules/Buffs';
+import Aftershock from 'parser/shaman/elemental/modules/talents/Aftershock';
+import Ascendance from 'parser/shaman/elemental/modules/talents/Ascendance';
+import EarthenRage from 'parser/shaman/elemental/modules/talents/EarthenRage';
+import ElementalBlast from 'parser/shaman/elemental/modules/talents/ElementalBlast';
+import LiquidMagmaTotem from 'parser/shaman/elemental/modules/talents/LiquidMagmaTotem';
+import MasterOfTheElements from 'parser/shaman/elemental/modules/talents/MasterOfTheElements';
+import PrimalFireElemental from 'parser/shaman/elemental/modules/talents/PrimalFireElemental';
+import PrimalStormElemental from 'parser/shaman/elemental/modules/talents/PrimalStormElemental';
+import StormElemental from 'parser/shaman/elemental/modules/talents/StormElemental';
+import Stormkeeper from 'parser/shaman/elemental/modules/talents/Stormkeeper';
+import UnlimitedPower from 'parser/shaman/elemental/modules/talents/UnlimitedPower';
+import UnlimitedPowerTimesByStacks from 'parser/shaman/elemental/modules/talents/UnlimitedPowerTimesByStacks';
+import SurgeOfPower from 'parser/shaman/elemental/modules/talents/SurgeOfPower';
+import Icefury from 'parser/shaman/elemental/modules/talents/Icefury';
+
+import LavaSurge from 'parser/shaman/elemental/modules/core/LavaSurge';
+import FlameShock from 'parser/shaman/elemental/modules/core/FlameShock';
+import CancelledCasts from 'parser/shaman/elemental/modules/features/CancelledCasts';
+import Checklist from 'parser/shaman/elemental/modules/checklist/Module';
 
 import EarthShield from '../shared/talents/EarthShield';
 import SpiritWolf from '../shared/talents/SpiritWolf';
@@ -44,8 +43,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     flameShock: FlameShock,
     lavaSurge: LavaSurge,
-    overload: Overload,
-    stormfireElemental: StormFireElemental,
     buffs: Buffs,
     cancelledCasts: CancelledCasts,
     alwaysBeCasting: AlwaysBeCasting,

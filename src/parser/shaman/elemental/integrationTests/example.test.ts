@@ -2,7 +2,7 @@ import path from 'path';
 
 import integrationTest from 'parser/core/tests/integrationTest';
 
-import CombatLogParser from '../CombatLogParser';
+import CombatLogParser from 'parser/shaman/elemental/CombatLogParser';
 
 describe(
   'Elemental Shaman integration test: example log',

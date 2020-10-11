@@ -1,6 +1,6 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Events, { EventType } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 /*
@@ -10,12 +10,12 @@ import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 const MAX_UP_STACKS = 20; //might need to be increased
 
 class UnlimitedPowerTimesByStacks extends Analyzer {
-  unlimitedPowerStacks = [];
-  lastUPStack = 0;
-  lastUPUpdate = this.owner.fight.start_time;
+  unlimitedPowerStacks: number[][]= [];
+  lastUPStack: number = 0;
+  lastUPUpdate: number = this.owner.fight.start_time;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UNLIMITED_POWER_TALENT.id);
 
     this.unlimitedPowerStacks = Array.from({ length: MAX_UP_STACKS + 1 }, x => []);
@@ -26,7 +26,7 @@ class UnlimitedPowerTimesByStacks extends Analyzer {
     this.addEventListener(Events.fightend, this.handleStacks);
   }
 
-  handleStacks(event) {
+  handleStacks(event: ApplyBuffEvent|RemoveBuffEvent|ApplyBuffStackEvent|RemoveBuffStackEvent|FightEndEvent) {
     this.unlimitedPowerStacks[this.lastUPStack].push(event.timestamp - this.lastUPUpdate);
     if (event.type === EventType.FightEnd) {
       return;

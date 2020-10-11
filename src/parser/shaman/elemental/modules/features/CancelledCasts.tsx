@@ -1,6 +1,7 @@
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class CancelledCasts extends CoreCancelledCasts {
   get suggestionThresholds() {
@@ -11,11 +12,11 @@ class CancelledCasts extends CoreCancelledCasts {
         average: 0.075,
         major: 0.1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`${formatPercentage(actual)}% of spells casts were cancelled. Some casts will likely need to be cancelled due to mechanics, but generally, it is rarely a DPS up to cancel a cast in favor of casting another spell.`)
           .icon('inv_misc_map_01')
           .actual(`${formatPercentage(actual)}% casts cancelled`)

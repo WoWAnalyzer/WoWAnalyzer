@@ -1,84 +1,61 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import { When } from 'parser/core/ParseResults';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const damagingCasts = [SPELLS.FIRE_ELEMENTAL_METEOR.id, SPELLS.FIRE_ELEMENTAL_IMMOLATE.id, SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id];
 
 class PrimalFireElemental extends Analyzer {
-  meteorCasts = 0;
-  PFEcasts = 0;
+  meteorCasts: number = 0;
+  PFEcasts: number = 0;
 
-  usedCasts = {
-    'Meteor': false,
-    'Immolate': false,
-    'Fire Blast': false,
-  };
+  usedCasts: {[key: number]: boolean};
 
-  damageGained = 0;
-  maelstromGained = 0;
+  damageGained: number = 0;
+  maelstromGained: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
+    this.usedCasts = {
+      [SPELLS.METEOR.id] : false,
+      [SPELLS.IMMOLATE.id] : false,
+      [SPELLS.FIRE_BLAST.id]: false,
+    };
     this.active = this.selectedCombatant.hasTalent(SPELLS.PRIMAL_ELEMENTALIST_TALENT.id)
       && (!this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id));
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(damagingCasts), this.onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIRE_ELEMENTAL), this.onFECast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET).spell(damagingCasts), this.onDamagingCast);
   }
 
-  on_damage(event) {
-    if (!damagingCasts.includes(event.ability.guid)) {
-      return;
-    }
+  onDamage(event: DamageEvent) {
     this.damageGained+=event.amount;
   }
 
-  on_byPlayer_energize(event) {
-    if (event.ability.guid !== SPELLS.FIRE_ELEMENTAL.id){
-      return;
-    }
-
-    this.maelstromGained+=event.amount;
+  onFECast(event: CastEvent) {
+    this.PFEcasts += 1;
   }
 
-  on_cast(event) {
-    switch(event.ability.guid) {
-      case SPELLS.FIRE_ELEMENTAL.id:
-        this.PFEcasts += 1;
-        break;
-      case SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id:
-        this.usedCasts['Fire Blast']=true;
-        break;
-      case SPELLS.FIRE_ELEMENTAL_IMMOLATE.id:
-        this.usedCasts.Immolate=true;
-        break;
-      case SPELLS.FIRE_ELEMENTAL_METEOR.id:
-        this.usedCasts.Meteor=true;
-        this.meteorCasts += 1;
-        break;
-      default:
-        break;
-    }
-  }
-
-  get damagePercent() {
-    return this.owner.getPercentageOfTotalDamageDone(this.damageGained);
-  }
-
-  get damagePerSecond() {
-    return this.damageGained / (this.owner.fightDuration / 1000);
+  onDamagingCast(event: CastEvent) {
+    this.usedCasts[event.ability.guid] = true;
   }
 
   get missedMeteorCasts() {
     return this.PFEcasts-this.meteorCasts;
   }
 
-  suggestions(when) {
-    const unusedSpells = Object.keys(this.usedCasts).filter(key => !this.usedCasts[key]);
+  suggestions(when: When) {
+    const unusedSpells = Object.keys(this.usedCasts).filter(key => !this.usedCasts[Number(key)]);
     const unusedSpellsString = unusedSpells.join(', ');
     const unusedSpellsCount = unusedSpells.length;
     when(unusedSpellsCount).isGreaterThan(0)
@@ -97,13 +74,16 @@ class PrimalFireElemental extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FIRE_ELEMENTAL.id} />}
-        value={`~ ${formatPercentage(this.damagePercent)} %`}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
-        label="Of total damage"
-        tooltip={`PFE contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage) and also generated ${formatNumber(this.maelstromGained)} Maelstrom.`}
-      />
+        size="flexible"
+        >
+        <>
+          <BoringSpellValueText spell={SPELLS.FIRE_ELEMENTAL}>
+            <ItemDamageDone amount={this.damageGained} />
+          </BoringSpellValueText>
+        </>
+      </Statistic>
     );
   }
 }

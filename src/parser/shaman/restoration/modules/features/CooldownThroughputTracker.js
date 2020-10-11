@@ -13,7 +13,7 @@ import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_FEEDING_INTO_CBT } fro
 // 3) Generate feed_heal events to be used for statweights.
 //
 // For each active CBT/Asc we track for each spell how much raw- and effective healing it
-// contributed. Whenever new results are generated in CombatLogParser.js processAll will
+// contributed. Whenever new results are generated in CombatLogParser.tsx processAll will
 // be called. This function looks through all cooldowns that have not been processed yet
 // and adds their healing to the total spell breakdown per cooldown, which is stored in
 // cbtFeed and ascFeed. It is necessary to do it this way because only after

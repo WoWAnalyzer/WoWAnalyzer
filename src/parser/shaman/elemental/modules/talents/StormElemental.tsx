@@ -1,15 +1,17 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-
-import Abilities from '../Abilities';
+import Abilities from 'parser/shaman/elemental/modules/Abilities';
+import Events, { CastEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Enemies from 'parser/shared/modules/Enemies';
+import Statistic from 'interface/statistics/Statistic';
+import SpellLink from 'common/SpellLink';
 
 const STORMELE_DURATION = 30000 - 1500;
 class StormElemental extends Analyzer {
@@ -19,17 +21,12 @@ class StormElemental extends Analyzer {
     enemies: EnemyInstances,
   };
 
-  _resolveAbilityGcdField(value) {
-    if (typeof value === 'function') {
-      return value.call(this.owner, this.selectedCombatant);
-    } else {
-      return value;
-    }
-  }
+  protected enemies !: Enemies;
+  protected abilities !: Abilities;
 
-  badFS = 0;
-  justEnteredSE = false;
-  checkDelay = 0;
+  badFS: number = 0;
+  justEnteredSE: boolean = false;
+  checkDelay: number = 0;
 
   numCasts = {
     [SPELLS.STORM_ELEMENTAL_TALENT.id]: 0,
@@ -40,9 +37,10 @@ class StormElemental extends Analyzer {
     others: 0,
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_ELEMENTAL_TALENT), this.onSECast);
   }
 
   get stormEleUptime() {
@@ -56,8 +54,12 @@ class StormElemental extends Analyzer {
   get averageChainLightningCasts() {
     return (this.numCasts[SPELLS.CHAIN_LIGHTNING.id]/this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]) || 0;
   }
+  onSECast(event: CastEvent){
+    this.justEnteredSE = true;
+    this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]+=1;
+  }
 
-  on_byPlayer_cast(event) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     const target = this.enemies.getEntity(event);
 
@@ -76,19 +78,12 @@ class StormElemental extends Analyzer {
       return;
     }
 
-    const gcd = this._resolveAbilityGcdField(ability.gcd);
-    if(!gcd){
-      return;
-    }
-
     if(this.justEnteredSE){
       if(target){
         this.justEnteredSE = false;
-        if(!target.hasBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay) || target.getBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay).end - event.timestamp < STORMELE_DURATION){
+        if(!target.hasBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay) || (target.getBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay)?.end || 0) - event.timestamp < STORMELE_DURATION){
           this.badFS+=1;
         }
-    } else {
-      this.checkDelay+=gcd;
       }
     }
 
@@ -101,10 +96,7 @@ class StormElemental extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.STORM_ELEMENTAL_TALENT.id} />}
-        value={`${formatNumber(this.averageLightningBoltCasts)}`}
-        label="Average Number Of Lightning Bolts per Storm Elemental Cast"
+      <Statistic
         tooltip={(
           <>
             With a uptime of: {formatPercentage(this.stormEleUptime)} %<br />
@@ -118,7 +110,12 @@ class StormElemental extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <>
+          You cast <SpellLink id={SPELLS.LIGHTNING_BOLT.id} /> {this.averageLightningBoltCasts} times per <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} />
+        </>
+      </Statistic>
+
     );
   }
 
@@ -126,14 +123,13 @@ class StormElemental extends Analyzer {
     return {
       actual: this.numCasts.others,
       isGreaterThan: {
-        minor: 0,
         major: 1,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     const abilities = `Lightning Bolt/Chain Lightning and Earth Shock/Earthquake`;
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
@@ -141,8 +137,6 @@ class StormElemental extends Analyzer {
           .actual(`${actual} other casts with Storm Elemental up`)
           .recommended(`Only cast ${abilities} while Storm Elemental is up.`));
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default StormElemental;

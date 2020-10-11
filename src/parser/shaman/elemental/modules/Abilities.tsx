@@ -1,15 +1,16 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {
         spell: SPELLS.LAVA_BURST,
         charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id)?2:1,
-        cooldown: haste=> 8/(1+haste),
+        cooldown: haste => 8/(1+haste),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,

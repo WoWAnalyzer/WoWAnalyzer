@@ -11,7 +11,7 @@ import CancelledCasts from 'parser/shaman/elemental/modules/features/CancelledCa
 import AlwaysBeCasting from 'parser/shaman/elemental/modules/features/AlwaysBeCasting';
 import FlameShock from 'parser/shaman/elemental/modules/core/FlameShock';
 
-import Component from './Component';
+import Component from 'parser/shaman/elemental/modules/checklist/Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -24,6 +24,15 @@ class Checklist extends BaseChecklist {
     ascendance: Ascendance,
     flameshock: FlameShock,
   };
+
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected cancelledCasts!: CancelledCasts;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected icefury!: Icefury;
+  protected ascendance!: Ascendance;
+  protected flameshock!: FlameShock;
 
   render() {
     return (
