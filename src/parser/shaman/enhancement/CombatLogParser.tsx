@@ -4,8 +4,8 @@ import Abilities from './modules/Abilities';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
 // Resources
-import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
-import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
+// import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
+// import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 // Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -22,13 +22,14 @@ import ForcefulWinds from './modules/talents/ForcefulWinds';
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import EarthShield from '../shared/talents/EarthShield';
 import StaticCharge from '../shared/talents/StaticCharge';
-import Hailstorm from './modules/talents/Hailstorm';
+// import Hailstorm from './modules/talents/Hailstorm';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import Sundering from './modules/talents/Sundering';
 import Stormkeeper from './modules/talents/Stormkeeper';
 import EarthenSpike from './modules/talents/EarthenSpike';
 import ElementalBlast from '../shared/talents/ElementalBlast';
+import Stormflurry from './modules/talents/Stormflurry';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -38,8 +39,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Resources
 
-    maelstromTracker: MaelstromTracker,
-    maelstromDetails: MaelstromDetails,
+    // maelstromTracker: MaelstromTracker,
+    // maelstromDetails: MaelstromDetails,
 
     // Shaman Core
     //flametongue: Flametongue,
@@ -57,14 +58,14 @@ class CombatLogParser extends CoreCombatLogParser {
     lashingFlames: LashingFlames,
     forcefulWinds: ForcefulWinds,
     elementalBlast: ElementalBlast,
-    //stormfury: Stormfury,
+    stormflurry: Stormflurry,
     hotHand: HotHand,
     //iceStrike: IceStrike,
     spiritWolf: SpiritWolf,
     earthShield: EarthShield,
     staticCharge: StaticCharge,
     //elementalAssault: ElementalAssault,
-    hailstorm: Hailstorm,
+    //hailstorm: Hailstorm,
     //fireNova: FireNova,
     naturesGuardian: NaturesGuardian,
     crashingStorm: CrashingStorm,

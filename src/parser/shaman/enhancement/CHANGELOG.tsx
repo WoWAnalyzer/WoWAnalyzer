@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 11), <>Added damage statistics for <SpellLink id={SPELLS.STORMFLURRY_TALENT.id} />.</>, [Vonn]),
   change(date(2020, 10, 9), <>Added damage statistics for <SpellLink id={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id} />.</>, [Vonn]),
   change(date(2020, 10, 9), <>Added damage statistics for <SpellLink id={SPELLS.LASHING_FLAMES_TALENT.id} />.</>, [Vonn]),
   change(date(2020, 10, 6), <>Updated spells and abilities for current Shadowlands beta.</>, [Vonn]),
@@ -17,7 +18,7 @@ export default [
   change(date(2020, 4, 20), <>Updated <SpellLink id={SPELLS.LIGHTNING_SHIELD.id} /> suggestion and damage display.</>, [Vetyst]),
   change(date(2020, 4, 14), <>Showing primary buffs on the timeline.</>, [Vetyst]),
   change(date(2020, 4, 14), <>Added damage statistiscs for Strength of Earth.</>, [Vetyst]),
-  change(date(2020, 4, 13), <>Added damage statistiscs for Boulderfirst.</>, [Vetyst]),
+  change(date(2020, 4, 13), <>Added damage statistiscs for Boulderfist.</>, [Vetyst]),
   change(date(2020, 4, 13), <>Added damage statistiscs for Primal Primer.</>, [Vetyst]),
   change(date(2020, 4, 13), <>Added damage statistiscs for Lightning Conduit.</>, [Vetyst]),
   change(date(2020, 4, 13), <>Added <SpellLink id={SPELLS.STORMSTRIKE_CAST.id} /> damage statistiscs for <SpellLink id={SPELLS.THUNDERAANS_FURY.id} />.</>, [Vetyst]),
