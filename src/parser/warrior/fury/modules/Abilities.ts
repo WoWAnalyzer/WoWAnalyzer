@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLOODTHIRST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 4.5 / (1 + haste),
+        cooldown: (haste: any) => 4.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAGING_BLOW,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => (8 - (combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id) ? 1 : 0)) / (1 + haste),
+        cooldown: (haste: any) => (8 - (combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id) ? 1 : 0)) / (1 + haste),
         charges: 2,
         gcd: {
           base: 1500,
@@ -44,7 +44,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.EXECUTE_FURY, SPELLS.EXECUTE_FURY_MASSACRE],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste: any) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },

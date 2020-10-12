@@ -2,35 +2,37 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 /*  Example log:
- *  https://www.warcraftlogs.com/reports/KhynM7v96cZkTBdg#fight=6&type=damage-done&source=78
+ *  https://www.warcraftlogs.com/reports/jz4KrnGBmahcfxt9#fight=43&type=summary&source=9
  */
 
-const DAMAGE_BONUS = 0.1;
+const DAMAGE_BONUS: number = 0.1;
 
 class FrothingBerserker extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
 
-  damage = 0;
+  damage: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
   }
 
-  onPlayerDamage(event) {
+  onPlayerDamage(event: DamageEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.FROTHING_BERSERKER.id)) {
       this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
     }
@@ -59,11 +61,11 @@ class FrothingBerserker extends Analyzer {
         average: 0.6,
         major: 0.55,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</>)
           .icon(SPELLS.FROTHING_BERSERKER.icon)
@@ -73,12 +75,17 @@ class FrothingBerserker extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FROTHING_BERSERKER_TALENT.id}
-        value={`${formatPercentage(this.uptimePercent)}% uptime`}
-        label="Frothing Berserker"
-        tooltip={`Frothing Berserker contributed to ${formatPercentage(this.damagePercent)}% of your overall DPS.`}
-      />
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={<>Frothing Berserker contributed to {formatPercentage(this.damagePercent)}% of your overall DPS.</>}
+      >
+        <BoringSpellValueText spell={SPELLS.FROTHING_BERSERKER_TALENT}>
+          <>
+            {formatPercentage(this.uptimePercent)}% uptime
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

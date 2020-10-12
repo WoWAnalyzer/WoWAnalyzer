@@ -1,10 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import SpellLink from 'common/SpellLink';
@@ -12,20 +14,23 @@ import SpellLink from 'common/SpellLink';
 
 const SIEGEBREAKER_DAMAGE_MODIFIER = 0.15;
 
+// Example log: https://www.warcraftlogs.com/reports/QHjLTpxknR47CZhm#fight=6&type=damage-done&source=5
 class Siegebreaker extends Analyzer {
   static dependencies = {
       enemies: Enemies,
   }
 
-  damage = 0;
-  goodRecklessness = 0;
-  recklessnessCasted = 0;
-  inValidRecklessness = false;
-  siegeCasted = false;
-  lastRecklessness = null;
+  protected enemies!: Enemies;
 
-  constructor(...args) {
-      super(...args);
+  damage: number = 0;
+  goodRecklessness: number = 0;
+  recklessnessCasted: number = 0;
+  inValidRecklessness: boolean = false;
+  siegeCasted: boolean = false;
+  lastRecklessness: any = null;
+
+  constructor(options: Options) {
+      super(options);
       this.active = this.selectedCombatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id);
 
       if (!this.active) {
@@ -39,7 +44,7 @@ class Siegebreaker extends Analyzer {
       this.addEventListener(Events.fightend, this.buffCheck);
   }
 
-  playerCastedRecklessness(event){
+  playerCastedRecklessness(event: CastEvent){
     this.inValidRecklessness = true;
     this.recklessnessCasted += 1;
     this.lastRecklessness = event;
@@ -51,7 +56,7 @@ class Siegebreaker extends Analyzer {
     }
   }
 
-  buffCheck(event){
+  buffCheck(event: any){
     if(this.inValidRecklessness && this.siegeCasted){
       this.goodRecklessness += 1;
     }else if(this.inValidRecklessness){
@@ -63,7 +68,7 @@ class Siegebreaker extends Analyzer {
     this.siegeCasted = false;
   }
 
-  onPlayerDamage(event) {
+  onPlayerDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (enemy && enemy.hasBuff(SPELLS.SIEGEBREAKER_DEBUFF.id)) {
       this.damage += calculateEffectiveDamage(event, SIEGEBREAKER_DAMAGE_MODIFIER);
@@ -86,11 +91,11 @@ class Siegebreaker extends Analyzer {
 			  average: .8,
 			  major: .7,
 		  },
-		  style: 'percentage',
+		  style: ThresholdStyle.PERCENTAGE,
 	  };
   }
 
-  suggestions(when){
+  suggestions(when: When){
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're not casting <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} /> and <SpellLink id={SPELLS.RECKLESSNESS.id} /> together.</>)
         .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of Recklessnesses casts without a Siegebreaker cast`)
@@ -99,12 +104,17 @@ class Siegebreaker extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.SIEGEBREAKER_TALENT.id}
-        label="Siegebreaker"
-        value={`${formatThousands(this.dpsValue)} DPS`}
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={<><strong>{formatThousands(this.damage)} ({formatPercentage(this.damagePercent)}%)</strong> of your damage can be attributed to Siegebreaker's damage bonus.</>}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SIEGEBREAKER_TALENT}>
+          <>
+            {formatThousands(this.dpsValue)} DPS
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
