@@ -33,6 +33,7 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
           tooltip={<>This is a <em>filler</em> ability and should only be cast while your other spells are on cooldown.</>}
           thresholds={thresholds.hotrBadCasts}
         />
+        <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
       </Rule>
 
       <Rule
