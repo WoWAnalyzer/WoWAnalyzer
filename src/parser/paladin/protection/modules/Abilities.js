@@ -82,14 +82,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HAMMER_OF_WRATH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 7.5 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.WORD_OF_GLORY,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {

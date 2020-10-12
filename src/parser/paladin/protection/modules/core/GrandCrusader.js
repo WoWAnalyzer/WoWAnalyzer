@@ -64,8 +64,6 @@ class GrandCrusader extends Analyzer {
   }
 
   statistic() {
-    //Since a different formula than the standard one is used, we set our own here and insert as parameter in the plotOneVariableBinomChart function
-    const binomChartTooltipFormula = (point) => `Actual Resets: ${formatPercentage(point.x / this._resetChances, 2)}%`;
     //As we use a different formula than the standard one for XAxis, we send it along as a parameter
     const binomChartXAxis = {
       title: 'Reset %',
@@ -87,7 +85,7 @@ class GrandCrusader extends Analyzer {
         )}
       >
         <div style={{ padding: '8px' }}>
-          {plotOneVariableBinomChart(this._totalResets, this._resetChances, this.procChance, 'Reset %', 'Actual Resets', binomChartTooltipFormula, [0, 0.2], binomChartXAxis)}
+          {plotOneVariableBinomChart(this._totalResets, this._resetChances, this.procChance, 'Reset %', 'Actual Resets', [0, 0.2], binomChartXAxis)}
           <p>Likelihood of having <em>exactly</em> as many resets as you did with your traits and talents.</p>
         </div>
       </StatisticBox>
