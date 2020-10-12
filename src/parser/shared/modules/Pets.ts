@@ -23,18 +23,12 @@ class Pets extends Entities<Pet> {
   getEntityFromEvent(event: AnyEvent, fromTarget: boolean): Pet | null {
     let entityId: number;
     if (fromTarget) {
-      if (!HasTarget(event)) {
-        return null;
-      }
-      if (!event.targetIsFriendly) {
+      if (!HasTarget(event) || !event.targetIsFriendly) {
         return null;
       }
       entityId = event.targetID;
     } else {
-      if (!HasSource(event)) {
-        return null;
-      }
-      if (!event.sourceIsFriendly) {
+      if (!HasSource(event) || !event.sourceIsFriendly) {
         return null;
       }
       entityId = event.sourceID;
