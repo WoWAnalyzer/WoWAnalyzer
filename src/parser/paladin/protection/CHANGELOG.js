@@ -16,7 +16,7 @@ export default [
   {
     date: new Date('29 December 2018'),
     contributors: [emallson],
-    changes: <>Added support for <SpellLink id={SPELLS.AVENGERS_VALOR_BUFF.id} /> to the Good <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts check.</>,
+    changes: <>Added support for Avenger's Valor to the Good <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts check.</>,
   },
   {
     date: new Date('29 December 2018'),

@@ -52,7 +52,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 1000,
+        gcd: {
+          static: 1000,
+        },
       },
       { // T15: Holy Shield
         spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
