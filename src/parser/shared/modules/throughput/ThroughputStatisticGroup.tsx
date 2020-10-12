@@ -19,11 +19,16 @@ class ThroughputStatisticGroup extends Analyzer {
     damageTaken: DamageTaken,
   };
 
+  protected damageDone!: DamageDone;
+  protected healingDone!: HealingDone;
+  protected damageTaken!: DamageTaken;
+
   statistic() {
     return (
       <StatisticGroup
         position={0}
         wide
+        large={false}
         style={{ marginBottom: 30 }}
       >
         {this.damageDone.subStatistic()}

@@ -8,12 +8,21 @@ import Tooltip from 'common/Tooltip';
 import StatisticBar from 'interface/statistics/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import FlushLineChart from 'interface/others/FlushLineChart';
+import Events, { AbsorbedEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 import HealingValue from '../HealingValue';
 
 class HealingDone extends Analyzer {
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onAbsorbed);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onRemovebuff);
+  }
+
   _total = new HealingValue();
   get total() {
     return this._total;
@@ -23,35 +32,29 @@ class HealingDone extends Analyzer {
     return this._healingByAbsorbs;
   }
 
-  bySecond = {};
+  bySecond: { [secondsIntoFight: number]: HealingValue } = {};
 
-  _byAbility = {};
-  byAbility(spellId) {
+  _byAbility: { [spellId: number]: HealingValue } = {};
+  byAbility(spellId: number) {
     if (!this._byAbility[spellId]) {
       return new HealingValue();
     }
     return this._byAbility[spellId];
   }
 
-  on_heal(event) {
-    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
-      this._addHealing(event, event.amount, event.absorbed, event.overheal);
-    }
+  onHeal(event: HealEvent) {
+    this._addHealing(event, event.amount, event.absorbed, event.overheal);
   }
-  on_absorbed(event) {
-    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
-      this._addHealingByAbsorb(event, event.amount, 0, 0);
-    }
+  onAbsorbed(event: AbsorbedEvent) {
+    this._addHealingByAbsorb(event, event.amount, 0, 0);
   }
-  on_removebuff(event) {
-    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
-      if (event.absorb) {
-        this._addHealingByAbsorb(event, 0, 0, event.absorb);
-      }
+  onRemovebuff(event: RemoveBuffEvent) {
+    if (event.absorb) {
+      this._addHealingByAbsorb(event, 0, 0, event.absorb);
     }
   }
 
-  _addHealing(event, amount = 0, absorbed = 0, overheal = 0) {
+  _addHealing(event: HealEvent | AbsorbedEvent | RemoveBuffEvent | DamageEvent, amount = 0, absorbed = 0, overheal = 0) {
     this._total = this._total.add(amount, absorbed, overheal);
 
     const spellId = event.ability.guid;
@@ -60,14 +63,14 @@ class HealingDone extends Analyzer {
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || new HealingValue()).add(amount, absorbed, overheal);
   }
-  _addHealingByAbsorb(event, amount = 0, absorbed = 0, overhealing = 0) {
+  _addHealingByAbsorb(event: AbsorbedEvent | RemoveBuffEvent, amount = 0, absorbed = 0, overhealing = 0) {
     this._addHealing(event, amount, absorbed, overhealing);
     this._healingByAbsorbs = this._healingByAbsorbs.add(amount, absorbed, overhealing);
   }
-  _subtractHealing(event, amount = 0, absorbed = 0, overheal = 0) {
+  _subtractHealing(event: DamageEvent, amount = 0, absorbed = 0, overheal = 0) {
     return this._addHealing(event, -amount, -absorbed, -overheal);
   }
-  _subtractHealingByAbsorb(event, amount = 0, absorbed = 0, overheal = 0) {
+  _subtractHealingByAbsorb(event: AbsorbedEvent, amount = 0, absorbed = 0, overheal = 0) {
     return this._addHealingByAbsorb(event, -amount, -absorbed, -overheal);
   }
 
@@ -77,7 +80,7 @@ class HealingDone extends Analyzer {
       return null;
     }
 
-    const data = Object.entries(this.bySecond).map(([sec, val]) => ({'time': sec, 'val': val.effective}));
+    const data = Object.entries(this.bySecond).map(([sec, val]) => ({ 'time': sec, 'val': val.effective }));
 
     const perSecond = this.total.effective / this.owner.fightDuration * 1000;
     const wclUrl = makeWclUrl(this.owner.report.code, {
@@ -90,6 +93,8 @@ class HealingDone extends Analyzer {
       <StatisticBar
         position={STATISTIC_ORDER.CORE(2)}
         ultrawide
+        large={false}
+        wide={false}
         style={{ marginBottom: 19, overflow: 'hidden' }} // since this is in a group, reducing margin should be fine
       >
         <div className="flex">
@@ -113,7 +118,7 @@ class HealingDone extends Analyzer {
                 <Tooltip
                   content={(
                     <>
-                      Your HPS compared to the HPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput)} HPS</strong>.
+                      Your HPS compared to the HPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput || 0)} HPS</strong>.
                     </>
                   )}
                 >

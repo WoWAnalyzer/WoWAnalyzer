@@ -13,6 +13,7 @@ const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
+  change(prepatch, 'Throughput files TypeScript conversion', niseko),
   change(prepatch, 'Converted BAD_ICONS, aprilFools, colorForPerformance, Alerts, ContributorButton, Modal to TypeScript', Barter),
   change(prepatch, 'Converted Enemy and Enemies to TypeScript', Dambroda),
   change(prepatch, 'Allow the use of any of the threshold breakpoints (minor, average, major) as the primary breakpoint for suggestions', Dambroda),

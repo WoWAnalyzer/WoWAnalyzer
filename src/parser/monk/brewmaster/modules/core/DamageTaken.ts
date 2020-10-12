@@ -1,9 +1,17 @@
 import CoreDamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 import SPELLS from 'common/SPELLS';
+import Events, { AbsorbedEvent } from 'parser/core/Events';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 class DamageTaken extends CoreDamageTaken {
-  _staggeredDamage = {};
-  on_toPlayer_absorbed(event) {
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER), this.onToPlayerAbsorbed);
+  }
+
+  _staggeredDamage: { [guid: number]: number } = {};
+  onToPlayerAbsorbed(event: AbsorbedEvent) {
     // The `damage` events of Brewmaster Monks always includes the amount staggered as "absorbed" damage,
     // but this absorbed damage might also include absorbs received from other people (e.g. Power Word:
     // Shield) so we can't just ignore it completely.Luckily the logs give us another event that shows
@@ -12,10 +20,6 @@ class DamageTaken extends CoreDamageTaken {
     // such as Power Word: Shield, it will trigger an `absorbed` event with as spell PW:S, NOT Stagger,
     // so this also works nicely with external absorbs.
 
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.STAGGER.id) {
-      return;
-    }
     this._subtractDamage(event, 0, event.amount, 0, 0, event.extraAbility);
     if (this._staggeredDamage[event.extraAbility.guid] === undefined) {
       this._staggeredDamage[event.extraAbility.guid] = 0;
@@ -23,7 +27,7 @@ class DamageTaken extends CoreDamageTaken {
     this._staggeredDamage[event.extraAbility.guid] += event.amount;
   }
 
-  staggeredByAbility(guid) {
+  staggeredByAbility(guid: number) {
     return this._staggeredDamage[guid] !== undefined ? this._staggeredDamage[guid] : 0;
   }
 }

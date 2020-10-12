@@ -337,6 +337,7 @@ export interface DamageEvent extends Event<EventType.Damage> {
   unmitigatedAmount?: number;
   tick?: boolean;
   overkill?: number;
+  blocked?: number; // does this exist?
 }
 
 export interface BuffEvent<T extends string> extends Event<T> {
