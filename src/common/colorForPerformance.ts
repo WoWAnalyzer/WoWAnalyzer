@@ -1,4 +1,4 @@
-export default function colorForPerformance(performance) {
+export default function colorForPerformance(performance: number) {
   if (performance >= 1) {
     return '#4ec04e';
   } else if (performance > 0.666) {

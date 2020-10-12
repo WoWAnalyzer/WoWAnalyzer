@@ -253,6 +253,10 @@ export const Oratio: Contributor = {
   nickname: 'Oratio',
   github: 'karlpralow',
 };
+export const Ogofo: Contributor = {
+  nickname: 'Ogofo',
+  github: 'Ogofo',
+};
 export const hassebewlen: Contributor = {
   nickname: 'hassebewlen',
   github: 'hasseboulen',
@@ -943,3 +947,8 @@ export const ChagriAli: Contributor = {
   nickname: 'chagriali',
   github: 'chagriali',
 };
+
+export const Barter: Contributor = {
+  nickname: 'barter',
+  github: 'giubatt'
+}
