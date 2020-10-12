@@ -59,7 +59,7 @@ class DevotionAuraDamageReduction extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
+    this.active = false;//this.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
   }
 
   on_toPlayer_damage(event) {

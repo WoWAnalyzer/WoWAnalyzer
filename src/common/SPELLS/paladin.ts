@@ -283,6 +283,17 @@ const spells: SpellList = {
     name: 'Avenging Crusader',
     icon: 'spell_holy_restoration',
   },
+  BESTOW_FAITH_HOLY_POWER: {
+    id: 343618,
+    name: 'Bestow Faith',
+    icon: 'ability_paladin_blessedmending',
+  },
+  BEACON_OF_LIGHT_HOLY_POWER: {
+    id: 88852,
+    name: 'Beacon Of Light',
+    icon: 'ability_paladin_beaconoflight',
+  },
+
   // Retribution Paladin:
   JUDGMENT_DEBUFF: {
     id: 197277,

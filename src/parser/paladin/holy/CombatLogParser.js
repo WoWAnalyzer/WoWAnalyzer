@@ -16,6 +16,7 @@ import MissingBeacons from './modules/beacons/MissingBeacons';
 import FailedBeaconTransfers from './modules/beacons/FailedBeaconTransfers';
 import DirectBeaconHealing from './modules/beacons/DirectBeaconHealing';
 import BeaconUptime from './modules/beacons/BeaconUptime';
+import HammerOfWrath from '../shared/spells/HammerOfWrath';
 
 import PaladinAbilityTracker from './modules/core/PaladinAbilityTracker';
 import CastBehavior from './modules/CastBehavior';
@@ -39,8 +40,6 @@ import MightOfTheMountain from './modules/MightOfTheMountain';
 
 import RuleOfLaw from './modules/talents/RuleOfLaw';
 import DevotionAuraDamageReduction from './modules/talents/DevotionAuraDamageReduction';
-import AuraOfSacrificeDamageReduction from './modules/talents/AuraOfSacrificeDamageReduction';
-import AuraOfMercy from './modules/talents/AuraOfMercy';
 import HolyAvenger from './modules/talents/HolyAvenger';
 import DivinePurpose from './modules/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
@@ -89,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lightOfDawn: LightOfDawn,
     lightOfDawnIndexer: LightOfDawnIndexer,
     spellManaCost: SpellManaCost,
+    hammerOfWrath: HammerOfWrath,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
@@ -109,8 +109,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     ruleOfLaw: RuleOfLaw,
     devotionAuradamageReduction: DevotionAuraDamageReduction,
-    auraOfSacrificeDamageReduction: AuraOfSacrificeDamageReduction,
-    auraOfMercy: AuraOfMercy,
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,

@@ -34,15 +34,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHT_OF_DAWN_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          extraSuggestion: (
-            <Trans>Casting Light of Dawn regularly is very important for performing well.</Trans>
-          ),
         },
         timelineSortIndex: 1,
       },
@@ -288,14 +281,6 @@ class Abilities extends CoreAbilities {
           casts: castCount => castCount.healingIolHits || 0,
         },
         timelineSortIndex: 10,
-      },
-      {
-        spell: SPELLS.HAMMER_OF_WRATH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: haste => 7.5 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: SPELLS.HOLY_LIGHT,
