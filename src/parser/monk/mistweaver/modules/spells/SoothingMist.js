@@ -32,8 +32,7 @@ class SoothingMist extends Analyzer {
     super(...args);
     this.assumedGCD = 1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating)) *.95;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.castSoothingMist);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.castSoothingMistVivify);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.castSoothingMistEnvelopingMist);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST), this.castDuringSoothingMist);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.handleSoothingMist);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.masterySoothingMist);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.removeBuffSoothingMist);
@@ -53,24 +52,20 @@ class SoothingMist extends Analyzer {
     }
   }
 
-  castSoothingMistVivify(event) {
-    if (this.soomInProgress) {
-      this.castsInSoom += 1;
-    }
-  }
-
-  castSoothingMistEnvelopingMist(event) {
+  castDuringSoothingMist(event) {
     if (this.soomInProgress) {
       this.castsInSoom += 1;
     }
   }
 
   castSoothingMist(event) {
+    if (this.soomInProgress) {
     //if they refresh soom for some stupid reason
     this.endStamp = event.timestamp;
     this.checkChannelTiming();
     this.castsInSoom = 0;
-
+    }
+    
     this.startStamp = event.timestamp;
     this.soomInProgress = true;
     const gcd = 1000 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
