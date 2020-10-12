@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
 
