@@ -1,13 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, AbsorbedEvent, RemoveBuffEvent, ApplyBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import FooterChart, { formatTime } from 'interface/others/FooterChart';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 const PURIFIED_CHI_PCT = 0.2;
 const PURIFIED_CHI_WINDOW = 150;
@@ -118,6 +119,16 @@ class CelestialBrew extends Analyzer {
     if(this._currentAbsorb) {
       this._absorbs.push(this._currentAbsorb);
     }
+  }
+
+  suggestions(when: When) {
+    when(this.goodCastSuggestion)
+      .addSuggestion((suggest, actual, recommended) => suggest(
+        <>You should try to use <SpellLink id={SPELLS.CELESTIAL_BREW.id} /> when most or all of the absorb will be consumed.</>
+      )
+      .icon(SPELLS.CELESTIAL_BREW.icon)
+      .actual(`${formatPercentage(actual)}% of your absorbs expired with more than 25% remaining.`)
+      .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

@@ -1,8 +1,11 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { formatPercentage } from 'common/format';
 
 import { ISB as ABILITY_BLACKLIST } from '../constants/AbilityBlacklist';
 
@@ -48,7 +51,16 @@ export default class Shuffle extends Analyzer {
         average: 0.96,
         major: 0.94,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
+  }
+
+  suggestions(when: When) {
+    when(this.uptimeSuggestionThreshold)
+      .addSuggestion((suggest, actual, recommended) => suggest(
+        <>You should maintain <SpellLink id={SPELLS.SHUFFLE.id} /> while actively tanking.</>
+      ).icon(SPELLS.SHUFFLE.icon)
+       .actual(`${formatPercentage(actual)}% of hits mitigated by Shuffle.`)
+       .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 }
