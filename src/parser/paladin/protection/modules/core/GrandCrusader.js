@@ -10,8 +10,6 @@ import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probabi
 import Abilities from '../Abilities';
 
 const BASE_PROC_CHANCE = 0.15;
-const FA_PROC_CHANCE = 0.1;
-const IV_PROC_CHANCE = 0.05;
 
 class GrandCrusader extends Analyzer {
   static dependencies = {
@@ -22,25 +20,8 @@ class GrandCrusader extends Analyzer {
   _inferredResets = 0;
   _resetChances = 0;
 
-  _hasIV = false;
-  _hasFA = false;
-
-  constructor(...args) {
-    super(...args);
-    this._hasIV = this.selectedCombatant.hasTrait(SPELLS.INSPIRING_VANGUARD.id);
-    this._hasFA = this.selectedCombatant.hasTalent(SPELLS.FIRST_AVENGER_TALENT.id);
-  }
-
   get procChance() {
-    let chance = BASE_PROC_CHANCE;
-    if (this._hasIV) {
-      chance += IV_PROC_CHANCE;
-    }
-    if (this._hasFA) {
-      chance += FA_PROC_CHANCE;
-    }
-
-    return chance;
+    return BASE_PROC_CHANCE;
   }
 
   _lastResetSource = null;
@@ -61,17 +42,7 @@ class GrandCrusader extends Analyzer {
     this._lastResetSource = event;
   }
 
-  triggerExactReset(spellUsable) {
-    this._totalResets += 1;
-    this._exactResets += 1;
-    this.resetCooldowns(spellUsable);
-  }
-
   triggerInferredReset(spellUsable, event) {
-    if (this._hasIV) {
-      console.warn('Inferred reset with IV. Not actually resetting. This shouldn\'t happen.', event.ability.name, event);
-      return;
-    }
     this._totalResets += 1;
     this._inferredResets += 1;
     this.resetCooldowns(spellUsable);

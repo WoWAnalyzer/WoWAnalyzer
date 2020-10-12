@@ -21,10 +21,6 @@ import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
 import Seraphim from './modules/talents/Seraphim';
 import RighteousProtector from './modules/talents/RighteousProtector';
 
-//Azerite Traits
-import InspiringVanguard from './modules/spells/azeritetraits/InspiringVanguard';
-import LucidDreams from './modules/items/LucidDreams';
-
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
 import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
@@ -48,10 +44,6 @@ class CombatLogParser extends CoreCombatLogParser {
     consecration: Consecration,
     mitigationcheck: MitigationCheck,
     //cooldownTracker: CooldownTracker,
-
-    // Azerite Traits
-    inspiringVanguard: InspiringVanguard,
-    lucidDreams: LucidDreams,
 
     // Talents
     righteousProtector: RighteousProtector,
