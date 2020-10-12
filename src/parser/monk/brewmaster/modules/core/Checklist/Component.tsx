@@ -40,7 +40,8 @@ const Component = ({ combatant, castEfficiency, thresholds }: any) => {
              <>
                Effective use of <SpellLink id={SPELLS.PURIFYING_BREW.id} /> is fundamental to playing Brewmaster successfully. While we cannot <em>automatically</em> tell whether a purify is effective or not, there are some simple guidelines that naturally lead to more effective purifies:
                <ul>
-                 <li>Avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> at less than <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. In a raid environment, <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> is not dangerous in itself. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, this remains a good rule of thumb.</li>
+                 <li>Spend all of your charges of <SpellLink id={SPELLS.PURIFYING_BREW.id} />.</li>
+                 <li>Avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> at less than <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />—but not if it would waste charges! In a raid environment, <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> is not dangerous in itself. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, this remains a good rule of thumb.</li>
                  <li>If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from <SpellLink id={SPELLS.STAGGER.id} />.</li>
                </ul>
                For more information on effective use of <SpellLink id={SPELLS.PURIFYING_BREW.id} />, see the <a href="https://www.peakofserenity.com/bfa/brewmaster/purifying/">Peak of Serenity guide</a>.
@@ -64,6 +65,7 @@ const Component = ({ combatant, castEfficiency, thresholds }: any) => {
         <AbilityRequirement spell={SPELLS.KEG_SMASH.id} />
         <AbilityRequirement spell={SPELLS.BLACKOUT_KICK_BRM.id} />
         <AbilityRequirement spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id} />
+        <AbilityRequirement spell={SPELLS.TOUCH_OF_DEATH.id} />
         {combatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id) && (
           <>
             <Requirement
