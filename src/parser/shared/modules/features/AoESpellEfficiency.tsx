@@ -1,7 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Abilities from 'parser/core/modules/Abilities';
 import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -18,9 +18,9 @@ import React from 'react';
 
 class AoESpellEfficiency extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    abilities: Abilities,
   };
-  protected abilityTracker!: AbilityTracker;
+  protected abilities!: Abilities;
 
   ability!: Spell;
   bonusDmg = 0;
@@ -47,12 +47,16 @@ class AoESpellEfficiency extends Analyzer {
   }
 
   get maxCasts() {
-    const cooldown = this.abilityTracker.getAbility(this.ability.id).cooldown;
+    const cooldown = this.abilities.getAbility(this.ability.id)?.cooldown ?? Infinity;
     return Math.ceil(calculateMaxCasts(cooldown, this.owner.fightDuration));
   }
 
   get possibleHits() {
-    const cooldownMS = this.abilityTracker.getAbility(this.ability.id).cooldown * 1000;
+    const cooldownS = this.abilities.getAbility(this.ability.id)?.cooldown;
+    if (cooldownS === undefined) {
+      return 0;
+    }
+    const cooldownMS = cooldownS * 1000;
     let lastCast: number | null = null;
     let missedCasts = 0;
     let timeSum = 0;
