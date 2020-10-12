@@ -9,26 +9,22 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import ResourceGenerated from 'interface/others/ResourceGenerated';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const HOT_HAND = {
   INCREASE: 1.0,
-  COST_REDUCTION: SPELLS.LAVA_LASH.maelstrom,
 };
 
 /**
- * Melee attacks with Flametongue active have a chance to make your next
- * Lava Lash cost no Maelstrom and deal 100% increased damage.
+ * Melee auto-attacks with Flametongue Weapon active have a 5% chance to
+ * reduce the cooldown of Lava Lash by 75% and increase the damage of
+ * Lava Lash by 100% for 8 sec.
  *
  * Example Log:
  *
  */
 class HotHand extends Analyzer {
-  protected damageGained: number = 0;
-  protected maelstromSaved: number = 0;
-  protected hotHandCount: number = 0;
-  protected hotHandUses: number = 0;
+
+  protected buffedLavaLashDamage: number = 0;
 
   constructor(options: any) {
     super(options);
@@ -45,21 +41,14 @@ class HotHand extends Analyzer {
     );
   }
 
-  onHotHandBuff() {
-    this.hotHandCount += 1;
-  }
-
   onLavaLashDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.HOT_HAND_BUFF.id)) {
       return;
     }
 
-    this.hotHandUses += 1;
-    this.damageGained += calculateEffectiveDamage(event, HOT_HAND.INCREASE);
-    this.maelstromSaved += HOT_HAND.COST_REDUCTION;
+    this.buffedLavaLashDamage += calculateEffectiveDamage(event, HOT_HAND.INCREASE);
   }
 
-  // TODO: add uses/count to statistics
   statistic() {
     return (
       <Statistic
@@ -69,8 +58,7 @@ class HotHand extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.HOT_HAND_TALENT}>
           <>
-            <ItemDamageDone amount={this.damageGained} /><br />
-            <ResourceGenerated amount={this.maelstromSaved} resourceType={RESOURCE_TYPES.MAELSTROM} />
+            <ItemDamageDone amount={this.buffedLavaLashDamage} /><br />
           </>
         </BoringSpellValueText>
       </Statistic>
