@@ -11,10 +11,11 @@ import { formatNth, formatDuration } from 'common/format';
 import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { When } from 'parser/core/ParseResults';
+
+import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
 const CHAIN_HEAL_TARGET_EFFICIENCY = 0.97;
 const HEAL_WINDOW_MS = 250;
@@ -33,11 +34,11 @@ interface ChainHealInfo {
 
 class ChainHeal extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    abilityTracker: RestorationAbilityTracker,
     combatants: Combatants,
   };
 
-  protected abilityTracker!: AbilityTracker;
+  protected abilityTracker!: RestorationAbilityTracker;
   protected combatants!: Combatants;
 
   buffer: Array<HealEvent | CastEvent> = [];
@@ -108,13 +109,13 @@ class ChainHeal extends Analyzer {
 
   get avgHits() {
     const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
-    const casts = chainHeal.casts || 0;
-    const hits = chainHeal.healingHits || 0;
+    const casts = chainHeal.casts;
+    const hits = chainHeal.healingHits;
     return hits / casts || 0;
   }
 
   get casts() {
-    return this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id).casts || 0;
+    return this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id).casts;
   }
 
   get suggestionThreshold() {

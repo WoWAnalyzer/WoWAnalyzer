@@ -4,19 +4,20 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import StatisticGroup from 'interface/statistics/StatisticGroup';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
+import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
+
 class CastBehavior extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    abilityTracker: RestorationAbilityTracker,
   };
 
-  protected abilityTracker!: AbilityTracker;
+  protected abilityTracker!: RestorationAbilityTracker;
 
   get twUsageRatioChart() {
     const riptide = this.abilityTracker.getAbility(SPELLS.RIPTIDE.id);

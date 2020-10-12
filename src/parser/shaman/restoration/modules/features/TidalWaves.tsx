@@ -6,17 +6,18 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
+
+import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
 const TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME = 100; // Minimal duration for which you must have tidal waves. Prevents it from counting a HS/HW as buffed when you cast a riptide at the end.
 
 class TidalWaves extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    abilityTracker: RestorationAbilityTracker,
   };
-  protected abilityTracker!: AbilityTracker;
+  protected abilityTracker!: RestorationAbilityTracker;
 
   constructor(options: Options) {
     super(options);

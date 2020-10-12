@@ -4,18 +4,19 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { When } from 'parser/core/ParseResults';
 
+import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
+
 class HealingWave extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    abilityTracker: RestorationAbilityTracker,
     spellUsable: SpellUsable,
   };
 
-  protected abilityTracker!: AbilityTracker;
+  protected abilityTracker!: RestorationAbilityTracker;
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
