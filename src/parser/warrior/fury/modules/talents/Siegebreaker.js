@@ -8,6 +8,8 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import SpellLink from 'common/SpellLink';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 
 const SIEGEBREAKER_DAMAGE_MODIFIER = 0.15;
@@ -93,7 +95,7 @@ class Siegebreaker extends Analyzer {
   suggestions(when){
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're not casting <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} /> and <SpellLink id={SPELLS.RECKLESSNESS.id} /> together.</>)
         .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% of Recklessnesses casts without a Siegebreaker cast`)
+        .actual(i18n._(t('warrior.fury.suggestions.siegeBreaker.efficiency')`${formatPercentage(actual)}% of Recklessnesses casts without a Siegebreaker cast`))
         .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 
