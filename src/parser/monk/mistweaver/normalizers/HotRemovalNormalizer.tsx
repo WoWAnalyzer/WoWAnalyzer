@@ -10,7 +10,7 @@ const MAX_DELAY: number = 50;
 class HotRemovalNormalizer extends EventsNormalizer {
 
   // This ordering issue only happens for the HoTs that tick on removebuff
-  instantTickHotIds: Array<number> = [
+  instantTickHotIds: number[] = [
     SPELLS.RENEWING_MIST_HEAL.id,
     SPELLS.ESSENCE_FONT_BUFF.id,
   ];

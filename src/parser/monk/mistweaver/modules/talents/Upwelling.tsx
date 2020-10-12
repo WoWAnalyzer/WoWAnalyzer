@@ -47,7 +47,7 @@ class Upwelling extends Analyzer {
 
   totalBolts: number = 0;
 
-  hotMap: Map<number, {fullCount: boolean; applicationTime: number;}> = new Map<number, {fullCount: boolean; applicationTime: number;}>();//tracking on who has what and how it is
+  hotMap: Map<number, {fullCount: boolean; applicationTime: number;}> = new Map();//tracking on who has what and how it is
 
   masteryTickTock: boolean = false;
   masteryHit: number = 0;
@@ -80,8 +80,13 @@ class Upwelling extends Analyzer {
   hotHeal(event: HealEvent){
     const targetID = event.targetID;//short hand
 
+    const hot = this.hotMap.get(targetID);
+    if(hot === undefined) {
+      return;
+    }
+
     if(this.hotMap.has(targetID)){//check if hot heals before bolt hits (should never happen but logs)
-      if(this.hotMap.get(targetID)!.fullCount || event.timestamp - BASE_HOT_TIME > this.hotMap.get(targetID)!.applicationTime){//check if its an extra bolt from ef or was part of the core 18
+      if(hot.fullCount || event.timestamp - BASE_HOT_TIME > hot.applicationTime){//check if its an extra bolt from ef or was part of the core 18
         this.efHotHeal += (event.amount || 0) + (event.absorbed || 0);
         this.efHotOverheal += event.overheal || 0;
       }
@@ -125,16 +130,17 @@ class Upwelling extends Analyzer {
   handleMastery(event: HealEvent){
     const targetID = event.targetID;//short hand
 
-    if(!this.hotMap.has(targetID)){
-      return;
-    }
-
     if(!this.combatants.players[targetID]){//fixes weird bug where if the target fails to load we break the module... might want to add this to core
       return;
     }
 
+    const hot = this.hotMap.get(targetID);
+    if(hot === undefined) {
+      return;
+    }
+
     if(this.combatants.players[targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0)) {//do they have the hot
-      if(this.hotMap.get(targetID)?.fullCount || event.timestamp - BASE_HOT_TIME > this.hotMap.get(targetID)!.applicationTime){
+      if(hot.fullCount || event.timestamp - BASE_HOT_TIME > hot.applicationTime){
         if(!this.masteryTickTock){
           this.masteryHit += 1;
           this.masteryHealing += event.amount || 0;

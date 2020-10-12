@@ -17,11 +17,11 @@ class SpinningCraneKick extends Analyzer{
     }
 
     goodSCKcount: number = 0;
-    goodSCKTimeList: String[] = [];
+    goodSCKTimeList: string[] = [];
     badSCKcount: number = 0;
-    badSCKTimeList: String[] = [];
+    badSCKTimeList: string[] = [];
     canceledSCKcount: number = 0;//figure out if this is possible
-    enemiesHitSCK: String[] = [];
+    enemiesHitSCK: string[] = [];
     currentTime: number = 0;
 
     castSpinningCraneKick(event: CastEvent) {

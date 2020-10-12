@@ -5077,7 +5077,7 @@ exports[`Mistweaver Monk integration test: example log ManaTea matches the stati
         <div
           className="value"
         >
-          0
+          13k
         </div>
       </div>
     </div>
@@ -5107,7 +5107,7 @@ Array [
   Object {
     "details": null,
     "icon": "monk_ability_cherrymanatea",
-    "importance": "major",
+    "importance": "minor",
     "issue": <React.Fragment>
       Your mana spent during 
       <ForwardRef
@@ -5132,7 +5132,7 @@ Array [
        even if the channel continues past the buff.
     </React.Fragment>,
     "stat": <React.Fragment>
-      0 average mana saved per Mana Tea cast
+      13k average mana saved per Mana Tea cast
        (
       13k average mana saved is recommended
       )
@@ -7957,14 +7957,14 @@ exports[`Mistweaver Monk integration test: example log Tier45Comparison matches 
       >
         <label>
           <a
-            href="http://wowhead.com/spell=210802"
+            href="http://wowhead.com/spell=197908"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Spirit of the Crane"
+              alt="Mana Tea"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/monk_stance_redcrane.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/monk_ability_cherrymanatea.jpg"
             />
           </a>
            Tier 45 Comparison
@@ -7972,9 +7972,9 @@ exports[`Mistweaver Monk integration test: example log Tier45Comparison matches 
         <div
           className="value"
         >
-          9,750
+          25k
            Mana from 
-          Spirit of the Crane
+          Mana Tea
         </div>
       </div>
       <div
@@ -8016,29 +8016,6 @@ exports[`Mistweaver Monk integration test: example log Tier45Comparison matches 
     </div>
   </div>
 </div>
-`;
-
-exports[`Mistweaver Monk integration test: example log Tier45Comparison matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "monk_stance_redcrane",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      With your current playstyle you are not using the most effective tier 45 talent. 
-      <ForwardRef
-        id={210802}
-      />
-       is better based off of how you played.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      0 mana returned through Spirit of the Crane
-       (
-      Spirit of the Crane would have returned 9,750
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Mistweaver Monk integration test: example log Upwelling matches the statistic snapshot 1`] = `
@@ -9585,7 +9562,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -9609,8 +9586,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "0%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "94.08921666666666%",
                 }
               }
             />
@@ -9703,7 +9680,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  Yes
                    
                    
                 </div>
@@ -9723,9 +9700,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -9776,7 +9753,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  0
+                  13k
                    
                    
                 </div>
@@ -9796,9 +9773,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "95.32125%",
                       }
                     }
                   />

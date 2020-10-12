@@ -44,7 +44,7 @@ class Vivify extends Analyzer {
     this.lastCastTarget = event.targetID || 0;
   }
 
-  handleViv(event:HealEvent) {
+  handleViv(event: HealEvent) {
     if ((this.lastCastTarget !== event.targetID)) {
       this.remVivifyHealCount += 1;
       this.remVivifyHealing += (event.amount || 0 ) + (event.absorbed || 0);
@@ -54,7 +54,7 @@ class Vivify extends Analyzer {
     }
   }
 
-  handleMastery(event:HealEvent){
+  handleMastery(event: HealEvent){
     if ((this.lastCastTarget === event.targetID) && this.numberToCount > 0) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
       this.numberToCount -= 1;

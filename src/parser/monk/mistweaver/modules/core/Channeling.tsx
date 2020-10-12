@@ -24,7 +24,7 @@ class Channeling extends CoreChanneling {
     super.on_byPlayer_cast(event);
   }
 
-  cancelChannel(event: CastEvent, ability: {type: EventType; timestamp: number; ability: Ability; sourceID: number; isCancelled: boolean}) {
+  cancelChannel(event: CastEvent, ability: Ability) {
     if (this.isChannelingSpell(SPELLS.CRACKLING_JADE_LIGHTNING.id) || this.isChannelingSpell(SPELLS.ESSENCE_FONT.id) || this.isChannelingSpell(SPELLS.SOOTHING_MIST.id)) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
       this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');
@@ -53,7 +53,7 @@ class Channeling extends CoreChanneling {
     }
     this.endChannel(event);
   }
-  on_byPlayer_removebuff(event:RemoveDebuffEvent) {
+  on_byPlayer_removebuff(event: RemoveDebuffEvent) {
     if (event.ability.guid !== SPELLS.ESSENCE_FONT.id || SPELLS.SOOTHING_MIST.id) {
       return;
     }

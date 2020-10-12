@@ -8,9 +8,6 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
-import ManaTea from './ManaTea';
-import SpiritOfTheCrane from './SpiritOfTheCrane';
-import Lifecycles from './Lifecycles';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import Statistic from 'interface/statistics/Statistic';
@@ -19,6 +16,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+
+import ManaTea from './ManaTea';
+import SpiritOfTheCrane from './SpiritOfTheCrane';
+import Lifecycles from './Lifecycles';
 
 const debug: boolean = false;
 
@@ -37,7 +38,7 @@ class Tier45Comparison extends Analyzer {
   protected spiritOfTheCrane!: SpiritOfTheCrane;
   protected lifeCycles!: Lifecycles;
 
-  manatea: {selected: boolean; manaFrom: number; icon: string; name: string; id: number;} & {best: boolean; requiredPerTea: number; } = {
+  manatea: BestTalent & {best: boolean; requiredPerTea: number; } = {
     selected: false,//is this the selected talent
     manaFrom: 0,//how much mana did they save/get from talent (will compute even if not selected)
     icon: SPELLS.MANA_TEA_TALENT.icon,//icon
@@ -46,7 +47,7 @@ class Tier45Comparison extends Analyzer {
     best: false,//is it the best talent
     requiredPerTea: 0,//differs from talent to talent but tldr its the requirements to equal best
   };
-  lifecycles: {selected: boolean; manaFrom: number; icon: string; name: string; id: number;} & {best: boolean; requiredVivs: number; requiredEnvs: number} = {
+  lifecycles: BestTalent & {best: boolean; requiredVivs: number; requiredEnvs: number} = {
     selected: false,
     manaFrom: 0,
     icon: SPELLS.LIFECYCLES_TALENT.icon,
@@ -56,7 +57,7 @@ class Tier45Comparison extends Analyzer {
     requiredVivs: 0,
     requiredEnvs: 0,
   };
-  sotc: {selected: boolean; manaFrom: number; icon: string; name: string; id: number;} & {best: boolean; requiredTps: number;} = {
+  sotc: BestTalent & {best: boolean; requiredTps: number;} = {
     selected: false,
     manaFrom: 0,
     icon: SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon,
@@ -69,7 +70,7 @@ class Tier45Comparison extends Analyzer {
   talents = [this.manatea, this.lifecycles, this.sotc];
 
   returnedFromSelected = 0;
-  best: {selected: boolean; manaFrom: number; icon: string; name: string; id: number;} = {
+  best: BestTalent = {
     selected: false,
     manaFrom: 0,
     icon: "",
@@ -280,8 +281,14 @@ class Tier45Comparison extends Analyzer {
       </Statistic>
     );
   }
+}
 
-
+interface BestTalent {
+  selected: boolean;
+  manaFrom: number;
+  icon: string;
+  name: string;
+  id: number;
 }
 
 export default Tier45Comparison;

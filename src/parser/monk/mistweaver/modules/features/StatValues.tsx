@@ -6,9 +6,10 @@ import STAT from 'parser/shared/modules/features/STAT';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 
-import SPELL_INFO from './StatValuesSpellInfo';
 import { HealEvent } from 'parser/core/Events';
 import HealingValue from 'parser/shared/modules/HealingValue';
+
+import SPELL_INFO from './StatValuesSpellInfo';
 
 /**
  * Mistweaver Monk Stat Values

@@ -4,8 +4,7 @@ import SPELLS from 'common/SPELLS';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Vivify from '../spells/Vivify';
-import ManaTea from './ManaTea';
+
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import Statistic from 'interface/statistics/Statistic';
@@ -14,6 +13,9 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+
+import Vivify from '../spells/Vivify';
+import ManaTea from './ManaTea';
 
 
 class RenewingMistDuringManaTea extends Analyzer {

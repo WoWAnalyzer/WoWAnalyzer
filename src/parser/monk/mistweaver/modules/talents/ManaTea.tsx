@@ -60,7 +60,7 @@ class ManaTea extends Analyzer {
     }
 
     if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id) && event.ability.guid !== SPELLS.MANA_TEA_TALENT.id) {//we check both since melee doesn't havea classResource
-      if(event.classResources){ //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
+      if(manaEvent.cost !== undefined){ //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
         this.manaSavedMT += manaEvent.cost / 2;
       }
       if(this.casts.has(name)){

@@ -84,7 +84,7 @@ class ThunderFocusTea extends Analyzer {
   }
 
   renderCastRatioChart() {
-    const items: {}[] = [
+    const items = [
       {
         color: '#00b159',
         label: 'Vivify',

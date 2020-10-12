@@ -37,11 +37,6 @@ class MasteryStats extends Analyzer {
   protected vivify!: Vivify;
   protected expelHarm!: ExpelHarm;
 
-  constructor(args: Options) {
-    super(args);
-    this.addEventListener(Events.fightend, this.endFight);
-  }
-
   get totalMasteryHealing() {
     return (this.vivify.gustsHealing || 0)
             + (this.renewingMist.gustsHealing || 0)
@@ -102,18 +97,6 @@ class MasteryStats extends Analyzer {
         items={items}
       />
     );
-  }
-
-  endFight() {
-    if (debug) {
-      console.log(`Vivify:${this.vivify.gustsHealing}`);
-      console.log(`Renewing:${this.renewingMist.gustsHealing}`);
-      console.log(`Enveloping:${this.envelopingMists.gustsHealing}`);
-      console.log(`Soothing:${this.soothingMist.gustsHealing}`);
-      console.log(`Essence font:${this.essenceFontMastery.healing}`);
-      console.log(`Expel Harm:${this.expelHarm.gustsHealing}`);
-      console.log(`Total Mastery healing:${this.totalMasteryHealing}`);
-    }
   }
 
   statistic() {

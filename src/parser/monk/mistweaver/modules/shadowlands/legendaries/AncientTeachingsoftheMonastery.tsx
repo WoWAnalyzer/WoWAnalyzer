@@ -43,8 +43,8 @@ class AncientTeachingsoftheMonastery extends Analyzer {
 
   calculateEffectiveHealing(event: HealEvent){
     const heal = (event.amount || 0) + (event.absorbed || 0);
-    const oldHealingTotel = this.damageSpellToHealing.get(this.lastDamageSpellID) || 0;
-    this.damageSpellToHealing.set(this.lastDamageSpellID, heal + oldHealingTotel);
+    const oldHealingTotal = this.damageSpellToHealing.get(this.lastDamageSpellID) || 0;
+    this.damageSpellToHealing.set(this.lastDamageSpellID, heal + oldHealingTotal);
   }
 
   renderDonutChart() {

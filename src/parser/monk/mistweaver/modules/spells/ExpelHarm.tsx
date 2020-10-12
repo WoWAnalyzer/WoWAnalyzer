@@ -9,8 +9,8 @@ class ExpelHarm extends Analyzer {
     targetHealing: number = 0;
     targetOverheal: number = 0;
     gustsHealing: number = 0;
-    lastCastTarget: number = 0;
-    sourceTarget: number = 0;
+    lastCastTarget: number = -1;
+    sourceTarget: number = -1;
     numberToCount: number = 0;
 
     constructor(args: Options) {
