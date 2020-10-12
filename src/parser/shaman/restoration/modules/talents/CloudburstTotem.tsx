@@ -4,8 +4,8 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { ApplyBuffEvent, CastEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, CastEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -36,14 +36,12 @@ class CloudburstTotem extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CLOUDBURST_TOTEM_HEAL), this._onHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CLOUDBURST_TOTEM_TALENT), this._onCast);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.CLOUDBURST_TOTEM_HEAL.id) {
-      return;
-    }
+  _onHeal(event: HealEvent) {
     if (this.cbtActive) {
       this._createFabricatedEvent(event, EventType.RemoveBuff, event.timestamp);
       this.cbtActive = false;
@@ -52,13 +50,7 @@ class CloudburstTotem extends Analyzer {
     this.healing += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
-      return;
-    }
-
+  _onCast(event: CastEvent) {
     // Patch 7.3.5 added a buffer before CBT can collect healing after casting,
     // this turns out to be around 200ms and causes it to not collect healing from
     // spells casted right before it, essentially removing pre-feeding.

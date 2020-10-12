@@ -8,7 +8,6 @@ import FocusDetails from 'parser/hunter/shared/modules/resources/FocusDetails';
 import FocusCapTracker from 'parser/hunter/shared/modules/resources/FocusCapTracker';
 import SteadyFocus from 'parser/hunter/marksmanship/modules/talents/SteadyFocus';
 import LethalShots from 'parser/hunter/marksmanship/modules/talents/LethalShots';
-import HuntersMark from 'parser/hunter/shared/modules/spells/HuntersMark';
 import SerpentSting from 'parser/hunter/marksmanship/modules/talents/SerpentSting';
 import CallingTheShots from 'parser/hunter/marksmanship/modules/talents/CallingTheShots';
 import DeadEye from 'parser/hunter/marksmanship/modules/talents/DeadEye';
@@ -30,7 +29,6 @@ class Checklist extends BaseChecklist {
     //endregion
 
     //region Spells
-    huntersMark: HuntersMark,
     preciseShots: PreciseShots,
     //endregion
 
@@ -58,7 +56,6 @@ class Checklist extends BaseChecklist {
   //endregion
 
   //region Spells
-  protected huntersMark!: HuntersMark;
   protected preciseShots!: PreciseShots;
   //endregion
 
@@ -89,7 +86,6 @@ class Checklist extends BaseChecklist {
           //endregion
 
           //region Spells
-          huntersMarkThresholds: this.huntersMark.uptimeThresholds,
           preciseShotsThresholds: this.preciseShots.preciseShotsWastedThreshold,
           //endregion
 

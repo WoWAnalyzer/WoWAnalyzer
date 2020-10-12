@@ -22,6 +22,29 @@ export interface WCLEventsResponse {
   nextPageTimestamp?: number;
 }
 
+export interface WCLRankingsResponse {
+  page: number;
+  hasMorePages: boolean;
+  count: number;
+  rankings: WCLRanking[];
+}
+
+export interface WCLRanking {
+  name: string;
+  class: number;
+  spec: number;
+  total: number;
+  duration: number;
+  startTime: number;
+  fightID: number;
+  reportID: string;
+  guildName: string;
+  serverName: string;
+  regionName: string;
+  hidden: boolean;
+  itemLevel: number;
+}
+
 export interface WCLHealing {
   total: number;
   overheal?: number;
@@ -31,7 +54,7 @@ export interface WCLHealingTableResponse {
   entries: WCLHealing[];
 }
 
-export type WCLResponseJSON = WCLGuildReportsResponse | WCLFightsResponse | WCLEventsResponse | WCLHealingTableResponse;
+export type WCLResponseJSON = WCLGuildReportsResponse | WCLFightsResponse | WCLEventsResponse | WCLHealingTableResponse | WCLRankingsResponse;
 
 export interface WclOptions {
   timeout: number;

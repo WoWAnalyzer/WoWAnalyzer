@@ -22,12 +22,7 @@ class HeavyRainfall extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = true;//TODO actually check if conduit is active
-
     this.healingBoost = 1.6;//TODO Get from combat data when they EXPORT IT >:c
-
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this.normalizeBoost);
   }

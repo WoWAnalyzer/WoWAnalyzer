@@ -8,7 +8,7 @@ const debug = false;
 const APPLY = 'apply';
 const REMOVE = 'remove';
 
-class Entities extends Analyzer {
+abstract class Entities<T extends Entity> extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
   };
@@ -32,13 +32,9 @@ class Entities extends Analyzer {
     this.addEventListener(Events.removedebuffstack, this.updateBuffStack);
   }
 
-  getEntities(): Entity[] {
-    throw new Error('Not implemented');
-  }
+  abstract getEntities(): { [entityId: number]: T };
 
-  getEntity(event: AnyEvent): Entity | null {
-    throw new Error('Not implemented');
-  }
+  abstract getEntity(event: AnyEvent): T | null;
 
   applyBuff(event: ApplyBuffEvent | ApplyDebuffEvent) {
     if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
