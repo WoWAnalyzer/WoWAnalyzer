@@ -2,26 +2,27 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import { Ability, AbsorbedEvent, CastEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
+
 import SpellManaCost from './SpellManaCost';
 
-interface TrackedAbility {
+export interface TrackedAbility {
   ability: Ability | null;
-  casts?: number;
-  manaUsed?: number;
-  damageHits?: number;
-  damageEffective?: number;
-  damageAbsorbed?: number;
-  damageCriticalHits?: number;
-  damageCriticalEffective?: number;
-  damageCriticalAbsorbed?: number;
-  healingHits?: number;
-  healingEffective?: number;
-  healingAbsorbed?: number;
-  healingOverheal?: number;
-  healingCriticalHits?: number;
-  healingCriticalEffective?: number;
-  healingCriticalAbsorbed?: number;
-  healingCriticalOverheal?: number;
+  casts: number;
+  manaUsed: number;
+  damageHits: number;
+  damageEffective: number;
+  damageAbsorbed: number;
+  damageCriticalHits: number;
+  damageCriticalEffective: number;
+  damageCriticalAbsorbed: number;
+  healingHits: number;
+  healingEffective: number;
+  healingAbsorbed: number;
+  healingOverheal: number;
+  healingCriticalHits: number;
+  healingCriticalEffective: number;
+  healingCriticalAbsorbed: number;
+  healingCriticalOverheal: number;
 }
 
 class AbilityTracker extends Analyzer {
@@ -29,26 +30,43 @@ class AbilityTracker extends Analyzer {
     // Needed for the `resourceCost` prop of events
     spellManaCost: SpellManaCost,
   };
+  protected spellManaCost!: SpellManaCost;
 
-  abilities: { [spellId: number]: TrackedAbility } = {};
+  abilities = new Map<number, TrackedAbility>();
 
   on_byPlayer_cast(event: CastEvent) {
     const spellId = event.ability.guid;
 
     const cast = this.getAbility(spellId, event.ability);
-    cast.casts = (cast.casts || 0) + 1;
+    cast.casts = cast.casts + 1;
     if (event.resourceCost && event.resourceCost[RESOURCE_TYPES.MANA.id] !== undefined) {
-      cast.manaUsed = (cast.manaUsed || 0) + event.resourceCost[RESOURCE_TYPES.MANA.id];
+      cast.manaUsed = cast.manaUsed + event.resourceCost[RESOURCE_TYPES.MANA.id];
     }
   }
 
   getAbility(spellId: number, abilityInfo: Ability | null = null) {
-    let ability = this.abilities[spellId];
-    if (!ability) {
+    let ability = this.abilities.get(spellId);
+    if (ability === undefined) {
       ability = {
         ability: abilityInfo,
+        casts: 0,
+        manaUsed: 0,
+        damageHits: 0,
+        damageEffective: 0,
+        damageAbsorbed: 0,
+        damageCriticalHits: 0,
+        damageCriticalEffective: 0,
+        damageCriticalAbsorbed: 0,
+        healingHits: 0,
+        healingEffective: 0,
+        healingAbsorbed: 0,
+        healingOverheal: 0,
+        healingCriticalHits: 0,
+        healingCriticalEffective: 0,
+        healingCriticalAbsorbed: 0,
+        healingCriticalOverheal: 0
       };
-      this.abilities[spellId] = ability;
+      this.abilities.set(spellId, ability);
     }
     if (!ability.ability && abilityInfo) {
       ability.ability = abilityInfo;
@@ -56,22 +74,23 @@ class AbilityTracker extends Analyzer {
     return ability;
   }
 }
+
 class HealingTracker extends AbilityTracker {
   on_byPlayer_heal(event: HealEvent | AbsorbedEvent) {
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 
-    cast.healingHits = (cast.healingHits || 0) + 1;
+    cast.healingHits = cast.healingHits + 1;
     // TODO: Use HealingValue class
-    cast.healingEffective = (cast.healingEffective || 0) + (event.amount || 0);
+    cast.healingEffective = cast.healingEffective + (event.amount || 0);
     if (event.type === EventType.Heal) {
-      cast.healingAbsorbed = (cast.healingAbsorbed || 0) + (event.absorbed || 0);
-      cast.healingOverheal = (cast.healingOverheal || 0) + (event.overheal || 0);
+      cast.healingAbsorbed = cast.healingAbsorbed + (event.absorbed || 0);
+      cast.healingOverheal = cast.healingOverheal + (event.overheal || 0);
       if (event.hitType === HIT_TYPES.CRIT) {
-        cast.healingCriticalHits = (cast.healingCriticalHits || 0) + 1;
-        cast.healingCriticalEffective = (cast.healingCriticalEffective || 0) + (event.amount || 0);
-        cast.healingCriticalAbsorbed = (cast.healingCriticalAbsorbed || 0) + (event.absorbed || 0);
-        cast.healingCriticalOverheal = (cast.healingCriticalOverheal || 0) + (event.overheal || 0);
+        cast.healingCriticalHits = cast.healingCriticalHits + 1;
+        cast.healingCriticalEffective = cast.healingCriticalEffective + (event.amount || 0);
+        cast.healingCriticalAbsorbed = cast.healingCriticalAbsorbed + (event.absorbed || 0);
+        cast.healingCriticalOverheal = cast.healingCriticalOverheal + (event.overheal || 0);
       }
     }
   }
@@ -88,21 +107,22 @@ class HealingTracker extends AbilityTracker {
     this.on_byPlayer_heal(event);
   }
 }
+
 class DamageTracker extends HealingTracker {
   on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 
-    cast.damageHits = (cast.damageHits || 0) + 1;
+    cast.damageHits = cast.damageHits + 1;
     // TODO: Use DamageValue class
-    cast.damageEffective = (cast.damageEffective || 0) + (event.amount || 0);
-    cast.damageAbsorbed = (cast.damageAbsorbed || 0) + (event.absorbed || 0); // Not sure
+    cast.damageEffective = cast.damageEffective + (event.amount || 0);
+    cast.damageAbsorbed = cast.damageAbsorbed + (event.absorbed || 0); // Not sure
 
     const isCrit = event.hitType === HIT_TYPES.CRIT;
     if (isCrit) {
-      cast.damageCriticalHits = (cast.damageCriticalHits || 0) + 1;
-      cast.damageCriticalEffective = (cast.damageCriticalEffective || 0) + (event.amount || 0);
-      cast.damageCriticalAbsorbed = (cast.damageCriticalAbsorbed || 0) + (event.absorbed || 0); // Not sure
+      cast.damageCriticalHits = cast.damageCriticalHits + 1;
+      cast.damageCriticalEffective = cast.damageCriticalEffective + (event.amount || 0);
+      cast.damageCriticalAbsorbed = cast.damageCriticalAbsorbed + (event.absorbed || 0); // Not sure
     }
   }
 }
