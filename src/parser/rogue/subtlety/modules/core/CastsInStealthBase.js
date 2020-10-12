@@ -74,7 +74,7 @@ class CastsInStealthBase extends Analyzer {
     when(this.castsInStealthThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast {this.maxCastsPerStealth} spells during {this.stealthCondition}</>)
           .icon(spell.icon)
-          .actual(`${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`)
+          .actual(i18n._(t('rogue.subtlety.suggestions.castsInStealth.efficiency')`${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`))
           .recommended(`${this.maxCastsPerStealth} in each ${this.stealthCondition} window`));
   }
 }
