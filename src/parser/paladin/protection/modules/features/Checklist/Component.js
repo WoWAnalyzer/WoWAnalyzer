@@ -26,7 +26,6 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
         name="Use core abilities as often as possible."
         description="These should generally always be recharging to maximize efficiency."
       >
-        <AbilityRequirement spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />
         <AbilityRequirement spell={SPELLS.AVENGERS_SHIELD.id} />
         <AbilityRequirement spell={SPELLS.JUDGMENT_CAST_PROTECTION.id} />
         <Requirement
@@ -49,9 +48,6 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
           </>
         )}
       >
-        <AbilityRequirement spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}
-          name={(<><SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> cast efficiency</>)}
-        />
         <Requirement
           name={(
             <>Good <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts</>
@@ -69,22 +65,14 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
         />
       </Rule>
       <Rule
-        name={<>Use <SpellLink id={extras.lotpAbility.id} /> to heal yourself</>}
+        name={<>Use <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> to heal yourself</>}
         description={(
           <>
-          Using <SpellLink id={extras.lotpAbility.id} /> to heal yourself is critical to tanking effectively. You should aim to cast it as much as possible without overhealing. It is also important to avoid delaying the cast because this may result in "sniping" a healer's cast, causing it to overheal and wasting resources.
+            Using <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> to heal yourself is critical to tanking effectively. You should aim to cast it as much as possible without overhealing. It is also important to avoid delaying the cast because this may result in "sniping" a healer's cast, causing it to overheal and wasting resources.
           </>
         )}
       >
-        <AbilityRequirement
-          name={<><SpellLink id={extras.lotpAbility.id} /> Cast Efficiency</>}
-          spell={extras.lotpAbility.id}
-        />
-        <Requirement name="Avg. Cast Delay"
-          tooltip={extras.lotpAbility.id === SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id ?
-              "Only self-casts are counted for delay tracking." : null}
-          thresholds={thresholds.lotpDelay} />
-        <Requirement name="Overhealing" thresholds={thresholds.lotpOverheal} />
+        <em>Under construction</em>
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
