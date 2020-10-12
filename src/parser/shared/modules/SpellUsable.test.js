@@ -342,6 +342,7 @@ describe('core/Modules/SpellUsable', () => {
         timePassed: 0,
         sourceID: parser.playerId,
         targetID: parser.playerId,
+        targetIsFriendly: true,
         __fabricated: true,
       });
     });
@@ -381,6 +382,7 @@ describe('core/Modules/SpellUsable', () => {
         maxCharges: 1,
         sourceID: parser.playerId,
         targetID: parser.playerId,
+        targetIsFriendly: true,
         __fabricated: true,
       });
     });
@@ -423,6 +425,7 @@ describe('core/Modules/SpellUsable', () => {
           timePassed: 7500,
           sourceID: parser.playerId,
           targetID: parser.playerId,
+          targetIsFriendly: true,
           __fabricated: true,
         });
       }
@@ -455,6 +458,7 @@ describe('core/Modules/SpellUsable', () => {
           timePassed: 0,
           sourceID: parser.playerId,
           targetID: parser.playerId,
+          targetIsFriendly: true,
           __fabricated: true,
         });
       }

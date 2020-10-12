@@ -25,7 +25,7 @@ class Overload extends Analyzer {
     this.hasElementalBlast = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
 
     this.spells = [
-      this.getHits(SPELLS.LAVA_BURST_OVERLOAD.id, SPELLS.LAVA_BURST.id),
+      this.getHits(SPELLS.LAVA_BURST_OVERLOAD_DAMAGE.id, SPELLS.LAVA_BURST_DAMAGE.id),
       this.getHits(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id, SPELLS.LIGHTNING_BOLT.id),
       this.getHits(SPELLS.CHAIN_LIGHTNING_OVERLOAD.id, SPELLS.CHAIN_LIGHTNING.id),
       this.hasElementalBlast && this.getHits(SPELLS.ELEMENTAL_BLAST_OVERLOAD.id, SPELLS.ELEMENTAL_BLAST_TALENT.id),
@@ -49,7 +49,7 @@ class Overload extends Analyzer {
 
   on_fightend() {
     this.spells = [
-      this.getHits(SPELLS.LAVA_BURST_OVERLOAD.id, SPELLS.LAVA_BURST.id),
+      this.getHits(SPELLS.LAVA_BURST_OVERLOAD_DAMAGE.id, SPELLS.LAVA_BURST_DAMAGE.id),
       this.getHits(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id, SPELLS.LIGHTNING_BOLT.id),
       this.getHits(SPELLS.CHAIN_LIGHTNING_OVERLOAD.id, SPELLS.CHAIN_LIGHTNING.id),
       this.hasElementalBlast && this.getHits(SPELLS.ELEMENTAL_BLAST_OVERLOAD.id, SPELLS.ELEMENTAL_BLAST_TALENT.id),

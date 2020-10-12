@@ -4660,7 +4660,7 @@ exports[`Elemental Shaman integration test: example log Overload matches the sta
           >
             <li>
               <a
-                href="http://wowhead.com/spell=77451"
+                href="http://wowhead.com/spell=285466"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -4685,8 +4685,9 @@ exports[`Elemental Shaman integration test: example log Overload matches the sta
                   }
                 }
               >
-                0
+                22
                  / 
+                56
               </span>
             </li>
             <li>
