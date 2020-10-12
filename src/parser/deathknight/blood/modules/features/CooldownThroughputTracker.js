@@ -27,14 +27,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
 
   ];
-
-  static ignoredSpells = [
-    ...CoreCooldownThroughputTracker.ignoredSpells,
-    242556, //Filtering procs from the Umbral Glaive Storm trinket
-    242557, //Filtering procs from the Umbral Glaive Storm trinket
-    242553, //Filtering procs from the Umbral Glaive Storm trinket
-  ];
-
 }
 
 export default CooldownThroughputTracker;

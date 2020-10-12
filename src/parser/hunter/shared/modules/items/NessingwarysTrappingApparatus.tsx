@@ -10,7 +10,7 @@ import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**
- * Whenever a trap is triggered, gain 25 Focus.
+ * Whenever a trap is triggered, gain 45 Focus.
  *
  * Example log:
  *
@@ -22,7 +22,7 @@ class NessingwarysTrappingApparatus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESSINGWARYS_TRAPPING_APPARATUS_ENERGIZE.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESSINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID);
     if (!this.active) {
       return;
     }

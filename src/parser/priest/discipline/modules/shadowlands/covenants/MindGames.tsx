@@ -66,7 +66,7 @@ class Mindgames extends Analyzer {
           <>
             Healing Breakdown:
             <ul>
-              <li>{formatNumber(this.atonementHealing)} Atonement healing</li>
+              <li>{formatNumber(this.atonementHealing)} Atonement Healing</li>
               <li>{formatNumber(this.directHealing)} Direct Healing</li>
               <li>{formatNumber(this.preventedDamage)} Prevented Damage</li>
             </ul>

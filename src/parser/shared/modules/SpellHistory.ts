@@ -2,7 +2,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Channeling from 'parser/shared/modules/Channeling';
 import Events, {
-  EventType,
   ApplyBuffEvent,
   BeginCastEvent,
   BeginChannelEvent,
@@ -51,13 +50,13 @@ class SpellHistory extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener<EventType.BeginCast, BeginCastEvent>(Events.begincast.by(SELECTED_PLAYER), this.append);
-    this.addEventListener<EventType.Cast, CastEvent>(Events.cast.by(SELECTED_PLAYER), this.append);
-    this.addEventListener<EventType.BeginChannel, BeginChannelEvent>(Events.BeginChannel.by(SELECTED_PLAYER), this.append);
-    this.addEventListener<EventType.EndChannel, EndChannelEvent>(Events.EndChannel.by(SELECTED_PLAYER), this.append);
-    this.addEventListener<EventType.ApplyBuff, ApplyBuffEvent>(Events.applybuff.by(SELECTED_PLAYER), this.append);
-    this.addEventListener<EventType.RemoveBuff, RemoveBuffEvent>(Events.removebuff.by(SELECTED_PLAYER), this.append);
-    this.addEventListener<EventType.UpdateSpellUsable, UpdateSpellUsableEvent>(Events.UpdateSpellUsable.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.EndChannel.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.UpdateSpellUsable.by(SELECTED_PLAYER), this.append);
   }
 
   private getAbility(spellId: number) {

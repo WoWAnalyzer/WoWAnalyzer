@@ -184,6 +184,13 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.HUNTERS_MARK,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1000,
+        },
+      },
       //endregion
 
       //region Talents

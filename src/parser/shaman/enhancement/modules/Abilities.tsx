@@ -242,12 +242,11 @@ class Abilities extends CoreAbilities {
         cooldown: 40,
       },
       {
-        spell: SPELLS.LIGHTNING_SHIELD_TALENT,
+        spell: SPELLS.LIGHTNING_SHIELD,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0,

@@ -2,6 +2,7 @@ import Events, { ApplyBuffEvent, DamageEvent, FightEndEvent, RemoveBuffEvent } f
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { formatDuration } from 'common/format';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Spell from 'common/SPELLS/Spell';
 
 const debug = false;
 
@@ -14,7 +15,7 @@ class ExecuteHelper extends Analyzer {
    * Array of objects from common/SPELLS
    * This should contain any execute spells such as Kill Shot, Execute etc.
    */
-  static executeSpells: Array<{ id: number, name: string, icon: string }> = [];
+  static executeSpells: Spell[] = [];
 
   /**
    * SELECTED_PLAYER or SELECTED_PLAYER_PET for usage in the eventfilter
@@ -25,7 +26,7 @@ class ExecuteHelper extends Analyzer {
    * Array of objects from common/SPELLS
    * This should contain any SPELLS object that allows execute to be used outside normal execute range
    */
-  static executeOutsideRangeEnablers: Array<{ id: number, name: string, icon: string }> = [];
+  static executeOutsideRangeEnablers: Spell[] = [];
 
   /**
    * The lower threshold where execute is enabled, shown in decimals.

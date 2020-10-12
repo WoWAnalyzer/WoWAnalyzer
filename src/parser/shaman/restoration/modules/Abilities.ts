@@ -3,7 +3,7 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
-import { calculateCooldown } from '../../../shared/modules/spells/bfa/essences/VisionsOfPerfection';
+const totemGCD = 1000;
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] { 
@@ -20,11 +20,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 0.60 : 0.50,
+          recommendedEfficiency: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 0.75 : 0.60,
         },
-        healSpellIds: [
-          SPELLS.SURGING_TIDES_ABSORB.id,
-        ],
       },
       {
         spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
@@ -33,7 +30,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 18,
         enabled: !combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
         gcd: {
-          static: 1000, // totem GCD
+          static: totemGCD,
         },
         cooldown: 30,
         castEfficiency: {
@@ -44,7 +41,6 @@ class Abilities extends CoreAbilities {
         },
         healSpellIds: [
           SPELLS.HEALING_STREAM_TOTEM_HEAL.id,
-          SPELLS.SWELLING_STREAM_HEAL.id,
         ],
       },
       {
@@ -75,7 +71,6 @@ class Abilities extends CoreAbilities {
         },
         healSpellIds: [
           SPELLS.HEALING_RAIN_HEAL.id,
-          SPELLS.OVERFLOWING_SHORES_HEAL.id,
         ],
       },
       {
@@ -105,7 +100,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         timelineSortIndex: 16,
         gcd: {
-          static: 1000, // totem GCD
+          static: totemGCD,
         },
         enabled: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
         castEfficiency: {
@@ -116,7 +111,6 @@ class Abilities extends CoreAbilities {
         },
         healSpellIds: [
           SPELLS.CLOUDBURST_TOTEM_HEAL.id,
-          SPELLS.SWELLING_STREAM_HEAL.id,
         ],
       },
       {
@@ -125,7 +119,7 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         timelineSortIndex: 20,
         gcd: {
-          static: 1000, // totem GCD
+          static: totemGCD,
         },
         enabled: combatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id),
         castEfficiency: {
@@ -179,9 +173,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_TIDE_TOTEM_CAST,
         buffSpellId: SPELLS.HEALING_TIDE_TOTEM_CAST.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 180) : 180,
+        cooldown: 180,
         gcd: {
-          static: 1000, // totem GCD
+          static: totemGCD,
         },
         castEfficiency: {
           suggestion: true,
@@ -198,7 +192,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: {
-          static: 1000, // totem GCD
+          static: totemGCD,
         },
         castEfficiency: {
           suggestion: true,
@@ -206,9 +200,20 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.4,
           recommendedEfficiency: 0.6,
         },
-        healSpellIds: [
-          SPELLS.SPOUTING_SPIRITS_HEAL.id,
-        ],
+      },
+      {
+        spell: SPELLS.MANA_TIDE_TOTEM_CAST,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          static: totemGCD,
+        },
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: 0.2,
+          averageIssueEfficiency: 0.4,
+          recommendedEfficiency: 0.6,
+        },
       },
       {
         spell: SPELLS.HEALING_WAVE,
@@ -332,7 +337,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         gcd: {
-          base: 1000, // totem GCD but affected by Haste for some reason
+          base: totemGCD, // totem GCD but affected by Haste for some reason
         },
         cooldown: 30,
       },
@@ -349,7 +354,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         gcd: {
-          static: 1000, // totem GCD
+          static: totemGCD,
         },
         cooldown: 60,
       },
@@ -358,7 +363,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         gcd: {
-          static: 1000, // totem GCD
+          static: totemGCD,
         },
         enabled: combatant.hasTalent(SPELLS.WIND_RUSH_TOTEM_TALENT.id),
         cooldown: 120,
@@ -368,7 +373,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         gcd: {
-          static: 1000, // totem GCD
+          static: totemGCD,
         },
         enabled: combatant.hasTalent(SPELLS.EARTHGRAB_TOTEM_TALENT.id),
         cooldown: 30,
@@ -377,7 +382,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
-          static: 1000, // totem GCD
+          static: totemGCD,
         },
         enabled: combatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id),
         cooldown: 300,
@@ -406,12 +411,11 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: SPELLS.EARTH_SHIELD_TALENT,
+        spell: SPELLS.EARTH_SHIELD,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id),
         timelineSortIndex: 80,
         healSpellIds: [
           SPELLS.EARTH_SHIELD_HEAL.id,
@@ -422,7 +426,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         gcd: {
-          base: 1000, // totem GCD but affected by Haste for some reason
+          base: totemGCD, // totem GCD but affected by Haste for some reason
         },
         timelineSortIndex: 80,
       },
@@ -483,6 +487,28 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         isUndetectable: true,
+      },
+      {
+        spell: SPELLS.WATER_SHIELD,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.LIGHTNING_SHIELD,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        isUndetectable: true, // its not but, why.
+      },
+      {
+        spell: SPELLS.FROST_SHOCK,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }

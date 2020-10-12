@@ -89,7 +89,7 @@ class UnstableAfflictionUptime extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getCombinedDebuffHistory(...UNSTABLE_AFFLICTION_DEBUFFS.map(spell => spell.id));
+    const history = this.enemies.getCombinedDebuffHistory(UNSTABLE_AFFLICTION_DEBUFFS.map(spell => spell.id));
     return (
       <div className="flex">
         <div className="flex-sub icon">

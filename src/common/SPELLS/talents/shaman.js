@@ -2,7 +2,6 @@ export default {
   // Shared
   ECHO_OF_THE_ELEMENTS_TALENT: { id: 108283, name: 'Echo of the Elements', icon: 'ability_shaman_echooftheelements' },
   SPIRIT_WOLF_TALENT: { id: 260878, name: 'Spirit Wolf', icon: 'spell_hunter_lonewolf' },
-  EARTH_SHIELD_TALENT: { id: 974, name: 'Earth Shield', icon: 'spell_nature_skinofearth', manaCost: 2000 },
   STATIC_CHARGE_TALENT: { id: 265046, name: 'Static Charge', icon: 'spell_nature_brilliance' },
   NATURES_GUARDIAN_TALENT: { id: 30884, name: 'Nature\'s Guardian', icon: 'spell_nature_natureguardian' },
   WIND_RUSH_TOTEM_TALENT: { id: 192077, name: 'Wind Rush Totem', icon: 'ability_shaman_windwalktotem' },
@@ -10,7 +9,6 @@ export default {
   // Enhancement
   BOULDERFIST_TALENT: { id: 246035, name: 'Boulderfist', icon: 'ability_earthenfury_giftofearth' },
   HOT_HAND_TALENT: { id: 201900, name: 'Hot Hand', icon: 'spell_fire_playingwithfire' },
-  LIGHTNING_SHIELD_TALENT: { id: 192106, name: 'Lightning Shield', icon: 'spell_nature_lightningshield' },
   LANDSLIDE_TALENT: { id: 197992, name: 'Landslide', icon: 'inv_ore_blackrock_nugget' },
   FORCEFUL_WINDS_TALENT: { id: 262647, name: 'Forceful Winds', icon: 'spell_shaman_unleashweapon_wind' },
   SEARING_ASSAULT_TALENT: { id: 192087, name: 'Searing Assault', icon: 'ability_rhyolith_magmaflow_wave' },
@@ -56,6 +54,7 @@ export default {
   ASCENDANCE_TALENT_ELEMENTAL: { id: 114050, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },
 
   // Restoration
+  // TODO Surge of Earth
   TORRENT_TALENT: { id: 200072, name: 'Torrent', icon: 'spell_nature_riptide' },
   UNDULATION_TALENT: { id: 200071, name: 'Undulation', icon: 'spell_nature_healingwavelesser' },
   UNLEASH_LIFE_TALENT: { id: 73685, name: 'Unleash Life', icon: 'spell_shaman_unleashweapon_life', manaCost: 400 },
