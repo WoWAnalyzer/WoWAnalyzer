@@ -15,7 +15,7 @@ const prepatch = date(2020, 10, 13);
 export default [
   change(prepatch, 'Throughput files TypeScript conversion', niseko),
   change(prepatch, 'Converted BAD_ICONS, aprilFools, colorForPerformance, Alerts, ContributorButton, Modal to TypeScript', Barter),
-  change(prepatch, 'Converted Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
+  change(prepatch, 'Converted AbilityTracker, Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
   change(prepatch, 'Allow the use of any of the threshold breakpoints (minor, average, major) as the primary breakpoint for suggestions', Dambroda),
   change(prepatch, 'Merged CooldownTrackers to remove duplicated code and converted them to TypeScript', Putro),
   change(prepatch, 'Converted Items to TypeScript', Zeboot),
