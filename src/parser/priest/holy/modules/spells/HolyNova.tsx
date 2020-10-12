@@ -19,19 +19,19 @@ class HolyNova extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   get casts() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).casts || 0;
+    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).casts;
   }
 
   get healingHits() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingHits || 0;
+    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingHits;
   }
 
   get effectiveHealing() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingEffective + this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingAbsorbed || 0;
+    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingEffective + this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingAbsorbed;
   }
 
   get overHealing() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingOverheal || 0;
+    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingOverheal;
   }
 
   get overhealPercent() {
@@ -39,11 +39,11 @@ class HolyNova extends Analyzer {
   }
 
   get damageHits() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).damageHits || 0;
+    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).damageHits;
   }
 
   get damageDone() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).damageEffective || 0;
+    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).damageEffective;
   }
 
   get averageFriendlyTargetsHit() {

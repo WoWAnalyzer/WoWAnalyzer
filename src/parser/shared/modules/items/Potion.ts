@@ -51,7 +51,7 @@ class Potion extends Analyzer {
     if (!this.isAvailable) {
       this.active = false;
       return;
-    } 
+    }
     (options.abilities as Abilities).add({
       spell: this.static.spells,
       category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
@@ -123,7 +123,7 @@ class Potion extends Analyzer {
   }
 
   get potionCasts() {
-    return this.abilityTracker.getAbility(this.spellId).casts || 0;
+    return this.abilityTracker.getAbility(this.spellId).casts;
   }
 
   get suggestionThresholds() {

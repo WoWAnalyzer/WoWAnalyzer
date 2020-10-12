@@ -31,7 +31,7 @@ class ArcaneMissiles extends Analyzer {
 	}
 
 	get missilesUtilization() {
-		return 1 - (this.castWithoutClearcasting / (this.abilityTracker.getAbility(SPELLS.ARCANE_MISSILES.id).casts || 0));
+		return 1 - (this.castWithoutClearcasting / (this.abilityTracker.getAbility(SPELLS.ARCANE_MISSILES.id).casts));
 	}
 
 	get arcaneMissileUsageThresholds() {

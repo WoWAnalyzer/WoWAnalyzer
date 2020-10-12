@@ -64,11 +64,11 @@ class MeteorCombustion extends Analyzer {
   }
 
   get totalMeteorCasts() {
-    return this.abilityTracker.getAbility(SPELLS.METEOR_TALENT.id).casts || 0;
+    return this.abilityTracker.getAbility(SPELLS.METEOR_TALENT.id).casts;
   }
 
   get totalCombustionCasts() {
-    return this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts || 0;
+    return this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts;
   }
 
   get combustionWithoutMeteor() {
