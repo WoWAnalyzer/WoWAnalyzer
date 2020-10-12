@@ -7,9 +7,12 @@ import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import FooterChart, { formatTime } from 'interface/others/FooterChart';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const PURIFIED_CHI_PCT = 0.2;
 const PURIFIED_CHI_WINDOW = 150;
+
+const WASTED_THRESHOLD = 0.75;
 
 type Absorb = {
   cast: CastEvent,
@@ -48,6 +51,21 @@ class CelestialBrew extends Analyzer {
       this._expireTime = null;
       this._currentChiStacks = 0;
     }
+  }
+
+  get goodCastSuggestion() {
+    const actual = this._absorbs
+                       .filter(({ amount, wasted }) => amount / (amount + wasted) >= WASTED_THRESHOLD)
+                       .length / this._absorbs.length;
+    return {
+      actual,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   private _purifiedChiApplied(event: ApplyBuffEvent) {

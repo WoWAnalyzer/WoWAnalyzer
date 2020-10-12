@@ -12,6 +12,7 @@ import PurifyingBrew from '../../spells/PurifyingBrew';
 import Shuffle from '../../spells/Shuffle';
 
 import Component from './Component';
+import CelestialBrew from '../../spells/CelestialBrew';
 
 export default class Checklist extends BaseChecklist {
   static dependencies = {
@@ -23,6 +24,7 @@ export default class Checklist extends BaseChecklist {
     rjw: RushingJadeWind,
     pb: PurifyingBrew,
     shuffle: Shuffle,
+    cb: CelestialBrew,
   };
 
   protected combatants!: Combatants;
@@ -33,6 +35,7 @@ export default class Checklist extends BaseChecklist {
   protected rjw!: RushingJadeWind;
   protected pb!: PurifyingBrew;
   protected shuffle!: Shuffle;
+  protected cb!: CelestialBrew;
 
   render() {
     return (
@@ -47,6 +50,7 @@ export default class Checklist extends BaseChecklist {
           purifyHeavy: this.pb.purifyHeavySuggestion,
           purifyDelay: this.pb.purifyDelaySuggestion,
           shuffleHits: this.shuffle.uptimeSuggestionThreshold,
+          goodCBCasts: this.cb.goodCastSuggestion,
         }}
       />
     );

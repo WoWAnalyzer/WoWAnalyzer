@@ -21,12 +21,18 @@ const Component = ({ combatant, castEfficiency, thresholds }: any) => {
   };
 
 
-  // TODO: "Good" CB casts. CDR?
-
   return (
    <Checklist>
-     <Rule name={<>Use <SpellLink id={SPELLS.CELESTIAL_BREW.id} onClick={e => e.preventDefault()} /> effectively</>}>
+     <Rule name={<>Use <SpellLink id={SPELLS.CELESTIAL_BREW.id} onClick={e => e.preventDefault()} /> effectively</>}
+           description={(
+             <>
+               <SpellLink id={SPELLS.CELESTIAL_BREW.id} /> is a key part of your defensive toolkit. While it might be tempting to wait to cast it until you have max <SpellLink id={SPELLS.PURIFIED_CHI.id} />, it is much better to get more total casts off in most situations.
+             </>
+           )}>
        <AbilityRequirement spell={SPELLS.CELESTIAL_BREW.id} name={<><SpellLink id={SPELLS.CELESTIAL_BREW.id} /> cast efficiency</>} />
+       <Requirement name={<><SpellLink id={SPELLS.CELESTIAL_BREW.id} /> Absorbs Effectively Used</>}
+                    thresholds={thresholds.goodCBCasts}
+                    tooltip="A cast is counted as effective if at least 75% of the shield is used." />
      </Rule>
      <Rule name={<>Use <SpellLink id={SPELLS.PURIFYING_BREW.id} onClick={e => e.preventDefault()} /> effectively</>}
            performanceMethod={PERFORMANCE_METHOD.HARMONIC}
