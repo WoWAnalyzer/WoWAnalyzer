@@ -4,13 +4,13 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'common/Tooltip';
 
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
-import { BeginCastEvent, CastEvent } from 'parser/core/Events';
+import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 
 const FLASH_FLOOD_HASTE = 0.2;
 const BUFFER_MS = 50;
@@ -68,30 +68,24 @@ class FlashFlood extends Analyzer {
         timeWasted: 0,
       };
     }
+
+    const spellFilter = [SPELLS.HEALING_WAVE, SPELLS.CHAIN_HEAL, SPELLS.HEALING_SURGE_RESTORATION, SPELLS.HEALING_RAIN_CAST, SPELLS.WELLSPRING_TALENT];
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(spellFilter), this._onBeginCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
   }
 
-  on_byPlayer_begincast(event: BeginCastEvent) {
-    const spellId = event.ability.guid;
-    if (!this.spellsConsumingFlashFlood[spellId]) {
-      return;
-    }
-
+  _onBeginCast(event: BeginCastEvent) {
     if (event.isCancelled) {
       return;
     }
 
+    const spellId = event.ability.guid;
     this.beginCastTimestamp = event.timestamp;
     this.beginCastGlobalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  _onCast(event: CastEvent) {
     if (!this.beginCastTimestamp) {
-      return;
-    }
-
-    const spellId = event.ability.guid;
-    // check again to be safe & to avoid breaking the page
-    if (!this.spellsConsumingFlashFlood[spellId]) {
       return;
     }
 
@@ -100,6 +94,7 @@ class FlashFlood extends Analyzer {
       return;
     }
 
+    const spellId = event.ability.guid;
     this.spellsConsumingFlashFlood[spellId].timesBuffed += 1;
     const castTime = event.timestamp - this.beginCastTimestamp;
     this.beginCastTimestamp = 0;

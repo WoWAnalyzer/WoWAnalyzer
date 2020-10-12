@@ -11,7 +11,7 @@ class ManaLevelChartComponent extends React.PureComponent {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
-    combatants: PropTypes.array.isRequired,
+    combatants: PropTypes.object.isRequired,
     manaUpdates: PropTypes.array.isRequired,
   };
 

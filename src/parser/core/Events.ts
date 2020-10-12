@@ -98,6 +98,7 @@ type MappedEventTypes = {
   [EventType.Energize]: EnergizeEvent,
   [EventType.Death]: DeathEvent,
   [EventType.CombatantInfo]: CombatantInfoEvent,
+  [EventType.Dispel]: DispelEvent,
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent,
@@ -336,6 +337,7 @@ export interface DamageEvent extends Event<EventType.Damage> {
   unmitigatedAmount?: number;
   tick?: boolean;
   overkill?: number;
+  blocked?: number; // does this exist?
 }
 
 export interface BuffEvent<T extends string> extends Event<T> {
@@ -506,18 +508,17 @@ export interface FightEndEvent extends Event<EventType.FightEnd> {
 }
 
 export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsable> {
-  ability: Ability;
-  name: string;
+  ability: Omit<Ability, 'type'>;
+  name?: string
   trigger: EventType.BeginCooldown | EventType.EndCooldown | EventType.RefreshCooldown | EventType.AddCooldownCharge | EventType.RestoreCharge;
-  isOnCooldown: boolean;
-  isAvailable: boolean;
-  chargesAvailable: number;
-  maxCharges: number;
-  timePassed: number;
-  sourceID: number;
-  targetID: number;
+  isOnCooldown: boolean
+  isAvailable: boolean
+  chargesAvailable: number
+  maxCharges: number
+  timePassed?: number
+  sourceID: number
+  targetID: number
   targetIsFriendly: boolean;
-
   start: number;
   end?: number;
   expectedDuration: number;
@@ -630,8 +631,8 @@ export interface Soulbind {
 export interface Conduit {
   rank: number;
   spellID: number;
-  name: string;
-  soulbindConduitID: number;
+  name: string; //TODO Verify this started showing up in logs as it currently is not there
+  soulbindConduitID: number; //TODO Verify if this is still called traitID as it is currently
   icon: string;
 }
 

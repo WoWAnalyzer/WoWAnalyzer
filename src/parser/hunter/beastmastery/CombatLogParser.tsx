@@ -45,7 +45,6 @@ import CobraShot from './modules/spells/CobraShot';
 import BarbedShot from './modules/spells/BarbedShot';
 import AspectOfTheWild from './modules/spells/AspectOfTheWild';
 import BestialWrath from './modules/spells/BestialWrath';
-import HuntersMark from '../shared/modules/spells/HuntersMark';
 import KillShot from '../shared/modules/spells/KillShot';
 
 //Focus
@@ -81,6 +80,10 @@ import FerociousAppetite from './modules/spells/conduits/FerociousAppetite';
 import OneWithTheBeast from './modules/spells/conduits/OneWithTheBeast';
 
 //Legendaries
+import DireCommand from './modules/items/DireCommand';
+import FlamewakersCobraSting from './modules/items/FlamewakersCobraSting';
+import QaplaEredunWarOrder from './modules/items/QaplaEredunWarOrder';
+import RylakstalkersPiercingFangs from './modules/items/RylakstalkersPiercingFangs';
 import NessingwarysTrappingApparatus from '../shared/modules/items/NessingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 
@@ -116,7 +119,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cobraShot: CobraShot,
     barbedShot: BarbedShot,
     aspectOfTheWild: AspectOfTheWild,
-    huntersMark: HuntersMark,
     killShot: KillShot,
 
     //Talents
@@ -164,6 +166,10 @@ class CombatLogParser extends CoreCombatLogParser {
     oneWithTheBeast: OneWithTheBeast,
 
     //Legendaries
+    direCommand: DireCommand,
+    flamewakersCobraSting: FlamewakersCobraSting,
+    qaplaEredunWarOrder: QaplaEredunWarOrder,
+    rylakstalkersPiercingFangs: RylakstalkersPiercingFangs,
     nessingwarysTrappingApparatus: NessingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
   };
