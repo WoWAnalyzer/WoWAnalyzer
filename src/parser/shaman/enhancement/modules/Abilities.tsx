@@ -253,7 +253,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.FIRE_NOVA_TALENT.id),
-        cooldown: 15,
+        cooldown: haste => 15 / (1 + haste),
       },
       {
         spell: SPELLS.ICE_STRIKE_TALENT,
@@ -262,7 +262,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.ICE_STRIKE_TALENT.id),
-        cooldown: 14,
+        cooldown: haste => 15 / (1 + haste),
       },
       {
         spell: SPELLS.LIGHTNING_SHIELD,

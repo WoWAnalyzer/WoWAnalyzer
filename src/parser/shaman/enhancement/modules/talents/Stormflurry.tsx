@@ -64,7 +64,7 @@ class Stormflurry extends Analyzer {
 
   onStormstrikeDamage(event: DamageEvent): void {
 
-    const dmg = (event.amount || 0) + (event.absorbed || 0);
+    const dmg = event.amount + (event.absorbed || 0);
 
     if (MAIN_HAND_DAMAGES.includes(event.ability.guid)) {
       this.totalStormStrikeHits += 1;
