@@ -7,6 +7,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 8, 27), <> Updated core Holy Paladin for prepatch. </>, Abelito75),
   change(date(2020, 8, 27), <> Enabled a statistic for the minor of <SpellLink id={SPELLS.LUCID_DREAMS.id} />. </>, Putro),
   change(date(2020, 1, 18), <>Added <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> major essence statistic to track procs, uptime and haste gained.</>, [HolySchmidt]),
   change(date(2020, 1, 18), <>Added <SpellLink id={SPELLS.STRIVE_FOR_PERFECTION.id} /> minor essence statistic to track versitility, healing, and <SpellLink id={SPELLS.AVENGING_WRATH.id} /> cooldown reduction.</>, [HolySchmidt]),
