@@ -44,11 +44,11 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
         description={(
           <>
             Maintain <SpellLink id={SPELLS.CONSECRATION_CAST.id} /> to reduce all incoming damage by a flat amount and use it as a rotational filler if necessary.<br />
-            Use <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> to smooth out your physical damage taken or weave them into your rotation when you're about to cap charges. <SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> can be used either as a cooldown to mitigate boss abilities or to cover time when <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> is unavailable.
+            Use <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> to smooth out your physical damage taken. <SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> can be used either as a cooldown to mitigate boss abilities or to cover time when <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> is unavailable.
           </>
         )}
       >
-        <Requirement name={<>Spend Holy Power</>} thresholds={thresholds.hpWaste} />
+        <Requirement name="Use your Holy Power efficiently" thresholds={thresholds.hpWaste} />
         <Requirement
           name={(
             <>Good <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts</>
@@ -64,16 +64,6 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
         <AbilityRequirement spell={SPELLS.ARDENT_DEFENDER.id}
           name={(<><SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> cast efficiency</>)}
         />
-      </Rule>
-      <Rule
-        name={<>Use <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> to heal yourself</>}
-        description={(
-          <>
-            Using <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> to heal yourself is critical to tanking effectively. You should aim to cast it as much as possible without overhealing. It is also important to avoid delaying the cast because this may result in "sniping" a healer's cast, causing it to overheal and wasting resources.
-          </>
-        )}
-      >
-        <em>Under construction</em>
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
