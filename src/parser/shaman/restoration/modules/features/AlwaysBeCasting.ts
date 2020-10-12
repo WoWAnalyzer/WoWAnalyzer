@@ -20,7 +20,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.CLOUDBURST_TOTEM_TALENT.id,
     SPELLS.EARTHEN_WALL_TOTEM_TALENT.id,
     SPELLS.UNLEASH_LIFE_TALENT.id,
-    SPELLS.EARTH_SHIELD_TALENT.id,
+    SPELLS.EARTH_SHIELD.id,
     SPELLS.DOWNPOUR_TALENT.id,
   ]; // TODO shadowlands abilities
 

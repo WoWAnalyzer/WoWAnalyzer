@@ -11,7 +11,7 @@ export default {
   },
 
   //Skitra the Prophet
-  WHISPERING_ELDRITH_BOW: {
+  WHISPERING_ELDRITCH_BOW: {
     id: 172193,
     name: 'Whispering Eldritch Bow',
     icon: 'inv_bow_1h_nzothraid_d_01',

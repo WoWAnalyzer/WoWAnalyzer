@@ -1,5 +1,5 @@
 
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli, Barter } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -13,10 +13,18 @@ const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
+  change(prepatch, 'Converted StatisticsSectionTitle/TABS to TypeScript', ChagriAli),
+  change(prepatch, 'Throughput files TypeScript conversion', niseko),
+  change(prepatch, 'Converted BAD_ICONS, aprilFools, colorForPerformance, Alerts, ContributorButton, Modal to TypeScript', Barter),
+  change(prepatch, 'Converted Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
+  change(prepatch, 'Allow the use of any of the threshold breakpoints (minor, average, major) as the primary breakpoint for suggestions', Dambroda),
+  change(prepatch, 'Merged CooldownTrackers to remove duplicated code and converted them to TypeScript', Putro),
+  change(prepatch, 'Converted Items to TypeScript', Zeboot),
+  change(prepatch, 'Converted Spells to TypeScript', Zeboot),
   change(prepatch, 'Converted Consumable Checkers to TypeScript', Zeboot),
   change(prepatch, 'Converted Combatants to TypeScript', niseko),
   change(prepatch, 'Changed code quality rules.', Zerotorescue),
-  change(prepatch, 'Added a new event map for catch-all event types.', Dambroda),
+  change(prepatch, 'Added a new event map for catch-all event types. Converted SpellUsable to TypeScript.', Dambroda),
   change(prepatch, 'Converted WCL API Access to TypeScript', Zeboot),
   change(prepatch, 'Cleaned up the console a little bit.', Abelito75),
   change(prepatch, 'Added a toggle-all button to the EventTab.', niseko),
@@ -83,7 +91,7 @@ export default [
   change(date(2020, 3, 6), 'Fixed an issue where Vantus Runes weren\'t working as intended.', niseko),
   change(date(2020, 3, 4), 'Fix a bug where having multiple of the same corruption didn\'t count towards corruption total', Putro),
   change(date(2020, 2, 28), <>Added the primary stat proc of <ItemLink id={ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id} />.</>, niseko),
-  change(date(2020, 2, 21), <>Added the possibility of adding item warnings, and added a warning for people using <ItemLink id={ITEMS.WHISPERING_ELDRITH_BOW.id} />.</>, Putro),
+  change(date(2020, 2, 21), <>Added the possibility of adding item warnings, and added a warning for people using <ItemLink id={ITEMS.WHISPERING_ELDRITCH_BOW.id} />.</>, Putro),
   change(date(2020, 2, 21), <>Added <SpellLink id={SPELLS.SYMBIOTIC_PRESENCE.id} />.</>, niseko),
   change(date(2020, 2, 17), <>Added <ItemLink id={ITEMS.FORBIDDEN_OBSIDIAN_CLAW.id} /> and <ItemLink id={ITEMS.HUMMING_BLACK_DRAGONSCALE.id} />.</>, niseko),
   change(date(2020, 2, 14), <>Updated Void Ritual and Surging Vitality corruption effects with the hotfixed stat values.</>, niseko),

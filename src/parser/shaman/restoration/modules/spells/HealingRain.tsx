@@ -7,10 +7,10 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'common/Tooltip';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import { When } from 'parser/core/ParseResults';
-import { HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -32,6 +32,12 @@ class HealingRain extends Analyzer {
   protected combatants!: Combatants;
 
   healingRainTicks: HealingRainTickInfo[] = [];
+
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this.onHealingRainHeal);
+  }
 
   get averageHitsPerTick() {
     const totalHits = this.healingRainTicks.reduce((total, tick) => total + tick.hits, 0);
@@ -60,12 +66,7 @@ class HealingRain extends Analyzer {
     };
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_RAIN_HEAL.id) {
-      return;
-    }
-
+  onHealingRainHeal(event: HealEvent) {
     // Filter out pets, but only if it fully overhealed as Rain will prioritize injured pets over non-injured players
     // fully overhealing guarantees that there are not enough players in the healing rain
     const combatant = this.combatants.getEntity(event);

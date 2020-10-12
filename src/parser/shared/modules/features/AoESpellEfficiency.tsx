@@ -1,4 +1,3 @@
-import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
@@ -9,6 +8,9 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Spell from 'common/SPELLS/Spell';
+
+import React from 'react';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -23,7 +25,7 @@ class AoESpellEfficiency extends Analyzer {
   };
   protected abilityTracker!: AbilityTracker;
 
-  ability!: { id: number, name: string, icon: string };
+  ability!: Spell;
   bonusDmg = 0;
   casts: Array<{ timestamp: number, hits: number }> = [];
 

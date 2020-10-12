@@ -55,9 +55,7 @@ class BestialWrath extends Analyzer {
   }
 
   get totalPossibleCDR() {
-    return (
-      this.wastedBWReduction + this.effectiveBWReduction
-    );
+    return this.wastedBWReduction + this.effectiveBWReduction;
   }
 
   get effectiveBestialWrathCDRPercent() {

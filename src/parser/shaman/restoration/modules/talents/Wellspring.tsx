@@ -5,9 +5,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
 
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
-import { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -39,9 +39,14 @@ class Wellspring extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id);
+
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_TALENT), this._onBegincast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_TALENT), this._onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_HEAL), this._onHeal);
+    this.addEventListener(Events.fightend, this._onFightend);
   }
 
-  on_byPlayer_begincast(event: BeginCastEvent) {
+  _onBegincast(event: BeginCastEvent) {
     if (event.ability.guid !== SPELLS.WELLSPRING_TALENT.id || event.isCancelled) {
       return;
     }
@@ -54,21 +59,11 @@ class Wellspring extends Analyzer {
     this.wellspringTimestamps[this.castNumber] = event.timestamp;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    if (event.ability.guid !== SPELLS.WELLSPRING_TALENT.id) {
-      return;
-    }
-
+  _onCast(event: CastEvent) {
     this.castEvent = event;
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.WELLSPRING_HEAL.id) {
-      return;
-    }
-
+  _onHeal(event: HealEvent) {
     if (!this.wellspringCasts[this.castNumber]) {
       this.wellspringCasts[this.castNumber] = 0;
     }
@@ -89,7 +84,7 @@ class Wellspring extends Analyzer {
     this.wellspringCasts[this.castNumber] += 1;
   }
 
-  on_fightend() {
+  _onFightend() {
     if (this.wellspringCasts[this.castNumber] && this.wellspringCasts[this.castNumber] < 6 && (this.castEvent && !this.castEvent.meta)) {
       this.registerInefficientCast();
     }

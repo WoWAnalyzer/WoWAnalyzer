@@ -28,10 +28,6 @@ class SwirlingCurrents extends Analyzer {
 
     this.healingBoost = .2;//TODO Get from combat data when they EXPORT IT >:c
 
-    if (!this.active) {
-      return;
-    }
-
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE_RESTORATION, SPELLS.HEALING_WAVE, SPELLS.RIPTIDE]), this.normalizeBoost);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.addRiptide);

@@ -13,7 +13,6 @@ import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-
 /**
  * While Bestial Wrath is active, Cobra Shot resets the cooldown on Kill
  * Command.
@@ -73,7 +72,7 @@ class KillerCobra extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.KILLER_COBRA_TALENT}>
           <>
-            {this.effectiveKillCommandResets}/{this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots} <small>{this.effectiveKillCommandResets === 1 ? 'reset' : 'resets'}</small>
+            {this.effectiveKillCommandResets}/{this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots} <small>{this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots === 1 ? 'reset' : 'resets'}</small>
           </>
         </BoringSpellValueText>
       </Statistic>
