@@ -1,21 +1,24 @@
 import React from 'react';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatNumber } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 const DAMAGE_BONUS = 0.15;
 const RAGE_REDUCTION_RATIO = 75 / 85;
 
-class Carnage extends Analyzer {
-  damage = 0;
-  rampageCasts = 0;
 
-  constructor(...args) {
-    super(...args);
+// Example log: /reports/tBFv8P9R3kdDgHKJ#fight=1&type=damage-done
+class Carnage extends Analyzer {
+  damage: number = 0;
+  rampageCasts: number = 0;
+
+  constructor(options: Options) {
+    super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.CARNAGE_TALENT.id);
 
@@ -31,7 +34,7 @@ class Carnage extends Analyzer {
     this.rampageCasts += 1;
   }
 
-  onRampageDamage(event) {
+  onRampageDamage(event: DamageEvent) {
     this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
   }
 
@@ -45,12 +48,17 @@ class Carnage extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.CARNAGE_TALENT.id}
-        value={`${formatNumber(this.damage)} damage`}
-        label="Carnage"
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={<>Carnage allowed you to use Rampage <strong>~{this.additionalRampageCasts}</strong> additional times and contributed to <strong>{formatPercentage(this.damagePercent)}%</strong> of your overall damage.</>}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.CARNAGE_TALENT}>
+          <>
+            {formatNumber(this.damage)} damage
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
