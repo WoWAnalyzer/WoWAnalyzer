@@ -1,17 +1,17 @@
 import React from 'react';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-
 import SPELLS from 'common/SPELLS';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-
 import HotTrackerMW from '../core/HotTrackerMW';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValueText from 'interface/statistics/components/BoringValueText'
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import SpellIcon from 'common/SpellIcon';
 
 const debug = false;
 
@@ -215,11 +215,10 @@ class RisingMist extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.RISING_MIST_TALENT.id}
-        position={STATISTIC_ORDER.CORE(10)}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}% total healing`}
-        label="Healing Contributed"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(10)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             Your {this.risingMistCount} Rising Sun Kick casts contributed the following healing:
@@ -250,7 +249,15 @@ class RisingMist extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValueText 
+          label={<><SpellIcon id={SPELLS.RISING_MIST_TALENT.id} /> Healing Contributed</>}
+        >
+          <>
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}% total healing
+          </>
+        </BoringValueText>
+      </Statistic>
     );
   }
 }
