@@ -239,7 +239,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SUNDERING_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -247,7 +247,16 @@ class Abilities extends CoreAbilities {
         cooldown: 40,
       },
       {
-        spell: SPELLS.ICE_STRIKE,
+        spell: SPELLS.FIRE_NOVA_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.FIRE_NOVA_TALENT.id),
+        cooldown: 15,
+      },
+      {
+        spell: SPELLS.ICE_STRIKE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,

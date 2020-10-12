@@ -12,8 +12,6 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/checklist/Module';
 import Buffs from './modules/Buffs';
 // Enhancement Core
-// import Flametongue from './modules/core/Flametongue';
-// import FlametongueRefresh from './modules/core/FlametongueRefresh';
 import Stormbringer from './modules/core/Stormbringer';
 // Talents
 import LashingFlames from "./modules/talents/LashingFlames";
@@ -30,6 +28,7 @@ import Stormkeeper from './modules/talents/Stormkeeper';
 import EarthenSpike from './modules/talents/EarthenSpike';
 import ElementalBlast from '../shared/talents/ElementalBlast';
 import Stormflurry from './modules/talents/Stormflurry';
+import IceStrike from './modules/talents/IceStrike';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -43,9 +42,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // maelstromDetails: MaelstromDetails,
 
     // Shaman Core
-    //flametongue: Flametongue,
-    //flametongueRefresh: FlametongueRefresh,
     stormbringer: Stormbringer,
+    //feralSpirit: FeralSpirit
+    //windfuryTotem: WindfuryTotem
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -60,7 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalBlast: ElementalBlast,
     stormflurry: Stormflurry,
     hotHand: HotHand,
-    //iceStrike: IceStrike,
+    iceStrike: IceStrike,
     spiritWolf: SpiritWolf,
     earthShield: EarthShield,
     staticCharge: StaticCharge,
@@ -74,6 +73,10 @@ class CombatLogParser extends CoreCombatLogParser {
     //elementalSpirits: ElementalSpirits,
     earthenSpike: EarthenSpike,
     //ascendance: Ascendance,
+
+    // covenants
+    //chainHarvest: ChainHarvest
+    //vesperTotem: VesperTotem
   };
 }
 

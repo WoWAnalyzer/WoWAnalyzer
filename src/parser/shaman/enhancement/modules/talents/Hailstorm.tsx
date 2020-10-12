@@ -29,14 +29,12 @@ class Hailstorm extends Analyzer {
       this.active = false;
     }
 
-    // listen for frost shocks
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)
         .spell(SPELLS.FROST_SHOCK),
       this.onFrostShockCast,
     );
 
-    // listen for frost shock hits
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
         .spell(SPELLS.FROST_SHOCK),
