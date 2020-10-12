@@ -5,6 +5,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import HolyPowerDetails from 'parser/paladin/shared/holypower/HolyPowerDetails';
 
 import ShieldOfTheRighteous from '../ShieldOfTheRighteous';
 import Consecration from '../../spells/Consecration';
@@ -23,6 +24,7 @@ class Checklist extends BaseChecklist {
     consecration: Consecration,
     lotp: LightOfTheProtector,
     hotr: HammerOfTheRighteous,
+    hp: HolyPowerDetails,
   };
 
   render(){
@@ -31,7 +33,6 @@ class Checklist extends BaseChecklist {
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         extras={{
-          lotpAbility: this.lotp.activeSpell,
           hotrAbility: this.hotr.activeSpell,
         }}
         thresholds={{
@@ -41,6 +42,7 @@ class Checklist extends BaseChecklist {
           lotpDelay: this.lotp.delaySuggestion,
           lotpOverheal: this.lotp.overhealSuggestion,
           hotrBadCasts: this.hotr.badCastThreshold,
+          hpWaste: this.hp.suggestionThresholds,
         }}
       />
     );
