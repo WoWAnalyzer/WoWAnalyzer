@@ -3,8 +3,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+
 import EnergyTracker from '../features/EnergyTracker';
 import Predator from '../talents/Predator';
 

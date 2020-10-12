@@ -4,8 +4,10 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import { TooltipElement } from 'common/Tooltip';
+
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+
 import { RAKE_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
 import Snapshot from '../core/Snapshot';
 
