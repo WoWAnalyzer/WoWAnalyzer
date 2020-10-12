@@ -48,6 +48,7 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
           </>
         )}
       >
+        <Requirement name={<>Spend Holy Power</>} thresholds={thresholds.hpWaste} />
         <Requirement
           name={(
             <>Good <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts</>
