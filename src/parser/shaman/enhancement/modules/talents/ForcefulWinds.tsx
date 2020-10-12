@@ -6,25 +6,20 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import ResourceGenerated from 'interface/others/ResourceGenerated';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const FORCEFUL_WINDS = {
-  INCREASE: 1,
-  BASE_MAELSTROM: 5,
+  INCREASE_PER_STACK: .5,
 };
 
 /**
- * Windfury causes each successive Windfury attack within 15s to increase
- * the damage of Windfury by 80% Attack Power and the Maelstrom generated
- * by 1, stacking up to 5 times.
+ * Windfury causes each successive Windfury attack within 15 sec to
+ * increase the damage of Windfury by 50%, stacking up to 5 times.
  */
 class ForcefulWinds extends Analyzer {
   protected damageGained: number = 0;
-  protected maelstromGained: number = 0;
 
   constructor(options: any) {
     super(options);
@@ -39,11 +34,6 @@ class ForcefulWinds extends Analyzer {
         .spell(SPELLS.WINDFURY_ATTACK),
       this.onDamage,
     );
-    this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER)
-        .spell(SPELLS.MAELSTROM_WEAPON),
-      this.onEnergize,
-    );
   }
 
   onDamage(event: DamageEvent) {
@@ -54,12 +44,8 @@ class ForcefulWinds extends Analyzer {
     const stacks = buff.stacks || 0;
     this.damageGained += calculateEffectiveDamage(
       event,
-      stacks * FORCEFUL_WINDS.INCREASE,
+      stacks * FORCEFUL_WINDS.INCREASE_PER_STACK,
     );
-  }
-
-  onEnergize(event: EnergizeEvent) {
-    this.maelstromGained += event.resourceChange - FORCEFUL_WINDS.BASE_MAELSTROM;
   }
 
   statistic() {
@@ -72,7 +58,6 @@ class ForcefulWinds extends Analyzer {
         <BoringSpellValueText spell={SPELLS.FORCEFUL_WINDS_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} /><br />
-            <ResourceGenerated amount={this.maelstromGained} resourceType={RESOURCE_TYPES.MAELSTROM} />
           </>
         </BoringSpellValueText>
       </Statistic>
