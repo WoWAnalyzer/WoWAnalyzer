@@ -50,13 +50,6 @@ class Consecration extends Analyzer {
   }
 
   statistic() {
-    // return (
-    //   <StatisticBox
-    //     icon={<SpellIcon id={SPELLS.CONSECRATION_CAST.id} />}
-    //     value={`${formatPercentage(this.pctHitsMitigated)} %`}
-    //     label="Hits Mitigated w/ Consecration"
-    //   />
-    // );
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(2)}
