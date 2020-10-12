@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import EssenceFontMastery from 'parser/monk/mistweaver/modules/features/EssenceFontMastery';
 import EnvelopingMists from 'parser/monk/mistweaver/modules/spells/EnvelopingMists';
 import SoothingMist from 'parser/monk/mistweaver/modules/spells/SoothingMist';
@@ -16,9 +16,6 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import Statistic from 'interface/statistics/Statistic';
 import ExpelHarm from 'parser/monk/mistweaver/modules/spells/ExpelHarm';
-import Events from 'parser/core/Events';
-
-const debug = false;
 
 class MasteryStats extends Analyzer {
   static dependencies = {
