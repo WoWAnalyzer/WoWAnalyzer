@@ -1,12 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Icon from 'interface/icons/Information';
 
-import Alert from './index';
+import Alert, { Props as AlertProps } from './index';
 
-const Info = ({ children, ...others }) => (
-  <Alert kind="info" {...others}>
+type Props = Omit<AlertProps, 'kind'>
+
+const Info = ({ children, ...otherProps }: Props) => (
+  <Alert kind="info" {...otherProps}>
     <div className="content-middle">
       <div className="icon-container">
         <Icon />
@@ -17,8 +18,5 @@ const Info = ({ children, ...others }) => (
     </div>
   </Alert>
 );
-Info.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default Info;
