@@ -182,7 +182,7 @@ class CharacterParses extends React.Component {
     return filteredParses.slice(0, RENDER_LIMIT);
   }
 
-  changeParseStructure(rawParses, charClass) {
+  changeParseStructure(rawParses) {
     const updatedTrinkets = { ...this.state.trinkets };
     const parses = rawParses.map(elem => {
       // get missing trinket-icons later
@@ -225,7 +225,9 @@ class CharacterParses extends React.Component {
               trinkets: updatedTrinkets,
             });
           })
-          .catch(err => {}); // ignore errors;;
+          .catch(() => {
+            // ignore errors;;
+          });
       }
       return null;
     });
@@ -344,10 +346,11 @@ class CharacterParses extends React.Component {
     return fetchWcl(
       `parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`,
       {
+        includeCombatantInfo: true,
         metric: this.state.metric,
         zone: this.state.activeZoneID,
         timeframe: 'historical',
-        _: refresh ? +new Date() : undefined,
+        _: refresh ? Number(new Date()) : undefined,
         // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
         // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
       },

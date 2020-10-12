@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import Combatants from 'parser/shared/modules/Combatants';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+
 import StatWeights from '../../features/StatWeights';
 import { getPrimaryStatForItemLevel, findItemLevelByPrimaryStat } from './common';
 import Rejuvenation from '../../core/Rejuvenation';

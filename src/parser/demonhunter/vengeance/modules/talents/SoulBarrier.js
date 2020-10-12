@@ -72,12 +72,10 @@ class SoulBarrier extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.</>)
           .icon(SPELLS.SOUL_BARRIER_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Soul Barrier`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

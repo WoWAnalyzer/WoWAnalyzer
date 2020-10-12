@@ -40,19 +40,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 17,
       },
       {
-        spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        enabled: combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 3,
-      },
-      {
         spell: SPELLS.MANA_TEA_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
@@ -106,9 +93,28 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 18,
       },
+      {
+        spell: SPELLS.INVOKE_YULON_THE_JADE_SERPENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        enabled: !combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
+        cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 20,
+      },
+      {
+        spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        enabled: combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
+        cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 20,
+      },
 
       // Other Spell Casting Metrics
-
       {
         spell: SPELLS.ENVELOPING_MIST,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
@@ -153,6 +159,13 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 10,
         timelineSortIndex: 15,
+      },
+      {
+        spell: SPELLS.EXPEL_HARM,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1000,
+        },
       },
 
       // Utility Spells
@@ -210,7 +223,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell:SPELLS.LEG_SWEEP,
+        spell: SPELLS.LEG_SWEEP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.TIGER_TAIL_SWEEP_TALENT.id) ? 50 : 60,
         gcd: {
@@ -304,7 +317,6 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 100,
       },
-
     ];
   }
 }

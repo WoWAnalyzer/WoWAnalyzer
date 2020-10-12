@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
@@ -8,6 +8,7 @@ import { formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Events, { EnergizeEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { RAPID_FIRE_TICKS_PER_CAST } from 'parser/hunter/marksmanship/constants';
 
 const focusedFireStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [damage] = calculateAzeriteEffects(SPELLS.FOCUSED_FIRE.id, rank);
@@ -24,9 +25,7 @@ const focusedFireStats = (traits: number[]) => Object.values(traits).reduce((obj
  * https://www.warcraftlogs.com/reports/8P3rRNyQhJnbLkHX#fight=6&type=damage-done&source=1
  */
 
-const TICKS_PER_CAST = 10;
 //Streamline increases amount of ticks by 20%, as it increases the duration by 20%
-const STREAMLINE_TICK_INCREASE = 0.2;
 
 class FocusedFire extends Analyzer {
 
@@ -34,18 +33,14 @@ class FocusedFire extends Analyzer {
   focusWasted = 0;
   damagePotential = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.FOCUSED_FIRE.id);
     if (!this.active) {
       return;
     }
     const { damage } = focusedFireStats(this.selectedCombatant.traitsBySpellId[SPELLS.FOCUSED_FIRE.id]);
-    if (this.selectedCombatant.hasTalent(SPELLS.STREAMLINE_TALENT.id)) {
-      this.damagePotential = damage * (TICKS_PER_CAST * (1 + STREAMLINE_TICK_INCREASE));
-    } else {
-      this.damagePotential = damage * TICKS_PER_CAST;
-    }
+    this.damagePotential = damage * RAPID_FIRE_TICKS_PER_CAST;
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FOCUSED_FIRE_FOCUS), this.onEnergize);
   }
 

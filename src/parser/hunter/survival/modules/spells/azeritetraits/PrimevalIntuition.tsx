@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
@@ -10,6 +10,7 @@ import CriticalStrike from 'interface/icons/CriticalStrike';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
+import { MAX_PRIMEVAL_INTUITION_STACKS } from 'parser/hunter/survival/constants';
 
 /**
  * Your maximum Focus is increased to 120, and Raptor Strike (or Mongoose bite) increases your Critical Strike by 52 for 12 sec, stacking up to 5 times.
@@ -17,7 +18,6 @@ import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
  * Example log:
  * https://www.warcraftlogs.com/reports/NTvPJdrFgYchAX1R#fight=6&type=auras&source=27&ability=288573
  */
-const MAX_INTUITION_STACKS = 5;
 
 const primevalIntuitionStats = (traits: number[]) => Object.values(traits).reduce((obj: { crit: number }, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.PRIMEVAL_INTUITION.id, rank);
@@ -33,13 +33,13 @@ class PrimevalIntuition extends Analyzer {
   };
 
   crit: number = 0;
-  intuitionStacks: Array<Array<number>> = [];
+  intuitionStacks: number[][] = [];
   lastIntuitionStack: number = 0;
   lastIntuitionUpdate: number = this.owner.fight.start_time;
 
   protected statTracker!: StatTracker;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.PRIMEVAL_INTUITION.id);
     if (!this.active) {
@@ -47,15 +47,15 @@ class PrimevalIntuition extends Analyzer {
     }
     const { crit } = primevalIntuitionStats(this.selectedCombatant.traitsBySpellId[SPELLS.PRIMEVAL_INTUITION.id]);
     this.crit = crit;
-    this.intuitionStacks = Array.from({ length: MAX_INTUITION_STACKS + 1 }, x => []);
+    this.intuitionStacks = Array.from({ length: MAX_PRIMEVAL_INTUITION_STACKS + 1 }, x => []);
 
-    options.statTracker.add(SPELLS.PRIMEVAL_INTUITION_BUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.PRIMEVAL_INTUITION_BUFF.id, {
       crit: this.crit,
     });
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF),(event: ApplyBuffEvent) => this.handleStacks(event));
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), (event: ApplyBuffStackEvent) => this.handleStacks(event));
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), (event: RemoveBuffEvent) => this.handleStacks(event));
-    this.addEventListener(Events.fightend, (event: FightEndEvent) => this.handleStacks(event));
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF),this.handleStacks);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), this.handleStacks);
+    this.addEventListener(Events.fightend, this.handleStacks);
   }
 
   get intuitionTimesByStacks() {
@@ -67,9 +67,7 @@ class PrimevalIntuition extends Analyzer {
   }
 
   get avgCrit() {
-    const avgCrit = this.intuitionStacks.reduce((sum, innerArray, outerArrayIndex) => {
-      return sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.crit) / this.owner.fightDuration), 0);
-    }, 0);
+    const avgCrit = this.intuitionStacks.reduce((sum, innerArray, outerArrayIndex) => sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.crit) / this.owner.fightDuration), 0), 0);
     return avgCrit;
   }
 

@@ -5,7 +5,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
-import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTracker';
+import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
+
 import SpellEnergyCost from './SpellEnergyCost';
 
 const BASE_ENERGY_REGEN = 11;
@@ -76,16 +77,14 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You're allowing your energy to reach its cap. While at its maximum value you miss out on the energy that would have regenerated. Although it can be beneficial to let energy pool ready to be used at the right time, try to spend some before it reaches the cap.
         </>,
       )
         .icon('spell_shadow_shadowworddominate')
         .actual(`${formatPercentage(actual)}% regenerated energy lost per minute due to being capped.`)
-        .recommended(`<${recommended}% is recommended.`);
-    });
+        .recommended(`<${recommended}% is recommended.`));
   }
 
   statistic() {

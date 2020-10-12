@@ -1,10 +1,9 @@
 import React from 'react';
 import Warning from 'interface/Alert/Warning';
 import PropTypes from 'prop-types';
-import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 
-const WARNING_ITEMS = [ITEMS.WHISPERING_ELDRITH_BOW.id];
+const WARNING_ITEMS = [];
 
 class ItemWarning extends React.Component {
   static propTypes = {

@@ -34,16 +34,14 @@ class ComboPointDetails extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.wastingSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.wastingSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You are wasting combo points. Avoid using generators once you reach the maximum.
         </>,
       )
         .icon('creatureportrait_bubble')
         .actual(`${actual.toFixed(1)} combo points wasted per minute`)
-        .recommended('zero waste is recommended');
-    });
+        .recommended('zero waste is recommended'));
   }
 
   statistic() {

@@ -9,6 +9,7 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SpellLink from 'common/SpellLink';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+
 import RageTracker from '../core/RageTracker';
 
 class Whirlwind extends Analyzer {
@@ -57,22 +58,22 @@ class Whirlwind extends Analyzer {
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_BUFF), this.noHadBuff);
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_BUFF), this.hadBuff);
-    
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.wasValidWW);
   }
 
-  noHadBuff(event){
+  noHadBuff(){
     this.hasWWBuff = false;
   }
 
-  hadBuff(event){
+  hadBuff(){
     this.hasWWBuff = true;
   }
 
   //just check what else they could have casted
   spellCheck(event){
     this.lastEvent = event;
-    
+
     this.btWasAvailable = this.spellUsable.isAvailable(SPELLS.BLOODTHIRST.id);
     this.rbWasAvailable = this.spellUsable.isAvailable(SPELLS.RAGING_BLOW.id);
     this.ramWasAvailable = this.rageTracker.current >= this.rampageCost ? this.spellUsable.isAvailable(SPELLS.RAMPAGE.id) : false;
@@ -108,12 +109,12 @@ class Whirlwind extends Analyzer {
     this.lastCastWW = false;
 
     let badCast = this.btWasAvailable || this.rbWasAvailable || this.ramWasAvailable || this.exWasAvailable;
-    
+
     if(this.wasEnraged){
       badCast = badCast || (this.hasBladeStorm ? this.bsWasAvailable : false);
       badCast = badCast || (this.hasDragonsRoar ? this.drWasAvailable : false);
     }
-    
+
     if(this.enemiesHitWW.length>=2 && !this.hasWWBuff){
       badCast = false;
     }
@@ -142,15 +143,13 @@ class Whirlwind extends Analyzer {
   }
 
   suggestions(when){
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> poorly. Try to only use it if your other abilities are on cooldown.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> poorly. Try to only use it if your other abilities are on cooldown.</>)
         .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of bad Whirlwind casts`)
-        .recommended(`${formatPercentage(recommended)}+% is recommended`);
-    });
+        .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 
-  
+
 }
 
 export default Whirlwind;

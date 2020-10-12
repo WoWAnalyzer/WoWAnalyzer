@@ -7,7 +7,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import HolyPowerTracker from 'parser/paladin/retribution/modules/holypower/HolyPowerTracker';
+import HolyPowerTracker from 'parser/paladin/shared/holypower/HolyPowerTracker';
 
 const CAST_BUFFER = 500;
 
@@ -66,12 +66,10 @@ class Crusade extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual) => {
-      return suggest(<>You want to build stacks of <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> as quickly as possible. Make sure you are using <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> or <SpellLink id={SPELLS.DIVINE_STORM.id} icon /> immediately after casting <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon />.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual) => suggest(<>You want to build stacks of <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> as quickly as possible. Make sure you are using <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> or <SpellLink id={SPELLS.DIVINE_STORM.id} icon /> immediately after casting <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon />.</>)
         .icon(SPELLS.CRUSADE_TALENT.icon)
         .actual(`${formatNumber(this.badFirstGlobal)} bad first global(s)`)
-        .recommended(`0 is recommended`);
-    });
+        .recommended(`0 is recommended`));
   }
 }
 

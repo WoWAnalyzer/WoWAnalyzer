@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreBuffs from 'parser/core/modules/Buffs';
 

@@ -8,6 +8,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import Events from 'parser/core/Events';
+
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 const HIT_COMBO_STRING = " and dropping the Hit Combo damage buff";
@@ -62,19 +63,17 @@ class ComboStrikes extends Analyzer {
       isGreaterThan: {
         minor: 0,
         average: 0.5 * hitComboMultiplier,
-        major: 1 * hitComboMultiplier,
+        major: Number(hitComboMultiplier),
       },
       style: 'number',
     };
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You ignored your <SpellLink id={SPELLS.COMBO_STRIKES.id} /> buff by casting the same spell twice in a row, missing out on the damage increase from your mastery{HIT_COMBO_STRING}.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>You ignored your <SpellLink id={SPELLS.COMBO_STRIKES.id} /> buff by casting the same spell twice in a row, missing out on the damage increase from your mastery{HIT_COMBO_STRING}.</span>)
           .icon(SPELLS.COMBO_STRIKES.icon)
           .actual(`${actual.toFixed(2)} mastery breaks per minute.`)
-          .recommended(`mastery should be broken ${recommended} times`);
-      });
+          .recommended(`mastery should be broken ${recommended} times`));
   }
 
   statistic() {

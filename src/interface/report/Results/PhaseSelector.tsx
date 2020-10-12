@@ -13,7 +13,7 @@ interface Props {
   phases: {
     [key: string]: Phase
   };
-  selectedPhase: String;
+  selectedPhase: string;
   selectedInstance: number;
   handlePhaseSelection: (phase?: string, instance?: number) => void;
   isLoading: boolean;
@@ -54,8 +54,8 @@ class PhaseSelector extends React.PureComponent<Props, State> {
 
   //builds a dictionary of phases / phase instances to keep track of in order to be able to attribute a unique "key" to each phase for the dropdown
   //without losing the actual key (and without having to for example replace an "instance token" like an underscore)
-  buildPhases() : {[key: string]: PhaseSelection} {
-    const phases : PhaseSelection[] = [];
+  buildPhases(): {[key: string]: PhaseSelection} {
+    const phases: PhaseSelection[] = [];
     Object.keys(this.props.phases).forEach(key => {
       const phase = this.props.phases[key];
       if (phase.start.length !== phase.end.length) {
@@ -73,12 +73,10 @@ class PhaseSelector extends React.PureComponent<Props, State> {
       }
     });
     phases.sort((a, b) => a.start - b.start);
-    return phases.reduce((obj, phase) => {
-      return {
+    return phases.reduce((obj, phase) => ({
         ...obj,
         [phase.key + INSTANCE_SEPARATOR + phase.instance]: phase,
-      };
-    }, {});
+      }), {});
   }
 
   //if phase information changed, build new dictionary of phase selection

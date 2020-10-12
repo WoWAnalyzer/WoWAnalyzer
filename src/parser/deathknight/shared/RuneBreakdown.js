@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'common/Tooltip';
 
-import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 
 //Need to extend this class to change how passive rune regeneration is displayed.
 //The only new lines are 44, 49-54 and 78.
@@ -50,7 +50,7 @@ class RuneBreakdown extends ResourceBreakdown {
             {generated && generated
               .filter(ability => ability.abilityId === SPELLS.RUNE_1.id)
               .map(ability => (
-                <tr>
+                <tr key={ability.abilityId}>
                   <td style={{ width: '30%' }}>
                     <SpellIcon id={ability.abilityId} noLink />{' '}
                     Passive Rune regeneration
@@ -78,7 +78,7 @@ class RuneBreakdown extends ResourceBreakdown {
             {generated && generated
               .filter(ability => ability.abilityId !== SPELLS.RUNE_1.id)
               .map(ability => (
-                <tr>
+                <tr key={ability.abilityId}>
                   <td style={{ width: '30%' }}>
                     <SpellLink id={ability.abilityId} />
                   </td>
@@ -116,7 +116,7 @@ class RuneBreakdown extends ResourceBreakdown {
             <tbody>
               {spent && spent
                 .map(ability => (
-                  <tr>
+                  <tr key={ability.abilityId}>
                     <td style={{ width: '30%' }}>
                       <SpellLink id={ability.abilityId} />
                     </td>

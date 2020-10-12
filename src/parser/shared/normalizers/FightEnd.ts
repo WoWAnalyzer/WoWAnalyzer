@@ -1,5 +1,5 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { Event, EventType, FightEndEvent } from 'parser/core/Events';
+import { AnyEvent, EventType, FightEndEvent } from 'parser/core/Events';
 
 /**
  * Normalizes in an event at the back of the queue to indicate that the fight
@@ -7,7 +7,7 @@ import { Event, EventType, FightEndEvent } from 'parser/core/Events';
  * ensure that pending analyzer logic completes cleanly.
  */
 class FightEnd extends EventsNormalizer {
-  normalize(events: Array<Event<any>>) {
+  normalize(events: AnyEvent[]) {
     const event: FightEndEvent = {
       timestamp: this.owner.fight.end_time,
       type: EventType.FightEnd,

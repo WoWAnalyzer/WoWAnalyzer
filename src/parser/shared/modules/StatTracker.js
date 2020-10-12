@@ -132,7 +132,6 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Death Knight
-    [SPELLS.VAMPIRIC_AURA.id]: { leech: (230 * 0.20 * 100) }, // Gives 20% Leech // TODO make non static so can use this.leechRatingPerPercent ??
     // endregion
 
     // region Druid
@@ -140,7 +139,7 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Mage
-    [SPELLS.WARMTH_OF_THE_PHOENIX.id]: { crit: 36 },
+
     // endregion
 
     // region Paladin
@@ -588,6 +587,8 @@ class StatTracker extends Analyzer {
   /*
    * For percentage stats, this is the divider to go from rating to percent (expressed from 0 to 1)
    * These values don't change.
+   * TODO: Verify these values at Shadowlands launch (33 haste, 35 crit, 35 mastery, 40 versatility)
+   * TODO: Account for DR in the rating to percent functions
    */
   get critRatingPerPercent() {
     return 72 * 100;
@@ -775,6 +776,7 @@ class StatTracker extends Analyzer {
       type: EventType.ChangeStats,
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
+      targetIsFriendly: true,
       before,
       delta,
       after,

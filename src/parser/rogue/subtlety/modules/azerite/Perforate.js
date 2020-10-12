@@ -15,7 +15,7 @@ class Perforate extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.PERFORATE.id);
-    
+
     if(!this.active){
       return;
     }

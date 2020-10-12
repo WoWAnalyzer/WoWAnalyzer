@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import LucidDreamsHealers from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import DivinePurposeNormalizer from './normalizers/DivinePurpose';
@@ -52,6 +53,9 @@ import GlimmerOfLight from './modules/azeritetraits/GlimmerOfLight';
 import LightsDecree from './modules/azeritetraits/LightsDecree';
 import RadiantIncandescence from './modules/azeritetraits/RadiantIncandescence';
 import VisionOfPerfection from './modules/azeritetraits/VisionOfPerfection';
+
+import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
+import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -113,12 +117,19 @@ class CombatLogParser extends CoreCombatLogParser {
     avengingCrusader: AvengingCrusader,
     judgmentOfLight: JudgmentOfLight,
 
-    // Azureite Traits //
+    // Azerite Traits //
     graceOfTheJusticar: GraceOfTheJusticar,
     radiantIncandescence: RadiantIncandescence,
     glimmerOfLight: GlimmerOfLight,
     lightsDecree: LightsDecree,
     visionOfPerfection: VisionOfPerfection,
+
+    // Azerite Essences //
+    lucidDream: LucidDreamsHealers,
+
+    // HolyPower
+    holyPowerTracker: HolyPowerTracker,
+    holyPowerDetails: HolyPowerDetails,
   };
 }
 

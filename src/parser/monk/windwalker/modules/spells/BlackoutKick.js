@@ -81,12 +81,10 @@ class BlackoutKick extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest('You are wasting cooldown reduction by casting Blackout Kick while having important casts available')
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting cooldown reduction by casting Blackout Kick while having important casts available')
         .icon(SPELLS.BLACKOUT_KICK.icon)
         .actual(`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`)
-        .recommended(`${recommended} is recommended`);
-    });
+        .recommended(`${recommended} is recommended`));
   }
 
   statistic() {

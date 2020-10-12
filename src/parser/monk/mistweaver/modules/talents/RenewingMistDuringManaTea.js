@@ -43,16 +43,14 @@ class RenewingMistDuringManaTea extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           During <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> you should have a minimum of two <SpellLink id={SPELLS.RENEWING_MIST.id} /> out to maximize your healing during the buff.
         </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
         .actual(`${this.avgRemDuringMT.toFixed(2)} average Renewing Mists during Mana Tea`)
-        .recommended(`${recommended} average Renewing Mists recommended`);
-    });
+        .recommended(`${recommended} average Renewing Mists recommended`));
   }
 
   statistic() {
@@ -62,7 +60,7 @@ class RenewingMistDuringManaTea extends Analyzer {
         position={STATISTIC_ORDER.CORE(30)}
         value={`${this.avgRemDuringMT.toFixed(2)}`}
         label="Average Renewing Mists"
-        tooltip={`This is the average number of Renewing Mists active during Mana Tea`}
+        tooltip="This is the average number of Renewing Mists active during Mana Tea"
       />
     );
   }

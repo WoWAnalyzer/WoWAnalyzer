@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
@@ -13,25 +13,25 @@ import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
  * Your Call Pet additionally summons the first pet from your stable.
  * This pet will obey your Kill Command, but cannot use pet family abilities.
  *
- * Additionally this talent baseline reduces all pet damage by 40%.
+ * Additionally this talent baseline reduces all pet damage by 35%.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1
  */
-
 class AnimalCompanion extends Analyzer {
   damage = 0;
-  pets: { petName: string, sourceID: number | undefined, damage: number }[] = [];
+  pets: Array<{ petName: string, sourceID: number | undefined, damage: number }> = [];
   mainPetName: string = '';
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANIMAL_COMPANION_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
+
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.petDamage);
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onPetDamage(event: DamageEvent) {
+  petDamage(event: DamageEvent) {
     const foundPet = this.pets.find((pet: { sourceID: number | undefined }) => pet.sourceID === event.sourceID);
     const damage = event.amount +
       (event.absorbed || 0);

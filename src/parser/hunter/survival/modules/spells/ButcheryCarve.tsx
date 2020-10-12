@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
 import SpellLink from 'common/SpellLink';
@@ -9,6 +10,8 @@ import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from 'parser/hunter/survival/constants';
+import { ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -20,9 +23,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
  * Butchery: https://www.warcraftlogs.com/reports/6GjD12YkQCnJqPTz#fight=25&type=damage-done&source=19&translate=true&ability=212436
  */
 
-const COOLDOWN_REDUCTION_MS = 1000;
-const MAX_TARGETS_HIT = 5;
-
 class ButcheryCarve extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -33,36 +33,28 @@ class ButcheryCarve extends Analyzer {
   wastedReductionMs: number = 0;
   targetsHit: number = 0;
   casts: number = 0;
-  spellKnown: any = SPELLS.CARVE;
+  spellKnown: any = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
   damage: number = 0;
-  hasButchery: boolean = false;
-  bombSpellKnown: number = SPELLS.WILDFIRE_BOMB.id;
+  bombSpellKnown: number = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id) ? SPELLS.WILDFIRE_INFUSION_TALENT.id : SPELLS.WILDFIRE_BOMB.id;
 
   protected spellUsable!: SpellUsable;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
-    this.hasButchery = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id);
-    if (this.hasButchery) {
-      this.spellKnown = SPELLS.BUTCHERY_TALENT;
-    }
-    if (this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id)) {
-      this.bombSpellKnown = SPELLS.WILDFIRE_INFUSION_TALENT.id;
-    }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BUTCHERY_TALENT, SPELLS.CARVE]), this.onDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BUTCHERY_TALENT, SPELLS.CARVE]), this.onCast);
 
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.spellKnown), this.onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.spellKnown), this.onCast);
   }
 
   get avgTargetsHitThreshold() {
     return {
-      actual: (this.targetsHit / this.casts).toFixed(1),
+      actual: Number((this.targetsHit / this.casts).toFixed(1)),
       isLessThan: {
         minor: 2,
         average: 2,
         major: 2,
       },
-      style: 'decimal',
+      style: ThresholdStyle.DECIMAL,
     };
   }
 
@@ -74,36 +66,34 @@ class ButcheryCarve extends Analyzer {
   onDamage(event: DamageEvent) {
     this.targetsHit += 1;
     this.damage += event.amount + (event.absorbed || 0);
-    if (this.reductionAtCurrentCast === MAX_TARGETS_HIT) {
+    if (this.reductionAtCurrentCast === BUTCHERY_CARVE_MAX_TARGETS_HIT) {
       return;
     }
     this.reductionAtCurrentCast += 1;
     if (this.spellUsable.isOnCooldown(this.bombSpellKnown)) {
       this.checkCooldown(this.bombSpellKnown);
     } else {
-      this.wastedReductionMs += COOLDOWN_REDUCTION_MS;
+      this.wastedReductionMs += ONE_SECOND_IN_MS;
     }
   }
 
   checkCooldown(spellId: number) {
-    if (this.spellUsable.cooldownRemaining(spellId) < COOLDOWN_REDUCTION_MS) {
-      const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS);
+    if (this.spellUsable.cooldownRemaining(spellId) < ONE_SECOND_IN_MS) {
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, ONE_SECOND_IN_MS);
       this.effectiveReductionMs += effectiveReductionMs;
-      this.wastedReductionMs += (COOLDOWN_REDUCTION_MS - effectiveReductionMs);
+      this.wastedReductionMs += (ONE_SECOND_IN_MS - effectiveReductionMs);
     } else {
-      this.effectiveReductionMs += this.spellUsable.reduceCooldown(spellId, COOLDOWN_REDUCTION_MS);
+      this.effectiveReductionMs += this.spellUsable.reduceCooldown(spellId, ONE_SECOND_IN_MS);
     }
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
-      when(this.avgTargetsHitThreshold).addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
+      when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
           .icon(this.spellKnown.icon)
           .actual(`${actual} average targets hit per cast`)
-          .recommended(`>${recommended} is recommended`);
-      });
+          .recommended(`>${recommended} is recommended`));
     }
   }
 
@@ -112,12 +102,13 @@ class ButcheryCarve extends Analyzer {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
       return (
         <Statistic
-          position={STATISTIC_ORDER.OPTIONAL(17)}
+          position={STATISTIC_ORDER.OPTIONAL(5)}
           size="flexible"
         >
-          <BoringSpellValueText spell={this.hasButchery ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE}>
+          <BoringSpellValueText spell={this.spellKnown}>
             <>
-              <ItemDamageDone amount={this.damage} /> <br />
+              <ItemDamageDone amount={this.damage} />
+              <br />
               <AverageTargetsHit casts={this.casts} hits={this.targetsHit} />
             </>
           </BoringSpellValueText>

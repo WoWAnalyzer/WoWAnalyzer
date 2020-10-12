@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CriticalStrike from 'interface/icons/CriticalStrike';
@@ -8,6 +8,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatNumber } from 'common/format';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { UV_MAX_STACKS } from 'parser/hunter/marksmanship/constants';
 
 const unerringVisionStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.UNERRING_VISION.id, rank);
@@ -16,8 +17,6 @@ const unerringVisionStats = (traits: number[]) => Object.values(traits).reduce((
 }, {
   crit: 0,
 });
-
-const MAX_STACKS = 10;
 
 /** Unerring Vision
  * While Trueshot is active you gain 158 Critical Strike rating every sec, stacking up to 10 times.
@@ -32,7 +31,7 @@ class UnerringVision extends Analyzer {
 
   crit = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.UNERRING_VISION.id);
     if (!this.active) {
@@ -41,7 +40,7 @@ class UnerringVision extends Analyzer {
     const { crit } = unerringVisionStats(this.selectedCombatant.traitsBySpellId[SPELLS.UNERRING_VISION.id]);
     this.crit = crit;
 
-    options.statTracker.add(SPELLS.UNERRING_VISION_BUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.UNERRING_VISION_BUFF.id, {
       crit: this.crit,
     });
   }
@@ -63,7 +62,7 @@ class UnerringVision extends Analyzer {
         <BoringSpellValueText spell={SPELLS.UNERRING_VISION}>
           <>
             <CriticalStrike /> {formatNumber(this.avgCrit)}<small> average Crit gained</small><br />
-            <CriticalStrike /><small> up to</small> {formatNumber(this.crit * MAX_STACKS)}<small> Crit gained</small>
+            <CriticalStrike /><small> up to</small> {formatNumber(this.crit * UV_MAX_STACKS)}<small> Crit gained</small>
           </>
         </BoringSpellValueText>
       </Statistic>

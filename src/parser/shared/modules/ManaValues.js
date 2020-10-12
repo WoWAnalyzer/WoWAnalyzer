@@ -12,7 +12,7 @@ class ManaValues extends Analyzer {
   lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
   endingMana = 0;
 
-  maxMana = 100000;
+  maxMana = 50000;
   manaUpdates = [];
 
   constructor(...args) {
@@ -75,14 +75,12 @@ class ManaValues extends Analyzer {
     }
 
     when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized.')
+      .addSuggestion((suggest, actual, recommended) => suggest('You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized.')
           .icon('inv_elemental_mote_mana')
           .actual(`${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) mana left`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.suggestionThresholds.isGreaterThan.average)
-          .major(this.suggestionThresholds.isGreaterThan.major);
-      });
+          .major(this.suggestionThresholds.isGreaterThan.major));
   }
 }
 

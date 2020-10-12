@@ -1,8 +1,8 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -42,7 +42,7 @@ class DanceOfDeath extends Analyzer {
   protected statTracker!: StatTracker;
   protected thrillOfTheHunt!: ThrillOfTheHunt;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.DANCE_OF_DEATH.id);
     if (!this.active) {
@@ -51,7 +51,7 @@ class DanceOfDeath extends Analyzer {
     const { agility } = danceOfDeathStats(this.selectedCombatant.traitsBySpellId[SPELLS.DANCE_OF_DEATH.id]);
     this.agility = agility;
 
-    options.statTracker.add(SPELLS.DANCE_OF_DEATH_BUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.DANCE_OF_DEATH_BUFF.id, {
       agility: this.agility,
     });
 

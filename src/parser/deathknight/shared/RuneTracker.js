@@ -10,7 +10,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
-import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { EventType } from 'parser/core/Events';
 
 const MAX_RUNES = 6;
@@ -52,7 +52,7 @@ class RuneTracker extends ResourceTracker {
     const runesAvailable = this.runesAvailable;
     this._fightend = true;
 
-    this.runesReady.push({ x: this.owner.fightDuration, y: runesAvailable });
+    this.runesReady.push({ x: this.owner.fightDuration / 1000, y: runesAvailable });
     this._runesReadySum[runesAvailable] += this.owner.fight.end_time - this._lastTimestamp;
     this.addPassiveRuneRegeneration();
   }
@@ -288,12 +288,10 @@ class RuneTracker extends ResourceTracker {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You overcapped {formatPercentage(actual)}% of your runes. Try to always have at least 3 runes on cooldown.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You overcapped {formatPercentage(actual)}% of your runes. Try to always have at least 3 runes on cooldown.</>)
         .icon(SPELLS.RUNE_1.icon)
         .actual(`${formatPercentage(actual)}% runes overcapped`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

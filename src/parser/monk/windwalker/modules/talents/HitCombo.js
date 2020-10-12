@@ -56,12 +56,10 @@ class HitCombo extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You let your <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> buff drop by casting a spell twice in a row. Dropping this buff is a large DPS decrease so be mindful of the spells being cast.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>You let your <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> buff drop by casting a spell twice in a row. Dropping this buff is a large DPS decrease so be mindful of the spells being cast.</span>)
           .icon(SPELLS.HIT_COMBO_TALENT.icon)
           .actual(`${formatPercentage(actual)} % uptime`)
-          .recommended(`>${formatPercentage(recommended)} % is recommended`);
-      });
+          .recommended(`>${formatPercentage(recommended)} % is recommended`));
   }
 
   statistic() {

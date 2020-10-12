@@ -37,14 +37,13 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
             )}
             thresholds={thresholds.rollTheBonesBuffs}
           />
-          {thresholds.rollTheBonesEfficiency.map(suggestion => {
-            return (
-              <Requirement
-                name={`Reroll ${suggestion.label} efficiency`}
-                thresholds={suggestion.suggestionThresholds}
-              />
-            );
-          })}
+          {thresholds.rollTheBonesEfficiency.map(suggestion => (
+            <Requirement
+              key={suggestion.label}
+              name={`Reroll ${suggestion.label} efficiency`}
+              thresholds={suggestion.suggestionThresholds}
+            />
+          ))}
         </Rule>
       )}
       <Rule
@@ -122,7 +121,6 @@ OutlawRogueChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasTrinket: PropTypes.func.isRequired,
     hasTrait: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,

@@ -1,9 +1,8 @@
-import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import SpellLink from 'common/SpellLink';
+
 import { STORMSTRIKE_CAST_SPELLS } from '../constants';
 
 class Abilities extends CoreAbilities {
@@ -48,13 +47,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          extraSuggestion: (
-            <>
-              The total damage that it deals is equal to 2-3 GCDs. Additionally their attacks have a chance to trigger <SpellLink id={SPELLS.STORMBRINGER_BUFF.id} />, weapon enchantments, azerite traits and essence effects. (Corruption effects have not been confirmed.)
-            </>
-          ),
+          suggestion: false,
         },
       },
       {
@@ -91,15 +84,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 12,
         gcd: undefined,
-      },
-      {
-        spell: SPELLS.ROCKBITER,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: 2,
-        cooldown: haste => (combatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id) ? 6 * 0.85 : 6) / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: SPELLS.FROSTBRAND,
@@ -258,12 +242,11 @@ class Abilities extends CoreAbilities {
         cooldown: 40,
       },
       {
-        spell: SPELLS.LIGHTNING_SHIELD_TALENT,
+        spell: SPELLS.LIGHTNING_SHIELD,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0,

@@ -1,35 +1,21 @@
 import React from 'react';
 
-import { Sharrq, fluffels, Dambroda } from 'CONTRIBUTORS';
+import { Sharrq } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
+const prepatch = date(2020, 10, 13);
+
 export default [
-  change(date(2020, 7, 20), <>Fix <SpellLink id={SPELLS.ARCANE_POWER.id} /> module which was ignoring more cast events than intended.</>, Dambroda),
-  change(date(2020, 7, 7), <>Adjusted the Cooldowns page to show the 4 seconds before <SpellLink id={SPELLS.ARCANE_POWER.id} />.</>, [Sharrq]),
-  change(date(2020, 6, 19), 'Updated integration tests', [Sharrq]),
-  change(date(2020, 6, 19), 'Updated Arcane for TypeScript, Event Listeners, Statistic Boxes, and Constants', [Sharrq]),
-  change(date(2020, 6, 1), <>Fixed <SpellLink id={SPELLS.ARCANE_POWER.id} /> pre-pull detection</>, [Dambroda]),
-  change(date(2020, 1, 15), 'Updated Spec Compatibility to 8.3',[Sharrq]),
-  change(date(2019, 10, 1), <>Removed the check to see if <SpellLink id={SPELLS.ARCANE_POWER.id} /> was available when the fight ended.</>,[Sharrq]),
-  change(date(2019, 9, 30), 'Updated Spec Compatibility to 8.2.5.',[Sharrq]),
-  change(date(2019, 9, 16), 'Fix a bug where arcane mage mana graph would not show time labels correctly.', fluffels),
-  change(date(2019, 8, 6), 'Updated spec compatibility to 8.2.', [Sharrq]),
-  change(date(2019, 3, 14), 'Updated spec compatibility to 8.1.5.', [Sharrq]),
-  change(date(2019, 3, 2), 'Added spec buffs to the timeline.', [Sharrq]),
-  change(date(2018, 12, 16), 'Updated for Patch 8.1.', [Sharrq]),
-  change(date(2018, 10, 11), <>Fixed <SpellLink id={SPELLS.ARCANE_CHARGE.id} /> Normalizer to not put energize events after <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> and added Normalizer to sort the <SpellLink id={SPELLS.ARCANE_POWER.id} /> cast before the buff application</>, [Sharrq]),
-  change(date(2018, 10, 11), <>Redid <SpellLink id={SPELLS.ARCANE_POWER.id} /> Utilization to count each pre-req separately. Also updated tooltip and suggestion to show which checks were failed.</>, [Sharrq]),
-  change(date(2018, 10, 11), <>Fixed <SpellLink id={SPELLS.RULE_OF_THREES_TALENT.id} /> bug</>, [Sharrq]),
-  change(date(2018, 8, 28), <>Added support for <SpellLink id={SPELLS.GALVANIZING_SPARK.id} /> and Anomalous Impact.</>, [Sharrq]),
-  change(date(2018, 8, 11), <>Added <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> Module and <SpellLink id={SPELLS.TIME_ANOMALY_TALENT.id} /> Mana Management.</>, [Sharrq]),
-  change(date(2018, 8, 10), <>Added Check to see if the player went OOM during <SpellLink id={SPELLS.ARCANE_POWER.id} />.</>, [Sharrq]),
-  change(date(2018, 8, 9), 'Added Checklist', [Sharrq]),
-  change(date(2018, 8, 2), <>Removed <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> module as it is no longer relevant. Also fixed Arcane Charge event order.</>, [Sharrq]),
-  change(date(2018, 8, 1), <>Added Support for <SpellLink id={SPELLS.RULE_OF_THREES_TALENT.id} />.</>, [Sharrq]),
-  change(date(2018, 7, 28), <>Added Support for <SpellLink id={SPELLS.ARCANE_POWER.id} />.</>, [Sharrq]),
-  change(date(2018, 7, 25), 'Added Arcane Charge Tracking and Mana Chart.', [Sharrq]),
-  change(date(2018, 7, 23), <>Added Support for <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} />, <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} />, and <SpellLink id={SPELLS.ARCANE_INTELLECT.id} />.</>, [Sharrq]),
-  change(date(2018, 7, 23), <>Removed <SpellLink id={SPELLS.EVOCATION.id} /> Suggestion, Updated for 8.0.1, Resolved some Abilities Bugs</>, [Sharrq]),
+  change(prepatch, <>Added <SpellLink id={SPELLS.ARCANE_BOMBARDMENT.id} /> and <SpellLink id={SPELLS.ARCANE_HARMONY.id} /> and adjusted <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />. </>, Sharrq),
+  change(prepatch, <>Added support for the <SpellLink id={SPELLS.SIPHONED_MALICE.id} /> and <SpellLink id={SPELLS.TEMPEST_BARRIER.id} /> conduits. </>, Sharrq),
+  change(prepatch, <>Added support for the <SpellLink id={SPELLS.IRE_OF_THE_ASCENDED.id} />, <SpellLink id={SPELLS.GROUNDING_SURGE.id} />, and <SpellLink id={SPELLS.DIVERTED_ENERGY.id} /> conduits. </>, Sharrq),
+  change(prepatch, <>Added support for the <SpellLink id={SPELLS.ARCANE_PRODIGY.id} /> and <SpellLink id={SPELLS.ARTIFICE_OF_THE_ARCHMAGE.id} /> conduits. </>, Sharrq),
+  change(prepatch, <>Added module for <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} /> buff uptime. </>, Sharrq),
+  change(prepatch, <>Added Spell IDs for the Shadowlands Mage Conduits, Legendaries, and Covenant Abilities. </>, Sharrq),
+  change(prepatch, <>Removed Azerite, Essences, and BFA Items in prep for Shadowlands. </>, Sharrq),
+  change(prepatch, <>General Cleanup for Mage Spells</>, Sharrq),
+  change(prepatch, <>Arcane class changes for Shadowlands (Baseline <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} />, <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> cooldown and charge changes (All Specs), New Talents, <SpellLink id={SPELLS.FROSTBOLT.id} />/<SpellLink id={SPELLS.FIRE_BLAST.id} /> Spellbook entries)</>, Sharrq),
+  change(prepatch, <>Shared class changes for Shadowlands (<SpellLink id={SPELLS.ALTER_TIME.id} />, <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />, <SpellLink id={SPELLS.MIRROR_IMAGE.id} />)</>, Sharrq),
 ];

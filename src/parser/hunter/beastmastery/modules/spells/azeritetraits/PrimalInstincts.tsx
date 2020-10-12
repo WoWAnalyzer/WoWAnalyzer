@@ -4,7 +4,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 import MasteryIcon from 'interface/icons/Mastery';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -12,15 +12,16 @@ import Statistic from 'interface/statistics/Statistic';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-const primalInstinctsStats = (traits: number[]) => Object.values(traits).reduce((obj, rank) => {
-      const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
-      obj.mastery += mastery;
-      return obj;
-    },
-    {
-      mastery: 0,
-    },
-  );
+const primalInstinctsStats = (traits: number[]) => Object.values(traits).reduce(
+  (obj, rank) => {
+    const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
+    obj.mastery += mastery;
+    return obj;
+  },
+  {
+    mastery: 0,
+  },
+);
 
 /**
  * Aspect of the Wild increases your Mastery by X, and grants you a charge of
@@ -42,7 +43,7 @@ class PrimalInstincts extends Analyzer {
   protected statTracker!: StatTracker;
   protected spellUsable!: SpellUsable;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.PRIMAL_INSTINCTS.id);
     if (!this.active) {
@@ -53,7 +54,7 @@ class PrimalInstincts extends Analyzer {
     const { mastery } = primalInstinctsStats(this.selectedCombatant.traitsBySpellId[SPELLS.PRIMAL_INSTINCTS.id]);
     this.mastery = mastery;
 
-    options.statTracker.add(SPELLS.PRIMAL_INSTINCTS_BUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.PRIMAL_INSTINCTS_BUFF.id, {
       mastery: this.mastery,
     });
   }

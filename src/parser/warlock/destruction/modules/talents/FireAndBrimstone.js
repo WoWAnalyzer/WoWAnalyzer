@@ -12,7 +12,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const debug = false;
 class FireAndBrimstone extends Analyzer {
@@ -58,13 +58,11 @@ class FireAndBrimstone extends Analyzer {
     // example: pre-cast Incinerate -> *combat starts* -> hard cast Incinerate -> first Incinerate lands -> second Incinerate lands
     // but because the second Incinerate "technically" doesn't have a cast event to pair with, it's incorrectly recognized as cleaved
     when(this.bonusFragments).isEqual(0)
-      .addSuggestion(suggest => {
-        return suggest(<>Your <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon /> talent didn't contribute any bonus fragments. When there are no adds to cleave onto, this talent is useless and you should switch to a different talent.</>)
+      .addSuggestion(suggest => suggest(<>Your <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon /> talent didn't contribute any bonus fragments. When there are no adds to cleave onto, this talent is useless and you should switch to a different talent.</>)
           .icon(SPELLS.FIRE_AND_BRIMSTONE_TALENT.icon)
           .actual('No bonus Soul Shard Fragments generated')
           .recommended('Different talent is recommended')
-          .staticImportance(ISSUE_IMPORTANCE.MAJOR);
-      });
+          .staticImportance(ISSUE_IMPORTANCE.MAJOR));
   }
 
   get dps() {
@@ -74,7 +72,7 @@ class FireAndBrimstone extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(3)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`${formatThousands(this.bonusDmg)} bonus cleaved damage`}
       >

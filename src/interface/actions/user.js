@@ -23,8 +23,7 @@ export function logout() {
 }
 
 export function fetchUser() {
-  return dispatch => {
-    return fetch(`${process.env.REACT_APP_SERVER_BASE}user`, {
+  return dispatch => fetch(`${process.env.REACT_APP_SERVER_BASE}user`, {
       credentials: 'include',
     })
       .then(response => {
@@ -50,5 +49,4 @@ export function fetchUser() {
         });
         // fail silently since this only enhances the experience, if we're shortly down it shouldn't *kill* the experience.
       });
-  };
 }

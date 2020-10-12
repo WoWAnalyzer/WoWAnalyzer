@@ -5,7 +5,7 @@ import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
-import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 
 import RageTracker from './RageTracker';
 
@@ -43,12 +43,10 @@ class RageDetails extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
           .icon('spell_nature_reincarnation')
           .actual(`${formatPercentage(actual)}% wasted`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

@@ -2,10 +2,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, ApplyBuffEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+
 import { PROC_BUFFER, HOT_STREAK_CONTRIBUTORS } from '../../constants';
 
 const debug = false;
@@ -24,7 +26,7 @@ class HotStreakWastedCrits extends Analyzer {
   pyromaniacProc = false;
   hotStreakRemoved = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.hasPyromaniac = this.selectedCombatant.hasTalent(SPELLS.PYROMANIAC_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(HOT_STREAK_CONTRIBUTORS), this._onCast);
@@ -49,7 +51,7 @@ class HotStreakWastedCrits extends Analyzer {
     const spellId = event.ability.guid;
     const castTarget = encodeTargetString(this.lastCastEvent.targetID, event.targetInstance);
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (event.hitType !== HIT_TYPES.CRIT || !this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id,undefined,-50) || (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id && castTarget !== damageTarget)) {
+    if (event.hitType !== HIT_TYPES.CRIT || !this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id,undefined,-50) || (spellId === SPELLS.PHOENIX_FLAMES.id && castTarget !== damageTarget)) {
       return;
     }
 
@@ -83,18 +85,16 @@ class HotStreakWastedCrits extends Analyzer {
         average: 1,
         major: 3,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
       when(this.wastedCritsThresholds)
-        .addSuggestion((suggest: any, actual: any, recommended: any) => {
-          return suggest(<>You crit with {formatNumber(this.wastedCrits)} ({formatNumber(this.wastedCritsPerMinute)} Per Minute) direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<>You crit with {formatNumber(this.wastedCrits)} ({formatNumber(this.wastedCritsPerMinute)} Per Minute) direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</>)
             .icon(SPELLS.HOT_STREAK.icon)
             .actual(`${formatNumber(this.wastedCrits)} crits wasted`)
-            .recommended(`${formatNumber(recommended)} is recommended`);
-      });
+            .recommended(`${formatNumber(recommended)} is recommended`));
   }
 }
 

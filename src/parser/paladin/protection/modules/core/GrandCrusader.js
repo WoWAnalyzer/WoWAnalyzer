@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatPercentage } from 'common/format';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
+
 import Abilities from '../Abilities';
 
 const BASE_PROC_CHANCE = 0.15;

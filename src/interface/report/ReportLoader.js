@@ -64,6 +64,7 @@ class ReportLoader extends React.PureComponent {
     }
   }
   async loadReport(reportCode, refresh = false) {
+    const isAnonymous = reportCode.startsWith('a:');
     try {
       this.resetState();
       const report = await fetchFights(reportCode, refresh);
@@ -72,6 +73,7 @@ class ReportLoader extends React.PureComponent {
       }
       this.setState(null, {
         ...report,
+        isAnonymous,
         code: reportCode, // Pass the code so know which report this is
         // TODO: Remove the code prop
       });
@@ -120,8 +122,8 @@ class ReportLoader extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  reportCode: getReportCode(state),
+const mapStateToProps = (state, props) => ({
+  reportCode: getReportCode(props.location.pathname),
 });
 export default compose(
   withRouter,

@@ -13,11 +13,6 @@ import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import HealingTargetTracker from 'parser/priest/holy/modules/features/HealingTargetTracker';
 import Renew from 'parser/priest/holy/modules/spells/Renew';
 import CosmicRipple from 'parser/priest/holy/modules/talents/45/CosmicRipple';
-import BlessedSanctuary from 'parser/priest/holy/modules/spells/azeritetraits/BlessedSanctuary';
-import EverlastingLight from 'parser/priest/holy/modules/spells/azeritetraits/EverlastingLight';
-import PermeatingGlow from 'parser/priest/holy/modules/spells/azeritetraits/PermeatingGlow';
-import PrayerfulLitany from 'parser/priest/holy/modules/spells/azeritetraits/PrayerfulLitany';
-import WordOfMending from 'parser/priest/holy/modules/spells/azeritetraits/WordOfMending';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 
 const HolyPriestSpreadsheet = props => {
@@ -144,27 +139,6 @@ const HolyPriestSpreadsheet = props => {
     return 'Unknown talent choice!';
   };
 
-  const healingFromAzerite = () => {
-    let totalHealing = 0;
-
-    if (parser.getModule(BlessedSanctuary)) {
-      totalHealing += parser.getModule(BlessedSanctuary).effectiveHealing;
-    }
-    if (parser.getModule(EverlastingLight)) {
-      totalHealing += parser.getModule(EverlastingLight).effectiveHealing;
-    }
-    if (parser.getModule(PermeatingGlow)) {
-      totalHealing += parser.getModule(PermeatingGlow).permiatingGlowTotalHealAmount;
-    }
-    if (parser.getModule(PrayerfulLitany)) {
-      totalHealing += parser.getModule(PrayerfulLitany).rawPrayerfulLitanyHealing;
-    }
-    if (parser.getModule(WordOfMending)) {
-      totalHealing += parser.getModule(WordOfMending).effectiveHealing;
-    }
-    return totalHealing;
-  };
-
   return (
     <div>
       <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Player Log section of the Holy Priest Spreadsheet by Niphyr. <a href="https://docs.google.com/spreadsheets/d/1a8dNKpU49UkUxzWBgffWM-zXxhPWOUl8sFSM6Bp9Sl0/edit" target="_blank" rel="noopener noreferrer">Link to the sheet</a><br /></div>
@@ -246,10 +220,6 @@ const HolyPriestSpreadsheet = props => {
             <tr>
               <td>Serenity CDR wasted (s)</td>
               <td>{parser.getModule(HolyWordSerenity).holyWordWastedCooldown / 1000}</td>
-            </tr>
-            <tr>
-              <td>Total Healing from Azerite Traits</td>
-              <td>{Math.floor(healingFromAzerite())}</td>
             </tr>
             <tr>
               <td>Renews refreshed by Enduring Renewal</td>

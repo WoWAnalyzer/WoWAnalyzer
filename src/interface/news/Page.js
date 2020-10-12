@@ -30,10 +30,10 @@ class Page extends React.PureComponent {
     const fileName = articles[this.props.articleId];
 
     const breadcrumbs = [
-      <Link to="/">
+      <Link key="Home" to="/">
         Home
       </Link>,
-      <Link to="/#Announcements">
+      <Link key="Announcements" to="/#Announcements">
         Announcements
       </Link>,
     ];

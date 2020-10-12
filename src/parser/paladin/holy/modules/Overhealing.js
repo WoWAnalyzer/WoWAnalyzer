@@ -86,8 +86,7 @@ class Overhealing extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.lightOfDawnSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.lightOfDawnSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <Trans>
           Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for
           when people are missing health.
@@ -95,11 +94,9 @@ class Overhealing extends Analyzer {
       )
         .icon(SPELLS.LIGHT_OF_DAWN_CAST.icon)
         .actual(i18n._(t`${formatPercentage(actual)}% overhealing`))
-        .recommended(i18n._(t`<${formatPercentage(recommended)}% is recommended`));
-    });
+        .recommended(i18n._(t`<${formatPercentage(recommended)}% is recommended`)));
 
-    when(this.holyShockSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.holyShockSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <Trans>
           Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for
           when people are missing health.
@@ -107,11 +104,9 @@ class Overhealing extends Analyzer {
       )
         .icon(SPELLS.HOLY_SHOCK_HEAL.icon)
         .actual(i18n._(t`${formatPercentage(actual)}% overhealing`))
-        .recommended(i18n._(t`<${formatPercentage(recommended)}% is recommended`));
-    });
+        .recommended(i18n._(t`<${formatPercentage(recommended)}% is recommended`)));
 
-    when(this.flashOfLightSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.flashOfLightSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <Trans>
           Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of
           Light would overheal it is generally advisable to cast a{' '}
@@ -120,11 +115,9 @@ class Overhealing extends Analyzer {
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
         .actual(i18n._(t`${formatPercentage(actual)}% overhealing`))
-        .recommended(i18n._(t`<${formatPercentage(recommended)}% is recommended`));
-    });
+        .recommended(i18n._(t`<${formatPercentage(recommended)}% is recommended`)));
 
-    when(this.bestowFaithSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.bestowFaithSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <Trans>
           Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it
           just before someone is about to take damage and consider casting it on targets other than
@@ -133,8 +126,7 @@ class Overhealing extends Analyzer {
       )
         .icon(SPELLS.BESTOW_FAITH_TALENT.icon)
         .actual(i18n._(t`${formatPercentage(actual)}% overhealing`))
-        .recommended(i18n._(t`<${formatPercentage(recommended)}% is recommended`));
-    });
+        .recommended(i18n._(t`<${formatPercentage(recommended)}% is recommended`)));
   }
 }
 

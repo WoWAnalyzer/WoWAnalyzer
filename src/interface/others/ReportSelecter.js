@@ -11,7 +11,7 @@ import Tooltip from 'common/Tooltip';
 import './ReportSelecter.css';
 
 export function getReportCode(input) {
-  const match = input.trim().match(/^(.*reports\/)?([a-zA-Z0-9]{16})\/?(#.*)?$/);
+  const match = input.trim().match(/^(.*reports\/)?((?:[a:]{2})([a-zA-Z0-9]{16})|([a-zA-Z0-9]{16}))\/?(#.*)?$/);
   return match && match[2];
 }
 

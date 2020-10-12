@@ -63,9 +63,10 @@ class Nightstalker extends StealthCasts {
   }
 
   get goodOpenerCasts() {
-    if (!this.usedStealthOnPull) {
+    if (!this.usedStealthOnPull || !this.stealthSequences.length) {
       return false;
     }
+
     const RuptureOpener = this.stealthSequences[0].find(e => e.ability.guid === SPELLS.RUPTURE.id);
     const GarroteOpener = this.stealthSequences[0].find(e => e.ability.guid === SPELLS.GARROTE.id);
     if(RuptureOpener || GarroteOpener) {
@@ -103,16 +104,12 @@ class Nightstalker extends StealthCasts {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Your failed to cast <SpellLink id={SPELLS.RUPTURE.id} /> after <SpellLink id={SPELLS.VANISH.id} /> {this.vanishCasts - this.vanishCastsSpentOnRupture} time(s). Make sure to prioritize spending your Vanish on snapshotting <SpellLink id={SPELLS.RUPTURE.id} /> when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} />.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your failed to cast <SpellLink id={SPELLS.RUPTURE.id} /> after <SpellLink id={SPELLS.VANISH.id} /> {this.vanishCasts - this.vanishCastsSpentOnRupture} time(s). Make sure to prioritize spending your Vanish on snapshotting <SpellLink id={SPELLS.RUPTURE.id} /> when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} />.</>)
         .icon(SPELLS.GARROTE.icon)
         .actual(`${formatPercentage(actual)}% of Vanishes used to snapshot Rupture`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
-    when(this.suggestionThresholdsOpener).isFalse().addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You failed to snapshot a <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} /> on pull from stealth. Make sure your first cast when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} /> is a <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} />.</>)
-        .icon(SPELLS.NIGHTSTALKER_TALENT.icon);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholdsOpener).isFalse().addSuggestion((suggest, actual, recommended) => suggest(<>You failed to snapshot a <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} /> on pull from stealth. Make sure your first cast when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} /> is a <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} />.</>)
+        .icon(SPELLS.NIGHTSTALKER_TALENT.icon));
   }
 
   statistic() {

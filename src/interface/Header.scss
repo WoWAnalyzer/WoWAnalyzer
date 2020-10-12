@@ -20,7 +20,7 @@ header.report-selection {
       text-transform: none;
       font-size: 50px;
 
-      @media(max-width: 767px) {
+      @media (max-width: 767px) {
         font-size: 42px;
       }
     }
@@ -54,7 +54,7 @@ header.report-selection .about {
     padding-top: 40px;
   }
 }
-.character-selector {
+.character-guild-selector {
   display: flex;
   width: 100%;
   margin-bottom: 10px;
@@ -66,25 +66,19 @@ header.report-selection .about {
   .realm {
     width: 30%;
   }
-  .character {
+  .name {
     width: 40%;
   }
-  > .realm--select, > input[name=code], > button {
+  > .realm,
+  > input[name='code'],
+  > button {
     margin-left: 2px;
   }
   .realm__select {
-    display: none;
-  }
-  .realm--multiple .realm__select {
-    display: block;
-  }
-  .realm__select--display {
-    display: block;
-    width: 183px;
+    position: relative;
     z-index: 999;
-    position: absolute;
   }
-  .realm__search {
+  .realm__input {
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 8px 12px;
     font-size: 1em;
@@ -95,7 +89,7 @@ header.report-selection .about {
     width: 100%;
     height: 42px;
   }
-  .realm__search:focus {
+  .realm__input:focus {
     box-shadow: none;
     border: 1px solid $primaryColor;
   }
@@ -110,6 +104,10 @@ header.report-selection .about {
     border-top: none;
   }
   .realm__option {
+    background: transparent;
+    width: 100%;
+    border: 0;
+    text-align: left;
     padding: 4px 8px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
@@ -125,9 +123,12 @@ header.report-selection .about {
     box-shadow: inset 200px 0 0 0 $muted;
   }
 }
-header.report-selection .form-control, header.report-selection .realm__search, header.report-selection .parse-tabs > span {
+header.report-selection .form-control,
+header.report-selection .realm__input,
+header.report-selection .parse-tabs > span {
   background: rgba(0, 0, 0, 0.8);
 }
-header.report-selection .form-control::placeholder, header.report-selection .realm__search::placeholder {
+header.report-selection .form-control::placeholder,
+header.report-selection .realm__input::placeholder {
   color: #777;
 }

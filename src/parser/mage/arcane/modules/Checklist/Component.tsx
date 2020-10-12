@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -34,9 +33,8 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
         <AbilityRequirement spell={SPELLS.EVOCATION.id} />
         {combatant.hasTalent(SPELLS.SUPERNOVA_TALENT.id) && <AbilityRequirement spell={SPELLS.SUPERNOVA_TALENT.id} />}
         {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id) && <AbilityRequirement spell={SPELLS.ARCANE_ORB_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id) && <AbilityRequirement spell={SPELLS.MIRROR_IMAGE_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.MIRROR_IMAGE.id) && <AbilityRequirement spell={SPELLS.MIRROR_IMAGE.id} />}
         {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.CHARGED_UP_TALENT.id) && <AbilityRequirement spell={SPELLS.CHARGED_UP_TALENT.id} />}
       </Rule>
       <Rule
         name="Use Arcane Power effectively"
@@ -62,7 +60,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
         name="Use your talents effectively"
         description="Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected."
       >
-        {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id && !combatant.hasShoulder(ITEMS.MANTLE_OF_THE_FIRST_KIRIN_TOR.id)) && (
+        {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id) && (
           <Requirement
             name="Arcane Orb Avg. Hits Per Cast"
             tooltip="Arcane Orb is primarily an AoE Spell, so you should only choose it on fights with multiple targets but you should still cast it on cooldown even if there is only one target available (unless there is about to be multiple targets). Therefore, on average, your Arcane Orb should hit more than 1 mob per cast."
@@ -129,8 +127,6 @@ ArcaneMageChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasTrinket: PropTypes.func.isRequired,
-    hasShoulder: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };

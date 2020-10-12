@@ -120,15 +120,13 @@ class WorldveinResonance extends Analyzer {
             </thead>
             <tbody>
               {
-                Object.keys(uptimes).map((stackCount) => {
-                  return (
+                Object.keys(uptimes).map((stackCount) => (
                     <tr key={stackCount}>
                       <th>{this._statPerShard * stackCount}</th>
                       <td>{formatDuration(uptimes[stackCount] / 1000) || 0}</td>
                       <td>{formatPercentage(uptimes[stackCount] / this.owner.fightDuration)}</td>
                     </tr>
-                  );
-                })
+                  ))
               }
             </tbody>
           </table>

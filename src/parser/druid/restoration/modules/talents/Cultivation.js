@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
+
 import Mastery from '../core/Mastery';
 
 class Cultivation extends Analyzer {
@@ -65,13 +66,11 @@ class Cultivation extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have too many healers or doing easy
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have too many healers or doing easy
           content, thus having low cultivation proc rate. You may considering selecting another talent.</>)
           .icon(SPELLS.CULTIVATION.icon)
           .actual(`${formatPercentage(this.totalPercent)}% healing`)
-          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);
-      });
+          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 }
 

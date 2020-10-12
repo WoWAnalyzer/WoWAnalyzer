@@ -1,19 +1,17 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Panel from 'interface/others/Panel';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import { formatPercentage } from 'common/format';
-import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { RESOURCES_HUNTER_AVERAGE_THRESHOLD, RESOURCES_HUNTER_MAJOR_THRESHOLD, RESOURCES_HUNTER_MINOR_THRESHOLD } from 'parser/hunter/shared/constants';
 
 import FocusTracker from './FocusTracker';
-
-const MINOR_THRESHOLD = 0.05;
-const AVERAGE_THRESHOLD = 0.1;
-const MAJOR_THRESHOLD = 0.15;
 
 class FocusDetails extends Analyzer {
   static dependencies = {
@@ -21,7 +19,6 @@ class FocusDetails extends Analyzer {
   };
 
   protected focusTracker!: FocusTracker;
-
 
   get wasted() {
     return this.focusTracker.wasted || 0;
@@ -39,18 +36,18 @@ class FocusDetails extends Analyzer {
     return {
       actual: 1 - this.wastedPercent,
       isLessThan: {
-        minor: 1 - MINOR_THRESHOLD,
-        average: 1 - AVERAGE_THRESHOLD,
-        major: 1 - MAJOR_THRESHOLD,
+        minor: 1 - RESOURCES_HUNTER_MINOR_THRESHOLD,
+        average: 1 - RESOURCES_HUNTER_AVERAGE_THRESHOLD,
+        major: 1 - RESOURCES_HUNTER_MAJOR_THRESHOLD,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(2)}
+        position={STATISTIC_ORDER.CORE(11)}
         size="flexible"
         tooltip={`You wasted ${this.wasted} out of ${this.total} Focus from generators.`}
       >

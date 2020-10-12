@@ -6,7 +6,8 @@ import { formatDuration, formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import BoneShieldTimesByStacks from './/BoneShieldTimesByStacks';
+
+import BoneShieldTimesByStacks from "./BoneShieldTimesByStacks";
 
 
 class BoneShield extends Analyzer {
@@ -40,12 +41,10 @@ class BoneShield extends Analyzer {
 
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your Bone Shield uptime can be improved. Try to keep it up at all times.')
+      .addSuggestion((suggest, actual, recommended) => suggest('Your Bone Shield uptime can be improved. Try to keep it up at all times.')
           .icon(SPELLS.BONE_SHIELD.icon)
           .actual(`${formatPercentage(actual)}% Bone Shield uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

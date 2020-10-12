@@ -40,18 +40,19 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         <AbilityRequirement spell={SPELLS.BARBED_SHOT.id} />
         <AbilityRequirement spell={SPELLS.BESTIAL_WRATH.id} />
         <AbilityRequirement spell={SPELLS.ASPECT_OF_THE_WILD.id} />
+
         {combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.DIRE_BEAST_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id) &&
-        <AbilityRequirement spell={SPELLS.CHIMAERA_SHOT_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_BM_TALENT.id) &&
+        <AbilityRequirement spell={SPELLS.CHIMAERA_SHOT_BM_TALENT.id} />}
         {combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />}
         {combatant.hasTalent(SPELLS.BARRAGE_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.BARRAGE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.STAMPEDE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id) &&
-        <AbilityRequirement spell={SPELLS.SPITTING_COBRA_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.BLOODSHED_TALENT.id) &&
+        <AbilityRequirement spell={SPELLS.BLOODSHED_TALENT.id} />}
       </Rule>
       <Rule
         name="Barbed Shot usage"
@@ -81,7 +82,14 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && <Requirement name={<> Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets </>} thresholds={thresholds.wastedKillerCobraThreshold} />}
       </Rule>
       <Rule
-        name={<>Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> focus capping</>}
+        name="Legendaries"
+        description="The throughput gain of some legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly, even after trying to improve your usage of said legendary."
+      >
+        {combatant.hasLegendaryByBonusID(SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.bonusID) &&
+        <Requirement name={<><SpellLink id={SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.id} /> CDR efficiency</>} thresholds={thresholds.qaplaEfficiencyThreshold} />}
+      </Rule>
+      <Rule
+        name="Downtime & resource generators"
         description={(
           <>
             As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.
@@ -101,7 +109,6 @@ BeastMasteryChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasTrinket: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };

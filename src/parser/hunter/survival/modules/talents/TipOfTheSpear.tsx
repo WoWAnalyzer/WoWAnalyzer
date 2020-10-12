@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { RAPTOR_MONGOOSE_VARIANTS, TIP_DAMAGE_INCREASE, TIP_MAX_STACKS } from 'parser/hunter/survival/constants';
@@ -10,6 +10,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, ChangeBuffStackEvent, DamageEvent } from 'parser/core/Events';
+import { MS_BUFFER } from 'parser/hunter/shared/constants';
 
 /**
  * Kill Command increases the damage of your next Raptor Strike by 20%, stacking up to 3 times.
@@ -18,10 +19,7 @@ import Events, { CastEvent, ChangeBuffStackEvent, DamageEvent } from 'parser/cor
  * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=auras&source=329&translate=true&ability=260286
  */
 
-const MS_BUFFER = 100;
-
 class TipOfTheSpear extends Analyzer {
-
   spenderCasts = 0;
   stacks = 0;
   usedStacks = 0;
@@ -29,9 +27,11 @@ class TipOfTheSpear extends Analyzer {
   damage = 0;
   lastApplicationTimestamp = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.TIP_OF_THE_SPEAR_TALENT.id);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.onKillCommandCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onSpenderCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onDamage);

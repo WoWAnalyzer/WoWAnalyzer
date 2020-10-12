@@ -19,16 +19,23 @@ class SpellUsable extends CoreSpellUsable {
         this.lastPotentialTriggerForRapidFireReset = null;
       }
     }
-    if (super.on_byPlayer_cast) {
-      super.on_byPlayer_cast(event);
-    }
+    super.on_byPlayer_cast(event);
   }
 
   beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {
-    if (spellId === SPELLS.RAPID_FIRE.id && this.selectedCombatant.hasTrait(SPELLS.SURGING_SHOTS.id)) {
+    if (
+      spellId === SPELLS.RAPID_FIRE.id &&
+      this.selectedCombatant.hasTrait(SPELLS.SURGING_SHOTS.id)
+    ) {
       if (this.isOnCooldown(spellId)) {
         this.rapidFireResets += 1;
-        this.endCooldown(spellId, undefined, this.lastPotentialTriggerForRapidFireReset ? this.lastPotentialTriggerForRapidFireReset.timestamp : undefined);
+        this.endCooldown(
+          spellId,
+          undefined,
+          this.lastPotentialTriggerForRapidFireReset
+            ? this.lastPotentialTriggerForRapidFireReset.timestamp
+            : undefined,
+        );
       }
     }
     super.beginCooldown(spellId, cooldownTriggerEvent);

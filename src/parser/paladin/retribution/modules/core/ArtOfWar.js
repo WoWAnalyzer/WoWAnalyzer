@@ -77,12 +77,10 @@ class AoWProcTracker extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You used {formatPercentage(this.consumedProcsPercent)}% of your <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You used {formatPercentage(this.consumedProcsPercent)}% of your <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs.</>)
         .icon(SPELLS.ART_OF_WAR.icon)
         .actual(`${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`)
-        .recommended(`Using >${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`Using >${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

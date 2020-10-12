@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -23,12 +23,16 @@ class DoubleTap extends Analyzer {
   aimedUsage = 0;
   RFUsage = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DOUBLE_TAP_TALENT.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DOUBLE_TAP_TALENT), this.onDoubleTapApplication);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.onRapidFireCast);
+  }
+
+  get totalUsage() {
+    return this.RFUsage + this.aimedUsage;
   }
 
   onDoubleTapApplication() {
@@ -47,10 +51,6 @@ class DoubleTap extends Analyzer {
       return;
     }
     this.RFUsage += 1;
-  }
-
-  get totalUsage() {
-    return this.RFUsage + this.aimedUsage;
   }
 
   statistic() {

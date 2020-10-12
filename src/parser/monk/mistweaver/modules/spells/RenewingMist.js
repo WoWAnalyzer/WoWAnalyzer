@@ -1,16 +1,15 @@
 
 import SPELLS from 'common/SPELLS';
-
-import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/shared/modules/Combatants';
-
-
-const debug = false;
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 class RenewingMist extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST), this.castRenewingMist);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.handleGustsOfMists);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL), this.handleRenewingMist);
+  }
 
   totalHealing = 0;
   totalOverhealing = 0;
@@ -20,37 +19,23 @@ class RenewingMist extends Analyzer {
   healingHits = 0;
   numberToCount = 0;
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if (SPELLS.RENEWING_MIST.id !== spellId) {
-      return;
-    } 
-
+  castRenewingMist(event) {
     this.numberToCount += 1;
     this.lastCastTarget = event.targetID;
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
-    if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID) && this.numberToCount>0) {
+  handleGustsOfMists(event) {
+    if ((this.lastCastTarget === event.targetID) && this.numberToCount>0) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
       this.numberToCount -= 1;
     }
-
-    if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
-      this.totalHealing += event.amount || 0;
-      this.totalOverhealing += event.overheal || 0;
-      this.totalAbsorbs += event.absorbed || 0;
-      this.healingHits += 1;
-    }
   }
 
-  on_fightend() {
-    if (debug) {
-      console.log("gusts rem healing: ", this.gustsHealing);
-    }
+  handleRenewingMist(event) {
+    this.totalHealing += event.amount || 0;
+    this.totalOverhealing += event.overheal || 0;
+    this.totalAbsorbs += event.absorbed || 0;
+    this.healingHits += 1;
   }
 }
 
