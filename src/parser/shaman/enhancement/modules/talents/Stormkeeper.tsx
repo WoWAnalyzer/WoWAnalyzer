@@ -52,6 +52,7 @@ class Stormkeeper extends Analyzer {
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`Buffed casts contributed ${formatNumber(this.damageDoneByBuffedCasts)} damage (${formatPercentage(this.damagePercent)}% of your damage)`}
@@ -64,7 +65,6 @@ class Stormkeeper extends Analyzer {
       </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Stormkeeper;

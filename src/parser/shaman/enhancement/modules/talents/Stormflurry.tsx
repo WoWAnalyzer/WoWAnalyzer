@@ -96,6 +96,7 @@ class Stormflurry extends Analyzer {
 
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`You had ${this.extraHits} extra Stormstrike hits (+${formatPercentage(this.extraHits / this.totalStormStrikeCasts)}%).`}
@@ -108,7 +109,6 @@ class Stormflurry extends Analyzer {
       </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Stormflurry;

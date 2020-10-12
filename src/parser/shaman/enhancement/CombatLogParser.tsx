@@ -30,6 +30,7 @@ import ElementalBlast from '../shared/talents/ElementalBlast';
 import Stormflurry from './modules/talents/Stormflurry';
 import IceStrike from './modules/talents/IceStrike';
 import FireNova from './modules/talents/FireNova';
+import ElementalAssault from './modules/talents/ElementalAssault';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -64,7 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spiritWolf: SpiritWolf,
     earthShield: EarthShield,
     staticCharge: StaticCharge,
-    //elementalAssault: ElementalAssault,
+    elementalAssault: ElementalAssault,
     hailstorm: Hailstorm,
     fireNova: FireNova,
     naturesGuardian: NaturesGuardian,
