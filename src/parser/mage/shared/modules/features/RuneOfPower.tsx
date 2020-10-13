@@ -8,7 +8,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events, { SummonEvent, DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, SummonEvent, DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
@@ -21,7 +21,7 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 const SUGGEST_ROP = { [SPECS.FROST_MAGE.id]: false, [SPECS.ARCANE_MAGE.id]: true, [SPECS.FIRE_MAGE.id]: true };
 
 const DAMAGE_BONUS = 0.4;
-const RUNE_DURATION = 10;
+const RUNE_DURATION = 15;
 const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 
 // FIXME due to interactions with Ignite, the damage boost number will be underrated for Fire Mages. Still fine for Arcane and Frost.
@@ -30,14 +30,22 @@ class RuneOfPower extends Analyzer {
   hasROP: boolean = false;
   damage: number = 0;
   totalRunes: number = 0;
+  overlappedRunes: number = 0;
 
   constructor(options: Options) {
     super(options);
 
     if (this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id)) {
       this.hasROP = true;
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.RUNE_OF_POWER_TALENT,SPELLS.COMBUSTION,SPELLS.ICY_VEINS,SPELLS.ARCANE_POWER]), this.onCast);
       this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell([SPELLS.RUNE_OF_POWER_AUTOCAST, SPELLS.RUNE_OF_POWER_TALENT]), this.onRune);
       this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
+    }
+  }
+
+  onCast(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
+      this.overlappedRunes += 1;
     }
   }
 
@@ -65,6 +73,16 @@ class RuneOfPower extends Analyzer {
 
   get roundedSecondsPerCast() {
     return ((this.uptimeMS / this.totalRunes) / 1000);
+  }
+
+  get overlappedRunesThresholds() {
+    return {
+      actual: this.overlappedRunes,
+      isGreaterThan: {
+        major: 0,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
   }
 
   get damageSuggestionThresholds() {
@@ -114,6 +132,11 @@ class RuneOfPower extends Analyzer {
           .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
           .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`)
           .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`));
+    when(this.overlappedRunesThresholds)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> or an ability that automatically casts <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> (Like <SpellLink id={SPELLS.ICY_VEINS.id} />, <SpellLink id={SPELLS.COMBUSTION.id} />, or <SpellLink id={SPELLS.ARCANE_POWER.id} />) while you still had a Rune down. Make sure you are not overlapping your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> so you can get the most out of the damage buff that it provides.</>)
+          .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
+          .actual(`${formatNumber(actual)} overlapped runes`)
+          .recommended(`${formatNumber(recommended)} is recommended`));
 
     if (this.totalRunes > 0) {
       when(this.roundedSecondsSuggestionThresholds)

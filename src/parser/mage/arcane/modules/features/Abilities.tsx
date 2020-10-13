@@ -177,18 +177,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MIRROR_IMAGE,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-        },
-      },
-      {
         spell: SPELLS.RUNE_OF_POWER_TALENT,
         buffSpellId: SPELLS.RUNE_OF_POWER_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -221,6 +209,14 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.MIRROR_IMAGE,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 120,
       },
 
       //Utility
