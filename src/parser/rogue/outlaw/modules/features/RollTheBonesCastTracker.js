@@ -4,7 +4,7 @@ import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
 import EnergyCapTracker from '../../../shared/resources/EnergyCapTracker'; // todo use the outlaw cap tracker once available
-import { ROLL_THE_BONES_BUFFS } from '../../constants';
+import { ROLL_THE_BONES_BUFFS, ROLL_THE_BONES_DURATION } from '../../constants';
 
 export const ROLL_THE_BONES_CATEGORIES = {
   LOW_VALUE: 'low',
@@ -76,7 +76,7 @@ class RollTheBonesCastTracker extends Analyzer {
     // All of the events for adding/removing buffs occur at the same timestamp as the cast, so this.selectedCombatant.hasBuff isn't quite accurate
     const appliedBuffs = ROLL_THE_BONES_BUFFS.filter(b => this.energyCapTracker.combatantHasBuffActive(b.id));
 
-    let duration = 30000;
+    let duration = ROLL_THE_BONES_DURATION;
 
     // If somehow logging starts in the middle of combat and the first cast is actually a refresh, pandemic timing and previous buffs will be missing
     if(refresh && this.lastCast){
