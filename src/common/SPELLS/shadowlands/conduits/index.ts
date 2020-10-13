@@ -14,6 +14,7 @@ import ROGUE from './rogue';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
+import SHARED from './shared';
 
 const conduits: SpellList = safeMerge(
   DEATH_KNIGHT,
@@ -28,5 +29,6 @@ const conduits: SpellList = safeMerge(
   SHAMAN,
   WARLOCK,
   WARRIOR,
+  SHARED,
 );
 export default conduits;

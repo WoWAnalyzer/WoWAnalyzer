@@ -17,13 +17,7 @@ class Dispatch extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const hasRelevantTrait = this.selectedCombatant.hasTrait(SPELLS.ACE_UP_YOUR_SLEEVE.id) || this.selectedCombatant.hasTrait(SPELLS.DEADSHOT.id);
-    this.active = hasRelevantTrait;
-
-    this.betweenTheEyesDamageTracker.subscribeInefficientCast(
-      [SPELLS.DISPATCH],
-      (s) => hasRelevantTrait ? `Between The Eyes should be prioritized as your spender when available` : `Between The Eyes should be prioritized as your spender during Ruthless Precision`,
-    );
+    this.betweenTheEyesDamageTracker.subscribeInefficientCast([SPELLS.DISPATCH], `Between The Eyes should be prioritized as your spender during Ruthless Precision`);
   }
 
   get thresholds() {
@@ -41,12 +35,8 @@ class Dispatch extends Analyzer {
     };
   }
 
-  get delayedCastSuggestion(){
-    if(this.selectedCombatant.hasTrait(SPELLS.ACE_UP_YOUR_SLEEVE.id) || this.selectedCombatant.hasTrait(SPELLS.DEADSHOT.id)){
-      return <>Because you have the <SpellLink id={SPELLS.ACE_UP_YOUR_SLEEVE.id} /> or <SpellLink id={SPELLS.DEADSHOT.id} /> traits, you should always prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging spender (Keeping <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> up always takes priority). </>;
-    } else{
-      return <>Whenever you have the <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> buff, you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging spender.</>;
-    }
+  get delayedCastSuggestion() {
+    return <>Whenever you have the <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> buff, you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging spender.</>;
   }
 
   suggestions(when) {
