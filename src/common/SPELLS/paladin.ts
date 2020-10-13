@@ -283,6 +283,21 @@ const spells: SpellList = {
     name: 'Beacon Of Light',
     icon: 'ability_paladin_beaconoflight',
   },
+  GLIMMER_OF_LIGHT_HEAL_TALENT: {
+    id: 325983,
+    name: 'Glimmer of Light',
+    icon: 'ability_paladin_toweroflight',
+  },
+  GLIMMER_OF_LIGHT_BUFF: {
+    id: 287280,
+    name: 'Glimmer of Light',
+    icon: 'ability_paladin_toweroflight',
+  },
+  GLIMMER_OF_LIGHT_DAMAGE_TALENT: {
+    id: 325984,
+    name: 'Glimmer of Light',
+    icon: 'ability_paladin_toweroflight',
+  },
 
   // Retribution Paladin:
   JUDGMENT_DEBUFF: {

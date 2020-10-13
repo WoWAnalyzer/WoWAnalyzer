@@ -55,7 +55,7 @@ class GlimmerOfLight extends Analyzer {
       this.onCast,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GLIMMER_OF_LIGHT, SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT]),
       this.onHeal,
     );
     this.addEventListener(
@@ -63,7 +63,7 @@ class GlimmerOfLight extends Analyzer {
       this.onBeaconTransfer,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.GLIMMER_OF_LIGHT_DAMAGE, SPELLS.GLIMMER_OF_LIGHT_DAMAGE_TALENT]),
       this.onDamage,
     );
     this.addEventListener(

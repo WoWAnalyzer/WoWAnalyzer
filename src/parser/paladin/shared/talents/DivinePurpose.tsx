@@ -10,7 +10,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
 
 const HEALING_HOLY_POWER_SPELLS: Spell[] = [
@@ -32,6 +32,7 @@ const DAMAGE_HOLY_POWER_SPELLS: Spell[] = [
 //];
 
 const BUFF_TIME: number = 12000 * .95;//add buffer since log events lmao
+const TRACK_BUFFER: number = 500;
 
 class DivinePurpose extends Analyzer {
 
@@ -46,6 +47,8 @@ class DivinePurpose extends Analyzer {
   damageDone: number = 0;
 
   buffAppliedTimestamp: number = 0;
+  buffRemovedTimestamp: number = 0;
+  
 
   constructor(args: Options) {
     super(args);
@@ -62,13 +65,13 @@ class DivinePurpose extends Analyzer {
   }
 
   holyPowerDamage(event: DamageEvent){
-    if(this.hasProc){
+    if(this.hasProc || this.buffRemovedTimestamp + TRACK_BUFFER > event.timestamp){
       this.damageDone += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
   holyPowerHeal(event: HealEvent){
-    if(this.hasProc){
+    if(this.hasProc || this.buffRemovedTimestamp + TRACK_BUFFER > event.timestamp){
       this.healingDone += (event.amount || 0) + (event.absorbed || 0);
       this.overhealingDone += (event.overheal || 0);
     }
@@ -86,6 +89,7 @@ class DivinePurpose extends Analyzer {
       this.procsWasted += 1;
     }
     this.averageTimeTillBuffConsumed += (event.timestamp - this.buffAppliedTimestamp);
+    this.buffRemovedTimestamp = event.timestamp;
     this.hasProc = false;
   }
 
@@ -100,9 +104,9 @@ class DivinePurpose extends Analyzer {
             <ul>
               <li>Average Time Till Buff Consumed: {formatDuration((this.averageTimeTillBuffConsumed /1000) / this.procsGained)}</li>
               <li>Total Buffs: {this.procsGained}</li>
-              <li>Damage: {this.damageDone}</li>
-              <li>Healing: {this.healingDone}</li>
-              <li>Overhealing: {this.overhealingDone}</li>
+              <li>Damage: {formatNumber(this.damageDone)}</li>
+              <li>Healing: {formatNumber(this.healingDone)}</li>
+              <li>Overhealing: {formatNumber(this.overhealingDone)}</li>
             </ul>
           </>
         )}
