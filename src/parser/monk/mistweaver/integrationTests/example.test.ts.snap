@@ -5050,19 +5050,15 @@ exports[`Mistweaver Monk integration test: example log ManaTea matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={1025}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -5076,13 +5072,12 @@ exports[`Mistweaver Monk integration test: example log ManaTea matches the stati
               src="//render-us.worldofwarcraft.com/icons/56/monk_ability_cherrymanatea.jpg"
             />
           </a>
-           
-          Average mana saved
+           Average mana saved
         </label>
         <div
           className="value"
         >
-          6,963
+          13k
         </div>
       </div>
     </div>
@@ -5112,7 +5107,7 @@ Array [
   Object {
     "details": null,
     "icon": "monk_ability_cherrymanatea",
-    "importance": "major",
+    "importance": "minor",
     "issue": <React.Fragment>
       Your mana spent during 
       <ForwardRef
@@ -5137,7 +5132,7 @@ Array [
        even if the channel continues past the buff.
     </React.Fragment>,
     "stat": <React.Fragment>
-      6,963 average mana saved per Mana Tea cast
+      13k average mana saved per Mana Tea cast
        (
       13k average mana saved is recommended
       )
@@ -5962,6 +5957,73 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              href="http://wowhead.com/spell=191837"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_essencefont.jpg"
+              />
+               
+              Essence Font
+            </a>
+          </td>
+          <td>
+            112k
+             (27.69%)
+          </td>
+          <td
+            className="text-right"
+          >
+            227
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#4ec04e",
+                    "transition": "background-color 800ms",
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            647k
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#4ec04e",
+                    "transition": "background-color 800ms",
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
               href="http://wowhead.com/spell=124682"
               rel="noopener noreferrer"
               target="_blank"
@@ -5994,9 +6056,9 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="performance-bar"
                 style={
                   Object {
-                    "backgroundColor": "#4ec04e",
+                    "backgroundColor": "#a6c34c",
                     "transition": "background-color 800ms",
-                    "width": "100%",
+                    "width": "99.55947136563876%",
                   }
                 }
               />
@@ -6019,74 +6081,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#a6c34c",
                     "transition": "background-color 800ms",
-                    "width": "83.67029548989113%",
-                  }
-                }
-              />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a
-              href="http://wowhead.com/spell=191837"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_essencefont.jpg"
-              />
-               
-              Essence Font
-            </a>
-          </td>
-          <td>
-            112k
-             (27.69%)
-          </td>
-          <td
-            className="text-right"
-          >
-            226
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#4ec04e",
-                    "transition": "background-color 800ms",
-                    "width": "100%",
-                  }
-                }
-              />
-            </div>
-          </td>
-          <td
-            className="text-right"
-          >
-            643k
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#4ec04e",
-                    "transition": "background-color 800ms",
-                    "width": "100%",
+                    "width": "83.15301391035548%",
                   }
                 }
               />
@@ -6130,7 +6125,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#a6c34c",
                     "transition": "background-color 800ms",
-                    "width": "84.070796460177%",
+                    "width": "83.70044052863436%",
                   }
                 }
               />
@@ -6153,7 +6148,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "25.660964230171075%",
+                    "width": "25.50231839258114%",
                   }
                 }
               />
@@ -6197,7 +6192,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#a6c34c",
                     "transition": "background-color 800ms",
-                    "width": "73.00884955752213%",
+                    "width": "72.68722466960352%",
                   }
                 }
               />
@@ -6220,7 +6215,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#df7102",
                     "transition": "background-color 800ms",
-                    "width": "36.70295489891136%",
+                    "width": "36.476043276661514%",
                   }
                 }
               />
@@ -6264,7 +6259,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "15.04424778761062%",
+                    "width": "14.977973568281937%",
                   }
                 }
               />
@@ -6287,7 +6282,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "4.354587869362364%",
+                    "width": "4.327666151468315%",
                   }
                 }
               />
@@ -6488,19 +6483,15 @@ exports[`Mistweaver Monk integration test: example log RenewingMistDuringManaTea
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={1030}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -6514,8 +6505,7 @@ exports[`Mistweaver Monk integration test: example log RenewingMistDuringManaTea
               src="//render-us.worldofwarcraft.com/icons/56/monk_ability_cherrymanatea.jpg"
             />
           </a>
-           
-          Average Renewing Mists
+           Average Renewing Mists
         </label>
         <div
           className="value"
@@ -7950,10 +7940,11 @@ exports[`Mistweaver Monk integration test: example log Tier45Comparison matches 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={1030}
     style={
       Object {
-        "height": "auto",
         "zIndex": 1,
       }
     }
@@ -7962,7 +7953,7 @@ exports[`Mistweaver Monk integration test: example log Tier45Comparison matches 
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -7976,13 +7967,14 @@ exports[`Mistweaver Monk integration test: example log Tier45Comparison matches 
               src="//render-us.worldofwarcraft.com/icons/56/monk_ability_cherrymanatea.jpg"
             />
           </a>
-           
-          Tier 45 Comparison
+           Tier 45 Comparison
         </label>
         <div
           className="value"
         >
-          14k Mana from Mana Tea
+          25k
+           Mana from 
+          Mana Tea
         </div>
       </div>
       <div
@@ -8031,39 +8023,35 @@ exports[`Mistweaver Monk integration test: example log Upwelling matches the sta
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={1010}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
-            href="http://wowhead.com/spell=274963"
+            href="http://wowhead.com/spell=197915"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Upwelling"
+              alt="Lifecycles"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_surgingmist.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_souldance.jpg"
             />
           </a>
-           
-          Upwelling Healing
+           Upwelling Healing
         </label>
         <div
           className="value"
         >
-          14.30% Total Healing
+          14.30
+          % Total Healing
         </div>
       </div>
     </div>
@@ -9599,7 +9587,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "70.90426036358265%",
+                  "width": "94.08921666666666%",
                 }
               }
             />
@@ -9765,7 +9753,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  6,963
+                  13k
                    
                    
                 </div>
@@ -9785,9 +9773,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "25.761250000000004%",
+                        "width": "95.32125%",
                       }
                     }
                   />
@@ -9860,7 +9848,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "86.95153109074798%",
+                        "width": "86.9464%",
                       }
                     }
                   />
