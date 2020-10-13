@@ -40,7 +40,7 @@ import MightOfTheMountain from './modules/MightOfTheMountain';
 
 import RuleOfLaw from './modules/talents/RuleOfLaw';
 import DevotionAuraDamageReduction from './modules/talents/DevotionAuraDamageReduction';
-import HolyAvenger from './modules/talents/HolyAvenger';
+import HolyAvenger from '../shared/talents/HolyAvenger';
 import DivinePurpose from './modules/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
