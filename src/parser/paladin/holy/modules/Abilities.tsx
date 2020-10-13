@@ -17,7 +17,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
-          return (9 / (1 + haste)) * (1 - swCdr);
+          return (7.5 / (1 + haste)) * (1 - swCdr);
         },
         gcd: {
           base: 1500,

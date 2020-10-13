@@ -1878,7 +1878,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               34
-              /50
+              /60
                
               casts
             </td>
@@ -1897,7 +1897,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "68.23245162198819%",
+                      "width": "56.865811389368574%",
                     }
                   }
                 />
@@ -1912,7 +1912,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              68.23%
+              56.87%
             </td>
             <td
               style={
@@ -5057,7 +5057,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_holy_searinglight",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       <WithI18n
         components={
@@ -5080,8 +5080,8 @@ Array [
         values={
           Object {
             "0": 34,
-            "1": 50,
-            "2": "68",
+            "1": 60,
+            "2": "57",
           }
         }
       />
@@ -6079,8 +6079,8 @@ Array [
       id="You started casting {0} filler <0/>s while <1/> was <2>available</2> (at {1} ). <3/> is a much more efficient spell and should be prioritized<4>*</4>."
       values={
         Object {
-          "0": 20,
-          "1": "0:14, 0:25, 0:33, 0:34, 0:44, 0:54, 0:57, 1:14, 1:15, 1:54, 2:04, 2:15, 2:16, 2:49, 3:00, 3:41, 4:04, 4:08, 4:43, 4:53",
+          "0": 28,
+          "1": "0:14, 0:22, 0:25, 0:33, 0:34, 0:41, 0:44, 0:54, 0:57, 1:06, 1:14, 1:15, 1:52, 1:54, 2:02, 2:04, 2:15, 2:16, 2:49, 3:00, 3:41, 4:04, 4:08, 4:43, 4:53, 5:16, 5:26, 6:33",
         }
       }
     />,
@@ -6089,7 +6089,7 @@ Array [
         id="{actual} casts while Holy Shock was available"
         values={
           Object {
-            "actual": 20,
+            "actual": 28,
           }
         }
       />
@@ -6192,8 +6192,8 @@ Array [
       id="You cast {0} <0/>s while <1/> was <2>available</2> (at {1} ). Try to <3>never</3> cast <4/> when something else is available<5>*</5>."
       values={
         Object {
-          "0": 4,
-          "1": "1:07, 1:21, 2:35, 5:27",
+          "0": 5,
+          "1": "1:07, 1:21, 2:35, 3:33, 5:27",
         }
       }
     />,
@@ -6202,7 +6202,7 @@ Array [
         id="{0} casts while Holy Shock was available"
         values={
           Object {
-            "0": 4,
+            "0": 5,
           }
         }
       />
@@ -8961,7 +8961,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
               className="text-right"
             >
               0.00 - 
-              0.92
+              0.81
             </td>
             <td
               style={
@@ -9684,7 +9684,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  68.23%
+                  56.87%
                    
                    
                 </div>
@@ -9704,9 +9704,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "44.06406390122066%",
+                        "width": "29.1327926040919%",
                       }
                     }
                   />
@@ -9996,7 +9996,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  20
+                  28
                    
                    
                 </div>
@@ -10018,7 +10018,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "5.616336375%",
+                        "width": "4.011668839285715%",
                       }
                     }
                   />
@@ -10315,7 +10315,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "46.08882392089102%",
+                  "width": "43.28065573339103%",
                 }
               }
             />
@@ -10531,7 +10531,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "28.081681874999997%",
+                        "width": "22.4653455%",
                       }
                     }
                   />
