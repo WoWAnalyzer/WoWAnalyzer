@@ -46,7 +46,7 @@ class GlimmerOfLight extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.GLIMMER_OF_LIGHT_TRAIT.id);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.GLIMMER_OF_LIGHT_TRAIT.id) || this.selectedCombatant.hasTalent(SPELLS.GLIMMER_OF_LIGHT_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -55,7 +55,7 @@ class GlimmerOfLight extends Analyzer {
       this.onCast,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GLIMMER_OF_LIGHT, SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT]),
       this.onHeal,
     );
     this.addEventListener(
@@ -63,7 +63,7 @@ class GlimmerOfLight extends Analyzer {
       this.onBeaconTransfer,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.GLIMMER_OF_LIGHT_DAMAGE, SPELLS.GLIMMER_OF_LIGHT_DAMAGE_TALENT]),
       this.onDamage,
     );
     this.addEventListener(
