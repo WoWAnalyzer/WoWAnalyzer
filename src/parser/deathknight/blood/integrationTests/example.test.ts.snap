@@ -31,7 +31,7 @@ exports[`Blood Death Knight integration test: example log AlwaysBeCasting matche
         <div
           className="value"
         >
-          23.12 %
+          39.80 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Blood Death Knight integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "76.88251894636313%",
+                  "width": "60.19854106744514%",
                 }
               }
             >
@@ -100,7 +100,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <React.Fragment>
       While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged/filler abilities like 
       <ForwardRef
@@ -112,7 +112,7 @@ Array [
       />
     </React.Fragment>,
     "stat": <React.Fragment>
-      23.12% downtime
+      39.80% downtime
        (
       &lt;20.00% is recommended
       )
@@ -639,7 +639,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               27
-              /29
+              /50
                
               casts
             </td>
@@ -657,8 +657,8 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "93.69656641970711%",
+                      "backgroundColor": "#ff8000",
+                      "width": "54.66125424064838%",
                     }
                   }
                 />
@@ -673,7 +673,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              93.70%
+              54.66%
             </td>
             <td
               style={
@@ -682,7 +682,9 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                   "width": "25%",
                 }
               }
-            />
+            >
+              Can be improved.
+            </td>
           </tr>
           <tr>
             <td
@@ -3240,6 +3242,47 @@ Array [
   },
   Object {
     "details": null,
+    "icon": "spell_deathknight_bloodboil",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={50842}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      Should be casting it so you have at least one recharging.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 27,
+            "1": 50,
+            "2": "55",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "85",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
     "icon": "ability_animusdraw",
     "importance": "regular",
     "issue": <React.Fragment>
@@ -4377,7 +4420,7 @@ exports[`Blood Death Knight integration test: example log RuneTracker matches th
         <div
           className="value"
         >
-          1.76 %
+          43.20 %
         </div>
       </div>
       <div
@@ -4419,6 +4462,27 @@ exports[`Blood Death Knight integration test: example log RuneTracker matches th
     </div>
   </div>
 </div>
+`;
+
+exports[`Blood Death Knight integration test: example log RuneTracker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_deathknight_frozenruneweapon",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You overcapped 
+      43.20
+      % of your runes. Try to always have at least 3 runes on cooldown.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      43.20% runes overcapped
+       (
+      &lt;5.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Blood Death Knight integration test: example log RunicPowerDetails matches the statistic snapshot 1`] = `
@@ -4939,7 +5003,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
   className="checklist"
 >
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -4963,8 +5027,8 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "78.65498952781942%",
+                  "backgroundColor": "#df7102",
+                  "width": "41.65655928648794%",
                 }
               }
             />
@@ -5069,7 +5133,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  93.70%
+                  54.66%
                    
                    
                 </div>
@@ -5089,9 +5153,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "26.003139517337022%",
                       }
                     }
                   />
@@ -5200,8 +5264,8 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "80.9104621835931%",
                 }
               }
             />
@@ -5354,7 +5418,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  98.24%
+                  56.80%
                    
                    
                 </div>
@@ -5374,9 +5438,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "23.641848734372424%",
                       }
                     }
                   />

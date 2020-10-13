@@ -139,7 +139,7 @@ exports[`Holy Paladin integration test: example log AlwaysBeCasting matches the 
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(46.46870773225828deg)",
+                    "transform": "rotate(9.794825140777363deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -169,7 +169,7 @@ exports[`Holy Paladin integration test: example log AlwaysBeCasting matches the 
                 }
               }
             >
-              67
+              53
               %
             </div>
           </div>
@@ -243,7 +243,7 @@ Array [
     "importance": "major",
     "issue": "Your time spent healing can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
     "stat": <React.Fragment>
-      -54.63% time spent healing
+      -61.4% time spent healing
        (
       &gt;70.00% is recommended
       )
@@ -252,10 +252,10 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "minor",
+    "importance": "regular",
     "issue": "Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you're not healing try to contribute some damage.",
     "stat": <React.Fragment>
-      66.60% active time
+      53.50% active time
        (
       &gt;80.00% is recommended
       )
@@ -1878,7 +1878,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               34
-              /50
+              /69
                
               casts
             </td>
@@ -1897,7 +1897,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "68.23245162198819%",
+                      "width": "49.42129200728295%",
                     }
                   }
                 />
@@ -1912,7 +1912,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              68.23%
+              49.42%
             </td>
             <td
               style={
@@ -2062,7 +2062,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               21
-              /41
+              /56
                
               casts
             </td>
@@ -2081,7 +2081,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "50.73364317457318%",
+                      "width": "37.520782843068226%",
                     }
                   }
                 />
@@ -2096,7 +2096,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              50.73%
+              37.52%
             </td>
             <td
               style={
@@ -4563,7 +4563,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               39
-              /82
+              /113
                
               casts
             </td>
@@ -4582,7 +4582,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "47.146747028451074%",
+                      "width": "34.16217404957644%",
                     }
                   }
                 />
@@ -4597,7 +4597,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              47.15%
+              34.16%
             </td>
             <td
               style={
@@ -4660,7 +4660,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               1
-              /97
+              /134
                
               casts
             </td>
@@ -4679,7 +4679,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "1.0314219293889781%",
+                      "width": "0.747070638196951%",
                     }
                   }
                 />
@@ -4694,7 +4694,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              1.03%
+              0.75%
             </td>
             <td
               style={
@@ -5057,7 +5057,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_holy_searinglight",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       <WithI18n
         components={
@@ -5080,8 +5080,8 @@ Array [
         values={
           Object {
             "0": 34,
-            "1": 50,
-            "2": "68",
+            "1": 69,
+            "2": "49",
           }
         }
       />
@@ -5130,8 +5130,8 @@ Array [
         values={
           Object {
             "0": 21,
-            "1": 41,
-            "2": "51",
+            "1": 56,
+            "2": "38",
           }
         }
       />
@@ -6079,8 +6079,8 @@ Array [
       id="You started casting {0} filler <0/>s while <1/> was <2>available</2> (at {1} ). <3/> is a much more efficient spell and should be prioritized<4>*</4>."
       values={
         Object {
-          "0": 20,
-          "1": "0:14, 0:25, 0:33, 0:34, 0:44, 0:54, 0:57, 1:14, 1:15, 1:54, 2:04, 2:15, 2:16, 2:49, 3:00, 3:41, 4:04, 4:08, 4:43, 4:53",
+          "0": 32,
+          "1": "0:12, 0:14, 0:21, 0:22, 0:25, 0:33, 0:34, 0:41, 0:44, 0:54, 0:57, 1:04, 1:06, 1:14, 1:15, 1:52, 1:54, 2:02, 2:04, 2:15, 2:16, 2:49, 3:00, 3:41, 4:04, 4:08, 4:43, 4:53, 5:16, 5:26, 6:09, 6:33",
         }
       }
     />,
@@ -6089,7 +6089,7 @@ Array [
         id="{actual} casts while Holy Shock was available"
         values={
           Object {
-            "actual": 20,
+            "actual": 32,
           }
         }
       />
@@ -6192,8 +6192,8 @@ Array [
       id="You cast {0} <0/>s while <1/> was <2>available</2> (at {1} ). Try to <3>never</3> cast <4/> when something else is available<5>*</5>."
       values={
         Object {
-          "0": 4,
-          "1": "1:07, 1:21, 2:35, 5:27",
+          "0": 7,
+          "1": "1:07, 1:21, 2:35, 2:57, 3:33, 5:27, 6:41",
         }
       }
     />,
@@ -6202,7 +6202,7 @@ Array [
         id="{0} casts while Holy Shock was available"
         values={
           Object {
-            "0": 4,
+            "0": 7,
           }
         }
       />
@@ -7071,7 +7071,7 @@ Array [
                 }
               }
             >
-              98.54
+              98.44
               %
             </td>
             <td
@@ -7088,7 +7088,7 @@ Array [
                   className="flex-sub performance-bar Rogue-bg"
                   style={
                     Object {
-                      "width": "98.5443406074545%",
+                      "width": "98.43601889208556%",
                     }
                   }
                 />
@@ -7145,95 +7145,6 @@ Array [
               }
             >
               <img
-                alt="Arms Warrior"
-                className="icon "
-                src="/specs/Warrior-Arms.jpg"
-              />
-               
-              Relicprince
-            </td>
-            <td
-              style={
-                Object {
-                  "textAlign": "right",
-                  "width": 50,
-                }
-              }
-            >
-              98.09
-              %
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "40%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar Warrior-bg"
-                  style={
-                    Object {
-                      "width": "98.08681876860435%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              style={
-                Object {
-                  "textAlign": "right",
-                  "width": 50,
-                }
-              }
-            >
-              2.18
-              %
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "40%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar Warrior-bg"
-                  style={
-                    Object {
-                      "width": "9.003931847968545%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              style={
-                Object {
-                  "textAlign": "right",
-                  "width": 50,
-                }
-              }
-            >
-              67k
-            </td>
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <img
                 alt="Beast Mastery Hunter"
                 className="icon "
                 src="/specs/Hunter-BeastMastery.jpg"
@@ -7249,7 +7160,7 @@ Array [
                 }
               }
             >
-              97.96
+              97.93
               %
             </td>
             <td
@@ -7266,7 +7177,7 @@ Array [
                   className="flex-sub performance-bar Hunter-bg"
                   style={
                     Object {
-                      "width": "97.96286263763972%",
+                      "width": "97.92713336708644%",
                     }
                   }
                 />
@@ -7328,7 +7239,7 @@ Array [
                 src="/specs/Warrior-Arms.jpg"
               />
                
-              Prüttan
+              Relicprince
             </td>
             <td
               style={
@@ -7338,7 +7249,7 @@ Array [
                 }
               }
             >
-              95.45
+              97.83
               %
             </td>
             <td
@@ -7355,7 +7266,96 @@ Array [
                   className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
-                      "width": "95.45070608696233%",
+                      "width": "97.83033392584535%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              style={
+                Object {
+                  "textAlign": "right",
+                  "width": 50,
+                }
+              }
+            >
+              2.18
+              %
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "40%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar Warrior-bg"
+                  style={
+                    Object {
+                      "width": "9.003931847968545%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              style={
+                Object {
+                  "textAlign": "right",
+                  "width": 50,
+                }
+              }
+            >
+              67k
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <img
+                alt="Arms Warrior"
+                className="icon "
+                src="/specs/Warrior-Arms.jpg"
+              />
+               
+              Prüttan
+            </td>
+            <td
+              style={
+                Object {
+                  "textAlign": "right",
+                  "width": 50,
+                }
+              }
+            >
+              95.16
+              %
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "40%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar Warrior-bg"
+                  style={
+                    Object {
+                      "width": "95.15947593353211%",
                     }
                   }
                 />
@@ -7427,7 +7427,7 @@ Array [
                 }
               }
             >
-              93.49
+              92.99
               %
             </td>
             <td
@@ -7444,7 +7444,7 @@ Array [
                   className="flex-sub performance-bar DemonHunter-bg"
                   style={
                     Object {
-                      "width": "93.49049198483135%",
+                      "width": "92.99392801271328%",
                     }
                   }
                 />
@@ -7516,7 +7516,7 @@ Array [
                 }
               }
             >
-              90.75
+              90.37
               %
             </td>
             <td
@@ -7533,7 +7533,7 @@ Array [
                   className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
-                      "width": "90.74925161278303%",
+                      "width": "90.36909414326306%",
                     }
                   }
                 />
@@ -7590,95 +7590,6 @@ Array [
               }
             >
               <img
-                alt="Brewmaster Monk"
-                className="icon "
-                src="/specs/Monk-Brewmaster.jpg"
-              />
-               
-              Dobbadon
-            </td>
-            <td
-              style={
-                Object {
-                  "textAlign": "right",
-                  "width": 50,
-                }
-              }
-            >
-              89.42
-              %
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "40%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar Monk-bg"
-                  style={
-                    Object {
-                      "width": "89.41514859243648%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              style={
-                Object {
-                  "textAlign": "right",
-                  "width": 50,
-                }
-              }
-            >
-              5.49
-              %
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "40%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar Monk-bg"
-                  style={
-                    Object {
-                      "width": "22.637280338085432%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              style={
-                Object {
-                  "textAlign": "right",
-                  "width": 50,
-                }
-              }
-            >
-              169k
-            </td>
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <img
                 alt="Restoration Druid"
                 className="icon "
                 src="/specs/Druid-Restoration.jpg"
@@ -7694,7 +7605,7 @@ Array [
                 }
               }
             >
-              89.28
+              88.94
               %
             </td>
             <td
@@ -7711,7 +7622,7 @@ Array [
                   className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
-                      "width": "89.28440167005107%",
+                      "width": "88.9393859033237%",
                     }
                   }
                 />
@@ -7768,12 +7679,12 @@ Array [
               }
             >
               <img
-                alt="Retribution Paladin"
+                alt="Brewmaster Monk"
                 className="icon "
-                src="/specs/Paladin-Retribution.jpg"
+                src="/specs/Monk-Brewmaster.jpg"
               />
                
-              Sanctues
+              Dobbadon
             </td>
             <td
               style={
@@ -7783,7 +7694,7 @@ Array [
                 }
               }
             >
-              89.02
+              88.89
               %
             </td>
             <td
@@ -7797,10 +7708,10 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar Paladin-bg"
+                  className="flex-sub performance-bar Monk-bg"
                   style={
                     Object {
-                      "width": "89.02169131232002%",
+                      "width": "88.89453664880317%",
                     }
                   }
                 />
@@ -7814,7 +7725,7 @@ Array [
                 }
               }
             >
-              5.99
+              5.49
               %
             </td>
             <td
@@ -7828,10 +7739,10 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar Paladin-bg"
+                  className="flex-sub performance-bar Monk-bg"
                   style={
                     Object {
-                      "width": "24.709390964773853%",
+                      "width": "22.637280338085432%",
                     }
                   }
                 />
@@ -7845,7 +7756,7 @@ Array [
                 }
               }
             >
-              185k
+              169k
             </td>
           </tr>
           <tr>
@@ -7872,7 +7783,7 @@ Array [
                 }
               }
             >
-              88.26
+              88.18
               %
             </td>
             <td
@@ -7889,7 +7800,7 @@ Array [
                   className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
-                      "width": "88.25575717044373%",
+                      "width": "88.1751733674887%",
                     }
                   }
                 />
@@ -7946,6 +7857,95 @@ Array [
               }
             >
               <img
+                alt="Retribution Paladin"
+                className="icon "
+                src="/specs/Paladin-Retribution.jpg"
+              />
+               
+              Sanctues
+            </td>
+            <td
+              style={
+                Object {
+                  "textAlign": "right",
+                  "width": 50,
+                }
+              }
+            >
+              86.71
+              %
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "40%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar Paladin-bg"
+                  style={
+                    Object {
+                      "width": "86.71206116484025%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              style={
+                Object {
+                  "textAlign": "right",
+                  "width": 50,
+                }
+              }
+            >
+              5.99
+              %
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "40%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar Paladin-bg"
+                  style={
+                    Object {
+                      "width": "24.709390964773853%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              style={
+                Object {
+                  "textAlign": "right",
+                  "width": 50,
+                }
+              }
+            >
+              185k
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <img
                 alt="Frost Mage"
                 className="icon "
                 src="/specs/Mage-Frost.jpg"
@@ -7961,7 +7961,7 @@ Array [
                 }
               }
             >
-              86.86
+              86.36
               %
             </td>
             <td
@@ -7978,7 +7978,7 @@ Array [
                   className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
-                      "width": "86.86392241333022%",
+                      "width": "86.36054419772844%",
                     }
                   }
                 />
@@ -8050,7 +8050,7 @@ Array [
                 }
               }
             >
-              81.83
+              81.49
               %
             </td>
             <td
@@ -8067,7 +8067,7 @@ Array [
                   className="flex-sub performance-bar Warlock-bg"
                   style={
                     Object {
-                      "width": "81.82952578143875%",
+                      "width": "81.49039553717591%",
                     }
                   }
                 />
@@ -8139,7 +8139,7 @@ Array [
                 }
               }
             >
-              79.44
+              78.91
               %
             </td>
             <td
@@ -8156,7 +8156,7 @@ Array [
                   className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
-                      "width": "79.44232144093188%",
+                      "width": "78.9055659912211%",
                     }
                   }
                 />
@@ -8228,7 +8228,7 @@ Array [
                 }
               }
             >
-              71.88
+              71.80
               %
             </td>
             <td
@@ -8245,7 +8245,7 @@ Array [
                   className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
-                      "width": "71.88446075468676%",
+                      "width": "71.79635591230745%",
                     }
                   }
                 />
@@ -8317,7 +8317,7 @@ Array [
                 }
               }
             >
-              55.06
+              54.88
               %
             </td>
             <td
@@ -8334,7 +8334,7 @@ Array [
                   className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
-                      "width": "55.05703287598796%",
+                      "width": "54.877283332605295%",
                     }
                   }
                 />
@@ -8893,7 +8893,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              0.84
+              0.00
             </td>
             <td
               style={
@@ -8961,7 +8961,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
               className="text-right"
             >
               0.00 - 
-              0.92
+              314.57
             </td>
             <td
               style={
@@ -9020,7 +9020,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              0.72
+              275.86
             </td>
             <td
               style={
@@ -9079,7 +9079,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              0.75
+              170.99
             </td>
             <td
               style={
@@ -9146,7 +9146,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              0.92
+              224.03
             </td>
             <td
               style={
@@ -9684,7 +9684,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  68.23%
+                  49.42%
                    
                    
                 </div>
@@ -9704,9 +9704,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "44.06406390122066%",
+                        "width": "25.31890805911573%",
                       }
                     }
                   />
@@ -9828,7 +9828,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  50.73%
+                  37.52%
                    
                    
                 </div>
@@ -9850,7 +9850,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "24.13471882447553%",
+                        "width": "17.84917240963103%",
                       }
                     }
                   />
@@ -9996,7 +9996,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  20
+                  32
                    
                    
                 </div>
@@ -10018,7 +10018,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "5.616336375%",
+                        "width": "3.5102102343750006%",
                       }
                     }
                   />
@@ -10315,7 +10315,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "46.08882392089102%",
+                  "width": "40.07132066196245%",
                 }
               }
             />
@@ -10531,7 +10531,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "28.081681874999997%",
+                        "width": "16.04667535714286%",
                       }
                     }
                   />
@@ -10856,7 +10856,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  93.29%
+                  92.73%
                    
                    
                 </div>
@@ -11083,7 +11083,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "48.59026797740071%",
+                  "width": "42.36173997535898%",
                 }
               }
             />
@@ -11186,7 +11186,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  55.63%
+                  62.40%
                    
                    
                 </div>
@@ -11208,7 +11208,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "26.937489109939484%",
+                        "width": "24.01596524089441%",
                       }
                     }
                   />
@@ -11246,7 +11246,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  33.40%
+                  46.50%
                    
                    
                 </div>
@@ -11266,9 +11266,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "70.24304684486194%",
+                        "width": "60.70751470982355%",
                       }
                     }
                   />
