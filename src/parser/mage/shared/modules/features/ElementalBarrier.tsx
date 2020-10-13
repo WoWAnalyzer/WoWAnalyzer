@@ -28,7 +28,7 @@ class ElementalBarrier extends Analyzer {
   constructor(options: Options) {
     super(options);
     const spec = this.selectedCombatant.specId;
-    this.barrierSpell = spec === SPECS.FROST_MAGE.id ? SPELLS.ICE_BARRIER : spec === SPECS.FIRE_MAGE.id ? SPELLS.BLAZING_BARRIER : SPECS.PRISMATIC_BARRIER;
+    this.barrierSpell = spec === SPECS.FROST_MAGE.id ? SPELLS.ICE_BARRIER : spec === SPECS.FIRE_MAGE.id ? SPELLS.BLAZING_BARRIER : SPELLS.PRISMATIC_BARRIER;
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(this.barrierSpell), this.onDamageAbsorbed);
   }
 
