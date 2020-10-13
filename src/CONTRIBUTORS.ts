@@ -951,4 +951,9 @@ export const ChagriAli: Contributor = {
 export const Barter: Contributor = {
   nickname: 'barter',
   github: 'giubatt'
-}
+};
+export const Jafowler: Contributor = {
+  nickname: 'Jake',
+  github: 'jafowler',
+  discord: 'Xinnk#3169',
+};
