@@ -61,9 +61,9 @@ class SoothingMist extends Analyzer {
   castSoothingMist(event) {
     if (this.soomInProgress) {
     //if they refresh soom for some stupid reason
-    this.endStamp = event.timestamp;
-    this.checkChannelTiming();
-    this.castsInSoom = 0;
+      this.endStamp = event.timestamp;
+      this.checkChannelTiming();
+      this.castsInSoom = 0;
     }
     
     this.startStamp = event.timestamp;
@@ -86,13 +86,12 @@ class SoothingMist extends Analyzer {
   checkChannelTiming() {
     this.totalSoomCasts += 1;
     let duration = this.endStamp - this.startStamp;
-
+    
     if (duration < this.startGCD) {
       return;
     }
-
+    
     duration -= this.startGCD;
-    this.castsInSoom -= 1;
 
     this.castsInSoom -= parseInt(duration / this.assumedGCD);
 

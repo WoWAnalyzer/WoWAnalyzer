@@ -7,7 +7,8 @@ import { change, date } from 'common/changelog';
 
 
 export default [
-  change(date(2020, 10, 7), <>Updated <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> and <SpellLink id={SPELLS.SOOTHING_MIST.id} /> modules to use Event Listeners.</>, [Anomoly]),
+  change(date(2020, 10, 12), <>Updated <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> and <SpellLink id={SPELLS.SOOTHING_MIST.id} /> modules to use Event Listeners.</>, [Anomoly]),
+  change(date(2020, 10, 12), <>Converted the majority of files to typescript. </>, Abelito75),
   change(date(2020, 10, 7), <>Updated Stat value scaling. </>, Abelito75),
   change(date(2020, 10, 7), <>Updated Harm Denial to include the expel harm cast on an ally.</>, Moonrabbit),
   change(date(2020, 10, 6), <>Updated <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> and <SpellLink id={SPELLS.ESSENCE_FONT.id} /> modules to use Event Listeners.</>, [Anomoly]),
