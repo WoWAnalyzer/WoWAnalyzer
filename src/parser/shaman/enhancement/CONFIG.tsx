@@ -9,16 +9,18 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [HawkCorrigan, Vetyst, Vonn],
-  patchCompatibility: '8.3',
-  isSupported: false,
+  patchCompatibility: '9.0.1',
+  isSupported: true,
   description: (
     <>
-      <Warning>
-        Hey there! Right now the Enhancement Shaman parser only holds very basic functionality. What we do show should be good to use, but it does not show the complete picture.
-      </Warning>
+    <Warning>
+      Right now the Enhancement Analyzer is a work-in-progress, and only holds very basic functionality.
+    </Warning>
+    <br />
+    Hey there! Thanks for checking out the Enhancement Analyzer. If you have any feedback or suggestions, feel free to reach out to Vonn via Discord (vønn#2776) or drop an issue in the GitHub repo.
     </>
   ),
-  exampleReport: '/report/XCr9vJdmcKQtTWLz/4-Heroic+Maut+-+Kill+(4:04)/Part%C3%ADcle/standard',
+  exampleReport: '/report/PD96Rd7x8rmKcjhn/34-Mythic+The+Council+of+Blood+-+Wipe+15+(4:09)/By',
 
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,
