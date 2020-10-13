@@ -25,7 +25,7 @@ export default {
   [SPELLS.LIGHT_OF_DAWN_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpct: true,
+    hasteHpct: false,
     mastery: true,
     vers: true,
   },
@@ -140,4 +140,18 @@ export default {
     mastery: true,
     vers: true,
   },
+  [SPELLS.WORD_OF_GLORY.id]: {
+    int: true,
+    crit: true,
+    mastery: true,
+    vers: true,
+  },
+  [SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id]: {
+    // Holy Paladin Talent 
+    int: true,
+    crit: true,
+    hasteHpct: true,
+    mastery: true,
+    vers: true,
+  }
 };

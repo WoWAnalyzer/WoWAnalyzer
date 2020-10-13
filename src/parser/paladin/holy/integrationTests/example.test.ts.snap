@@ -1878,7 +1878,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               34
-              /69
+              /83
                
               casts
             </td>
@@ -1897,7 +1897,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "49.42129200728295%",
+                      "width": "41.18473940229408%",
                     }
                   }
                 />
@@ -1912,7 +1912,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              49.42%
+              41.18%
             </td>
             <td
               style={
@@ -5080,8 +5080,8 @@ Array [
         values={
           Object {
             "0": 34,
-            "1": 69,
-            "2": "49",
+            "1": 83,
+            "2": "41",
           }
         }
       />
@@ -6079,8 +6079,8 @@ Array [
       id="You started casting {0} filler <0/>s while <1/> was <2>available</2> (at {1} ). <3/> is a much more efficient spell and should be prioritized<4>*</4>."
       values={
         Object {
-          "0": 32,
-          "1": "0:12, 0:14, 0:21, 0:22, 0:25, 0:33, 0:34, 0:41, 0:44, 0:54, 0:57, 1:04, 1:06, 1:14, 1:15, 1:52, 1:54, 2:02, 2:04, 2:15, 2:16, 2:49, 3:00, 3:41, 4:04, 4:08, 4:43, 4:53, 5:16, 5:26, 6:09, 6:33",
+          "0": 36,
+          "1": "0:12, 0:14, 0:21, 0:22, 0:25, 0:33, 0:34, 0:41, 0:44, 0:50, 0:51, 0:54, 0:57, 1:03, 1:04, 1:06, 1:14, 1:15, 1:52, 1:54, 2:02, 2:04, 2:15, 2:16, 2:49, 3:00, 3:41, 4:04, 4:08, 4:43, 4:53, 5:14, 5:16, 5:26, 6:09, 6:33",
         }
       }
     />,
@@ -6089,7 +6089,7 @@ Array [
         id="{actual} casts while Holy Shock was available"
         values={
           Object {
-            "actual": 32,
+            "actual": 36,
           }
         }
       />
@@ -8961,7 +8961,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
               className="text-right"
             >
               0.00 - 
-              314.57
+              278.37
             </td>
             <td
               style={
@@ -9684,7 +9684,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  49.42%
+                  41.18%
                    
                    
                 </div>
@@ -9706,7 +9706,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "25.31890805911573%",
+                        "width": "21.099258801482964%",
                       }
                     }
                   />
@@ -9996,7 +9996,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  32
+                  36
                    
                    
                 </div>
@@ -10018,7 +10018,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "3.5102102343750006%",
+                        "width": "3.1201868750000004%",
                       }
                     }
                   />
