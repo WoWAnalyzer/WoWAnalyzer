@@ -103,7 +103,7 @@ class InvokeChiJi extends Analyzer {
   handleStackGenerator(event: DamageEvent) {
     if(this.chijiActive) {
       if(event.ability.guid === SPELLS.SPINNING_CRANE_KICK_DAMAGE.id){
-        const enemy : string = `${event.targetID} ${event.targetInstance || 0}`;
+        const enemy: string = `${event.targetID} ${event.targetInstance || 0}`;
         if (!this.sckHits.includes(enemy)) {
             this.sckHits.push(enemy);
         }
