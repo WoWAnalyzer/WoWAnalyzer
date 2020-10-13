@@ -1,12 +1,11 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
-
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events, { CastEvent } from 'parser/core/Events';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 import SpellLink from 'common/SpellLink';
 
@@ -25,24 +24,26 @@ const RAGE_GENERATORS = [
   SPELLS.BLADESTORM_TALENT,
 ];
 
+// This whole module is kind of messed up on the theorycrafting level. As of 8.3 there are a lot of times that Rampage isn't the top priority if you have to keep Bloodthirst up for gushing wounds or cast whirlwind before rampage to cleave. TBD in shadowlands
 class MissedRampage extends Analyzer {
-  missedRampages = 0;
-  hasFB = false;
+  missedRampages: number = 0;
+  hasFB: boolean = false;
 
-  constructor(...args) {
-    super(...args);
-
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
-
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAGE_GENERATORS), this.onPlayerCast);
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...RAGE_GENERATORS]), this.onCast);
   }
 
-  onPlayerCast(event) {
-    const rage = event.classResources && event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.RAGE.id);
-    if (!rage) {
+  onCast(event: CastEvent) {
+    if (!event.classResources) {
       return;
     }
 
+    if (!event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.RAGE.id)) {
+      return;
+    }
+
+    const rage = event.classResources[0].amount / 10;
     if (rage >= 90) {
       this.missedRampages += 1;
     }
@@ -57,7 +58,7 @@ class MissedRampage extends Analyzer {
           average: 0,
           major: 0,
         },
-        style: 'number',
+        style: ThresholdStyle.NUMBER,
       };
     } else {
       return {
@@ -67,12 +68,12 @@ class MissedRampage extends Analyzer {
           average: 5,
           major: 10,
         },
-        style: 'number',
+        style: ThresholdStyle.NUMBER,
       };
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           There were {actual} times you casted a rage generating ability when you should have cast <SpellLink id={SPELLS.RAMPAGE.id} />.

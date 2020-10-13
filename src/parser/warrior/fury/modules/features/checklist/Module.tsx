@@ -33,6 +33,24 @@ class Checklist extends BaseChecklist {
     whirlWind: WhirlWind,
   };
 
+  // Core
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+
+  // Spells
+  protected whirlWind!: WhirlWind;
+
+  // Talents
+  protected siegeBreaker!: SiegeBreaker;
+  protected bladeStorm!: Bladestorm;
+  protected dragonRoar!: DragonRoar;
+
+  // Resources
+  protected rageDetails!: RageDetails;
+  protected missedRampage!: MissedRampage;
+
   render() {
     return (
       <Component

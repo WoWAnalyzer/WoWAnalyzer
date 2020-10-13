@@ -1,34 +1,35 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber, formatThousands } from 'common/format';
-import StatisticBox from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import UptimeIcon from 'interface/icons/Uptime';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 class Enrage extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
-    abilityTracker: AbilityTracker,
   }
 
-  totalDamage = 0;
-  damage = 0;
+  protected statTracker!: StatTracker;
 
-  constructor(...args) {
-    super(...args);
+  totalDamage: number = 0;
+  damage: number = 0;
+
+  constructor(options: Options) {
+    super(options);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
   }
 
-  onPlayerDamage(event) {
+  onPlayerDamage(event: DamageEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id)) {
       this.damage += calculateEffectiveDamage(event, this.statTracker.currentMasteryPercentage);
       this.totalDamage += event.amount;
@@ -49,17 +50,17 @@ class Enrage extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.enrageUptime,
+      actual: this.uptime,
       isLessThan: {
         minor: 0.7,
         average: 0.65,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</>)
           .icon(SPELLS.ENRAGE.icon)
@@ -69,12 +70,16 @@ class Enrage extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ENRAGE.id} />}
-        value={`${formatPercentage(this.uptime)}% uptime`}
-        label="Enrage"
+      <Statistic
+        size="flexible"
         tooltip={<>You did <strong>{formatThousands(this.damage)} ({formatPercentage(this.damageTotalPercent)}%)</strong> damage while enraged, contributing <strong>{formatNumber(this.dpsIncrease)}</strong> DPS.</>}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.ENRAGE}>
+          <>
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

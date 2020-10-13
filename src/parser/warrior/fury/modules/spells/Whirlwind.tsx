@@ -1,12 +1,13 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage} from 'common/format';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SpellLink from 'common/SpellLink';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -18,21 +19,24 @@ class Whirlwind extends Analyzer {
     rageTracker: RageTracker,
   };
 
-  hasDragonsRoar = false;
-  hasBladeStorm = false;
+  protected spellUsable!: SpellUsable;
+  protected rageTracker!: RageTracker;
 
-  lastCastWW = false;
+  hasDragonsRoar: boolean = false;
+  hasBladeStorm: boolean = false;
 
-  drWasAvailable = false;//dragons roar
-  bsWasAvailable = false;//blade storm
-  btWasAvailable = false;//bloodthirst
-  ramWasAvailable = false;//rampage
-  rbWasAvailable = false;//raging blow
-  exWasAvailable = false;//execute
+  lastCastWW: boolean = false;
 
-  lastEvent;
+  drWasAvailable: boolean = false;//dragons roar
+  bsWasAvailable: boolean = false;//blade storm
+  btWasAvailable: boolean = false;//bloodthirst
+  ramWasAvailable: boolean = false;//rampage
+  rbWasAvailable: boolean = false;//raging blow
+  exWasAvailable: boolean = false;//execute
 
-  enemiesHitWW = [];
+  lastEvent: CastEvent | null = null;
+
+  enemiesHitWW: any[] = [];
 
   wasEnraged = false;
 
@@ -45,8 +49,8 @@ class Whirlwind extends Analyzer {
 
   rampageCost = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.hasDragonsRoar = this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id);
     this.hasBladeStorm = this.selectedCombatant.hasTalent(SPELLS.BLADESTORM_TALENT.id);
     this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_FURY.id) ? 0.35 : 0.2;
@@ -71,7 +75,7 @@ class Whirlwind extends Analyzer {
   }
 
   //just check what else they could have casted
-  spellCheck(event){
+  spellCheck(event: CastEvent){
     this.lastEvent = event;
 
     this.btWasAvailable = this.spellUsable.isAvailable(SPELLS.BLOODTHIRST.id);
@@ -89,7 +93,7 @@ class Whirlwind extends Analyzer {
     this.lastCastWW = true;
   }
 
-  wwDamage(event){
+  wwDamage(event: DamageEvent){
     const enemy = `${event.targetID} ${event.targetInstance || 0}`;
 
     if(!this.enemiesHitWW.includes(enemy)){
@@ -97,11 +101,19 @@ class Whirlwind extends Analyzer {
     }
   }
 
-  isExecuteBelowThreshold(event) {
+  isExecuteBelowThreshold(event: CastEvent) {
+    if (!event.hitPoints || !event.maxHitPoints) {
+      return;
+    }
     return event.hitPoints / event.maxHitPoints < this.executeThreshold;
   }
 
-  wasValidWW(event){
+  wasValidWW(event: CastEvent){
+    if (!this.lastEvent) {
+      this.lastEvent = event;
+      this.lastEvent.timestamp += 750;
+    }
+
     if(!this.lastCastWW || event === this.lastEvent || event.timestamp - 750 < this.lastEvent.timestamp){
       return;
     }
@@ -138,11 +150,11 @@ class Whirlwind extends Analyzer {
 			  average: .8,
 			  major: .7,
 		  },
-		  style: 'percentage',
+		  style: ThresholdStyle.PERCENTAGE,
 	  };
   }
 
-  suggestions(when){
+  suggestions(when: When){
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> poorly. Try to only use it if your other abilities are on cooldown.</>)
         .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of bad Whirlwind casts`)
