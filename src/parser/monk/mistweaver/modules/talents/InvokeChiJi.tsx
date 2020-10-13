@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import {Trans} from '@lingui/macro';
 import Analyzer, {Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, HealEvent, EndChannelEvent, DeathEvent, GlobalCooldownEvent, DamageEvent} from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -17,27 +17,24 @@ import SpellLink from 'common/SpellLink';
  * Casting Enveloping Mist while Chiji is active applies Enveloping Breath on up to 6 nearby allies within 10 yards.
 */
 class InvokeChiJi extends Analyzer {
-  chijiActive = false;
+  MAX_STACKS: number = 3;
+  chijiActive: boolean = false;
   //healing breakdown vars
-  gustHealing = 0;
-  envelopHealing = 0;
-  //stack breakdown vars
-  chijiStackCount = 0;
-  castsBelowMaxStacks = 0;
-  wastedStacks = 0;
-  freeCasts = 0;
-  //missed GCDs vars
-  missedGlobals = 0;
-  chijiStart = 0;
-  chijiGlobals = 0;
-  chijiUses = 0;
-  lastGlobal = 0;
-  efGcd = 0;
-  sckHits = [];
-  
-class InvokeChiJi extends Analyzer {
   gustHealing: number = 0;
   envelopHealing: number = 0;
+  //stack breakdown vars
+  chijiStackCount: number = 0;
+  castsBelowMaxStacks: number = 0;
+  wastedStacks: number = 0;
+  freeCasts: number = 0;
+  //missed GCDs vars
+  missedGlobals: number = 0;
+  chijiStart: number = 0;
+  chijiGlobals: number = 0;
+  chijiUses: number = 0;
+  lastGlobal: number = 0;
+  efGcd: number = 0;
+  sckHits: string[] = [];
 
   constructor(args: Options) {
     super(args);
@@ -47,7 +44,8 @@ class InvokeChiJi extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.handleEnvelopingBreath);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.handleEnvelopCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT), this.handleChijiStart);
-    this.addEventListener(Events.death.to([SELECTED_PLAYER_PET, SELECTED_PLAYER]), this.handleChijiDeath);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.handleChijiDeath);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BLACKOUT_KICK, SPELLS.RISING_SUN_KICK_SECOND, SPELLS.BLACKOUT_KICK_TOTM, SPELLS.SPINNING_CRANE_KICK_DAMAGE]), this.handleStackGenerator)
     //need a different eventlistener beacause chiji currently only applies 1 stack per cast of sck, not on each dmg event
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.handleSpinningCraneKick);
@@ -68,10 +66,6 @@ class InvokeChiJi extends Analyzer {
   }
 
   handleGlobal(event: GlobalCooldownEvent){
-    //cant get eventlistener to find chiji's death so we will check against duration here
-    if(event.timestamp - this.chijiStart > SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.duration) {
-      this.chijiActive = false;
-    }
     if(this.chijiActive) {
       this.chijiGlobals += 1;
       //if timebetween globals is longer than the gcd add the difference to the missed gcd tally
@@ -90,7 +84,7 @@ class InvokeChiJi extends Analyzer {
       if(event.duration > this.efGcd) { 
         this.lastGlobal =  event.timestamp - this.efGcd;
       }
-      else if(event.isCancelled) {
+      else {
         this.lastGlobal = event.start + this.efGcd;
       } 
     }
@@ -108,8 +102,8 @@ class InvokeChiJi extends Analyzer {
   //stackbreakown management
   handleStackGenerator(event: DamageEvent) {
     if(this.chijiActive) {
-      if(event.ability.guid === SPELLS.SPINNING_CRANE_KICK_DAMAGE.id /*&& event.timestamp >= this.sckStart && event.timestamp <= this.sckEnd*/){
-        const enemy = `${event.targetID} ${event.targetInstance || 0}`;
+      if(event.ability.guid === SPELLS.SPINNING_CRANE_KICK_DAMAGE.id){
+        const enemy : string = `${event.targetID} ${event.targetInstance || 0}`;
         if (!this.sckHits.includes(enemy)) {
             this.sckHits.push(enemy);
         }
@@ -131,9 +125,9 @@ class InvokeChiJi extends Analyzer {
   handleEnvelopCast(event: CastEvent) {
     //in some cases the last envelop is cast after chiji has expired but the buff can still be consumed
       if(this.chijiActive || this.selectedCombatant.hasBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id)) {
-        if (this.chijiStackCount === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.maxStacks) {
+        if (this.chijiStackCount === this.MAX_STACKS) {
           this.freeCasts += 1;
-        } else if (this.chijiStackCount < SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.maxStacks) {
+        } else if (this.chijiStackCount < this.MAX_STACKS) {
           this.castsBelowMaxStacks += 1;
         }
       this.chijiStackCount = 0;
@@ -141,7 +135,7 @@ class InvokeChiJi extends Analyzer {
   }
 
   stackCount() {
-    if(this.chijiStackCount === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.maxStacks) {
+    if(this.chijiStackCount === this.MAX_STACKS) {
       this.wastedStacks += 1;
     } else {
       this.chijiStackCount += 1;
@@ -164,7 +158,7 @@ class InvokeChiJi extends Analyzer {
                   Stack Breakdown:
                     <ul>
                     <li>{formatNumber(this.freeCasts)} free Enveloping Mist cast(s).</li>
-                    <li>{formatNumber(this.castsBelowMaxStacks)} Enveloping Mist cast(s) below max ({SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.maxStacks}) Chi-Ji stacks.</li>
+                    <li>{formatNumber(this.castsBelowMaxStacks)} Enveloping Mist cast(s) below max ({this.MAX_STACKS}) Chi-Ji stacks.</li>
                     <li>{formatNumber(this.wastedStacks)} stack(s) wasted from overcapping Chi-Ji stacks.</li>
                     </ul>
                   Activity:
