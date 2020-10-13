@@ -40,7 +40,7 @@ class HolyAvenger extends Analyzer {
     const formHA = event.resourceChange - baseAmount;// this is also baseAmount * 2
 
     let waste = event.waste;
-    let gain = event.resourceChange - waste;
+    const gain = event.resourceChange - waste;
 
     //We only care about what is from HA not the base spell
     if(waste > formHA){
