@@ -7,27 +7,27 @@ class Buffs extends CoreBuffs {
     return [
       {
         spellId: SPELLS.TRUESHOT.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
         triggeredBySpellId: SPELLS.TRUESHOT.id,
       },
       {
         spellId: SPELLS.PRECISE_SHOTS.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
         triggeredBySpellId: SPELLS.AIMED_SHOT.id,
       },
       {
         spellId: SPELLS.LOCK_AND_LOAD_BUFF.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
         triggeredBySpellId: SPELLS.LOCK_AND_LOAD_TALENT.id,
       },
       {
         spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
-        timelineHightlight: true, // showing because it's relevant to know when we couldn't attack (this could explain some downtime)
+        timelineHighlight: true, // showing because it's relevant to know when we couldn't attack (this could explain some downtime)
         triggeredBySpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

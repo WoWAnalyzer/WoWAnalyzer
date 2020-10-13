@@ -11,30 +11,30 @@ class Buffs extends CoreBuffs {
     return [
       {
         spellId: SPELLS.ICEFURY_TALENT.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.FIRE_ELEMENTAL.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id,
         enabled: combatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.SURGE_OF_POWER_BUFF.id,
         enabled: combatant.hasTalent(SPELLS.SURGE_OF_POWER_TALENT.id),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.STORMKEEPER_TALENT.id,
         triggeredBySpellId: SPELLS.STORMKEEPER_TALENT.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

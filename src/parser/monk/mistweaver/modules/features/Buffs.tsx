@@ -22,13 +22,13 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.REFRESHING_JADE_WIND_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       // Throughput Cooldown
       {
         spellId: SPELLS.MANA_TEA_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.MANA_TEA_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
 
       // Utility
@@ -49,7 +49,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }
