@@ -9,7 +9,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import SpellLink from 'common/SpellLink';
-import StatTracker from 'parser/shared/modules/StatTracker';
 
 /** 
  * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick generate stacks of Invoke Chi-Ji, the Red Crane, which reduce the cast time and mana 
@@ -18,7 +17,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
  * Casting Enveloping Mist while Chiji is active applies Enveloping Breath on up to 6 nearby allies within 10 yards.
 */
 class InvokeChiJi extends Analyzer {
-  static dependencies = {statTracker: StatTracker};
   chijiActive = false;
   //healing breakdown vars
   gustHealing = 0;
@@ -34,10 +32,8 @@ class InvokeChiJi extends Analyzer {
   chijiGlobals = 0;
   chijiUses = 0;
   lastGlobal = 0;
-  efChannelStart = 0;
-  efChannelEnd = 0;
-  
-  envCount = 0;
+  efGcd = 0;
+  sckHits = [];
   
 class InvokeChiJi extends Analyzer {
   gustHealing: number = 0;
@@ -51,13 +47,11 @@ class InvokeChiJi extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.handleEnvelopingBreath);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.handleEnvelopCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT), this.handleChijiStart);
-    this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
-    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.handleChijiDeath);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BLACKOUT_KICK, SPELLS.RISING_SUN_KICK_SECOND, SPELLS.BLACKOUT_KICK_TOTM]), this.handleOvercapStacks)
+    this.addEventListener(Events.death.to([SELECTED_PLAYER_PET, SELECTED_PLAYER]), this.handleChijiDeath);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BLACKOUT_KICK, SPELLS.RISING_SUN_KICK_SECOND, SPELLS.BLACKOUT_KICK_TOTM, SPELLS.SPINNING_CRANE_KICK_DAMAGE]), this.handleStackGenerator)
     //need a different eventlistener beacause chiji currently only applies 1 stack per cast of sck, not on each dmg event
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.handleOvercapStacks);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.handleSpinningCraneKick);
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.handleGlobal);
-    this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.handleEssenceFontStart);
     this.addEventListener(Events.EndChannel.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.handleEssenceFontEnd);
   }
 
@@ -69,7 +63,7 @@ class InvokeChiJi extends Analyzer {
     this.chijiUses +=1;
   }
   
-  handleChijiDeath(event) {
+  handleChijiDeath(event: DeathEvent) {
     this.chijiActive = false;
   }
 
@@ -83,7 +77,7 @@ class InvokeChiJi extends Analyzer {
       //if timebetween globals is longer than the gcd add the difference to the missed gcd tally
       //we only care about accounting for channels of essence font during WoO, other than that it should be the gcd during chiji
       if(event.ability.guid === SPELLS.ESSENCE_FONT.id && this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)) {
-        return;
+        this.efGcd = event.duration;
       } else if((event.timestamp - this.lastGlobal) > event.duration) {
         this.missedGlobals += (event.timestamp - this.lastGlobal - event.duration)/event.duration;
       }
@@ -91,25 +85,19 @@ class InvokeChiJi extends Analyzer {
     }
   }
 
-  handleEssenceFontStart(event) { 
+  handleEssenceFontEnd(event: EndChannelEvent) {
     if(this.chijiActive && this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)) { 
-       this.efChannelStart = this.lastGlobal = event.timestamp;
+      if(event.duration > this.efGcd) { 
+        this.lastGlobal =  event.timestamp - this.efGcd;
+      }
+      else if(event.isCancelled) {
+        this.lastGlobal = event.start + this.efGcd;
+      } 
     }
   }
 
-  handleEssenceFontEnd(event) {
-    const gcd = 1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
-    if(this.chijiActive && this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)) { 
-      this.efChannelEnd = event.timestamp;
-      let duration = this.efChannelEnd - this.efChannelStart;
-      if(duration > gcd) { 
-        this.lastGlobal =  this.efChannelEnd - gcd;
-      }
-   }
-  }
-
   //healing management
-  handleGust(event) {
+  handleGust(event: HealEvent) {
     this.gustHealing += (event.amount || 0) + (event.absorbed || 0);
   }
 
@@ -118,13 +106,25 @@ class InvokeChiJi extends Analyzer {
   }
   
   //stackbreakown management
-  handleOvercapStacks(event) {
+  handleStackGenerator(event: DamageEvent) {
     if(this.chijiActive) {
-      if(this.chijiStackCount === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.maxStacks) {
-        this.wastedStacks += 1;
+      if(event.ability.guid === SPELLS.SPINNING_CRANE_KICK_DAMAGE.id /*&& event.timestamp >= this.sckStart && event.timestamp <= this.sckEnd*/){
+        const enemy = `${event.targetID} ${event.targetInstance || 0}`;
+        if (!this.sckHits.includes(enemy)) {
+            this.sckHits.push(enemy);
+        }
       } else {
-        this.chijiStackCount += 1;
+        this.stackCount();
       }
+    }
+  }
+
+  handleSpinningCraneKick(event: CastEvent) {
+    if(this.chijiActive) {
+      if(this.sckHits.length > 0) {
+        this.stackCount();
+      }
+      this.sckHits = [];
     }
   }
 
@@ -137,6 +137,14 @@ class InvokeChiJi extends Analyzer {
           this.castsBelowMaxStacks += 1;
         }
       this.chijiStackCount = 0;
+    }
+  }
+
+  stackCount() {
+    if(this.chijiStackCount === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.maxStacks) {
+      this.wastedStacks += 1;
+    } else {
+      this.chijiStackCount += 1;
     }
   }
 
