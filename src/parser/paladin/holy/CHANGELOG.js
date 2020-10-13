@@ -49,11 +49,11 @@ export default [
   change(date(2018, 7, 24), <>Improved the accuracy of the Devotion Aura statistic by excluding false positives such as <SpellLink id={SPELLS.STAGGER.id} /> from the <SpellLink id={SPELLS.AURA_MASTERY.id} /> effect. Added a link to WCL to view the details of Aura Mastery.</>, [Zerotorescue]),
   change(date(2018, 7, 22), 'Changed the "FoL/HL on beacons" statistic to "Direct beacon healing", so it now includes all beacon transfering spells.', [Zerotorescue]),
   change(date(2018, 7, 22), <>Reworked the Aura of Sacrifice analyzer to get a much more accurate result. The old method had a lot of false positive damage included due to bugs in the logs coming out of the game.</>, [Zerotorescue]),
-  change(date(2018, 7, 22), <>Changed the <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} /> analyzer to include back to back procs.</>, [Zerotorescue]),
+  change(date(2018, 7, 22), <>Changed the <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT.id} /> analyzer to include back to back procs.</>, [Zerotorescue]),
   change(date(2018, 7, 21), <>Healing increases such as Ilterendi, Crown Jewel of Silvermoon now correctly include boosted healing caused by <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} />.</>, [Zerotorescue]),
   change(date(2018, 7, 19), <>Added <SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} /> to the cooldown tracker.</>, [Zerotorescue]),
   change(date(2018, 7, 19), 'Removed Tyr\'s Deliverance.', [Zerotorescue]),
   change(date(2018, 7, 18), <>Added an accurate Aura of Sacrifice stat for the reworked version.</>, [Zerotorescue]),
-  change(date(2018, 7, 3), <>Fixed a bug where the mana reduction by <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} /> of <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> was not correctly accounted for in the cooldowns tab.</>, [Zerotorescue]),
+  change(date(2018, 7, 3), <>Fixed a bug where the mana reduction by <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT.id} /> of <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> was not correctly accounted for in the cooldowns tab.</>, [Zerotorescue]),
   change(date(2018, 6, 29), <>Updated the crit bonus for <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> to 30% (up from 25%).</>, [Zerotorescue]),
 ];

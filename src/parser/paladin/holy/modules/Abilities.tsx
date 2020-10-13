@@ -362,7 +362,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 110,
-        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id),
+        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT.id),
       },
       {
         // The primary beacon cast is registered as BEACON_OF_LIGHT_CAST_AND_BUFF

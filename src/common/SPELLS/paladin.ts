@@ -247,16 +247,6 @@ const spells: SpellList = {
     name: 'Infusion of Light',
     icon: 'ability_paladin_infusionoflight',
   },
-  DIVINE_PURPOSE_HOLY_SHOCK_BUFF: {
-    id: 216411,
-    name: 'Divine Purpose',
-    icon: 'spell_holy_divinepurpose',
-  },
-  DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF: {
-    id: 216413,
-    name: 'Divine Purpose',
-    icon: 'spell_holy_divinepurpose',
-  },
   CLEANSE: {
     id: 4987,
     name: 'Cleanse',

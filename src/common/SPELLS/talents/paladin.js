@@ -9,6 +9,7 @@ export default {
   HOLY_AVENGER_TALENT: { id: 105809, name: 'Holy Avenger', icon: 'ability_paladin_holyavenger' },
   SERAPHIM_TALENT: { id: 152262, name: 'Seraphim', icon: 'ability_paladin_seraphim' },
   FIST_OF_JUSTICE_TALENT_RETRIBUTION: { id: 234299, name: 'Fist of Justice', icon: 'spell_holy_fistofjustice' },
+  DIVINE_PURPOSE_TALENT: { id: 223817, name: 'Divine Purpose', icon: 'spell_holy_divinepurpose' },
 
   // Retribution
   ZEAL_TALENT: { id: 269569, name: 'Zeal', icon: 'spell_holy_sealofblood' },
@@ -18,7 +19,6 @@ export default {
   BLADE_OF_WRATH_TALENT: { id: 231832, name: 'Blade of Wrath', icon: 'ability_paladin_bladeofjustice' },
   EMPYREAN_POWER_TALENT: { id: 326732, name: 'Empyrean Power', icon: 'ability_paladin_sheathoflight' },
   EYE_FOR_AN_EYE_TALENT: { id: 205191, name: 'Eye for an Eye', icon: 'spell_holy_weaponmastery' },
-  DIVINE_PURPOSE_TALENT_RETRIBUTION: { id: 223817, name: 'Divine Purpose', icon: 'spell_holy_divinepurpose' },
   SELFLESS_HEALER_TALENT: { id: 85804, name: 'Selfless Healer', icon: 'ability_paladin_gaurdedbythelight' },
   JUSTICARS_VENGEANCE_TALENT: { id: 215661, name: 'Justicar\'s Vengeance', icon: 'spell_holy_retributionaura', maelstromCost: 5 },
   HEALING_HANDS_TALENT: { id: 326734, name: 'Healing Hands', icon: 'ability_paladin_infusionoflight' },
@@ -54,7 +54,6 @@ export default {
   //35 Unbreakable Spirit, Cavalier, Rule of law
   RULE_OF_LAW_TALENT: { id: 214202, name: 'Rule of Law', icon: 'ability_paladin_longarmofthelaw' },
   //40 Divine Purpose, Holy Avenger, Seraphim
-  DIVINE_PURPOSE_TALENT_HOLY: { id: 197646, name: 'Divine Purpose', icon: 'spell_holy_divinepurpose' },
   //45 Sanctified wrath, Avenging Crusader, Awakening
   SANCTIFIED_WRATH_TALENT: { id: 53376, name: 'Sanctified Wrath', icon: 'ability_paladin_sanctifiedwrath' },
   AVENGING_CRUSADER_TALENT: { id: 216331, name: 'Avenging Crusader', icon: 'ability_paladin_veneration', manaCost: 5000 },

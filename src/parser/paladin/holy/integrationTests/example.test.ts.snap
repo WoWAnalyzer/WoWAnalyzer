@@ -5369,6 +5369,93 @@ exports[`Holy Paladin integration test: example log ConchofDarkWhispers matches 
 </div>
 `;
 
+exports[`Holy Paladin integration test: example log DevotionAuraDamageReduction matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    onClick={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=465"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Devotion Aura"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_devotionaura.jpg"
+            />
+          </a>
+           
+          Damage reduction
+        </label>
+        <div
+          className="value"
+        >
+          Click to load
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+    <div
+      className="drilldown"
+    >
+      <a
+        href="https://www.warcraftlogs.com/reports/TEST/#fight=8&type=damage-taken&pins=2%24Off%24%23244F4B%24expression%24(IN%20RANGE%20FROM%20target.name%3D'Villahseen'%20AND%20type%3D'applybuff'%20AND%20ability.id%3D31821%20TO%20target.name%3D'Villahseen'%20AND%20type%3D'removebuff'%20AND%20ability.id%3D31821%20END)%0A%20%20%20%20%20%20AND%20(mitigatedDamage%2FrawDamage*100)%3E19&view=events"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <svg
+          className="icon"
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m 21,1019.3619 c -9.36611,0 -17.0000001,-7.6338 -17.0000001,-16.9997 0,-9.36596 7.6338901,-16.99972 17.0000001,-16.99972 l 20,0 c 8.95969,0 16.35051,6.95967 16.96875,15.78102 a 3.0068688,3.0068157 0 1 1 -6,0.4062 C 51.56591,995.80186 46.87823,991.36237 41,991.36237 l -20,0 c -6.14589,0 -11.0000001,4.85403 -11.0000001,10.99983 0,6.1458 4.8541101,10.9998 11.0000001,10.9998 l 20,0 a 3.0003,3.0002471 0 1 1 0,5.9999 l -20,0 z m 38,0 c -8.95969,0 -16.35051,-6.9597 -16.96875,-15.781 a 3.0068688,3.0068157 0 1 1 6,-0.4062 c 0.40284,5.7478 5.09052,10.1873 10.96875,10.1873 l 20,0 c 6.14589,0 11,-4.854 11,-10.9998 0,-6.1458 -4.85411,-10.99983 -11,-10.99983 l -20,0 a 3.0003,3.0002471 0 1 1 0,-5.99989 l 20,0 c 9.36611,0 17,7.63376 17,16.99972 0,9.3659 -7.63389,16.9997 -17,16.9997 l -20,0 z"
+            transform="translate(0,-952.36218)"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Holy Paladin integration test: example log DirectBeaconHealing matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
