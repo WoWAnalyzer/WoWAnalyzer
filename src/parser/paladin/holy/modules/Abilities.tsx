@@ -307,6 +307,14 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 2,
       },
       {
+        spell: SPELLS.WORD_OF_GLORY,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 2,
+      },
+      {
         spell: SPELLS.DIVINE_STEED,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
