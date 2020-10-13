@@ -16,13 +16,46 @@ class BlackOxBrew extends Analyzer {
     abilities: Abilities,
   };
 
-  cdr = 0;
-  wastedCDR = 0;
+  cdr = {
+    [SPELLS.PURIFYING_BREW.id]: 0,
+    [SPELLS.CELESTIAL_BREW.id]: 0,
+  };
+  wastedCDR = {
+    [SPELLS.PURIFYING_BREW.id]: 0,
+    [SPELLS.CELESTIAL_BREW.id]: 0,
+  };
   casts = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id);
+  }
+
+  _trackCdr(spellId) {
+    const cd = this.spellUsable.cooldownRemaining(spellId);
+    this.cdr[spellId] += cd;
+    const wastedCDR = this.abilities.getExpectedCooldownDuration(spellId, this.spellUsable.cooldownTriggerEvent(spellId)) - cd;
+    this.wastedCDR[spellId] += wastedCDR;
+  }
+
+  _resetPB() {
+    // loop until we've reset all the charges individually, recording
+    // the amount of cooldown reduction for each charge.
+    const spellId = SPELLS.PURIFYING_BREW.id;
+    while(this.spellUsable.isOnCooldown(spellId)) {
+      this._trackCdr(spellId);
+      this.spellUsable.endCooldown(spellId, false);
+    }
+  }
+
+  _resetCB() {
+    const spellId = SPELLS.CELESTIAL_BREW.id;
+    if(this.spellUsable.isOnCooldown(spellId)) {
+      this._trackCdr(spellId);
+      this.spellUsable.endCooldown(spellId, false);
+    } else {
+      this.wastedCDR[spellId] = this.abilities.getExpectedCooldownDuration(spellId, this.spellUsable.cooldownTriggerEvent(spellId));
+    }
   }
 
   on_byPlayer_cast(event) {
@@ -31,19 +64,8 @@ class BlackOxBrew extends Analyzer {
     }
     this.casts += 1;
 
-    // reset all charges of ISB (and PB, but waiting on Abilities
-    // refactor for linking the CDs...)
-    //
-    // loop until we've reset all the charges individually, recording
-    // the amount of cooldown reduction for each charge.
-    const spellId = SPELLS.PURIFYING_BREW.id;
-    while(this.spellUsable.isOnCooldown(spellId)) {
-      const cd = this.spellUsable.cooldownRemaining(spellId);
-      this.cdr += cd;
-      const wastedCDR = this.abilities.getExpectedCooldownDuration(spellId, this.spellUsable.cooldownTriggerEvent(spellId)) - cd;
-      this.wastedCDR += wastedCDR;
-      this.spellUsable.endCooldown(spellId, false);
-    }
+    this._resetPB();
+    this._resetCB();
   }
 
   get suggestionThreshold() {

@@ -31,7 +31,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
         <div
           className="value"
         >
-          25.95 %
+          47.38 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "74.05323650798718%",
+                  "width": "52.61648156301588%",
                 }
               }
             >
@@ -93,6 +93,33 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
     </div>
   </div>
 </div>
+`;
+
+exports[`Frost Death Knight integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as 
+      <ForwardRef
+        id={49184}
+      />
+       or 
+      <ForwardRef
+        id={196770}
+      />
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      47.38% downtime
+       (
+      &lt;30.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Frost Death Knight integration test: example log AshvanesRazorCoral matches the statistic snapshot 1`] = `
@@ -3861,7 +3888,7 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
         <div
           className="value"
         >
-          100.00 %
+          90.00 %
         </div>
       </div>
     </div>
@@ -3884,6 +3911,37 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
     </div>
   </div>
 </div>
+`;
+
+exports[`Frost Death Knight integration test: example log KillingMachineEfficiency matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_sword_122",
+    "importance": "minor",
+    "issue": <React.Fragment>
+       You wasted 
+      <ForwardRef
+        id={51124}
+      />
+       procs. You should be casting 
+      <ForwardRef
+        id={49020}
+      />
+       or 
+      <ForwardRef
+        id={207230}
+      />
+       within 1 or 2 GCDs of gaining a Killing Machine proc to avoid wasting it.  See one of the guides on the About tab for more information on when another ability takes precedence over spending Killing Machine
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      10.00% of Killing Machine procs were either refreshed and lost or expired without being used
+       (
+      &lt;5.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Frost Death Knight integration test: example log OverwhelmingPower matches the statistic snapshot 1`] = `
@@ -4112,7 +4170,7 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
         <div
           className="value"
         >
-          14.40 %
+          42.35 %
         </div>
       </div>
       <div
@@ -4161,14 +4219,14 @@ Array [
   Object {
     "details": null,
     "icon": "spell_deathknight_frozenruneweapon",
-    "importance": "minor",
+    "importance": "major",
     "issue": <React.Fragment>
       You overcapped 
-      14.40
+      42.35
       % of your runes. Try to always have at least 3 runes on cooldown.
     </React.Fragment>,
     "stat": <React.Fragment>
-      14.40% runes overcapped
+      42.35% runes overcapped
        (
       &lt;10.00% is recommended
       )
@@ -4987,7 +5045,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -5011,8 +5069,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "31.624920424448266%",
                 }
               }
             />
@@ -5119,7 +5177,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  25.95%
+                  47.38%
                    
                    
                 </div>
@@ -5139,9 +5197,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "31.624920424448266%",
                       }
                     }
                   />
@@ -5154,7 +5212,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -5178,8 +5236,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "85.2591597312744%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "27.423385999341075%",
                 }
               }
             />
@@ -5272,7 +5330,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  85.60%
+                  57.65%
                    
                    
                 </div>
@@ -5292,9 +5350,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "85.2591597312744%",
+                        "width": "27.423385999341075%",
                       }
                     }
                   />

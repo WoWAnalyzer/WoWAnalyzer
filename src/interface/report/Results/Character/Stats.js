@@ -35,7 +35,7 @@ class Stats extends React.PureComponent {
     switch (stat) {
       case STAT.CRITICAL_STRIKE: return statTracker.critPercentage(statTracker.startingCritRating, true);
       case STAT.HASTE: return statTracker.hastePercentage(statTracker.startingHasteRating, true);
-      case STAT.MASTERY: return statTracker.masteryRatingPerPercent === null ? null : statTracker.masteryPercentage(statTracker.startingMasteryRating, true);
+      case STAT.MASTERY: return this.selectedCombatant.spec.masteryCoefficient ? statTracker.masteryPercentage(statTracker.startingMasteryRating, true) : null;
       case STAT.VERSATILITY: return statTracker.versatilityPercentage(statTracker.startingVersatilityRating, true);
       case STAT.LEECH: return statTracker.leechPercentage(statTracker.startingLeechRating, true);
       case STAT.AVOIDANCE: return statTracker.avoidancePercentage(statTracker.startingAvoidanceRating, true);

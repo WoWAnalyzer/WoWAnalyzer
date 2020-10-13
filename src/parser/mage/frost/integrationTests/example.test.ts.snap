@@ -139,7 +139,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(105.96216800607792deg)",
+                    "transform": "rotate(88.5866201463349deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -169,7 +169,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                 }
               }
             >
-              88
+              82
               %
             </div>
           </div>
@@ -214,7 +214,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <span>
       Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants; even unbuffed 
       <ForwardRef
@@ -231,7 +231,7 @@ Array [
       .
     </span>,
     "stat": <React.Fragment>
-      12.16% downtime
+      18.36% downtime
        (
       &lt;5.00% is recommended
       )
@@ -929,7 +929,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /29
+              /45
                
               casts
             </td>
@@ -1706,7 +1706,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /43
+              /67
                
               casts
             </td>
@@ -7176,7 +7176,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "88.08464633218561%",
+                  "width": "77.70240090844558%",
                 }
               }
             />
@@ -7269,7 +7269,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  12.16%
+                  18.36%
                    
                    
                 </div>
@@ -7289,9 +7289,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "76.16929266437123%",
+                        "width": "55.404801816891144%",
                       }
                     }
                   />
