@@ -5,7 +5,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <span>
       Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If a fight requires movement, try saving 
       <ForwardRef
@@ -18,7 +18,7 @@ Array [
        casts instant.
     </span>,
     "stat": <React.Fragment>
-      29.35% downtime
+      35.63% downtime
        (
       &lt;20.00% is recommended
       )
@@ -631,7 +631,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               0
-              /22
+              /36
                
               casts
             </td>
@@ -5291,7 +5291,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "28.062503504014273%",
+                  "width": "27.462673896982093%",
                 }
               }
             />
@@ -5384,7 +5384,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  29.35%
+                  35.63%
                    
                    
                 </div>
@@ -5406,7 +5406,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "6.8072854890412%",
+                        "width": "5.607626274976842%",
                       }
                     }
                   />
