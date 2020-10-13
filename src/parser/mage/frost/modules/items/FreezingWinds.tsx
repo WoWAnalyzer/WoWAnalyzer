@@ -44,7 +44,7 @@ class FreezingWinds extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.ITEMS}
         size="flexible"
-        tooltip={'This is the total amount of cooldown reduction that the Freezing Winds legendary removed from the Frozen Orb cooldown. This only counts reduction caused by the Freezing Winds legendary effect and not any reduction from other sources such as Blizzard.'}
+        tooltip="This is the total amount of cooldown reduction that the Freezing Winds legendary removed from the Frozen Orb cooldown. This only counts reduction caused by the Freezing Winds legendary effect and not any reduction from other sources such as Blizzard."
       >
         <BoringSpellValueText spell={SPELLS.FREEZING_WINDS}>
           <UptimeIcon /> {`${formatNumber(this.reductionSeconds)}s`} <small>Frozen Orb CDR</small>
@@ -52,8 +52,6 @@ class FreezingWinds extends Analyzer {
       </Statistic>
     );
   }
-
-
 }
 
 export default FreezingWinds;

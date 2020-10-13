@@ -4,25 +4,25 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import { HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 
-const TORRENT_HEALING_INCREASE = 0.3;
+const TORRENT_HEALING_INCREASE = 0.2;
 
 class Torrent extends Analyzer {
   healing = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TORRENT_TALENT.id);
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this._onHeal);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.RIPTIDE.id || event.tick) {
+  _onHeal(event: HealEvent) {
+    if (event.tick) {
       return;
     }
 

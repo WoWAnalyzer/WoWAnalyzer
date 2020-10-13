@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/shaman';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -22,7 +22,7 @@ class Stormbringer extends Analyzer {
 
   protected damageGained: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.addEventListener(

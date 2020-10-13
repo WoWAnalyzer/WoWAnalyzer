@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
+
 import LunarEmpowermentNormalizer from './LunarEmpowermentNormalizer';
 
 describe('Druid/Balance/Normalizers/EmpowermentNormalizer', () => {

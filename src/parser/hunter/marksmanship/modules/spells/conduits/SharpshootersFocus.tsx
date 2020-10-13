@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -23,14 +23,14 @@ class SharpshootersFocus extends Analyzer {
   uptimeAddedBoolean: boolean = false;
   casts: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SHARPSHOOTERS_FOCUS_CONDUIT.id);
     if (!this.conduitRank) {
       this.active = false;
       return;
     }
-    
+
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onTrueshotApply);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onTrueshotRemove);
     this.addEventListener(Events.fightend.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onFightEnd);

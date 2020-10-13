@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -26,7 +26,7 @@ class HydrasBite extends Analyzer {
   extraApplications = 0;
   mainTargets: string[] = [];
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.HYDRAS_BITE_TALENT.id);

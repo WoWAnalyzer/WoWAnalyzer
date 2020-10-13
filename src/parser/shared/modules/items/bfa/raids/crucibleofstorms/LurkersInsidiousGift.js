@@ -119,16 +119,14 @@ class LurkersInsidiousGift extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestedUptime).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestedUptime).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your usage of <ItemLink id={ITEMS.LURKERS_INSIDIOUS_GIFT.id} /> can be improved. Try to use it when you will get the most duration out of the mastery buff without having to cancel it (and without losing uses).
         </>,
       )
         .icon(ITEMS.LURKERS_INSIDIOUS_GIFT.icon)
         .actual(`${formatPercentage(actual)}% of buff uptime wasted.`)
-        .recommended(`<5.00% of buff uptime wasted is recommended`);
-    });
+        .recommended(`<5.00% of buff uptime wasted is recommended`));
   }
 
 }

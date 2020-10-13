@@ -1,4 +1,3 @@
-import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
@@ -9,6 +8,9 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Spell from 'common/SPELLS/Spell';
+
+import React from 'react';
 
 /*
   Creates a suggestion for an AoE-Spell based on the amount of hits done and min. amount of hits possible
@@ -20,9 +22,9 @@ class AoESpellEfficiency extends Analyzer {
   };
   protected abilityTracker!: AbilityTracker;
 
-  ability!: { id: number, name: string, icon: string };
+  ability!: Spell;
   bonusDmg = 0;
-  casts: { timestamp: number, hits: number }[] = [];
+  casts: Array<{ timestamp: number, hits: number }> = [];
 
   on_byPlayer_cast(event: CastEvent) {
     if (event.ability.guid !== this.ability.id) {
@@ -95,12 +97,10 @@ class AoESpellEfficiency extends Analyzer {
 
   suggestions(when: When) {
     when(this.hitSuggestionThreshold)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but don't delay it too long or you'll miss out on casts and possible hits.</>)
+      .addSuggestion((suggest) => suggest(<>It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but don't delay it too long or you'll miss out on casts and possible hits.</>)
           .icon(this.ability.icon)
           .actual(`${this.totalHits} total hits`)
-          .recommended(`${this.possibleHits} or more hits were possible`);
-      });
+          .recommended(`${this.possibleHits} or more hits were possible`));
   }
 
   statistic() {

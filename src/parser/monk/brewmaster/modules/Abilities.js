@@ -4,7 +4,6 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
-    const brewCooldown = 15 - (combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT.id) ? 3 : 0);
     return [
       // Rotational Spells
       {
@@ -83,8 +82,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PURIFYING_BREW,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => brewCooldown / (1 + haste),
-        charges: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT.id) ? 4 : 3,
+        cooldown: haste => (combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 20 : 16) / (1 + haste),
+        charges: 2,
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -94,7 +93,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CELESTIAL_BREW,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 2 * brewCooldown / (1 + haste),
+        cooldown: haste => (combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 60 : 48) / (1 + haste),
         gcd: {
           static: 1000,
         },

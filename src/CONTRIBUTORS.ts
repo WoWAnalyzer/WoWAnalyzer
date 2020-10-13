@@ -253,6 +253,10 @@ export const Oratio: Contributor = {
   nickname: 'Oratio',
   github: 'karlpralow',
 };
+export const Ogofo: Contributor = {
+  nickname: 'Ogofo',
+  github: 'Ogofo',
+};
 export const hassebewlen: Contributor = {
   nickname: 'hassebewlen',
   github: 'hasseboulen',
@@ -936,3 +940,27 @@ export const Vonn: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/turalyon/vønn',
   }],
 };
+export const AdamKelly: Contributor = {
+  nickname: 'AdamKelly',
+  github: 'Adammkelly',
+  discord: 'Overload#0899',
+  avatar: require('./interface/images/avatars/karagus-avatar.jpg'),
+  mains: [{
+    name: 'Karagus',
+    spec: SPECS.ELEMENTAL_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/defias-brotherhood/Karagus',
+  }],
+};
+export const ChristopherKiss: Contributor = {
+  nickname: 'Chris',
+  github: 'ChristopherKiss',
+};
+export const ChagriAli: Contributor = {
+  nickname: 'chagriali',
+  github: 'chagriali',
+};
+
+export const Barter: Contributor = {
+  nickname: 'barter',
+  github: 'giubatt'
+}

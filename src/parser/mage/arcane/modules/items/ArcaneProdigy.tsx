@@ -9,7 +9,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const COOLDOWN_REDUCTION_MS: {[rank: number]:number } = {
+const COOLDOWN_REDUCTION_MS: {[rank: number]: number } = {
   1: 100,
   2: 200,
   3: 300,

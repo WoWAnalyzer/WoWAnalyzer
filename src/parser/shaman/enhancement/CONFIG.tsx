@@ -5,6 +5,7 @@ import SPECS from 'game/SPECS';
 import Warning from 'interface/Alert/Warning';
 
 import Config from 'parser/Config';
+
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {

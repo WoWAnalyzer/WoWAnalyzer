@@ -33,7 +33,7 @@ class MissedRampage extends Analyzer {
     super(...args);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
-    
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAGE_GENERATORS), this.onPlayerCast);
   }
 
@@ -73,19 +73,16 @@ class MissedRampage extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           There were {actual} times you casted a rage generating ability when you should have cast <SpellLink id={SPELLS.RAMPAGE.id} />.
           <SpellLink id={SPELLS.RAMPAGE.id} /> is your 2nd highest damage ability behind <SpellLink id={SPELLS.EXECUTE_FURY.id} /> and causes you to <SpellLink id={SPELLS.ENRAGE.id} />, increasing all of your damage done.
-          You should never hold a <SpellLink id={SPELLS.RAMPAGE.id} />, unless you are casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> to cleave it. 
+          You should never hold a <SpellLink id={SPELLS.RAMPAGE.id} />, unless you are casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> to cleave it.
         </>,
       )
         .icon(SPELLS.RAMPAGE.icon)
         .actual(`${actual} missed Rampages.`)
-        .recommended(`${recommended} is recommended.`);
-        
-    });
+        .recommended(`${recommended} is recommended.`));
   }
 }
 

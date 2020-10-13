@@ -3,6 +3,7 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
+
 import { PERMANENT_PET_ABILITIES_TO_SUMMON_MAP, PET_SUMMON_ABILITY_IDS } from '../CONSTANTS';
 import PETS from '../PETS';
 

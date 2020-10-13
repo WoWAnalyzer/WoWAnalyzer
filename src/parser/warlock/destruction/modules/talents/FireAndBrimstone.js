@@ -58,13 +58,11 @@ class FireAndBrimstone extends Analyzer {
     // example: pre-cast Incinerate -> *combat starts* -> hard cast Incinerate -> first Incinerate lands -> second Incinerate lands
     // but because the second Incinerate "technically" doesn't have a cast event to pair with, it's incorrectly recognized as cleaved
     when(this.bonusFragments).isEqual(0)
-      .addSuggestion(suggest => {
-        return suggest(<>Your <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon /> talent didn't contribute any bonus fragments. When there are no adds to cleave onto, this talent is useless and you should switch to a different talent.</>)
+      .addSuggestion(suggest => suggest(<>Your <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon /> talent didn't contribute any bonus fragments. When there are no adds to cleave onto, this talent is useless and you should switch to a different talent.</>)
           .icon(SPELLS.FIRE_AND_BRIMSTONE_TALENT.icon)
           .actual('No bonus Soul Shard Fragments generated')
           .recommended('Different talent is recommended')
-          .staticImportance(ISSUE_IMPORTANCE.MAJOR);
-      });
+          .staticImportance(ISSUE_IMPORTANCE.MAJOR));
   }
 
   get dps() {

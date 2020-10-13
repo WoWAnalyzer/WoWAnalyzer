@@ -224,7 +224,7 @@ class VisionOfPerfection extends Analyzer {
               )}
               {this.rank > 2 && (
                 <>
-                  <StatIcon stat={'versatility'} /> {formatNumber(this.minorVersatility)}{' '}
+                  <StatIcon stat="versatility" /> {formatNumber(this.minorVersatility)}{' '}
                   <small>Versatility gained</small>
                   <br />
                 </>
@@ -250,7 +250,7 @@ class VisionOfPerfection extends Analyzer {
                 <br />
                 {this.rank > 2 && (
                   <>
-                    <StatIcon stat={'haste'} /> {formatNumber(this.visionHasteBuff)}{' '}
+                    <StatIcon stat="haste" /> {formatNumber(this.visionHasteBuff)}{' '}
                     <small>average Haste gained</small>
                     <br />
                   </>

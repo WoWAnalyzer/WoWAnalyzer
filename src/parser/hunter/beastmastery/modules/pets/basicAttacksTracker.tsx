@@ -1,14 +1,20 @@
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import React from 'react';
+
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+
+import Spell from 'common/SPELLS/Spell';
+
+import React from 'react';
+
+
 import { BASIC_ATTACK_SPELLS, MACRO_TIME_BETWEEN_BASIC_ATK, MAX_TIME_BETWEEN_BASIC_ATK, NO_DELAY_TIME_BETWEEN_BASIC_ATK } from '../../constants';
 
 /**
@@ -17,17 +23,16 @@ import { BASIC_ATTACK_SPELLS, MACRO_TIME_BETWEEN_BASIC_ATK, MAX_TIME_BETWEEN_BAS
 const debug = false;
 
 class BasicAttacks extends Analyzer {
-
   lastCast: number = 0;
   timeBetweenAttacks: number = 0;
   totalCasts: number = 0;
   chainCasts: number = 0;
   damage: number = 0;
   //Assume that the usedBasicAttack is Bite, so that there are no issues if no Basic Attack have been cast this fight
-  usedBasicAttack: { id: number, name: string, icon: string } = SPELLS.BITE_BASIC_ATTACK;
+  usedBasicAttack: Spell = SPELLS.BITE_BASIC_ATTACK;
   basicAttackChecked: boolean = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(BASIC_ATTACK_SPELLS), this.onPetBasicAttackDamage);
   }
@@ -82,12 +87,10 @@ class BasicAttacks extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.totalAttacksFromBasicAttacks).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<> Make sure that your pet is casting it's Basic Attacks, such as <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />.</>)
+    when(this.totalAttacksFromBasicAttacks).addSuggestion((suggest, actual, recommended) => suggest(<> Make sure that your pet is casting it's Basic Attacks, such as <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />.</>)
         .icon(SPELLS.BITE_BASIC_ATTACK.icon)
         .actual(`Your pet didn't cast any Basic Attacks this fight`)
-        .recommended('Your pet should be autocast Basic Attacks');
-    });
+        .recommended('Your pet should be autocast Basic Attacks'));
   }
 
   statistic() {

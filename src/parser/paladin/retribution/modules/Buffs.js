@@ -13,7 +13,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.DIVINE_PURPOSE_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION),
+        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT),
         timelineHightlight: true,
       },
       {

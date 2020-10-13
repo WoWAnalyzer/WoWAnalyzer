@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import { BeginCastEvent, HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 
 /**
  * Module to find the position of healing rain, and return how much extra healing spells modified by healing rain did.
@@ -30,25 +30,20 @@ class HealingRainLocation extends Analyzer {
   protected combatants!: Combatants;
 
   healingRainDiameter = 2100; // 5% margin of error
-  healingRainEvents: Array<HealEvent> = [];
+  healingRainEvents: HealEvent[] = [];
   newHealingRain = false;
   lastHealingRainTick = 0;
   firstHealingRainTick = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
-    if (this.active && this.selectedCombatant.hasTrait(SPELLS.OVERFLOWING_SHORES_TRAIT.id)) {
-      this.healingRainDiameter = 2520; // 5% margin of error
-    }
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this.healingRainHeal);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_CAST), this.healingRainCast);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_RAIN_HEAL.id) {
-      return;
-    }
-
+  healingRainHeal(event: HealEvent) {
     // Pets with their insane movement speed (or blinking) messed the size up, so I decided to filter them out
     const combatant = this.combatants.getEntity(event);
     if (!combatant) {
@@ -67,19 +62,14 @@ class HealingRainLocation extends Analyzer {
 
   // We use begincast instead of cast in this, and all modules depending on this, since it is the only event that is guaranteed
   // to occur after Healing Rain is done, and before the next one starts, as the cast event tends to be in the middle between
-  // its own healing events, and we can't check for gaps in heal events as the cast time is faster than the time between ticks. 
-  on_byPlayer_begincast(event: BeginCastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) {
-      return;
-    }
-
+  // its own healing events, and we can't check for gaps in heal events as the cast time is faster than the time between ticks.
+  healingRainCast() {
     // Setting a variable to reset the array on the next heal
     // If we'd reset here it would sometimes clear the array before the healing is calculated
     this.newHealingRain = true;
   }
 
-  processHealingRain(eventsDuringRain: Array<HealEvent>, healIncrease: number) {
+  processHealingRain(eventsDuringRain: HealEvent[], healIncrease: number) {
     if (this.healingRainEvents.length === 0) {
       return 0;
     }
@@ -100,7 +90,7 @@ class HealingRainLocation extends Analyzer {
     return this.sumHealing(filteredEvents, healIncrease, healingRainLocation);
   }
 
-  sumHealing(eventsDuringRain: Array<HealEvent>, healIncrease: number, healingRainLocation: Location) {
+  sumHealing(eventsDuringRain: HealEvent[], healIncrease: number, healingRainLocation: Location) {
     return eventsDuringRain.reduce((healing, event) => {
       const pointToCheck = { x: event.x, y: event.y };
       if (this._isPlayerInsideHealingRain(pointToCheck, healingRainLocation)) {
@@ -110,7 +100,7 @@ class HealingRainLocation extends Analyzer {
     }, 0);
   }
 
-  locate(events: Array<HealEvent>) {
+  locate(events: HealEvent[]) {
     const { minY, maxY, minX, maxX } = events.reduce((result, event) => {
       result.minY = Math.min(event.y, result.minY);
       result.maxY = Math.max(event.y, result.maxY);

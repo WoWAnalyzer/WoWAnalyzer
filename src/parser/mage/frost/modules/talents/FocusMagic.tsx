@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
@@ -17,7 +17,7 @@ class FocusMagic extends Analyzer {
   };
   protected enemies!: EnemyInstances;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FOCUS_MAGIC_TALENT.id);
   }
@@ -39,12 +39,10 @@ class FocusMagic extends Analyzer {
 
   suggestions(when: When) {
     when(this.focusMagicBuffUptimeThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You had low uptime on <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />. In order to get benefit from this talent, ensure that you are putting <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} /> on another player or trading the buff with another mage before the pull. If you buffed a player for the entire fight but still had low uptime, consider giving the buff to a player that will crit more often so the buff can trigger as many times as possible.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You had low uptime on <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />. In order to get benefit from this talent, ensure that you are putting <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} /> on another player or trading the buff with another mage before the pull. If you buffed a player for the entire fight but still had low uptime, consider giving the buff to a player that will crit more often so the buff can trigger as many times as possible.</>)
           .icon(SPELLS.ICE_LANCE.icon)
           .actual(`${formatPercentage(this.buffUptime)}% Focus Magic Uptime`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

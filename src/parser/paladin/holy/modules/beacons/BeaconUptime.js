@@ -110,7 +110,7 @@ class BeaconUptime extends Analyzer {
     this.addEventListener(Events.fightend, this._endOfFight);
 
     // this is really has divine purpose talent
-    this.hasBoL = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
+    this.hasBoL = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT.id);
 
     this.hasBoF = this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id);
     this.hasBoV = this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id);
@@ -462,7 +462,7 @@ class BeaconUptime extends Analyzer {
     );
 
     return (
-      <Statistic position={STATISTIC_ORDER.CORE(60)} size={'flexible'}>
+      <Statistic position={STATISTIC_ORDER.CORE(60)} size="flexible">
         <label style={{ margin: '10px' }}>
           <Trans>Beacon Uptime</Trans>
         </label>

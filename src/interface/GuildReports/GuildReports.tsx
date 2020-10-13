@@ -4,6 +4,7 @@ import { t, Trans } from '@lingui/macro';
 
 import ZONES from 'game/ZONES';
 import fetchWcl, { GuildNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
+import { WCLGuildReport, WCLGuildReportsResponse } from "common/WCL_TYPES";
 import { captureException } from 'common/errorLogger';
 import retryingPromise from 'common/retryingPromise';
 import { makeGuildApiUrl } from 'common/makeApiUrl';
@@ -12,16 +13,17 @@ import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import { i18n } from 'interface/RootLocalizationProvider';
+
 import './GuildReports.scss';
 import ReportsList from '../GuildReportsList';
+import ALLIANCE_PICTURE from './images/ally_guild_banner_bwl.jpg'
+import HORDE_PICTURE from './images/horde_guild_banner_onyx.jpg'
 
 const loadRealms = () =>
   retryingPromise(() =>
     import('common/RealmList').then(exports => exports.default),
   );
 
-const ALLIANCE_PICTURE = require('./images/ally_guild_banner_bwl.jpg');
-const HORDE_PICTURE = require('./images/horde_guild_banner_onyx.jpg');
 const ZONE_ALL = -1;
 const ZONE_DEFAULT = ZONE_ALL;
 const REPORTS_TO_SHOW = [25, 50, 100];
@@ -37,15 +39,6 @@ const ERRORS = {
   NOT_RESPONDING: t`Request timed out`,
 };
 
-export interface WCLGuildReportsResponse {
-  "id": string,
-  "title": string,
-  "owner": string,
-  "zone": number,
-  "start": number,
-  "end": number,
-}
-
 interface Props {
   region: string,
   realm: string,
@@ -54,7 +47,7 @@ interface Props {
 
 interface State {
   activeZoneID: number,
-  reports: Array<WCLGuildReportsResponse>,
+  reports: WCLGuildReport[],
   reportsToShow: number,
   isLoading: boolean,
   error: any, // TODO MessageDescriptor? convert to enum?
@@ -149,9 +142,7 @@ class GuildReports extends React.Component<Props, State> {
     if (this.state.activeZoneID !== ZONE_ALL) {
       filteredReports = filteredReports.filter(elem => this.state.activeZoneID === elem.zone);
     }
-    filteredReports.sort((a, b) => {
-      return b.start - a.start;
-    });
+    filteredReports.sort((a, b) => b.start - a.start);
     return filteredReports.slice(0, this.state.reportsToShow);
   }
 
@@ -192,7 +183,7 @@ class GuildReports extends React.Component<Props, State> {
     const filterStart = new Date();
     // TODO allow selection of a date range?
     filterStart.setMonth(filterStart.getMonth() - MONTHS_BACK_SEARCH);
-    return fetchWcl(
+    return fetchWcl<WCLGuildReportsResponse>(
       `reports/guild/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`,
       {
         start: filterStart.getTime(),

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Enemies from 'parser/shared/modules/Enemies';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -33,7 +33,7 @@ class ShrapnelBomb extends Analyzer {
 
   protected enemies!: Enemies;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);

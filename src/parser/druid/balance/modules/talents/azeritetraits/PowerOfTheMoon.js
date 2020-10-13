@@ -18,7 +18,7 @@ class PowerOfTheMoon extends Analyzer {
     statTracker: StatTracker,
   };
   /**
-   * Power Of The Moon increases the tick damage from Moonfire so lets track it and 
+   * Power Of The Moon increases the tick damage from Moonfire so lets track it and
    * see what % of your Moonfire damage it was
    */
 

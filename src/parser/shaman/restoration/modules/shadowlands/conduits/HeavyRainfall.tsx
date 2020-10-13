@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Events, { HealEvent } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
@@ -19,15 +19,10 @@ class HeavyRainfall extends Analyzer {
   healingBoost = 0;
   healing = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = true;//TODO actually check if conduit is active
-
     this.healingBoost = 1.6;//TODO Get from combat data when they EXPORT IT >:c
-
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this.normalizeBoost);
   }

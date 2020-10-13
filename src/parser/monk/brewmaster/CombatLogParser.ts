@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 // Core
 import HealingDone from './modules/core/HealingDone';
 import DamageTaken from './modules/core/DamageTaken';
@@ -10,6 +11,7 @@ import SharedBrews from './modules/core/SharedBrews';
 import StaggerFabricator from './modules/core/StaggerFabricator';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/core/Channeling';
+import Checklist from './modules/core/Checklist/Module';
 // Spells
 import PurifyingBrew from './modules/spells/PurifyingBrew';
 import CelestialBrew from './modules/spells/CelestialBrew';
@@ -22,6 +24,7 @@ import BlackOxBrew from './modules/spells/BlackOxBrew';
 import HighTolerance from './modules/spells/HighTolerance';
 import CelestialFortune from './modules/spells/CelestialFortune';
 import GiftOfTheOxStat from './modules/spells/GiftOfTheOx';
+import Shuffle from './modules/spells/Shuffle';
 import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
 // Features
 import Abilities from './modules/Abilities';
@@ -32,6 +35,10 @@ import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
 // normalizers
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import ExpelHarmNorm from './normalizers/ExpelHarm';
+
+// Covenants
+import FallenOrder from '../shared/modules/covenants/FallenOrder';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -47,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
+    checklist: Checklist,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -65,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     highTolerance: HighTolerance,
     cf: CelestialFortune,
     gotox: GiftOfTheOxStat,
+    shuffle: Shuffle,
     touchOfDeath: TouchOfDeath,
 
     // Items
@@ -72,6 +81,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // normalizers
     gotoxNorm: GiftOfTheOx,
     ehNorm: ExpelHarmNorm,
+
+    // Covenants
+    fallenOrder: FallenOrder,
   };
 }
 

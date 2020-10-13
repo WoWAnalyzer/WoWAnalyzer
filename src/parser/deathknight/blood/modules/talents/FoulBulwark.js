@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatDuration, formatPercentage } from 'common/format';
+
 import BoneShieldTimesByStacks from '../features/BoneShieldTimesByStacks';
 
 const HP_PER_BONE_SHIELD_STACK = 0.01;

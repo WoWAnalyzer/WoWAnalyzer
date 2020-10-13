@@ -19,6 +19,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Haste from 'parser/shared/modules/Haste';
+import STAT from 'parser/shared/modules/features/STAT';
 
 let OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK = 0.04;
 let MANA_REGEN_PER_SECOND = 800;
@@ -116,7 +117,7 @@ class TheEverRisingTide extends Analyzer {
     this.stacks = event.stack || 1;
   }
 
-  _removebuff(event) {
+  _removebuff() {
     this.byCast[this.casts].maxStacks = this.stacks;
     this.buffActive = false;
   }
@@ -125,7 +126,7 @@ class TheEverRisingTide extends Analyzer {
     this.manaGained += event.resourceChange;
   }
 
-  _fightend(event) {
+  _fightend() {
     if (this.buffActive) {
       this.byCast[this.casts].maxStacks = this.stacks;
     }
@@ -157,7 +158,8 @@ class TheEverRisingTide extends Analyzer {
       const ramp = hasteBuffsCopy.splice(startIndex, spliceCount);
       averageHaste = averageHaste === 0 ? this.average(ramp) : (averageHaste + this.average(ramp)) / 2;
     }
-    return averageHaste * this.statTracker.hasteRatingPerPercent * this.selectedCombatant.getBuffUptime(SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id) / this.owner.fightDuration;
+    /** There is a potential for this average haste % to be wrong since it can overflow into the next penalty threshold */
+    return averageHaste * this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.HASTE]) * this.selectedCombatant.getBuffUptime(SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id) / this.owner.fightDuration;
   }
 
   average(ramp) {
@@ -208,16 +210,14 @@ class TheEverRisingTide extends Analyzer {
                 </thead>
                 <tbody>
                   {
-                    Object.values(this.byCast).map((cast, index) => {
-                      return (
+                    Object.values(this.byCast).map((cast, index) => (
                         <tr key={index}>
                           <th>{formatNth(index + 1)}</th>
                           <td>{formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000) || 0}</td>
                           <td>{cast.maxStacks}</td>
                           <td>{formatNumber(cast.healing)}</td>
                         </tr>
-                      );
-                    })
+                      ))
                   }
                 </tbody>
               </table>
@@ -227,7 +227,7 @@ class TheEverRisingTide extends Analyzer {
               <div className="value">
                 <ItemHealingDone amount={this.healing} /><br />
                 <ItemManaGained amount={this.manaLost * -1} />
-                {rank > 2 && (<><StatIcon stat={"haste"} /> {formatNumber(this.majorHasteGain)} <small>average haste gained</small><br /></>)}
+                {rank > 2 && (<><StatIcon stat="haste" /> {formatNumber(this.majorHasteGain)} <small>average haste gained</small><br /></>)}
               </div>
             </div>
           </ItemStatistic>

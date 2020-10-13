@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, {
   EventType,
   GlobalCooldownEvent,
@@ -18,7 +18,7 @@ class SpellTimeWaitingOnGlobalCooldown extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   private lastGlobalCooldown: GlobalCooldownEvent | undefined;
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(
       Events.UpdateSpellUsable,

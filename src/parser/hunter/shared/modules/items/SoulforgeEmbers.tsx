@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -10,7 +10,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import SpellIcon from 'common/SpellIcon';
 
 /**
- * Launching a Flare into your Tar Trap causes all enemies inside of the Tar Trap to burn for (210% of Attack power) Fire damage over 12 sec.
+ * Launching a Flare into your Tar Trap causes all enemies inside of the Tar Trap to burn for (150% of Attack power) Fire damage over 12 sec.
  *
  * Example log:
  *
@@ -24,7 +24,7 @@ class SoulforgeEmbers extends Analyzer {
   lastTarTrapCastTimestamp: number = 0;
   lostEmberApplications: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID);
     if (!this.active) {

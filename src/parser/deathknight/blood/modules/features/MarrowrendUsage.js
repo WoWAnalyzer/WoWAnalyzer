@@ -84,7 +84,7 @@ class MarrowrendUsage extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.MARROWREND.id) return;
+    if (event.ability.guid !== SPELLS.MARROWREND.id) {return;}
 
     //don't add to wasted casts if MR casts was at ~6sec left on BS duration
     const durationLeft = BS_DURATION - (event.timestamp - this.lastMarrowrendCast) / 1000;

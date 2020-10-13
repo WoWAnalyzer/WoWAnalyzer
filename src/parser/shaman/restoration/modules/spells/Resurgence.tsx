@@ -4,8 +4,8 @@ import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import HIT_TYPES from 'game/HIT_TYPES';
-import Analyzer from 'parser/core/Analyzer';
-import { EnergizeEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { EnergizeEvent, HealEvent } from 'parser/core/Events';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
 import SpellLink from 'common/SpellLink';
@@ -36,16 +36,21 @@ class Resurgence extends Analyzer {
 
   regenedMana = 0;
   otherManaGain = 0;
-  resurgence: Array<ResurgenceInfo> = [];
+  resurgence: ResurgenceInfo[] = [];
   totalResurgenceGain = 0;
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-    const isAbilityProccingResurgence = SPELLS_PROCCING_RESURGENCE.hasOwnProperty(spellId);
+  constructor(options: Options) {
+    super(options);
 
-    if (!isAbilityProccingResurgence || event.tick) {
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE_RESTORATION, SPELLS.HEALING_WAVE, SPELLS.CHAIN_HEAL, SPELLS.UNLEASH_LIFE_TALENT, SPELLS.RIPTIDE]), this.onRelevantHeal);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.RESURGENCE), this.onResurgenceProc);
+  }
+
+  onRelevantHeal(event: HealEvent) {
+    if (event.tick) {
       return;
     }
+    const spellId = event.ability.guid;
 
     if (!this.resurgence[spellId]) {
       this.resurgence[spellId] = {
@@ -61,7 +66,7 @@ class Resurgence extends Analyzer {
     }
   }
 
-  on_toPlayer_energize(event: EnergizeEvent) {
+  onResurgenceProc(event: EnergizeEvent) {
     const spellId = event.ability.guid;
 
     if (spellId !== SPELLS.RESURGENCE.id) {

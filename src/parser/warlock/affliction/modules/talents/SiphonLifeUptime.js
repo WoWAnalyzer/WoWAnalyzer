@@ -38,12 +38,10 @@ class SiphonLifeUptime extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Siphon Life on the boss, perhaps use some debuff tracker.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Siphon Life on the boss, perhaps use some debuff tracker.</>)
           .icon(SPELLS.SIPHON_LIFE_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Siphon Life uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {

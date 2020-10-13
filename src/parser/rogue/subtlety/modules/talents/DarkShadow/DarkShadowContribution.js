@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
 import DarkShadow from './DarkShadow';
 import DanceDamageTracker from '../../core/DanceDamageTracker';
 

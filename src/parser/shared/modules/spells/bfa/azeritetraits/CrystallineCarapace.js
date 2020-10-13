@@ -28,7 +28,7 @@ class CrystallineCarapace extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.CRYSTALLINE_CARAPACE.id);
-    if (!this.active) return;
+    if (!this.active) {return;}
 
     this.armor = crystallineCarapaceStats(this.selectedCombatant.traitsBySpellId[SPELLS.CRYSTALLINE_CARAPACE.id]);
     this.statTracker.add(SPELLS.CRYSTALLINE_CARAPACE_BUFF.id, { armor: this.armor });

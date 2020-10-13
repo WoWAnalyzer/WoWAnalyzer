@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
@@ -19,18 +19,14 @@ class SwirlingCurrents extends Analyzer {
 
   healingBoost = 0;
   healing = 0;
-  targetsWithBoostedRiptides: Array<boolean> = [];
+  targetsWithBoostedRiptides: boolean[] = [];
 
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = true;
 
     this.healingBoost = .2;//TODO Get from combat data when they EXPORT IT >:c
-
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE_RESTORATION, SPELLS.HEALING_WAVE, SPELLS.RIPTIDE]), this.normalizeBoost);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);

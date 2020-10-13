@@ -108,7 +108,7 @@ class LucidDreamsRage extends Analyzer {
               <ItemHealingDone amount={this.healing} /><br />
               Rage: {this.rageRestored}
               <br />
-              {rank > 2 && (<><StatIcon stat={"versatility"} /> {formatNumber(this.minorBuffUptime * this.versGain)} <small>average versatility gained</small><br /></>)}
+              {rank > 2 && (<><StatIcon stat="versatility" /> {formatNumber(this.minorBuffUptime * this.versGain)} <small>average versatility gained</small><br /></>)}
             </div>
           </div>
         </ItemStatistic>
@@ -119,7 +119,7 @@ class LucidDreamsRage extends Analyzer {
               <div className="value">
                  Rage: {this.manaRestoredMajor}
                  <br />
-                {rank > 2 && (<><StatIcon stat={"leech"} /> {formatNumber(this.majorBuffUptime * this.leechGain)} <small>average leech gained</small><br /></>)}
+                {rank > 2 && (<><StatIcon stat="leech" /> {formatNumber(this.majorBuffUptime * this.leechGain)} <small>average leech gained</small><br /></>)}
               </div>
             </div>
           </ItemStatistic>

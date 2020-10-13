@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+
 import Snapshot from '../core/Snapshot';
 
 const GARROTE_BASE_DURATION = 18000;

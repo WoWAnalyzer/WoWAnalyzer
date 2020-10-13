@@ -28,12 +28,10 @@ class DeepWoundsUptime extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Your <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS.id} /> uptime can be improved. Try to use your core abilities more often to apply <SpellLink id={SPELLS.DEEP_WOUNDS.id} /> on your target</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS.id} /> uptime can be improved. Try to use your core abilities more often to apply <SpellLink id={SPELLS.DEEP_WOUNDS.id} /> on your target</>)
         .icon(SPELLS.MASTERY_DEEP_WOUNDS.icon)
         .actual(`${formatPercentage(actual)}% Deep Wounds uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {

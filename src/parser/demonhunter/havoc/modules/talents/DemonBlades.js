@@ -53,12 +53,10 @@ class DemonBlades extends Analyzer{
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Be mindful of your Fury levels and spend it before capping your Fury due to <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} />.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<> Be mindful of your Fury levels and spend it before capping your Fury due to <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} />.</>)
           .icon(SPELLS.DEMON_BLADES_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Fury wasted`)
-          .recommended(`${formatPercentage(recommended)}% is recommended.`);
-      });
+          .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 
   statistic(){

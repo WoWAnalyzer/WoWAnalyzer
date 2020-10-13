@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Events, { HealEvent } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -25,15 +25,10 @@ class EmbraceOfEarth extends Analyzer {
   boost = 0;
   healing = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = true;
-
     this.boost = .05;//TODO Get from combat data when they EXPORT IT >:c
-
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.normalizeBoost);
   }
@@ -45,7 +40,7 @@ class EmbraceOfEarth extends Analyzer {
       return;
     }
 
-    if (target.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp, 0, 0)) {
+    if (target.hasBuff(SPELLS.EARTH_SHIELD.id, event.timestamp, 0, 0)) {
       // idea
       // heal = boostedHeal / (1.1 + x)
       // bonusHeal = heal * x
