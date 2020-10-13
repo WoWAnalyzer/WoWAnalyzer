@@ -82,7 +82,7 @@ class BoomingVoice extends Analyzer {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.</>)
             .icon(SPELLS.BOOMING_VOICE_TALENT.icon)
-            .actual(i18n._(t('warrior.protection.suggestions.rage.wasted')`${actual} Rage wasted`))
+            .actual(i18n._(t('warrior.protection.suggestions.boominVoice.rage.wasted')`${actual} Rage wasted`))
             .recommended(`<${recommended} wasted Rage is recommended`));
   }
 
