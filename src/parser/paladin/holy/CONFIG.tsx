@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HolySchmidt } from 'CONTRIBUTORS';
+import { Abelito75, HolySchmidt } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -10,8 +10,8 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [HolySchmidt],
-  patchCompatibility: '8.3',
+  contributors: [Abelito75, HolySchmidt],
+  patchCompatibility: '9.0',
   isSupported: true,
   description: (
     <>
