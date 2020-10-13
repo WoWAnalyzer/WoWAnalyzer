@@ -9,6 +9,11 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+
+const HAILSTORM = {
+  INCREASE_PER_STACK: .35,
+};
 
 /**
  * Each stack of Maelstrom Weapon consumed increases the damage of your next
@@ -56,7 +61,8 @@ class Hailstorm extends Analyzer {
     }
 
     this.hits += 1;
-    this.damage += (event.amount || 0) + (event.absorbed || 0);
+    // TODO: hailstorm buff stacks are buggy right now, so assume that they're correctly using 5 stacks
+    this.damage += calculateEffectiveDamage(event, HAILSTORM.INCREASE_PER_STACK * 5);
   }
 
   statistic() {
@@ -68,7 +74,7 @@ class Hailstorm extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.HAILSTORM_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
+            <ItemDamageDone amount={this.damage} approximate /><br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} />
           </>
         </BoringSpellValueText>

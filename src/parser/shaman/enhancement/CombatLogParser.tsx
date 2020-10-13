@@ -31,6 +31,7 @@ import Stormflurry from './modules/talents/Stormflurry';
 import IceStrike from './modules/talents/IceStrike';
 import FireNova from './modules/talents/FireNova';
 import ElementalAssault from './modules/talents/ElementalAssault';
+import FeralSpirit from './modules/core/FeralSpirit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -45,7 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Shaman Core
     stormbringer: Stormbringer,
-    //feralSpirit: FeralSpirit
+    feralSpirit: FeralSpirit,
     //windfuryTotem: WindfuryTotem
 
     // Features
@@ -77,8 +78,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //ascendance: Ascendance,
 
     // covenants
-    //chainHarvest: ChainHarvest
-    //vesperTotem: VesperTotem
+    //chainHarvest: ChainHarvest,
+    //vesperTotem: VesperTotem,
   };
 }
 
