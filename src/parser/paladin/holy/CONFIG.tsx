@@ -18,7 +18,7 @@ const config: Config = {
       Hey! The Holy Paladin analyzer is one of the most maintained specs on the site. It gets
       updated quickly with new things, and has most things implemented that can be analyzed
       automatically with good enough accuracy. If you think anything is off or wrong, please contact
-      me @Zerotorescue so we can discuss it. I don't mind double or triple checking something if
+      me @Abelito75 so we can discuss it. I don't mind double or triple checking something if
       there's any doubt.
       <br />
       <br />
