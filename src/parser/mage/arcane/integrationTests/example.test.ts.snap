@@ -4092,37 +4092,6 @@ exports[`Arcane Mage integration test: example log MirrorImage matches the stati
 </div>
 `;
 
-exports[`Arcane Mage integration test: example log MirrorImage matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_magic_lesserinvisibilty",
-    "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ForwardRef
-        id={55342}
-      />
-       damage is below the expected passive gain from 
-      <ForwardRef
-        id={1463}
-      />
-      . Consider switching to 
-      <ForwardRef
-        id={1463}
-      />
-      .
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      0.00% damage increase from Mirror Image
-       (
-      12.00% is the passive gain from Incanter's Flow
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Arcane Mage integration test: example log PrePotion matches the suggestions snapshot 1`] = `
 Array [
   Object {
