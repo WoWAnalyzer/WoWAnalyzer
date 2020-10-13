@@ -311,6 +311,11 @@ const spells: SpellList<MonkSpell> = {
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
   },
+  SHUFFLE: {
+    id: 215479,
+    name: 'Shuffle',
+    icon: 'ability_monk_shuffle',
+  },
   STAGGER: {
     id: 115069,
     name: 'Stagger',
