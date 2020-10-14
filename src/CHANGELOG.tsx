@@ -14,7 +14,7 @@ const prepatch = date(2020, 10, 13);
 // prettier-ignore
 export default [
   change(prepatch, 'Fixed typo in the Timeline buffs timelineHighlight propery', Sharrq),
-  change(prepatch, 'Converted Distanced Moved module to TypesSript', Dambroda),
+  change(prepatch, 'Converted Distanced Moved module to TypesScript', Dambroda),
   change(prepatch, 'Convert Js files to typescript', Ssabbar),
   change(prepatch, 'Fixed Putros StatTracker', niseko),
   change(prepatch, 'Updated our StatTracker to reflect prepatch stat values and the diminishing return system added in Shadowlands', Putro),
