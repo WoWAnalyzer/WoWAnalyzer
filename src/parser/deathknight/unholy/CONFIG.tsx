@@ -22,7 +22,6 @@ export default {
       <a href=" https://discord.gg/acherus" target="_blank" rel="noopener noreferrer">Death Knight Class Discord</a> <br />
       <a href="http://www.wowhead.com/unholy-death-knight-guide" target="_blank" rel="noopener noreferrer">Wowhead Guide</a> <br />
       <a href="https://www.icy-veins.com/wow/unholy-death-knight-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins Guide</a> <br />
-      <a href="https://discord.gg/AyW5RUW" target="_blank" rel="noopener noreferrer">Unholy Spec Discord</a>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

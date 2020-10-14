@@ -60,9 +60,9 @@ class VirulentPlagueEfficiency extends Analyzer {
     return {
       actual: this.averageTimeWasted,
       isGreaterThan: {
-        minor: (1),
-        average: (3),
-        major: (5),
+        minor: 1,
+        average: 3,
+        major: 5,
       },
       style: ThresholdStyle.NUMBER,
       suffix: 'Average',

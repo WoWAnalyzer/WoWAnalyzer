@@ -7,13 +7,16 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import WoundTracker from './WoundTracker';
 
-class ScourgeStrikeEfficiency extends Analyzer {
+const SAFE_WOUND_COUNT = 3;
+
+class FesteringStrikeEfficiency extends Analyzer {
   static dependencies = {
     woundTracker: WoundTracker,
   };
@@ -22,32 +25,27 @@ class ScourgeStrikeEfficiency extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.activeSpell = this.selectedCombatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id) ? SPELLS.CLAWING_SHADOWS_TALENT : SPELLS.SCOURGE_STRIKE;
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_STRIKE), this.onCast);
   }
 
-  activeSpell: any;
-  totalCasts = 0;
-  zeroWoundCasts = 0;
+  totalFesteringStrikeCasts = 0;
+  festeringStrikeCastsOverSafeCount = 0;
 
   onCast(event: CastEvent){
-    this.totalCasts += 1;
+    this.totalFesteringStrikeCasts += 1;
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
 
     if(this.woundTracker.targets[targetString]){
       const currentTargetWounds = this.woundTracker.targets[targetString];
-      if(currentTargetWounds < 1){
-        this.zeroWoundCasts += 1;
+      if(currentTargetWounds > SAFE_WOUND_COUNT){
+        this.festeringStrikeCastsOverSafeCount += 1;
       }
-    } 
-    else {
-      this.zeroWoundCasts += 1;
     }
   }
 
-  get strikeEfficiency() {
-    return 1 - (this.zeroWoundCasts / this.totalCasts);
+  get strikeEfficiency(): number {
+    return 1 - (this.festeringStrikeCastsOverSafeCount / this.totalFesteringStrikeCasts);
   }
 
   get suggestionThresholds() {
@@ -64,23 +62,23 @@ class ScourgeStrikeEfficiency extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You are casting <SpellLink id={this.activeSpell.id} /> too often.  When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></span>)
-      .icon(this.activeSpell.icon)
-      .actual(`${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often.  When spending runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></span>)
+      .icon(SPELLS.FESTERING_STRIKE.icon)
+      .actual(`${formatPercentage(actual)}% of Festering Strikes did not risk overcapping Festering Wounds`)
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={this.activeSpell.id} />}
+        icon={<SpellIcon id={SPELLS.FESTERING_STRIKE.id} />}
         value={`${formatPercentage(this.strikeEfficiency)} %`}
-        label={`${this.activeSpell.name} Efficiency`}
-        tooltip={`${this.zeroWoundCasts} out of ${this.totalCasts} ${this.activeSpell.name} were used with no Festering Wounds on the target.`}
-        position={STATISTIC_ORDER.CORE(3)}
+        label="Festering Strike Efficiency"
+        tooltip={`${this.festeringStrikeCastsOverSafeCount} of out ${this.totalFesteringStrikeCasts} Festering Strikes were cast on a target with more than three stacks of Festering Wounds.`}
+        position={STATISTIC_ORDER.CORE(4)}
       />
     );
   }
 }
 
-export default ScourgeStrikeEfficiency;
+export default FesteringStrikeEfficiency;
