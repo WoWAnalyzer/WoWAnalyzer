@@ -3,27 +3,37 @@ import React from 'react';
 import { formatPercentage, formatThousands } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent, EnergizeEvent, HealEvent } from 'parser/core/Events';
 import FlushLineChart from 'interface/others/FlushLineChart';
 
 const debug = false;
 
+type PositionalData = {
+  x: number,
+  y: number,
+  timestamp: number,
+}
+
 class DistanceMoved extends Analyzer {
-  lastPosition = null;
-  lastPositionChange = null;
+  lastPosition: PositionalData | null = null;
+  lastPositionChange: PositionalData | null = null;
   totalDistanceMoved = 0;
   timeSpentMoving = 0;
-  bySecond = {};
+  bySecond = new Map<number, number>();
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.updatePlayerPosition);
     // These coordinates are for the target, so they are only accurate when done TO player
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.updatePlayerPosition);
     this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.updatePlayerPosition);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.updatePlayerPosition);
-    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER), this.updatePlayerPosition);
+    /* I couldn't find any instances of absorbed events containing location,
+     * if it can actually happen we can update the AbsorbedEvent shape and
+     * uncomment this binding.
+     * this.addEventListener(Events.absorbed.to(SELECTED_PLAYER), this.updatePlayerPosition);
+     */
   }
 
   timeSinceLastMovement() {
@@ -34,38 +44,43 @@ class DistanceMoved extends Analyzer {
   }
 
   // Data parsing
-  calculateDistance(x1, y1, x2, y2) {
+  calculateDistance(x1: number, y1: number, x2: number, y2: number) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) / 100;
   }
 
-  updateTotalDistance(event) {
+  updateTotalDistance(newData: PositionalData) {
     if (!this.lastPosition) {
       return;
     }
-    const distanceMoved = this.calculateDistance(this.lastPosition.x, this.lastPosition.y, event.x, event.y);
+    const distanceMoved = this.calculateDistance(this.lastPosition.x, this.lastPosition.y, newData.x, newData.y);
     if (distanceMoved !== 0) {
-      this.timeSpentMoving += event.timestamp - this.lastPosition.timestamp;
+      this.timeSpentMoving += newData.timestamp - this.lastPosition.timestamp;
       this.totalDistanceMoved += distanceMoved;
-      const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-      this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || 0) + distanceMoved;
+      const secondsIntoFight = Math.floor((newData.timestamp - this.owner.fight.start_time) / 1000);
+      this.bySecond.set(secondsIntoFight, (this.bySecond.get(secondsIntoFight) || 0) + distanceMoved);
     }
   }
 
-  updatePlayerPosition(event) {
+  updatePlayerPosition(event: CastEvent | HealEvent | DamageEvent | EnergizeEvent) {
     if (!event.x || !event.y) {
       return;
     }
-    this.updateTotalDistance(event);
-    if (!this.lastPositionChange || this.lastPositionChange.x !== event.x || this.lastPositionChange.y !== event.y) {
-      this.lastPositionChange = event;
+    const updatedPosition: PositionalData = {
+      x: event.x,
+      y: event.y,
+      timestamp: event.timestamp,
     }
-    this.lastPosition = event;
+    this.updateTotalDistance(updatedPosition);
+    if (!this.lastPositionChange || this.lastPositionChange.x !== updatedPosition.x || this.lastPositionChange.y !== updatedPosition.y) {
+      this.lastPositionChange = updatedPosition;
+    }
+    this.lastPosition = updatedPosition;
   }
 
   statistic() {
     debug && console.log(`Time spent moving: ${this.timeSpentMoving / 1000}s, Total distance moved: ${this.totalDistanceMoved} yds`);
 
-    const data = Object.entries(this.bySecond).map(([sec, val]) => ({'time': sec, 'val': val}));
+    const data = Array.from(this.bySecond, ([sec, val]) => ({ 'time': sec, 'val': val }));
 
     return (
       <Statistic
