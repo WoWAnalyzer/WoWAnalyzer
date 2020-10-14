@@ -6,6 +6,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/4GR2pwAYW8KtgFJn/#fight=6&source=18
@@ -55,7 +57,7 @@ class DemonBlades extends Analyzer{
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Be mindful of your Fury levels and spend it before capping your Fury due to <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} />.</>)
           .icon(SPELLS.DEMON_BLADES_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% Fury wasted`)
+          .actual(i18n._(t('demonhunter.havoc.suggestions.demonBlades.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
           .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 

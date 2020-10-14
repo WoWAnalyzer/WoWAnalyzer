@@ -10,6 +10,9 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
 import Rejuvenation from '../core/Rejuvenation';
 
@@ -169,7 +172,7 @@ class TreeOfLife extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</>)
           .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% healing`)
+          .actual(i18n._(t('druid.restoration.suggestions.treeOfLife.efficiency')`${formatPercentage(actual)}% healing`))
           .recommended(`>${formatPercentage(recommended, 0)}% is recommended`));
   }
 

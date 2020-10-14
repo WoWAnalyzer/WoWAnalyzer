@@ -10,6 +10,8 @@ import Events from 'parser/core/Events';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import Abilities from '../Abilities';
 
@@ -188,7 +190,7 @@ class IronJaws extends Analyzer {
         </>,
       )
         .icon(SPELLS.IRON_JAWS_TRAIT.icon)
-        .actual(`${actual} Iron Jaws traits.`)
+        .actual(i18n._(t('druid.feral.suggestions.ironJaws.efficiency')`${actual} Iron Jaws traits.`))
         .recommended(`2, 3 or none is recommended.`));
 
     when(this.wastedProcsThreshold).addSuggestion((suggest, actual, recommended) => suggest(
@@ -197,7 +199,7 @@ class IronJaws extends Analyzer {
         </>,
       )
         .icon(SPELLS.IRON_JAWS_TRAIT.icon)
-        .actual(`${(actual * 100).toFixed(0)}% of Iron Jaws procs wasted.`)
+        .actual(i18n._(t('druid.feral.suggestions.ironJaws.procsWasted')`${(actual * 100).toFixed(0)}% of Iron Jaws procs wasted.`))
         .recommended(`<${(recommended * 100).toFixed(0)}% recommended.`));
 
     when(this.unbuffedMaimThreshold).addSuggestion((suggest, actual, recommended) => suggest(
@@ -206,7 +208,7 @@ class IronJaws extends Analyzer {
         </>,
       )
         .icon(SPELLS.IRON_JAWS_TRAIT.icon)
-        .actual(`${actual.toFixed(1)} unbuffed Maims per minute.`)
+        .actual(i18n._(t('druid.feral.suggestions.ironJaws.unbuffedMaims')`${actual.toFixed(1)} unbuffed Maims per minute.`))
         .recommended(`<${recommended.toFixed(1)} recommended.`));
 
     when(this.missingComboMaimThreshold).addSuggestion((suggest, actual, recommended) => suggest(
@@ -215,7 +217,7 @@ class IronJaws extends Analyzer {
         </>,
       )
         .icon(SPELLS.IRON_JAWS_TRAIT.icon)
-        .actual(`${(actual * 100).toFixed(0)}% of Maims used without full combo points.`)
+        .actual(i18n._(t('druid.feral.suggestions.ironJaws.maimsWithoutFullCombo')`${(actual * 100).toFixed(0)}% of Maims used without full combo points.`))
         .recommended(`${(recommended * 100).toFixed(0)}% recommended.`));
   }
 }

@@ -6,6 +6,8 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
@@ -71,7 +73,7 @@ class ChiBurst extends Analyzer {
           </>,
         )
           .icon(SPELLS.CHI_BURST_TALENT.icon)
-          .actual(`${this.avgTargetsHitPerCB.toFixed(2)} targets hit per Chi Burst cast - ${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}% of raid hit`)
+          .actual(i18n._(t('monk.mistweaver.suggestions.chiBurst.targetsHit')`${this.avgTargetsHitPerCB.toFixed(2)} targets hit per Chi Burst cast - ${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}% of raid hit`))
           .recommended('30% of the raid hit is recommended'));
   }
 

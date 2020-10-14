@@ -8,6 +8,8 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { SummonEvent, DamageEvent } from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 
@@ -53,7 +55,7 @@ class MirrorImage extends Analyzer {
     when(this.damageSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.MIRROR_IMAGE.id} /> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
           .icon(SPELLS.MIRROR_IMAGE.icon)
-          .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Mirror Image`)
+          .actual(i18n._(t('mage.shared.suggestions.mirrorImage.damageIncrease')`${formatPercentage(this.damageIncreasePercent)}% damage increase from Mirror Image`))
           .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`));
   }
 

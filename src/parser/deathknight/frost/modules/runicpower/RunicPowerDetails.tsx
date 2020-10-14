@@ -7,8 +7,11 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import RunicPowerTracker from './RunicPowerTracker';
+
 
 class RunicPowerDetails extends Analyzer {
   static dependencies = {
@@ -48,7 +51,7 @@ class RunicPowerDetails extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
           .icon('inv_sword_62')
-          .actual(`${formatPercentage(actual)}% wasted`)
+          .actual(i18n._(t('deathknight.frost.suggestions.runicPower.wasted')`${formatPercentage(actual)}% wasted`))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

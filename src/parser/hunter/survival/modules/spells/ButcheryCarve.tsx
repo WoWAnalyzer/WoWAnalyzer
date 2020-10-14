@@ -12,6 +12,8 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { DamageEvent } from 'parser/core/Events';
 import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from 'parser/hunter/survival/constants';
 import { ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -92,7 +94,7 @@ class ButcheryCarve extends Analyzer {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
       when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
           .icon(this.spellKnown.icon)
-          .actual(`${actual} average targets hit per cast`)
+          .actual(i18n._(t('hunter.survival.suggestions.butcheryCarve.averageTargets')`${actual} average targets hit per cast`))
           .recommended(`>${recommended} is recommended`));
     }
   }

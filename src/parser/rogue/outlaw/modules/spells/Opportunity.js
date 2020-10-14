@@ -7,6 +7,9 @@ import Analyzer from 'parser/core/Analyzer';
 
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import OpportunityDamageTracker from './OpportunityDamageTracker';
 
 class Opportunity extends Analyzer {
@@ -42,7 +45,7 @@ class Opportunity extends Analyzer {
   suggestions(when) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> while having an <SpellLink id={SPELLS.OPPORTUNITY.id} /> proc. Try to prioritize <SpellLink id={SPELLS.PISTOL_SHOT.id} /> as your combo point builder when you have <SpellLink id={SPELLS.OPPORTUNITY.id} /> active to avoid the possibility of missing additional procs.</>)
         .icon(SPELLS.OPPORTUNITY.icon)
-        .actual(`${formatPercentage(actual)}% inefficient casts`)
+        .actual(i18n._(t('rogue.outlaw.suggestions.opportunity.efficiency')`${formatPercentage(actual)}% inefficient casts`))
         .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }

@@ -12,6 +12,8 @@ import Events, { SummonEvent, DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /*
  * If Rune of Power is substantially better than the rest of the row, enable
@@ -112,14 +114,14 @@ class RuneOfPower extends Analyzer {
     when(this.damageSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
           .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
-          .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`)
+          .actual(i18n._(t('mage.shared.suggetsions.runeOfPower.damageIncrease')`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`))
           .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`));
 
     if (this.totalRunes > 0) {
       when(this.roundedSecondsSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.</>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
-            .actual(`Average ${this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power`)
+            .actual(i18n._(t('mage.shared.suggestions.runeOfPower.utilization')`Average ${this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power`))
             .recommended(`the full duration of ${formatNumber(RUNE_DURATION)}s is recommended`));
     }
 

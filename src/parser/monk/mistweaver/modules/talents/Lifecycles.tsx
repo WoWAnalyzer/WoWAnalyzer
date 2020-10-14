@@ -13,6 +13,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 
 const LC_MANA_PER_SECOND_RETURN_MINOR: number = 80;
 const LC_MANA_PER_SECOND_RETURN_AVERAGE: number = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
@@ -87,7 +90,7 @@ class Lifecycles extends Analyzer {
           </>,
         )
           .icon(SPELLS.LIFECYCLES_TALENT.icon)
-          .actual(`${formatNumber(actual)} mana saved through Lifecycles`)
+          .actual(i18n._(t('monk.mistweaver.suggestions.lifecycles.manaSaved')`${formatNumber(actual)} mana saved through Lifecycles`))
           .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`));
   }
 

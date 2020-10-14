@@ -1,5 +1,6 @@
 
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli, Barter, Ssabbar } from 'CONTRIBUTORS';
+
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli, Barter, Ssabbar, Jafowler } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -14,6 +15,7 @@ const prepatch = date(2020, 10, 13);
 // prettier-ignore
 export default [
   change(date(2020, 10, 14), <>Adjusted the values of <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> and <SpellLink id={SPELLS.BATTLE_SHOUT.id} />.</>, niseko),
+  change(prepatch, 'Internationalization for each spec', Jafowler),
   change(prepatch, 'Fixed typo in the Timeline buffs timelineHighlight propery', Sharrq),
   change(prepatch, 'Converted Distanced Moved module to TypesSript', Dambroda),
   change(prepatch, 'Convert Js files to typescript', Ssabbar),

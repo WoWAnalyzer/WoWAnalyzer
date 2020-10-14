@@ -14,6 +14,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class ManaTea extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -110,7 +113,7 @@ class ManaTea extends Analyzer {
         </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(`${formatNumber(this.avgMtSaves)} average mana saved per Mana Tea cast`)
+        .actual(i18n._(t('monk.mistweaver.suggestions.manaTea.avgManaSaved')`${formatNumber(this.avgMtSaves)} average mana saved per Mana Tea cast`))
         .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`));
     when(this.suggestionThresholdsOverhealing).addSuggestion((suggest, actual, recommended) => suggest(
         <>
@@ -118,7 +121,7 @@ class ManaTea extends Analyzer {
         </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(`${formatPercentage(this.avgOverhealing)} % average overhealing per Mana Tea cast`)
+        .actual(i18n._(t('monk.mistweaver.suggestions.manaTea.avgOverHealing')`${formatPercentage(this.avgOverhealing)} % average overhealing per Mana Tea cast`))
         .recommended(`under ${formatPercentage(recommended)}% over healing is recommended`));
   }
 

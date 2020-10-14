@@ -11,6 +11,8 @@ import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import { AFFECTED_SPELLS as UNTAMED_FEROCITY_SPELLS, calcBonus as calcUntamedFerocityBonus } from "./UntamedFerocity";
 import Abilities from '../Abilities';
@@ -215,7 +217,7 @@ class WildFleshrending extends Analyzer {
         </>,
       )
         .icon(SPELLS.WILD_FLESHRENDING.icon)
-        .actual(`${(actual * 100).toFixed(0)}% of Shreds benefited from Wild Fleshrending.`)
+        .actual(i18n._(t('druid.feral.suggestions.wildFleshrending.shredsBuffed')`${(actual * 100).toFixed(0)}% of Shreds benefited from Wild Fleshrending.`))
         .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`));
 
     const swipeSpell = this.selectedCombatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id) ? SPELLS.BRUTAL_SLASH_TALENT : SPELLS.SWIPE_CAT;
@@ -225,7 +227,7 @@ class WildFleshrending extends Analyzer {
         </>,
       )
         .icon(SPELLS.WILD_FLESHRENDING.icon)
-        .actual(`${(actual * 100).toFixed(0)}% of ${swipeSpell.name} hits benefited from Wild Fleshrending.`)
+        .actual(i18n._(t('druid.feral.suggestions.wildFleshrending.swipeBuffed')`${(actual * 100).toFixed(0)}% of ${swipeSpell.name} hits benefited from Wild Fleshrending.`))
         .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`));
   }
 }

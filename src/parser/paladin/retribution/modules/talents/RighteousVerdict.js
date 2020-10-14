@@ -10,6 +10,9 @@ import Analyzer from 'parser/core/Analyzer';
 
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const RIGHTEOUS_VERDICT_MODIFIER = 0.15;
 
 class RighteousVerdict extends Analyzer {
@@ -55,7 +58,7 @@ class RighteousVerdict extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your usage of <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> can be improved.  Do not cast <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> early to try and keep the buff active. Maintaining a proper roatation will passively lead to good <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> efficiency. Consider using another talent if the fight mechanics are preventing you from getting high enough efficiency.</>)
         .icon(SPELLS.RIGHTEOUS_VERDICT_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% of Templars Verdicts with the buff.`)
+        .actual(i18n._(t('paladin.retribution.suggestions.righteousVerdict.efficiency')`${formatPercentage(actual)}% of Templars Verdicts with the buff.`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
