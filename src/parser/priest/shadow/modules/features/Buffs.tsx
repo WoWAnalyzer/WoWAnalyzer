@@ -12,37 +12,37 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.VOIDFORM_BUFF.id,
         triggeredBySpellId: SPELLS.VOID_ERUPTION.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.DARK_THOUGHTS.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.SURRENDER_TO_MADNESS_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.DISPERSION.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.POWER_WORD_SHIELD.id,
         triggeredBySpellId: SPELLS.POWER_WORD_SHIELD.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.FADE.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.MIND_CONTROL.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

@@ -11,19 +11,19 @@ class Buffs extends CoreBuffs {
     return [
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.ENRAGE.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.RECKLESSNESS.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.SIEGEBREAKER_TALENT.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

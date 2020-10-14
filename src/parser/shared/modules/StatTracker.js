@@ -695,7 +695,7 @@ class StatTracker extends Analyzer {
       }
       if (returnRatingForNextPercent) {
         //Returns the rating needed for 1% at current rating levels
-        return (baselineRatingPerPercent / (1 - penaltyThresholds[idx - 1].penaltyAboveThis)) / coef;
+        return ((baselineRatingPerPercent / (1 - penaltyThresholds[idx - 1].penaltyAboveThis)) / coef) * 100;
       } else {
         //Since we no longer have more base stats than the current curve point, we know that we atleast have the scaled value of the last curve point
         const statFromLastCurvePoint = penaltyThresholds[idx - 1].scaled;

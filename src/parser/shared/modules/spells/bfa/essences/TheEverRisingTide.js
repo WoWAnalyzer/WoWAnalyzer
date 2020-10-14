@@ -61,7 +61,7 @@ class TheEverRisingTide extends Analyzer {
       this.buffs.add({
         spellId: SPELLS.EVER_RISING_TIDE_HEALING_BUFF.id,
         triggeredBySpellId: SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       });
       if (this.selectedCombatant.hasTalent(SPELLS.ENLIGHTENMENT_TALENT.id)) {
         MANA_REGEN_PER_SECOND *= (1 + ENLIGHTENMENT_TALENT_REGEN_INCREASE);
