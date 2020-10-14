@@ -6,6 +6,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+
 import { ELEMENTAL_BLAST_IDS } from '../constants';
 
 class ElementalBlast extends Analyzer {
