@@ -63,8 +63,6 @@ class Consecration extends Analyzer {
       </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default Consecration;
