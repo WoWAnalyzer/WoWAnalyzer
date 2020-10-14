@@ -641,6 +641,13 @@ class StatTracker extends Analyzer {
     return spellPoints * this.selectedCombatant.spec.masteryCoefficient / 100;
   }
 
+  get hasMasteryCoefficient(){
+    if(!this.selectedCombatant.spec || !this.selectedCombatant.spec.masteryCoefficient){
+      return null;
+    }
+    return this.selectedCombatant.spec.masteryCoefficient;
+  }
+
   get baseVersatilityPercentage() {
     return 0;
   }
