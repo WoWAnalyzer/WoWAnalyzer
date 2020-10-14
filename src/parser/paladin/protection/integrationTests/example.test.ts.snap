@@ -1,14 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-<<<<<<< HEAD
-exports[`Protection Paladin integration test: example log Ashjrakamas matches the statistic snapshot 1`] = `
-=======
 exports[`Protection Paladin integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "major",
+    "importance": "minor",
     "issue": <React.Fragment>
       Your downtime can be improved. Try to cast more, for example by reducing the delay between casting spells. Even if you have to move, try to cast something instant with range like 
       <ForwardRef
@@ -23,7 +20,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      47.94% downtime
+      34.08% downtime
        (
       &lt;20.00% is recommended
       )
@@ -32,8 +29,7 @@ Array [
 ]
 `;
 
-exports[`Protection Paladin integration test: example log ArchiveOfTheTitans matches the statistic snapshot 1`] = `
->>>>>>> upstream/shadowlands
+exports[`Protection Paladin integration test: example log Ashjrakamas matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -252,13 +248,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-<<<<<<< HEAD
               39
-              /79
-=======
-              21
-              /142
->>>>>>> upstream/shadowlands
+              /130
                
               casts
             </td>
@@ -277,11 +268,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-<<<<<<< HEAD
-                      "width": "48.543936376983794%",
-=======
-                      "width": "14.636429390660627%",
->>>>>>> upstream/shadowlands
+                      "width": "29.52264499266556%",
                     }
                   }
                 />
@@ -296,11 +283,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-<<<<<<< HEAD
-              48.54%
-=======
-              14.64%
->>>>>>> upstream/shadowlands
+              29.52%
             </td>
             <td
               style={
@@ -362,13 +345,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-<<<<<<< HEAD
               25
-              /31
-=======
-              28
-              /51
->>>>>>> upstream/shadowlands
+              /41
                
               casts
             </td>
@@ -387,11 +365,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-<<<<<<< HEAD
-                      "width": "78.96674504464168%",
-=======
-                      "width": "55.32599983842557%",
->>>>>>> upstream/shadowlands
+                      "width": "61.326028673738044%",
                     }
                   }
                 />
@@ -406,11 +380,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-<<<<<<< HEAD
-              78.97%
-=======
-              55.33%
->>>>>>> upstream/shadowlands
+              61.33%
             </td>
             <td
               style={
@@ -559,13 +529,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-<<<<<<< HEAD
               50
-              /66
-=======
-              71
-              /107
->>>>>>> upstream/shadowlands
+              /100
                
               casts
             </td>
@@ -584,11 +549,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-<<<<<<< HEAD
-                      "width": "76.80995925402738%",
-=======
-                      "width": "66.54095810146137%",
->>>>>>> upstream/shadowlands
+                      "width": "50.43289226797183%",
                     }
                   }
                 />
@@ -603,11 +564,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-<<<<<<< HEAD
-              76.81%
-=======
-              66.54%
->>>>>>> upstream/shadowlands
+              50.43%
             </td>
             <td
               style={
@@ -669,13 +626,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-<<<<<<< HEAD
               65
-              /77
-=======
-              44
-              /106
->>>>>>> upstream/shadowlands
+              /103
                
               casts
             </td>
@@ -693,13 +645,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   className="flex-sub performance-bar"
                   style={
                     Object {
-<<<<<<< HEAD
-                      "backgroundColor": "#70b570",
-                      "width": "85.53224901027697%",
-=======
                       "backgroundColor": "#ff8000",
-                      "width": "41.8501780207067%",
->>>>>>> upstream/shadowlands
+                      "width": "63.87685240560482%",
                     }
                   }
                 />
@@ -714,11 +661,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-<<<<<<< HEAD
-              85.53%
-=======
-              41.85%
->>>>>>> upstream/shadowlands
+              63.88%
             </td>
             <td
               style={
@@ -727,7 +670,9 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   "width": "25%",
                 }
               }
-            />
+            >
+              Can be improved.
+            </td>
           </tr>
           <tr>
             <td
@@ -781,11 +726,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               0
-<<<<<<< HEAD
-              /45
-=======
-              /92
->>>>>>> upstream/shadowlands
+              /73
                
               casts
             </td>
@@ -3028,15 +2969,9 @@ Array [
         id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
-<<<<<<< HEAD
             "0": 25,
-            "1": 31,
-            "2": "79",
-=======
-            "0": 28,
-            "1": 51,
-            "2": "55",
->>>>>>> upstream/shadowlands
+            "1": 41,
+            "2": "61",
           }
         }
       />
@@ -3054,8 +2989,6 @@ Array [
   },
   Object {
     "details": null,
-<<<<<<< HEAD
-=======
     "icon": "spell_holy_righteousfury",
     "importance": "major",
     "issue": <React.Fragment>
@@ -3077,9 +3010,9 @@ Array [
         id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
-            "0": 44,
-            "1": 106,
-            "2": "42",
+            "0": 65,
+            "1": 103,
+            "2": "64",
           }
         }
       />
@@ -3097,7 +3030,6 @@ Array [
   },
   Object {
     "details": null,
->>>>>>> upstream/shadowlands
     "icon": "spell_holy_ardentdefender",
     "importance": "major",
     "issue": <React.Fragment>
@@ -3689,11 +3621,7 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
         <div
           className="value"
         >
-<<<<<<< HEAD
-          16 Resets
-=======
-          9 Resets
->>>>>>> upstream/shadowlands
+          3 Resets
         </div>
       </div>
       <div
@@ -3714,76 +3642,6 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
             className="glyphicon glyphicon-chevron-down"
           />
         </button>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-<<<<<<< HEAD
-=======
-exports[`Protection Paladin integration test: example log Gutripper matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=266937"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Gutripper"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_criticalstrike.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=266937"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Gutripper
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          1.96 % / 103 DPS
-        </div>
       </div>
     </div>
     <div
@@ -3833,7 +3691,7 @@ Array [
        ability and should only be used when you have no better spells to cast.
     </React.Fragment>,
     "stat": <React.Fragment>
-      67.61% of casts while better spells were available
+      40.00% of casts while better spells were available
        (
       &lt; 10.00% is recommended
       )
@@ -3842,7 +3700,6 @@ Array [
 ]
 `;
 
->>>>>>> upstream/shadowlands
 exports[`Protection Paladin integration test: example log HolyPowerDetails matches the statistic snapshot 1`] = `
 Array [
   <div
@@ -4901,7 +4758,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
   className="checklist"
 >
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -4925,13 +4782,8 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-<<<<<<< HEAD
-                  "backgroundColor": "#a6c34c",
-                  "width": "82.16975366621894%",
-=======
                   "backgroundColor": "#ac1f39",
-                  "width": "19.439658184238436%",
->>>>>>> upstream/shadowlands
+                  "width": "26.921953192978055%",
                 }
               }
             />
@@ -5036,11 +4888,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-<<<<<<< HEAD
-                  78.97%
-=======
-                  55.33%
->>>>>>> upstream/shadowlands
+                  61.33%
                    
                    
                 </div>
@@ -5062,11 +4910,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-<<<<<<< HEAD
-                        "width": "46.50926099865681%",
-=======
-                        "width": "24.564743928260953%",
->>>>>>> upstream/shadowlands
+                        "width": "27.22875673113969%",
                       }
                     }
                   />
@@ -5116,11 +4960,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-<<<<<<< HEAD
-                  85.53%
-=======
-                  41.85%
->>>>>>> upstream/shadowlands
+                  63.88%
                    
                    
                 </div>
@@ -5140,15 +4980,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-<<<<<<< HEAD
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-=======
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "21.440168124454356%",
->>>>>>> upstream/shadowlands
+                        "width": "32.72460284779447%",
                       }
                     }
                   />
@@ -5230,11 +5064,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-<<<<<<< HEAD
-                  10.00%
-=======
-                  67.61%
->>>>>>> upstream/shadowlands
+                  40.00%
                    
                    
                 </div>
@@ -5254,13 +5084,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-<<<<<<< HEAD
-                        "width": "100%",
-=======
-                        "width": "12.3140625%",
->>>>>>> upstream/shadowlands
+                        "width": "20.8125%",
                       }
                     }
                   />
