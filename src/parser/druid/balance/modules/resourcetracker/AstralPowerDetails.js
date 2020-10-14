@@ -6,6 +6,8 @@ import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import AstralPowerTracker from './AstralPowerTracker';
 
@@ -62,7 +64,7 @@ class AstralPowerDetails extends Analyzer {
     when(this.suggestionThresholdsWasted)
       .addSuggestion((suggest, actual, recommended) => suggest(`You overcapped ${this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.`)
           .icon('ability_druid_cresentburn')
-          .actual(`${formatPercentage(actual)}% overcapped Astral Power`)
+          .actual(i18n._(t('druid.balance.suggestions.astralPower.overcapped')`${formatPercentage(actual)}% overcapped Astral Power`))
           .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

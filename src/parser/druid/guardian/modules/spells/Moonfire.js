@@ -6,6 +6,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class Moonfire extends Analyzer {
   static dependencies = {
@@ -18,7 +20,7 @@ class Moonfire extends Analyzer {
     when(moonfireUptimePercentage).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => suggest(<span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime was {formatPercentage(moonfireUptimePercentage)}%, unless you have extended periods of downtime it should be near 100%.</span>)
           .icon(SPELLS.MOONFIRE_BEAR.icon)
-          .actual(`${formatPercentage(moonfireUptimePercentage)}% uptime`)
+          .actual(i18n._(t('druid.guardian.suggestions.moonfire.uptime')`${formatPercentage(moonfireUptimePercentage)}% uptime`))
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
           .regular(recommended - 0.05).major(recommended - 0.15));
   }

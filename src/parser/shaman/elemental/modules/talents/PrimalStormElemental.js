@@ -9,6 +9,9 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const damagingCasts = [SPELLS.EYE_OF_THE_STORM.id, SPELLS.WIND_GUST.id, SPELLS.CALL_LIGHTNING.id];
 const CALL_LIGHTNING_BUFF_DURATION = 15000;
 
@@ -86,14 +89,14 @@ class PrimalStormElemental extends Analyzer {
     when(unusedSpellsCount).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(<span> Your Storm Elemental is not using all of it's spells. Check if Wind Gust and Call Lightning are set to autocast and you are using Eye Of The Storm.</span>)
           .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-          .actual(`${formatNumber(unusedSpellsCount)} spells not used by your Storm Elemental (${unusedSpellsString})`)
+          .actual(i18n._(t('shaman.elemental.suggestions.primalStormElemental.spellsNotUsed')`${formatNumber(unusedSpellsCount)} spells not used by your Storm Elemental (${unusedSpellsString})`))
           .recommended(`You should be using all spells of your Storm Elemental.`)
           .major(recommended+1));
 
     when(this.badCasts).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You are not using <SpellLink id={SPELLS.CALL_LIGHTNING.id} /> on cooldown.</span>)
           .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-          .actual(`${formatNumber(this.badCasts)} casts done by your Storm Elemental without the "Call Lightning"-Buff.}`)
+          .actual(i18n._(t('shaman.elemental.suggestions.primalStormElemental.badCasts')`${formatNumber(this.badCasts)} casts done by your Storm Elemental without the "Call Lightning"-Buff.}`))
           .recommended(`You should be recasting "Call Lightning" before the buff drops off.`)
           .major(recommended+5));
   }

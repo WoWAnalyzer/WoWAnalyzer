@@ -7,6 +7,9 @@ import Analyzer from 'parser/core/Analyzer';
 
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import BetweenTheEyesDamageTracker from './BetweenTheEyesDamageTracker';
 
 class Dispatch extends Analyzer {
@@ -52,7 +55,7 @@ class Dispatch extends Analyzer {
   suggestions(when) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted <SpellLink id={SPELLS.DISPATCH.id} /> while <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was available. {this.delayedCastSuggestion}</>)
         .icon(SPELLS.DISPATCH.icon)
-        .actual(`${formatPercentage(actual)}% inefficient casts`)
+        .actual(i18n._(t('rogue.outlaw.dispatch.efficiency')`${formatPercentage(actual)}% inefficient casts`))
           .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }

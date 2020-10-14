@@ -8,6 +8,9 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, RemoveBuffEvent, ApplyBuffStackEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import Insanity from '../core/Insanity';
 import { VOID_FORM_ACTIVATORS } from '../../constants';
 
@@ -228,7 +231,7 @@ class Voidform extends Analyzer {
           <SpellLink id={SPELLS.MIND_FLAY.id} />
         </>)
           .icon(SPELLS.VOIDFORM_BUFF.icon)
-          .actual(`${formatPercentage(actual)}% Voidform uptime`)
+          .actual(i18n._(t('priest.shadow.suggestions.voidform.uptime')`${formatPercentage(actual)}% Voidform uptime`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }

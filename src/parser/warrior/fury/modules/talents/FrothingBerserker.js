@@ -8,6 +8,8 @@ import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /*  Example log:
  *  https://www.warcraftlogs.com/reports/KhynM7v96cZkTBdg#fight=6&type=damage-done&source=78
@@ -67,7 +69,7 @@ class FrothingBerserker extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</>)
           .icon(SPELLS.FROTHING_BERSERKER.icon)
-          .actual(`${formatPercentage(actual)}% Frothing Berserker uptime`)
+          .actual(i18n._(t('warrior.fury.suggestions.frothingBerserker.uptime')`${formatPercentage(actual)}% Frothing Berserker uptime`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

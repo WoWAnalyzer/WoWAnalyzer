@@ -1,6 +1,8 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 function suggest(when, tracker, suggestion) {
   let tracked = { generated: 0, wasted: 0, casts: 0 };
@@ -37,7 +39,7 @@ function suggest(when, tracker, suggestion) {
         </>,
       )
         .icon(suggestion.spell.icon)
-        .actual(`${formatPercentage(wastedShare)}% wasted. Generated ${tracked.generated} out of ${maxGenerated} possible ${resourceNameLower}`)
+        .actual(i18n._(t('shared.suggestions.resources.wasted')`${formatPercentage(wastedShare)}% wasted. Generated ${tracked.generated} out of ${maxGenerated} possible ${resourceNameLower}`))
         .recommended(`<${formatPercentage(suggestion.minor)}%  ${resourceNameLower} wasted is recommend`)
         .regular(suggestion.avg).major(suggestion.major));
 }

@@ -12,6 +12,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber, formatThousands } from 'common/format';
 import StatisticBox from 'interface/others/StatisticBox';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class Enrage extends Analyzer {
   static dependencies = {
@@ -63,7 +65,7 @@ class Enrage extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</>)
           .icon(SPELLS.ENRAGE.icon)
-          .actual(`${formatPercentage(actual)}% Enrage uptime`)
+          .actual(i18n._(t('warrior.fury.suggestions.enrage.uptime')`${formatPercentage(actual)}% Enrage uptime`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

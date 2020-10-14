@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class WakeofAshes extends Analyzer {
     static dependencies = {
@@ -81,7 +83,7 @@ class WakeofAshes extends Analyzer {
         when(this.badCastsThresholds)
             .addSuggestion((suggest, actual, recommended) => suggest(<><SpellLink id={SPELLS.WAKE_OF_ASHES.id} /> hit 0 targets {actual} time(s). <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} /> has the same range of 12yds. You can use this as a guideline to tell if targets will be in range.</>)
                     .icon(SPELLS.WAKE_OF_ASHES.icon)
-                    .actual(`${actual} casts with no targets hit.`)
+                    .actual(i18n._(t('paladin.retribution.suggestions.wakeOfAshes.efficiency')`${actual} casts with no targets hit.`))
                     .recommended(`${recommended} is recommended`));
     }
 
