@@ -4,6 +4,8 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const OSSUARY_RUNICPOWER_REDUCTION = 5;
 
@@ -61,7 +63,7 @@ class Ossuary extends Analyzer {
     when(this.efficiencySuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest('Your Ossuary usage can be improved. Avoid casting Death Strike while not having Ossuary up as you lose Runic Power by doing so.')
             .icon(SPELLS.OSSUARY.icon)
-            .actual(`${formatPercentage(actual)}% Ossuary efficiency`)
+            .actual(i18n._(t('deathknight.blood.suggestions.ossuary.efficiency')`${formatPercentage(actual)}% Ossuary efficiency`))
             .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

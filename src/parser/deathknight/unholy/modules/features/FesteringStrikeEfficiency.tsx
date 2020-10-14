@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -64,7 +67,7 @@ class FesteringStrikeEfficiency extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often.  When spending runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></span>)
       .icon(SPELLS.FESTERING_STRIKE.icon)
-      .actual(`${formatPercentage(actual)}% of Festering Strikes did not risk overcapping Festering Wounds`)
+      .actual(i18n._(t('deathknight.unholy.suggestions.festeringStrikes.efficiency')`${formatPercentage(actual)}% of Festering Strikes did not risk overcapping Festering Wounds`))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

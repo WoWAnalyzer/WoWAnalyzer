@@ -8,6 +8,9 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatNumber, formatPercentage } from 'common/format';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import { REDUCTION_TIME as RP_REDUCTION_TIME } from '../talents/RighteousProtector';
 
 const HEAL_DELAY_THRESHOLD = 2000;
@@ -156,12 +159,12 @@ export default class LightOfTheProtector extends Analyzer {
   suggestions(when) {
     when(this.delaySuggestion).addSuggestion((suggest, actual, recommended) => suggest(<>You should delay your <SpellLink id={this.activeSpell.id} /> cast as little as possible after being hit to maximize its effect and to minimize the chance that you waste healing resources.</>)
         .icon(SPELLS.LIGHT_OF_THE_PROTECTOR.icon)
-        .actual(`${actual.toFixed(2)}s Average Delay`)
+        .actual(i18n._(t('paladin.protection.suggestions.lightOfTheProtector.averageDelay')`${actual.toFixed(2)}s Average Delay`))
         .recommended(`< ${recommended.toFixed(2)}s is recommended`));
 
     when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) => suggest(<>You should avoid casting <SpellLink id={this.activeSpell.id} /> while at very high health to avoid overhealing.</>)
         .icon(SPELLS.LIGHT_OF_THE_PROTECTOR.icon)
-        .actual(`${formatPercentage(actual)}% Overhealing`)
+        .actual(i18n._(t('paladin.protection.suggestions.lightOfTheProtector.overhealing')`${formatPercentage(actual)}% Overhealing`))
         .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 }

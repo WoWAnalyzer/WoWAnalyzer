@@ -11,6 +11,9 @@ import Enemies from 'parser/shared/modules/Enemies';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class VirulentPlagueEfficiency extends Analyzer {
   static dependencies = {
 	  enemies: Enemies,
@@ -73,7 +76,7 @@ class VirulentPlagueEfficiency extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> You are casting <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> too often. Try to cast <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> as close to it falling off as possible.</>)
           .icon(SPELLS.VIRULENT_PLAGUE.icon)
-          .actual(`${(this.averageTimeWasted).toFixed(1)} seconds of Virulent Plague uptime was wasted on average for each cast of Outbreak`)
+          .actual(i18n._(t('deathknight.unholy.suggestions.virulentPlague.efficiency')`${(this.averageTimeWasted).toFixed(1)} seconds of Virulent Plague uptime was wasted on average for each cast of Outbreak`))
           .recommended(`<${recommended} is recommended`));
   }
 

@@ -7,6 +7,8 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class VoidReaverDebuff extends Analyzer {
 //WCL: https://www.warcraftlogs.com/reports/LaMfJFHk2dY98gTj/#fight=20&type=auras&spells=debuffs&hostility=1&ability=268178
@@ -39,7 +41,7 @@ class VoidReaverDebuff extends Analyzer {
     when(this.uptimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.VOID_REAVER_DEBUFF.id} /> uptime can be improved.</>)
           .icon(SPELLS.VOID_REAVER_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% Void Reaver uptime`)
+          .actual(i18n._(t('demonhunter.vengeance.suggestions.voidReaver.uptime')`${formatPercentage(actual)}% Void Reaver uptime`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

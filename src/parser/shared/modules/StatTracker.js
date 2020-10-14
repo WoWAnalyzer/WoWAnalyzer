@@ -340,10 +340,10 @@ class StatTracker extends Analyzer {
     armor: 1,
   };
   statMultiplierBuffs = {
-    [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.1 },
-    [SPELLS.WARSCROLL_OF_INTELLECT.id]: { intellect: 1.07 },
-    [SPELLS.BATTLE_SHOUT.id]: { strength: 1.1, agility: 1.1 },
-    [SPELLS.WARSCROLL_OF_BATTLE_SHOUT.id]: { strength: 1.07, agility: 1.07 },
+    [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.05 },
+    [SPELLS.WARSCROLL_OF_INTELLECT.id]: { intellect: 1.03 },
+    [SPELLS.BATTLE_SHOUT.id]: { strength: 1.05, agility: 1.05 },
+    [SPELLS.WARSCROLL_OF_BATTLE_SHOUT.id]: { strength: 1.03, agility: 1.03 },
   };
 
   //TODO Update these values on Shadowlands Launch

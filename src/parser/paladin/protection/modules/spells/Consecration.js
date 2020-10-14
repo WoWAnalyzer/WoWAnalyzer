@@ -4,6 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class Consecration extends Analyzer {
   _hitsTaken = 0;
@@ -36,7 +38,7 @@ class Consecration extends Analyzer {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest('Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.')
             .icon(SPELLS.CONSECRATION_CAST.icon)
-            .actual(`${formatPercentage(actual)}% of hits were mitigated by Consecration `)
+            .actual(i18n._(t('paladin.protection.suggestions.consecration.hitsMitigated')`${formatPercentage(actual)}% of hits were mitigated by Consecration`))
             .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

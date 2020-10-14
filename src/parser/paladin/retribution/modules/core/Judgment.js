@@ -9,6 +9,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class Judgment extends Analyzer {
   static dependencies = {
@@ -122,7 +124,7 @@ class Judgment extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.</>)
         .icon(SPELLS.JUDGMENT_DEBUFF.icon)
-        .actual(`${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`)
+        .actual(i18n._(t('paladin.retribution.suggestions.judgement.consumed')`${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

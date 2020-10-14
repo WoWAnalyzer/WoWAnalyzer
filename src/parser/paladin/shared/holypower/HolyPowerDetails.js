@@ -9,6 +9,9 @@ import BoringResourceValue from 'interface/statistics/components/BoringResourceV
 import Statistic from 'interface/statistics/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import HolyPowerTracker from './HolyPowerTracker';
 
 
@@ -38,7 +41,7 @@ class HolyPowerDetails extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatNumber(this.holyPowerTracker.wasted)} Holy Power.`)
         .icon(holyPowerIcon)
-        .actual(`${formatPercentage(this.wastedHolyPowerPercent)}% Holy Power wasted`)
+        .actual(i18n._(t('paladin.shared.suggestions.holyPower.wasted')`${formatPercentage(this.wastedHolyPowerPercent)}% Holy Power wasted`))
         .recommended(`Wasting <${formatPercentage(1 - recommended)}% is recommended`));
   }
 

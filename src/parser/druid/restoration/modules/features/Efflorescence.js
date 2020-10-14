@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const DURATION = 30000;
 
@@ -65,7 +67,7 @@ class Efflorescence extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime can be improved.</span>)
           .icon(SPELLS.EFFLORESCENCE_CAST.icon)
-          .actual(`${formatPercentage(this.uptimePercent)}% uptime`)
+          .actual(i18n._(t('druid.restoration.efflorescence.uptime')`${formatPercentage(this.uptimePercent)}% uptime`))
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
 
     // TODO suggestion for early refreshes

@@ -6,6 +6,8 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SpellLink from 'common/SpellLink';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class DragonRoar extends Analyzer {
 
@@ -71,7 +73,7 @@ class DragonRoar extends Analyzer {
   suggestions(when){
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.BLADESTORM_TALENT.id} /> outside of enrage.</>)
         .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-        .actual(`${formatPercentage(1-actual)}% of Bladestorm casts outside of enrage`)
+        .actual(i18n._(t('warrior.fury.suggestions.dragonRoar.efficiency')`${formatPercentage(1-actual)}% of Bladestorm casts outside of enrage`))
         .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 

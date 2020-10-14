@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -66,7 +69,7 @@ class ScourgeStrikeEfficiency extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You are casting <SpellLink id={this.activeSpell.id} /> too often.  When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></span>)
       .icon(this.activeSpell.icon)
-      .actual(`${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`)
+      .actual(i18n._(t('deathknight.unholy.suggestions.scourgeStrike.efficiency')`${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
