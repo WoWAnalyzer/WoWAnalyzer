@@ -13,6 +13,9 @@ import Abilities from 'parser/core/modules/Abilities';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { EventType } from 'parser/core/Events';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const MAX_RUNES = 6;
 const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption
 const RUNE_IDS = [
@@ -290,7 +293,7 @@ class RuneTracker extends ResourceTracker {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You overcapped {formatPercentage(actual)}% of your runes. Try to always have at least 3 runes on cooldown.</>)
         .icon(SPELLS.RUNE_1.icon)
-        .actual(`${formatPercentage(actual)}% runes overcapped`)
+        .actual(i18n._(t('deathknight.shared.suggestions.runes.overcapped')`${formatPercentage(actual)}% runes overcapped`))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

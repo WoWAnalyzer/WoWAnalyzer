@@ -6,6 +6,8 @@ import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV#fight=48&type=summary&source=10
@@ -49,7 +51,7 @@ class Felblade extends Analyzer{
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Avoid casting <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> close to Fury cap and cast abilities regularly to avoid accidently capping your fury.</>)
           .icon(SPELLS.FELBLADE_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% Fury wasted`)
+          .actual(i18n._(t('demonhunter.havoc.suggestions.felBlade.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
           .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 

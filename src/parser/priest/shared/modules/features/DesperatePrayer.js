@@ -9,6 +9,9 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class DesperatePrayer extends Analyzer {
 
   static dependencies = {
@@ -92,7 +95,7 @@ class DesperatePrayer extends Analyzer {
       when(this.deathsWithDPReady).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => suggest(<>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</>)
             .icon(SPELLS.DESPERATE_PRAYER.icon)
-            .actual(`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`)
+            .actual(i18n._(t('priest.shared.suggestions.DesperatePrayer.efficiency')`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`))
             .recommended(`0 is recommended`));
     }
   }

@@ -16,7 +16,7 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.INFUSION_OF_LIGHT.id,
         triggeredBySpellId: SPELLS.HOLY_SHOCK_CAST.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.RULE_OF_LAW_TALENT.id,
@@ -25,25 +25,25 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.DIVINE_PURPOSE_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       // Throughput cooldowns
       {
         spellId: SPELLS.AVENGING_CRUSADER_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
         triggeredBySpellId: SPELLS.AVENGING_CRUSADER_TALENT.id,
       },
       {
         spellId: SPELLS.AVENGING_WRATH.id,
         enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
         triggeredBySpellId: SPELLS.AVENGING_WRATH.id,
       },
       {
         spellId: SPELLS.HOLY_AVENGER_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       // Beacons
       {
@@ -89,7 +89,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

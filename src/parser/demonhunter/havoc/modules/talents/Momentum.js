@@ -9,6 +9,9 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 /*
 example report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV/#fight=48&source=10
 * */
@@ -44,7 +47,7 @@ class Momentum extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Maintain the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to maximize damage.</>)
           .icon(SPELLS.MOMENTUM_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% buff uptime`)
+          .actual(i18n._(t('demonhunter.havoc.suggestions.momentum.uptime')`${formatPercentage(actual)}% buff uptime`))
           .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 

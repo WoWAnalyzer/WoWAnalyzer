@@ -6,6 +6,8 @@ import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import MaelstromTracker from './MaelstromTracker.js';
 
@@ -62,7 +64,7 @@ class MaelstromDetails extends Analyzer {
     when(this.suggestionThresholdsWasted)
       .addSuggestion((suggest, actual, recommended) => suggest(`You overcapped ${this.wasted} Maelstrom. Always prioritize spending it over avoiding the overcap of any other ability.`)
           .icon('spell_shadow_mindflay')
-          .actual(`${formatPercentage(actual)}% overcapped Maelstrom`)
+          .actual(i18n._(t('shaman.shared.suggestions.maelstrom.overcapped')`${formatPercentage(actual)}% overcapped Maelstrom`))
           .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

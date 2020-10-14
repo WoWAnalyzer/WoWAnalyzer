@@ -9,6 +9,9 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import RageTracker from '../core/RageTracker';
 
 class Vengeance extends Analyzer {
@@ -65,7 +68,7 @@ class Vengeance extends Analyzer {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>Avoid casting <SpellLink id={SPELLS.IGNORE_PAIN.id} /> and <SpellLink id={SPELLS.REVENGE.id} /> back to back without using it's counterpart. <SpellLink id={SPELLS.VENGEANCE_TALENT.id} /> requires you to weave between those two spells to get the most rage and damage out of it.</>)
             .icon(SPELLS.VENGEANCE_TALENT.icon)
-            .actual(`${formatPercentage(actual)}% overwritten`)
+            .actual(i18n._(t('warrior.protection.suggestions.vengeance.overwritten')`${formatPercentage(actual)}% overwritten`))
             .recommended(`${formatPercentage(recommended)}% recommended`));
   }
 
