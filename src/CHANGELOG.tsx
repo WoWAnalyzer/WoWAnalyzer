@@ -14,6 +14,7 @@ const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 14), <>Adjusted the values of <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> and <SpellLink id={SPELLS.BATTLE_SHOUT.id} />.</>, niseko),
   change(prepatch, 'Internationalization for each spec', Jafowler),
   change(prepatch, 'Fixed typo in the Timeline buffs timelineHighlight propery', Sharrq),
   change(prepatch, 'Converted Distanced Moved module to TypesSript', Dambroda),
