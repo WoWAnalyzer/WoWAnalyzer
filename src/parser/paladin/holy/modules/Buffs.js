@@ -23,13 +23,8 @@ class Buffs extends CoreBuffs {
         enabled: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT),
       },
       {
-        spellId: SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY),
-        timelineHightlight: true,
-      },
-      {
-        spellId: SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY),
+        spellId: SPELLS.DIVINE_PURPOSE_TALENT.id,
+        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT),
         timelineHightlight: true,
       },
       // Throughput cooldowns

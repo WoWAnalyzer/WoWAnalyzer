@@ -68,7 +68,7 @@ class StatValues extends BaseHealerStatValues {
     }
 
     const masteryEffectiveness = event.masteryEffectiveness;
-    const healIncreaseFromOneMastery = this.statTracker.statMultiplier.mastery / this.statTracker.masteryRatingPerPercent * masteryEffectiveness;
+    const healIncreaseFromOneMastery = this.statTracker.statMultiplier.mastery / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentMasteryRating, this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY], this.selectedCombatant.spec.masteryCoefficient) * masteryEffectiveness;
     const baseHeal = healVal.effective / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);
 
     return baseHeal * healIncreaseFromOneMastery;
