@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
 import * as CONTRIBUTORS from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
@@ -124,8 +123,7 @@ const SpecIcon = ({spec}: SpecIconProps) => (
 const Article = (props: ArticleProps) => {
   const [expanded, setExpanded] = useState(false);
 
-  const renderExpansion = () => {
-    return (
+  const renderExpansion = () => (
       <>
         <Item title="A new layout" date="4 Feb">
           As the project was getting a lot of attention in the Holy Paladin community, the layout was cleaned up a bit and a player breakdown was added. This layout stayed largely the same for a couple of months.<br /><br />
@@ -973,8 +971,7 @@ const Article = (props: ArticleProps) => {
           We'll continue working on making WoWAnalyzer the best place for (automated) analysis. There are a lot of things planned for 2018, we're thinking Battle for Azeroth support for as many specs as possible, layout reworks and other interface improvements, <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues">fixing all issues/suggestions</a>, account system with personal customizations, Patreon integration that will support cool new <a href="https://www.patreon.com/wowanalyzer">Patreon-funded</a> features and much more!
         </Item>
       </>
-    );
-  }
+    )
 
     return (
       <RegularArticle bodyStyle={{ position: 'relative', overflow: 'hidden' }} {...props}>
