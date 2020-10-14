@@ -13,6 +13,7 @@ const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
+  change(prepatch, 'Fixed typo in the Timeline buffs timelineHighlight propery', Sharrq),
   change(prepatch, 'Converted Distanced Moved module to TypesSript', Dambroda),
   change(prepatch, 'Convert Js files to typescript', Ssabbar),
   change(prepatch, 'Fixed Putros StatTracker', niseko),
