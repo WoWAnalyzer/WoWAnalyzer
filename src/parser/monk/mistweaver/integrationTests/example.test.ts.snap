@@ -220,7 +220,7 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(40.668698198960925deg)",
+                    "transform": "rotate(10.07890435169071deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -250,7 +250,7 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
                 }
               }
             >
-              65
+              54
               %
             </div>
           </div>
@@ -321,10 +321,22 @@ Array [
   Object {
     "details": null,
     "icon": "petbattle_health-down",
-    "importance": "minor",
+    "importance": "regular",
     "issue": "Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.",
     "stat": <React.Fragment>
-      49.98% non healing time
+      55.00% non healing time
+       (
+      &lt;40.00% is recommended
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "minor",
+    "issue": "Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you're not healing try to contribute some damage.",
+    "stat": <React.Fragment>
+      46.40% downtime
        (
       &lt;40.00% is recommended
       )
@@ -3218,7 +3230,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               12
-              /277
+              /422
                
               casts
             </td>
@@ -3237,7 +3249,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "4.341821764995698%",
+                      "width": "2.8440535631558435%",
                     }
                   }
                 />
@@ -3252,7 +3264,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              4.34%
+              2.84%
             </td>
             <td
               style={
@@ -3315,7 +3327,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               20
-              /73
+              /111
                
               casts
             </td>
@@ -3334,7 +3346,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "27.540462831552553%",
+                      "width": "18.144261668223166%",
                     }
                   }
                 />
@@ -3349,7 +3361,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              27.54%
+              18.14%
             </td>
             <td
               style={
@@ -4371,20 +4383,14 @@ exports[`Mistweaver Monk integration test: example log EnvelopingMists matches t
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    postion={1050}
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="GENERAL"
+    className="panel statistic flexible "
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4399,22 +4405,41 @@ exports[`Mistweaver Monk integration test: example log EnvelopingMists matches t
             />
           </a>
            
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
+          <a
+            href="http://wowhead.com/spell=124682"
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            Healing Contributed
-          </dfn>
+            Enveloping Mist
+          </a>
         </label>
         <div
           className="value"
         >
           1.03m
+           
+          <small>
+            healing contributed by the buff
+          </small>
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -6000,7 +6025,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            647k
+            1.09m
           </td>
           <td
             width="20%"
@@ -6067,7 +6092,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            538k
+            907k
           </td>
           <td
             width="20%"
@@ -6081,7 +6106,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#a6c34c",
                     "transition": "background-color 800ms",
-                    "width": "83.15301391035548%",
+                    "width": "83.05860805860806%",
                   }
                 }
               />
@@ -6134,7 +6159,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            165k
+            279k
           </td>
           <td
             width="20%"
@@ -6148,7 +6173,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "25.50231839258114%",
+                    "width": "25.549450549450547%",
                   }
                 }
               />
@@ -6201,7 +6226,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            236k
+            398k
           </td>
           <td
             width="20%"
@@ -6215,7 +6240,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#df7102",
                     "transition": "background-color 800ms",
-                    "width": "36.476043276661514%",
+                    "width": "36.446886446886445%",
                   }
                 }
               />
@@ -6268,7 +6293,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            28k
+            60k
           </td>
           <td
             width="20%"
@@ -6282,7 +6307,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "4.327666151468315%",
+                    "width": "5.4945054945054945%",
                   }
                 }
               />
@@ -6553,7 +6578,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      50.00 % of Soothing Mist casts with max spells casted
+      100.00 % of Soothing Mist casts with max spells casted
        (
       1 is recommended
       )
@@ -6721,7 +6746,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              2.41
+              2.84
             </td>
             <td
               style={
@@ -6789,7 +6814,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
               className="text-right"
             >
               0.00 - 
-              0.64
+              1.39
             </td>
             <td
               style={
@@ -6856,7 +6881,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              1.63
+              3.57
             </td>
             <td
               style={
@@ -6915,7 +6940,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              1.59
+              1.75
             </td>
             <td
               style={
@@ -6974,7 +6999,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              1.50
+              0.00
             </td>
             <td
               style={
@@ -7041,7 +7066,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              2.03
+              0.00
             </td>
             <td
               style={
@@ -7095,7 +7120,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              5.11
+              31.92
             </td>
             <td
               style={
@@ -10124,8 +10149,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "61.7549326849259%",
+                  "backgroundColor": "#df7102",
+                  "width": "33.309863245177965%",
                 }
               }
             />
@@ -10228,7 +10253,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  49.98%
+                  55.00%
                    
                    
                 </div>
@@ -10248,9 +10273,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "66.76479805477771%",
+                        "width": "33.309863245177965%",
                       }
                     }
                   />
@@ -10288,7 +10313,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  35.48%
+                  46.40%
                    
                    
                 </div>
@@ -10308,9 +10333,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "85.79113130741193%",
                       }
                     }
                   />
@@ -10362,7 +10387,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  50.00%
+                  0.00%
                    
                    
                 </div>
@@ -10384,7 +10409,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "18.5%",
+                        "width": "0%",
                       }
                     }
                   />
