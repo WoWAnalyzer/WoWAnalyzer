@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Dambroda } from 'CONTRIBUTORS';
 import RegularArticle from 'interface/news/RegularArticle';
 
 import ShadowlandsBackground from './sl-bg-wide.jpg';
@@ -7,7 +8,7 @@ import ShadowlandsBackground from './sl-bg-wide.jpg';
 export default (
   <RegularArticle title="Welcome to the Shadowlands prepatch"
     publishedAt="2020-10-14"
-    publishedBy={{ nickname: 'WowAnalyzer', link: false }}>
+    publishedBy={Dambroda}>
     <img src={ShadowlandsBackground} alt="Shadowlands Wallpaper" /><br /><br />
 
     The Battle for Azeroth was a wild ride, but is it coming to an end. The Shadowlands
