@@ -228,7 +228,7 @@ class BaseHealerStatValues extends Analyzer {
   _getCritChance(event) {
     const rating = this.statTracker.currentCritRating;
     const baseCritChance = this.statTracker.baseCritPercentage;
-    const ratingCritChance = rating / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]);
+    const ratingCritChance = rating / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentCritRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]);
 
     return { baseCritChance, ratingCritChance };
   }
@@ -243,7 +243,7 @@ class BaseHealerStatValues extends Analyzer {
       const { baseCritChance, ratingCritChance } = this._getCritChance(event);
 
       const totalCritChance = baseCritChance + ratingCritChance;
-      if (totalCritChance > (1 + 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]))) {
+      if (totalCritChance > (1 + 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentCritRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]))) {
         // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
         return 0;
       }
