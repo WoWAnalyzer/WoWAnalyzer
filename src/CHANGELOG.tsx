@@ -13,6 +13,8 @@ const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
+  change(prepatch, 'Updated our StatTracker to reflect prepatch stat values and the diminishing return system added in Shadowlands', Putro),
+  change(prepatch, 'Converted StatisticsSectionTitle/TABS to TypeScript', ChagriAli),
   change(prepatch, 'Throughput files TypeScript conversion', niseko),
   change(prepatch, 'Converted BAD_ICONS, aprilFools, colorForPerformance, Alerts, ContributorButton, Modal to TypeScript', Barter),
   change(prepatch, 'Converted Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
