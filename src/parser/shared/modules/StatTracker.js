@@ -642,7 +642,7 @@ class StatTracker extends Analyzer {
   }
 
   get hasMasteryCoefficient(){
-    if(!this.selectedCombatant.spec && !this.selectedCombatant.spec.masteryCoefficient){
+    if(!this.selectedCombatant.spec || !this.selectedCombatant.spec.masteryCoefficient){
       return null;
     }
     return this.selectedCombatant.spec.masteryCoefficient;
