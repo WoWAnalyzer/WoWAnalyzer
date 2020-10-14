@@ -10,7 +10,6 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
