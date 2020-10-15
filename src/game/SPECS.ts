@@ -142,7 +142,7 @@ const SPECS: {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76857,
-    masteryCoefficient: 1, // or 1.5 or 0.5, unclear which the character panel uses
+    masteryCoefficient: 1.5,
     ranking: {
       class: 11,
       spec: 3,
@@ -492,7 +492,7 @@ const SPECS: {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 117907,
-    masteryCoefficient: 3,
+    masteryCoefficient: 4.2,
     ranking: {
       class: 5,
       spec: 2,

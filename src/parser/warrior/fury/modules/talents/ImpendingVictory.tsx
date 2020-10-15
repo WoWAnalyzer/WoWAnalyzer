@@ -1,17 +1,20 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatThousands, formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 
+
+// Example Log: https://www.warcraftlogs.com/reports/NcRzTFqvyxaYDMBb#fight=8&type=healing&source=7
 class ImpendingVicory extends Analyzer {
-  totalDamage = 0;
-  totalHeal = 0;
+  totalDamage: number = 0;
+  totalHeal: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id);
 
     if (!this.active) {
@@ -22,11 +25,11 @@ class ImpendingVicory extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT), this.onImpendingVictoryDamage);
   }
 
-  onImpendingVictoryDamage(event) {
+  onImpendingVictoryDamage(event: DamageEvent) {
     this.totalDamage += event.amount + (event.absorbed || 0);
   }
 
-  onImpendingVictoryHeal(event) {
+  onImpendingVictoryHeal(event: HealEvent) {
     this.totalHeal += event.amount;
   }
 
@@ -36,12 +39,17 @@ class ImpendingVicory extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.IMPENDING_VICTORY_TALENT.id}
-        value={`${formatNumber(this.totalHeal)} Healing`}
-        label="Impending Victory"
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={<><strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong> damage was done by Impending Victory.</>}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.IMPENDING_VICTORY_TALENT}>
+          <>
+            {formatNumber(this.totalHeal)} Healing
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

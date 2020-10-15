@@ -1,20 +1,22 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import Analyzer from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const REDUCTION_BONUS = 0.1;
 
+// Example Log: https://www.warcraftlogs.com/reports/tBFv8P9R3kdDgHKJ#fight=1&type=damage-done
 class Warpaint extends Analyzer {
 
-  damageMitigated = 0;
-  damageTaken = 0;
+  damageMitigated: number = 0;
+  damageTaken: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.WARPAINT_TALENT.id);
 
@@ -25,7 +27,7 @@ class Warpaint extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onPlayerDamageTaken);
   }
 
-  onPlayerDamageTaken(event) {
+  onPlayerDamageTaken(event: DamageEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id)) {
       const preMitigatedDamage = (event.amount + event.absorbed) / (1 - REDUCTION_BONUS);
       this.damageMitigated += preMitigatedDamage * REDUCTION_BONUS;
@@ -44,12 +46,17 @@ class Warpaint extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.WARPAINT_TALENT.id}
-        value={`${formatPercentage(this.damageMitigatedPercent)}% damage mitigated`}
-        label="Warpaint"
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={<>Warpaint mitigated a total of <strong>{formatThousands(this.damageMitigated)}</strong> damage.</>}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.WARPAINT_TALENT}>
+          <>
+            {formatPercentage(this.damageMitigatedPercent)}% damage mitigated
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -33,7 +33,7 @@ class ShieldBlock extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.lastCast = this.owner.fight.start_time / 1000;
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHEILD_SLAM), this.onSlamCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onSlamCast);
     this.addEventListener(Events.fightend, this.handleFightEnd);
   }
 

@@ -1,10 +1,11 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import Analyzer from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
 import SpellUsable from '../features/SpellUsable';
 
@@ -18,19 +19,22 @@ class SuddenDeath extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  suddenDeathProcs = 0;
-  suddenDeathProcsUsed = 0;
-  executeDamageEvents = [];
+  protected spellUsable!: SpellUsable;
 
-  lastExecuteCast = 0;
-  lastSuddenDeathExecuteCast = 0;
-  lastSuddenDeathTargetID = 0;
+  suddenDeathProcs: number = 0;
+  suddenDeathProcsUsed: number = 0;
+  executeDamageEvents: any = [];
 
-  constructor(...args) {
-    super(...args);
+  lastExecuteCast: number = 0;
+  lastSuddenDeathExecuteCast: number = 0;
+  lastSuddenDeathTargetID: any = 0;
+  executeThreshold: number = 0.2;
+
+  constructor(options: Options) {
+    super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT_FURY.id);
-    this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_FURY.id) ? 0.35 : 0.2;
+    this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_FURY.id) ? 0.35 : this.executeThreshold;
 
     if (!this.active) {
       return;
@@ -42,7 +46,7 @@ class SuddenDeath extends Analyzer {
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_FURY_BUFF), this.onSuddenDeathProc);
   }
 
-  onExecuteCast(event) {
+  onExecuteCast(event: CastEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.SUDDEN_DEATH_TALENT_FURY_BUFF.id)) {
       this.lastSuddenDeathExecuteCast = event.timestamp;
       this.suddenDeathProcsUsed += 1;
@@ -51,7 +55,7 @@ class SuddenDeath extends Analyzer {
     this.lastExecuteCast = event.timestamp;
   }
 
-  onExecuteDamage(event) {
+  onExecuteDamage(event: DamageEvent) {
     if (!this.executeDamageEvents[this.lastExecuteCast]) {
       this.executeDamageEvents[this.lastExecuteCast] = {
         damageDone: 0,
@@ -66,16 +70,19 @@ class SuddenDeath extends Analyzer {
     }
   }
 
-  onSuddenDeathProc() {
-    this.suddenDeathProcs += 1;
-  }
 
-  isExecuteAboveThreshold(event) {
+  isExecuteAboveThreshold(event: DamageEvent) {
+    if (!event.hitPoints || !event.maxHitPoints) {
+      return false;
+    }
     return event.hitPoints / event.maxHitPoints > this.executeThreshold;
   }
 
+  onSuddenDeathProc() {
+    this.suddenDeathProcs += 1;
+  }
   get damageAboveThreshold() {
-    return this.executeDamageEvents.reduce((total, event) => event.isMainTargetAboveThreshold ? total + event.damageDone : total, 0);
+    return this.executeDamageEvents.reduce((total: number, event: any) => event.isMainTargetAboveThreshold ? total + event.damageDone : total, 0);
   }
 
   get damagePercent() {
@@ -83,7 +90,7 @@ class SuddenDeath extends Analyzer {
   }
 
   get executeCastsAboveThreshold() {
-    return this.executeDamageEvents.filter(e => e.isMainTargetAboveThreshold && e.isSuddenDeath).length;
+    return this.executeDamageEvents.filter((e: any) => e.isMainTargetAboveThreshold && e.isSuddenDeath).length;
   }
 
   get effectiveExecuteCDR() {
@@ -92,10 +99,9 @@ class SuddenDeath extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.SUDDEN_DEATH_TALENT_FURY.id}
-        value={`${this.suddenDeathProcsUsed} / ${this.suddenDeathProcs} procs used`}
-        label="Sudden Death"
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={(
           <>
             Sudden Death usage on targets above {formatPercentage(this.executeThreshold)}%<br />
@@ -106,7 +112,13 @@ class SuddenDeath extends Analyzer {
             Effective CDR: <strong>{(this.effectiveExecuteCDR / 1000).toFixed(2)}s</strong>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SUDDEN_DEATH_TALENT_FURY}>
+          <>
+            {this.suddenDeathProcsUsed} / {this.suddenDeathProcs} procs used
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
