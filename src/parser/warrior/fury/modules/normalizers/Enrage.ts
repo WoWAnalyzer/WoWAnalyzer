@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { EventType } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 
 class Enrage extends EventsNormalizer {
   /**
@@ -11,8 +11,8 @@ class Enrage extends EventsNormalizer {
   * @returns {Array}
   **/
 
-  normalize(events) {
-    const fixedEvents = [];
+  normalize(events: AnyEvent[]) {
+    const fixedEvents: AnyEvent[] = [];
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 

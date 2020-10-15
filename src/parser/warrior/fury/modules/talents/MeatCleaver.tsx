@@ -1,8 +1,9 @@
 import React from 'react';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import Analyzer from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Events, { EnergizeEvent, ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 
 const BUFFER_MS = 50;
@@ -11,12 +12,13 @@ const RAGE_GAIN_WW_ON_USE = 3;
 const RAGE_GAIN_WW_ON_HIT = 1;
 const WW_ON_HIT_RAGE_CAP = 5;
 
+// Example log: https://www.warcraftlogs.com/reports/6xwyNCLRkrtahfWg#fight=24&type=damage-done
 class MeatCleaver extends Analyzer {
-  whirlwindEvents = [];
-  lastWhirlwindCast = 0;
+  whirlwindEvents: any = [];
+  lastWhirlwindCast: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MEAT_CLEAVER_TALENT.id);
     if (!this.active) {
       return;
@@ -28,7 +30,7 @@ class MeatCleaver extends Analyzer {
   }
 
   // The Energize event ligns up with the cast, so using it for both the rage gain, and timings of the cast.
-  onWhirlwindEnergize(event) {
+  onWhirlwindEnergize(event: EnergizeEvent) {
     this.lastWhirlwindCast = event.timestamp;
     this.whirlwindEvents[this.lastWhirlwindCast] = {
       resourceChange: event.resourceChange,
@@ -39,13 +41,13 @@ class MeatCleaver extends Analyzer {
     };
   }
 
-  onEnrage(event) {
+  onEnrage(event: ApplyBuffEvent) {
     if (event.timestamp - this.lastWhirlwindCast <= BUFFER_MS) {
       this.whirlwindEvents[this.lastWhirlwindCast].triggeredEnrage = true;
     }
   }
 
-  onWhirlwindDamage(event) {
+  onWhirlwindDamage(event: DamageEvent) {
     // Whirlwind triggers damage 3 times. We only need to count the number of targets hit on the first set of MH damage
     if (this.whirlwindEvents[this.lastWhirlwindCast].isFirstRoundOfDamage) {
       if (event.ability.guid === SPELLS.WHIRLWIND_FURY_DAMAGE_MH.id) {
@@ -57,11 +59,11 @@ class MeatCleaver extends Analyzer {
   }
 
   get numberOfEnrageTriggers() {
-    return this.whirlwindEvents.filter(e => e.triggeredEnrage).length;
+    return this.whirlwindEvents.filter((e: any) => e.triggeredEnrage).length;
   }
 
   get rageGainedByMeatCleaver() {
-    return this.whirlwindEvents.reduce((total, event) => {
+    return this.whirlwindEvents.reduce((total: number, event: any) => {
       const rageGained = event.resourceChange;
       // WW generates 3 rage on cast (6 during recklessness). Subtract this to get rage gained from hitting targets
       const rageFromHit = rageGained - (event.hasRecklessness ? RAGE_GAIN_WW_ON_USE * 2 : RAGE_GAIN_WW_ON_USE);
@@ -74,12 +76,17 @@ class MeatCleaver extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.MEAT_CLEAVER_TALENT.id}
-        value={`${this.rageGainedByMeatCleaver} rage gained`}
-        label="Meat Cleaver"
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={<>Enrage was triggered <strong>{this.numberOfEnrageTriggers}</strong> times by Meat Cleaver.</>}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.MEAT_CLEAVER_TALENT}>
+          <>
+            {this.rageGainedByMeatCleaver} rage gained
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

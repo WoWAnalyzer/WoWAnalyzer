@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Eylwen, Zerotorescue, Abelito75 } from 'CONTRIBUTORS';
+import { Eylwen, Zerotorescue, Abelito75, Adoraci } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 12), <>Updated specialization to TypeScript</>, Adoraci),
   change(date(2020, 3, 27), <>Removed Frothing Berserker suggestion.</>, Abelito75),
   change(date(2020, 3, 27), <>Changed Bloodthirst's threshold based on how many Cold Steel Hot Bloods you have.</>, Abelito75),
   change(date(2020, 3, 13), <>Furious Slash uptime requirement changed to general not max stacks.</>, Abelito75),
