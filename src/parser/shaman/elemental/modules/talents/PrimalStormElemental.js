@@ -96,7 +96,7 @@ class PrimalStormElemental extends Analyzer {
     when(this.badCasts).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You are not using <SpellLink id={SPELLS.CALL_LIGHTNING.id} /> on cooldown.</span>)
           .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-          .actual(i18n._(t('shaman.elemental.suggestions.primalStormElemental.badCasts')`${formatNumber(this.badCasts)} casts done by your Storm Elemental without the "Call Lightning"-Buff.}`))
+          .actual(i18n._(t('shaman.elemental.suggestions.primalStormElemental.badCasts')`${formatNumber(this.badCasts)} casts done by your Storm Elemental without the "Call Lightning"-Buff.`))
           .recommended(`You should be recasting "Call Lightning" before the buff drops off.`)
           .major(recommended+5));
   }
