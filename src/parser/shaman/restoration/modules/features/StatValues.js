@@ -79,7 +79,7 @@ class StatValues extends BaseHealerStatValues {
       STAT.INTELLECT,
       {
         stat: STAT.CRITICAL_STRIKE,
-        tooltip: 'Weight does not include Resurgence mana gain.',
+        tooltip: <Trans>Weight does not include Resurgence mana gain.</Trans>,
       },
       {
         stat: STAT.HASTE_HPCT,
