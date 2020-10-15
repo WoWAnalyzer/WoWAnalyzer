@@ -17,7 +17,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.OPPORTUNITY.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
 
       // Talents
@@ -28,7 +28,7 @@ class Buffs extends CoreBuffs {
       // Roll the Bones
       {
         spellId: SPELLS.ROLL_THE_BONES.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.RUTHLESS_PRECISION.id,

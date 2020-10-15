@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
@@ -20,7 +20,7 @@ class EchoingReprimand extends Analyzer {
   comboPointsWasted: number = 0;
   protected abilities!: Abilities;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND), this.onDamage);
