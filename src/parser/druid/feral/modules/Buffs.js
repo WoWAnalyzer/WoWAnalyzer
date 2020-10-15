@@ -14,64 +14,64 @@ class Buffs extends CoreBuffs {
         spellId: SPELLS.BLOODTALONS_BUFF.id,
         enabled: combatant.hasTalent(SPELLS.BLOODTALONS_TALENT),
         triggeredBySpellId: [SPELLS.REGROWTH.id, SPELLS.ENTANGLING_ROOTS.id],
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.PREDATORY_SWIFTNESS.id,
         // only important for rotation when using Bloodtalons, but always available
-        timelineHightlight: combatant.hasTalent(SPELLS.BLOODTALONS_TALENT),
+        timelineHighlight: combatant.hasTalent(SPELLS.BLOODTALONS_TALENT),
       },
       {
         spellId: SPELLS.SAVAGE_ROAR_TALENT.id,
         triggeredBySpellId: SPELLS.SAVAGE_ROAR_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
 
       // defensive
       {
         spellId: SPELLS.SURVIVAL_INSTINCTS.id,
         triggeredBySpellId: SPELLS.SURVIVAL_INSTINCTS.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.BEAR_FORM.id,
         triggeredBySpellId: SPELLS.BEAR_FORM.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
 
       // stealth
       {
         spellId: [SPELLS.PROWL.id, SPELLS.PROWL_INCARNATION.id],
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.SHADOWMELD.id,
         triggeredBySpellId: SPELLS.SHADOWMELD.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
 
       // cooldowns
       {
         spellId: SPELLS.TIGERS_FURY.id,
         triggeredBySpellId: SPELLS.TIGERS_FURY.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.BERSERK.id,
         triggeredBySpellId: SPELLS.BERSERK.id,
         enabled: !combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id,
         triggeredBySpellId: SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
 
       // utility
@@ -90,12 +90,12 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.TRAVEL_FORM.id,
         triggeredBySpellId: SPELLS.TRAVEL_FORM.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.STAG_FORM.id,
         triggeredBySpellId: SPELLS.STAG_FORM.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.DASH.id,

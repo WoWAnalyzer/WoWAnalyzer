@@ -8,6 +8,8 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import FuriousSlashTimesByStacks from './FuriousSlashTimesByStacks';
 
@@ -58,7 +60,7 @@ class FuriousSlashUptime extends Analyzer {
 		  when(this.uptimeSuggestionThresholds)
 		  .addSuggestion((suggest, actual, recommended) => suggest(<>You dropped <SpellLink id={SPELLS.FURIOUS_SLASH_TALENT.id} /> multiply times throughout the fight. This can be improved.</>)
 		  .icon(SPELLS.FURIOUS_SLASH_TALENT.icon)
-		  .actual(`${formatNumber(actual)} times Furious Slash dropped`)
+		  .actual(i18n._(t('warrior.fury.suggestions.furiousSlash.uptime')`${formatNumber(actual)} times Furious Slash dropped`))
 		  .recommended(`${formatNumber(recommended)} is recommended`));
   }
 

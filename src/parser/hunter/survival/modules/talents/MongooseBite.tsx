@@ -14,6 +14,8 @@ import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, Ev
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { MONGOOSE_BITE_MAX_STACKS, MONGOOSE_BITE_MAX_TRAVEL_TIME, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Mongoose Fury increases Mongoose Bite damage by 15% for 14 sec, stacking up to 5 times. Successive attacks do not increase duration.
@@ -191,11 +193,11 @@ class MongooseBite extends Analyzer {
   suggestions(when: When) {
     when(this.focusOnMongooseWindowThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>When talented into <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, it's important to have accumulated a good amount of focus before you open a <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> window in order to maximize the number of <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s at high stacks.</>)
         .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
-        .actual(`${formatNumber(actual)} average focus on new window.`)
+        .actual(i18n._(t('hunter.survival.suggestions.mongooseBite.focusWindow')`${formatNumber(actual)} average focus on new window.`))
         .recommended(`>${formatNumber(recommended)} is recommended`));
     when(this.mongoose5StackHitThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>It's important to cast as much <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s as possible when having max(5) stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} />.</>)
         .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% casts on max stacks.`)
+        .actual(i18n._(t('hunter.survival.suggetsions.mongooseBite.maxStacksCasts')`${formatPercentage(actual)}% casts on max stacks.`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }

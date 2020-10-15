@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Zerotorescue, HolySchmidt } from 'CONTRIBUTORS';
+import { Abelito75, HolySchmidt } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -10,15 +10,15 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Zerotorescue, HolySchmidt],
-  patchCompatibility: '8.3',
+  contributors: [Abelito75, HolySchmidt],
+  patchCompatibility: '9.0',
   isSupported: true,
   description: (
     <>
       Hey! The Holy Paladin analyzer is one of the most maintained specs on the site. It gets
       updated quickly with new things, and has most things implemented that can be analyzed
       automatically with good enough accuracy. If you think anything is off or wrong, please contact
-      me @Zerotorescue so we can discuss it. I don't mind double or triple checking something if
+      me @Abelito75 so we can discuss it. I don't mind double or triple checking something if
       there's any doubt.
       <br />
       <br />

@@ -1,5 +1,5 @@
-
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli, Barter } from 'CONTRIBUTORS';
+import React from 'react';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli, Barter, Ssabbar, Jafowler } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -7,39 +7,44 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
-import React from 'react';
-
-const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
-  change(prepatch, 'Converted StatisticsSectionTitle/TABS to TypeScript', ChagriAli),
-  change(prepatch, 'Throughput files TypeScript conversion', niseko),
-  change(prepatch, 'Converted BAD_ICONS, aprilFools, colorForPerformance, Alerts, ContributorButton, Modal to TypeScript', Barter),
-  change(prepatch, 'Converted Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
-  change(prepatch, 'Allow the use of any of the threshold breakpoints (minor, average, major) as the primary breakpoint for suggestions', Dambroda),
-  change(prepatch, 'Merged CooldownTrackers to remove duplicated code and converted them to TypeScript', Putro),
-  change(prepatch, 'Converted Items to TypeScript', Zeboot),
-  change(prepatch, 'Converted Spells to TypeScript', Zeboot),
-  change(prepatch, 'Converted Consumable Checkers to TypeScript', Zeboot),
-  change(prepatch, 'Converted Combatants to TypeScript', niseko),
-  change(prepatch, 'Changed code quality rules.', Zerotorescue),
-  change(prepatch, 'Added a new event map for catch-all event types. Converted SpellUsable to TypeScript.', Dambroda),
-  change(prepatch, 'Converted WCL API Access to TypeScript', Zeboot),
-  change(prepatch, 'Cleaned up the console a little bit.', Abelito75),
-  change(prepatch, 'Added a toggle-all button to the EventTab.', niseko),
-  change(prepatch, 'Added dispel to filterable type for EventTab.', Moonrabbit),
-  change(prepatch, 'Added Castle Nathria boss configs and updated the default report header image.', Sharrq),
-  change(prepatch, 'Added pet tracking to the Cooldown tab.', Abelito75),
-  change(prepatch, 'Converted charts to new library.', emallson),
-  change(prepatch, 'Added a new search option to the homepage to view a guild\'s recent reports.', Dambroda),
-  change(prepatch, 'Updated mana costs for all healers.', Abelito75),
-  change(prepatch, 'Updated abilities effiency tracker to default to 0 if no casts were possible.', Abelito75),
-  change(prepatch, 'Added holy power tracking for prot and holy paladin specs.', HolySchmidt),
-  change(prepatch, 'Updated search in Event tab to allow for multi-word searching in quotes.', Abelito75),
-  change(prepatch, 'Add some early checks to see if a player has a given conduit, soulbind or covenant.', Putro),
-  change(prepatch, 'Add some scripts for generating conduit information.', Putro),
-  change(prepatch, 'Fixed cast efficiency calculations for channeled spells. They are now no longer adding channeled time on top of cooldown as time they were unavailable', Juko8),
+  change(date(2020, 10, 14), 'Fixed the character page.', Abelito75),
+  change(date(2020, 10, 14), <>Adjusted the values of <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> and <SpellLink id={SPELLS.BATTLE_SHOUT.id} />.</>, niseko),
+  change(date(2020, 10, 13), 'Internationalization for each spec', Jafowler),
+  change(date(2020, 10, 13), 'Fixed typo in the Timeline buffs timelineHighlight propery', Sharrq),
+  change(date(2020, 10, 13), 'Converted Distanced Moved module to TypesSript', Dambroda),
+  change(date(2020, 10, 13), 'Convert Js files to typescript', Ssabbar),
+  change(date(2020, 10, 13), 'Fixed Putros StatTracker', niseko),
+  change(date(2020, 10, 13), 'Updated our StatTracker to reflect prepatch stat values and the diminishing return system added in Shadowlands', Putro),
+  change(date(2020, 10, 13), 'Converted StatisticsSectionTitle/TABS to TypeScript', ChagriAli),
+  change(date(2020, 10, 13), 'Throughput files TypeScript conversion', niseko),
+  change(date(2020, 10, 13), 'Converted BAD_ICONS, aprilFools, colorForPerformance, Alerts, ContributorButton, Modal to TypeScript', Barter),
+  change(date(2020, 10, 13), 'Converted Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
+  change(date(2020, 10, 13), 'Allow the use of any of the threshold breakpoints (minor, average, major) as the primary breakpoint for suggestions', Dambroda),
+  change(date(2020, 10, 13), 'Merged CooldownTrackers to remove duplicated code and converted them to TypeScript', Putro),
+  change(date(2020, 10, 13), 'Converted Items to TypeScript', Zeboot),
+  change(date(2020, 10, 13), 'Converted Spells to TypeScript', Zeboot),
+  change(date(2020, 10, 13), 'Converted Consumable Checkers to TypeScript', Zeboot),
+  change(date(2020, 10, 13), 'Converted Combatants to TypeScript', niseko),
+  change(date(2020, 10, 13), 'Changed code quality rules.', Zerotorescue),
+  change(date(2020, 10, 13), 'Added a new event map for catch-all event types. Converted SpellUsable to TypeScript.', Dambroda),
+  change(date(2020, 10, 13), 'Converted WCL API Access to TypeScript', Zeboot),
+  change(date(2020, 10, 13), 'Cleaned up the console a little bit.', Abelito75),
+  change(date(2020, 10, 13), 'Added a toggle-all button to the EventTab.', niseko),
+  change(date(2020, 10, 13), 'Added dispel to filterable type for EventTab.', Moonrabbit),
+  change(date(2020, 10, 13), 'Added Castle Nathria boss configs and updated the default report header image.', Sharrq),
+  change(date(2020, 10, 13), 'Added pet tracking to the Cooldown tab.', Abelito75),
+  change(date(2020, 10, 13), 'Converted charts to new library.', emallson),
+  change(date(2020, 10, 13), 'Added a new search option to the homepage to view a guild\'s recent reports.', Dambroda),
+  change(date(2020, 10, 13), 'Updated mana costs for all healers.', Abelito75),
+  change(date(2020, 10, 13), 'Updated abilities effiency tracker to default to 0 if no casts were possible.', Abelito75),
+  change(date(2020, 10, 13), 'Added holy power tracking for prot and holy paladin specs.', HolySchmidt),
+  change(date(2020, 10, 13), 'Updated search in Event tab to allow for multi-word searching in quotes.', Abelito75),
+  change(date(2020, 10, 13), 'Add some early checks to see if a player has a given conduit, soulbind or covenant.', Putro),
+  change(date(2020, 10, 13), 'Add some scripts for generating conduit information.', Putro),
+  change(date(2020, 10, 13), 'Fixed cast efficiency calculations for channeled spells. They are now no longer adding channeled time on top of cooldown as time they were unavailable', Juko8),
   change(date(2020, 10, 7), 'Updated the report header design: moved phase and time selection slightly out of view.', Zerotorescue),
   change(date(2020, 10, 6), 'Provide the ability to analyse anonymous reports.', AdamKelly),
   change(date(2020, 10, 6), 'Fixed guild and character search so they can be submitted.', ChristopherKiss),

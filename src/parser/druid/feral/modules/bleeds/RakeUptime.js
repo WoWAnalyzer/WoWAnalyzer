@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { TooltipElement } from 'common/Tooltip';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class RakeUptime extends Analyzer {
   static dependencies = {
@@ -36,7 +38,7 @@ class RakeUptime extends Analyzer {
         </>,
       )
         .icon(SPELLS.RAKE.icon)
-        .actual(`${formatPercentage(actual)}% uptime`)
+        .actual(i18n._(t('druid.feral.suggestions.rake.uptime')`${formatPercentage(actual)}% uptime`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

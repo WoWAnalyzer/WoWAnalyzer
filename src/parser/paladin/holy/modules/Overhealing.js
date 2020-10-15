@@ -9,14 +9,13 @@ import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
-import DivinePurpose from './talents/DivinePurpose';
-
 class Overhealing extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     healingDone: HealingDone,
-    divinePurpose: DivinePurpose,
   };
+
+  divinePurposeActive = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT.id);
 
   getRawHealing(ability) {
     return ability.healingEffective + ability.healingAbsorbed + ability.healingOverheal;
@@ -30,7 +29,7 @@ class Overhealing extends Analyzer {
     return this.getOverhealingPercentage(SPELLS.LIGHT_OF_DAWN_HEAL.id);
   }
   get lightOfDawnSuggestionThresholds() {
-    const base = this.divinePurpose.active ? 0.45 : 0.4;
+    const base = this.divinePurposeActive ? 0.45 : 0.4;
     return {
       actual: this.lightOfDawnOverhealing,
       isGreaterThan: {
@@ -45,7 +44,7 @@ class Overhealing extends Analyzer {
     return this.getOverhealingPercentage(SPELLS.HOLY_SHOCK_HEAL.id);
   }
   get holyShockSuggestionThresholds() {
-    const base = this.divinePurpose.active ? 0.4 : 0.35;
+    const base = this.divinePurposeActive ? 0.4 : 0.35;
     return {
       actual: this.holyShockOverhealing,
       isGreaterThan: {

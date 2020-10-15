@@ -2,6 +2,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import HitCountAoE from '../core/HitCountAoE';
 
@@ -48,7 +50,7 @@ class ThrashHitCount extends HitCountAoE {
         </>,
       )
         .icon(SPELLS.THRASH_FERAL.icon)
-        .actual(`${actual.toFixed(1)} uses per minute that hit nothing.`)
+        .actual(i18n._(t('druid.feral.suggestions.thrash.hitcount.outOfRange')`${actual.toFixed(1)} uses per minute that hit nothing.`))
         .recommended(`${recommended} is recommended`));
   }
 }

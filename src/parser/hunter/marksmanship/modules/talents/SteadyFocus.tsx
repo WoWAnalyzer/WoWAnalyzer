@@ -10,6 +10,8 @@ import HasteIcon from 'interface/icons/Haste';
 import { formatPercentage } from 'common/format';
 import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
 import SpellLink from 'common/SpellLink';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Using Steady Shot twice in a row increases your Haste by 7% for 15 sec.
@@ -68,7 +70,7 @@ class SteadyFocus extends Analyzer {
         </>,
       )
         .icon(SPELLS.STEADY_FOCUS_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% uptime`)
+        .actual(i18n._(t('hunter.marksmanship.suggestions.steadyFocus.uptime')`${formatPercentage(actual)}% uptime`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
