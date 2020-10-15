@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Panel from 'interface/others/Panel';
-import RestorationShamanSpreadsheet from 'interface/others/RestorationShamanSpreadsheet';
 import Feeding from 'interface/others/Feeding';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -16,7 +15,6 @@ import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
 import Abilities from './modules/Abilities';
 
 import HealingDone from './modules/core/HealingDone';
-import ShamanAbilityTracker from './modules/core/ShamanAbilityTracker';
 import HealingRainLocation from './modules/core/HealingRainLocation';
 
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
@@ -35,7 +33,6 @@ import UnleashLife from './modules/talents/UnleashLife';
 import Deluge from './modules/talents/Deluge';
 import Undulation from './modules/talents/Undulation';
 import FlashFlood from './modules/talents/FlashFlood';
-import EarthShield from './modules/talents/EarthShield';
 import AncestralVigor from './modules/talents/AncestralVigor';
 import EarthenWallTotem from './modules/talents/EarthenWallTotem';
 import Downpour from './modules/talents/Downpour';
@@ -52,23 +49,15 @@ import HealingRain from './modules/spells/HealingRain';
 import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
 import Resurgence from './modules/spells/Resurgence';
-//Azerite
-import BaseHealerAzerite from './modules/azerite/BaseHealerAzerite';
-import SwellingStream from './modules/azerite/SwellingStream';
-import SoothingWaters from './modules/azerite/SoothingWaters';
-import OverflowingShores from './modules/azerite/OverflowingShores';
-import SpoutingSpirits from './modules/azerite/SpoutingSpirits';
-import SurgingTides from './modules/azerite/SurgingTides';
-import TurnOfTheTide from './modules/azerite/TurnOfTheTide';
-import VisionOfPerfection from './modules/azerite/essences/VisionOfPerfection';
-// Shared
-import SpiritWolf from '../shared/talents/SpiritWolf';
-import StaticCharge from '../shared/talents/StaticCharge';
-import AstralShift from '../shared/spells/AstralShift';
 // Potency Conduits
 import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
 import HeavyRainfall from './modules/shadowlands/conduits/HeavyRainfall';
 import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
+// Shared
+import SpiritWolf from '../shared/talents/SpiritWolf';
+import StaticCharge from '../shared/talents/StaticCharge';
+import EarthShield from './modules/spells/EarthShield'; // technically shared
+import AstralShift from '../shared/spells/AstralShift';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 
@@ -78,8 +67,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
-    // Override the ability tracker so we also get stats for Tidal Waves and beacon healing
-    abilityTracker: ShamanAbilityTracker,
     lowHealthHealing: LowHealthHealing,
     healingDone: HealingDone,
     abilities: Abilities,
@@ -108,7 +95,6 @@ class CombatLogParser extends CoreCombatLogParser {
     undulation: Undulation,
     deluge: Deluge,
     flashFlood: FlashFlood,
-    earthShield: EarthShield,
     ancestralVigor: AncestralVigor,
     earthenWallTotem: EarthenWallTotem,
     downpour: Downpour,
@@ -128,20 +114,11 @@ class CombatLogParser extends CoreCombatLogParser {
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
 
-    // Azerite
-    baseHealerAzerite: BaseHealerAzerite,
-    swellingStream: SwellingStream,
-    soothingWaters: SoothingWaters,
-    overflowingShores: OverflowingShores,
-    spoutingSpirits: SpoutingSpirits,
-    surgingTides: SurgingTides,
-    turnOfTheTide: TurnOfTheTide,
-    visionOfPerfection: VisionOfPerfection,
-
     // Shared:
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
     astralShift: AstralShift,
+    earthShield: EarthShield,
 
     // Essences
     lucidDreams: LucidDreams,
@@ -160,15 +137,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
-      {
-        title: 'Player Log Data',
-        url: 'player-log-data',
-        render: () => (
-          <Panel style={{ padding: '15px 22px 15px 15px' }}>
-            <RestorationShamanSpreadsheet parser={this} />
-          </Panel>
-        ),
-      },
       {
         title: 'Feeding',
         url: 'feeding',

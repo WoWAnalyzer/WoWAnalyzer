@@ -38,6 +38,8 @@ import Contrition from './modules/spells/Contrition';
 import Grace from './modules/spells/Grace';
 import Schism from './modules/spells/Schism';
 import Mindgames from './modules/shadowlands/covenants/MindGames';
+import BoonOfTheAscended from './modules/shadowlands/covenants/BoonOfTheAscended';
+
 
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
@@ -97,6 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     mindgames: Mindgames,
+    boonOfTheAscended: BoonOfTheAscended,
   };
 }
 

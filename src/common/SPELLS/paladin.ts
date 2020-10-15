@@ -247,16 +247,6 @@ const spells: SpellList = {
     name: 'Infusion of Light',
     icon: 'ability_paladin_infusionoflight',
   },
-  DIVINE_PURPOSE_HOLY_SHOCK_BUFF: {
-    id: 216411,
-    name: 'Divine Purpose',
-    icon: 'spell_holy_divinepurpose',
-  },
-  DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF: {
-    id: 216413,
-    name: 'Divine Purpose',
-    icon: 'spell_holy_divinepurpose',
-  },
   CLEANSE: {
     id: 4987,
     name: 'Cleanse',
@@ -283,6 +273,32 @@ const spells: SpellList = {
     name: 'Avenging Crusader',
     icon: 'spell_holy_restoration',
   },
+  BESTOW_FAITH_HOLY_POWER: {
+    id: 343618,
+    name: 'Bestow Faith',
+    icon: 'ability_paladin_blessedmending',
+  },
+  BEACON_OF_LIGHT_HOLY_POWER: {
+    id: 88852,
+    name: 'Beacon Of Light',
+    icon: 'ability_paladin_beaconoflight',
+  },
+  GLIMMER_OF_LIGHT_HEAL_TALENT: {
+    id: 325983,
+    name: 'Glimmer of Light',
+    icon: 'ability_paladin_toweroflight',
+  },
+  GLIMMER_OF_LIGHT_BUFF: {
+    id: 287280,
+    name: 'Glimmer of Light',
+    icon: 'ability_paladin_toweroflight',
+  },
+  GLIMMER_OF_LIGHT_DAMAGE_TALENT: {
+    id: 325984,
+    name: 'Glimmer of Light',
+    icon: 'ability_paladin_toweroflight',
+  },
+
   // Retribution Paladin:
   JUDGMENT_DEBUFF: {
     id: 197277,
@@ -464,11 +480,6 @@ const spells: SpellList = {
     id: 132403,
     name: 'Shield of the Righteous',
     icon: 'ability_paladin_shieldofvengeance',
-  },
-  AVENGERS_VALOR_BUFF: {
-    id: 197561,
-    name: 'Avenger\'s Valor',
-    icon: 'spell_holy_avengersshield',
   },
   CONSECRATION_BUFF: {
     id: 188370,

@@ -6,6 +6,9 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -223,14 +226,14 @@ class Flourish extends Analyzer {
     when(this.wildGrowthSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></>)
           .icon(SPELLS.FLOURISH_TALENT.icon)
-          .actual(`${formatPercentage(this.wgsExtended / this.flourishCount, 0)}% WGs extended.`)
+          .actual(i18n._(t('druid.restoration.suggestions.flourish.wildGrowthExtended')`${formatPercentage(this.wgsExtended / this.flourishCount, 0)}% WGs extended.`))
           .recommended(`${formatPercentage(recommended)}% is recommended`));
 
     if(this.hasCenarionWard) {
       when(this.cenarionWardSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD_HEAL.id} /></>)
             .icon(SPELLS.FLOURISH_TALENT.icon)
-            .actual(`${this.cwsExtended}/${this.flourishCount} CWs extended.`)
+            .actual(i18n._(t('druid.restoration.suggestions.flourish.cenarionWardExtended')`${this.cwsExtended}/${this.flourishCount} CWs extended.`))
             .recommended(`${formatPercentage(recommended)}% is recommended`));
     }
   }

@@ -2,12 +2,15 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { BeginCastEvent, CastEvent } from 'parser/core/Events';
+import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { When } from 'parser/core/ParseResults';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class HealingWave extends Analyzer {
   static dependencies = {
@@ -18,12 +21,15 @@ class HealingWave extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected spellUsable!: SpellUsable;
 
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE), this.onHealingWaveBegincast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE), this.onHealingWaveCast);
+  }
+
   _isCurrentCastInefficient = false;
-  on_byPlayer_begincast(event: BeginCastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_WAVE.id) {
-      return;
-    }
+  onHealingWaveBegincast(event: BeginCastEvent) {
     if (this._isInefficientCastEvent(event)) {
       this._isCurrentCastInefficient = true;
     } else {
@@ -49,11 +55,7 @@ class HealingWave extends Analyzer {
    * This marks spells as inefficient casts in the timeline.
    * @param event
    */
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_WAVE.id) {
-      return;
-    }
+  onHealingWaveCast(event: CastEvent) {
     if (this._isCurrentCastInefficient) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
@@ -85,7 +87,7 @@ class HealingWave extends Analyzer {
     when(suggestedThreshold.actual).isGreaterThan(suggestedThreshold.isGreaterThan.minor)
       .addSuggestion((suggest) => suggest(<span>Casting <SpellLink id={SPELLS.HEALING_WAVE.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> is slow and generally inefficient. Consider casting a riptide first to generate <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /></span>)
           .icon(SPELLS.HEALING_WAVE.icon)
-          .actual(`${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`)
+          .actual(i18n._(t('shaman.restoration.suggestions.healingWave.unbuffed')`${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`))
           .recommended(`${formatPercentage(suggestedThreshold.isGreaterThan.minor)}% of unbuffed Healing Waves`)
           .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major));
   }

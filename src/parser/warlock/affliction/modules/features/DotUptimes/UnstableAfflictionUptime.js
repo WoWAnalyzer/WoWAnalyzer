@@ -13,6 +13,9 @@ import Tooltip from 'common/Tooltip';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../../constants';
 
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
@@ -84,12 +87,12 @@ class UnstableAfflictionUptime extends Analyzer {
           </>,
         )
           .icon(SPELLS.UNSTABLE_AFFLICTION_CAST.icon)
-          .actual(`${formatPercentage(actual)}% Unstable Affliction uptime.`)
+          .actual(i18n._(t('warlock.affliction.suggestions.unstableAffliction.uptime')`${formatPercentage(actual)}% Unstable Affliction uptime.`))
           .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {
-    const history = this.enemies.getCombinedDebuffHistory(...UNSTABLE_AFFLICTION_DEBUFFS.map(spell => spell.id));
+    const history = this.enemies.getCombinedDebuffHistory(UNSTABLE_AFFLICTION_DEBUFFS.map(spell => spell.id));
     return (
       <div className="flex">
         <div className="flex-sub icon">

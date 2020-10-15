@@ -6,6 +6,9 @@ import SPELLS from 'common/SPELLS';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 import { When } from 'parser/core/ParseResults';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [
     SPELLS.GREATER_HEAL.id,
@@ -30,7 +33,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     when(deadTimePercentage).isGreaterThan(0.15)
       .addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% downtime`)
+          .actual(i18n._(t('priest.holy.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.05).major(recommended + 0.05));
   }

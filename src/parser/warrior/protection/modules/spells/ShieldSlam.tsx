@@ -9,6 +9,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events, { CastEvent } from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
@@ -31,7 +33,7 @@ class ShieldBlock extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.lastCast = this.owner.fight.start_time / 1000;
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHEILD_SLAM), this.onSlamCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onSlamCast);
     this.addEventListener(Events.fightend, this.handleFightEnd);
   }
 
@@ -95,7 +97,7 @@ class ShieldBlock extends Analyzer {
         </>,
       )
         .icon(SPELLS.SHIELD_SLAM.icon)
-        .actual(`${this.actualCasts} shield slam casts`)
+        .actual(i18n._(t('warrior.protection.suggestions.shieldSlam.casts')`${this.actualCasts} shield slam casts`))
         .recommended(`${(recommended * this.totalCastsAssumed).toFixed(0)} recommended out of ${this.totalCastsAssumed} maximum`));
   }
 }

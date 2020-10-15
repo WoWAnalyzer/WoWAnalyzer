@@ -13,6 +13,8 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import UptimeIcon from 'interface/icons/Uptime';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class Doom extends Analyzer {
   static dependencies = {
@@ -51,7 +53,7 @@ class Doom extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</>)
           .icon(SPELLS.DOOM_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% Doom uptime`)
+          .actual(i18n._(t('warlock.demonology.suggestions.doom.uptime')`${formatPercentage(actual)}% Doom uptime`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

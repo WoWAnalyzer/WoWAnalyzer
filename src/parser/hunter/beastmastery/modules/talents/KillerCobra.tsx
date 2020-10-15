@@ -10,7 +10,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events from 'parser/core/Events';
-
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * While Bestial Wrath is active, Cobra Shot resets the cooldown on Kill
@@ -71,7 +72,7 @@ class KillerCobra extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.KILLER_COBRA_TALENT}>
           <>
-            {this.effectiveKillCommandResets}/{this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots} <small>{this.effectiveKillCommandResets === 1 ? 'reset' : 'resets'}</small>
+            {this.effectiveKillCommandResets}/{this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots} <small>{this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots === 1 ? 'reset' : 'resets'}</small>
           </>
         </BoringSpellValueText>
       </Statistic>
@@ -81,7 +82,7 @@ class KillerCobra extends Analyzer {
   suggestions(when: When) {
     when(this.wastedKillerCobraThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>Avoid casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> whilst <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> isn't on cooldown, when you have <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up. Utilize the reset effect of <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> by only casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to reset <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> when <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up. </>)
         .icon(SPELLS.KILLER_COBRA_TALENT.icon)
-        .actual(`You cast Cobra Shot while Kill Command wasn't on cooldown, whilst Bestial Wrath was up ${actual} times.`)
+        .actual(i18n._(t('hunter.beastmastery.suggestions.killerCobra.efficiency')`You cast Cobra Shot while Kill Command wasn't on cooldown, whilst Bestial Wrath was up ${actual} times.`))
         .recommended(`${recommended} is recommended.`));
   }
 }

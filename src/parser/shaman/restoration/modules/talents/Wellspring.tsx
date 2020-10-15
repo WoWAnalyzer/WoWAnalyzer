@@ -5,9 +5,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
 
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
-import { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -15,6 +15,9 @@ import StatisticBox from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Combatants from 'parser/shared/modules/Combatants';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
@@ -36,9 +39,14 @@ class Wellspring extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id);
+
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_TALENT), this._onBegincast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_TALENT), this._onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_HEAL), this._onHeal);
+    this.addEventListener(Events.fightend, this._onFightend);
   }
 
-  on_byPlayer_begincast(event: BeginCastEvent) {
+  _onBegincast(event: BeginCastEvent) {
     if (event.ability.guid !== SPELLS.WELLSPRING_TALENT.id || event.isCancelled) {
       return;
     }
@@ -51,21 +59,11 @@ class Wellspring extends Analyzer {
     this.wellspringTimestamps[this.castNumber] = event.timestamp;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    if (event.ability.guid !== SPELLS.WELLSPRING_TALENT.id) {
-      return;
-    }
-
+  _onCast(event: CastEvent) {
     this.castEvent = event;
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.WELLSPRING_HEAL.id) {
-      return;
-    }
-
+  _onHeal(event: HealEvent) {
     if (!this.wellspringCasts[this.castNumber]) {
       this.wellspringCasts[this.castNumber] = 0;
     }
@@ -86,7 +84,7 @@ class Wellspring extends Analyzer {
     this.wellspringCasts[this.castNumber] += 1;
   }
 
-  on_fightend() {
+  _onFightend() {
     if (this.wellspringCasts[this.castNumber] && this.wellspringCasts[this.castNumber] < 6 && (this.castEvent && !this.castEvent.meta)) {
       this.registerInefficientCast();
     }
@@ -125,7 +123,7 @@ class Wellspring extends Analyzer {
     when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You're not making full use of the potential of <SpellLink id={SPELLS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured players with 6 people or more.</span>)
           .icon(SPELLS.WELLSPRING_TALENT.icon)
-          .actual(`${formatPercentage(suggestionThreshold.actual)}% efficiency`)
+          .actual(i18n._(t('shaman.restoration.suggestions.wellspring.efficiency')`${formatPercentage(suggestionThreshold.actual)}% efficiency`))
           .recommended(`>${formatPercentage(suggestionThreshold.isLessThan.minor)}% efficiency is recommended`)
           .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
   }

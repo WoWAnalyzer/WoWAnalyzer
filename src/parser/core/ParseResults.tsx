@@ -100,13 +100,13 @@ export class NumberSuggestionAssertion extends SuggestionAssertion<number> {
   }
 
   get _triggerThreshold(): number {
-    const threshold = this._threshold;
-    if(threshold === undefined) {
-      throw new Error("You must set a number threshold before finalizing the suggestion");
-    }
+    let threshold = this._threshold;
     // `null` is also of type 'object'
     if (threshold !== null && typeof threshold === 'object') {
-      return threshold.minor;
+      threshold = threshold.minor ?? threshold.average ?? threshold.major;
+    }
+    if (threshold === undefined) {
+      throw new Error("You must set a number threshold before finalizing the suggestion");
     }
     return threshold;
   }
@@ -280,7 +280,7 @@ export interface Threshold<T extends number | boolean> {
 }
 
 export type ThresholdRange = {
-  minor: number,
+  minor?: number,
   average?: number,
   major?: number,
 }
