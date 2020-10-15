@@ -12,6 +12,8 @@ import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
 import FooterChart, { formatTime } from 'interface/others/FooterChart';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import SharedBrews from '../core/SharedBrews';
 import BrewCDR from '../core/BrewCDR';
@@ -192,12 +194,12 @@ class PurifyingBrew extends Analyzer {
   suggestions(when: When) {
     when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) => suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
-        .actual(`${actual.toFixed(2)}s Average Delay`)
+        .actual(i18n._(t('monk.brewmaster.suggestions.purifyingBrew.avgdelay')`${actual.toFixed(2)}s Average Delay`))
         .recommended(`< ${recommended.toFixed(2)}s is recommended`));
 
     when(this.purifyHeavySuggestion).addSuggestion((suggest, actual, recommended) => suggest(<>You should avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, you should often aim to save your purifies for these parts of the fight.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
-        .actual(`${formatPercentage(actual)}% of your purifies were less than Heavy Stagger`)
+        .actual(i18n._(t('monk.brewmaster.suggestions.purifyingBrew.efficiency')`${formatPercentage(actual)}% of your purifies were less than Heavy Stagger`))
         .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 

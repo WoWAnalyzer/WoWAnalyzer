@@ -15,6 +15,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const SOTC_MANA_PER_SECOND_RETURN_MINOR: number = 80;
 const SOTC_MANA_PER_SECOND_RETURN_AVERAGE: number = SOTC_MANA_PER_SECOND_RETURN_MINOR - 15;
 const SOTC_MANA_PER_SECOND_RETURN_MAJOR: number = SOTC_MANA_PER_SECOND_RETURN_MINOR - 15;
@@ -125,7 +128,7 @@ class SpiritOfTheCrane extends Analyzer {
         </>,
       )
         .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
-        .actual(`${formatNumber(this.manaReturn)} mana returned through Spirit of the Crane`)
+        .actual(i18n._(t('monk.mistweaver.suggestions.spiritOfTheCrane.manaReturned')`${formatNumber(this.manaReturn)} mana returned through Spirit of the Crane`))
         .recommended(`${formatNumber(recommended)} is the recommended mana return`));
   }
 

@@ -7,6 +7,8 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Enemies from 'parser/shared/modules/Enemies';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Find Weakness
@@ -70,7 +72,7 @@ class FindWeakness extends Analyzer {
     when(this.vanishThresholds)
     .addSuggestion((suggest, actual, recommended) => suggest(<>Use <SpellLink id={SPELLS.VANISH.id} /> only when you do not have <SpellLink id={SPELLS.FIND_WEAKNESS_TALENT.id} /> applied to your target </>)
         .icon(SPELLS.VANISH.icon)
-        .actual(`You used Vanish ${this.badVanishCasts} times when Find Weakness was already applied`)
+        .actual(i18n._(t('rogue.subtlety.suggestions.findWeakness.alreadyApplied')`You used Vanish ${this.badVanishCasts} times when Find Weakness was already applied`))
         .recommended(`${recommended} is recommended`));
   }
 

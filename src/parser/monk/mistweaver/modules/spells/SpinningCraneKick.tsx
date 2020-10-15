@@ -8,6 +8,9 @@ import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Event
 import { formatMilliseconds } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class SpinningCraneKick extends Analyzer{
     constructor(args: Options) {
         super(args);
@@ -75,7 +78,7 @@ class SpinningCraneKick extends Analyzer{
               </>,
             )
               .icon(SPELLS.SPINNING_CRANE_KICK.icon)
-              .actual(`${this.badSCKcount} Spinning Crane Kicks that hit fewer than 3 enemies`)
+              .actual(i18n._(t('monk.mistweaver.suggestions.spinningCraneKick.efficiency')`${this.badSCKcount} Spinning Crane Kicks that hit fewer than 3 enemies`))
               .recommended('Aim to hit 3 or more targets with Spinning Crane Kick if there is less than 3 targets then Rising Sunkick, Blackout Kick or Tiger\'s palm'));
       }
 

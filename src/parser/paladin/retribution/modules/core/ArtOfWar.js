@@ -8,6 +8,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Combatants from 'parser/shared/modules/Combatants';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const ART_OF_WAR_DURATION = 10000;
 
@@ -79,7 +81,7 @@ class AoWProcTracker extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You used {formatPercentage(this.consumedProcsPercent)}% of your <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs.</>)
         .icon(SPELLS.ART_OF_WAR.icon)
-        .actual(`${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`)
+        .actual(i18n._(t('paladin.retribution.suggestions.artOfWar.procsUsed')`${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`))
         .recommended(`Using >${formatPercentage(recommended)}% is recommended`));
   }
 

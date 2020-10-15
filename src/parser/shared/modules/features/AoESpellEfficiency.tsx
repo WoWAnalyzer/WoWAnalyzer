@@ -12,6 +12,9 @@ import Spell from 'common/SPELLS/Spell';
 
 import React from 'react';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 /*
   Creates a suggestion for an AoE-Spell based on the amount of hits done and min. amount of hits possible
 */
@@ -99,7 +102,7 @@ class AoESpellEfficiency extends Analyzer {
     when(this.hitSuggestionThreshold)
       .addSuggestion((suggest) => suggest(<>It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but don't delay it too long or you'll miss out on casts and possible hits.</>)
           .icon(this.ability.icon)
-          .actual(`${this.totalHits} total hits`)
+          .actual(i18n._(t('shared.suggestions.aoeSpells.efficiency')`${this.totalHits} total hits`))
           .recommended(`${this.possibleHits} or more hits were possible`));
   }
 

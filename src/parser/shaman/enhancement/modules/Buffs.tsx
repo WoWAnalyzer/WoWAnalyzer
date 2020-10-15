@@ -7,31 +7,31 @@ class Buffs extends CoreBuffs {
     return [
       {
         spellId: SPELLS.FLAMETONGUE_BUFF.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.FROSTBRAND.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.FURY_OF_AIR_TALENT.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.STORMBRINGER_BUFF.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.BERSERKING.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

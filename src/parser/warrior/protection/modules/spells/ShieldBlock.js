@@ -5,6 +5,8 @@ import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
@@ -179,7 +181,7 @@ class ShieldBlock extends Analyzer {
         <> You had uneventful <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast(s) where there was either no blockable damage events or you didn't cast shield slam enough. </>,
       )
         .icon(SPELLS.SHIELD_BLOCK.icon)
-        .actual(`${this.goodCast} good casts of shield block`)
+        .actual(i18n._(t('warrior.protection.suggestions.shieldBlock.goodCasts')`${this.goodCast} good casts of shield block`))
         .recommended(`${Math.floor(recommended * (this.goodCast + this.badCast))} is recommended`));
   }
 
