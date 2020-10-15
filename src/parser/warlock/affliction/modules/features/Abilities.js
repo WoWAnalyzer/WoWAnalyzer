@@ -13,7 +13,7 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational spells
       {
-        spell: SPELLS.UNSTABLE_AFFLICTION_CAST,
+        spell: SPELLS.UNSTABLE_AFFLICTION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
