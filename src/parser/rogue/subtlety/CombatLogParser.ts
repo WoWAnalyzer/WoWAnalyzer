@@ -32,13 +32,14 @@ import SymbolsDamageTracker from './modules/core/SymbolsDamageTracker';
 import DanceDamageTracker from './modules/core/DanceDamageTracker';
 import DarkShadowNightblade from './modules/talents/DarkShadow/DarkShadowNightblade';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
+import FindWeakness from './modules/spells/FindWeakness';
 
 import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
 import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingReprimand';
 import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
 import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
 
-import AkaarisSoulFragment from './modules/spell/shadowlands/legendaries/AkaarisSoulFragment';
+import AkaarisSoulFragment from './modules/spells/shadowlands/legendaries/AkaarisSoulFragment';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
@@ -67,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     danceCooldownReduction: DeepeningShadows,
+    findWeakness: FindWeakness,
 
     //Casts
     symbolsOfDeathUptime: SymbolsOfDeathUptime,

@@ -508,6 +508,11 @@ const spells: SpellList = {
     name: 'Dreadblades',
     icon: 'ability_rogue_restlessblades',
   },
+  FIND_WEAKNESS: {
+    id: 316219,
+    name: 'Find Weakness',
+    icon: 'ability_rogue_findweakness',
+  },
 
   //Procs
   COMBO_POINT: {
