@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import {Trans} from '@lingui/macro';
+import BoringValueText from 'interface/statistics/components/BoringValueText';
 import Analyzer, {Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import Events, { CastEvent, HealEvent, EndChannelEvent, DeathEvent, GlobalCooldownEvent, DamageEvent} from 'parser/core/Events';
@@ -16,8 +16,8 @@ import SpellLink from 'common/SpellLink';
  * These abilities also heal 2 nearby allies for a Gust of Mist heal.
  * Casting Enveloping Mist while Chiji is active applies Enveloping Breath on up to 6 nearby allies within 10 yards.
 */
+const MAX_STACKS: number = 3;
 class InvokeChiJi extends Analyzer {
-  MAX_STACKS: number = 3;
   chijiActive: boolean = false;
   //healing breakdown vars
   gustHealing: number = 0;
@@ -125,9 +125,9 @@ class InvokeChiJi extends Analyzer {
   handleEnvelopCast(event: CastEvent) {
     //in some cases the last envelop is cast after chiji has expired but the buff can still be consumed
       if(this.chijiActive || this.selectedCombatant.hasBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id)) {
-        if (this.chijiStackCount === this.MAX_STACKS) {
+        if (this.chijiStackCount === MAX_STACKS) {
           this.freeCasts += 1;
-        } else if (this.chijiStackCount < this.MAX_STACKS) {
+        } else if (this.chijiStackCount < MAX_STACKS) {
           this.castsBelowMaxStacks += 1;
         }
       this.chijiStackCount = 0;
@@ -135,7 +135,7 @@ class InvokeChiJi extends Analyzer {
   }
 
   stackCount() {
-    if(this.chijiStackCount === this.MAX_STACKS) {
+    if(this.chijiStackCount === MAX_STACKS) {
       this.wastedStacks += 1;
     } else {
       this.chijiStackCount += 1;
@@ -149,7 +149,7 @@ class InvokeChiJi extends Analyzer {
           category={STATISTIC_CATEGORY.TALENTS}
           size="flexible"
           tooltip={
-            <Trans>
+            <>
                   Healing Breakdown:
                   <ul>
                     <li>{formatNumber(this.gustHealing)} healing from Chi-Ji Gust of Mist.</li>
@@ -158,22 +158,24 @@ class InvokeChiJi extends Analyzer {
                   Stack Breakdown:
                     <ul>
                     <li>{formatNumber(this.freeCasts)} free Enveloping Mist cast(s).</li>
-                    <li>{formatNumber(this.castsBelowMaxStacks)} Enveloping Mist cast(s) below max ({this.MAX_STACKS}) Chi-Ji stacks.</li>
+                    <li>{formatNumber(this.castsBelowMaxStacks)} Enveloping Mist cast(s) below max ({MAX_STACKS}) Chi-Ji stacks.</li>
                     <li>{formatNumber(this.wastedStacks)} stack(s) wasted from overcapping Chi-Ji stacks.</li>
                     </ul>
                   Activity:
                     <ul>
                     <li>{(this.chijiGlobals/this.chijiUses).toFixed(2)} average gcds inside Chi-Ji window</li>
                     </ul>
-            </Trans>
+            </>
           }
         >
-          <div className="pad">
-            <label><SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} /></label>
-            <div className="value"><ItemHealingDone amount={this.gustHealing + this.envelopHealing} /></div>
-            <div className="value">{formatNumber(this.missedGlobals)} missed GCDs
-            </div>
-          </div>
+          <BoringValueText 
+            label={<><SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} /></>}
+          >
+            <>
+            <ItemHealingDone amount={this.gustHealing + this.envelopHealing} /><br />
+            {formatNumber(this.missedGlobals)} missed GCDs
+            </>
+          </BoringValueText>
         </Statistic>
     );
   }
