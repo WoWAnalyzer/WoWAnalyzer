@@ -1,4 +1,5 @@
 import React from 'react';
+import {Trans} from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import Analyzer, {Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
@@ -34,7 +35,8 @@ class InvokeChiJi extends Analyzer {
   chijiUses: number = 0;
   lastGlobal: number = 0;
   efGcd: number = 0;
-  sckHits: string[] = [];
+  checkForSckDamage: number = -1;
+
 
   constructor(args: Options) {
     super(args);
@@ -48,7 +50,7 @@ class InvokeChiJi extends Analyzer {
     this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BLACKOUT_KICK, SPELLS.RISING_SUN_KICK_SECOND, SPELLS.BLACKOUT_KICK_TOTM, SPELLS.SPINNING_CRANE_KICK_DAMAGE]), this.handleStackGenerator)
     //need a different eventlistener beacause chiji currently only applies 1 stack per cast of sck, not on each dmg event
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.handleSpinningCraneKick);
+    this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.handleSpinningCraneKick);
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.handleGlobal);
     this.addEventListener(Events.EndChannel.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.handleEssenceFontEnd);
   }
@@ -103,9 +105,9 @@ class InvokeChiJi extends Analyzer {
   handleStackGenerator(event: DamageEvent) {
     if(this.chijiActive) {
       if(event.ability.guid === SPELLS.SPINNING_CRANE_KICK_DAMAGE.id){
-        const enemy: string = `${event.targetID} ${event.targetInstance || 0}`;
-        if (!this.sckHits.includes(enemy)) {
-            this.sckHits.push(enemy);
+        if(this.checkForSckDamage > event.timestamp){
+          this.stackCount();
+          this.checkForSckDamage = -1;
         }
       } else {
         this.stackCount();
@@ -113,12 +115,9 @@ class InvokeChiJi extends Analyzer {
     }
   }
 
-  handleSpinningCraneKick(event: CastEvent) {
+  handleSpinningCraneKick(event: GlobalCooldownEvent) {
     if(this.chijiActive) {
-      if(this.sckHits.length > 0) {
-        this.stackCount();
-      }
-      this.sckHits = [];
+      this.checkForSckDamage = event.duration + this.lastGlobal;
     }
   }
 
@@ -149,7 +148,7 @@ class InvokeChiJi extends Analyzer {
           category={STATISTIC_CATEGORY.TALENTS}
           size="flexible"
           tooltip={
-            <>
+            <Trans>
                   Healing Breakdown:
                   <ul>
                     <li>{formatNumber(this.gustHealing)} healing from Chi-Ji Gust of Mist.</li>
@@ -165,7 +164,7 @@ class InvokeChiJi extends Analyzer {
                     <ul>
                     <li>{(this.chijiGlobals/this.chijiUses).toFixed(2)} average gcds inside Chi-Ji window</li>
                     </ul>
-            </>
+            </Trans>
           }
         >
           <BoringValueText 
