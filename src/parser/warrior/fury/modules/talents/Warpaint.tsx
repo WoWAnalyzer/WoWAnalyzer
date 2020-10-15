@@ -29,11 +29,11 @@ class Warpaint extends Analyzer {
 
   onPlayerDamageTaken(event: DamageEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id)) {
-      const preMitigatedDamage = (event.amount + event.absorbed) / (1 - REDUCTION_BONUS);
+      const preMitigatedDamage = (event.amount + (event.absorbed || 0)) / (1 - REDUCTION_BONUS);
       this.damageMitigated += preMitigatedDamage * REDUCTION_BONUS;
     }
 
-    this.damageTaken += event.amount + event.absorbed;
+    this.damageTaken += event.amount + (event.absorbed || 0);
   }
 
   get damageMitigatedPercent() {
@@ -53,7 +53,7 @@ class Warpaint extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.WARPAINT_TALENT}>
           <>
-            {formatPercentage(this.damageMitigatedPercent)}% damage mitigated
+            {formatPercentage(this.damageMitigatedPercent)}% <small>damage mitigated</small>
           </>
         </BoringSpellValueText>
       </Statistic>
