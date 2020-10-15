@@ -9,6 +9,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatDuration } from 'common/format';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const debug = false;
 const BUFFS = [SPELLS.LAST_STAND, SPELLS.SHIELD_BLOCK_BUFF];
 
@@ -62,7 +65,7 @@ class Bolster extends Analyzer {
     when(this.suggestionThresholds)
         .addSuggestion((suggest) => suggest('You should never overlap Shield Block and Last stand when you take the Bolster talent.')
             .icon(SPELLS.BOLSTER_TALENT.icon)
-            .actual(`You overlapped shield block and last stand ${this.badBlocks} times.`)
+            .actual(i18n._(t('warrior.protection.suggestions.bolster.efficiency')`You overlapped shield block and last stand ${this.badBlocks} times.`))
             .recommended(`0 is recommended`));
   }
 

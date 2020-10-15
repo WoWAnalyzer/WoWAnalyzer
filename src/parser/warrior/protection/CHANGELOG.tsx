@@ -7,6 +7,7 @@ import { Abelito75, Dambroda } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 14),<>Fixed checklist and updated spellbook to prevent crashes.</>,Abelito75),
   change(date(2020, 9, 25),'Update spec to TypeScript.', Dambroda),
   change(date(2020, 1, 18),<>Included Lucid dream statistic.</>,Abelito75),
   change(date(2020, 1, 15),<>Updated for 8.3 </>,Abelito75),

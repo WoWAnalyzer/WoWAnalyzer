@@ -6,6 +6,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class Thrash extends Analyzer {
   static dependencies = {
@@ -18,7 +20,7 @@ class Thrash extends Analyzer {
     when(thrashUptimePercentage).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => suggest(<span> Your <SpellLink id={SPELLS.THRASH_BEAR_DOT.id} /> uptime was {formatPercentage(thrashUptimePercentage)}%, unless you have extended periods of downtime it should be near 100%. <br />Thrash applies a bleed which buffs the damage of <SpellLink id={SPELLS.MANGLE_BEAR.id} /> by 20%.  Thrash uptime is especially important if you are talented into <SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} />, since it buffs the rest of your damage and gives you extra damage reduction.</span>)
           .icon(SPELLS.THRASH_BEAR.icon)
-          .actual(`${formatPercentage(thrashUptimePercentage)}% uptime`)
+          .actual(i18n._(t('druid.guardian.suggestions.thrash.uptime')`${formatPercentage(thrashUptimePercentage)}% uptime`))
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
           .regular(recommended - 0.05).major(recommended - 0.15));
   }

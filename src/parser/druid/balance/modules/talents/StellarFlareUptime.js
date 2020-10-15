@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -36,7 +38,7 @@ class StellarFlareUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Stellar Flare on the boss.</>)
         .icon(SPELLS.STELLAR_FLARE_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% Stellar Flare uptime`)
+        .actual(i18n._(t('druid.balance.suggestions.stellarFlare.uptime')`${formatPercentage(actual)}% Stellar Flare uptime`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

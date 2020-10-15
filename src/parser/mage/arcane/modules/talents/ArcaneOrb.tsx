@@ -9,6 +9,8 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class ArcaneOrb extends Analyzer {
 	static dependencies = {
@@ -66,7 +68,7 @@ class ArcaneOrb extends Analyzer {
 		when(this.arcaneOrbHitThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>On average, your <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> hit ${formatNumber(this.averageHitPerCast)} times per cast. While it is beneficial to cast this even if it will only hit one mob, the talent is suited more towards AOE than Single Target. So if the fight is primarily Single Target, consider taking a different talent.</>)
 					.icon(SPELLS.ARCANE_ORB_TALENT.icon)
-					.actual(`${formatNumber(this.averageHitPerCast)} Hits Per Cast`)
+					.actual(i18n._(t('mage.arcane.suggestions.arcaneOrb.hitsPerCast')`${formatNumber(this.averageHitPerCast)} Hits Per Cast`))
 					.recommended(`${formatNumber(recommended)} is recommended`));
 	}
 

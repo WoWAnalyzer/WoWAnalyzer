@@ -22,7 +22,7 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.REFRESHING_JADE_WIND_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id,
@@ -32,7 +32,7 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.MANA_TEA_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.MANA_TEA_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
 
       // Utility
@@ -53,7 +53,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

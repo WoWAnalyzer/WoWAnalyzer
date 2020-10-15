@@ -10,6 +10,9 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class AgonyUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -41,7 +44,7 @@ class AgonyUptime extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(text)
           .icon(SPELLS.AGONY.icon)
-          .actual(`${formatPercentage(actual)}% Agony uptime`)
+          .actual(i18n._(t('warlock.affliction.suggestions.agony.uptime')`${formatPercentage(actual)}% Agony uptime`))
           .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -9,6 +9,8 @@ import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import Voidform from './Voidform';
 
@@ -35,7 +37,7 @@ class VoidformAverageStacks extends Analyzer {
           </>,
         )
           .icon(SPELLS.VOIDFORM_BUFF.icon)
-          .actual(`${formatNumber(actual)} average Voidform stacks.`)
+          .actual(i18n._(t('priest.shadow.suggestions.voidformStacks.avgStacks')`${formatNumber(actual)} average Voidform stacks.`))
           .recommended(`>${formatNumber(recommended)} stacks is recommended.`)
           .regular(recommended).major(recommended - 5));
   }

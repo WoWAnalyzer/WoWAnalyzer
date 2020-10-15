@@ -8,6 +8,8 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
 import Tooltip from 'common/Tooltip';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * A defensive combat state that reduces all damage you take by 20%,
@@ -107,7 +109,7 @@ class DefensiveStance extends Analyzer {
     when(this.totalDamageLost).isGreaterThan(this.totalDamageMitigated)
       .addSuggestion((suggest, dl, dr) => suggest('While Defensive Stance was up, your damage done was reduced by more than the damage you mitigated. Ensure that you are only using Defensive Stance when you are about to take a lot of damage and that you cancel it quickly to minimize the time spent dealing less damage.')
           .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon)
-          .actual(`A total of ${formatNumber(dl)} of your damage has been reduced compared to ${formatNumber(dr)} of the damage from the boss.`)
+          .actual(i18n._(t('warrior.arms.suggestions.defensiveStance')`A total of ${formatNumber(dl)} of your damage has been reduced compared to ${formatNumber(dr)} of the damage from the boss.`))
           .recommended('Reduced damage taken should be higher than your reduced damage.'));
     when(this.totalDamageMitigated).isLessThan(1)
       .addSuggestion((suggest) => suggest(<> You never used <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to reduce incoming damage or use another talent that would be more useful. </>)

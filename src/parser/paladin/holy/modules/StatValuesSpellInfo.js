@@ -25,7 +25,7 @@ export default {
   [SPELLS.LIGHT_OF_DAWN_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpct: false,
+    hasteHpct: true,
     mastery: true,
     vers: true,
   },
@@ -143,6 +143,7 @@ export default {
   [SPELLS.WORD_OF_GLORY.id]: {
     int: true,
     crit: true,
+    hasteHpct: true,
     mastery: true,
     vers: true,
   },

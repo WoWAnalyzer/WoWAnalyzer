@@ -7,27 +7,27 @@ class Buffs extends CoreBuffs {
     return [
       {
         spellId: SPELLS.STORM_EARTH_AND_FIRE_CAST.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.SERENITY_TALENT.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.TOUCH_OF_KARMA_CAST.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.DANCE_OF_CHIJI_BUFF.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.COMBO_BREAKER_BUFF.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

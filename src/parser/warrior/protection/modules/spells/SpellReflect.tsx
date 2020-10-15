@@ -9,6 +9,8 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
@@ -65,7 +67,7 @@ class SpellReflect extends Analyzer {
         </>,
       )
         .icon(SPELLS.SPELL_REFLECTION.icon)
-        .actual(`${formatPercentage(actual)} % magic damage With Spell Reflect Up`)
+        .actual(i18n._(t('warrior.protection.suggestions.spellReflect.efficiency')`${formatPercentage(actual)} % magic damage With Spell Reflect Up`))
         .recommended(`${formatPercentage(recommended)} % recommended`));
   }
 }
