@@ -70,11 +70,6 @@ class CrusadersMight extends Analyzer {
         </Trans>
       );
     }
-    // for glimmer if wings is up prioritize Holy Shock > Crusader Strike > Light of Dawn
-    const wingsUp = this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp);
-    if (this.owner.builds.GLIMMER.active && wingsUp && holyShockisOnCooldown) {
-      return;
-    }
   }
 
   get holyShocksMissedThresholds() {
