@@ -8,6 +8,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Chaotic Transformation
@@ -86,7 +88,7 @@ class ChaoticTransformation extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => suggest(<> You wasted {this.noResetEyeBeam} possible <SpellLink id={SPELLS.EYE_BEAM.id} /> and {this.noResetBladeDance} possible <SpellLink id={SPELLS.BLADE_DANCE.id} /> resets.<br />
                        Please make sure these spells are on cooldown before casting <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> to maximize your DPS.</>)
           .icon(SPELLS.CHAOTIC_TRANSFORMATION.icon)
-          .actual(`${(actual)} total resets wasted`)
+          .actual(i18n._(t('demonhunter.havoc.suggestions.chaoticTransformation.resetsWasted')`${(actual)} total resets wasted`))
           .recommended(`${(recommended)} is recommended.`));
   }
 

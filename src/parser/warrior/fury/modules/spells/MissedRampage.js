@@ -7,6 +7,8 @@ import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import SpellLink from 'common/SpellLink';
 
@@ -81,7 +83,7 @@ class MissedRampage extends Analyzer {
         </>,
       )
         .icon(SPELLS.RAMPAGE.icon)
-        .actual(`${actual} missed Rampages.`)
+        .actual(i18n._(t('warrior.fury.suggestions.rampages.missed')`${actual} missed Rampages.`))
         .recommended(`${recommended} is recommended.`));
   }
 }

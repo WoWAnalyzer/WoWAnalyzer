@@ -8,6 +8,8 @@ import SpellLink from 'common/SpellLink';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatPercentage } from 'common/format';
 import Events from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const SURGE_OF_POWER = {
   AFFECTED_CASTS: [
@@ -104,7 +106,7 @@ class SurgeOfPower extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You should aim to empower all of your Stormkeeper lightning bolts with Surge of Power. You can accomplish this
         consistently by pooling to 95+ maelstrom right before Stormkeeper is available, then casting ES {'->'} SK {'->'} LB {'->'} LvB {'->'} ES {'->'} LB.</span>)
           .icon(SPELLS.SURGE_OF_POWER_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% of Stormkeeper Lightning Bolts empowered with Surge`)
+          .actual(i18n._(t('shaman.elemental.suggestions.surgeOfPower.stormKeeperEmpowered')`${formatPercentage(actual)}% of Stormkeeper Lightning Bolts empowered with Surge`))
           .recommended(`100% is recommended.`));
   }
 }

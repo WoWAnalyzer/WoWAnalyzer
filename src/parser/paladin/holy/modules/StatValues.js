@@ -34,7 +34,7 @@ class StatValues extends BaseHealerStatValues {
 
   spellInfo = SPELL_INFO;
   qeLive = true;
-  enabled = false;
+  active = false;
 
   on_heal(event) {
     if (event.ability.guid === SPELLS.BEACON_OF_LIGHT_HEAL.id) {

@@ -6,6 +6,8 @@ import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { Options } from 'parser/core/Analyzer';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class CancelledCasts extends CoreCancelledCasts {
   constructor(options: Options) {
@@ -47,7 +49,7 @@ class CancelledCasts extends CoreCancelledCasts {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as <SpellLink id={SPELLS.BLINK.id} />{joiner}<SpellLink id={SPELLS.SHIMMER_TALENT.id} />{extraMovementSpell}.</>)
           .icon('inv_misc_map_01')
-          .actual(`${formatPercentage(actual)}% casts cancelled`)
+          .actual(i18n._(t('mage.shared.suggestions.castsCancelled')`${formatPercentage(actual)}% casts cancelled`))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 }

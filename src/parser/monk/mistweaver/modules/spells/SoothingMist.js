@@ -10,6 +10,11 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
+const debug = false;
+
 class SoothingMist extends Analyzer {
   static dependencies = {
     channeling: CoreChanneling,
@@ -151,7 +156,7 @@ class SoothingMist extends Analyzer {
         </>,
       )
         .icon(SPELLS.SOOTHING_MIST.icon)
-        .actual(`${formatPercentage(this.badSooms / this.totalSoomCasts)} % of Soothing Mist casts with max spells casted`)
+        .actual(i18n._(t('monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells')`${formatPercentage(this.badSooms / this.totalSoomCasts)} % of Soothing Mist casts with max spells casted`))
         .recommended(`${recommended} is recommended`));
   }
 }

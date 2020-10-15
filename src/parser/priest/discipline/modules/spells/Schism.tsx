@@ -14,6 +14,8 @@ import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResult
 import Enemy from 'parser/core/Enemy';
 import { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import isAtonement from '../core/isAtonement';
 import Penance from './Penance';
@@ -229,7 +231,7 @@ class Schism extends Analyzer {
           </>,
         )
           .icon(SPELLS.SCHISM_TALENT.icon)
-          .actual(`You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`)
+          .actual(i18n._(t('priest.discipline.suggestions.schism.efficiency')`You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`))
           .recommended(`${recommended} is recommended`),
     );
   }

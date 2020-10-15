@@ -12,6 +12,8 @@ import { formatDuration, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { MULTI_SHOTS_LIST, ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Multi-Shots that damage more than 2 targets fire an additional wave of bullets, dealing 1817 damage and reducing the cooldown of your Aspects by 1 sec.
@@ -112,12 +114,12 @@ class RapidReload extends Analyzer {
     when(this.multiShotsWithoutRRProcs).addSuggestion((
       suggest, actual, recommended) => suggest(<><SpellLink id={SPELLS.RAPID_RELOAD.id} /> only has an effect on 3+ targets, if an encounter doesn't have enough scenarios where you can reliably hit 3 targets with <SpellLink id={this.multishotSpell} />, you might want to consider a different azerite trait.</>)
         .icon(SPELLS.RAPID_RELOAD.icon)
-        .actual(`${actual} ${actual === 1 ? 'cast' : 'casts'} without a Rapid Reload proc`)
+        .actual(i18n._(t('hunter.shared.suggestions.rapidReload.procs')`${actual} ${actual === 1 ? 'cast' : 'casts'} without a Rapid Reload proc`))
         .recommended(`${recommended} is recommended`));
     when(this.multiShotCasts).addSuggestion((
       suggest) => suggest(<>When using <SpellLink id={SPELLS.RAPID_RELOAD.id} /> it is important to remember to cast <SpellLink id={this.multishotSpell} /> in order to gain value from the azerite trait - however you should never cast <SpellLink id={this.multishotSpell} /> on single-target regardless. </>)
         .icon(SPELLS.RAPID_RELOAD.icon)
-        .actual('You cast Multi-Shot 0 times')
+        .actual(i18n._(t('hunter.shared.suggestions.rapidReload.multiShotCasts')`You cast Multi-Shot 0 times`))
         .recommended('>0 is recommended'));
   }
 

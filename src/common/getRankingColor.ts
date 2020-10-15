@@ -1,5 +1,5 @@
 //expects a percentile between 0 - 100 and returns the class to color the text accordingly
-export default function rankingColor(percentage) {
+export default function rankingColor(percentage: number): string {
   if (percentage < 0.25) {
     return 'parse-grey';
   } else if (percentage < 0.50) {
