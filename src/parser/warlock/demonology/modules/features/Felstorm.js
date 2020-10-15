@@ -8,6 +8,9 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Events from 'parser/core/Events';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const FELSTORM_COOLDOWN = 30;
 // when Demonic Strength is cast, then AFTER the cast, Felguard charges at the target, and after he arrives, does the Felstorm
 // this delay is so that every Felstorm caused by Demonic Strength accounts for the charge "travel" time
@@ -61,7 +64,7 @@ class Felstorm extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You should use your Felguard's <SpellLink id={SPELLS.FELSTORM_BUFF.id} /> more often, preferably on cooldown.</>)
           .icon(SPELLS.FELSTORM_BUFF.icon)
-          .actual(`${this.mainPetFelstormCount} out of ${this.maxCasts} (${formatPercentage(actual)} %) Felstorm casts.`)
+          .actual(i18n._(t('warlock.demonology.suggestions.felstorm.casts')`${this.mainPetFelstormCount} out of ${this.maxCasts} (${formatPercentage(actual)} %) Felstorm casts.`))
           .recommended(`> ${formatPercentage(recommended)} % is recommended`));
   }
 }

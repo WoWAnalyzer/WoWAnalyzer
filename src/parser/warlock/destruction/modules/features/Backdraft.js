@@ -10,6 +10,9 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const debug = false;
 
 const BUFF_DURATION = 10000;
@@ -73,7 +76,7 @@ class Backdraft extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You should use your <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks more. You have wasted {this.wastedStacks} stacks this fight.</>)
           .icon(SPELLS.BACKDRAFT.icon)
-          .actual(`${actual.toFixed(2)} wasted Backdraft stacks per minute`)
+          .actual(i18n._(t('warlock.destruction.suggestions.backdraft.wastedPerMinute')`${actual.toFixed(2)} wasted Backdraft stacks per minute`))
           .recommended(`< ${recommended} is recommended`));
   }
 

@@ -8,6 +8,8 @@ import { formatPercentage } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { calculateCooldown } from 'parser/shared/modules/spells/bfa/essences/VisionsOfPerfection';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import AngerManagement from './AngerManagement';
 
@@ -128,7 +130,7 @@ class AngerCD extends Analyzer {
         this.DEMOTEXT,
       )
         .icon(SPELLS.DEMORALIZING_SHOUT.icon)
-        .actual(`${formatPercentage(actual)}% Demoralizing Shout`)
+        .actual(i18n._(t('warrior.protection.suggestions.demoralizingShout.efficiency')`${formatPercentage(actual)}% Demoralizing Shout`))
         .recommended(`${formatPercentage(recommended)}% casts recommended`));
 
     when(this.suggestionThresholdsAvatar).addSuggestion((suggest, actual, recommended) => suggest(
@@ -137,7 +139,7 @@ class AngerCD extends Analyzer {
         </>,
       )
         .icon(SPELLS.AVATAR_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% Avatar casts`)
+        .actual(i18n._(t('warrior.protection.suggestions.avatar.efficiency')`${formatPercentage(actual)}% Avatar casts`))
         .recommended(`${formatPercentage(recommended)}% casts recommended`));
 
     when(this.suggestionThresholdsLastStand).addSuggestion((suggest, actual, recommended) => suggest(
@@ -146,7 +148,7 @@ class AngerCD extends Analyzer {
         </>,
       )
         .icon(SPELLS.LAST_STAND.icon)
-        .actual(`${formatPercentage(actual)}% Last Stand casts`)
+        .actual(i18n._(t('warrior.protection.suggestions.lastStand.efficiency')`${formatPercentage(actual)}% Last Stand casts`))
         .recommended(`${formatPercentage(recommended)}% casts recommended`));
 
     when(this.suggestionThresholdsShieldWall).addSuggestion((suggest, actual, recommended) => suggest(
@@ -155,7 +157,7 @@ class AngerCD extends Analyzer {
         </>,
       )
         .icon(SPELLS.SHIELD_WALL.icon)
-        .actual(`${formatPercentage(actual)}% Shield Wall casts`)
+        .actual(i18n._(t('warrior.protection.suggestions.shieldWall.efficiency')`${formatPercentage(actual)}% Shield Wall casts`))
         .recommended(`${formatPercentage(recommended)}% casts recommended`));
   }
 }

@@ -16,6 +16,31 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 3,
       },
       {
+        spell: SPELLS.WHIRLWIND,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SHATTERING_THROW,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        timelineSortIndex: 3,
+      },
+      {
+        spell: SPELLS.EXECUTE,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: haste => 6 / (1 + haste),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        timelineSortIndex: 3,
+      },
+      {
         spell: SPELLS.REVENGE,
         gcd: {
           base: 1500,

@@ -23,7 +23,7 @@ class DivinePurpose extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT.id);
 
     // event listeners
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(HOLY_POWER_SPENDERS), this.onCast);
@@ -77,7 +77,7 @@ class DivinePurpose extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id} />}
+        icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT.id} />}
         value={`${formatNumber(this.divinePurposeProcs)}`}
         label="Divine Purpose procs"
         tooltip={(

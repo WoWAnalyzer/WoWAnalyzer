@@ -11,6 +11,8 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import { MS_BUFFER } from '../../constants';
 
@@ -98,7 +100,7 @@ class ShadowWordPain extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.</span>)
           .icon(SPELLS.SHADOW_WORD_PAIN.icon)
-          .actual(`${formatPercentage(actual)}% Shadow Word: Pain uptime`)
+          .actual(i18n._(t('priest.shadow.suggestions.shadowWordPain.uptime')`${formatPercentage(actual)}% Shadow Word: Pain uptime`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

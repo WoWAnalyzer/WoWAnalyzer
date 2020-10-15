@@ -1,5 +1,117 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <img
+            alt="Downtime"
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+           
+          Downtime
+        </label>
+        <div
+          className="value"
+        >
+          22.19 %
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": "0.5em",
+            }
+          }
+        >
+          <div
+            className="statistic-box-bar"
+          >
+            <div
+              className="stat-health-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "width": "77.80585834420951%",
+                }
+              }
+            >
+              <img
+                alt="Active time"
+                src="/img/sword.png"
+              />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+            >
+              <img
+                alt="Downtime"
+                src="/img/afk.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "major",
+    "issue": "Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots.",
+    "stat": <React.Fragment>
+      22.19% downtime
+       (
+      &lt;10.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Shadow Priest integration test: example log Ashjrakamas matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -385,7 +497,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               112
-              /106
+              /159
                
               casts
             </td>
@@ -403,8 +515,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "backgroundColor": "#ff8000",
+                      "width": "70.53313646751245%",
                     }
                   }
                 />
@@ -419,7 +531,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              100.00%
+              70.53%
             </td>
             <td
               style={
@@ -428,7 +540,9 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   "width": "25%",
                 }
               }
-            />
+            >
+              Can be improved.
+            </td>
           </tr>
           <tr>
             <td
@@ -482,7 +596,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /78
+              /117
                
               casts
             </td>
@@ -751,7 +865,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /30
+              /44
                
               casts
             </td>
@@ -1785,7 +1899,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               25
-              /109
+              /150
                
               casts
             </td>
@@ -1804,7 +1918,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "23.05247289173039%",
+                      "width": "16.74524324141993%",
                     }
                   }
                 />
@@ -1819,7 +1933,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              23.05%
+              16.75%
             </td>
             <td
               style={
@@ -3710,6 +3824,47 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
 Array [
   Object {
     "details": null,
+    "icon": "ability_ironmaidens_convulsiveshadows",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={205448}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 112,
+            "1": 159,
+            "2": "71",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "85",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
     "icon": "spell_shadow_unholyfrenzy",
     "importance": "major",
     "issue": <React.Fragment>
@@ -3732,7 +3887,7 @@ Array [
         values={
           Object {
             "0": 0,
-            "1": 78,
+            "1": 117,
             "2": "0",
           }
         }
@@ -4589,7 +4744,7 @@ exports[`Shadow Priest integration test: example log SkippableCasts matches the 
         <div
           className="value"
         >
-          1
+          5
            
           <small>
             Skippable casts
@@ -5612,8 +5767,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "50%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "17.537672218408236%",
                 }
               }
             />
@@ -5746,7 +5901,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  100.00%
+                  70.53%
                    
                    
                 </div>
@@ -5766,9 +5921,9 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "35.07534443681647%",
                       }
                     }
                   />
@@ -6300,7 +6455,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -6324,8 +6479,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "30.00791877104378%",
                 }
               }
             />
@@ -6446,7 +6601,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  9.76%
+                  22.19%
                    
                    
                 </div>
@@ -6466,9 +6621,9 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "30.00791877104378%",
                       }
                     }
                   />

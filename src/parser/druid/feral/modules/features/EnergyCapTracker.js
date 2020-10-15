@@ -6,6 +6,8 @@ import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import SpellEnergyCost from './SpellEnergyCost';
 
@@ -83,7 +85,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
         </>,
       )
         .icon('spell_shadow_shadowworddominate')
-        .actual(`${formatPercentage(actual)}% regenerated energy lost per minute due to being capped.`)
+        .actual(i18n._(t('druid.feral.suggestions.energy.efficiency')`${formatPercentage(actual)}% regenerated energy lost per minute due to being capped.`))
         .recommended(`<${recommended}% is recommended.`));
   }
 

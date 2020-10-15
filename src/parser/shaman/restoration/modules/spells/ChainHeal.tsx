@@ -15,6 +15,9 @@ import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { When } from 'parser/core/ParseResults';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
 const CHAIN_HEAL_TARGET_EFFICIENCY = 0.97;
@@ -102,7 +105,7 @@ class ChainHeal extends Analyzer {
     when(suggestedThreshold.actual).isLessThan(suggestedThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {this.maxTargets} potential targets.</span>)
           .icon(SPELLS.CHAIN_HEAL.icon)
-          .actual(`${suggestedThreshold.actual.toFixed(2)} average targets healed`)
+          .actual(i18n._(t('shaman.restoration.suggestions.chainHeal.averageTargets')`${suggestedThreshold.actual.toFixed(2)} average targets healed`))
           .recommended(`${suggestedThreshold.isLessThan.minor} average targets healed`)
           .regular(suggestedThreshold.isLessThan.average).major(suggestedThreshold.isLessThan.major));
   }

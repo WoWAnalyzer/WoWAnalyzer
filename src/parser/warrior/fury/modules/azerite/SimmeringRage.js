@@ -10,7 +10,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import SPELLS from 'common/SPELLS';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
-import RAMPAGE_COEFFICIENTS from '../spells/RAMPAGE_COEFFICIENTS.js';
+import RAMPAGE_COEFFICIENTS from '../spells/RAMPAGE_COEFFICIENTS';
 
 const RAMPAGE = [SPELLS.RAMPAGE_1, SPELLS.RAMPAGE_2, SPELLS.RAMPAGE_3, SPELLS.RAMPAGE_4];
 
