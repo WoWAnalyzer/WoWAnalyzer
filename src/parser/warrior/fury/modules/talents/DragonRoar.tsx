@@ -1,24 +1,28 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatThousands, formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import SpellLink from 'common/SpellLink';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
+
+// Example log: /reports/tBFv8P9R3kdDgHKJ#fight=1&type=damage-done&source=19
 class DragonRoar extends Analyzer {
 
-  targetsSlowed = 0;
-  totalDamage = 0;
-  rageGained = 0;
-  goodCast = 0;
-  totalCasts = 0;
+  targetsSlowed: number = 0;
+  totalDamage: number = 0;
+  rageGained: number = 0;
+  goodCast: number = 0;
+  totalCasts: number = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id);
 
     if (!this.active) {
@@ -31,7 +35,7 @@ class DragonRoar extends Analyzer {
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAGON_ROAR_TALENT), this.onDragonRoarSlow);
   }
 
-  enrageCheck(event){
+  enrageCheck(event: CastEvent){
     if(this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id)){
       this.goodCast += 1;
     }else{
@@ -42,11 +46,11 @@ class DragonRoar extends Analyzer {
     this.totalCasts +=1;
   }
 
-  onDragonRoarDamage(event) {
+  onDragonRoarDamage(event: DamageEvent) {
     this.totalDamage += event.amount + (event.absorbed || 0);
   }
 
-  onDragonRoarEnergize(event) {
+  onDragonRoarEnergize(event: EnergizeEvent) {
     this.rageGained += event.resourceChange;
   }
 
@@ -66,11 +70,11 @@ class DragonRoar extends Analyzer {
 			  average: .8,
 			  major: .7,
 		  },
-		  style: 'percentage',
+		  style: ThresholdStyle.PERCENTAGE,
 	  };
   }
 
-  suggestions(when){
+  suggestions(when: When){
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.BLADESTORM_TALENT.id} /> outside of enrage.</>)
         .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
         .actual(i18n._(t('warrior.fury.suggestions.dragonRoar.efficiency')`${formatPercentage(1-actual)}% of Bladestorm casts outside of enrage`))
@@ -79,18 +83,23 @@ class DragonRoar extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.DRAGON_ROAR_TALENT.id}
-        value={`${formatNumber(this.totalDamage / this.owner.fightDuration * 1000)} DPS`}
-        label="Dragon Roar"
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={(
+              <>
+                Damage done: <strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong><br />
+                Rage gained: <strong>{formatThousands(this.rageGained)}</strong><br />
+                Enemies slowed: <strong>{formatThousands(this.targetsSlowed)}</strong>
+              </>
+            )}
+      >
+        <BoringSpellValueText spell={SPELLS.DRAGON_ROAR_TALENT}>
           <>
-            Damage done: <strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong><br />
-            Rage gained: <strong>{formatThousands(this.rageGained)}</strong><br />
-            Enemies slowed: <strong>{formatThousands(this.targetsSlowed)}</strong>
+            {formatNumber(this.totalDamage / this.owner.fightDuration * 1000)} DPS
           </>
-        )}
-      />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

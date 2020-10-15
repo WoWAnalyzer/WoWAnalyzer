@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
+import { DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 const MAX_FURIOUS_SLASH_STACKS = 3;
 
@@ -8,12 +9,12 @@ const MAX_FURIOUS_SLASH_STACKS = 3;
  furiousSlashTimesByStacks() returns an array with the durations of each FS buff stack
  */
 class FuriousSlashTimesByStacks extends Analyzer {
-  furiousSlashStacks = [];
-  lastFuriousSlashStack = 0;
-  lastFuriousSlashUpdate = this.owner.fight.start_time;
+  furiousSlashStacks: number[][] = [];
+  lastFuriousSlashStack: number = 0;
+  lastFuriousSlashUpdate: number = this.owner.fight.start_time;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FURIOUS_SLASH_TALENT.id);
     this.furiousSlashStacks = Array.from({ length: MAX_FURIOUS_SLASH_STACKS + 1 }, () => []);
   }
@@ -22,9 +23,9 @@ class FuriousSlashTimesByStacks extends Analyzer {
     return this.furiousSlashStacks;
   }
 
-  on_byPlayer_damage(event) {
+  on_byPlayer_damage(event: DamageEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FURIOUS_SLASH_TALENT.id || event.hit_type === HIT_TYPES.DODGE || event.hit_type === HIT_TYPES.DODGE) {
+    if (spellId !== SPELLS.FURIOUS_SLASH_TALENT.id || event.hitType === HIT_TYPES.DODGE || event.hitType === HIT_TYPES.DODGE) {
       return;
     }
     let stack = null;
@@ -41,7 +42,7 @@ class FuriousSlashTimesByStacks extends Analyzer {
     this.lastFuriousSlashUpdate = event.timestamp;
     this.lastFuriousSlashStack = stack;
   }
-  on_byPlayer_removebuff(event) {
+  on_byPlayer_removebuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FURIOUS_SLASH_TALENT_BUFF.id) {
       return;
