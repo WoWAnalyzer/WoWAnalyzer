@@ -45,7 +45,7 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.MIRROR_IMAGE.id,
         triggeredBySpellId: SPELLS.MIRROR_IMAGE.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
