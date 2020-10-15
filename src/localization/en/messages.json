@@ -427,7 +427,6 @@
   "mage.shared.suggestions.arcaneIntellect.uptime": "{0}% Uptime",
   "mage.shared.suggestions.castsCancelled": "{0}% casts cancelled",
   "mage.shared.suggestions.focusMagic.uptime": "{0}% Focus Magic Uptime",
-  "mage.shared.suggestions.mirrorImage.damageIncrease": "{0}% damage increase from Mirror Image",
   "mage.shared.suggestions.runeOfPower.utilization": "Average {0}s standing in each Rune of Power",
   "mage.shared.suggetsions.runeOfPower.damageIncrease": "{0}% damage increase from Rune of Power",
   "monk.brewmaster.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
