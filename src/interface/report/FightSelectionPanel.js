@@ -8,6 +8,8 @@ import FightSelectionPanelList from './FightSelectionPanelList';
 
 const FightSelectionPanel = props => {
   const { report, killsOnly } = props;
+  console.log(report)
+  console.log(report.gameVersion)
 
   return (
     <>
