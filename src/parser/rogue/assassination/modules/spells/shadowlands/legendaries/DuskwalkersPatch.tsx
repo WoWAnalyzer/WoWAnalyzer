@@ -57,9 +57,7 @@ class DuskwalkersPatch extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringSpellValueText spell={SPELLS.DUSKWALKERS_PATCH}>
-          <>
             {formatNumber(this.effectiveVendettaReductionMs / 1000)}s/{formatNumber((this.wastedVendettaReductionMs + this.effectiveVendettaReductionMs) / 1000)}s <small> cooldown reduction</small>
-          </>
         </BoringSpellValueText>
       </Statistic>
     );
