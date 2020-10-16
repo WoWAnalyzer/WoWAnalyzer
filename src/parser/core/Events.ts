@@ -148,8 +148,8 @@ export enum Class {
 }
 
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
-export type SourcedEvent<T extends string> = Event<T> & { sourceID: number };
-export type TargettedEvent<T extends string> = Event<T> & { targetID: number };
+export type SourcedEvent<T extends string> = Event<T> & { sourceID: number, sourceIsFriendly: boolean };
+export type TargettedEvent<T extends string> = Event<T> & { targetID: number, targetIsFriendly: boolean };
 
 export function HasAbility<T extends EventType>(event: Event<T>): event is AbilityEvent<T> {
   return (event as AbilityEvent<T>).ability !== undefined;
@@ -337,6 +337,7 @@ export interface DamageEvent extends Event<EventType.Damage> {
   unmitigatedAmount?: number;
   tick?: boolean;
   overkill?: number;
+  blocked?: number; // does this exist?
 }
 
 export interface BuffEvent<T extends string> extends Event<T> {

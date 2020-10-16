@@ -24,7 +24,7 @@ class SwirlingCurrents extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = true;
+    this.active = false;
 
     this.healingBoost = .2;//TODO Get from combat data when they EXPORT IT >:c
 

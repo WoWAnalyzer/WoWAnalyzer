@@ -15,6 +15,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -168,7 +170,7 @@ class VolatileBomb extends Analyzer {
   suggestions(when: When) {
     when(this.missedResetsThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You shouldn't cast <SpellLink id={SPELLS.VOLATILE_BOMB_WFI.id} /> if your target doesn't have <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on.</>)
         .icon(SPELLS.VOLATILE_BOMB_WFI.icon)
-        .actual(`${actual} casts without ${<SpellLink id={SPELLS.SERPENT_STING_SV.id} />} on`)
+        .actual(i18n._(t('hunter.survival.suggestions.wildfireInfusion.castsWithoutSerpentSting')`${actual} casts without ${<SpellLink id={SPELLS.SERPENT_STING_SV.id} />} on`))
         .recommended(`<${recommended} is recommended`));
 
   }

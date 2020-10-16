@@ -4,6 +4,8 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import ComboPointTracker from './ComboPointTracker';
 
@@ -82,7 +84,7 @@ class FinisherTracker extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<React.Fragment>Try to use your finishers at {this.maximumComboPoints} combo points. {this.extraSuggestion()}</React.Fragment>)
         .icon(this.suggestionIcon())
-        .actual(`${formatPercentage(actual)}% (${this.inefficientFinisherCount} out of ${this.totalFinisherCount}) inefficient casts`)
+        .actual(i18n._(t('rogue.shared.suggestions.finishers.efficiency')`${formatPercentage(actual)}% (${this.inefficientFinisherCount} out of ${this.totalFinisherCount}) inefficient casts`))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 }

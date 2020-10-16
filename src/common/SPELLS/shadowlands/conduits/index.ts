@@ -14,7 +14,6 @@ import ROGUE from './rogue';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
-
 const conduits: SpellList = safeMerge(
   DEATH_KNIGHT,
   DEMON_HUNTER,

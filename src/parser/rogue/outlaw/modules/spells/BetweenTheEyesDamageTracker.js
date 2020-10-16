@@ -14,9 +14,8 @@ class BetweenTheEyesDamageTracker extends FilteredDamageTracker {
       return false;
     }
 
-    const hasRelevantTrait = this.selectedCombatant.hasTrait(SPELLS.ACE_UP_YOUR_SLEEVE.id) || this.selectedCombatant.hasTrait(SPELLS.DEADSHOT.id);
     const hasRuthlessPrecision = this.selectedCombatant.hasBuff(SPELLS.RUTHLESS_PRECISION.id);
-    return hasRelevantTrait || hasRuthlessPrecision;
+    return hasRuthlessPrecision;
   }
 }
 

@@ -6,6 +6,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import ShieldBlock from '../spells/ShieldBlock';
 
@@ -112,7 +114,7 @@ class BlockCheck extends Analyzer {
     when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>You only had <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} /> or <SpellLink id={SPELLS.LAST_STAND.id} /> for {formatPercentage(actual)}% of physical damage taken. You should have one of the two up to mitigate as much physical damage as possible.</>)
             .icon(SPELLS.SHIELD_BLOCK_BUFF.icon)
-            .actual(`${formatPercentage(actual)}% was mitigated by a block spell`)
+            .actual(i18n._(t('warrior.protection.suggestions.block.damageMitigated')`${formatPercentage(actual)}% was mitigated by a block spell`))
             .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended but this may vary between fights`));
   }
 

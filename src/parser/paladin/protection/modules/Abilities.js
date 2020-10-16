@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
 
@@ -21,7 +20,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLESSED_HAMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 4.5 / (1 + haste),
+        cooldown: haste => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -52,17 +51,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 18 / (1 + haste),
-        charges: 3,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
+        gcd: {
+          static: 1000,
         },
       },
       { // T15: Holy Shield
         spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 4.5 / (1 + haste),
+        cooldown: haste => 6 / (1 + haste),
         charges: 2,
         gcd: {
           base: 1500,
@@ -85,33 +81,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LIGHT_OF_THE_PROTECTOR,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 17 / (1 + haste),
-        charges: 1,
+        spell: SPELLS.WORD_OF_GLORY,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
           base: 1500,
-        },
-        enabled: !combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.6,
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
-      },
-      {
-        spell: SPELLS.HAND_OF_THE_PROTECTOR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
-        charges: 1,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.6,
-          importance: ISSUE_IMPORTANCE.MINOR,
         },
       },
       //COOLDOWNS

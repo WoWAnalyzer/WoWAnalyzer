@@ -4,6 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import RollTheBonesCastTracker, { ROLL_THE_BONES_CATEGORIES } from '../features/RollTheBonesCastTracker';
 
@@ -23,11 +25,6 @@ class RollTheBonesEfficiency extends Analyzer {
   static dependencies = {
     rollTheBonesCastTracker: RollTheBonesCastTracker,
   };
-
-  constructor(...args) {
-    super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
-  }
 
   get goodLowValueRolls(){
     const delayedRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE]
@@ -106,7 +103,7 @@ class RollTheBonesEfficiency extends Analyzer {
     this.rollSuggestions.forEach(suggestion => {
       when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a {suggestion.label} roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}</>)
           .icon(SPELLS.ROLL_THE_BONES.icon)
-          .actual(`${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`)
+          .actual(i18n._(t('rogue.outlaw.suggestions.rollTheBones.efficiency')`${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`))
           .recommended(`${formatPercentage(recommended)}% is recommended`));
     });
   }

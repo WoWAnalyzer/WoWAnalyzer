@@ -10,6 +10,8 @@ import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import StealthCasts from './StealthCasts';
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
@@ -22,12 +24,7 @@ const GOOD_MASTER_ASSASSIN_ABILITIES = [
   SPELLS.ENVENOM.id,
   SPELLS.FAN_OF_KNIVES.id,
 ];
-const GOOD_OPENER_CASTS = [
-  ...GOOD_MASTER_ASSASSIN_ABILITIES,
-  SPELLS.GARROTE.id,
-  SPELLS.RUPTURE.id,
-  SPELLS.TOXIC_BLADE_TALENT.id,
-];
+const GOOD_OPENER_CASTS = [...GOOD_MASTER_ASSASSIN_ABILITIES, SPELLS.GARROTE.id, SPELLS.RUPTURE.id];
 
 class MasterAssassin extends StealthCasts {
   static dependencies = {
@@ -93,7 +90,7 @@ class MasterAssassin extends StealthCasts {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You failed to take full advantage of <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />. Make sure to prioritize spending the buff on <SpellLink id={SPELLS.MUTILATE.id} /> or <SpellLink id={SPELLS.ENVENOM.id} /> (<SpellLink id={SPELLS.FAN_OF_KNIVES.id} /> is acceptable for AOE). During your opener <SpellLink id={SPELLS.GARROTE.id} />, <SpellLink id={SPELLS.RUPTURE.id} /> and <SpellLink id={SPELLS.TOXIC_BLADE_TALENT.id} /> is also okay.</>)
         .icon(SPELLS.MASTER_ASSASSIN_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% good casts during Master Assassin`)
+        .actual(i18n._(t('rogue.assassination.suggestions.masterAssassin.efficiency')`${formatPercentage(actual)}% good casts during Master Assassin`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

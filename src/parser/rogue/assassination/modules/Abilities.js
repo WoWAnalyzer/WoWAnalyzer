@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -22,7 +23,8 @@ class Abilities extends CoreAbilities {
           if (!combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
             return 6;
           } else {
-            const hasStealth = combatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id) ||
+            const hasStealth =
+              combatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id) ||
               combatant.hasBuff(SPELLS.STEALTH.id) ||
               combatant.hasBuff(SPELLS.STEALTH_BUFF.id) ||
               combatant.hasBuff(SPELLS.VANISH_BUFF.id);
@@ -110,20 +112,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        buffSpellId: combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? SPELLS.SUBTERFUGE_BUFF.id : SPELLS.MASTER_ASSASSIN_BUFF.id,
-      },
-      {
-        spell: SPELLS.TOXIC_BLADE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 25,
-        gcd: {
-          static: 1000,
-        },
-        enabled: combatant.hasTalent(SPELLS.TOXIC_BLADE_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
-        buffSpellId: SPELLS.TOXIC_BLADE_DEBUFF.id,
+        buffSpellId: combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)
+          ? SPELLS.SUBTERFUGE_BUFF.id
+          : SPELLS.MASTER_ASSASSIN_BUFF.id,
       },
       {
         spell: SPELLS.EXSANGUINATE_TALENT,
@@ -266,6 +257,42 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PICK_POCKET,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
+      },
+      // Covenant Abilities
+      {
+        spell: SPELLS.SEPSIS,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1000,
+        },
+        cooldown: 90,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+      },
+      {
+        spell: SPELLS.FLAGELLATION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1000,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+      },
+      {
+        spell: SPELLS.ECHOING_REPRIMAND,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1000,
+        },
+        cooldown: 45,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+      },
+      {
+        spell: SPELLS.SERRATED_BONE_SPIKE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1000,
+        },
+        cooldown: 30,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
     ];
   }

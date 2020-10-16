@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../core/SharedBrews';
 
-const KEG_SMASH_REDUCTION = 4000;
+const KEG_SMASH_REDUCTION = 3000;
 const BOC_KEG_SMASH_REDUCTION = 2000;
 
 class KegSmash extends Analyzer {

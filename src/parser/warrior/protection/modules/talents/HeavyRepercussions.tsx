@@ -11,6 +11,9 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const HEAVY_REPERCUSSIONS_SHIELD_BLOCK_EXTEND_MS = 1000;
 const HEAVY_REPERCUSSIONS_SHIELD_SLAM_DAMAGE_BUFF = 0.3;
 
@@ -66,7 +69,7 @@ class HeavyRepercussions extends Analyzer {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />'s during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of <SpellLink id={SPELLS.SHIELD_SLAM.id} />.</>)
             .icon(SPELLS.HEAVY_REPERCUSSIONS_TALENT.icon)
-            .actual(`${formatPercentage(actual)}% cast during Shield Block`)
+            .actual(i18n._(t('warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts')`${formatPercentage(actual)}% cast during Shield Block`))
             .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 
