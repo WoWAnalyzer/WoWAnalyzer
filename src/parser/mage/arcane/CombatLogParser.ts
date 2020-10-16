@@ -16,6 +16,7 @@ import ArcaneMissiles from './modules/features/ArcaneMissiles';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
+import ElementalBarrier from '../shared/modules/features/ElementalBarrier';
 
 //Talents
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
@@ -57,10 +58,11 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneChargeTracker: ArcaneChargeTracker,
     arcanePower: ArcanePower,
     arcaneMissiles: ArcaneMissiles,
+    mirrorImage: MirrorImage,
+    elementalBarrier: ElementalBarrier,
 
     // Talents
     arcaneFamiliar: ArcaneFamiliar,
-    mirrorImage: MirrorImage,
     arcaneIntellect: ArcaneIntellect,
     runeOfPower: RuneOfPower,
     arcaneOrb: ArcaneOrb,
