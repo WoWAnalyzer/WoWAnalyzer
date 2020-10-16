@@ -12,17 +12,12 @@ import { t } from '@lingui/macro';
 
 /**
  * Find Weakness
- * Your Shadowstrike and Cheap Shot abilities reveal a flaw in your target's defenses, causing all your attacks to bypass 40%  of that enemy's armor for 10 sec.
+ * Your Shadowstrike and Cheap Shot abilities reveal a flaw in your target's defenses, causing all your attacks to bypass 30%  of that enemy's armor for 18 sec.
  */
 class FindWeakness extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FIND_WEAKNESS_TALENT.id);
-  }
 
   badVanishCasts = 0;
 
@@ -36,7 +31,7 @@ class FindWeakness extends Analyzer {
   latestTs = 0;
   on_byPlayer_refreshdebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.FIND_WEAKNESS_BUFF.id) {
+    if (spellId === SPELLS.FIND_WEAKNESS.id) {
       this.latestTs = event.timestamp;
     }
   }
@@ -44,11 +39,11 @@ class FindWeakness extends Analyzer {
   handleVanish(event) {
     const entities = this.enemies.getEntities();
     const hasDebuff = Object.values(entities)
-    .filter(enemy => enemy.hasBuff(SPELLS.FIND_WEAKNESS_BUFF.id))
-    .map(enemy => enemy.getBuff(SPELLS.FIND_WEAKNESS_BUFF.id).timestamp);
+      .filter(enemy => enemy.hasBuff(SPELLS.FIND_WEAKNESS.id))
+      .map(enemy => enemy.getBuff(SPELLS.FIND_WEAKNESS.id).timestamp);
 
     //For now does not support target switching, just makes sure that enough time has passed since the last application
-    if(Math.max(...hasDebuff, this.latestTs) > event.timestamp - 8000) {
+    if (Math.max(...hasDebuff, this.latestTs) > event.timestamp - 8000) {
       this.badVanishCasts += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
@@ -70,20 +65,20 @@ class FindWeakness extends Analyzer {
 
   suggestions(when) {
     when(this.vanishThresholds)
-    .addSuggestion((suggest, actual, recommended) => suggest(<>Use <SpellLink id={SPELLS.VANISH.id} /> only when you do not have <SpellLink id={SPELLS.FIND_WEAKNESS_TALENT.id} /> applied to your target </>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Use <SpellLink id={SPELLS.VANISH.id} /> only when you do not have <SpellLink id={SPELLS.FIND_WEAKNESS_TALENT.id} /> applied to your target </>)
         .icon(SPELLS.VANISH.icon)
         .actual(i18n._(t('rogue.subtlety.suggestions.findWeakness.alreadyApplied')`You used Vanish ${this.badVanishCasts} times when Find Weakness was already applied`))
         .recommended(`${recommended} is recommended`));
   }
 
   statistic() {
-    const uptime = this.enemies.getBuffUptime(SPELLS.FIND_WEAKNESS_BUFF.id) / this.owner.fightDuration;
+    const uptime = this.enemies.getBuffUptime(SPELLS.FIND_WEAKNESS.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(40)}
-        icon={<SpellIcon id={SPELLS.FIND_WEAKNESS_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.FIND_WEAKNESS.id} />}
         value={`${formatPercentage(uptime)} %`}
-        label={`${SPELLS.FIND_WEAKNESS_TALENT.name} uptime`}
+        label={`${SPELLS.FIND_WEAKNESS.name} uptime`}
       />
     );
   }

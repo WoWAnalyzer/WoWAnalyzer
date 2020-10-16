@@ -119,6 +119,11 @@ const spells: SpellList = {
     name: 'Pick Pocket',
     icon: 'inv_misc_bag_11',
   },
+  SLICE_AND_DICE: {
+    id: 315496,
+    name: 'Slice and Dice',
+    icon: 'ability_rogue_slicedice',
+  },
 
   // Subtlety spells
   // Combo point generating damage ability
@@ -199,7 +204,7 @@ const spells: SpellList = {
   },
   SHADOW_SATYRS_WALK_ENERGY_EXTRA: {
     id: 208440,
-    name: 'Shadow Satyr\'s Walk',
+    name: "Shadow Satyr's Walk",
     icon: 'inv_boots_mail_dungeonmail_c_04',
   },
   MASTER_OF_SHADOWS_ENERGY: {
@@ -211,18 +216,13 @@ const spells: SpellList = {
   //Buffs
   MASTER_ASSASSINS_INITIATIVE_BUFF: {
     id: 235027,
-    name: 'Master Assassin\'s Initiative',
+    name: "Master Assassin's Initiative",
     icon: 'inv_weapon_shortblade_25',
   },
   THE_FIRST_OF_THE_DEAD_BUFF: {
     id: 248210,
     name: 'The First of the Dead',
     icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
-  },
-  FIND_WEAKNESS_BUFF: {
-    id: 91021,
-    name: 'Find Weakness',
-    icon: 'ability_rogue_findweakness',
   },
 
   // Sets
@@ -401,7 +401,6 @@ const spells: SpellList = {
     icon: 'inv_weapon_shortblade_62',
   },
 
-
   //Outlaw
 
   //Builders
@@ -433,7 +432,7 @@ const spells: SpellList = {
     icon: 'ability_rogue_waylay',
   },
   BETWEEN_THE_EYES: {
-    id: 199804,
+    id: 315341,
     name: 'Between the Eyes',
     icon: 'inv_weapon_rifle_01',
   },
@@ -443,7 +442,7 @@ const spells: SpellList = {
     icon: 'spell_shadow_mindsteal',
   },
   ROLL_THE_BONES: {
-    id: 193316,
+    id: 315508,
     name: 'Roll the Bones',
     icon: 'ability_rogue_rollthebones',
   },
@@ -498,12 +497,22 @@ const spells: SpellList = {
     name: 'Broadside',
     icon: 'ability_rogue_rollthebones06',
   },
-  BLADE_RUSH_TALENT_BUFF: { // This is the energy gain buff
-    id: 271896, 
-    name: 'Blade Rush', 
+  BLADE_RUSH_TALENT_BUFF: {
+    // This is the energy gain buff
+    id: 271896,
+    name: 'Blade Rush',
     icon: 'ability_arakkoa_spinning_blade',
   },
-
+  DREADBLADES_TALENT_BUFF: {
+    id: 343143,
+    name: 'Dreadblades',
+    icon: 'ability_rogue_restlessblades',
+  },
+  FIND_WEAKNESS: {
+    id: 316219,
+    name: 'Find Weakness',
+    icon: 'ability_rogue_findweakness',
+  },
 
   //Procs
   COMBO_POINT: {

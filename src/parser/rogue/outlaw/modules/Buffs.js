@@ -4,8 +4,6 @@ import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 
 class Buffs extends CoreBuffs {
   buffs() {
-    const combatant = this.selectedCombatant;
-
     // This should include ALL buffs that can be applied by your spec.
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
@@ -16,47 +14,39 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.BLADE_RUSH_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id),
-      },
-      {
-        spellId: SPELLS.SLICE_AND_DICE_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
-        timelineHighlight: true,
       },
       {
         spellId: SPELLS.OPPORTUNITY.id,
         timelineHighlight: true,
       },
 
+      // Talents
+      {
+        spellId: SPELLS.ALACRITY_TALENT.id,
+      },
+
       // Roll the Bones
       {
         spellId: SPELLS.ROLL_THE_BONES.id,
-        enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.RUTHLESS_PRECISION.id,
-        enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
         spellId: SPELLS.GRAND_MELEE.id,
-        enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
         spellId: SPELLS.BROADSIDE.id,
-        enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
         spellId: SPELLS.SKULL_AND_CROSSBONES.id,
-        enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
         spellId: SPELLS.BURIED_TREASURE.id,
-        enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
         spellId: SPELLS.TRUE_BEARING.id,
-        enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
 
       // Misc
