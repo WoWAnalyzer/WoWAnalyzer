@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HawkCorrigan, Vetyst, Vonn } from 'CONTRIBUTORS';
+import { Vonn } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import Warning from 'interface/Alert/Warning';
 
@@ -9,7 +9,7 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [HawkCorrigan, Vetyst, Vonn],
+  contributors: [ Vonn ],
   patchCompatibility: '9.0.1',
   isSupported: true,
   description: (
@@ -21,7 +21,7 @@ const config: Config = {
     Hey there! Thanks for checking out the Enhancement Analyzer. If you have any feedback or suggestions, feel free to reach out to Vonn via Discord (vønn#2776) or drop an issue in the GitHub repo.
     </>
   ),
-  exampleReport: '/report/PD96Rd7x8rmKcjhn/34-Mythic+The+Council+of+Blood+-+Wipe+15+(4:09)/By',
+  exampleReport: '/report/wWHbPcydVKR2T8YQ/3-Mythic+Carapace+of+N\'Zoth+-+Kill+(6:17)/Terza',
 
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,

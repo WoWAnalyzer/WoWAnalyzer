@@ -11,4 +11,9 @@ export default {
     icon: 'spell_holy_spellwarding',
   },
   //endregion
+  BRONS_CALL_TO_ACTION: {
+    id: 333961,
+    name: 'Bron\'s Call to Action',
+    icon: 'ui_sigil_kyrian',
+  },
 }
