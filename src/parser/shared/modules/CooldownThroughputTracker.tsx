@@ -9,6 +9,7 @@ import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import Events, { AnyEvent, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent, SummonEvent, DeathEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
+import { Trans } from '@lingui/macro';
 
 const debug = false;
 
@@ -245,11 +246,11 @@ class CooldownThroughputTracker extends Analyzer {
       url: 'cooldowns',
       render: () => (
         <Panel
-          title="Throughput cooldowns"
+          title={<Trans id="shared.cooldownThroughputTracker.tab.title">Throughput cooldowns</Trans>}
           explanation={(
-            <>
+            <Trans id="shared.cooldownThroughputTracker.tab.explanation">
               This shows the effectiveness of your throughput cooldowns and your cast behavior during them. Click on <i>More</i> to see details such as the delay between casting spells and the healing or damage done with them. Take a look at the timeline for a different kind of view of your casts during buffs.
-            </>
+            </Trans>
           )}
           pad={false}
         >

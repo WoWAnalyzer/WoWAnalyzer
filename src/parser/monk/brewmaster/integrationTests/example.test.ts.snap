@@ -351,7 +351,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -364,7 +364,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -377,7 +377,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -962,7 +962,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -975,7 +975,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -988,7 +988,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1096,7 +1096,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1109,7 +1109,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1122,7 +1122,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1341,7 +1341,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1354,7 +1354,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1367,7 +1367,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1964,7 +1964,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1977,7 +1977,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1990,7 +1990,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2863,7 +2863,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2876,7 +2876,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2889,7 +2889,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3549,7 +3549,7 @@ exports[`Brewmaster Monk integration test: example log DistanceMoved matches the
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -3628,183 +3628,237 @@ Array [
     "details": null,
     "icon": "inv_chest_leather_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4819,
-              1512,
-              4786,
-            ],
-            "icon": "inv_chest_leather_zandalardungeon_c_01.jpg",
-            "id": 155860,
-            "itemLevel": 340,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4819,
+                  1512,
+                  4786,
+                ],
+                "icon": "inv_chest_leather_zandalardungeon_c_01.jpg",
+                "id": 155860,
+                "itemLevel": 340,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={155860}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            id="Chest"
+          />,
         }
-        icon={false}
-        id={155860}
-        quality={3}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_boot_leather_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5010,
-              1552,
-              4783,
-            ],
-            "icon": "inv_boot_leather_zandalardungeon_c_01.jpg",
-            "id": 159336,
-            "itemLevel": 380,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5010,
+                  1552,
+                  4783,
+                ],
+                "icon": "inv_boot_leather_zandalardungeon_c_01.jpg",
+                "id": 159336,
+                "itemLevel": 380,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159336}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            id="Boots"
+          />,
         }
-        icon={false}
-        id={159336}
-        quality={3}
-      >
-        Boots
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_01e.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5005,
-              1527,
-              4786,
-            ],
-            "icon": "inv_ring_80_01e.jpg",
-            "id": 158362,
-            "itemLevel": 355,
-            "permanentEnchant": 5941,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5005,
+                  1527,
+                  4786,
+                ],
+                "icon": "inv_ring_80_01e.jpg",
+                "id": 158362,
+                "itemLevel": 355,
+                "permanentEnchant": 5941,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158362}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            id="Ring"
+          />,
         }
-        icon={false}
-        id={158362}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_04d.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4799,
-              1492,
-              4786,
-            ],
-            "icon": "inv_ring_80_04d.jpg",
-            "id": 160645,
-            "itemLevel": 370,
-            "permanentEnchant": 5941,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4799,
+                  1492,
+                  4786,
+                ],
+                "icon": "inv_ring_80_04d.jpg",
+                "id": 160645,
+                "itemLevel": 370,
+                "permanentEnchant": 5941,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={160645}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            id="Ring"
+          />,
         }
-        icon={false}
-        id={160645}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_leather_nazmirraid_d_01cape.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4799,
-              1502,
-              4783,
-            ],
-            "icon": "inv_leather_nazmirraid_d_01cape.jpg",
-            "id": 160643,
-            "itemLevel": 380,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4799,
+                  1502,
+                  4783,
+                ],
+                "icon": "inv_leather_nazmirraid_d_01cape.jpg",
+                "id": 160643,
+                "itemLevel": 380,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={160643}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            id="Cloak"
+          />,
         }
-        icon={false}
-        id={160643}
-        quality={4}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_polearm_2h_zandalariguard_b_01.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5007,
-              1547,
-              4784,
-            ],
-            "icon": "inv_polearm_2h_zandalariguard_b_01.jpg",
-            "id": 159655,
-            "itemLevel": 375,
-            "permanentEnchant": 5962,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5007,
+                  1547,
+                  4784,
+                ],
+                "icon": "inv_polearm_2h_zandalariguard_b_01.jpg",
+                "id": 159655,
+                "itemLevel": 375,
+                "permanentEnchant": 5962,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159655}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            id="Weapon"
+          />,
         }
-        icon={false}
-        id={159655}
-        quality={3}
-      >
-        Weapon
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]

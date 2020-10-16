@@ -146,22 +146,22 @@ class ChainHeal extends Analyzer {
         value={this.avgHits.toFixed(2)}
         position={STATISTIC_ORDER.OPTIONAL(70)}
         label={(
-          <TooltipElement content={<Trans id="shaman.restoration.suggestions.chainHeal.averageTargetsTooltip">The average number of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${this.casts} Chain Heals, which healed an average of ${this.avgHits.toFixed(2)} out of ${this.maxTargets} targets.</Trans>}>
-            Average Chain Heal targets
+          <TooltipElement content={<Trans id="shaman.restoration.chainHeal.averageTargets.tooltip">The average number of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of {this.casts} Chain Heals, which healed an average of {this.avgHits.toFixed(2)} out of {this.maxTargets} targets.</Trans>}>
+            <Trans id="shaman.restoration.chainHeal.averageTargets">Average Chain Heal targets</Trans>
           </TooltipElement>
         )}
       >
         {singleHits.length > 0 && (
           <>
             <div>
-              Below are the casts that only hit the initial target. A large list indicates that target selection is an area for improvement.
+              <Trans id="shaman.restoration.chainHeal.averageTargets.title">Below are the casts that only hit the initial target. A large list indicates that target selection is an area for improvement.</Trans>
             </div>
             <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
               <thead>
                 <tr>
-                  <th>Cast</th>
-                  <th>Time</th>
-                  <th>Target</th>
+                  <th><Trans>Cast</Trans></th>
+                  <th><Trans>Time</Trans></th>
+                  <th><Trans>Target</Trans></th>
                 </tr>
               </thead>
               <tbody>

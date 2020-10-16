@@ -17,7 +17,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Combatants from 'parser/shared/modules/Combatants';
 
 import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
@@ -97,7 +97,7 @@ class Wellspring extends Analyzer {
     }
     this.castEvent.meta = this.castEvent.meta || {};
     this.castEvent.meta.isInefficientCast = true;
-    this.castEvent.meta.inefficientCastReason = `This Wellspring cast hit less than 6 targets.`;
+    this.castEvent.meta.inefficientCastReason = <Trans id="shaman.restoration.wellspring.inefficientCast.reason">This Wellspring cast hit less than 6 targets.</Trans>;
   }
 
   get averageHitsPerCast() {
@@ -148,17 +148,17 @@ class Wellspring extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.WELLSPRING_TALENT.id} />}
-        label="Wellspring target efficiency"
+        label={<Trans id="shaman.restoration.wellspring.statistic.label">Wellspring target efficiency</Trans>}
         value={`${formatPercentage(this.wellspringEfficiency)} %`}
-        tooltip="The average number of targets healed by Wellspring out of the minimum amount of 6 targets to archive the maximum potential healing."
+        tooltip={<Trans id="shaman.restoration.wellspring.statistic.tooltip">The average number of targets healed by Wellspring out of the minimum amount of 6 targets to archive the maximum potential healing.</Trans>}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(100)}
       >
         <table className="table table-condensed">
           <thead>
             <tr>
-              <th>Cast</th>
-              <th>Time</th>
+              <th><Trans>Cast</Trans></th>
+              <th><Trans>Time</Trans></th>
               <th />
             </tr>
           </thead>

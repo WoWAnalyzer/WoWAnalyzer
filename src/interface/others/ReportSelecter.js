@@ -137,7 +137,7 @@ class ReportSelecter extends React.PureComponent {
                 style={{ width: '100%', height: '100%' }}
                 ref={this.codeInput}
                 onChange={this.handleChange}
-                placeholder={i18n._(t`https://www.warcraftlogs.com/reports/<report code>`)}
+                placeholder="https://www.warcraftlogs.com/reports/<report code>"
                 autoCorrect="off"
                 autoCapitalize="off"
                 spellCheck="false"
