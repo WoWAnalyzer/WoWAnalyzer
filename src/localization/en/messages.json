@@ -600,6 +600,7 @@
   "warrior.protection.suggestions.spellReflect.efficiency": "{0} % magic damage With Spell Reflect Up",
   "warrior.protection.suggestions.vengeance.overwritten": "{0}% overwritten",
   "{0, plural, one {Contributor} other {Contributors}}": "",
+  "{0} ({1})": "{0} ({1})",
   "{0} HPS": "",
   "{0} Please message us on <0>Discord</0> or create an issue on <1>Github</1> if this issue persists and we will fix it, eventually.": "",
   "{0} by {1} in {2}": "",

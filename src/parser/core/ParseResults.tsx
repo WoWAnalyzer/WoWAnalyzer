@@ -2,6 +2,7 @@ import React from 'react';
 import { captureException } from 'common/errorLogger';
 
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
+import { Trans } from '@lingui/macro';
 
 enum AssertionMode {
   IS_GREATER_THAN = '>',
@@ -34,7 +35,7 @@ abstract class SuggestionAssertion<T extends number | boolean> {
       this._addIssue({
         issue: suggestion._text,
         // stat is a string and not a React node on purpose: this is quicker and we don't want the stats to become complicated
-        stat: suggestion._actualText ? <>{suggestion._actualText} ({suggestion._recommendedText})</> : null,
+        stat: suggestion._actualText ? <Trans>{suggestion._actualText} ({suggestion._recommendedText})</Trans> : null,
         icon: suggestion._icon,
         importance: this._getIssueImportance(suggestion),
         details: suggestion._details,
