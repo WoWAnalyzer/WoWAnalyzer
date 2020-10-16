@@ -57,9 +57,9 @@ class NoDamageShieldOfTheRighteous extends Analyzer {
         return {
             actual: this.sotrCastToHitRatio,
             isLessThan: {
-                minor: 0.95,
-                average: 0.90,
-                major: 0.80,
+                minor: 0.98,
+                average: 0.95,
+                major: 0.92,
             },
             style: ThresholdStyle.PERCENTAGE,
         };
@@ -67,7 +67,7 @@ class NoDamageShieldOfTheRighteous extends Analyzer {
 
     suggestions(when: When) {
         when(this.hitRatioSuggestionThresholds)
-            .addSuggestion((suggest, actual, recommended) => suggest('SOTR is a major source of damage. Make sure that each cast hits at least 1 enemy.')
+            .addSuggestion((suggest, actual, recommended) => suggest('SotR is a major source of damage. Make sure that each cast hits at least 1 enemy.')
             .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
             .actual(`${formatPercentage(actual)}% of casts hit at least 1 target.`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`))
@@ -82,7 +82,7 @@ class NoDamageShieldOfTheRighteous extends Analyzer {
                 <BoringSpellValue 
                     spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS}
                     value={`${formatPercentage(this.sotrCastToHitRatio)} %`}
-                    label={<Trans>SOTR Casts That Hit An Enemy</Trans>}
+                    label={<Trans>SotR Casts That Hit An Enemy</Trans>}
                 />
             </Statistic>
         )
