@@ -1,11 +1,10 @@
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
 import EnergyCapTracker from '../../../shared/resources/EnergyCapTracker'; // todo use the outlaw cap tracker once available
-import { ROLL_THE_BONES_BUFFS } from '../../constants';
+import { ROLL_THE_BONES_BUFFS, ROLL_THE_BONES_DURATION } from '../../constants';
 
 export const ROLL_THE_BONES_CATEGORIES = {
   LOW_VALUE: 'low',
@@ -14,8 +13,6 @@ export const ROLL_THE_BONES_CATEGORIES = {
 };
 
 // e.g. 1 combo point is 12 seconds, 3 combo points is 24 seconds
-const ROLL_THE_BONES_BASE_DURATION = 6 * 1000;
-const ROLL_THE_BONES_CP_DURATION = 6 * 1000;
 const PANDEMIC_WINDOW = 0.3;
 
 /**
@@ -39,11 +36,6 @@ class RollTheBonesCastTracker extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
-    if(!this.active){
-      return;
-    }
-
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES), this.processCast);
   }
 
@@ -79,13 +71,12 @@ class RollTheBonesCastTracker extends Analyzer {
     if(!event || !event.classResources){
       return;
     }
-    const cpCost = getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id).cost;
     const refresh = this.lastCast ? event.timestamp < (this.lastCast.timestamp + this.lastCast.duration) : false;
 
     // All of the events for adding/removing buffs occur at the same timestamp as the cast, so this.selectedCombatant.hasBuff isn't quite accurate
     const appliedBuffs = ROLL_THE_BONES_BUFFS.filter(b => this.energyCapTracker.combatantHasBuffActive(b.id));
 
-    let duration = ROLL_THE_BONES_BASE_DURATION + (ROLL_THE_BONES_CP_DURATION * cpCost);
+    let duration = ROLL_THE_BONES_DURATION;
 
     // If somehow logging starts in the middle of combat and the first cast is actually a refresh, pandemic timing and previous buffs will be missing
     if(refresh && this.lastCast){

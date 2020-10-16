@@ -247,33 +247,8 @@ const spells: SpellList = {
     name: 'Eye Beam',
     icon: 'inv_beholderwarlock',
   },
-  UNSTABLE_AFFLICTION_CAST: {
-    id: 30108,
-    name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
-  UNSTABLE_AFFLICTION_DEBUFF_1: {
-    id: 233490,
-    name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
-  UNSTABLE_AFFLICTION_DEBUFF_2: {
-    id: 233496,
-    name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
-  UNSTABLE_AFFLICTION_DEBUFF_3: {
-    id: 233497,
-    name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
-  UNSTABLE_AFFLICTION_DEBUFF_4: {
-    id: 233498,
-    name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
-  UNSTABLE_AFFLICTION_DEBUFF_5: {
-    id: 233499,
+  UNSTABLE_AFFLICTION: {
+    id: 316099,
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },

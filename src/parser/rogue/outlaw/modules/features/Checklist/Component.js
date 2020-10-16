@@ -20,38 +20,33 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
     spell: PropTypes.number.isRequired,
   };
 
-  const hasBetweenTheEyesTrait = combatant.hasTrait(SPELLS.ACE_UP_YOUR_SLEEVE.id) || combatant.hasTrait(SPELLS.DEADSHOT.id);
-
   return (
     <Checklist>
-      {!combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id) && (
-        <Rule
-          name="Maximize your Roll the Bones usage"
-          description={<>Efficient use of <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> is a critical part of Outlaw rogue. You should try to keep as high of an uptime as possible with any of the buffs, and reroll efficiently to get higher value buffs. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are the highest value of the six possible buffs. You should reroll until you get one of them, or any two other buffs. Any high value roll should be kept for the full duration.</>}
-        >
-          <Requirement
-            name={(
-              <>
-                <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> uptime
-              </>
-            )}
-            thresholds={thresholds.rollTheBonesBuffs}
-          />
-          {thresholds.rollTheBonesEfficiency.map(suggestion => (
+      <Rule
+        name="Maximize your Roll the Bones usage"
+        description={<>Efficient use of <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> is a critical part of Outlaw rogue. You should try to keep as high of an uptime as possible with any of the buffs, and reroll efficiently to get higher value buffs. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are the highest value of the six possible buffs. You should reroll until you get one of them, or any two other buffs. Any high value roll should be kept for the full duration.</>}
+      >
+        <Requirement
+          name={(
+            <>
+              <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> uptime
+            </>
+          )}
+          thresholds={thresholds.rollTheBonesBuffs}
+        />
+        {thresholds.rollTheBonesEfficiency.map(suggestion => (
             <Requirement
               key={suggestion.label}
               name={`Reroll ${suggestion.label} efficiency`}
               thresholds={suggestion.suggestionThresholds}
             />
-          ))}
-        </Rule>
-      )}
+        ))}
+      </Rule>
       <Rule
         name="Use your finishers efficiently"
         description={<>Your two damaging finishers should typically be used at maximum combo points. If you have <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active, or you are using either the <SpellLink id={SPELLS.ACE_UP_YOUR_SLEEVE.id} /> or <SpellLink id={SPELLS.DEADSHOT.id} /> traits, you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging finisher.</>}
       >
         <Requirement name="Finisher combo point inefficiency" thresholds={thresholds.finishers} />
-        {(!combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id) || hasBetweenTheEyesTrait) && (
           <Requirement
             name={(
               <>
@@ -60,8 +55,6 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
             )}
             thresholds={thresholds.dispatch}
           />
-        )}
-        {!combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id) && !hasBetweenTheEyesTrait && (
           <Requirement
             name={(
               <>
@@ -70,7 +63,7 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
             )}
             thresholds={thresholds.betweenTheEyes}
           />
-        )}
+
       </Rule>
       <Rule
         name="Make sure to use your opportunity procs"
@@ -121,7 +114,6 @@ OutlawRogueChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasTrait: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };

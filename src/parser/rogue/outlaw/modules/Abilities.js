@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -12,6 +13,10 @@ class Abilities extends CoreAbilities {
     const standardGcd = combatant => 1000 * (1 - (combatant.hasBuff(SPELLS.ADRENALINE_RUSH.id) ? 0.2 : 0));
     
     return [
+      // // Base class resource
+      {
+        spell: SPELLS.COMBO_POINT,
+      },
       // Rotational
       {
         spell: SPELLS.AMBUSH,
@@ -33,15 +38,13 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: standardGcd,
         },
-        enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
-        spell: SPELLS.SLICE_AND_DICE_TALENT,
+        spell: SPELLS.SLICE_AND_DICE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: standardGcd,
         },
-        enabled: combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
         spell: SPELLS.SINISTER_STRIKE,
@@ -92,20 +95,29 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLADE_FLURRY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: 25,
-        charges: 2,
+        cooldown: 30,
         gcd: {
           static: standardGcd,
         },
       },
       // Cooldowns
       {
-        spell: SPELLS.ADRENALINE_RUSH,
+        spell: SPELLS.DREADBLADES_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 90,
         gcd: {
           static: standardGcd,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: `Using Dreadblades on cooldown is very important and should only be delayed when you know you won't be able to attack for the majority of it's duration.`,
+        },
+      },
+      {
+        spell: SPELLS.ADRENALINE_RUSH,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -263,7 +275,42 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-      },      
+      },
+      // Covenant Abilities
+      {
+        spell: SPELLS.SERRATED_BONE_SPIKE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        charges: 3,
+        cooldown: 30,
+        gcd: {
+          static: standardGcd,
+        },
+      },
+      {
+        spell: SPELLS.SEPSIS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        gcd: {
+          static: standardGcd,
+        },
+      },
+      {
+        spell: SPELLS.ECHOING_REPRIMAD,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        gcd: {
+          static: standardGcd,
+        },
+      },
+      {
+        spell: SPELLS.FLAGELLATION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        gcd: {
+          static: standardGcd,
+        },
+      },
     ];
   }
 }
