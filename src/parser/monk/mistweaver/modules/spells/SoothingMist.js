@@ -13,8 +13,6 @@ import { formatPercentage } from 'common/format';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-const debug = false;
-
 class SoothingMist extends Analyzer {
   static dependencies = {
     channeling: CoreChanneling,
