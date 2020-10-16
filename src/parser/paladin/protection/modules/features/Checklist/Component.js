@@ -66,6 +66,22 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
           name={(<><SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> cast efficiency</>)}
         />
       </Rule>
+      <Rule name={<>Use <SpellLink id={SPELLS.WORD_OF_GLORY.id}/> to heal yourself</>}
+        description={(
+          <>
+            You should use <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> to heal yourself (or others, with <SpellLink id={SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id} />). However, you should <b>not</b> do this at the expense of <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> uptime. Instead, take advantage of <SpellLink id={SPELLS.SHINING_LIGHT.id} /> to make most of your <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> casts free.
+          </>
+        )}>
+        <Requirement name={<>Don't Overheal with <SpellLink id={SPELLS.WORD_OF_GLORY.id} /></>}
+                     thresholds={thresholds.wogOverheal} />
+        <Requirement name={<>Don't let <SpellLink id={SPELLS.SHINING_LIGHT.id} /> expire</>}
+                     thresholds={thresholds.wogSlWaste}/>
+        <Requirement name={<>Avoid casting <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> without <SpellLink id={SPELLS.SHINING_LIGHT.id} /></>}
+                     thresholds={thresholds.wogCastCost}/>
+        <Requirement name={<>Spend <SpellLink id={SPELLS.SHINING_LIGHT.id} /> quickly to avoid wasting stacks.</>}
+                     thresholds={thresholds.wogSotrCasts}
+                     tooltip="The number of Shining Light stacks wasted."/>
+      </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

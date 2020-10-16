@@ -506,6 +506,11 @@ const spells: SpellList = {
     name: 'Immortal Object',
     icon: 'spell_holy_avengersshield',
   },
+  SHINING_LIGHT: {
+    id: 327510,
+    name: 'Shining Light',
+    icon: 'ability_paladin_lightoftheprotector',
+  },
 	// Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {
     id: 211553,

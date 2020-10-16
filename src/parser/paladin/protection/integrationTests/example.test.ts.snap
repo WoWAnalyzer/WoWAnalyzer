@@ -4763,6 +4763,33 @@ exports[`Protection Paladin integration test: example log VitaChargedTitanshard 
 </div>
 `;
 
+exports[`Protection Paladin integration test: example log WordOfGlory matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_paladin_lightoftheprotector",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Make sure to use all of the free 
+      <ForwardRef
+        id={85673}
+      />
+       casts granted by 
+      <ForwardRef
+        id={327510}
+      />
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      You let 2 free casts expire.
+       (
+      &lt; 1% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Protection Paladin integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
