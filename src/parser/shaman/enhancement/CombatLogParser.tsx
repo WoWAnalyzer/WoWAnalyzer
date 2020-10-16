@@ -4,9 +4,6 @@ import Abilities from './modules/Abilities';
 // Shared Shaman
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
-// Resources
-// import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
-// import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 // Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';

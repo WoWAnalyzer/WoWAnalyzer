@@ -9,43 +9,43 @@ class Buffs extends CoreBuffs {
     return [
       {
         spellId: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.STORMBRINGER_BUFF.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.BERSERKING.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.HOT_HAND_BUFF.id,
         enabled: combatant.hasTalent(SPELLS.HOT_HAND_TALENT.id),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.HAILSTORM_BUFF.id,
         enabled: combatant.hasTalent(SPELLS.HAILSTORM_TALENT.id),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id,
         triggeredBySpellId: SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.WINDFURY_TOTEM_BUFF.id,
         triggeredBySpellId: SPELLS.WINDFURY_TOTEM.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

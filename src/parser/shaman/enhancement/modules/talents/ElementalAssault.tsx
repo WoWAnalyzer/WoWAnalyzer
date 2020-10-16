@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -33,12 +33,10 @@ class ElementalAssault extends Analyzer {
   protected maelstromWeaponWasted: number = 0;
 
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
-    if (!this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_ASSAULT_TALENT.id)) {
-      this.active = false;
-      return;
-    }
+
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_ASSAULT_TALENT.id);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)

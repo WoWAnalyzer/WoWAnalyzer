@@ -3,11 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
-import { ELEMENTAL_BLAST_IDS } from '../constants';
+import { ELEMENTAL_BLAST_BUFFS } from '../constants';
 
 class ElementalBlast extends Analyzer {
   currentBuffAmount=0;
@@ -15,27 +15,37 @@ class ElementalBlast extends Analyzer {
   resultDuration=0;
 
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
+
+    ELEMENTAL_BLAST_BUFFS.forEach(buff => {
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER)
+          .spell(buff),
+        this.onBuffApplied,
+      );
+
+      this.addEventListener(
+        Events.removebuff.by(SELECTED_PLAYER)
+          .spell(buff),
+        this.onBuffRemoved,
+      );
+    });
   }
 
-  on_toPlayer_removebuff(event: RemoveBuffEvent) {
-    if (ELEMENTAL_BLAST_IDS.includes(event.ability.guid)){
-      this.currentBuffAmount -= 1;
-      if (this.currentBuffAmount===0) {
-        this.resultDuration += event.timestamp - this.lastFreshApply;
-      }
+  onBuffRemoved(event: RemoveBuffEvent) {
+    this.currentBuffAmount -= 1;
+    if (this.currentBuffAmount === 0) {
+      this.resultDuration += event.timestamp - this.lastFreshApply;
     }
   }
 
-  on_toPlayer_applybuff(event: ApplyBuffEvent) {
-    if (ELEMENTAL_BLAST_IDS.includes(event.ability.guid)){
-      if (this.currentBuffAmount===0) {
-        this.lastFreshApply = event.timestamp;
-      }
-      this.currentBuffAmount += 1;
+  onBuffApplied(event: ApplyBuffEvent) {
+    if (this.currentBuffAmount === 0) {
+      this.lastFreshApply = event.timestamp;
     }
+    this.currentBuffAmount += 1;
   }
 
   get hasteUptime() {

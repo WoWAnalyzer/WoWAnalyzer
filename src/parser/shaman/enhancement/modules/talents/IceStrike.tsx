@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -28,12 +28,10 @@ class IceStrike extends Analyzer {
   protected casts: number = 0;
   protected cooldownReduced: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
-    if (!this.selectedCombatant.hasTalent(SPELLS.ICE_STRIKE_TALENT.id)) {
-      this.active = false;
-    }
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ICE_STRIKE_TALENT.id);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
@@ -46,8 +44,7 @@ class IceStrike extends Analyzer {
     this.casts += 1;
 
     if (this.spellUsable.isOnCooldown(SPELLS.FLAME_SHOCK.id)) {
-      const cd = this.spellUsable.cooldownRemaining(SPELLS.FLAME_SHOCK.id);
-      this.cooldownReduced += cd;
+      this.cooldownReduced += this.spellUsable.cooldownRemaining(SPELLS.FLAME_SHOCK.id);
       this.spellUsable.endCooldown(SPELLS.FLAME_SHOCK.id);
     }
   }

@@ -24,10 +24,7 @@ class ForcefulWinds extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.FORCEFUL_WINDS_TALENT.id)) {
-      this.active = false;
-      return;
-    }
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FORCEFUL_WINDS_TALENT.id);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
