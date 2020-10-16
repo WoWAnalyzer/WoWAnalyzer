@@ -46,6 +46,11 @@ const legendaries: SpellList<LegendarySpell> = {
     name: "Greenskin's Wickers",
     icon: 'ability_creature_cursed_04',
   },
+  GREENSKINS_WICKERS_BUFF: {
+    id: 340573,
+    name: "Greenskin's Wickers",
+    icon: 'ability_creature_cursed_04',
+  },
   GUILE_CHARM: {
     id: 340086,
     bonusID: 7120,
