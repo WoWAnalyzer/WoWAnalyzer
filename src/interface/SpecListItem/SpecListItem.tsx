@@ -13,7 +13,7 @@ const SpecListItem = ({
   const className = spec.className.replace(/ /g, '');
   const Component = exampleReport ? 'a' : 'div';
   const builtinfo =
-    contributors.length !== 0 ? 'Built by ' : 'CURRENTLY UNMAINTAINED';
+    contributors.length !== 0 ? 'Maintained by ' : 'CURRENTLY UNMAINTAINED';
 
   return (
     <Component
@@ -31,9 +31,9 @@ const SpecListItem = ({
         </figure>
       </div>
       <div className="description">
-        <h2 className={className}>
+        <h4 className={className}>
           {spec.specName} {spec.className}
-        </h2>
+        </h4>
         {builtinfo}{' '}
         <ReadableListing>
           {contributors.map(contributor => (
@@ -44,7 +44,7 @@ const SpecListItem = ({
             />
           ))}
         </ReadableListing>
-        .<br />
+        <br />
         Accurate for patch {patchCompatibility}
       </div>
     </Component>
