@@ -65,7 +65,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
     wasteDueToSanctifiedWrath(event: EnergizeEvent): number {
         const hasHA: boolean = this.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id);
         const hpChange: number = event.resourceChange;
-        let preCastHP = this.MAX_HOLY_POWER - (hpChange - event.waste);
+        const preCastHP = this.MAX_HOLY_POWER - (hpChange - event.waste);
         const wasCrit: boolean = (hpChange === this.CRIT_NO_HA_CHANGE || hpChange === this.CRIT_YES_HA_CHANGE);
         if ((hasHA && !wasCrit && preCastHP > 2) || (!hasHA && preCastHP > 3)) {
             return event.waste;
