@@ -50,11 +50,6 @@ class ShadowEmbrace extends Analyzer {
     },
   };
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOW_EMBRACE_TALENT.id);
-  }
-
   on_byPlayer_damage(event) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
@@ -125,7 +120,7 @@ class ShadowEmbrace extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE_TALENT}>
+        <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE}>
           {formatPercentage(this.totalUptimePercentage)} %
                 <TooltipElement content={(
                   <>

@@ -20,7 +20,6 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 
 import Nightfall from './modules/talents/Nightfall';
 import DrainSoul from './modules/talents/DrainSoul';
-import Deathbolt from './modules/talents/Deathbolt';
 import AbsoluteCorruption from './modules/talents/AbsoluteCorruption';
 import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
 import PhantomSingularity from './modules/talents/PhantomSingularity';
@@ -31,13 +30,6 @@ import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
 
 import Checklist from './modules/features/Checklist/Module';
-
-import CascadingCalamity from './modules/azerite/CascadingCalamity';
-import WrackingBrilliance from './modules/azerite/WrackingBrilliance';
-import DreadfulCalling from './modules/azerite/DreadfulCalling';
-import InevitableDemise from './modules/azerite/InevitableDemise';
-import SuddenOnset from './modules/azerite/SuddenOnset';
-import PandemicInvocation from './modules/azerite/PandemicInvocation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -66,7 +58,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     nightfall: Nightfall,
     drainSoul: DrainSoul,
-    deathbolt: Deathbolt,
     absoluteCorruption: AbsoluteCorruption,
     siphonLifeUptime: SiphonLifeUptime,
     phantomSingularity: PhantomSingularity,
@@ -75,14 +66,6 @@ class CombatLogParser extends CoreCombatLogParser {
     haunt: Haunt,
     grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
-
-    // Azerite Traits
-    cascadingCalamity: CascadingCalamity,
-    wrackingBrilliance: WrackingBrilliance,
-    dreadfulCalling: DreadfulCalling,
-    inevitableDemise: InevitableDemise,
-    suddenOnset: SuddenOnset,
-    pandemicInvocation: PandemicInvocation,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
