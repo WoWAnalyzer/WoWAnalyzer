@@ -9,7 +9,7 @@ import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import { formatNumber } from 'common/format';
 
 /**
- * 
+ * Analyzer to track additional and wasted Holy Power from Sanctified Wrath for Protection Paladins.
  */
 class SanctifiedWrathProtJudgement extends Analyzer {
     buffedJudgements: number = 0;
@@ -42,7 +42,6 @@ class SanctifiedWrathProtJudgement extends Analyzer {
         const wastedHolyPower: boolean = event.waste !== null && event.waste !== undefined && event.waste > 0;
         if (hasAW && judgementSource) {
             const wasteDueToSanctifiedWrath: number = this.wasteDueToSanctifiedWrath(event);
-            console.log(`Calculated ${wasteDueToSanctifiedWrath} HP wasted.`);
             if (wastedHolyPower && wasteDueToSanctifiedWrath !== 0) {
                 this.holyPowerWastes.push(wasteDueToSanctifiedWrath);
             }
