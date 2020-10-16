@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 16), <>Added <SpellLink id={SPELLS.DUSKWALKERS_PATCH.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 10, 2), <>Added <SpellLink id={SPELLS.DASHING_SCOUNDREL.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 9, 29), 'Updated for Shadowlands', [Tyndi]),
   change(date(2020, 5, 26), <>Fixed an issue with the Nightstalker-module crashing.</>, [joshinator]),
