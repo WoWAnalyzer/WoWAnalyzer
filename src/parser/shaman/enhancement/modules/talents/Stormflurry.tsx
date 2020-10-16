@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -29,13 +29,11 @@ const OFF_HAND_DAMAGES = [
  *
  */
 class Stormflurry extends Analyzer {
-  protected mainHandHits: number[] = [];
-  protected offHandHits: number[] = [];
   protected totalStormStrikeCasts: number = 0;
-  protected totalStormStrikeHits: number = 0;
   protected extraHits: number = 0;
   protected extraDamage: number = 0;
-  protected processed: boolean = false;
+  protected firstMainHandSeen: boolean = false;
+  protected firstOffHandSeen: boolean = false;
 
 
   constructor(options: Options) {
@@ -56,52 +54,40 @@ class Stormflurry extends Analyzer {
     );
   }
 
-  onStormstrikeCast(event: CastEvent): void {
+  onStormstrikeCast(): void {
     this.totalStormStrikeCasts += 1;
+    this.firstMainHandSeen = false;
+    this.firstOffHandSeen = false;
   }
 
   onStormstrikeDamage(event: DamageEvent): void {
-
-    const dmg = event.amount + (event.absorbed || 0);
+    if (!this.firstMainHandSeen && MAIN_HAND_DAMAGES.includes(event.ability.guid)) {
+      this.firstMainHandSeen = true;
+      return;
+    }
+    if (!this.firstOffHandSeen && OFF_HAND_DAMAGES.includes(event.ability.guid)) {
+      this.firstOffHandSeen = true;
+      return;
+    }
 
     if (MAIN_HAND_DAMAGES.includes(event.ability.guid)) {
-      this.totalStormStrikeHits += 1;
-      this.mainHandHits.push(dmg);
-    } else if (OFF_HAND_DAMAGES.includes(event.ability.guid)) {
-      this.offHandHits.push(dmg);
+      this.extraHits += 1;
     }
-  }
 
-  determineExtraHitsAndDamage(): void {
-    this.mainHandHits.sort((a,b) => a - b);
-    this.offHandHits.sort((a, b) => a - b);
-
-    this.extraHits = this.totalStormStrikeHits - this.totalStormStrikeCasts;
-
-    const extraMainHandHits = this.mainHandHits.slice(0, this.extraHits);
-    const extraOffHandHits = this.offHandHits.slice(0, this.extraHits);
-    const extraMainHandDamage = extraMainHandHits.reduce((a, b) => a + b, 0);
-    const extraOffHandDamage = extraOffHandHits.reduce((a, b) => a + b, 0);
-
-    this.extraDamage = extraMainHandDamage + extraOffHandDamage;
-    this.processed = true;
+    this.extraDamage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
-    if (!this.processed) {
-      this.determineExtraHitsAndDamage();
-    }
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={`You had ${this.extraHits} extra Stormstrike hits (+${formatPercentage(this.extraHits / this.totalStormStrikeCasts)}%).`}
+        tooltip={`You had ${this.extraHits} extra Stormstrike${this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT) ? `/Windstrike` : ``} hits (+${formatPercentage(this.extraHits / this.totalStormStrikeCasts)}%).`}
       >
         <BoringSpellValueText spell={SPELLS.STORMFLURRY_TALENT}>
           <>
-            <ItemDamageDone amount={this.extraDamage} approximate /><br />
+            <ItemDamageDone amount={this.extraDamage} /><br />
           </>
         </BoringSpellValueText>
       </Statistic>
