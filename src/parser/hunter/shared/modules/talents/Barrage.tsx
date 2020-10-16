@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -13,6 +13,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { BARRAGE_HITS_PER_CAST } from 'parser/hunter/shared/constants';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Rapidly fires a spray of shots for 3 sec, dealing an average of (80% * 10)
@@ -21,17 +23,15 @@ import { BARRAGE_HITS_PER_CAST } from 'parser/hunter/shared/constants';
  * Example log:
  * https://www.warcraftlogs.com/reports/wPdQLfFnhTVYRyJm#fight=12&type=damage-done&source=640&ability=120361
  */
-
 class Barrage extends Analyzer {
-
   damage = 0;
-  casts: { averageHits: number, hits: number }[] = [];
+  casts: Array<{ averageHits: number, hits: number }> = [];
   hits = 0;
   uniqueTargets: string[] = [];
   uniqueTargetsHit = 0;
   inefficientCasts = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BARRAGE_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_TALENT), this.onCast);
@@ -88,12 +88,10 @@ class Barrage extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your target when channelling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. </>)
+    when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your target when channelling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. </>)
         .icon(SPELLS.BARRAGE_TALENT.icon)
-        .actual(`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`)
-        .recommended(`${recommended} is recommended`);
-    });
+        .actual(i18n._(t('hunter.shared.suggestions.barrage.efficiency')`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`))
+        .recommended(`${recommended} is recommended`));
   }
 
   statistic() {

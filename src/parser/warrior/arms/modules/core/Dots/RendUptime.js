@@ -5,6 +5,8 @@ import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Example report: /report/gXbFvNaJTBf39jYV/1-LFR+Taloc+-+Kill+(4:06)/4-Dimentionz
@@ -37,12 +39,10 @@ class RendUptime extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Your <SpellLink id={SPELLS.REND_TALENT.id} /> uptime can be improved. If you choose this talent, you better use it !</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.REND_TALENT.id} /> uptime can be improved. If you choose this talent, you better use it !</>)
         .icon(SPELLS.REND_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% Rend uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .actual(i18n._(t('warrior.arms.suggestions.rend.uptime')`${formatPercentage(actual)}% Rend uptime`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {

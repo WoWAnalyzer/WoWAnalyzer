@@ -1,5 +1,6 @@
 import React from 'react';
 import { captureException } from 'common/errorLogger';
+
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
 enum AssertionMode {
@@ -99,13 +100,13 @@ export class NumberSuggestionAssertion extends SuggestionAssertion<number> {
   }
 
   get _triggerThreshold(): number {
-    const threshold = this._threshold;
-    if(threshold === undefined) {
-      throw new Error("You must set a number threshold before finalizing the suggestion");
-    }
+    let threshold = this._threshold;
     // `null` is also of type 'object'
     if (threshold !== null && typeof threshold === 'object') {
-      return threshold.minor;
+      threshold = threshold.minor ?? threshold.average ?? threshold.major;
+    }
+    if (threshold === undefined) {
+      throw new Error("You must set a number threshold before finalizing the suggestion");
     }
     return threshold;
   }
@@ -211,7 +212,7 @@ export class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
   }
 }
 
-type SuggestionFactory = (suggest: React.ReactNode) => Suggestion;
+export type SuggestionFactory = (suggest: React.ReactNode) => Suggestion;
 
 class Suggestion {
   _text: React.ReactNode;
@@ -279,7 +280,7 @@ export interface Threshold<T extends number | boolean> {
 }
 
 export type ThresholdRange = {
-  minor: number,
+  minor?: number,
   average?: number,
   major?: number,
 }
@@ -288,7 +289,7 @@ export type ThresholdRange = {
   a) declared more than one comparator for the threshold (i.e isEqual and isLess than, etc.)
   b) didn't declare one at all
  */
-interface INumberThreshold extends Threshold<number> {
+interface BaseNumberThreshold extends Threshold<number> {
   max?: number,
   // Require exactly one of the below
   isEqual: number,
@@ -298,7 +299,7 @@ interface INumberThreshold extends Threshold<number> {
   isLessThanOrEqual: ThresholdRange,
 }
 
-export type NumberThreshold = RequireExactlyOne<INumberThreshold,
+export type NumberThreshold = RequireExactlyOne<BaseNumberThreshold,
   'isEqual' | 'isLessThan' | 'isGreaterThan' | 'isGreaterThanOrEqual' | 'isLessThanOrEqual'>
 
 export interface BoolThreshold extends Threshold<boolean> {
@@ -325,7 +326,7 @@ export type When = <T extends ValidThresholds>(threshold: T) => GenericSuggestio
 class ParseResults {
   tabs: React.ReactNode[] = [];
   statistics: React.ReactNode[] = [];
-  issues: Array<Issue> = [];
+  issues: Issue[] = [];
 
   constructor() {
     this.addIssue = this.addIssue.bind(this);
@@ -342,22 +343,27 @@ class ParseResults {
     */
     when: <T extends ValidThresholds>(threshold: T): GenericSuggestionType<T> => {
       if (typeof threshold === "number") {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         return new NumberSuggestionAssertion(threshold, this.addIssue);
       } else if (typeof threshold === "string") {
         captureException(new Error("Sent string threshold, only number and boolean allowed"));
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore TODO find all instances of javascript sending in formatted numbers here (via captured error above), then remove this
         return new NumberSuggestionAssertion(Number(threshold), this.addIssue);
       } else if (typeof threshold === "boolean") {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         return new BoolSuggestionAssertion(threshold, this.addIssue);
       } else if (typeof threshold === "object") {
         const th = threshold as Threshold<any>;
         switch (th.style) {
           case ThresholdStyle.BOOLEAN:
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             return new BoolSuggestionAssertion(threshold, this.addIssue);
           default:
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             return new NumberSuggestionAssertion(threshold, this.addIssue);
         }

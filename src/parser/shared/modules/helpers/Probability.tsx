@@ -76,7 +76,7 @@ function binomialDistribution(n: number, k: number) {
 }
 
 function resetProbabilityArray(actualProcs: number, procAttempts: number, procChance: number | number[]) {
-  const procProbabilities: { x: number; y: number; }[] = Array.from({ length: procAttempts }, (_x, i: number) => {
+  const procProbabilities: Array<{ x: number; y: number; }> = Array.from({ length: procAttempts }, (_x, i: number) => {
     if (typeof procChance === 'number') {
       return { x: i, y: binomialPMF(i, procAttempts, procChance) };
     } else {

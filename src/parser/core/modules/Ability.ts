@@ -1,11 +1,18 @@
+import CombatLogParser from 'parser/core/CombatLogParser';
+
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+
+import Combatant from 'parser/core/Combatant';
+
+import Spell from 'common/SPELLS/Spell';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CombatLogParser from 'parser/core/CombatLogParser';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import Combatant from 'parser/core/Combatant';
-import { Event } from '../Events';
+
+import { AnyEvent } from '../Events';
 import Abilities from './Abilities';
+
 
 export interface AbilityTrackerAbility {
   casts: number;
@@ -26,7 +33,9 @@ export interface AbilityTrackerAbility {
   damageCriticalAbsorbed?: number;
 
   // TODO: Fix this proper
-  healingIolHits?: number
+  healingIolHits?: number;
+  // TODO: Fix this proper as well
+  healingTwHits?: number;
 }
 export interface SpellbookAbility {
   /**
@@ -37,16 +46,8 @@ export interface SpellbookAbility {
    * shared cooldown)
    */
   spell:
-    | {
-        id: number;
-        name: string;
-        icon: string;
-      }
-    | Array<{
-        id: number;
-        name: string;
-        icon: string;
-      }>;
+    | Spell
+    | Spell[];
   /**
    * The name to use if it is different from the name provided by the `spell`
    * object. This should only be used in rare situations.
@@ -62,7 +63,7 @@ export interface SpellbookAbility {
    * for more complicated calls or even to check for buffs. Parameters
    * provided: `hastePercentage`, `selectedCombatant`
    */
-  cooldown?: ((haste: number, trigger?: Event<any>) => number) | number;
+  cooldown?: ((haste: number, trigger?: AnyEvent) => number) | number;
   /**
    * NYI, do not use
    */
@@ -171,11 +172,7 @@ export interface SpellbookAbility {
   /**
    * The spell that'll forcibly shown on the timeline if set.
    */
-  shownSpell?: {
-    id: number;
-    name: string;
-    icon: string;
-  };
+  shownSpell?: Spell;
 }
 
 class Ability {
@@ -369,7 +366,7 @@ class Ability {
   get cooldown() {
     return this.getCooldown(this.owner.haste.current);
   }
-  getCooldown(haste: number, cooldownTriggerEvent?: Event<any>) {
+  getCooldown(haste: number, cooldownTriggerEvent?: AnyEvent) {
     if (this._cooldown === undefined) {
       // Most abilities will always be active and don't provide this prop at all
       return 0;
@@ -419,7 +416,7 @@ class Ability {
   enabled = true;
   timelineSortIndex: number | null = null;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
-  buffSpellId: number | Array<number> | null = null;
+  buffSpellId: number | number[] | null = null;
   shownSpell = null;
 
   /**
@@ -463,11 +460,13 @@ class Ability {
       });
     }
     Object.keys(props).forEach(prop => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this._setProp(prop, props[prop]);
     });
   }
   _setProp(prop: string, value: any) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this[prop] = value;
   }

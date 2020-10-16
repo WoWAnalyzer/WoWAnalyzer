@@ -167,7 +167,7 @@ class ResourceTracker extends Analyzer {
   }
 
   shouldProcessCastEvent(event) {
-    return !!this.getResource(event);
+    return Boolean(this.getResource(event));
   }
 
   getGeneratedBySpell(spellId) {

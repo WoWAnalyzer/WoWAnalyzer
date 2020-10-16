@@ -5,6 +5,8 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class Pulverize extends Analyzer {
 
@@ -18,13 +20,11 @@ class Pulverize extends Analyzer {
 
     this.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id) &&
     when(pulverizeUptimePercentage).isLessThan(0.9)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your <SpellLink id={SPELLS.PULVERIZE_TALENT.id} /> uptime was {formatPercentage(pulverizeUptimePercentage)}%, unless there are extended periods of downtime it should be over should be near 100%. <br />All targets deal less damage to you due to the <SpellLink id={SPELLS.PULVERIZE_BUFF.id} /> buff.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span> Your <SpellLink id={SPELLS.PULVERIZE_TALENT.id} /> uptime was {formatPercentage(pulverizeUptimePercentage)}%, unless there are extended periods of downtime it should be over should be near 100%. <br />All targets deal less damage to you due to the <SpellLink id={SPELLS.PULVERIZE_BUFF.id} /> buff.</span>)
           .icon(SPELLS.PULVERIZE_TALENT.icon)
-          .actual(`${formatPercentage(pulverizeUptimePercentage)}% uptime`)
+          .actual(i18n._(t('druid.guardian.suggestions.pulverize.uptime')`${formatPercentage(pulverizeUptimePercentage)}% uptime`))
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
-          .regular(recommended - 0.1).major(recommended - 0.2);
-      });
+          .regular(recommended - 0.1).major(recommended - 0.2));
   }
 
   statistic() {

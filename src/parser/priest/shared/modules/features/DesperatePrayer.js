@@ -9,6 +9,9 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class DesperatePrayer extends Analyzer {
 
   static dependencies = {
@@ -59,7 +62,7 @@ class DesperatePrayer extends Analyzer {
     return (
       <StatisticBox
         value={`${this.desperatePrayerUsages.length}`}
-        label={`Desperate Prayer Usage(s)`}
+        label="Desperate Prayer Usage(s)"
         icon={<SpellIcon id={SPELLS.DESPERATE_PRAYER.id} />}>
         <table className="table table-condensed">
           <thead>
@@ -90,12 +93,10 @@ class DesperatePrayer extends Analyzer {
     const boss = this.owner.boss;
     if (!boss || !boss.fight.disableDeathSuggestion) {
       when(this.deathsWithDPReady).isGreaterThan(0)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</>)
             .icon(SPELLS.DESPERATE_PRAYER.icon)
-            .actual(`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`)
-            .recommended(`0 is recommended`);
-        });
+            .actual(i18n._(t('priest.shared.suggestions.DesperatePrayer.efficiency')`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`))
+            .recommended(`0 is recommended`));
     }
   }
 }

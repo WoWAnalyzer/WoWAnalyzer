@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const DURATION_WORTH_CASTING_MS = 8000;
 
@@ -86,12 +88,10 @@ class CrimsonScourge extends Analyzer {
     if(this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id)){
       return;
     }
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always use them.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always use them.</>)
         .icon(SPELLS.CRIMSON_SCOURGE.icon)
-        .actual(`${formatPercentage(actual)}% Crimson Scourge procs wasted`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`);
-    });
+        .actual(i18n._(t('deathknight.blood.suggestions.crimsonScourge.procsWasted')`${formatPercentage(actual)}% Crimson Scourge procs wasted`))
+        .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

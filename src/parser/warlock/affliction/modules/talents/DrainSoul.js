@@ -9,9 +9,13 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import Statistic from 'interface/statistics/Statistic';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 // limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
@@ -87,17 +91,15 @@ class DrainSoul extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      .addSuggestion((suggest, actual, recommended) => suggest(
           <>
             You sniped {formatPercentage(actual)} % of mobs in this fight ({this.mobsSniped - this._subtractBossShards} / {this.totalNumOfAdds}) for total of {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds} Shards from them. Try to snipe shards from adds (cast <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /> on them before they die) as it is a great source of extra Soul Shards.<br /><br />
             <small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that die too quickly, aren't meant to be killed or are not killed in the fight.</small>
           </>,
         )
           .icon('ability_hunter_snipershot')
-          .actual(`${formatPercentage(actual)} % of mobs sniped.`)
-          .recommended(`>= ${formatPercentage(recommended)} % is recommended`);
-      });
+          .actual(i18n._(t('warlock.affliction.suggestions.drainSoul.mobsSniped')`${formatPercentage(actual)} % of mobs sniped.`))
+          .recommended(`>= ${formatPercentage(recommended)} % is recommended`));
   }
 
   statistic() {
@@ -106,23 +108,14 @@ class DrainSoul extends Analyzer {
     const dps = damage / this.owner.fightDuration * 1000;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`${formatThousands(damage)} total damage`}
       >
-        <div className="pad">
-          <label><SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /></label>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex-main value">
-              <CriticalStrikeIcon /> {this._shardsGained} <small>shards sniped</small>
-            </div>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.DRAIN_SOUL_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small><br />
+          <CriticalStrikeIcon /> {this._shardsGained} <small>shards sniped</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

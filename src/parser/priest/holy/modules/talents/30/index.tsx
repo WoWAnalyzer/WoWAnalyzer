@@ -1,9 +1,9 @@
 import AngelicFeather from './AngelicFeather';
 import AngelsMercy from './AngelsMercy';
-import Perseverance from './Perseverance';
+import BodyAndSoul from './BodyAndSoul';
 
 export {
   AngelicFeather,
   AngelsMercy,
-  Perseverance,
+  BodyAndSoul,
 };

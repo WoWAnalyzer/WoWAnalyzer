@@ -31,7 +31,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         description={
           <Trans>
             <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />
-            <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />
             {combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT) ? (
               <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />
             ) : (
@@ -81,7 +80,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         }
       >
         <AbilityRequirement spell={SPELLS.HOLY_SHOCK_CAST.id} />
-        <AbilityRequirement spell={SPELLS.LIGHT_OF_DAWN_CAST.id} />
+        <AbilityRequirement spell={SPELLS.HAMMER_OF_WRATH.id} />
         {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.JUDGMENT_CAST.id} />
         )}

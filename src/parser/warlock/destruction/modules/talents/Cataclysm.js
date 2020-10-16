@@ -9,7 +9,7 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const BUFFER = 100;
 const debug = false;
@@ -62,7 +62,7 @@ class Cataclysm extends Analyzer {
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(3)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`${formatThousands(damage)} damage`}
       >

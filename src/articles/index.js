@@ -1,4 +1,6 @@
 export default {
+  'Shadowlands Prepatch': '2020-11-17-SL-Prepatch',
+  'Hacktoberfest': '2020-10-02-Hacktoberfest',
   'Time Filtering': '2019-07-20-Time-Filtering',
   'WoWAnalyzer\'s second anniversary': '2019-01-31-2nd-Anniversary',
   'What are YOUR suggestions?': '2018-09-30-Suggestions',

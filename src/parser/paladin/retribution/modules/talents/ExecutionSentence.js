@@ -11,6 +11,7 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber } from 'common/format';
+
 import { ABILITIES_AFFECTED_BY_HOLY_DAMAGE_INCREASES } from '../../constants';
 
 const DAMAGE_BONUS = 0.2;

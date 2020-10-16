@@ -2,13 +2,16 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import MeteorRune from './MeteorRune';
 import MeteorCombustion from './MeteorCombustion';
 
@@ -24,7 +27,7 @@ class Meteor extends Analyzer {
   protected meteorRune!: MeteorRune;
   protected meteorCombustion!: MeteorCombustion;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
   }
@@ -55,12 +58,10 @@ class Meteor extends Analyzer {
 
   suggestions(when: When) {
     when(this.meteorEfficiencySuggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<>You could have cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> {this.meteorMaxCasts} times during this fight, but you only cast it {this.totalMeteorCasts} times. While you should not cast Meteor on cooldown (since you need to have it available for <SpellLink id={SPELLS.COMBUSTION.id} />), you should be casting it at least once per minute.</>)
+			.addSuggestion((suggest, actual, recommended) => suggest(<>You could have cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> {this.meteorMaxCasts} times during this fight, but you only cast it {this.totalMeteorCasts} times. While you should not cast Meteor on cooldown (since you need to have it available for <SpellLink id={SPELLS.COMBUSTION.id} />), you should be casting it at least once per minute.</>)
 					.icon(SPELLS.METEOR_TALENT.icon)
-					.actual(`${formatPercentage(this.meteorCastEfficiency)}% Utilization`)
-					.recommended(`<${formatPercentage(recommended)}% is recommended`);
-			});
+					.actual(i18n._(t('mage.fire.suggestions.meteor.efficiency')`${formatPercentage(this.meteorCastEfficiency)}% Utilization`))
+					.recommended(`<${formatPercentage(recommended)}% is recommended`));
 	}
 
   statistic() {

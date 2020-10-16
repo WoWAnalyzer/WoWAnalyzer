@@ -10,14 +10,14 @@ class Buffs extends CoreBuffs {
       // Core
       {
         spellId: SPELLS.ADRENALINE_RUSH.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.BLADE_RUSH_TALENT.id,
       },
       {
         spellId: SPELLS.OPPORTUNITY.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
 
       // Talents
@@ -28,7 +28,7 @@ class Buffs extends CoreBuffs {
       // Roll the Bones
       {
         spellId: SPELLS.ROLL_THE_BONES.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.RUTHLESS_PRECISION.id,
@@ -72,7 +72,7 @@ class Buffs extends CoreBuffs {
       // Bloodlust Buffs
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

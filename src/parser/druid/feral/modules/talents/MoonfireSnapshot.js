@@ -4,6 +4,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import { TooltipElement } from 'common/Tooltip';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import Snapshot from '../core/Snapshot';
 import { MOONFIRE_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
@@ -75,16 +77,14 @@ class MoonfireSnapshot extends Snapshot {
   }
 
   suggestions(when) {
-    when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Try not to refresh <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> before the <TooltipElement content={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Moonfire's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</TooltipElement> unless you have more powerful <TooltipElement content="Applying Moonfire with Tiger's Fury will boost its damage until you reapply it.">snapshot buffs</TooltipElement> than were present when it was first cast.
         </>,
       )
         .icon(SPELLS.MOONFIRE_FERAL.icon)
-        .actual(`${formatPercentage(actual)}% of Moonfire refreshes were early downgrades.`)
-        .recommended(`${recommended}% is recommended`);
-    });
+        .actual(i18n._(t('druid.feral.suggestions.moonfireSnapshot.downgrades')`${formatPercentage(actual)}% of Moonfire refreshes were early downgrades.`))
+        .recommended(`${recommended}% is recommended`));
   }
 
   statistic() {

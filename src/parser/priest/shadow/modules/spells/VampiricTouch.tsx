@@ -9,6 +9,8 @@ import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class VampiricTouch extends Analyzer {
   static dependencies = {
@@ -34,12 +36,10 @@ class VampiricTouch extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> on the boss.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> on the boss.</span>)
           .icon(SPELLS.VAMPIRIC_TOUCH.icon)
-          .actual(`${formatPercentage(actual)}% Vampiric Touch uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+          .actual(i18n._(t('priest.shadow.suggestions.vampiricTouch.uptime')`${formatPercentage(actual)}% Vampiric Touch uptime`))
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

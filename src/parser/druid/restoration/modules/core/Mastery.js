@@ -5,6 +5,7 @@ import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import { calculateAzeriteEffects } from 'common/stats';
+import STAT from 'parser/shared/modules/features/STAT';
 
 import { DRUID_HEAL_INFO, getSpellInfo } from '../../SpellInfo';
 
@@ -212,7 +213,7 @@ class Mastery extends Analyzer {
     const effectiveStackBenefit = effectiveMasteryHealing / oneStackMasteryHealingRaw;
 
     const relativeBuffBenefit = (buffRating => {
-      const buffBonus = hotCount * buffRating / this.statTracker.masteryRatingPerPercent;
+      const buffBonus = hotCount * buffRating / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentMasteryRating, this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY], this.selectedCombatant.spec.masteryCoefficient);
       return buffBonus / healMasteryMult;
     });
 

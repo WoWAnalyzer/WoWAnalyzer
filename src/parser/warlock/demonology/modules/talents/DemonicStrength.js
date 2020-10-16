@@ -5,10 +5,12 @@ import Events from 'parser/core/Events';
 import Pets from 'parser/shared/modules/Pets';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 import PETS from '../pets/PETS';
 
@@ -49,13 +51,17 @@ class DemonicStrength extends Analyzer {
     this._removedAt = event.timestamp;
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.DEMONIC_STRENGTH_TALENT.id} /> Felstorm dmg</>}
-        value={this.owner.formatItemDamageDone(this.damage)}
-        valueTooltip={`${formatThousands(this.damage)} damage`}
-      />
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={`${formatThousands(this.damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.DEMONIC_STRENGTH_TALENT}>
+          <ItemDamageDone amount={this.damage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -31,7 +31,7 @@ class SteelTrap extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id);

@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { AFFECTED_BY_GUERRILLA_TACTICS, GUERRILLA_TACTICS_INIT_HIT_MODIFIER } from 'parser/hunter/survival/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -20,7 +20,7 @@ class GuerrillaTactics extends Analyzer {
 
   damage = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id);

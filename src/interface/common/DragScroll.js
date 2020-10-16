@@ -62,7 +62,7 @@ class DragScroll extends React.PureComponent {
       // Only handle left click
       return;
     }
-    this.setState(state => {
+    this.setState((state) => {
       if (!state.dragging) {
         return {
           ...state,
@@ -76,7 +76,7 @@ class DragScroll extends React.PureComponent {
     e.preventDefault();
   }
   handleMouseUp(e) {
-    this.setState(state => {
+    this.setState((state) => {
       if (state.dragging) {
         return {
           ...state,
@@ -88,17 +88,9 @@ class DragScroll extends React.PureComponent {
   }
   handleMouseMove(e) {
     if (this.state.dragging) {
-      this.container.current.scrollLeft -= (-this.lastClientX + (this.lastClientX = e.clientX));
-      this.container.current.scrollTop -= (-this.lastClientY + (this.lastClientY = e.clientY));
+      this.container.current.scrollLeft -= -this.lastClientX + (this.lastClientX = e.clientX);
+      this.container.current.scrollTop -= -this.lastClientY + (this.lastClientY = e.clientY);
     }
-  }
-
-  isArray(object) {
-    return object && typeof object === 'object' &&
-      typeof object.length === 'number' &&
-      typeof object.splice === 'function' &&
-      //判断length属性是否是可枚举的 对于数组 将得到false
-      !(object.propertyIsEnumerable('length'));
   }
 }
 

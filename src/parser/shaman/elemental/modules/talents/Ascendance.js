@@ -9,6 +9,9 @@ import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import Abilities from '../Abilities';
 
 const ASCENDANCE_DURATION = 15000 - 1500; //remove the gcd for Ascendence itself because we only check for FS on the first cast after
@@ -132,12 +135,10 @@ class Ascendance extends Analyzer {
   suggestions(when) {
     const abilities = `Lava Burst${this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id) ? `, Elemental Blast ` : ``} and Earth Shock`;
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Maximize your damage during ascendance by only using ${this.abilites}.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Maximize your damage during ascendance by only using ${this.abilites}.</span>)
           .icon(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.icon)
-          .actual(`${actual} other casts during Ascendence`)
-          .recommended(`Only cast ${abilities} during Ascendence.`);
-      });
+          .actual(i18n._(t('shaman.elemental.suggestions.Ascendance.efficiency')`${actual} other casts during Ascendence`))
+          .recommended(`Only cast ${abilities} during Ascendence.`));
   }
 
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

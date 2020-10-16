@@ -7,6 +7,9 @@ import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import RunicPowerTracker from './RunicPowerTracker';
 
 class RunicPowerDetails extends Analyzer {
@@ -43,12 +46,10 @@ class RunicPowerDetails extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
           .icon('inv_sword_62')
-          .actual(`${formatPercentage(actual)}% wasted`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
+          .actual(i18n._(t('deathknight.unholy.suggestions.runicPower.wasted')`${formatPercentage(actual)}% wasted`))
+          .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
@@ -28,7 +28,7 @@ class PrayerCircle extends Analyzer {
     return (this.abilityTracker.getAbility(SPELLS.PRAYER_OF_HEALING.id).casts || 0) - this.buffedCohCasts;
   }
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PRAYER_CIRCLE_TALENT.id);
 

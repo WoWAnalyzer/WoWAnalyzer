@@ -9,6 +9,8 @@ import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox from 'interface/others/StatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class GarroteUptime extends Analyzer {
   static dependencies = {
@@ -32,12 +34,10 @@ class GarroteUptime extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Your <SpellLink id={SPELLS.GARROTE.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.GARROTE.id} /> on the boss.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.GARROTE.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.GARROTE.id} /> on the boss.</>)
         .icon(SPELLS.GARROTE.icon)
-        .actual(`${formatPercentage(actual)}% Garrote uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .actual(i18n._(t('rogue.assassination.suggestions.garrote.uptime')`${formatPercentage(actual)}% Garrote uptime`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

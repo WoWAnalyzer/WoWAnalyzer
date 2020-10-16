@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
@@ -24,7 +24,7 @@ class SerratedBoneSpike extends Analyzer {
   protected abilities!: Abilities;
   protected spellUsable!: SpellUsable;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE), this.onDamage);
@@ -47,8 +47,7 @@ class SerratedBoneSpike extends Analyzer {
     if (this.spellUsable.isOnCooldown(SPELLS.SERRATED_BONE_SPIKE.id)) {
       const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(SPELLS.SERRATED_BONE_SPIKE.id, this.spellUsable.cooldownTriggerEvent(SPELLS.SERRATED_BONE_SPIKE.id));
       if (expectedCooldownDuration) {
-        const newChargeCDR = expectedCooldownDuration - this.spellUsable.cooldownRemaining(SPELLS.SERRATED_BONE_SPIKE.id);
-        this.spellUsable.endCooldown(SPELLS.SERRATED_BONE_SPIKE.id, false, event.timestamp, newChargeCDR);
+        this.spellUsable.reduceCooldown(SPELLS.SERRATED_BONE_SPIKE, expectedCooldownDuration, event.timestamp);
       }
     }
   }

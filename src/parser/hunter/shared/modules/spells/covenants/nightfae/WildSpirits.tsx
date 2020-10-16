@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -28,7 +28,7 @@ class WildSpirits extends Analyzer {
   protected abilities!: Abilities;
   protected enemies!: Enemies;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
@@ -37,7 +37,7 @@ class WildSpirits extends Analyzer {
       return;
     }
 
-    options.abilities.add({
+    (options.abilities as Abilities).add({
       spell: SPELLS.WILD_SPIRITS,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 120,

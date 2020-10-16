@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -17,7 +17,7 @@ class AkaarisSoulFragment extends Analyzer {
   damage: number = 0;
   protected abilities!: Abilities;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.AKAARIS_SOUL_FRAGMENT.bonusID);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AKAARIS_SOUL_FRAGMENT_SHADOWSTRIKE), this.onDamage);

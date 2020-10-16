@@ -1,6 +1,6 @@
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SPIRIT_ATTUNEMENT_DAMAGE_INCREASE, WILD_MARK_DAMAGE_AMP, WILD_SPIRITS_BASELINE_DURATION } from 'parser/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
@@ -26,7 +26,7 @@ class SpiritAttunement extends Analyzer {
   wildSpiritsCast: number = 0;
   damageAfterOriginalDuration: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && this.selectedCombatant.hasConduitBySpellID(SPELLS.SPIRIT_ATTUNEMENT_CONDUIT.id);
     if (!this.active) {

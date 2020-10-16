@@ -6,11 +6,14 @@ import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD } from '../../constants';
 
 const debug = false;
@@ -33,7 +36,7 @@ class HeatingUp extends Analyzer {
   phoenixFlamesWithHotStreak = 0;
   healthPercent = 1;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.hasSearingTouch = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
@@ -159,19 +162,15 @@ class HeatingUp extends Analyzer {
 
   suggestions(when: When) {
 		when(this.fireBlastUtilSuggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<>You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.fireBlastWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak or if you are going to cap on charges.</>)
+			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.fireBlastWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak or if you are going to cap on charges.</>)
 					.icon(SPELLS.FIRE_BLAST.icon)
-					.actual(`${formatPercentage(this.fireBlastUtil)}% Utilization`)
-					.recommended(`<${formatPercentage(recommended)}% is recommended`);
-			});
+					.actual(i18n._(t('mage.fire.suggestions.heatingUp.fireBlastUtilization')`${formatPercentage(this.fireBlastUtil)}% Utilization`))
+					.recommended(`<${formatPercentage(recommended)}% is recommended`));
     when(this.phoenixFlamesUtilSuggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<>You cast <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.phoenixFlamesWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. While ideally you should only be using these to convert Heating Up into Hot Streak, there are some minor circumstances where it is acceptable (i.e. If you are about to cap on Phoenixs Flames charges or when used alongside <SpellLink id={SPELLS.FIREBALL.id} /> to bait Heating Up or Hot Streak just before <SpellLink id={SPELLS.COMBUSTION.id} />.</>)
+			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.phoenixFlamesWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. While ideally you should only be using these to convert Heating Up into Hot Streak, there are some minor circumstances where it is acceptable (i.e. If you are about to cap on Phoenixs Flames charges or when used alongside <SpellLink id={SPELLS.FIREBALL.id} /> to bait Heating Up or Hot Streak just before <SpellLink id={SPELLS.COMBUSTION.id} />.</>)
 					.icon(SPELLS.PHOENIX_FLAMES.icon)
-					.actual(`${formatPercentage(this.phoenixFlamesUtil)}% Utilization`)
-					.recommended(`<${formatPercentage(recommended)}% is recommended`);
-			});
+					.actual(i18n._(t('mage.fire.suggestions.heatingUp.phoenixFlames.utilization')`${formatPercentage(this.phoenixFlamesUtil)}% Utilization`))
+					.recommended(`<${formatPercentage(recommended)}% is recommended`));
 	}
 
 statistic() {

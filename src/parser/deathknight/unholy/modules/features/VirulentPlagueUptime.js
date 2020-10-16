@@ -9,6 +9,9 @@ import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class VirulentPlagueUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -32,12 +35,10 @@ class VirulentPlagueUptime extends Analyzer {
 
   suggestions(when) {
     when(this.UptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> uptime can be improved. Try to pay attention to when Virulent Plague is about to fall off the priority target, using <SpellLink id={SPELLS.OUTBREAK.id} /> to refresh Virulent Plague. Using a debuff tracker can help.</span>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> uptime can be improved. Try to pay attention to when Virulent Plague is about to fall off the priority target, using <SpellLink id={SPELLS.OUTBREAK.id} /> to refresh Virulent Plague. Using a debuff tracker can help.</span>)
             .icon(SPELLS.VIRULENT_PLAGUE.icon)
-            .actual(`${formatPercentage(actual)}% Virulent Plague uptime`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`);
-        });
+            .actual(i18n._(t('deathknight.unholy.suggestions.virulentPlague.uptime')`${formatPercentage(actual)}% Virulent Plague uptime`))
+            .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

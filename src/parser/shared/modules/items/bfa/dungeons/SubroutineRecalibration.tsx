@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -26,7 +26,7 @@ class SubroutineRecalibration extends Analyzer {
 
   protected statTracker!: StatTracker;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasRedPunchcard(ITEMS.SUBROUTINE_RECALIBRATION.id);
     if (!this.active) {
@@ -36,11 +36,10 @@ class SubroutineRecalibration extends Analyzer {
     this.hasteBuffAmount = calculateSecondaryStatDefault(430, 843, this.selectedCombatant.getRedPunchcard(ITEMS.SUBROUTINE_RECALIBRATION.id)?.itemLevel);
     this.hasteDebuffAmount = calculateSecondaryStatDefault(430, 159, this.selectedCombatant.getRedPunchcard(ITEMS.SUBROUTINE_RECALIBRATION.id)?.itemLevel);
 
-    options.statTracker.add(SPELLS.SUBROUTINE_RECALIBRATION_BUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.SUBROUTINE_RECALIBRATION_BUFF.id, {
       haste: this.hasteBuffAmount,
     });
-
-    options.statTracker.add(SPELLS.SUBROUTINE_RECALIBRATION_DEBUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.SUBROUTINE_RECALIBRATION_DEBUFF.id, {
       haste: -this.hasteDebuffAmount,
     });
   }

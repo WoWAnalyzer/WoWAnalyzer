@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import Statistic from 'interface/statistics/Statistic';
 import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -24,7 +24,7 @@ class RenewedFaith extends Analyzer {
     return this.overhealing / this.rawAdditionalHealing;
   }
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RENEWED_FAITH_TALENT.id);
 

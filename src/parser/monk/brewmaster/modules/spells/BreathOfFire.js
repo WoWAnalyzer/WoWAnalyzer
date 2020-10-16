@@ -5,6 +5,9 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import { BOF as ABILITY_BLACKLIST } from '../constants/AbilityBlacklist';
 
 const DEBUG_ABILITIES = false;
@@ -61,12 +64,10 @@ class BreathOfFire extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThreshold)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> usage can be improved. The associated debuff is a key part of our damage mitigation.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> usage can be improved. The associated debuff is a key part of our damage mitigation.</>)
           .icon(SPELLS.BREATH_OF_FIRE.icon)
-          .actual(`${formatPercentage(actual)}% of hits mitigated with Breath of Fire`)
-          .recommended(`> ${formatPercentage(recommended)}% is recommended`);
-      });
+          .actual(i18n._(t('monk.brewmaster.suggestions.breathOfFire.hitsMitigated')`${formatPercentage(actual)}% of hits mitigated with Breath of Fire`))
+          .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 }
 

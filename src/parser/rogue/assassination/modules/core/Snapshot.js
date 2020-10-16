@@ -6,6 +6,9 @@ import Analyzer from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { EventType } from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const debug = false;
 
 const PANDEMIC_FRACTION = 0.3;
@@ -230,12 +233,10 @@ class Snapshot extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You overwrote your snapshotted <SpellLink id={this.constructor.spellCastId} />. Try to always let a snapshotted <SpellLink id={this.constructor.spellCastId} /> expire before applying a non buffed one.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You overwrote your snapshotted <SpellLink id={this.constructor.spellCastId} />. Try to always let a snapshotted <SpellLink id={this.constructor.spellCastId} /> expire before applying a non buffed one.</>)
         .icon(this.constructor.spellIcon)
-        .actual(`${formatPercentage(actual)}% snapshot time lost`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`);
-    });
+        .actual(i18n._(t('rogue.assassination.suggestions.snapshot.timeLost')`${formatPercentage(actual)}% snapshot time lost`))
+        .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
 }

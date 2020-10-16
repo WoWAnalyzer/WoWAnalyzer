@@ -11,12 +11,8 @@ import CoreChanneling from 'parser/shared/modules/Channeling';
  */
 class Channeling extends CoreChanneling {
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
-      // We track Crackling Jade Lightning differently
-      return;
-    }
-    if (event.ability.guid === SPELLS.FISTS_OF_FURY_CAST.id) {
-      this.beginChannel(event);
+    if (event.ability.guid === SPELLS.CRACKLING_JADE_LIGHTNING.id || event.ability.guid === SPELLS.FISTS_OF_FURY_CAST.id) {
+      // We track Crackling Jade Lightning and Fists of Fury differently
       return;
     }
     super.on_byPlayer_cast(event);
@@ -30,6 +26,13 @@ class Channeling extends CoreChanneling {
     } else {
       super.cancelChannel(event, ability);
     }
+  }
+
+  on_byPlayer_applybuff(event) {
+    if (event.ability.guid !== SPELLS.FISTS_OF_FURY_CAST.id) {
+      return;
+    }
+    this.beginChannel(event);
   }
 
   on_byPlayer_applydebuff(event) {

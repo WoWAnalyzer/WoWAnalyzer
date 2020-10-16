@@ -5,6 +5,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
 
+import { When } from 'parser/core/ParseResults';
+
 import ComboPointTracker from '../../../shared/resources/ComboPointTracker';
 
 class ComboPoints extends Analyzer {
@@ -23,7 +25,7 @@ class ComboPoints extends Analyzer {
     );
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.MARKED_FOR_DEATH_TALENT, // 5 CP
       minor: 0,

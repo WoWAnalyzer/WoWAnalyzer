@@ -14,6 +14,28 @@ import Gems from './Gems';
 import PlayerGearHeader from './PlayerGearHeader';
 import Talents from './Talents';
 
+function _parseTalents(talents) {
+  return talents.reduce((talentsByRow, { id }) => talentsByRow.concat(id), []);
+}
+function _parseTraits(traits) {
+  const traitsBySlot = {};
+  traits.forEach(({ traitID, slot }) => {
+    const spellId = traitIdMap[traitID];
+    if (spellId === undefined) {
+      return;
+    }
+    if (!traitsBySlot[slot]) {
+      traitsBySlot[slot] = [];
+    }
+    traitsBySlot[slot].push(spellId);
+  });
+
+  return traitsBySlot;
+}
+function _parseGear(gear) {
+  return gear.reduce((gearItemsBySlotId, item) => gearItemsBySlotId.concat(item), []);
+}
+
 class PlayerInfo extends React.PureComponent {
   static propTypes = {
     combatant: PropTypes.instanceOf(Combatant).isRequired,
@@ -69,30 +91,6 @@ class PlayerInfo extends React.PureComponent {
       </div>
     );
   }
-}
-
-function _parseTalents(talents) {
-  return talents.reduce((talentsByRow, { id }) => talentsByRow.concat(id), []);
-}
-
-function _parseTraits(traits) {
-  const traitsBySlot = {};
-  traits.forEach(({ traitID, slot }) => {
-    const spellId = traitIdMap[traitID];
-    if (spellId === undefined) {
-      return;
-    }
-    if (!traitsBySlot[slot]) {
-      traitsBySlot[slot] = [];
-    }
-    traitsBySlot[slot].push(spellId);
-  });
-
-  return traitsBySlot;
-}
-
-function _parseGear(gear) {
-  return gear.reduce((gearItemsBySlotId, item) => gearItemsBySlotId.concat(item), []);
 }
 
 export default PlayerInfo;

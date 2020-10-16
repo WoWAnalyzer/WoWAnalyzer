@@ -4,12 +4,17 @@ import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class LegionStrike extends Analyzer {
   casts = 0;
@@ -57,22 +62,23 @@ class LegionStrike extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your Felguard didn't cast <SpellLink id={SPELLS.FELGUARD_LEGION_STRIKE.id} /> at all. Remember to turn on the auto-cast for this ability as it's a great portion of your total damage.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your Felguard didn't cast <SpellLink id={SPELLS.FELGUARD_LEGION_STRIKE.id} /> at all. Remember to turn on the auto-cast for this ability as it's a great portion of your total damage.</>)
           .icon(SPELLS.FELGUARD_LEGION_STRIKE.icon)
-          .actual(`${actual} Legion Strike casts`)
-          .recommended(`> ${recommended} casts are recommended`);
-      });
+          .actual(i18n._(t('warlock.demonology.suggestions.legionStrike.casts')`${actual} Legion Strike casts`))
+          .recommended(`> ${recommended} casts are recommended`));
   }
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FELGUARD_LEGION_STRIKE.id} />}
-        value={this.owner.formatItemDamageDone(this.damage)}
-        label="Legion Strike damage"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(5)}
+        size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.FELGUARD_LEGION_STRIKE}>
+          <ItemDamageDone amount={this.damage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

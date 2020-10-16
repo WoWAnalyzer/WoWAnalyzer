@@ -11,27 +11,27 @@ class Buffs extends CoreBuffs {//TODO: Get shrike to fill this out since I'm laz
     return [
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.AVATAR_TALENT.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.LAST_STAND.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.SHIELD_BLOCK_BUFF.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.SHIELD_WALL.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.SPELL_REFLECTION.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

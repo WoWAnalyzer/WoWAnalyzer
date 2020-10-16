@@ -9,6 +9,9 @@ import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import Abilities from '../Abilities';
 
 const STORMELE_DURATION = 30000 - 1500;
@@ -136,12 +139,10 @@ class StormElemental extends Analyzer {
   suggestions(when) {
     const abilities = `Lightning Bolt/Chain Lightning and Earth Shock/Earthquake`;
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
           .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-          .actual(`${actual} other casts with Storm Elemental up`)
-          .recommended(`Only cast ${abilities} while Storm Elemental is up.`);
-      });
+          .actual(i18n._(t('shaman.elemental.suggestions.stormElemental.badCasts')`${actual} other casts with Storm Elemental up`))
+          .recommended(`Only cast ${abilities} while Storm Elemental is up.`));
   }
 
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

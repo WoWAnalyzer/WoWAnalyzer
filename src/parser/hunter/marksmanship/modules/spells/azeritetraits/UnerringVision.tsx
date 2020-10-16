@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CriticalStrike from 'interface/icons/CriticalStrike';
@@ -31,7 +31,7 @@ class UnerringVision extends Analyzer {
 
   crit = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.UNERRING_VISION.id);
     if (!this.active) {
@@ -40,7 +40,7 @@ class UnerringVision extends Analyzer {
     const { crit } = unerringVisionStats(this.selectedCombatant.traitsBySpellId[SPELLS.UNERRING_VISION.id]);
     this.crit = crit;
 
-    options.statTracker.add(SPELLS.UNERRING_VISION_BUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.UNERRING_VISION_BUFF.id, {
       crit: this.crit,
     });
   }

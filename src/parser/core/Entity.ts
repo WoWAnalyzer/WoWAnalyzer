@@ -18,7 +18,7 @@ class Entity {
   /**
    * This also tracks debuffs in the exact same array. There are no parameters to filter results by debuffs. I don't think this should be necessary as debuffs and buffs usually have different spell IDs.
    */
-  buffs: Array<TrackedBuffEvent> = [];
+  buffs: TrackedBuffEvent[] = [];
 
   /**
    * @param {number} timestamp - Timestamp (in ms) to be considered, or the current timestamp if null. Won't work right for timestamps after the currentTimestamp.
@@ -82,7 +82,7 @@ class Entity {
    * @param {number} sourceID - source ID the buff must have come from, or any source if null.
    * @returns {array} The buff activations.
    */
-  getBuffHistory(spellId: number, sourceID: number | null = null): Array<TrackedBuffEvent> {
+  getBuffHistory(spellId: number, sourceID: number | null = null): TrackedBuffEvent[] {
     const isCorrectSpell = this.spellIdFilter(spellId);
     const isCorrectSource = this.sourceIdFilter(sourceID);
     return this.buffs.filter(buff => isCorrectSpell(buff) && isCorrectSource(buff));
@@ -144,9 +144,7 @@ class Entity {
    */
   getStackWeightedBuffUptime(spellId: number, sourceID: number | null = null) {
     const stackBuffUptimes = this.getStackBuffUptimes(spellId, sourceID);
-    return Object.keys(stackBuffUptimes).map(stack => stackBuffUptimes[Number(stack)] * Number(stack)).reduce((total, cur) => {
-      return total + cur;
-    }, 0);
+    return Object.keys(stackBuffUptimes).map(stack => stackBuffUptimes[Number(stack)] * Number(stack)).reduce((total, cur) => total + cur, 0);
   }
 
   applyBuff(buff: BuffEvent<any> & { start: number }) {

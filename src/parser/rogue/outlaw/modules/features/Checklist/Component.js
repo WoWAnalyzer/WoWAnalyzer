@@ -34,14 +34,13 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
           )}
           thresholds={thresholds.rollTheBonesBuffs}
         />
-        {thresholds.rollTheBonesEfficiency.map(suggestion => {
-          return (
+        {thresholds.rollTheBonesEfficiency.map(suggestion => (
             <Requirement
+              key={suggestion.label}
               name={`Reroll ${suggestion.label} efficiency`}
               thresholds={suggestion.suggestionThresholds}
             />
-          );
-        })}
+        ))}
       </Rule>
       <Rule
         name="Use your finishers efficiently"

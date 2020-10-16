@@ -3,10 +3,13 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, RemoveBuffEvent, ApplyBuffStackEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import Insanity from '../core/Insanity';
 import { VOID_FORM_ACTIVATORS } from '../../constants';
@@ -29,7 +32,7 @@ class Voidform extends Analyzer {
 
   _voidforms: any = {};
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(VOID_FORM_ACTIVATORS), this.onCast);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.VOIDFORM_BUFF), this.onVoidFormRemoved);
@@ -99,7 +102,7 @@ class Voidform extends Analyzer {
   }
 
   addVoidformStack(event: any) {
-    if (!this.currentVoidform) return;
+    if (!this.currentVoidform) {return;}
     this.currentVoidform.stacks = [
       ...this.currentVoidform.stacks,
       { stack: event.stack, timestamp: this.normalizeTimestamp(event) },
@@ -220,8 +223,7 @@ class Voidform extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionUptimeThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.
           <br /><br />
           Use the generators with the priority: <br />
           <SpellLink id={SPELLS.VOID_BOLT.id} /> <br />
@@ -229,9 +231,8 @@ class Voidform extends Analyzer {
           <SpellLink id={SPELLS.MIND_FLAY.id} />
         </>)
           .icon(SPELLS.VOIDFORM_BUFF.icon)
-          .actual(`${formatPercentage(actual)}% Voidform uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+          .actual(i18n._(t('priest.shadow.suggestions.voidform.uptime')`${formatPercentage(actual)}% Voidform uptime`))
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
 

@@ -6,8 +6,10 @@ import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import SpellLink from 'common/SpellLink';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatThousands } from 'common/format';
 
 const DREADLASH_BONUS_DAMAGE = 0.25;
@@ -41,20 +43,24 @@ class Dreadlash extends Analyzer {
     debug && this.log(`Dreadstalkers cast on ${this._primaryTarget}`);
   }
 
-  subStatistic() {
+  statistic() {
     const total = this.cleavedDamage + this.bonusDamage;
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.DREADLASH_TALENT.id} /> bonus dmg</>}
-        value={this.owner.formatItemDamageDone(total)}
-        valueTooltip={(
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={(
           <>
             {formatThousands(total)} bonus damage<br />
             Bonus damage on primary target hits: {formatThousands(this.bonusDamage)} ({this.owner.formatItemDamageDone(this.bonusDamage)})<br />
             Bonus cleaved damage: {formatThousands(this.cleavedDamage)} ({this.owner.formatItemDamageDone(this.cleavedDamage)})
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.DREADLASH_TALENT}>
+          <ItemDamageDone amount={total} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

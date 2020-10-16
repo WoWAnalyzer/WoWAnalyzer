@@ -10,6 +10,9 @@ import SpellIcon from 'common/SpellIcon';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class CorruptionUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -33,16 +36,14 @@ class CorruptionUptime extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      .addSuggestion((suggest, actual, recommended) => suggest(
           <>
             Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.
           </>,
         )
           .icon(SPELLS.CORRUPTION_CAST.icon)
-          .actual(`${formatPercentage(actual)}% Corruption uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+          .actual(i18n._(t('warlock.affliction.suggestions.corruption.uptime')`${formatPercentage(actual)}% Corruption uptime`))
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {

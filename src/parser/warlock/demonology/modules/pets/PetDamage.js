@@ -40,7 +40,7 @@ class PetDamage {
 
   hasEntry(guid, instance) {
     if (instance === null) {
-      return !!this.pets[guid];
+      return Boolean(this.pets[guid]);
     }
     return this.pets[guid] && this.pets[guid].instances[instance] !== undefined;
   }

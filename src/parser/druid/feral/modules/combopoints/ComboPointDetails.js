@@ -2,6 +2,8 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import ResourceBreakdown from './ComboPointBreakdown';
 import WastedPointsIcon from '../images/feralComboPointIcon.png';
@@ -34,16 +36,14 @@ class ComboPointDetails extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.wastingSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.wastingSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You are wasting combo points. Avoid using generators once you reach the maximum.
         </>,
       )
         .icon('creatureportrait_bubble')
-        .actual(`${actual.toFixed(1)} combo points wasted per minute`)
-        .recommended('zero waste is recommended');
-    });
+        .actual(i18n._(t('druid.feral.suggestions.comboPoints.wasted')`${actual.toFixed(1)} combo points wasted per minute`))
+        .recommended('zero waste is recommended'));
   }
 
   statistic() {

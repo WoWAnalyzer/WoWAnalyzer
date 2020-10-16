@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
 import Haste from './modules/core/Haste';
 
 import Abilities from './modules/Abilities';
@@ -16,7 +17,7 @@ import CrusaderStrike from './modules/core/CrusaderStrike';
 import Crusade from './modules/talents/Crusade';
 import WakeofAshes from './modules/core/WakeofAshes';
 import Consecration from './modules/talents/Consecration';
-import HammerofWrath from './modules/core/HammerofWrath';
+import HammerofWrath from '../shared/spells/HammerOfWrath';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
 

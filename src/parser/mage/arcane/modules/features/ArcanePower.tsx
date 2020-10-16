@@ -13,9 +13,12 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import ArcaneChargeTracker from './ArcaneChargeTracker';
 import { ARCANE_POWER_MANA_THRESHOLD, ARCANE_POWER_SPELL_BLACKLIST } from '../../constants';
 
@@ -51,7 +54,7 @@ class ArcanePower extends Analyzer {
   noRuneCast = 0;
   delayedRuneCast = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.hasRuneOfPower = this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id);
     this.hasOverpowered = this.selectedCombatant.hasTalent(SPELLS.OVERPOWERED_TALENT.id);
@@ -231,8 +234,7 @@ class ArcanePower extends Analyzer {
 
   suggestions(when: When) {
     when(this.arcanePowerCooldownThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> without proper setup {this.badUses} times. Arcane Power has a short duration so you should get the most out of it by meeting all requirements before casting it.
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> without proper setup {this.badUses} times. Arcane Power has a short duration so you should get the most out of it by meeting all requirements before casting it.
         <ul>
           <li>You have 4 <SpellLink id={SPELLS.ARCANE_CHARGE.id} /> - You had this {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts - this.lowChargesCast} out of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li>
           {this.hasRuneOfPower ? <li>You cast <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> <TooltipElement content="Arcane Power should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Power to ensure that Rune of Power is up for the entire duration of Arcane Power.">immediately</TooltipElement> before Arcane Power - You did this {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts - (this.delayedRuneCast + this.noRuneCast)} out of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li> : ''}
@@ -240,23 +242,18 @@ class ArcanePower extends Analyzer {
         </ul>
         </>)
           .icon(SPELLS.ARCANE_POWER.icon)
-          .actual(`${this.badUses} Bad Casts`)
-          .recommended(`0 is recommended`);
-      });
+          .actual(i18n._(t('mage.arcane.suggestions.arcanePower.badCasts')`${this.badUses} Bad Casts`))
+          .recommended(`0 is recommended`));
     when(this.arcanePowerCastThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You cast spells other than <SpellLink id={SPELLS.ARCANE_BLAST.id} />,<SpellLink id={SPELLS.ARCANE_MISSILES.id} />, <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />, and <SpellLink id={SPELLS.PRESENCE_OF_MIND.id} /> during <SpellLink id={SPELLS.ARCANE_POWER.id} />. Arcane Power is a short duration, so you should ensure that you are getting the most use out of it. Buff spells like Rune of Power should be cast immediately before casting Arcane Power. Other spells such as Charged Up, Blink/Shimmer, etc are acceptable during Arcane Power, but should be avoided if possible.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You cast spells other than <SpellLink id={SPELLS.ARCANE_BLAST.id} />,<SpellLink id={SPELLS.ARCANE_MISSILES.id} />, <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />, and <SpellLink id={SPELLS.PRESENCE_OF_MIND.id} /> during <SpellLink id={SPELLS.ARCANE_POWER.id} />. Arcane Power is a short duration, so you should ensure that you are getting the most use out of it. Buff spells like Rune of Power should be cast immediately before casting Arcane Power. Other spells such as Charged Up, Blink/Shimmer, etc are acceptable during Arcane Power, but should be avoided if possible.</>)
           .icon(SPELLS.ARCANE_POWER.icon)
-          .actual(`${formatPercentage(actual)}% Utilization`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`);
-      });
+          .actual(i18n._(t('mage.arcane.suggestions.arcanePower.utilization')`${formatPercentage(actual)}% Utilization`))
+          .recommended(`${formatPercentage(recommended)}% is recommended`));
     when(this.arcanePowerManaUtilization)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You ran dangerously low or ran out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.outOfMana} times. Running out of mana during Arcane Power is a massive DPS loss and should be avoided at all costs. {!this.hasOverpowered ? 'To avoid this, ensure you have at least 40% mana before casting Arcane Power to ensure you have enough mana to finish Arcane Power.' : ''}</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You ran dangerously low or ran out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.outOfMana} times. Running out of mana during Arcane Power is a massive DPS loss and should be avoided at all costs. {!this.hasOverpowered ? 'To avoid this, ensure you have at least 40% mana before casting Arcane Power to ensure you have enough mana to finish Arcane Power.' : ''}</>)
           .icon(SPELLS.ARCANE_POWER.icon)
-          .actual(`${formatPercentage(actual)}% Utilization`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`);
-      });
+          .actual(i18n._(t('mage.arcane.suggestions.arcanePower.lowMana')`${formatPercentage(actual)}% Utilization`))
+          .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

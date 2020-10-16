@@ -4,6 +4,10 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import SpellUsable from '../features/SpellUsable';
 import Abilities from '../Abilities';
 
@@ -56,16 +60,14 @@ class Predator extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You're not gaining much benefit from <SpellLink id={SPELLS.PREDATOR_TALENT.id} />. If the fight has adds make sure they have bleeds on them when they die, and make use of your <SpellLink id={SPELLS.TIGERS_FURY.id} /> cooldown being reset. If the fight doesn't have adds it would be a good idea to switch to another talent.
         </>,
       )
         .icon(SPELLS.PREDATOR_TALENT.icon)
-        .actual(`${actual.toFixed(1)} extra casts of Tiger's Fury per minute.`)
-        .recommended(`>${recommended.toFixed(1)} is recommended`);
-    });
+        .actual(i18n._(t('druid.feral.suggestions.predator.efficiency')`${actual.toFixed(1)} extra casts of Tiger's Fury per minute.`))
+        .recommended(`>${recommended.toFixed(1)} is recommended`));
   }
 
   statistic() {

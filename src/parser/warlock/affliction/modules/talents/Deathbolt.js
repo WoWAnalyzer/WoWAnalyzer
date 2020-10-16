@@ -7,10 +7,10 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
 
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
@@ -112,7 +112,7 @@ class Deathbolt extends Analyzer {
       let id = dotId;
       if (UNSTABLE_AFFLICTION_DEBUFFS.some(spell => spell.id === Number(dotId))) {
         // group Unstable Affliction debuffs into one entry
-        id = SPELLS.UNSTABLE_AFFLICTION_CAST.id;
+        id = SPELLS.UNSTABLE_AFFLICTION.id;
       }
       this.remainingDotDurations[id] = this.remainingDotDurations[id] || [];
       this.remainingDotDurations[id].push(dotInfo.end - timestamp);
@@ -139,10 +139,9 @@ class Deathbolt extends Analyzer {
     const dotDurationsTooltip = Object.entries(avgDotLengths)
       .filter(([key]) => key !== 'total')
       .map(([key, value]) => <>{SPELLS[key].name}: {(value / 1000).toFixed(2)} seconds<br /></>);
-
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={(
           <>
@@ -152,19 +151,10 @@ class Deathbolt extends Analyzer {
           </>
         )}
       >
-        <div className="pad">
-          <label><SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /></label>
-          <div className="flex">
-            <div className="flex-main value">
-              {formatThousands(avg)} <small>average damage</small>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex-main value">
-              {(avgDotLengths.total / 1000).toFixed(2)} s <small>average DoT length on cast</small>
-            </div>
-          </div>
-        </div>
+        <BoringSpellValueText spell={SPELLS.DEATHBOLT_TALENT}>
+          {formatThousands(avg)} <small>average damage</small><br />
+          {(avgDotLengths.total / 1000).toFixed(2)} s <small>average DoT length on cast</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

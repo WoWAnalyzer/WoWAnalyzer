@@ -7,9 +7,12 @@ import SPELLS from 'common/SPELLS';
 
 import Panel from 'interface/others/Panel';
 import Warning from 'interface/Alert/Warning';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
-import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import 'parser/warlock/shared/modules/soulshards/SoulShardDetails.css';
 import SoulShardTracker from './SoulShardTracker';
@@ -38,27 +41,23 @@ class SoulShardDetails extends Analyzer {
   suggestions(when) {
     const fragmentsWasted = this.soulShardTracker.wasted;
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
+      .addSuggestion((suggest, actual, recommended) => suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
           .icon(SPELLS.SOUL_SHARDS.icon)
-          .actual(`${fragmentsWasted} Soul Shard Fragments wasted (${actual.toFixed(2)} per minute)`)
-          .recommended(`< ${recommended} Soul Shard Fragments per minute wasted are recommended`);
-      });
+          .actual(i18n._(t('warlock.destruction.suggestions.soulShard.wastedPerMinute')`${fragmentsWasted} Soul Shard Fragments wasted (${actual.toFixed(2)} per minute)`))
+          .recommended(`< ${recommended} Soul Shard Fragments per minute wasted are recommended`));
   }
 
   statistic() {
-    const fragmentsWasted = this.soulShardTracker.wasted;
+    const shardsWasted = this.soulShardTracker.wasted;
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
-        size="small"
+        size="flexible"
+        tooltip={(<>In order for Focus Magic to compete with the other talents on that row, you need to ensure you are getting as much uptime out of the buff as possible. Therefore, if you forget to put the buff on another player or if they player you gave it to is not getting crits very often, then you might need to consider giving the buff to someone else. Ideally, you should aim to trade buffs with another mage who has also taken Focus Magic so you both get the full benefit.</>)}
       >
-        <BoringSpellValue
-          spell={SPELLS.SOUL_SHARDS}
-          value={fragmentsWasted}
-          label="Wasted Soul Shard Fragments"
-          className="grayscale"
-        />
+        <BoringSpellValueText spell={SPELLS.SOUL_SHARDS}>
+          {shardsWasted} <small>Wasted Soul Shards</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

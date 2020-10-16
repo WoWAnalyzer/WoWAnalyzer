@@ -46,7 +46,7 @@ class GlimmerOfLight extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.GLIMMER_OF_LIGHT_TRAIT.id);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.GLIMMER_OF_LIGHT_TRAIT.id) || this.selectedCombatant.hasTalent(SPELLS.GLIMMER_OF_LIGHT_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -55,7 +55,7 @@ class GlimmerOfLight extends Analyzer {
       this.onCast,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GLIMMER_OF_LIGHT, SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT]),
       this.onHeal,
     );
     this.addEventListener(
@@ -63,7 +63,7 @@ class GlimmerOfLight extends Analyzer {
       this.onBeaconTransfer,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.GLIMMER_OF_LIGHT_DAMAGE, SPELLS.GLIMMER_OF_LIGHT_DAMAGE_TALENT]),
       this.onDamage,
     );
     this.addEventListener(
@@ -224,8 +224,7 @@ class GlimmerOfLight extends Analyzer {
 
   suggestions(when) {
     if (this.owner.builds.GLIMMER.active) {
-      when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => suggest(
           <Trans>
             Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved. To maximize
             the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />, try to keep as
@@ -241,13 +240,11 @@ class GlimmerOfLight extends Analyzer {
               this.earlyGlimmerRefreshLoss,
             )}%`,
           )
-          .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`);
-      });
+          .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`));
     }
 
     if (this.owner.builds.GLIMMER.active) {
-      when(this.suggestGlimmerCap).addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      when(this.suggestGlimmerCap).addSuggestion((suggest, actual, recommended) => suggest(
           <Trans>
             Patch 8.3 implemented a{' '}
             <a href="https://www.wowhead.com/news=295502.3/blizzard-official-class-changes-for-patch-8-3-visions-of-nzoth">
@@ -266,8 +263,7 @@ class GlimmerOfLight extends Analyzer {
               this.overCapGlimmerLoss,
             )}%`,
           )
-          .recommended(`< ${this.suggestGlimmerCap.isGreaterThan.minor * 100}% is reccommended`);
-      });
+          .recommended(`< ${this.suggestGlimmerCap.isGreaterThan.minor * 100}% is reccommended`));
     }
   }
 }

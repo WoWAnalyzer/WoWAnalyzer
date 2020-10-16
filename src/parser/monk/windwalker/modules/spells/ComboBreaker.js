@@ -7,6 +7,8 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const COMBO_BREAKER_DURATION = 15000;
 const COMBO_BREAKER_PROC_CHANCE = 0.08;
@@ -74,12 +76,10 @@ class ComboBreaker extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
           .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
-          .actual(`${formatPercentage(actual)}% used Combo Breaker procs`)
-          .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`);
-    });
+          .actual(i18n._(t('monk.windwalker.suggestions.comboBreaker.procsUsed')`${formatPercentage(actual)}% used Combo Breaker procs`))
+          .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`));
   }
 
   statistic() {

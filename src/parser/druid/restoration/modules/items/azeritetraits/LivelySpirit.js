@@ -4,6 +4,7 @@ import { formatNumber, formatThousands } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+
 import StatWeights from '../../features/StatWeights';
 
 /**

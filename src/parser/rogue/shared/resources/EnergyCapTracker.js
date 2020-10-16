@@ -7,6 +7,8 @@ import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import SpellEnergyCost from './SpellEnergyCost';
 
@@ -72,16 +74,14 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You're allowing your energy to reach its cap. While at its maximum value you miss out on the energy that would have regenerated. Although it can be beneficial to let energy pool ready to be used at the right time, try to spend some before it reaches the cap.
         </>,
       )
         .icon('spell_shadow_shadowworddominate')
-        .actual(`${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`)
-        .recommended(`<${recommended} is recommended.`);
-    });
+        .actual(i18n._(t('rogue.shared.suggestions.energy.capped')`${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`))
+        .recommended(`<${recommended} is recommended.`));
   }
 
   statistic() {

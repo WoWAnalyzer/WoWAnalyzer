@@ -2,6 +2,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import HitCountAoE from '../core/HitCountAoE';
 
@@ -34,16 +36,14 @@ class BrutalSlashHitCount extends HitCountAoE {
   }
 
   suggestions(when) {
-    when(this.hitNoneThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.hitNoneThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You are using <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> out of range of any targets. Try to get familiar with the range of your area of effect abilities so you can avoid wasting charges and energy when they'll not hit anything.
         </>,
       )
         .icon(SPELLS.BRUTAL_SLASH_TALENT.icon)
-        .actual(`${actual.toFixed(1)} uses per minute that hit nothing.`)
-        .recommended(`${recommended} is recommended`);
-    });
+        .actual(i18n._(t('druid.feral.suggestions.brutalSlash.hitcount.outOfRange')`${actual.toFixed(1)} uses per minute that hit nothing.`))
+        .recommended(`${recommended} is recommended`));
   }
 }
 

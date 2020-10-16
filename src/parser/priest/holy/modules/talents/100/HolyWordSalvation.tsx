@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import Renew from 'parser/priest/holy/modules/spells/Renew';
@@ -69,7 +69,7 @@ class HolyWordSalvation extends Analyzer {
     return this.absorptionFromSalv + this.absorptionFromRenew + this.absorptionFromPom;
   }
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id);
   }

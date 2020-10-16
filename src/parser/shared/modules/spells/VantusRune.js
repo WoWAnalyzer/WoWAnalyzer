@@ -18,8 +18,10 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 const VANTUS_RUNE_VERSATILITY = 277;
 const VERSATILITY_PER_PERCENT_THROUGHPUT = 85 * 100;
 const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGHPUT * 2;
-const VANTUS_RUNE_PERCENTAGE_THROUGHPUT = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_THROUGHPUT;
-const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
+const VANTUS_RUNE_PERCENTAGE_THROUGHPUT =
+  VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_THROUGHPUT;
+const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION =
+  VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
 
 const runes = [
   ITEMS.VANTUS_RUNE_ULDIR,
@@ -27,6 +29,7 @@ const runes = [
   ITEMS.VANTUS_RUNE_CRUCIBLE_OF_STORMS,
   ITEMS.VANTUS_RUNE_ETERNAL_PALACE,
   ITEMS.VANTUS_RUNE_NYALOTHA,
+  ITEMS.VANTUS_RUNE_CASTLE_NATHRIA,
 ];
 
 /**
@@ -56,17 +59,21 @@ class VantusRune extends Analyzer {
       }
     }
     this.active = this.activeRune !== null;
-    if(this.active){
-      const that = this;
-      runes.forEach(function(rune){
-        if(that.activeRune.ability.abilityIcon === rune.icon){
-          that.masterRune = rune;
+    if (this.active) {
+      runes.forEach((rune) => {
+        if (this.activeRune.ability.abilityIcon === rune.icon) {
+          this.masterRune = rune;
         }
       });
       // StatTracker ignores the buff because its active on pull, but the stats aren't actually in the pull stats
-      this.statTracker.forceChangeStats({versatility: VANTUS_RUNE_VERSATILITY}, vantusRuneBuffId, true);
+      this.statTracker.forceChangeStats(
+        { versatility: VANTUS_RUNE_VERSATILITY },
+        vantusRuneBuffId,
+        true,
+      );
     }
-    if(this.masterRune === null) {//default to the icon to current tier
+    if (this.masterRune === null) {
+      //default to the icon to current tier
       this.masterRune = runes[runes.length - 1];
     }
   }
@@ -74,39 +81,29 @@ class VantusRune extends Analyzer {
   statistic() {
     const fightDuration = this.owner.fightDuration;
 
-    const damageDone = this.damageDone.total.effective - (this.damageDone.total.effective / (1 + VANTUS_RUNE_PERCENTAGE_THROUGHPUT));
-    const healingDone = this.healingDone.total.effective - (this.healingDone.total.effective / (1 + VANTUS_RUNE_PERCENTAGE_THROUGHPUT));
-    const damageReduced = (this.damageTaken.total.effective / (1 - VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION)) - this.damageTaken.total.effective;
+    const damageDone =
+      this.damageDone.total.effective -
+      this.damageDone.total.effective / (1 + VANTUS_RUNE_PERCENTAGE_THROUGHPUT);
+    const healingDone =
+      this.healingDone.total.effective -
+      this.healingDone.total.effective / (1 + VANTUS_RUNE_PERCENTAGE_THROUGHPUT);
+    const damageReduced =
+      this.damageTaken.total.effective / (1 - VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION) -
+      this.damageTaken.total.effective;
 
     return (
-      <Statistic
-        position={STATISTIC_ORDER.UNIMPORTANT()}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.UNIMPORTANT()} size="flexible">
         <BoringItemValueText item={this.masterRune}>
-        <img
-          src="/img/sword.png"
-          alt="Damage"
-          className="icon"
-        /> 
-        {` ${formatNumber(damageDone / fightDuration * 1000)} DPS`}
-        <br />
-        <img
-          src="/img/healing.png"
-          alt="Healing"
-          className="icon"
-        /> 
-        {` ${formatNumber(healingDone / fightDuration * 1000)} HPS`}
-        <br />
-        <img
-          src="/img/shield.png"
-          alt="Damage Taken"
-          className="icon"
-        /> 
-        {` ${formatNumber(damageReduced / fightDuration * 1000)} DRPS`}
+          <img src="/img/sword.png" alt="Damage" className="icon" />
+          {` ${formatNumber((damageDone / fightDuration) * 1000)} DPS`}
+          <br />
+          <img src="/img/healing.png" alt="Healing" className="icon" />
+          {` ${formatNumber((healingDone / fightDuration) * 1000)} HPS`}
+          <br />
+          <img src="/img/shield.png" alt="Damage Taken" className="icon" />
+          {` ${formatNumber((damageReduced / fightDuration) * 1000)} DRPS`}
         </BoringItemValueText>
       </Statistic>
-
     );
   }
 }

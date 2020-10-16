@@ -1,6 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
@@ -27,6 +28,7 @@ import Energy from './modules/core/Energy';
 import SymbolsDamageTracker from './modules/core/SymbolsDamageTracker';
 import DanceDamageTracker from './modules/core/DanceDamageTracker';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
+import FindWeakness from './modules/spells/FindWeakness';
 
 import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
 import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingReprimand';
@@ -66,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     danceCooldownReduction: DeepeningShadows,
+    findWeakness: FindWeakness,
 
     //Casts
     symbolsOfDeathUptime: SymbolsOfDeathUptime,

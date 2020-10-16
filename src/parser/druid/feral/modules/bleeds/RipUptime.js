@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { TooltipElement } from 'common/Tooltip';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class RipUptime extends Analyzer {
   static dependencies = {
@@ -30,8 +32,7 @@ class RipUptime extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Your <SpellLink id={SPELLS.RIP.id} /> uptime can be improved. You can refresh the DoT once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off.
           {!this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) ?
@@ -40,9 +41,8 @@ class RipUptime extends Analyzer {
         </>,
       )
         .icon(SPELLS.RIP.icon)
-        .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .actual(i18n._(t('druid.feral.suggestions.rip.uptime')`${formatPercentage(actual)}% uptime`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

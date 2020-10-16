@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS/index';
 class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
   constructor() {
     super();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.state.showEchoOfLight = false;
   }
@@ -14,6 +15,7 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
   render() {
     const { tracker } = this.props;
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     return (
       <div>

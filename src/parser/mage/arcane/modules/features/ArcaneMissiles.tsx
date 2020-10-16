@@ -3,9 +3,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { formatPercentage } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
@@ -17,7 +19,7 @@ class ArcaneMissiles extends Analyzer {
 
 	castWithoutClearcasting = 0;
 
-	constructor(options: any) {
+	constructor(options: Options) {
     super(options);
 			this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_MISSILES, SPELLS.ARCANE_BARRAGE]), this.onCast);
   }
@@ -48,12 +50,10 @@ class ArcaneMissiles extends Analyzer {
 
 	suggestions(when: When) {
 		when(this.arcaneMissileUsageThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> without <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> {this.castWithoutClearcasting} times. Arcane Missiles is a very expensive spell (more expensive than a 4 Charge Arcane Blast) and therefore it should only be cast when you have the Clearcasting buff which makes the spell free.</>)
+			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> without <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> {this.castWithoutClearcasting} times. Arcane Missiles is a very expensive spell (more expensive than a 4 Charge Arcane Blast) and therefore it should only be cast when you have the Clearcasting buff which makes the spell free.</>)
 					.icon(SPELLS.ARCANE_MISSILES.icon)
-					.actual(`${formatPercentage(this.missilesUtilization)}% Uptime`)
-					.recommended(`${formatPercentage(recommended)}% is recommended`);
-			});
+					.actual(i18n._(t('mage.arcane.suggestions.arcaneMissiles.clearCasting.uptime')`${formatPercentage(this.missilesUtilization)}% Uptime`))
+					.recommended(`${formatPercentage(recommended)}% is recommended`));
 	}
 }
 

@@ -11,6 +11,9 @@ import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyD
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {
     ...EarlyDotRefreshesAnalyzer.dependencies,
@@ -69,21 +72,17 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
   }
 
   suggestions(when) {
-    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span>Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.</span>)
+    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.</span>)
         .icon(SPELLS.FLAME_SHOCK.icon)
-        .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .actual(i18n._(t('shaman.elemental.suggestions.flameShock.uptime')`${formatPercentage(actual)}% uptime`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
 
     when(this.badLavaBursts).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Make sure to apply <SpellLink id={SPELLS.FLAME_SHOCK.id} /> to your target, so your <SpellLink id={SPELLS.LAVA_BURST.id} /> is guaranteed to critically strike.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Make sure to apply <SpellLink id={SPELLS.FLAME_SHOCK.id} /> to your target, so your <SpellLink id={SPELLS.LAVA_BURST.id} /> is guaranteed to critically strike.</span>)
           .icon(SPELLS.LAVA_BURST.icon)
-          .actual(`${formatNumber(this.badLavaBursts)} Lava Burst casts without Flame Shock DOT`)
+          .actual(i18n._(t('shaman.elemental.suggestions.flameShock.efficiency')`${formatNumber(this.badLavaBursts)} Lava Burst casts without Flame Shock DOT`))
           .recommended(`0 is recommended`)
-          .major(recommended+1);
-      });
+          .major(recommended+1));
 
     badRefreshSuggestion(when, this.refreshThreshold);
   }

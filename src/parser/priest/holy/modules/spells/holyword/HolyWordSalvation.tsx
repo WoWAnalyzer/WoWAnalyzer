@@ -1,10 +1,12 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
+import { Options } from 'parser/core/Analyzer';
+
 import HolyWordBase from './HolyWordBase';
 
 const HOLY_WORD_SERENDIPITY_REDUCTION = 30000;
 
 class HolyWordSalvation extends HolyWordBase {
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.serendipityReduction = 30000;
@@ -12,26 +14,14 @@ class HolyWordSalvation extends HolyWordBase {
     this.manaCost = 6000;
     this.serendipityProccers = {
       [SPELLS.HOLY_WORD_SERENITY.id]: {
-        baseReduction: () => {
-          return HOLY_WORD_SERENDIPITY_REDUCTION;
-        },
-        lightOfTheNaaruReduction: () => {
-          return HOLY_WORD_SERENDIPITY_REDUCTION;
-        },
-        apotheosisReduction: () => {
-          return HOLY_WORD_SERENDIPITY_REDUCTION;
-        },
+        baseReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
+        lightOfTheNaaruReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
+        apotheosisReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
       },
       [SPELLS.HOLY_WORD_SANCTIFY.id]: {
-        baseReduction: () => {
-          return HOLY_WORD_SERENDIPITY_REDUCTION;
-        },
-        lightOfTheNaaruReduction: () => {
-          return HOLY_WORD_SERENDIPITY_REDUCTION;
-        },
-        apotheosisReduction: () => {
-          return HOLY_WORD_SERENDIPITY_REDUCTION;
-        },
+        baseReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
+        lightOfTheNaaruReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
+        apotheosisReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
       },
     };
   }
