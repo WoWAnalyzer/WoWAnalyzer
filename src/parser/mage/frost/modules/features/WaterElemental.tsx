@@ -10,6 +10,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent, DamageEvent } from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import AlwaysBeCasting from './AlwaysBeCasting';
 
@@ -129,14 +131,14 @@ class WaterElemental extends Analyzer {
                       Ensure you have your it summoned pre-pull and that it's always attacking.
                       </>)
           .icon(SPELLS.SUMMON_WATER_ELEMENTAL.icon)
-          .actual(`${formatPercentage(actual)}% uptime`)
+          .actual(i18n._(t('mage.frost.suggestions.waterElemental.uptime')`${formatPercentage(actual)}% uptime`))
           .recommended(`mirroring your own uptime (${formatPercentage(this.abc.activeTimePercentage)}% or more) is recommended`));
     when(this.waterElementalPrepullThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>
                       Your Water Elemental should be able to cast Waterbolt right when the fight starts. Therefore, cast <SpellLink id={SPELLS.SUMMON_WATER_ELEMENTAL.id} /> before the fight.
                       </>)
           .icon(SPELLS.WATERBOLT.icon)
-          .actual(`${(this._timestampFirstCast === 0 ? 'Never attacked or not summoned' : 'First attack: ' + formatDuration((this._timestampFirstCast - this.owner.fight.start_time)/1000) + ' into the fight')}`)
+          .actual(i18n._(t('mage.frost.suggestions.frostElemental.utilization')`${(this._timestampFirstCast === 0 ? 'Never attacked or not summoned' : 'First attack: ' + formatDuration((this._timestampFirstCast - this.owner.fight.start_time)/1000) + ' into the fight')}`))
           .recommended(`summoning pre-fight is recommended`));
   }
 

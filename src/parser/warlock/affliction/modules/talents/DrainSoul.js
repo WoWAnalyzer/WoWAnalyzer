@@ -14,6 +14,9 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 // limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
 // it's still possible that it can be a coincidence (mob dies and at the same time something falls off somewhere unrelated), but shouldn't happen too much
@@ -95,7 +98,7 @@ class DrainSoul extends Analyzer {
           </>,
         )
           .icon('ability_hunter_snipershot')
-          .actual(`${formatPercentage(actual)} % of mobs sniped.`)
+          .actual(i18n._(t('warlock.affliction.suggestions.drainSoul.mobsSniped')`${formatPercentage(actual)} % of mobs sniped.`))
           .recommended(`>= ${formatPercentage(recommended)} % is recommended`));
   }
 

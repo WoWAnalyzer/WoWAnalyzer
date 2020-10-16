@@ -12,6 +12,9 @@ import DonutChart from 'interface/statistics/components/DonutChart';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const debug: boolean = false;
 
 //TODO clean up and make easier to add triggers
@@ -141,7 +144,7 @@ class ThunderFocusTea extends Analyzer {
             </>,
           )
             .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
-            .actual(`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`)
+            .actual(i18n._(t('monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts')`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`))
             .recommended(`<${recommended} incorrect cast is recommended`));
   }
 

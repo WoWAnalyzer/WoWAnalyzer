@@ -5,6 +5,9 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import SpellUsable from '../features/SpellUsable';
 import Abilities from '../Abilities';
 
@@ -63,7 +66,7 @@ class Predator extends Analyzer {
         </>,
       )
         .icon(SPELLS.PREDATOR_TALENT.icon)
-        .actual(`${actual.toFixed(1)} extra casts of Tiger's Fury per minute.`)
+        .actual(i18n._(t('druid.feral.suggestions.predator.efficiency')`${actual.toFixed(1)} extra casts of Tiger's Fury per minute.`))
         .recommended(`>${recommended.toFixed(1)} is recommended`));
   }
 

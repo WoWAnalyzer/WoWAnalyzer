@@ -20,91 +20,13 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      34.08% downtime
+      33.99% downtime
        (
       &lt;20.00% is recommended
       )
     </React.Fragment>,
   },
 ]
-`;
-
-exports[`Protection Paladin integration test: example log Ashjrakamas matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-    position={1000}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="legendary"
-            href="http://wowhead.com/item=169223"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            <img
-              alt="Ashjra'kamas, Shroud of Resolve"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_cape_deathwingraid_d_03.jpg"
-            />
-          </a>
-           
-          <a
-            className="legendary"
-            href="http://wowhead.com/item=169223"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            Ashjra'kamas, Shroud of Resolve
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M49.771,31.52H47.57v-6.691c0-0.821-0.672-1.492-1.492-1.492c-0.821,0-1.492,0.672-1.492,1.492 c0-0.821-0.672-1.492-1.492-1.492S41.6,24.008,41.6,24.828c0-0.821-0.672-1.492-1.492-1.492s-1.492,0.672-1.492,1.492v6.691H25.608 v-6.691c0-0.821-0.672-1.492-1.492-1.492s-1.492,0.672-1.492,1.492c0-0.821-0.672-1.492-1.492-1.492s-1.492,0.672-1.492,1.492 c0-0.821-0.672-1.492-1.492-1.492c-0.821,0-1.492,0.672-1.492,1.492v6.691h-2.201v2.154h2.201v6.691 c0,0.821,0.672,1.492,1.492,1.492c0.821,0,1.492-0.672,1.492-1.492c0,0.821,0.672,1.492,1.492,1.492s1.492-0.672,1.492-1.492 c0,0.821,0.672,1.492,1.492,1.492s1.492-0.672,1.492-1.492v-6.691h13.007v6.691c0,0.821,0.672,1.492,1.492,1.492 s1.492-0.672,1.492-1.492c0,0.821,0.672,1.492,1.492,1.492s1.492-0.672,1.492-1.492c0,0.821,0.672,1.492,1.492,1.492 c0.821,0,1.492-0.672,1.492-1.492v-6.691h2.201V31.52z"
-            />
-          </svg>
-           
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-             
-            794
-             
-            <small>
-              average 
-              Strength
-               gained
-            </small>
-          </dfn>
-          <br />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 `;
 
 exports[`Protection Paladin integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
@@ -238,7 +160,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              8.59
+              9.32
             </td>
             <td
               className="text-right"
@@ -248,8 +170,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              39
-              /130
+              25
+              /58
                
               casts
             </td>
@@ -268,7 +190,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "29.52264499266556%",
+                      "width": "43.15486728412316%",
                     }
                   }
                 />
@@ -283,7 +205,104 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              29.52%
+              43.15%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=204019"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/paladin_retribution.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Blessed Hammer
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              6.71
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              18
+              /46
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "40.91798512886454%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              40.92%
             </td>
             <td
               style={
@@ -335,7 +354,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              5.50
+              4.10
             </td>
             <td
               className="text-right"
@@ -345,8 +364,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              25
-              /41
+              11
+              /23
                
               casts
             </td>
@@ -365,7 +384,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "61.326028673738044%",
+                      "width": "49.49355592931948%",
                     }
                   }
                 />
@@ -380,7 +399,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              61.33%
+              49.49%
             </td>
             <td
               style={
@@ -434,7 +453,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              7.26
+              6.34
             </td>
             <td
               className="text-right"
@@ -444,7 +463,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              33
+              17
               
                
               casts
@@ -468,103 +487,6 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                href="http://wowhead.com/spell=53595"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_hammeroftherighteous.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Hammer of the Righteous
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              11.01
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              50
-              /100
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "50.43289226797183%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              50.43%
             </td>
             <td
               style={
@@ -616,7 +538,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              14.31
+              14.16
             </td>
             <td
               className="text-right"
@@ -626,8 +548,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              65
-              /103
+              38
+              /49
                
               casts
             </td>
@@ -646,7 +568,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "63.87685240560482%",
+                      "width": "79.7518992688669%",
                     }
                   }
                 />
@@ -661,7 +583,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              63.88%
+              79.75%
             </td>
             <td
               style={
@@ -726,7 +648,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               0
-              /73
+              /36
                
               casts
             </td>
@@ -770,154 +692,6 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             />
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <th>
-              <b>
-                Item
-              </b>
-            </th>
-            <th
-              className="text-center"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                CPM
-              </dfn>
-            </th>
-            <th
-              className="text-right"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                Casts
-              </dfn>
-            </th>
-            <th
-              className="text-center"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                Time on Cooldown
-              </dfn>
-            </th>
-            <th />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                href="http://wowhead.com/spell=295373"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_azerite_essence_15.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Concentrated Flame
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              1.76
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              8
-              /11
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "78.34607101056315%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              78.35%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            >
-              Can be improved.
-            </td>
           </tr>
         </tbody>
         <tbody>
@@ -1009,7 +783,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.22
+              0.00
             </td>
             <td
               className="text-right"
@@ -1019,7 +793,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -1038,104 +812,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "4.564283381825787%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              4.56%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                href="http://wowhead.com/spell=204018"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_blessingofprotection.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Blessing of Spellwarding
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.00
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              0
-              /2
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
+                      "backgroundColor": "#ff8000",
                       "width": "0%",
                     }
                   }
@@ -1160,7 +837,9 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   "width": "25%",
                 }
               }
-            />
+            >
+              Can be improved.
+            </td>
           </tr>
         </tbody>
         <tbody>
@@ -1337,7 +1016,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.22
+              0.00
             </td>
             <td
               className="text-right"
@@ -1347,8 +1026,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              1
-              /3
+              0
+              /2
                
               casts
             </td>
@@ -1367,7 +1046,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "44.02845705941274%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -1382,7 +1061,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              44.03%
+              0.00%
             </td>
             <td
               style={
@@ -1436,7 +1115,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.22
+              0.00
             </td>
             <td
               className="text-right"
@@ -1446,7 +1125,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -1465,8 +1144,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "75.66070203374781%",
+                      "backgroundColor": "#ff8000",
+                      "width": "0%",
                     }
                   }
                 />
@@ -1481,7 +1160,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              75.66%
+              0.00%
             </td>
             <td
               style={
@@ -1490,7 +1169,9 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   "width": "25%",
                 }
               }
-            />
+            >
+              Can be improved.
+            </td>
           </tr>
         </tbody>
         <tbody>
@@ -1582,7 +1263,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.66
+              0.37
             </td>
             <td
               className="text-right"
@@ -1592,8 +1273,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              3
-              /3
+              1
+              /2
                
               casts
             </td>
@@ -1612,7 +1293,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "97.96992122575224%",
+                      "width": "74.54203238851306%",
                     }
                   }
                 />
@@ -1627,7 +1308,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              97.97%
+              74.54%
             </td>
             <td
               style={
@@ -1728,7 +1409,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.44
+              0.00
             </td>
             <td
               className="text-right"
@@ -1738,7 +1419,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              2
+              0
               
                
               casts
@@ -1862,7 +1543,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.22
+              1.12
             </td>
             <td
               className="text-right"
@@ -1872,8 +1553,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              1
-              /7
+              3
+              /5
                
               casts
             </td>
@@ -1892,7 +1573,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "16.510671397279776%",
+                      "width": "83.8597864370772%",
                     }
                   }
                 />
@@ -1907,7 +1588,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              16.51%
+              83.86%
             </td>
             <td
               style={
@@ -1959,7 +1640,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.22
+              0.00
             </td>
             <td
               className="text-right"
@@ -1969,8 +1650,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              1
-              /11
+              0
+              /7
                
               casts
             </td>
@@ -1989,7 +1670,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "9.172595220710985%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2004,7 +1685,104 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              9.17%
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=1022"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_sealofprotection.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Blessing of Protection
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
             </td>
             <td
               style={
@@ -2067,7 +1845,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               0
-              /3
+              /2
                
               casts
             </td>
@@ -2164,7 +1942,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               0
-              /35
+              /21
                
               casts
             </td>
@@ -2261,7 +2039,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               0
-              /5
+              /3
                
               casts
             </td>
@@ -2347,7 +2125,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              1.10
+              2.24
             </td>
             <td
               className="text-right"
@@ -2357,8 +2135,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              5
-              /35
+              6
+              /21
                
               casts
             </td>
@@ -2377,7 +2155,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "14.676152353137578%",
+                      "width": "29.81681295540523%",
                     }
                   }
                 />
@@ -2392,7 +2170,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              14.68%
+              29.82%
             </td>
             <td
               style={
@@ -2455,104 +2233,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               0
-              /19
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "0%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              0.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                href="http://wowhead.com/spell=115750"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_blindinglight.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Blinding Light
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.00
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              0
-              /4
+              /11
                
               casts
             </td>
@@ -2687,7 +2368,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.22
+              0.00
             </td>
             <td
               className="text-right"
@@ -2697,7 +2378,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              1
+              0
               /1
                
               casts
@@ -2717,7 +2398,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2732,7 +2413,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -2969,9 +2650,9 @@ Array [
         id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
-            "0": 25,
-            "1": 41,
-            "2": "61",
+            "0": 11,
+            "1": 23,
+            "2": "49",
           }
         }
       />
@@ -2990,7 +2671,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_holy_righteousfury",
-    "importance": "major",
+    "importance": "minor",
     "issue": <React.Fragment>
       <WithI18n
         components={
@@ -3010,9 +2691,9 @@ Array [
         id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
-            "0": 65,
-            "1": 103,
-            "2": "64",
+            "0": 38,
+            "1": 49,
+            "2": "80",
           }
         }
       />
@@ -3051,9 +2732,9 @@ Array [
         id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
-            "0": 1,
-            "1": 3,
-            "2": "44",
+            "0": 0,
+            "1": 2,
+            "2": "0",
           }
         }
       />
@@ -3071,14 +2752,14 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_azerite_essence_15",
+    "icon": "spell_holy_heroism",
     "importance": "major",
     "issue": <React.Fragment>
       <WithI18n
         components={
           Array [
             <ForwardRef
-              id={295373}
+              id={86659}
             />,
           ]
         }
@@ -3092,9 +2773,9 @@ Array [
         id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
-            "0": 8,
-            "1": 11,
-            "2": "78",
+            "0": 0,
+            "1": 1,
+            "2": "0",
           }
         }
       />
@@ -3103,7 +2784,48 @@ Array [
         id=">{0}% is recommended"
         values={
           Object {
-            "0": "95",
+            "0": "80",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_holy_layonhands",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={633}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 1,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "10",
           }
         }
       />
@@ -3146,7 +2868,7 @@ exports[`Protection Paladin integration test: example log Consecration matches t
           className="flex-main value"
         >
           <div>
-            81.64 %
+            57.78 %
           </div>
           <small>
             Hits Mitigated w/ Consecration
@@ -3163,16 +2885,90 @@ Array [
   Object {
     "details": null,
     "icon": "spell_holy_innerfire",
-    "importance": "regular",
+    "importance": "major",
     "issue": "Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.",
     "stat": <React.Fragment>
-      81.64% of hits were mitigated by Consecration 
+      57.78% of hits were mitigated by Consecration
        (
       &gt;95.00% is recommended
       )
     </React.Fragment>,
   },
 ]
+`;
+
+exports[`Protection Paladin integration test: example log CrystallineCarapace matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=271536"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Crystalline Carapace"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_shield_33.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=271536"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Crystalline Carapace
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          13
+           Armor 
+          <br />
+          199
+           Damage (
+          1
+           DPS)
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Protection Paladin integration test: example log DistanceMoved matches the statistic snapshot 1`] = `
@@ -3196,7 +2992,7 @@ exports[`Protection Paladin integration test: example log DistanceMoved matches 
           className="value"
         >
           ≈ 
-          631
+          412
            yards
           <small
             style={
@@ -3206,7 +3002,7 @@ exports[`Protection Paladin integration test: example log DistanceMoved matches 
             }
           >
             ≈ 
-            47.10
+            38.34
             %
           </small>
         </div>
@@ -3267,7 +3063,7 @@ exports[`Protection Paladin integration test: example log EnchantChecker matches
 Array [
   Object {
     "details": null,
-    "icon": "inv_chest_plate_kultirasdungeon_c_01.jpg",
+    "icon": "inv_chest_plate_nzothraid_d_01.jpg",
     "importance": "major",
     "issue": <React.Fragment>
       Your 
@@ -3275,20 +3071,20 @@ Array [
         details={
           Object {
             "bonusIDs": Array [
-              5448,
-              1647,
+              4824,
+              1517,
               4786,
               6510,
             ],
-            "icon": "inv_chest_plate_kultirasdungeon_c_01.jpg",
-            "id": 159416,
-            "itemLevel": 480,
-            "quality": 3,
+            "icon": "inv_chest_plate_nzothraid_d_01.jpg",
+            "id": 174164,
+            "itemLevel": 135,
+            "quality": 4,
           }
         }
         icon={false}
-        id={159416}
-        quality={3}
+        id={174164}
+        quality={4}
       >
         Chest
       </ItemLink>
@@ -3311,24 +3107,23 @@ Array [
               1517,
               4786,
               6514,
-              6479,
-              6470,
+              6516,
             ],
             "gems": Array [
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
-                "id": 168642,
-                "itemLevel": 120,
+                "icon": "inv_misc_gem_x4_uncommon_perfectcut_yellow.jpg",
+                "id": 168641,
+                "itemLevel": 50,
               },
             ],
             "icon": "inv_glove_plate_nzothraid_d_01.jpg",
-            "id": 175006,
-            "itemLevel": 475,
+            "id": 174178,
+            "itemLevel": 140,
             "quality": 4,
           }
         }
         icon={false}
-        id={175006}
+        id={174178}
         quality={4}
       >
         Gloves
@@ -3339,7 +3134,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "inv_ring_80_01d.jpg",
+    "icon": "inv_jewelry_mech_ring_green.jpg",
     "importance": "minor",
     "issue": <React.Fragment>
       Your 
@@ -3349,29 +3144,29 @@ Array [
             "bonusIDs": Array [
               6536,
               6578,
-              1647,
+              6579,
+              6539,
+              1524,
               4786,
-              6479,
-              6470,
               6514,
             ],
             "gems": Array [
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
-                "id": 168642,
-                "itemLevel": 120,
+                "icon": "inv_misc_gem_x4_uncommon_perfectcut_yellow.jpg",
+                "id": 168641,
+                "itemLevel": 50,
               },
             ],
-            "icon": "inv_ring_80_01d.jpg",
-            "id": 159460,
-            "itemLevel": 475,
-            "permanentEnchant": 6111,
-            "quality": 3,
+            "icon": "inv_jewelry_mech_ring_green.jpg",
+            "id": 169159,
+            "itemLevel": 130,
+            "permanentEnchant": 6109,
+            "quality": 4,
           }
         }
         icon={false}
-        id={159460}
-        quality={3}
+        id={169159}
+        quality={4}
       >
         Ring
       </ItemLink>
@@ -3381,7 +3176,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "inv_ring_80_03a.jpg",
+    "icon": "inv_70_quest_ring7c.jpg",
     "importance": "minor",
     "issue": <React.Fragment>
       Your 
@@ -3389,32 +3184,30 @@ Array [
         details={
           Object {
             "bonusIDs": Array [
-              6536,
-              4802,
-              40,
-              6515,
-              1637,
+              4824,
+              1517,
               4786,
-              6479,
+              6476,
               6470,
+              6514,
             ],
             "gems": Array [
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
-                "id": 168642,
-                "itemLevel": 120,
+                "icon": "inv_misc_gem_x4_uncommon_perfectcut_yellow.jpg",
+                "id": 168641,
+                "itemLevel": 50,
               },
             ],
-            "icon": "inv_ring_80_03a.jpg",
-            "id": 159458,
-            "itemLevel": 465,
-            "permanentEnchant": 6111,
-            "quality": 3,
+            "icon": "inv_70_quest_ring7c.jpg",
+            "id": 174533,
+            "itemLevel": 140,
+            "permanentEnchant": 6109,
+            "quality": 4,
           }
         }
         icon={false}
-        id={159458}
-        quality={3}
+        id={174533}
+        quality={4}
       >
         Ring
       </ItemLink>
@@ -3432,12 +3225,12 @@ Array [
         details={
           Object {
             "bonusIDs": Array [
-              6603,
+              6601,
               1472,
             ],
             "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
             "id": 169223,
-            "itemLevel": 500,
+            "itemLevel": 155,
             "quality": 5,
           }
         }
@@ -3462,22 +3255,21 @@ Array [
           Object {
             "bonusIDs": Array [
               4824,
+              6516,
               1517,
               4786,
               6514,
-              6479,
-              6470,
             ],
             "gems": Array [
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
-                "id": 168642,
-                "itemLevel": 120,
+                "icon": "inv_misc_metagem_b.jpg",
+                "id": 168636,
+                "itemLevel": 50,
               },
             ],
             "icon": "inv_mace_1h_nzothraid_d_01.jpg",
             "id": 174109,
-            "itemLevel": 485,
+            "itemLevel": 140,
             "permanentEnchant": 6148,
             "quality": 4,
           }
@@ -3621,7 +3413,7 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
         <div
           className="value"
         >
-          3 Resets
+          4 Resets
         </div>
       </div>
       <div
@@ -3669,12 +3461,12 @@ exports[`Protection Paladin integration test: example log HammerOfTheRighteous m
 Array [
   Object {
     "details": null,
-    "icon": "ability_paladin_hammeroftherighteous",
-    "importance": "major",
+    "icon": "paladin_retribution",
+    "importance": "regular",
     "issue": <React.Fragment>
       You should avoid casting 
       <ForwardRef
-        id={53595}
+        id={204019}
       />
        while better spells (namely 
       <ForwardRef
@@ -3691,7 +3483,7 @@ Array [
        ability and should only be used when you have no better spells to cast.
     </React.Fragment>,
     "stat": <React.Fragment>
-      40.00% of casts while better spells were available
+      22.22% of casts while better spells were available
        (
       &lt; 10.00% is recommended
       )
@@ -3735,7 +3527,7 @@ Array [
             className="flex-main value"
           >
             <div>
-              0
+              11
             </div>
             <small>
               Holy Power Wasted
@@ -3816,7 +3608,287 @@ Array [
             </th>
           </tr>
         </thead>
-        <tbody />
+        <tbody>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "30%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=220637"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_righteousfury.jpg"
+                />
+                 
+                Judgment
+              </a>
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                31
+              </dfn>
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "40%",
+                }
+              }
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "width": "55.35714285714286%",
+                  }
+                }
+              />
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                7
+              </dfn>
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "30%",
+                }
+              }
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "width": "63.63636363636363%",
+                  }
+                }
+              />
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "30%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=204019"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/paladin_retribution.jpg"
+                />
+                 
+                Blessed Hammer
+              </a>
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                15
+              </dfn>
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "40%",
+                }
+              }
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "width": "26.785714285714285%",
+                  }
+                }
+              />
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                3
+              </dfn>
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "30%",
+                }
+              }
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "width": "27.27272727272727%",
+                  }
+                }
+              />
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "30%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=31935"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_avengersshield.jpg"
+                />
+                 
+                Avenger's Shield
+              </a>
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                10
+              </dfn>
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "40%",
+                }
+              }
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "width": "17.857142857142858%",
+                  }
+                }
+              />
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                1
+              </dfn>
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "30%",
+                }
+              }
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "width": "9.090909090909092%",
+                  }
+                }
+              />
+            </td>
+          </tr>
+        </tbody>
       </table>
       <table
         className="data-table"
@@ -3839,10 +3911,121 @@ Array [
             </th>
           </tr>
         </thead>
-        <tbody />
+        <tbody>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "30%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=53600"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_shieldofvengeance.jpg"
+                />
+                 
+                Shield of the Righteous
+              </a>
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                51
+              </dfn>
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "40%",
+                }
+              }
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              />
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                17
+              </dfn>
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "30%",
+                }
+              }
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              />
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>,
+]
+`;
+
+exports[`Protection Paladin integration test: example log HolyPowerDetails matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_helmet_96",
+    "importance": "major",
+    "issue": "You wasted 11 Holy Power.",
+    "stat": <React.Fragment>
+      16.42% Holy Power wasted
+       (
+      Wasting &lt;2.00% is recommended
+      )
+    </React.Fragment>,
+  },
 ]
 `;
 
@@ -3908,29 +4091,6 @@ exports[`Protection Paladin integration test: example log Judgment matches the s
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log LightOfTheProtector matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "ability_paladin_lightoftheprotector",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      You should avoid casting 
-      <ForwardRef
-        id={184092}
-      />
-       while at very high health to avoid overhealing.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      27.80% Overhealing
-       (
-      &lt; 10.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Protection Paladin integration test: example log NullDynamo matches the statistic snapshot 1`] = `
 <div
   category="ITEMS"
@@ -3981,11 +4141,11 @@ exports[`Protection Paladin integration test: example log NullDynamo matches the
               src="/img/healing.png"
             />
              
-            4,385
+            104
              HPS
              
             <small>
-              9.02
+              22.67
               % of total
             </small>
             <br />
@@ -3995,11 +4155,11 @@ exports[`Protection Paladin integration test: example log NullDynamo matches the
               src="/img/sword.png"
             />
              
-            4,276
+            96
              DPS
              
             <small>
-              11.57
+              8.45
                % of total
             </small>
           </div>
@@ -4017,6 +4177,21 @@ Array [
     "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
     "issue": <React.Fragment>
+      You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
+      <ItemLink
+        icon={true}
+        id={171275}
+      />
+       can be very effective, especially during shorter encounters. 
+      
+    </React.Fragment>,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_yellow",
+    "importance": "minor",
+    "issue": <React.Fragment>
       You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
       
        increasing output through 
@@ -4027,25 +4202,6 @@ Array [
       
       . 
       
-    </React.Fragment>,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_yellow",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You used a weak potion. 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-       can be used instead of 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-       in order to get a slightly higher damage output.
     </React.Fragment>,
     "stat": null,
   },
@@ -4089,7 +4245,7 @@ exports[`Protection Paladin integration test: example log ShieldOfTheRighteous m
         <div
           className="value"
         >
-          46.38%
+          59.99%
         </div>
       </div>
     </div>
@@ -4121,7 +4277,7 @@ Array [
     "icon": "ability_paladin_shieldofvengeance",
     "importance": "major",
     "issue": <React.Fragment>
-      27.27
+      23.53
       % of your 
       <ForwardRef
         id={53600}
@@ -4133,232 +4289,13 @@ Array [
        (they mitigated at least 2 auto-attacks or 1 tankbuster, or prevented capping charges). You should have Shield of the Righteous up to mitigate as much physical damage as possible.
     </React.Fragment>,
     "stat": <React.Fragment>
-      27.27% good Shield of the Righteous casts
+      23.53% good Shield of the Righteous casts
        (
       90% or more is recommended
       )
     </React.Fragment>,
   },
 ]
-`;
-
-exports[`Protection Paladin integration test: example log Strife matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=304056"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_azerite_essence_17.jpg"
-            />
-             
-            Strife
-          </a>
-           - Minor Rank 
-          3
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <polygon
-              points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774 39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143 26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749 21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096 23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03 45.85,42.051 37.229,33.419"
-            />
-          </svg>
-           
-          740
-           
-          <small>
-            average Versatility gained
-          </small>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Protection Paladin integration test: example log TheCrucibleofFlame matches the statistic snapshot 1`] = `
-<div
-  category="ITEMS"
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "padding": 0,
-    }
-  }
->
-  <div
-    className="col-md-12"
-  >
-    <div
-      category="ITEMS"
-      className="panel statistic standard "
-      position={1000}
-    >
-      <div
-        className="panel-body"
-      >
-        <div
-          className="pad"
-        >
-          <label>
-            <a
-              href="http://wowhead.com/spell=299348"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/inv_radientazeritematrix.jpg"
-              />
-               
-              Ancient Flame
-            </a>
-             - Minor Rank 
-            3
-          </label>
-          <div
-            className="value"
-          >
-            <img
-              alt="Damage"
-              className="icon"
-              src="/img/sword.png"
-            />
-             
-            1,538
-             DPS
-             
-            <small>
-              4.16
-               % of total
-            </small>
-            <br />
-            <img
-              alt="Healing"
-              className="icon"
-              src="/img/healing.png"
-            />
-             
-            234
-             HPS
-             
-            <small>
-              0.48
-              % of total
-            </small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="col-md-12"
-  >
-    <div
-      category="ITEMS"
-      className="panel statistic standard "
-      position={1000}
-    >
-      <div
-        className="panel-body"
-      >
-        <div
-          className="pad"
-        >
-          <label>
-            <a
-              href="http://wowhead.com/spell=299349"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_azerite_essence_15.jpg"
-              />
-               
-              Concentrated Flame
-            </a>
-             - Major Rank 
-            3
-          </label>
-          <div
-            className="value"
-          >
-            <img
-              alt="Damage"
-              className="icon"
-              src="/img/sword.png"
-            />
-             
-            3,531
-             DPS
-             
-            <small>
-              9.55
-               % of total
-            </small>
-            <br />
-            <img
-              alt="Healing"
-              className="icon"
-              src="/img/healing.png"
-            />
-             
-            318
-             HPS
-             
-            <small>
-              0.65
-              % of total
-            </small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 `;
 
 exports[`Protection Paladin integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
@@ -4410,7 +4347,7 @@ exports[`Protection Paladin integration test: example log ThroughputStatisticGro
               }
             }
           >
-            36,955
+            1,134
              DPS
           </div>
           <div
@@ -4427,7 +4364,7 @@ exports[`Protection Paladin integration test: example log ThroughputStatisticGro
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/WajMVyZAKYnkm3NL/#fight=1&source=10&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/vdMxYzZpN6anXfw8/#fight=14&source=16&type=damage-done"
             >
               <div
                 style={
@@ -4499,7 +4436,7 @@ exports[`Protection Paladin integration test: example log ThroughputStatisticGro
               }
             }
           >
-            48,590
+            460
              HPS
           </div>
           <div
@@ -4521,7 +4458,7 @@ exports[`Protection Paladin integration test: example log ThroughputStatisticGro
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/WajMVyZAKYnkm3NL/#fight=1&source=10&type=healing"
+              href="https://www.warcraftlogs.com/reports/vdMxYzZpN6anXfw8/#fight=14&source=16&type=healing"
             >
               <div
                 style={
@@ -4593,7 +4530,7 @@ exports[`Protection Paladin integration test: example log ThroughputStatisticGro
               }
             }
           >
-            48,611
+            1,551
              DTPS
           </div>
           <div
@@ -4611,7 +4548,7 @@ exports[`Protection Paladin integration test: example log ThroughputStatisticGro
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/WajMVyZAKYnkm3NL/#fight=1&source=10&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/vdMxYzZpN6anXfw8/#fight=14&source=16&type=damage-taken"
             >
               <div
                 style={
@@ -4648,7 +4585,7 @@ exports[`Protection Paladin integration test: example log ThroughputStatisticGro
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log VoidTwistedTitanshard matches the statistic snapshot 1`] = `
+exports[`Protection Paladin integration test: example log VitaChargedTitanshard matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -4665,17 +4602,17 @@ exports[`Protection Paladin integration test: example log VoidTwistedTitanshard 
         <label>
           <a
             className="epic"
-            href="http://wowhead.com/item=174528&gems=168642&bonus=4824:1808:6513:1517:4786"
+            href="http://wowhead.com/item=174500&gems=168641&bonus=4824:1517:4786:6514"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Void-Twisted Titanshard"
+              alt="Vita-Charged Titanshard"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_priest_mindspike.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_nature_lightningoverload.jpg"
             />
              
-            Void-Twisted Titanshard
+            Vita-Charged Titanshard
           </a>
         </label>
         <div
@@ -4691,12 +4628,10 @@ exports[`Protection Paladin integration test: example log VoidTwistedTitanshard 
             />
           </svg>
            
-          2
+          27
           % 
           <small>
-            uptime, 
-            11
-            % effectiveness
+            uptime
           </small>
           <br />
           <svg
@@ -4710,44 +4645,14 @@ exports[`Protection Paladin integration test: example log VoidTwistedTitanshard 
             />
           </svg>
            
-          28
+          55
            
           <small>
-            average Crit gained
+            average Haste gained
           </small>
           <br />
-          <img
-            alt="Healing"
-            className="icon"
-            src="/img/healing.png"
-          />
-           
-          882
-           HPS
-           
-          <small>
-            1.81
-            % of total
-          </small>
         </div>
       </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
     </div>
   </div>
 </div>
@@ -4782,8 +4687,8 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "26.921953192978055%",
+                  "backgroundColor": "#df7102",
+                  "width": "42.55000000000001%",
                 }
               }
             />
@@ -4888,7 +4793,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  61.33%
+                  49.49%
                    
                    
                 </div>
@@ -4910,7 +4815,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "27.22875673113969%",
+                        "width": "21.975138832617848%",
                       }
                     }
                   />
@@ -4960,7 +4865,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  63.88%
+                  79.75%
                    
                    
                 </div>
@@ -4980,9 +4885,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "32.72460284779447%",
+                        "width": "98.24764913065353%",
                       }
                     }
                   />
@@ -5001,17 +4906,17 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               >
                 Bad 
                 <a
-                  href="http://wowhead.com/spell=53595"
+                  href="http://wowhead.com/spell=204019"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img
                     alt=""
                     className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_hammeroftherighteous.jpg"
+                    src="//render-us.worldofwarcraft.com/icons/56/paladin_retribution.jpg"
                   />
                    
-                  Hammer of the Righteous
+                  Blessed Hammer
                 </a>
                  casts
               </div>
@@ -5064,7 +4969,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  40.00%
+                  22.22%
                    
                    
                 </div>
@@ -5084,9 +4989,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "20.8125%",
+                        "width": "42.55000000000001%",
                       }
                     }
                   />
@@ -5151,7 +5056,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "30.656024717682932%",
+                  "width": "16.84047648585716%",
                 }
               }
             />
@@ -5302,7 +5207,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  0.00%
+                  83.58%
                    
                    
                 </div>
@@ -5322,9 +5227,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "30.253082414016873%",
                       }
                     }
                   />
@@ -5376,7 +5281,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  27.27%
+                  23.53%
                    
                    
                 </div>
@@ -5398,7 +5303,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "15.136363636363637%",
+                        "width": "13.058823529411768%",
                       }
                     }
                   />
@@ -5449,7 +5354,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  81.64%
+                  57.78%
                    
                    
                 </div>
@@ -5469,9 +5374,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "38.75593220338981%",
+                        "width": "24.049999999999997%",
                       }
                     }
                   />
@@ -5522,7 +5427,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  44.03%
+                  0.00%
                    
                    
                 </div>
@@ -5544,7 +5449,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.55611723197606%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -5797,7 +5702,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -5817,9 +5722,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

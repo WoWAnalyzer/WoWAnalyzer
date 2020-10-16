@@ -6746,7 +6746,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              0.00
+              2.98
             </td>
             <td
               style={
@@ -6814,7 +6814,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
               className="text-right"
             >
               0.00 - 
-              139.41
+              1.46
             </td>
             <td
               style={
@@ -6881,7 +6881,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              357.04
+              3.74
             </td>
             <td
               style={
@@ -6940,7 +6940,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              1.75
+              1.83
             </td>
             <td
               style={
@@ -7120,7 +7120,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              3192.44
+              33.45
             </td>
             <td
               style={

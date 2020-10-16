@@ -15,6 +15,9 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?
 const ERADICATION_DAMAGE_BONUS = 0.1;
 const debug = false;
@@ -126,7 +129,7 @@ class Eradication extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts more for higher uptime.<br /><small><em>NOTE:</em> Uptime may vary based on the encounter.</small></>)
           .icon(SPELLS.ERADICATION_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% Eradication uptime`)
+          .actual(i18n._(t('warlock.destruction.suggestions.eradication.uptime')`${formatPercentage(actual)}% Eradication uptime`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

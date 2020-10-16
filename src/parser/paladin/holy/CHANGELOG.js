@@ -7,6 +7,8 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 15), <>Removed Light Of Dawn from Crusaders Might statistic box and fixed beacon uptime for glimmer players. </>, Abelito75),
+  change(date(2020, 10, 14), <>Added nice graphic for DP to show how lucky or unlucky you were. </>, Abelito75),
   change(date(2020, 10, 13), <>Updated stat weight scaling. </>, Abelito75),
   change(date(2020, 8, 27), <>Updated core Holy Paladin for prepatch. </>, Abelito75),
   change(date(2020, 8, 27), <>Enabled a statistic for the minor of <SpellLink id={SPELLS.LUCID_DREAMS.id} />. </>, Putro),

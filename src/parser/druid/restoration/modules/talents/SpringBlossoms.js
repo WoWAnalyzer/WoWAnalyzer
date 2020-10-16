@@ -4,6 +4,9 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -69,7 +72,7 @@ class SpringBlossoms extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your healing from <SpellLink id={SPELLS.SPRING_BLOSSOMS.id} /> could be improved.
           Either your efflorescence uptime could be improved or the encounter doesn't fit this talent very well.</span>)
           .icon(SPELLS.SPRING_BLOSSOMS.icon)
-          .actual(`${formatPercentage(this.totalPercent)}% healing`)
+          .actual(i18n._(t('druid.restoration.suggestions.springBlossoms.efficiency')`${formatPercentage(this.totalPercent)}% healing`))
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 }

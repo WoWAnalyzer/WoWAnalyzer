@@ -9,6 +9,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class SpiritBombFrailtyDebuff extends Analyzer {
   static dependencies = {
@@ -40,7 +42,7 @@ class SpiritBombFrailtyDebuff extends Analyzer {
     when(this.uptimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This is easy to maintain and an important source of healing.</>)
           .icon(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.icon)
-          .actual(`${formatPercentage(actual)}% Frailty uptime`)
+          .actual(i18n._(t('demonhunter.vengeance.spiritBombFrailtyBuff.uptime')`${formatPercentage(actual)}% Frailty uptime`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

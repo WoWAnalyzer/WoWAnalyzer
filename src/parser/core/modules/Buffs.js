@@ -31,15 +31,15 @@ class Buffs extends Module {
       ...this.abilities.activeAbilities.filter(ability => Boolean(ability.buffSpellId)).map(ability => ({
         spellId: ability.buffSpellId,
         triggeredBySpellId: ability.spell.id !== ability.buffSpellId ? ability.primarySpell.id : undefined,
-        timelineHightlight: true,
+        timelineHighlight: true,
       })),
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.POWER_INFUSION.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

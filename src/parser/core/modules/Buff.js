@@ -23,13 +23,13 @@ class Buff {
     /**
      * Whether the spell should be highlighted on the timeline. You should only highlight important buffs that may affect your cast behavior. Defaults to false.
      */
-    timelineHightlight: PropTypes.bool,
+    timelineHighlight: PropTypes.bool,
   };
 
   spellId = null;
   enabled = true;
   triggeredBySpellId = null;
-  timelineHightlight = false;
+  timelineHighlight = false;
   /**
    * When extending this class you MUST copy-paste this function into the new class. Otherwise your new props will not be set properly.
    * @param options

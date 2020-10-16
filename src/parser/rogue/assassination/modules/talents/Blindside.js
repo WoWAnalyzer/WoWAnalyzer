@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import Analyzer from 'parser/core/Analyzer';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const BLINDSIDE_EXECUTE = 0.3;
 const MS_BUFFER = 100;
@@ -75,7 +77,7 @@ class Blindside extends Analyzer {
     when(this.suggestionThresholds)
     .addSuggestion((suggest, actual, recommended) => suggest(<>Use <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> instead of <SpellLink id={SPELLS.MUTILATE.id} /> when the target is bellow 30% HP or when you have the <SpellLink id={SPELLS.BLINDSIDE_BUFF.id} /> proc. </>)
         .icon(SPELLS.BLINDSIDE_TALENT.icon)
-        .actual(`You used Mutilate ${this.badMutilates} times when Blindside was available`)
+        .actual(i18n._(t('rogue.assassination.suggestions.blindside.efficiency')`You used Mutilate ${this.badMutilates} times when Blindside was available`))
         .recommended(`0 is recommended`));
   }
 

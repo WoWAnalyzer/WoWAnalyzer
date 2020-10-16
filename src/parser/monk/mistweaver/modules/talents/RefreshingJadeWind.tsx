@@ -8,6 +8,9 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const TARGETSPERCAST: number = 78;
 
 class RefreshingJadeWind extends Analyzer {
@@ -65,7 +68,7 @@ class RefreshingJadeWind extends Analyzer {
           </>,
         )
           .icon(SPELLS.REFRESHING_JADE_WIND_TALENT.icon)
-          .actual(`${formatPercentage(this.avgTargetsHitPerRJWPercentage)}% of targets hit per Refreshing Jade Wind`)
+          .actual(i18n._(t('monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit')`${formatPercentage(this.avgTargetsHitPerRJWPercentage)}% of targets hit per Refreshing Jade Wind`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }

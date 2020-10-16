@@ -584,5 +584,10 @@ const spells: SpellList = {
     name: 'Second Wind',
     icon: 'ability_hunter_harass',
   },
+  SHATTERING_THROW: {
+    id: 64382,
+    name: 'Shattering Throw',
+    icon: 'ability_warrior_shatteringthrow',
+  },
 };
 export default spells;
