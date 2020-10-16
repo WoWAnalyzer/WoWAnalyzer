@@ -54,7 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     righteousProtector: RighteousProtector,
     judgment: Judgment,
     seraphim: Seraphim,
-    sanctifiedWrathProJudgement: SanctifiedWrathProtJudgement,
+    sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
