@@ -11,6 +11,9 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class FesteringStrike extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -57,7 +60,7 @@ class FesteringStrike extends Analyzer {
     when(strikeEfficiency).isLessThan(0.60)
         .addSuggestion((suggest, actual, recommended) => suggest(<span>You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often.  When spending runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></span>)
             .icon(SPELLS.FESTERING_STRIKE.icon)
-            .actual(`${formatPercentage(actual)}% of Festering Strikes did not risk overcapping Festering Wounds`)
+            .actual(i18n._(t('deathknight.unholy.suggestions.festeringStrikes.efficiency')`${formatPercentage(actual)}% of Festering Strikes did not risk overcapping Festering Wounds`))
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
             .regular(recommended - 0.30).major(recommended - 0.40));
   }

@@ -10,6 +10,8 @@ import ChiTracker from 'parser/monk/windwalker/modules/resources/ChiTracker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
 import { formatPercentage } from 'common/format';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class ChiDetails extends Analyzer {
   static dependencies = {
@@ -43,7 +45,7 @@ class ChiDetails extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
         .icon('creatureportrait_bubble')
-        .actual(`${this.chiWasted} Chi wasted (${(actual.toFixed(2))} per minute)`)
+        .actual(i18n._(t('monk.windwalker.suggestions.chi.wastedPerMinute')`${this.chiWasted} Chi wasted (${(actual.toFixed(2))} per minute)`))
         .recommended(`${recommended} Chi wasted is recommended`));
   }
 

@@ -9,6 +9,9 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 /**
  *A sweeping attack that strikes all enemies in front of you for (14% of attack power) Frost damage. This attack benefits from Killing Machine. Critical strikes with Frostscythe deal 4 times normal damage.
  */
@@ -71,7 +74,7 @@ class Frostscythe extends Analyzer {
           Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you can hit 2+ targets.
         </>)
         .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% Frostscythe efficiency`)
+        .actual(i18n._(t('deathknight.forst.frostScythe.efficiency')`${formatPercentage(actual)}% Frostscythe efficiency`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

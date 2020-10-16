@@ -15,6 +15,9 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { When } from 'parser/core/ParseResults';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const RECOMMENDED_EFFICIENCY = 0.75;
 const MAGHAR_ORC_PET_HEALTH_INCREASE = 0.1;
 
@@ -118,7 +121,7 @@ class EarthenWallTotem extends Analyzer {
     when(this.earthenWallEfficiency).isLessThan(RECOMMENDED_EFFICIENCY)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Try to cast <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs.</span>)
           .icon(SPELLS.EARTHEN_WALL_TOTEM_TALENT.icon)
-          .actual(`${this.earthenWallEfficiency.toFixed(2)}%`)
+          .actual(i18n._(t('shaman.restoration.suggestions.earthenWallTotem.efficiency')`${this.earthenWallEfficiency.toFixed(2)}%`))
           .recommended(`${recommended}%`)
           .regular(recommended - .15).major(recommended - .3));
   }

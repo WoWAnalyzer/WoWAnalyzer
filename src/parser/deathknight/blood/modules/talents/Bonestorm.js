@@ -6,6 +6,8 @@ import { formatPercentage, formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 
@@ -76,7 +78,7 @@ class Bonestorm extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2 or more targets to maximize the damage and healing. Casting <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is only a minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.</>)
           .icon(SPELLS.BONESTORM_TALENT.icon)
-          .actual(`${ formatPercentage(actual) }% casts hit ${SUGGESTED_MIN_TARGETS_FOR_BONESTORM} or more targets`)
+          .actual(i18n._(t('deathknight.blood.suggestions.boneStorm.notEnoughTargets')`${ formatPercentage(actual) }% casts hit ${SUGGESTED_MIN_TARGETS_FOR_BONESTORM} or more targets`))
           .recommended(`${ formatPercentage(recommended) }%is recommended`));
   }
 

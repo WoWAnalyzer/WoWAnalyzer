@@ -8,6 +8,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import SoulShardTracker from './SoulShardTracker';
 
 const SOUL_SHARD_ICON = 'inv_misc_gem_amethyst_02';
@@ -36,7 +39,7 @@ class SoulShardDetails extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
           .icon(SOUL_SHARD_ICON)
-          .actual(`${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`)
+          .actual(i18n._(t('warlock.demonology.suggestions.soulShards.wastedPerMinutes')`${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`))
           .recommended(`< ${recommended.toFixed(2)} Soul Shards per minute wasted are recommended`));
   }
 

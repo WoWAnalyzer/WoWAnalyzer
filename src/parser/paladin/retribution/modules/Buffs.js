@@ -9,12 +9,12 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.EMPYREAN_POWER_BUFF.id,
         enabled: combatant.hasTalent(SPELLS.EMPYREAN_POWER_TALENT.id),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.DIVINE_PURPOSE_BUFF.id,
         enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.THE_FIRES_OF_JUSTICE_BUFF.id,
@@ -26,12 +26,12 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.AVENGING_WRATH.id,
         enabled: !combatant.hasTalent(SPELLS.CRUSADE_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.CRUSADE_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.CRUSADE_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       // Utility
       {
@@ -62,7 +62,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

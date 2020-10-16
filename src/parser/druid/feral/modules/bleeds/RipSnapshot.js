@@ -6,6 +6,8 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import { TooltipElement } from 'common/Tooltip';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
 import Snapshot from '../core/Snapshot';
@@ -189,7 +191,7 @@ class RipSnapshot extends Snapshot {
         </>,
       )
         .icon(SPELLS.RIP.icon)
-        .actual(`${this.downgradeCount} Rip refresh${this.downgradeCount === 1 ? '' : 'es'} were early downgrades.`)
+        .actual(i18n._(t('druid.feral.suggestions.ripSnapshot.earlyRefresh')`${this.downgradeCount} Rip refresh${this.downgradeCount === 1 ? '' : 'es'} were early downgrades.`))
         .recommended('None is recommended'));
 
     when(this.shouldBeBiteSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
@@ -198,7 +200,7 @@ class RipSnapshot extends Snapshot {
         </>,
       )
         .icon(SPELLS.RIP.icon)
-        .actual(`${this.shouldBeBiteCount} Rip cast${this.shouldBeBiteCount === 1 ? '' : 's'} could have been replaced with Bite.`)
+        .actual(i18n._(t('druid.feral.suggestions.ripSnapshot.shouldBeBite')`${this.shouldBeBiteCount} Rip cast${this.shouldBeBiteCount === 1 ? '' : 's'} could have been replaced with Bite.`))
         .recommended('None is recommended'));
 
     when(this.durationReductionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
@@ -207,7 +209,7 @@ class RipSnapshot extends Snapshot {
         </>,
       )
         .icon(SPELLS.RIP.icon)
-        .actual(`Rip's duration reduced ${this.durationReductionCount} time${this.durationReductionCount === 1 ? '': 's'}.`)
+        .actual(i18n._(t('druid.feral.suggestions.ripSnapshot.reducedDuration')`Rip's duration reduced ${this.durationReductionCount} time${this.durationReductionCount === 1 ? '': 's'}.`))
         .recommended('None is recommended'));
   }
 

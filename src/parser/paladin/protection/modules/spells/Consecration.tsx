@@ -7,7 +7,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { When, ThresholdStyle, NumberThreshold } from 'parser/core/ParseResults';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
-import { Trans } from '@lingui/macro';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class Consecration extends Analyzer {
   _hitsTaken: number = 0;
@@ -45,7 +46,7 @@ class Consecration extends Analyzer {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest('Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.')
             .icon(SPELLS.CONSECRATION_CAST.icon)
-            .actual(`${formatPercentage(actual)}% of hits were mitigated by Consecration `)
+            .actual(i18n._(t('paladin.protection.suggestions.consecration.hitsMitigated')`${formatPercentage(actual)}% of hits were mitigated by Consecration`))
             .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
@@ -58,7 +59,7 @@ class Consecration extends Analyzer {
           <BoringSpellValue
             spell={SPELLS.CONSECRATION_CAST}
             value={`${formatPercentage(this.pctHitsMitigated)} %`}
-            label={<Trans>Hits Mitigated w/ Consecration</Trans>}
+            label="Hits Mitigated w/ Consecration"
           />
       </Statistic>
     );

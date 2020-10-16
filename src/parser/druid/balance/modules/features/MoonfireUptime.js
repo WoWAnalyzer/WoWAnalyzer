@@ -8,6 +8,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class MoonfireUptime extends Analyzer {
   static dependencies = {
@@ -30,7 +32,7 @@ class MoonfireUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime can be improved. Try to pay more attention to your Moonfire on the boss.</>)
         .icon(SPELLS.MOONFIRE_BEAR.icon)
-        .actual(`${formatPercentage(actual)}% Moonfire uptime`)
+        .actual(i18n._(t('druid.balance.suggestions.moonfire.uptime')`${formatPercentage(actual)}% Moonfire uptime`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

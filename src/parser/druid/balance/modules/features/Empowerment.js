@@ -6,6 +6,8 @@ import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import StatisticBox from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 // Abstract class used for lunar & solar empowerments.
 class Empowerment extends Analyzer {
@@ -81,7 +83,7 @@ class Empowerment extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsInverted).addSuggestion((suggest, actual, recommended) => suggest(<>You overcapped {this.wasted} {this.empowermentPrefix} Empowerments by casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> while already at 3 stacks. Try to always spend your empowerments before casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> if you are not going to overcap Astral Power.</>)
         .icon(this.icon)
-        .actual(`${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`)
+        .actual(i18n._(t('druid.balance.suggestions.empowerment.overcapped')`${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
