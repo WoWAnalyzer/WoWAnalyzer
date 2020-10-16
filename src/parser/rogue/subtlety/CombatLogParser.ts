@@ -23,19 +23,23 @@ import NightbladeEarlyRefresh from './modules/core/NightbladeEarlyRefresh';
 import CastsInShadowDance from './modules/core/CastsInShadowDance';
 import NightbladeUptime from './modules/core/NightbladeUptime';
 import CastsInStealth from './modules/core/CastsInStealth';
-import ShadowBladesUptime from "./modules/features/ShadowBladesUptime";
-import SymbolsOfDeathUptime from "./modules/features/SymbolsOfDeathUptime";
+import ShadowBladesUptime from './modules/features/ShadowBladesUptime';
+import SymbolsOfDeathUptime from './modules/features/SymbolsOfDeathUptime';
 import DeepeningShadows from './modules/core/DeepeningShadows';
 import ComboPoints from './modules/core/ComboPoints';
 import Energy from './modules/core/Energy';
 import SymbolsDamageTracker from './modules/core/SymbolsDamageTracker';
 import DanceDamageTracker from './modules/core/DanceDamageTracker';
 import DarkShadowNightblade from './modules/talents/DarkShadow/DarkShadowNightblade';
-import DarkShadowContribution from "./modules/talents/DarkShadow/DarkShadowContribution";
-import FindWeakness from "./modules/talents/FindWeakness";
+import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
+import FindWeakness from './modules/spells/FindWeakness';
 
-import Perforate from "./modules/azerite/Perforate";
+import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
+import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingReprimand';
+import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
+import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
 
+import AkaarisSoulFragment from './modules/spells/shadowlands/legendaries/AkaarisSoulFragment';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
@@ -64,10 +68,11 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     danceCooldownReduction: DeepeningShadows,
+    findWeakness: FindWeakness,
 
     //Casts
-    symbolsOfDeathUptime:  SymbolsOfDeathUptime,
-    shadowBladesUptime : ShadowBladesUptime,
+    symbolsOfDeathUptime: SymbolsOfDeathUptime,
+    shadowBladesUptime: ShadowBladesUptime,
     nightbladeUptime: NightbladeUptime,
     nightbladeDuringSymbols: NightbladeDuringSymbols,
     nightbladeEarlyRefresh: NightbladeEarlyRefresh,
@@ -77,10 +82,15 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     darkShadowContribution: DarkShadowContribution,
     darkShadowNightblade: DarkShadowNightblade,
-    findWeakness: FindWeakness,
 
-    // Traits
-    perforate: Perforate,
+    // Covenants
+    serratedBoneSpike: SerratedBoneSpike,
+    echoingReprimand: EchoingReprimand,
+    flagellation: Flagellation,
+    sepsis: Sepsis,
+
+    // Legendaries
+    akaarisSoulFragment: AkaarisSoulFragment,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

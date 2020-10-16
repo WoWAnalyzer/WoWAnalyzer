@@ -1,28 +1,36 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Events, { DamageEvent } from 'parser/core/Events';
+import { When, ThresholdStyle, NumberThreshold } from 'parser/core/ParseResults';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class Consecration extends Analyzer {
-  _hitsTaken = 0;
-  _hitsMitigated = 0;
+  _hitsTaken: number = 0;
+  _hitsMitigated: number = 0;
 
-  on_toPlayer_damage(event) {
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onPlayerDamage);
+  }
+
+  onPlayerDamage(event: DamageEvent) {
     this._hitsTaken += 1;
     if(this.selectedCombatant.hasBuff(SPELLS.CONSECRATION_BUFF.id)) {
       this._hitsMitigated += 1;
     }
   }
 
-  get pctHitsMitigated() {
+  get pctHitsMitigated(): number {
     return this._hitsMitigated / this._hitsTaken;
   }
 
-  get uptimeSuggestionThresholds() {
+  get uptimeSuggestionThresholds(): NumberThreshold {
     return {
       actual: this.pctHitsMitigated,
       isLessThan: {
@@ -30,11 +38,11 @@ class Consecration extends Analyzer {
         average: 0.9,
         major: .8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest('Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.')
             .icon(SPELLS.CONSECRATION_CAST.icon)
@@ -44,15 +52,18 @@ class Consecration extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.CONSECRATION_CAST.id} />}
-        value={`${formatPercentage(this.pctHitsMitigated)} %`}
-        label="Hits Mitigated w/ Consecration"
-      />
+      <Statistic
+        position={STATISTIC_ORDER.CORE(2)}
+        size="flexible"
+        >
+          <BoringSpellValue
+            spell={SPELLS.CONSECRATION_CAST}
+            value={`${formatPercentage(this.pctHitsMitigated)} %`}
+            label="Hits Mitigated w/ Consecration"
+          />
+      </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default Consecration;

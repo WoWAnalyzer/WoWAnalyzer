@@ -26,11 +26,6 @@ class RollTheBonesEfficiency extends Analyzer {
     rollTheBonesCastTracker: RollTheBonesCastTracker,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
-  }
-
   get goodLowValueRolls(){
     const delayedRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE]
       .filter(cast => cast.RTB_IsDelayed).length;
