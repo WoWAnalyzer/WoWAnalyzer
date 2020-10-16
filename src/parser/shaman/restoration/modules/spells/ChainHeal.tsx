@@ -103,10 +103,10 @@ class ChainHeal extends Analyzer {
       return;
     }
     when(suggestedThreshold.actual).isLessThan(suggestedThreshold.isLessThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {this.maxTargets} potential targets.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<Trans id="shaman.restoration.suggestions.chainHeal.label">Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {this.maxTargets} potential targets.</Trans>)
           .icon(SPELLS.CHAIN_HEAL.icon)
-          .actual(i18n._(t('shaman.restoration.suggestions.chainHeal.averageTargets')`${suggestedThreshold.actual.toFixed(2)} average targets healed`))
-          .recommended(`${suggestedThreshold.isLessThan.minor} average targets healed`)
+          .actual(`${suggestedThreshold.actual.toFixed(2)} ${i18n._(t('shaman.restoration.suggestions.chainHeal.averageTargets')`average targets healed`)}`)
+          .recommended(`${suggestedThreshold.isLessThan.minor} ${i18n._(t('shaman.restoration.suggestions.chainHeal.averageTargets')`average targets healed`)}`)
           .regular(suggestedThreshold.isLessThan.average).major(suggestedThreshold.isLessThan.major));
   }
 

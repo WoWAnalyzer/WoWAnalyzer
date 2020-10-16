@@ -53,8 +53,8 @@ class TidalWaves extends Analyzer {
     when(suggestedThresholds.actual).isGreaterThan(suggestedThresholds.isGreaterThan.minor)
       .addSuggestion((suggest) => suggest(<Trans id="shaman.restoration.suggestions.tidalWaves.label"><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing, consider casting more of them if you are running into mana issues ({formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).</Trans>)
           .icon(SPELLS.TIDAL_WAVES_BUFF.icon)
-          .actual(i18n._(t('shaman.restoration.suggestions.tidalWaves.unused')`${formatPercentage(suggestedThresholds.actual)}% unused Tidal waves`))
-          .recommended(`Less than ${formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)}% unused Tidal Waves`)
+          .actual(`${formatPercentage(suggestedThresholds.actual)}% ${i18n._(t('shaman.restoration.suggestions.tidalWaves.unused')`unused Tidal waves`)}`)
+          .recommended(`<${formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)}% ${i18n._(t('shaman.restoration.suggestions.tidalWaves.unused')`unused Tidal waves`)}`)
           .regular(suggestedThresholds.isGreaterThan.average).major(suggestedThresholds.isGreaterThan.major));
   }
 
