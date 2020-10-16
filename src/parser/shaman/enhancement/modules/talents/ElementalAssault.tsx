@@ -10,6 +10,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/constants';
 import ResourceGenerated from 'interface/others/ResourceGenerated';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 const ELEMENTAL_ASSAULT = {
   INCREASE: .15,
@@ -46,8 +47,7 @@ class ElementalAssault extends Analyzer {
   }
 
   onStormstrikeDamage(event: DamageEvent): void {
-    const dmg = event.amount + (event.absorbed || 0);
-    this.damageGained += dmg * ELEMENTAL_ASSAULT.INCREASE;
+    this.damageGained += calculateEffectiveDamage(event, ELEMENTAL_ASSAULT.INCREASE);
 
     // Use main-hand to determine gained maelstrom weapon stacks, which should catch MW gained from Stormflurry also
     if (MAIN_HAND_DAMAGES.includes(event.ability.guid)) {
