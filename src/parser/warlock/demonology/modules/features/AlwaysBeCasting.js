@@ -26,7 +26,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant. Make good use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} /> or <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} /> when you can.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant. Make good use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} /> or <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} /> when you can.</>)
           .icon('spell_mage_altertime')
           .actual(i18n._(t('warlock.demonology.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
