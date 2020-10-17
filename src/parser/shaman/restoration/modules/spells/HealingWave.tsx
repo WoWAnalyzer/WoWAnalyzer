@@ -10,7 +10,7 @@ import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { When } from 'parser/core/ParseResults';
 
 import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 class HealingWave extends Analyzer {
   static dependencies = {
@@ -59,7 +59,7 @@ class HealingWave extends Analyzer {
     if (this._isCurrentCastInefficient) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'Riptide was off cooldown when you started casting this unbuffed Healing Wave. Casting Riptide into Healing Wave to generate and use a Tidal Wave stack, or using a Flash Flood buff (if talented) is a lot more efficient compared to casting a full-length Healing Wave.';
+      event.meta.inefficientCastReason = <Trans id="shaman.restoration.healingWave.inefficientCast.reason">Riptide was off cooldown when you started casting this unbuffed Healing Wave. Casting Riptide into Healing Wave to generate and use a Tidal Wave stack, or using a Flash Flood buff (if talented) is a lot more efficient compared to casting a full-length Healing Wave.</Trans>;
     }
   }
 
