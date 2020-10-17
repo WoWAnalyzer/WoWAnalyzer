@@ -560,9 +560,9 @@ export interface ChangeHasteEvent extends Event<EventType.ChangeHaste> {
   newHaste: number;
 }
 
-export interface DispelEvent extends Event<EventType.Dispel>{
-  ability: Ability;
-  extraAbility: Ability;
+export interface DispelEvent extends Event<EventType.Dispel> {
+  ability: Ability; // The ability used to dispel
+  extraAbility: Ability; // The ability that was dispelled
   isBuff: number;
   sourceID?: number;
   sourceIsFriendly: boolean;
