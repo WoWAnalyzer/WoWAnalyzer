@@ -2,6 +2,8 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import Snapshot from '../core/Snapshot';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 const BASE_DURATION = 4000;
 const COMBO_POINT_DURATION = 4000;
@@ -22,15 +24,15 @@ class RuptureSnapshot extends Snapshot {
     if (combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
       this.active = false;
     }
+    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER).spell(SPELLS.RUPTURE), this.onSpendResource);
   }
 
   get durationOfFresh() {
     return BASE_DURATION + this.comboPointsOnLastCast * COMBO_POINT_DURATION;
   }
 
-  on_byPlayer_spendresource(event) {
-    if (SPELLS.RUPTURE.id === event.ability.guid &&
-        event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id) {
+  onSpendResource(event) {
+    if (event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id) {
       this.comboPointsOnLastCast = event.resourceChange;
     }
   }

@@ -1,5 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Events from 'parser/core/Events';
 
 /**
  * Adds HP Percent information to the Enemy Entity
@@ -10,7 +11,12 @@ class EnemyHpTracker extends Analyzer {
     enemies: EnemyInstances,
   };
 
-  on_damage(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.damage, this.onDamage);
+  }
+
+  onDamage(event) {
     if(event.targetIsFriendly) {
       return;
     }
