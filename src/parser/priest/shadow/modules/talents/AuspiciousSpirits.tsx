@@ -42,7 +42,7 @@ class AuspiciousSpirits extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.AUSPICIOUS_SPIRITS_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
+            <ItemDamageDone amount={this.damage - this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
           </>
         </BoringSpellValueText>
       </Statistic>
