@@ -10,6 +10,7 @@ import Icon from 'common/Icon';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SpecIcon from 'common/SpecIcon';
 import { TooltipElement } from 'common/Tooltip';
+import { Trans } from '@lingui/macro';
 
 class LowHealthHealing extends React.Component {
   static propTypes = {
@@ -53,7 +54,7 @@ class LowHealthHealing extends React.Component {
     return (
       <div>
         <div style={{ padding: '15px 30px' }}>
-          Max health of target: <Slider
+          <Trans id="shared.lowHealthHealing.slider.maxHealth">Max health of target:</Trans> <Slider
             {...sliderProps}
             defaultValue={this.state.maxPlayerHealthPercentage}
             onChange={(value) => {
@@ -62,7 +63,7 @@ class LowHealthHealing extends React.Component {
               });
             }}
           /><br />
-          Min effective healing (percentage of target's health): <Slider
+          <Trans id="shared.lowHealthHealing.slider.minEffective">Min effective healing (percentage of target's health):</Trans> <Slider
             {...sliderProps}
             defaultValue={this.state.minHealOfMaxHealthPercentage}
             onChange={(value) => {
@@ -76,10 +77,10 @@ class LowHealthHealing extends React.Component {
         <table className="data-table">
           <thead>
             <tr>
-              <th>Time</th>
-              <th>Ability</th>
-              <th>Target</th>
-              <th colSpan="2">Healing done</th>
+              <th><Trans id="common.time">Time</Trans></th>
+              <th><Trans id="common.ability">Ability</Trans></th>
+              <th><Trans id="common.target">Target</Trans></th>
+              <th colSpan="2"><Trans id="common.healingDone">Healing done</Trans></th>
             </tr>
           </thead>
           <tbody>
@@ -126,10 +127,10 @@ class LowHealthHealing extends React.Component {
                       <td style={{ width: 170, paddingRight: 5, textAlign: 'right' }}>
                         {formatNumber(effectiveHealing)} @{' '}
                         {healthPercentage < 0 ? (
-                          <TooltipElement content="This number may be negative when the player had an absorb larger than his health pool.">
-                            {formatPercentage(healthPercentage)}% health
+                          <TooltipElement content={<Trans id="shared.lowHealthHealing.table.event.tooltip">This number may be negative when the player had an absorb larger than his health pool.</Trans>}>
+                            <Trans id="shared.lowHealthHealing.table.event">{formatPercentage(healthPercentage)}% health</Trans>
                           </TooltipElement>
-                        ) : `${formatPercentage(healthPercentage)}% health`}
+                        ) : <Trans id="shared.lowHealthHealing.table.event">{formatPercentage(healthPercentage)}% health</Trans>}
                       </td>
                       <td style={{ width: '35%' }}>
                         <div className="flex performance-bar-container">
@@ -149,8 +150,8 @@ class LowHealthHealing extends React.Component {
             }
             <tr>
               <td colSpan="7">
-                Total healing done on targets below {(this.state.maxPlayerHealthPercentage * 100)}% health: {formatNumber(total)} (spread over {count} seperate heals).<br />
-                Total healing done on targets below {(this.state.maxPlayerHealthPercentage * 100)}% health for more than {Math.round(this.state.minHealOfMaxHealthPercentage * 100)}% of target's max health: {formatNumber(totalBigHealing)} (spread over {bigHealCount} seperate heals).
+                <Trans id="shared.lowHealthHealing.table.total">Total healing done on targets below {(this.state.maxPlayerHealthPercentage * 100)}% health: {formatNumber(total)} (spread over {count} seperate heals).<br />
+                Total healing done on targets below {(this.state.maxPlayerHealthPercentage * 100)}% health for more than {Math.round(this.state.minHealOfMaxHealthPercentage * 100)}% of target's max health: {formatNumber(totalBigHealing)} (spread over {bigHealCount} seperate heals).</Trans>
               </td>
             </tr>
           </tbody>

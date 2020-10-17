@@ -12,6 +12,7 @@ import { EventType } from 'parser/core/Events';
 import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 import './Cooldown.css';
+import { Trans } from '@lingui/macro';
 
 class Cooldown extends React.Component {
   static propTypes = {
@@ -132,8 +133,8 @@ class Cooldown extends React.Component {
           <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
               <SpellLink id={cooldown.spell.id} icon={false} /> ({formatDuration((start - fightStart) / 1000)} -&gt; {formatDuration((end - fightStart) / 1000)})
-              &nbsp;<TooltipElement content="Filter events to the cooldown window.">
-                <a href="javascript:" onClick={() => this.props.applyTimeFilter(start - fightStart, end - fightStart)}>Filter events</a>
+                &nbsp;<TooltipElement content={<Trans id="shared.cooldownThroughputTracker.cooldown.events.tooltip">Filter events to the cooldown window.</Trans>}>
+                <a href="javascript:" onClick={() => this.props.applyTimeFilter(start - fightStart, end - fightStart)}><Trans id="shared.cooldownThroughputTracker.cooldown.events">Filter events</Trans></a>
               </TooltipElement>
             </header>
 
@@ -151,7 +152,7 @@ class Cooldown extends React.Component {
                 <div className="row">
                   <div className="col-xs-12">
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a href="javascript:void(0)" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
+                    <a href="javascript:void(0)" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}><Trans id="shared.cooldownThroughputTracker.cooldown.expand">More</Trans></a>
                   </div>
                 </div>
               </div>
@@ -177,8 +178,8 @@ class Cooldown extends React.Component {
                 }
                 <div className="row">
                   <div className="col-xs-12">
-                    <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                    <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}><Trans id="shared.cooldownThroughputTracker.cooldown.expand.again">Even more</Trans></a>{' | '}{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}><Trans id="shared.cooldownThroughputTracker.cooldown.shrink">Show less</Trans></a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                   </div>
                 </div>
               </div>
@@ -198,7 +199,7 @@ class Cooldown extends React.Component {
                         </SpellLink>
                         {event.type === EventType.Heal && (
                           <span>
-                          <span className="grouped-heal-meta amount"> x {heal.count}</span>
+                            <span className="grouped-heal-meta amount"> x {heal.count}</span>
                           </span>
                         )}
                       </div>
@@ -211,8 +212,8 @@ class Cooldown extends React.Component {
                     </div>
                   );
                 })}
-                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a>{' | '}{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show simple</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}><Trans id="shared.cooldownThroughputTracker.cooldown.shrink">Show less</Trans></a>{' | '}{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}><Trans id="shared.cooldownThroughputTracker.cooldown.simple">Show simple</Trans></a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
               </div>
             )}
           </div>
@@ -226,8 +227,8 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="healing">
                           <div style={{ fontSize: '2em' }}>{formatNumber(healingStatistics.healingDone)}</div>
-                          <TooltipElement content="This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">
-                            healing ({formatNumber(healingStatistics.healingDone / (end - start) * 1000)} HPS)
+                          <TooltipElement content={<Trans id="shared.cooldownThroughputTracker.cooldown.healing.tooltip">This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.</Trans>}>
+                            <Trans id="shared.cooldownThroughputTracker.cooldown.healing">healing ({formatNumber(healingStatistics.healingDone / (end - start) * 1000)} HPS)</Trans>
                           </TooltipElement>
                         </div>
                       );
@@ -236,8 +237,8 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="overhealing">
                           <div style={{ fontSize: '2em' }}>{formatPercentage(healingStatistics.overhealingDone / (healingStatistics.healingDone + healingStatistics.overhealingDone))}%</div>
-                          <TooltipElement content="This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">
-                            overhealing
+                          <TooltipElement content={<Trans id="shared.cooldownThroughputTracker.cooldown.overhealing.tooltip">This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.</Trans>}>
+                            <Trans id="shared.cooldownThroughputTracker.cooldown.overhealing">overhealing</Trans>
                           </TooltipElement>
                         </div>
                       );
@@ -246,8 +247,8 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="absorbed">
                           <div style={{ fontSize: '2em' }}>{formatNumber(total)}</div>
-                          <TooltipElement content="This includes all damage absorbed that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration.">
-                            damage absorbed
+                          <TooltipElement content={<Trans id="shared.cooldownThroughputTracker.cooldown.absorbed.tooltip">This includes all damage absorbed that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration.</Trans>}>
+                            <Trans id="shared.cooldownThroughputTracker.cooldown.absorbed">damage absorbed</Trans>
                           </TooltipElement>
                         </div>
                       );
@@ -257,15 +258,15 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="absorbs-applied">
                           <div style={{ fontSize: '2em' }}>{formatNumber(total)}</div>
-                          <TooltipElement content="The total amount of absorb shields applied during the buff.">
-                            absorb applied
+                          <TooltipElement content={<Trans id="shared.cooldownThroughputTracker.cooldown.absorbApplied.tooltip">The total amount of absorb shields applied during the buff.</Trans>}>
+                            <Trans id="shared.cooldownThroughputTracker.cooldown.absorbApplied">absorb applied</Trans>
                           </TooltipElement>
                         </div>
                       );
                     }
                     case BUILT_IN_SUMMARY_TYPES.MANA: {
                       let manaUsed = 0;
-                      if(cooldown.spell.id === SPELLS.INNERVATE.id) {
+                      if (cooldown.spell.id === SPELLS.INNERVATE.id) {
                         manaUsed = cooldown.events.filter(event => event.type === EventType.Cast).reduce((total, event) => total + (event.rawResourceCost[RESOURCE_TYPES.MANA.id] || 0), 0);
                       } else {
                         manaUsed = cooldown.events.filter(event => event.type === EventType.Cast).reduce((total, event) => total + (event.resourceCost[RESOURCE_TYPES.MANA.id] || 0), 0);
@@ -282,8 +283,8 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="damage">
                           <div style={{ fontSize: '2em' }}>{formatNumber(damageStatistics.damageDone)}</div>
-                          <TooltipElement content="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">
-                            damage ({formatNumber(damageStatistics.damageDone / (end - start) * 1000)} DPS)
+                          <TooltipElement content={<Trans id="shared.cooldownThroughputTracker.cooldown.damageDone.tooltip">This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.</Trans>}>
+                            <Trans id="shared.cooldownThroughputTracker.cooldown.damageDone">damage ({formatNumber(damageStatistics.damageDone / (end - start) * 1000)} DPS)</Trans>
                           </TooltipElement>
                         </div>
                       );
