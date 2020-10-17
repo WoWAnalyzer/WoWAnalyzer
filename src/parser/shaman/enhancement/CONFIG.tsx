@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { HawkCorrigan, Vetyst } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import Warning from 'interface/Alert/Warning';
 
@@ -9,13 +8,13 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [HawkCorrigan, Vetyst],
+  contributors: [],
   patchCompatibility: '8.3',
   isSupported: false,
   description: (
     <>
       <Warning>
-        Hey there! Right now the Enhancement Shaman parser only holds very basic functionality. What we do show should be good to use, but it does not show the complete picture.
+        Enhancement shaman received some major changes for Shadowlands and needs some TLC. If you're looking at logs from before prepatch it should be ok, but bare.
       </Warning>
     </>
   ),

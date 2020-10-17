@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Zerotorescue, tsabo, Gebuz, Aelexe } from 'CONTRIBUTORS';
+import { Zerotorescue, tsabo, Gebuz, Aelexe, Tyndi } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 2), 'Added Akaari\'s Soul Fragment Legendary', [Tyndi]),
   change(date(2019, 1, 27), 'Improvements to the Nightblade analysis.', [tsabo]),
   change(date(2019, 1, 19), 'Fix Shuriken Storm CP waste. Any Shuriken Storm that generates at least 3CPs will not be considered waste, otherwise waste will be limited by the CP pool size.', [tsabo]),
   change(date(2018, 12, 28), 'Updates for 8.1, minor fixes.', [tsabo]),

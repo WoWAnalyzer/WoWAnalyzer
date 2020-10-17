@@ -44,7 +44,7 @@ class DreadfulCalling extends Analyzer {
       return total + damage;
     }, 0);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.UNSTABLE_AFFLICTION_CAST), this.onUAcast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.UNSTABLE_AFFLICTION), this.onUAcast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(UNSTABLE_AFFLICTION_DEBUFFS), this.onUAdamage);
   }
 

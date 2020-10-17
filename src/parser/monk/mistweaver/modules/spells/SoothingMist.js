@@ -13,8 +13,6 @@ import { formatPercentage } from 'common/format';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-const debug = false;
-
 class SoothingMist extends Analyzer {
   static dependencies = {
     channeling: CoreChanneling,
@@ -70,7 +68,7 @@ class SoothingMist extends Analyzer {
       this.checkChannelTiming();
       this.castsInSoom = 0;
     }
-    
+
     this.startStamp = event.timestamp;
     this.soomInProgress = true;
     const gcd = 1000 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
@@ -91,11 +89,11 @@ class SoothingMist extends Analyzer {
   checkChannelTiming() {
     this.totalSoomCasts += 1;
     let duration = this.endStamp - this.startStamp;
-    
+
     if (duration < this.startGCD) {
       return;
     }
-    
+
     duration -= this.startGCD;
 
     this.castsInSoom -= parseInt(duration / this.assumedGCD);
