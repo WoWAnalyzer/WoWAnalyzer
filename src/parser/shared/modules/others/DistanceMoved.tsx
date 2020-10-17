@@ -6,6 +6,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, EnergizeEvent, HealEvent } from 'parser/core/Events';
 import FlushLineChart from 'interface/others/FlushLineChart';
+import { Trans } from '@lingui/macro';
 
 const debug = false;
 
@@ -86,15 +87,15 @@ class DistanceMoved extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.UNIMPORTANT()}
         tooltip={(
-          <>
+          <Trans id="shared.distanceMoved.statistic.tooltip">
             Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.<br /><br />
 
             In ≈{formatThousands(this.timeSpentMoving / 1000)} seconds of movement you moved ≈{formatThousands(this.totalDistanceMoved)} yards (≈{formatThousands(this.totalDistanceMoved / (this.owner.fightDuration / 1000) * 60)} yards per minute). This statistic may not be entirely accurate for fights with lots of problems.
-          </>
+          </Trans>
         )}
       >
         <div className="pad">
-          <label>Distance moved</label>
+          <label><Trans id="shared.distanceMoved.statistic.label">Distance moved</Trans></label>
 
           <div className="value">
             ≈ {formatThousands(this.totalDistanceMoved)} yards
