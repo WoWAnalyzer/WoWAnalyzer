@@ -6,6 +6,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { Options } from 'parser/core/Module';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 const OVERHEAL_THRESHOLD = 0.75;
 
@@ -38,7 +39,7 @@ export default class WordOfGlory extends Analyzer {
   private _heal(event: HealEvent) {
     const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
 
-    if (event.amount / totalHeal < OVERHEAL_THRESHOLD) {
+    if (event.hitType !== HIT_TYPES.CRIT && event.amount / totalHeal < OVERHEAL_THRESHOLD) {
       this._casts.overhealed += 1;
     }
   }

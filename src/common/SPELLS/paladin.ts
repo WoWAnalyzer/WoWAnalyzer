@@ -511,6 +511,12 @@ const spells: SpellList = {
     name: 'Shining Light',
     icon: 'ability_paladin_lightoftheprotector',
   },
+  // the shining light buff does not have a proper tooltip. this one does. used in display
+  SHINING_LIGHT_DESC: {
+    id: 321136,
+    name: 'Shining Light',
+    icon: 'ability_paladin_toweroflight',
+  },
 	// Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {
     id: 211553,
