@@ -1,5 +1,5 @@
-import Analyzer from 'parser/core/Analyzer';
-import { DamageEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
 
@@ -10,10 +10,13 @@ class AtonementDamageSource extends Analyzer {
     return this._event;
   }
 
-  on_damage(event: DamageEvent) {
-    if (!this.owner.byPlayer(event) && !this.owner.byPlayerPet(event)) {
-      return;
-    }
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onDamage);
+  }
+
+  onDamage(event: DamageEvent) {
     if (!ATONEMENT_DAMAGE_SOURCES[event.ability.guid]) {
       return;
     }

@@ -5,10 +5,10 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import { Options } from 'parser/core/Module';
 import { i18n } from '@lingui/core';
@@ -25,9 +25,12 @@ class TwistOfFate extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
+  onDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF_DISCIPLINE.id, event.timestamp)) {
       return;
     }
@@ -36,11 +39,11 @@ class TwistOfFate extends Analyzer {
     this.damage += raw - raw / 1.2;
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     this.parseHeal(event);
   }
 
-  on_byPlayer_absorbed(event: AbsorbedEvent) {
+  onAbsorb(event: AbsorbedEvent) {
     this.parseHeal(event);
   }
 

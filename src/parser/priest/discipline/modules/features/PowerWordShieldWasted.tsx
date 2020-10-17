@@ -6,15 +6,20 @@ import SpellIcon from 'common/SpellIcon';
 import { TooltipElement } from 'common/Tooltip';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
-import { RemoveBuffEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { RemoveBuffEvent } from 'parser/core/Events';
 
 class PowerWordShieldWasted extends Analyzer {
   wasted = 0;
   count = 0;
   totalCount = 0;
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
+  }
+
+  onRemoveBuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.POWER_WORD_SHIELD.id) {
       return;

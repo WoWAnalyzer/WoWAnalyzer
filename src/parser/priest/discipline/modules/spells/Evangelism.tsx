@@ -5,9 +5,9 @@ import SpellIcon from 'common/SpellIcon';
 import { TooltipElement } from 'common/Tooltip';
 import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { formatPercentage, formatNumber } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 
 import isAtonement from '../core/isAtonement';
@@ -34,13 +34,15 @@ class Evangelism extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
   get evangelismStatistics() {
     return Object.keys(this._evangelismStatistics).map(Number).map((key: number) => this._evangelismStatistics[key]);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.EVANGELISM_TALENT.id) {
       return;
@@ -55,7 +57,7 @@ class Evangelism extends Analyzer {
     };
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     if (isAtonement(event)) {
       const target = this.atonementModule.currentAtonementTargets.find(id => id.target === event.targetID);
       // Pets, guardians, etc.
