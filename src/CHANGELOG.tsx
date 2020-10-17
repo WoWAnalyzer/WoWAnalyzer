@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 18), 'Updated core legacy event listeners to event filters', Zeboot),
   change(date(2020, 10, 15), 'Updated the Spec tab styles to clearly indicate unmaintained specs', Dambroda),
   change(date(2020, 10, 15), 'Added a warning message when loading Classic Logs', Sharrq),
   change(date(2020, 10, 14), 'Fixed the character page.', Abelito75),

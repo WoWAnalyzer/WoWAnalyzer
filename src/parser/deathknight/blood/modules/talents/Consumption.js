@@ -3,10 +3,10 @@ import AoESpellEfficiency from 'parser/shared/modules/features/AoESpellEfficienc
 
 class Consumption extends AoESpellEfficiency {
 
-  ability = SPELLS.CONSUMPTION_TALENT;
 
   constructor(...args) {
     super(...args);
+    this.ability = SPELLS.CONSUMPTION_TALENT;
     this.active = this.selectedCombatant.hasTalent(SPELLS.CONSUMPTION_TALENT.id);
   }
 }

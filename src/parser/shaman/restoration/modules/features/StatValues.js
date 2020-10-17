@@ -8,9 +8,10 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 
+import Events from 'parser/core/Events';
+
 import SPELL_INFO from './StatValuesSpellInfo';
 import MasteryEffectiveness from './MasteryEffectiveness';
-import Events from 'parser/core/Events';
 
 /**
  * Restoration Shaman Stat Values
@@ -85,7 +86,7 @@ class StatValues extends BaseHealerStatValues {
       STAT.INTELLECT,
       {
         stat: STAT.CRITICAL_STRIKE,
-        tooltip: 'Weight does not include Resurgence mana gain.',
+        tooltip: <Trans id="shaman.restoration.statValues.crit">Weight does not include Resurgence mana gain.</Trans>,
       },
       {
         stat: STAT.HASTE_HPCT,
