@@ -2,9 +2,10 @@ import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
-import { RAKE_BASE_DURATION, THRASH_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+
+import { RAKE_BASE_DURATION, THRASH_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
 
 const EARLY_BLEED_EXPIRE_TO_COUNT_AS_DEATH = 500;
 const BLEED_BASE_DURATIONS = {

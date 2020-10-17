@@ -13,7 +13,7 @@ import { When } from 'parser/core/ParseResults';
 import Events, { HealEvent } from 'parser/core/Events';
 
 import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
@@ -97,8 +97,8 @@ class HealingRain extends Analyzer {
         value={`${this.averageHitsPerTick.toFixed(2)}`}
         position={STATISTIC_ORDER.OPTIONAL()}
         label={(
-          <TooltipElement content="The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.">
-            Average Healing Rain Targets
+          <TooltipElement content={<Trans id="shaman.restoration.healingRain.averageTargets.label.tooltip">The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.</Trans>}>
+            <Trans id="shaman.restoration.healingRain.averageTargets.label">Average Healing Rain Targets</Trans>
           </TooltipElement>
         )}
       />
