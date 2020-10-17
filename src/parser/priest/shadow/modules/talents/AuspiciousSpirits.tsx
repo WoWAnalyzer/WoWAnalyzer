@@ -36,7 +36,7 @@ class AuspiciousSpirits extends Analyzer {
           <>
             {formatNumber(this.insanity)} Insanity generated.<br /><br />
 
-            The damage displayed is the additional damage you gained from taking this talent. The Spirits are doing roughly twice as much overall damage.
+            The damage displayed is the additional damage you gained from taking this talent.
           </>
         )}
       >

@@ -1,8 +1,7 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import Events, { CastEvent, ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -13,8 +12,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
-import { MS_BUFFER } from '../../constants';
 
 /*
   Shadow word pain can be created by:
@@ -43,18 +40,6 @@ class ShadowWordPain extends Analyzer {
   appliedShadowWordPains = 0;
   refreshedShadowWordPains = 0;
 
-  // Dark Void
-  lastDarkVoidCastTimestamp = 0;
-  darkVoidShadowWordPainApplications = 0;
-  darkVoidShadowWordPainRefreshes = 0;
-
-  constructor(options: Options) {
-    super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN), this.onCast);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN), this.onDebuffApplied);
-    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN), this.onDebuffRefreshed);
-  }
-
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.owner.fightDuration;
   }
@@ -62,26 +47,6 @@ class ShadowWordPain extends Analyzer {
   get damage() {
     const spell = this.abilityTracker.getAbility(SPELLS.SHADOW_WORD_PAIN.id);
     return spell.damageEffective + spell.damageAbsorbed;
-  }
-
-  onCast(event: CastEvent) {
-    this.castedShadowWordPains += 1;
-  }
-
-  onDebuffApplied(event: ApplyDebuffEvent) {
-    this.appliedShadowWordPains += 1;
-
-    if (this.lastCastTimestamp !== 0 && event.timestamp < this.lastCastTimestamp + MS_BUFFER) {
-      this.darkVoidShadowWordPainApplications += 1;
-    }
-  }
-
-  onDebuffRefreshed(event: RefreshDebuffEvent) {
-    this.refreshedShadowWordPains += 1;
-
-    if (this.lastCastTimestamp !== 0 && event.timestamp < this.lastCastTimestamp + MS_BUFFER) {
-      this.darkVoidShadowWordPainRefreshes += 1;
-    }
   }
 
   get suggestionThresholds() {

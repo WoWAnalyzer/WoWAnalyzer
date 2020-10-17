@@ -38,9 +38,6 @@ class Haste extends Analyzer {
     [SPELLS.GUARDIAN_OF_AZEROTH_HASTE_BUFF.id]: {
       hastePerStack: 0.02, //Essence
     },
-    [SPELLS.DARK_PASSION.id]: {
-      hastePerStack: 0.01, //Shadow Priest Legacy of the Void
-    },
 
     //region Hunter Haste Buffs
     [SPELLS.DIRE_BEAST_BUFF.id]: DIRE_BEAST_HASTE_PERCENT,

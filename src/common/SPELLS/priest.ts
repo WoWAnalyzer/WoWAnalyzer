@@ -605,6 +605,12 @@ const spells: SpellList<PriestSpell> = {
     icon: 'ability_priest_shadowyapparition',
   },
 
+  SHADOWY_APPARITION_CAST: {
+    id: 341263,
+    name: 'Shadowy Apparition',
+    icon: 'ability_priest_shadowyapparition',
+  },
+
   // Shadow Buffs
 
   VOIDFORM: {
@@ -619,22 +625,22 @@ const spells: SpellList<PriestSpell> = {
     icon: 'spell_priest_voidform',
   },
 
-  LINGERING_INSANITY: {
-    id: 197937,
-    name: 'Lingering Insanity',
-    icon: 'spell_shadow_twistedfaith',
-  },
-
-  DARK_PASSION: {
-    id: 342855,
-    name: 'Dark Passion',
-    icon: 'spell_shadow_twistedfaith',
-  },
-
   DARK_THOUGHTS: {
     id: 341205,
     name: 'Dark Thoughts',
     icon: 'ability_priest_thoughtsteal01',
+  },
+
+  DARK_THOUGHT_BUFF: {
+    id: 341207,
+    name: 'Dark Thought',
+    icon: 'ability_priest_thoughtsteal01',
+  },
+
+  UNFURLING_DARKNESS_BUFF: {
+    id: 341282,
+    name: 'Unfurling Darkness',
+    icon: 'spell_priest_shadow-mend',
   },
 
   // Shadow items:
