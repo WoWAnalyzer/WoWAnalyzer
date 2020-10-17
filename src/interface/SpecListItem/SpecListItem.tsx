@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Contributor from 'interface/ContributorButton';
-import ReadableListing from 'interface/ReadableListing';
 import Config from 'parser/Config';
 
 const SpecListItem = ({
@@ -13,7 +12,7 @@ const SpecListItem = ({
   const className = spec.className.replace(/ /g, '');
   const Component = exampleReport ? 'a' : 'div';
   const builtinfo =
-    contributors.length !== 0 ? 'Maintained by ' : 'CURRENTLY UNMAINTAINED';
+    contributors.length !== 0 ? <>Maintained by:<br /></> : <small><em>CURRENTLY UNMAINTAINED</em></small>;
 
   return (
     <Component
@@ -34,18 +33,20 @@ const SpecListItem = ({
         <h4 className={className}>
           {spec.specName} {spec.className}
         </h4>
-        {builtinfo}{' '}
-        <ReadableListing>
-          {contributors.map(contributor => (
+        Accurate for patch {patchCompatibility}
+        <br />
+        {builtinfo}
+        {contributors.map(contributor =>
+          <>
             <Contributor
               key={contributor.nickname}
               link={false}
               {...contributor}
             />
-          ))}
-        </ReadableListing>
+            {' '}
+          </>
+        )}
         <br />
-        Accurate for patch {patchCompatibility}
       </div>
     </Component>
   );
