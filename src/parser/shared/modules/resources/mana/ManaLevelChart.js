@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import Panel from 'interface/statistics/Panel';
 import Analyzer from 'parser/core/Analyzer';
@@ -22,8 +23,8 @@ class ManaLevelChart extends Analyzer {
 
     return (
       <Panel
-        title="Mana pool"
-        explanation="Mana (blue) along with boss HP and deaths. As a rule of thumb aim to burn mana about as quickly as the boss is losing health. Some fights require specific mana management though."
+        title={<Trans id="shared.manaLevelChart.statistic.title">Mana pool</Trans>}
+        explanation={<Trans id="shared.manaLevelChart.statistic.explanation">Mana (blue) along with boss HP and deaths. As a rule of thumb aim to burn mana about as quickly as the boss is losing health. Some fights require specific mana management though.</Trans>}
         position={100}
       >
         <ManaLevelChartComponent

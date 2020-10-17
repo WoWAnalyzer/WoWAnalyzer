@@ -31,11 +31,14 @@ class AoESpellEfficiency extends Analyzer {
 
   constructor(options: Options){
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.ability), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.ability), this.onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   onCast(event: CastEvent) {
+    if(event.ability.guid !== this.ability.id) {
+      return;
+    }
     this.casts.push({
       timestamp: event.timestamp,
       hits: 0,
