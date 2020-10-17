@@ -4,9 +4,10 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -24,37 +25,34 @@ class Gore extends Analyzer {
   overwrittenGoreProc = 0;
   nonGoreMangle = 0;
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.GORE_BEAR.id === spellId) {
-      if (this.spellUsable.isOnCooldown(SPELLS.MANGLE_BEAR.id)) {
-        this.spellUsable.endCooldown(SPELLS.MANGLE_BEAR.id);
-      }
-      this.lastGoreProcTime = event.timestamp;
-      debug && console.log('Gore applied');
-      this.totalProcs += 1;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GORE_BEAR), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GORE_BEAR), this.onRefreshBuff);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MANGLE_BEAR), this.onCast);
   }
 
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.GORE_BEAR.id === spellId) {
-      // Captured Overwritten Gore Buffs for use in wasted buff calculations
-      if (this.spellUsable.isOnCooldown(SPELLS.MANGLE_BEAR.id)) {
-        this.spellUsable.endCooldown(SPELLS.MANGLE_BEAR.id);
-      }
-      this.lastGoreProcTime = event.timestamp;
-      debug && console.log('Gore Overwritten');
-      this.totalProcs += 1;
-      this.overwrittenGoreProc += 1;
+  onApplyBuff(event) {
+    if (this.spellUsable.isOnCooldown(SPELLS.MANGLE_BEAR.id)) {
+      this.spellUsable.endCooldown(SPELLS.MANGLE_BEAR.id);
     }
+    this.lastGoreProcTime = event.timestamp;
+    debug && console.log('Gore applied');
+    this.totalProcs += 1;
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.MANGLE_BEAR.id !== spellId) {
-      return;
+  onRefreshBuff(event) {
+    // Captured Overwritten Gore Buffs for use in wasted buff calculations
+    if (this.spellUsable.isOnCooldown(SPELLS.MANGLE_BEAR.id)) {
+      this.spellUsable.endCooldown(SPELLS.MANGLE_BEAR.id);
     }
+    this.lastGoreProcTime = event.timestamp;
+    debug && console.log('Gore Overwritten');
+    this.totalProcs += 1;
+    this.overwrittenGoreProc += 1;
+  }
+
+  onCast(event) {
     if (this.lastGoreProcTime !== event.timestamp) {
       if (this.lastGoreProcTime === 0) {
         this.nonGoreMangle += 1;

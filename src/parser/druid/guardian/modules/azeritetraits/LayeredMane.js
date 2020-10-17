@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 
 export function layeredManeStats(combatant) {
   if (!combatant.hasTrait(SPELLS.LAYERED_MANE.id)) {
@@ -32,26 +33,15 @@ class LayeredMane extends Analyzer {
 
     this.agility = layeredManeStats(this.selectedCombatant);
     this.statTracker.add(SPELLS.IRONFUR.id, { agility: this.agility });
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onIronfur);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onIronfur);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onIronfur);
   }
 
-  on_byPlayer_applybuffstack(event) {
-    if (event.ability.guid === SPELLS.IRONFUR.id) {
-      this._totalStacks += 1;
-    }
+  onIronfur(){
+    this._totalStacks += 1;
   }
-
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid === SPELLS.IRONFUR.id) {
-      this._totalStacks += 1;
-    }
-  }
-
-  on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.IRONFUR.id) {
-      this._totalCasts += 1;
-    }
-  }
-
+  
   get bonusStacks() {
     return this._totalStacks - this._totalCasts;
   }

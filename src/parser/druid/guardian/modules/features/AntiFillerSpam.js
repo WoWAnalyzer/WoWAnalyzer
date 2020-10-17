@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage , formatDuration } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
@@ -13,6 +13,7 @@ import { t } from '@lingui/macro';
 
 import Abilities from '../Abilities';
 import ActiveTargets from './ActiveTargets';
+import Events from 'parser/core/Events';
 
 const debug = false;
 
@@ -37,7 +38,12 @@ class AntiFillerSpam extends Analyzer {
   _totalFillerSpells = 0;
   _unnecessaryFillerSpells = 0;
 
-  on_byPlayer_cast(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+  }
+
+  onCast(event) {
     const spellId = event.ability.guid;
     const ability = this.abilities.getAbility(spellId);
     if (!ability || !ability.gcd) {

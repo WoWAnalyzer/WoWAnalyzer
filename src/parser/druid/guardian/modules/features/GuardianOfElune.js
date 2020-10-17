@@ -3,8 +3,9 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -24,65 +25,58 @@ class GuardianOfElune extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ELUNE), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ELUNE), this.onRefreshBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onCastIronfur);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FRENZIED_REGENERATION), this.onCastFrenziedRegen);
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.GUARDIAN_OF_ELUNE.id === spellId) {
-      this.lastGoEProcTime = event.timestamp;
-      debug && console.log('Guardian of Elune applied');
-      this.GoEProcsTotal += 1;
-    }
+  onApplyBuff(event) {
+    this.lastGoEProcTime = event.timestamp;
+    debug && console.log('Guardian of Elune applied');
+    this.GoEProcsTotal += 1;
   }
 
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.GUARDIAN_OF_ELUNE.id === spellId) {
-      // Captured Overwritten GoE Buffs for use in wasted buff calculations
-      this.lastGoEProcTime = event.timestamp;
-      debug && console.log('Guardian of Elune Overwritten');
-      this.GoEProcsTotal += 1;
-      this.overwrittenGoEProc += 1;
-    }
+  onRefreshBuff(event) {
+    // Captured Overwritten GoE Buffs for use in wasted buff calculations
+    this.lastGoEProcTime = event.timestamp;
+    debug && console.log('Guardian of Elune Overwritten');
+    this.GoEProcsTotal += 1;
+    this.overwrittenGoEProc += 1;
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.IRONFUR.id !== spellId && SPELLS.FRENZIED_REGENERATION.id !== spellId) {
-      return;
-    }
-    if (SPELLS.IRONFUR.id === spellId) {
-      if (this.lastGoEProcTime !== event.timestamp) {
-        if (this.lastGoEProcTime === null) {
-          this.nonGoEIronFur += 1;
-          return;
-        }
-        const GoETimeframe = this.lastGoEProcTime + GOE_DURATION;
-        if (event.timestamp > GoETimeframe) {
-          this.nonGoEIronFur += 1;
-        } else {
-          this.consumedGoEProc += 1;
-          this.GoEIronFur += 1;
-          debug && console.log(`Guardian of Elune Proc Consumed / Timestamp: ${event.timestamp}`);
-          this.lastGoEProcTime = null;
-        }
+  onCastIronfur(event){
+    if (this.lastGoEProcTime !== event.timestamp) {
+      if (this.lastGoEProcTime === null) {
+        this.nonGoEIronFur += 1;
+        return;
+      }
+      const GoETimeframe = this.lastGoEProcTime + GOE_DURATION;
+      if (event.timestamp > GoETimeframe) {
+        this.nonGoEIronFur += 1;
+      } else {
+        this.consumedGoEProc += 1;
+        this.GoEIronFur += 1;
+        debug && console.log(`Guardian of Elune Proc Consumed / Timestamp: ${event.timestamp}`);
+        this.lastGoEProcTime = null;
       }
     }
-    if (SPELLS.FRENZIED_REGENERATION.id === spellId) {
-      if (this.lastGoEProcTime !== event.timestamp) {
-        if (this.lastGoEProcTime === null) {
-          this.nonGoEFRegen += 1;
-          return;
-        }
-        const GoETimeframe = this.lastGoEProcTime + GOE_DURATION;
-        if (event.timestamp > GoETimeframe) {
-          this.nonGoEFRegen += 1;
-        } else {
-          this.consumedGoEProc += 1;
-          this.GoEFRegen += 1;
-          debug && console.log(`Guardian of Elune Proc Consumed / Timestamp: ${event.timestamp}`);
-          this.lastGoEProcTime = null;
-        }
+  }
+
+  onCastFrenziedRegen(event){
+    if (this.lastGoEProcTime !== event.timestamp) {
+      if (this.lastGoEProcTime === null) {
+        this.nonGoEFRegen += 1;
+        return;
+      }
+      const GoETimeframe = this.lastGoEProcTime + GOE_DURATION;
+      if (event.timestamp > GoETimeframe) {
+        this.nonGoEFRegen += 1;
+      } else {
+        this.consumedGoEProc += 1;
+        this.GoEFRegen += 1;
+        debug && console.log(`Guardian of Elune Proc Consumed / Timestamp: ${event.timestamp}`);
+        this.lastGoEProcTime = null;
       }
     }
   }
