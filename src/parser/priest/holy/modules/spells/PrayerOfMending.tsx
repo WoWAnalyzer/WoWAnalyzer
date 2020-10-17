@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
-import { ApplyBuffEvent, CastEvent, ChangeBuffStackEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, CastEvent, ChangeBuffStackEvent, HealEvent } from 'parser/core/Events';
 
 class PrayerOfMending extends Analyzer {
   totalPoMHealing = 0;
@@ -35,7 +35,15 @@ class PrayerOfMending extends Analyzer {
     return this.totalPoMAbsorption / this.pomHealTicks;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PRAYER_OF_MENDING_CAST, SPELLS.HOLY_WORD_SALVATION_TALENT]), this.onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.PRAYER_OF_MENDING_CAST, SPELLS.HOLY_WORD_SALVATION_TALENT]), this.onHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_MENDING_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_MENDING_BUFF), this.onChangeBuffstack);
+  }
+
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.PRAYER_OF_MENDING_CAST.id) {
@@ -47,7 +55,7 @@ class PrayerOfMending extends Analyzer {
     }
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.PRAYER_OF_MENDING_HEAL.id) {
@@ -61,7 +69,7 @@ class PrayerOfMending extends Analyzer {
     }
   }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
+  onApplyBuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PRAYER_OF_MENDING_BUFF.id) {
       if (event.prepull) {
@@ -71,7 +79,7 @@ class PrayerOfMending extends Analyzer {
     }
   }
 
-  on_byPlayer_changebuffstack(event: ChangeBuffStackEvent) {
+  onChangeBuffstack(event: ChangeBuffStackEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PRAYER_OF_MENDING_BUFF.id) {
       if (event.stacksGained > 0) {

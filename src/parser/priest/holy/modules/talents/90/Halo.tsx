@@ -1,9 +1,9 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -19,30 +19,22 @@ class Halo extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HALO_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HALO_DAMAGE), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HALO_HEAL), this.onHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT), this.onCast);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.HALO_DAMAGE.id) {
-      this.haloDamage += event.amount || 0;
-    }
+  onDamage(event: DamageEvent) {
+    this.haloDamage += event.amount || 0;
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.HALO_HEAL.id) {
-      this.haloHealing += event.amount || 0;
-      this.haloOverhealing += event.overheal || 0;
-    }
+  onHeal(event: HealEvent) {
+    this.haloHealing += event.amount || 0;
+    this.haloOverhealing += event.overheal || 0;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.HALO_TALENT.id) {
-      this.haloCasts += 1;
-    }
+  onCast(event: CastEvent) {
+    this.haloCasts += 1;
   }
 
   statistic() {

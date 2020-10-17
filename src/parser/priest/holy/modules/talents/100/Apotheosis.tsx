@@ -1,4 +1,4 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
@@ -6,7 +6,7 @@ import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
 import { formatNumber } from 'common/format';
 import ItemManaGained from 'interface/ItemManaGained';
-import { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -29,21 +29,17 @@ class Apotheosis extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onRemoveBuff);
   }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.APOTHEOSIS_TALENT.id) {
-      this.apotheosisCasts += 1;
-      this.apotheosisActive = true;
-    }
+  onApplyBuff(event: ApplyBuffEvent) {
+    this.apotheosisCasts += 1;
+    this.apotheosisActive = true;
   }
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.APOTHEOSIS_TALENT.id) {
-      this.apotheosisActive = false;
-    }
+  onRemoveBuff(event: RemoveBuffEvent) {
+    this.apotheosisActive = false;
   }
 
   statistic() {

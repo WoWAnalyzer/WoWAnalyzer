@@ -1,12 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DistanceMoved from 'parser/shared/modules/others/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
-import { ApplyBuffEvent, CastEvent, GlobalCooldownEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, GlobalCooldownEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 
 const MS_BUFFER = 100;
 
@@ -52,6 +52,11 @@ class Renew extends Analyzer {
     if (this.selectedCombatant.hasTalent(SPELLS.BENEDICTION_TALENT.id)) {
       this.benedictionActive = true;
     }
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEW), this.onHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW), this.onRefreshBuff);
+    this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGCD);
   }
 
   get renewsFromBenediction() {
@@ -89,18 +94,14 @@ class Renew extends Analyzer {
     return averageAbsorptionPerRenewApplication * applicationCount;
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.RENEW.id) {
-      this.totalRenewHealing += event.amount || 0;
-      this.totalRenewOverhealing += event.overheal || 0;
-      this.totalRenewAbsorbs += event.absorbed || 0;
-      this.totalRenewTicks += 1;
-    }
+  onHeal(event: HealEvent) {
+    this.totalRenewHealing += event.amount || 0;
+    this.totalRenewOverhealing += event.overheal || 0;
+    this.totalRenewAbsorbs += event.absorbed || 0;
+    this.totalRenewTicks += 1;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
 
     if (this.lastCast) {
@@ -115,11 +116,11 @@ class Renew extends Analyzer {
     }
   }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
+  onApplyBuff(event: ApplyBuffEvent) {
     this.handleRenewApplication(event);
   }
 
-  on_byPlayer_refreshbuff(event: RefreshBuffEvent) {
+  onRefreshBuff(event: RefreshBuffEvent) {
     this.handleRenewApplication(event);
   }
 
@@ -139,7 +140,7 @@ class Renew extends Analyzer {
     }
   }
 
-  on_byPlayer_globalcooldown(event: GlobalCooldownEvent) {
+  onGCD(event: GlobalCooldownEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.RENEW.id) {
       return;
