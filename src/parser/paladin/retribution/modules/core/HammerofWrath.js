@@ -1,6 +1,7 @@
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
+
 import HammerofWrath from '../../../shared/spells/HammerOfWrath'
 
 class HammerofWrathRetribution extends HammerofWrath {
