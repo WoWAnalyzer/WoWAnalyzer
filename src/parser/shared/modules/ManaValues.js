@@ -20,8 +20,8 @@ class ManaValues extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.spec.role === ROLES.HEALER;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.active = this.selectedCombatant.spec.role === ROLES.HEALER;
   }
 
   onCast(event) {
