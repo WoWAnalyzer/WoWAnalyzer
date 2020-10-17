@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2929, 19, 17), "Convert GrandCrusader and SpellUsable to Typescript", Hordehobbs),
   change(date(2020, 10, 14), "Add NoDamageShieldOfTheRighteous analyzer", Hordehobbs),
   change(date(2020, 10, 13), "Convert Consecration analyzer to Typescript.", Hordehobbs),
   change(date(2020, 10, 12), "Initial changes for Shadowlands Prepatch.", [emallson]),
