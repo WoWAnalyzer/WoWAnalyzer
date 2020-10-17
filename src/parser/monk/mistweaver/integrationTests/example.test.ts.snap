@@ -7328,8 +7328,7 @@ exports[`Mistweaver Monk integration test: example log TheFormlessVoid matches t
 >
   <div
     category="ITEMS"
-    className="panel statistic standard "
-    flexible={true}
+    className="panel statistic flexible "
     position={1000}
   >
     <div
@@ -8060,14 +8059,14 @@ exports[`Mistweaver Monk integration test: example log Upwelling matches the sta
       >
         <label>
           <a
-            href="http://wowhead.com/spell=197915"
+            href="http://wowhead.com/spell=274963"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Lifecycles"
+              alt="Upwelling"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_souldance.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_surgingmist.jpg"
             />
           </a>
            Upwelling Healing

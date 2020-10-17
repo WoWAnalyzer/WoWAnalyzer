@@ -191,7 +191,7 @@ class Upwelling extends Analyzer {
         )}
       >
         <BoringValueText 
-          label={<><SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} /> Upwelling Healing</>}
+          label={<><SpellIcon id={SPELLS.UPWELLING_TALENT.id} /> Upwelling Healing</>}
         >
           <>
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealingAll))}% Total Healing

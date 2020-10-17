@@ -26,8 +26,8 @@ class RefreshingJadeWind extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT), this.rjwBuff);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT), this.rjwHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT), this.rjwBuff);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT), this.rjwHeal);
   }
 
   rjwBuff(event: ApplyBuffEvent) {
