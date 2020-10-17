@@ -3,11 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import RollTheBonesCastTracker, { ROLL_THE_BONES_CATEGORIES } from '../features/RollTheBonesCastTracker';
+import Events from 'parser/core/Events';
 
 const MID_TIER_REFRESH_TIME = 11000;
 const HIGH_TIER_REFRESH_TIME = 3000;
@@ -25,6 +26,12 @@ class RollTheBonesEfficiency extends Analyzer {
   static dependencies = {
     rollTheBonesCastTracker: RollTheBonesCastTracker,
   };
+
+  constructor(...args) {
+    super(...args);
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISPATCH, SPELLS.BETWEEN_THE_EYES]), this.onCast);
+  }
 
   get goodLowValueRolls(){
     const delayedRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE]
@@ -45,13 +52,15 @@ class RollTheBonesEfficiency extends Analyzer {
       .filter(cast => this.rollTheBonesCastTracker.castRemainingDuration(cast) <= HIGH_TIER_REFRESH_TIME).length;
   }
 
-  on_byPlayer_cast(event){
+  onCast(event){
     if(event.ability.guid !== SPELLS.DISPATCH.id && event.ability.guid !== SPELLS.BETWEEN_THE_EYES.id){
       return;
     }
 
     const lastCast = this.rollTheBonesCastTracker.lastCast;
     if(lastCast && this.rollTheBonesCastTracker.categorizeCast(lastCast) === ROLL_THE_BONES_CATEGORIES.LOW_VALUE){
+      //FIX WHEN UPDATING ROGUE TO TS
+      // eslint-disable-next-line @typescript-eslint/camelcase
       lastCast.RTB_IsDelayed = true;
     }
   }
