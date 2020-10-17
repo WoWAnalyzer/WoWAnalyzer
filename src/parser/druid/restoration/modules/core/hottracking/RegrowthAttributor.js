@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import HotTracker from './HotTracker';
+import Events from 'parser/core/Events';
 
 const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> applybuff
 /*
@@ -23,23 +24,23 @@ class RegrowthAttributor extends Analyzer {
   totalNonCCRegrowthAbsorbs = 0;
   totalNonCCRegrowthHealingTicks = 0;
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this._getRegrowthAttribution);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this._getRegrowthAttribution);
+  }
+
+  onCast(event) {
     const targetId = event.targetID;
 
     // set last cast timestamps, used for attribution of HoT applications later
-    if (spellId === SPELLS.REGROWTH.id) {
-      this.lastRegrowthCastTimestamp = event.timestamp;
-      this.lastRegrowthTarget = targetId;
-    }
+    this.lastRegrowthCastTimestamp = event.timestamp;
+    this.lastRegrowthTarget = targetId;
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.REGROWTH.id) {
-      return;
-    }
-
+  onHeal(event) {
     if(!this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id, event.timestamp, BUFFER_MS)) {
       this.totalNonCCRegrowthHealing += event.amount;
       this.totalNonCCRegrowthOverhealing += event.overheal || 0;
@@ -50,21 +51,10 @@ class RegrowthAttributor extends Analyzer {
     }
   }
 
-  on_byPlayer_applybuff(event) {
-    this._getRegrowthAttribution(event);
-  }
-
-  on_byPlayer_refreshbuff(event) {
-    this._getRegrowthAttribution(event);
-  }
-
   // gets attribution for a given applybuff/refreshbuff of Regrowth
   _getRegrowthAttribution(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
-    if (spellId !== SPELLS.REGROWTH.id) {
-      return;
-    }
     if(!this.hotTracker.hots[targetId] || !this.hotTracker.hots[targetId][spellId]) {
       return;
     }

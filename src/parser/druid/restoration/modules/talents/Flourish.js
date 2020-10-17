@@ -10,11 +10,12 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import HotTracker from '../core/hottracking/HotTracker';
 
 import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
+import Events from 'parser/core/Events';
 
 const debug = false;
 
@@ -65,12 +66,14 @@ class Flourish extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id);
     this.hasCenarionWard = this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR), this.onHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT), this.onCast);
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     const spellId = event.ability.guid;
 
-    if (this.selectedCombatant.hasBuff(SPELLS.FLOURISH_TALENT.id) && HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.includes(spellId)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.FLOURISH_TALENT.id)) {
       switch (spellId) {
         case SPELLS.REJUVENATION.id:
           this.increasedRateRejuvenationHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
@@ -114,12 +117,7 @@ class Flourish extends Analyzer {
     }
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.FLOURISH_TALENT.id !== spellId) {
-      return;
-    }
-
+  onCast(event) {
     this.flourishCount += 1;
     debug && console.log(`Flourish cast #: ${this.flourishCount}`);
 

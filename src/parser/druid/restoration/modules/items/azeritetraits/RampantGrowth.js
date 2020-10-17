@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import {formatPercentage, formatNumber} from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
@@ -11,6 +11,7 @@ import { getSpellInfo } from '../../../SpellInfo';
 import StatWeights from '../../features/StatWeights';
 import Mastery from '../../core/Mastery';
 import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from "./common";
+import Events from 'parser/core/Events';
 
 const CRIT_EFFECT = 2;
 const REGROWTH_DURATION = 12000;
@@ -53,12 +54,11 @@ class RampantGrowth extends Analyzer{
       this.healingIncreasePerTick = this.selectedCombatant.traitsBySpellId[SPELLS.RAMPANT_GROWTH_TRAIT.id]
         .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.RAMPANT_GROWTH_TRAIT.id, rank)[0], 0);
     }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onHeal);
   }
 
-  on_byPlayer_cast(event) {
-    if(event.ability.guid !== SPELLS.REGROWTH.id) {
-      return;
-    }
+  onCast(event) {
     const combatant = this.combatants.players[event.targetID];
     if (!combatant) {
       return;
@@ -73,7 +73,7 @@ class RampantGrowth extends Analyzer{
     }
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     const spellId = event.ability.guid;
     const combatant = this.combatants.players[event.targetID];
 

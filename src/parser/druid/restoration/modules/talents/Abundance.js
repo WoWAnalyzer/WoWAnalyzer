@@ -4,7 +4,8 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 const MS_BUFFER=200;
 const ABUNDANCE_MANA_REDUCTION = 0.06;
@@ -22,16 +23,11 @@ class Abundance extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ABUNDANCE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onCast);
   }
 
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if(spellId !== SPELLS.REGROWTH.id) {
-      return;
-    }
-
+  onCast(event) {
     const abundanceBuff = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id, event.timestamp, MS_BUFFER);
     if(abundanceBuff == null) {
       return;

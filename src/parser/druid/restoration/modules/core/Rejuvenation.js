@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import Mastery from "./Mastery";
+import Events from 'parser/core/Events';
 
 const BASE_MANA = 20000;
 const REJUV_COST = 0.105; // % of base mana
@@ -18,11 +19,19 @@ class Rejuvenation extends Analyzer {
 
   totalRejuvsCast = 0;
 
-  on_byPlayer_heal(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.fightend, this.onFightend);
+  }
+
+  onHeal(event) {
     // TODO
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
     // TODO make this account for procs / etc. that apply rejuv
     if (SPELLS.REJUVENATION.id === spellId) {
@@ -30,12 +39,12 @@ class Rejuvenation extends Analyzer {
     }
   }
 
-  on_byPlayer_applybuff(event) {
+  onApplyBuff(event) {
     // TODO check for applications too?
   }
 
 
-  on_fightend() {
+  onFightend() {
     // TODO debug prints
   }
 

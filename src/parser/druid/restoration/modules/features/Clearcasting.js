@@ -5,7 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -33,37 +34,27 @@ class Clearcasting extends Analyzer {
   constructor(...args) {
     super(...args);
     this.procsPerCC = 1;
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF), this.onRefreshBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF), this.onRemoveBuff);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onHeal);
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CLEARCASTING_BUFF.id) {
-      return;
-    }
-
+  onApplyBuff(event) {
     debug && console.log(`Clearcasting applied @${this.owner.formatTimestamp(event.timestamp)} - ${this.procsPerCC} procs remaining`);
     this.totalProcs += this.procsPerCC;
     this.availableProcs = this.procsPerCC;
   }
 
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CLEARCASTING_BUFF.id) {
-      return;
-    }
-
+  onRefreshBuff(event) {
     debug && console.log(`Clearcasting refreshed @${this.owner.formatTimestamp(event.timestamp)} - overwriting ${this.availableProcs} procs - ${this.procsPerCC} procs remaining`);
     this.totalProcs += this.procsPerCC;
     this.overwrittenProcs += this.availableProcs;
     this.availableProcs = this.procsPerCC;
   }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CLEARCASTING_BUFF.id) {
-      return;
-    }
-
+  onRemoveBuff(event) {
     debug && console.log(`Clearcasting expired @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs expired`);
     if (this.availableProcs < 0) {
       this.availableProcs = 0;
@@ -72,12 +63,7 @@ class Clearcasting extends Analyzer {
     this.availableProcs = 0;
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.REGROWTH.id) {
-      return;
-    }
-
+  onCast(event) {
     if(this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       return;
     }
@@ -97,9 +83,8 @@ class Clearcasting extends Analyzer {
     }
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.REGROWTH.id || event.tick) {
+  onHeal(event) {
+    if (event.tick) {
       return;
     }
     const effectiveHealing = event.amount + (event.absorbed || 0);

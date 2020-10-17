@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -9,6 +9,7 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatis
 import StatWeights from '../../features/StatWeights';
 import { getPrimaryStatForItemLevel, findItemLevelByPrimaryStat } from './common';
 import Rejuvenation from '../../core/Rejuvenation';
+import Events from 'parser/core/Events';
 
 /**
  Rejuvenation's duration is increased by 1 sec, and it heals for an additional 82 when it is your only heal over time on the target.
@@ -42,8 +43,13 @@ class AutumnLeaves extends Analyzer {
         .reduce((a, b) => a + b) / this.selectedCombatant.traitsBySpellId[SPELLS.AUTUMN_LEAVES_TRAIT.id].length;
       this.traitLevel = this.selectedCombatant.traitsBySpellId[SPELLS.AUTUMN_LEAVES_TRAIT.id].length;
     }
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION]), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION]), this.onRefreshBuff);
   }
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
 
@@ -56,7 +62,7 @@ class AutumnLeaves extends Analyzer {
     }
   }
 
-  on_byPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
     if (this.lastTickTracker[spellId]) {
@@ -67,19 +73,11 @@ class AutumnLeaves extends Analyzer {
     }
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.REJUVENATION.id !== spellId && SPELLS.REJUVENATION_GERMINATION.id !== spellId) {
-      return;
-    }
+  onApplyBuff(event) {
     this.totalOneSecondValue += 1;
   }
 
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.REJUVENATION.id !== spellId && SPELLS.REJUVENATION_GERMINATION.id !== spellId) {
-      return;
-    }
+  onRefreshBuff(event) {
     this.totalOneSecondValue += 1;
   }
 
