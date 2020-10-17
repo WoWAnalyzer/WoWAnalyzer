@@ -4,6 +4,7 @@ import Panel from 'interface/others/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
+import { Trans } from '@lingui/macro';
 
 import LowHealthHealingComponent from './Component';
 
@@ -18,8 +19,8 @@ class LowHealthHealing extends Analyzer {
       url: 'triage',
       render: () => (
         <Panel
-          title="Triage healing"
-          explanation="This shows all instances of healing people below a certain health threshold."
+          title={<Trans id="shared.lowHealthHealing.tab.title">Triage healing</Trans>}
+          explanation={<Trans id="shared.lowHealthHealing.tab.explanation">This shows all instances of healing people below a certain health threshold.</Trans>}
           pad={false}
         >
           <LowHealthHealingComponent

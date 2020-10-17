@@ -10,9 +10,9 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Enemies from 'parser/shared/modules/Enemies';
 import Healthstone from 'parser/shared/modules/items/Healthstone';
 import Panel from 'interface/others/Panel';
+import Events from 'parser/core/Events';
 
 import DeathRecap from './DeathRecap';
-import Events from 'parser/core/Events';
 
 class DeathRecapTracker extends Analyzer {
   deaths = [];

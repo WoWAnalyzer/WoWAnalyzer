@@ -380,7 +380,7 @@ class SpellUsable extends Analyzer {
   onEvent(event: Event<any>) {
     const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
     //if cast event from previous phase was found, add it to the cooldown tracker without adding it to the phase itself
-    if (timestamp === this._lastTimestamp) {
+    if (event.type === EventType.FilterCooldownInfo && timestamp === this._lastTimestamp) {
       return;
     }
     this._lastTimestamp = timestamp;
