@@ -3,9 +3,10 @@ import AoESpellEfficiency from 'parser/shared/modules/features/AoESpellEfficienc
 import { Options } from 'parser/core/Analyzer';
 
 class DragonRoar extends AoESpellEfficiency {
-  ability = SPELLS.DRAGON_ROAR_TALENT;
+  
   constructor(options: Options) {
     super(options);
+    this.ability = SPELLS.DRAGON_ROAR_TALENT;
     this.active = this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id);
   }
 }
