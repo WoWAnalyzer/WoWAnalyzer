@@ -75,6 +75,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EXPEL_HARM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 15,
         gcd: {
           static: 500,
         },
