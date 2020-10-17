@@ -7,7 +7,7 @@ import { CastEvent } from 'parser/core/Events';
  */
 class GlobalCooldown extends CoreGlobalCooldown {
   on_byPlayer_cast(event: CastEvent) {
-    if (event.ability.guid === SPELLS.MIND_FLAY.id) {
+    if (event.ability.guid === SPELLS.MIND_FLAY.id || event.ability.guid === SPELLS.MIND_SEAR.id) {
       // This GCD gets handled by the `beginchannel` event
       return;
     }
