@@ -4,8 +4,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -26,28 +27,23 @@ class ChiBurst extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHI_BURST_TALENT.id);
     this.raidSize = Object.keys(this.combatants.players).length;
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT), this.onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_HEAL), this.onHeal);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.CHI_BURST_TALENT.id) {
-      this.castChiBurst += 1;
-    }
+  onCast(event) {
+    this.castChiBurst += 1;
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
+  onHeal(event) {
     const targetId = event.targetID;
 
     if (!this.combatants.players[targetId]) {
       return;
     }
-
-    if (spellId === SPELLS.CHI_BURST_HEAL.id) {
-      this.healing += (event.amount || 0) + (event.absorbed || 0);
-      this.targetsChiBurst += 1;
-    }
+    this.healing += (event.amount || 0) + (event.absorbed || 0);
+    this.targetsChiBurst += 1;
   }
 
   get avgTargetsHitPerCB() {
@@ -77,7 +73,7 @@ class ChiBurst extends Analyzer {
           .recommended('30% of the raid hit is recommended'));
   }
 
-  on_fightend() {
+  onFightend() {
     if (debug) {
       console.log(`ChiBurst Casts: ${this.castChiBurst}`);
       console.log(`Total Chi Burst Healing: ${this.healing}`);

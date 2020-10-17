@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -10,6 +10,7 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import { SPELLS_WHICH_REMOVE_BOC } from '../../constants';
+import Events from 'parser/core/Events';
 
 const debug = false;
 const BOC_DURATION = 15000;
@@ -38,31 +39,25 @@ class BlackoutCombo extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onRefreshBuff);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS_WHICH_REMOVE_BOC), this.onCast);
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.BLACKOUT_COMBO_BUFF.id) {
-      debug && console.log('Blackout combo applied');
-      this.blackoutComboBuffs += 1;
-      this.lastBlackoutComboCast = event.timestamp;
-    }
+  onApplyBuff(event) {
+    debug && console.log('Blackout combo applied');
+    this.blackoutComboBuffs += 1;
+    this.lastBlackoutComboCast = event.timestamp;
   }
 
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.BLACKOUT_COMBO_BUFF.id) {
-      debug && console.log('Blackout combo refreshed');
-      this.blackoutComboBuffs += 1;
-      this.lastBlackoutComboCast = event.timestamp;
-    }
+  onRefreshBuff(event) {
+    debug && console.log('Blackout combo refreshed');
+    this.blackoutComboBuffs += 1;
+    this.lastBlackoutComboCast = event.timestamp;
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
-    if (!SPELLS_WHICH_REMOVE_BOC.includes(spellId)) {
-      return;
-    }
     // BOC should be up
     if (this.lastBlackoutComboCast > 0 && this.lastBlackoutComboCast + BOC_DURATION > event.timestamp) {
       this.blackoutComboConsumed += 1;

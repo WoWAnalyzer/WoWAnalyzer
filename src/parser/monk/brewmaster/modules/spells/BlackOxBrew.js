@@ -3,12 +3,13 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Abilities from '../Abilities';
+import Events from 'parser/core/Events';
 
 class BlackOxBrew extends Analyzer {
   static dependencies = {
@@ -29,6 +30,7 @@ class BlackOxBrew extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACK_OX_BREW_TALENT), this.onCast);
   }
 
   _trackCdr(spellId) {
@@ -58,10 +60,7 @@ class BlackOxBrew extends Analyzer {
     }
   }
 
-  on_byPlayer_cast(event) {
-    if(event.ability.guid !== SPELLS.BLACK_OX_BREW_TALENT.id) {
-      return;
-    }
+  onCast(event) {
     this.casts += 1;
 
     this._resetPB();
