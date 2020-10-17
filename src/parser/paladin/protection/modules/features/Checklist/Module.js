@@ -51,7 +51,6 @@ class Checklist extends BaseChecklist {
           wogOverheal: this.wog.overhealSuggestion,
           wogSlWaste: this.wog.wastedSlSuggestion,
           wogSotrCasts: this.wog.sotrSuggestion,
-          wogCastCost: this.wog.castCostSuggestion,
         }}
       />
     );

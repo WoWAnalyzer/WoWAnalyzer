@@ -5,6 +5,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { Options } from 'parser/core/Module';
 
 const OVERHEAL_THRESHOLD = 0.75;
 
@@ -24,7 +25,7 @@ export default class WordOfGlory extends Analyzer {
   };
 
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.cast.spell(SPELLS.WORD_OF_GLORY).by(SELECTED_PLAYER), this._cast);
@@ -95,18 +96,6 @@ export default class WordOfGlory extends Analyzer {
     };
   }
 
-  get castCostSuggestion() {
-    return {
-      actual: this._casts.free / this.totalCasts,
-      isGreaterThan: {
-        minor: 0.1,
-        average: 0.15,
-        major: 0.2,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   get sotrSuggestion() {
     return {
       actual: this._sl.sotrs,
@@ -137,11 +126,5 @@ export default class WordOfGlory extends Analyzer {
         .icon(SPELLS.SHINING_LIGHT.icon)
         .actual(`You lost ${actual} stacks`)
         .recommended(`< ${recommended} is recommended`));
-
-    when(this.castCostSuggestion)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Avoid casting <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> when it isn't free. Your primary mitigation is <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> and should be where you spend most of your Holy Power</>)
-        .icon(SPELLS.WORD_OF_GLORY.icon)
-        .actual(`${formatPercentage(actual)}% casts cost Holy Power`)
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 }

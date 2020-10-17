@@ -76,8 +76,6 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
                      thresholds={thresholds.wogOverheal} />
         <Requirement name={<>Don't let <SpellLink id={SPELLS.SHINING_LIGHT.id} /> expire</>}
                      thresholds={thresholds.wogSlWaste}/>
-        <Requirement name={<>Avoid casting <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> without <SpellLink id={SPELLS.SHINING_LIGHT.id} /></>}
-                     thresholds={thresholds.wogCastCost}/>
         <Requirement name={<>Spend <SpellLink id={SPELLS.SHINING_LIGHT.id} /> quickly to avoid wasting stacks.</>}
                      thresholds={thresholds.wogSotrCasts}
                      tooltip="The number of Shining Light stacks wasted."/>
