@@ -3,6 +3,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 
 const MINOR_THRESHOLD = 0.975;
@@ -25,7 +27,12 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     },
   ];
 
-  on_byPlayer_spendresource(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
+  }
+
+  onSpendResource(event) {
     const comboPointsSpent = event.resourceChange;
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) {
       return;

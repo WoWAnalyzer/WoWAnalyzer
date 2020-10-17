@@ -12,6 +12,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import SPELL_INFO from './StatValuesSpellInfo';
 import MasteryEffectiveness from './MasteryEffectiveness';
 import BeaconHealSource from './beacons/BeaconHealSource';
+import Events from 'parser/core/Events';
 
 const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
 const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with FoL and then immediately casts a HS race conditions may occur. This prevents that (although the buff is probably not applied before the FoL).
@@ -36,14 +37,19 @@ class StatValues extends BaseHealerStatValues {
   qeLive = true;
   active = false;
 
-  on_heal(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.beacontransfer, this.onBeaconTransfer);
+  }
+
+  onHeal(event) {
     if (event.ability.guid === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       // Handle this via the `on_beacontransfer` event
       return;
     }
-    super.on_heal(event);
+    super.onHeal(event);
   }
-  on_beacontransfer(event) {
+  onBeaconTransfer(event) {
     const spellInfo = this._getSpellInfo(event.originalHeal);
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
     const targetHealthPercentage = (event.hitPoints - healVal.effective) / event.maxHitPoints; // hitPoints contains HP *after* the heal

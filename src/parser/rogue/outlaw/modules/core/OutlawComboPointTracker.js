@@ -1,10 +1,16 @@
 import SPELLS from 'common/SPELLS';
 
 import ComboPointTracker from '../../../shared/resources/ComboPointTracker';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 class OutlawComboPointTracker extends ComboPointTracker {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+  }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const spellId = event.ability.guid;
     
     // Bonus hits from Sinister Strike are not included in the energize event, so add them in here

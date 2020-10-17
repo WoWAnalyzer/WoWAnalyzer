@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-import { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Spell from 'common/SPELLS/Spell';
 
@@ -29,18 +29,20 @@ class AoESpellEfficiency extends Analyzer {
   bonusDmg = 0;
   casts: Array<{ timestamp: number, hits: number }> = [];
 
-  on_byPlayer_cast(event: CastEvent) {
-    if (event.ability.guid !== this.ability.id) {
-      return;
-    }
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.ability), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.ability), this.onDamage);
+  }
 
+  onCast(event: CastEvent) {
     this.casts.push({
       timestamp: event.timestamp,
       hits: 0,
     });
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
+  onDamage(event: DamageEvent) {
     if (event.ability.guid !== this.ability.id) {
       return;
     }

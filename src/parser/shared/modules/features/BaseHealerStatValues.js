@@ -6,8 +6,8 @@ import SPELLS from 'common/SPELLS/index';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
-import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { EventType } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import DamageValue from 'parser/shared/modules/DamageValue';
@@ -98,24 +98,31 @@ class BaseHealerStatValues extends Analyzer {
 
   scaleWeightsWithHealth = false;
 
-  on_heal(event) {
-    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
-      const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
-      this._handleHealEvent(event, healVal);
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER_PET), this.onAbsorb);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER_PET), this.onRemoveBuff);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealTaken);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
-  on_absorbed(event) {
-    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
-      const healVal = new HealingValue(event.amount, 0, 0);
-      this._handleHealEvent(event, healVal);
-    }
+
+  onHeal(event) {
+    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    this._handleHealEvent(event, healVal);
   }
-  on_removebuff(event) {
-    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
-      if (event.absorb) {
-        const healVal = new HealingValue(0, 0, event.absorb);
-        this._handleHealEvent(event, healVal);
-      }
+  onAbsorb(event) {
+    const healVal = new HealingValue(event.amount, 0, 0);
+    this._handleHealEvent(event, healVal);
+  }
+  onRemoveBuff(event) {
+    if (event.absorb) {
+      const healVal = new HealingValue(0, 0, event.absorb);
+      this._handleHealEvent(event, healVal);
     }
   }
   _handleHealEvent(event, healVal) {
@@ -284,7 +291,7 @@ class BaseHealerStatValues extends Analyzer {
     return baseHeal * healIncreaseFromOneVers;
   }
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     this._updateMissingHealth(event);
 
     const damageVal = new DamageValue(event.amount, event.absorbed, event.blocked, event.overkill);
@@ -302,7 +309,7 @@ class BaseHealerStatValues extends Analyzer {
     return noVersDamage * damageReductionIncreaseFromOneVers;
   }
 
-  on_toPlayer_heal(event) {
+  onHealTaken(event) {
     this._updateMissingHealth(event);
   }
   _updateMissingHealth(event) {
@@ -312,7 +319,7 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
 
-  on_fightend() {
+  onFightend() {
     if (DEBUG) {
       console.log('total', formatNumber(this.totalAdjustedHealing));
       console.log(`Int - ${formatNumber(this.totalOneInt)}`);

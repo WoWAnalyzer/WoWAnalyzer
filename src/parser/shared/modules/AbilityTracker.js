@@ -1,8 +1,9 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 
 import SpellManaCost from './SpellManaCost';
+import Events from 'parser/core/Events';
 
 class AbilityTracker extends Analyzer {
   static dependencies = {
@@ -12,7 +13,12 @@ class AbilityTracker extends Analyzer {
 
   abilities = {};
 
-  on_byPlayer_cast(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+  }
+
+  onCast(event) {
     const spellId = event.ability.guid;
 
     const cast = this.getAbility(spellId, event.ability);
@@ -37,7 +43,14 @@ class AbilityTracker extends Analyzer {
   }
 }
 class HealingTracker extends AbilityTracker {
-  on_byPlayer_heal(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER_PET), this.onHeal);
+  }
+  onHeal(event) {
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 
@@ -55,18 +68,13 @@ class HealingTracker extends AbilityTracker {
       cast.healingCriticalOverheal = (cast.healingCriticalOverheal || 0) + (event.overheal || 0);
     }
   }
-  on_byPlayer_absorbed(event) {
-    this.on_byPlayer_heal(event);
-  }
-  on_byPlayerPet_heal(event) {
-    this.on_byPlayer_heal(event);
-  }
-  on_byPlayerPet_absorbed(event) {
-    this.on_byPlayer_heal(event);
-  }
 }
 class DamageTracker extends HealingTracker {
-  on_byPlayer_damage(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+  }
+  onDamage(event) {
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 

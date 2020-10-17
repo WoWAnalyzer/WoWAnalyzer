@@ -4,6 +4,7 @@ import BaseMightOfTheMountain, {
 } from 'parser/shared/modules/racials/dwarf/MightOfTheMountain';
 
 import BeaconHealSource from './beacons/BeaconHealSource';
+import Events from 'parser/core/Events';
 
 class MightOfTheMountain extends BaseMightOfTheMountain {
   static dependencies = {
@@ -11,15 +12,19 @@ class MightOfTheMountain extends BaseMightOfTheMountain {
     // We use its "beacontransfer" event
     beaconHealSource: BeaconHealSource,
   };
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.beacontransfer, this.onBeaconTransfer);
+  }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       return;
     }
-    super.on_byPlayer_heal(event);
+    super.onHeal(event);
   }
-  on_beacontransfer(event) {
+  onBeaconTransfer(event) {
     if (!this.isApplicableHeal(event.originalHeal)) {
       return;
     }

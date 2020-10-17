@@ -1,10 +1,11 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
 import ROLES from 'game/ROLES';
 import PropTypes from 'prop-types';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 class ManaValues extends Analyzer {
   static propTypes = {
@@ -20,9 +21,10 @@ class ManaValues extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.spec.role === ROLES.HEALER;
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if (event.prepull) {
       // These are fabricated by the PrePullCooldowns normalizer which guesses class resources which could introduce issues.
       return;

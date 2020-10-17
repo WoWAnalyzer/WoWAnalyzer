@@ -1,21 +1,27 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
-import { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 class Channeling extends CoreChanneling {
 
-  on_byPlayer_cast(event: CastEvent) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EVOCATION), this.onRemoveBuff);
+  }
+
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.ARCANE_MISSILES.id || spellId === SPELLS.EVOCATION.id) {
       this.beginChannel(event);
       return;
     }
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
   }
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     // This will resolve potential issues with evocation showing longer channel times
-    if (event.ability.guid === SPELLS.EVOCATION.id && this.isChannelingSpell(SPELLS.EVOCATION.id)) {
+    if (this.isChannelingSpell(SPELLS.EVOCATION.id)) {
       this.endChannel(event);
     }
   }

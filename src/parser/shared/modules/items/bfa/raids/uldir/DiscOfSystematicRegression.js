@@ -6,7 +6,8 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import {formatNumber} from 'common/format';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 /**
  * Equip: Your attacks have a chance to cause a Void Sector,
@@ -22,14 +23,12 @@ class DiscOfSystematicRegression extends Analyzer {
   constructor(...args){
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.DISC_OF_SYSTEMATIC_REGRESSION.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOIDED_SECTORS), this.onDamage);
   }
 
-  on_byPlayer_damage(event){
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.VOIDED_SECTORS.id){
-      this.totalDamage += (event.amount || 0) + (event.absorbed || 0);
-      this.hits += 1;
-    }
+  onDamage(event){
+    this.totalDamage += (event.amount || 0) + (event.absorbed || 0);
+    this.hits += 1;
   }
 
   statistic() {

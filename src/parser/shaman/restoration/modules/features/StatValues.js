@@ -10,6 +10,7 @@ import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 
 import SPELL_INFO from './StatValuesSpellInfo';
 import MasteryEffectiveness from './MasteryEffectiveness';
+import Events from 'parser/core/Events';
 
 /**
  * Restoration Shaman Stat Values
@@ -26,8 +27,13 @@ class StatValues extends BaseHealerStatValues {
 
   spellInfo = SPELL_INFO;
   qeLive = true;
+  
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.feedheal, this.onFeedHeal);
+  }
 
-  on_feed_heal(event) {
+  onFeedHeal(event) {
     const spellInfo = this._getSpellInfo(event);
     const healVal = new HealingValue(event.feed, 0, 0);
     const targetHealthPercentage = (event.hitPoints - event.amount) / event.maxHitPoints; // hitPoints contains HP *after* the heal
