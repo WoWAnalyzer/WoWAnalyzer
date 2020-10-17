@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 14), "Add NoDamageShieldOfTheRighteous analyzer", Hordehobbs),
   change(date(2020, 10, 13), "Convert Consecration analyzer to Typescript.", Hordehobbs),
   change(date(2020, 10, 12), "Initial changes for Shadowlands Prepatch.", [emallson]),
   change(date(2020, 3, 29), <>Added support for <SpellLink id={SPELLS.LUCID_DREAMS.id} /> minor. Note that the major is still unsupported.</>, emallson),
