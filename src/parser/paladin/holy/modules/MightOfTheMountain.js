@@ -3,8 +3,9 @@ import BaseMightOfTheMountain, {
   CRIT_EFFECT,
 } from 'parser/shared/modules/racials/dwarf/MightOfTheMountain';
 
-import BeaconHealSource from './beacons/BeaconHealSource';
 import Events from 'parser/core/Events';
+
+import BeaconHealSource from './beacons/BeaconHealSource';
 
 class MightOfTheMountain extends BaseMightOfTheMountain {
   static dependencies = {

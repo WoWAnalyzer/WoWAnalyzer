@@ -414,7 +414,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -427,7 +427,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -440,7 +440,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -541,7 +541,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -640,7 +640,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1183,7 +1183,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1196,7 +1196,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1209,7 +1209,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1407,7 +1407,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1525,7 +1525,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1538,7 +1538,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1551,7 +1551,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3491,7 +3491,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -3504,7 +3504,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -3517,7 +3517,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -4131,7 +4131,7 @@ exports[`Shadow Priest integration test: example log DistanceMoved matches the s
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -4210,227 +4210,287 @@ Array [
     "details": null,
     "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5448,
-              1647,
-              4786,
-              6510,
-            ],
-            "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
-            "id": 158349,
-            "itemLevel": 480,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5448,
+                  1647,
+                  4786,
+                  6510,
+                ],
+                "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
+                "id": 158349,
+                "itemLevel": 480,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158349}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={158349}
-        quality={3}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_bracer_cloth_nzothraid_d_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4824,
-              1517,
-              4786,
-              6482,
-              6470,
-              6514,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
-                "id": 168639,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_bracer_cloth_nzothraid_d_01.jpg",
-            "id": 174122,
-            "itemLevel": 475,
-            "quality": 4,
-          }
+                "bonusIDs": Array [
+                  4824,
+                  1517,
+                  4786,
+                  6482,
+                  6470,
+                  6514,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                    "id": 168639,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_bracer_cloth_nzothraid_d_01.jpg",
+                "id": 174122,
+                "itemLevel": 475,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={174122}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Bracers"
+            id="common.slots.bracers"
+          />,
         }
-        icon={false}
-        id={174122}
-        quality={4}
-      >
-        Bracers
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_05b.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6534,
-              4802,
-              6515,
-              1637,
-              4786,
-              6476,
-              6470,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
-                "id": 168639,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_ring_80_05b.jpg",
-            "id": 159461,
-            "itemLevel": 465,
-            "permanentEnchant": 6108,
-            "quality": 3,
-          }
+                "bonusIDs": Array [
+                  6534,
+                  4802,
+                  6515,
+                  1637,
+                  4786,
+                  6476,
+                  6470,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                    "id": 168639,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_ring_80_05b.jpg",
+                "id": 159461,
+                "itemLevel": 465,
+                "permanentEnchant": 6108,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159461}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={159461}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_jewelry_mech_ring_blue.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6536,
-              6578,
-              1532,
-              4786,
-              6514,
-              6476,
-              6470,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
-                "id": 168639,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_jewelry_mech_ring_blue.jpg",
-            "id": 169158,
-            "itemLevel": 475,
-            "permanentEnchant": 6108,
-            "quality": 4,
-          }
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  1532,
+                  4786,
+                  6514,
+                  6476,
+                  6470,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                    "id": 168639,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_jewelry_mech_ring_blue.jpg",
+                "id": 169158,
+                "itemLevel": 475,
+                "permanentEnchant": 6108,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={169158}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={169158}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6603,
-              1472,
-            ],
-            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
-            "id": 169223,
-            "itemLevel": 500,
-            "quality": 5,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6603,
+                  1472,
+                ],
+                "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+                "id": 169223,
+                "itemLevel": 500,
+                "quality": 5,
+              }
+            }
+            icon={false}
+            id={169223}
+            quality={5}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={169223}
-        quality={5}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_staff_2h_battledungeon_c_04.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6536,
-              43,
-              6578,
-              1647,
-              4786,
-              6514,
-              6482,
-              6470,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
-                "id": 168639,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_staff_2h_battledungeon_c_04.jpg",
-            "id": 159636,
-            "itemLevel": 475,
-            "permanentEnchant": 5965,
-            "quality": 3,
-          }
+                "bonusIDs": Array [
+                  6536,
+                  43,
+                  6578,
+                  1647,
+                  4786,
+                  6514,
+                  6482,
+                  6470,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                    "id": 168639,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_staff_2h_battledungeon_c_04.jpg",
+                "id": 159636,
+                "itemLevel": 475,
+                "permanentEnchant": 5965,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159636}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
         }
-        icon={false}
-        id={159636}
-        quality={3}
-      >
-        Weapon
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -6876,7 +6936,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -6936,7 +6996,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6996,7 +7056,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7056,7 +7116,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7116,7 +7176,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -7176,7 +7236,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7236,7 +7296,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
