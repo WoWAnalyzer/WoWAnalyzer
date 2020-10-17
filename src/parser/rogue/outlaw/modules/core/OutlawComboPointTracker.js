@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
 
-import ComboPointTracker from '../../../shared/resources/ComboPointTracker';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+
+import ComboPointTracker from '../../../shared/resources/ComboPointTracker';
 
 class OutlawComboPointTracker extends ComboPointTracker {
   constructor(options){
