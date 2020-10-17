@@ -77,10 +77,10 @@ class LowHealthHealing extends React.Component {
         <table className="data-table">
           <thead>
             <tr>
-              <th><Trans>Time</Trans></th>
-              <th><Trans>Ability</Trans></th>
-              <th><Trans>Target</Trans></th>
-              <th colSpan="2"><Trans>Healing done</Trans></th>
+              <th><Trans id="common.time">Time</Trans></th>
+              <th><Trans id="common.ability">Ability</Trans></th>
+              <th><Trans id="common.target">Target</Trans></th>
+              <th colSpan="2"><Trans id="common.healingDone">Healing done</Trans></th>
             </tr>
           </thead>
           <tbody>

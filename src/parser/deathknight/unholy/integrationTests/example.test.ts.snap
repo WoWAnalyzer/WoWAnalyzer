@@ -939,7 +939,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -3413,7 +3413,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Chest"
+            defaults="Chest"
+            id="common.slots.chest"
           />,
         }
       }
@@ -3458,7 +3459,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Gloves"
+            defaults="Gloves"
+            id="common.slots.gloves"
           />,
         }
       }
@@ -3502,7 +3504,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Ring"
+            defaults="Ring"
+            id="common.slots.ring"
           />,
         }
       }
@@ -3546,7 +3549,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Ring"
+            defaults="Ring"
+            id="common.slots.ring"
           />,
         }
       }
@@ -3584,7 +3588,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Cloak"
+            defaults="Cloak"
+            id="common.slots.cloak"
           />,
         }
       }
@@ -5706,7 +5711,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -5766,7 +5771,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5826,7 +5831,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5886,7 +5891,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5946,7 +5951,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -6006,7 +6011,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6066,7 +6071,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>

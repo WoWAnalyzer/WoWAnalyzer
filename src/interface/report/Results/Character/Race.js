@@ -11,7 +11,7 @@ const Race = (
       <div className="row">
         <div className="col-md-12">
           <h2>
-            <Trans>Race</Trans>
+            <Trans id="common.race">Race</Trans>
           </h2>
         </div>
       </div>

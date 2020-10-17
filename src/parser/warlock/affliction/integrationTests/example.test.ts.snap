@@ -530,7 +530,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1346,7 +1346,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -1494,7 +1494,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -4138,7 +4138,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Chest"
+            defaults="Chest"
+            id="common.slots.chest"
           />,
         }
       }
@@ -4223,7 +4224,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Ring"
+            defaults="Ring"
+            id="common.slots.ring"
           />,
         }
       }
@@ -4268,7 +4270,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Ring"
+            defaults="Ring"
+            id="common.slots.ring"
           />,
         }
       }
@@ -4306,7 +4309,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Cloak"
+            defaults="Cloak"
+            id="common.slots.cloak"
           />,
         }
       }
@@ -4358,7 +4362,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Weapon"
+            defaults="Weapon"
+            id="common.slots.weapon"
           />,
         }
       }
@@ -7219,7 +7224,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7279,7 +7284,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7339,7 +7344,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7399,7 +7404,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7459,7 +7464,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -7519,7 +7524,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7579,7 +7584,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>

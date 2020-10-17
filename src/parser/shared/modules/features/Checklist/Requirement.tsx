@@ -44,7 +44,7 @@ class Requirement extends React.PureComponent<Props> {
       case ThresholdStyle.DECIMAL:
         return `${thresholds.actual.toFixed(2)}`;
       case ThresholdStyle.BOOLEAN:
-        return thresholds.actual ? <Trans>Yes</Trans> : <Trans>No</Trans>;
+        return thresholds.actual ? <Trans id="common.yes">Yes</Trans> : <Trans id="common.no">No</Trans>;
       case ThresholdStyle.SECONDS:
         return `${thresholds.actual.toFixed(2)}s`;
       default:

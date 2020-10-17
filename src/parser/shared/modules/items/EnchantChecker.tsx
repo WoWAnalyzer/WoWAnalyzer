@@ -44,33 +44,33 @@ const STR_SPECS = [
 class EnchantChecker extends Analyzer {
 
   static AGI_ENCHANTABLE_SLOTS = {
-    4: <Trans>Chest</Trans>,
-    7: <Trans>Boots</Trans>,
-    10: <Trans>Ring</Trans>,
-    11: <Trans>Ring</Trans>,
-    14: <Trans>Cloak</Trans>,
-    15: <Trans>Weapon</Trans>,
-    16: <Trans>OffHand</Trans>,
+    4: <Trans id="common.slots.chest">Chest</Trans>,
+    7: <Trans id="common.slots.boots">Boots</Trans>,
+    10: <Trans id="common.slots.ring">Ring</Trans>,
+    11: <Trans id="common.slots.ring">Ring</Trans>,
+    14: <Trans id="common.slots.cloak">Cloak</Trans>,
+    15: <Trans id="common.slots.weapon">Weapon</Trans>,
+    16: <Trans id="common.slots.offhand">OffHand</Trans>,
   };
 
   static STR_ENCHANTABLE_SLOTS = {
-    4: <Trans>Chest</Trans>,
-    9: <Trans>Gloves</Trans>,
-    10: <Trans>Ring</Trans>,
-    11: <Trans>Ring</Trans>,
-    14: <Trans>Cloak</Trans>,
-    15: <Trans>Weapon</Trans>,
-    16: <Trans>OffHand</Trans>,
+    4: <Trans id="common.slots.chest">Chest</Trans>,
+    9: <Trans id="common.slots.gloves">Gloves</Trans>,
+    10: <Trans id="common.slots.ring">Ring</Trans>,
+    11: <Trans id="common.slots.ring">Ring</Trans>,
+    14: <Trans id="common.slots.cloak">Cloak</Trans>,
+    15: <Trans id="common.slots.weapon">Weapon</Trans>,
+    16: <Trans id="common.slots.offhand">OffHand</Trans>,
   };
 
   static INT_ENCHANTABLE_SLOTS = {
-    4: <Trans>Chest</Trans>,
+    4: <Trans id="common.slots.chest">Chest</Trans>,
     8: <Trans>Bracers</Trans>,
-    10: <Trans>Ring</Trans>,
-    11: <Trans>Ring</Trans>,
-    14: <Trans>Cloak</Trans>,
-    15: <Trans>Weapon</Trans>,
-    16: <Trans>OffHand</Trans>,
+    10: <Trans id="common.slots.ring">Ring</Trans>,
+    11: <Trans id="common.slots.ring">Ring</Trans>,
+    14: <Trans id="common.slots.cloak">Cloak</Trans>,
+    15: <Trans id="common.slots.weapon">Weapon</Trans>,
+    16: <Trans id="common.slots.offhand">OffHand</Trans>,
   };
 
   static MIN_ENCHANT_IDS = [

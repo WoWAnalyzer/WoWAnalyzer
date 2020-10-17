@@ -100,9 +100,9 @@ class AncestralProtectionTotem extends Analyzer {
           <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
             <thead>
               <tr>
-                <th><Trans>Time</Trans></th>
-                <th><Trans>Player</Trans></th>
-                <th style={{ textAlign: 'center' }}><Trans>Ability</Trans></th>
+                <th><Trans id="common.time">Time</Trans></th>
+                <th><Trans id="common.player">Player</Trans></th>
+                <th style={{ textAlign: 'center' }}><Trans id="common.ability">Ability</Trans></th>
               </tr>
             </thead>
             <tbody>

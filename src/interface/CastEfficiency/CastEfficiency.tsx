@@ -112,7 +112,7 @@ const CastEfficiency = ({ categories, abilities }: Props) => (
                         {canBeImproved &&
                           ability.castEfficiency &&
                           ability.castEfficiency.suggestion &&
-                          <Trans>Can be improved.</Trans>}
+                          <Trans id="shared.castEfficiency.canBeImproved">Can be improved.</Trans>}
                       </td>
                     </tr>
                   );

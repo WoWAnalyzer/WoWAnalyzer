@@ -19,7 +19,7 @@ const Talents = (
   return (
     <>
       <h3>
-        <Trans>Talents</Trans>
+        <Trans id="common.talents">Talents</Trans>
       </h3>
       <div className="talent-info">
         {talents.map((spellId, index) => (

@@ -58,22 +58,22 @@ export function getName(stat) {
 }
 export function getNameTranslated(stat) { // there's stuff using getName with string functions which Trans breaks
   switch (stat) {
-    case STAT.HEALTH: return <Trans>Health</Trans>;
-    case STAT.STAMINA: return <Trans>Stamina</Trans>;
-    case STAT.MANA: return <Trans>Mana</Trans>;
-    case STAT.STRENGTH: return <Trans>Strength</Trans>;
-    case STAT.AGILITY: return <Trans>Agility</Trans>;
-    case STAT.INTELLECT: return <Trans>Intellect</Trans>;
-    case STAT.CRITICAL_STRIKE: return <Trans>Critical Strike</Trans>;
-    case STAT.HASTE: return <Trans>Haste</Trans>;
-    case STAT.HASTE_HPCT: return <Trans>Haste (HPCT)</Trans>;
-    case STAT.HASTE_HPM: return <Trans>Haste (HPM)</Trans>;
-    case STAT.MASTERY: return <Trans>Mastery</Trans>;
-    case STAT.VERSATILITY: return <Trans>Versatility</Trans>;
-    case STAT.VERSATILITY_DR: return <Trans>Versatility (with DR)</Trans>;
-    case STAT.LEECH: return <Trans>Leech</Trans>;
-    case STAT.AVOIDANCE: return <Trans>Avoidance</Trans>;
-    case STAT.SPEED: return <Trans>Speed</Trans>;
+    case STAT.HEALTH: return <Trans id="common.stat.health">Health</Trans>;
+    case STAT.STAMINA: return <Trans id="common.stat.stamina">Stamina</Trans>;
+    case STAT.MANA: return <Trans id="common.stat.mana">Mana</Trans>;
+    case STAT.STRENGTH: return <Trans id="common.stat.strength">Strength</Trans>;
+    case STAT.AGILITY: return <Trans id="common.stat.agility">Agility</Trans>;
+    case STAT.INTELLECT: return <Trans id="common.stat.intellect">Intellect</Trans>;
+    case STAT.CRITICAL_STRIKE: return <Trans id="common.stat.criticalStrike">Critical Strike</Trans>;
+    case STAT.HASTE: return <Trans id="common.stat.haste">Haste</Trans>;
+    case STAT.HASTE_HPCT: return <Trans id="common.stat.hasteHPCT">Haste (HPCT)</Trans>;
+    case STAT.HASTE_HPM: return <Trans id="common.stat.hasteHPM">Haste (HPM)</Trans>;
+    case STAT.MASTERY: return <Trans id="common.stat.mastery">Mastery</Trans>;
+    case STAT.VERSATILITY: return <Trans id="common.stat.versatility">Versatility</Trans>;
+    case STAT.VERSATILITY_DR: return <Trans id="common.stat.versatilityDR">Versatility (with DR)</Trans>;
+    case STAT.LEECH: return <Trans id="common.stat.leech">Leech</Trans>;
+    case STAT.AVOIDANCE: return <Trans id="common.stat.avoidance">Avoidance</Trans>;
+    case STAT.SPEED: return <Trans id="common.stat.speed">Speed</Trans>;
     default: return null;
   }
 }

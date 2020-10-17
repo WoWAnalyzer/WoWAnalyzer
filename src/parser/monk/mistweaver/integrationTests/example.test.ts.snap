@@ -1083,7 +1083,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1182,7 +1182,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1572,7 +1572,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -4198,7 +4198,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Chest"
+            defaults="Chest"
+            id="common.slots.chest"
           />,
         }
       }
@@ -4290,7 +4291,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Ring"
+            defaults="Ring"
+            id="common.slots.ring"
           />,
         }
       }
@@ -4333,7 +4335,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Ring"
+            defaults="Ring"
+            id="common.slots.ring"
           />,
         }
       }
@@ -4371,7 +4374,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Cloak"
+            defaults="Cloak"
+            id="common.slots.cloak"
           />,
         }
       }
@@ -4422,7 +4426,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Weapon"
+            defaults="Weapon"
+            id="common.slots.weapon"
           />,
         }
       }
@@ -6724,7 +6729,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 />
               </svg>
                
-              Intellect
+              common.stat.intellect
             </td>
             <td
               className="text-right"
@@ -6788,7 +6793,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 />
               </svg>
                
-              Critical Strike
+              common.stat.criticalStrike
             </td>
             <td
               className="text-right"
@@ -6854,7 +6859,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Haste (HPCT)
+                common.stat.hasteHPCT
               </dfn>
             </td>
             <td
@@ -6922,7 +6927,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Haste (HPM)
+                common.stat.hasteHPM
               </dfn>
             </td>
             <td
@@ -6982,7 +6987,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 />
               </svg>
                
-              Mastery
+              common.stat.mastery
             </td>
             <td
               className="text-right"
@@ -7041,7 +7046,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 />
               </svg>
                
-              Versatility
+              common.stat.versatility
             </td>
             <td
               className="text-right"
@@ -7107,7 +7112,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Versatility (with DR)
+                common.stat.versatilityDR
               </dfn>
             </td>
             <td
@@ -7162,7 +7167,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 }
               />
                
-              Leech
+              common.stat.leech
             </td>
             <td
               className="text-right"
@@ -9752,7 +9757,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -11185,7 +11190,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -11245,7 +11250,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -11305,7 +11310,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -11365,7 +11370,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -11425,7 +11430,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -11485,7 +11490,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -11545,7 +11550,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>

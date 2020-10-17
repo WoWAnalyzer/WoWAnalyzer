@@ -478,7 +478,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -577,7 +577,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1320,7 +1320,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -1468,7 +1468,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1567,7 +1567,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -3656,7 +3656,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Chest"
+            defaults="Chest"
+            id="common.slots.chest"
           />,
         }
       }
@@ -3695,7 +3696,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Boots"
+            defaults="Boots"
+            id="common.slots.boots"
           />,
         }
       }
@@ -3735,7 +3737,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Ring"
+            defaults="Ring"
+            id="common.slots.ring"
           />,
         }
       }
@@ -3775,7 +3778,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Ring"
+            defaults="Ring"
+            id="common.slots.ring"
           />,
         }
       }
@@ -3814,7 +3818,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Cloak"
+            defaults="Cloak"
+            id="common.slots.cloak"
           />,
         }
       }
@@ -3854,7 +3859,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Weapon"
+            defaults="Weapon"
+            id="common.slots.weapon"
           />,
         }
       }
@@ -6375,7 +6381,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -6435,7 +6441,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6495,7 +6501,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6555,7 +6561,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6615,7 +6621,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6675,7 +6681,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6735,7 +6741,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>

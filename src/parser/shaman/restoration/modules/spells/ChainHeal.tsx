@@ -159,9 +159,9 @@ class ChainHeal extends Analyzer {
             <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
               <thead>
                 <tr>
-                  <th><Trans>Cast</Trans></th>
-                  <th><Trans>Time</Trans></th>
-                  <th><Trans>Target</Trans></th>
+                  <th><Trans id="common.cast">Cast</Trans></th>
+                  <th><Trans id="common.time">Time</Trans></th>
+                  <th><Trans id="common.target">Target</Trans></th>
                 </tr>
               </thead>
               <tbody>

@@ -157,8 +157,8 @@ class Wellspring extends Analyzer {
         <table className="table table-condensed">
           <thead>
             <tr>
-              <th><Trans>Cast</Trans></th>
-              <th><Trans>Time</Trans></th>
+              <th><Trans id="common.cast">Cast</Trans></th>
+              <th><Trans id="common.time">Time</Trans></th>
               <th />
             </tr>
           </thead>

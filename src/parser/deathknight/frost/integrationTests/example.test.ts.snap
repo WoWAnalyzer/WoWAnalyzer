@@ -3386,7 +3386,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Chest"
+            defaults="Chest"
+            id="common.slots.chest"
           />,
         }
       }
@@ -3424,7 +3425,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Gloves"
+            defaults="Gloves"
+            id="common.slots.gloves"
           />,
         }
       }
@@ -3465,7 +3467,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Ring"
+            defaults="Ring"
+            id="common.slots.ring"
           />,
         }
       }
@@ -3504,7 +3507,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Ring"
+            defaults="Ring"
+            id="common.slots.ring"
           />,
         }
       }
@@ -3543,7 +3547,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Cloak"
+            defaults="Cloak"
+            id="common.slots.cloak"
           />,
         }
       }
@@ -5817,7 +5822,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5877,7 +5882,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5937,7 +5942,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5997,7 +6002,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6057,7 +6062,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6117,7 +6122,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6177,7 +6182,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
