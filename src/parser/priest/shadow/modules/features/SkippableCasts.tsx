@@ -43,7 +43,10 @@ class SkippableCasts extends Analyzer {
 
   statistic() {
     const skippableCasts = this.skippableCastsBetweenVoidbolts;
-
+    if (!skippableCasts) { // If there were no skippable casts there's no point to display the module. It'll probably be 1-2 patches before this displays anything of value.
+      this.active = false;
+      return;
+    }
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(7)}
