@@ -57,7 +57,7 @@ class Stormflurry extends Analyzer {
     let casts = 0;
 
     STORMSTRIKE_CAST_SPELLS.forEach(spell => {
-      casts += this.abilityTracker.getAbility(spell.id).casts;
+      casts += this.abilityTracker.getAbility(spell.id).casts || 0;
     });
 
     return casts;
