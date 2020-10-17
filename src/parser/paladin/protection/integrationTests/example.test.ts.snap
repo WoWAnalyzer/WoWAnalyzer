@@ -3381,10 +3381,10 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
+    className="panel statistic flexible "
+    position={100}
     style={
       Object {
-        "height": "auto",
         "zIndex": 1,
       }
     }
@@ -3393,9 +3393,11 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
+        <div
+          className="flex-sub icon"
+        >
           <a
             href="http://wowhead.com/spell=85043"
             rel="noopener noreferrer"
@@ -3407,13 +3409,16 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
               src="//render-us.worldofwarcraft.com/icons/56/inv_helmet_74.jpg"
             />
           </a>
-           
-          Grand Crusader
-        </label>
+        </div>
         <div
-          className="value"
+          className="flex-main value"
         >
-          4 Resets
+          <div>
+            4 Resets
+          </div>
+          <small>
+            Grand Crusader
+          </small>
         </div>
       </div>
       <div
