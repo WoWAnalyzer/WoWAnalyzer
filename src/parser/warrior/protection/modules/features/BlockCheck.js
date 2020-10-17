@@ -3,13 +3,14 @@ import { formatPercentage, formatThousands } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import ShieldBlock from '../spells/ShieldBlock';
+import Events from 'parser/core/Events';
 
 const debug = false;
 
@@ -62,9 +63,11 @@ class BlockCheck extends Analyzer {
     }else{
       this.thresholdsToUse = this.noHRorBlThresholds;
     }
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+    this.addEventListener(Events.fightend.to(SELECTED_PLAYER), this.onFightend);
   }
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     // Physical
     if (event.ability.type === 1) {
       event.prot = {
@@ -75,7 +78,7 @@ class BlockCheck extends Analyzer {
     }
   }
 
-  on_fightend() {
+  onFightend() {
     const blockableSet = new Set();//this is master list of all BLOCKED events in the fight
     blockableSet.add(1);//make it so if they never hit sb we still get data from the melees they take
     this.shieldBlock.shieldBlocksDefensive.forEach(function(block){
