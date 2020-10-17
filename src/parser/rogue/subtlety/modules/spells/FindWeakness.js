@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -9,6 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Enemies from 'parser/shared/modules/Enemies';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 /**
  * Find Weakness
@@ -21,7 +22,13 @@ class FindWeakness extends Analyzer {
 
   badVanishCasts = 0;
 
-  on_byPlayer_cast(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VANISH), this.onCast);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.FIND_WEAKNESS), this.onRefreshDebuff);
+  }
+
+  onCast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VANISH.id) {
       this.handleVanish(event);
@@ -29,11 +36,8 @@ class FindWeakness extends Analyzer {
   }
 
   latestTs = 0;
-  on_byPlayer_refreshdebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.FIND_WEAKNESS.id) {
-      this.latestTs = event.timestamp;
-    }
+  onRefreshDebuff(event) {
+    this.latestTs = event.timestamp;
   }
 
   handleVanish(event) {
