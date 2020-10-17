@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'parser/shared/modules/Combatants';
 import HealingValue from 'parser/shared/modules/HealingValue';
@@ -8,6 +8,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import STAT from 'parser/shared/modules/features/STAT';
 
 import { DRUID_HEAL_INFO, getSpellInfo } from '../../SpellInfo';
+import Events from 'parser/core/Events';
 
 class Mastery extends Analyzer {
   static dependencies = {
@@ -56,9 +57,12 @@ class Mastery extends Analyzer {
     Object.values(this.masteryBuffs).forEach(entry => {
       entry.attributableHealing = 0;
     });
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorbed);
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     const spellId = event.ability.guid;
     const target = this.combatants.getEntity(event);
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
@@ -94,7 +98,7 @@ class Mastery extends Analyzer {
     }
   }
 
-  on_byPlayer_absorbed(event) {
+  onAbsorbed(event) {
     this.totalNoMasteryHealing += event.amount;
   }
 

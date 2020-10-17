@@ -1,11 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import {formatPercentage, formatNumber} from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
 import StatWeights from '../../features/StatWeights';
 import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from "./common";
+import Events from 'parser/core/Events';
 
 /**
  * Swiftmend causes your Efflorescence mushroom to burst, healing a nearby injured ally for 4637
@@ -27,13 +28,10 @@ class FungalEssence extends Analyzer{
         .reduce((a, b) => a + b) / this.selectedCombatant.traitsBySpellId[SPELLS.FUNGAL_ESSENCE_TRAIT.id].length;
       this.traitLevel = this.selectedCombatant.traitsBySpellId[SPELLS.FUNGAL_ESSENCE_TRAIT.id].length;
     }
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FUNGAL_ESSENCE), this.onHeal);
   }
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.FUNGAL_ESSENCE.id) {
-      this.healing += event.amount + (event.absorbed || 0);
-    }
+  onHeal(event) {
+    this.healing += event.amount + (event.absorbed || 0);
   }
 
   statistic(){

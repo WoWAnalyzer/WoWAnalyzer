@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import HotTracker from './HotTracker';
+import Events from 'parser/core/Events';
 
-const REJUV_IDS = [
-  SPELLS.REJUVENATION.id,
-  SPELLS.REJUVENATION_GERMINATION.id,
+const REJUV_SPELLS = [
+  SPELLS.REJUVENATION,
+  SPELLS.REJUVENATION_GERMINATION,
 ];
 
 const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> applybuff
@@ -28,9 +29,12 @@ class RejuvenationAttributor extends Analyzer {
   constructor(...args) {
     super(...args);
     this.castRejuvApplied = true;
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.WILD_GROWTH]), this.onCast);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(REJUV_SPELLS), this._getRejuvAttribution);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(REJUV_SPELLS), this._getRejuvAttribution);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
 
@@ -44,21 +48,10 @@ class RejuvenationAttributor extends Analyzer {
     }
   }
 
-  on_byPlayer_applybuff(event) {
-    this._getRejuvAttribution(event);
-  }
-
-  on_byPlayer_refreshbuff(event) {
-    this._getRejuvAttribution(event);
-  }
-
   // gets attribution for a given applybuff/refreshbuff of Rejuvenation or Germination
   _getRejuvAttribution(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
-    if (!REJUV_IDS.includes(spellId)) {
-      return;
-    }
     if(!this.hotTracker.hots[targetId] || !this.hotTracker.hots[targetId][spellId]) {
       return;
     }

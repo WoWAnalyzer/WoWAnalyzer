@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Mastery from 'parser/druid/restoration/modules/core/Mastery';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -7,6 +7,7 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatis
 
 import StatWeights from '../../features/StatWeights';
 import { getPrimaryStatForItemLevel, findItemLevelByPrimaryStat } from "./common";
+import Events from 'parser/core/Events';
 
 /**
  Swiftmend heals the target for 2772 over 9 sec.
@@ -29,13 +30,10 @@ class GroveTending extends Analyzer {
         .reduce((a, b) => a + b) / this.selectedCombatant.traitsBySpellId[SPELLS.GROVE_TENDING_TRAIT.id].length;
       this.traitLevel = this.selectedCombatant.traitsBySpellId[SPELLS.GROVE_TENDING_TRAIT.id].length;
     }
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GROVE_TENDING), this.onHeal);
   }
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.GROVE_TENDING.id) {
-      this.healing += event.amount + (event.absorbed || 0);
-    }
+  onHeal(event) {
+    this.healing += event.amount + (event.absorbed || 0);
   }
 
   statistic() {

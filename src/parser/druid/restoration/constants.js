@@ -15,19 +15,19 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.RENEWAL_TALENT.id,
   SPELLS.SPRING_BLOSSOMS.id,
   // The following spells don't double dip in healing increases.
-  SPELLS.LEECH.id,
+  SPELLS.LEECH,
   //TODO - blazyb double check if any non resto druid spells scales with healing increases.
 ];
 
 export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
-  SPELLS.REJUVENATION.id,
-  SPELLS.WILD_GROWTH.id,
-  SPELLS.REJUVENATION_GERMINATION.id,
-  SPELLS.CULTIVATION.id,
-  SPELLS.CENARION_WARD_HEAL.id,
-  SPELLS.LIFEBLOOM_HOT_HEAL.id,
+  SPELLS.REJUVENATION,
+  SPELLS.WILD_GROWTH,
+  SPELLS.REJUVENATION_GERMINATION,
+  SPELLS.CULTIVATION,
+  SPELLS.CENARION_WARD_HEAL,
+  SPELLS.LIFEBLOOM_HOT_HEAL,
   // Make sure to check that event.tick is true, because regrowth/tranq uses the same id for the heal and the HoT part
-  SPELLS.REGROWTH.id,
-  SPELLS.TRANQUILITY_HEAL.id,
-  SPELLS.GROVE_TENDING.id,
+  SPELLS.REGROWTH,
+  SPELLS.TRANQUILITY_HEAL,
+  SPELLS.GROVE_TENDING,
 ];

@@ -1,11 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import {formatPercentage, formatNumber} from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
 import StatWeights from '../../features/StatWeights';
 import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from "./common";
+import Events from 'parser/core/Events';
 
 const WAKING_DREAM_EXTRA_TICK_RATE=0.2;
 const YSERAS_GIFT_HEALING_BASE=0.03;
@@ -32,14 +33,9 @@ class WakingDream extends Analyzer{
         .reduce((a, b) => a + b) / this.selectedCombatant.traitsBySpellId[SPELLS.WAKING_DREAM_TRAIT.id].length;
       this.traitLevel = this.selectedCombatant.traitsBySpellId[SPELLS.WAKING_DREAM_TRAIT.id].length;
     }
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.YSERAS_GIFT_OTHERS, SPELLS.YSERAS_GIFT_SELF]), this.onHeal);
   }
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
-    if(spellId !== SPELLS.YSERAS_GIFT_OTHERS.id && spellId !== SPELLS.YSERAS_GIFT_SELF.id) {
-      return;
-    }
-
+  onHeal(event) {
     // 20% of all ysera's gift healing from maxOriginalHeal is contributed to waking dream.
     // Any healing over the maxOriginalHeal is contributed by the azerite trait
     const maxOriginalHeal = event.maxHitPoints * YSERAS_GIFT_HEALING_BASE;

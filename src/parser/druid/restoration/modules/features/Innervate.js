@@ -5,7 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -30,21 +31,23 @@ class Innervate extends Analyzer {
   lastInnervateTimestamp = 0;
   depleted = false;
 
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.INNERVATE.id === spellId) {
-      this.innervateCount += 1;
-      this.lastInnervateTimestamp = event.timestamp;
-    }
-  }
-  on_toPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.INNERVATE.id === spellId) {
-      this.depleted = false;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.INNERVATE), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.INNERVATE), this.onRemoveBuff);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  on_byPlayer_cast(event) {
+  onApplyBuff(event) {
+    this.innervateCount += 1;
+    this.lastInnervateTimestamp = event.timestamp;
+  }
+  onRemoveBuff(event) {
+    this.depleted = false;
+  }
+
+  onCast(event) {
     const spellId = event.ability.guid;
 
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
@@ -106,7 +109,7 @@ class Innervate extends Analyzer {
     }
   }
 
-  on_fightend() {
+  onFightend() {
     if (debug) {
       console.log(`Innervates gained: ${this.innervateCount}`);
       console.log(`Mana saved: ${this.manaSaved}`);

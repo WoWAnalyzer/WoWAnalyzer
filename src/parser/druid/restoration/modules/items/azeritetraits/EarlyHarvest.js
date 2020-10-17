@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Events from 'parser/core/Events';
 
 // Testing log w/ cd reduction casts
 // https://www.warcraftlogs.com/reports/T6NCZ79yzK4D32x8#fight=1&type=healing&source=4&options=8
@@ -23,24 +24,18 @@ class EarlyHarvest extends Analyzer{
   constructor(...args){
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.EARLY_HARVEST_TRAIT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARLY_HARVEST), this.onHeal);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onRemoveBuff);
   }
 
   // Check for healing from early harvest buff
-  on_byPlayer_heal(event) {
-    if(SPELLS.EARLY_HARVEST.id !== event.ability.guid) {
-      return;
-    }
-
+  onHeal(event) {
     this.healingFromWildGrowthExpiration += event.amount;
     this.numEarlyHarvestHeals += 1;
   }
 
   // Check for targets being undamaged when wild growth ends to reduce innervate cd
-  on_byPlayer_removebuff(event) {
-    if(SPELLS.WILD_GROWTH.id !== event.ability.guid){
-      return;
-    }
-
+  onRemoveBuff(event) {
     // Early out if target is damaged
     if(event.hitPoints < event.maxHitPoints) {
       return;

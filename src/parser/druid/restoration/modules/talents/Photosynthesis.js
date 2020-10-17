@@ -7,11 +7,12 @@ import SpellIcon from 'common/SpellIcon';
 
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
 import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
+import Events from 'parser/core/Events';
 
 const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;
 // Spring blossoms double dips, confirmed by Bastas
@@ -47,40 +48,40 @@ class Photosynthesis extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PHOTOSYNTHESIS_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL), this.onCast);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL), this.onRemoveBuff);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.EFFLORESCENCE_HEAL, SPELLS.SPRING_BLOSSOMS, ...HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR]), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_BLOOM_HEAL), this.onLifebloomProc);
   }
 
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.LIFEBLOOM_HOT_HEAL.id) {
-      this.lastRealBloomTimestamp = event.timestamp;
-    }
+  onCast(event) {
+    this.lastRealBloomTimestamp = event.timestamp;
   }
 
 
-  on_byPlayer_removebuff(event){
-    if(event.ability.guid === SPELLS.LIFEBLOOM_HOT_HEAL.id) {
-      this.lastRealBloomTimestamp = event.timestamp;
-    }
-
+  onRemoveBuff(event){
+    this.lastRealBloomTimestamp = event.timestamp;
   }
 
   randomProccs = 0;
   naturalProccs = 0;
-  on_byPlayer_heal(event) {
+
+  onLifebloomProc(event){
+    // Lifebloom random bloom procc
+    if(this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > BLOOM_BUFFER_MS) {
+      this.lifebloomIncrease += event.amount;
+      this.randomProccs += 1;
+    } else {
+      this.naturalProccs += 1;
+    }
+  }
+
+  onHeal(event) {
     const spellId = event.ability.guid;
 
-    // Lifebloom random bloom procc
-    if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id){
-      if(this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > BLOOM_BUFFER_MS) {
-        this.lifebloomIncrease += event.amount;
-        this.randomProccs += 1;
-      } else {
-        this.naturalProccs += 1;
-      }
-    }
-
     // Yes it actually buffs efflorescence, confirmed by Voulk and Bastas
-    if(this.selectedCombatant.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, null, 0, 0, this.selectedCombatant.sourceID) && (HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.includes(spellId) || spellId === SPELLS.EFFLORESCENCE_HEAL.id || spellId === SPELLS.SPRING_BLOSSOMS.id)) {
+    if(this.selectedCombatant.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, null, 0, 0, this.selectedCombatant.sourceID)) {
       switch (spellId) {
         case SPELLS.REJUVENATION.id:
           this.increasedRateRejuvenationHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
