@@ -16,6 +16,7 @@ import LightOfTheProtector from './modules/spells/LightOfTheProtector';
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import GrandCrusader from './modules/core/GrandCrusader';
 import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
+import NoDamageShieldOfTheRighteous from './modules/features/NoDamageShieldOfTheRighteous';
 
 //Talents
 import Seraphim from './modules/talents/Seraphim';
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shieldOfTheRighteous: ShieldOfTheRighteous,
     consecration: Consecration,
     mitigationcheck: MitigationCheck,
+    noDamageSOTR: NoDamageShieldOfTheRighteous,
     //cooldownTracker: CooldownTracker,
 
     // Talents

@@ -224,6 +224,11 @@ const spells: SpellList = {
     name: 'Chill Streak',
     icon: 'spell_frost_piercing-chill',
   },
+  FROSTWYRMS_FURY: { 
+    id: 279302, 
+    name: 'Frostwyrm\'s Fury', 
+    icon: 'achievement_boss_sindragosa' 
+  },
   // Buffs
   EMPOWER_RUNE_WEAPON: {
     id: 47568,
@@ -405,6 +410,12 @@ const spells: SpellList = {
     id: 51052,
     name: 'Anti-Magic Zone',
     icon: 'spell_deathknight_antimagiczone',
+  },
+
+  ANTI_MAGIC_ZONE_BUFF: {
+    id: 145629,
+    name: 'Anti-Magic Zone',
+    icon: 'spell_deathknight_antimagiczone'
   },
 
   ANTI_MAGIC_SHELL: {
