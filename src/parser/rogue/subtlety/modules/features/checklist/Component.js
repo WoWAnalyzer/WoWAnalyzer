@@ -155,16 +155,6 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
           )}
           thresholds={thresholds.backstabInStealth}
         />
-        {combatant.hasTalent(SPELLS.FIND_WEAKNESS_TALENT.id) && (
-        <Requirement
-          name={(
-            <>
-              With <SpellLink id={SPELLS.FIND_WEAKNESS_TALENT.id} /> use <SpellLink id={SPELLS.VANISH.id} /> only when Find Weakness is not up or about to run out
-            </>
-          )}
-          thresholds={thresholds.findWeaknessVanish}
-        />
-)}
       </Rule>
       <PreparationRule thresholds={thresholds} />
 

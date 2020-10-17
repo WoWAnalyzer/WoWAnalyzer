@@ -8,6 +8,7 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 import HolyPowerDetails from 'parser/paladin/shared/holypower/HolyPowerDetails';
 
 import ShieldOfTheRighteous from '../ShieldOfTheRighteous';
+import NoDamageShieldOfTheRighteous from '../NoDamageShieldOfTheRighteous';
 import Consecration from '../../spells/Consecration';
 import HammerOfTheRighteous from '../../spells/HammerOfTheRighteous';
 import LightOfTheProtector from '../../spells/LightOfTheProtector';
@@ -21,6 +22,7 @@ class Checklist extends BaseChecklist {
     abilities: Abilities,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     shieldOfTheRighteous: ShieldOfTheRighteous,
+    noDamageSOTR: NoDamageShieldOfTheRighteous,
     consecration: Consecration,
     lotp: LightOfTheProtector,
     hotr: HammerOfTheRighteous,
@@ -39,6 +41,7 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
           consecration: this.consecration.uptimeSuggestionThresholds,
           shieldOfTheRighteous: this.shieldOfTheRighteous.suggestionThresholds,
+          noDamageSOTR: this.noDamageSOTR.hitRatioSuggestionThresholds,
           lotpDelay: this.lotp.delaySuggestion,
           lotpOverheal: this.lotp.overhealSuggestion,
           hotrBadCasts: this.hotr.badCastThreshold,

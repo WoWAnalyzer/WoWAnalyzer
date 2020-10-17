@@ -112,7 +112,7 @@ class Deathbolt extends Analyzer {
       let id = dotId;
       if (UNSTABLE_AFFLICTION_DEBUFFS.some(spell => spell.id === Number(dotId))) {
         // group Unstable Affliction debuffs into one entry
-        id = SPELLS.UNSTABLE_AFFLICTION_CAST.id;
+        id = SPELLS.UNSTABLE_AFFLICTION.id;
       }
       this.remainingDotDurations[id] = this.remainingDotDurations[id] || [];
       this.remainingDotDurations[id].push(dotInfo.end - timestamp);
