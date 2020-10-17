@@ -1,19 +1,19 @@
 import React from 'react';
 
 import CORE_CHANGELOG from 'CHANGELOG';
-import { change } from 'common/changelog';
+import { ChangelogEntry } from 'common/changelog';
 import ReadableListing from 'interface/ReadableListing';
 import Contributor from 'interface/ContributorButton';
 
 interface Props {
-  changelog: Array<ReturnType<typeof change>>;
+  changelog: ChangelogEntry[];
   limit?: number;
   includeCore?: boolean;
 }
 
 const Changelog = ({ changelog, limit, includeCore = true }: Props) => {
-  const mergedChangelog: Array<ReturnType<typeof change>> = includeCore
-    ? [...CORE_CHANGELOG, ...changelog].sort((a: any, b: any) => b.date - a.date)
+  const mergedChangelog: ChangelogEntry[] = includeCore
+    ? [...CORE_CHANGELOG, ...changelog].sort((a: ChangelogEntry, b: ChangelogEntry) => b.date.getTime() - a.date.getTime())
     : changelog;
 
   return (
