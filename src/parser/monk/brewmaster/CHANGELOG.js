@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 16), <>Removed "Inefficient <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Casts" statistic.</>, emallson),
   change(date(2020, 10, 12), 'Updated checklist to reflect the Shadowlands changes.', emallson),
   change(date(2020, 10, 6), <>Added Fallen Order statistic.</>, Abelito75),
   change(date(2020, 9, 5), <>Updated Brewmaster spells for Shadowlands.</>, emallson),
