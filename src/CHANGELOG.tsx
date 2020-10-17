@@ -10,8 +10,8 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 15), 'Updated the Spec tab styles to clearly indicate unmaintained specs', Dambroda),
   change(date(2020, 10, 15), 'Added a warning message when loading Classic Logs', Sharrq),
-  change(date(2020, 10, 15), 'Updated the Spec tab styles', Dambroda),
   change(date(2020, 10, 14), 'Fixed the character page.', Abelito75),
   change(date(2020, 10, 14), <>Adjusted the values of <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> and <SpellLink id={SPELLS.BATTLE_SHOUT.id} />.</>, niseko),
   change(date(2020, 10, 13), 'Internationalization for each spec', Jafowler),
