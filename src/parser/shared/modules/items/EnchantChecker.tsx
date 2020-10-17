@@ -65,7 +65,7 @@ class EnchantChecker extends Analyzer {
 
   static INT_ENCHANTABLE_SLOTS = {
     4: <Trans id="common.slots.chest">Chest</Trans>,
-    8: <Trans>Bracers</Trans>,
+    8: <Trans id="common.slots.bracers">Bracers</Trans>,
     10: <Trans id="common.slots.ring">Ring</Trans>,
     11: <Trans id="common.slots.ring">Ring</Trans>,
     14: <Trans id="common.slots.cloak">Cloak</Trans>,

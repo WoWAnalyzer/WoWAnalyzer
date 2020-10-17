@@ -3554,7 +3554,8 @@ Array [
       values={
         Object {
           "slotName": <WithI18n
-            id="Bracers"
+            defaults="Bracers"
+            id="common.slots.bracers"
           />,
         }
       }
