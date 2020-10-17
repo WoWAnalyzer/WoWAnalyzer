@@ -3,7 +3,7 @@ import { Trans, t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
@@ -16,6 +16,7 @@ import PlayerBreakdown from 'interface/others/PlayerBreakdown';
 
 import BeaconTargets from './beacons/BeaconTargets';
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../constants';
+import Events from 'parser/core/Events';
 
 const debug = false;
 
@@ -82,31 +83,31 @@ class MasteryEffectiveness extends Analyzer {
 
   masteryHealEvents = [];
 
-  on_cast(event) {
-    if (this.owner.byPlayer(event)) {
-      this.updatePlayerPosition(event);
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealToPlayer);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHealByPlayer);
   }
-  on_damage(event) {
-    if (this.owner.toPlayer(event)) {
-      // Damage coordinates are for the target, so they are only accurate when done TO player
-      this.updatePlayerPosition(event);
-    }
-  }
-  on_energize(event) {
-    if (this.owner.toPlayer(event)) {
-      this.updatePlayerPosition(event);
-    }
-  }
-  on_heal(event) {
-    if (this.owner.toPlayer(event)) {
-      // Do this before checking if this was done by player so that self-heals will apply full mastery properly
-      this.updatePlayerPosition(event);
-    }
 
-    if (this.owner.byPlayer(event)) {
-      this.processForMasteryEffectiveness(event);
-    }
+  onCast(event) {
+    this.updatePlayerPosition(event);
+  }
+  onDamageTaken(event) {
+    // Damage coordinates are for the target, so they are only accurate when done TO player
+    this.updatePlayerPosition(event);
+  }
+  onEnergize(event) {
+    this.updatePlayerPosition(event);
+  }
+  onHealToPlayer(event) {
+    // Do this before checking if this was done by player so that self-heals will apply full mastery properly
+    this.updatePlayerPosition(event);
+  }
+  onHealByPlayer(event) {
+    this.processForMasteryEffectiveness(event);
   }
 
   processForMasteryEffectiveness(event) {

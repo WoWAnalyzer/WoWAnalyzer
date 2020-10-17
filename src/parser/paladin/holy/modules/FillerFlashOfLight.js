@@ -4,10 +4,11 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import AbilityTracker from './core/PaladinAbilityTracker';
+import Events from 'parser/core/Events';
 
 /** @type {number} (ms) When Holy Shock has less than this as cooldown remaining you should wait and still not cast that filler FoL. */
 const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
@@ -29,11 +30,12 @@ class FillerFlashOfLight extends Analyzer {
 
   inefficientCasts = [];
   _isCurrentCastInefficient = false;
-  on_byPlayer_begincast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FLASH_OF_LIGHT.id) {
-      return;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_OF_LIGHT), this.onBeginCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_OF_LIGHT), this.onCast);
+  }
+  onBeginCast(event) {
     if (this._isInefficientCastEvent(event)) {
       this.inefficientCasts.push(event);
       this._isCurrentCastInefficient = true;
@@ -63,11 +65,7 @@ class FillerFlashOfLight extends Analyzer {
    * This marks spells as inefficient casts in the timeline.
    * @param event
    */
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FLASH_OF_LIGHT.id) {
-      return;
-    }
+  onCast(event) {
     if (this._isCurrentCastInefficient) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;

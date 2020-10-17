@@ -8,11 +8,11 @@ import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import makeWclUrl from 'common/makeWclUrl';
 import SpellLink from 'common/SpellLink';
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
 const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = .03;
@@ -57,7 +57,15 @@ class DevotionAuraDamageReduction extends Analyzer {
     return (this.totalDamageReduced / this.owner.fightDuration) * 1000;
   }
 
-  on_toPlayer_damage(event) {
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
+  }
+
+  onDamageTaken(event) {
     const spellId = event.ability.guid;
     if (spellId === FALLING_DAMAGE_ABILITY_ID) {
       return;
@@ -103,14 +111,14 @@ class DevotionAuraDamageReduction extends Analyzer {
 
     return true;
   }
-  on_byPlayer_applybuff(event) {
+  onApplyBuff(event) {
     if (!this.isApplicableBuffEvent(event)) {
       return;
     }
     this.buffsActive += 1;
     // this.debug('devo applied to', this.combatants.players[event.targetID].name, this.buffsActive);
   }
-  on_byPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     if (!this.isApplicableBuffEvent(event)) {
       return;
     }
