@@ -4091,6 +4091,51 @@ exports[`Protection Paladin integration test: example log Judgment matches the s
 </div>
 `;
 
+exports[`Protection Paladin integration test: example log NoDamageShieldOfTheRighteous matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={100}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex boring-value "
+      >
+        <div
+          className="flex-sub icon"
+        >
+          <a
+            href="http://wowhead.com/spell=53600"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Shield of the Righteous"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_shieldofvengeance.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            100.00 %
+          </div>
+          <small>
+            SotR Casts That Hit An Enemy
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Protection Paladin integration test: example log NullDynamo matches the statistic snapshot 1`] = `
 <div
   category="ITEMS"
