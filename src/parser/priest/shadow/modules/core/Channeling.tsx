@@ -14,12 +14,12 @@ const CHANNEL_ABILITIES = [ // This used where checks are done for all channeled
 
 class Channeling extends CoreChanneling {
 
-  mindBlastStarts: BeginCastEvent[] = [];
+  mindBlastCastStart?: BeginCastEvent;
 
   // Have to track the begin cast event to store mind blasts for dark thought procs
   on_byPlayer_begincast(event: BeginCastEvent) {
     if (event.ability.guid === SPELLS.MIND_BLAST.id) {
-      this.mindBlastStarts[event.timestamp] = event; // Add to events list to check later
+      this.mindBlastCastStart = event;
     }
     super.on_byPlayer_begincast(event);
   }
@@ -58,8 +58,12 @@ class Channeling extends CoreChanneling {
   cancelChannel(event: CastEvent, ability: Ability) {
     if (CHANNEL_ABILITIES.some(ability => this.isChannelingSpell(ability))) {
       if (event.ability.guid === SPELLS.MIND_BLAST.id) {
-        if (this.mindBlastStarts[event.timestamp]) {
-          // If there is an event for mind blast start when mind blast was cast, this means the cast was instant and a proc
+        if (!this.mindBlastCastStart) { // If there is no cast start set, can't check timestamp
+          return;
+        }
+        const channelingTime = event.timestamp - this.mindBlastCastStart.timestamp;
+        const isInstantCast = channelingTime < 100;
+        if (isInstantCast) { // If the cast is completed with 0.1s of starting, it's an instant done while channeling
           return;
         }
       }
