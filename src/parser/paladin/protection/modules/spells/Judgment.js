@@ -3,12 +3,13 @@ import SPELLS from 'common/SPELLS';
 
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import GrandCrusader from '../core/GrandCrusader';
+import Events from 'parser/core/Events';
 
 const REDUCTION_TIME_REGULAR = 2000; // ms
 const REDUCTION_TIME_CRIT = 4000; // ms
@@ -29,12 +30,12 @@ class Judgment extends Analyzer {
     gc: GrandCrusader,
   };
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.JUDGMENT_CAST_PROTECTION.id) {
-      return;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_PROTECTION), this.onDamage);
+  }
 
+  onDamage(event) {
     this._casts += 1;
 
     const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;

@@ -1,11 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Abilities from 'parser/core/modules/Abilities';
 import { formatPercentage } from 'common/format';
+import Events from 'parser/core/Events';
 
 /**
  * Consumes up to 2 SotR charges to provice 1007 Haste+Vers+Mastery+Crit for 8sec per consumed charge
@@ -24,6 +25,7 @@ class Seraphim extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SERAPHIM_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERAPHIM_TALENT), this.onCast);
   }
 
   sotrCooldown() {
@@ -34,11 +36,7 @@ class Seraphim extends Analyzer {
     }
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.SERAPHIM_TALENT.id) {
-      return;
-    }
-
+  onCast(event) {
     const expectedCd = this.abilities.getExpectedCooldownDuration(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event);
     const chargesAtCast = 3 - this.sotrCooldown() / expectedCd;
     this.lastCDConsumed = expectedCd * Math.min(2, chargesAtCast);

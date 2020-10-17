@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,7 @@ import { formatPercentage } from 'common/format';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 
 import Abilities from '../Abilities';
+import Events from 'parser/core/Events';
 
 const BASE_PROC_CHANCE = 0.15;
 
@@ -20,21 +21,24 @@ class GrandCrusader extends Analyzer {
   _inferredResets = 0;
   _resetChances = 0;
 
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.HAMMER_OF_THE_RIGHTEOUS, SPELLS.BLESSED_HAMMER_TALENT]), this.onCast);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER).spell([SPELLS.HAMMER_OF_THE_RIGHTEOUS, SPELLS.BLESSED_HAMMER_TALENT]), this.onDamgeTaken);
+  }
+
   get procChance() {
     return BASE_PROC_CHANCE;
   }
 
   _lastResetSource = null;
 
-  on_byPlayer_cast(event) {
-    if (![SPELLS.HAMMER_OF_THE_RIGHTEOUS.id, SPELLS.BLESSED_HAMMER_TALENT.id].includes(event.ability.guid)) {
-      return;
-    }
+  onCast(event) {
     this._resetChances += 1;
     this._lastResetSource = event;
   }
 
-  on_toPlayer_damage(event) {
+  onDamgeTaken(event) {
     if (![HIT_TYPES.DODGE, HIT_TYPES.PARRY].includes(event.hitType)) {
       return;
     }
