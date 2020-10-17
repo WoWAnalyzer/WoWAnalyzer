@@ -14,6 +14,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { Trans } from '@lingui/macro';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
@@ -88,19 +89,19 @@ class Downpour extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DOWNPOUR_TALENT.id} />}
-        value={`${downpourAverageCooldown.toFixed(1)} seconds`}
+        value={<Trans id="shaman.restoration.downpour.statistic.value">{downpourAverageCooldown.toFixed(1)} seconds</Trans>}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(90)}
         label={(
           <TooltipElement
             content={(
-              <>
+              <Trans id="shaman.restoration.downpour.statistic.label.tooltip">
                 You cast a total of {downpourCasts} Downpours, which on average hit {(downpourAverageHits + downpourAverageOverhealedHits).toFixed(1)} out of 6 targets. <br />
                 Of those hits, {downpourAverageHits.toFixed(1)} had effective healing and increased the cooldown.
-              </>
+              </Trans>
             )}
           >
-            Average Downpour cooldown
+            <Trans id="shaman.restoration.downpour.statistic.label">Average Downpour cooldown</Trans>
           </TooltipElement>
         )}
       />

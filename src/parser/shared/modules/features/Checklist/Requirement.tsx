@@ -5,6 +5,7 @@ import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import colorForPerformance from 'common/colorForPerformance';
 import { BoolThreshold, NumberThreshold, Threshold, ThresholdStyle } from 'parser/core/ParseResults';
+import { Trans } from '@lingui/macro';
 
 import performanceForThresholds from './helpers/performanceForThresholds';
 import { RuleContext } from './Rule';
@@ -43,7 +44,7 @@ class Requirement extends React.PureComponent<Props> {
       case ThresholdStyle.DECIMAL:
         return `${thresholds.actual.toFixed(2)}`;
       case ThresholdStyle.BOOLEAN:
-        return thresholds.actual ? 'Yes' : 'No';
+        return thresholds.actual ? <Trans id="common.yes">Yes</Trans> : <Trans id="common.no">No</Trans>;
       case ThresholdStyle.SECONDS:
         return `${thresholds.actual.toFixed(2)}s`;
       default:

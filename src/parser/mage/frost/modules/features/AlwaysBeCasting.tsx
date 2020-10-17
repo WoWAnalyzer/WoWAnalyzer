@@ -10,7 +10,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get deadTimePercentage() {
@@ -45,17 +45,17 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
         tooltip={(
-          <>
+          <Trans id="shared.alwaysBeCasting.statistic.tooltip">
             Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br />
             <ul>
               <li>You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your time casting something.</li>
               <li>You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time casting nothing at all.</li>
             </ul>
-          </>
+          </Trans>
         )}
       >
         <div className="pad">
-          <label>Active time</label>
+          <label><Trans id="shared.alwaysBeCasting.statistic.label">Active time</Trans></label>
           <Gauge value={this.activeTimePercentage} />
         </div>
       </Statistic>
