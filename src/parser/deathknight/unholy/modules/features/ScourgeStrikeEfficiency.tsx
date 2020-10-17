@@ -11,10 +11,14 @@ import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringValue from 'interface/statistics/components/BoringValueText';
+import Statistic from 'interface/statistics/Statistic';
 
 import WoundTracker from './WoundTracker';
+
 
 class ScourgeStrikeEfficiency extends Analyzer {
   static dependencies = {
@@ -67,7 +71,7 @@ class ScourgeStrikeEfficiency extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You are casting <SpellLink id={this.activeSpell.id} /> too often.  When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You are casting <SpellLink id={this.activeSpell.id} /> too often.  When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></>)
       .icon(this.activeSpell.icon)
       .actual(i18n._(t('deathknight.unholy.suggestions.scourgeStrike.efficiency')`${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
@@ -75,13 +79,18 @@ class ScourgeStrikeEfficiency extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={this.activeSpell.id} />}
-        value={`${formatPercentage(this.strikeEfficiency)} %`}
-        label={`${this.activeSpell.name} Efficiency`}
+      <Statistic
         tooltip={`${this.zeroWoundCasts} out of ${this.totalCasts} ${this.activeSpell.name} were used with no Festering Wounds on the target.`}
         position={STATISTIC_ORDER.CORE(3)}
-      />
+        category={STATISTIC_CATEGORY.GENERAL}
+        size="flexible"
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.SCOURGE_STRIKE.id} /> {this.activeSpell.name} Strike Efficency</>} >
+          <>
+            {`${formatPercentage(this.strikeEfficiency)}% `}
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 }

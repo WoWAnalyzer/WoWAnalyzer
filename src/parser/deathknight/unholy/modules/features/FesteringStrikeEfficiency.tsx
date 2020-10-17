@@ -13,9 +13,14 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import BoringValue from 'interface/statistics/components/BoringValueText';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import WoundTracker from './WoundTracker';
+
+
 
 const SAFE_WOUND_COUNT = 3;
 
@@ -65,7 +70,7 @@ class FesteringStrikeEfficiency extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often.  When spending runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often.  When spending runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></>)
       .icon(SPELLS.FESTERING_STRIKE.icon)
       .actual(i18n._(t('deathknight.unholy.suggestions.festeringStrikes.efficiency')`${formatPercentage(actual)}% of Festering Strikes did not risk overcapping Festering Wounds`))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
@@ -73,13 +78,18 @@ class FesteringStrikeEfficiency extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FESTERING_STRIKE.id} />}
-        value={`${formatPercentage(this.strikeEfficiency)} %`}
-        label="Festering Strike Efficiency"
+      <Statistic
         tooltip={`${this.festeringStrikeCastsOverSafeCount} of out ${this.totalFesteringStrikeCasts} Festering Strikes were cast on a target with more than three stacks of Festering Wounds.`}
         position={STATISTIC_ORDER.CORE(4)}
-      />
+        category={STATISTIC_CATEGORY.GENERAL}
+        size="flexible"
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.FESTERING_STRIKE.id} /> Festering Strike Efficency</>} >
+          <>
+            {`${formatPercentage(this.strikeEfficiency)}% `}
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 }
