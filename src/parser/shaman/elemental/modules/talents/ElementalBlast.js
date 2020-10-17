@@ -4,11 +4,12 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import { ELEMENTAL_BLAST_IDS } from '../../constants';
+import Events from 'parser/core/Events';
 
 class ElementalBlast extends Analyzer {
   currentBuffAmount=0;
@@ -19,9 +20,11 @@ class ElementalBlast extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER), this.onRemoveBuff);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplyBuff);
   }
 
-  on_toPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     if (ELEMENTAL_BLAST_IDS.includes(event.ability.guid)){
       this.currentBuffAmount -= 1;
       if (this.currentBuffAmount===0) {
@@ -30,7 +33,7 @@ class ElementalBlast extends Analyzer {
     }
   }
 
-  on_toPlayer_applybuff(event) {
+  onApplyBuff(event) {
     if (ELEMENTAL_BLAST_IDS.includes(event.ability.guid)){
       if (this.currentBuffAmount===0) {
         this.lastFreshApply = event.timestamp;

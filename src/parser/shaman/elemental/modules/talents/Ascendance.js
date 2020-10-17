@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -13,6 +13,7 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Abilities from '../Abilities';
+import Events from 'parser/core/Events';
 
 const ASCENDANCE_DURATION = 15000 - 1500; //remove the gcd for Ascendence itself because we only check for FS on the first cast after
 
@@ -46,6 +47,7 @@ class Ascendance extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
   get AscendanceUptime() {
@@ -56,7 +58,7 @@ class Ascendance extends Analyzer {
     return (this.numCasts[SPELLS.LAVA_BURST.id]/this.numCasts[SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id]) || 0;
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
     const target = this.enemies.getEntity(event);
 
