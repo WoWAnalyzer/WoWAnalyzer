@@ -5040,7 +5040,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "12.121208320660545%",
+                  "width": "12.435600789868111%",
                 }
               }
             />
@@ -5496,7 +5496,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.830806734211933%",
+                        "width": "26.63594118991392%",
                       }
                     }
                   />
