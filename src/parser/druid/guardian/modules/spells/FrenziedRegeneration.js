@@ -5,6 +5,8 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const WILDFLESH_MODIFIER_PER_RANK = 0.05;
 const FR_WINDOW_MS = 5000;
@@ -90,17 +92,15 @@ class FrenziedRegeneration extends Analyzer {
   suggestions(when) {
     const inefficiency = this.inefficientCasts.length / this.castData.length;
     when(inefficiency).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      .addSuggestion((suggest, actual, recommended) => suggest(
           <>
             You are casting <SpellLink id={SPELLS.FRENZIED_REGENERATION.id} /> inefficiently (at high HP and after low damage intake).  It is almost always better to wait until after you have taken a big hit to cast it, even if that means spending extended periods of time at maximum charges.  If you don't already have one, consider getting an FR prediction weakaura to assist you in casting it more effectively.
           </>,
         )
           .icon(SPELLS.FRENZIED_REGENERATION.icon)
-          .actual(`${formatPercentage(actual, 0)}% of casts had a predicted heal of less than ${formatPercentage(HEAL_THRESHOLD, 0)}% and were cast above ${formatPercentage(HP_THRESHOLD, 0)}% HP`)
+          .actual(i18n._(t('druid.guardian.suggestions.frenziedRegeneration.efficiency')`${formatPercentage(actual, 0)}% of casts had a predicted heal of less than ${formatPercentage(HEAL_THRESHOLD, 0)}% and were cast above ${formatPercentage(HP_THRESHOLD, 0)}% HP`))
           .recommended(`${recommended}% is recommended`)
-          .regular(recommended + 0.05).major(recommended + 0.1);
-      });
+          .regular(recommended + 0.05).major(recommended + 0.1));
   }
 }
 

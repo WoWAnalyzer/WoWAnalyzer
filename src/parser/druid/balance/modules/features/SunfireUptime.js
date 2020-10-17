@@ -8,6 +8,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class SunfireUptime extends Analyzer {
   static dependencies = {
@@ -28,12 +30,10 @@ class SunfireUptime extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved. Try to pay more attention to your Sunfire on the boss.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved. Try to pay more attention to your Sunfire on the boss.</>)
         .icon(SPELLS.SUNFIRE.icon)
-        .actual(`${formatPercentage(actual)}% Sunfire uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
-    });
+        .actual(i18n._(t('druid.balance.suggestions.sunfire.uptime')`${formatPercentage(actual)}% Sunfire uptime`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

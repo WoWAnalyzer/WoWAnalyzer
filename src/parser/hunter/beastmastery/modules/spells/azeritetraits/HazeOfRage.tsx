@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
@@ -34,7 +34,7 @@ class HazeOfRage extends Analyzer {
 
   protected statTracker!: StatTracker;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.HAZE_OF_RAGE.id);
     if (!this.active) {
@@ -43,7 +43,7 @@ class HazeOfRage extends Analyzer {
     const { agility } = hazeOfRageStats(this.selectedCombatant.traitsBySpellId[SPELLS.HAZE_OF_RAGE.id]);
     this.agility = agility;
 
-    options.statTracker.add(SPELLS.HAZE_OF_RAGE_BUFF.id, {
+    (options.statTracker as StatTracker).add(SPELLS.HAZE_OF_RAGE_BUFF.id, {
       agility: this.agility,
     });
   }

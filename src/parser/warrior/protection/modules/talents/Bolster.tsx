@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 
@@ -9,6 +9,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatDuration } from 'common/format';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const debug = false;
 const BUFFS = [SPELLS.LAST_STAND, SPELLS.SHIELD_BLOCK_BUFF];
 
@@ -17,7 +20,7 @@ class Bolster extends Analyzer {
   wastedBlockTime = 0;
   buffStartTime = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(BUFFS), this.applyBlockBuff);
@@ -60,12 +63,10 @@ class Bolster extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-        .addSuggestion((suggest) => {
-          return suggest('You should never overlap Shield Block and Last stand when you take the Bolster talent.')
+        .addSuggestion((suggest) => suggest('You should never overlap Shield Block and Last stand when you take the Bolster talent.')
             .icon(SPELLS.BOLSTER_TALENT.icon)
-            .actual(`You overlapped shield block and last stand ${this.badBlocks} times.`)
-            .recommended(`0 is recommended`);
-        });
+            .actual(i18n._(t('warrior.protection.suggestions.bolster.efficiency')`You overlapped shield block and last stand ${this.badBlocks} times.`))
+            .recommended(`0 is recommended`));
   }
 
   statistic() {

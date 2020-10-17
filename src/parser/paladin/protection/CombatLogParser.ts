@@ -11,19 +11,16 @@ import MitigationCheck from './modules/features/MitigationCheck';
 //Spells
 import Judgment from './modules/spells/Judgment';
 import Consecration from './modules/spells/Consecration';
-import LightOfTheProtectorTiming from './modules/features/LightOfTheProtectorTiming';
+import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
 import LightOfTheProtector from './modules/spells/LightOfTheProtector';
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import GrandCrusader from './modules/core/GrandCrusader';
 import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
+import NoDamageShieldOfTheRighteous from './modules/features/NoDamageShieldOfTheRighteous';
 
 //Talents
 import Seraphim from './modules/talents/Seraphim';
 import RighteousProtector from './modules/talents/RighteousProtector';
-
-//Azerite Traits
-import InspiringVanguard from './modules/spells/azeritetraits/InspiringVanguard';
-import LucidDreams from './modules/items/LucidDreams';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
@@ -43,15 +40,12 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     spellUsable: SpellUsable,
     checklist: Checklist,
-    lightOfTheProtectorTiming: LightOfTheProtectorTiming,
+    wogTiming: WordOfGloryTiming,
     shieldOfTheRighteous: ShieldOfTheRighteous,
     consecration: Consecration,
     mitigationcheck: MitigationCheck,
+    noDamageSOTR: NoDamageShieldOfTheRighteous,
     //cooldownTracker: CooldownTracker,
-
-    // Azerite Traits
-    inspiringVanguard: InspiringVanguard,
-    lucidDreams: LucidDreams,
 
     // Talents
     righteousProtector: RighteousProtector,

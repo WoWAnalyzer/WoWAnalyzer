@@ -2,11 +2,14 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, ApplyBuffEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import { PROC_BUFFER, HOT_STREAK_CONTRIBUTORS } from '../../constants';
 
 const debug = false;
@@ -25,7 +28,7 @@ class HotStreakWastedCrits extends Analyzer {
   pyromaniacProc = false;
   hotStreakRemoved = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.hasPyromaniac = this.selectedCombatant.hasTalent(SPELLS.PYROMANIAC_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(HOT_STREAK_CONTRIBUTORS), this._onCast);
@@ -90,12 +93,10 @@ class HotStreakWastedCrits extends Analyzer {
 
   suggestions(when: When) {
       when(this.wastedCritsThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You crit with {formatNumber(this.wastedCrits)} ({formatNumber(this.wastedCritsPerMinute)} Per Minute) direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<>You crit with {formatNumber(this.wastedCrits)} ({formatNumber(this.wastedCritsPerMinute)} Per Minute) direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</>)
             .icon(SPELLS.HOT_STREAK.icon)
-            .actual(`${formatNumber(this.wastedCrits)} crits wasted`)
-            .recommended(`${formatNumber(recommended)} is recommended`);
-      });
+            .actual(i18n._(t('mage.fire.suggestions.hotStreak.wastedCrits')`${formatNumber(this.wastedCrits)} crits wasted`))
+            .recommended(`${formatNumber(recommended)} is recommended`));
   }
 }
 

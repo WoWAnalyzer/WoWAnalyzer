@@ -11,40 +11,45 @@ class Buffs extends CoreBuffs {
     return [
       {
         spellId: SPELLS.CLEARCASTING_ARCANE.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.EVOCATION.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.ARCANE_POWER.id,
         triggeredBySpellId: SPELLS.ARCANE_POWER.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.PRESENCE_OF_MIND.id,
         triggeredBySpellId: SPELLS.PRESENCE_OF_MIND.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.RUNE_OF_POWER_BUFF.id,
         enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.PRISMATIC_BARRIER.id,
         triggeredBySpellId: SPELLS.PRISMATIC_BARRIER.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.ICE_BLOCK.id,
         triggeredBySpellId: SPELLS.ICE_BLOCK.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.MIRROR_IMAGE.id,
+        triggeredBySpellId: SPELLS.MIRROR_IMAGE.id,
+        timelineHighlight: true,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

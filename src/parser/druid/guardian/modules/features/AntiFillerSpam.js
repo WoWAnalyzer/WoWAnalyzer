@@ -8,6 +8,8 @@ import Analyzer from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import Abilities from '../Abilities';
 import ActiveTargets from './ActiveTargets';
@@ -43,7 +45,7 @@ class AntiFillerSpam extends Analyzer {
     }
 
     this._totalGCDSpells += 1;
-    const targets = this.activeTargets.getActiveTargets(event.timestamp).map(enemyID => this.enemyInstances.enemies[enemyID]).filter(enemy => !!enemy);
+    const targets = this.activeTargets.getActiveTargets(event.timestamp).map(enemyID => this.enemyInstances.enemies[enemyID]).filter(enemy => Boolean(enemy));
     const combatant = this.selectedCombatant;
 
     let isFiller = false;
@@ -128,17 +130,15 @@ class AntiFillerSpam extends Analyzer {
 
   suggestions(when) {
     when(this.fillerSpamPercentage).isGreaterThan(0.1)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      .addSuggestion((suggest, actual, recommended) => suggest(
           <>
             You are casting too many unnecessary filler spells. Try to plan your casts two or three GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.
           </>,
         )
           .icon(SPELLS.SWIPE_BEAR.icon)
-          .actual(`${formatPercentage(actual)}% unnecessary filler spells cast`)
+          .actual(i18n._(t('druid.guardian.suggestions.fillerSpells.efficiency')`${formatPercentage(actual)}% unnecessary filler spells cast`))
           .recommended(`${formatPercentage(recommended, 0)}% or less is recommended`)
-          .regular(recommended + 0.05).major(recommended + 0.1);
-      });
+          .regular(recommended + 0.05).major(recommended + 0.1));
   }
 }
 

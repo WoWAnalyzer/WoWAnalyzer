@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -22,7 +22,7 @@ class OneWithTheBeast extends Analyzer {
   conduitRank: number = 0;
   addedDamage: number = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ONE_WITH_THE_BEAST_CONDUIT.id);
     if (!this.conduitRank) {

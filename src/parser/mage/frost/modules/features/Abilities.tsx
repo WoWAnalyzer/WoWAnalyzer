@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
 
-const WINTERS_PROTECTION_REDUCTION_MS: {[rank: number]:number } = {
+const WINTERS_PROTECTION_REDUCTION_MS: {[rank: number]: number } = {
   1: 30,
   2: 34,
   3: 38,
@@ -20,7 +20,7 @@ const WINTERS_PROTECTION_REDUCTION_MS: {[rank: number]:number } = {
   15: 90,
 };
 
-const FLOW_OF_TIME_REDUCTION_SEC: {[rank: number]:number } = {
+const FLOW_OF_TIME_REDUCTION_SEC: {[rank: number]: number } = {
   1: 1,
   2: 1.25,
   3: 1.5,
@@ -187,19 +187,6 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.FROZEN_ORB_DAMAGE.id],
       },
       {
-        spell: SPELLS.MIRROR_IMAGE,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-        },
-        timelineSortIndex: 16,
-      },
-      {
         spell: SPELLS.RUNE_OF_POWER_TALENT,
         buffSpellId: SPELLS.RUNE_OF_POWER_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -255,6 +242,14 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.MIRROR_IMAGE,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 120,
       },
 
       //Utility

@@ -1,12 +1,12 @@
 import FocusDetails from 'parser/hunter/shared/modules/resources/FocusDetails';
 
-import HuntersMark from 'parser/hunter/shared/modules/spells/HuntersMark';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 import React from 'react';
+
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import BasicAttacks from '../pets/basicAttacksTracker';
 import BeastMasteryFocusCapTracker from '../resources/BeastMasteryFocusCapTracker';
@@ -16,6 +16,7 @@ import BestialWrath from '../spells/BestialWrath';
 import CobraShot from '../spells/CobraShot';
 import KillerCobra from '../talents/KillerCobra';
 import Component from './Component';
+import QaplaEredunWarOrder from '../items/QaplaEredunWarOrder';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -31,7 +32,7 @@ class Checklist extends BaseChecklist {
     focusCapTracker: BeastMasteryFocusCapTracker,
     beastCleave: BeastCleave,
     basicAttacks: BasicAttacks,
-    huntersMark: HuntersMark,
+    qaplaEredunWarOrder: QaplaEredunWarOrder,
   };
 
   //region Core
@@ -43,7 +44,6 @@ class Checklist extends BaseChecklist {
 
   //region Spells
   protected beastCleave!: BeastCleave;
-  protected huntersMark!: HuntersMark;
   protected cobraShot!: CobraShot;
   protected barbedShot!: BarbedShot;
   protected bestialWrath!: BestialWrath;
@@ -51,7 +51,10 @@ class Checklist extends BaseChecklist {
 
   //region Talents
   protected killerCobra!: KillerCobra;
+  //endregion
 
+  //region Legendaries (and sets.. maybe, please blizzard)
+  protected qaplaEredunWarOrder!: QaplaEredunWarOrder;
   //endregion
 
   //region Resources
@@ -83,11 +86,14 @@ class Checklist extends BaseChecklist {
           cobraShotCDREfficiencyThreshold: this.cobraShot.cdrEfficiencyCobraShotThreshold,
           wastedCobraShotsThreshold: this.cobraShot.wastedCobraShotsThreshold,
           beastCleaveThresholds: this.beastCleave.beastCleavesWithoutHits,
-          huntersMarkThresholds: this.huntersMark.uptimeThresholds,
           //endregion
 
           //region Talents
           wastedKillerCobraThreshold: this.killerCobra.wastedKillerCobraThreshold,
+          //endregion
+
+          //region Legendaries
+          qaplaEfficiencyThreshold: this.qaplaEredunWarOrder.cdrEfficiencyKillCommandThreshold,
           //endregion
 
           //region Resources

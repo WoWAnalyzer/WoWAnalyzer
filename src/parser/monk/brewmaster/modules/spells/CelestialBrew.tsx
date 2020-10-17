@@ -1,15 +1,19 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import SpellLink from 'common/SpellLink';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, AbsorbedEvent, RemoveBuffEvent, ApplyBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import FooterChart, { formatTime } from 'interface/others/FooterChart';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 const PURIFIED_CHI_PCT = 0.2;
 const PURIFIED_CHI_WINDOW = 150;
+
+const WASTED_THRESHOLD = 0.75;
 
 type Absorb = {
   cast: CastEvent,
@@ -25,7 +29,7 @@ class CelestialBrew extends Analyzer {
   _currentChiStacks: number = 0;
   _expireTime: number | null = null;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this._absorbs = [];
@@ -48,6 +52,21 @@ class CelestialBrew extends Analyzer {
       this._expireTime = null;
       this._currentChiStacks = 0;
     }
+  }
+
+  get goodCastSuggestion() {
+    const actual = this._absorbs
+                       .filter(({ amount, wasted }) => amount / (amount + wasted) >= WASTED_THRESHOLD)
+                       .length / this._absorbs.length;
+    return {
+      actual,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   private _purifiedChiApplied(event: ApplyBuffEvent) {
@@ -100,6 +119,16 @@ class CelestialBrew extends Analyzer {
     if(this._currentAbsorb) {
       this._absorbs.push(this._currentAbsorb);
     }
+  }
+
+  suggestions(when: When) {
+    when(this.goodCastSuggestion)
+      .addSuggestion((suggest, actual, recommended) => suggest(
+        <>You should try to use <SpellLink id={SPELLS.CELESTIAL_BREW.id} /> when most or all of the absorb will be consumed.</>
+      )
+      .icon(SPELLS.CELESTIAL_BREW.icon)
+      .actual(`${formatPercentage(actual)}% of your absorbs expired with more than 25% remaining.`)
+      .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

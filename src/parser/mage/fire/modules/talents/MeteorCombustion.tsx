@@ -2,19 +2,24 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { DamageEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import EventHistory from 'parser/shared/modules/EventHistory';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class MeteorCombustion extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     enemies: EnemyInstances,
+    eventHistory: EventHistory,
   };
   protected abilityTracker!: AbilityTracker;
   protected enemies!: EnemyInstances;
+  protected eventHistory!: EventHistory;
 
   lastRuneCast = 0
   badMeteor = 0
@@ -23,7 +28,7 @@ class MeteorCombustion extends Analyzer {
   meteorInCombustion = 0;
   combustionActive = false;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
     if (!this.active) {
@@ -41,10 +46,18 @@ class MeteorCombustion extends Analyzer {
   }
 
   onCombustionStart(event: ApplyBuffEvent) {
-    this.combustionActive = true;
+    //The Sun King's Blessing Legendary effect has a chance to trigger a 6sec Combust which was throwing this stat off, so we are just checking to see if Combustion was cast within 100ms of the buff being applied.
+    const lastCast = this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION));
+    if (lastCast.length !== 0) {
+      this.combustionActive = true;
+    }
   }
 
   onCombustionEnd(event: RemoveBuffEvent) {
+    if (!this.combustionActive) {
+      return;
+    }
+
     if (this.meteorCast) {
       this.meteorInCombustion += 1;
     }
@@ -91,12 +104,10 @@ class MeteorCombustion extends Analyzer {
 
   suggestions(when: When) {
     when(this.meteorCombustionSuggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<>You failed to cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> during <SpellLink id={SPELLS.COMBUSTION.id} /> {this.combustionWithoutMeteor} times. In order to make the most of Combustion and <SpellLink id={SPELLS.IGNITE.id} />, you should always cast Meteor during Combustion. If Meteor will not come off cooldown before Combustion is available, then you should hold Meteor for Combustion.</>)
+			.addSuggestion((suggest, actual, recommended) => suggest(<>You failed to cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> during <SpellLink id={SPELLS.COMBUSTION.id} /> {this.combustionWithoutMeteor} times. In order to make the most of Combustion and <SpellLink id={SPELLS.IGNITE.id} />, you should always cast Meteor during Combustion. If Meteor will not come off cooldown before Combustion is available, then you should hold Meteor for Combustion.</>)
 					.icon(SPELLS.METEOR_TALENT.icon)
-					.actual(`${formatPercentage(this.combustionUtilization)}% Utilization`)
-					.recommended(`<${formatPercentage(recommended)}% is recommended`);
-			});
+					.actual(i18n._(t('mage.fire.suggestions.meteor.combustion.utilization')`${formatPercentage(this.combustionUtilization)}% Utilization`))
+					.recommended(`<${formatPercentage(recommended)}% is recommended`));
 	}
 }
 

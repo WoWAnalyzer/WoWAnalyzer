@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -29,7 +29,7 @@ class EnfeebledMark extends Analyzer {
 
   protected enemies!: Enemies;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id) && this.selectedCombatant.hasConduitBySpellID(SPELLS.ENFEEBLED_MARK_CONDUIT.id);
     if (!this.active) {

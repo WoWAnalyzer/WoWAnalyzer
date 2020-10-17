@@ -11,7 +11,7 @@ class ManaLevelChartComponent extends React.PureComponent {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
-    combatants: PropTypes.array.isRequired,
+    combatants: PropTypes.object.isRequired,
     manaUpdates: PropTypes.array.isRequired,
   };
 
@@ -73,7 +73,7 @@ class ManaLevelChartComponent extends React.PureComponent {
       };
     }));
 
-    const bossData = this.state.bossHealth.series.map((series, i) => {
+    const bossData = this.state.bossHealth.series.map((series) => {
       const data = series.data.map(([timestamp, health]) => ({ x: timestamp - start, y: health }));
 
       return {
@@ -86,7 +86,7 @@ class ManaLevelChartComponent extends React.PureComponent {
     let deaths = [];
     if (this.state.bossHealth.deaths) {
       deaths = this.state.bossHealth.deaths
-        .filter(death => !!death.targetIsFriendly)
+        .filter(death => Boolean(death.targetIsFriendly))
         .map(({ timestamp, targetID, killingAbility }) => ({
           x: timestamp - start,
           name: combatants.players[targetID].name,

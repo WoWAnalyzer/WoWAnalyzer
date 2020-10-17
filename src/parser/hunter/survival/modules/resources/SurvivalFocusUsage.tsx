@@ -1,10 +1,11 @@
 import SharedHunterFocusUsage from 'parser/hunter/shared/modules/resources/FocusUsage';
 import { LIST_OF_FOCUS_SPENDERS_SV } from 'parser/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 
 class SurvivalFocusUsage extends SharedHunterFocusUsage {
 
-  static listOfResourceSpenders: { id: number, name: string, icon: string }[] = [
+  static listOfResourceSpenders: Spell[] = [
     ...LIST_OF_FOCUS_SPENDERS_SV,
   ];
 

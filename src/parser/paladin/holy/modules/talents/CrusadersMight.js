@@ -25,11 +25,6 @@ class CrusadersMight extends Analyzer {
   wastedHolyShockReductionCount = 0;
   holyShocksCastsLost = 0;
 
-  effectiveLightOfDawnReductionMs = 0;
-  wastedLightOfDawnReductionMs = 0;
-  wastedLightOfDawnReductionCount = 0;
-  lightOfDawnCastsLost = 0;
-
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id);
@@ -43,12 +38,6 @@ class CrusadersMight extends Analyzer {
   }
 
   onCast(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.CRUSADER_STRIKE.id) {
-      return;
-    }
-
     const holyShockisOnCooldown = this.spellUsable.isOnCooldown(SPELLS.HOLY_SHOCK_CAST.id);
     if (holyShockisOnCooldown) {
       const reductionMs = this.spellUsable.reduceCooldown(
@@ -59,7 +48,7 @@ class CrusadersMight extends Analyzer {
       this.wastedHolyShockReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
     } else {
       const holyShockCooldown =
-        9000 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
+        7500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
       if (
         this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id) &&
         this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)
@@ -81,31 +70,6 @@ class CrusadersMight extends Analyzer {
         </Trans>
       );
     }
-
-    const lightOfDawnisOnCooldown = this.spellUsable.isOnCooldown(SPELLS.LIGHT_OF_DAWN_CAST.id);
-    if (lightOfDawnisOnCooldown) {
-      const reductionMs = this.spellUsable.reduceCooldown(
-        SPELLS.LIGHT_OF_DAWN_CAST.id,
-        COOLDOWN_REDUCTION_MS,
-      );
-      this.effectiveLightOfDawnReductionMs += reductionMs;
-      this.wastedLightOfDawnReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
-      return;
-    }
-
-    // for glimmer if wings is up prioritize Holy Shock > Crusader Strike > Light of Dawn
-    const wingsUp = this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp);
-    if (this.owner.builds.GLIMMER.active && wingsUp && holyShockisOnCooldown) {
-      return;
-    }
-
-    if (!lightOfDawnisOnCooldown) {
-      const lightOfDawnCooldown =
-        15000 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
-      this.wastedLightOfDawnReductionMs += COOLDOWN_REDUCTION_MS;
-      this.wastedLightOfDawnReductionCount += 1;
-      this.lightOfDawnCastsLost += COOLDOWN_REDUCTION_MS / lightOfDawnCooldown;
-    }
   }
 
   get holyShocksMissedThresholds() {
@@ -122,8 +86,7 @@ class CrusadersMight extends Analyzer {
 
   suggestions(when) {
     if (this.owner.builds.GLIMMER.active) {
-      when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) => suggest(
           <>
             You cast <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />{' '}
             {this.wastedHolyShockReductionCount} times when
@@ -147,8 +110,7 @@ class CrusadersMight extends Analyzer {
               Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
             } missed.`,
           )
-          .recommended(`Casting Holy Shock on cooldown is recommended.`);
-      });
+          .recommended(`Casting Holy Shock on cooldown is recommended.`));
     }
   }
 
@@ -169,14 +131,6 @@ class CrusadersMight extends Analyzer {
                 marginTop: '-.1em',
               }}
             />{' '}
-            {formatSeconds((this.effectiveLightOfDawnReductionMs / 1000).toFixed(1))}{' '}
-            <SpellIcon
-              id={SPELLS.LIGHT_OF_DAWN_CAST.id}
-              style={{
-                height: '1.3em',
-                marginTop: '-.1em',
-              }}
-            />
           </>
         }
         label={<Trans>Cooldown reduction</Trans>}
@@ -192,17 +146,8 @@ class CrusadersMight extends Analyzer {
             cast
             {this.holyShocksLost === 1 ? '' : 's'}.
             <br />
-            <br />
-            You cast Crusader Strike <b>{this.wastedLightOfDawnReductionCount}</b> time
             {this.wastedLightOfDawnReductionCount === 1 ? '' : 's'} when Light of Dawn
             {this.owner.builds.GLIMMER.active ? ' and Holy Shock were' : ' was'} off cooldown.
-            <br />
-            This wasted <b>{(this.wastedLightOfDawnReductionMs / 1000).toFixed(1)}</b> seconds of
-            Light of Dawn cooldown reduction,
-            <br />
-            preventing you from <b>{Math.floor(this.lightOfDawnCastsLost)}</b> additional Light of
-            Dawn cast
-            {this.lightOfDawnCastsLost > 2 ? 's' : ''}.
           </>
         }
       />

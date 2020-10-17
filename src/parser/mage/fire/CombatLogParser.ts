@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
+import CombustionNormalizer from './normalizers/Combustion';
 import Scorch from './normalizers/Scorch';
 import PyroclasmBuff from './normalizers/PyroclasmBuff';
 
@@ -16,6 +17,7 @@ import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
+import ElementalBarrier from '../shared/modules/features/ElementalBarrier';
 
 import HotStreak from './modules/features/HotStreak';
 import HotStreakPreCasts from './modules/features/HotStreakPreCasts';
@@ -33,8 +35,18 @@ import MeteorRune from './modules/talents/MeteorRune';
 import MeteorCombustion from './modules/talents/MeteorCombustion';
 import Kindling from './modules/talents/Kindling';
 
+//Legendaries
+import FeveredIncantation from './modules/items/FeveredIncantation';
+
 //Conduits
 import MasterFlame from './modules/items/MasterFlame';
+import ControlledDestruction from './modules/items/ControlledDestruction';
+import InfernalCascade from './modules/items/InfernalCascade';
+import DivertedEnergy from '../shared/modules/items/DivertedEnergy';
+import GroundingSurge from '../shared/modules/items/GroundingSurge';
+import IreOfTheAscended from '../shared/modules/items/IreOfTheAscended';
+import TempestBarrier from '../shared/modules/items/TempestBarrier';
+import SiphonedMalice from '../shared/modules/items/SiphonedMalice';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -42,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     FlameStrikeNormalizer: FlamestrikeNormalizer,
     scorch: Scorch,
     pyroclasmBuff: PyroclasmBuff,
+    combustionNormalizer: CombustionNormalizer,
 
     //Checklist
     checklist: Checklist,
@@ -59,20 +72,31 @@ class CombatLogParser extends CoreCombatLogParser {
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
     heatingUp: HeatingUp,
-    pyroclasm: Pyroclasm,
-    searingTouch: SearingTouch,
+    mirrorImage: MirrorImage,
+    elementalBarrier: ElementalBarrier,
 
     // Talents
-    mirrorImage: MirrorImage,
     arcaneIntellect: ArcaneIntellect,
     runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }] as const,
     kindling: Kindling,
     meteor: Meteor,
     meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
+    pyroclasm: Pyroclasm,
+    searingTouch: SearingTouch,
+
+    //Legendaries
+    feveredIncantation: FeveredIncantation,
 
     //Conduits
     masterFlame: MasterFlame,
+    controlledDestruction: ControlledDestruction,
+    infernalCascade: InfernalCascade,
+    divertedEnergy: DivertedEnergy,
+    groundingSurge: GroundingSurge,
+    ireOfTheAscended: IreOfTheAscended,
+    tempestBarrier: TempestBarrier,
+    siphonedMalice: SiphonedMalice,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

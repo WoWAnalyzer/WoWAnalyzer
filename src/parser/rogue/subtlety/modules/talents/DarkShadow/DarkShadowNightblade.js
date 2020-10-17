@@ -3,6 +3,10 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import DarkShadow from './DarkShadow';
 import DanceDamageTracker from '../../core/DanceDamageTracker';
 
@@ -40,12 +44,10 @@ class DarkShadowNightblade extends DarkShadow {
 
   suggestions(when) {
     when(this.thresholds).isGreaterThan(0)
-    .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Do not cast <SpellLink id={SPELLS.NIGHTBLADE.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when you are using <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} />. </>)
+    .addSuggestion((suggest, actual, recommended) => suggest(<>Do not cast <SpellLink id={SPELLS.NIGHTBLADE.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when you are using <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} />. </>)
         .icon(SPELLS.NIGHTBLADE.icon)
-        .actual(`You cast Nightblade ${actual} times during Shadow Dance.`)
-        .recommended(`${recommended} is recommended`);
-    });
+        .actual(i18n._(t('rogue.subtlety.suggestions.darkShadowNightblade.castsDuringShadowDance')`You cast Nightblade ${actual} times during Shadow Dance.`))
+        .recommended(`${recommended} is recommended`));
   }
 }
 

@@ -26,7 +26,7 @@ class TwistedClaws extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.TWISTED_CLAWS.id);
 
-    if (!this.active) return;
+    if (!this.active) {return;}
     this.agility = twistedClawsStats(this.selectedCombatant);
     this.statTracker.add(SPELLS.TWISTED_CLAWS_BUFF.id, { agility: this.agility });
   }

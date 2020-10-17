@@ -5,7 +5,6 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 import LucidDreamsHealers from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
-import DivinePurposeNormalizer from './normalizers/DivinePurpose';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
 
 import BeaconTransferFactor from './modules/beacons/BeaconTransferFactor';
@@ -16,6 +15,7 @@ import MissingBeacons from './modules/beacons/MissingBeacons';
 import FailedBeaconTransfers from './modules/beacons/FailedBeaconTransfers';
 import DirectBeaconHealing from './modules/beacons/DirectBeaconHealing';
 import BeaconUptime from './modules/beacons/BeaconUptime';
+import HammerOfWrath from '../shared/spells/HammerOfWrath';
 
 import PaladinAbilityTracker from './modules/core/PaladinAbilityTracker';
 import CastBehavior from './modules/CastBehavior';
@@ -25,7 +25,6 @@ import InefficientLightOfTheMartyrs from './modules/InefficientLightOfTheMartyrs
 import FillerFlashOfLight from './modules/FillerFlashOfLight';
 import LightOfDawn from './modules/LightOfDawn';
 import LightOfDawnIndexer from './modules/LightOfDawnIndexer';
-import SpellManaCost from './modules/core/SpellManaCost';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -39,10 +38,8 @@ import MightOfTheMountain from './modules/MightOfTheMountain';
 
 import RuleOfLaw from './modules/talents/RuleOfLaw';
 import DevotionAuraDamageReduction from './modules/talents/DevotionAuraDamageReduction';
-import AuraOfSacrificeDamageReduction from './modules/talents/AuraOfSacrificeDamageReduction';
-import AuraOfMercy from './modules/talents/AuraOfMercy';
-import HolyAvenger from './modules/talents/HolyAvenger';
-import DivinePurpose from './modules/talents/DivinePurpose';
+import HolyAvenger from '../shared/talents/HolyAvenger';
+import DivinePurpose from '../shared/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 import JudgmentOfLight from './modules/talents/JudgmentOfLight';
@@ -65,7 +62,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     lightOfDawnNormalizer: LightOfDawnNormalizer,
-    divinePurposeNormalizer: DivinePurposeNormalizer,
     beaconOfVirtueNormalizer: BeaconOfVirtueNormalizer,
 
     // Override the ability tracker so we also get stats for IoL and beacon healing
@@ -88,7 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
     lightOfDawnIndexer: LightOfDawnIndexer,
-    spellManaCost: SpellManaCost,
+    hammerOfWrath: HammerOfWrath,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
@@ -109,8 +105,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     ruleOfLaw: RuleOfLaw,
     devotionAuradamageReduction: DevotionAuraDamageReduction,
-    auraOfSacrificeDamageReduction: AuraOfSacrificeDamageReduction,
-    auraOfMercy: AuraOfMercy,
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,

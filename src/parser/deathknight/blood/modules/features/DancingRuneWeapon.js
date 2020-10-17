@@ -5,6 +5,8 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Abilities from 'parser/core/modules/Abilities';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const ALLOWED_CASTS_DURING_DRW = [
   SPELLS.DEATH_STRIKE.id,
@@ -37,9 +39,7 @@ class DancingRuneWeapon extends Analyzer {
   }
 
   get goodDRWCasts() {
-    return this.castsDuringDRW.filter((val, index) => {
-      return ALLOWED_CASTS_DURING_DRW.includes(val);
-    });
+    return this.castsDuringDRW.filter((val, index) => ALLOWED_CASTS_DURING_DRW.includes(val));
   }
 
   get SuggestionThresholds() {
@@ -74,12 +74,10 @@ class DancingRuneWeapon extends Analyzer {
 
   suggestions(when) {
     when(this.SuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Avoid casting spells during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> that don't benefit from the coppies such as <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> and <SpellLink id={SPELLS.DEATH_AND_DECAY.id} />. Check the cooldown-tab below for more detailed breakdown.{this.goodDRWSpells}</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Avoid casting spells during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> that don't benefit from the coppies such as <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> and <SpellLink id={SPELLS.DEATH_AND_DECAY.id} />. Check the cooldown-tab below for more detailed breakdown.{this.goodDRWSpells}</>)
           .icon(SPELLS.DANCING_RUNE_WEAPON.icon)
-          .actual(`${ this.goodDRWCasts.length } out of ${ this.castsDuringDRW.length} casts during DRW were good`)
-          .recommended(`${this.castsDuringDRW.length} recommended`);
-      });
+          .actual(i18n._(t('deathknight.blood.suggestions.dancingRuneWeapon.numberCasts')`${ this.goodDRWCasts.length } out of ${ this.castsDuringDRW.length} casts during DRW were good`))
+          .recommended(`${this.castsDuringDRW.length} recommended`));
   }
 }
 

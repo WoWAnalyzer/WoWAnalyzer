@@ -6,6 +6,9 @@ import SpellLink from 'common/SpellLink';
 
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import SymbolsDamageTracker from './SymbolsDamageTracker';
 
 class NightbladeDuringSymbols extends Analyzer {
@@ -13,7 +16,7 @@ class NightbladeDuringSymbols extends Analyzer {
     damageTracker: DamageTracker,
     symbolsDamageTracker: SymbolsDamageTracker,
   };
-  
+
   constructor(...args) {
     super(...args);
 
@@ -40,12 +43,10 @@ class NightbladeDuringSymbols extends Analyzer {
 
   suggestions(when) {
     when(this.thresholds).isGreaterThan(0)
-    .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Do not refresh <SpellLink id={SPELLS.NIGHTBLADE.id} /> during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> - cast <SpellLink id={SPELLS.EVISCERATE.id} /> instead. You can refresh <SpellLink id={SPELLS.NIGHTBLADE.id} /> early to make sure that its up for the full duration of <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />. </>)
+    .addSuggestion((suggest, actual, recommended) => suggest(<>Do not refresh <SpellLink id={SPELLS.NIGHTBLADE.id} /> during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> - cast <SpellLink id={SPELLS.EVISCERATE.id} /> instead. You can refresh <SpellLink id={SPELLS.NIGHTBLADE.id} /> early to make sure that its up for the full duration of <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />. </>)
         .icon(SPELLS.NIGHTBLADE.icon)
-        .actual(`You refreshed Nightblade ${actual} times during Symbols of Death.`)
-        .recommended(`${recommended} is recommended`);
-    });
+        .actual(i18n._(t('rogue.subtlety.suggestions.nightbladeDuringSymbolsOfDeath.refreshed')`You refreshed Nightblade ${actual} times during Symbols of Death.`))
+        .recommended(`${recommended} is recommended`));
   }
 }
 export default NightbladeDuringSymbols;

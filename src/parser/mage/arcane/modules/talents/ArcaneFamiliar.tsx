@@ -5,12 +5,14 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class ArcaneFamiliar extends Analyzer {
 
-	constructor(options: any) {
+	constructor(options: Options) {
     super(options);
       this.active = this.selectedCombatant.hasTalent(SPELLS.ARCANE_FAMILIAR_TALENT.id);
   }
@@ -33,12 +35,10 @@ class ArcaneFamiliar extends Analyzer {
 
 	suggestions(when: When) {
 		when(this.arcaneFamiliarUptimeThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<>Your <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} /> was up for {formatPercentage(this.uptime)}% of the fight. If your Arcane Familiar dies, make sure you recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight, consider taking a different talent.</>)
+			.addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} /> was up for {formatPercentage(this.uptime)}% of the fight. If your Arcane Familiar dies, make sure you recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight, consider taking a different talent.</>)
 					.icon(SPELLS.ARCANE_FAMILIAR_TALENT.icon)
-					.actual(`${formatPercentage(this.uptime)}% Uptime`)
-					.recommended(`${formatPercentage(recommended)}% is recommended`);
-			});
+					.actual(i18n._(t('mage.arcane.suggestions.arcaneFamiliar.uptime')`${formatPercentage(this.uptime)}% Uptime`))
+					.recommended(`${formatPercentage(recommended)}% is recommended`));
 	}
 
   statistic() {

@@ -2,6 +2,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+
 import { STORMSTRIKE_CAST_SPELLS } from '../constants';
 
 class Abilities extends CoreAbilities {
@@ -241,12 +242,11 @@ class Abilities extends CoreAbilities {
         cooldown: 40,
       },
       {
-        spell: SPELLS.LIGHTNING_SHIELD_TALENT,
+        spell: SPELLS.LIGHTNING_SHIELD,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.LIGHTNING_SHIELD_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0,

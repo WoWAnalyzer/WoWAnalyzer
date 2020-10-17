@@ -5,6 +5,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class BloodPlagueUptime extends Analyzer {
   static dependencies = {
@@ -29,12 +31,10 @@ class BloodPlagueUptime extends Analyzer {
 
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Blood Plague uptime can be improved. Keeping Blood Boil on cooldown should keep it up at all times.')
+        .addSuggestion((suggest, actual, recommended) => suggest('Your Blood Plague uptime can be improved. Keeping Blood Boil on cooldown should keep it up at all times.')
             .icon(SPELLS.BLOOD_PLAGUE.icon)
-            .actual(`${formatPercentage(actual)}% Blood Plague uptime`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`);
-        });
+            .actual(i18n._(t('deathknight.blood.suggestions.bloodPlague.uptime')`${formatPercentage(actual)}% Blood Plague uptime`))
+            .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

@@ -4,9 +4,10 @@ import SPELLS from 'common/SPELLS';
 import { CastEvent, EnergizeEvent } from 'parser/core/Events';
 import { CHIM_REGEN } from 'parser/hunter/shared/constants';
 import { AOTW_REGEN, BARBED_SHOT_FOCUS_REGEN_BUFFS, BARBED_SHOT_REGEN, BEAST_MASTERY_SPELLS_WITHOUT_WASTE } from 'parser/hunter/beastmastery/constants';
+import { Options } from 'parser/core/Analyzer';
 
 class FocusTracker extends ResourceTracker {
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.FOCUS;
   }
@@ -38,7 +39,7 @@ class FocusTracker extends ResourceTracker {
 
   //We're not interested in the fabricated events that are created prepull, as these tend to add focus costs things such as potion usage, Bestial Wrath, Trueshot or the likes whereas these don't cost focus.
   shouldProcessCastEvent(event: CastEvent) {
-    return !event.__fabricated && !!this.getResource(event);
+    return !event.__fabricated && Boolean(this.getResource(event));
   }
 }
 

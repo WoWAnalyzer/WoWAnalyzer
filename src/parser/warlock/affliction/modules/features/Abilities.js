@@ -4,6 +4,7 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import SPELLS from 'common/SPELLS';
 
 import { mapSpellsToIds } from 'parser/warlock/shared/helpers';
+
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
 class Abilities extends CoreAbilities {
@@ -12,7 +13,7 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational spells
       {
-        spell: SPELLS.UNSTABLE_AFFLICTION_CAST,
+        spell: SPELLS.UNSTABLE_AFFLICTION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,

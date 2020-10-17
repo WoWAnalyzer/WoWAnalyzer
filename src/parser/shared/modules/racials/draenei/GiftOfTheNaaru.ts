@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS/index';
 import RACES from 'game/RACES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 
 /**
@@ -11,14 +11,14 @@ class GiftOfTheNaaru extends Analyzer {
     abilities: Abilities,
   };
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.race === RACES.Draenei;
     if (!this.active) {
       return;
     }
 
-    options.abilities.add({
+    (options.abilities as Abilities).add({
       spell: [
         SPELLS.GIFT_OF_THE_NAARU_DK,
         SPELLS.GIFT_OF_THE_NAARU_HUNTER,

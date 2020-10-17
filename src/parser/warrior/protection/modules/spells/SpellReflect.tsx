@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -9,6 +9,8 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
@@ -24,7 +26,7 @@ class SpellReflect extends Analyzer {
   magicDamageReduced = 0;
   totalDamage = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamage);
     debug && this.addEventListener(Events.fightend, this.fightEndDebug);
@@ -59,16 +61,14 @@ class SpellReflect extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           Try to cast <SpellLink id={SPELLS.SPELL_REFLECTION.id} />  more often when magic damage is going out to take less damage.
         </>,
       )
         .icon(SPELLS.SPELL_REFLECTION.icon)
-        .actual(`${formatPercentage(actual)} % magic damage With Spell Reflect Up`)
-        .recommended(`${formatPercentage(recommended)} % recommended`);
-    });
+        .actual(i18n._(t('warrior.protection.suggestions.spellReflect.efficiency')`${formatPercentage(actual)} % magic damage With Spell Reflect Up`))
+        .recommended(`${formatPercentage(recommended)} % recommended`));
   }
 }
 

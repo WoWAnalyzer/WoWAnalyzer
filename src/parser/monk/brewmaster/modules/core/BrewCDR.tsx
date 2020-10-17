@@ -4,8 +4,9 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import Events, { EventType, ChangeHasteEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
 import Abilities from '../Abilities';
 import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
@@ -28,7 +29,7 @@ class BrewCDR extends Analyzer {
   _newHaste = 0;
   _lastHasteChange = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this._lastHasteChange = this.owner.fight.start_time;
 
@@ -48,7 +49,7 @@ class BrewCDR extends Analyzer {
     // ...and TP...
     totalCDR += this.tp.cdr;
     // ...and BoB...
-    totalCDR += this.bob.cdr;
+    totalCDR += this.bob.cdr[SPELLS.PURIFYING_BREW.id];
     return totalCDR;
   }
 
@@ -95,7 +96,7 @@ class BrewCDR extends Analyzer {
               <li>{this.ks.totalCasts} Keg Smash casts — <strong>{(this.ks.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.ks.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>
               {this.ks.bocHits > 0 && <li>Using Blackout Combo on {this.ks.bocHits} Keg Smash hits — <strong>{(this.ks.bocCDR / 1000).toFixed(2)}s</strong> (<strong>{(this.ks.wastedBocCDR / 1000).toFixed(2)}s</strong> wasted)</li>}
               <li>{this.tp.totalCasts} Tiger Palm hits — <strong>{(this.tp.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>
-              {this.bob.active && <li>{this.bob.casts} Black Ox Brew casts — <strong>{(this.bob.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.bob.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>}
+              {this.bob.active && <li>{this.bob.casts} Black Ox Brew casts — <strong>{(this.bob.cdr[SPELLS.PURIFYING_BREW.id] / 1000).toFixed(2)}s</strong> (<strong>{(this.bob.wastedCDR[SPELLS.PURIFYING_BREW.id] / 1000).toFixed(2)}s</strong> wasted)</li>}
             </ul>
             <strong>Total cooldown reduction:</strong> {(this.totalCDR / 1000).toFixed(2)}s.<br />
           </>

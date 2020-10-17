@@ -14,14 +14,9 @@ class RollTheBonesCounter extends Analyzer {
     rollTheBonesCastTracker: RollTheBonesCastTracker,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
-  }
-
   rolltheBonesBuffDistributionChart() {
     const castTracker = this.rollTheBonesCastTracker;
-    
+
     const distributionObj = castTracker.rolltheBonesCastEvents.reduce((buffCount, cast) => {
       buffCount[cast.appliedBuffs.length] = (buffCount[cast.appliedBuffs.length] || 0) + 1;
       return buffCount;
@@ -60,7 +55,6 @@ class RollTheBonesCounter extends Analyzer {
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.ROLL_THE_BONES.id} /> distribution</label>
-
           {this.rolltheBonesBuffDistributionChart()}
         </div>
       </Statistic>

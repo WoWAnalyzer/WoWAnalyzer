@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { RAPTOR_MONGOOSE_VARIANTS, TIP_DAMAGE_INCREASE, TIP_MAX_STACKS } from 'parser/hunter/survival/constants';
@@ -20,7 +20,6 @@ import { MS_BUFFER } from 'parser/hunter/shared/constants';
  */
 
 class TipOfTheSpear extends Analyzer {
-
   spenderCasts = 0;
   stacks = 0;
   usedStacks = 0;
@@ -28,7 +27,7 @@ class TipOfTheSpear extends Analyzer {
   damage = 0;
   lastApplicationTimestamp = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.TIP_OF_THE_SPEAR_TALENT.id);

@@ -7,6 +7,8 @@ import { formatPercentage } from 'common/format';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const BUFF_WINDOW_TIME = 60;
 
@@ -101,27 +103,23 @@ class Shadowmeld extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.efficiencyThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.efficiencyThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <React.Fragment>
           You could be using <SpellLink id={SPELLS.SHADOWMELD.id} /> to increase your <SpellLink id={SPELLS.RAKE.id} /> damage more often. Activating <SpellLink id={SPELLS.SHADOWMELD.id} /> and immediately using <SpellLink id={SPELLS.RAKE.id} /> will cause it to deal double damage.
         </React.Fragment>,
       )
         .icon(SPELLS.SHADOWMELD.icon)
-        .actual(`${(actual * 100).toFixed(0)}% cast efficiency.`)
-        .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`);
-    });
+        .actual(i18n._(t('druid.feral.suggetions.shadowmeld.efficiency')`${(actual * 100).toFixed(0)}% cast efficiency.`))
+        .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`));
 
-    when(this.wastedDuringStealthThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.wastedDuringStealthThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <React.Fragment>
           You are wasting <SpellLink id={SPELLS.SHADOWMELD.id} /> by using it when you already have a stealth effect active.
         </React.Fragment>,
       )
         .icon(SPELLS.SHADOWMELD.icon)
-        .actual(`${this.wastedDuringStealth} cast${this.wastedDuringStealth === 1 ? '' : 's'} when already stealthed.`)
-        .recommended('0 is recommended');
-    });
+        .actual(i18n._(t('druid.feral.suggetions.shadowmeld.wasted')`${this.wastedDuringStealth} cast${this.wastedDuringStealth === 1 ? '' : 's'} when already stealthed.`))
+        .recommended('0 is recommended'));
   }
 }
 

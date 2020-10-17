@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli, Barter, Ssabbar, Jafowler } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,22 +7,50 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
-const prepatch = date(2020, 10, 13);
 
 // prettier-ignore
 export default [
-  change(prepatch, 'Added dispel to filterable type for EventTab.', Moonrabbit),
-  change(prepatch, 'Added Castle Nathria boss configs and updated the default report header image.', Sharrq),
-  change(prepatch, 'Added pet tracking to the Cooldown tab.', Abelito75),
-  change(prepatch, 'Converted charts to new library.', emallson),
-  change(prepatch, 'Added a new search option to the homepage to view a guild\'s recent reports.', Dambroda),
-  change(prepatch, 'Updated mana costs for all healers.', Abelito75),
-  change(prepatch, 'Updated abilities effiency tracker to default to 0 if no casts were possible.', Abelito75),
-  change(prepatch, 'Added holy power tracking for prot and holy paladin specs.', HolySchmidt),
-  change(prepatch, 'Updated search in Event tab to allow for multi-word searching in quotes.', Abelito75),
-  change(prepatch, 'Add some early checks to see if a player has a given conduit, soulbind or covenant.', Putro),
-  change(prepatch, 'Add some scripts for generating conduit information.', Putro),
-  change(date(2020, 10, 4), 'Fixed cast efficiency calculations for channeled spells. They are now no longer adding channeled time on top of cooldown as time they were unavailable', Juko8),
+  change(date(2020, 10, 15), 'Updated the Spec tab styles to clearly indicate unmaintained specs', Dambroda),
+  change(date(2020, 10, 15), 'Added a warning message when loading Classic Logs', Sharrq),
+  change(date(2020, 10, 14), 'Fixed the character page.', Abelito75),
+  change(date(2020, 10, 14), <>Adjusted the values of <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> and <SpellLink id={SPELLS.BATTLE_SHOUT.id} />.</>, niseko),
+  change(date(2020, 10, 13), 'Internationalization for each spec', Jafowler),
+  change(date(2020, 10, 13), 'Fixed typo in the Timeline buffs timelineHighlight propery', Sharrq),
+  change(date(2020, 10, 13), 'Converted DistancedMoved and DispelTracker modules to TypeScript', Dambroda),
+  change(date(2020, 10, 13), 'Convert Js files to typescript', Ssabbar),
+  change(date(2020, 10, 13), 'Fixed Putros StatTracker', niseko),
+  change(date(2020, 10, 13), 'Updated our StatTracker to reflect prepatch stat values and the diminishing return system added in Shadowlands', Putro),
+  change(date(2020, 10, 13), 'Converted StatisticsSectionTitle/TABS to TypeScript', ChagriAli),
+  change(date(2020, 10, 13), 'Throughput files TypeScript conversion', niseko),
+  change(date(2020, 10, 13), 'Converted BAD_ICONS, aprilFools, colorForPerformance, Alerts, ContributorButton, Modal to TypeScript', Barter),
+  change(date(2020, 10, 13), 'Converted Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
+  change(date(2020, 10, 13), 'Allow the use of any of the threshold breakpoints (minor, average, major) as the primary breakpoint for suggestions', Dambroda),
+  change(date(2020, 10, 13), 'Merged CooldownTrackers to remove duplicated code and converted them to TypeScript', Putro),
+  change(date(2020, 10, 13), 'Converted Items to TypeScript', Zeboot),
+  change(date(2020, 10, 13), 'Converted Spells to TypeScript', Zeboot),
+  change(date(2020, 10, 13), 'Converted Consumable Checkers to TypeScript', Zeboot),
+  change(date(2020, 10, 13), 'Converted Combatants to TypeScript', niseko),
+  change(date(2020, 10, 13), 'Changed code quality rules.', Zerotorescue),
+  change(date(2020, 10, 13), 'Added a new event map for catch-all event types. Converted SpellUsable to TypeScript.', Dambroda),
+  change(date(2020, 10, 13), 'Converted WCL API Access to TypeScript', Zeboot),
+  change(date(2020, 10, 13), 'Cleaned up the console a little bit.', Abelito75),
+  change(date(2020, 10, 13), 'Added a toggle-all button to the EventTab.', niseko),
+  change(date(2020, 10, 13), 'Added dispel to filterable type for EventTab.', Moonrabbit),
+  change(date(2020, 10, 13), 'Added Castle Nathria boss configs and updated the default report header image.', Sharrq),
+  change(date(2020, 10, 13), 'Added pet tracking to the Cooldown tab.', Abelito75),
+  change(date(2020, 10, 13), 'Converted charts to new library.', emallson),
+  change(date(2020, 10, 13), 'Added a new search option to the homepage to view a guild\'s recent reports.', Dambroda),
+  change(date(2020, 10, 13), 'Updated mana costs for all healers.', Abelito75),
+  change(date(2020, 10, 13), 'Updated abilities effiency tracker to default to 0 if no casts were possible.', Abelito75),
+  change(date(2020, 10, 13), 'Added holy power tracking for prot and holy paladin specs.', HolySchmidt),
+  change(date(2020, 10, 13), 'Updated search in Event tab to allow for multi-word searching in quotes.', Abelito75),
+  change(date(2020, 10, 13), 'Add some early checks to see if a player has a given conduit, soulbind or covenant.', Putro),
+  change(date(2020, 10, 13), 'Add some scripts for generating conduit information.', Putro),
+  change(date(2020, 10, 13), 'Fixed cast efficiency calculations for channeled spells. They are now no longer adding channeled time on top of cooldown as time they were unavailable', Juko8),
+  change(date(2020, 10, 7), 'Updated the report header design: moved phase and time selection slightly out of view.', Zerotorescue),
+  change(date(2020, 10, 6), 'Provide the ability to analyse anonymous reports.', AdamKelly),
+  change(date(2020, 10, 6), 'Fixed guild and character search so they can be submitted.', ChristopherKiss),
+  change(date(2020, 10, 5), 'Convert TimeInput/TimeFilter to typescript', ChagriAli),
   change(date(2020, 10, 4), 'Removed remaining trackers', Zerotorescue),
   change(date(2020, 10, 2), 'Updated project dependencies.', Zerotorescue),
   change(date(2020, 9, 26), 'Added a new search option to the homepage to view a list of reports for a guild.', Dambroda),
@@ -71,7 +98,7 @@ export default [
   change(date(2020, 3, 6), 'Fixed an issue where Vantus Runes weren\'t working as intended.', niseko),
   change(date(2020, 3, 4), 'Fix a bug where having multiple of the same corruption didn\'t count towards corruption total', Putro),
   change(date(2020, 2, 28), <>Added the primary stat proc of <ItemLink id={ITEMS.ASHJRAKAMAS_SHROUD_OF_RESOLVE.id} />.</>, niseko),
-  change(date(2020, 2, 21), <>Added the possibility of adding item warnings, and added a warning for people using <ItemLink id={ITEMS.WHISPERING_ELDRITH_BOW.id} />.</>, Putro),
+  change(date(2020, 2, 21), <>Added the possibility of adding item warnings, and added a warning for people using <ItemLink id={ITEMS.WHISPERING_ELDRITCH_BOW.id} />.</>, Putro),
   change(date(2020, 2, 21), <>Added <SpellLink id={SPELLS.SYMBIOTIC_PRESENCE.id} />.</>, niseko),
   change(date(2020, 2, 17), <>Added <ItemLink id={ITEMS.FORBIDDEN_OBSIDIAN_CLAW.id} /> and <ItemLink id={ITEMS.HUMMING_BLACK_DRAGONSCALE.id} />.</>, niseko),
   change(date(2020, 2, 14), <>Updated Void Ritual and Surging Vitality corruption effects with the hotfixed stat values.</>, niseko),

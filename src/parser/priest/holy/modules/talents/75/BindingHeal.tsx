@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import ItemHealingDone from 'interface/ItemHealingDone';
@@ -19,7 +19,7 @@ class BindingHeal extends Analyzer {
 
   bindingHealTargets = {};
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_HEAL_TALENT.id);
   }

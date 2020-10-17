@@ -1,16 +1,17 @@
 import React from 'react';
 import CoreChanneling from 'parser/shared/modules/Channeling';
 
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 
-
-import Analyzer from 'parser/core/Analyzer';
-
-const debug = false;
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class SoothingMist extends Analyzer {
   static dependencies = {
@@ -33,67 +34,67 @@ class SoothingMist extends Analyzer {
   constructor(...args) {
     super(...args);
     this.assumedGCD = 1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating)) *.95;
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.castSoothingMist);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST), this.castDuringSoothingMist);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.handleSoothingMist);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.masterySoothingMist);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.removeBuffSoothingMist);
+
+    this.addEventListener(Events.fightend, this.end);
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
+  handleSoothingMist(event) {
+    this.soomTicks += 1;
+    this.lastSoomTickTimestamp = event.timestamp;
+  }
 
-    if (spellId === SPELLS.SOOTHING_MIST.id) {
-      this.soomTicks += 1;
-      this.lastSoomTickTimestamp = event.timestamp;
-    }
-
-    if (spellId === SPELLS.GUSTS_OF_MISTS.id && this.lastSoomTickTimestamp === event.timestamp && this.gustProc < Math.ceil(this.soomTicks/8)) {
+  masterySoothingMist(event) {
+    if (this.lastSoomTickTimestamp === event.timestamp && this.gustProc < Math.ceil(this.soomTicks / 8)) {
       this.gustProc += 1;
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if(this.soomInProgress){
-      if(spellId === SPELLS.VIVIFY.id || spellId === SPELLS.ENVELOPING_MIST.id) {
-        this.castsInSoom += 1;
-      }
-      if(spellId === SPELLS.SOOTHING_MIST.id) {//if they refresh soom for some stupid reason
-        this.endStamp = event.timestamp;
-        this.checkChannelTiming();
-        this.castsInSoom = 0;
-      }
-    }
-
-    if (spellId === SPELLS.SOOTHING_MIST.id) {
-      this.startStamp = event.timestamp;
-      this.soomInProgress = true;
-      const gcd = 1000 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
-      this.startGCD = Math.max(750, gcd) * .95;
+  castDuringSoothingMist(event) {
+    if (this.soomInProgress) {
+      this.castsInSoom += 1;
     }
   }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
+  castSoothingMist(event) {
+    if (this.soomInProgress) {
+    //if they refresh soom for some stupid reason
+      this.endStamp = event.timestamp;
+      this.checkChannelTiming();
+      this.castsInSoom = 0;
+    }
 
-    if (spellId !== SPELLS.SOOTHING_MIST.id || !this.soomInProgress) {
+    this.startStamp = event.timestamp;
+    this.soomInProgress = true;
+    const gcd = 1000 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
+    this.startGCD = Math.max(750, gcd) * .95;
+  }
+
+  removeBuffSoothingMist(event) {
+    if (!this.soomInProgress) {
       return;
     }
+
     this.endStamp = event.timestamp;
     this.soomInProgress = false;
     this.checkChannelTiming();
     this.castsInSoom = 0;
-    
   }
 
   checkChannelTiming() {
     this.totalSoomCasts += 1;
     let duration = this.endStamp - this.startStamp;
-    
+
     if (duration < this.startGCD) {
       return;
     }
 
     duration -= this.startGCD;
-    this.castsInSoom -= 1;
 
     this.castsInSoom -= parseInt(duration / this.assumedGCD);
 
@@ -102,20 +103,10 @@ class SoothingMist extends Analyzer {
     }
   }
 
-  on_fightend() {
+  end(event) {
     if (this.soomInProgress) {
       this.endStamp = this.selectedCombatant.fightDuration;
       this.checkChannelTiming();
-    }
-    if (debug) {
-      console.log(`SooM Ticks: ${this.soomTicks}`);
-      console.log('SooM Perc Uptime: ', (this.soomTicks * 2 / this.owner.fightDuration * 1000));
-      console.log('SooM Buff Update: ', this.selectedCombatant.getBuffUptime(SPELLS.SOOTHING_MIST.id), ' Percent: ', this.selectedCombatant.getBuffUptime(SPELLS.SOOTHING_MIST.id) / this.owner.fightDuration);
-      console.log('soom gusts', this.gustsHealing);
-
-      console.log('Total casts: ', this.totalSoomCasts);
-      console.log('Bad casts: ', this.badSooms);
-      console.log('Threshold casts: ', this.soomThresholds);
     }
   }
 
@@ -149,26 +140,22 @@ class SoothingMist extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest) => {
-        return suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest) => suggest(
           <>
-            You are allowing <SpellLink id={SPELLS.SOOTHING_MIST.id} /> to channel for an extended period of time. <SpellLink id={SPELLS.SOOTHING_MIST.id} /> does little healing, so your time is better spent DPS'ing throug the use of <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
+            You are allowing <SpellLink id={SPELLS.SOOTHING_MIST.id} /> to channel for an extended period of time. <SpellLink id={SPELLS.SOOTHING_MIST.id} /> does little healing, so your time is better spent DPS'ing through the use of <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
           </>,
         )
           .icon(SPELLS.SOOTHING_MIST.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
-      });
+          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
 
-    when(this.suggestionThresholdsCasting).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.suggestionThresholdsCasting).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You were channeling <SpellLink id={SPELLS.SOOTHING_MIST.id} /> without casting spells during it. Replace this channel time with damage abilities like <SpellLink id={SPELLS.RISING_SUN_KICK.id} />.
         </>,
       )
         .icon(SPELLS.SOOTHING_MIST.icon)
-        .actual(`${formatPercentage(this.badSooms / this.totalSoomCasts)} % of Soothing Mist casts with max spells casted`)
-        .recommended(`${recommended} is recommended`);
-    });
+        .actual(i18n._(t('monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells')`${formatPercentage(this.badSooms / this.totalSoomCasts)} % of Soothing Mist casts with max spells casted`))
+        .recommended(`${recommended} is recommended`));
   }
 }
 

@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { ApplyBuffEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
@@ -32,7 +32,7 @@ class FlayedShot extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
@@ -41,7 +41,7 @@ class FlayedShot extends Analyzer {
       return;
     }
 
-    options.abilities.add({
+    (options.abilities as Abilities).add({
       spell: SPELLS.FLAYED_SHOT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 30,

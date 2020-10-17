@@ -9,6 +9,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Enemies from 'parser/shared/modules/Enemies';
+
 import { SHATTER_DEBUFFS } from '../../constants';
 
 const DAMAGE_BONUS: {[rank: number]: number } = {
@@ -51,7 +52,7 @@ class IceBite extends Analyzer {
 
   onIceLanceDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
-    if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp))) {  
+    if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp))) {
       this.bonusDamage += calculateEffectiveDamage(event,DAMAGE_BONUS[this.conduitRank]);
     }
   }

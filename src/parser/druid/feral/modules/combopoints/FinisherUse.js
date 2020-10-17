@@ -8,6 +8,8 @@ import Events from 'parser/core/Events';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
 import RipSnapshot from '../bleeds/RipSnapshot';
@@ -26,13 +28,13 @@ const MAX_COMBO = 5;
 /**
  * Although all finishers are most efficient at 5 combo points, in some situations use at fewer combo points
  * will be a damage increase compared to waiting for the full 5.
- * 
+ *
  * Situations where <5 combo point use of an ability is fine:
  *  Fresh Rip on a target which doesn't yet have it.
  *  Rip on a target that already has Rip if it upgrades the snapshot, so long as player is using Sabertooth.
  *  [NYI] Maim on a target where the stun is effective and useful.
  *  [NYI] Possibly when using Savage Roar? Will need theorycrafting.
- * 
+ *
  */
 class FinisherUse extends Analyzer {
   static dependencies = {
@@ -116,16 +118,14 @@ class FinisherUse extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.badFinishersThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
+    when(this.badFinishersThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <>
           You are unnecessarily using finishers at less than full combo points. Generally the only finisher you should use without full combo points is <SpellLink id={SPELLS.RIP.id} /> when applying it to a target that doesn't have it active yet.
         </>,
       )
         .icon('creatureportrait_bubble')
-        .actual(`${(actual * 100).toFixed(0)}% of finishers were incorrectly used without full combo points`)
-        .recommended(`${(recommended * 100).toFixed(0)}% is recommended`);
-    });
+        .actual(i18n._(t('druid.feral.suggestions.finishers.efficiency')`${(actual * 100).toFixed(0)}% of finishers were incorrectly used without full combo points`))
+        .recommended(`${(recommended * 100).toFixed(0)}% is recommended`));
   }
 
   statistic() {

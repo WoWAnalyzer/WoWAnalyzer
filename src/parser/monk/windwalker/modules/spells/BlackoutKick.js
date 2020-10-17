@@ -9,6 +9,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import Events from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  *  Inspired by filler modules in Holy Paladin Analyzer
@@ -82,12 +84,10 @@ class BlackoutKick extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest('You are wasting cooldown reduction by casting Blackout Kick while having important casts available')
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting cooldown reduction by casting Blackout Kick while having important casts available')
         .icon(SPELLS.BLACKOUT_KICK.icon)
-        .actual(`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`)
-        .recommended(`${recommended} is recommended`);
-    });
+        .actual(i18n._(t('monk.windwalker.suggestions.blackoutKick.cdrWasted')`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`))
+        .recommended(`${recommended} is recommended`));
   }
 
   statistic() {

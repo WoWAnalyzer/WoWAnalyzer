@@ -167,3 +167,18 @@ export const BLOODLETTING_BARBED_DOT_INCREASE = [0, 0.1, 0.11, 0.12, 0.13, 0.14,
 //Wild Call has a % increase chance to reset the cooldown of Barbed Shot
 export const ECHOING_CALL_INCREASED_WILD_CALL_CHANCE = [0, 0.05, 0.06, 0.06, 0.07, 0.07, 0.08, 0.08, 0.09, 0.09, 0.1, 0.1, 0.11, 0.11, 0.12, 0.12];
 //endregion
+
+//region Legendaries
+/** Dire Command */
+//Dire Command has a 15% chance to summon a dire beast
+export const DIRE_COMMAND_PROC_CHANCE = 0.15;
+/** Flamewaker's Cobra Sting */
+//Flamewaker's Cobra Sting has a 15% chance to reduce focus cost of next Kill Command by 100%
+export const FLAMEWAKERS_PROC_CHANCE = 0.15;
+/** Qa'pla, Eredun War Order */
+//Qa'pla reduces the cooldown of Kill Command by 4 seconds everytime you cast Barbed Shot
+export const QAPLA_KILL_COMMAND_REDUCTION_MS = 4000;
+/** Rylakstalker's Piercing Fangs */
+//Rylakstalker's Piercing Fang increases pet crit damage by 15% during Bestial Wrath
+export const RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE = 0.15;
+//endregion

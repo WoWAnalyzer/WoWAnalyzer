@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -39,11 +39,11 @@ class AMurderOfCrows extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id);
     if (this.active) {
-      options.abilities.add({
+      (options.abilities as Abilities).add({
         spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,

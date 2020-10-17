@@ -5,6 +5,8 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import Gauge from 'interface/statistics/components/Gauge';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   static HEALING_ABILITIES_ON_GCD = [
@@ -106,19 +108,15 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   }
   suggestions(when) {
     when(this.nonHealingTimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your time spent healing can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
+      .addSuggestion((suggest, actual, recommended) => suggest('Your time spent healing can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
           .icon('petbattle_health-down')
-          .actual(`${1 - formatPercentage(actual)}% time spent healing`)
-          .recommended(`>${formatPercentage(1 - recommended)}% is recommended`);
-      });
+          .actual(i18n._(t('shared.suggestions.alwaysBeCastingHealing.timeSpentHealing')`${1 - formatPercentage(actual)}% time spent healing`))
+          .recommended(`>${formatPercentage(1 - recommended)}% is recommended`));
     when(this.downtimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
+      .addSuggestion((suggest, actual, recommended) => suggest('Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(1 - actual)}% active time`)
-          .recommended(`>${formatPercentage(1 - recommended)}% is recommended`);
-      });
+          .actual(i18n._(t('shared.suggestions.alwaysBeCasting.activeTime')`${formatPercentage(1 - actual)}% active time`))
+          .recommended(`>${formatPercentage(1 - recommended)}% is recommended`));
   }
 }
 

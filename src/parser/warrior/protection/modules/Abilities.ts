@@ -3,7 +3,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  spellbook(): Array<SpellbookAbility> {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {
@@ -12,6 +12,31 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        timelineSortIndex: 3,
+      },
+      {
+        spell: SPELLS.WHIRLWIND,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SHATTERING_THROW,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        timelineSortIndex: 3,
+      },
+      {
+        spell: SPELLS.EXECUTE,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: haste => 6 / (1 + haste),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         timelineSortIndex: 3,
       },

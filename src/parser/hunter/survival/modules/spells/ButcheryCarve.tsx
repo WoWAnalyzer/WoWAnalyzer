@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
@@ -12,6 +12,8 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { DamageEvent } from 'parser/core/Events';
 import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from 'parser/hunter/survival/constants';
 import { ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -39,7 +41,7 @@ class ButcheryCarve extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.spellKnown), this.onDamage);
@@ -90,12 +92,10 @@ class ButcheryCarve extends Analyzer {
   suggestions(when: When) {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
-      when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
+      when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
           .icon(this.spellKnown.icon)
-          .actual(`${actual} average targets hit per cast`)
-          .recommended(`>${recommended} is recommended`);
-      });
+          .actual(i18n._(t('hunter.survival.suggestions.butcheryCarve.averageTargets')`${actual} average targets hit per cast`))
+          .recommended(`>${recommended} is recommended`));
     }
   }
 

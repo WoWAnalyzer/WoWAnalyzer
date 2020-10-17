@@ -14,6 +14,7 @@ import { getFightId } from 'interface/selectors/url/report';
 import { getFightFromReport } from 'interface/selectors/fight';
 import DocumentTitle from 'interface/DocumentTitle';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
+import ClassicLogWarning from 'interface/report/ClassicLogWarning';
 
 import FightSelectionPanel from './FightSelectionPanel';
 
@@ -25,6 +26,7 @@ class FightSelection extends React.PureComponent {
       fights: PropTypes.array.isRequired,
       start: PropTypes.number.isRequired,
       end: PropTypes.number.isRequired,
+      gameVersion: PropTypes.number.isRequired,
     }).isRequired,
     refreshReport: PropTypes.func.isRequired,
     children: PropTypes.func.isRequired,
@@ -99,11 +101,17 @@ class FightSelection extends React.PureComponent {
           </div>
         </div>
 
+        {report.gameVersion === 2 && (
+          <ClassicLogWarning />
+        )}
+
         {reportDuration > MAX_REPORT_DURATION && (
           <ReportDurationWarning duration={reportDuration} />
         )}
 
-        <FightSelectionPanel report={report} refreshReport={refreshReport} killsOnly={killsOnly} />
+        {report.gameVersion === 1 && (
+          <FightSelectionPanel report={report} refreshReport={refreshReport} killsOnly={killsOnly} />
+        )}
       </div>
     );
   }

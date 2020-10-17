@@ -73,7 +73,7 @@ class Graph extends React.PureComponent {
 
     const { start, end, offset } = this.props;
 
-    const players = data.series.filter(item => !!CLASS_CHART_LINE_COLORS[item.type]);
+    const players = data.series.filter(item => Boolean(CLASS_CHART_LINE_COLORS[item.type]));
 
     const entities = [];
 
@@ -123,7 +123,7 @@ class Graph extends React.PureComponent {
         data,
       };
     });
-    const deaths = Object.entries(deathsBySecond).filter(([_, value]) => !!value).map(([key]) => ({ x: Number(key) }));
+    const deaths = Object.entries(deathsBySecond).filter(([_, value]) => Boolean(value)).map(([key]) => ({ x: Number(key) }));
 
     return (
       <div className="graph-container">

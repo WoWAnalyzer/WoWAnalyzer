@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -10,6 +10,9 @@ import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber } from 'common/format';
 import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const BOOMING_VOICE_DAMAGE_INCREASE = 0.15;
 const BOOMING_VOICE_RAGE_GENERATION = 40;
@@ -26,7 +29,7 @@ class BoomingVoice extends Analyzer {
   maxRage = 100;
   nextCastWasted = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT), this.onShoutCast);
@@ -77,12 +80,10 @@ class BoomingVoice extends Analyzer {
 
   suggestions(when: When) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.</>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.</>)
             .icon(SPELLS.BOOMING_VOICE_TALENT.icon)
-            .actual(`${actual} Rage wasted`)
-            .recommended(`<${recommended} wasted Rage is recommended`);
-        });
+            .actual(i18n._(t('warrior.protection.suggestions.boominVoice.rage.wasted')`${actual} Rage wasted`))
+            .recommended(`<${recommended} wasted Rage is recommended`));
   }
 
   statistic() {

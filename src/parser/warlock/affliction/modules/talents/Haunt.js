@@ -13,6 +13,9 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
 const HAUNT_DAMAGE_BONUS = 0.1;
@@ -73,16 +76,14 @@ class Haunt extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(
+      .addSuggestion((suggest, actual, recommended) => suggest(
           <>
             Your <SpellLink id={SPELLS.HAUNT_TALENT.id} /> debuff uptime is too low. While it's usually not possible to get 100% uptime due to travel and cast time, you should aim for as much uptime on the debuff as possible.
           </>,
         )
           .icon(SPELLS.HAUNT_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% Haunt uptime.`)
-          .recommended(`> ${formatPercentage(recommended)}% is recommended`);
-      });
+          .actual(i18n._(t('warlock.affliction.suggestions.haunt.uptime')`${formatPercentage(actual)}% Haunt uptime.`))
+          .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

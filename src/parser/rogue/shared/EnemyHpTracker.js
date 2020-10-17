@@ -2,7 +2,7 @@ import Analyzer from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 /**
- * Adds HP Percent information to the Enemy Entity 
+ * Adds HP Percent information to the Enemy Entity
  * @extends Analyzer
  */
 class EnemyHpTracker extends Analyzer {

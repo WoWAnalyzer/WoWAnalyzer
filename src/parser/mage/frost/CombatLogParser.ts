@@ -11,6 +11,7 @@ import WintersChill from './modules/features/WintersChill';
 import BrainFreeze from './modules/features/BrainFreeze';
 import IceLance from './modules/features/IceLance';
 import MirrorImage from '../shared/modules/features/MirrorImage';
+import ElementalBarrier from '../shared/modules/features/ElementalBarrier';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
@@ -27,8 +28,8 @@ import RuneOfPower from '../shared/modules/features/RuneOfPower';
 import FocusMagic from '../shared/modules/features/FocusMagic';
 
 //Legendaries
-import FreezingWinds from './modules/items/FreezingWinds';
 import ColdFront from './modules/items/ColdFront';
+import FreezingWinds from './modules/items/FreezingWinds';
 
 //Conduits
 import IceBite from './modules/items/IceBite';
@@ -38,6 +39,8 @@ import UnrelentingCold from './modules/items/UnrelentingCold';
 import DivertedEnergy from '../shared/modules/items/DivertedEnergy';
 import GroundingSurge from '../shared/modules/items/GroundingSurge';
 import IreOfTheAscended from '../shared/modules/items/IreOfTheAscended';
+import TempestBarrier from '../shared/modules/items/TempestBarrier';
+import SiphonedMalice from '../shared/modules/items/SiphonedMalice';
 
 class CombatLogParser extends CoreCombatLogParser {
    static specModules = {
@@ -53,12 +56,13 @@ class CombatLogParser extends CoreCombatLogParser {
     brainFreeze: BrainFreeze,
     iceLance: IceLance,
     arcaneIntellect: ArcaneIntellect,
+    mirrorImage: MirrorImage,
+    elementalBarrier: ElementalBarrier,
     waterElemental: WaterElemental,
 
     // Talents
     boneChilling: BoneChilling,
     lonelyWinter: LonelyWinter,
-    mirrorImage: MirrorImage,
     focusMagic: FocusMagic,
     runeOfPower: RuneOfPower,
     splittingIce: SplittingIce,
@@ -70,8 +74,8 @@ class CombatLogParser extends CoreCombatLogParser {
     coldSnap: ColdSnap,
 
     //Legendaries
-    freezingWinds: FreezingWinds,
     coldFront: ColdFront,
+    freezingWinds: FreezingWinds,
 
     //Conduits
     iceBite: IceBite,
@@ -81,6 +85,8 @@ class CombatLogParser extends CoreCombatLogParser {
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
     ireOfTheAscended: IreOfTheAscended,
+    tempestBarrier: TempestBarrier,
+    siphonedMalice: SiphonedMalice,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

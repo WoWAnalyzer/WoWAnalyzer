@@ -13,6 +13,9 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class LegionStrike extends Analyzer {
   casts = 0;
   damage = 0;
@@ -59,12 +62,10 @@ class LegionStrike extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Your Felguard didn't cast <SpellLink id={SPELLS.FELGUARD_LEGION_STRIKE.id} /> at all. Remember to turn on the auto-cast for this ability as it's a great portion of your total damage.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your Felguard didn't cast <SpellLink id={SPELLS.FELGUARD_LEGION_STRIKE.id} /> at all. Remember to turn on the auto-cast for this ability as it's a great portion of your total damage.</>)
           .icon(SPELLS.FELGUARD_LEGION_STRIKE.icon)
-          .actual(`${actual} Legion Strike casts`)
-          .recommended(`> ${recommended} casts are recommended`);
-      });
+          .actual(i18n._(t('warlock.demonology.suggestions.legionStrike.casts')`${actual} Legion Strike casts`))
+          .recommended(`> ${recommended} casts are recommended`));
   }
 
   statistic() {

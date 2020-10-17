@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -24,7 +24,7 @@ class DireConsequences extends Analyzer {
 
   procs = 0;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTrait(SPELLS.DIRE_CONSEQUENCES.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_BUFF), this.buffApplication);

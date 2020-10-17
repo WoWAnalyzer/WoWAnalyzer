@@ -6,6 +6,8 @@ import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
@@ -106,12 +108,10 @@ class PrematureRejuvenations extends Analyzer {
 
   suggestions(when) {
     when(this.timeLostThreshold)
-      .addSuggestion((suggest) => {
-        return suggest(<>Don't refresh <SpellLink id={SPELLS.REJUVENATION.id} /> if it's not within pandemic time frame (4.5s left on buff).</>)
+      .addSuggestion((suggest) => suggest(<>Don't refresh <SpellLink id={SPELLS.REJUVENATION.id} /> if it's not within pandemic time frame (4.5s left on buff).</>)
           .icon(SPELLS.REJUVENATION.icon)
-          .actual(`You refreshed early ${this.earlyRefreshments} times which made you waste ${this.timeLostInSeconds} seconds of rejuvenation.`)
-          .recommended(`0 seconds lost is recommended`);
-      });
+          .actual(i18n._(t('druid.restoration.suggestions.rejuvenation.wastedSeconds')`You refreshed early ${this.earlyRefreshments} times which made you waste ${this.timeLostInSeconds} seconds of rejuvenation.`))
+          .recommended(`0 seconds lost is recommended`));
   }
 
   statistic() {
@@ -119,7 +119,7 @@ class PrematureRejuvenations extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.REJUVENATION.id} />}
         value={this.earlyRefreshments}
-        label={`Early rejuvenation refreshments`}
+        label="Early rejuvenation refreshments"
         tooltip={`The total time lost from your early refreshments was ${this.timeLostInSeconds} seconds.`}
       />
     );

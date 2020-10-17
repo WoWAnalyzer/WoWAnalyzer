@@ -1,5 +1,5 @@
 import React from 'react';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatDuration, formatNumber } from 'common/format';
@@ -57,7 +57,7 @@ class CarefulAim extends ExecuteHelper {
   protected statTracker!: StatTracker;
   protected enemies!: Enemies;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
     this.owner.report.enemies.forEach((enemy: { fights: any[]; type: string; id: number; }) => {
@@ -75,11 +75,12 @@ class CarefulAim extends ExecuteHelper {
     const spellId = event.ability.guid;
     const healthPercent = event.hitPoints && event.maxHitPoints && event.hitPoints / event.maxHitPoints;
     const targetID = event.targetID;
-    let target;
+    let target: string;
     const outsideCarefulAim = healthPercent && healthPercent < CAREFUL_AIM_THRESHOLD;
     if (event.maxHitPoints && this.bossIDs.includes(targetID)) {
-      const enemy = this.enemies.getEntity(event);
-      target = enemy && enemy.name && abbreviateBossNames(enemy.name);
+      // I believe we can assume this is not null because otherwise it wouldn't be in this.bossIDs?
+      const enemy = this.enemies.getEntity(event)!;
+      target = abbreviateBossNames(enemy.name);
       if (!this.carefulAimPeriods[target]) {
         this.carefulAimPeriods[target] = {
           caDamage: 0,

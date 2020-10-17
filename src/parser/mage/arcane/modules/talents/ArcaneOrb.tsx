@@ -6,9 +6,11 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class ArcaneOrb extends Analyzer {
 	static dependencies = {
@@ -20,7 +22,7 @@ class ArcaneOrb extends Analyzer {
 	badCasts = 0;
 	orbCast = false;
 
-	constructor(options: any) {
+	constructor(options: Options) {
     super(options);
 	   this.active = this.selectedCombatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id);
 		 this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_ORB_TALENT), this.onOrbCast);
@@ -64,12 +66,10 @@ class ArcaneOrb extends Analyzer {
 
 	suggestions(when: When) {
 		when(this.arcaneOrbHitThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<>On average, your <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> hit ${formatNumber(this.averageHitPerCast)} times per cast. While it is beneficial to cast this even if it will only hit one mob, the talent is suited more towards AOE than Single Target. So if the fight is primarily Single Target, consider taking a different talent.</>)
+			.addSuggestion((suggest, actual, recommended) => suggest(<>On average, your <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> hit ${formatNumber(this.averageHitPerCast)} times per cast. While it is beneficial to cast this even if it will only hit one mob, the talent is suited more towards AOE than Single Target. So if the fight is primarily Single Target, consider taking a different talent.</>)
 					.icon(SPELLS.ARCANE_ORB_TALENT.icon)
-					.actual(`${formatNumber(this.averageHitPerCast)} Hits Per Cast`)
-					.recommended(`${formatNumber(recommended)} is recommended`);
-			});
+					.actual(i18n._(t('mage.arcane.suggestions.arcaneOrb.hitsPerCast')`${formatNumber(this.averageHitPerCast)} Hits Per Cast`))
+					.recommended(`${formatNumber(recommended)} is recommended`));
 	}
 
 	statistic() {

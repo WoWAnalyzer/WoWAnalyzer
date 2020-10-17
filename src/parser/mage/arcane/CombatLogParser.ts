@@ -16,6 +16,7 @@ import ArcaneMissiles from './modules/features/ArcaneMissiles';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
+import ElementalBarrier from '../shared/modules/features/ElementalBarrier';
 
 //Talents
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
@@ -24,9 +25,19 @@ import RuleOfThrees from './modules/talents/RuleOfThrees';
 import TimeAnomaly from './modules/talents/TimeAnomaly';
 import ArcaneFamiliar from './modules/talents/ArcaneFamiliar';
 
+//Legendaries
+import ArcaneHarmony from './modules/items/ArcaneHarmony';
+import ArcaneBombardment from './modules/items/ArcaneBombardment';
+
 //Conduits
 import ArcaneProdigy from './modules/items/ArcaneProdigy';
 import ArtificeOfTheArchmage from './modules/items/ArtificeOfTheArchmage';
+import DivertedEnergy from '../shared/modules/items/DivertedEnergy';
+import GroundingSurge from '../shared/modules/items/GroundingSurge';
+import IreOfTheAscended from '../shared/modules/items/IreOfTheAscended';
+import TempestBarrier from '../shared/modules/items/TempestBarrier';
+import SiphonedMalice from '../shared/modules/items/SiphonedMalice';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -47,19 +58,29 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneChargeTracker: ArcaneChargeTracker,
     arcanePower: ArcanePower,
     arcaneMissiles: ArcaneMissiles,
+    mirrorImage: MirrorImage,
+    elementalBarrier: ElementalBarrier,
 
     // Talents
     arcaneFamiliar: ArcaneFamiliar,
-    mirrorImage: MirrorImage,
     arcaneIntellect: ArcaneIntellect,
     runeOfPower: RuneOfPower,
     arcaneOrb: ArcaneOrb,
     ruleOfThrees: RuleOfThrees,
     timeAnomaly: TimeAnomaly,
 
+    //Legendaries
+    arcaneHarmony: ArcaneHarmony,
+    arcaneBombardment: ArcaneBombardment,
+
     //Conduits
     arcaneProdigy: ArcaneProdigy,
     artificeOfTheArchmage: ArtificeOfTheArchmage,
+    divertedEnergy: DivertedEnergy,
+    groundingSurge: GroundingSurge,
+    ireOfTheAscended: IreOfTheAscended,
+    tempestBarrier: TempestBarrier,
+    siphonedMalice: SiphonedMalice,
   };
 }
 
