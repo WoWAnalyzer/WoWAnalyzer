@@ -79,7 +79,7 @@ class UnleashLife extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
 
-    const spellFilter = [SPELLS.RIPTIDE, SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE_RESTORATION]; // TODO ADD CHAIN HARVEST
+    const spellFilter = [SPELLS.UNLEASH_LIFE_TALENT, SPELLS.RIPTIDE, SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE_RESTORATION]; // TODO ADD CHAIN HARVEST
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(spellFilter), this._onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this._onRiptideRemoval);

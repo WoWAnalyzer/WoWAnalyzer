@@ -52,7 +52,7 @@ class TheFormlessVoid extends Analyzer {
 
   statistic() {
     return (
-      <ItemStatistic flexible>
+      <ItemStatistic size="flexible">
         <div className="pad">
           <label><SpellLink id={SPELLS.THE_FORMLESS_VOID.id} /> <small>Minor Rank {this.rank}</small></label>
           <div className="value">
