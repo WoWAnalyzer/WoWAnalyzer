@@ -43,18 +43,6 @@ class Channeling extends CoreChanneling {
     }
   }
 
-  // Looking at `removebuff` will includes progress towards a tick that never happened. This progress could be considered downtime as it accounts for nothing.
-  // If it's ever decided to consider the time between last tick and channel ending as downtime, just change the endchannel trigger.
-  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
-    if (CHANNEL_ABILITIES.every(ability => ability !== event.ability.guid)) {
-      return;
-    }
-    if (!this.isChannelingSpell(SPELLS.VOID_TORRENT_TALENT.id) || !this.isChannelingSpell(SPELLS.MIND_FLAY.id) || !this.isChannelingSpell(SPELLS.MIND_SEAR.id)) {
-      return;
-    }
-    this.endChannel(event);
-  }
-
   cancelChannel(event: CastEvent, ability: Ability) {
     if (CHANNEL_ABILITIES.some(ability => this.isChannelingSpell(ability))) {
       if (event.ability.guid === SPELLS.MIND_BLAST.id) {
