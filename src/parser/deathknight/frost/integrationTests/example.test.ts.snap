@@ -1758,7 +1758,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
