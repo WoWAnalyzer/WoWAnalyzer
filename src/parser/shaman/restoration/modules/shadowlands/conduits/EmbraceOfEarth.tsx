@@ -27,7 +27,7 @@ class EmbraceOfEarth extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = true;
+    this.active = false;
     this.boost = .05;//TODO Get from combat data when they EXPORT IT >:c
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.normalizeBoost);

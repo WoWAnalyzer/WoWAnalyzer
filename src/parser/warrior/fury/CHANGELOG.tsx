@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 15), <>Fix <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> not calculating properly.</>, Adoraci),
   change(date(2020, 10, 12), <>Updated specialization to TypeScript</>, Adoraci),
   change(date(2020, 3, 27), <>Removed Frothing Berserker suggestion.</>, Abelito75),
   change(date(2020, 3, 27), <>Changed Bloodthirst's threshold based on how many Cold Steel Hot Bloods you have.</>, Abelito75),

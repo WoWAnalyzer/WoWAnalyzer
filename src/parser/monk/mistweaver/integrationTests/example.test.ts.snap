@@ -7328,8 +7328,7 @@ exports[`Mistweaver Monk integration test: example log TheFormlessVoid matches t
 >
   <div
     category="ITEMS"
-    className="panel statistic standard "
-    flexible={true}
+    className="panel statistic flexible "
     position={1000}
   >
     <div
