@@ -1795,7 +1795,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1808,7 +1808,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1821,7 +1821,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1922,7 +1922,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -2106,7 +2106,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -2205,7 +2205,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -2389,7 +2389,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -2410,7 +2410,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2423,7 +2423,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2436,7 +2436,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2537,7 +2537,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -2558,7 +2558,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2571,7 +2571,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2584,7 +2584,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2782,7 +2782,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -2978,7 +2978,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -3290,7 +3290,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -3303,7 +3303,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -3316,7 +3316,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3764,7 +3764,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -3777,7 +3777,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -3790,7 +3790,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -4480,7 +4480,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -4493,7 +4493,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -4506,7 +4506,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -4723,7 +4723,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -4736,7 +4736,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -4749,7 +4749,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -5697,7 +5697,7 @@ exports[`Holy Paladin integration test: example log DistanceMoved matches the st
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -5776,182 +5776,242 @@ Array [
     "details": null,
     "icon": "inv_chest_plate_nazmirraid_d_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4823,
-              1492,
-              4786,
-            ],
-            "icon": "inv_chest_plate_nazmirraid_d_01.jpg",
-            "id": 160636,
-            "itemLevel": 370,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4823,
+                  1492,
+                  4786,
+                ],
+                "icon": "inv_chest_plate_nazmirraid_d_01.jpg",
+                "id": 160636,
+                "itemLevel": 370,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={160636}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={160636}
-        quality={4}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_bracer_plate_nazmirraid_d_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4799,
-              1492,
-              4786,
-            ],
-            "icon": "inv_bracer_plate_nazmirraid_d_01.jpg",
-            "id": 160637,
-            "itemLevel": 370,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4799,
+                  1492,
+                  4786,
+                ],
+                "icon": "inv_bracer_plate_nazmirraid_d_01.jpg",
+                "id": 160637,
+                "itemLevel": 370,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={160637}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Bracers"
+            id="common.slots.bracers"
+          />,
         }
-        icon={false}
-        id={160637}
-        quality={4}
-      >
-        Bracers
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_01e.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4779,
-              1512,
-              4786,
-            ],
-            "icon": "inv_ring_80_01e.jpg",
-            "id": 158362,
-            "itemLevel": 340,
-            "permanentEnchant": 5938,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4779,
+                  1512,
+                  4786,
+                ],
+                "icon": "inv_ring_80_01e.jpg",
+                "id": 158362,
+                "itemLevel": 340,
+                "permanentEnchant": 5938,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158362}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={158362}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_05b.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4779,
-              1512,
-              4786,
-            ],
-            "icon": "inv_ring_80_05b.jpg",
-            "id": 159461,
-            "itemLevel": 340,
-            "permanentEnchant": 5938,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4779,
+                  1512,
+                  4786,
+                ],
+                "icon": "inv_ring_80_05b.jpg",
+                "id": 159461,
+                "itemLevel": 340,
+                "permanentEnchant": 5938,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159461}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={159461}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_cape_mail_nazmirraid_d_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4798,
-              1477,
-              4786,
-            ],
-            "icon": "inv_cape_mail_nazmirraid_d_01.jpg",
-            "id": 160644,
-            "itemLevel": 355,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4798,
+                  1477,
+                  4786,
+                ],
+                "icon": "inv_cape_mail_nazmirraid_d_01.jpg",
+                "id": 160644,
+                "itemLevel": 355,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={160644}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={160644}
-        quality={4}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_mace_1h_battledungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4779,
-              1512,
-              4786,
-            ],
-            "icon": "inv_mace_1h_battledungeon_c_01.jpg",
-            "id": 159652,
-            "itemLevel": 340,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4779,
+                  1512,
+                  4786,
+                ],
+                "icon": "inv_mace_1h_battledungeon_c_01.jpg",
+                "id": 159652,
+                "itemLevel": 340,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159652}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
         }
-        icon={false}
-        id={159652}
-        quality={3}
-      >
-        Weapon
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -6667,15 +6727,10 @@ exports[`Holy Paladin integration test: example log ManaLevelChart matches the s
         }
       }
     >
-      <a
-        href="#Mana pool"
-        id="Mana pool"
-      >
-        Mana pool
-      </a>
+      shared.manaLevelChart.statistic.title
     </h1>
     <small>
-      Mana (blue) along with boss HP and deaths. As a rule of thumb aim to burn mana about as quickly as the boss is losing health. Some fights require specific mana management though.
+      shared.manaLevelChart.statistic.explanation
     </small>
   </div>
   <div
@@ -6702,15 +6757,10 @@ exports[`Holy Paladin integration test: example log ManaUsageChart matches the s
         }
       }
     >
-      <a
-        href="#Mana usage"
-        id="Mana usage"
-      >
-        Mana usage
-      </a>
+      shared.manaUsageChart.statistic.title
     </h1>
     <small>
-      This shows you your mana usage in correlation with your throughput. Big spikes in mana usage without increases in throughput may indicate poor mana usage. The scale for both mana lines is 0-100% where 100% is aligned with the max HPS throughput.
+      shared.manaUsageChart.statistic.explanation
     </small>
   </div>
   <div
@@ -11266,7 +11316,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -11414,7 +11464,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -11763,7 +11813,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -11823,7 +11873,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -11883,7 +11933,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -11943,7 +11993,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -12003,7 +12053,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -12063,7 +12113,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -12123,7 +12173,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>

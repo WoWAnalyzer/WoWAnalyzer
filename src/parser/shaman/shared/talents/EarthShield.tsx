@@ -16,6 +16,7 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Combatants from 'parser/shared/modules/Combatants';
+import { Trans } from '@lingui/macro';
 
 import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from '../constants';
 
@@ -91,7 +92,7 @@ class EarthShield extends Analyzer {
         label={<SpellLink id={SPELLS.EARTH_SHIELD.id} />}
         category={this.category}
         position={STATISTIC_ORDER.OPTIONAL(45)}
-        tooltip={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the HoT and ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing increase.`}
+        tooltip={<Trans id="shaman.shared.earthShield.statistic.tooltip">{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the HoT and {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing increase.</Trans>}
         value={
           (
             <div>
