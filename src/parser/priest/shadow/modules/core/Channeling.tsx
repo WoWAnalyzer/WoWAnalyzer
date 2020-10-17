@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
-import { ApplyDebuffEvent, CastEvent, RemoveDebuffEvent, BeginCastEvent } from 'parser/core/Events';
+import { ApplyDebuffEvent, CastEvent, BeginCastEvent } from 'parser/core/Events';
 import Ability from 'parser/core/modules/Ability';
 
 /**
