@@ -3640,19 +3640,15 @@ exports[`Unholy Death Knight integration test: example log FesteringStrikeEffici
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="GENERAL"
+    className="panel statistic flexible "
+    position={4}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3666,13 +3662,12 @@ exports[`Unholy Death Knight integration test: example log FesteringStrikeEffici
               src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_festering_strike.jpg"
             />
           </a>
-           
-          Festering Strike Efficiency
+           Festering Strike Efficency
         </label>
         <div
           className="value"
         >
-          100.00 %
+          100.00% 
         </div>
       </div>
     </div>
@@ -4015,19 +4010,15 @@ exports[`Unholy Death Knight integration test: example log ScourgeStrikeEfficien
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="GENERAL"
+    className="panel statistic flexible "
+    position={3}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4042,12 +4033,13 @@ exports[`Unholy Death Knight integration test: example log ScourgeStrikeEfficien
             />
           </a>
            
-          Scourge Strike Efficiency
+          Scourge Strike
+           Strike Efficency
         </label>
         <div
           className="value"
         >
-          87.50 %
+          87.50% 
         </div>
       </div>
     </div>
