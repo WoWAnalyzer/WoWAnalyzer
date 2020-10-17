@@ -7,8 +7,9 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import { formatPercentage } from 'common/format';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 
-import Abilities from '../Abilities';
 import Events from 'parser/core/Events';
+
+import Abilities from '../Abilities';
 
 const BASE_PROC_CHANCE = 0.15;
 
@@ -24,7 +25,7 @@ class GrandCrusader extends Analyzer {
   constructor(...args) {
     super(...args);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.HAMMER_OF_THE_RIGHTEOUS, SPELLS.BLESSED_HAMMER_TALENT]), this.onCast);
-    this.addEventListener(Events.damage.to(SELECTED_PLAYER).spell([SPELLS.HAMMER_OF_THE_RIGHTEOUS, SPELLS.BLESSED_HAMMER_TALENT]), this.onDamgeTaken);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamgeTaken);
   }
 
   get procChance() {
