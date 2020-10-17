@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -10,6 +10,7 @@ import { t } from '@lingui/macro';
 
 import SpellUsable from '../features/SpellUsable';
 import Abilities from '../Abilities';
+import Events from 'parser/core/Events';
 
 class Predator extends Analyzer {
   static dependencies = {
@@ -22,12 +23,10 @@ class Predator extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PREDATOR_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGERS_FURY), this.onCast);
   }
 
-  on_byPlayer_cast(event) {
-    if (SPELLS.TIGERS_FURY.id !== event.ability.guid) {
-      return;
-    }
+  onCast(event) {
     this.totalCasts += 1;
   }
 

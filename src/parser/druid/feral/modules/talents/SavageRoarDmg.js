@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
@@ -10,6 +10,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import getDamageBonus from '../core/getDamageBonus';
 import { SAVAGE_ROAR_DAMAGE_BONUS } from '../../constants';
+import Events from 'parser/core/Events';
 
 /**
  * Since 8.0 only affects "cat" abilities.
@@ -21,17 +22,17 @@ import { SAVAGE_ROAR_DAMAGE_BONUS } from '../../constants';
  * Presumably would affect Brutal Slash, but they're rival talents.
  */
 const AFFECTED_BY_SAVAGE_ROAR = [
-  SPELLS.MELEE.id,
-  SPELLS.SHRED.id,
-  SPELLS.RAKE.id,
-  SPELLS.RIP.id,
-  SPELLS.FEROCIOUS_BITE.id,
-  SPELLS.MOONFIRE_FERAL.id,
-  SPELLS.THRASH_FERAL.id,
-  SPELLS.SWIPE_CAT.id,
-  SPELLS.FERAL_FRENZY_TALENT.id,
-  SPELLS.MAIM.id,
-  SPELLS.MOONFIRE.id, // not really a cat ability, but is affected
+  SPELLS.MELEE,
+  SPELLS.SHRED,
+  SPELLS.RAKE,
+  SPELLS.RIP,
+  SPELLS.FEROCIOUS_BITE,
+  SPELLS.MOONFIRE_FERAL,
+  SPELLS.THRASH_FERAL,
+  SPELLS.SWIPE_CAT,
+  SPELLS.FERAL_FRENZY_TALENT,
+  SPELLS.MAIM,
+  SPELLS.MOONFIRE, // not really a cat ability, but is affected
 ];
 
 /**
@@ -47,11 +48,11 @@ class SavageRoar extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_SAVAGE_ROAR), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
-    if (!AFFECTED_BY_SAVAGE_ROAR.includes(event.ability.guid) ||
-        !this.selectedCombatant.hasBuff(SPELLS.SAVAGE_ROAR_TALENT.id) ||
+  onDamage(event) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.SAVAGE_ROAR_TALENT.id) ||
         !this.selectedCombatant.hasBuff(SPELLS.CAT_FORM.id)) {
       return;
     }

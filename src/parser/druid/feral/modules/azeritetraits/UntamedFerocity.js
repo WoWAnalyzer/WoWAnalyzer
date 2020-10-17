@@ -4,7 +4,7 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -13,17 +13,19 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
+import Events from 'parser/core/Events';
+
 import { calcShredBonus, calcSwipeBonus, isAffectedByWildFleshrending } from "./WildFleshrending";
 import Abilities from '../Abilities.js';
 
 const debug = false;
 export const AFFECTED_SPELLS = [
-  SPELLS.RAKE.id,
-  SPELLS.SHRED.id,
-  SPELLS.MOONFIRE_FERAL.id,
-  SPELLS.THRASH_FERAL.id,
-  SPELLS.SWIPE_CAT.id,
-  SPELLS.BRUTAL_SLASH_TALENT.id,
+  SPELLS.RAKE,
+  SPELLS.SHRED,
+  SPELLS.MOONFIRE_FERAL,
+  SPELLS.THRASH_FERAL,
+  SPELLS.SWIPE_CAT,
+  SPELLS.BRUTAL_SLASH_TALENT,
 ];
 const HIT_TYPES_TO_IGNORE = [
   HIT_TYPES.MISS,
@@ -88,17 +90,17 @@ class UntamedFerocity extends Analyzer {
     this.hasIncarnation = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id);
     this.cooldownId = this.hasIncarnation ? SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id : SPELLS.BERSERK.id;
     this.cooldownReductionPerHit = this.hasIncarnation ? COOLDOWN_REDUCTION_INCARNATION : COOLDOWN_REDUCTION_BERSERK;
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(AFFECTED_SPELLS), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_SPELLS), this.onDamage);
   }
 
-  on_byPlayer_cast(event) {
-    if (!AFFECTED_SPELLS.includes(event.ability.guid)) {
-      return;
-    }
+  onCast(event) {
     this.attackPower = event.attackPower;
   }
 
-  on_byPlayer_damage(event) {
-    if (!AFFECTED_SPELLS.includes(event.ability.guid) || event.tick || HIT_TYPES_TO_IGNORE.includes(event.hitType)) {
+  onDamage(event) {
+    if (event.tick || HIT_TYPES_TO_IGNORE.includes(event.hitType)) {
       // only interested in direct damage from whitelisted spells which hit the target
       return;
     }
