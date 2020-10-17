@@ -345,6 +345,51 @@ exports[`Root matches snapshot 1`] = `
                                                 </Icon>
                                               </a>
                                             </DiscordButton>
+                                            <Connect(LanguageSwitcher)>
+                                              <LanguageSwitcher
+                                                language="en"
+                                                setLanguage={[Function]}
+                                              >
+                                                <a
+                                                  onClick={[Function]}
+                                                >
+                                                  <TooltipElement
+                                                    className=""
+                                                    content="Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized."
+                                                    direction="down"
+                                                    hoverable={false}
+                                                    style={Object {}}
+                                                    tooltipClassName=""
+                                                  >
+                                                    <Tooltip
+                                                      arrow={true}
+                                                      arrowSize={10}
+                                                      background=""
+                                                      className=""
+                                                      color=""
+                                                      content="Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized."
+                                                      direction="down"
+                                                      hoverDelay={0}
+                                                      padding="10px"
+                                                      tipContentHover={false}
+                                                      useDefaultStyles={false}
+                                                      useHover={true}
+                                                    >
+                                                      <dfn
+                                                        className=""
+                                                        key=".0"
+                                                        onMouseEnter={[Function]}
+                                                        onMouseLeave={[Function]}
+                                                        onTouchStart={[Function]}
+                                                        style={Object {}}
+                                                      >
+                                                        English
+                                                      </dfn>
+                                                    </Tooltip>
+                                                  </TooltipElement>
+                                                </a>
+                                              </LanguageSwitcher>
+                                            </Connect(LanguageSwitcher)>
                                           </div>
                                           <div
                                             className="col-xs-12 col-sm-6 text-right"
