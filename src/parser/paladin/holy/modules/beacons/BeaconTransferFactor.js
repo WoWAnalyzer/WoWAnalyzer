@@ -18,7 +18,7 @@ class BeaconTransferFactor extends Analyzer {
     }
     beaconFactor *= spellFactor;
     // Passive adjustments
-    if (this.beaconType === BEACON_TYPES.BEACON_OF_FATH.id) {
+    if (this.beaconType === BEACON_TYPES.BEACON_OF_FATH) {
       beaconFactor *= 0.7;
     }
 

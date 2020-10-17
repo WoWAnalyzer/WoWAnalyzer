@@ -59,7 +59,6 @@ class DevotionAuraDamageReduction extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
