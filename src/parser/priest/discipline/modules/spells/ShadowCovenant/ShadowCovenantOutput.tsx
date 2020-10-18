@@ -87,7 +87,6 @@ class ShadowCovenantOutput extends Analyzer {
 
     if (SHADOW_COVENANT_DAMAGE_PASSLIST.has(damageSource.ability.guid)) {
       this.bonusAtonementHealing += calculateEffectiveHealing(e, ShadowCovenantOutput.bonus);
-      console.log(this.bonusAtonementHealing, 'atonementHealing');
     }
   }
 
@@ -101,12 +100,10 @@ class ShadowCovenantOutput extends Analyzer {
     }
 
     this.bonusShadowHealing += calculateEffectiveHealing(e, ShadowCovenantOutput.bonus);
-    console.log(this.bonusShadowHealing, 'from shadow healing');
   }
 
   handleShadowCovenantHealing(e: HealEvent) {
     this.abilityHealing += e.amount;
-    console.log(this.abilityHealing, 'scov healing');
   }
 }
 
