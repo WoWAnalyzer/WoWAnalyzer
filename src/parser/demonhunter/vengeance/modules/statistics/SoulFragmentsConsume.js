@@ -6,9 +6,10 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 
+import Events from 'parser/core/Events';
+
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 import MAX_SOUL_FRAGMENTS from '../features/SoulFragmentsTracker';
-import Events from 'parser/core/Events';
 
 const REMOVE_STACK_BUFFER = 100;
 
