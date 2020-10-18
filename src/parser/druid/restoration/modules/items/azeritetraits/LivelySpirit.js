@@ -5,8 +5,9 @@ import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
-import StatWeights from '../../features/StatWeights';
 import Events from 'parser/core/Events';
+
+import StatWeights from '../../features/StatWeights';
 
 /**
  When Innervate expires, for each spell the target cast using Innervate, you gain 54 Intellect for 20 sec and 0.5% mana.

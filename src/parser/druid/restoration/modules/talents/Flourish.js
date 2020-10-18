@@ -12,10 +12,11 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
+import Events from 'parser/core/Events';
+
 import HotTracker from '../core/hottracking/HotTracker';
 
 import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
-import Events from 'parser/core/Events';
 
 const debug = false;
 

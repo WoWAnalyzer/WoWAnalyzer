@@ -7,11 +7,12 @@ import { calculateAzeriteEffects } from 'common/stats';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Combatants from 'parser/shared/modules/Combatants';
 
+import Events from 'parser/core/Events';
+
 import { getSpellInfo } from '../../../SpellInfo';
 import StatWeights from '../../features/StatWeights';
 import Mastery from '../../core/Mastery';
 import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from "./common";
-import Events from 'parser/core/Events';
 
 const CRIT_EFFECT = 2;
 const REGROWTH_DURATION = 12000;

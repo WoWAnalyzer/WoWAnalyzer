@@ -7,8 +7,9 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import { calculateAzeriteEffects } from 'common/stats';
 import STAT from 'parser/shared/modules/features/STAT';
 
-import { DRUID_HEAL_INFO, getSpellInfo } from '../../SpellInfo';
 import Events from 'parser/core/Events';
+
+import { DRUID_HEAL_INFO, getSpellInfo } from '../../SpellInfo';
 
 class Mastery extends Analyzer {
   static dependencies = {

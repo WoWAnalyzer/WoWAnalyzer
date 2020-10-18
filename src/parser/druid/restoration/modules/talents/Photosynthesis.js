@@ -11,8 +11,9 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
 import Events from 'parser/core/Events';
+
+import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
 
 const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;
 // Spring blossoms double dips, confirmed by Bastas

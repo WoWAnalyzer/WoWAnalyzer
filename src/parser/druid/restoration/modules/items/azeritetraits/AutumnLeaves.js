@@ -6,10 +6,11 @@ import Combatants from 'parser/shared/modules/Combatants';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
+import Events from 'parser/core/Events';
+
 import StatWeights from '../../features/StatWeights';
 import { getPrimaryStatForItemLevel, findItemLevelByPrimaryStat } from './common';
 import Rejuvenation from '../../core/Rejuvenation';
-import Events from 'parser/core/Events';
 
 /**
  Rejuvenation's duration is increased by 1 sec, and it heals for an additional 82 when it is your only heal over time on the target.

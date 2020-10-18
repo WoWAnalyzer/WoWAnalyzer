@@ -13,9 +13,10 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
+import Events from 'parser/core/Events';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
 import Rejuvenation from '../core/Rejuvenation';
-import Events from 'parser/core/Events';
 
 const ALL_BOOST = 0.15;
 const ALL_MULT = 1.15;

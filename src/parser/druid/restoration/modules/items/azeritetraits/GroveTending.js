@@ -5,9 +5,10 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
+import Events from 'parser/core/Events';
+
 import StatWeights from '../../features/StatWeights';
 import { getPrimaryStatForItemLevel, findItemLevelByPrimaryStat } from "./common";
-import Events from 'parser/core/Events';
 
 /**
  Swiftmend heals the target for 2772 over 9 sec.

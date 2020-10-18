@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import HotTracker from './HotTracker';
 import Events from 'parser/core/Events';
+
+import HotTracker from './HotTracker';
 
 const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> applybuff
 /*
