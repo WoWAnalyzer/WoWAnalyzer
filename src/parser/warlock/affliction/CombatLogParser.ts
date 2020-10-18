@@ -12,6 +12,7 @@ import AgonyUptime from './modules/features/DotUptimes/AgonyUptime';
 import CorruptionUptime from './modules/features/DotUptimes/CorruptionUptime';
 import UnstableAfflictionUptime from './modules/features/DotUptimes/UnstableAfflictionUptime';
 import DotUptimes from './modules/features/DotUptimes';
+import ShadowEmbrace from './modules/features/ShadowEmbrace';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
@@ -24,7 +25,6 @@ import AbsoluteCorruption from './modules/talents/AbsoluteCorruption';
 import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
 import PhantomSingularity from './modules/talents/PhantomSingularity';
 import VileTaint from './modules/talents/VileTaint';
-import ShadowEmbrace from './modules/talents/ShadowEmbrace';
 import Haunt from './modules/talents/Haunt';
 import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
@@ -39,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
     darkglare: Darkglare,
+    shadowEmbrace: ShadowEmbrace,
 
     // Normalizers
     grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
@@ -62,7 +63,6 @@ class CombatLogParser extends CoreCombatLogParser {
     siphonLifeUptime: SiphonLifeUptime,
     phantomSingularity: PhantomSingularity,
     vileTaint: VileTaint,
-    shadowEmbrace: ShadowEmbrace,
     haunt: Haunt,
     grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
