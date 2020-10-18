@@ -3,7 +3,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Events, { ApplyBuffEvent, EnergizeEvent, RemoveBuffEvent, Event } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, EnergizeEvent, RemoveBuffEvent, AnyEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import React from 'react';
 import SpellLink from 'common/SpellLink';
@@ -92,7 +92,7 @@ class MemoryOfLucidDreams extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.LUCID_DREAMS_MAJOR.id) / this.owner.fightDuration;
   }
 
-  onEvent(event: Event<any>) {
+  onEvent(event: AnyEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.LUCID_DREAMS_MAJOR.id) || event.timestamp <= this.lastTimestamp || this.lastTimestamp === 0 || !this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_SV.id)) {
       return;
     }
