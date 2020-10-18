@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import HotTracker from './HotTracker';
 import Events from 'parser/core/Events';
+
+import HotTracker from './HotTracker';
 
 const REJUV_SPELLS = [
   SPELLS.REJUVENATION,
