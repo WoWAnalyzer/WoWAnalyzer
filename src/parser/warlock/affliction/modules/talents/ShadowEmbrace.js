@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
@@ -12,6 +12,7 @@ import { TooltipElement } from 'common/Tooltip';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Events from 'parser/core/Events';
 
 const BONUS_PER_STACK = 0.03;
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
@@ -53,9 +54,11 @@ class ShadowEmbrace extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOW_EMBRACE_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.changedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_EMBRACE_DEBUFF), this.onChangeDebuffStack);
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
@@ -67,10 +70,7 @@ class ShadowEmbrace extends Analyzer {
     this.damage += calculateEffectiveDamage(event, shadowEmbrace.stacks * BONUS_PER_STACK);
   }
 
-  on_byPlayer_changedebuffstack(event) {
-    if (event.ability.guid !== SPELLS.SHADOW_EMBRACE_DEBUFF.id) {
-      return;
-    }
+  onChangeDebuffStack(event) {
     if (event.targetIsFriendly) {
       return;
     }
