@@ -8,8 +8,9 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import GrandCrusader from '../core/GrandCrusader';
 import Events from 'parser/core/Events';
+
+import GrandCrusader from '../core/GrandCrusader';
 
 const REDUCTION_TIME_REGULAR = 2000; // ms
 const REDUCTION_TIME_CRIT = 4000; // ms
