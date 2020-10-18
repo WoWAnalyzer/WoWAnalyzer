@@ -7,8 +7,9 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import RollTheBonesCastTracker, { ROLL_THE_BONES_CATEGORIES } from '../features/RollTheBonesCastTracker';
 import Events from 'parser/core/Events';
+
+import RollTheBonesCastTracker, { ROLL_THE_BONES_CATEGORIES } from '../features/RollTheBonesCastTracker';
 
 const MID_TIER_REFRESH_TIME = 11000;
 const HIGH_TIER_REFRESH_TIME = 3000;
