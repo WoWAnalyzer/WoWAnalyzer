@@ -25,11 +25,11 @@ class WoundTracker extends Analyzer {
   }
 
   onWoundApply(event: ApplyDebuffStackEvent) {
-		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
+    this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
   }
 
   onWoundRemove(event: RemoveDebuffStackEvent) {
-		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
+    this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
   }
 
   onAllWoundRemove(event: RemoveDebuffEvent) {
