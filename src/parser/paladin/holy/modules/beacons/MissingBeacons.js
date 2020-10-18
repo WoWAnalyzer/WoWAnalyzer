@@ -6,10 +6,11 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import Events from 'parser/core/Events';
+
 import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
 import BeaconTransferFactor from './BeaconTransferFactor';
-import Events from 'parser/core/Events';
 
 class MissingBeacons extends Analyzer {
   static dependencies = {
