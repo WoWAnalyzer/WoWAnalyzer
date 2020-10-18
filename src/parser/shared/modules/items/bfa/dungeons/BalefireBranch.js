@@ -7,11 +7,11 @@ import { calculatePrimaryStat } from 'common/stats';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import IntellectIcon from 'interface/icons/Intellect';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 
 const ACTIVATION_COOLDOWN = 90; // seconds
 
@@ -84,12 +84,13 @@ class BalefireBranch extends Analyzer {
         },
       });
     }
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.KINDLED_SOUL), this.onApplyBuff);
+    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.KINDLED_SOUL), this.onRemoveBuffStack);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.KINDLED_SOUL), this.onRemoveBuff);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  on_toPlayer_applybuff(event) {
-    if (SPELLS.KINDLED_SOUL.id !== event.ability.guid) {
-      return;
-    }
+  onApplyBuff(event) {
     this.stackChange(STACKS_START, event.timestamp);
     this.expectedSumStacks += EXPECTED_SUM_STACKS_PER_USE;
     this.applyCount += 1;
@@ -117,20 +118,14 @@ class BalefireBranch extends Analyzer {
       type: EventType.ApplyBuffStack,
     });
   }
-  on_toPlayer_removebuffstack(event) {
-    if (SPELLS.KINDLED_SOUL.id !== event.ability.guid) {
-      return;
-    }
+  onRemoveBuffStack(event) {
     this.stackChange(event.stack, event.timestamp);
   }
-  on_toPlayer_removebuff(event) {
-    if (SPELLS.KINDLED_SOUL.id !== event.ability.guid) {
-      return;
-    }
+  onRemoveBuff(event) {
     this.stackChange(0, event.timestamp);
     this.totalUptime += (event.timestamp - this.lastApply);
   }
-  on_fightend() {
+  onFightend() {
     if (!this.lastChange || !this.currentStack) {
       return;
     }

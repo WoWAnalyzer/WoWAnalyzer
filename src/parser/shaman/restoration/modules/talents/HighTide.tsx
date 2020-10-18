@@ -12,6 +12,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import { Trans } from '@lingui/macro';
 
 const HEAL_WINDOW_MS = 150;
 const bounceReduction = 0.7;
@@ -152,7 +153,7 @@ class HighTide extends Analyzer {
   }
 
   subStatistic() {
-    const highTideToolTip = `${this.usedHighTides} High Tide buff stacks used out of ${(this.usedHighTides + this.unusedHighTides + this.currentHighTideBuff)}.`;
+    const highTideToolTip = <Trans id="shaman.restoration.highTide.statistic.tooltip">{this.usedHighTides} High Tide buff stacks used out of {(this.usedHighTides + this.unusedHighTides + this.currentHighTideBuff)}.</Trans>;
 
     return (
       <div>

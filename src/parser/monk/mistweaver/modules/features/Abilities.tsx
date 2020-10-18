@@ -82,6 +82,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LIFE_COCOON,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+        },
         timelineSortIndex: 17,
       },
       {
@@ -101,6 +104,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+        },
         timelineSortIndex: 20,
       },
       {
@@ -110,6 +116,9 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
         },
         timelineSortIndex: 20,
       },

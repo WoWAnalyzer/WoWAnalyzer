@@ -1,8 +1,9 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Events from 'parser/core/Events';
 
 //WCL https://www.warcraftlogs.com/reports/rz6WxLbAmTgnFXQP/#fight=3&source=3
 class Gluttony extends Analyzer {
@@ -14,20 +15,15 @@ class Gluttony extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GLUTTONY_TALENT.id);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.METAMORPHOSIS_TANK), this.onApplyBuff);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.METAMORPHOSIS_TANK), this.onCast);
   }
 
-  on_toPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.METAMORPHOSIS_TANK.id) {
-      return;
-    }
+  onApplyBuff(event) {
     this.buffCasts += 1;
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.METAMORPHOSIS_TANK.id) {
-      return;
-    }
+  onCast(event) {
     this.metaCast += 1;
   }
 

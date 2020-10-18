@@ -5,14 +5,15 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+const damagingCasts = [SPELLS.FIRE_ELEMENTAL_METEOR, SPELLS.FIRE_ELEMENTAL_IMMOLATE, SPELLS.FIRE_ELEMENTAL_FIRE_BLAST];
 
-const damagingCasts = [SPELLS.FIRE_ELEMENTAL_METEOR.id, SPELLS.FIRE_ELEMENTAL_IMMOLATE.id, SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id];
 
 class PrimalFireElemental extends Analyzer {
   meteorCasts = 0;
@@ -31,24 +32,20 @@ class PrimalFireElemental extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PRIMAL_ELEMENTALIST_TALENT.id)
       && (!this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id));
+    this.addEventListener(Events.damage.spell(damagingCasts), this.onDamage);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FIRE_ELEMENTAL), this.onEnergize);
+    this.addEventListener(Events.cast, this.onCast);
   }
 
-  on_damage(event) {
-    if (!damagingCasts.includes(event.ability.guid)) {
-      return;
-    }
+  onDamage(event) {
     this.damageGained+=event.amount;
   }
 
-  on_byPlayer_energize(event) {
-    if (event.ability.guid !== SPELLS.FIRE_ELEMENTAL.id){
-      return;
-    }
-
+  onEnergize(event) {
     this.maelstromGained+=event.amount;
   }
 
-  on_cast(event) {
+  onCast(event) {
     switch(event.ability.guid) {
       case SPELLS.FIRE_ELEMENTAL.id:
         this.PFEcasts += 1;

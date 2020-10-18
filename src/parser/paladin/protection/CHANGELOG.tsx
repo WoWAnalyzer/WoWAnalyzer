@@ -1,11 +1,14 @@
 import React from 'react';
 
-import { emallson, Hordehobbs } from 'CONTRIBUTORS';
+import { emallson, Hordehobbs, Zeboot } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
+  change(date(2020, 10, 17), <>Added preliminary <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> suggestions.</>, emallson),
+  change(date(2020, 10, 14), <>Added suggestion for <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> hits.</>, Hordehobbs),
   change(date(2020, 10, 13), "Convert Consecration analyzer to Typescript.", Hordehobbs),
   change(date(2020, 10, 12), "Initial changes for Shadowlands Prepatch.", [emallson]),
   change(date(2020, 3, 29), <>Added support for <SpellLink id={SPELLS.LUCID_DREAMS.id} /> minor. Note that the major is still unsupported.</>, emallson),

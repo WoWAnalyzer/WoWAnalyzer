@@ -1,6 +1,6 @@
 import { formatMilliseconds } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
@@ -22,6 +22,13 @@ class GlobalCooldown extends Analyzer {
     // For the `beginchannel` event among other things
     channeling: Channeling,
   };
+
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.onBeginChannel);
+    this.addEventListener(Events.GlobalCooldown.to(SELECTED_PLAYER), this.onGlobalcooldown);
+  }
 
   _errors = 0;
   get errorsPerMinute() {
@@ -47,7 +54,7 @@ class GlobalCooldown extends Analyzer {
    * If the channel of the cast was cancelled before it was finished (in the case of cast-time abilities, not channels), the GCD event will *not* be fired since it will reset upon cancel. We have no way of knowing *when* the cancel is (regardless if it's 100ms into the channel or 1400ms), but in most cases not triggering the entire GCD is enough.
    * @param event
    */
-  on_byPlayer_beginchannel(event) {
+  onBeginChannel(event) {
     this._currentChannel = event;
 
     const spellId = event.ability.guid;
@@ -62,7 +69,7 @@ class GlobalCooldown extends Analyzer {
    * `cast` events only trigger a GCD if the spell is instant and doesn't have a channeling/casting time.
    * @param event
    */
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
     const isOnGCD = this.isOnGlobalCooldown(spellId);
     if (!isOnGCD) {
@@ -140,7 +147,7 @@ class GlobalCooldown extends Analyzer {
 
   /** @type {object} The last GCD event that occured, can be used to check if the player is affected by the GCD. */
   lastGlobalCooldown = null;
-  on_toPlayer_globalcooldown(event) {
+  onGlobalcooldown(event) {
     this._verifyAccuracy(event);
   }
   _verifyAccuracy(event) {

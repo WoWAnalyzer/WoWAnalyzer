@@ -7,6 +7,8 @@ import { change, date } from 'common/changelog';
 
 
 export default [
+  change(date(2020, 10, 14), <>Converted some more files to typescript as well as fixing internalization. </>, Abelito75),
+  change(date(2020, 10, 14), <>Corrected upwelling's icon. </>, Abelito75),
   change(date(2020, 10, 14), <>Updating Yu'lon's tooltip! </>, Abelito75),
   change(date(2020, 10, 14), <>We're updated for 9.0.1! </>, Abelito75),
   change(date(2020, 10, 12), <>Updated <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> and <SpellLink id={SPELLS.SOOTHING_MIST.id} /> modules to use Event Listeners.</>, [Anomoly]),
@@ -14,6 +16,7 @@ export default [
   change(date(2020, 10, 7), <>Updated Stat value scaling. </>, Abelito75),
   change(date(2020, 10, 7), <>Updated Harm Denial to include the expel harm cast on an ally.</>, Moonrabbit),
   change(date(2020, 10, 6), <>Updated <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> and <SpellLink id={SPELLS.ESSENCE_FONT.id} /> modules to use Event Listeners.</>, [Anomoly]),
+  change(date(2020, 10, 4), <>Added stack management breakdown to InvokeChiji talent module. </>, Vohrr),
   change(date(2020, 10, 6), <>Updated most talents to use action listeners.</>, Abelito75),
   change(date(2020, 10, 6), <>Updated <SpellLink id={SPELLS.RENEWING_MIST.id} /> to use Event Listeners.</>, [Anomoly]),
   change(date(2020, 10, 6), <>Added Fallen Order statistic.</>, Abelito75),

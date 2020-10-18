@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox from 'interface/others/StatisticBox';
@@ -13,6 +13,7 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import Panel from 'interface/others/Panel';
 import {formatNumber} from 'common/format';
+import Events from 'parser/core/Events';
 
 /**
  * Celestial Fortune
@@ -53,7 +54,14 @@ class CelestialFortune extends Analyzer {
     return 1 - this.stats.baseCritPercentage / this.stats.currentCritPercentage;
   }
 
-  on_toPlayer_heal(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER), this.onAbsorb);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER), this.onRemoveBuff);
+  }
+
+  onHeal(event) {
     this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
     if(event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id) {
       const amount = event.amount + (event.absorbed || 0);
@@ -70,7 +78,7 @@ class CelestialFortune extends Analyzer {
   }
 
   // track damage being absorbed
-  on_toPlayer_absorbed(event) {
+  onAbsorb(event) {
     if(event.ability.guid === SPELLS.STAGGER.id) {
       return;
     }
@@ -83,7 +91,7 @@ class CelestialFortune extends Analyzer {
     sourceAbsorbs[event.ability.guid] = sourceAbsorbs[event.ability.guid] ? sourceAbsorbs[event.ability.guid] + event.amount : event.amount;
   }
 
-  on_toPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     if(!this._currentAbsorbs[event.sourceID]) {
       return; // no absorbs from this source
     }

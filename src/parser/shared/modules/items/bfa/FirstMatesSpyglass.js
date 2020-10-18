@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Abilities from 'parser/core/modules/Abilities';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
@@ -10,6 +10,7 @@ import BoringItemValueText from 'interface/statistics/components/BoringItemValue
 import UptimeIcon from 'interface/icons/Uptime';
 import CritIcon from 'interface/icons/CriticalStrike';
 import { formatPercentage } from 'common/format';
+import Events from 'parser/core/Events';
 
 /**
  * First Mate's Spyglass -
@@ -42,16 +43,16 @@ class FirstMatesSpyglass extends Analyzer {
         },
       });
     }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPYGLASS_SIGHT), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.SPYGLASS_SIGHT.id) {
-    return;
-    }
+  onCast(event) {
     this.casts += 1;
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SPYGLASS_SIGHT.id)) {
       return;
     }
@@ -63,7 +64,7 @@ class FirstMatesSpyglass extends Analyzer {
     }
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SPYGLASS_SIGHT.id)) {
       return;
     }

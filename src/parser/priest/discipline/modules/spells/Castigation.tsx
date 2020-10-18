@@ -5,8 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 import { TooltipElement } from 'common/Tooltip';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import { DamageEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 import { IsPenanceDamageEvent, IsPenanceHealEvent } from 'parser/priest/discipline/modules/spells/Helper';
@@ -27,9 +27,11 @@ class Castigation extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
-  on_byPlayer_damage(event: DamageEvent ) {
+  onDamage(event: DamageEvent ) {
     if (!IsPenanceDamageEvent(event)) {
       return;
     }
@@ -43,7 +45,7 @@ class Castigation extends Analyzer {
     this.damage += event.amount;
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     if (!IsPenanceHealEvent(event)) {
       return;
     }

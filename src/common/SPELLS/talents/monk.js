@@ -20,7 +20,7 @@ export default {
   SONG_OF_CHIJI_TALENT: { id: 198898, name: 'Song of Chi-Ji', icon: 'inv_chaos_orb' },
   SUMMON_JADE_SERPENT_STATUE_TALENT: { id: 115313, name: 'Summon Jade Serpent Statue', icon: 'ability_monk_summonserpentstatue' },
   REFRESHING_JADE_WIND_TALENT: { id: 196725, name: 'Refreshing Jade Wind', icon: 'ability_monk_rushingjadewind', manaCost: 1750 },
-  INVOKE_CHIJI_THE_RED_CRANE_TALENT: { id: 325197, name: 'Invoke Chi-Ji, the Red Crane', icon: 'inv_pet_cranegod', manaCost: 2500 },
+  INVOKE_CHIJI_THE_RED_CRANE_TALENT: { id: 325197, name: 'Invoke Chi-Ji, the Red Crane', icon: 'inv_pet_cranegod', manaCost: 2500, duration: 25000 },
   FOCUSED_THUNDER_TALENT: { id: 197895, name: 'Focused Thunder', icon: 'spell_monk_nimblebrew' },
   UPWELLING_TALENT: { id: 274963, name: 'Upwelling', icon: 'ability_monk_surgingmist' },
   RISING_MIST_TALENT: { id: 274909, name: 'Rising Mist', icon: 'ability_monk_effuse' },

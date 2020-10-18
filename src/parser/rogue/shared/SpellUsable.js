@@ -2,6 +2,8 @@ import SPELLS from 'common/SPELLS';
 
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 const MARK_FOR_DEATH_DURATION = 60 * 1000;
 
@@ -11,8 +13,13 @@ class SpellUsable extends CoreSpellUsable {
    */
   markMap = {};
 
-  on_byPlayer_cast(event) {
-    super.on_byPlayer_cast(event);
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MARKED_FOR_DEATH_TALENT), this.onRemoveBuff);
+  }
+
+  onCast(event) {
+    super.onCast(event);
 
     if (!event.ability.guid === SPELLS.MARKED_FOR_DEATH_TALENT.id) {
       return;
@@ -22,15 +29,8 @@ class SpellUsable extends CoreSpellUsable {
     this.markMap[targetString] = event.timestamp;
   }
 
-  on_byPlayer_removedebuff(event) {
-    if (super.on_byPlayer_removedebuff) {
-      super.on_byPlayer_removedebuff(event);
-    }
-
-    if (
-      event.ability.guid !== SPELLS.MARKED_FOR_DEATH_TALENT.id ||
-      !this.isOnCooldown(SPELLS.MARKED_FOR_DEATH_TALENT.id)
-    ) {
+  onRemoveBuff(event) {
+    if (!this.isOnCooldown(SPELLS.MARKED_FOR_DEATH_TALENT.id)) {
       return;
     }
 

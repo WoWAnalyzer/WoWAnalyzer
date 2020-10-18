@@ -1,8 +1,9 @@
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
 import Analyzer from './Analyzer';
+import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
 
 describe('Core/Analyzer', () => {
   let parser;
@@ -40,17 +41,21 @@ describe('Core/Analyzer', () => {
   });
   describe('triggerEvent', () => {
     it('calls the event handler on the class if it exists', () => {
-      const on_success = jest.fn();
+      const onSuccess = jest.fn();
       class MyModule extends Analyzer {
-        on_success() {
-          on_success();
+        constructor(options){
+          super(options);
+          this.addEventListener('success', this.onSuccess);
+        }
+        onSuccess() {
+          onSuccess();
         }
       }
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
         type: 'success',
       });
-      expect(on_success).toBeCalled();
+      expect(onSuccess).toBeCalled();
     });
     it('does nothing if the event handler on the class does not exist', () => {
       class MyModule extends Analyzer {}
@@ -61,63 +66,81 @@ describe('Core/Analyzer', () => {
       // Ummm how do we test for it doing nothing? I guess it just shouldn't crash...
     });
     it('calls on_event on every event if it exists', () => {
-      const on_event = jest.fn();
+      const onEvent = jest.fn();
       class MyModule extends Analyzer {
-        on_event() {
-          on_event();
+        constructor(options){
+          super(options);
+          this.addEventListener(Events.any, this.onEvent);
+        }
+        onEvent() {
+          onEvent();
         }
       }
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
         type: EventType.Test,
       });
-      expect(on_event).toBeCalled();
+      expect(onEvent).toBeCalled();
     });
     it('calls convenience handlers byPlayer and toPlayer', () => {
-      const on_byPlayer_test = jest.fn();
-      const on_toPlayer_test = jest.fn();
-      const on_byPlayerPet_test = jest.fn();
-      const on_toPlayerPet_test = jest.fn();
+      const onByPlayerTest = jest.fn();
+      const onToPlayerTest = jest.fn();
+      const onByPlayerPetTest = jest.fn();
+      const onToPlayerPetTest = jest.fn();
       class MyModule extends Analyzer {
-        on_byPlayer_test() {
-          on_byPlayer_test();
+        constructor(options){
+          super(options);
+          this.addEventListener(Events.test.by(SELECTED_PLAYER), this.onByPlayerTest);
+          this.addEventListener(Events.test.to(SELECTED_PLAYER), this.onToPlayerTest);
+          this.addEventListener(Events.test.by(SELECTED_PLAYER_PET), this.onByPlayerPetTest);
+          this.addEventListener(Events.test.to(SELECTED_PLAYER_PET), this.onToPlayerPetTest);
         }
-        on_toPlayer_test() {
-          on_toPlayer_test();
+        onByPlayerTest() {
+          onByPlayerTest();
         }
-        on_byPlayerPet_test() {
-          on_byPlayerPet_test();
+        onToPlayerTest() {
+          onToPlayerTest();
         }
-        on_toPlayerPet_test() {
-          on_toPlayerPet_test();
+        onByPlayerPetTest() {
+          onByPlayerPetTest();
+        }
+        onToPlayerPetTest() {
+          onToPlayerPetTest();
         }
       }
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
         type: EventType.Test,
       });
-      expect(on_byPlayer_test).toBeCalled();
-      expect(on_toPlayer_test).toBeCalled();
-      expect(on_byPlayerPet_test).toBeCalled();
-      expect(on_toPlayerPet_test).toBeCalled();
+      expect(onByPlayerTest).toBeCalled();
+      expect(onToPlayerTest).toBeCalled();
+      expect(onByPlayerPetTest).toBeCalled();
+      expect(onToPlayerPetTest).toBeCalled();
     });
     it('doesn\'t call convenience handlers byPlayer when event is by someone else', () => {
-      const on_byPlayer_test = jest.fn();
-      const on_toPlayer_test = jest.fn();
-      const on_byPlayerPet_test = jest.fn();
-      const on_toPlayerPet_test = jest.fn();
+      const onByPlayerTest = jest.fn();
+      const onToPlayerTest = jest.fn();
+      const onByPlayerPetTest = jest.fn();
+      const onToPlayerPetTest = jest.fn();
       class MyModule extends Analyzer {
-        on_byPlayer_test() {
-          on_byPlayer_test();
+        constructor(options){
+          super(options);
+          this.addEventListener(Events.test.by(SELECTED_PLAYER), this.onByPlayerTest);
+          this.addEventListener(Events.test.to(SELECTED_PLAYER), this.onToPlayerTest);
+          this.addEventListener(Events.test.by(SELECTED_PLAYER_PET), this.onByPlayerPetTest);
+          this.addEventListener(Events.test.to(SELECTED_PLAYER_PET), this.onToPlayerPetTest);
         }
-        on_toPlayer_test() {
-          on_toPlayer_test();
+        onByPlayerTest() {
+          onByPlayerTest();
         }
-        on_byPlayerPet_test() {
-          on_byPlayerPet_test();
+        onToPlayerTest() {
+          onToPlayerTest();
         }
-        on_toPlayerPet_test() {
-          on_toPlayerPet_test();
+        onByPlayerPetTest() {
+          onByPlayerPetTest();
+        }
+        onToPlayerPetTest() {
+          onToPlayerPetTest();
         }
       }
       parser.byPlayer = jest.fn(() => false);
@@ -125,28 +148,35 @@ describe('Core/Analyzer', () => {
       eventEmitter.triggerEvent({
         type: EventType.Test,
       });
-      expect(on_byPlayer_test).not.toBeCalled();
-      expect(on_toPlayer_test).toBeCalled();
-      expect(on_byPlayerPet_test).toBeCalled();
-      expect(on_toPlayerPet_test).toBeCalled();
+      expect(onByPlayerTest).not.toBeCalled();
+      expect(onToPlayerTest).toBeCalled();
+      expect(onByPlayerPetTest).toBeCalled();
+      expect(onToPlayerPetTest).toBeCalled();
     });
     it('doesn\'t call convenience handlers toPlayer when event is to someone else', () => {
-      const on_byPlayer_test = jest.fn();
-      const on_toPlayer_test = jest.fn();
-      const on_byPlayerPet_test = jest.fn();
-      const on_toPlayerPet_test = jest.fn();
+      const onByPlayerTest = jest.fn();
+      const onToPlayerTest = jest.fn();
+      const onByPlayerPetTest = jest.fn();
+      const onToPlayerPetTest = jest.fn();
       class MyModule extends Analyzer {
-        on_byPlayer_test() {
-          on_byPlayer_test();
+        constructor(options){
+          super(options);
+          this.addEventListener(Events.test.by(SELECTED_PLAYER), this.onByPlayerTest);
+          this.addEventListener(Events.test.to(SELECTED_PLAYER), this.onToPlayerTest);
+          this.addEventListener(Events.test.by(SELECTED_PLAYER_PET), this.onByPlayerPetTest);
+          this.addEventListener(Events.test.to(SELECTED_PLAYER_PET), this.onToPlayerPetTest);
         }
-        on_toPlayer_test() {
-          on_toPlayer_test();
+        onByPlayerTest() {
+          onByPlayerTest();
         }
-        on_byPlayerPet_test() {
-          on_byPlayerPet_test();
+        onToPlayerTest() {
+          onToPlayerTest();
         }
-        on_toPlayerPet_test() {
-          on_toPlayerPet_test();
+        onByPlayerPetTest() {
+          onByPlayerPetTest();
+        }
+        onToPlayerPetTest() {
+          onToPlayerPetTest();
         }
       }
       parser.toPlayer = jest.fn(() => false);
@@ -154,28 +184,35 @@ describe('Core/Analyzer', () => {
       eventEmitter.triggerEvent({
         type: EventType.Test,
       });
-      expect(on_byPlayer_test).toBeCalled();
-      expect(on_toPlayer_test).not.toBeCalled();
-      expect(on_byPlayerPet_test).toBeCalled();
-      expect(on_toPlayerPet_test).toBeCalled();
+      expect(onByPlayerTest).toBeCalled();
+      expect(onToPlayerTest).not.toBeCalled();
+      expect(onByPlayerPetTest).toBeCalled();
+      expect(onToPlayerPetTest).toBeCalled();
     });
     it('doesn\'t call convenience handlers byPlayerPet when event is by someone else', () => {
-      const on_byPlayer_test = jest.fn();
-      const on_toPlayer_test = jest.fn();
-      const on_byPlayerPet_test = jest.fn();
-      const on_toPlayerPet_test = jest.fn();
+      const onByPlayerTest = jest.fn();
+      const onToPlayerTest = jest.fn();
+      const onByPlayerPetTest = jest.fn();
+      const onToPlayerPetTest = jest.fn();
       class MyModule extends Analyzer {
-        on_byPlayer_test() {
-          on_byPlayer_test();
+        constructor(options){
+          super(options);
+          this.addEventListener(Events.test.by(SELECTED_PLAYER), this.onByPlayerTest);
+          this.addEventListener(Events.test.to(SELECTED_PLAYER), this.onToPlayerTest);
+          this.addEventListener(Events.test.by(SELECTED_PLAYER_PET), this.onByPlayerPetTest);
+          this.addEventListener(Events.test.to(SELECTED_PLAYER_PET), this.onToPlayerPetTest);
         }
-        on_toPlayer_test() {
-          on_toPlayer_test();
+        onByPlayerTest() {
+          onByPlayerTest();
         }
-        on_byPlayerPet_test() {
-          on_byPlayerPet_test();
+        onToPlayerTest() {
+          onToPlayerTest();
         }
-        on_toPlayerPet_test() {
-          on_toPlayerPet_test();
+        onByPlayerPetTest() {
+          onByPlayerPetTest();
+        }
+        onToPlayerPetTest() {
+          onToPlayerPetTest();
         }
       }
       parser.byPlayerPet = jest.fn(() => false);
@@ -183,28 +220,35 @@ describe('Core/Analyzer', () => {
       eventEmitter.triggerEvent({
         type: EventType.Test,
       });
-      expect(on_byPlayer_test).toBeCalled();
-      expect(on_toPlayer_test).toBeCalled();
-      expect(on_byPlayerPet_test).not.toBeCalled();
-      expect(on_toPlayerPet_test).toBeCalled();
+      expect(onByPlayerTest).toBeCalled();
+      expect(onToPlayerTest).toBeCalled();
+      expect(onByPlayerPetTest).not.toBeCalled();
+      expect(onToPlayerPetTest).toBeCalled();
     });
     it('doesn\'t call convenience handlers toPlayerPet when event is to someone else', () => {
-      const on_byPlayer_test = jest.fn();
-      const on_toPlayer_test = jest.fn();
-      const on_byPlayerPet_test = jest.fn();
-      const on_toPlayerPet_test = jest.fn();
+      const onByPlayerTest = jest.fn();
+      const onToPlayerTest = jest.fn();
+      const onByPlayerPetTest = jest.fn();
+      const onToPlayerPetTest = jest.fn();
       class MyModule extends Analyzer {
-        on_byPlayer_test() {
-          on_byPlayer_test();
+        constructor(options){
+          super(options);
+          this.addEventListener(Events.test.by(SELECTED_PLAYER), this.onByPlayerTest);
+          this.addEventListener(Events.test.to(SELECTED_PLAYER), this.onToPlayerTest);
+          this.addEventListener(Events.test.by(SELECTED_PLAYER_PET), this.onByPlayerPetTest);
+          this.addEventListener(Events.test.to(SELECTED_PLAYER_PET), this.onToPlayerPetTest);
         }
-        on_toPlayer_test() {
-          on_toPlayer_test();
+        onByPlayerTest() {
+          onByPlayerTest();
         }
-        on_byPlayerPet_test() {
-          on_byPlayerPet_test();
+        onToPlayerTest() {
+          onToPlayerTest();
         }
-        on_toPlayerPet_test() {
-          on_toPlayerPet_test();
+        onByPlayerPetTest() {
+          onByPlayerPetTest();
+        }
+        onToPlayerPetTest() {
+          onToPlayerPetTest();
         }
       }
       parser.toPlayerPet = jest.fn(() => false);
@@ -212,38 +256,27 @@ describe('Core/Analyzer', () => {
       eventEmitter.triggerEvent({
         type: EventType.Test,
       });
-      expect(on_byPlayer_test).toBeCalled();
-      expect(on_toPlayer_test).toBeCalled();
-      expect(on_byPlayerPet_test).toBeCalled();
-      expect(on_toPlayerPet_test).not.toBeCalled();
+      expect(onByPlayerTest).toBeCalled();
+      expect(onToPlayerTest).toBeCalled();
+      expect(onByPlayerPetTest).toBeCalled();
+      expect(onToPlayerPetTest).not.toBeCalled();
     });
     it('sets `this` to the module', () => {
-      const on_success = jest.fn();
+      const onSuccess = jest.fn();
       class MyModule extends Analyzer {
-        on_success() {
-          on_success.call(this);
+        constructor(options){
+          super(options);
+          this.addEventListener('success', this.onSuccess);
+        }
+        onSuccess() {
+          onSuccess.call(this);
         }
       }
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
         type: 'success',
       });
-      expect(on_success.mock.instances[0]).toBe(parser.getModule(MyModule));
-    });
-  });
-  describe('add event listener', () => {
-    it('doesn\'t allow combining event listening methods', () => {
-      class MyModule extends Analyzer {
-        constructor(options) {
-          super(options);
-          this.addEventListener('success', this.on_success);
-        }
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        on_success() {}
-      }
-      expect(() => {
-        parser.loadModule(MyModule);
-      }).toThrow();
+      expect(onSuccess.mock.instances[0]).toBe(parser.getModule(MyModule));
     });
   });
 });

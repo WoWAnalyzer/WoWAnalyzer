@@ -11,6 +11,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
+import { Trans } from '@lingui/macro';
 
 const FLASH_FLOOD_HASTE = 0.2;
 const BUFFER_MS = 50;
@@ -127,28 +128,28 @@ class FlashFlood extends Analyzer {
     const items = [
       {
         color: SPELLS.CHAIN_HEAL.color,
-        label: 'Chain Heal',
+        label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
         spellId: SPELLS.CHAIN_HEAL.id,
         value: this.spellsConsumingFlashFlood[SPELLS.CHAIN_HEAL.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.CHAIN_HEAL.id]),
       },
       {
         color: SPELLS.HEALING_WAVE.color,
-        label: 'Healing Wave',
+        label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
         spellId: SPELLS.HEALING_WAVE.id,
         value: this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id]),
       },
       {
         color: SPELLS.HEALING_SURGE_RESTORATION.color,
-        label: 'Healing Surge',
+        label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE_RESTORATION.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE_RESTORATION.id]),
       },
       {
         color: SPELLS.RIPTIDE.color,
-        label: 'Healing Rain',
+        label: <Trans id="shaman.restoration.spell.healingRain">Healing Rain</Trans>,
         spellId: SPELLS.HEALING_RAIN_CAST.id,
         value: this.spellsConsumingFlashFlood[SPELLS.HEALING_RAIN_CAST.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_RAIN_CAST.id]),
@@ -158,7 +159,7 @@ class FlashFlood extends Analyzer {
     if (this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id]) {
       const wellspring = {
         color: '#FEFEFE',
-        label: 'Wellspring',
+        label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
         spellId: SPELLS.WELLSPRING_TALENT.id,
         value: this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id]),
@@ -181,21 +182,21 @@ class FlashFlood extends Analyzer {
         size="flexible"
       >
         <div className="pad">
-          <label><SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage</label>
+          <label><Trans id="shaman.restoration.flashFlood.statistic.label"><SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage</Trans></label>
           <div className="flex">
             <div className="flex-main">
-              Total Cast Time Saved:
+              <Trans id="shaman.restoration.flashFlood.statistic.title">Total Cast Time Saved</Trans>
             </div>
             <div className="flex-sub text-right">
               <TooltipElement
                 content={(
-                  <>
+                  <Trans id="shaman.restoration.flashFlood.statistic.description.tooltip">
                     Cast time saved by Flash Flood. <br />
                     {(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.
-                  </>
+                  </Trans>
                 )}
               >
-                {(this.totalTimeSaved / 1000).toFixed(2)} seconds
+                <Trans id="shaman.restoration.flashFlood.statistic.description">{(this.totalTimeSaved / 1000).toFixed(2)} seconds</Trans>
               </TooltipElement>
             </div>
           </div>

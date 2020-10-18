@@ -32,8 +32,8 @@ class RenewingMistDuringManaTea extends Analyzer {
   protected vivify!: Vivify;
   protected manaTea!: ManaTea;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
   }
 
@@ -60,7 +60,7 @@ class RenewingMistDuringManaTea extends Analyzer {
         </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(i18n._(t('monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists')`${this.avgRemDuringMT.toFixed(2)} average Renewing Mists during Mana Tea`))
+        .actual(`${this.avgRemDuringMT.toFixed(2)}${i18n._(t('monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists')` average Renewing Mists during Mana Tea`)}`)
         .recommended(`${recommended} average Renewing Mists recommended`));
   }
 

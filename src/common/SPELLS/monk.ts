@@ -217,6 +217,12 @@ const spells: SpellList<MonkSpell> = {
     icon: 'spell_monk_envelopingmist',
     manaPercRed: 0.25,
   },
+  INVOKE_CHIJI_THE_RED_CRANE_BUFF: {
+    id: 343820,
+    name: 'Invoke Chi-Ji, the Red Crane',
+    icon: 'monk_stance_redcrane',
+    buffDur: 20000,
+  },
   // Mastery
   GUSTS_OF_MISTS: {
     id: 191894,

@@ -61,8 +61,8 @@ class RisingMist extends Analyzer {
   extraEFOverhealing = 0;
   extraEFAbsorbed = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(...options) {
+    super(...options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
     this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? .4 : .3;
     if(!this.active){

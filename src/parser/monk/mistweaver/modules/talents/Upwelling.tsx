@@ -55,8 +55,8 @@ class Upwelling extends Analyzer {
   masteryOverhealing: number = 0;
   masteryAbsorbed: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT);
     if (!this.active) {
       return;
@@ -191,7 +191,7 @@ class Upwelling extends Analyzer {
         )}
       >
         <BoringValueText 
-          label={<><SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} /> Upwelling Healing</>}
+          label={<><SpellIcon id={SPELLS.UPWELLING_TALENT.id} /> Upwelling Healing</>}
         >
           <>
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealingAll))}% Total Healing

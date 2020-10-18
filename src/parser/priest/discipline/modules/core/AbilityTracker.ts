@@ -1,10 +1,14 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilityTracker from 'parser/shared/modules/AbilityTracker';
+import CoreAbilityTracker, { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import { Ability, CastEvent } from 'parser/core/Events';
 
+interface TrackedDisciplineAbility extends TrackedAbility {
+  raptureCasts?: number;
+}
+
 class AbilityTracker extends CoreAbilityTracker {
-  getAbility(spellId: number, abilityInfo: Ability | null = null) {
+  getAbility(spellId: number, abilityInfo: Ability | null = null): TrackedDisciplineAbility {
     if (
       spellId === SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id ||
       spellId === SPELLS.LIGHTSPAWN.id
@@ -14,8 +18,8 @@ class AbilityTracker extends CoreAbilityTracker {
     return super.getAbility(spellId, abilityInfo);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    super.on_byPlayer_cast(event);
+  onCast(event: CastEvent) {
+    super.onCast(event);
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 

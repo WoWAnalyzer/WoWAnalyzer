@@ -1,8 +1,9 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemManaGained from 'interface/ItemManaGained';
+import Events from 'parser/core/Events';
 
 /**
  Casting a healing spell restores 12 mana over 8 sec. Stacks up to 2 times.
@@ -16,14 +17,10 @@ class EphemeralRecovery extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.EPHEMERAL_RECOVERY.id);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.EPHEMERAL_RECOVERY_EFFECT), this.onEnergize);
   }
 
-  on_toPlayer_energize(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.EPHEMERAL_RECOVERY_EFFECT.id) {
-      return;
-    }
+  onEnergize(event) {
     this.procs += 1;
     this.manaGained += event.resourceChange;
   }

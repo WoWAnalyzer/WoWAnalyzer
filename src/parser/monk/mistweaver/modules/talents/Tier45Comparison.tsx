@@ -75,8 +75,8 @@ class Tier45Comparison extends Analyzer {
   returnedFromSelected = 0;
   best!: BestTalent;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.sotc.selected = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
     this.manatea.selected = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
     this.lifecycles.selected = !(this.sotc.selected || this.manatea.selected);
@@ -212,7 +212,7 @@ class Tier45Comparison extends Analyzer {
         </>,
       )
         .icon(this.best.icon)
-        .actual(i18n._(t('monk.mistweaver.suggestions.tier45Talent.efficiency')`${formatNumber(this.returnedFromSelected)} mana returned through ${this.best.name}`))
+        .actual(`${formatNumber(this.returnedFromSelected)}${i18n._(t('monk.mistweaver.suggestions.tier45Talent.efficiency')` mana returned through `)}${this.best.name}`)
         .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`));
   }
 

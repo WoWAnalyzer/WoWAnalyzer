@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Events from 'parser/core/Events';
 
 const DEATHSTRIKE_COST = 40;
 
@@ -14,17 +15,16 @@ class Heartbreaker extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HEARTBREAKER_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEART_STRIKE), this.onCast);
+    this.addEventListener(Events.energize.spell(SPELLS.HEARTBREAKER), this.onEnergize);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.HEART_STRIKE.id) {
-      return;
-    }
+  onCast(event) {
     this.hsCasts += 1;
   }
 
-  on_energize(event) {
-    if (event.ability.guid !== SPELLS.HEARTBREAKER.id || event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id) {
+  onEnergize(event) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id) {
       return;
     }
     this.rpGains.push(event.resourceChange);

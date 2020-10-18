@@ -8,9 +8,10 @@ import SpellLink from 'common/SpellLink';
 import HIT_TYPES from 'game/HIT_TYPES';
 
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import Events from 'parser/core/Events';
 
 class BraceForImpact extends Analyzer {
   static dependencies = {
@@ -34,20 +35,20 @@ class BraceForImpact extends Analyzer {
     this.traitDamage = ranks.reduce((total, rank) => total + calculateAzeriteEffects(SPELLS.BRACE_FOR_IMPACT.id, rank)[1], 0);
     this.stackMap = new Map();
     this.lastApplication = this.owner.fight.start_time;
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onDamage);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BRACE_FOR_IMPACT_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BRACE_FOR_IMPACT_BUFF), this.onApplyBuffStack);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BRACE_FOR_IMPACT_BUFF), this.onRemoveBuff);
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.BRACE_FOR_IMPACT_BUFF), this.onRemoveBuffStack);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-
+  onDamage(event) {
     if(this.currentStack === 0){
       return;
     }
 
     if(!this.selectedCombatant.hasBuff(SPELLS.BRACE_FOR_IMPACT_BUFF.id)){
-      return;
-    }
-
-    if(spellId !== SPELLS.SHIELD_SLAM.id){
       return;
     }
 
@@ -72,12 +73,7 @@ class BraceForImpact extends Analyzer {
   }
 
   //only triggered for first stack so we can build map ez pz here
-  on_byPlayer_applybuff(event){
-    const spellId = event.ability.guid;
-
-    if(spellId !== SPELLS.BRACE_FOR_IMPACT_BUFF.id){
-      return;
-    }
+  onApplyBuff(event){
 
     this.currentStack = 1;
 
@@ -92,12 +88,7 @@ class BraceForImpact extends Analyzer {
     this.lastApplication = event.timestamp;
   }
 
-  on_byPlayer_applybuffstack(event){
-    const spellId = event.ability.guid;
-
-    if(spellId !== SPELLS.BRACE_FOR_IMPACT_BUFF.id){
-      return;
-    }
+  onApplyBuffStack(event){
 
     this.updateUptime(event);
 
@@ -112,24 +103,14 @@ class BraceForImpact extends Analyzer {
     }
   }
 
-  on_byPlayer_removebuff(event){
-    const spellId = event.ability.guid;
-
-    if(spellId !== SPELLS.BRACE_FOR_IMPACT_BUFF.id){
-      return;
-    }
+  onRemoveBuff(event){
 
     this.updateUptime(event);
 
     this.currentStack = 0;
   }
 
-  on_byPlayer_removebuffstack(event){
-    const spellId = event.ability.guid;
-
-    if(spellId !== SPELLS.BRACE_FOR_IMPACT_BUFF.id){
-      return;
-    }
+  onRemoveBuffStack(event){
 
     this.updateUptime(event);
 
@@ -142,7 +123,7 @@ class BraceForImpact extends Analyzer {
     this.lastApplication = event.timestamp;
   }
 
-  on_fightend(){
+  onFightEnd(){
     if(this.currentStack>0){
       const timeDifference = this.owner.fight.end_time - this.lastApplication;
       this.stackMap.get(this.currentStack).uptime += timeDifference;

@@ -1,11 +1,17 @@
 import SPELLS from 'common/SPELLS/index';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
+import Events from 'parser/core/Events';
 
 class SpellManaCost extends SpellResourceCost {
   static resourceType = RESOURCE_TYPES.MANA;
 
   incorrectCosts = {};
+
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.fightend, this.onFightend);
+  }
 
   getHardcodedManaCost(event) {
     const spellId = event.ability.guid;
@@ -39,7 +45,7 @@ class SpellManaCost extends SpellResourceCost {
     return cost;
   }
 
-  on_fightend() {
+  onFightend() {
     const incorrectCostCount = Object.keys(this.incorrectCosts).length;
     if (incorrectCostCount === 0) {
       return;

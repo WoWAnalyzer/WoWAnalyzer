@@ -17,6 +17,7 @@ import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
+import ElementalBarrier from '../shared/modules/features/ElementalBarrier';
 
 import HotStreak from './modules/features/HotStreak';
 import HotStreakPreCasts from './modules/features/HotStreakPreCasts';
@@ -71,17 +72,18 @@ class CombatLogParser extends CoreCombatLogParser {
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
     heatingUp: HeatingUp,
-    pyroclasm: Pyroclasm,
-    searingTouch: SearingTouch,
+    mirrorImage: MirrorImage,
+    elementalBarrier: ElementalBarrier,
 
     // Talents
-    mirrorImage: MirrorImage,
     arcaneIntellect: ArcaneIntellect,
     runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }] as const,
     kindling: Kindling,
     meteor: Meteor,
     meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
+    pyroclasm: Pyroclasm,
+    searingTouch: SearingTouch,
 
     //Legendaries
     feveredIncantation: FeveredIncantation,

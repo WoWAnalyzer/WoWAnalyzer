@@ -10,8 +10,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
-import EventEmitter from 'parser/core/modules/EventEmitter';
+import Events, { DamageEvent, AnyEvent } from 'parser/core/Events';
 import { AMOC_BASE_DURATION, AMOC_TICK_RATE, MS_BUFFER } from 'parser/hunter/shared/constants';
 
 /**
@@ -57,13 +56,13 @@ class AMurderOfCrows extends Analyzer {
         },
       });
     }
-    this.addEventListener(EventEmitter.catchAll, this.checkForReset);
+    this.addEventListener(Events.any, this.checkForReset);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.A_MURDER_OF_CROWS_TALENT), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.A_MURDER_OF_CROWS_DEBUFF), this.onDamage);
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
   }
 
-  checkForReset(event: any) {
+  checkForReset(event: AnyEvent) {
     // Checks if we've had atleast 1 damage tick of the currently applied crows, and checks that crows is in fact on cooldown.
     if (this.lastDamageTick && this.spellUsable.isOnCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id)
       // Checks whether the current damage event happened while the time passed since crows application is less than the crows duration
