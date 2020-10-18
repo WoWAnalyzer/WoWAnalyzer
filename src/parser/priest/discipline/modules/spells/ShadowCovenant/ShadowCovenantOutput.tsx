@@ -30,7 +30,7 @@ class ShadowCovenantOutput extends Analyzer {
   public bonusDamage = 0;
   public bonusAtonementHealing = 0;
   public bonusShadowHealing = 0;
-  public abilityHealing = 0;
+  public shadowCovenantHealing = 0;
 
   /**
    * The bonus damage and healing from Shadow Covenant
@@ -65,18 +65,18 @@ class ShadowCovenantOutput extends Analyzer {
   }
 
   // Handles the bonus damage from the damage buff
-  handleDamage(e: DamageEvent) {
+  private handleDamage(e: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SHADOW_COVENANT_BUFF.id)) {
       return;
     }
 
     if (SHADOW_COVENANT_DAMAGE_PASSLIST.has(e.ability.guid)) {
-      this.bonusDamage += calculateEffectiveDamage(e, ShadowCovenantOutput.bonus);
+      this.bonusDamage += Math.round(calculateEffectiveDamage(e, ShadowCovenantOutput.bonus));
     }
   }
 
   // Handles the bonus Atonement healing provided via the damage buff
-  handleBonusAtonementHealing(e: HealEvent) {
+  private handleBonusAtonementHealing(e: HealEvent) {
     const damageSource = this.atonementDamageSource.event;
     if (!damageSource) {
       return;
@@ -86,12 +86,14 @@ class ShadowCovenantOutput extends Analyzer {
     }
 
     if (SHADOW_COVENANT_DAMAGE_PASSLIST.has(damageSource.ability.guid)) {
-      this.bonusAtonementHealing += calculateEffectiveHealing(e, ShadowCovenantOutput.bonus);
+      this.bonusAtonementHealing += Math.round(
+        calculateEffectiveHealing(e, ShadowCovenantOutput.bonus),
+      );
     }
   }
 
   // Handles the bonus Shadow healing done via the healing buff
-  handleBonusShadowHealing(e: HealEvent) {
+  private handleBonusShadowHealing(e: HealEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SHADOW_COVENANT_BUFF.id)) {
       return;
     }
@@ -99,11 +101,11 @@ class ShadowCovenantOutput extends Analyzer {
       return;
     }
 
-    this.bonusShadowHealing += calculateEffectiveHealing(e, ShadowCovenantOutput.bonus);
+    this.bonusShadowHealing += Math.round(calculateEffectiveHealing(e, ShadowCovenantOutput.bonus));
   }
 
-  handleShadowCovenantHealing(e: HealEvent) {
-    this.abilityHealing += e.amount;
+  private handleShadowCovenantHealing(e: HealEvent) {
+    this.shadowCovenantHealing += e.amount;
   }
 }
 
