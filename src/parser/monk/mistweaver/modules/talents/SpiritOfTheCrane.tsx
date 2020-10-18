@@ -128,7 +128,7 @@ class SpiritOfTheCrane extends Analyzer {
         </>,
       )
         .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
-        .actual(i18n._(t('monk.mistweaver.suggestions.spiritOfTheCrane.manaReturned')`${formatNumber(this.manaReturn)} mana returned through Spirit of the Crane`))
+        .actual(`${formatNumber(this.manaReturn)}${i18n._(t('monk.mistweaver.suggestions.spiritOfTheCrane.manaReturned')` mana returned through Spirit of the Crane`)}`)
         .recommended(`${formatNumber(recommended)} is the recommended mana return`));
   }
 

@@ -106,7 +106,7 @@ class EssenceFont extends Analyzer {
           </>,
         )
           .icon(SPELLS.ESSENCE_FONT.icon)
-          .actual(i18n._(t('monk.mistweaver.suggestions.essenceFont.averageTargetsHit')`${this.avgTargetsHitPerEF.toFixed(2)} average targets hit per cast`))
+          .actual(`${this.avgTargetsHitPerEF.toFixed(2)}${i18n._(t('monk.mistweaver.suggestions.essenceFont.averageTargetsHit') `average targets hit per cast`)}`)
           .recommended(`${recommended} targets hit is recommended`));
   }
 

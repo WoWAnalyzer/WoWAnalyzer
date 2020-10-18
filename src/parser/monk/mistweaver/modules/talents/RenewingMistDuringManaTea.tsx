@@ -60,7 +60,7 @@ class RenewingMistDuringManaTea extends Analyzer {
         </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(i18n._(t('monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists')`${this.avgRemDuringMT.toFixed(2)} average Renewing Mists during Mana Tea`))
+        .actual(`${this.avgRemDuringMT.toFixed(2)}${i18n._(t('monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists')` average Renewing Mists during Mana Tea`)}`)
         .recommended(`${recommended} average Renewing Mists recommended`));
   }
 

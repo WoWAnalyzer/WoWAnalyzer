@@ -113,7 +113,7 @@ class ManaTea extends Analyzer {
         </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(i18n._(t('monk.mistweaver.suggestions.manaTea.avgManaSaved')`${formatNumber(this.avgMtSaves)} average mana saved per Mana Tea cast`))
+        .actual(`${formatNumber(this.avgMtSaves)}${i18n._(t('monk.mistweaver.suggestions.manaTea.avgManaSaved')` average mana saved per Mana Tea cast`)}`)
         .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`));
     when(this.suggestionThresholdsOverhealing).addSuggestion((suggest, actual, recommended) => suggest(
         <>
@@ -121,7 +121,7 @@ class ManaTea extends Analyzer {
         </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(i18n._(t('monk.mistweaver.suggestions.manaTea.avgOverHealing')`${formatPercentage(this.avgOverhealing)} % average overhealing per Mana Tea cast`))
+        .actual(`${formatPercentage(this.avgOverhealing)}${i18n._(t('monk.mistweaver.suggestions.manaTea.avgOverHealing')` % average overhealing per Mana Tea cast`)}`)
         .recommended(`under ${formatPercentage(recommended)}% over healing is recommended`));
   }
 

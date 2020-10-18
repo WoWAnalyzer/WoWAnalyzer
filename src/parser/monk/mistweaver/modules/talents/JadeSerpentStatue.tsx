@@ -121,7 +121,7 @@ class JadeSerpentStatue extends Analyzer {
         </>,
       )
         .icon(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
-        .actual(i18n._(t('monk.mistweaver.jadeSerpentStatue.uptime')`${formatPercentage(actual)}% uptime`))
+        .actual(`${formatPercentage(actual)}${i18n._(t('monk.mistweaver.jadeSerpentStatue.uptime')`% uptime`)}`)
         .recommended(`${formatPercentage(recommended)}% uptime is recommended`));
   }
 

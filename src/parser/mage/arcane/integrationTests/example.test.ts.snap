@@ -59,7 +59,7 @@ Array [
     "importance": "major",
     "issue": "You had mana left at the end of the fight. You should be aiming to complete the fight with as little mana as possible regardless of whether your cooldowns will be coming up or not. So dont be afraid to burn your mana before the boss dies.",
     "stat": <React.Fragment>
-      98.62% (127k) mana left
+      98.62% 127k mana left
        (
       &lt;20.00% is recommended
       )

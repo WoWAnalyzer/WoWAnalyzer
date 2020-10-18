@@ -7,6 +7,7 @@ import { change, date } from 'common/changelog';
 
 
 export default [
+  change(date(2020, 10, 14), <>Converted some more files to typescript as well as fixing internalization. </>, Abelito75),
   change(date(2020, 10, 14), <>Corrected upwelling's icon. </>, Abelito75),
   change(date(2020, 10, 14), <>Updating Yu'lon's tooltip! </>, Abelito75),
   change(date(2020, 10, 14), <>We're updated for 9.0.1! </>, Abelito75),

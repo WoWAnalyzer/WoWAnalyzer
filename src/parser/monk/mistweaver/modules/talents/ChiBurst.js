@@ -73,7 +73,7 @@ class ChiBurst extends Analyzer {
           </>,
         )
           .icon(SPELLS.CHI_BURST_TALENT.icon)
-          .actual(i18n._(t('monk.mistweaver.suggestions.chiBurst.targetsHit')`${this.avgTargetsHitPerCB.toFixed(2)} targets hit per Chi Burst cast - ${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}% of raid hit`))
+          .actual(`${this.avgTargetsHitPerCB.toFixed(2)} ${i18n._(t('monk.mistweaver.suggestions.chiBurst.targetsHit')`targets hit per Chi Burst cast - `)}${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}${i18n._(t('monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo')`% of raid hit`)}`)
           .recommended('30% of the raid hit is recommended'));
   }
 

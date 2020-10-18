@@ -89,7 +89,7 @@ class Vivify extends Analyzer {
           </>,
         )
           .icon(SPELLS.VIVIFY.icon)
-          .actual(i18n._(t('monk.mistweaver.suggestions.vivify.renewingMistsPerVivify')`${this.averageRemPerVivify.toFixed(2)} Renewing Mists per Vivify`))
+          .actual(`${this.averageRemPerVivify.toFixed(2)}${i18n._(t('monk.mistweaver.suggestions.vivify.renewingMistsPerVivify')` Renewing Mists per Vivify`)}`)
           .recommended(`${recommended} Renewing Mists are recommended per Vivify`));
   }
 
