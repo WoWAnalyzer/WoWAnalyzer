@@ -26,7 +26,7 @@ class FuriousSlashTimesByStacks extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (event.hitType === HIT_TYPES.DODGE || event.hitType === HIT_TYPES.DODGE) {
+    if (event.hitType === HIT_TYPES.DODGE) {
       return;
     }
     let stack = null;
