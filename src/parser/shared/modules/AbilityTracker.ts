@@ -1,6 +1,6 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Analyzer from 'parser/core/Analyzer';
-import { Ability, AbsorbedEvent, CastEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { Ability, AbsorbedEvent, CastEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 
 import SpellManaCost from './SpellManaCost';
@@ -34,7 +34,12 @@ class AbilityTracker extends Analyzer {
 
   abilities = new Map<number, TrackedAbility>();
 
-  on_byPlayer_cast(event: CastEvent) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+  }
+
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
 
     const cast = this.getAbility(spellId, event.ability);
@@ -76,7 +81,15 @@ class AbilityTracker extends Analyzer {
 }
 
 class HealingTracker extends AbilityTracker {
-  on_byPlayer_heal(event: HealEvent | AbsorbedEvent) {
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER_PET), this.onHeal);
+  }
+
+  onHeal(event: HealEvent | AbsorbedEvent) {
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 
@@ -94,22 +107,15 @@ class HealingTracker extends AbilityTracker {
       }
     }
   }
-
-  on_byPlayer_absorbed(event: AbsorbedEvent) {
-    this.on_byPlayer_heal(event);
-  }
-
-  on_byPlayerPet_heal(event: HealEvent) {
-    this.on_byPlayer_heal(event);
-  }
-
-  on_byPlayerPet_absorbed(event: AbsorbedEvent) {
-    this.on_byPlayer_heal(event);
-  }
 }
 
 class DamageTracker extends HealingTracker {
-  on_byPlayer_damage(event: DamageEvent) {
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+  }
+
+  onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 

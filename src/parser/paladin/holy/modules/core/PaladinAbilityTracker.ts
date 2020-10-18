@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { Ability, HealEvent } from 'parser/core/Events';
+import { Ability, AbsorbedEvent, EventType, HealEvent } from 'parser/core/Events';
 import AbilityTracker, { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 
 import BeaconTargets from '../beacons/BeaconTargets';
@@ -29,7 +29,7 @@ class PaladinAbilityTracker extends AbilityTracker {
     return super.getAbility(spellId, abilityInfo);
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent | AbsorbedEvent) {
     super.onHeal(event);
 
     const spellId = event.ability.guid;
@@ -46,8 +46,10 @@ class PaladinAbilityTracker extends AbilityTracker {
       if (hasIol) {
         cast.healingIolHits = (cast.healingIolHits || 0) + 1;
         cast.healingIolHealing = (cast.healingIolHealing || 0) + (event.amount || 0);
-        cast.healingIolAbsorbed = (cast.healingIolAbsorbed || 0) + (event.absorbed || 0);
-        cast.healingIolOverheal = (cast.healingIolOverheal || 0) + (event.overheal || 0);
+        if (event.type === EventType.Heal) {
+          cast.healingIolOverheal = (cast.healingIolOverheal || 0) + (event.overheal || 0);
+          cast.healingIolAbsorbed = (cast.healingIolAbsorbed || 0) + (event.absorbed || 0);
+        }
       }
     }
 
@@ -55,8 +57,10 @@ class PaladinAbilityTracker extends AbilityTracker {
     if (hasBeacon) {
       cast.healingBeaconHits = (cast.healingBeaconHits || 0) + 1;
       cast.healingBeaconHealing = (cast.healingBeaconHealing || 0) + (event.amount || 0);
-      cast.healingBeaconAbsorbed = (cast.healingBeaconAbsorbed || 0) + (event.absorbed || 0);
-      cast.healingBeaconOverheal = (cast.healingBeaconOverheal || 0) + (event.overheal || 0);
+      if (event.type === EventType.Heal) {
+        cast.healingBeaconAbsorbed = (cast.healingBeaconAbsorbed || 0) + (event.absorbed || 0);
+        cast.healingBeaconOverheal = (cast.healingBeaconOverheal || 0) + (event.overheal || 0);
+      }
     }
   }
 }
