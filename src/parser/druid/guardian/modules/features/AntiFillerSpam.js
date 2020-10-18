@@ -11,9 +11,10 @@ import StatisticBox from 'interface/others/StatisticBox';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
+import Events from 'parser/core/Events';
+
 import Abilities from '../Abilities';
 import ActiveTargets from './ActiveTargets';
-import Events from 'parser/core/Events';
 
 const debug = false;
 
