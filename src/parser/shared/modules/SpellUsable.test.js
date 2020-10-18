@@ -229,12 +229,12 @@ describe('core/Modules/SpellUsable', () => {
           timestamp: 0,
           type: EventType.Cast,
         },
-        targetIsFriendly: true,
         maxCharges: 1,
         name: undefined,
         timePassed: 0,
         sourceID: parser.playerId,
         targetID: parser.playerId,
+        targetIsFriendly: true,
         __fabricated: true,
       });
     });
@@ -272,10 +272,10 @@ describe('core/Modules/SpellUsable', () => {
           },
           maxCharges: 1,
           name: undefined,
-          targetIsFriendly: true,
           timePassed: undefined,
           sourceID: parser.playerId,
           targetID: parser.playerId,
+          targetIsFriendly: true,
           __fabricated: true,
         });
       }
@@ -310,6 +310,7 @@ describe('core/Modules/SpellUsable', () => {
           timePassed: 0,
           sourceID: parser.playerId,
           targetID: parser.playerId,
+          targetIsFriendly: true,
           __fabricated: true,
         });
       }
@@ -347,10 +348,10 @@ describe('core/Modules/SpellUsable', () => {
         },
         maxCharges: 2,
         name: undefined,
-        targetIsFriendly: true,
         timePassed: 0,
         sourceID: parser.playerId,
         targetID: parser.playerId,
+        targetIsFriendly: true,
         __fabricated: true,
       });
     });
@@ -387,12 +388,12 @@ describe('core/Modules/SpellUsable', () => {
           timestamp: 0,
           type: EventType.Cast,
         },
-        targetIsFriendly: true,
         timePassed: undefined,
         maxCharges: 1,
         name: undefined,
         sourceID: parser.playerId,
         targetID: parser.playerId,
+        targetIsFriendly: true,
         __fabricated: true,
       });
     });
@@ -431,12 +432,12 @@ describe('core/Modules/SpellUsable', () => {
             timestamp: 0,
             type: EventType.Cast,
           },
-          targetIsFriendly: true,
           maxCharges: 2,
           name: undefined,
           timePassed: 7500,
           sourceID: parser.playerId,
           targetID: parser.playerId,
+          targetIsFriendly: true,
           __fabricated: true,
         });
       }
@@ -467,10 +468,10 @@ describe('core/Modules/SpellUsable', () => {
           },
           maxCharges: 2,
           name: undefined,
-          targetIsFriendly: true,
           timePassed: 0,
           sourceID: parser.playerId,
           targetID: parser.playerId,
+          targetIsFriendly: true,
           __fabricated: true,
         });
       }
