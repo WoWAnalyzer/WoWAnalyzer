@@ -8,8 +8,9 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import AgilityIcon from 'interface/icons/Agility';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import Events from 'parser/core/Events';
 
 const BASE_ITEM_LEVEL = 300;
 const BASE_AGILITY_BUFF = 593;
@@ -37,21 +38,19 @@ class AzerokksResonatingHeart extends Analyzer {
 
     const itemLevel = this.selectedCombatant.getItem(ITEMS.AZEROKKS_RESONATING_HEART.id).itemLevel;
     this.agilityBuff = calculatePrimaryStat(BASE_ITEM_LEVEL, BASE_AGILITY_BUFF, itemLevel);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BENEFICIAL_VIBRATIONS), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BENEFICIAL_VIBRATIONS), this.onRefreshBuff);
   }
 
-  on_byPlayer_applybuff(event) {
+  onApplyBuff(event) {
     this.handleBuff(event);
   }
 
-  on_byPlayer_refreshbuff(event) {
+  onRefreshBuff(event) {
     this.handleBuff(event);
   }
 
   handleBuff(event) {
-    if(event.ability.guid !== SPELLS.BENEFICIAL_VIBRATIONS.id) {
-      return;
-    }
-
     this.procs += 1;
   }
 

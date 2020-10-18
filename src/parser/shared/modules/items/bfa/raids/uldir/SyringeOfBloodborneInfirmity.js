@@ -4,10 +4,11 @@ import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatPercentage, formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import CritIcon from 'interface/icons/CriticalStrike';
+import Events from 'parser/core/Events';
 
 /**
  * Syringe of Bloodborne Infirmity -
@@ -29,20 +30,16 @@ class SyringeOfBloodborneInfirmity extends Analyzer {
     if (this.active) {
       this.statBuff = calculateSecondaryStatDefault(355, 89, this.selectedCombatant.getItem(ITEMS.SYRINGE_OF_BLOODBORNE_INFIRMITY.id).itemLevel);
     }
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.WASTING_INFECTION), this.onApplyDebuff);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WASTING_INFECTION), this.onDamage);
   }
 
-  on_byPlayer_applydebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.WASTING_INFECTION.id) {
-      this.hits += 1;
-    }
+  onApplyDebuff(event) {
+    this.hits += 1;
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.WASTING_INFECTION.id) {
-      this.damage += (event.amount || 0) + (event.absorbed || 0);
-    }
+  onDamage(event) {
+    this.damage += (event.amount || 0) + (event.absorbed || 0);
   }
 
   averageStatGain() {

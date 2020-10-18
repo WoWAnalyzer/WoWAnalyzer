@@ -12,9 +12,9 @@ class PaladinAbilityTracker extends AbilityTracker {
     beaconTargets: BeaconTargets,
   };
 
-  on_byPlayer_heal(event) {
-    if (super.on_byPlayer_heal) {
-      super.on_byPlayer_heal(event);
+  onHeal(event) {
+    if (super.onHeal) {
+      super.onHeal(event);
     }
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);

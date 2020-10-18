@@ -117,7 +117,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
       this.eventEmitter.fabricateEvent({
         ...event,
-        type: 'feed_heal',
+        type: EventType.FeedHeal,
         feed: eventFeed,
       }, cooldown.spell);
     });
@@ -185,7 +185,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     }, this.owner.fight.start_time);
   }
 
-  on_toPlayer_applybuff(event) {
+  onApplyBuffToPlayer(event) {
     const spellId = event.ability.guid;
     const spell = this.constructor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
     if (!spell) {
@@ -207,7 +207,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     }
   }
 
-  on_fightend() {
+  onFightend() {
     if (!this.hasBeenAscHealingOrCastEvent && this.lastAsc) {
       this.removeLastCooldown(SPELLS.ASCENDANCE_TALENT_RESTORATION.id);
     }
@@ -229,7 +229,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     this.processAll();
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
@@ -247,7 +247,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       }, event.timestamp);
     }
 
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
   }
 
   removeLastCooldown(spellId) {
@@ -262,7 +262,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     }
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     if (event.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id && this.lastCBT) {
       this.hasBeenCBTHealingEvent = true;
       this.popCBT(event);
@@ -294,7 +294,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     });
   }
 
-  on_byPlayer_absorbed(event) {
+  onAbsorb(event) {
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.events.push(event);
     });

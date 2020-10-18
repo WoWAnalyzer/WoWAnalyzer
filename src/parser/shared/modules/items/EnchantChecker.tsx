@@ -9,6 +9,7 @@ import { When } from 'parser/core/ParseResults';
 import { Item } from 'parser/core/Events';
 
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
@@ -43,33 +44,33 @@ const STR_SPECS = [
 class EnchantChecker extends Analyzer {
 
   static AGI_ENCHANTABLE_SLOTS = {
-    4: 'Chest',
-    7: 'Boots',
-    10: 'Ring',
-    11: 'Ring',
-    14: 'Cloak',
-    15: 'Weapon',
-    16: 'OffHand',
+    4: <Trans id="common.slots.chest">Chest</Trans>,
+    7: <Trans id="common.slots.boots">Boots</Trans>,
+    10: <Trans id="common.slots.ring">Ring</Trans>,
+    11: <Trans id="common.slots.ring">Ring</Trans>,
+    14: <Trans id="common.slots.cloak">Cloak</Trans>,
+    15: <Trans id="common.slots.weapon">Weapon</Trans>,
+    16: <Trans id="common.slots.offhand">OffHand</Trans>,
   };
 
   static STR_ENCHANTABLE_SLOTS = {
-    4: 'Chest',
-    9: 'Gloves',
-    10: 'Ring',
-    11: 'Ring',
-    14: 'Cloak',
-    15: 'Weapon',
-    16: 'OffHand',
+    4: <Trans id="common.slots.chest">Chest</Trans>,
+    9: <Trans id="common.slots.gloves">Gloves</Trans>,
+    10: <Trans id="common.slots.ring">Ring</Trans>,
+    11: <Trans id="common.slots.ring">Ring</Trans>,
+    14: <Trans id="common.slots.cloak">Cloak</Trans>,
+    15: <Trans id="common.slots.weapon">Weapon</Trans>,
+    16: <Trans id="common.slots.offhand">OffHand</Trans>,
   };
 
   static INT_ENCHANTABLE_SLOTS = {
-    4: 'Chest',
-    8: 'Bracers',
-    10: 'Ring',
-    11: 'Ring',
-    14: 'Cloak',
-    15: 'Weapon',
-    16: 'OffHand',
+    4: <Trans id="common.slots.chest">Chest</Trans>,
+    8: <Trans id="common.slots.bracers">Bracers</Trans>,
+    10: <Trans id="common.slots.ring">Ring</Trans>,
+    11: <Trans id="common.slots.ring">Ring</Trans>,
+    14: <Trans id="common.slots.cloak">Cloak</Trans>,
+    15: <Trans id="common.slots.weapon">Weapon</Trans>,
+    16: <Trans id="common.slots.offhand">OffHand</Trans>,
   };
 
   static MIN_ENCHANT_IDS = [
@@ -169,7 +170,7 @@ class EnchantChecker extends Analyzer {
 
   suggestions(when: When) {
     const gear = this.enchantableGear;
-    const enchantSlots: {[key: number]: string} = AGI_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.AGI_ENCHANTABLE_SLOTS : STR_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.STR_ENCHANTABLE_SLOTS : EnchantChecker.INT_ENCHANTABLE_SLOTS;
+    const enchantSlots: {[key: number]: JSX.Element} = AGI_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.AGI_ENCHANTABLE_SLOTS : STR_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.STR_ENCHANTABLE_SLOTS : EnchantChecker.INT_ENCHANTABLE_SLOTS;
     // iterating with keys instead of value because the values don't store what slot is being looked at
     Object.keys(gear)
       .forEach(slot => {
@@ -179,9 +180,9 @@ class EnchantChecker extends Analyzer {
 
         when(hasEnchant).isFalse()
           .addSuggestion((suggest, actual, recommended) => suggest(
-              <>
+              <Trans id="shared.enchantChecker.suggestions.noEnchant.label">
                 Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-              </>,
+              </Trans>,
             )
               .icon(item.icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
@@ -189,9 +190,9 @@ class EnchantChecker extends Analyzer {
         const noMaxEnchant = hasEnchant && !this.hasMaxEnchant(item);
         when(noMaxEnchant).isTrue()
           .addSuggestion((suggest, actual, recommended) => suggest(
-              <>
+              <Trans id="shared.enchantChecker.suggestions.weakEnchant.label">
                 Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-              </>,
+              </Trans>,
             )
               .icon(item.icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MINOR));

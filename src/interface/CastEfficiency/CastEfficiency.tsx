@@ -5,6 +5,7 @@ import { TooltipElement } from 'common/Tooltip';
 
 import Abilities from 'parser/core/modules/Abilities';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
+import { Trans } from '@lingui/macro';
 
 interface Props {
   abilities: AbilityCastEfficiency[];
@@ -28,16 +29,16 @@ const CastEfficiency = ({ categories, abilities }: Props) => (
                 <b>{categories[key]}</b>
               </th>
               <th className="text-center">
-                <TooltipElement content="Casts Per Minute">CPM</TooltipElement>
+                <TooltipElement content={<Trans id="shared.castEfficiency.cpm.tooltip">Casts Per Minute</Trans>}><Trans id="shared.castEfficiency.cpm">CPM</Trans></TooltipElement>
               </th>
               <th className="text-right">
-                <TooltipElement content="Maximum possible casts are based on the ability's cooldown and the fight duration. For abilities that can have their cooldowns dynamically reduced or reset, it's based on the average actual time it took the ability to cooldown over the course of this encounter.">
-                  Casts
+                <TooltipElement content={<Trans id="shared.castEfficiency.casts.tooltip">Maximum possible casts are based on the ability's cooldown and the fight duration. For abilities that can have their cooldowns dynamically reduced or reset, it's based on the average actual time it took the ability to cooldown over the course of this encounter.</Trans>}>
+                  <Trans id="shared.castEfficiency.casts">Casts</Trans>
                 </TooltipElement>
               </th>
               <th className="text-center">
-                <TooltipElement content="The percentage of time the spell was kept on cooldown. For spells without charges this also includes when the spell was unavailable due to cast time or time spent waiting for a GCD when the spell was reset due to a proc. Spells with multiple charges count as on cooldown as long as you have fewer than maximum charges. For spells with long cooldowns, it's possible to have well below 100% on cooldown and still achieve maximum casts.">
-                  Time on Cooldown
+                <TooltipElement content={<Trans id="shared.castEfficiency.timeOnCooldown.tooltip">The percentage of time the spell was kept on cooldown. For spells without charges this also includes when the spell was unavailable due to cast time or time spent waiting for a GCD when the spell was reset due to a proc. Spells with multiple charges count as on cooldown as long as you have fewer than maximum charges. For spells with long cooldowns, it's possible to have well below 100% on cooldown and still achieve maximum casts.</Trans>}>
+                  <Trans id="shared.castEfficiency.timeOnCooldown">Time on Cooldown</Trans>
                 </TooltipElement>
               </th>
               <th />
@@ -83,21 +84,21 @@ const CastEfficiency = ({ categories, abilities }: Props) => (
                         {maxCasts === Infinity || efficiency === null ? (
                           ''
                         ) : (
-                          <div className="flex performance-bar-container">
-                            <div
-                              className="flex-sub performance-bar"
-                              style={{
-                                width: `${efficiency * 100}%`,
-                                backgroundColor:
-                                  canBeImproved &&
-                                  ability.castEfficiency &&
-                                  ability.castEfficiency.suggestion
-                                    ? '#ff8000'
-                                    : '#70b570',
-                              }}
-                            />
-                          </div>
-                        )}
+                            <div className="flex performance-bar-container">
+                              <div
+                                className="flex-sub performance-bar"
+                                style={{
+                                  width: `${efficiency * 100}%`,
+                                  backgroundColor:
+                                    canBeImproved &&
+                                      ability.castEfficiency &&
+                                      ability.castEfficiency.suggestion
+                                      ? '#ff8000'
+                                      : '#70b570',
+                                }}
+                              />
+                            </div>
+                          )}
                       </td>
                       <td
                         className="text-left"
@@ -111,7 +112,7 @@ const CastEfficiency = ({ categories, abilities }: Props) => (
                         {canBeImproved &&
                           ability.castEfficiency &&
                           ability.castEfficiency.suggestion &&
-                          'Can be improved.'}
+                          <Trans id="shared.castEfficiency.canBeImproved">Can be improved.</Trans>}
                       </td>
                     </tr>
                   );

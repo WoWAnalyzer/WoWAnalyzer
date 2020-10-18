@@ -4,9 +4,10 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import {formatNumber} from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
+import Events from 'parser/core/Events';
 
 /**
  * Frenetic Corpuscle -
@@ -22,14 +23,12 @@ class FreneticCorpuscle extends Analyzer {
   constructor(...args){
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.FRENETIC_CORPUSCLE.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FRENETIC_BLOW), this.onDamage);
   }
 
-  on_byPlayer_damage(event){
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.FRENETIC_BLOW.id){
-      this.totalDamage += (event.amount || 0) + (event.absorbed || 0);
-      this.hits += 1;
-    }
+  onDamage(event){
+    this.totalDamage += (event.amount || 0) + (event.absorbed || 0);
+    this.hits += 1;
   }
 
   statistic() {

@@ -2,11 +2,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import Events from 'parser/core/Events';
 
 /**
  * Equip: Your attacks and attacks made against you have a chance to trigger spores to grow for 4 sec before bursting.
@@ -27,33 +28,25 @@ class LingeringSporepods extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.LINGERING_SPOREPODS.id);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.LINGERING_SPOREPODS_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.LINGERING_SPOREPODS_BUFF), this.onRefreshBuff);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LINGERING_SPOREPODS_DAMAGE), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LINGERING_SPOREPODS_HEAL), this.onHeal);
   }
 
-  on_toPlayer_applybuff(event) {
-    if (SPELLS.LINGERING_SPOREPODS_BUFF.id !== event.ability.guid) {
-      return;
-    }
+  onApplyBuff(event) {
     this.totalProcs += 1;
   }
 
-  on_toPlayer_refreshbuff(event) {
-    if (SPELLS.LINGERING_SPOREPODS_BUFF.id !== event.ability.guid) {
-      return;
-    }
+  onRefreshBuff(event) {
     this.totalProcs += 1;
   }
 
-  on_byPlayer_damage(event) {
-    if (SPELLS.LINGERING_SPOREPODS_DAMAGE.id !== event.ability.guid) {
-      return;
-    }
+  onDamage(event) {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_heal(event) {
-    if (SPELLS.LINGERING_SPOREPODS_HEAL.id !== event.ability.guid) {
-      return;
-    }
+  onHeal(event) {
     this.healing += (event.amount || 0) + (event.absorbed || 0);
   }
 

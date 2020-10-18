@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
-import { ApplyDebuffEvent, CastEvent, BeginCastEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, CastEvent, BeginCastEvent } from 'parser/core/Events';
 import Ability from 'parser/core/modules/Ability';
+import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 /**
  * Mind Flay and Void Torrent don't reveal in the combatlog when channeling begins and ends, this fabricates the required events so that ABC can handle it properly.
@@ -16,15 +17,20 @@ class Channeling extends CoreChanneling {
 
   mindBlastCastStart?: BeginCastEvent;
 
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY), this.onApplyDebuff);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY), this.onBeginCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY), this.onCast);
+  }
+
   // Have to track the begin cast event to store mind blasts for dark thought procs
-  on_byPlayer_begincast(event: BeginCastEvent) {
+  onBeginCast(event: BeginCastEvent) {
     if (event.ability.guid === SPELLS.MIND_BLAST.id) {
       this.mindBlastCastStart = event;
     }
-    super.on_byPlayer_begincast(event);
   }
-
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     if (event.ability.guid === SPELLS.VOID_TORRENT_TALENT.id) {
       this.beginChannel(event);
       return;
@@ -33,11 +39,11 @@ class Channeling extends CoreChanneling {
       // Completely ignore this with regards to channeling since we use `applybuff` to track channel start, and this cast-event can occur as ticks too
       return;
     }
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
   }
 
   // We can't use the `cast`-event for Mind Flay as this event can occur in the log during channel as ticks too
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
+  onApplyDebuff(event: ApplyDebuffEvent) {
     if (event.ability.guid === SPELLS.MIND_FLAY.id || event.ability.guid === SPELLS.MIND_SEAR.id) {
       this.beginChannel(event);
     }

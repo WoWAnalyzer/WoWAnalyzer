@@ -20,8 +20,8 @@ class SpellUsable extends CoreSpellUsable {
 
   lastPotentialTriggerForShieldSlam: CastEvent | null = null;
 
-  on_byPlayer_cast(event: CastEvent) {
-    super.on_byPlayer_cast(event);
+  onCast(event: CastEvent) {
+    super.onCast(event);
     const spellId = event.ability.guid;
     if (spellId === SPELLS.MELEE.id && this.hasDevastator) {
       this.lastPotentialTriggerForShieldSlam = event;

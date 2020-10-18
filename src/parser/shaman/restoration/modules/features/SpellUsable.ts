@@ -1,17 +1,15 @@
 import SPELLS from 'common/SPELLS';
-import { DispelEvent } from 'parser/core/Events';
+import Events, { DispelEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 class SpellUsable extends CoreSpellUsable {
-  on_dispel(event: DispelEvent) {
-    if (!this.owner.byPlayer(event)) {
-      return;
-    }
-
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.PURIFY_SPIRIT.id) {
-      super.beginCooldown(spellId, event);
-    }
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.dispel.by(SELECTED_PLAYER).spell(SPELLS.PURIFY_SPIRIT), this.onDispel);
+  }
+  onDispel(event: DispelEvent) {
+    super.beginCooldown(event.ability.guid, event);
   }
 
   beginCooldown(spellId: number, cooldownTriggerEvent: DispelEvent) {
