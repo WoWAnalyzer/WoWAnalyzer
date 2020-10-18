@@ -23,8 +23,8 @@ class LifeCocoon extends Analyzer {
 
   healing: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.addEventListener(Events.heal, this.cocoonBuff);
   }
 

@@ -1255,7 +1255,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
+                      "backgroundColor": "#ff8000",
                       "width": "17.648486274625153%",
                     }
                   }
@@ -1280,7 +1280,9 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   "width": "25%",
                 }
               }
-            />
+            >
+              shared.castEfficiency.canBeImproved
+            </td>
           </tr>
           <tr>
             <td
@@ -1449,7 +1451,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
+                      "backgroundColor": "#ff8000",
                       "width": "0%",
                     }
                   }
@@ -1474,7 +1476,9 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   "width": "25%",
                 }
               }
-            />
+            >
+              shared.castEfficiency.canBeImproved
+            </td>
           </tr>
           <tr>
             <td
@@ -3975,6 +3979,88 @@ Array [
   },
   Object {
     "details": null,
+    "icon": "ability_monk_chicocoon",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={116849}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 1,
+            "1": 6,
+            "2": "18",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "80",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "ability_monk_dragonkick",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={322118}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 4,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "80",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
     "icon": "ability_monk_touchofdeath",
     "importance": "major",
     "issue": <React.Fragment>
@@ -4476,7 +4562,7 @@ exports[`Mistweaver Monk integration test: example log EnvelopingMists matches t
         <div
           className="value"
         >
-          1.03m
+          0
            
           <small>
             healing contributed by the buff
@@ -6102,73 +6188,6 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
-              href="http://wowhead.com/spell=124682"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_monk_envelopingmist.jpg"
-              />
-               
-              Enveloping Mist
-            </a>
-          </td>
-          <td>
-            6,000
-             (1.49%)
-          </td>
-          <td
-            className="text-right"
-          >
-            226
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#a6c34c",
-                    "transition": "background-color 800ms",
-                    "width": "99.55947136563876%",
-                  }
-                }
-              />
-            </div>
-          </td>
-          <td
-            className="text-right"
-          >
-            907k
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#a6c34c",
-                    "transition": "background-color 800ms",
-                    "width": "83.05860805860806%",
-                  }
-                }
-              />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a
               href="http://wowhead.com/spell=115151"
               rel="noopener noreferrer"
               target="_blank"
@@ -6294,6 +6313,73 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                     "backgroundColor": "#df7102",
                     "transition": "background-color 800ms",
                     "width": "36.446886446886445%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="http://wowhead.com/spell=124682"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_monk_envelopingmist.jpg"
+              />
+               
+              Enveloping Mist
+            </a>
+          </td>
+          <td>
+            6,000
+             (1.49%)
+          </td>
+          <td
+            className="text-right"
+          >
+            55
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "24.229074889867842%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            220k
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "20.146520146520146%",
                   }
                 }
               />
@@ -6631,7 +6717,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      100.00 % of Soothing Mist casts with max spells casted
+      50.00% of Soothing Mist casts with max spells casted
        (
       1 is recommended
       )
@@ -8003,7 +8089,7 @@ Array [
       . It is advised to limit the number of spells buffed to only these two.
     </React.Fragment>,
     "stat": <React.Fragment>
-      13 incorrect casts with Thunder Focus Tea
+      13incorrect casts with Thunder Focus Tea
        (
       &lt;1 incorrect cast is recommended
       )
@@ -10439,7 +10525,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  0.00%
+                  50.00%
                    
                    
                 </div>
@@ -10461,7 +10547,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "18.5%",
                       }
                     }
                   />

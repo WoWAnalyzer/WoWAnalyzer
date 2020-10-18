@@ -33,8 +33,8 @@ class ThunderFocusTea extends Analyzer {
   ftActive: boolean = false;
   rmActive: boolean = false;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.ftActive = this.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
     this.rmActive = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_FOCUS_TEA), this.tftCast);
@@ -144,7 +144,7 @@ class ThunderFocusTea extends Analyzer {
             </>,
           )
             .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
-            .actual(i18n._(t('monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts')`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`))
+            .actual(`${this.incorrectTftCasts}${i18n._(t('monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts')`incorrect casts with Thunder Focus Tea`)}`)
             .recommended(`<${recommended} incorrect cast is recommended`));
   }
 
