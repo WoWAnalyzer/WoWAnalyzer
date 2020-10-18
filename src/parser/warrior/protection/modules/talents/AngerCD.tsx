@@ -68,7 +68,7 @@ class AngerCD extends Analyzer {
 
   ratio(spellCD: number, spellid: number) {
     const possibleCasts = Math.ceil(this.actualFightTime / spellCD) || 1;
-    let actualCasts = this.abilityTracker.getAbility(spellid).casts || 0;
+    let actualCasts = this.abilityTracker.getAbility(spellid).casts;
     if (spellid === SPELLS.AVATAR_TALENT.id) {
       actualCasts = this.prepullCast ? actualCasts + 1 : actualCasts;
     }

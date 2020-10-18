@@ -28,7 +28,7 @@ export default [
   change(date(2020, 10, 13), 'Converted StatisticsSectionTitle/TABS to TypeScript', ChagriAli),
   change(date(2020, 10, 13), 'Throughput & Language files  TypeScript conversion', niseko),
   change(date(2020, 10, 13), 'Converted BAD_ICONS, aprilFools, colorForPerformance, Alerts, ContributorButton, Modal to TypeScript', Barter),
-  change(date(2020, 10, 13), 'Converted Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
+  change(date(2020, 10, 13), 'Converted AbilityTracker, Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
   change(date(2020, 10, 13), 'Allow the use of any of the threshold breakpoints (minor, average, major) as the primary breakpoint for suggestions', Dambroda),
   change(date(2020, 10, 13), 'Merged CooldownTrackers to remove duplicated code and converted them to TypeScript', Putro),
   change(date(2020, 10, 13), 'Converted Items to TypeScript', Zeboot),

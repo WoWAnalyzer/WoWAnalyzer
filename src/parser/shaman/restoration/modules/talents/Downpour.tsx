@@ -13,10 +13,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { Trans } from '@lingui/macro';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
 const BUFFER = 100;
 const cooldownIncrease = 5000;
@@ -30,12 +30,12 @@ class Downpour extends Analyzer {
   static dependencies = {
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
-    abilityTracker: AbilityTracker,
+    abilityTracker: RestorationAbilityTracker,
   };
 
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
   protected spellUsable!: SpellUsable;
-  protected abilityTracker!: AbilityTracker;
+  protected abilityTracker!: RestorationAbilityTracker;
 
   healing = 0;
   downpourHits = 0;
@@ -76,12 +76,12 @@ class Downpour extends Analyzer {
   statistic() {
     const downpour = this.abilityTracker.getAbility(SPELLS.DOWNPOUR_TALENT.id);
 
-    const downpourCasts = downpour.casts || 0;
+    const downpourCasts = downpour.casts;
     if (!downpourCasts) {
       return null;
     }
     // downpourHits are all hits and downpourHitsSum are only the ones with effective healing done
-    const downpourHits = downpour.healingHits || 0;
+    const downpourHits = downpour.healingHits;
     const downpourAverageHits = (this.downpourHitsSum) / downpourCasts;
     const downpourAverageOverhealedHits = (downpourHits - this.downpourHitsSum) / downpourCasts;
     const downpourAverageCooldown = 5 + (this.downpourHitsSum / downpourCasts * 5);
