@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, EventType, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, EventType, RefreshBuffEvent, RemoveBuffEvent, Event } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Abilities from 'parser/core/modules/Abilities';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -37,14 +37,14 @@ class AimedShot extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(EventEmitter.catchAll, this.onEvent);
+    this.addEventListener(Events.any, this.onEvent);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), (event: ApplyBuffEvent) => this.onAffectingBuffChange(event));
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), (event: RefreshBuffEvent) => this.onAffectingBuffChange(event));
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), (event: RemoveBuffEvent) => this.onAffectingBuffChange(event));
   }
 
-  onEvent(event: any) {
+  onEvent(event: Event<any>) {
     if (!this.selectedCombatant.hasBuff(SPELLS.DEAD_EYE_BUFF.id) && !this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }

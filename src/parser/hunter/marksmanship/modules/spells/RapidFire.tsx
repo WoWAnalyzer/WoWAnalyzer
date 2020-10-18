@@ -35,14 +35,14 @@ class RapidFire extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(EventEmitter.catchAll, this.onEvent);
+    this.addEventListener(Events.any, this.onEvent);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), (event: ApplyBuffEvent) => this.onAffectingBuffChange(event));
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), (event: RefreshBuffEvent) => this.onAffectingBuffChange(event));
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), (event: RemoveBuffEvent) => this.onAffectingBuffChange(event));
   }
 
-  onEvent(event: any) {
+  onEvent(event: Event<any>) {
     if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
