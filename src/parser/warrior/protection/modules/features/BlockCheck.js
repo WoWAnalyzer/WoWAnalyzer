@@ -9,8 +9,9 @@ import SPELLS from 'common/SPELLS';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import ShieldBlock from '../spells/ShieldBlock';
 import Events from 'parser/core/Events';
+
+import ShieldBlock from '../spells/ShieldBlock';
 
 const debug = false;
 
