@@ -33,13 +33,17 @@ class LayeredMane extends Analyzer {
 
     this.agility = layeredManeStats(this.selectedCombatant);
     this.statTracker.add(SPELLS.IRONFUR.id, { agility: this.agility });
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onIronfur);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onIronfur);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onIronfur);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onIronfurStack);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onIronfurStack);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onIronfurCast);
   }
 
-  onIronfur(){
+  onIronfurStack(){
     this._totalStacks += 1;
+  }
+
+  onIronfurCast(){
+    this._totalCasts += 1;
   }
   
   get bonusStacks() {
