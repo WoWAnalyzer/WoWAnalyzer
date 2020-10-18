@@ -256,9 +256,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 12,
+        cooldown: 30,
         castEfficiency: {
-          suggestion: true,
+          suggestion: false,
         },
         enabled: combatant.hasTalent(SPELLS.SHADOW_COVENANT_TALENT.id),
       },

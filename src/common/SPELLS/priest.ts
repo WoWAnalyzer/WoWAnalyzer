@@ -139,7 +139,7 @@ const spells: SpellList<PriestSpell> = {
   },
   LIGHTS_WRATH: {
     id: 207946,
-    name: 'Light\'s Wrath',
+    name: "Light's Wrath",
     icon: 'inv_staff_2h_artifacttome_d_01',
   },
   MIND_CONTROL: {
@@ -257,51 +257,6 @@ const spells: SpellList<PriestSpell> = {
     name: 'Contrition',
     icon: 'ability_priest_savinggrace',
   },
-  DISC_PRIEST_T19_2SET_BONUS_BUFF: {
-    id: 211556,
-    name: 'T19 2 Set Bonus',
-    icon: 'spell_holy_powerwordshield',
-  },
-  DISC_PRIEST_T19_4SET_BONUS_BUFF: {
-    id: 211563,
-    name: 'T19 4 Set Bonus',
-    icon: 'spell_holy_powerwordshield',
-  },
-  DISC_PRIEST_T20_2SET_BONUS_PASSIVE: {
-    id: 242268,
-    name: 'T20 2 Set Bonus',
-    icon: 'spell_holy_penance',
-  },
-  DISC_PRIEST_T20_4SET_BONUS_PASSIVE: {
-    id: 242269,
-    name: 'T20 4 Set Bonus',
-    icon: 'spell_holy_penance',
-  },
-  DISC_PRIEST_T20_4SET_BONUS_BUFF: {
-    id: 246519,
-    name: 'T20 4 Set Bonus',
-    icon: 'spell_holy_penance',
-  },
-  DISC_PRIEST_T21_2SET_BONUS_PASSIVE: {
-    id: 251843,
-    name: 'T21 2 Set Bonus',
-    icon: 'ability_priest_ascension',
-  },
-  DISC_PRIEST_T21_4SET_BONUS_PASSIVE: {
-    id: 251844,
-    name: 'T21 4 Set Bonus',
-    icon: 'spell_holy_searinglightpriest',
-  },
-  DISC_PRIEST_T21_4SET_BONUS_BUFF: {
-    id: 252848,
-    name: 'T21 4 Set Buff',
-    icon: 'spell_holy_searinglightpriest',
-  },
-  KAM_XIRAFF_BUFF: {
-    id: 233997,
-    name: 'Kam Xi\'raff',
-    icon: 'ability_priest_savinggrace',
-  },
   TWIST_OF_FATE_BUFF: {
     id: 123254,
     name: 'Twist of Fate',
@@ -312,10 +267,10 @@ const spells: SpellList<PriestSpell> = {
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
   },
-  ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
-    id: 214637,
-    name: 'Dejahna\'s Inspiration',
-    icon: 'spell_holy_heal',
+  SHADOW_COVENANT_BUFF: {
+    id: 322105,
+    name: 'Shadow Covenant',
+    icon: 'spell_shadow_summonvoidwalker',
   },
   PRAYER_CIRCLE_BUFF: {
     id: 321379,
@@ -644,6 +599,5 @@ const spells: SpellList<PriestSpell> = {
     name: 'Shadow Crash',
     icon: 'spell_shadow_shadowfury',
   },
-
 };
 export default spells;

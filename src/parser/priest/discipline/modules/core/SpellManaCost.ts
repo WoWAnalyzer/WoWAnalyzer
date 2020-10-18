@@ -21,7 +21,10 @@ class SpellManaCost extends CoreSpellManaCost {
     let hardcodedCost = super.getHardcodedManaCost(event);
     // Penance does not include the mana cost in the spellId :(
     if (spellId === SPELLS.PENANCE.id) {
-      if (!this.lastPenanceStartTimestamp || (event.timestamp - this.lastPenanceStartTimestamp) > PENANCE_CHANNEL_TIME_BUFFER) {
+      if (
+        !this.lastPenanceStartTimestamp ||
+        event.timestamp - this.lastPenanceStartTimestamp > PENANCE_CHANNEL_TIME_BUFFER
+      ) {
         this.lastPenanceStartTimestamp = event.timestamp;
         // if (event.isInitialPenanceCast) {
         hardcodedCost = SPELLS.PENANCE.manaCost;
@@ -32,17 +35,10 @@ class SpellManaCost extends CoreSpellManaCost {
     }
     return hardcodedCost;
   }
-
   getResourceCost(event: CastEvent) {
-    let cost = super.getResourceCost(event);
+    const cost = super.getResourceCost(event);
     if (cost === 0) {
       return cost;
-    }
-
-    // Kam Xi'raff reduces the mana cost of damaging spells by 75%
-    if (!event.targetIsFriendly && this.selectedCombatant.hasBuff(SPELLS.KAM_XIRAFF_BUFF.id, event.timestamp)) {
-      debug && console.log('Hostile spell and', SPELLS.KAM_XIRAFF_BUFF.name, 'is active, reducing cost (', cost, ') by 75%');
-      cost *= 0.25;
     }
 
     return cost;
