@@ -16,14 +16,10 @@ class PowerWordShieldWasted extends Analyzer {
 
   constructor(options: Options){
     super(options);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD), this.onRemoveBuff);
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.POWER_WORD_SHIELD.id) {
-      return;
-    }
     if (event.absorb && event.absorb > 0) {
       this.wasted += event.absorb;
       this.count += 1;

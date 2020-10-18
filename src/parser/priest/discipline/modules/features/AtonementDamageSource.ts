@@ -12,8 +12,7 @@ class AtonementDamageSource extends Analyzer {
 
   constructor(options: Options){
     super(options);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onDamage);
   }
 
   onDamage(event: DamageEvent) {

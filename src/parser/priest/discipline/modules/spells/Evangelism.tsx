@@ -34,7 +34,7 @@ class Evangelism extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
@@ -43,10 +43,6 @@ class Evangelism extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EVANGELISM_TALENT.id) {
-      return;
-    }
     this._previousEvangelismCast = event;
     const atonedPlayers = this.atonementModule.numAtonementsActive;
 
