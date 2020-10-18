@@ -36,7 +36,7 @@
 */
 
 import SPECS from 'game/SPECS';
-import { Contributor } from 'common/changelog';
+import { Contributor } from 'common/contributor';
 
 // For testing purposes because I am too lazy to work out a solution for testing that does not involve adding regular code
 export const Dummy: Contributor = {

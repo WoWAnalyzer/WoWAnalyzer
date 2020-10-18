@@ -4,6 +4,8 @@ import AnimateHeight from 'react-animate-height';
 
 import './Expandable.scss';
 
+// This component can't be turned into a functional component until the Rule component (src/parser/shared/modules/features/Checklist/Rule.js) is refactored. That component uses the method `expand()` from the Expandable class component to expand it from outside.
+
 class Expandable extends React.PureComponent {
   static propTypes = {
     header: PropTypes.node.isRequired,

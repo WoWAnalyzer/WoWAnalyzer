@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
-import { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 
 class AtonementApplicationSource extends Analyzer {
   // Spells that apply atonement
@@ -19,14 +19,19 @@ class AtonementApplicationSource extends Analyzer {
   get event() {
     return this._event;
   }
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+  }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
+  onApplyBuff(event: ApplyBuffEvent) {
     if (this.atonementApplicators.has(event.ability.guid)) {
       this._event = event;
     }
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     if (this.atonementApplicators.has(event.ability.guid)) {
       this._event = event;
     }

@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Yajinni, Mamtooth, Torothin } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Torothin, Zeboot } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 3, 20), <>Added <SpellLink id={SPELLS.REVEL_IN_PAIN.id} /> azerite trait.</>, [Torothin]),
   change(date(2020, 3, 13), <>Added <SpellLink id={SPELLS.INFERNAL_ARMOR.id} /> azerite trait.</>, [Torothin]),
   change(date(2018, 11, 15), <>Improved tracking of <SpellLink id={SPELLS.FEED_THE_DEMON_TALENT.id} /> talent.</>, [Yajinni]),

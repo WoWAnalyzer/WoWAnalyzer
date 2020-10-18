@@ -4,11 +4,12 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 
 const debug = false;
 
@@ -33,6 +34,8 @@ class HighNoon extends Analyzer {
     if (!this.active) {
       return;
     }
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SUNFIRE), this.onDamage);
+    this.addEventListener(Events.fightend, this.onFightend);
     this.bonus = this.selectedCombatant.traitsBySpellId[SPELLS.HIGH_NOON.id]
       .reduce((total, rank) => {
         const [ damage ] = calculateAzeriteEffects(SPELLS.HIGH_NOON.id, rank);
@@ -41,14 +44,9 @@ class HighNoon extends Analyzer {
       }, 0);
   }
 
-  on_byPlayer_damage(event){
-      const spellId = event.ability.guid;
+  onDamage(event){
       const versPerc = this.statTracker.currentVersatilityPercentage;
       let critMod = 1;
-
-      if(spellId !== SPELLS.SUNFIRE.id){
-          return;
-      }
 
       if(event.hitType === HIT_TYPES.CRIT){
         critMod = 2;
@@ -57,7 +55,7 @@ class HighNoon extends Analyzer {
       this.bonusDamage += this.bonus * (1 + versPerc) * critMod;
   }
 
-  on_fightend(){
+  onFightend(){
     if(debug){
       console.log("Bonus damage", this.bonusDamage);
       console.log(this.getAbility(SPELLS.SUNFIRE.id).damageEffective);

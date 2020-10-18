@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { tsabo, Zerotorescue, Gebuz, Aelexe, Coywolf, soloxcx, Tyndi } from 'CONTRIBUTORS';
+import { tsabo, Zerotorescue, Gebuz, Aelexe, Coywolf, soloxcx, Tyndi, Zeboot } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 10, 16), <>Added <SpellLink id={SPELLS.GREENSKINS_WICKERS.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 10, 5), 'Updated Blade Flurry and Blade Rush to calculate CD reduction properly', [Tyndi]),
   change(date(2020, 10, 1), 'Move Slice and Dice from talent to spell, update Rogue spec configs, update spells', [Tyndi]),

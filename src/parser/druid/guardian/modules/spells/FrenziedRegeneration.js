@@ -3,8 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -47,36 +48,36 @@ class FrenziedRegeneration extends Analyzer {
 
     this._healModifier += (wildfleshRank * WILDFLESH_MODIFIER_PER_RANK);
     this._healModifier += versModifier; // TODO: Account for Haste buffs by asking the actual value on each event instead of in here
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FRENZIED_REGENERATION), this.onCast);
+    this.addEventListener(Events.cast.to(SELECTED_PLAYER), this.onDamage);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.FRENZIED_REGENERATION.id) {
-      const percentHP = event.hitPoints / event.maxHitPoints;
-      // Minimum heal
-      let percentHeal = FR_MINIMUM_HP_HEAL;
+  onCast(event) {
+    const percentHP = event.hitPoints / event.maxHitPoints;
+    // Minimum heal
+    let percentHeal = FR_MINIMUM_HP_HEAL;
 
-      this.pruneDamageEvents(event.timestamp);
-      const damageTakenInWindow = this.damageEventsInWindow.reduce((total, event) => total + event.damage, 0);
+    this.pruneDamageEvents(event.timestamp);
+    const damageTakenInWindow = this.damageEventsInWindow.reduce((total, event) => total + event.damage, 0);
 
-      // TODO: is event ordering consistent here? (this cast event needs to happen before GoE removebuff)
-      const goeModifier = this.selectedCombatant.hasBuff(SPELLS.GUARDIAN_OF_ELUNE.id) ? 1.2 : 1;
+    // TODO: is event ordering consistent here? (this cast event needs to happen before GoE removebuff)
+    const goeModifier = this.selectedCombatant.hasBuff(SPELLS.GUARDIAN_OF_ELUNE.id) ? 1.2 : 1;
 
-      const healAmount = damageTakenInWindow * this.healModifier * goeModifier;
-      const healAsPercentHP = healAmount / event.maxHitPoints;
+    const healAmount = damageTakenInWindow * this.healModifier * goeModifier;
+    const healAsPercentHP = healAmount / event.maxHitPoints;
 
-      if (healAsPercentHP > percentHeal) {
-        percentHeal = healAsPercentHP;
-      }
-
-      this.castData.push({
-        percentHP,
-        percentHeal,
-        actualHeal: healAmount,
-      });
+    if (healAsPercentHP > percentHeal) {
+      percentHeal = healAsPercentHP;
     }
+
+    this.castData.push({
+      percentHP,
+      percentHeal,
+      actualHeal: healAmount,
+    });
   }
 
-  on_toPlayer_damage(event) {
+  onDamage(event) {
     this.damageEventsInWindow.push({
       timestamp: event.timestamp,
       damage: event.amount + event.absorbed,

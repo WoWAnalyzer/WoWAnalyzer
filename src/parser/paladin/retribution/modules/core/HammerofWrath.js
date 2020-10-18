@@ -1,10 +1,10 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 
-// TODO: Needs updating with ExecuteHelper
+import HammerofWrath from '../../../shared/spells/HammerOfWrath'
 
-class HammerofWrath extends Analyzer {
+class HammerofWrathRetribution extends HammerofWrath {
 
   wasteHP = false;
 
@@ -30,4 +30,4 @@ class HammerofWrath extends Analyzer {
   }
 }
 
-export default HammerofWrath;
+export default HammerofWrathRetribution;

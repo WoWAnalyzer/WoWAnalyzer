@@ -6,7 +6,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -26,6 +27,7 @@ class Blindside extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLINDSIDE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BLINDSIDE_TALENT, SPELLS.MUTILATE]), this.onCast);
   }
 
   casts = 0;
@@ -35,7 +37,7 @@ class Blindside extends Analyzer {
     return (this.casts / this.casts + this.badMutilates) || 1;
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BLINDSIDE_TALENT.id) {
       this.casts += 1;

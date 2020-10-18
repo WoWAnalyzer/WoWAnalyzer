@@ -1,11 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 const OSSUARY_RUNICPOWER_REDUCTION = 5;
 
@@ -21,9 +22,12 @@ class Ossuary extends Analyzer {
     return this.dsWithOS / (this.dsWithOS + this.dsWithoutOS);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) {return;}
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_STRIKE), this.onCast);
+  }
 
+  onCast(event) {
     if (this.selectedCombatant.hasBuff(SPELLS.OSSUARY.id)) {
       this.dsWithOS += 1;
     } else {
