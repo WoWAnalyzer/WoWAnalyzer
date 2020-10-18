@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import Snapshot from '../core/Snapshot';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+
+import Snapshot from '../core/Snapshot';
 
 const BASE_DURATION = 2000;
 const COMBO_POINT_DURATION = 2000;
