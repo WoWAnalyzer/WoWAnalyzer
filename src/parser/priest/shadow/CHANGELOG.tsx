@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 10, 18), '<>Converted legacy listeners to new event filters</>', Zeboot),
+  change(date(2020, 10, 18), <>Converted legacy listeners to new event filters</>, Zeboot),
   change(date(2020, 10, 17), <>Updated for Shadowlands Pre-Patch.</>, [Adoraci]),
   change(date(2020, 9, 21), <>Removed Azerite Traits and Added Event Listeners, Centralized Constants, and Integration Tests. </>, [Sharrq]),
   change(date(2020, 8, 29), <>Typescript conversion and updated Statistic Boxes. </>, [Sharrq]),
@@ -19,5 +19,5 @@ export default [
   change(date(2018, 11, 7), <>Fixed the last proc of <SpellLink id={SPELLS.VOIDFORM_BUFF.id} /> in the checklist. Added azerite trait <SpellLink id={SPELLS.CHORUS_OF_INSANITY.id} />.</>, [Khadaj]),
   change(date(2018, 8, 5), <>Fixed a bug where the Haste gained from <SpellLink id={SPELLS.VOIDFORM_BUFF.id} /> was never removed when not using Lingering Insanity.</>, [Zerotorescue]),
   change(date(2018, 8, 5), <>Fixed crash when using Dark Ascension.</>, [Zerotorescue]),
-  change(date(2018, 6, 22), 'Updated spells and several modules to be compatible with BFA.', [Zerotorescue]),
+  change(date(2018, 6, 22), <>Updated spells and several modules to be compatible with BFA.</>, [Zerotorescue]),
 ];
