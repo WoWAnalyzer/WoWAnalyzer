@@ -7,9 +7,10 @@ import { formatPercentage } from 'common/format';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 const REFRESH_AT_STACKS_WITH_BONES_OF_THE_DAMNED = 6;
 const REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED = 7;
@@ -54,40 +55,30 @@ class MarrowrendUsage extends Analyzer {
       this.hasBonesOfTheDamned = true;
       this.refreshAtStacks = REFRESH_AT_STACKS_WITH_BONES_OF_THE_DAMNED;
     }
+
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.onApplyBuff);
+    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.onRemoveBuff);
+    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.onRemoveBuffStack);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MARROWREND), this.onCast);
   }
 
 
-  on_toPlayer_applybuff(event) {
-    if (event.ability.guid === SPELLS.BONE_SHIELD.id){
-      this.currentBoneShieldBuffer += 1;
-      this.currentBoneShieldStacks = event.stack;
-    }
+  onApplyBuff(event) {
+    this.currentBoneShieldBuffer += 1;
+    this.currentBoneShieldStacks = event.stack;
   }
 
-  on_toPlayer_applybuffstack(event) {
-    if (event.ability.guid === SPELLS.BONE_SHIELD.id){
-      this.currentBoneShieldBuffer += 1;
-      this.currentBoneShieldStacks = event.stack;
-    }
+  onRemoveBuff(event) {
+    this.currentBoneShieldStacks = 0;
   }
 
-
-  on_toPlayer_removebuff(event) {
-    if (event.ability.guid === SPELLS.BONE_SHIELD.id){
-      this.currentBoneShieldStacks = 0;
-    }
+  onRemoveBuffStack(event) {
+    this.currentBoneShieldBuffer = 0;
+    this.currentBoneShieldStacks = event.stack;
   }
 
-  on_toPlayer_removebuffstack(event) {
-    if (event.ability.guid === SPELLS.BONE_SHIELD.id){
-      this.currentBoneShieldBuffer = 0;
-      this.currentBoneShieldStacks = event.stack;
-    }
-  }
-
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.MARROWREND.id) {return;}
-
+  onCast(event) {
     //don't add to wasted casts if MR casts was at ~6sec left on BS duration
     const durationLeft = BS_DURATION - (event.timestamp - this.lastMarrowrendCast) / 1000;
     if (durationLeft <= REFRESH_AT_SECONDS) {
