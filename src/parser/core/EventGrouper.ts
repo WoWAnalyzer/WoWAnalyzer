@@ -9,20 +9,35 @@ import { AnyEvent } from 'parser/core/Events';
  * 200: [ { timestamp: 200 }, { timestamp: 300 } ]
  */
 
-export default class EventGrouper {
+/**
+ * @description A group of events starting at the provided timestamp
+ */
+type EventGroup<T> = { timestamp: number, events: T[] }
+
+export default class EventGrouper<T extends AnyEvent> {
   threshold: number;
-  cache: { [stem: number]: AnyEvent[] };
+  cache: { [stem: number]: T[] };
 
   constructor(threshold: number) {
     this.threshold = threshold;
     this.cache = {};
   }
 
+  /**
+   * @deprecated Use eventGroups method instead
+   */
   [Symbol.iterator]() {
     return Object.entries(this.cache).map(item => item[1])[Symbol.iterator]();
   }
 
-  processEvent(event: AnyEvent) {
+  /**
+   * @description Provides all captured event groups with the associated starting timestamp
+   */
+  get eventGroups(): Array<EventGroup<T>> {
+    return Object.entries(this.cache).map(([timestamp, events]) => ({ timestamp: Number(timestamp), events }));
+  }
+
+  processEvent(event: T) {
     const stemTimestamp = this.getStemTimestamp(event);
     if (!stemTimestamp) {
       this.addNewStemTimestamp(event);
@@ -35,15 +50,15 @@ export default class EventGrouper {
     ];
   }
 
-  getStemTimestamp(event: AnyEvent) {
+  private getStemTimestamp(event: T) {
     return Object.keys(this.cache).map(Number).filter(this.withinThreshold(event.timestamp))[0] || null;
   }
 
-  withinThreshold(timestamp: number) {
+  private withinThreshold(timestamp: number) {
     return (stemTimestamp: number) => (timestamp <= (stemTimestamp + this.threshold)) && (timestamp > stemTimestamp);
   }
 
-  addNewStemTimestamp(event: AnyEvent) {
+  private addNewStemTimestamp(event: T) {
     this.cache[event.timestamp] = [event];
   }
 }

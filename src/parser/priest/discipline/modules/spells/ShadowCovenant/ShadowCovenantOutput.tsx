@@ -1,9 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
-import { Options } from 'parser/core/EventSubscriber';
 
 import AtonementDamageSource from '../../features/AtonementDamageSource';
 
