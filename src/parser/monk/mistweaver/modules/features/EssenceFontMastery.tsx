@@ -34,8 +34,8 @@ class EssenceFontMastery extends Analyzer {
   secondGustOverheal: number = 0;
 
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.hasUpwelling = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.gustHealing);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.efCast);

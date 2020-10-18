@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import HIT_TYPES from 'game/HIT_TYPES';
+import Events from 'parser/core/Events';
 
 /**
  * Your damaging abilities have a chance to deal X Physical damage to the target.
@@ -17,13 +18,10 @@ class Gutripper extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.GUTRIPPER.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GUTRIPPER_DAMAGE), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.GUTRIPPER_DAMAGE.id) {
-      return;
-    }
+  onDamage(event) {
     this.damage += event.amount + (event.absorbed || 0);
     this.totalProcs += 1;
     this.crits += event.hitType === HIT_TYPES.CRIT ? 1 : 0;

@@ -4,11 +4,12 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 
 const debug = false;
 
@@ -33,6 +34,8 @@ class DawningSun extends Analyzer {
     if (!this.active) {
       return;
     }
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SOLAR_WRATH_MOONKIN), this.onDamage);
+    this.addEventListener(Events.fightend, this.onFightend);
     this.bonus = this.selectedCombatant.traitsBySpellId[SPELLS.DAWNING_SUN.id]
       .reduce((total, rank) => {
         const [ damage ] = calculateAzeriteEffects(SPELLS.DAWNING_SUN.id, rank);
@@ -41,8 +44,7 @@ class DawningSun extends Analyzer {
       }, 0);
   }
 
-  on_byPlayer_damage(event){
-      const spellId = event.ability.guid;
+  onDamage(event){
       const versPerc = this.statTracker.currentVersatilityPercentage;
       let critMod = 1;
 
@@ -50,12 +52,12 @@ class DawningSun extends Analyzer {
         critMod = 2;
       }
 
-      if(this.selectedCombatant.hasBuff(SPELLS.DAWNING_SUN_BUFF.id) && spellId === SPELLS.SOLAR_WRATH_MOONKIN.id){
+      if(this.selectedCombatant.hasBuff(SPELLS.DAWNING_SUN_BUFF.id)){
         this.bonusDamage += this.bonus * (1 + versPerc) * critMod;
       }
   }
 
-  on_fightend(){
+  onFightend(){
     if(debug){
       console.log("Bonus damage", this.bonusDamage);
       console.log(this.getAbility(SPELLS.SOLAR_WRATH_MOONKIN.id).damageEffective);

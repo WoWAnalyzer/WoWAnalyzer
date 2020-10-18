@@ -1,6 +1,8 @@
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 /*
   Soul Fire (Tier 15 Destruction talent):
@@ -29,9 +31,13 @@ class SpellUsable extends CoreSpellUsable {
     super(...args);
     this.hasSB = this.selectedCombatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id);
     this.hasSF = this.selectedCombatant.hasTalent(SPELLS.SOUL_FIRE_TALENT.id);
+    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOWBURN_TALENT), this._handleShadowburn);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOWBURN_TALENT), this._handleShadowburn);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER), this.onRemoveDebuff);
   }
 
-  on_byPlayer_spendresource(event) {
+  onSpendResource(event) {
     if (!this.hasSF) {
       return;
     }
@@ -46,9 +52,6 @@ class SpellUsable extends CoreSpellUsable {
     if (!this.hasSB) {
       return;
     }
-    if (event.ability.guid !== SPELLS.SHADOWBURN_TALENT.id) {
-      return;
-    }
     const target = encodeTargetString(event.targetID, event.targetInstance);
     this.shadowburnedEnemies[target] = {
       start: event.timestamp,
@@ -56,15 +59,8 @@ class SpellUsable extends CoreSpellUsable {
     };
   }
 
-  on_byPlayer_applydebuff(event) {
-    this._handleShadowburn(event);
-  }
 
-  on_byPlayer_refreshdebuff(event) {
-    this._handleShadowburn(event);
-  }
-
-  on_byPlayer_removedebuff(event) {
+  onRemoveDebuff(event) {
     if (!this.hasSB) {
       return;
     }

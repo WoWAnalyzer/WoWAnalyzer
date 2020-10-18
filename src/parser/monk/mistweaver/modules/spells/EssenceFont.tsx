@@ -16,8 +16,8 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class EssenceFont extends Analyzer {
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.castEssenceFont);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.handleEssenceFont);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.handleEssenceFontBuff);
@@ -106,7 +106,7 @@ class EssenceFont extends Analyzer {
           </>,
         )
           .icon(SPELLS.ESSENCE_FONT.icon)
-          .actual(i18n._(t('monk.mistweaver.suggestions.essenceFont.averageTargetsHit')`${this.avgTargetsHitPerEF.toFixed(2)} average targets hit per cast`))
+          .actual(`${this.avgTargetsHitPerEF.toFixed(2)}${i18n._(t('monk.mistweaver.suggestions.essenceFont.averageTargetsHit') `average targets hit per cast`)}`)
           .recommended(`${recommended} targets hit is recommended`));
   }
 

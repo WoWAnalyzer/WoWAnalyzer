@@ -19,7 +19,7 @@ class FuryTracker extends ResourceTracker {
     this.resource = RESOURCE_TYPES.FURY;
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
     const blindFuryId = SPELLS.BLIND_FURY_TALENT.id;
     //TODO: Account for Eye Beam clipping
@@ -32,7 +32,7 @@ class FuryTracker extends ResourceTracker {
       const AMOUNT = (event.classResources[0].max - event.classResources[0].amount) + this.waste;
       this.processInvisibleEnergize(blindFuryId, AMOUNT);
     }
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
   }
 }
 

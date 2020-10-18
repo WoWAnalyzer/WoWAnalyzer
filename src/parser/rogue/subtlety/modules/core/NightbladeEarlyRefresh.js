@@ -4,6 +4,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 
 const MAX_SYMBOLS_COOLDOWN = 5000;
@@ -54,7 +56,12 @@ class NightbladeEarlyRefresh extends EarlyDotRefreshesCore {
     return super.getLastBadCastText(event,dot);
   }
 
-  on_byPlayer_spendresource(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
+  }
+
+  onSpendResource(event) {
     const comboPointsSpent = event.resourceChange;
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) {
       return;

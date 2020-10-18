@@ -11,7 +11,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -19,9 +20,9 @@ import { t } from '@lingui/macro';
 const MAX_RUNES = 6;
 const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption
 const RUNE_IDS = [
-  SPELLS.RUNE_1.id, //-101
-  SPELLS.RUNE_2.id, //-102
-  SPELLS.RUNE_3.id, //-103
+  SPELLS.RUNE_1, //-101
+  SPELLS.RUNE_2, //-102
+  SPELLS.RUNE_3, //-103
 ];
 
 /*
@@ -50,8 +51,12 @@ class RuneTracker extends ResourceTracker {
     for (let i = 0; i <= MAX_RUNES; i++) {
       this._runesReadySum[i] = 0;
     }
+    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.RUNIC_CORRUPTION), this.onApplybuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.RUNIC_CORRUPTION), this.onRemovebuff);
+    this.addEventListener(Events.UpdateSpellUsable.spell(RUNE_IDS), this.onUpdateSpellUsable);
   }
-  on_fightend() { //add a last event for calculating uptimes and make the chart not end early.
+  onFightend() { //add a last event for calculating uptimes and make the chart not end early.
     const runesAvailable = this.runesAvailable;
     this._fightend = true;
 
@@ -59,11 +64,11 @@ class RuneTracker extends ResourceTracker {
     this._runesReadySum[runesAvailable] += this.owner.fight.end_time - this._lastTimestamp;
     this.addPassiveRuneRegeneration();
   }
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if (!event.classResources || event.prepull) {
       return;
     }
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
 
     event.classResources
       .filter(resource => resource.type === this.resource.id)
@@ -81,8 +86,8 @@ class RuneTracker extends ResourceTracker {
         }
       });
   }
-  on_toPlayer_energize(event) { //add a charge to the rune with the longest remaining cooldown when a rune is refunded.
-    super.on_toPlayer_energize(event);
+  onEnergize(event) { //add a charge to the rune with the longest remaining cooldown when a rune is refunded.
+    super.onEnergize(event);
     if (event.resourceChangeType !== this.resource.id) {
       return;
     }
@@ -91,27 +96,19 @@ class RuneTracker extends ResourceTracker {
       this.addCharge();
     }
   }
-  on_toPlayer_applybuff(event) { //decrease cooldown when a buff that increases rune regeneration rate is applied.
-    if (event.ability.guid === SPELLS.RUNIC_CORRUPTION.id) {
-      const multiplier = 1 / (1 + RUNIC_CORRUPTION_INCREASE);
-      RUNE_IDS.forEach(spellId => {
-        this.changeCooldown(spellId, multiplier);
-      });
-    }
+  onApplybuff(event) { //decrease cooldown when a buff that increases rune regeneration rate is applied.
+    const multiplier = 1 / (1 + RUNIC_CORRUPTION_INCREASE);
+    RUNE_IDS.forEach(spell => {
+      this.changeCooldown(spell.id, multiplier);
+    });
   }
-  on_toPlayer_removebuff(event) { //increase cooldown when a buff that increases rune regeneration rate fades.
-    if (event.ability.guid === SPELLS.RUNIC_CORRUPTION.id) {
-      const multiplier = 1 + RUNIC_CORRUPTION_INCREASE;
-      RUNE_IDS.forEach(spellId => {
-        this.changeCooldown(spellId, multiplier);
-      });
-    }
+  onRemovebuff(event) { //increase cooldown when a buff that increases rune regeneration rate fades.
+    const multiplier = 1 + RUNIC_CORRUPTION_INCREASE;
+    RUNE_IDS.forEach(spell => {
+      this.changeCooldown(spell.id, multiplier);
+    });
   }
-  on_updatespellusable(event) { //track when a rune comes off cooldown
-    const spellId = event.ability.guid;
-    if (!RUNE_IDS.includes(spellId)) {
-      return;
-    }
+  onUpdateSpellUsable(event) { //track when a rune comes off cooldown
     let change = 0;
     if (event.trigger === EventType.EndCooldown || event.trigger === EventType.RestoreCharge) { //gained a rune
       change += 1;
@@ -215,8 +212,8 @@ class RuneTracker extends ResourceTracker {
 
   get runesAvailable() {
     let chargesAvailable = 0;
-    RUNE_IDS.forEach(spellId => {
-      chargesAvailable += this.spellUsable.chargesAvailable(spellId);
+    RUNE_IDS.forEach(spell => {
+      chargesAvailable += this.spellUsable.chargesAvailable(spell.id);
     });
     return chargesAvailable;
   }
@@ -233,8 +230,8 @@ class RuneTracker extends ResourceTracker {
 
   get runeEfficiency() {
     const runeCastEfficiencies = [];
-    RUNE_IDS.forEach(spellId => {
-      runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(spellId).efficiency);
+    RUNE_IDS.forEach(spell => {
+      runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(spell.id).efficiency);
     });
     return runeCastEfficiencies.reduce((accumulator, currentValue) => accumulator + currentValue) / runeCastEfficiencies.length;
   }

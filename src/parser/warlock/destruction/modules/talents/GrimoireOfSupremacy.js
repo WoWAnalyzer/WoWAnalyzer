@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
@@ -9,6 +9,7 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Events from 'parser/core/Events';
 
 const BONUS_DAMAGE_PER_STACK = 0.08;
 
@@ -24,12 +25,11 @@ class GrimoireOfSupremacy extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id);
+    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.GRIMOIRE_OF_SUPREMACY_BUFF), this.onChangeBuffStack);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_BOLT), this.onDamage);
   }
 
-  on_byPlayer_changebuffstack(event) {
-    if (event.ability.guid !== SPELLS.GRIMOIRE_OF_SUPREMACY_BUFF.id) {
-      return;
-    }
+  onChangeBuffStack(event) {
     if (event.newStacks === 0) {
       this.casts.push(this._currentStacks);
       this._currentStacks = 0;
@@ -38,10 +38,7 @@ class GrimoireOfSupremacy extends Analyzer {
     }
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.CHAOS_BOLT.id) {
-      return;
-    }
+  onDamage(event) {
     this.damage += calculateEffectiveDamage(event, this._currentStacks * BONUS_DAMAGE_PER_STACK);
   }
 

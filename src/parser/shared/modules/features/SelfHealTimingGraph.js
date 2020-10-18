@@ -1,12 +1,13 @@
 import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import BaseChart, { formatTime } from 'interface/others/BaseChart';
+import Events from 'parser/core/Events';
 
 const DEATH_BUFFER = 200;
 
@@ -23,15 +24,22 @@ class SelfHealTimingGraph extends Analyzer {
   tabTitle = "Selheal Timing";
   tabURL = 'selfheal-timings';
 
-  on_toPlayer_death(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealTaken);
+  }
+
+  onDeath(event) {
     this._deathEvents.push(event);
   }
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     this._hpEvents.push(event);
   }
 
-  on_toPlayer_heal(event) {
+  onHealTaken(event) {
     this._hpEvents.push(event);
 
     if (event.ability.guid === this.selfHealSpell.id && event.sourceID === event.targetID) {

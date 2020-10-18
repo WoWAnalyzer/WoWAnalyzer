@@ -12,8 +12,8 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class SpinningCraneKick extends Analyzer{
-    constructor(args: Options) {
-        super(args);
+  constructor(options: Options){
+    super(options);
         this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.castSpinningCraneKick);
         this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.handleSpinningCraneKick);
         this.addEventListener(Events.fightend, this.fightEnd);
@@ -78,7 +78,7 @@ class SpinningCraneKick extends Analyzer{
               </>,
             )
               .icon(SPELLS.SPINNING_CRANE_KICK.icon)
-              .actual(i18n._(t('monk.mistweaver.suggestions.spinningCraneKick.efficiency')`${this.badSCKcount} Spinning Crane Kicks that hit fewer than 3 enemies`))
+              .actual(`${this.badSCKcount}${i18n._(t('monk.mistweaver.suggestions.spinningCraneKick.efficiency')` Spinning Crane Kicks that hit fewer than 3 enemies`)}`)
               .recommended('Aim to hit 3 or more targets with Spinning Crane Kick if there is less than 3 targets then Rising Sunkick, Blackout Kick or Tiger\'s palm'));
       }
 

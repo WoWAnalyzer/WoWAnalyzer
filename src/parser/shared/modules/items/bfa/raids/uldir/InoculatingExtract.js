@@ -6,8 +6,9 @@ import BoringItemValueText from 'interface/statistics/components/BoringItemValue
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 import ItemHealingDone from 'interface/ItemHealingDone';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import Events from 'parser/core/Events';
 
 /**
  * Inoculating Extract -
@@ -47,21 +48,17 @@ class InoculatingExtract extends Analyzer{
         },
       });
     }
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.MUTATING_ANTIBODY), this.onHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MUTATING_ANTIBODIES_INOCULATION), this.onCast);
   }
 
-  on_byPlayer_heal(event){
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.MUTATING_ANTIBODY.id){
-      this.healing += (event.amount || 0) + (event.absorbed || 0);
-      this.charges += 1;
-    }
+  onHeal(event){
+    this.healing += (event.amount || 0) + (event.absorbed || 0);
+    this.charges += 1;
   }
 
-  on_byPlayer_cast(event){
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.MUTATING_ANTIBODIES_INOCULATION.id){
-      this.uses += 1;
-    }
+  onCast(event){
+    this.uses += 1;
   }
 
   statistic() {

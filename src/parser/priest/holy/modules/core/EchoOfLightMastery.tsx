@@ -3,7 +3,7 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -12,7 +12,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
@@ -90,7 +90,14 @@ class EchoOfLightMastery extends Analyzer {
     return this.masteryHealingBySpell[spellId].overHealing / this.masteryHealingBySpell[spellId].rawHealing;
   }
 
-  on_byPlayer_heal(event: EoLHealEvent) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER), this.onRefreshBuff);
+  }
+
+  onHeal(event: EoLHealEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.ECHO_OF_LIGHT_HEAL.id) {
       this.handleEolTick(event);
@@ -200,7 +207,7 @@ class EchoOfLightMastery extends Analyzer {
     this.targetMasteryPool[targetId].remainingTicks -= 1;
   }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
+  onApplyBuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
     if (spellId === SPELLS.ECHO_OF_LIGHT_HEAL.id) {
@@ -220,7 +227,7 @@ class EchoOfLightMastery extends Analyzer {
     }
   }
 
-  on_byPlayer_refreshbuff(event: RefreshBuffEvent) {
+  onRefreshBuff(event: RefreshBuffEvent) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
     if (spellId === SPELLS.ECHO_OF_LIGHT_HEAL.id) {

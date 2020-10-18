@@ -20,8 +20,8 @@ class TimeBetweenRSKs extends Analyzer {
   firstRSKTimestamp: number = 0;
   lastRSKTimestamp: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
     if(!this.active){
       return;

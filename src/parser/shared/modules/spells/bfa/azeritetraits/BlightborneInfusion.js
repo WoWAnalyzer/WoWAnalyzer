@@ -3,11 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CritIcon from 'interface/icons/CriticalStrike';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 
 const blightborneInfusionStats = traits => Object.values(traits).reduce((total, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.BLIGHTBORNE_INFUSION.id, rank);
@@ -42,19 +43,15 @@ class BlightborneInfusion extends Analyzer {
     this.statTracker.add(SPELLS.BLIGHTBORNE_INFUSION_BUFF.id, {
       crit: combatant => combatant.hasTrait(SPELLS.BLIGHTBORNE_INFUSION.id) ? blightborneInfusionStats(combatant.traitsBySpellId[SPELLS.BLIGHTBORNE_INFUSION.id]) : 0,
     });
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLIGHTBORNE_INFUSION_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLIGHTBORNE_INFUSION_BUFF), this.onRefreshBuff);
   }
 
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.BLIGHTBORNE_INFUSION_BUFF.id) {
-      return;
-    }
+  onApplyBuff(event) {
     this.blightborneInfusionProcs += 1;
   }
 
-  on_byPlayer_refreshbuff(event) {
-    if (event.ability.guid !== SPELLS.BLIGHTBORNE_INFUSION_BUFF.id) {
-      return;
-    }
+  onRefreshBuff(event) {
     this.blightborneInfusionProcs += 1;
   }
 

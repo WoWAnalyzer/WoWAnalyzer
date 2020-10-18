@@ -1,6 +1,8 @@
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 const RAGE_PER_MELEE_HIT = 25;
 
@@ -10,6 +12,7 @@ class RageUsage extends ResourceTracker {
   constructor(...args) {
     super(...args);
     this.resource = RESOURCE_TYPES.RAGE;
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamage);
   }
 
   getReducedCost(event) {
@@ -20,10 +23,7 @@ class RageUsage extends ResourceTracker {
     return cost;
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.MELEE.id) {
-      return;
-    }
+  onDamage(event) {
     this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT);
   }
 }
