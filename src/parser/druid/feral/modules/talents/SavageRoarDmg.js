@@ -8,9 +8,10 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+import Events from 'parser/core/Events';
+
 import getDamageBonus from '../core/getDamageBonus';
 import { SAVAGE_ROAR_DAMAGE_BONUS } from '../../constants';
-import Events from 'parser/core/Events';
 
 /**
  * Since 8.0 only affects "cat" abilities.
