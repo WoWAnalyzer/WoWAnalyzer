@@ -70,23 +70,17 @@ class PrayerOfMending extends Analyzer {
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.PRAYER_OF_MENDING_BUFF.id) {
-      if (event.prepull) {
-        this.prepullPomBuffs += 1;
-        this.pomCasts += 1;
-      }
+    if (event.prepull) {
+      this.prepullPomBuffs += 1;
+      this.pomCasts += 1;
     }
   }
 
   onChangeBuffstack(event: ChangeBuffStackEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.PRAYER_OF_MENDING_BUFF.id) {
-      if (event.stacksGained > 0) {
-        this.pomBuffCount += 1;
-      } else {
-        this.pomRemovalCount += 1;
-      }
+    if (event.stacksGained > 0) {
+      this.pomBuffCount += 1;
+    } else {
+      this.pomRemovalCount += 1;
     }
   }
 }

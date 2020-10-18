@@ -125,12 +125,6 @@ class Renew extends Analyzer {
   }
 
   handleRenewApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.RENEW.id) {
-      return;
-    }
-
     this.totalRenewApplications += 1;
 
     if (this.salvationActive && event.timestamp - this.lastSalvationCast < MS_BUFFER) {
