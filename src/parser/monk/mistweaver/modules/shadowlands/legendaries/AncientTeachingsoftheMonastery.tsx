@@ -22,8 +22,8 @@ class AncientTeachingsoftheMonastery extends Analyzer {
   /**
    * Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 120% of the damage done.
    */
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = false;
 
     if (!this.active) {

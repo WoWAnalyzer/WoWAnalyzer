@@ -37,8 +37,8 @@ class JadeSerpentStatue extends Analyzer {
   lastBuffApplyTimestamp: number = 0;
   jssCasting: boolean = false;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id);
     if(!this.active){
       return;

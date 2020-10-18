@@ -75,8 +75,8 @@ class Tier45Comparison extends Analyzer {
   returnedFromSelected = 0;
   best!: BestTalent;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.sotc.selected = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
     this.manatea.selected = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
     this.lifecycles.selected = !(this.sotc.selected || this.manatea.selected);

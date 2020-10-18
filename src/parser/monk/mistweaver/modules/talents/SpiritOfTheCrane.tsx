@@ -36,8 +36,8 @@ class SpiritOfTheCrane extends Analyzer {
   manaReturnSotc: number = 0;
   sotcWasted: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
 
     if(!this.active){

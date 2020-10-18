@@ -33,8 +33,8 @@ class ThunderFocusTea extends Analyzer {
   ftActive: boolean = false;
   rmActive: boolean = false;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.ftActive = this.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
     this.rmActive = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_FOCUS_TEA), this.tftCast);

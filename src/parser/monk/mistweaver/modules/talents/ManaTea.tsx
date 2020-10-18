@@ -32,8 +32,8 @@ class ManaTea extends Analyzer {
   effectiveHealing: number = 0;
   overhealing: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
     if(!this.active){
       return;

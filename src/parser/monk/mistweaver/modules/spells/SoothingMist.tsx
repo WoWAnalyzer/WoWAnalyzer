@@ -38,8 +38,8 @@ class SoothingMist extends Analyzer {
   assumedGCD: number = 0;
   startGCD: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.assumedGCD = 1500 *.95;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.castSoothingMist);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]), this.castDuringSoothingMist);

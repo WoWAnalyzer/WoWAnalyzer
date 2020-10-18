@@ -12,8 +12,8 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class SpinningCraneKick extends Analyzer{
-    constructor(args: Options) {
-        super(args);
+  constructor(options: Options){
+    super(options);
         this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.castSpinningCraneKick);
         this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.handleSpinningCraneKick);
         this.addEventListener(Events.fightend, this.fightEnd);

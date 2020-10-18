@@ -22,8 +22,8 @@ class ChiBurst extends Analyzer {
   raidSize = 0;
 
 
-  constructor(...args) {
-    super(...args);
+  constructor(...options) {
+    super(...options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHI_BURST_TALENT.id);
     this.raidSize = Object.keys(this.combatants.players).length;
   }

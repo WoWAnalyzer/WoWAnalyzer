@@ -13,8 +13,8 @@ class ExpelHarm extends Analyzer {
     sourceTarget: number = -1;
     numberToCount: number = 0;
 
-    constructor(args: Options) {
-        super(args);
+    constructor(options: Options){
+      super(options);
         this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM), this.handleExpelHarm);
         this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM_TARGET_HEAL), this.handleTargetExpelHarm);
         this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.handleMastery);

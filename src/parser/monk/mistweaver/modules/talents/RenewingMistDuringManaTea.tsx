@@ -32,8 +32,8 @@ class RenewingMistDuringManaTea extends Analyzer {
   protected vivify!: Vivify;
   protected manaTea!: ManaTea;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
   }
 

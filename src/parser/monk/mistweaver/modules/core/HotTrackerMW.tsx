@@ -17,8 +17,8 @@ class HotTrackerMW extends HotTracker {
   mistwrapActive: boolean = false;
   upwellingActive: boolean = false;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.mistwrapActive = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id);
     this.upwellingActive = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
   }
