@@ -1,8 +1,9 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { formatDuration } from 'common/format';
+import Events from 'parser/core/Events';
 
 const BUFFER_MS = 100;
 const PANDEMIC_WINDOW = 0.3;
@@ -42,6 +43,10 @@ class EarlyDotRefreshes extends Analyzer {
         wastedDuration: 0,
       };
     });
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER), this.onRefreshDebuff);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER), this.onApplyDebuff);
+    this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGCD);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
   addBadCast(event, text) {
@@ -52,7 +57,7 @@ class EarlyDotRefreshes extends Analyzer {
     event.meta.inefficientCastReason = text;
   }
 
-  on_byPlayer_refreshdebuff(event) {
+  onRefreshDebuff(event) {
     const dot = this.getDot(event.ability.guid);
     if (!dot) {
       return;
@@ -67,7 +72,7 @@ class EarlyDotRefreshes extends Analyzer {
     this.lastCastMaxEffect = Math.max(this.lastCastMaxEffect, extensionInfo.effective);
   }
 
-  on_byPlayer_applydebuff(event) {
+  onApplyDebuff(event) {
     const dot = this.getDot(event.ability.guid);
     if (!dot) {
       return;
@@ -78,7 +83,7 @@ class EarlyDotRefreshes extends Analyzer {
     this.lastCastMaxEffect = dot.duration;
   }
 
-  on_byPlayer_globalcooldown(event) {
+  onGCD(event) {
     const dot = this.getDotByCast(event.ability.guid);
     if (!dot) {
       return;
@@ -86,7 +91,7 @@ class EarlyDotRefreshes extends Analyzer {
     this.lastGCD = event;
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     this.checkLastCast(event);
     const dot = this.getDotByCast(event.ability.guid);
     if (!dot) {

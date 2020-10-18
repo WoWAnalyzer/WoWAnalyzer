@@ -2,7 +2,6 @@ import React from 'react';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatThousands } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
@@ -14,7 +13,7 @@ export const HIGH_TOLERANCE_HASTE = {
 };
 
 function hasHighTolerance(combatant) {
-  return combatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_GRANDMASTER.id);
+  return combatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id);
 }
 
 function hasteFnGenerator(value) {

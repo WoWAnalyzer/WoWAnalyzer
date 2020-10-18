@@ -1,4 +1,5 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 /**
  * Tracks the amount of time (and instances when) the player was dead.
@@ -15,6 +16,15 @@ class DeathDowntime extends Analyzer {
   }
   get downtimeHistory() {
     return this._deathHistory;
+  }
+
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
+    this.addEventListener(Events.resurrect.to(SELECTED_PLAYER), this.onResurrect);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.onBeginCast);
   }
 
   die(event) {
@@ -35,25 +45,25 @@ class DeathDowntime extends Analyzer {
     this._lastDeathTimestamp = null;
     this._isAlive = true;
   }
-  on_fightend() {
+  onFightend() {
     if (!this._isAlive) {
       this.resurrect(this.owner.currentTimestamp);
     }
   }
 
-  on_toPlayer_death(event) {
+  onDeath(event) {
     this.die(event);
   }
-  on_toPlayer_resurrect(event) {
+  onResurrect(event) {
     this.resurrect(event.timestamp);
   }
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if (!this._isAlive) {
       console.warn('Player magically resurrected', event);
       this.resurrect(event.timestamp);
     }
   }
-  on_byPlayer_begincast(event) {
+  onBeginCast(event) {
     if (!this._isAlive) {
       console.warn('Player magically resurrected', event);
       this.resurrect(event.timestamp);

@@ -2,6 +2,9 @@ import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+
 import { RAKE_BASE_DURATION, THRASH_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
 
 const EARLY_BLEED_EXPIRE_TO_COUNT_AS_DEATH = 500;
@@ -10,6 +13,7 @@ const BLEED_BASE_DURATIONS = {
   //[SPELLS.RIP.id]: RIP_BASE_DURATION,
   [SPELLS.THRASH_FERAL.id]: THRASH_FERAL_BASE_DURATION,
 };
+const BLEED_SPELLS = [SPELLS.RAKE, SPELLS.THRASH_FERAL];
 
 /**
  * Predator:
@@ -38,14 +42,14 @@ class SpellUsable extends CoreSpellUsable {
   constructor(...args) {
     super(...args);
     this.hasPredator = this.selectedCombatant.hasTalent(SPELLS.PREDATOR_TALENT.id);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(BLEED_SPELLS), this.onApplyDebuff);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(BLEED_SPELLS), this.onRefreshDebuff);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(BLEED_SPELLS), this.onRemoveDebuff);
   }
 
-  on_byPlayer_applydebuff(event) {
-    if (super.on_byPlayer_applydebuff) {
-      super.on_byPlayer_applydebuff(event);
-    }
+  onApplyDebuff(event) {
     const spellId = event.ability.guid;
-    if (!this.hasPredator || !this.isBleed(spellId)) {
+    if (!this.hasPredator) {
       return;
     }
     const target = encodeTargetString(event.targetID, event.targetInstance);
@@ -56,12 +60,9 @@ class SpellUsable extends CoreSpellUsable {
     this.activeBleedsExpire[target][spellId] = event.timestamp + duration;
   }
 
-  on_byPlayer_refreshdebuff(event) {
-    if (super.on_byPlayer_refreshdebuff) {
-      super.on_byPlayer_refreshdebuff(event);
-    }
+  onRefreshDebuff(event) {
     const spellId = event.ability.guid;
-    if (!this.hasPredator || !this.isBleed(spellId)) {
+    if (!this.hasPredator) {
       return;
     }
     const target = encodeTargetString(event.targetID, event.targetInstance);
@@ -76,12 +77,9 @@ class SpellUsable extends CoreSpellUsable {
     this.activeBleedsExpire[target][spellId] = event.timestamp + durationWithoutPandemic + pandemic;
   }
 
-  on_byPlayer_removedebuff(event) {
-    if (super.on_byPlayer_removedebuff) {
-      super.on_byPlayer_removedebuff(event);
-    }
+  onRemoveDebuff(event) {
     const spellId = event.ability.guid;
-    if (!this.hasPredator || !this.isBleed(spellId)) {
+    if (!this.hasPredator) {
       return;
     }
     const target = encodeTargetString(event.targetID, event.targetInstance);
@@ -93,10 +91,6 @@ class SpellUsable extends CoreSpellUsable {
     if (beforeExpire > EARLY_BLEED_EXPIRE_TO_COUNT_AS_DEATH) {
       this.possibleRecentKill = event.timestamp;
     }
-  }
-
-  isBleed(spellId) {
-    return Boolean(Object.keys(BLEED_BASE_DURATIONS).includes(spellId.toString()));
   }
 
   beginCooldown(spellId, cooldownTriggerEvent) {

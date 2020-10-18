@@ -10,6 +10,7 @@ import StatisticGroup from 'interface/statistics/StatisticGroup';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { Trans } from '@lingui/macro';
 
 class CastBehavior extends Analyzer {
   static dependencies = {
@@ -36,20 +37,20 @@ class CastBehavior extends Analyzer {
     const items = [
       {
         color: SPELLS.HEALING_WAVE.color,
-        label: 'Healing Wave',
+        label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
         spellId: SPELLS.HEALING_WAVE.id,
         value: twHealingWaves,
       },
       {
         color: SPELLS.HEALING_SURGE_RESTORATION.color,
-        label: 'Healing Surge',
+        label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: twHealingSurges,
       },
       {
         color: '#CC3D20',
-        label: 'Unused Tidal Waves',
-        tooltip: `The amount of Tidal Waves you did not use out of the total available. You cast ${riptideCasts} Riptides and ${chainHealCasts} Chain Heals which gave you ${totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.`,
+        label: <Trans id="shaman.restoration.castBehaviour.unusedTW">Unused Tidal Waves</Trans>,
+        tooltip: <Trans id="shaman.restoration.castBehaviour.unusedTW.tooltip">The amount of Tidal Waves you did not use out of the total available. You cast {riptideCasts} Riptides and {chainHealCasts} Chain Heals which gave you {totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.</Trans>,
         value: unusedTw,
       },
     ];
@@ -75,13 +76,13 @@ class CastBehavior extends Analyzer {
     const items = [
       {
         color: SPELLS.HEALING_WAVE.color,
-        label: 'Healing Wave',
+        label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
         spellId: SPELLS.HEALING_WAVE.id,
         value: fillerHealingWaves,
       },
       {
         color: SPELLS.HEALING_SURGE_RESTORATION.color,
-        label: 'Healing Surge',
+        label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: fillerHealingSurges,
       },
@@ -96,16 +97,16 @@ class CastBehavior extends Analyzer {
 
   statistic() {
     return (
-      <StatisticGroup category={STATISTIC_CATEGORY.GENERAL} large={false} wide={false} style>
+      <StatisticGroup category={STATISTIC_CATEGORY.GENERAL} large={false} wide={false} style={{}}>
         <Statistic ultrawide>
           <div className="pad">
-            <label><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</label>
+            <label><Trans id="shaman.restoration.castBehaviour.statistic.tidalWaves"><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</Trans></label>
             {this.twUsageRatioChart}
           </div>
         </Statistic>
         <Statistic ultrawide>
           <div className="pad">
-            <label>Fillers</label>
+            <label><Trans id="shaman.restoration.castBehaviour.statistic.fillers">Fillers</Trans></label>
             {this.fillerCastRatioChart}
           </div>
         </Statistic>

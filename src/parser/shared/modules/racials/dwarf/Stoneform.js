@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import Combatants from 'parser/shared/modules/Combatants';
 import { formatNumber } from 'common/format';
@@ -8,6 +8,7 @@ import RACES from 'game/RACES';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS/index';
 import StatisticBox from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 /**
  * Removes all poison, disease, curse, magic, and bleed effects and reduces all physical damage taken by 10% for 8 sec.
@@ -29,13 +30,14 @@ class Stoneform extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.race === RACES.Dwarf;
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
 
   get drps() {
     return this.damageReduced / this.owner.fightDuration * 1000;
   }
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     const spellId = event.ability.guid;
 
     if (event.ability.type !== MAGIC_SCHOOLS.ids.PHYSICAL) {

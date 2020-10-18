@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Khadaj, niseko, Yajinni, Zerotorescue, blazyb } from 'CONTRIBUTORS';
+import { Khadaj, niseko, Yajinni, Zerotorescue, blazyb, Zeboot } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 10, 2), `Removing Perseverance and adding BodyAndSoul.`, Khadaj),
   change(date(2020, 10, 1), `Making CoH baseline and adding Prayer Circle Talent.`, Khadaj),
   change(date(2020, 10, 1), `Removing Enduring Renewal and adding Renewed Faith.`, Khadaj),

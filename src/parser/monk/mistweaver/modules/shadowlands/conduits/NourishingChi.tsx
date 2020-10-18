@@ -31,8 +31,8 @@ class NourishingChi extends Analyzer {
 
   boost: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = false;
     this.boost = .15;//TODO Get from combat data when they EXPORT IT >:c
     if (!this.active) {

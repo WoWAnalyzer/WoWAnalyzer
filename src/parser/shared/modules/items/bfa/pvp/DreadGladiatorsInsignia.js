@@ -9,8 +9,9 @@ import PrimaryStatIcon from 'interface/icons/PrimaryStat';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import Events from 'parser/core/Events';
 
 const BASE_ITEM_LEVEL = 335;
 const BASE_PRIMARY_STAT_BUFF = 462;
@@ -36,21 +37,19 @@ class DreadGladiatorsInsignia extends Analyzer {
 
     const itemLevel = this.selectedCombatant.getItem(ITEMS.DREAD_GLADIATORS_INSIGNIA.id).itemLevel;
     this.primaryStatBuff = calculatePrimaryStat(BASE_ITEM_LEVEL, BASE_PRIMARY_STAT_BUFF, itemLevel);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TASTE_OF_VICTORY), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TASTE_OF_VICTORY), this.onRefreshBuff);
   }
 
-  on_byPlayer_applybuff(event) {
+  onApplyBuff(event) {
     this.handleBuff(event);
   }
 
-  on_byPlayer_refreshbuff(event) {
+  onRefreshBuff(event) {
     this.handleBuff(event);
   }
 
   handleBuff(event) {
-    if(event.ability.guid !== SPELLS.TASTE_OF_VICTORY.id) {
-      return;
-    }
-
     this.procs += 1;
   }
 

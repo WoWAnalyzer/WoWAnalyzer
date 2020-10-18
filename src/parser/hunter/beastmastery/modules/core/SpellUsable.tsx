@@ -9,8 +9,8 @@ class SpellUsable extends CoreSpellUsable {
 
   lastPotentialTriggerForBarbedShotReset: CastEvent | null = null;
 
-  on_byPlayer_cast(event: CastEvent) {
-    super.on_byPlayer_cast(event);
+  onCast(event: CastEvent) {
+    super.onCast(event);
     const spellId = event.ability.guid;
     if (spellId === SPELLS.AUTO_SHOT.id) {
       this.lastPotentialTriggerForBarbedShotReset = event;

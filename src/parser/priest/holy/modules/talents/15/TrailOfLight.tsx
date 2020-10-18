@@ -1,9 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/ItemHealingDone';
-import { HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -18,15 +18,13 @@ class TrailOfLight extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_LIGHT_TALENT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.TRAIL_OF_LIGHT_HEAL), this.onHeal);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.TRAIL_OF_LIGHT_HEAL.id) {
-      this.totalToLProcs += 1;
-      this.totalToLHealing += event.overheal || 0;
-      this.totalToLOverhealing += (event.amount || 0);
-    }
+  onHeal(event: HealEvent) {
+    this.totalToLProcs += 1;
+    this.totalToLHealing += event.overheal || 0;
+    this.totalToLOverhealing += (event.amount || 0);
   }
 
   statistic() {

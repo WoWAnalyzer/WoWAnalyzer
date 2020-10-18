@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Zerotorescue, tsabo, Gebuz, Aelexe, Tyndi } from 'CONTRIBUTORS';
+import { Zerotorescue, tsabo, Gebuz, Aelexe, Tyndi, Zeboot } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 10, 16), <>Added <SpellLink id={SPELLS.THE_ROTTEN.id} /> Legendary. And Removed Nightblade.</>, [Tyndi]),
   change(date(2020, 10, 2), 'Added Akaari\'s Soul Fragment Legendary', [Tyndi]),
   change(date(2019, 1, 27), 'Improvements to the Nightblade analysis.', [tsabo]),
