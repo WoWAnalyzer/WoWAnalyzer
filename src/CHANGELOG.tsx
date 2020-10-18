@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 18), 'Added drain event', Zeboot),
   change(date(2020, 10, 18), 'Converted components in interface/common to functional components in TypeScript.', Barter),
   change(date(2020, 10, 18), 'Refactored Contributor and added typing to some ContributorDetails', Dambroda),
   change(date(2020, 10, 18), 'Updated core legacy event listeners to event filters', Zeboot),
