@@ -5,7 +5,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import StatisticBox from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -20,11 +21,14 @@ class Empowerment extends Analyzer {
   wasted = 0;
   generated = 0;
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.STARSURGE_MOONKIN.id){
-      return;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARSURGE_MOONKIN), this.onCast);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(this.empowermentBuff), this.onApplyBuff);
+    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(this.empowermentBuff), this.onApplyBuffStack);
+  }
+
+  onCast(event) {
     const buff = this.selectedCombatant.getBuff(this.empowermentBuff.id);
     if (!buff) {
       return;
@@ -36,19 +40,11 @@ class Empowerment extends Analyzer {
     this.generated += 1;
   }
 
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== this.empowermentBuff.id){
-      return;
-    }
+  onApplyBuff(event) {
     this.generated += 1;
   }
 
-  on_toPlayer_applybuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== this.empowermentBuff.id){
-      return;
-    }
+  onApplyBuffStack(event) {
     this.generated += 1;
   }
 
