@@ -1,10 +1,11 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
+import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import DonutChart, { DonutChartItem } from 'interface/statistics/components/DonutChart';
-import SpellLink from 'common/SpellLink';
 
 import ShadowCovenantOutput from './ShadowCovenantOutput';
 import ShadowCovenantSynergies from './ShadowCovenantSynergies';
@@ -53,13 +54,28 @@ class ShadowCovenant extends Analyzer {
       shadowCovenantHealing,
       bonusAtonementHealing,
       bonusShadowHealing,
+      bonusDamage,
     } = this.shadowCovenantOutput;
 
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
         size="flexible"
-        tooltip="Output breakdown for Shadow Covenant, including healing from the buff."
+        tooltip={
+          <>
+            The effective healing contributed was{' '}
+            {formatPercentage(
+              this.owner.getPercentageOfTotalHealingDone(
+                this.shadowCovenantOutput.totalShadowCovenantHealing,
+              ),
+            )}
+            % of total healing done.
+            <br />
+            The direct damage contributed by was{' '}
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(bonusDamage))}% of total
+            damage done.
+          </>
+        }
       >
         <div className="pad">
           <label>

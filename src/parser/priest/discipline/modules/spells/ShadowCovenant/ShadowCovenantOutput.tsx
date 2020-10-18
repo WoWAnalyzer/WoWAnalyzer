@@ -64,6 +64,12 @@ class ShadowCovenantOutput extends Analyzer {
     );
   }
 
+  get totalShadowCovenantHealing() {
+    const { shadowCovenantHealing, bonusAtonementHealing, bonusShadowHealing } = this;
+
+    return shadowCovenantHealing + bonusAtonementHealing + bonusShadowHealing;
+  }
+
   // Handles the bonus damage from the damage buff
   private handleDamage(e: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SHADOW_COVENANT_BUFF.id)) {
