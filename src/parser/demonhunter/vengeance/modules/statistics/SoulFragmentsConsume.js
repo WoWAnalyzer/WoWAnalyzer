@@ -1,10 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
+
+import Events from 'parser/core/Events';
 
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 import MAX_SOUL_FRAGMENTS from '../features/SoulFragmentsTracker';
@@ -21,11 +23,14 @@ class SoulFragmentsConsume extends Analyzer {
 
   soulsConsumedBySpell = {};
 
-  on_byPlayer_cast(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SPIRIT_BOMB_TALENT, SPELLS.SOUL_CLEAVE, SPELLS.SOUL_BARRIER_TALENT]), this.onCast);
+    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK), this.onChangeBuffStack);
+  }
+
+  onCast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SPIRIT_BOMB_TALENT.id && spellId !== SPELLS.SOUL_CLEAVE.id && spellId !== SPELLS.SOUL_BARRIER_TALENT.id) {
-      return;
-    }
     if (!this.soulsConsumedBySpell[spellId]) {
       this.soulsConsumedBySpell[spellId] = {
         name: event.ability.name,
@@ -36,10 +41,8 @@ class SoulFragmentsConsume extends Analyzer {
     this.trackedSpell = spellId;
   }
 
-  on_byPlayer_changebuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id || // only interested in Soul Fragments
-        event.oldStacks < event.newStacks || // not interested in soul gains
+  onChangeBuffStack(event) {
+    if ( event.oldStacks < event.newStacks || // not interested in soul gains
         event.oldStacks > MAX_SOUL_FRAGMENTS) { // not interested in overcap corrections
       return;
     }
