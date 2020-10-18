@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
@@ -15,7 +15,7 @@ class GreenskinsWickers extends Analyzer {
   greenskinProcs: number = 0;
   protected abilities!: Abilities;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GREENSKINS_WICKERS.bonusID);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GREENSKINS_WICKERS_BUFF), this.onGreenskinBuff);

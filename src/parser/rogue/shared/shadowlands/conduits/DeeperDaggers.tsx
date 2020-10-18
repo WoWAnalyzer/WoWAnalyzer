@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
@@ -11,7 +11,7 @@ class DeeperDaggers extends Analyzer {
     abilities: Abilities,
   };
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.DEEPER_DAGGERS.id);
   }

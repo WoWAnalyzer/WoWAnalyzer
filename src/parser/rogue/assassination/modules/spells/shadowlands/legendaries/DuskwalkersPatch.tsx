@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -16,13 +16,12 @@ class DuskwalkersPatch extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  cdrPerEnergy = ASS_VEN_CDR_PER_ENERGY;
   effectiveVendettaReductionMs: number = 0;
   wastedVendettaReductionMs: number = 0;
   lastEnergyCost: number = 0;
   protected spellUsable!: SpellUsable;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DUSKWALERS_PATCH.bonusID);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -34,20 +33,15 @@ class DuskwalkersPatch extends Analyzer {
       return;
 
     }
-    this.lastEnergyCost = resource.cost || 0;
-    const cooldownReductionMS = this.cdrPerEnergy * this.lastEnergyCost;
-    if (!this.spellUsable.isOnCooldown(SPELLS.EXHILARATION.id)) {
-      this.wastedVendettaReductionMs += cooldownReductionMS;
-      return;
+    this.lastEnergyCost = resource.cost || 0;    
+    const cooldownReductionMs = ASS_VEN_CDR_PER_ENERGY * (resource.cost || 0);
+    const effectiveReductionMs = cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.EXHILERATION.id);
+    if (effectiveReductionMs < cooldownReductionMs) {
+      this.wastedVendettaReductionMs += (cooldownReductionMs - effectiveReductionMs);
     }
-    if (this.spellUsable.cooldownRemaining(SPELLS.EXHILARATION.id) < cooldownReductionMS) {
-      const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMS);
-      this.effectiveVendettaReductionMs += effectiveReductionMs;
-      this.wastedVendettaReductionMs += (cooldownReductionMS - effectiveReductionMs);
-      return;
+      this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILERATION.id, cooldownReductionMs);
+      this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMs);
     }
-    this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMS);
-  }
 
   statistic() {
     return (
