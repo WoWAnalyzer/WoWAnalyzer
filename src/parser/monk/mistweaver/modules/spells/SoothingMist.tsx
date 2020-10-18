@@ -23,16 +23,16 @@ class SoothingMist extends Analyzer {
   protected channeling!: CoreChanneling;
   protected statTracker!: StatTracker;
 
-  soomTicks = 0;
-  gustProc = 0;
-  gustsHealing = 0;
-  lastSoomTickTimestamp = 0;
+  soomTicks: number = 0;
+  gustProc: number = 0;
+  gustsHealing: number = 0;
+  lastSoomTickTimestamp: number = 0;
 
-  startStamp = 0;
-  endStamp = 0;
-  soomInProgress = false;
-  castsInSoom = 0;
-  badSooms = 0;
+  startStamp: number = 0;
+  endStamp: number = 0;
+  soomInProgress: boolean = false;
+  castsInSoom: number = 0;
+  badSooms: number = 0;
   totalSoomCasts = 0;
 
   assumedGCD: number = 0;
