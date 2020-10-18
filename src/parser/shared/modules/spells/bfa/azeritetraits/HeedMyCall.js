@@ -1,8 +1,9 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import Events from 'parser/core/Events';
 
 /**
  * Your damaging abilities have a chance to deal X1 Nature damage to your target,
@@ -15,13 +16,10 @@ class HeedMyCall extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.HEED_MY_CALL.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.HEED_MY_CALL_PRIMARY_DAMAGE, SPELLS.HEED_MY_CALL_AOE_DAMAGE]), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEED_MY_CALL_PRIMARY_DAMAGE.id && spellId !== SPELLS.HEED_MY_CALL_AOE_DAMAGE.id) {
-      return;
-    }
+  onDamage(event) {
     this.damage += event.amount + (event.absorbed || 0);
   }
 

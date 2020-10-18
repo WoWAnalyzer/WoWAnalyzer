@@ -8,7 +8,7 @@ class SoulShardTracker extends ResourceTracker {
     this.resource = RESOURCE_TYPES.SOUL_SHARDS;
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if (!this.shouldProcessCastEvent(event)) {
       return;
     }
@@ -18,7 +18,7 @@ class SoulShardTracker extends ResourceTracker {
     event.classResources[index].amount /= 10;
     event.classResources[index].cost /= 10;
     event.classResources[index].max /= 10;
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
   }
 
   getReducedCost(event) {

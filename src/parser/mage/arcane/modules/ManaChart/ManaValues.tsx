@@ -5,6 +5,7 @@ import { formatPercentage, formatNumber } from 'common/format';
 import { Options } from 'parser/core/Analyzer';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 class ArcaneManaValues extends ManaValues {
   static dependencies = {
@@ -15,11 +16,12 @@ class ArcaneManaValues extends ManaValues {
   constructor(options: Options) {
     super(options);
       this.active = true;
+      this.addEventListener(Events.fightend, this.onFightend);
   }
 
   deadOnKill = false;
 
-  on_fightend() {
+  onFightend() {
     if (!this.deathTracker.isAlive) {
       this.deadOnKill = true;
     }

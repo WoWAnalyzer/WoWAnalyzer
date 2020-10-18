@@ -2,12 +2,13 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS/index';
 import ItemLink from 'common/ItemLink';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculatePrimaryStat } from 'common/stats';
 import StatisticBox from 'interface/others/StatisticBox';
 import ItemIcon from 'common/ItemIcon';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
+import Events from 'parser/core/Events';
 
 const DARKMOON_DECK_BLOCKADES_CARDS = {
   276204: {
@@ -71,6 +72,9 @@ class DarkmoonDeckBlockades extends Analyzer {
         this.actualStaminaIncreasePerCard[buffId] = actualStaminaIncrease;
       });
     }
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER), this.onRemoveBuff);
   }
 
   _isBlockadesCard(spellId) {
@@ -79,14 +83,14 @@ class DarkmoonDeckBlockades extends Analyzer {
     return darkmoonSpells.includes(cardId);
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     if (!this._isBlockadesCard(event.ability.guid)) {
       return;
     }
     this.healing += (event.amount || 0) + (event.absorbed || 0);
   }
 
-  on_toPlayer_applybuff(event) {
+  onApplyBuff(event) {
     const spellId = event.ability.guid;
     if (!this._isBlockadesCard(spellId)) {
       return;
@@ -100,7 +104,7 @@ class DarkmoonDeckBlockades extends Analyzer {
     });
   }
 
-  on_toPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     const spellId = event.ability.guid;
     if (!this._isBlockadesCard(spellId)) {
       return;

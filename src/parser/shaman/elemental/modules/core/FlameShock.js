@@ -10,6 +10,8 @@ import EarlyDotRefreshesAnalyzer from 'parser/shared/modules/earlydotrefreshes/E
 import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -60,11 +62,12 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     };
   }
 
-  on_byPlayer_damage(event) {
-    if(event.ability.guid !== SPELLS.LAVA_BURST.id) {
-      return;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_BURST), this.onDamage);
+  }
 
+  onDamage(event) {
     const target = this.enemies.getEntity(event);
     if(target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)){
       this.badLavaBursts += 1;

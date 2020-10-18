@@ -2,8 +2,8 @@ import React from 'react';
 
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Events, { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
@@ -46,7 +46,13 @@ class AlwaysBeCasting extends Analyzer {
   activeTime = 0;
   _lastGlobalCooldownDuration = 0;
 
-  on_globalcooldown(event: GlobalCooldownEvent) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.GlobalCooldown, this.onGCD);
+    this.addEventListener(Events.EndChannel, this.onEndChannel);
+  }
+
+  onGCD(event: GlobalCooldownEvent) {
     this._lastGlobalCooldownDuration = event.duration;
     if (event.trigger.prepull) {
       // Ignore prepull casts for active time since active time should only include casts during the
@@ -60,7 +66,7 @@ class AlwaysBeCasting extends Analyzer {
     return true;
   }
 
-  on_endchannel(event: EndChannelEvent) {
+  onEndChannel(event: EndChannelEvent) {
     // If the channel was shorter than the GCD then use the GCD as active time
     let amount = event.duration;
     if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {

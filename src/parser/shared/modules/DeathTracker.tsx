@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatNumber, formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import { BeginCastEvent, CastEvent, DamageEvent, DeathEvent, HealEvent } from '../../core/Events';
+import Events, { BeginCastEvent, CastEvent, DamageEvent, DeathEvent, HealEvent } from '../../core/Events';
 
 const WIPE_MAX_DEAD_TIME = 15 * 1000; // 15sec
 
@@ -38,30 +38,40 @@ class DeathTracker extends Analyzer {
     this.resurrections.push(event);
   }
 
-  on_toPlayer_death(event: DeathEvent) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
+    this.addEventListener(Events.resurrect.to(SELECTED_PLAYER), this.onResurrect);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.onBeginCast);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealTaken);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+  }
+
+  onDeath(event: DeathEvent) {
     this.die(event);
   }
-  on_toPlayer_resurrect(event: any) {
+  onResurrect(event: any) {
     this.resurrect(event);
   }
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     this._didCast = true;
 
     if (!this.isAlive) {
       this.resurrect(event);
     }
   }
-  on_byPlayer_begincast(event: BeginCastEvent) {
+  onBeginCast(event: BeginCastEvent) {
     if (!this.isAlive) {
       this.resurrect(event);
     }
   }
-  on_toPlayer_heal(event: HealEvent) {
+  onHealTaken(event: HealEvent) {
     if (!this.isAlive) {
       this.resurrect(event);
     }
   }
-  on_toPlayer_damage(event: DamageEvent) {
+  onDamageTaken(event: DamageEvent) {
     if (!this.isAlive) {
       this.resurrect(event);
     }

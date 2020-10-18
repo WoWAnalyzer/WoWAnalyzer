@@ -9,6 +9,8 @@ import HealingValue from 'parser/shared/modules/HealingValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
+import Events from 'parser/core/Events';
+
 import SPELL_INFO from './StatValuesSpellInfo';
 import MasteryEffectiveness from './MasteryEffectiveness';
 import BeaconHealSource from './beacons/BeaconHealSource';
@@ -36,14 +38,19 @@ class StatValues extends BaseHealerStatValues {
   qeLive = true;
   active = false;
 
-  on_heal(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.beacontransfer, this.onBeaconTransfer);
+  }
+
+  onHeal(event) {
     if (event.ability.guid === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       // Handle this via the `on_beacontransfer` event
       return;
     }
-    super.on_heal(event);
+    super.onHeal(event);
   }
-  on_beacontransfer(event) {
+  onBeaconTransfer(event) {
     const spellInfo = this._getSpellInfo(event.originalHeal);
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
     const targetHealthPercentage = (event.hitPoints - healVal.effective) / event.maxHitPoints; // hitPoints contains HP *after* the heal

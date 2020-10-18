@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import Events from 'parser/core/Events';
 
 /**
  Your heals have a chance to apply Bracing Chill. Healing a target with Bracing Chill will heal for an additional 1155 and move Bracing Chill to a nearby ally (up to 6 times).
@@ -17,14 +18,10 @@ class BracingChill extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.BRACING_CHILL.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.BRACING_CHILL_HEAL), this.onHeal);
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BRACING_CHILL_HEAL.id) {
-      return;
-    }
-
+  onHeal(event) {
     this.healing += event.amount + (event.absorbed || 0);
     this.procs += 1;
   }

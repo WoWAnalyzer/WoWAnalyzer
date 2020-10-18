@@ -10,7 +10,7 @@ class SpellUsable extends CoreSpellUsable {
   lastPotentialTriggerForRapidFireReset: CastEvent | null = null;
   rapidFireResets = 0;
 
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (this.selectedCombatant.hasTrait(SPELLS.SURGING_SHOTS.id)) {
       if (spellId === SPELLS.AIMED_SHOT.id) {
@@ -19,7 +19,7 @@ class SpellUsable extends CoreSpellUsable {
         this.lastPotentialTriggerForRapidFireReset = null;
       }
     }
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
   }
 
   beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {
