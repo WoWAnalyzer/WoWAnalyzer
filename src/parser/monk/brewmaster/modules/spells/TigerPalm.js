@@ -53,7 +53,7 @@ class TigerPalm extends Analyzer {
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onLoseBOC);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onDamage);
-    this.addEventListener(Events.damage.to(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onDamageTaken);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
 
   onGainBOC(event){
