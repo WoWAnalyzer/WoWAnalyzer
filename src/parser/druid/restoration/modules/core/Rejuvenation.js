@@ -23,7 +23,7 @@ class Rejuvenation extends Analyzer {
   constructor(options){
     super(options);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.fightend, this.onFightend);
   }
@@ -33,11 +33,7 @@ class Rejuvenation extends Analyzer {
   }
 
   onCast(event) {
-    const spellId = event.ability.guid;
-    // TODO make this account for procs / etc. that apply rejuv
-    if (SPELLS.REJUVENATION.id === spellId) {
-      this.totalRejuvsCast += 1;
-    }
+    this.totalRejuvsCast += 1;
   }
 
   onApplyBuff(event) {
