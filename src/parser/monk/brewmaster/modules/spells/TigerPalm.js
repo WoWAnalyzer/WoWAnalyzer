@@ -2,9 +2,10 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
+import Events from 'parser/core/Events';
+
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../core/SharedBrews';
-import Events from 'parser/core/Events';
 
 const TIGER_PALM_REDUCTION = 1000;
 

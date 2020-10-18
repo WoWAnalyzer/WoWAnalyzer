@@ -8,8 +8,9 @@ import Enemies from 'parser/shared/modules/Enemies';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import { BOF as ABILITY_BLACKLIST } from '../constants/AbilityBlacklist';
 import Events from 'parser/core/Events';
+
+import { BOF as ABILITY_BLACKLIST } from '../constants/AbilityBlacklist';
 
 const DEBUG_ABILITIES = false;
 

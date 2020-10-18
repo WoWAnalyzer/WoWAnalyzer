@@ -8,8 +8,9 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import Abilities from '../Abilities';
 import Events from 'parser/core/Events';
+
+import Abilities from '../Abilities';
 
 class BlackOxBrew extends Analyzer {
   static dependencies = {

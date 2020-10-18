@@ -9,8 +9,9 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import { SPELLS_WHICH_REMOVE_BOC } from '../../constants';
 import Events from 'parser/core/Events';
+
+import { SPELLS_WHICH_REMOVE_BOC } from '../../constants';
 
 const debug = false;
 const BOC_DURATION = 15000;

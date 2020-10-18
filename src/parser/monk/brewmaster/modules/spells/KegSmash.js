@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
+import Events from 'parser/core/Events';
+
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../core/SharedBrews';
-import Events from 'parser/core/Events';
 
 const KEG_SMASH_REDUCTION = 3000;
 const BOC_KEG_SMASH_REDUCTION = 2000;
