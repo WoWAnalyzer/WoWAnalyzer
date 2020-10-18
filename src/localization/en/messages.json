@@ -721,7 +721,7 @@
   "shared.suggestions.dots.countEarlyRefreshes": "{0}% effective duration",
   "shared.suggestions.dots.earlyRefreshes": "{0}% effective refresh duration",
   "shared.suggestions.efficiency": "efficiency",
-  "shared.suggestions.mana.efficiency": "{0}% ({1}) mana left",
+  "shared.suggestions.mana.efficiency": "mana left",
   "shared.suggestions.resources.wasted": "{0}% wasted. Generated {1} out of {maxGenerated} possible {resourceNameLower}",
   "viewed {0}d ago": "",
   "warlock.affliction.suggestions.agony.uptime": "{0}% Agony uptime",
