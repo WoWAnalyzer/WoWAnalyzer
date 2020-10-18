@@ -35,7 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     lightOfTheProtector: LightOfTheProtector,
     hotr: HammerOfTheRighteous,
-    wog: WordOfGlory,
+    wordOfGlory: WordOfGlory,
 
     // Features
     abilities: Abilities,

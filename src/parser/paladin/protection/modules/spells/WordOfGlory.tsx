@@ -11,71 +11,66 @@ import HIT_TYPES from 'game/HIT_TYPES';
 const OVERHEAL_THRESHOLD = 0.75;
 
 export default class WordOfGlory extends Analyzer {
-  _sl = {
-    count: 0,
-    wasted: 0,
-    // sotr casts w/ SL up.
-    sotrs: 0,
-  };
+  private slCount = 0;
+  private slWasted = 0;
+  // sotr casts w/ SL up.
+  private slSotrs = 0;
 
-  _casts = {
-    free: 0,
-    payed: 0,
-    // casts that overhealed by enough to be concerning
-    overhealed: 0,
-  };
-
+  private castsFree = 0;
+  private castsPayed = 0;
+  // casts that overhealed by enough to be concerning
+  private castsOverhealed = 0;
 
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.cast.spell(SPELLS.WORD_OF_GLORY).by(SELECTED_PLAYER), this._cast);
-    this.addEventListener(Events.cast.spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS).by(SELECTED_PLAYER), this._sotrCast);
-    this.addEventListener(Events.applybuff.spell(SPELLS.SHINING_LIGHT), this._slApply);
-    this.addEventListener(Events.removebuff.spell(SPELLS.SHINING_LIGHT), this._slRemove);
-    this.addEventListener(Events.heal.spell(SPELLS.WORD_OF_GLORY).by(SELECTED_PLAYER), this._heal);
+    this.addEventListener(Events.cast.spell(SPELLS.WORD_OF_GLORY).by(SELECTED_PLAYER), this.cast);
+    this.addEventListener(Events.cast.spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS).by(SELECTED_PLAYER), this.sotrCast);
+    this.addEventListener(Events.applybuff.spell(SPELLS.SHINING_LIGHT), this.slApply);
+    this.addEventListener(Events.removebuff.spell(SPELLS.SHINING_LIGHT), this.slRemove);
+    this.addEventListener(Events.heal.spell(SPELLS.WORD_OF_GLORY).by(SELECTED_PLAYER), this.heal);
   }
 
-  private _heal(event: HealEvent) {
+  private heal(event: HealEvent) {
     const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
 
     if (event.hitType !== HIT_TYPES.CRIT && event.amount / totalHeal < OVERHEAL_THRESHOLD) {
-      this._casts.overhealed += 1;
+      this.castsOverhealed += 1;
     }
   }
 
-  private _cast(event: CastEvent) {
+  private cast(event: CastEvent) {
     if(this.selectedCombatant.hasBuff(SPELLS.SHINING_LIGHT.id)) {
-      this._casts.free += 1;
-      this._sl.wasted -= 1;
+      this.castsFree += 1;
+      this.slWasted -= 1;
     } else {
-      this._casts.payed += 1;
+      this.castsPayed += 1;
     }
   }
 
-  private _sotrCast(event: CastEvent) {
+  private sotrCast(event: CastEvent) {
     if(this.selectedCombatant.hasBuff(SPELLS.SHINING_LIGHT.id)) {
-      this._sl.sotrs += 1;
+      this.slSotrs += 1;
     }
   }
 
-  private _slApply(_event: ApplyBuffEvent) {
-    this._sl.count += 1;
+  private slApply(_event: ApplyBuffEvent) {
+    this.slCount += 1;
   }
 
-  private _slRemove(_event: RemoveBuffEvent) {
+  private slRemove(_event: RemoveBuffEvent) {
     // always mark wasted. when a cast is free, we subtract one. the end result
     // is that if you use every SL you net 0 wasted.
-    this._sl.wasted += 1;
+    this.slWasted += 1;
   }
 
   get totalCasts() {
-    return this._casts.free + this._casts.payed;
+    return this.castsFree + this.castsPayed;
   }
 
   get overhealSuggestion() {
     return {
-      actual: this._casts.overhealed / this.totalCasts,
+      actual: this.castsOverhealed / this.totalCasts,
       isGreaterThan: {
         minor: 0.1,
         average: 0.15,
@@ -87,7 +82,7 @@ export default class WordOfGlory extends Analyzer {
 
   get wastedSlSuggestion() {
     return {
-      actual: this._sl.wasted,
+      actual: this.slWasted,
       isGreaterThan: {
         minor: 1,
         average: 3,
@@ -99,7 +94,7 @@ export default class WordOfGlory extends Analyzer {
 
   get sotrSuggestion() {
     return {
-      actual: this._sl.sotrs,
+      actual: this.slSotrs,
       isGreaterThan: {
         minor: 5,
         average: 10,
