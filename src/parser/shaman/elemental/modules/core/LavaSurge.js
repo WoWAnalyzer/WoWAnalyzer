@@ -1,16 +1,19 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from "common/SPELLS/shaman";
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Events from 'parser/core/Events';
 
 class LavaSurge extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
 
-  on_byPlayer_applybuff(event){
-    if(event.ability.guid!==SPELLS.LAVA_SURGE.id){
-      return;
-    }
+  constructor(options) {
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LAVA_SURGE), this.onApplyBuff);
+  }
+
+  onApplyBuff(event){
     if (this.spellUsable.isOnCooldown(SPELLS.LAVA_BURST.id)){
       this.spellUsable.endCooldown(SPELLS.LAVA_BURST.id);
     }

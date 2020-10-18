@@ -7,6 +7,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 class LiquidMagmaTotem extends Analyzer {
   damageGained = 0;
@@ -14,12 +15,10 @@ class LiquidMagmaTotem extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LIQUID_MAGMA_TOTEM_TALENT.id);
+    this.addEventListener(Events.damage.spell(SPELLS.LIQUID_MAGMA_TOTEM_DAMAGE), this.onDamage);
   }
 
-  on_damage(event) {
-    if (event.ability.guid !== SPELLS.LIQUID_MAGMA_TOTEM_DAMAGE.id) {
-      return;
-    }
+  onDamage(event) {
     this.damageGained += event.amount;
   }
 
