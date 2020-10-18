@@ -6,8 +6,9 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Combatants from 'parser/shared/modules/Combatants';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -24,11 +25,14 @@ class AoWProcTracker extends Analyzer {
   totalAoWProcs = 0;
   lastAoWProcTime = null;
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLADE_OF_WRATH_PROC.id) {
-      return;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC), this.onRefreshBuff);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_JUSTICE), this.onCast);
+  }
+
+  onApplyBuff(event) {
     this.totalAoWProcs += 1;
     if (this.spellUsable.isOnCooldown(SPELLS.BLADE_OF_JUSTICE.id)) {
       this.spellUsable.endCooldown(SPELLS.BLADE_OF_JUSTICE.id);
@@ -36,11 +40,7 @@ class AoWProcTracker extends Analyzer {
     }
   }
 
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLADE_OF_WRATH_PROC.id) {
-      return;
-    }
+  onRefreshBuff(event) {
     this.wastedAoWProcs += 1;
     this.totalAoWProcs += 1;
   }
@@ -61,11 +61,7 @@ class AoWProcTracker extends Analyzer {
     };
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.BLADE_OF_JUSTICE.id !== spellId) {
-      return;
-    }
+  onCast(event) {
     if (this.lastAoWProcTime !== event.timestamp) {
       if (this.lastAoWProcTime === null) {
         return;

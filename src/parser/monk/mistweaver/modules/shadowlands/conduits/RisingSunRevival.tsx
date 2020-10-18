@@ -31,8 +31,8 @@ class RisingSunRevival extends Analyzer {
   cooldownReductionUsed: number = 0;
   cooldownReductionWasted: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = false;
     if (!this.active) {
       return;

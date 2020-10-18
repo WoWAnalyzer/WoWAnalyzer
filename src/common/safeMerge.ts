@@ -1,7 +1,7 @@
-let merge: <T>(...args: Array<{[key: string]: T}>) => {[key: string]: T};
+let merge: <T>(...args: Array<Record<string, T>>) => Record<string, T>;
 if (process.env.NODE_ENV === 'development') {
-  merge = (...args) => {
-    const obj: {[key: string]: any} = {};
+  merge = <T>(...args: Array<Record<string, T>>) => {
+    const obj: Record<string, T> = {};
     args.forEach(arg => {
       Object.keys(arg).forEach(key => {
         if (obj[key]) {

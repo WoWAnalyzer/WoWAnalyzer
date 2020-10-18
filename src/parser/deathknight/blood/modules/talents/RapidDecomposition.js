@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Events from 'parser/core/Events';
 
 class RapidDecomposition extends Analyzer {
 
@@ -14,13 +15,11 @@ class RapidDecomposition extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BLOOD_PLAGUE, SPELLS.DEATH_AND_DECAY_DAMAGE_TICK]), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLOOD_PLAGUE.id && spellId !== SPELLS.DEATH_AND_DECAY_DAMAGE_TICK.id) {
-      return;
-    }
     if (spellId === SPELLS.BLOOD_PLAGUE.id) {
       this.bpDamage += calculateEffectiveDamage(event, 0.15);
     }else {

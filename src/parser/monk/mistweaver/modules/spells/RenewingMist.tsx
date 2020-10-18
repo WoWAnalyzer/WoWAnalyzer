@@ -4,8 +4,8 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 
 class RenewingMist extends Analyzer {
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST), this.castRenewingMist);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.handleGustsOfMists);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL), this.handleRenewingMist);

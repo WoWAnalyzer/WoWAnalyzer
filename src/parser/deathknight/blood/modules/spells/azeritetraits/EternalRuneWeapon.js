@@ -4,9 +4,10 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 
 const DANCING_RUNE_WEAPON_BONUS_DURATION_PER_TRAIT = 0.5;
 const MAX_DANCING_RUNE_WEAPON_BONUS_DURATION = 5;
@@ -49,6 +50,7 @@ class EternalRuneWeapon extends Analyzer {
     if (!this.active) {
       return;
     }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
 
     const { strength, traits } = eternalRuneWeaponStats(this.selectedCombatant.traitsBySpellId[SPELLS.ETERNAL_RUNE_WEAPON.id]);
     this.strength = strength;
@@ -59,7 +61,7 @@ class EternalRuneWeapon extends Analyzer {
     });
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if (event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.id) {
       this.bonusDurations.push([]);
       return;

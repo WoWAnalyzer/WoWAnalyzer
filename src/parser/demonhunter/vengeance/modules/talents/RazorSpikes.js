@@ -3,10 +3,11 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import SPELLS from 'common/SPELLS/index';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events from 'parser/core/Events';
 
 const PHYSICAL_DAMAGE_INCREASE = 0.15;
 
@@ -18,9 +19,10 @@ class RazorSpikes extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     // Physical
     if (event.ability.type !== SCHOOLS.ids.PHYSICAL) {
       return;
