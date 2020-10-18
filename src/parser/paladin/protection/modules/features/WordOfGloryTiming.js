@@ -3,7 +3,7 @@ import React from 'react';
 import SelfHealTimingGraph from 'parser/shared/modules/features/SelfHealTimingGraph';
 import SPELLS from 'common/SPELLS';
 
-class LightOfTheProtectorTiming extends SelfHealTimingGraph {
+class WordOfGloryTiming extends SelfHealTimingGraph {
 
   constructor(...args) {
     super(...args);
@@ -19,4 +19,4 @@ class LightOfTheProtectorTiming extends SelfHealTimingGraph {
   }
 }
 
-export default LightOfTheProtectorTiming;
+export default WordOfGloryTiming;

@@ -12,6 +12,7 @@ import NoDamageShieldOfTheRighteous from '../NoDamageShieldOfTheRighteous';
 import Consecration from '../../spells/Consecration';
 import HammerOfTheRighteous from '../../spells/HammerOfTheRighteous';
 import LightOfTheProtector from '../../spells/LightOfTheProtector';
+import WordOfGlory from '../../spells/WordOfGlory';
 
 import Component from './Component';
 
@@ -27,6 +28,7 @@ class Checklist extends BaseChecklist {
     lotp: LightOfTheProtector,
     hotr: HammerOfTheRighteous,
     hp: HolyPowerDetails,
+    wog: WordOfGlory,
   };
 
   render(){
@@ -46,6 +48,9 @@ class Checklist extends BaseChecklist {
           lotpOverheal: this.lotp.overhealSuggestion,
           hotrBadCasts: this.hotr.badCastThreshold,
           hpWaste: this.hp.suggestionThresholds,
+          wogOverheal: this.wog.overhealSuggestion,
+          wogSlWaste: this.wog.wastedSlSuggestion,
+          wogSotrCasts: this.wog.sotrSuggestion,
         }}
       />
     );
