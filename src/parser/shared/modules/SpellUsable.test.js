@@ -297,7 +297,6 @@ describe('core/Modules/SpellUsable', () => {
           isAvailable: false,
           chargesAvailable: 0,
           name: undefined,
-          targetIsFriendly: true,
           chargesOnCooldown: 1,
           cooldownTriggerEvent: {
             ability: {
