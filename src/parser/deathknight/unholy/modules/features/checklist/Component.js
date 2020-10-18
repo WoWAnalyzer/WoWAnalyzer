@@ -9,17 +9,9 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement, { RequirementThresholds } from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import Combatant from 'parser/core/Combatant';
 
-type Props = {
-  castEfficiency: CastEfficiency,
-  combatant: Combatant,
-  thresholds: { [name: string]: RequirementThresholds },
-};
-
-const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Props) => {
-  const AbilityRequirement = (props: { spell: number }) => (
+const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) => {
+  const AbilityRequirement = (props) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
