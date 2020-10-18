@@ -3,8 +3,8 @@
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 class ElementalAbilityTracker extends AbilityTracker {
-  on_byPlayer_cast(event) {
-    super.on_byPlayer_cast(event);
+  onCast(event) {
+    super.onCast(event);
     // const spellId = event.ability.guid;
     // const cast = this.getAbility(spellId, event.ability);
     // cast

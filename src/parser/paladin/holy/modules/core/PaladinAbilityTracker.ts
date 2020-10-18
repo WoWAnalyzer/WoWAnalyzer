@@ -29,8 +29,8 @@ class PaladinAbilityTracker extends AbilityTracker {
     return super.getAbility(spellId, abilityInfo);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    super.on_byPlayer_heal(event);
+  onHeal(event) {
+    super.onHeal(event);
 
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);

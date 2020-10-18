@@ -18,8 +18,8 @@ class AbilityTracker extends CoreAbilityTracker {
     return super.getAbility(spellId, abilityInfo);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    super.on_byPlayer_cast(event);
+  onCast(event: CastEvent) {
+    super.onCast(event);
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 

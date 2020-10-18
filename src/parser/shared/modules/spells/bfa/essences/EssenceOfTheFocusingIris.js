@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticGroup from 'interface/statistics/StatisticGroup';
@@ -13,7 +13,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Abilities from 'parser/core/modules/Abilities';
 import { calculatePrimaryStat } from 'common/stats';
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 
 const MINOR_SPELL_IDS = {
   1: SPELLS.FOCUSED_ENERGY_RANK_ONE.id,
@@ -81,6 +81,11 @@ class EssenceOfTheFocusingIris extends Analyzer {
     this.statTracker.add(SPELLS.FOCUSED_ENERGY_BUFF.id, {
       haste: this.hasteBuff,
     });
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FOCUSED_ENERGY_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.FOCUSED_ENERGY_BUFF), this.handleStacks);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FOCUSED_ENERGY_BUFF), this.handleStacks);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FOCUSED_AZERITE_BEAM_DAMAGE), this.onDamage);
+    this.addEventListener(Events.fightend, this.handleStacks);
   }
 
   handleStacks(event) {
@@ -103,39 +108,7 @@ class EssenceOfTheFocusingIris extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.FOCUSED_ENERGY_BUFF.id) / this.owner.fightDuration;
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FOCUSED_ENERGY_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FOCUSED_ENERGY_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FOCUSED_ENERGY_BUFF.id) {
-      return;
-    }
-    this.handleStacks(event);
-  }
-
-  on_fightend(event) {
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FOCUSED_AZERITE_BEAM_DAMAGE.id) {
-      return;
-    }
+  onDamage(event) {
     this.majorCastDamage += event.amount + (event.absorbed || 0);
   }
 

@@ -51,8 +51,6 @@ const Component = ({ combatant, castEfficiency, thresholds }: any) => {
        <AbilityRequirement spell={SPELLS.PURIFYING_BREW.id} name={<><SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast efficiency</>} />
        <Requirement name={<>Maintain <SpellLink id={SPELLS.SHUFFLE.id} /> while tanking</>} thresholds={thresholds.shuffleHits}
                     tooltip="Shuffle increases the power of your Purifies. Maintain it by casting your rotational abilities." />
-       <Requirement name={<>Inefficient <SpellLink id={SPELLS.PURIFYING_BREW.id} /> casts.</>} thresholds={thresholds.purifyHeavy}
-                    tooltip="A purify is 'inefficient' if it occurs with (relatively) low stagger. The warning threshold is calculated based on how much time you spent in Heavy Stagger." />
        <Requirement name="Average Purification Delay" thresholds={thresholds.purifyDelay}
                     tooltip="The delay is tracked from the most recent time you were able to purify after a hit. If the hit occurred when no charges were available, you are not penalized." />
      </Rule>

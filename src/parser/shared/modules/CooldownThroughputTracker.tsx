@@ -4,11 +4,12 @@ import SPELLS from 'common/SPELLS/index';
 import Panel from 'interface/others/Panel';
 import CooldownIcon from 'interface/icons/Cooldown';
 import CooldownOverview from 'interface/others/CooldownOverview';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import Events, { AnyEvent, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent, SummonEvent, DeathEvent } from 'parser/core/Events';
-import EventFilter from 'parser/core/EventFilter';
+import EventFilter, { SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
+import { Trans } from '@lingui/macro';
 
 const debug = false;
 
@@ -76,6 +77,23 @@ class CooldownThroughputTracker extends Analyzer {
   pastCooldowns: TrackedCooldown[] = [];
   activeCooldowns: TrackedCooldown[] = [];
 
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplyBuffToPlayer);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER), this.onRemoveBuff);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER), this.onApplyDebuff);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER), this.onRemoveDebuff);
+    this.addEventListener(Events.summon.by(SELECTED_PLAYER), this.onSummon);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.onPetDeath);
+  }
+
   startCooldown(event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent, isCastCooldown: boolean = false) {
     const spellId = event.ability.guid;
     const ctor = this.constructor as typeof CooldownThroughputTracker;
@@ -133,8 +151,8 @@ class CooldownThroughputTracker extends Analyzer {
     this.activeCooldowns.splice(index, 1);
     debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
   }
-
-  on_fightend() {
+  
+  onFightend() {
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.end = this.owner.fight.end_time;
       debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
@@ -154,7 +172,7 @@ class CooldownThroughputTracker extends Analyzer {
     });
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     const ctor = this.constructor as typeof CooldownThroughputTracker;
     const spellId = event.ability.guid;
     if (ctor.ignoredSpells.includes(spellId)) {
@@ -167,43 +185,43 @@ class CooldownThroughputTracker extends Analyzer {
     }
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     this.trackEvent(event);
   }
 
-  on_byPlayer_absorbed(event: AbsorbedEvent) {
+  onAbsorb(event: AbsorbedEvent) {
     this.trackEvent(event);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
+  onDamage(event: DamageEvent) {
     this.trackEvent(event);
   }
 
-  on_byPlayerPet_damage(event: DamageEvent) {
+  onPetDamage(event: DamageEvent) {
     this.trackEvent(event);
   }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
+  onApplyBuff(event: ApplyBuffEvent) {
     this.trackEvent(event);
   }
 
-  on_toPlayer_applybuff(event: ApplyBuffEvent) {
+  onApplyBuffToPlayer(event: ApplyBuffEvent) {
     this.startCooldown(event);
   }
 
-  on_toPlayer_removebuff(event: RemoveBuffEvent) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     this.endCooldown(event);
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
+  onApplyDebuff(event: ApplyDebuffEvent) {
     this.startCooldown(event);
   }
 
-  on_byPlayer_removedebuff(event: RemoveDebuffEvent) {
+  onRemoveDebuff(event: RemoveDebuffEvent) {
     this.endCooldown(event);
   }
 
-  on_byPlayer_summon(event: SummonEvent) {
+  onSummon(event: SummonEvent) {
     const spellId = event.ability.guid;
     const ctor = this.constructor as typeof CooldownThroughputTracker;
     const cooldownSpell = ctor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
@@ -223,7 +241,7 @@ class CooldownThroughputTracker extends Analyzer {
     debug && console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
   }
 
-  on_toPlayerPet_death(event: DeathEvent) {
+  onPetDeath(event: DeathEvent) {
     const petID = event.targetID;
     const index = this.activeCooldowns.findIndex(cooldown => cooldown.petID === petID);
     if (index === -1) {
@@ -245,11 +263,11 @@ class CooldownThroughputTracker extends Analyzer {
       url: 'cooldowns',
       render: () => (
         <Panel
-          title="Throughput cooldowns"
+          title={<Trans id="shared.cooldownThroughputTracker.tab.title">Throughput cooldowns</Trans>}
           explanation={(
-            <>
+            <Trans id="shared.cooldownThroughputTracker.tab.explanation">
               This shows the effectiveness of your throughput cooldowns and your cast behavior during them. Click on <i>More</i> to see details such as the delay between casting spells and the healing or damage done with them. Take a look at the timeline for a different kind of view of your casts during buffs.
-            </>
+            </Trans>
           )}
           pad={false}
         >

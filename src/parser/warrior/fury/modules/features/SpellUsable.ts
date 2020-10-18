@@ -17,8 +17,8 @@ class SpellUsable extends CoreSpellUsable {
   lastExecute: number | null = null;
   executeCdrEvents: number[] = [];
 
-  on_byPlayer_cast(event: CastEvent) {
-    super.on_byPlayer_cast(event);
+  onCast(event: CastEvent) {
+    super.onCast(event);
 
     const spellId = event.ability.guid;
     if (spellId === SPELLS.RAGING_BLOW.id) {

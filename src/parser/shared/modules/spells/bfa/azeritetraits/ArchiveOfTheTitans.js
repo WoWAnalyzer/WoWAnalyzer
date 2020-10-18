@@ -5,10 +5,10 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { getIcon } from 'parser/shared/modules/features/STAT';
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 
 const archiveOfTheTitansStats = traits => Object.values(traits).reduce((total, rank) => {
   const [stat] = calculateAzeriteEffects(SPELLS.ARCHIVE_OF_THE_TITANS.id, rank);
@@ -46,25 +46,25 @@ class ArchiveOfTheTitans extends Analyzer {
       strength: this.primaryPerStack,
       agility: this.primaryPerStack,
     });
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ARCHIVE_OF_THE_TITANS_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.ARCHIVE_OF_THE_TITANS_BUFF), this.onApplyBuffStack);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ARCHIVE_OF_THE_TITANS_BUFF), this.onRemoveBuff);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  on_byPlayer_applybuff(event) {
+  onApplyBuff(event) {
     this.handleBuff(event);
   }
 
-  on_byPlayer_applybuffstack(event) {
+  onApplyBuffStack(event) {
     this.handleBuff(event);
   }
 
-  on_byPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     this.handleBuff(event);
   }
 
   handleBuff(event) {
-    if (event.ability.guid !== SPELLS.ARCHIVE_OF_THE_TITANS_BUFF.id) {
-      return;
-    }
-
     if (this.currentStacks !== 0 && this.lastTimestamp !== 0) {
       const uptimeOnStack = event.timestamp - this.lastTimestamp;
       this.totalPrimary += this.currentStacks * this.primaryPerStack * uptimeOnStack;
@@ -79,7 +79,7 @@ class ArchiveOfTheTitans extends Analyzer {
     this.lastTimestamp = event.timestamp;
   }
 
-  on_fightend() {
+  onFightend() {
     if (this.currentStacks !== 0 && this.lastTimestamp !== 0) {
       const uptimeOnStack = this.owner.fight.end_time - this.lastTimestamp;
       this.totalPrimary += this.currentStacks * this.primaryPerStack * uptimeOnStack;
