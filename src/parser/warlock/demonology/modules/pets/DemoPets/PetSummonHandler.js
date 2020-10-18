@@ -3,13 +3,14 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
+import Events from 'parser/core/Events';
+
 import DemoPets from './index';
 import { isWildImp } from '../helpers';
 import { TimelinePet } from '../TimelinePet';
 import PETS from '../PETS';
 import { SUMMON_TO_SPELL_MAP } from '../CONSTANTS';
 import { META_CLASSES } from '../TimelinePet';
-import Events from 'parser/core/Events';
 
 const debug = false;
 const test = false;
