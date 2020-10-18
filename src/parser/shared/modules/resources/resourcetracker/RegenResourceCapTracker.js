@@ -1,8 +1,9 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Haste from 'parser/shared/modules/Haste';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 import HIT_TYPES from 'game/HIT_TYPES';
+import Events from 'parser/core/Events';
 
 // turn on debug to find if there's inaccuracies, then verboseDebug to help track the cause.
 const debug = false;
@@ -20,8 +21,8 @@ const verboseDebug = false;
  * for the relevant resource.
  *
  * If your derived class shares event handlers remember to call the original, e.g.
- * on_byPlayer_cast(event) {
- *  super.on_byPlayer_cast(event);
+ * onCast(event) {
+ *  super.onCast(event);
  *  // stuff related to your spec's implementation
  * }
  *
@@ -182,6 +183,14 @@ class RegenResourceCapTracker extends Analyzer {
       regen: this.naturalRegenRate(),
       timestamp: this.owner.fight.start_time,
     };
+    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.drain.by(SELECTED_PLAYER), this.onDrain);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER), this.onRemoveBuff);
+    this.addEventListener(Events.ChangeHaste.to(SELECTED_PLAYER), this.onChangeHaste);
   }
 
   /**
@@ -297,14 +306,14 @@ class RegenResourceCapTracker extends Analyzer {
     return Boolean(buffHistory.find(buff => (buff.start <= timestamp && (!buff.end || buff.end > timestamp))));
   }
 
-  on_fightend() {
+  onFightend() {
     // updateState one last time to catch any resource capping after the final resource event
     this.updateState(this.predictValue(this.owner.fight.end_time));
     debug && console.log(`mean prediction error magnitude: ${this.debugMeanPredictionError.toFixed(2)}`);
     debug && console.log(`greatest magnitude prediction error: ${this.debugGreatestError.toFixed(2)}`);
   }
 
-  on_toPlayer_energize(event) {
+  onEnergize(event) {
     if(event.resourceChangeType !== this.constructor.resourceType.id || !event.resourceChange) {
       return;
     }
@@ -335,7 +344,7 @@ class RegenResourceCapTracker extends Analyzer {
     this.updateState(current, max);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const eventResource = this.getResource(event);
     if (!eventResource) {
       return;
@@ -367,7 +376,7 @@ class RegenResourceCapTracker extends Analyzer {
     this.updateState(current, max);
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     // only interested in damage events if they show a spending ability failing to connect (and so triggering a refund)
     if (!this.prevSpender || event.ability.guid !== this.prevSpender.id ||
         (event.timestamp - this.prevSpender.timestamp) > REFUND_SPENDER_WINDOW ||
@@ -380,7 +389,7 @@ class RegenResourceCapTracker extends Analyzer {
     this.updateState(current);
   }
 
-  on_toPlayer_drain(event) {
+  onDrain(event) {
     if(event.resourceChangeType !== this.constructor.resourceType.id || !event.resourceChange) {
       return;
     }
@@ -404,7 +413,7 @@ class RegenResourceCapTracker extends Analyzer {
     return this.regenState.timestamp + this.constructor.cumulativeEventWindow >= timestamp;
   }
 
-  on_toPlayer_applybuff(event) {
+  onApplyBuff(event) {
     if (this.constructor.buffsChangeMax.includes(event.ability.guid)) {
       this.buffChangesResourceMax(event);
     }
@@ -413,7 +422,7 @@ class RegenResourceCapTracker extends Analyzer {
     }
   }
 
-  on_toPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     if (this.constructor.buffsChangeMax.includes(event.ability.guid)) {
       this.buffChangesResourceMax(event);
     }
@@ -422,7 +431,7 @@ class RegenResourceCapTracker extends Analyzer {
     }
   }
 
-  on_toPlayer_changehaste() {
+  onChangeHaste() {
     const regen = this.naturalRegenRate();
     this.updateState(null, null, regen);
   }

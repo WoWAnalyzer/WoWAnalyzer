@@ -8,6 +8,8 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 
+import Events from 'parser/core/Events';
+
 import SPELL_INFO from './StatValuesSpellInfo';
 import MasteryEffectiveness from './MasteryEffectiveness';
 
@@ -26,8 +28,13 @@ class StatValues extends BaseHealerStatValues {
 
   spellInfo = SPELL_INFO;
   qeLive = true;
+  
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.feedheal, this.onFeedHeal);
+  }
 
-  on_feed_heal(event) {
+  onFeedHeal(event) {
     const spellInfo = this._getSpellInfo(event);
     const healVal = new HealingValue(event.feed, 0, 0);
     const targetHealthPercentage = (event.hitPoints - event.amount) / event.maxHitPoints; // hitPoints contains HP *after* the heal
@@ -79,7 +86,7 @@ class StatValues extends BaseHealerStatValues {
       STAT.INTELLECT,
       {
         stat: STAT.CRITICAL_STRIKE,
-        tooltip: 'Weight does not include Resurgence mana gain.',
+        tooltip: <Trans id="shaman.restoration.statValues.crit">Weight does not include Resurgence mana gain.</Trans>,
       },
       {
         stat: STAT.HASTE_HPCT,

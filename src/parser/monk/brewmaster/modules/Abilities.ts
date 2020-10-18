@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       // Rotational Spells
@@ -93,7 +94,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CELESTIAL_BREW,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => (combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 60 : 48) / (1 + haste),
+        cooldown: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 60 : 48,
         gcd: {
           static: 1000,
         },
@@ -116,6 +117,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EXPEL_HARM,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 5,
         gcd: {
           static: 500,
         },
@@ -163,6 +165,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHI_TORPEDO_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
+        cooldown: 20,
+        charges: 2,
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
         gcd: null,
       },
@@ -170,6 +174,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ROLL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
+        cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 15 : 20,
+        charges: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 3 : 2,
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
         gcd: null,
       },
@@ -199,6 +205,15 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PARALYSIS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.LEG_SWEEP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: combatant.hasTalent(SPELLS.TIGER_TAIL_SWEEP_TALENT.id) ? 50 : 60,
         gcd: {
           static: 1000,
         },
@@ -206,10 +221,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PROVOKE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 8,
         gcd: null,
       },
       {
         spell: SPELLS.SPEAR_HAND_STRIKE,
+        cooldown: 15,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
       },
@@ -217,6 +234,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DETOX_ENERGY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 8,
         gcd: {
           // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste
           base: 1500,
@@ -233,6 +251,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TIGERS_LUST_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.TIGERS_LUST_TALENT.id),
+        cooldown: 30,
         gcd: {
           static: 1000,
         },

@@ -1,5 +1,5 @@
-import Analyzer from 'parser/core/Analyzer';
-import { HealEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { HealEvent } from 'parser/core/Events';
 
 class HealingTargetTracker extends Analyzer {
   healingDoneToSelf = 0;
@@ -13,8 +13,13 @@ class HealingTargetTracker extends Analyzer {
   get rawHealingDoneTotal() {
     return this.healingDoneTotal + this.overHealingDoneTotal;
   }
+  
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+  }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     if (event.targetID === this.owner.playerId) {
       this.healingDoneToSelf += event.amount;
       this.overHealingDoneToSelf += event.overheal || 0;

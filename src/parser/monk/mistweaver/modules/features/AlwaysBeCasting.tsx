@@ -18,6 +18,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.CHI_WAVE_TALENT.id,
     SPELLS.REFRESHING_JADE_WIND_TALENT.id,
     SPELLS.SOOTHING_MIST.id,
+    SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id,
+    SPELLS.EXPEL_HARM.id,
+    SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id,
   ];
 
   get nonHealingTimeSuggestionThresholds() {

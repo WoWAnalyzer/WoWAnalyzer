@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatNumber } from 'common/format';
+import Events from 'parser/core/Events';
 
 /**
  Your heals on targets below 50% health have a chance to heal for an additional 2100.
@@ -16,15 +17,12 @@ class Savior extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.SAVIOR.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SAVIOR_HEAL), this.onHeal);
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.SAVIOR_HEAL.id) {
-      this.healing += event.amount + (event.absorbed || 0);
-      this.procs += 1;
-    }
+  onHeal(event) {
+    this.healing += event.amount + (event.absorbed || 0);
+    this.procs += 1;
   }
 
   statistic() {

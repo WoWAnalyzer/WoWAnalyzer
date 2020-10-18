@@ -1,9 +1,9 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -19,30 +19,23 @@ class DivineStar extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DIVINE_STAR_HEAL, SPELLS.DIVINE_STAR_DAMAGE]), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STAR_HEAL), this.onHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STAR_TALENT), this.onCast);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    const spellId = event.ability.guid;
+  onDamage(event: DamageEvent) {
     // For some reason there are heals that are recoeded as damaging spells. I don't know what's up with that.
-    if (spellId === SPELLS.DIVINE_STAR_HEAL.id || spellId === SPELLS.DIVINE_STAR_DAMAGE.id) {
-      this.divineStarDamage += event.amount || 0;
-    }
+    this.divineStarDamage += event.amount || 0;
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.DIVINE_STAR_HEAL.id) {
-      this.divineStarHealing += event.amount || 0;
-      this.divineStarOverhealing += event.overheal || 0;
-    }
+  onHeal(event: HealEvent) {
+    this.divineStarHealing += event.amount || 0;
+    this.divineStarOverhealing += event.overheal || 0;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.DIVINE_STAR_TALENT.id) {
-      this.divineStarCasts += 1;
-    }
+  onCast(event: CastEvent) {
+    this.divineStarCasts += 1;
   }
 
   statistic() {

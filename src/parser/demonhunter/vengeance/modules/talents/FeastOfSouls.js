@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatNumber, formatPercentage } from 'common/format';
+import Events from 'parser/core/Events';
 
 //WCL: https://www.warcraftlogs.com/reports/7DNACRhnaKzBfHLM/#fight=1&source=19
 class FeastOfSouls extends Analyzer {
@@ -14,13 +15,10 @@ class FeastOfSouls extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FEAST_OF_SOULS_TALENT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FEAST_OF_SOULS_HEAL), this.onHeal);
   }
 
-  on_byPlayer_heal(event) {
-    const spellID = event.ability.guid;
-    if (spellID !== SPELLS.FEAST_OF_SOULS_HEAL.id) {
-      return;
-    }
+  onHeal(event) {
     this.heal += event.amount;
     this.overHeal += event.overheal || 0;
   }

@@ -4,7 +4,8 @@ import SPELLS from 'common/SPELLS';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 /**
  * Your healing effects have a chance to grant the target X additional healing
@@ -16,14 +17,10 @@ class ConcentratedMending extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.CONCENTRATED_MENDING.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONCENTRATED_MENDING_HEALING), this.onHeal);
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CONCENTRATED_MENDING_HEALING.id) {
-      return;
-    }
-
+  onHeal(event) {
     this.healing += event.amount + (event.absorbed || 0);
   }
 

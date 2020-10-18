@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import Events from 'parser/core/Events';
 
 const COASTAL_SURGE_ENCHANT_ID = 5946;
 /**
@@ -19,13 +20,10 @@ class CostalSurge extends Analyzer {
     super(...args);
     const item = this.selectedCombatant._getGearItemBySlotId(15);
     this.active = item && item.permanentEnchant === COASTAL_SURGE_ENCHANT_ID;
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.COASTAL_SURGE), this.onHeal);
   }
 
-  on_byPlayer_heal(event) {
-    if (event.ability.guid !== SPELLS.COASTAL_SURGE.id) {
-      return;
-    }
-
+  onHeal(event) {
     this.healing += event.amount + (event.absorbed || 0);
   }
 

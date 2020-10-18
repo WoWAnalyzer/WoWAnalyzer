@@ -1,37 +1,33 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 class Channeling extends CoreChanneling {
   static dependencies = {
     ...CoreChanneling.dependencies,
   };
 
-  on_byPlayer_applybuff(event) {
-    if (super.on_byPlayer_applybuff) {
-      super.on_byPlayer_applybuff(event);
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM), this.onRemoveBuff);
+  }
 
+  onApplyBuff(event) {
     // Begin channeling when the bladestorm buff is applied.
-    if (SPELLS.BLADESTORM.id === event.ability.guid) {
-      this.beginChannel(event);
-    }
+    this.beginChannel(event);
   }
 
-  on_byPlayer_removebuff(event) {
-    if (super.on_byPlayer_removebuff) {
-      super.on_byPlayer_removebuff(event);
-    }
-
+  onRemoveBuff(event) {
     // End channeling when the bladestorm buff is removed.
-    if (SPELLS.BLADESTORM.id === event.ability.guid) {
-      this.endChannel(event);
-    }
+    this.endChannel(event);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     // Bladestorm triggers multiple cast successes after the buff is applied which would cancel the channel, so we manually ignore those here.
     if (SPELLS.BLADESTORM.id !== event.ability.guid) {
-      super.on_byPlayer_cast(event);
+      super.onCast(event);
     }
   }
 }

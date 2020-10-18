@@ -26,8 +26,8 @@ class CloudedFocus extends Analyzer {
 
   stacks: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = false;
 
     if (!this.active) {

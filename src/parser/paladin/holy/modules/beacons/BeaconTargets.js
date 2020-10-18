@@ -1,10 +1,11 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
+import Events from 'parser/core/Events';
 
 import { BEACON_TYPES, NUM_BEACONS } from '../../constants';
 
-const BEACONS = Object.keys(BEACON_TYPES).map(key => BEACON_TYPES[key]);
+const BEACONS = Object.values(BEACON_TYPES);
 
 const debug = false;
 
@@ -26,7 +27,13 @@ class BeaconTargets extends Analyzer {
     return NUM_BEACONS[this.selectedCombatant.lv100Talent];
   }
 
-  on_byPlayer_applybuff(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
+  }
+
+  onApplyBuff(event) {
     const spellId = event.ability.guid;
     if (!BEACONS.includes(spellId)) {
       return;
@@ -59,7 +66,7 @@ class BeaconTargets extends Analyzer {
         );
     }
   }
-  on_byPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     const spellId = event.ability.guid;
     if (!BEACONS.includes(spellId)) {
       return;

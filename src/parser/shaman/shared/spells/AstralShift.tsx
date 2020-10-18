@@ -8,6 +8,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { Trans } from '@lingui/macro';
+import SpellLink from 'common/SpellLink';
 
 const ASTRAL_SHIFT_DR = 0.4;
 
@@ -38,13 +40,13 @@ class AstralShift extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.ASTRAL_SHIFT.id} />}
         value={`≈${formatNumber(this.totalDrps)} DRPS`}
-        label="Estimated damage reduced"
+        label={<Trans id="shaman.shared.damageReduced.label">Estimated damage reduced</Trans>}
         tooltip={(
-          <>
+          <Trans id="shaman.shared.damageReduced.tooltip">
             The total estimated damage reduced was {formatThousands(this.damageReduced)}.<br /><br />
-
-            This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Astral Shift bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.
-          </>
+            
+            This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having <SpellLink id={SPELLS.ASTRAL_SHIFT.id} /> bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.
+          </Trans>
         )}
       />
     );

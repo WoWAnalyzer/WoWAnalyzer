@@ -21,6 +21,7 @@ import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import './Home.scss';
 import ReportSelectionHeader from './ReportSelectionHeader';
 import NotFound from './NotFound';
+import LanguageSwitcher from '../LanguageSwitcher';
 
 const News = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'News' */ 'interface/news').then(exports => exports.default)));
 const NewsPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'News' */ 'interface/news/Page').then(exports => exports.default)));
@@ -85,6 +86,7 @@ class Home extends React.PureComponent {
             <div className="col-xs-12 col-sm-6">
               {!premium && <PatreonButton style={{ marginRight: 10 }} />}
               <DiscordButton style={{ marginRight: 10 }} />
+              <LanguageSwitcher />
             </div>
             <div className="col-xs-12 col-sm-6 text-right">
               <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/actions?query=workflow%3ABuild">

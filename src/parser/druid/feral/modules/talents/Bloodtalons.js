@@ -2,12 +2,13 @@ import React from 'react';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 const debug = false;
 
@@ -84,9 +85,17 @@ class Bloodtalons extends Analyzer {
         count: 0,
       }));
     }
+    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.BLOODTALONS_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.BLOODTALONS_BUFF), this.onRefreshBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.BLOODTALONS_BUFF), this.onRemoveBuff);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(POTENTIAL_SPENDERS), this.onDamage);
+
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RIP), this.applyDebuff);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.RIP), this.applyDebuff);
   }
 
-  on_fightend() {
+  onFightend() {
     this.remainAfterFight = this.currentStack;
     debug && console.log(`${this.owner.formatTimestamp(this.owner.fight.end_time, 3)} fight ended with ${this.currentStack} Bloodtalons charges remaining`);
 
@@ -95,20 +104,14 @@ class Bloodtalons extends Analyzer {
     }
   }
 
-  on_toPlayer_applybuff(event) {
-    if (SPELLS.BLOODTALONS_BUFF.id !== event.ability.guid) {
-      return;
-    }
+  onApplyBuff(event) {
     debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} generated 2 Bloodtalons charges`);
     this.generated += 2;
     this.currentStack = 2;
     this.expireTime = event.timestamp + BLOODTALONS_BUFF_DURATION;
   }
 
-  on_toPlayer_refreshbuff(event) {
-    if (SPELLS.BLOODTALONS_BUFF.id !== event.ability.guid) {
-      return;
-    }
+  onRefreshBuff(event) {
     debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} generated 2 Bloodtalons charges, overwriting ${this.currentStack}`);
     this.overwritten += this.currentStack;
     this.generated += 2;
@@ -118,9 +121,8 @@ class Bloodtalons extends Analyzer {
     this.expireTime = event.timestamp + BLOODTALONS_BUFF_DURATION;
   }
 
-  on_toPlayer_removebuff(event) {
-    if (SPELLS.BLOODTALONS_BUFF.id !== event.ability.guid ||
-        this.currentStack === 0 || !this.expireTime ||
+  onRemoveBuff(event) {
+    if (this.currentStack === 0 || !this.expireTime ||
         Math.abs(this.expireTime - event.timestamp) > EXPIRE_WINDOW) {
       // only interested in bloodtalons buff wearing off after its full duration
       return;
@@ -131,9 +133,9 @@ class Bloodtalons extends Analyzer {
     this.expireTime = null;
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const spellId = event.ability.guid;
-    if (!this.isSpender(spellId) || this.currentStack === 0 ||
+    if (this.currentStack === 0 ||
         event.tick || HIT_TYPES_THAT_DONT_CONSUME.includes(event.hitType) ||
         this.isAlreadyAccountedForAoE(spellId, event.timestamp)) {
       // only interested in direct damage hits from a spender ability
@@ -147,16 +149,8 @@ class Bloodtalons extends Analyzer {
     this.addSpender(spellId);
   }
 
-  on_byPlayer_applydebuff(event) {
-    this.applyDebuff(event);
-  }
-
-  on_byPlayer_refreshdebuff(event) {
-    this.applyDebuff(event);
-  }
-
   applyDebuff(event) {
-    if (this.currentStack === 0 || SPELLS.RIP.id !== event.ability.guid) {
+    if (this.currentStack === 0) {
       return;
     }
     this.currentStack -= 1;

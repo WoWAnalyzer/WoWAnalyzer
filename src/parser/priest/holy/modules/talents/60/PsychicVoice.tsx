@@ -1,7 +1,7 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
-import { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -15,20 +15,16 @@ class PsychicVoice extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_SCREAM), this.onCast);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_SCREAM), this.onApplyDebuff);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.PSYCHIC_SCREAM.id) {
-      this.psychicScreamCasts += 1;
-    }
+  onCast(event: CastEvent) {
+    this.psychicScreamCasts += 1;
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.PSYCHIC_SCREAM.id) {
-      this.psychicScreamHits += 1;
-    }
+  onApplyDebuff(event: ApplyDebuffEvent) {
+    this.psychicScreamHits += 1;
   }
 
   statistic() {
