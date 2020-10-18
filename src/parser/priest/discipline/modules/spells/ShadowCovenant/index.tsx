@@ -1,10 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import DonutChart, { DonutChartItem } from 'interface/statistics/components/DonutChart';
 import SpellLink from 'common/SpellLink';
 
