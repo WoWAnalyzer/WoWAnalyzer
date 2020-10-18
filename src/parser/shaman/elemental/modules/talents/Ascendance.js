@@ -12,8 +12,9 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import Abilities from '../Abilities';
 import Events from 'parser/core/Events';
+
+import Abilities from '../Abilities';
 
 const ASCENDANCE_DURATION = 15000 - 1500; //remove the gcd for Ascendence itself because we only check for FS on the first cast after
 

@@ -14,8 +14,9 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import { Trans } from '@lingui/macro';
 
-import { ABILITIES_AFFECTED_BY_MASTERY, BASE_ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 import Events from 'parser/core/Events';
+
+import { ABILITIES_AFFECTED_BY_MASTERY, BASE_ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {
