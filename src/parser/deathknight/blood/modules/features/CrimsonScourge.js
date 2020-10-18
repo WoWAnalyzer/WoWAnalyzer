@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
@@ -9,6 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 const DURATION_WORTH_CASTING_MS = 8000;
 
@@ -22,11 +23,13 @@ class CrimsonScourge extends Analyzer {
   freeDeathAndDecayCounter = 0;
   endOfCombatCast = false;
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DEATH_AND_DECAY.id) {
-      return;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_DECAY), this.onCast);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_SCOURGE), this.onApplyBuff);
+  }
+
+  onCast(event) {
     if (this.selectedCombatant.hasBuff(SPELLS.CRIMSON_SCOURGE.id, event.timestamp)) {
       this.freeDeathAndDecayCounter += 1;
       if(this.endOfCombatCast){
@@ -34,11 +37,7 @@ class CrimsonScourge extends Analyzer {
       }
     }
   }
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CRIMSON_SCOURGE.id) {
-      return;
-    }
+  onApplyBuff(event) {
     this.crimsonScourgeProcsCounter += 1;
     if(this.spellUsable.isOnCooldown(SPELLS.DEATH_AND_DECAY.id)){
       this.spellUsable.endCooldown(SPELLS.DEATH_AND_DECAY.id);

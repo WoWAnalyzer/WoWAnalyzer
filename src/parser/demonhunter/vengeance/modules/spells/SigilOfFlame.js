@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 
@@ -9,6 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 /*Purpose of this module is to track the sigil of flame debuff and see when 2 of them overlap for a damage increase.
 * This is important for damage and also squeezing extra fire damage during Fiery Brand because of the
 * Fiery Demise talent that increases your fire damage during that CD. Also due to trait charred blades that heals
@@ -23,13 +24,13 @@ class SigilOfFlame extends Analyzer {
   lastApplicationTimestamp = 0;
   currentApplicationTimestamp = 0;
 
-  on_byPlayer_applydebuff(event){
-    const spellId = event.ability.guid;
-    let timeStampDifference = null;
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SIGIL_OF_FLAME_DEBUFF), this.onApplyDebuff);
+  }
 
-    if(spellId !== SPELLS.SIGIL_OF_FLAME_DEBUFF.id) {
-      return;
-    }
+  onApplyDebuff(event){
+    let timeStampDifference = null;
     if(this.lastApplicationTimestamp === 0){
       this.lastApplicationTimestamp = event.timestamp;
       return;

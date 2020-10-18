@@ -3,11 +3,12 @@ import { formatPercentage, formatThousands } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { findByBossId } from 'raids/index';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -60,14 +61,14 @@ class ShieldOfTheRighteous extends Analyzer {
     if (this.owner.boss) {
       const boss = findByBossId(this.owner.boss.id);
       this._tankbusters = (boss.fight.softMitigationChecks && boss.fight.softMitigationChecks.physical) || [];
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS), this.onCast);
+      this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+      this.addEventListener(Events.fightend, this.onFightend);
     }
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.SHIELD_OF_THE_RIGHTEOUS.id) {
-      return;
-    }
 
+  onCast(event) {
     const buffEndTime = Math.min(
       // if the buff expired before the current event, its just
       // event.timestamp + SOTR_DURATION ...
@@ -97,7 +98,7 @@ class ShieldOfTheRighteous extends Analyzer {
     this._sotrCasts.push(cast);
   }
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     if (event.ability.type !== MAGIC_SCHOOLS.ids.PHYSICAL) {
       return;
     }
@@ -117,7 +118,7 @@ class ShieldOfTheRighteous extends Analyzer {
     }
   }
 
-  on_fightend(event) {
+  onFightend(event) {
     if (this._activeCast) {
       this._markupCast(this._activeCast);
     }

@@ -4,13 +4,15 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+
+import Events from 'parser/core/Events';
 
 import Abilities from '../Abilities';
 
@@ -46,6 +48,7 @@ class StormElemental extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
   get stormEleUptime() {
@@ -60,7 +63,7 @@ class StormElemental extends Analyzer {
     return (this.numCasts[SPELLS.CHAIN_LIGHTNING.id]/this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]) || 0;
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
     const target = this.enemies.getEntity(event);
 

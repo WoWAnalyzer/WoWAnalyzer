@@ -5,7 +5,8 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import {formatNumber} from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 /**
  * Vigilant's Bloodshaper -
@@ -23,14 +24,12 @@ class VigilantsBloodshaper extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.VIGILANTS_BLOODSHAPER.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOLATILE_BLOOD_EXPLOSION), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOLATILE_BLOOD_EXPLOSION.id) {
-      this.damage += event.amount + (event.absorbed || 0);
-      this.hits += 1;
-    }
+  onDamage(event) {
+    this.damage += event.amount + (event.absorbed || 0);
+    this.hits += 1;
   }
 
   statistic() {

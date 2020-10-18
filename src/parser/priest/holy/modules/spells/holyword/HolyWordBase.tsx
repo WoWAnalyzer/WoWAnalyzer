@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/index';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/priest/holy/modules/features/SpellUsable';
-import { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 class HolyWordBase extends Analyzer {
   static dependencies = {
@@ -117,9 +117,14 @@ class HolyWordBase extends Analyzer {
     if (this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
       this.lightOfTheNaruActive = true;
     }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onRemoveBuff);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId === this.spellId) {
       this.holyWordCasts += 1;
@@ -168,7 +173,7 @@ class HolyWordBase extends Analyzer {
     }
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
     if (spellId === this.spellId) {
       this.holyWordHealing += event.amount || 0;
@@ -181,19 +186,13 @@ class HolyWordBase extends Analyzer {
     }
   }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.APOTHEOSIS_TALENT.id) {
-      this.apotheosisCasts += 1;
-      this.apotheosisActive = true;
-    }
+  onApplyBuff(event: ApplyBuffEvent) {
+    this.apotheosisCasts += 1;
+    this.apotheosisActive = true;
   }
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.APOTHEOSIS_TALENT.id) {
-      this.apotheosisActive = false;
-    }
+  onRemoveBuff(event: RemoveBuffEvent) {
+    this.apotheosisActive = false;
   }
 }
 

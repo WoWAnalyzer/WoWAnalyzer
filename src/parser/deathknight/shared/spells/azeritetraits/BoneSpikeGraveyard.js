@@ -2,10 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import Events from 'parser/core/Events';
 
 /**
  * Bone Spike Graveyard
@@ -26,21 +27,15 @@ class BoneSpikeGraveyard extends Analyzer{
     if (!this.active) {
       return;
     }
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BONE_SPIKE_GRAVEYARD_DAMAGE), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.BONE_SPIKE_GRAVEYARD_HEAL), this.onHeal)
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.BONE_SPIKE_GRAVEYARD_DAMAGE.id) {
-      return;
-    }
-
+  onDamage(event) {
     this.damage += event.amount;
   }
 
-  on_byPlayer_heal(event) {
-    if (event.ability.guid !== SPELLS.BONE_SPIKE_GRAVEYARD_HEAL.id) {
-      return;
-    }
-
+  onHeal(event) {
     this.heal += event.amount + (event.absorbed || 0);
   }
 

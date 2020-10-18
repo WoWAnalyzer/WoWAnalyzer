@@ -7,20 +7,20 @@ class FilteredDamageTracker extends DamageTracker {
     this.castObservers = [];
   }
   
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     if(!this.shouldProcessEvent(event)) {return;}
-    super.on_byPlayer_damage(event);
+    super.onDamage(event);
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     if(!this.shouldProcessEvent(event)) {return;}
-    super.on_byPlayer_heal(event);
+    super.onHeal(event);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if(!this.shouldProcessEvent(event)) {return;}
     this.broadcastCastEvent(event);
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
   }
     
   shouldProcessEvent(event) {

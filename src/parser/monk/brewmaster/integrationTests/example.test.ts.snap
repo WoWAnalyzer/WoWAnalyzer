@@ -351,7 +351,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -364,7 +364,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -377,7 +377,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -478,7 +478,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -577,7 +577,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -962,7 +962,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -975,7 +975,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -988,7 +988,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1096,7 +1096,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1109,7 +1109,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1122,7 +1122,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1320,7 +1320,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -1341,7 +1341,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1354,7 +1354,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1367,7 +1367,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1468,7 +1468,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1523,7 +1523,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               0
-              /10
+              /6
                
               casts
             </td>
@@ -1567,7 +1567,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1622,7 +1622,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               0
-              
+              /62
                
               casts
             </td>
@@ -1633,7 +1633,19 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
             </td>
             <td
               className="text-left"
@@ -1644,7 +1656,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              0.00%
             </td>
             <td
               style={
@@ -1964,7 +1976,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1977,7 +1989,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1990,7 +2002,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2132,7 +2144,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               2
-              
+              /17
                
               casts
             </td>
@@ -2143,7 +2155,19 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "13.011515190943983%",
+                    }
+                  }
+                />
+              </div>
             </td>
             <td
               className="text-left"
@@ -2154,7 +2178,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              13.01%
             </td>
             <td
               style={
@@ -2387,7 +2411,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               0
-              
+              /7
                
               casts
             </td>
@@ -2398,7 +2422,19 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
             </td>
             <td
               className="text-left"
@@ -2409,7 +2445,104 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=119381"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_legsweep.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Leg Sweep
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /6
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
             </td>
             <td
               style={
@@ -2472,7 +2605,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               7
-              
+              /39
                
               casts
             </td>
@@ -2483,7 +2616,19 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "18.21612126732158%",
+                    }
+                  }
+                />
+              </div>
             </td>
             <td
               className="text-left"
@@ -2494,7 +2639,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              18.22%
             </td>
             <td
               style={
@@ -2557,7 +2702,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               0
-              
+              /21
                
               casts
             </td>
@@ -2568,7 +2713,19 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
             </td>
             <td
               className="text-left"
@@ -2579,7 +2736,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              0.00%
             </td>
             <td
               style={
@@ -2642,7 +2799,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               0
-              
+              /39
                
               casts
             </td>
@@ -2653,7 +2810,19 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
             </td>
             <td
               className="text-left"
@@ -2664,7 +2833,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              0.00%
             </td>
             <td
               style={
@@ -2812,7 +2981,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               0
-              
+              /11
                
               casts
             </td>
@@ -2823,7 +2992,19 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
             </td>
             <td
               className="text-left"
@@ -2834,7 +3015,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              
+              0.00%
             </td>
             <td
               style={
@@ -2863,7 +3044,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2876,7 +3057,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2889,7 +3070,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3341,7 +3522,7 @@ Array [
         values={
           Object {
             "0": 0,
-            "1": 10,
+            "1": 6,
             "2": "0",
           }
         }
@@ -3549,7 +3730,7 @@ exports[`Brewmaster Monk integration test: example log DistanceMoved matches the
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -3628,183 +3809,243 @@ Array [
     "details": null,
     "icon": "inv_chest_leather_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4819,
-              1512,
-              4786,
-            ],
-            "icon": "inv_chest_leather_zandalardungeon_c_01.jpg",
-            "id": 155860,
-            "itemLevel": 340,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4819,
+                  1512,
+                  4786,
+                ],
+                "icon": "inv_chest_leather_zandalardungeon_c_01.jpg",
+                "id": 155860,
+                "itemLevel": 340,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={155860}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={155860}
-        quality={3}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_boot_leather_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5010,
-              1552,
-              4783,
-            ],
-            "icon": "inv_boot_leather_zandalardungeon_c_01.jpg",
-            "id": 159336,
-            "itemLevel": 380,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5010,
+                  1552,
+                  4783,
+                ],
+                "icon": "inv_boot_leather_zandalardungeon_c_01.jpg",
+                "id": 159336,
+                "itemLevel": 380,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159336}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Boots"
+            id="common.slots.boots"
+          />,
         }
-        icon={false}
-        id={159336}
-        quality={3}
-      >
-        Boots
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_01e.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5005,
-              1527,
-              4786,
-            ],
-            "icon": "inv_ring_80_01e.jpg",
-            "id": 158362,
-            "itemLevel": 355,
-            "permanentEnchant": 5941,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5005,
+                  1527,
+                  4786,
+                ],
+                "icon": "inv_ring_80_01e.jpg",
+                "id": 158362,
+                "itemLevel": 355,
+                "permanentEnchant": 5941,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158362}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={158362}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_04d.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4799,
-              1492,
-              4786,
-            ],
-            "icon": "inv_ring_80_04d.jpg",
-            "id": 160645,
-            "itemLevel": 370,
-            "permanentEnchant": 5941,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4799,
+                  1492,
+                  4786,
+                ],
+                "icon": "inv_ring_80_04d.jpg",
+                "id": 160645,
+                "itemLevel": 370,
+                "permanentEnchant": 5941,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={160645}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={160645}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_leather_nazmirraid_d_01cape.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4799,
-              1502,
-              4783,
-            ],
-            "icon": "inv_leather_nazmirraid_d_01cape.jpg",
-            "id": 160643,
-            "itemLevel": 380,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4799,
+                  1502,
+                  4783,
+                ],
+                "icon": "inv_leather_nazmirraid_d_01cape.jpg",
+                "id": 160643,
+                "itemLevel": 380,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={160643}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={160643}
-        quality={4}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_polearm_2h_zandalariguard_b_01.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5007,
-              1547,
-              4784,
-            ],
-            "icon": "inv_polearm_2h_zandalariguard_b_01.jpg",
-            "id": 159655,
-            "itemLevel": 375,
-            "permanentEnchant": 5962,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5007,
+                  1547,
+                  4784,
+                ],
+                "icon": "inv_polearm_2h_zandalariguard_b_01.jpg",
+                "id": 159655,
+                "itemLevel": 375,
+                "permanentEnchant": 5962,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159655}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
         }
-        icon={false}
-        id={159655}
-        quality={3}
-      >
-        Weapon
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -5040,7 +5281,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "15.533975901064323%",
+                  "width": "12.435600789868111%",
                 }
               }
             />
@@ -5423,110 +5664,6 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Inefficient 
-                <a
-                  href="http://wowhead.com/spell=119582"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
-                  />
-                   
-                  Purifying Brew
-                </a>
-                 casts.
-              </div>
-              <div
-                className="flex-sub"
-                style={
-                  Object {
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <div
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onTouchStart={[Function]}
-                >
-                  <svg
-                    className="icon"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                    />
-                    <path
-                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                    />
-                    <path
-                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  33.33%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
                 Average Purification Delay
               </div>
               <div
@@ -5600,7 +5737,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.830806734211933%",
+                        "width": "26.63594118991392%",
                       }
                     }
                   />
@@ -6321,7 +6458,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -6381,7 +6518,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6441,7 +6578,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6501,7 +6638,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6561,7 +6698,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6621,7 +6758,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6681,7 +6818,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>

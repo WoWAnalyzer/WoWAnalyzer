@@ -1,17 +1,19 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
-import { DispelEvent } from 'parser/core/Events';
+import Events, { DispelEvent } from 'parser/core/Events';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
   };
 
-  on_dispel(event: DispelEvent) {
-    if (!this.owner.byPlayer(event)) {
-      return;
-    }
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.dispel.by(SELECTED_PLAYER), this.onDispel);
+  }
 
+  onDispel(event: DispelEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PURIFY.id) {
       super.beginCooldown(spellId, event);

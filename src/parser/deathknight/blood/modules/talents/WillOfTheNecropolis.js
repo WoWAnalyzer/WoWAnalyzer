@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import { formatNumber } from "common/format";
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Events from 'parser/core/Events';
 
 const MINIMUM_ABSORB_THRESHOLD = 0.05;
 
@@ -19,13 +20,11 @@ class WillOfTheNecropolis extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.WILL_OF_THE_NECROPOLIS_TALENT), this.onAbsorbed);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
 
-  on_byPlayer_absorbed(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id ) {
-      return;
-    }
+  onAbsorbed(event) {
     this.totalWotnAbsorbed += event.amount;
     this.currentWotnAbsorbed = event.amount;
     this.activated += 1;
@@ -33,7 +32,7 @@ class WillOfTheNecropolis extends Analyzer {
     this.nextEvent = true;
   }
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     const playerHealth = event.maxHitPoints;
     const absorbToHealthPercent = this.currentWotnAbsorbed / playerHealth;
     const spellId = event.ability.guid;

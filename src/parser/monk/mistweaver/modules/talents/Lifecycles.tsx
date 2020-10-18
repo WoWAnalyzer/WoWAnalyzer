@@ -32,8 +32,8 @@ class Lifecycles extends Analyzer {
   castsNonRedViv: number = 0;
   castsNonRedEnm: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id);
     if(!this.active){
       return;
@@ -90,7 +90,7 @@ class Lifecycles extends Analyzer {
           </>,
         )
           .icon(SPELLS.LIFECYCLES_TALENT.icon)
-          .actual(i18n._(t('monk.mistweaver.suggestions.lifecycles.manaSaved')`${formatNumber(actual)} mana saved through Lifecycles`))
+          .actual(`${formatNumber(actual)}${i18n._(t('monk.mistweaver.suggestions.lifecycles.manaSaved')` mana saved through Lifecycles`)}`)
           .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`));
   }
 

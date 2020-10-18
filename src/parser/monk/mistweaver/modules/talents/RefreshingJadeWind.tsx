@@ -19,8 +19,8 @@ class RefreshingJadeWind extends Analyzer {
   overhealingRJW: number = 0;
   castRJW: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
     if(!this.active){
       return;
@@ -68,7 +68,7 @@ class RefreshingJadeWind extends Analyzer {
           </>,
         )
           .icon(SPELLS.REFRESHING_JADE_WIND_TALENT.icon)
-          .actual(i18n._(t('monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit')`${formatPercentage(this.avgTargetsHitPerRJWPercentage)}% of targets hit per Refreshing Jade Wind`))
+          .actual(`${formatPercentage(this.avgTargetsHitPerRJWPercentage)}${i18n._(t('monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit')`% of targets hit per Refreshing Jade Wind`)}`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }

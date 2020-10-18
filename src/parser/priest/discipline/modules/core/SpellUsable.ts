@@ -7,10 +7,10 @@ const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance t
 class SpellUsable extends CoreSpellUsable {
   _previousPenanceTimestamp: number = 0;
 
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PENANCE.id && spellId !== SPELLS.PENANCE_HEAL.id) {
-      super.on_byPlayer_cast(event);
+      super.onCast(event);
       return;
     }
 

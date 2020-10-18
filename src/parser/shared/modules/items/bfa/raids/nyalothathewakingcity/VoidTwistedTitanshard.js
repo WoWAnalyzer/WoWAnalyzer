@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import SPELLS from 'common/SPELLS';
@@ -11,6 +11,7 @@ import { formatPercentage, formatNumber } from 'common/format';
 import HasteIcon from 'interface/icons/Haste';
 import React from 'react';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import Events from 'parser/core/Events';
 
 const MAX_UPTIME_PER_PROC = 15000;
 
@@ -35,6 +36,8 @@ class VoidTwistedTitanshard extends Analyzer {
         crit: this.critRating,
       });
     }
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.VOID_SHROUD), this.onApplyBuff);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.VOID_SHROUD), this.onAbsorb);
   }
 
   get uptime() {
@@ -49,7 +52,7 @@ class VoidTwistedTitanshard extends Analyzer {
     return this.critRating * this.uptime;
   }
 
-  on_toPlayer_applybuff(event) {
+  onApplyBuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.VOID_SHROUD.id) {
       return;
@@ -57,7 +60,7 @@ class VoidTwistedTitanshard extends Analyzer {
     this.procs += 1;
   }
 
-  on_byPlayer_absorbed(event) {
+  onAbsorb(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.VOID_SHROUD.id) {
       return;

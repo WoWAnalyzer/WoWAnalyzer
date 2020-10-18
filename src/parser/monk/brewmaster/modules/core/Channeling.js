@@ -1,5 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 /**
  * Crackling Jade Lightning don't reveal in the combatlog when channeling begins and ends, this fabricates the required events so that ABC can handle it properly.
@@ -10,7 +12,13 @@ import CoreChanneling from 'parser/shared/modules/Channeling';
  * To avoid Crackling Jade Lightning as being marked "canceled" when we start a new spell we mark it as ended instead on the begincast/cast.
  */
 class Channeling extends CoreChanneling {
-  on_byPlayer_cast(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onApplyDebuff);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onRemoveDebuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onRemoveBuff);
+  }
+  onCast(event) {
     if (event.ability.guid === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
       // We track Crackling Jade Lightning differently
       return;
@@ -19,7 +27,7 @@ class Channeling extends CoreChanneling {
       this.beginChannel(event);
       return;
     }
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
   }
 
   cancelChannel(event, ability) {
@@ -32,26 +40,20 @@ class Channeling extends CoreChanneling {
     }
   }
 
-  on_byPlayer_applydebuff(event) {
-    if (event.ability.guid !== SPELLS.CRACKLING_JADE_LIGHTNING.id) {
-      return;
-    }
+  onApplyDebuff(event) {
     this.beginChannel(event);
   }
 
   // Looking at `removebuff` will includes progress towards a tick that never happened. This progress could be considered downtime as it accounts for nothing.
   // If it's ever decided to consider the time between last tick and channel ending as downtime, just change the endchannel trigger.
-  on_byPlayer_removedebuff(event) {
-    if (event.ability.guid !== SPELLS.CRACKLING_JADE_LIGHTNING.id) {
-      return;
-    }
+  onRemoveDebuff(event) {
     if (!this.isChannelingSpell(SPELLS.CRACKLING_JADE_LIGHTNING.id)) {
       // This may be true if we did the event-order fix in begincast/cast and it was already ended there.
       return;
     }
     this.endChannel(event);
   }
-  on_byPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     if (event.ability.guid !== SPELLS.ZEN_MEDITATION.id) {
       return;
     }

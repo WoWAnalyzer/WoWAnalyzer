@@ -4,9 +4,10 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 class EarthenRage extends Analyzer {
   damageGained = 0;
@@ -14,13 +15,10 @@ class EarthenRage extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_RAGE_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTHEN_RAGE_DAMAGE), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.EARTHEN_RAGE_DAMAGE.id) {
-      return;
-    }
-
+  onDamage(event) {
     this.damageGained += event.amount;
   }
 
