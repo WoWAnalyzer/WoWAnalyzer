@@ -5,14 +5,14 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemy from 'parser/core/Enemy';
-import { DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -71,6 +71,8 @@ class Schism extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(
       SPELLS.SCHISM_TALENT.id,
     );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
   get buffActive() {
@@ -84,7 +86,7 @@ class Schism extends Analyzer {
     );
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
+  onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
 
     // Handle non-schism events
@@ -110,7 +112,7 @@ class Schism extends Analyzer {
     this.directDamage += (event.amount + event.absorbed || 0) - smiteDamage;
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     if (!isAtonement(event)) {
       return;
     }
