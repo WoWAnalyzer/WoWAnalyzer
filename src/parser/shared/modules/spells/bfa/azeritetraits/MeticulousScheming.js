@@ -4,9 +4,10 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 
 const meticulousSchemingStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.METICULOUS_SCHEMING.id, rank);
@@ -44,13 +45,15 @@ class MeticulousScheming extends Analyzer {
     this.statTracker.add(SPELLS.SEIZE_THE_MOMENT.id, {
       haste,
     });
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.METICULOUS_SCHEMING_BUFF, SPELLS.SEIZE_THE_MOMENT]), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell([SPELLS.METICULOUS_SCHEMING_BUFF, SPELLS.SEIZE_THE_MOMENT]), this.onRefreshBuff);
   }
 
-  on_byPlayer_applybuff(event) {
+  onApplyBuff(event) {
     this.handleBuff(event);
   }
 
-  on_byPlayer_refreshbuff(event) {
+  onRefreshBuff(event) {
     this.handleBuff(event);
   }
 

@@ -3,12 +3,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ArmorIcon from 'interface/icons/Armor';
 import AvoidanceIcon from 'interface/icons/Avoidance';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 
 const gemhideStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [avoidance, armor] = calculateAzeriteEffects(SPELLS.GEMHIDE.id, rank);
@@ -48,6 +49,7 @@ class Gemhide extends Analyzer {
       armor,
       avoidance,
     });
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
 
   get uptime() {
@@ -66,7 +68,7 @@ class Gemhide extends Analyzer {
     return this._hitsMitigated / this._totalHits;
   }
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     if (event.sourceIsFriendly) {
       return;
     }

@@ -2,11 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemManaGained from 'interface/ItemManaGained';
+import Events from 'parser/core/Events';
 
 const DARKMOON_DECK_TIDES_CARDS = [
   276136, // Ace
@@ -35,18 +36,16 @@ class DarkmoonDeckTides extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.DARKMOON_DECK_TIDES.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATING_TIDES), this.onHeal);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.REJUVENATING_TIDES.id) {
-      return;
-    }
+  onHeal(event) {
 
     this.healing += event.amount + (event.absorbed || 0);
   }
 
-  on_toPlayer_energize(event) {
+  onEnergize(event) {
     const spellId = event.ability.guid;
     if (!DARKMOON_DECK_TIDES_CARDS.includes(spellId)) {
       return;

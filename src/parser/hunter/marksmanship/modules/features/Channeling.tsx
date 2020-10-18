@@ -1,18 +1,24 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
-import { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 const debug = false;
 
 class Channeling extends CoreChanneling {
 
-  on_byPlayer_cast(event: CastEvent) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_TALENT), this.onRemoveBuff);
+  }
+
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BARRAGE_TALENT.id) {
       this.beginChannel(event);
       return;
     }
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
   }
 
   cancelChannel(event: any, ability: any) {
@@ -25,10 +31,7 @@ class Channeling extends CoreChanneling {
     }
   }
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    if (event.ability.guid !== SPELLS.BARRAGE_TALENT.id) {
-      return;
-    }
+  onRemoveBuff(event: RemoveBuffEvent) {
     if (!this.isChannelingSpell(SPELLS.BARRAGE_TALENT.id)) {
       // This may be true if we did the event-order fix in begincast/cast and it was already ended there.
       return;

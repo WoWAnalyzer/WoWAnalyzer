@@ -13,7 +13,7 @@ class FocusTracker extends ResourceTracker {
   }
 
   //Because energize events associated with certain spells don't provide a waste number, but instead a lower resourceChange number we can calculate the waste ourselves.
-  on_toPlayer_energize(event: EnergizeEvent) {
+  onEnergize(event: EnergizeEvent) {
     if (event.resourceChangeType !== this.resource.id) {
       return;
     }

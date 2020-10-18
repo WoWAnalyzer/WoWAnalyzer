@@ -3,10 +3,11 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Abilities from 'parser/core/modules/Abilities';
+import Events from 'parser/core/Events';
 
 const ACTIVATION_COOLDOWN = 120; // seconds
 
@@ -41,13 +42,10 @@ class RotcrustedVoodooDoll extends Analyzer {
           },
         });
       }
+      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ROTCRUSTED_VOODOO_DOLL_TICK, SPELLS.ROTCRUSTED_VOODOO_DOLL_HIT]), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
-    if ((event.ability.guid !== SPELLS.ROTCRUSTED_VOODOO_DOLL_TICK.id) && (event.ability.guid !== SPELLS.ROTCRUSTED_VOODOO_DOLL_HIT.id)) {
-      return;
-    }
-
+  onDamage(event) {
     this.damage += event.amount + (event.absorbed || 0);
     this.ticks += 1;
   }

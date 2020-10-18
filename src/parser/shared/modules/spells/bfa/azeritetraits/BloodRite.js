@@ -3,9 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 
 const bloodRiteStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.BLOOD_RITE.id, rank);
@@ -42,21 +43,19 @@ class BloodRite extends Analyzer {
     this.statTracker.add(SPELLS.BLOOD_RITE_BUFF.id, {
       haste,
     });
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_RITE_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_RITE_BUFF), this.onRefreshBuff);
   }
 
-  on_byPlayer_applybuff(event) {
+  onApplyBuff(event) {
     this.handleBuff(event);
   }
 
-  on_byPlayer_refreshbuff(event) {
+  onRefreshBuff(event) {
     this.handleBuff(event);
   }
 
   handleBuff(event) {
-    if (event.ability.guid !== SPELLS.BLOOD_RITE_BUFF.id) {
-      return;
-    }
-
     this.bloodRiteProcs += 1;
   }
 
