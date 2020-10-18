@@ -44,8 +44,6 @@ import BoonOfTheAscended from './modules/shadowlands/covenants/BoonOfTheAscended
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 import ShadowCovenant from './modules/spells/ShadowCovenant';
 
-import MindGames from './modules/shadowlands/covenants/MindGames';
-
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -103,7 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     boonOfTheAscended: BoonOfTheAscended,
-    mindgames: MindGames,
+    mindgames: Mindgames,
   };
 }
 
