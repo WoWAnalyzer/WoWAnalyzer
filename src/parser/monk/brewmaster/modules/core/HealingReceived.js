@@ -1,7 +1,8 @@
 import React from 'react';
 import { formatThousands, formatNumber } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 class HealingReceived extends Analyzer {
   HealingReceivedExternal = 0;
@@ -10,9 +11,10 @@ class HealingReceived extends Analyzer {
     super(...args);
     // Disabling this module i don't think its right and it might add confusion.
     this.active = false;
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHeal);
   }
 
-  on_toPlayer_heal(event) {
+  onHeal(event) {
     if (event.sourceID === this.owner.playerId) {
       this.HealingReceivedSelf += event.amount;
     } else {
