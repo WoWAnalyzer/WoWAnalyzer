@@ -157,7 +157,7 @@ export default {
     icon: 'spell_shadow_mindtwisting',
   },
   SHADOW_COVENANT_TALENT: {
-    id: 204065,
+    id: 314867,
     name: 'Shadow Covenant',
     icon: 'spell_shadow_summonvoidwalker',
     manaCost: 2500,
