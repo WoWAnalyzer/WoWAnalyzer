@@ -7,8 +7,6 @@ import { CastEvent } from 'parser/core/Events';
 /** The amount of time during which it's impossible a second Penance could have started */
 const PENANCE_CHANNEL_TIME_BUFFER = 2500;
 
-const debug = false;
-
 class SpellManaCost extends CoreSpellManaCost {
   // static dependencies = {
   //   penance: Penance, // we need this to add `penanceBoltNumber` to the cast event

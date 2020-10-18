@@ -4,9 +4,8 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/EventSubscriber';
-import AtonementDamageSource from '../../features/AtonementDamageSource';
 
-const { SHADOW_COVENANT_BUFF, SHADOW_COVENANT } = SPELLS;
+import AtonementDamageSource from '../../features/AtonementDamageSource';
 
 type ShadowCovenantPasslist = Set<number>;
 
@@ -29,9 +28,9 @@ class ShadowCovenantOutput extends Analyzer {
   };
 
   public bonusDamage = 0;
-  private bonusAtonementHealing = 0;
-  private bonusShadowHealing = 0;
-  private abilityHealing = 0;
+  public bonusAtonementHealing = 0;
+  public bonusShadowHealing = 0;
+  public abilityHealing = 0;
 
   /**
    * The bonus damage and healing from Shadow Covenant
@@ -67,8 +66,9 @@ class ShadowCovenantOutput extends Analyzer {
 
   // Handles the bonus damage from the damage buff
   handleDamage(e: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SHADOW_COVENANT_BUFF.id)) return;
-    // Add filter for whitelisted spells here
+    if (!this.selectedCombatant.hasBuff(SPELLS.SHADOW_COVENANT_BUFF.id)) {
+      return;
+    }
 
     if (SHADOW_COVENANT_DAMAGE_PASSLIST.has(e.ability.guid)) {
       this.bonusDamage += calculateEffectiveDamage(e, ShadowCovenantOutput.bonus);
@@ -77,9 +77,13 @@ class ShadowCovenantOutput extends Analyzer {
 
   // Handles the bonus Atonement healing provided via the damage buff
   handleBonusAtonementHealing(e: HealEvent) {
-    if (!this.selectedCombatant.hasBuff(SHADOW_COVENANT_BUFF.id)) return;
     const damageSource = this.atonementDamageSource.event;
-    if (!damageSource) return;
+    if (!damageSource) {
+      return;
+    }
+    if (!this.selectedCombatant.hasBuff(SPELLS.SHADOW_COVENANT_BUFF.id)) {
+      return;
+    }
 
     if (SHADOW_COVENANT_DAMAGE_PASSLIST.has(damageSource.ability.guid)) {
       this.bonusAtonementHealing += calculateEffectiveHealing(e, ShadowCovenantOutput.bonus);
@@ -89,8 +93,12 @@ class ShadowCovenantOutput extends Analyzer {
 
   // Handles the bonus Shadow healing done via the healing buff
   handleBonusShadowHealing(e: HealEvent) {
-    if (!this.selectedCombatant.hasBuff(SHADOW_COVENANT_BUFF.id)) return;
-    if (!SHADOW_COVENANT_HEALING_PASSLIST.has(e.ability.guid)) return;
+    if (!this.selectedCombatant.hasBuff(SPELLS.SHADOW_COVENANT_BUFF.id)) {
+      return;
+    }
+    if (!SHADOW_COVENANT_HEALING_PASSLIST.has(e.ability.guid)) {
+      return;
+    }
 
     this.bonusShadowHealing += calculateEffectiveHealing(e, ShadowCovenantOutput.bonus);
     console.log(this.bonusShadowHealing, 'from shadow healing');
