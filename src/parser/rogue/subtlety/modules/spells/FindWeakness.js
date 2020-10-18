@@ -24,15 +24,8 @@ class FindWeakness extends Analyzer {
 
   constructor(options){
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VANISH), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VANISH), this.handleVanish);
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.FIND_WEAKNESS), this.onRefreshDebuff);
-  }
-
-  onCast(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.VANISH.id) {
-      this.handleVanish(event);
-    }
   }
 
   latestTs = 0;
