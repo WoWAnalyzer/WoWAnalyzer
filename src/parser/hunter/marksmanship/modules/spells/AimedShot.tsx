@@ -3,7 +3,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, EventType, RefreshBuffEvent, RemoveBuffEvent, Event } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Abilities from 'parser/core/modules/Abilities';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import DeadEye from 'parser/hunter/marksmanship/modules/talents/DeadEye';
 import { DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE, TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE } from 'parser/hunter/marksmanship/constants';
 

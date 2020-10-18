@@ -11,7 +11,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent, Event } from 'parser/core/Events';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import { AMOC_BASE_DURATION, AMOC_TICK_RATE, MS_BUFFER } from 'parser/hunter/shared/constants';
 
 /**

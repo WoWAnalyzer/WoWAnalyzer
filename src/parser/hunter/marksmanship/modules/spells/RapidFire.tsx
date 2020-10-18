@@ -3,7 +3,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, EventType, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Abilities from 'parser/core/modules/Abilities';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import { TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE } from 'parser/hunter/marksmanship/constants';
 
 /**
