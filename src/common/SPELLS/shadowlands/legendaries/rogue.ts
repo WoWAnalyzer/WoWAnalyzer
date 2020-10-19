@@ -108,6 +108,11 @@ const legendaries: SpellList<LegendarySpell> = {
     name: 'Essence of Bloodfang',
     icon: 'spell_shadow_lifedrain',
   },
+  ESSENCE_OF_BLOODFANG_BUFF: {
+    id: 340424,
+    name: 'Essence of Bloodfang',
+    icon: 'spell_shadow_lifedrain',
+  },
   INVIGORATING_SHADOWDUST: {
     id: 340080,
     bonusID: 7114,
