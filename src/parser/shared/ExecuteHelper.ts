@@ -3,12 +3,18 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { formatDuration } from 'common/format';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Spell from 'common/SPELLS/Spell';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
 
 const MS_BUFFER = 500;
 
 class ExecuteHelper extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+
+  protected spellUsable!: SpellUsable;
 
   //region IMPLEMENTME statics
   /**
@@ -131,14 +137,27 @@ class ExecuteHelper extends Analyzer {
   /**
    * Returns true if the combatant has one of the buffs that enable execute to be used outside of the regular execute windows
    */
-  isExecuteUsableOutsideExecuteRange() {
-    let usable = false;
+  get isExecuteUsableOutsideExecuteRange() {
+    let usable: boolean = false;
     this.executeOutsideRangeEnablers.forEach(spell => {
       if (this.selectedCombatant.hasBuff(spell.id)) {
         usable = true;
       }
     });
     return usable;
+  }
+
+  /**
+   * If all execute spells are on cooldown, then we should count the entire period of cooldown as "inside execute" to properly calculate maxCasts
+   */
+  get areExecuteSpellsOnCD() {
+    let allOnCD: boolean = true;
+    this.executeSpells.forEach(spell => {
+      if (!this.spellUsable.isOnCooldown(spell.id)) {
+        allOnCD = false;
+      }
+    });
+    return allOnCD;
   }
 
   //endregion
@@ -215,7 +234,7 @@ class ExecuteHelper extends Analyzer {
     if (event.targetIsFriendly) {
       return;
     }
-    if (this.isExecuteUsableOutsideExecuteRange() || this.isTargetInHealthExecuteWindow(event)) {
+    if (this.areExecuteSpellsOnCD || this.isExecuteUsableOutsideExecuteRange || this.isTargetInHealthExecuteWindow(event)) {
       this.lastExecuteHitTimestamp = event.timestamp;
       if (!this.inExecuteWindow) {
         this.inExecuteWindow = true;
