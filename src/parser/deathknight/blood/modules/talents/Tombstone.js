@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -9,6 +9,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { TooltipElement } from 'common/Tooltip';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 const RPPERCHARGE = 6;
 const MAXCHARGES = 5;
@@ -28,39 +29,31 @@ class Tombstone extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT), this.onApplyBuff);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT), this.onEnergize);
+    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT), this.onAbsorb);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT), this.onRemoveBuff);
   }
 
   get wastedCasts() {
     return this.tombstone.filter(e => e.charges < MAXCHARGES).length;
   }
 
-  on_toPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.TOMBSTONE_TALENT.id) {
-      return;
-    }
+  onApplyBuff(event) {
     this.casts += 1;
     this.absorbSize = event.absorb;
   }
 
-  on_toPlayer_energize(event) {
-    if (event.ability.guid !== SPELLS.TOMBSTONE_TALENT.id) {
-      return;
-    }
+  onEnergize(event) {
     this.rpGained = event.resourceChange;
     this.rpWasted = event.waste;
   }
 
-  on_toPlayer_absorbed(event) {
-    if (event.ability.guid !== SPELLS.TOMBSTONE_TALENT.id) {
-      return;
-    }
+  onAbsorb(event) {
     this.totalAbsorbed += event.amount;
   }
 
-  on_toPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.TOMBSTONE_TALENT.id) {
-      return;
-    }
+  onRemoveBuff(event) {
     this.tombstone.push({
       rpGained: this.rpGained,
       rpWasted: this.rpWasted,

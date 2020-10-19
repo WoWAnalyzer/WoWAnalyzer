@@ -1,4 +1,11 @@
-export default {
+export type Language = {
+  englishName: string;
+  localName: string;
+  region: string | null;
+  locale: string;
+}
+
+const LANGUAGES: { [code: string]: Language } = {
   'en': {
     englishName: 'English',
     localName: 'English',
@@ -60,3 +67,4 @@ export default {
     locale: 'zh_CN',
   },
 };
+export default LANGUAGES;

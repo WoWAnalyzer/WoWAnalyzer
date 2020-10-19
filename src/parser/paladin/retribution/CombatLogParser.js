@@ -17,7 +17,7 @@ import CrusaderStrike from './modules/core/CrusaderStrike';
 import Crusade from './modules/talents/Crusade';
 import WakeofAshes from './modules/core/WakeofAshes';
 import Consecration from './modules/talents/Consecration';
-import HammerofWrath from '../shared/spells/HammerOfWrath';
+import HammerofWrathRetribution from './modules/core/HammerofWrath';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
 
@@ -46,7 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     crusade: Crusade,
     wakeofAshes: WakeofAshes,
     consecration: Consecration,
-    hammerofWrath: HammerofWrath,
+    hammerofWrathRetribution: HammerofWrathRetribution,
     righteousVerdict: RighteousVerdict,
     executionSentence: ExecutionSentence,
 

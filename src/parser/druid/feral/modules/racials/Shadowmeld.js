@@ -5,10 +5,11 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import RACES from 'game/RACES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 const BUFF_WINDOW_TIME = 60;
 
@@ -29,19 +30,18 @@ class Shadowmeld extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.race === RACES.NightElf;
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAKE), this.onRake);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOWMELD), this.onShadowmeld);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.RAKE.id &&
-      this.selectedCombatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME)) {
+  onRake(event){
+    if (this.selectedCombatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME)) {
       // using Rake when Shadowmeld is active means Shadowmeld was used correctly
       this.correctUses += 1;
-      return;
     }
+  }
 
-    if (event.ability.guid !== SPELLS.SHADOWMELD.id) {
-      return;
-    }
+  onShadowmeld(event){
     this.totalUses += 1;
 
     if (this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
@@ -51,7 +51,7 @@ class Shadowmeld extends Analyzer {
       this.wastedDuringStealth += 1;
     }
   }
-
+  
   get possibleUses() {
     const cooldown = this.abilities.getAbility(SPELLS.SHADOWMELD.id).cooldown * 1000;
     return Math.floor(this.owner.fightDuration / cooldown) + 1;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
@@ -8,6 +8,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 
@@ -18,12 +19,11 @@ class Bonestorm extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BONESTORM_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BONESTORM_TALENT), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BONESTORM_HIT), this.onDamage);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.BONESTORM_TALENT.id) {
-      return;
-    }
+  onCast(event) {
     const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER.id);
     if (!resource) {
       return;
@@ -35,11 +35,7 @@ class Bonestorm extends Analyzer {
     });
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.BONESTORM_HIT.id) {
-      return;
-    }
-
+  onDamage(event) {
     if (this.bsCasts.length === 0) {
       // to account for prepull-cheese, assuming 100RP because I dont know how much RP was spend prepull
       this.bsCasts.push({

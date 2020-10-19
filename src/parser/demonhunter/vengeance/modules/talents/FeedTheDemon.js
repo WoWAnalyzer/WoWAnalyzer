@@ -1,11 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Events from 'parser/core/Events';
 
 const COOLDOWN_REDUCTION_MS = 500;
 
@@ -24,16 +25,10 @@ class FeedTheDemon extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH), this.onHeal);
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CONSUME_SOUL_VDH.id) {
-      return;
-    }
-    if (!this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id)){
-      return;
-    }
+  onHeal(event) {
     if (!this.spellUsable.isOnCooldown(SPELLS.DEMON_SPIKES.id)){
       this.totalCooldownReductionWasted += COOLDOWN_REDUCTION_MS;
     } else {

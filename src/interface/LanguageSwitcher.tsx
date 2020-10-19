@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { t } from '@lingui/macro';
 
@@ -10,17 +9,21 @@ import languages from 'common/languages';
 import { i18n } from 'interface/RootLocalizationProvider';
 import { TooltipElement } from 'common/Tooltip';
 
-class LanguageSwitcher extends React.PureComponent {
-  static propTypes = {
-    language: PropTypes.string.isRequired,
-    setLanguage: PropTypes.func.isRequired,
-  };
-  state = {
+type Props = {
+  language: string;
+  setLanguage: Function;
+}
+type State = {
+  expanded: boolean;
+}
+
+class LanguageSwitcher extends React.PureComponent<Props, State> {
+  state: State = {
     expanded: false,
   };
 
-  constructor() {
-    super();
+  constructor(props: Props) {
+    super(props);
     this.handleClickExpand = this.handleClickExpand.bind(this);
   }
 
@@ -30,7 +33,7 @@ class LanguageSwitcher extends React.PureComponent {
     });
   }
 
-  selectLanguage(code) {
+  selectLanguage(code: string) {
     this.setState({
       expanded: false,
     });
@@ -64,7 +67,7 @@ class LanguageSwitcher extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   language: getLanguage(state),
 });
 export default connect(mapStateToProps, {
