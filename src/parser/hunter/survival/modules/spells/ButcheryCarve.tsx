@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -35,7 +36,7 @@ class ButcheryCarve extends Analyzer {
   wastedReductionMs: number = 0;
   targetsHit: number = 0;
   casts: number = 0;
-  spellKnown: any = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+  spellKnown: Spell = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
   damage: number = 0;
   bombSpellKnown: number = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id) ? SPELLS.WILDFIRE_INFUSION_TALENT.id : SPELLS.WILDFIRE_BOMB.id;
 

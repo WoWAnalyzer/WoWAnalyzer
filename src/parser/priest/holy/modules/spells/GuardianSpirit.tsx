@@ -54,7 +54,7 @@ class GuardianSpirit extends Analyzer {
           // we need to do some "approximations" using the total overheal in tandem with the total healing. We do not want to naively
           // assume all healing was fully effective, as this would drastically overweight the power of the buff in situations where a
           // lot of overhealing occurs.
-          (healingFromBuff: any, entry: WCLHealing) => healingFromBuff + ((entry.total - entry.total / (1 + GUARDIAN_SPIRIT_HEALING_INCREASE)) * (entry.total / (entry.total + (entry.overheal || 0)))),
+          (healingFromBuff, entry: WCLHealing) => healingFromBuff + ((entry.total - entry.total / (1 + GUARDIAN_SPIRIT_HEALING_INCREASE)) * (entry.total / (entry.total + (entry.overheal || 0)))),
           0,
         );
       });

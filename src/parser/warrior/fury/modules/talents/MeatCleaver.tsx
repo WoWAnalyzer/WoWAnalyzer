@@ -12,9 +12,17 @@ const RAGE_GAIN_WW_ON_USE = 3;
 const RAGE_GAIN_WW_ON_HIT = 1;
 const WW_ON_HIT_RAGE_CAP = 5;
 
+type WhirlwindInfo = {
+  resourceChange: number,
+  triggeredEnrage: boolean,
+  targetsHit: number,
+  isFirstRoundOfDamage: boolean,
+  hasRecklessness: boolean,
+}
+
 // Example log: https://www.warcraftlogs.com/reports/6xwyNCLRkrtahfWg#fight=24&type=damage-done
 class MeatCleaver extends Analyzer {
-  whirlwindEvents: any = [];
+  whirlwindEvents: WhirlwindInfo[] = [];
   lastWhirlwindCast: number = 0;
 
   constructor(options: Options) {
@@ -59,11 +67,11 @@ class MeatCleaver extends Analyzer {
   }
 
   get numberOfEnrageTriggers() {
-    return this.whirlwindEvents.filter((e: any) => e.triggeredEnrage).length;
+    return this.whirlwindEvents.filter((e) => e.triggeredEnrage).length;
   }
 
   get rageGainedByMeatCleaver() {
-    return this.whirlwindEvents.reduce((total: number, event: any) => {
+    return this.whirlwindEvents.reduce((total: number, event) => {
       const rageGained = event.resourceChange;
       // WW generates 3 rage on cast (6 during recklessness). Subtract this to get rage gained from hitting targets
       const rageFromHit = rageGained - (event.hasRecklessness ? RAGE_GAIN_WW_ON_USE * 2 : RAGE_GAIN_WW_ON_USE);

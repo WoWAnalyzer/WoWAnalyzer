@@ -3,7 +3,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
@@ -11,6 +11,7 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import Events from 'parser/core/Events';
 
 const REGROWTH_HEALING_INCREASE = 2;
 const REJUVENATION_HEALING_INCREASE = 2;
@@ -40,9 +41,12 @@ class SoulOfTheForest extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
-  on_byPlayer_applybuff(event) {
+  onApplyBuff(event) {
     const spellId = event.ability.guid;
 
     if (SPELLS.SOUL_OF_THE_FOREST_BUFF.id === spellId) {
@@ -58,7 +62,7 @@ class SoulOfTheForest extends Analyzer {
     }
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
 
     // proccConsumsed it used because WG and RG has a cast time. So whenever you queue cast WG + rejuv they will happen at the exact same timestamp.
@@ -78,7 +82,7 @@ class SoulOfTheForest extends Analyzer {
     }
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     const spellId = event.ability.guid;
 
     // Reset procc variables
