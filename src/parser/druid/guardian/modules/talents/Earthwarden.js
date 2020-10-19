@@ -35,7 +35,7 @@ class Earthwarden extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.lv90Talent === SPELLS.EARTHWARDEN_TALENT.id;
+    this.active = this.selectedCombatant.lv45Talent === SPELLS.EARTHWARDEN_TALENT.id;
     this.addEventListener(Events.damage.to(SELECTED_PLAYER).spell(ABILITIES_THAT_CONSUME_EW), this.onDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTHWARDEN_BUFF), this.onAbsorbed);
   }
