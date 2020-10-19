@@ -9,7 +9,6 @@ import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -30,10 +29,8 @@ import { t } from '@lingui/macro';
 class ShadowWordPain extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    abilityTracker: AbilityTracker,
   };
   protected enemies!: Enemies;
-  protected abilityTracker!: AbilityTracker;
 
   lastCastTimestamp = 0;
   castedShadowWordPains = 0;
@@ -42,11 +39,6 @@ class ShadowWordPain extends Analyzer {
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.owner.fightDuration;
-  }
-
-  get damage() {
-    const spell = this.abilityTracker.getAbility(SPELLS.SHADOW_WORD_PAIN.id);
-    return spell.damageEffective + spell.damageAbsorbed;
   }
 
   get suggestionThresholds() {
