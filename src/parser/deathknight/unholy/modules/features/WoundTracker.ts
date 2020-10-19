@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffStackEvent, RemoveDebuffStackEvent, RemoveDebuffEvent, ApplyDebuffEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 class WoundTracker extends Analyzer {  
   private _targets: { [key: string]: number; } = {};
@@ -14,26 +15,14 @@ class WoundTracker extends Analyzer {
   constructor(options: Options) {
     super(options);
     
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onFirstWoundApply);
-    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onWoundApply);
-    this.addEventListener(Events.removedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onWoundRemove);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onAllWoundRemove);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onFesteringWoundChange);
+    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onFesteringWoundChange);
+    this.addEventListener(Events.removedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onFesteringWoundChange);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND), this.onFesteringWoundChange);
   }
 
-  onFirstWoundApply(event: ApplyDebuffEvent) {
-    this.targets[encodeTargetString(event.targetID, event.targetInstance)] = 1;
-  }
-
-  onWoundApply(event: ApplyDebuffStackEvent) {
-    this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
-  }
-
-  onWoundRemove(event: RemoveDebuffStackEvent) {
-    this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
-  }
-
-  onAllWoundRemove(event: RemoveDebuffEvent) {
-    this.targets[encodeTargetString(event.targetID, event.targetInstance)] = 0;
+  onFesteringWoundChange(event: ApplyDebuffEvent | ApplyDebuffStackEvent | RemoveDebuffStackEvent | RemoveDebuffEvent) {
+    this.targets[encodeTargetString(event.targetID, event.targetInstance)] = currentStacks(event);
   }
   
 }

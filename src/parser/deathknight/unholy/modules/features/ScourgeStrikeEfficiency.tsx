@@ -4,6 +4,7 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
@@ -18,6 +19,7 @@ import BoringValue from 'interface/statistics/components/BoringValueText';
 import Statistic from 'interface/statistics/Statistic';
 
 import WoundTracker from './WoundTracker';
+
 
 
 class ScourgeStrikeEfficiency extends Analyzer {
