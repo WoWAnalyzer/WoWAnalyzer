@@ -190,8 +190,8 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
 
     document.body.classList.toggle('no-scroll');
   }
-  // eslint-disable-next-line react/no-deprecated
-  componentWillReceiveProps(nextProps: ContributorProps) {
+
+  componentDidUpdate(nextProps: ContributorProps) {
     if (this.props.ownPage) {
       return;
     }
@@ -264,7 +264,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
 
             <div className="col-md-7">
               <Panel
-                title="Contributions"
+                title="Contributions this expansion"
                 pad={false}
               >
                 <ul className="list">
@@ -275,7 +275,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
                       header={(
                         <div className="flex">
                           <div className="flex-main name">
-                            {this.contributionHeader(type)} ({contributions[type].length} commits)
+                            {this.contributionHeader(type)} ({contributions[type].length} {contributions[type].length === 1 ?  'change' : 'changes'})
                           </div>
                           <div className="flex-sub chevron">
                             <DropdownIcon />
