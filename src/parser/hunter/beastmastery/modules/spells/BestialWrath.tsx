@@ -1,6 +1,6 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -108,13 +108,13 @@ class BestialWrath extends Analyzer {
 
   suggestions(when: When) {
     when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {formatNumber(this.averageFocusAtBestialWrathCast)} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</>)
-        .icon(SPELLS.BESTIAL_WRATH.icon)
-        .actual(i18n._(t('hunter.beastmastery.suggestions.bestialWrath.focusPool.efficiency')`Average of ${formatNumber(this.averageFocusAtBestialWrathCast)} focus at start of Bestial Wrath`))
-        .recommended(`>${recommended} focus is recommended`));
+      .icon(SPELLS.BESTIAL_WRATH.icon)
+      .actual(i18n._(t('hunter.beastmastery.suggestions.bestialWrath.focusPool.efficiency')`Average of ${formatNumber(this.averageFocusAtBestialWrathCast)} focus at start of Bestial Wrath`))
+      .recommended(`>${recommended} focus is recommended`));
     when(this.cdrEfficiencyBestialWrathThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>A crucial part of <SpellLink id={SPELLS.BARBED_SHOT.id} /> is the cooldown reduction of <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> it provides. Therefore it's important to be casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> as often as possible to ensure you'll be wasting as little potential cooldown reduction as possible.</>)
-        .icon(SPELLS.BESTIAL_WRATH.icon)
-        .actual(i18n._(t('hunter.beastmastery.suggestions.bestialWrath.cooldown.efficiency')`You had ${formatPercentage(actual)}% effective cooldown reduction of Bestial Wrath`))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.BESTIAL_WRATH.icon)
+      .actual(i18n._(t('hunter.beastmastery.suggestions.bestialWrath.cooldown.efficiency')`You had ${formatPercentage(actual)}% effective cooldown reduction of Bestial Wrath`))
+      .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

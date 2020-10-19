@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -114,13 +114,13 @@ class BarbedShot extends Analyzer {
 
   suggestions(when: When) {
     when(this.frenzyUptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell, if you've chosen this talent, it's your most important spell to continously be casting. </>)
-        .icon(SPELLS.BARBED_SHOT.icon)
-        .actual(i18n._(t('hunter.beastmastery.suggestions.barbedShot.petBuff.uptime')`Your pet had the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.BARBED_SHOT.icon)
+      .actual(i18n._(t('hunter.beastmastery.suggestions.barbedShot.petBuff.uptime')`Your pet had the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`))
+      .recommended(`${formatPercentage(recommended)}% is recommended`));
     when(this.frenzy3StackThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </>)
-        .icon(SPELLS.BARBED_SHOT.icon)
-        .actual(i18n._(t('hunter.beastmastery.suggestions.barbedShot.threeStacks.uptime')`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.BARBED_SHOT.icon)
+      .actual(i18n._(t('hunter.beastmastery.suggestions.barbedShot.threeStacks.uptime')`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`))
+      .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
