@@ -38,7 +38,7 @@ class Clearcasting extends Analyzer {
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF), this.onRefreshBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF), this.onRemoveBuff);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onHeal);
   }
 
   onApplyBuff(event) {
