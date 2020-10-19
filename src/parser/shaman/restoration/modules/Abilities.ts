@@ -82,7 +82,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.lv100Talent === SPELLS.WELLSPRING_TALENT.id,
+        enabled: combatant.lv50Talent === SPELLS.WELLSPRING_TALENT.id,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.30,
@@ -158,7 +158,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
+        enabled: combatant.lv50Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.2,

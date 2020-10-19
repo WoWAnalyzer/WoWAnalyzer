@@ -24,7 +24,7 @@ class BeaconTargets extends Analyzer {
     return this.currentBeaconTargets.length;
   }
   get numMaxBeacons() {
-    return NUM_BEACONS[this.selectedCombatant.lv100Talent];
+    return NUM_BEACONS[this.selectedCombatant.lv50Talent];
   }
 
   constructor(options){
