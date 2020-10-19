@@ -23,7 +23,7 @@ export interface PriestSpell extends Spell {
 
 export interface ShamanSpell extends Spell {
   maelstrom?: number;
-  max_maelstrom?: number;
+  maxMaelstrom?: number;
   coefficient?: number;
   color?: string;
   castTime?: number;

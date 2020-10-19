@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 19), 'Enabled additional code quality rule.', Zeboot),
   change(date(2020, 10, 18), 'Updated talent row levels.', Abelito75),
   change(date(2020, 10, 18), 'Added drain event', Zeboot),
   change(date(2020, 10, 18), 'Converted components in interface/common to functional components in TypeScript.', Barter),

@@ -28,7 +28,7 @@ const spells: SpellList<ShamanSpell> = {
     icon: 'spell_nature_strengthofearthtotem02',
     manaCost: 50,
   },
-  RESONANCE_TOTEM: {
+  RESONANCE_TOTEM_HASTE: {
     id: 262417,
     name: 'Resonance Totem',
     icon: 'spell_nature_stoneskintotem',
@@ -173,7 +173,7 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Elemental Overload',
     icon: 'spell_nature_lightningoverload',
   },
-  Resonance_Totem: {
+  RESONANCE_TOTEM_FULMINATION: {
     id: 202192,
     name: 'Resonance Totem',
     icon: 'spell_nature_stoneskintotem',
@@ -343,7 +343,7 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
     manaCost: 30,
-    max_maelstrom: 20,
+    maxMaelstrom: 20,
   },
   FROST_SHOCK_ENERGIZE: {
     icon: "spell_frost_frostshock",

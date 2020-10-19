@@ -61,7 +61,7 @@ export default {
   },
 
   //Queens Court
-  Deferred_Sentence: { //Deferred Sentence
+  DEFERRED_SENTENCE: { //Deferred Sentence
     id: 302674,
     name: "Deferred Sentence",
     icon: "inv_misc_scrollunrolled03d",

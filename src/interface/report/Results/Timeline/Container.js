@@ -25,7 +25,10 @@ const Container = props => {
 Container.propTypes = {
   parser: PropTypes.shape({
     fight: PropTypes.shape({
+      // replace with actual fight interface when converting to TS
+      // eslint-disable-next-line @typescript-eslint/camelcase
       start_time: PropTypes.number.isRequired,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       end_time: PropTypes.number.isRequired,
     }),
     getModule: PropTypes.func.isRequired,

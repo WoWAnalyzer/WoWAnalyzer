@@ -60,7 +60,10 @@ class PlayerLoader extends React.PureComponent {
     }).isRequired,
     fight: PropTypes.shape({
       id: PropTypes.number.isRequired,
+      // replace with actual fight interface when converting to TS
+      // eslint-disable-next-line @typescript-eslint/camelcase
       start_time: PropTypes.number.isRequired,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       end_time: PropTypes.number.isRequired,
     }).isRequired,
     setCombatants: PropTypes.func.isRequired,
