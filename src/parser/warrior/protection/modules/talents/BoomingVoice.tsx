@@ -2,19 +2,22 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber } from 'common/format';
 import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 
+import Statistic from 'interface/statistics/Statistic';
+import BoringValueText from 'interface/statistics/components/BoringValueText'
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import SpellLink from 'common/SpellLink';
+
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-const BOOMING_VOICE_DAMAGE_INCREASE = 0.15;
+const BOOMING_VOICE_DAMAGE_INCREASE = 0.2;
 const BOOMING_VOICE_RAGE_GENERATION = 40;
 
 class BoomingVoice extends Analyzer {
@@ -88,17 +91,23 @@ class BoomingVoice extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.BOOMING_VOICE_TALENT.id} />}
-        value={`${this.rageGenerated}`}
-        label="Rage generated"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             {formatNumber(this.bonusDmg)} damage contributed<br />
             {this.rageWasted} Rage wasted
           </>
         )}
-      />
+      >
+      <BoringValueText label={<><SpellLink id={SPELLS.BOOMING_VOICE_TALENT.id} /> Rage generated</>}>
+          <>
+            {this.rageGenerated} <small>rage</small>
+          </>
+        </BoringValueText>
+      </Statistic>
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

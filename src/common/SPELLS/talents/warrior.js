@@ -9,22 +9,28 @@ export default {
   DRAGON_ROAR_TALENT: { id: 118000, name: 'Dragon Roar', icon: 'ability_warrior_dragonroar' },
   ANGER_MANAGEMENT_TALENT: { id: 152278, name: 'Anger Management', icon: 'warrior_talent_icon_angermanagement' },
   // Protection
-  INTO_THE_FRAY_TALENT: { id: 202603, name: 'Into the Fray', icon: 'ability_warrior_bloodfrenzy' },
+  //15
+  WAR_MACHINE_PROTECTION_TALENT: { id: 316733, name: 'War Machine', icon: 'ability_hunter_rapidkilling' },
   PUNISH_TALENT: { id: 275334, name: 'Punish', icon: 'ability_deathknight_sanguinfortitude' },
-  CRACKLING_THUNDER_TALENT: { id: 203201, name: 'Crackling Thunder', icon: 'ability_thunderking_overcharge' },
-  SAFEGUARD_TALENT: { id: 223657, name: 'Safeguard', icon: 'ability_warrior_safeguard' },
-  BEST_SERVED_COLD_TALENT: { id: 202560, name: 'Best Served Cold', icon: 'ability_warrior_revenge' },
-  UNSTOPPABLE_FORCE_TALENT: { id: 275336, name: 'Unstoppable Force', icon: 'warrior_talent_icon_thunderstruck' },
-  INDOMITABLE_TALENT: { id: 202095, name: 'Indomitable', icon: 'ability_warrior_intensifyrage' },
-  NEVER_SURRENDER_TALENT: { id: 202561, name: 'Never Surrender', icon: 'ability_butcher_gushingwounds' },
-  BOLSTER_TALENT: { id: 280001, name: 'Bolster', icon: 'shield_draenorcrafted_d_02_c_alliance' },
-  MENACE_TALENT: { id: 275338, name: 'Menace', icon: 'ability_golemthunderclap' },
-  RUMBLING_EARTH_TALENT: { id: 275339, name: 'Rumbling Earth', icon: 'spell_shaman_earthquake' },
-  BOOMING_VOICE_TALENT: { id: 202743, name: 'Booming Voice', icon: 'ability_warrior_commandingshout' },
-  VENGEANCE_TALENT: { id: 202572, name: 'Vengeance', icon: 'ability_warrior_unrelentingassault' },
   DEVASTATOR_TALENT: { id: 236279, name: 'Devastator', icon: 'inv_sword_11' },
-  HEAVY_REPERCUSSIONS_TALENT: { id: 203177, name: 'Heavy Repercussions', icon: 'inv_shield_32' },
+  //25 (double time)(storm bolt)
+  RUMBLING_EARTH_TALENT: { id: 275339, name: 'Rumbling Earth', icon: 'spell_shaman_earthquake' },
+  //30 (dragon roar)
+  BEST_SERVED_COLD_TALENT: { id: 202560, name: 'Best Served Cold', icon: 'ability_warrior_revenge' },
+  BOOMING_VOICE_TALENT: { id: 202743, name: 'Booming Voice', icon: 'ability_warrior_commandingshout' },
+  //35 (Bounding Stride)
+  CRACKLING_THUNDER_TALENT: { id: 203201, name: 'Crackling Thunder', icon: 'ability_thunderking_overcharge' },
+  MENACE_TALENT: { id: 275338, name: 'Menace', icon: 'ability_golemthunderclap' },
+  //40 (impending victory)
+  NEVER_SURRENDER_TALENT: { id: 202561, name: 'Never Surrender', icon: 'ability_butcher_gushingwounds' },
+  INDOMITABLE_TALENT: { id: 202095, name: 'Indomitable', icon: 'ability_warrior_intensifyrage' },
+  //45
+  INTO_THE_FRAY_TALENT: { id: 202603, name: 'Into the Fray', icon: 'ability_warrior_bloodfrenzy' },
+  UNSTOPPABLE_FORCE_TALENT: { id: 275336, name: 'Unstoppable Force', icon: 'warrior_talent_icon_thunderstruck' },
   RAVAGER_TALENT_PROTECTION: { id: 228920, name: 'Ravager', icon: 'warrior_talent_icon_ravager' },
+  //50 (Anger Management)
+  HEAVY_REPERCUSSIONS_TALENT: { id: 203177, name: 'Heavy Repercussions', icon: 'inv_shield_32' },
+  BOLSTER_TALENT: { id: 280001, name: 'Bolster', icon: 'shield_draenorcrafted_d_02_c_alliance' },
   // Fury
   ENDLESS_RAGE_TALENT: { id: 202296, name: 'Endless Rage', icon: 'ability_warrior_endlessrage' },
   FRESH_MEAT_TALENT: { id: 215568, name: 'Fresh Meat', icon: 'ability_deathwing_bloodcorruption_death' },
