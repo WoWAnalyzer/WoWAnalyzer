@@ -98,9 +98,9 @@ class ApplyBuff extends EventsNormalizer {
           type: EventType.ApplyBuff,
           ability: event.ability,
           sourceID: sourceId,
-          sourceIsFriendly: (event as any).sourceIsFriendly,
+          sourceIsFriendly: event.sourceIsFriendly,
           targetID: targetId,
-          targetIsFriendly: (event as any).targetIsFriendly,
+          targetIsFriendly: event.targetIsFriendly,
           // Custom properties:
           prepull: true,
           __fabricated: true,

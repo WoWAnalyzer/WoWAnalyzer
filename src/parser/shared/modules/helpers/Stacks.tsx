@@ -1,10 +1,10 @@
-import { EventType } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 
 /**
  * Returns the current stacks on a given event
  * @param event
  */
-export function currentStacks(event: any) {
+export function currentStacks(event: AnyEvent) {
   switch (event.type) {
     case EventType.RemoveBuff:
     case EventType.RemoveDebuff:
