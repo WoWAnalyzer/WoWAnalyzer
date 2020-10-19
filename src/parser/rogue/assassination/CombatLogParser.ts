@@ -49,6 +49,7 @@ import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
 // Legendaries
 import DashingScoundrel from './modules/spells/shadowlands/legendaries/DashingScoundrel';
 import DuskwalkersPatch from './modules/spells/shadowlands/legendaries/DuskwalkersPatch';
+import EssenceOfBloodfang from '../shared/shadowlands/legendaries/EssenceOfBloodfang';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -105,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries
     dashingScoundrel: DashingScoundrel,
     duskwalkersPatch: DuskwalkersPatch,
+    essenceOfBloodfang: EssenceOfBloodfang,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

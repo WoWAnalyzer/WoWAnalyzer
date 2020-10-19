@@ -14,7 +14,7 @@ const Talents = (
     talents,
   },
 ) => {
-  const rows = [15, 30, 45, 60, 75, 90, 100];
+  const rows = [15, 25, 30, 35, 40, 45, 50];
 
   return (
     <>

@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import Statistic from 'interface/statistics/Statistic';
@@ -18,7 +18,7 @@ class ColdFront extends Analyzer {
 
   bonusFrozenOrbs = 0;
 
-  constructor(props: any) {
+  constructor(props: Options) {
     super(props);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.COLD_FRONT.bonusID);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF), this.onBuffApplied);

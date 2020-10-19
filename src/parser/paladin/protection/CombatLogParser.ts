@@ -17,6 +17,7 @@ import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import GrandCrusader from './modules/core/GrandCrusader';
 import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
 import NoDamageShieldOfTheRighteous from './modules/features/NoDamageShieldOfTheRighteous';
+import WordOfGlory from './modules/spells/WordOfGlory';
 
 //Talents
 import Seraphim from './modules/talents/Seraphim';
@@ -34,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     lightOfTheProtector: LightOfTheProtector,
     hotr: HammerOfTheRighteous,
+    wordOfGlory: WordOfGlory,
 
     // Features
     abilities: Abilities,

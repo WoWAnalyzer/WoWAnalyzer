@@ -37,8 +37,8 @@ import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
 
 import AkaarisSoulFragment from './modules/spells/shadowlands/legendaries/AkaarisSoulFragment';
 import TheRotten from './modules/spells/shadowlands/legendaries/TheRotten';
-
 import DeeperDaggers from '../shared/shadowlands/conduits/DeeperDaggers';
+import EssenceOfBloodfang from '../shared/shadowlands/legendaries/EssenceOfBloodfang';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -88,7 +88,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries
     akaarisSoulFragment: AkaarisSoulFragment,
     theRotten: TheRotten,
-
+    essenceOfBloodfang: EssenceOfBloodfang,
+    
     // Conduits
     deeperDaggers: DeeperDaggers,
 

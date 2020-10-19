@@ -7,10 +7,11 @@ import SpellIcon from 'common/SpellIcon';
 
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import HotTracker from 'parser/druid/restoration/modules/core/hottracking/HotTracker';
 import Combatants from 'parser/shared/modules/Combatants';
+import Events from 'parser/core/Events';
 
 const STONEBARK_HOT_INCREASE = 0.2;
 const BUFFER_MS = 200;
@@ -26,10 +27,11 @@ class Stonebark extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STONEBARK_TALENT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     const spellId = event.ability.guid;
 
     const combatant = this.combatants.players[event.targetID];

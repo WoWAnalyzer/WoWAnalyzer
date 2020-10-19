@@ -1,9 +1,11 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatThousands } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+
+import Events from 'parser/core/Events';
 
 import StatWeights from '../../features/StatWeights';
 
@@ -56,9 +58,12 @@ class LivelySpirit extends Analyzer {
       this.intGainPerSpell = this.selectedCombatant.traitsBySpellId[SPELLS.LIVELY_SPIRIT_TRAIT.id]
         .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.LIVELY_SPIRIT_TRAIT.id, rank)[0], 0);
     }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.LIVELY_SPIRIT_BUFF), this.onRemoveBuff);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.LIVELY_SPIRIT_MANA_RETURN), this.onEnergize);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
 
     if (SPELLS.INNERVATE.id === spellId && event.sourceId === event.targetId) {
@@ -73,21 +78,13 @@ class LivelySpirit extends Analyzer {
     }
   }
 
-  on_toPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.LIVELY_SPIRIT_BUFF.id === spellId) {
-      this.livelySpirits.push(this.intGainPerSpell * this.castsDuringInnervate);
-      this.castsDuringInnervate = 1;
-      this.innervateTimestamp = 0;
-    }
+  onRemoveBuff(event) {
+    this.livelySpirits.push(this.intGainPerSpell * this.castsDuringInnervate);
+    this.castsDuringInnervate = 1;
+    this.innervateTimestamp = 0;
   }
 
-  on_toPlayer_energize(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.LIVELY_SPIRIT_MANA_RETURN.id) {
-      return;
-    }
+  onEnergize(event) {
     this.manaGained += event.resourceChange;
   }
 

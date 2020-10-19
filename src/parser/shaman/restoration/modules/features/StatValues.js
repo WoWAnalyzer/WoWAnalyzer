@@ -28,8 +28,8 @@ class StatValues extends BaseHealerStatValues {
 
   spellInfo = SPELL_INFO;
   qeLive = true;
-  
-  constructor(options){
+
+  constructor(options) {
     super(options);
     this.addEventListener(Events.feedheal, this.onFeedHeal);
   }
@@ -45,8 +45,7 @@ class StatValues extends BaseHealerStatValues {
     const spellId = event.ability.guid;
     const critChanceBreakdown = super._getCritChance(event);
 
-    const hasTidalWaves = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, BUFFER_MS, BUFFER_MS);
-
+    const hasTidalWaves = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, 0, BUFFER_MS);
     if (spellId === SPELLS.HEALING_SURGE_RESTORATION.id && hasTidalWaves) {
       critChanceBreakdown.baseCritChance += 0.4;
     }
@@ -58,7 +57,7 @@ class StatValues extends BaseHealerStatValues {
     if (healVal.overheal) {
       return 0;
     }
-    if(event.ability.guid === SPELLS.RIPTIDE.id && !event.tick) {
+    if (event.ability.guid === SPELLS.RIPTIDE.id && !event.tick) {
       return 0;
     }
     return super._hasteHpm(event, healVal);
