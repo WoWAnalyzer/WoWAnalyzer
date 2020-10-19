@@ -40,6 +40,7 @@ import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
 import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
 
 import AkaarisSoulFragment from './modules/spells/shadowlands/legendaries/AkaarisSoulFragment';
+import EssenceOfBloodfang from '../shared/shadowlands/legendaries/EssenceOfBloodfang';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
@@ -91,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries
     akaarisSoulFragment: AkaarisSoulFragment,
+    essenceOfBloodfang: EssenceOfBloodfang,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
