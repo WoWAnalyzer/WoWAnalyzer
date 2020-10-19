@@ -4569,6 +4569,40 @@ exports[`Mistweaver Monk integration test: example log EnvelopingMists matches t
           </small>
         </div>
       </div>
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=325209"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Enveloping Breath"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_chiexplosion.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=325209"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Enveloping Breath
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          0
+           
+          <small>
+            healing contributed by the buff
+          </small>
+        </div>
+      </div>
     </div>
     <div
       className="detail-corner"
