@@ -5,8 +5,8 @@ import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
-import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { EventType } from 'parser/core/Events';
 
 const IRONBARK_BASE_DR = 0.20;
 
@@ -14,10 +14,13 @@ class Ironbark extends Analyzer {
   ironbarkCount = 0;
   damageTakenDuringIronbark = 0;
 
-  on_byPlayer_cast(event) {
-    if(event.ability.guid === SPELLS.IRONBARK.id) {
-      this.ironbarkCount += 1;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IRONBARK), this.onCast);
+  }
+
+  onCast(event) {
+    this.ironbarkCount += 1;
   }
 
   get damageReduced() {
