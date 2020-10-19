@@ -40,7 +40,6 @@ class DuskwalkersPatch extends Analyzer {
       this.wastedVendettaReductionMs += (cooldownReductionMs - effectiveReductionMs);
     }
       this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILERATION.id, cooldownReductionMs);
-      this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMs);
     }
 
   statistic() {
