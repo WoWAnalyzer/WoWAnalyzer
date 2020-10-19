@@ -380,7 +380,7 @@ export interface ApplyBuffStackEvent extends BuffEvent<EventType.ApplyBuffStack>
 }
 
 export interface ApplyDebuffStackEvent extends BuffEvent<EventType.ApplyDebuffStack> {
-  sourceID: number
+  sourceID: number;
   targetInstance?: number;
   stack: number;
 }
