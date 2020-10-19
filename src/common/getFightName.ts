@@ -2,11 +2,10 @@ import { t } from '@lingui/macro';
 
 import { i18n } from 'interface/RootLocalizationProvider';
 
+import Fight from 'parser/core/Fight';
 import getBossName from './getBossName';
 import getWipeCount from './getWipeCount';
 import { formatDuration } from './format';
-
-import Fight from "parser/core/Fight";
 import { WCLFightsResponse } from './WCL_TYPES';
 
 export default function getFightName(report: WCLFightsResponse, fight: Fight) {
