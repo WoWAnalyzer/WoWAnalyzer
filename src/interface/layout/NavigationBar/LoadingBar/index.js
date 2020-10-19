@@ -12,19 +12,12 @@ class LoadingBar extends React.PureComponent {
     progress: 0,
     chunks: 12,
   };
+  
   constructor(props) {
     super(props);
     this.state = {
       chunksArray: [...Array(props.chunks)],
     };
-  }
-
-  componentDidUpdate(newProps) {
-    if (newProps.chunks !== this.props.chunks) {
-      this.setState({
-        chunksArray: [...Array(newProps.chunks)],
-      });
-    }
   }
 
   render() {

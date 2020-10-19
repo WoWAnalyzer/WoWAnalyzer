@@ -29,7 +29,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
 
   renderCharacter(character: Character) {
     return (
-      <div>
+      <div key={character.name}>
         <a href={character.link} className={this.removeWhiteSpaces(character.spec.className)}>
           <SpecIcon id={character.spec.id} /> {character.name}
         </a>
@@ -191,13 +191,6 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
     document.body.classList.toggle('no-scroll');
   }
 
-  componentDidUpdate(nextProps: ContributorProps) {
-    if (this.props.ownPage) {
-      return;
-    }
-
-    document.body.classList.toggle('no-scroll');
-  }
   componentWillUnmount() {
     if (this.props.ownPage) {
       return;
