@@ -27,7 +27,6 @@ import Inferno from './modules/talents/Inferno';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import Cataclysm from './modules/talents/Cataclysm';
 import RoaringBlaze from './modules/talents/RoaringBlaze';
-import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
 import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
@@ -64,7 +63,6 @@ class CombatLogParser extends CoreCombatLogParser {
     fireAndBrimstone: FireAndBrimstone,
     cataclysm: Cataclysm,
     roaringBlaze: RoaringBlaze,
-    grimoireOfSupremacy: GrimoireOfSupremacy,
     grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
     channelDemonfire: ChannelDemonfire,

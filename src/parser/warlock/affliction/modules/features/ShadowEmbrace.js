@@ -53,7 +53,6 @@ class ShadowEmbrace extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOW_EMBRACE_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.changedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_EMBRACE_DEBUFF), this.onChangeDebuffStack);
   }
@@ -125,7 +124,7 @@ class ShadowEmbrace extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE_TALENT}>
+        <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE}>
           {formatPercentage(this.totalUptimePercentage)} %
                 <TooltipElement content={(
                   <>
