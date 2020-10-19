@@ -72,7 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: HealingDone,
     abilities: Abilities,
     healingRainLocation: HealingRainLocation,
-    restorationAbilityTracker:RestorationAbilityTracker,
+    restorationAbilityTracker: RestorationAbilityTracker,
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
