@@ -4,13 +4,13 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import PRIEST_SPELLS from 'common/SPELLS/priest';
 import PRIEST_TALENTS from 'common/SPELLS/talents/priest';
-import { AbsorbedEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Events';
+import Events, { AbsorbedEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 
 import isAtonement from '../core/isAtonement';
 
@@ -42,6 +42,13 @@ class Grace extends Analyzer {
   healingBuffedByMastery = 0;
   atonement = 0;
 
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+  }
+
   getGraceHealing(event: HealEvent | AbsorbedEvent) {
     const currentMastery = this.statTracker.currentMasteryPercentage;
     const masteryContribution = calculateEffectiveHealing(
@@ -51,7 +58,7 @@ class Grace extends Analyzer {
     return masteryContribution;
   }
 
-  on_byPlayer_absorbed(event: AbsorbedEvent) {
+  onAbsorb(event: AbsorbedEvent) {
     const spellId = event.ability.guid;
 
     if (!PRIEST_WHITELIST.includes(spellId)) {
@@ -81,7 +88,7 @@ class Grace extends Analyzer {
     return applyEvent ? applyEvent.masteryBuffed : false;
   }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
+  onApplyBuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
 
     if (!(PRIEST_WHITELIST.includes(spellId) && event.absorb)) {
@@ -101,7 +108,7 @@ class Grace extends Analyzer {
 
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
 
     if (!PRIEST_WHITELIST.includes(spellId)) {

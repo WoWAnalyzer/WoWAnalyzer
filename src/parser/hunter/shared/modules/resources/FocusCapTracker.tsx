@@ -9,9 +9,10 @@ import StatisticBar from 'interface/statistics/StatisticBar';
 
 import { AutoSizer } from 'react-virtualized';
 import FlushLineChart from 'interface/others/FlushLineChart';
-import { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { HUNTER_BASE_FOCUS_MAX, HUNTER_BASE_FOCUS_REGEN } from 'parser/hunter/shared/constants';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -45,23 +46,28 @@ class FocusCapTracker extends RegenResourceCapTracker {
     };
   }
 
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onEnergizeByPlayer);
+  }
+
   currentMaxResource() {
     return HUNTER_BASE_FOCUS_MAX;
   }
 
-  on_byPlayer_energize(event: EnergizeEvent) {
+  onEnergizeByPlayer(event: EnergizeEvent) {
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    super.on_byPlayer_cast(event);
+  onCast(event: CastEvent) {
+    super.onCast(event);
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    super.on_byPlayer_damage(event);
+  onDamage(event: DamageEvent) {
+    super.onDamage(event);
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
   }

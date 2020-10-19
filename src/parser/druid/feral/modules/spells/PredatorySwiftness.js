@@ -4,7 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -39,7 +40,16 @@ class PredatorySwiftness extends Analyzer {
    */
   timeLastGain = null;
 
-  on_fightend() {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PREDATORY_SWIFTNESS), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.PREDATORY_SWIFTNESS), this.onRefreshBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.PREDATORY_SWIFTNESS), this.onRemoveBuff);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(POTENTIAL_SPENDERS), this.onCast);
+  }
+
+  onFightend() {
     if (this.hasSwiftness) {
       debug && console.log(`${this.owner.formatTimestamp(this.owner.fight.end_time, 3)} fight ended with a Predatory Swiftness buff unused.`);
       this.remainAfterFight = 1;
@@ -50,10 +60,7 @@ class PredatorySwiftness extends Analyzer {
     }
   }
 
-  on_toPlayer_applybuff(event) {
-    if (SPELLS.PREDATORY_SWIFTNESS.id !== event.ability.guid) {
-      return;
-    }
+  onApplyBuff(event) {
     debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} gained Predatory Swiftness`);
     this.hasSwiftness = true;
     this.generated += 1;
@@ -61,9 +68,8 @@ class PredatorySwiftness extends Analyzer {
     this.expireTime = event.timestamp + PREDATORY_SWIFTNESS_BUFF_DURATION;
   }
 
-  on_toPlayer_refreshbuff(event) {
-    if (SPELLS.PREDATORY_SWIFTNESS.id !== event.ability.guid ||
-        Math.abs(event.timestamp - this.timeLastGain) < IGNORE_DOUBLE_GAIN_WINDOW) {
+  onRefreshBuff(event) {
+    if (Math.abs(event.timestamp - this.timeLastGain) < IGNORE_DOUBLE_GAIN_WINDOW) {
       return;
     }
     debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} gained Predatory Swiftness, overwriting existing`);
@@ -75,9 +81,8 @@ class PredatorySwiftness extends Analyzer {
     this.expireTime = event.timestamp + PREDATORY_SWIFTNESS_BUFF_DURATION;
   }
 
-  on_toPlayer_removebuff(event) {
-    if (SPELLS.PREDATORY_SWIFTNESS.id !== event.ability.guid ||
-        !this.hasSwiftness || !this.expireTime ||
+  onRemoveBuff(event) {
+    if (!this.hasSwiftness || !this.expireTime ||
         Math.abs(this.expireTime - event.timestamp) > EXPIRE_WINDOW) {
       return;
     }
@@ -87,9 +92,8 @@ class PredatorySwiftness extends Analyzer {
     this.expireTime = null;
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (!this.isSpender(spellId) || !this.hasSwiftness) {
+  onCast(event) {
+    if (!this.hasSwiftness) {
       return;
     }
     debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} Predatory Swiftness used`);
@@ -97,11 +101,7 @@ class PredatorySwiftness extends Analyzer {
     this.hasSwiftness = false;
     this.expireTime = null;
   }
-
-  isSpender(spellId) {
-    return Boolean(POTENTIAL_SPENDERS.find(spender => spender.id === spellId));
-  }
-
+  
   get wasted() {
     return this.expired + this.overwritten + this.remainAfterFight;
   }

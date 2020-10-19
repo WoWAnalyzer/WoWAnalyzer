@@ -1,8 +1,8 @@
 import React from 'react';
 import CoreChanneling from 'parser/shared/modules/Channeling';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, FightEndEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -12,6 +12,7 @@ import { formatPercentage } from 'common/format';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class SoothingMist extends Analyzer {
   static dependencies = {
@@ -19,49 +20,54 @@ class SoothingMist extends Analyzer {
     statTracker: StatTracker,
   };
 
-  soomTicks = 0;
-  gustProc = 0;
-  gustsHealing = 0;
-  lastSoomTickTimestamp = 0;
+  protected channeling!: CoreChanneling;
+  protected statTracker!: StatTracker;
 
-  startStamp = 0;
-  endStamp = 0;
-  soomInProgress = false;
-  castsInSoom = 0;
-  badSooms = 0;
+  soomTicks: number = 0;
+  gustProc: number = 0;
+  gustsHealing: number = 0;
+  lastSoomTickTimestamp: number = 0;
+
+  startStamp: number = 0;
+  endStamp: number = 0;
+  soomInProgress: boolean = false;
+  castsInSoom: number = 0;
+  badSooms: number = 0;
   totalSoomCasts = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.assumedGCD = 1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating)) *.95;
+  assumedGCD: number = 0;
+  startGCD: number = 0;
+
+  constructor(options: Options){
+    super(options);
+    this.assumedGCD = 1500 *.95;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.castSoothingMist);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST), this.castDuringSoothingMist);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]), this.castDuringSoothingMist);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.handleSoothingMist);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.masterySoothingMist);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.removeBuffSoothingMist);
-
     this.addEventListener(Events.fightend, this.end);
   }
 
-  handleSoothingMist(event) {
+  handleSoothingMist(event: HealEvent) {
     this.soomTicks += 1;
     this.lastSoomTickTimestamp = event.timestamp;
   }
 
-  masterySoothingMist(event) {
+  masterySoothingMist(event: HealEvent) {
     if (this.lastSoomTickTimestamp === event.timestamp && this.gustProc < Math.ceil(this.soomTicks / 8)) {
       this.gustProc += 1;
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
-  castDuringSoothingMist(event) {
+  castDuringSoothingMist(event: CastEvent) {
     if (this.soomInProgress) {
       this.castsInSoom += 1;
     }
   }
 
-  castSoothingMist(event) {
+  castSoothingMist(event: CastEvent) {
     if (this.soomInProgress) {
     //if they refresh soom for some stupid reason
       this.endStamp = event.timestamp;
@@ -75,7 +81,7 @@ class SoothingMist extends Analyzer {
     this.startGCD = Math.max(750, gcd) * .95;
   }
 
-  removeBuffSoothingMist(event) {
+  removeBuffSoothingMist(event: RemoveBuffEvent) {
     if (!this.soomInProgress) {
       return;
     }
@@ -96,16 +102,16 @@ class SoothingMist extends Analyzer {
 
     duration -= this.startGCD;
 
-    this.castsInSoom -= parseInt(duration / this.assumedGCD);
+    this.castsInSoom -= (duration / this.assumedGCD);
 
     if (this.castsInSoom < 0) {
       this.badSooms += 1;
     }
   }
 
-  end(event) {
+  end(event: FightEndEvent) {
     if (this.soomInProgress) {
-      this.endStamp = this.selectedCombatant.fightDuration;
+      this.endStamp = this.owner.fightDuration;
       this.checkChannelTiming();
     }
   }
@@ -119,7 +125,7 @@ class SoothingMist extends Analyzer {
     return {
       actual: this.soomTicksPerDuration,
       isEqual: true,
-      style: 'boolean',
+      style: ThresholdStyle.BOOLEAN,
     };
   }
 
@@ -135,11 +141,11 @@ class SoothingMist extends Analyzer {
         average: .95,
         major: .9,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest) => suggest(
           <>
             You are allowing <SpellLink id={SPELLS.SOOTHING_MIST.id} /> to channel for an extended period of time. <SpellLink id={SPELLS.SOOTHING_MIST.id} /> does little healing, so your time is better spent DPS'ing through the use of <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
@@ -154,7 +160,7 @@ class SoothingMist extends Analyzer {
         </>,
       )
         .icon(SPELLS.SOOTHING_MIST.icon)
-        .actual(i18n._(t('monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells')`${formatPercentage(this.badSooms / this.totalSoomCasts)} % of Soothing Mist casts with max spells casted`))
+        .actual(`${formatPercentage(this.badSooms / this.totalSoomCasts)}${i18n._(t('monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells')`% of Soothing Mist casts with max spells casted`)}`)
         .recommended(`${recommended} is recommended`));
   }
 }

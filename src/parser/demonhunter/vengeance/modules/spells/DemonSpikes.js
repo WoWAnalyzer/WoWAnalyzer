@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS/index';
@@ -12,6 +12,7 @@ import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 class DemonSpikes extends Analyzer {
   static dependencies = {
@@ -22,7 +23,12 @@ class DemonSpikes extends Analyzer {
   hitsWithoutDS = 0;
   hitsWithDSOffCD = 0;
 
-  on_toPlayer_damage(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+  }
+
+  onDamageTaken(event) {
     // Physical
     if (event.ability.type !== SCHOOLS.ids.PHYSICAL) {
       return;

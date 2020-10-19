@@ -26,8 +26,8 @@ class TearofMorning extends Analyzer {
   /**
    * When you cast renewing mist on a target you grant them extend life, Extend life makes it so all vivify and eveloping mist/breath is replicated on the target by 25%
    */
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = false;
 
     if (!this.active) {

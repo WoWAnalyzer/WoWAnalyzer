@@ -318,7 +318,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -331,7 +331,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -344,7 +344,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -530,7 +530,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -891,7 +891,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -904,7 +904,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -917,7 +917,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1122,7 +1122,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1135,7 +1135,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1148,7 +1148,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1346,7 +1346,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -1367,7 +1367,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1380,7 +1380,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1393,7 +1393,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1494,7 +1494,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -1515,7 +1515,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1528,7 +1528,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1541,7 +1541,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2887,7 +2887,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2900,7 +2900,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2913,7 +2913,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3483,7 +3483,7 @@ exports[`Affliction Warlock integration test: example log DistanceMoved matches 
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -4109,206 +4109,266 @@ Array [
     "details": null,
     "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5448,
-              1543,
-              4786,
-              6510,
-            ],
-            "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
-            "id": 158349,
-            "itemLevel": 135,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5448,
+                  1543,
+                  4786,
+                  6510,
+                ],
+                "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
+                "id": 158349,
+                "itemLevel": 135,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158349}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={158349}
-        quality={3}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_bracer_cloth_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6536,
-              6578,
-              6579,
-              6546,
-              6513,
-              1543,
-              4786,
-            ],
-            "icon": "inv_bracer_cloth_zandalardungeon_c_01.jpg",
-            "id": 159240,
-            "itemLevel": 130,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  6579,
+                  6546,
+                  6513,
+                  1543,
+                  4786,
+                ],
+                "icon": "inv_bracer_cloth_zandalardungeon_c_01.jpg",
+                "id": 159240,
+                "itemLevel": 130,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159240}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Bracers"
+            id="common.slots.bracers"
+          />,
         }
-        icon={false}
-        id={159240}
-        quality={3}
-      >
-        Bracers
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_70_raid_ring8d.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4824,
-              6516,
-              6515,
-              1517,
-              4786,
-            ],
-            "icon": "inv_70_raid_ring8d.jpg",
-            "id": 174530,
-            "itemLevel": 130,
-            "permanentEnchant": 6109,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4824,
+                  6516,
+                  6515,
+                  1517,
+                  4786,
+                ],
+                "icon": "inv_70_raid_ring8d.jpg",
+                "id": 174530,
+                "itemLevel": 130,
+                "permanentEnchant": 6109,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={174530}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={174530}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_02a.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6536,
-              40,
-              6578,
-              6513,
-              1543,
-              4786,
-              6476,
-              6470,
-            ],
-            "icon": "inv_ring_80_02a.jpg",
-            "id": 162542,
-            "itemLevel": 130,
-            "permanentEnchant": 6109,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  40,
+                  6578,
+                  6513,
+                  1543,
+                  4786,
+                  6476,
+                  6470,
+                ],
+                "icon": "inv_ring_80_02a.jpg",
+                "id": 162542,
+                "itemLevel": 130,
+                "permanentEnchant": 6109,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={162542}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={162542}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6598,
-              1472,
-            ],
-            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
-            "id": 169223,
-            "itemLevel": 155,
-            "quality": 5,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6598,
+                  1472,
+                ],
+                "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+                "id": 169223,
+                "itemLevel": 155,
+                "quality": 5,
+              }
+            }
+            icon={false}
+            id={169223}
+            quality={5}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={169223}
-        quality={5}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_knife_1h_nzothraid_d_03.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4824,
-              1808,
-              6578,
-              6515,
-              1517,
-              4786,
-              6476,
-              6470,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_yellow.jpg",
-                "id": 168641,
-                "itemLevel": 50,
-              },
-            ],
-            "icon": "inv_knife_1h_nzothraid_d_03.jpg",
-            "id": 172201,
-            "itemLevel": 130,
-            "permanentEnchant": 5963,
-            "quality": 4,
-          }
+                "bonusIDs": Array [
+                  4824,
+                  1808,
+                  6578,
+                  6515,
+                  1517,
+                  4786,
+                  6476,
+                  6470,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_yellow.jpg",
+                    "id": 168641,
+                    "itemLevel": 50,
+                  },
+                ],
+                "icon": "inv_knife_1h_nzothraid_d_03.jpg",
+                "id": 172201,
+                "itemLevel": 130,
+                "permanentEnchant": 5963,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={172201}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
         }
-        icon={false}
-        id={172201}
-        quality={4}
-      >
-        Weapon
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -7165,7 +7225,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7225,7 +7285,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7285,7 +7345,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7345,7 +7405,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7405,7 +7465,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -7465,7 +7525,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7525,7 +7585,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>

@@ -192,6 +192,11 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Lava Burst Overload',
     icon: 'spell_shaman_lavaburst',
   },
+  LAVA_BURST_OVERLOAD_DAMAGE: {
+    id: 285466,
+    name: 'Lava Burst Overload',
+    icon: 'spell_shaman_lavaburst',
+  },
   LIGHTNING_BOLT: {
     id: 188196,
     name: 'Lightning Bolt',

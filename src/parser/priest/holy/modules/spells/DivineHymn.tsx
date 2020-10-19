@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
-import { CastEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { When } from 'parser/core/ParseResults';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -12,11 +12,13 @@ class DivineHymn extends Analyzer {
   absorbed = 0;
   casts = 0;
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIVINE_HYMN_HEAL.id) {
-      return;
-    }
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_HEAL), this.onHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_CAST), this.onCast);
+  }
+
+  onHeal(event: HealEvent) {
     this.healing += event.amount || 0;
     this.overhealing += event.overheal || 0;
     this.absorbed += event.absorbed || 0;
@@ -25,12 +27,7 @@ class DivineHymn extends Analyzer {
     }
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIVINE_HYMN_CAST.id) {
-      return;
-    }
-
+  onCast(event: CastEvent) {
     this.casts += 1;
   }
 

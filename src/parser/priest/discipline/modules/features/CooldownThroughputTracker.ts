@@ -31,7 +31,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   lastEvangelism: TrackedCooldown | null = null;
 
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.EVANGELISM_TALENT.id) {
       // When Evangelism is cast we want to see it in our cooldowns, but since it isn't a buff we can't use the regular `cooldownSpells`.
@@ -68,10 +68,10 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       this.lastEvangelism.events.push(event);
     }
 
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     if (this.lastEvangelism && isAtonement(event)) {
       const target = this.atonementModule.currentAtonementTargets.find(item => item.target === event.targetID);
       // Pets, guardians, etc.
@@ -85,7 +85,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       }
     }
 
-    super.on_byPlayer_heal(event);
+    super.onHeal(event);
   }
 }
 

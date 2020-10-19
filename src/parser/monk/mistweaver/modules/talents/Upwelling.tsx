@@ -55,8 +55,8 @@ class Upwelling extends Analyzer {
   masteryOverhealing: number = 0;
   masteryAbsorbed: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT);
     if (!this.active) {
       return;
@@ -139,7 +139,7 @@ class Upwelling extends Analyzer {
       return;
     }
 
-    if(this.combatants.players[targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0)) {//do they have the hot
+    if(this.combatants.players[targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0, event.sourceID)) {//do they have the hot
       if(hot.fullCount || event.timestamp - BASE_HOT_TIME > hot.applicationTime){
         if(!this.masteryTickTock){
           this.masteryHit += 1;

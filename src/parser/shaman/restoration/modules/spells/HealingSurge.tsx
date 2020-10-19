@@ -5,19 +5,18 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { When } from 'parser/core/ParseResults';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
+import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
+
 class HealingSurge extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    abilityTracker: RestorationAbilityTracker,
   };
-
-  protected abilityTracker!: AbilityTracker;
+  protected abilityTracker!: RestorationAbilityTracker;
 
   get suggestedThreshold() {
     const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);

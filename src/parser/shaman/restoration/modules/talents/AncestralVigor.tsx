@@ -17,6 +17,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import { DamageEvent, EventType } from 'parser/core/Events';
 import { WCLEventsResponse, WclOptions } from 'common/WCL_TYPES';
 import { Options } from 'parser/core/Module';
+import { Trans } from '@lingui/macro';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
@@ -87,15 +88,15 @@ class AncestralVigor extends Analyzer {
       this.disableStatistics = true;
     }
     const tooltip = this.loaded
-      ? 'The amount of players that would have died without your Ancestral Vigor buff.'
-      : 'Click to analyze how many lives were saved by the ancestral vigor buff.';
+      ? <Trans id="shaman.restoration.av.statistic.tooltip.active">The amount of players that would have died without your Ancestral Vigor buff.</Trans>
+      : <Trans id="shaman.restoration.av.statistic.tooltip.inactive">Click to analyze how many lives were saved by the ancestral vigor buff.</Trans>;
     if (this.disableStatistics) {
       return (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.ANCESTRAL_VIGOR.id} />}
-          label="Lives saved"
-          value="Module disabled"
-          tooltip="There were multiple Restoration Shamans with Ancestral Vigor in your raid group, this causes major issues with buff tracking. As the results from this module would be very inaccurate, it was disabled."
+          label={<Trans id="shaman.restoration.av.statistic.label">Lives saved</Trans>}
+          value={<Trans id="shaman.restoration.av.statistic.disabled">Module disabled</Trans>}
+          tooltip={<Trans id="shaman.restoration.av.statistic.disabled.reason">There were multiple Restoration Shamans with Ancestral Vigor in your raid group, this causes major issues with buff tracking. As the results from this module would be very inaccurate, it was disabled.</Trans>}
           category={STATISTIC_CATEGORY.TALENTS}
           position={STATISTIC_ORDER.OPTIONAL(60)}
         />
@@ -106,7 +107,7 @@ class AncestralVigor extends Analyzer {
           loader={this.load.bind(this)}
           icon={<SpellIcon id={SPELLS.ANCESTRAL_VIGOR.id} />}
           value={`≈${this.lifeSavingEvents.length}`}
-          label="Lives saved"
+          label={<Trans id="shaman.restoration.av.statistic.label">Lives saved</Trans>}
           tooltip={tooltip}
           category={STATISTIC_CATEGORY.TALENTS}
           position={STATISTIC_ORDER.OPTIONAL(60)}
@@ -114,10 +115,10 @@ class AncestralVigor extends Analyzer {
           <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
             <thead>
               <tr>
-                <th>Time</th>
-                <th>Player</th>
-                <th style={{ textAlign: 'center' }}>Ability</th>
-                <th>Health</th>
+                <th><Trans id="common.time">Time</Trans></th>
+                <th><Trans id="common.player">Player</Trans></th>
+                <th style={{ textAlign: 'center' }}><Trans id="common.ability">Ability</Trans></th>
+                <th><Trans id="common.health">Health</Trans></th>
               </tr>
             </thead>
             <tbody>

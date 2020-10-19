@@ -1,15 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 
 import retryingPromise from 'common/retryingPromise';
 import { getLanguage } from 'interface/selectors/language';
+import { Catalogs } from '@lingui/core';
 
-class LocalizationLoader extends React.PureComponent {
-  static propTypes = {
-    language: PropTypes.string,
-    children: PropTypes.func.isRequired,
-  };
+type Props = {
+  language: string;
+  children: (c: { language: string, catalogs: Catalogs }) => ReactNode;
+}
+type State = {
+  catalogs: Catalogs;
+}
+
+class LocalizationLoader extends React.PureComponent<Props, State> {
   state = {
     catalogs: {},
   };
@@ -18,14 +22,14 @@ class LocalizationLoader extends React.PureComponent {
     // noinspection JSIgnoredPromiseFromCall
     this.loadCatalog(this.props.language);
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.language !== this.props.language) {
       // noinspection JSIgnoredPromiseFromCall
       this.loadCatalog(this.props.language);
     }
   }
 
-  async loadCatalog(language) {
+  async loadCatalog(language: string) {
     const catalog = await retryingPromise(() => import(/* webpackMode: "lazy", webpackChunkName: "locale-[request]" */ `@lingui/loader!localization/${language}/messages.json`));
 
     this.setState(state => ({
@@ -36,15 +40,14 @@ class LocalizationLoader extends React.PureComponent {
     }));
   }
 
-  render () {
+  render() {
     const { children, language } = this.props;
     const { catalogs } = this.state;
-
     return children({ language, catalogs });
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   language: getLanguage(state),
 });
 export default connect(mapStateToProps)(LocalizationLoader);

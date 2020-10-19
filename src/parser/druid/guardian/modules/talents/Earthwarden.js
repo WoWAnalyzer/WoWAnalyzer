@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 
@@ -13,13 +13,14 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import { formatNumber, formatPercentage } from 'common/format';
+import Events from 'parser/core/Events';
 
 const EARTHWARDEN_REDUCTION_MODIFIER = 0.3;
 
 const ABILITIES_THAT_CONSUME_EW = [
-  SPELLS.MELEE.id,
-  SPELLS.MAGIC_MELEE.id,
-  SPELLS.RECURSIVE_STRIKES_ENEMY.id,
+  SPELLS.MELEE,
+  SPELLS.MAGIC_MELEE,
+  SPELLS.RECURSIVE_STRIKES_ENEMY,
 ];
 
 class Earthwarden extends Analyzer {
@@ -35,24 +36,22 @@ class Earthwarden extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.lv90Talent === SPELLS.EARTHWARDEN_TALENT.id;
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER).spell(ABILITIES_THAT_CONSUME_EW), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTHWARDEN_BUFF), this.onAbsorbed);
   }
 
-  on_toPlayer_damage(event) {
-    if (ABILITIES_THAT_CONSUME_EW.includes(event.ability.guid)) {
-      this.damageFromMelees += event.amount + event.absorbed;
+  onDamage(event) {
+    this.damageFromMelees += event.amount + event.absorbed;
 
-      // Dodged swings and fully absorbed swings should not count towards total swings,
-      // since we only care about attacks that EW would have mitigated
-      if (event.hitType !== HIT_TYPES.DODGE || event.amount > 0) {
-        this.totalSwings += 1;
-      }
+    // Dodged swings and fully absorbed swings should not count towards total swings,
+    // since we only care about attacks that EW would have mitigated
+    if (event.hitType !== HIT_TYPES.DODGE || event.amount > 0) {
+      this.totalSwings += 1;
     }
   }
 
-  on_byPlayer_absorbed(event) {
-    if (event.ability.guid === SPELLS.EARTHWARDEN_BUFF.id) {
-      this.swingsMitigated += 1;
-    }
+  onAbsorbed(event) {
+    this.swingsMitigated += 1;
   }
 
   get hps() {

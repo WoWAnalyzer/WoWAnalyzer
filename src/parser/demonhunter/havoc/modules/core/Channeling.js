@@ -1,7 +1,15 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 class Channeling extends CoreChanneling {
+
+	constructor(options){
+		super(options);
+		this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+		this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
+	}
 
 	cancelChannel(event, ability) {
 		if(this.isChannelingSpell(SPELLS.EYE_BEAM.id)) {
@@ -14,7 +22,7 @@ class Channeling extends CoreChanneling {
 	//Eye beam with the Meta buff doesn't get caught by applybuff for some reason so we also include the on cast
 
 	//Eye Beam w/o the meta buff
-	on_byPlayer_applybuff(event) {
+	onApplyBuff(event) {
 		if(!this.selectedCombatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)) {
 			return;
 		}
@@ -23,11 +31,11 @@ class Channeling extends CoreChanneling {
 			this.beginChannel(event);
 			return;
 		}
-		super.on_byPlayer_cast(event);
+		super.onCast(event);
 	}
 
 	//Eye beam with the meta buff
-	on_byPlayer_cast(event) {
+	onCast(event) {
 		if(this.selectedCombatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)) {
 			return;
 		}
@@ -36,10 +44,10 @@ class Channeling extends CoreChanneling {
 			this.beginChannel(event);
 			return;
 		}
-		super.on_byPlayer_cast(event);
+		super.onCast(event);
 	}
 
-	on_byPlayer_removebuff(event) {
+	onRemoveBuff(event) {
 		const spellId = event.ability.guid;
 		if (spellId !== SPELLS.EYE_BEAM.id) {
       return;

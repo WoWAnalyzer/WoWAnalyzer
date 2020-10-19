@@ -1,8 +1,9 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import Events from 'parser/core/Events';
 
  /**
  * Your healing spells have a chance to apply Blessed Portents for 20 sec.
@@ -19,46 +20,29 @@ class BlessedPortents extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.BLESSED_PORTENTS.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.BLESSED_PORTENTS_HEAL), this.onHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLESSED_PORTENTS_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLESSED_PORTENTS_BUFF), this.onRemoveBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLESSED_PORTENTS_BUFF), this.onRefreshBuff);
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLESSED_PORTENTS_HEAL.id) {
-      return;
-    }
-
+  onHeal(event) {
     this.healing += event.amount + (event.absorbed || 0);
 
     this.proccedBuffs += 1;
     this.expiredBuffs -= 1;
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.BLESSED_PORTENTS_BUFF.id) {
-      return;
-    }
-
+  onApplyBuff(event) {
     this.activeBuffs += 1;
   }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLESSED_PORTENTS_BUFF.id) {
-      return;
-    }
-
+  onRemoveBuff(event) {
     this.expiredBuffs += 1;
     this.activeBuffs -= 1;
   }
 
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLESSED_PORTENTS_BUFF.id) {
-      return;
-    }
-
+  onRefreshBuff(event) {
     this.refreshedBuffs += 1;
   }
   get totalBuffs() {

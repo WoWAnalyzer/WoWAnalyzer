@@ -1,17 +1,19 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatDuration } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events, { CastEvent } from 'parser/core/Events';
 
+import Statistic from 'interface/statistics/Statistic';
+import BoringValueText from 'interface/statistics/components/BoringValueText'
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import SpellLink from 'common/SpellLink';
+
 const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
-  SPELLS.DEMORALIZING_SHOUT.id,
   SPELLS.AVATAR_TALENT.id,
-  SPELLS.LAST_STAND.id,
   SPELLS.SHIELD_WALL.id,
 ];
 const RAGE_NEEDED_FOR_A_PROC = 10;
@@ -40,7 +42,7 @@ class AngerManagement extends Analyzer {
 
   onCast(event: CastEvent) {
     const classResources = event.classResources?.find(e => e.type === RESOURCE_TYPES.RAGE.id);
-    if (!classResources) {
+    if (!classResources || !classResources.cost) {
       return;
     }
     const rageSpend = classResources.cost / RAGE_NEEDED_FOR_A_PROC;
@@ -58,19 +60,39 @@ class AngerManagement extends Analyzer {
   }
 
   get tooltip() {
-    return COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map(id => (
-      <>{SPELLS[id].name}: {formatDuration(this.effectiveReduction[id] / 1000)} reduction ({formatDuration(this.wastedReduction[id] / 1000)} wasted)<br /></>
-    ));
+    return (
+      <table className="table table-condensed">
+        <thead>
+          <tr>
+            <th>Spell</th>
+            <th>Effective</th>
+            <th>Wasted</th>
+          </tr>
+        </thead>
+        <tbody>
+          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map(value => (
+          <tr key={value}>
+            <td>{SPELLS[value].name}</td>
+            <td>{formatDuration(this.effectiveReduction[value] / 1000)}</td>
+            <td>{formatDuration(this.wastedReduction[value] / 1000)}</td>
+          </tr>
+        ))}
+        </tbody>
+      </table>
+    );
   }
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ANGER_MANAGEMENT_TALENT.id} />}
-        value={`${formatDuration((this.effectiveReduction[SPELLS.DEMORALIZING_SHOUT.id] + this.wastedReduction[SPELLS.DEMORALIZING_SHOUT.id]) / 1000)} min`}
-        label="Possible cooldown reduction"
-        tooltip={this.tooltip}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        dropdown={this.tooltip}
+      >
+      <BoringValueText label={<><SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> Possible cooldown reduction</>}>
+        </BoringValueText>
+      </Statistic>
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(4);

@@ -6,8 +6,8 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import { TooltipElement } from 'common/Tooltip';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import { HealEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 import Penance from './Penance';
@@ -33,6 +33,7 @@ class Contrition extends Analyzer {
     this.penanceBoltEstimation = OffensivePenanceBoltEstimation(
       this.statTracker,
     );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.CONTRITION_HEAL, SPELLS.PENANCE_HEAL]), this.onHeal);
   }
 
   /**
@@ -44,14 +45,7 @@ class Contrition extends Analyzer {
    * We keep the penance heal as that is a true gain from choosing a contrition
    * penance over a regular offensive one.
    */
-  on_byPlayer_heal(event: HealEvent) {
-    if (
-      event.ability.guid !== SPELLS.CONTRITION_HEAL.id &&
-      event.ability.guid !== SPELLS.PENANCE_HEAL.id
-    ) {
-      return;
-    }
-
+  onHeal(event: HealEvent) {
     // Add the healing to our count
     this.healing += event.amount;
 

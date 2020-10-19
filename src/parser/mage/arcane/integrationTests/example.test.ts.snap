@@ -378,7 +378,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -391,7 +391,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -404,7 +404,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -949,7 +949,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -962,7 +962,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -975,7 +975,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1095,7 +1095,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1108,7 +1108,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1121,7 +1121,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1319,7 +1319,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1418,7 +1418,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1536,7 +1536,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1549,7 +1549,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1562,7 +1562,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1876,7 +1876,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1889,7 +1889,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1902,7 +1902,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3005,7 +3005,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -3018,7 +3018,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -3031,7 +3031,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3339,7 +3339,7 @@ exports[`Arcane Mage integration test: example log DistanceMoved matches the sta
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -3631,189 +3631,249 @@ Array [
     "details": null,
     "icon": "inv_chest_cloth_warfrontsforsaken_d_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5845,
-              1577,
-              4786,
-              6507,
-            ],
-            "icon": "inv_chest_cloth_warfrontsforsaken_d_01.jpg",
-            "id": 165492,
-            "itemLevel": 465,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5845,
+                  1577,
+                  4786,
+                  6507,
+                ],
+                "icon": "inv_chest_cloth_warfrontsforsaken_d_01.jpg",
+                "id": 165492,
+                "itemLevel": 465,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={165492}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={165492}
-        quality={3}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_bracer_cloth_kultirasdungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6536,
-              6516,
-              6513,
-              1637,
-              4786,
-            ],
-            "icon": "inv_bracer_cloth_kultirasdungeon_c_01.jpg",
-            "id": 159227,
-            "itemLevel": 465,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6516,
+                  6513,
+                  1637,
+                  4786,
+                ],
+                "icon": "inv_bracer_cloth_kultirasdungeon_c_01.jpg",
+                "id": 159227,
+                "itemLevel": 465,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159227}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Bracers"
+            id="common.slots.bracers"
+          />,
         }
-        icon={false}
-        id={159227}
-        quality={3}
-      >
-        Bracers
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_misc_diamondring1.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4803,
-              6516,
-              6513,
-              1637,
-              4786,
-            ],
-            "icon": "inv_misc_diamondring1.jpg",
-            "id": 165679,
-            "itemLevel": 445,
-            "permanentEnchant": 6108,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4803,
+                  6516,
+                  6513,
+                  1637,
+                  4786,
+                ],
+                "icon": "inv_misc_diamondring1.jpg",
+                "id": 165679,
+                "itemLevel": 445,
+                "permanentEnchant": 6108,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={165679}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={165679}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_70_quest_ring7c.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4823,
-              6516,
-              6513,
-              1502,
-              4786,
-            ],
-            "icon": "inv_70_quest_ring7c.jpg",
-            "id": 174533,
-            "itemLevel": 470,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4823,
+                  6516,
+                  6513,
+                  1502,
+                  4786,
+                ],
+                "icon": "inv_70_quest_ring7c.jpg",
+                "id": 174533,
+                "itemLevel": 470,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={174533}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={174533}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6272,
-            ],
-            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
-            "id": 169223,
-            "itemLevel": 470,
-            "quality": 5,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6272,
+                ],
+                "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+                "id": 169223,
+                "itemLevel": 470,
+                "quality": 5,
+              }
+            }
+            icon={false}
+            id={169223}
+            quality={5}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={169223}
-        quality={5}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_knife_1h_nzothraid_d_03.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4823,
-              6516,
-              6513,
-              1502,
-              4786,
-            ],
-            "icon": "inv_knife_1h_nzothraid_d_03.jpg",
-            "id": 172201,
-            "itemLevel": 460,
-            "permanentEnchant": 5949,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4823,
+                  6516,
+                  6513,
+                  1502,
+                  4786,
+                ],
+                "icon": "inv_knife_1h_nzothraid_d_03.jpg",
+                "id": 172201,
+                "itemLevel": 460,
+                "permanentEnchant": 5949,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={172201}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
         }
-        icon={false}
-        id={172201}
-        quality={4}
-      >
-        Weapon
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -6192,7 +6252,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6252,7 +6312,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6312,7 +6372,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6372,7 +6432,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6432,7 +6492,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -6492,7 +6552,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6552,7 +6612,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>

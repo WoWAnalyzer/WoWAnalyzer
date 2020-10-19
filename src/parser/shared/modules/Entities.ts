@@ -136,7 +136,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
   _triggerChangeBuffStack(buff: any, timestamp: number, oldStacks: number, newStacks: number) {
     this.eventEmitter.fabricateEvent({
       ...buff,
-      type: buff.isDebuff ? 'changedebuffstack' : 'changebuffstack',
+      type: buff.isDebuff ? EventType.ChangeDebuffStack : EventType.ChangeBuffStack,
       timestamp,
       oldStacks,
       newStacks,

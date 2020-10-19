@@ -1,23 +1,6 @@
 import React from 'react';
+import { Contributor } from 'common/contributor';
 
-import { Spec } from 'game/SPECS';
-export type Character = {
-  name: string,
-  spec: Spec,
-  link: string,
-}
-export type Contributor = {
-  nickname: string,
-  github: string,
-  discord?: string,
-  twitter?: string, // Currently unused
-  avatar?: any,
-  about?: string,
-  mains?: Character[],
-  alts?: Character[],
-  others?: any,
-  links?: { [name: string]: string }
-}
 export type ChangelogEntry = {
   date: Date,
   changes: React.ReactNode,

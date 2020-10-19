@@ -2,13 +2,14 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
+import Events from 'parser/core/Events';
 
 /**
  * Lady Waycrest's Music Box -
@@ -26,26 +27,20 @@ class LadyWaycrestsMusicBox extends Analyzer {
     return this.overHealing / (this.healing + this.overHealing);
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HARMONIOUS_CHORD.id) {
-      return;
-    }
+  onHeal(event) {
     this.healing += event.amount + (event.absorbed || 0);
     this.overHealing += event.overheal || 0;
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CACAPHONOUS_CHORD.id) {
-      return;
-    }
+  onDamage(event) {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.LADY_WAYCRESTS_MUSIC_BOX.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HARMONIOUS_CHORD), this.onHeal);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CACAPHONOUS_CHORD), this.onDamage);
   }
 
   statistic() {
