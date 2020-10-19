@@ -34,7 +34,7 @@ class ScourgeStrikeEfficiency extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this.onCast);
   }
 
-  activeSpell: any;
+  activeSpell: Spell;
   totalCasts = 0;
   zeroWoundCasts = 0;
 
