@@ -4,7 +4,7 @@ import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../constants';
 
 class BeaconTransferFactor extends Analyzer {
   get beaconType() {
-    return this.selectedCombatant.lv100Talent;
+    return this.selectedCombatant.lv50Talent;
   }
 
   getFactor(healEvent, beaconHealEvent = null) {
