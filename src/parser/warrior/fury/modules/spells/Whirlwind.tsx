@@ -38,7 +38,7 @@ class Whirlwind extends Analyzer {
 
   lastEvent: CastEvent | null = null;
 
-  enemiesHitWW: any[] = [];
+  enemiesHitWW: string[] = [];
 
   wasEnraged = false;
 
@@ -68,16 +68,16 @@ class Whirlwind extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.wasValidWW);
   }
 
-  noHadBuff(){
+  noHadBuff() {
     this.hasWWBuff = false;
   }
 
-  hadBuff(){
+  hadBuff() {
     this.hasWWBuff = true;
   }
 
   //just check what else they could have casted
-  spellCheck(event: CastEvent){
+  spellCheck(event: CastEvent) {
     this.lastEvent = event;
 
     this.btWasAvailable = this.spellUsable.isAvailable(SPELLS.BLOODTHIRST.id);
@@ -95,10 +95,10 @@ class Whirlwind extends Analyzer {
     this.lastCastWW = true;
   }
 
-  wwDamage(event: DamageEvent){
+  wwDamage(event: DamageEvent) {
     const enemy = `${event.targetID} ${event.targetInstance || 0}`;
 
-    if(!this.enemiesHitWW.includes(enemy)){
+    if (!this.enemiesHitWW.includes(enemy)) {
       this.enemiesHitWW.push(enemy);
     }
   }
@@ -110,13 +110,13 @@ class Whirlwind extends Analyzer {
     return event.hitPoints / event.maxHitPoints < this.executeThreshold;
   }
 
-  wasValidWW(event: CastEvent){
+  wasValidWW(event: CastEvent) {
     if (!this.lastEvent) {
       this.lastEvent = event;
       this.lastEvent.timestamp += 750;
     }
 
-    if(!this.lastCastWW || event === this.lastEvent || event.timestamp - 750 < this.lastEvent.timestamp){
+    if (!this.lastCastWW || event === this.lastEvent || event.timestamp - 750 < this.lastEvent.timestamp) {
       return;
     }
 
@@ -124,45 +124,44 @@ class Whirlwind extends Analyzer {
 
     let badCast = this.btWasAvailable || this.rbWasAvailable || this.ramWasAvailable || this.exWasAvailable;
 
-    if(this.wasEnraged){
+    if (this.wasEnraged) {
       badCast = badCast || (this.hasBladeStorm ? this.bsWasAvailable : false);
       badCast = badCast || (this.hasDragonsRoar ? this.drWasAvailable : false);
     }
 
-    if(this.enemiesHitWW.length>=2 && !this.hasWWBuff){
+    if (this.enemiesHitWW.length >= 2 && !this.hasWWBuff) {
       badCast = false;
     }
 
-    if(badCast){
+    if (badCast) {
       this.lastEvent.meta = event.meta || {};
       this.lastEvent.meta.isInefficientCast = true;
       this.badWWCast += 1;
     }
   }
 
-  get threshold(){
+  get threshold() {
     return ((this.wwCast - this.badWWCast) / this.wwCast);
   }
 
-  get suggestionThresholds(){
-	  return{
-		  actual: this.threshold,
-		  isLessThan:{
-			  minor: .9,
-			  average: .8,
-			  major: .7,
-		  },
-		  style: ThresholdStyle.PERCENTAGE,
-	  };
+  get suggestionThresholds() {
+    return {
+      actual: this.threshold,
+      isLessThan: {
+        minor: .9,
+        average: .8,
+        major: .7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
-  suggestions(when: When){
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> poorly. Try to only use it if your other abilities are on cooldown.</>)
-        .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-        .actual(i18n._(t('warrior.fury.suggestions.whirlwind.badCasts')`${formatPercentage(actual)}% of bad Whirlwind casts`))
-        .recommended(`${formatPercentage(recommended)}+% is recommended`));
+      .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
+      .actual(i18n._(t('warrior.fury.suggestions.whirlwind.badCasts')`${formatPercentage(actual)}% of bad Whirlwind casts`))
+      .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
-
 
 }
 

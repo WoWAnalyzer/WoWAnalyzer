@@ -3,7 +3,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Events, { EnergizeEvent } from 'parser/core/Events';
 
 class Insanity extends Analyzer {
-  _insanityEvents: any = [];
+  _insanityEvents: EnergizeEvent[] = [];
 
   constructor(options: Options) {
     super(options);

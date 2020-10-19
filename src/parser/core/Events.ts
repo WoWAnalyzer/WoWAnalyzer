@@ -491,7 +491,7 @@ export interface DrainEvent extends Event<EventType.Drain> {
   attackPower: number;
   spellPower: number;
   armor: number;
-  absorb: number; 
+  absorb: number;
   x: number;
   y: number;
   facing: number;
@@ -509,11 +509,20 @@ export interface InterruptEvent extends Event<EventType.Interrupt> {
 }
 
 export interface DeathEvent extends Event<EventType.Death> {
+  killingAbility?: Ability;
   source: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceIsFriendly: boolean;
   targetID: number;
   targetIsFriendly: boolean;
   ability: Ability;
+}
+
+export interface ResurrectEvent extends Event<EventType.Resurrect> {
+  ability?: Ability,
+  sourceID: number,
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetIsFriendly: boolean;
 }
 
 export interface SummonEvent extends Event<EventType.Summon> {

@@ -11,7 +11,7 @@ import SPECS from 'game/SPECS';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import { ApplyDebuffEvent, CastEvent, EventType, HasSource } from 'parser/core/Events';
 import { WCLEventsResponse, WclOptions } from 'common/WCL_TYPES';
@@ -28,7 +28,7 @@ class AncestralProtectionTotem extends Analyzer {
 
   loaded = false;
   aptEvents: Array<CastEvent | ApplyDebuffEvent> = [];
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = Boolean(this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id));
   }
