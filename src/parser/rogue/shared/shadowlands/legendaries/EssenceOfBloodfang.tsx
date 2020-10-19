@@ -1,6 +1,5 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
@@ -10,10 +9,6 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 class EssenceOfBloodfang extends Analyzer {
-  static dependencies = {
-    abilities: Abilities,
-  };
-
   bloodfangDamage: number = 0;
   bloodfangHealing: number = 0;
   constructor(options: Options) {
