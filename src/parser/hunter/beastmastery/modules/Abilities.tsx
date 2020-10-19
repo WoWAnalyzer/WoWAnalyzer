@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
+        cooldown: this.selectedCombatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? 120 * 0.75 : 120,
         gcd: {
           static: 0,
         },
