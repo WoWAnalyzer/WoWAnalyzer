@@ -1,6 +1,6 @@
-import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
+import { ITEM_QUALITIES } from 'game/ITEM_QUALITIES';
 
-export default function getItemQualityLabel(quality) {
+export default function getItemQualityLabel(quality: ITEM_QUALITIES): string {
   switch (quality) {
     case ITEM_QUALITIES.ARTIFACT:
       return 'artifact';
