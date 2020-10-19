@@ -15,7 +15,10 @@ export default [
       Updated Restoration Shaman for Shadowlands.<br />
       Changes include:<br />
       <ul>
-        <li>Coming soon.</li>
+        <li>Updated Abilities.</li>
+        <li>Added the new Abilities.</li>
+        <li>Don't use primal strike.</li>
+        <li>More coming soon.</li>
       </ul>
     </>
   ), [niseko]),

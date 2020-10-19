@@ -26,8 +26,8 @@ class ComboBreaker extends Analyzer {
 
   constructor(options){
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spells(SPELLS.COMBO_BREAKER_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spells(SPELLS.COMBO_BREAKER_BUFF), this.onRefreshBuff);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF), this.onRefreshBuff);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
   }
 

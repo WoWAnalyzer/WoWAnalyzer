@@ -32,17 +32,11 @@ class MasteryEffectiveness extends Analyzer {
 
   constructor(options){
     super(options);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     // Totems count as pets, but are still affected by mastery.
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(ABILITIES_AFFECTED_BY_MASTERY), this.onHeal);
   }
 
   onHeal(event) {
-    const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.some(s => s.id === event.ability.guid);
-    if (!isAbilityAffectedByMastery) {
-      return;
-    }
-
     const heal = new HealingValue(event.amount, event.absorbed, event.overheal);
     const healthBeforeHeal = event.hitPoints - event.amount;
     const masteryEffectiveness = Math.max(0, 1 - healthBeforeHeal / event.maxHitPoints);

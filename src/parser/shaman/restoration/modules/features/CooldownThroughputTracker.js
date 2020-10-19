@@ -102,7 +102,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   // Fabricate new events to make it easy to listen to just feed heal events while being away of the original heals.
   // While we could also modify the original heal event and add a reference to the feed amount, this would be less clean as mutating objects makes things harder and more confusing to use, and may lead to conflicts.
   // Due to how the Shaman CooldonwThroughputTracker works, these events will be bunched together at the very end of the events list.
-  generateFeedEvents(cooldown, feedingFactor, percentOverheal){
+  generateFeedEvents(cooldown, feedingFactor, percentOverheal) {
     cooldown.events.forEach((event) => {
       if (event.type !== EventType.Heal || !cooldown.feed[event.ability.guid]) {
         return;
@@ -113,7 +113,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         return;
       }
 
-      const eventFeed = ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * feedingFactor * (1-percentOverheal);
+      const eventFeed = ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * feedingFactor * (1 - percentOverheal);
 
       this.eventEmitter.fabricateEvent({
         ...event,
