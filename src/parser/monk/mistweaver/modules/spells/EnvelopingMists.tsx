@@ -14,7 +14,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 const UNAFFECTED_SPELLS: number[] = [
   SPELLS.ENVELOPING_MIST.id,
 ];
-const ENVELOPING_BREATH_INCREASE: number = .1;
+
 
 class EnvelopingMists extends Analyzer {
   static dependencies = {
@@ -23,7 +23,7 @@ class EnvelopingMists extends Analyzer {
 
   protected combatants!: Combatants;
 
-  envBIncrease: number = 0;
+  
   healingIncrease: number = 0;
   evmHealingIncrease: number = 0;
   gustsHealing: number = 0;
@@ -36,7 +36,7 @@ class EnvelopingMists extends Analyzer {
     this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? .4 : .3;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.castEnvelopingMist);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleEnvelopingMist);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleEnvelopingBreath);
+    
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.masteryEnvelopingMist);
   }
 
@@ -71,32 +71,17 @@ class EnvelopingMists extends Analyzer {
     }
   }
 
-  handleEnvelopingBreath(event: HealEvent) {
-    const targetId = event.targetID;
-    const sourceId = event.sourceID;
-    
-    if (this.combatants.players[targetId]) {
-      if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_BREATH.id, event.timestamp, 0, 0, sourceId)) {
-        this.envBIncrease += calculateEffectiveHealing(event, ENVELOPING_BREATH_INCREASE);
-      }
-    }
-  }
 
   statistic() {
     return (
       <Statistic
           size="flexible"
           category={STATISTIC_CATEGORY.GENERAL}
-          tooltip={<>This is the effective healing contributed by the Enveloping Mist and Enveloping Breath buffs.</>}
+          tooltip={<>This is the effective healing contributed by the Enveloping Mist buff.</>}
         >
           <BoringSpellValueText spell={SPELLS.ENVELOPING_MIST}>
             <>
               {formatNumber(this.healingIncrease)} <small>healing contributed by the buff</small>
-            </>
-          </BoringSpellValueText>
-          <BoringSpellValueText spell={SPELLS.ENVELOPING_BREATH}>
-            <>
-              {formatNumber(this.envBIncrease)} <small>healing contributed by the buff</small>
             </>
           </BoringSpellValueText>
         </Statistic>
