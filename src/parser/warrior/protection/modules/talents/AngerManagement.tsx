@@ -70,8 +70,8 @@ class AngerManagement extends Analyzer {
           </tr>
         </thead>
         <tbody>
-          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map((value,key) => (
-          <tr>
+          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map(value => (
+          <tr id={value}>
             <td>{SPELLS[value].name}</td>
             <td>{formatDuration(this.effectiveReduction[value] / 1000)}</td>
             <td>{formatDuration(this.wastedReduction[value] / 1000)}</td>
