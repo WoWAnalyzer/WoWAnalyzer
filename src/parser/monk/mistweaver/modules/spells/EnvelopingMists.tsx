@@ -55,13 +55,14 @@ class EnvelopingMists extends Analyzer {
   handleEnvelopingMist(event: HealEvent) {
     const targetId = event.targetID;
     const spellId = event.ability.guid;
+    const sourceId = event.sourceID;
     
     if (UNAFFECTED_SPELLS.includes(spellId)) {
       return;
     }
     
     if (this.combatants.players[targetId]) {
-      if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MIST.id, event.timestamp, 0, 0, SELECTED_PLAYER)) {
+      if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MIST.id, event.timestamp, 0, 0, sourceId)) {
         this.healingIncrease += calculateEffectiveHealing(event, this.evmHealingIncrease);
       }
     }

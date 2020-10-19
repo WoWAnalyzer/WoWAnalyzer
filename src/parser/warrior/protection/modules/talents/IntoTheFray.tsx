@@ -1,16 +1,18 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticBox from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValueText from 'interface/statistics/components/BoringValueText'
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import SpellLink from 'common/SpellLink';
 
 const MAX_STACKS = 5;
-const HASTE_PER_STACK = 3;
+const HASTE_PER_STACK = 2;
 
 //update haste per stack in ./core/Haste.js aswell
 
@@ -31,7 +33,6 @@ class IntoTheFray extends Analyzer {
   }
 
   handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | RemoveBuffStackEvent | FightEndEvent, stack?: number) {
-    // TODO create child classes of the event types that we add event.stack to, in case its used in other modules
     const stackEvent = event as (typeof event & { stack: number });
     if (stackEvent.type === EventType.RemoveBuff || isNaN(stackEvent.stack)) { // NaN check if player is dead during on_finish
       stackEvent.stack = 0;
@@ -63,12 +64,12 @@ class IntoTheFray extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.INTO_THE_FRAY_TALENT.id} />}
-        value={`${this.averageHaste}%`}
-        label="average haste gained"
-      >
-        <table className="table table-condensed">
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        dropdown={
+          <table className="table table-condensed">
           <thead>
             <tr>
               <th>Haste-Bonus</th>
@@ -86,7 +87,12 @@ class IntoTheFray extends Analyzer {
             ))}
           </tbody>
         </table>
-      </StatisticBox>
+        }
+      >
+      <BoringValueText label={<><SpellLink id={SPELLS.INTO_THE_FRAY_TALENT.id} /> average haste gained</>}>
+      {this.averageHaste}%
+        </BoringValueText>
+      </Statistic>
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);
