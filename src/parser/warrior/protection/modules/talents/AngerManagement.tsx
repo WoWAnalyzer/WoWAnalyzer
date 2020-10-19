@@ -70,11 +70,11 @@ class AngerManagement extends Analyzer {
           </tr>
         </thead>
         <tbody>
-          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map(id => (
+          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map((value,index) => (
           <tr>
-            <td>{SPELLS[id].name}</td>
-            <td>{formatDuration(this.effectiveReduction[id] / 1000)}</td>
-            <td>{formatDuration(this.wastedReduction[id] / 1000)}</td>
+            <td>{SPELLS[value].name}</td>
+            <td>{formatDuration(this.effectiveReduction[value] / 1000)}</td>
+            <td>{formatDuration(this.wastedReduction[value] / 1000)}</td>
           </tr>
         ))}
         </tbody>
