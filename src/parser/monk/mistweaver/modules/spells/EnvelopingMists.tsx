@@ -15,7 +15,6 @@ const UNAFFECTED_SPELLS: number[] = [
   SPELLS.ENVELOPING_MIST.id,
 ];
 
-
 class EnvelopingMists extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -23,7 +22,6 @@ class EnvelopingMists extends Analyzer {
 
   protected combatants!: Combatants;
 
-  
   healingIncrease: number = 0;
   evmHealingIncrease: number = 0;
   gustsHealing: number = 0;
@@ -70,7 +68,6 @@ class EnvelopingMists extends Analyzer {
       }
     }
   }
-
 
   statistic() {
     return (
