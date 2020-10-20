@@ -3,9 +3,8 @@ import React from 'react';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -16,6 +15,7 @@ import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 
 const MAX_RUNES = 6;
 const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption
@@ -56,6 +56,7 @@ class RuneTracker extends ResourceTracker {
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.RUNIC_CORRUPTION), this.onRemovebuff);
     this.addEventListener(Events.UpdateSpellUsable.spell(RUNE_IDS), this.onUpdateSpellUsable);
   }
+
   onFightend() { //add a last event for calculating uptimes and make the chart not end early.
     const runesAvailable = this.runesAvailable;
     this._fightend = true;
@@ -64,6 +65,7 @@ class RuneTracker extends ResourceTracker {
     this._runesReadySum[runesAvailable] += this.owner.fight.end_time - this._lastTimestamp;
     this.addPassiveRuneRegeneration();
   }
+
   onCast(event) {
     if (!event.classResources || event.prepull) {
       return;
@@ -86,6 +88,7 @@ class RuneTracker extends ResourceTracker {
         }
       });
   }
+
   onEnergize(event) { //add a charge to the rune with the longest remaining cooldown when a rune is refunded.
     super.onEnergize(event);
     if (event.resourceChangeType !== this.resource.id) {
@@ -96,18 +99,21 @@ class RuneTracker extends ResourceTracker {
       this.addCharge();
     }
   }
+
   onApplybuff(event) { //decrease cooldown when a buff that increases rune regeneration rate is applied.
     const multiplier = 1 / (1 + RUNIC_CORRUPTION_INCREASE);
     RUNE_IDS.forEach(spell => {
       this.changeCooldown(spell.id, multiplier);
     });
   }
+
   onRemovebuff(event) { //increase cooldown when a buff that increases rune regeneration rate fades.
     const multiplier = 1 + RUNIC_CORRUPTION_INCREASE;
     RUNE_IDS.forEach(spell => {
       this.changeCooldown(spell.id, multiplier);
     });
   }
+
   onUpdateSpellUsable(event) { //track when a rune comes off cooldown
     let change = 0;
     if (event.trigger === EventType.EndCooldown || event.trigger === EventType.RestoreCharge) { //gained a rune
@@ -289,20 +295,18 @@ class RuneTracker extends ResourceTracker {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You overcapped {formatPercentage(actual)}% of your runes. Try to always have at least 3 runes on cooldown.</>)
-        .icon(SPELLS.RUNE_1.icon)
-        .actual(i18n._(t('deathknight.shared.suggestions.runes.overcapped')`${formatPercentage(actual)}% runes overcapped`))
-        .recommended(`<${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.RUNE_1.icon)
+      .actual(i18n._(t('deathknight.shared.suggestions.runes.overcapped')`${formatPercentage(actual)}% runes overcapped`))
+      .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
     const timeSpentAtRuneCount = this.timeSpentAtRuneCount;
     const badThreshold = 4;
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<SpellIcon id={SPELLS.RUNE_1.id} noLink />}
-        value={`${formatPercentage(1 - this.runeEfficiency)} %`}
-        label="Runes overcapped"
+        size="flexible"
         tooltip={(
           <>
             Number of runes wasted: {formatNumber(this.runesWasted)} <br />
@@ -310,37 +314,44 @@ class RuneTracker extends ResourceTracker {
             The table below shows the time spent at any given number of runes available.
           </>
         )}
+        dropdown={
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Runes</th>
+                <th>Time (s)</th>
+                <th>Time (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              { //split into good and bad number of runes available
+                this._runesReadySum.filter((value, index) => index < badThreshold).map((value, index) => (
+                  <tr key={index}>
+                    <th>{index}</th>
+                    <td>{formatDuration(this._runesReadySum[index] / 1000)}</td>
+                    <td>{formatPercentage(timeSpentAtRuneCount[index])}%</td>
+                  </tr>
+                ))
+              }
+              {
+                this._runesReadySum.filter((value, index) => index >= badThreshold).map((value, index) => (
+                  <tr key={index + badThreshold}>
+                    <th style={{ color: 'red' }}>{index + badThreshold}</th>
+                    <td>{formatDuration(this._runesReadySum[index + badThreshold] / 1000)}</td>
+                    <td>{formatPercentage(timeSpentAtRuneCount[index + badThreshold])}%</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        }
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Runes</th>
-              <th>Time (s)</th>
-              <th>Time (%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            { //split into good and bad number of runes available
-              this._runesReadySum.filter((value, index) => index < badThreshold).map((value, index) => (
-                <tr key={index}>
-                  <th>{index}</th>
-                  <td>{formatDuration(this._runesReadySum[index] / 1000)}</td>
-                  <td>{formatPercentage(timeSpentAtRuneCount[index])}%</td>
-                </tr>
-              ))
-            }
-            {
-              this._runesReadySum.filter((value, index) => index >= badThreshold).map((value, index) => (
-                <tr key={index + badThreshold}>
-                  <th style={{ color: 'red' }}>{index + badThreshold}</th>
-                  <td>{formatDuration(this._runesReadySum[index + badThreshold] / 1000)}</td>
-                  <td>{formatPercentage(timeSpentAtRuneCount[index + badThreshold])}%</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </StatisticBox>
+        <BoringResourceValue
+          resource={RESOURCE_TYPES.RUNES}
+          value={`${formatPercentage(1 - this.runeEfficiency)} %`}
+          label="Runes overcapped"
+        />
+      </Statistic>
     );
   }
 }

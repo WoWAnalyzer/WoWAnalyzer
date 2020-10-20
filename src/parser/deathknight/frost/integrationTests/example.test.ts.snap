@@ -4819,10 +4819,10 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
+    className="panel statistic flexible "
+    position={10}
     style={
       Object {
-        "height": "auto",
         "zIndex": 1,
       }
     }
@@ -4831,21 +4831,33 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
-          <img
-            alt="Rune 1"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_frozenruneweapon.jpg"
-          />
-           
-          Runes overcapped
-        </label>
         <div
-          className="value"
+          className="flex-sub icon"
         >
-          42.35 %
+          <a
+            href="http://wowhead.com/runes"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Runes"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_frozenruneweapon.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            42.35 %
+          </div>
+          <small>
+            Runes overcapped
+          </small>
         </div>
       </div>
       <div

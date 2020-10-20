@@ -1,16 +1,17 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const REFRESH_AT_STACKS_WITH_BONES_OF_THE_DAMNED = 6;
 const REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED = 7;
@@ -51,7 +52,7 @@ class MarrowrendUsage extends Analyzer {
   constructor(...args) {
     super(...args);
 
-    if(this.selectedCombatant.hasTrait(SPELLS.BONES_OF_THE_DAMNED.id)) {
+    if (this.selectedCombatant.hasTrait(SPELLS.BONES_OF_THE_DAMNED.id)) {
       this.hasBonesOfTheDamned = true;
       this.refreshAtStacks = REFRESH_AT_STACKS_WITH_BONES_OF_THE_DAMNED;
     }
@@ -62,7 +63,6 @@ class MarrowrendUsage extends Analyzer {
     this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.onRemoveBuffStack);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MARROWREND), this.onCast);
   }
-
 
   onApplyBuff(event) {
     this.currentBoneShieldBuffer += 1;
@@ -183,10 +183,9 @@ class MarrowrendUsage extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.MARROWREND.id} />}
-        value={`${this.badMRCasts} / ${this.totalMRCasts}`}
-        label="Bad Marrowrend casts"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(3)}
+        size="flexible"
         tooltip={(
           <>
             {this.refreshMRCasts} casts to refresh Bone Shield, those do not count towards bad casts.<br />
@@ -196,10 +195,15 @@ class MarrowrendUsage extends Analyzer {
             Avoid casting Marrowrend unless you have {this.refreshAtStacks} or less stacks or if Bone Shield has less than 6sec of its duration left.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.MARROWREND}>
+          <>
+            {this.badMRCasts} / {this.totalMRCasts} <small>Bad Marrowrend casts</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default MarrowrendUsage;
