@@ -10,28 +10,33 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { formatNumber } from 'common/format';
 
-import { LONELY_WINTER_DAMAGE_BONUS, LONELY_WINTER_AFFECTED_SPELLS } from '../../constants';
+const DAMAGE_BONUS = 0.25;
+const BUFFED_SPELLS = [
+  SPELLS.FROSTBOLT_DAMAGE,
+  SPELLS.ICE_LANCE_DAMAGE,
+  SPELLS.FLURRY_DAMAGE,
+];
 
 // You can no longer summon your Water Elemental, but Frostbolt, Ice Lance, and Flurry deal 25% increased damage.
 class LonelyWinter extends Analyzer {
-  bonusDamage: any;
+  bonusDamage: {[id: number]: number };
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(LONELY_WINTER_AFFECTED_SPELLS), this.onAffectedDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(BUFFED_SPELLS), this.onAffectedDamage);
     this.bonusDamage = {};
-    LONELY_WINTER_AFFECTED_SPELLS.forEach(spell => { this.bonusDamage[spell.id] = 0; });
+    BUFFED_SPELLS.forEach(spell => { this.bonusDamage[spell.id] = 0; });
   }
 
   onAffectedDamage(event: DamageEvent) {
-    this.bonusDamage[event.ability.guid] += calculateEffectiveDamage(event, LONELY_WINTER_DAMAGE_BONUS);
+    this.bonusDamage[event.ability.guid] += calculateEffectiveDamage(event, DAMAGE_BONUS);
   }
 
   statistic() {
     let totalDamage = 0;
     const tooltip = Object.keys(this.bonusDamage).map(spellId => {
-      const spellBonus = this.bonusDamage[spellId];
+      const spellBonus = this.bonusDamage[Number(spellId)];
       totalDamage += spellBonus;
       return <li key={spellId}>Bonus <strong>{SPELLS[spellId].name}</strong> damage: {formatNumber(spellBonus)}</li>;
     });

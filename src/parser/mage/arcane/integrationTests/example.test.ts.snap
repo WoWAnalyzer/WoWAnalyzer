@@ -18,7 +18,7 @@ Array [
        casts instant.
     </span>,
     "stat": <React.Fragment>
-      35.63% downtime
+      36.32% downtime
        (
       &lt;20.00% is recommended
       )
@@ -5356,7 +5356,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "27.462673896982093%",
+                  "width": "27.409106297143232%",
                 }
               }
             />
@@ -5449,7 +5449,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  35.63%
+                  36.32%
                    
                    
                 </div>
@@ -5471,7 +5471,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "5.607626274976842%",
+                        "width": "5.500491075299122%",
                       }
                     }
                   />

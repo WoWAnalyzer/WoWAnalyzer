@@ -12,10 +12,9 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { TooltipElement } from 'common/Tooltip';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { SHATTER_DEBUFFS } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
-import { SHATTER_DEBUFFS } from '../../constants';
 
 class GlacialSpike extends Analyzer {
   static dependencies = {
@@ -26,10 +25,9 @@ class GlacialSpike extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   lastCastEvent?: CastEvent;
-
-  lastCastDidDamage = false;
-  spikeShattered = 0;
-  spikeNotShattered = 0;
+  lastCastDidDamage: boolean = false;
+  spikeShattered: number = 0;
+  spikeNotShattered: number = 0;
 
   constructor(options: Options) {
     super(options);

@@ -8,11 +8,10 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
+import { MS_BUFFER_100 } from 'parser/mage/shared/constants';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
-import { PROC_BUFFER } from '../../constants';
 
 const debug = false;
 
@@ -22,14 +21,14 @@ class BrainFreeze extends Analyzer {
   };
   protected eventHistory!: EventHistory;
 
-  usedProcs = 0;
-  overwrittenProcs = 0;
-  expiredProcs = 0;
-  totalProcs = 0;
-  flurryHardCast = 0;
+  usedProcs: number = 0;
+  overwrittenProcs: number = 0;
+  expiredProcs: number = 0;
+  totalProcs: number = 0;
+  flurryHardCast: number = 0;
 
   // Tracks whether the last brain freeze generator to be cast was Ebonbolt or Frostbolt
-  wasLastGeneratorEB = false;
+  wasLastGeneratorEB: boolean = false;
 
   constructor(options: Options) {
     super(options);
@@ -50,7 +49,7 @@ class BrainFreeze extends Analyzer {
   }
 
   brainFreezeRemoved() {
-    const previousSpell = this.eventHistory.last(1, PROC_BUFFER, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLURRY));
+    const previousSpell = this.eventHistory.last(1, MS_BUFFER_100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLURRY));
     if (previousSpell.length !== 0) {
       this.usedProcs += 1;
     } else {

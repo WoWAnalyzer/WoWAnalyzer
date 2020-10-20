@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
 
@@ -185,6 +186,58 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.RADIANT_SPARK,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 30,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.DEATHBORNE,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.MIRRORS_OF_TORMENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 90,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.SHIFTING_POWER,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 45,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,

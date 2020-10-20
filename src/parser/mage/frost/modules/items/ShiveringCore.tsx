@@ -28,9 +28,9 @@ const DAMAGE_BONUS: {[rank: number]: number } = {
 };
 
 class ShiveringCore extends Analyzer {
+  
   conduitRank: number = 0;
-
-  bonusDamage = 0;
+  bonusDamage: number = 0;
 
   constructor(props: Options) {
     super(props);

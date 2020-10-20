@@ -5,10 +5,9 @@ import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import { MS_BUFFER_250, COMBUSTION_END_BUFFER, FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD, FIRE_DIRECT_DAMAGE_SPELLS } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
-import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD, HOT_STREAK_CONTRIBUTORS, PROC_BUFFER, COMBUSTION_BUFFER } from '../../constants';
 
 const debug = false;
 
@@ -16,15 +15,14 @@ class HotStreakPreCasts extends Analyzer {
   hasPyroclasm: boolean;
   hasFirestarter: boolean;
   hasSearingTouch: boolean;
-
-  lastCastTimestamp = 0;
-  hotStreakRemoved = 0;
-  pyroclasmProcRemoved = 0;
-  castedBeforeHotStreak = 0;
-  noCastBeforeHotStreak = 0;
-  healthPercent = 1;
-  castTimestamp = 0;
-  combustionEnded = 0;
+  lastCastTimestamp: number = 0;
+  hotStreakRemoved: number = 0;
+  pyroclasmProcRemoved: number = 0;
+  castedBeforeHotStreak: number = 0;
+  noCastBeforeHotStreak: number = 0;
+  healthPercent: number = 1;
+  castTimestamp: number = 0;
+  combustionEnded: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -32,7 +30,7 @@ class HotStreakPreCasts extends Analyzer {
     this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.hasSearingTouch = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.getCastTimestamp);
-    if (this.hasFirestarter || this.hasSearingTouch) {this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(HOT_STREAK_CONTRIBUTORS), this.checkHealthPercent);}
+    if (this.hasFirestarter || this.hasSearingTouch) {this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this.checkHealthPercent);}
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.onHotStreakRemoved);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
     this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
@@ -71,12 +69,12 @@ class HotStreakPreCasts extends Analyzer {
   //Compares timestamps to determine if an ability was hard casted immediately before using Hot Streak.
   //If Combustion is active or they are in the Firestarter or Searing Touch execute windows, then this check is ignored.
   checkForHotStreakPreCasts(event: RemoveBuffEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || event.timestamp < this.combustionEnded + COMBUSTION_BUFFER || (this.hasFirestarter && this.healthPercent > FIRESTARTER_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_THRESHOLD)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || event.timestamp < this.combustionEnded + COMBUSTION_END_BUFFER || (this.hasFirestarter && this.healthPercent > FIRESTARTER_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_THRESHOLD)) {
       debug && this.log('Pre Cast Ignored');
       return;
     }
 
-    if (this.hotStreakRemoved - PROC_BUFFER < this.castTimestamp || this.hotStreakRemoved - PROC_BUFFER < this.pyroclasmProcRemoved) {
+    if (this.hotStreakRemoved - MS_BUFFER_250 < this.castTimestamp || this.hotStreakRemoved - MS_BUFFER_250 < this.pyroclasmProcRemoved) {
       this.castedBeforeHotStreak += 1;
     } else {
       this.noCastBeforeHotStreak += 1;

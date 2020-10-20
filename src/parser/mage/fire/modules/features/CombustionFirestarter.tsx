@@ -6,22 +6,21 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-
-import { FIRESTARTER_THRESHOLD, HOT_STREAK_CONTRIBUTORS } from '../../constants';
+import { FIRESTARTER_THRESHOLD, FIRE_DIRECT_DAMAGE_SPELLS } from 'parser/mage/shared/constants';
 
 const debug = false;
 
 class CombustionFirestarter extends Analyzer {
 
-  combustionCast = false;
-  combustionDuringFirestarter = false;
-  healthPercent = 1;
+  combustionCast: boolean = false;
+  combustionDuringFirestarter: boolean = false;
+  healthPercent: number = 1;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustion);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(HOT_STREAK_CONTRIBUTORS), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this.onDamage);
   }
 
   //Checks to see if a new Combustion was cast. This variable is marked false once a damage event is triggered since we only want the first damage event in the Combustion (to get the health percentage)

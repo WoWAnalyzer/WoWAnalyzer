@@ -39,8 +39,7 @@ class IcyPropulsion extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   conduitRank: number = 0;
-
-  cooldownReduction = 0;
+  cooldownReduction: number = 0;
 
   constructor(props: Options) {
     super(props);

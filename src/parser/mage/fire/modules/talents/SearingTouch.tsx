@@ -9,10 +9,11 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { SEARING_TOUCH_THRESHOLD, COMBUSTION_END_BUFFER } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import { SEARING_TOUCH_THRESHOLD, SEARING_TOUCH_DAMAGE_MODIFIER, COMBUSTION_BUFFER } from '../../constants';
+export const DAMAGE_MODIFIER = 1.50;
 
 const debug = false;
 
@@ -23,12 +24,12 @@ class SearingTouch extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   lastCastEvent?: CastEvent;
 
-  fireballExecuteCasts = 0;
-  totalNonExecuteCasts = 0;
-  totalExecuteCasts = 0;
-  healthPercent = 1;
-  nonExecuteScorchCasts = 0;
-  combustionEnded = 0;
+  fireballExecuteCasts: number = 0;
+  totalNonExecuteCasts: number = 0;
+  totalExecuteCasts: number = 0;
+  healthPercent: number = 1;
+  nonExecuteScorchCasts: number = 0;
+  combustionEnded: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -54,14 +55,14 @@ class SearingTouch extends Analyzer {
       this.healthPercent < SEARING_TOUCH_THRESHOLD ? this.totalExecuteCasts += 1 : this.totalNonExecuteCasts += 1;
     }
 
-    if (spellId === SPELLS.SCORCH.id && this.healthPercent > SEARING_TOUCH_THRESHOLD && !this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) && event.timestamp > this.combustionEnded + COMBUSTION_BUFFER) {
+    if (spellId === SPELLS.SCORCH.id && this.healthPercent > SEARING_TOUCH_THRESHOLD && !this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) && event.timestamp > this.combustionEnded + COMBUSTION_END_BUFFER) {
       this.nonExecuteScorchCasts += 1;
     } else if (spellId === SPELLS.FIREBALL.id && this.healthPercent < SEARING_TOUCH_THRESHOLD) {
       this.fireballExecuteCasts += 1;
       if (this.lastCastEvent) {
         this.lastCastEvent.meta = this.lastCastEvent.meta || {};
         this.lastCastEvent.meta.isInefficientCast = true;
-        this.lastCastEvent.meta.inefficientCastReason = `This Fireball was cast while the target was under ${formatPercentage(SEARING_TOUCH_THRESHOLD)}% health. While talented into Searing Touch, ensure that you are casting Scorch instead of Fireball while the target is under 30% health since Scorch does ${formatPercentage(SEARING_TOUCH_DAMAGE_MODIFIER)}% additional damage.`;
+        this.lastCastEvent.meta.inefficientCastReason = `This Fireball was cast while the target was under ${formatPercentage(SEARING_TOUCH_THRESHOLD)}% health. While talented into Searing Touch, ensure that you are casting Scorch instead of Fireball while the target is under 30% health since Scorch does ${formatPercentage(DAMAGE_MODIFIER)}% additional damage.`;
         debug && this.log("Cast Fireball under 30% Health");
       }
     }

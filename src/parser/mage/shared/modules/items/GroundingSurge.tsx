@@ -29,8 +29,7 @@ class GroundingSurge extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   conduitRank: number = 0;
-
-  bonusDamage = 0;
+  bonusDamage: number = 0;
 
   constructor(props: Options) {
     super(props);

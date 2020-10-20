@@ -8,15 +8,11 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import HIT_TYPES from 'game/HIT_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { FIRE_DIRECT_DAMAGE_SPELLS, PHOENIX_FLAMES_MAX_CHARGES } from 'parser/mage/shared/constants';
 
-const REDUCTION_MS = 1500;
-const COMBUST_REDUCTION_SPELLS = [
-  SPELLS.FIREBALL,
-  SPELLS.PYROBLAST,
-  SPELLS.FIRE_BLAST,
-];
+const MS_REDUCTION_PER_STACK = 1000;
 
-class Kindling extends Analyzer {
+class FromTheAshes extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -26,19 +22,17 @@ class Kindling extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.KINDLING_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(COMBUST_REDUCTION_SPELLS), this.onCritDamage);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FROM_THE_ASHES.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this.onCritDamage);
   }
 
   //Look for crit damage events to reduce the cooldown on Kindling
   onCritDamage(event: DamageEvent) {
-    const combustionOnCD = this.spellUsable.isOnCooldown(SPELLS.COMBUSTION.id);
-    if (event.hitType !== HIT_TYPES.CRIT) {
+    if (!this.spellUsable.isOnCooldown(SPELLS.PHOENIX_FLAMES.id) || event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
-    if (combustionOnCD) {
-      this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.COMBUSTION.id, (REDUCTION_MS));
-    }
+    const chargesOnCD = PHOENIX_FLAMES_MAX_CHARGES - this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES.id);
+    this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.PHOENIX_FLAMES, MS_REDUCTION_PER_STACK * chargesOnCD);
   }
 
   get cooldownReductionSeconds() {
@@ -51,9 +45,9 @@ class Kindling extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.KINDLING_TALENT}>
+        <BoringSpellValueText spell={SPELLS.FROM_THE_ASHES}>
           <>
-            {formatNumber(this.cooldownReductionSeconds)}s <small>Combustion Cooldown Reduction</small>
+            {formatNumber(this.cooldownReductionSeconds)}s <small>Phoenix Flames Cooldown Reduction</small>
           </>
         </BoringSpellValueText>
       </Statistic>
@@ -61,4 +55,4 @@ class Kindling extends Analyzer {
   }
 }
 
-export default Kindling;
+export default FromTheAshes;

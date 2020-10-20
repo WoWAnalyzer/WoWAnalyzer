@@ -15,7 +15,39 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import { WINTERS_CHILL_HARDCASTS, WINTERS_CHILL_CASTS, WINTERS_CHILL_DAMAGE, WINTERS_CHILL_SPENDERS } from '../../constants';
+const AFFECTED_CASTS = [
+  SPELLS.FROSTBOLT,
+  SPELLS.EBONBOLT_TALENT,
+  SPELLS.GLACIAL_SPIKE_TALENT,
+  SPELLS.ICE_LANCE,
+  SPELLS.COMET_STORM_TALENT,
+  SPELLS.ICE_NOVA_TALENT,
+  SPELLS.RAY_OF_FROST_TALENT,
+];
+
+const AFFECTED_DAMAGE = [
+  SPELLS.FROSTBOLT_DAMAGE,
+  SPELLS.EBONBOLT_DAMAGE,
+  SPELLS.GLACIAL_SPIKE_DAMAGE,
+  SPELLS.ICE_LANCE_DAMAGE,
+  SPELLS.COMET_STORM_TALENT,
+  SPELLS.ICE_NOVA_TALENT,
+  SPELLS.RAY_OF_FROST_TALENT,
+];
+
+const WINTERS_CHILL_SPENDERS = [
+  SPELLS.ICE_LANCE_DAMAGE,
+  SPELLS.GLACIAL_SPIKE_DAMAGE,
+  SPELLS.ICE_NOVA_TALENT,
+  SPELLS.RAY_OF_FROST_TALENT,
+];
+
+const WINTERS_CHILL_HARDCASTS = [
+SPELLS.FROSTBOLT_DAMAGE,
+SPELLS.EBONBOLT_DAMAGE,
+SPELLS.GLACIAL_SPIKE_DAMAGE,
+SPELLS.RADIANT_SPARK,
+];
 
 const debug = false;
 
@@ -31,18 +63,18 @@ class WintersChill extends Analyzer {
   hasEbonbolt: boolean;
   //isKyrian: boolean;
 
-  totalProcs = 0;
-  totalChillStacks = 0;
+  totalProcs: number = 0;
+  totalChillStacks: number = 0;
   preCastFound = false;
-  preCastSpellId = 0;
-  wintersChillHits: any = [];
-  lastCastEvent: any = undefined;
-  goodShatteredCasts = 0;
-  badShatteredCasts = 0;
-  missedHardcasts = 0;
-  missedShatters = 0;
-  badShatters = 0;
-  buffRemovedTimestamp = 0;
+  preCastSpellId: number = 0;
+  wintersChillHits: number[] = [];
+  lastCastEvent?: CastEvent;
+  goodShatteredCasts: number = 0;
+  badShatteredCasts: number = 0;
+  missedHardcasts: number = 0;
+  missedShatters: number = 0;
+  badShatters: number = 0;
+  buffRemovedTimestamp: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -50,8 +82,8 @@ class WintersChill extends Analyzer {
     this.hasEbonbolt = this.selectedCombatant.hasTalent(SPELLS.EBONBOLT_TALENT.id);
     //this.isKyrian = this.selectedCombatant.hasCovenant()
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(WINTERS_CHILL_CASTS), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(WINTERS_CHILL_DAMAGE), this.onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(AFFECTED_CASTS), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_DAMAGE), this.onDamage);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL), this.onDebuffApplied);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL), this.onDebuffRemoved);
     this.addEventListener(Events.fightend, this.onFinished);

@@ -30,8 +30,7 @@ const DAMAGE_BONUS: {[rank: number]: number } = {
 class IreOfTheAscended extends Analyzer {
 
   conduitRank: number = 0;
-
-  bonusDamage = 0;
+  bonusDamage: number = 0;
 
   constructor(props: Options) {
     super(props);
