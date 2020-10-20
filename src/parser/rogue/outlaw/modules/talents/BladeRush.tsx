@@ -21,7 +21,7 @@ class BladeRush extends Analyzer {
   }
 
   onFinishMove(event: CastEvent) {
-    if (!event.classResources || !getResource(event.classResources!, RESOURCE_TYPES.COMBO_POINTS.id)) {
+    if (!event.classResources || !getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id)) {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.BLADE_RUSH_TALENT.id)) {
