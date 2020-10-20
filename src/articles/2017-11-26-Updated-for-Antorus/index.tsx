@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Zerotorescue } from 'CONTRIBUTORS';
 import ImageArticle from 'interface/news/ImageArticle';
 
 import AntorusImage from './antorus.jpg';
