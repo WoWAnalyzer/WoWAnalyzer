@@ -1,12 +1,8 @@
-import React from 'react';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import { ASSASSINATION_ABILITY_COOLDOWNS, SUBTLETY_ABILITY_COOLDOWNS, OUTLAW_ABILITY_COOLDOWNS, SHARED_ABILITY_COOLDOWNS } from 'parser/rogue/shared/constants';
 import { SpellList } from 'common/SPELLS/Spell';
