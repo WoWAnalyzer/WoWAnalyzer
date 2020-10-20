@@ -9,6 +9,7 @@ export default [
   change(date(2020, 10, 20), <>Added <SpellLink id={SPELLS.INVIGORATION_SHADOWDUST.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 10, 19), <>Added <SpellLink id={SPELLS.ESSENCE_OF_BLOODFANG.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
+  change(date(2020, 10, 16), <>Added <SpellLink id={SPELLS.GREENSKINS_WICKERS.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 10, 5), 'Updated Blade Flurry and Blade Rush to calculate CD reduction properly', [Tyndi]),
   change(date(2020, 10, 1), 'Move Slice and Dice from talent to spell, update Rogue spec configs, update spells', [Tyndi]),
   change(date(2019, 12, 16), <>Updated <SpellLink id={SPELLS.MARKED_FOR_DEATH_TALENT.id} /> wasted combo point thresholds.</>, [soloxcx]),

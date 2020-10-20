@@ -9,6 +9,7 @@ export default [
   change(date(2020, 10, 20), <>Added <SpellLink id={SPELLS.INVIGORATION_SHADOWDUST.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 10, 19), <>Added <SpellLink id={SPELLS.ESSENCE_OF_BLOODFANG.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
+  change(date(2020, 10, 16), <>Added <SpellLink id={SPELLS.DUSKWALKERS_PATCH.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 10, 2), <>Added <SpellLink id={SPELLS.DASHING_SCOUNDREL.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 9, 29), 'Updated for Shadowlands', [Tyndi]),
   change(date(2020, 5, 26), <>Fixed an issue with the Nightstalker-module crashing.</>, [joshinator]),

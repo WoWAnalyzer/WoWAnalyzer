@@ -474,6 +474,11 @@ const spells: SpellList = {
     name: 'Sacrifice of the Just',
     icon: 'spell_holy_divineshield',
   },
+  SANCTIFIED_WRATH_PROT_TALENT: {
+    id: 171648,
+    name: 'Sanctified Wrath',
+    icon: 'ability_paladin_judgementsofthejust',
+  },
 
 	// Buffs
   SHIELD_OF_THE_RIGHTEOUS_BUFF: {

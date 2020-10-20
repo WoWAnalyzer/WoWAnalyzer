@@ -109,6 +109,7 @@ class Serenity extends Analyzer {
             alt="Damage"
             className="icon"
           /> {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of total</small>
+          <br />
           <span style={{ fontsize: '75%' }}>
             <SpellIcon
               id={SPELLS.RISING_SUN_KICK.id}

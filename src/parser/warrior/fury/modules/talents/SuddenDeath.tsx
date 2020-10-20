@@ -14,6 +14,12 @@ import SpellUsable from '../features/SpellUsable';
  * and make it usable on any target, regardless of their health.
  */
 
+type ExecuteDamageTracker = {
+  damageDone: number,
+  isMainTargetAboveThreshold: boolean,
+  isSuddenDeath: boolean,
+}
+
 class SuddenDeath extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -23,11 +29,11 @@ class SuddenDeath extends Analyzer {
 
   suddenDeathProcs: number = 0;
   suddenDeathProcsUsed: number = 0;
-  executeDamageEvents: any = [];
+  executeDamageEvents: ExecuteDamageTracker[] = [];
 
   lastExecuteCast: number = 0;
   lastSuddenDeathExecuteCast: number = 0;
-  lastSuddenDeathTargetID: any = 0;
+  lastSuddenDeathTargetID: number | undefined = 0;
   executeThreshold: number = 0.2;
 
   constructor(options: Options) {
@@ -82,7 +88,7 @@ class SuddenDeath extends Analyzer {
     this.suddenDeathProcs += 1;
   }
   get damageAboveThreshold() {
-    return this.executeDamageEvents.reduce((total: number, event: any) => event.isMainTargetAboveThreshold ? total + event.damageDone : total, 0);
+    return this.executeDamageEvents.reduce((total, event) => event.isMainTargetAboveThreshold ? total + event.damageDone : total, 0);
   }
 
   get damagePercent() {
@@ -90,7 +96,7 @@ class SuddenDeath extends Analyzer {
   }
 
   get executeCastsAboveThreshold() {
-    return this.executeDamageEvents.filter((e: any) => e.isMainTargetAboveThreshold && e.isSuddenDeath).length;
+    return this.executeDamageEvents.filter(e => e.isMainTargetAboveThreshold && e.isSuddenDeath).length;
   }
 
   get effectiveExecuteCDR() {

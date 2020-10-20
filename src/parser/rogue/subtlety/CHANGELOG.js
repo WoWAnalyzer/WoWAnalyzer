@@ -9,6 +9,7 @@ export default [
   change(date(2020, 10, 20), <>Added <SpellLink id={SPELLS.INVIGORATION_SHADOWDUST.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 10, 19), <>Added <SpellLink id={SPELLS.ESSENCE_OF_BLOODFANG.id} /> Legendary</>, [Tyndi]),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
+  change(date(2020, 10, 16), <>Added <SpellLink id={SPELLS.THE_ROTTEN.id} /> Legendary. And Removed Nightblade.</>, [Tyndi]),
   change(date(2020, 10, 2), 'Added Akaari\'s Soul Fragment Legendary', [Tyndi]),
   change(date(2019, 1, 27), 'Improvements to the Nightblade analysis.', [tsabo]),
   change(date(2019, 1, 19), 'Fix Shuriken Storm CP waste. Any Shuriken Storm that generates at least 3CPs will not be considered waste, otherwise waste will be limited by the CP pool size.', [tsabo]),

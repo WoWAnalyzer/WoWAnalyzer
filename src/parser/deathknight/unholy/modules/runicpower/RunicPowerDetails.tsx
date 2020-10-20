@@ -1,11 +1,13 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/others/Panel';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
+
+import Analyzer from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
+import Panel from 'interface/others/Panel';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -16,6 +18,8 @@ class RunicPowerDetails extends Analyzer {
   static dependencies = {
     runicPowerTracker: RunicPowerTracker,
   };
+
+  protected runicPowerTracker!: RunicPowerTracker
 
   get wastedPercent(){
     return this.runicPowerTracker.wasted / (this.runicPowerTracker.wasted + this.runicPowerTracker.generated) || 0;
@@ -29,7 +33,7 @@ class RunicPowerDetails extends Analyzer {
         average: 0.90,
         major: .85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -41,11 +45,11 @@ class RunicPowerDetails extends Analyzer {
         average: 0.1,
         major: .15,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
           .icon('inv_sword_62')
           .actual(i18n._(t('deathknight.unholy.suggestions.runicPower.wasted')`${formatPercentage(actual)}% wasted`))
