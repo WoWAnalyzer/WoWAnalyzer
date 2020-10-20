@@ -27,7 +27,7 @@ class RefreshingJadeWind extends Analyzer {
     }
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT), this.rjwBuff);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT), this.rjwHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_HEAL), this.rjwHeal);
   }
 
   rjwBuff(event: ApplyBuffEvent) {

@@ -7,6 +7,7 @@ import { change, date } from 'common/changelog';
 
 
 export default [
+  change(date(2020, 10, 19), <>Fixed Refreshing Jade Wind. </>, Abelito75),
   change(date(2020, 10, 19), <>Added Enveloping Breath module. </>, Vohrr),
   change(date(2020, 10, 14), <>Converted some more files to typescript as well as fixing internalization. </>, Abelito75),
   change(date(2020, 10, 14), <>Corrected Upwelling's icon. </>, Abelito75),
