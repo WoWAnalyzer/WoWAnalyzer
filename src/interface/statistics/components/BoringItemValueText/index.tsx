@@ -3,12 +3,19 @@
  * Use this only as the very last resort.
  */
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
+import { Item } from 'parser/core/Events';
 
-const BoringItemValueText = ({ item, children, className }) => (
+
+type Props = {
+  item: Item;
+  children: React.ReactNode;
+  className?: string;
+};
+
+const BoringItemValueText = ({ item, children, className }: Props) => (
   <div className={`pad boring-text ${className || ''}`}>
     <label>
       <ItemIcon id={item.id} /> <ItemLink id={item.id} icon={false} />
@@ -18,12 +25,5 @@ const BoringItemValueText = ({ item, children, className }) => (
     </div>
   </div>
 );
-BoringItemValueText.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-  }).isRequired,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
 
 export default BoringItemValueText;
