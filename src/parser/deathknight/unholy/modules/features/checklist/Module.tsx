@@ -21,6 +21,13 @@ class Checklist extends BaseModule {
     runeTracker: RuneTracker,
   };
 
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected runeTracker!: RuneTracker;
+  protected runicPowerDetails!: RunicPowerDetails;
+
   render() {
     return (
       <Component

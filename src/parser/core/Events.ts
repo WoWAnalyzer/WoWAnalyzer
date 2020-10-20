@@ -396,6 +396,7 @@ export interface ApplyBuffStackEvent extends BuffEvent<EventType.ApplyBuffStack>
 
 export interface ApplyDebuffStackEvent extends BuffEvent<EventType.ApplyDebuffStack> {
   sourceID: number;
+  targetInstance?: number;
   stack: number;
 }
 
@@ -439,6 +440,7 @@ export interface ChangeDebuffStackEvent extends Omit<ChangeBuffStackEvent, "type
 
 export interface RemoveDebuffStackEvent extends BuffEvent<EventType.RemoveDebuffStack> {
   sourceID: number;
+  targetInstance?: number;
   stack: number;
 }
 

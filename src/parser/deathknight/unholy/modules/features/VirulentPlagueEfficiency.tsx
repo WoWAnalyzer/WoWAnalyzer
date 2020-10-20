@@ -3,12 +3,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Enemies from 'parser/shared/modules/Enemies';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { RefreshDebuffEvent, ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Enemies from 'parser/shared/modules/Enemies';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -18,15 +19,15 @@ class VirulentPlagueEfficiency extends Analyzer {
 	  enemies: Enemies,
   };
 
-  constructor(...args){
-    super(...args);
+  constructor(options: Options){
+    super(options);
 
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.VIRULENT_PLAGUE), this.onRefresh);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VIRULENT_PLAGUE), this.onApply);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.OUTBREAK), this.onCastOutbreak);
   }
 
-  targets = {};
+  targets: { [key: string]: number } = {};
 
   totalOutBreakCasts = 0;
   totalTimeWasted = 0;
@@ -35,16 +36,16 @@ class VirulentPlagueEfficiency extends Analyzer {
     return this.selectedCombatant.hasTalent(SPELLS.EBON_FEVER_TALENT.id) ? 13.65 : 27.3;
   }
 
-  onRefresh(event) {
+  onRefresh(event: RefreshDebuffEvent) {
     this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.timestamp + 1000 * this.VirulentDuration;
   }
 
-  onApply(event) {
+  onApply(event: ApplyDebuffEvent) {
     this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.timestamp + 1000 * this.VirulentDuration - 1000 * 0.3 * this.VirulentDuration;
     //Removing 3.15 seconds when buff is only applied. This is for cases when the target does not benefit from the epidemic effect (Dots spreading to adds not staying by target for instance.)
   }
 
-  onCastOutbreak(event) {
+  onCastOutbreak(event: CastEvent) {
     this.totalOutBreakCasts += 1;
     if (this.targets[encodeTargetString(event.targetID, event.targetInstance)]) {
       //We subtract 6 seconds from the total duration since this is the time left after Outbreak finishes.
@@ -62,16 +63,16 @@ class VirulentPlagueEfficiency extends Analyzer {
     return {
       actual: this.averageTimeWasted,
       isGreaterThan: {
-        minor: (1),
-        average: (3),
-        major: (5),
+        minor: 1,
+        average: 3,
+        major: 5,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
       suffix: 'Average',
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> You are casting <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> too often. Try to cast <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> as close to it falling off as possible.</>)
           .icon(SPELLS.VIRULENT_PLAGUE.icon)
