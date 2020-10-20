@@ -1,7 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const ImageArticle = props => {
+interface Props {
+  title: React.ReactNode,
+  image: React.ReactNode,
+  style: object
+}
+
+const ImageArticle : React.FC<Props> = (props) => {
   const { title, children, image, style } = props;
 
   return (
@@ -20,13 +25,6 @@ const ImageArticle = props => {
       </div>
     </article>
   );
-};
-
-ImageArticle.propTypes = {
-  title: PropTypes.node.isRequired,
-  children: PropTypes.node.isRequired,
-  image: PropTypes.node.isRequired,
-  style: PropTypes.object,
 };
 
 export default ImageArticle;
