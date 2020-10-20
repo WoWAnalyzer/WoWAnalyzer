@@ -1,3 +1,4 @@
+/* eslint react/prop-types: 0 */
 import React from 'react';
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
   style: object
 }
 
-const ImageArticle : React.FC<Props> = (props) => {
+const ImageArticle: React.FC<Props> = (props) => {
   const { title, children, image, style } = props;
 
   return (
