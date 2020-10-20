@@ -22,7 +22,7 @@ class FromTheAshes extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FROM_THE_ASHES.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FROM_THE_ASHES_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this.onCritDamage);
   }
 
@@ -45,7 +45,7 @@ class FromTheAshes extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.FROM_THE_ASHES}>
+        <BoringSpellValueText spell={SPELLS.FROM_THE_ASHES_TALENT}>
           <>
             {formatNumber(this.cooldownReductionSeconds)}s <small>Phoenix Flames Cooldown Reduction</small>
           </>
