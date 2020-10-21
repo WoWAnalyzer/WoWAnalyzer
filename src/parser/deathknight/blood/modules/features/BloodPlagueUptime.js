@@ -47,7 +47,7 @@ class BloodPlagueUptime extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.BLOOD_PLAGUE}>
           <>
-            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Blood Plague uptime</small>
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>
         </BoringSpellValueText>
       </Statistic>

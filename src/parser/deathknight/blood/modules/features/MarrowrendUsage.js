@@ -198,7 +198,7 @@ class MarrowrendUsage extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.MARROWREND}>
           <>
-            {this.badMRCasts} / {this.totalMRCasts} <small>Bad Marrowrend casts</small>
+            {this.badMRCasts} / {this.totalMRCasts} <small>Bad casts</small>
           </>
         </BoringSpellValueText>
       </Statistic>

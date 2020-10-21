@@ -104,7 +104,7 @@ class CrimsonScourge extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.CRIMSON_SCOURGE}>
           <>
-            {formatPercentage(this.wastedCrimsonScourgeProcsPercent)} % <small>Crimson Scourge procs wasted</small>
+            {formatPercentage(this.wastedCrimsonScourgeProcsPercent)} % <small>procs wasted</small>
           </>
         </BoringSpellValueText>
       </Statistic>
