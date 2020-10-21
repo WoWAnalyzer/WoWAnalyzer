@@ -964,3 +964,8 @@ export const Jafowler: Contributor = {
   github: 'jafowler',
   discord: 'Xinnk#3169',
 };
+export const Guyius: Contributor = {
+  nickname: 'Guyius',
+  github: 'guyius',
+  discord: 'Guyius#1560',
+};
