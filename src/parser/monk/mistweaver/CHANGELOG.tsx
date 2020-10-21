@@ -7,7 +7,7 @@ import { change, date } from 'common/changelog';
 
 
 export default [
-  change(date(2020, 10, 20), <>Fixed Mana Tea duration in T45Comparison. </>, Vohrr),
+  change(date(2020, 10, 20), <>Fixed Mana Tea duration in T45Comparison and updated Mana Tea suggestion.</>, Vohrr),
   change(date(2020, 10, 19), <>Fixed Refreshing Jade Wind. </>, Abelito75),
   change(date(2020, 10, 19), <>Added Enveloping Breath module. </>, Vohrr),
   change(date(2020, 10, 14), <>Converted some more files to typescript as well as fixing internalization. </>, Abelito75),
