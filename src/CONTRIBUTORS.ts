@@ -730,7 +730,7 @@ export const LeoZhekov: Contributor = {
   mains: [{
     name: 'Lisossa',
     spec: SPECS.SURVIVAL_HUNTER,
-    link: 'https://worldofwarcraft.com/en-gb/character/Zenedar/Lisossa',
+    link: 'https://worldofwarcraft.com/en-gb/character/Ravencrest/Lisossa',
   }],
 };
 export const Amrux: Contributor = {

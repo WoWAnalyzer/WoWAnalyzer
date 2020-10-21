@@ -2,10 +2,11 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import { formatThousands } from 'common/format';
 import Events from 'parser/core/Events';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const BLOODDRINKER_TICKS_PER_CAST = 4;
 
@@ -41,7 +42,7 @@ class Blooddrinker extends Analyzer {
   }
 
   onHeal(event) {
-    this.totalHealing+= (event.amount || 0) + (event.absorbed || 0);
+    this.totalHealing += (event.amount || 0) + (event.absorbed || 0);
   }
 
   onRemoveDebuff(event) {
@@ -55,21 +56,25 @@ class Blooddrinker extends Analyzer {
   statistic() {
     this._totalTicks = this._totalCasts * BLOODDRINKER_TICKS_PER_CAST;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.BLOODDRINKER_TALENT.id} />}
-        value={`${this._ruinedCasts} out of ${this._totalCasts}`}
-        label="Channels cancelled early"
-        tooltip={(
+      <Statistic
+        position={STATISTIC_ORDER.CORE(6)}
+        size='flexible'
+        tooltip={
           <>
             You lost <strong>{this._wastedTicks}</strong> out of <strong>{this._totalTicks}</strong> ticks.<br />
             <strong>Damage:</strong> {formatThousands(this.totalDamage)} / {this.owner.formatItemDamageDone(this.totalDamage)}<br />
             <strong>Healing:</strong> {formatThousands(this.totalHealing)} / {this.owner.formatItemHealingDone(this.totalHealing)}<br />
           </>
-        )}
-      />
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.BLOODDRINKER_TALENT}>
+          <>
+            {this._ruinedCasts} / {this._totalCasts} <small>Channels cancelled early</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default Blooddrinker;
