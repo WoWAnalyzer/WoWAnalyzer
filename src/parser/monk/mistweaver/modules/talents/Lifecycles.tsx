@@ -1,27 +1,25 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText'
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 
-const LC_MANA_PER_SECOND_RETURN_MINOR = 80;
+const LC_MANA_PER_SECOND_RETURN_MINOR: number = 40; //since its based on mp5 and mana & mp5 got halved going into SL we're gonna just halve this value too (80 -> 40)
 const LC_MANA_PER_SECOND_RETURN_AVERAGE: number = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
 const LC_MANA_PER_SECOND_RETURN_MAJOR: number = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
+const CHIJI_MANA_SAVED_PER_STACK: number = 1001;
+const MAX_CHIJI_STACKS: number = 3;
 
-const debug = false;
+const debug: boolean = false;
 
 class Lifecycles extends Analyzer {
   manaSaved: number = 0;
@@ -31,6 +29,8 @@ class Lifecycles extends Analyzer {
   castsRedViv: number = 0;
   castsNonRedViv: number = 0;
   castsNonRedEnm: number = 0;
+  chijiStacksAtEnvCast?: number = 0;
+  modifiedManaCost: number = 0;
 
   constructor(options: Options){
     super(options);
@@ -43,11 +43,9 @@ class Lifecycles extends Analyzer {
   }
 
   vivifyCast(event: CastEvent){
-    if (this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
-
+    if(this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
       // Checking for TFT->Viv and classify as non-reduced Viv
-      if (this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
-        this.castsNonRedViv += 1;
+      if(this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) || this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
         return;
       }
       this.manaSaved += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
@@ -61,11 +59,29 @@ class Lifecycles extends Analyzer {
 
   envelopingMistCast(event: CastEvent){
     // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
-    if (this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
-      this.manaSaved += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-      this.manaSavedEnm += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-      this.castsRedEnm += 1;
-      debug && console.log('ENM Reduced');
+    if(this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
+      if(this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+        return;
+      }
+      // Checking for chiji stacks and determine mana reduction
+      this.chijiStacksAtEnvCast = this.selectedCombatant.getBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id, event.timestamp)?.stacks;
+      if(this.chijiStacksAtEnvCast) {
+        //check for free cast from chiji
+        if(this.chijiStacksAtEnvCast === MAX_CHIJI_STACKS) {
+          return;
+        } else {
+          //have to do this weird because blizzard decided to make each chiji stack reduce the mana cost by 1001 instead of and exact 33%
+          this.modifiedManaCost = SPELLS.ENVELOPING_MIST.manaCost - (CHIJI_MANA_SAVED_PER_STACK * this.chijiStacksAtEnvCast);
+          this.manaSaved += (this.modifiedManaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+          this.manaSavedEnm += (this.modifiedManaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+          this.castsRedEnm += 1;
+        }
+      } else {
+        this.manaSaved += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+        this.manaSavedEnm += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+        this.castsRedEnm += 1;
+        debug && console.log('ENM Reduced');
+      }
     } else {
       this.castsNonRedEnm += 1;
     }
@@ -106,16 +122,16 @@ class Lifecycles extends Analyzer {
             <ul>
               <li>On {this.castsRedViv} Vivify casts, you saved {(this.manaSavedViv / 1000).toFixed(0)}k mana. ({formatPercentage(this.castsRedViv / (this.castsRedViv + this.castsNonRedViv))}%)</li>
               <li>On {this.castsRedEnm} Enveloping Mists casts, you saved {(this.manaSavedEnm / 1000).toFixed(0)}k mana. ({formatPercentage(this.castsRedEnm / (this.castsRedEnm + this.castsNonRedEnm))}%)</li>
-              <li>You casted {this.castsNonRedViv} Vivify's and {this.castsNonRedEnm} Enveloping Mists at full mana.</li>
+              <li>You casted {this.castsNonRedViv} Vivify's and {this.castsNonRedEnm} Enveloping Mists for full mana cost.</li>
             </ul>
           </>
         )}
       >
         <BoringValueText 
-          label={<><SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} /> Mana Saved</>}
+          label={<><SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /></>}
         >
           <>
-            {formatNumber(this.manaSaved)}
+            {formatNumber(this.manaSaved)} Mana Saved
           </>
         </BoringValueText>
       </Statistic>
