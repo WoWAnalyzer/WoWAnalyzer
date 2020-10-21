@@ -6,9 +6,13 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events from 'parser/core/Events';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const RIGHTEOUS_VERDICT_MODIFIER = 0.15;
 
@@ -20,21 +24,16 @@ class RighteousVerdict extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_VERDICT_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TEMPLARS_VERDICT), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TEMPLARS_VERDICT_DAMAGE), this.onDamage);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.TEMPLARS_VERDICT.id) {
-      this.totalSpenders += 1;
-    }
+  onCast(event) {
+    this.totalSpenders += 1;
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (!this.selectedCombatant.hasBuff(SPELLS.RIGHTEOUS_VERDICT_BUFF.id)) {
-      return;
-    }
-    if (spellId === SPELLS.TEMPLARS_VERDICT_DAMAGE.id) {
+  onDamage(event) {
+    if (this.selectedCombatant.hasBuff(SPELLS.RIGHTEOUS_VERDICT_BUFF.id)) {
       this.spendersInsideBuff += 1;
       this.damageDone += calculateEffectiveDamage(event, RIGHTEOUS_VERDICT_MODIFIER);
     }
@@ -55,7 +54,7 @@ class RighteousVerdict extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your usage of <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> can be improved.  Do not cast <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> early to try and keep the buff active. Maintaining a proper roatation will passively lead to good <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> efficiency. Consider using another talent if the fight mechanics are preventing you from getting high enough efficiency.</>)
         .icon(SPELLS.RIGHTEOUS_VERDICT_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% of Templars Verdicts with the buff.`)
+        .actual(i18n._(t('paladin.retribution.suggestions.righteousVerdict.efficiency')`${formatPercentage(actual)}% of Templars Verdicts with the buff.`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

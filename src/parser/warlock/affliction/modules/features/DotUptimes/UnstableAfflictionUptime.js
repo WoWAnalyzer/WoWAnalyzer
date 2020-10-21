@@ -13,6 +13,9 @@ import Tooltip from 'common/Tooltip';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../../constants';
 
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
@@ -80,11 +83,11 @@ class UnstableAfflictionUptime extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(
           <>
-            Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime is too low. Try spacing out your UAs a little more so that you get the most out of the internal 10% damage bonus, unless you're pooling for <SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /> or focusing priority targets.
+            Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION.id} /> uptime is too low. Try spacing out your UAs a little more so that you get the most out of the internal 10% damage bonus, unless you're pooling for <SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /> or focusing priority targets.
           </>,
         )
-          .icon(SPELLS.UNSTABLE_AFFLICTION_CAST.icon)
-          .actual(`${formatPercentage(actual)}% Unstable Affliction uptime.`)
+          .icon(SPELLS.UNSTABLE_AFFLICTION.icon)
+          .actual(i18n._(t('warlock.affliction.suggestions.unstableAffliction.uptime')`${formatPercentage(actual)}% Unstable Affliction uptime.`))
           .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 
@@ -93,7 +96,7 @@ class UnstableAfflictionUptime extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} />
+          <SpellIcon id={SPELLS.UNSTABLE_AFFLICTION.id} />
         </div>
         <Tooltip content={(
           <>

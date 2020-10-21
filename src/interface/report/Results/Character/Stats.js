@@ -6,7 +6,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Tooltip from 'common/Tooltip';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import STAT, { getName, getClassNameColor, getIcon } from 'parser/shared/modules/features/STAT';
+import STAT, { getClassNameColor, getIcon, getNameTranslated } from 'parser/shared/modules/features/STAT';
+import { Trans } from '@lingui/macro';
 
 class Stats extends React.PureComponent {
   static propTypes = {
@@ -35,7 +36,7 @@ class Stats extends React.PureComponent {
     switch (stat) {
       case STAT.CRITICAL_STRIKE: return statTracker.critPercentage(statTracker.startingCritRating, true);
       case STAT.HASTE: return statTracker.hastePercentage(statTracker.startingHasteRating, true);
-      case STAT.MASTERY: return this.selectedCombatant.spec.masteryCoefficient ? statTracker.masteryPercentage(statTracker.startingMasteryRating, true) : null;
+      case STAT.MASTERY: return statTracker.hasMasteryCoefficient ? statTracker.masteryPercentage(statTracker.startingMasteryRating, true) : null;
       case STAT.VERSATILITY: return statTracker.versatilityPercentage(statTracker.startingVersatilityRating, true);
       case STAT.LEECH: return statTracker.leechPercentage(statTracker.startingLeechRating, true);
       case STAT.AVOIDANCE: return statTracker.avoidancePercentage(statTracker.startingAvoidanceRating, true);
@@ -92,13 +93,13 @@ class Stats extends React.PureComponent {
           <div className="col-md-12">
             <Tooltip
               content={(
-                <>
+                <Trans id="shared.characterPanel.stats.pull.tooltip">
                   These stats include any <strong>rating</strong> buffs, such as flasks, potions and other buffs. Percentage buffs such as Bloodlust are <strong>not</strong> included.
-                </>
+                </Trans>
               )}
             >
               <h2 style={{ marginTop: 0 }}>
-                  Stats on pull
+                  <Trans id="shared.characterPanel.stats.pull">Stats on pull</Trans>
               </h2>
             </Tooltip>
           </div>
@@ -113,7 +114,7 @@ class Stats extends React.PureComponent {
               </div>
               <div className="col-xs-10 col-md-9">
                 <div style={{ fontWeight: 700, textTransform: 'uppercase' }}>
-                  {getName(stat)}
+                  {getNameTranslated(stat)}
                 </div>
                 <div style={{ fontSize: '0.9em' }}>
                   {this.renderStatValue(stat)}
@@ -133,7 +134,7 @@ class Stats extends React.PureComponent {
               </div>
               <div className="col-xs-10 col-md-9">
                 <div style={{ fontWeight: 700, textTransform: 'uppercase' }}>
-                  {getName(stat)}
+                  {getNameTranslated(stat)}
                 </div>
                 <div style={{ fontSize: '0.9em' }}>
                   {this.renderStatValue(stat)}

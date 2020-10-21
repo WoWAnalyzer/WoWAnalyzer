@@ -1,8 +1,14 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
 import ROLES from 'game/ROLES';
 import PropTypes from 'prop-types';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
+
+import React from 'react';
+import { Trans } from '@lingui/macro';
 
 class ManaValues extends Analyzer {
   static propTypes = {
@@ -17,10 +23,11 @@ class ManaValues extends Analyzer {
 
   constructor(...args) {
     super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.active = this.selectedCombatant.spec.role === ROLES.HEALER;
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if (event.prepull) {
       // These are fabricated by the PrePullCooldowns normalizer which guesses class resources which could introduce issues.
       return;
@@ -75,9 +82,9 @@ class ManaValues extends Analyzer {
     }
 
     when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest('You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized.')
+      .addSuggestion((suggest, actual, recommended) => suggest(<Trans id="shared.manaValues.suggestions.label">You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized.</Trans>)
           .icon('inv_elemental_mote_mana')
-          .actual(`${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) mana left`)
+          .actual(`${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) ${i18n._(t('shared.suggestions.mana.efficiency')`mana left`)}`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.suggestionThresholds.isGreaterThan.average)
           .major(this.suggestionThresholds.isGreaterThan.major));

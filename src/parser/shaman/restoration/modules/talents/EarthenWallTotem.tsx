@@ -14,6 +14,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { When } from 'parser/core/ParseResults';
+import { Trans } from '@lingui/macro';
 
 const RECOMMENDED_EFFICIENCY = 0.75;
 const MAGHAR_ORC_PET_HEALTH_INCREASE = 0.1;
@@ -116,7 +117,7 @@ class EarthenWallTotem extends Analyzer {
 
   suggestions(when: When) {
     when(this.earthenWallEfficiency).isLessThan(RECOMMENDED_EFFICIENCY)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Try to cast <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<Trans id="shaman.restoration.ewt.suggestion.label">Try to cast <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs.</Trans>)
           .icon(SPELLS.EARTHEN_WALL_TOTEM_TALENT.icon)
           .actual(`${this.earthenWallEfficiency.toFixed(2)}%`)
           .recommended(`${recommended}%`)
@@ -144,22 +145,22 @@ class EarthenWallTotem extends Analyzer {
         value={`${formatPercentage(this.earthenWallEfficiency)} %`}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(60)}
-        label="Earthen Wall Totem efficiency"
+        label={<Trans id="shaman.restoration.ewt.statistic.label">Earthen Wall Totem efficiency</Trans>}
         tooltip={(
-          <>
+          <Trans id="shaman.restoration.ewt.statistic.tooltip">
             The percentage of the potential absorb of Earthen Wall Totem that was actually used. You cast a total of {casts} Earthen Wall Totems with a combined health of {formatNumber(this.totalPotentialHealing)}, which absorbed a total of {formatNumber(this.totalEffectiveHealing)} damage.<br /><br />
 
             This can be higher than 100% because it sometimes absorbs a few more damage hits before the totem realizes it is supposed to be dead already.<br /><br />
             <strong>Pet healing is filtered out.</strong>
-          </>
+          </Trans>
         )}
       >
         <table className="table table-condensed">
           <thead>
             <tr>
-              <th>Cast</th>
-              <th>Time</th>
-              <th>Efficiency</th>
+              <th><Trans id="common.cast">Cast</Trans></th>
+              <th><Trans id="common.time">Time</Trans></th>
+              <th><Trans id="common.efficiency">Efficiency</Trans></th>
             </tr>
           </thead>
           <tbody>
@@ -186,7 +187,7 @@ class EarthenWallTotem extends Analyzer {
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalEffectiveHealing))} %`}
-        valueTooltip="Pet healing is filtered out"
+        valueTooltip={<Trans id="shaman.restoration.ewt.statisticlist.tooltip">Pet healing is filtered out</Trans>}
       />
     );
   }

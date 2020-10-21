@@ -2,10 +2,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { EventType } from 'parser/core/Events';
+import Events from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const debug = false;
 
 const PANDEMIC_FRACTION = 0.3;
@@ -61,17 +64,11 @@ class Snapshot extends Analyzer {
   lostSnapshotTime = 0;
   snapshotTime = 0;
 
-  on_fightend() {
+  onFightend() {
     debug && console.log('lost: ' + this.lostSnapshotTime / 1000 + ', total: ' + this.snapshotTime / 1000 + ', bonus damage: ' + this.bonusDamage.toFixed(0));
   }
 
-  on_event(event){
-    if(event.type === EventType.FilterCooldownInfo && event.sourceID === this.owner.playerId){
-      this.on_byPlayer_cast(event);
-    }
-  }
-
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if (this.constructor.spellCastId !== event.ability.guid) {
       return;
     }
@@ -93,9 +90,18 @@ class Snapshot extends Analyzer {
     } else {
       this.active = false;
     }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.prefiltercd.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER), this.onRemoveDebuff);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER), this.onApplyDebuff);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER), this.onRefreshDebuff);
+
+    this.addEventListener(Events.fightend, this.onFightend);
+
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     if (this.constructor.debuffId !== event.ability.guid) {
       return;
     }
@@ -114,7 +120,7 @@ class Snapshot extends Analyzer {
     }
   }
 
-  on_byPlayer_removedebuff(event) {
+  onRemoveDebuff(event) {
     if (this.constructor.debuffId !== event.ability.guid) {
       return;
     }
@@ -126,14 +132,14 @@ class Snapshot extends Analyzer {
     }
   }
 
-  on_byPlayer_applydebuff(event) {
+  onApplyDebuff(event) {
     if (this.constructor.debuffId !== event.ability.guid) {
       return;
     }
     this.dotApplied(event);
   }
 
-  on_byPlayer_refreshdebuff(event) {
+  onRefreshDebuff(event) {
     if (this.constructor.debuffId !== event.ability.guid) {
       return;
     }
@@ -232,7 +238,7 @@ class Snapshot extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You overwrote your snapshotted <SpellLink id={this.constructor.spellCastId} />. Try to always let a snapshotted <SpellLink id={this.constructor.spellCastId} /> expire before applying a non buffed one.</>)
         .icon(this.constructor.spellIcon)
-        .actual(`${formatPercentage(actual)}% snapshot time lost`)
+        .actual(i18n._(t('rogue.assassination.suggestions.snapshot.timeLost')`${formatPercentage(actual)}% snapshot time lost`))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

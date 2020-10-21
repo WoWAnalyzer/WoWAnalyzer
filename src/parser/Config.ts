@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
-import { change, Contributor } from 'common/changelog';
+import { ChangelogEntry } from 'common/changelog';
+import { Contributor } from 'common/contributor';
 import { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 
@@ -67,7 +68,7 @@ interface Config {
   /**
    * The contents of your changelog.
    */
-  changelog: Array<ReturnType<typeof change>>;
+  changelog: ChangelogEntry[];
   /**
    * The CombatLogParser class for your spec.
    */

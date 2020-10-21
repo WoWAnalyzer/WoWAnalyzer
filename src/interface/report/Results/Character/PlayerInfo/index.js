@@ -45,7 +45,7 @@ class PlayerInfo extends React.PureComponent {
     gear: [],
     traits: {},
     talents: [],
-    essences: {},
+    essences: [],
   };
 
   static getDerivedStateFromProps(props) {

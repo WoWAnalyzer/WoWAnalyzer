@@ -13,7 +13,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemManaGained from 'interface/ItemManaGained';
 
-const BUFF_AMOUNT_PER_STACK: number = .15;
+const BUFF_AMOUNT_PER_STACK = .15;
 
 /**
  * Whenever you cast a vivify or enveloping mist during soothing mist's channel you gain a stack of clouded focus which increases their healing by 15% and descreases their
@@ -26,8 +26,8 @@ class CloudedFocus extends Analyzer {
 
   stacks: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = false;
 
     if (!this.active) {

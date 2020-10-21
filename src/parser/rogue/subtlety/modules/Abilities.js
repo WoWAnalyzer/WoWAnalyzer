@@ -33,7 +33,6 @@ class Abilities extends CoreAbilities {
         // Requires Stealth
         spell: SPELLS.SHADOWSTRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        buffSpellId: SPELLS.FIND_WEAKNESS_BUFF.id,
         gcd: {
           static: 1000,
         },
@@ -49,11 +48,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SYMBOLS_OF_DEATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         buffSpellId: SPELLS.SYMBOLS_OF_DEATH.id,
-        cooldown: 30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_4SET_BONUS.id) ? 5 : 0),
+        cooldown: 30,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: 'This is the most important rotational ability, try to always use it on cooldown.',
+          extraSuggestion:
+            'This is the most important rotational ability, try to always use it on cooldown.',
         },
       },
       // Rotational AOE
@@ -99,21 +99,8 @@ class Abilities extends CoreAbilities {
         gcd: null,
         castEfficiency: {
           suggestion: true,
-        },
-        enabled: !combatant.hasTalent(SPELLS.FIND_WEAKNESS_TALENT.id),
-      },
-      {
-        spell: SPELLS.VANISH,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        buffSpellId: SPELLS.VANISH_BUFF.id,
-        cooldown: 120,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
           recommendedEfficiency: 0.8,
-          extraSuggestion: 'With Find Weakness talant, use Vanish to apply Find Weakness debuff',
         },
-        enabled: combatant.hasTalent(SPELLS.FIND_WEAKNESS_TALENT.id),
       },
       {
         spell: SPELLS.MARKED_FOR_DEATH_TALENT,
@@ -221,7 +208,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHEAP_SHOT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        buffSpellId: SPELLS.FIND_WEAKNESS_BUFF.id,
         gcd: {
           static: 1000,
         },
@@ -268,6 +254,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PICK_POCKET,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
+      },
+      {
+        spell: SPELLS.PREMEDITATION_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
     ];
   }

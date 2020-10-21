@@ -16,6 +16,9 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class Vivify extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -32,8 +35,8 @@ class Vivify extends Analyzer {
   remDuringManaTea: number = 0;
   numberToCount: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleViv);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.handleMastery);
@@ -86,7 +89,7 @@ class Vivify extends Analyzer {
           </>,
         )
           .icon(SPELLS.VIVIFY.icon)
-          .actual(`${this.averageRemPerVivify.toFixed(2)} Renewing Mists per Vivify`)
+          .actual(`${this.averageRemPerVivify.toFixed(2)}${i18n._(t('monk.mistweaver.suggestions.vivify.renewingMistsPerVivify')` Renewing Mists per Vivify`)}`)
           .recommended(`${recommended} Renewing Mists are recommended per Vivify`));
   }
 

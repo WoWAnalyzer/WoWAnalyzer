@@ -3,12 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
-import { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 import isAtonement from '../core/isAtonement';
@@ -68,14 +68,13 @@ class Atonement extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = true;
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.onRefreshBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.onRemoveBuff);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
-  on_byPlayer_applybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT_BUFF.id) {
-      return;
-    }
-
+  onApplyBuff(event: ApplyBuffEvent) {
     const atonement = {
       target: event.targetID,
       lastAtonementAppliedTimestamp: event.timestamp,
@@ -92,12 +91,7 @@ class Atonement extends Analyzer {
     }, event);
   }
 
-  on_byPlayer_refreshbuff(event: RefreshBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT_BUFF.id) {
-      return;
-    }
-
+  onRefreshBuff(event: RefreshBuffEvent) {
     // Check if Atonement was refreshed too early
     let refreshedTarget: AtonementTarget | undefined = this.currentAtonementTargets.find(id => id.target === event.targetID);
     if (!refreshedTarget) {
@@ -136,11 +130,7 @@ class Atonement extends Analyzer {
     }, event);
   }
 
-  on_byPlayer_removebuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT_BUFF.id) {
-      return;
-    }
+  onRemoveBuff(event: RemoveBuffEvent) {
     const atonement = {
       target: event.targetID,
       lastAtonementAppliedTimestamp: event.timestamp,
@@ -153,7 +143,7 @@ class Atonement extends Analyzer {
     }, event);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     if (isAtonement(event)) {
       return;
     }

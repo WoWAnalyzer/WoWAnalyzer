@@ -21,13 +21,24 @@ import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker'
 import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
 import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
 import RestlessBlades from './modules/core/RestlessBlades';
-import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
+import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
 import Dispatch from './modules/spells/Dispatch';
 import Opportunity from './modules/spells/Opportunity';
 import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker';
 import BetweenTheEyes from './modules/spells/BetweenTheEyes';
 import BetweenTheEyesDamageTracker from './modules/spells/BetweenTheEyesDamageTracker';
 import Finishers from './modules/features/Finishers';
+
+import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
+import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingReprimand';
+import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
+import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
+
+import BladeRush from './modules/talents/BladeRush';
+import BladeFlurry from './modules/spells/BladeFlurry';
+import GuileCharm from './modules/spells/shadowlands/legendaries/GuileCharm';
+import GreenskinsWickers from './modules/spells/shadowlands/legendaries/GreenskinsWickers';
+import EssenceOfBloodfang from '../shared/shadowlands/legendaries/EssenceOfBloodfang';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,6 +64,9 @@ class CombatLogParser extends CoreCombatLogParser {
     rollTheBonesCastTracker: RollTheBonesCastTracker,
 
     //Items
+    guileCharm: GuileCharm,
+    greenskinsWickers: GreenskinsWickers,
+    essenceOfBloodfang: EssenceOfBloodfang,
 
     //Casts
     dispatch: Dispatch,
@@ -64,9 +78,15 @@ class CombatLogParser extends CoreCombatLogParser {
     rollTheBonesCounter: RollTheBonesCounter,
     rollTheBonesEfficiency: RollTheBonesEfficiency,
     finishers: Finishers,
-
-    //Talents
     sliceAndDiceUptime: SliceAndDiceUptime,
+    bladeFlurry: BladeFlurry,
+    //Talents
+    bladeRush: BladeRush,
+    // Covenants
+    serratedBoneSpike: SerratedBoneSpike,
+    echoingReprimand: EchoingReprimand,
+    flagellation: Flagellation,
+    sepsis: Sepsis,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [ArcaneTorrent, {

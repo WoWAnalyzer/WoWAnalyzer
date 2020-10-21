@@ -13,9 +13,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { Trans } from '@lingui/macro';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
 const BUFFER = 100;
 const cooldownIncrease = 5000;
@@ -29,12 +30,12 @@ class Downpour extends Analyzer {
   static dependencies = {
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
-    abilityTracker: AbilityTracker,
+    abilityTracker: RestorationAbilityTracker,
   };
 
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
   protected spellUsable!: SpellUsable;
-  protected abilityTracker!: AbilityTracker;
+  protected abilityTracker!: RestorationAbilityTracker;
 
   healing = 0;
   downpourHits = 0;
@@ -75,12 +76,12 @@ class Downpour extends Analyzer {
   statistic() {
     const downpour = this.abilityTracker.getAbility(SPELLS.DOWNPOUR_TALENT.id);
 
-    const downpourCasts = downpour.casts || 0;
+    const downpourCasts = downpour.casts;
     if (!downpourCasts) {
       return null;
     }
     // downpourHits are all hits and downpourHitsSum are only the ones with effective healing done
-    const downpourHits = downpour.healingHits || 0;
+    const downpourHits = downpour.healingHits;
     const downpourAverageHits = (this.downpourHitsSum) / downpourCasts;
     const downpourAverageOverhealedHits = (downpourHits - this.downpourHitsSum) / downpourCasts;
     const downpourAverageCooldown = 5 + (this.downpourHitsSum / downpourCasts * 5);
@@ -88,19 +89,19 @@ class Downpour extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DOWNPOUR_TALENT.id} />}
-        value={`${downpourAverageCooldown.toFixed(1)} seconds`}
+        value={<Trans id="shaman.restoration.downpour.statistic.value">{downpourAverageCooldown.toFixed(1)} seconds</Trans>}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(90)}
         label={(
           <TooltipElement
             content={(
-              <>
+              <Trans id="shaman.restoration.downpour.statistic.label.tooltip">
                 You cast a total of {downpourCasts} Downpours, which on average hit {(downpourAverageHits + downpourAverageOverhealedHits).toFixed(1)} out of 6 targets. <br />
                 Of those hits, {downpourAverageHits.toFixed(1)} had effective healing and increased the cooldown.
-              </>
+              </Trans>
             )}
           >
-            Average Downpour cooldown
+            <Trans id="shaman.restoration.downpour.statistic.label">Average Downpour cooldown</Trans>
           </TooltipElement>
         )}
       />

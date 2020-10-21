@@ -13,6 +13,10 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
 
+import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
+
+import { DIVINE_PURPOSE_CHANCE } from '../constants';
+
 const HEALING_HOLY_POWER_SPELLS: Spell[] = [
   SPELLS.WORD_OF_GLORY,
   SPELLS.LIGHT_OF_DAWN_CAST,
@@ -27,12 +31,17 @@ const DAMAGE_HOLY_POWER_SPELLS: Spell[] = [
   SPELLS.EXECUTION_SENTENCE_TALENT,
   SPELLS.JUSTICARS_VENGEANCE_TALENT,
 ];
-//const BUFF_HOLY_POWER_SPELLS: Spell[] = [
-//  SPELLS.SERAPHIM_TALENT,
-//];
+const BUFF_HOLY_POWER_SPELLS: Spell[] = [
+  SPELLS.SERAPHIM_TALENT,
+];
+const ALL_HOLY_POWER_SPELLS: Spell[] = [
+  ...HEALING_HOLY_POWER_SPELLS,
+  ...DAMAGE_HOLY_POWER_SPELLS,
+  ...BUFF_HOLY_POWER_SPELLS,
+];
 
 const BUFF_TIME: number = 12000 * .95;//add buffer since log events lmao
-const TRACK_BUFFER: number = 500;
+const TRACK_BUFFER = 500;
 
 class DivinePurpose extends Analyzer {
 
@@ -48,8 +57,10 @@ class DivinePurpose extends Analyzer {
 
   buffAppliedTimestamp: number = 0;
   buffRemovedTimestamp: number = 0;
-  
 
+  totalChances: number = 0;
+  procProbabilities: number[] = [];
+  
   constructor(args: Options) {
     super(args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT.id);
@@ -58,10 +69,16 @@ class DivinePurpose extends Analyzer {
       return;
     }
 
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(ALL_HOLY_POWER_SPELLS), this.castCounter);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_HOLY_POWER_SPELLS), this.holyPowerDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(HEALING_HOLY_POWER_SPELLS), this.holyPowerHeal);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF), this.applyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF), this.removeBuff);
+  }
+
+  castCounter(){
+    this.totalChances += 1;
+    this.procProbabilities.push(DIVINE_PURPOSE_CHANCE);
   }
 
   holyPowerDamage(event: DamageEvent){
@@ -115,6 +132,7 @@ class DivinePurpose extends Analyzer {
           <ItemDamageDone amount={this.damageDone} /> <br />
           <ItemHealingDone amount={this.healingDone} />
         </BoringSpellValueText>
+        {plotOneVariableBinomChart(this.procsGained, this.totalChances, this.procProbabilities)}
       </Statistic>
     );
   }

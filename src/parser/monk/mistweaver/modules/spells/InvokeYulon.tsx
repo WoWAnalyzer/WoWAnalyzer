@@ -1,6 +1,5 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import {Trans} from '@lingui/macro';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -13,8 +12,8 @@ class InvokeYulon extends Analyzer {
   soothHealing: number = 0;
   envelopHealing: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id);
     if (!this.active) {return;}
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.handleEnvelopingBreath);
@@ -35,13 +34,13 @@ class InvokeYulon extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(50)}
         size="flexible"
         tooltip={
-          <Trans>
+          <>
                 Healing Breakdown:
                 <ul>
                   <li>{formatNumber(this.soothHealing)} healing from Soothing Breath.</li>
                   <li>{formatNumber(this.envelopHealing)} healing from Enveloping Breath.</li>
                 </ul>
-          </Trans>
+          </>
         }
       >
         <BoringSpellValueText spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT}>

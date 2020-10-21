@@ -16,6 +16,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 
 class JadeSerpentStatue extends Analyzer {
   static dependencies = {
@@ -34,8 +37,8 @@ class JadeSerpentStatue extends Analyzer {
   lastBuffApplyTimestamp: number = 0;
   jssCasting: boolean = false;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id);
     if(!this.active){
       return;
@@ -118,7 +121,7 @@ class JadeSerpentStatue extends Analyzer {
         </>,
       )
         .icon(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% uptime`)
+        .actual(`${formatPercentage(actual)}${i18n._(t('monk.mistweaver.jadeSerpentStatue.uptime')`% uptime`)}`)
         .recommended(`${formatPercentage(recommended)}% uptime is recommended`));
   }
 

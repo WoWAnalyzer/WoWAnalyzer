@@ -8,7 +8,10 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-const TARGETSPERCAST: number = 78;
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
+const TARGETSPERCAST = 78;
 
 class RefreshingJadeWind extends Analyzer {
   healsRJW: number = 0;
@@ -16,15 +19,15 @@ class RefreshingJadeWind extends Analyzer {
   overhealingRJW: number = 0;
   castRJW: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
     if(!this.active){
       return;
     }
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT), this.rjwBuff);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT), this.rjwHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT), this.rjwBuff);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_HEAL), this.rjwHeal);
   }
 
   rjwBuff(event: ApplyBuffEvent) {
@@ -65,7 +68,7 @@ class RefreshingJadeWind extends Analyzer {
           </>,
         )
           .icon(SPELLS.REFRESHING_JADE_WIND_TALENT.icon)
-          .actual(`${formatPercentage(this.avgTargetsHitPerRJWPercentage)}% of targets hit per Refreshing Jade Wind`)
+          .actual(`${formatPercentage(this.avgTargetsHitPerRJWPercentage)}${i18n._(t('monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit')`% of targets hit per Refreshing Jade Wind`)}`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }

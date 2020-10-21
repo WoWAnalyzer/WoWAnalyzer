@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -9,6 +9,9 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 class SoulBarrier extends Analyzer {
   static dependencies = {
@@ -28,28 +31,25 @@ class SoulBarrier extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT), this.onApplyBuff);
+    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT), this.onAbsorb);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT), this.onRemoveBuff);
   }
 
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.SOUL_BARRIER_TALENT.id) / this.owner.fightDuration;
   }
 
-  on_toPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.SOUL_BARRIER_TALENT.id) {
-      return;
-    }
+  onApplyBuff(event) {
     this.casts += 1;
     this.buffApplied = event.timestamp;
   }
 
-  on_toPlayer_absorbed(event) {
-    if (event.ability.guid !== SPELLS.SOUL_BARRIER_TALENT.id) {
-      return;
-    }
+  onAbsorb(event) {
     this.totalAbsorbed+= event.amount;
   }
 
-  on_toPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     if (event.ability.guid !== SPELLS.SOUL_BARRIER_TALENT.id) {
       return;
     }
@@ -74,7 +74,7 @@ class SoulBarrier extends Analyzer {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.</>)
           .icon(SPELLS.SOUL_BARRIER_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% Soul Barrier`)
+          .actual(i18n._(t('demonhunter.vengeance.suggestions.soulBarrier.uptime')`${formatPercentage(actual)}% Soul Barrier`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

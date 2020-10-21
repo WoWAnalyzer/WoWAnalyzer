@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -8,6 +8,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Events from 'parser/core/Events';
 
 const tradewindsStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [mastery] = calculateAzeriteEffects(SPELLS.TRADEWINDS.id, rank);
@@ -43,14 +44,8 @@ class Tradewinds extends Analyzer {
     this.statTracker.add(SPELLS.TRADEWINDS.id, {
       mastery,
     });
-  }
-
-  on_byPlayer_applybuff(event) {
-    this.handleBuff(event);
-  }
-
-  on_byPlayer_refreshbuff(event) {
-    this.handleBuff(event);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TRADEWINDS_BUFF), this.handleBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TRADEWINDS_BUFF), this.handleBuff);
   }
 
   get uptime() {
@@ -62,9 +57,7 @@ class Tradewinds extends Analyzer {
   }
 
   handleBuff(event) {
-    if (event.ability.guid === SPELLS.TRADEWINDS_BUFF.id) {
-      this.procs += 1;
-    }
+    this.procs += 1;
   }
 
   statistic() {

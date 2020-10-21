@@ -25,6 +25,9 @@ import BlackoutKick from './modules/spells/BlackoutKick';
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
 
+// Items
+import LastEmperorsCapacitor from './modules/items/LastEmperorsCapacitor';
+
 // Covenants
 import FallenOrder from '../shared/modules/covenants/FallenOrder';
 
@@ -59,6 +62,9 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
+
+    // Items:
+    lastEmperorsCapacitor: LastEmperorsCapacitor,
 
     // Covenants
     fallenOrder: FallenOrder,

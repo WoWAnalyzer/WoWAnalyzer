@@ -1,60 +1,41 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { formatNumber } from 'common/format';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { SummonEvent, DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
+const DAMAGE_REDUCTION = 0.2;
 
 class MirrorImage extends Analyzer {
-  // all images summoned by player seem to have the same sourceID, and vary only by instanceID
-  mirrorImagesId = 0;
-  damage = 0;
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  }
+  protected abilityTracker!: AbilityTracker;
+  
+  damageDuringMirrorImages: number = 0;
 
-  on_byPlayer_summon(event: SummonEvent) {
-    // there are a dozen different Mirror Image summon IDs which is used where or why... this is the easy way out
-    if(event.ability.name === SPELLS.MIRROR_IMAGE_SUMMON.name) {
-      this.mirrorImagesId = event.targetID;
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+  }
+
+  onDamageTaken(event: DamageEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.MIRROR_IMAGE.id)) {
+      return;
     }
+    this.damageDuringMirrorImages += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayerPet_damage(event: DamageEvent) {
-    if(this.mirrorImagesId === event.sourceID) {
-      this.damage += event.amount + (event.absorbed || 0);
-    }
+  get totalDamageReduction() {
+    return this.damageDuringMirrorImages / (1 - DAMAGE_REDUCTION) * DAMAGE_REDUCTION;
   }
 
-  get damagePercent() {
-    return this.owner.getPercentageOfTotalDamageDone(this.damage);
-  }
-
-  get damageIncreasePercent() {
-    return this.damagePercent / (1 - this.damagePercent);
-  }
-
-  get damageSuggestionThresholds() {
-    return {
-      actual: this.damageIncreasePercent,
-      isLessThan: {
-        minor: INCANTERS_FLOW_EXPECTED_BOOST,
-        average: INCANTERS_FLOW_EXPECTED_BOOST,
-        major: INCANTERS_FLOW_EXPECTED_BOOST - 0.03,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.damageSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.MIRROR_IMAGE.id} /> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
-          .icon(SPELLS.MIRROR_IMAGE.icon)
-          .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Mirror Image`)
-          .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`));
+  get reductionPerCast() {
+    return this.totalDamageReduction / this.abilityTracker.getAbility(SPELLS.MIRROR_IMAGE.id).casts;
   }
 
   statistic() {
@@ -62,11 +43,11 @@ class MirrorImage extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(30)}
         size="flexible"
-        tooltip={<>This is the portion of your total damage attributable to Mirror Image. Expressed as an increase vs never using Mirror Image, this is a <strong>{formatPercentage(this.damageIncreasePercent)}% damage increase</strong></>}
+        tooltip={<>This is the amount of damage that your Mirror Images prevented while they were active. Remember that Mirror Image is not a damage cooldown anymore and should solely be used as a defensive ability to help reduce incoming damage.</>}
       >
         <BoringSpellValueText spell={SPELLS.MIRROR_IMAGE}>
           <>
-          {formatPercentage(this.damagePercent)}% <small> damage contribution</small>
+            {formatNumber(this.totalDamageReduction)} <small> Damage Avoided</small>
           </>
         </BoringSpellValueText>
       </Statistic>

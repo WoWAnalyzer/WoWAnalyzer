@@ -4,6 +4,7 @@ import Panel from 'interface/statistics/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
+import { Trans } from '@lingui/macro';
 
 import ManaUsageChartComponent from './ManaUsageChartComponent';
 
@@ -26,8 +27,8 @@ class ManaUsageChart extends Analyzer {
 
     return (
       <Panel
-        title="Mana usage"
-        explanation="This shows you your mana usage in correlation with your throughput. Big spikes in mana usage without increases in throughput may indicate poor mana usage. The scale for both mana lines is 0-100% where 100% is aligned with the max HPS throughput."
+        title={<Trans id="shared.manaUsageChart.statistic.title">Mana usage</Trans>}
+        explanation={<Trans id="shared.manaUsageChart.statistic.explanation">This shows you your mana usage in correlation with your throughput. Big spikes in mana usage without increases in throughput may indicate poor mana usage. The scale for both mana lines is 0-100% where 100% is aligned with the max HPS throughput.</Trans>}
         position={110}
       >
         <ManaUsageChartComponent

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
@@ -12,20 +12,19 @@ import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
 import FooterChart, { formatTime } from 'interface/others/FooterChart';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import SharedBrews from '../core/SharedBrews';
 import BrewCDR from '../core/BrewCDR';
 import { AddStaggerEvent, RemoveStaggerEvent } from '../core/StaggerFabricator';
 
-const PURIFY_DELAY_THRESHOLD = 500; // with the removal of ISB, i'm cutting the delay threshold.
+const PURIFY_DELAY_THRESHOLD = 750; // with the removal of ISB, i'm cutting the delay threshold.
 
 function markupPurify(event: CastEvent, delay: number, hasHeavyStagger: boolean) {
   const msgs = [];
   if(delay > PURIFY_DELAY_THRESHOLD) {
     msgs.push(<li key="PURIFY_DELAY_THRESHOLD">You delayed casting it for <b>{(delay / 1000).toFixed(2)}s</b> after being hit, allowing Stagger to tick down.</li>);
-  }
-  if(!hasHeavyStagger) {
-    msgs.push(<li key="hasHeavyStagger">You cast without reaching at least Heavy Stagger, which is <em>almost always</em> inefficient.</li>);
   }
 
   if(msgs.length === 0) {
@@ -105,10 +104,6 @@ class PurifyingBrew extends Analyzer {
     return this.purifies.reduce((prev, cur) => prev + cur.amount, 0);
   }
 
-  get belowHeavyPurifies() {
-    return this.totalPurifies - this.heavyPurifies;
-  }
-
   get totalPurifies() {
     return this.purifies.length;
   }
@@ -174,31 +169,11 @@ class PurifyingBrew extends Analyzer {
     };
   }
 
-  get purifyHeavySuggestion() {
-    const heavyUptime = this.selectedCombatant.getBuffUptime(SPELLS.HEAVY_STAGGER_DEBUFF.id) / this.owner.fightDuration;
-    const threshold = Math.max(1 - 2 * heavyUptime, 0) + 0.1;
-    console.log(`Purify threshold: ${threshold}`);
-    return {
-      actual: this.belowHeavyPurifies / this.totalPurifies,
-      isGreaterThan: {
-        minor: threshold,
-        average: 1.5 * threshold,
-        major: 2 * threshold,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   suggestions(when: When) {
     when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) => suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
-        .actual(`${actual.toFixed(2)}s Average Delay`)
+        .actual(i18n._(t('monk.brewmaster.suggestions.purifyingBrew.avgdelay')`${actual.toFixed(2)}s Average Delay`))
         .recommended(`< ${recommended.toFixed(2)}s is recommended`));
-
-    when(this.purifyHeavySuggestion).addSuggestion((suggest, actual, recommended) => suggest(<>You should avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, you should often aim to save your purifies for these parts of the fight.</>)
-        .icon(SPELLS.PURIFYING_BREW.icon)
-        .actual(`${formatPercentage(actual)}% of your purifies were less than Heavy Stagger`)
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
@@ -245,7 +220,6 @@ class PurifyingBrew extends Analyzer {
           <>
             Purifying Brew removed <strong>{formatNumber(this.totalPurified)}</strong> damage in total over {this.totalPurifies} casts.<br />
             The smallest purify removed <strong>{formatNumber(this.minPurify)}</strong> and the largest purify removed <strong>{formatNumber(this.maxPurify)}</strong>.<br />
-            You purified <strong>{this.belowHeavyPurifies}</strong> ({formatPercentage(this.belowHeavyPurifies / this.totalPurifies)}%) times without reaching Heavy Stagger.<br />
             Your purifies were delayed from the nearest peak by <strong>{(this.avgPurifyDelay / 1000).toFixed(2)}s</strong> on average.
           </>
         )}

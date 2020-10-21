@@ -6,7 +6,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const BLINDSIDE_EXECUTE = 0.3;
 const MS_BUFFER = 100;
@@ -24,6 +27,7 @@ class Blindside extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLINDSIDE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BLINDSIDE_TALENT, SPELLS.MUTILATE]), this.onCast);
   }
 
   casts = 0;
@@ -33,7 +37,7 @@ class Blindside extends Analyzer {
     return (this.casts / this.casts + this.badMutilates) || 1;
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BLINDSIDE_TALENT.id) {
       this.casts += 1;
@@ -75,7 +79,7 @@ class Blindside extends Analyzer {
     when(this.suggestionThresholds)
     .addSuggestion((suggest, actual, recommended) => suggest(<>Use <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> instead of <SpellLink id={SPELLS.MUTILATE.id} /> when the target is bellow 30% HP or when you have the <SpellLink id={SPELLS.BLINDSIDE_BUFF.id} /> proc. </>)
         .icon(SPELLS.BLINDSIDE_TALENT.icon)
-        .actual(`You used Mutilate ${this.badMutilates} times when Blindside was available`)
+        .actual(i18n._(t('rogue.assassination.suggestions.blindside.efficiency')`You used Mutilate ${this.badMutilates} times when Blindside was available`))
         .recommended(`0 is recommended`));
   }
 

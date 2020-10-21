@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -12,7 +12,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatPercentage } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
 
-const DAMAGE_BONUS_PER_STACK: number = 0.02;
+const DAMAGE_BONUS_PER_STACK = 0.02;
 
 class ControlledDestruction extends Analyzer {
 
@@ -20,7 +20,7 @@ class ControlledDestruction extends Analyzer {
 
   bonusDamage = 0;
 
-  constructor(props: any) {
+  constructor(props: Options) {
     super(props);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FEVERED_INCANTATION.bonusID);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);

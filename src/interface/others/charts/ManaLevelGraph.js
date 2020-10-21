@@ -14,8 +14,8 @@ class ManaLevelGraph extends React.PureComponent {
     })),
     bossData: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired,
-      borderColor: PropTypes.string.isRequired,
-      backgroundColor: PropTypes.string.isRequired,
+      borderColor: PropTypes.string,
+      backgroundColor: PropTypes.string,
       data: PropTypes.arrayOf(PropTypes.shape({
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,

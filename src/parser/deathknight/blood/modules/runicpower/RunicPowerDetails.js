@@ -2,10 +2,14 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
-import Icon from 'common/Icon';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
+import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import RunicPowerTracker from './RunicPowerTracker';
 
@@ -14,7 +18,7 @@ class RunicPowerDetails extends Analyzer {
     runicPowerTracker: RunicPowerTracker,
   };
 
-  get wastedPercent(){
+  get wastedPercent() {
     return this.runicPowerTracker.wasted / (this.runicPowerTracker.wasted + this.runicPowerTracker.generated) || 0;
   }
 
@@ -44,23 +48,27 @@ class RunicPowerDetails extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
-          .icon('inv_sword_62')
-          .actual(`${formatPercentage(actual)}% wasted`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`));
+      .icon('inv_sword_62')
+      .actual(i18n._(t('deathknight.blood.suggestions.runicPower.wasted')`${formatPercentage(actual)}% wasted`))
+      .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<Icon icon="inv_sword_62" />}
-        value={`${formatPercentage(this.wastedPercent)} %`}
-        label="Runic Power wasted"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(3)}
+        size="small"
         tooltip={`${this.runicPowerTracker.wasted} out of ${this.runicPowerTracker.wasted + this.runicPowerTracker.generated} runic power wasted.`}
-      />
-
+      >
+        <BoringResourceValue
+          resource={RESOURCE_TYPES.RUNIC_POWER}
+          value={`${formatPercentage(this.wastedPercent)} %`}
+          label="Runic Power wasted"
+        >
+        </BoringResourceValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 
   tab() {
     return {
@@ -75,7 +83,7 @@ class RunicPowerDetails extends Analyzer {
         </Panel>
       ),
     };
- }
+  }
 
 }
 

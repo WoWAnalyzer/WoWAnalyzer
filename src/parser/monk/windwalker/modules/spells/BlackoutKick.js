@@ -9,6 +9,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import Events from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  *  Inspired by filler modules in Holy Paladin Analyzer
@@ -42,6 +44,7 @@ class BlackoutKick extends Analyzer {
 
   onCast(event) {
     const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some(spellId => this.spellUsable.isAvailable(spellId));
+    const currentCooldownReductionMS = (this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1) * COOLDOWN_REDUCTION_MS;
     if (hasImportantCastsAvailable) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
@@ -49,18 +52,18 @@ class BlackoutKick extends Analyzer {
     }
 
     if (!this.spellUsable.isOnCooldown(SPELLS.RISING_SUN_KICK.id)) {
-      this.wastedRisingSunKickReductionMs += COOLDOWN_REDUCTION_MS;
+      this.wastedRisingSunKickReductionMs += currentCooldownReductionMS;
     } else {
-      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.RISING_SUN_KICK.id, COOLDOWN_REDUCTION_MS);
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.RISING_SUN_KICK.id, currentCooldownReductionMS);
       this.effectiveRisingSunKickReductionMs += reductionMs;
-      this.wastedRisingSunKickReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
+      this.wastedRisingSunKickReductionMs += currentCooldownReductionMS - reductionMs;
     }
     if (!this.spellUsable.isOnCooldown(SPELLS.FISTS_OF_FURY_CAST.id)) {
-      this.wastedFistsOfFuryReductionMs += COOLDOWN_REDUCTION_MS;
+      this.wastedFistsOfFuryReductionMs += currentCooldownReductionMS;
     } else {
-      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.FISTS_OF_FURY_CAST.id, COOLDOWN_REDUCTION_MS);
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.FISTS_OF_FURY_CAST.id, currentCooldownReductionMS);
       this.effectiveFistsOfFuryReductionMs += reductionMs;
-      this.wastedFistsOfFuryReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
+      this.wastedFistsOfFuryReductionMs += currentCooldownReductionMS - reductionMs;
     }
   }
 
@@ -83,7 +86,7 @@ class BlackoutKick extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting cooldown reduction by casting Blackout Kick while having important casts available')
         .icon(SPELLS.BLACKOUT_KICK.icon)
-        .actual(`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`)
+        .actual(i18n._(t('monk.windwalker.suggestions.blackoutKick.cdrWasted')`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`))
         .recommended(`${recommended} is recommended`));
   }
 

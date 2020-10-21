@@ -10,6 +10,11 @@ import EarlyDotRefreshesAnalyzer from 'parser/shared/modules/earlydotrefreshes/E
 import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {
@@ -57,11 +62,12 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     };
   }
 
-  on_byPlayer_damage(event) {
-    if(event.ability.guid !== SPELLS.LAVA_BURST.id) {
-      return;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_BURST), this.onDamage);
+  }
 
+  onDamage(event) {
     const target = this.enemies.getEntity(event);
     if(target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)){
       this.badLavaBursts += 1;
@@ -71,13 +77,13 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
   suggestions(when) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.</span>)
         .icon(SPELLS.FLAME_SHOCK.icon)
-        .actual(`${formatPercentage(actual)}% uptime`)
+        .actual(i18n._(t('shaman.elemental.suggestions.flameShock.uptime')`${formatPercentage(actual)}% uptime`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
 
     when(this.badLavaBursts).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Make sure to apply <SpellLink id={SPELLS.FLAME_SHOCK.id} /> to your target, so your <SpellLink id={SPELLS.LAVA_BURST.id} /> is guaranteed to critically strike.</span>)
           .icon(SPELLS.LAVA_BURST.icon)
-          .actual(`${formatNumber(this.badLavaBursts)} Lava Burst casts without Flame Shock DOT`)
+          .actual(i18n._(t('shaman.elemental.suggestions.flameShock.efficiency')`${formatNumber(this.badLavaBursts)} Lava Burst casts without Flame Shock DOT`))
           .recommended(`0 is recommended`)
           .major(recommended+1));
 

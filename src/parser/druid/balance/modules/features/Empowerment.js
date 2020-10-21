@@ -5,7 +5,10 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import StatisticBox from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 // Abstract class used for lunar & solar empowerments.
 class Empowerment extends Analyzer {
@@ -18,11 +21,14 @@ class Empowerment extends Analyzer {
   wasted = 0;
   generated = 0;
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.STARSURGE_MOONKIN.id){
-      return;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARSURGE_MOONKIN), this.onCast);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(this.empowermentBuff), this.onApplyBuff);
+    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(this.empowermentBuff), this.onApplyBuffStack);
+  }
+
+  onCast(event) {
     const buff = this.selectedCombatant.getBuff(this.empowermentBuff.id);
     if (!buff) {
       return;
@@ -34,19 +40,11 @@ class Empowerment extends Analyzer {
     this.generated += 1;
   }
 
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== this.empowermentBuff.id){
-      return;
-    }
+  onApplyBuff(event) {
     this.generated += 1;
   }
 
-  on_toPlayer_applybuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== this.empowermentBuff.id){
-      return;
-    }
+  onApplyBuffStack(event) {
     this.generated += 1;
   }
 
@@ -81,7 +79,7 @@ class Empowerment extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsInverted).addSuggestion((suggest, actual, recommended) => suggest(<>You overcapped {this.wasted} {this.empowermentPrefix} Empowerments by casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> while already at 3 stacks. Try to always spend your empowerments before casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> if you are not going to overcap Astral Power.</>)
         .icon(this.icon)
-        .actual(`${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`)
+        .actual(i18n._(t('druid.balance.suggestions.empowerment.overcapped')`${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -40,7 +40,16 @@ import Nightstalker from './modules/talents/Nightstalker';
 import Subterfuge from './modules/talents/Subterfuge';
 import MasterAssassin from './modules/talents/MasterAssassin';
 
-// Traits
+// Covenants
+import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
+import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingReprimand';
+import Sepsis from '../shared/shadowlands/covenants/nightfae/Sepsis';
+import Flagellation from '../shared/shadowlands/covenants/venthyr/Flagellation';
+
+// Legendaries
+import DashingScoundrel from './modules/spells/shadowlands/legendaries/DashingScoundrel';
+import DuskwalkersPatch from './modules/spells/shadowlands/legendaries/DuskwalkersPatch';
+import EssenceOfBloodfang from '../shared/shadowlands/legendaries/EssenceOfBloodfang';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -88,7 +97,16 @@ class CombatLogParser extends CoreCombatLogParser {
     subterfuge: Subterfuge,
     masterAssassin: MasterAssassin,
 
-    // Traits
+    // Covenants
+    serratedBoneSpike: SerratedBoneSpike,
+    echoingReprimand: EchoingReprimand,
+    flagellation: Flagellation,
+    sepsis: Sepsis,
+
+    // Legendaries
+    dashingScoundrel: DashingScoundrel,
+    duskwalkersPatch: DuskwalkersPatch,
+    essenceOfBloodfang: EssenceOfBloodfang,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

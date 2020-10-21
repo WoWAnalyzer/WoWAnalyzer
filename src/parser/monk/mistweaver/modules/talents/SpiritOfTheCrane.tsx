@@ -15,11 +15,14 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-const SOTC_MANA_PER_SECOND_RETURN_MINOR: number = 80;
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
+const SOTC_MANA_PER_SECOND_RETURN_MINOR = 80;
 const SOTC_MANA_PER_SECOND_RETURN_AVERAGE: number = SOTC_MANA_PER_SECOND_RETURN_MINOR - 15;
 const SOTC_MANA_PER_SECOND_RETURN_MAJOR: number = SOTC_MANA_PER_SECOND_RETURN_MINOR - 15;
 
-const debug: boolean = false;
+const debug = false;
 
 class SpiritOfTheCrane extends Analyzer {
   castsTp: number = 0;
@@ -33,8 +36,8 @@ class SpiritOfTheCrane extends Analyzer {
   manaReturnSotc: number = 0;
   sotcWasted: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
 
     if(!this.active){
@@ -125,7 +128,7 @@ class SpiritOfTheCrane extends Analyzer {
         </>,
       )
         .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
-        .actual(`${formatNumber(this.manaReturn)} mana returned through Spirit of the Crane`)
+        .actual(`${formatNumber(this.manaReturn)}${i18n._(t('monk.mistweaver.suggestions.spiritOfTheCrane.manaReturned')` mana returned through Spirit of the Crane`)}`)
         .recommended(`${formatNumber(recommended)} is the recommended mana return`));
   }
 

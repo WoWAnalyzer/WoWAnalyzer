@@ -5,9 +5,13 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const damagingCasts = [SPELLS.EYE_OF_THE_STORM.id, SPELLS.WIND_GUST.id, SPELLS.CALL_LIGHTNING.id];
 const CALL_LIGHTNING_BUFF_DURATION = 15000;
@@ -31,16 +35,16 @@ class PrimalStormElemental extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PRIMAL_ELEMENTALIST_TALENT.id)
       && this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id);
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_ELEMENTAL_TALENT), this.onStormEleCast);
+      this.addEventListener(Events.cast, this.onCast);
+      this.addEventListener(Events.damage, this.onDamage);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.STORM_ELEMENTAL_TALENT.id){
-      return;
-    }
+  onStormEleCast(event) {
     this.pseCasts+=1;
   }
 
-  on_cast(event) {
+  onCast(event) {
     switch(event.ability.guid) {
       case SPELLS.EYE_OF_THE_STORM.id:
         this.usedCasts['Eye of the Storm']=true;
@@ -57,7 +61,7 @@ class PrimalStormElemental extends Analyzer {
     }
   }
 
-  on_damage(event) {
+  onDamage(event) {
     if (!damagingCasts.includes(event.ability.guid)) {
       return;
     }
@@ -86,14 +90,14 @@ class PrimalStormElemental extends Analyzer {
     when(unusedSpellsCount).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(<span> Your Storm Elemental is not using all of it's spells. Check if Wind Gust and Call Lightning are set to autocast and you are using Eye Of The Storm.</span>)
           .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-          .actual(`${formatNumber(unusedSpellsCount)} spells not used by your Storm Elemental (${unusedSpellsString})`)
+          .actual(i18n._(t('shaman.elemental.suggestions.primalStormElemental.spellsNotUsed')`${formatNumber(unusedSpellsCount)} spells not used by your Storm Elemental (${unusedSpellsString})`))
           .recommended(`You should be using all spells of your Storm Elemental.`)
           .major(recommended+1));
 
     when(this.badCasts).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You are not using <SpellLink id={SPELLS.CALL_LIGHTNING.id} /> on cooldown.</span>)
           .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-          .actual(`${formatNumber(this.badCasts)} casts done by your Storm Elemental without the "Call Lightning"-Buff.}`)
+          .actual(i18n._(t('shaman.elemental.suggestions.primalStormElemental.badCasts')`${formatNumber(this.badCasts)} casts done by your Storm Elemental without the "Call Lightning"-Buff.`))
           .recommended(`You should be recasting "Call Lightning" before the buff drops off.`)
           .major(recommended+5));
   }

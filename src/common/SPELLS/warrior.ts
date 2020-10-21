@@ -497,16 +497,6 @@ const spells: SpellList = {
     name: 'Deep Wounds',
     icon: 'ability_backstab',
   },
-  VENGEANCE_IGNORE_PAIN: {
-    id: 202574,
-    name: 'Vengeance: Ignore Pain',
-    icon: 'ability_warrior_unrelentingassault',
-  },
-  VENGEANCE_REVENGE: {
-    id: 202573,
-    name: 'Vengeance: Revenge',
-    icon: 'ability_warrior_unrelentingassault',
-  },
 
   // Shared:
   BATTLE_SHOUT: {
@@ -583,6 +573,11 @@ const spells: SpellList = {
     id: 202147,
     name: 'Second Wind',
     icon: 'ability_hunter_harass',
+  },
+  SHATTERING_THROW: {
+    id: 64382,
+    name: 'Shattering Throw',
+    icon: 'ability_warrior_shatteringthrow',
   },
 };
 export default spells;

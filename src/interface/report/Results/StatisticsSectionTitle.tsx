@@ -2,7 +2,7 @@
 import React from 'react';
 
 interface Props {
-  rightAddon: JSX.Element,
+  rightAddon?: JSX.Element,
   premium: boolean
 }
 

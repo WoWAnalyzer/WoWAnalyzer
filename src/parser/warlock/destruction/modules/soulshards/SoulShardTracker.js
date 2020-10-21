@@ -1,10 +1,11 @@
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Enemies from 'parser/shared/modules/Enemies';
-import EventFilter from 'parser/core/EventFilter';
+import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Events from 'parser/core/Events';
 
 const debug = false;
 
@@ -46,19 +47,18 @@ class SoulShardTracker extends ResourceTracker {
     this.resource.name = "Soul Shard Fragments";
     this.current = 30;
     this.hasInferno = this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE), this.onRemoveBuff);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.any, this.onEvent);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id) {
-      return;
-    }
+  onApplyBuff(event) {
     this.currentChaosShardsEnergizes = 0;
   }
 
-  on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id) {
-      return;
-    }
+  onRemoveBuff(event) {
     // if player has max shards and the traits procs, the energize events don't trigger
     // keep track of the energizes and count the missing ones as wasted
     const wastedTicks = CHAOS_SHARDS_COUNT - this.currentChaosShardsEnergizes;
@@ -66,7 +66,7 @@ class SoulShardTracker extends ResourceTracker {
   }
 
   // this accounts for Soul Conduit and possibly Feretory of Souls (they grant whole Soul Shards and appear as energize events, but their resourceChange field is in values 0 - 5 and we want 0 - 50
-  on_toPlayer_energize(event) {
+  onEnergize(event) {
     if (event.resourceChangeType !== this.resource.id) {
       return;
     }
@@ -78,10 +78,10 @@ class SoulShardTracker extends ResourceTracker {
       this.currentChaosShardsEnergizes += 1;
       this.processInvisibleEnergize(event.ability.guid, FRAGMENTS_PER_CHAOS_SHARDS_ENERGIZE);
     }
-    super.on_toPlayer_energize(event);
+    super.onEnergize(event);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.SOUL_FIRE_TALENT.id) {
       this.processInvisibleEnergize(spellId, 4);
@@ -122,10 +122,10 @@ class SoulShardTracker extends ResourceTracker {
       // actually process the spender with super.on_by_player_cast()
     }
 
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
   }
 
-  on_event(event) {
+  onEvent(event) {
     // after summoning Infernal (after Infernal Awakening), it generates 1 fragment every 0.5 seconds for 30 seconds
     // theoretically accurate, practically it messes up the fragment generation a lot
     // (but it's a lot worse without it, so I decided to go with the lesser of two evils since this way of generating fragments isn't tied to any kind of event)
@@ -136,7 +136,7 @@ class SoulShardTracker extends ResourceTracker {
     }
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INFERNAL_AWAKENING.id) {
       this.lastInfernalSummon = event.timestamp;
@@ -154,7 +154,7 @@ class SoulShardTracker extends ResourceTracker {
     }
   }
 
-  on_fightend() {
+  onFightend() {
     // after the fight has finished, try to redistribute the missing fragments
     const missingFragments = this.spent - this.generated;
     if (missingFragments <= 0) {

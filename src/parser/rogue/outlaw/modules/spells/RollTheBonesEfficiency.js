@@ -3,7 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
+import Events from 'parser/core/Events';
 
 import RollTheBonesCastTracker, { ROLL_THE_BONES_CATEGORIES } from '../features/RollTheBonesCastTracker';
 
@@ -27,6 +31,7 @@ class RollTheBonesEfficiency extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISPATCH, SPELLS.BETWEEN_THE_EYES]), this.onCast);
   }
 
   get goodLowValueRolls(){
@@ -48,13 +53,15 @@ class RollTheBonesEfficiency extends Analyzer {
       .filter(cast => this.rollTheBonesCastTracker.castRemainingDuration(cast) <= HIGH_TIER_REFRESH_TIME).length;
   }
 
-  on_byPlayer_cast(event){
+  onCast(event){
     if(event.ability.guid !== SPELLS.DISPATCH.id && event.ability.guid !== SPELLS.BETWEEN_THE_EYES.id){
       return;
     }
 
     const lastCast = this.rollTheBonesCastTracker.lastCast;
     if(lastCast && this.rollTheBonesCastTracker.categorizeCast(lastCast) === ROLL_THE_BONES_CATEGORIES.LOW_VALUE){
+      //FIX WHEN UPDATING ROGUE TO TS
+      // eslint-disable-next-line @typescript-eslint/camelcase
       lastCast.RTB_IsDelayed = true;
     }
   }
@@ -106,7 +113,7 @@ class RollTheBonesEfficiency extends Analyzer {
     this.rollSuggestions.forEach(suggestion => {
       when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a {suggestion.label} roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}</>)
           .icon(SPELLS.ROLL_THE_BONES.icon)
-          .actual(`${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`)
+          .actual(i18n._(t('rogue.outlaw.suggestions.rollTheBones.efficiency')`${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`))
           .recommended(`${formatPercentage(recommended)}% is recommended`));
     });
   }

@@ -6,8 +6,8 @@ import SPELLS from 'common/SPELLS/index';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
-import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { EventType } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import DamageValue from 'parser/shared/modules/DamageValue';
@@ -16,9 +16,10 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
 import InfoIcon from 'interface/icons/Info';
+import { Trans } from '@lingui/macro';
 
 import CORE_SPELL_INFO from './SpellInfo';
-import STAT, { getClassNameColor, getIcon, getName } from './STAT';
+import STAT, { getClassNameColor, getIcon, getName, getNameTranslated } from './STAT';
 import QELiveLogo from './images/QE-Logo-New-Small.png';
 
 const DEBUG = false;
@@ -98,24 +99,31 @@ class BaseHealerStatValues extends Analyzer {
 
   scaleWeightsWithHealth = false;
 
-  on_heal(event) {
-    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
-      const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
-      this._handleHealEvent(event, healVal);
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET), this.onHeal);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER_PET), this.onAbsorb);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER_PET), this.onRemoveBuff);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealTaken);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
-  on_absorbed(event) {
-    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
-      const healVal = new HealingValue(event.amount, 0, 0);
-      this._handleHealEvent(event, healVal);
-    }
+
+  onHeal(event) {
+    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    this._handleHealEvent(event, healVal);
   }
-  on_removebuff(event) {
-    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
-      if (event.absorb) {
-        const healVal = new HealingValue(0, 0, event.absorb);
-        this._handleHealEvent(event, healVal);
-      }
+  onAbsorb(event) {
+    const healVal = new HealingValue(event.amount, 0, 0);
+    this._handleHealEvent(event, healVal);
+  }
+  onRemoveBuff(event) {
+    if (event.absorb) {
+      const healVal = new HealingValue(0, 0, event.absorb);
+      this._handleHealEvent(event, healVal);
     }
   }
   _handleHealEvent(event, healVal) {
@@ -284,7 +292,7 @@ class BaseHealerStatValues extends Analyzer {
     return baseHeal * healIncreaseFromOneVers;
   }
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     this._updateMissingHealth(event);
 
     const damageVal = new DamageValue(event.amount, event.absorbed, event.blocked, event.overkill);
@@ -302,7 +310,7 @@ class BaseHealerStatValues extends Analyzer {
     return noVersDamage * damageReductionIncreaseFromOneVers;
   }
 
-  on_toPlayer_heal(event) {
+  onHealTaken(event) {
     this._updateMissingHealth(event);
   }
   _updateMissingHealth(event) {
@@ -312,7 +320,7 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
 
-  on_fightend() {
+  onFightend() {
     if (DEBUG) {
       console.log('total', formatNumber(this.totalAdjustedHealing));
       console.log(`Int - ${formatNumber(this.totalOneInt)}`);
@@ -408,11 +416,11 @@ class BaseHealerStatValues extends Analyzer {
   _getTooltip(stat) {
     switch (stat) {
       case STAT.HASTE_HPCT:
-        return 'HPCT stands for "Healing per Cast Time". This is the value that Haste would be worth if you would cast everything you are already casting (and that scales with Haste) faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.';
+        return <Trans id="shared.healerStatValues.stats.hpct">HPCT stands for "Healing per Cast Time". This is the value that Haste would be worth if you would cast everything you are already casting (and that scales with Haste) faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.</Trans>;
       case STAT.HASTE_HPM:
-        return 'HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste\'s bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.';
+        return <Trans id="shared.healerStatValues.stats.hpm">HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.</Trans>;
       case STAT.VERSATILITY_DR:
-        return 'Weight includes both healing boost and damage reduction, counting the damage reduced as additional throughput.';
+        return <Trans id="shared.healerStatValues.stats.versDR">Weight includes both healing boost and damage reduction, counting the damage reduced as additional throughput.</Trans>;
       default:
         return null;
     }
@@ -461,13 +469,13 @@ class BaseHealerStatValues extends Analyzer {
                     <th style={{ minWidth: 30, fontWeight: 400 }}>
                       <TooltipElement
                         content={(
-                          <>
+                          <Trans id="shared.healerStatValues.statistic.title.tooltip">
                             These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />
                             DPS gains are not included in any of the stat values.
-                          </>
+                          </Trans>
                         )}
                       >
-                        Stat Values
+                        <Trans id="shared.healerStatValues.statistic.title">Stat Values</Trans>
                       </TooltipElement>
                       {this.qeLive && this.selectedCombatant.characterProfile && (
                         <Tooltip content="Opens in a new tab. Leverage the QE Live Tool to directly compare gear, azerite traits, and trinkets based on your stat values.">
@@ -476,14 +484,14 @@ class BaseHealerStatValues extends Analyzer {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <img src={QELiveLogo} alt="Questionably Epic Live" style={{ height: '1.2em', marginLeft: 15 }} /> Open Questionably Epic Live
+                            <Trans id="shared.healerStatValues.statistic.qeLink"><img src={QELiveLogo} alt="Questionably Epic Live" style={{ height: '1.2em', marginLeft: 15 }} /> Open Questionably Epic Live</Trans>
                           </a>
                         </Tooltip>
                       )}
                     </th>
                     <th className="text-right" style={{ minWidth: 30, fontWeight: 400 }} colSpan={2}>
-                      <TooltipElement content="Normalized so Intellect is always 1.00.">
-                        Value
+                      <TooltipElement content={<Trans id="shared.healerStatValues.statistic.title.value.tooltip">Normalized so Intellect is always 1.00.</Trans>}>
+                        <Trans id="shared.healerStatValues.statistic.title.value">Value</Trans>
                       </TooltipElement>
                     </th>
                   </tr>
@@ -500,7 +508,7 @@ class BaseHealerStatValues extends Analyzer {
 
                     const gainPerSecond = (gain / this.owner.fightDuration * 1000).toFixed(2);
                     const rating = gain !== null ? (ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)) : 'NYI';
-                    const informationIconTooltip = `${gainPerSecond} HPS per 1 rating / ${rating} rating per 1% throughput`;
+                    const informationIconTooltip = <Trans id="shared.healerStatValues.statistic.stats.tooltip">{gainPerSecond} HPS per 1 rating / {rating} rating per 1% throughput</Trans>;
 
                     return (
                       <tr key={stat}>
@@ -512,7 +520,7 @@ class BaseHealerStatValues extends Analyzer {
                               marginRight: 10,
                             }}
                           />{' '}
-                          {tooltip ? <TooltipElement content={tooltip}>{getName(stat)}</TooltipElement> : getName(stat)}
+                          {tooltip ? <TooltipElement content={tooltip}>{getNameTranslated(stat)}</TooltipElement> : getNameTranslated(stat)}
                         </td>
                         <td className="text-right">
                           {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}

@@ -3,8 +3,12 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
+import Events from 'parser/core/Events';
 
 import { BOF as ABILITY_BLACKLIST } from '../constants/AbilityBlacklist';
 
@@ -39,7 +43,12 @@ class BreathOfFire extends Analyzer {
     };
   }
 
-  on_toPlayer_damage(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+  }
+
+  onDamageTaken(event) {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
@@ -64,7 +73,7 @@ class BreathOfFire extends Analyzer {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> usage can be improved. The associated debuff is a key part of our damage mitigation.</>)
           .icon(SPELLS.BREATH_OF_FIRE.icon)
-          .actual(`${formatPercentage(actual)}% of hits mitigated with Breath of Fire`)
+          .actual(i18n._(t('monk.brewmaster.suggestions.breathOfFire.hitsMitigated')`${formatPercentage(actual)}% of hits mitigated with Breath of Fire`))
           .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 }

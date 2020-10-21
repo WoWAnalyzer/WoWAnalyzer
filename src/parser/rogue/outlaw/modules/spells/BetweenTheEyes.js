@@ -7,6 +7,9 @@ import Analyzer from 'parser/core/Analyzer';
 
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import BetweenTheEyesDamageTracker from './BetweenTheEyesDamageTracker';
 
 class BetweenTheEyes extends Analyzer {
@@ -14,11 +17,6 @@ class BetweenTheEyes extends Analyzer {
     damageTracker: DamageTracker,
     betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
   };
-
-  constructor(...args) {
-    super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id) && !(this.selectedCombatant.hasTrait(SPELLS.ACE_UP_YOUR_SLEEVE.id) || this.selectedCombatant.hasTrait(SPELLS.DEADSHOT.id));
-  }
 
   get thresholds() {
     const total = this.damageTracker.getAbility(SPELLS.BETWEEN_THE_EYES.id);
@@ -41,7 +39,7 @@ class BetweenTheEyes extends Analyzer {
   suggestions(when) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> without having <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active. When you don't have either the <SpellLink id={SPELLS.ACE_UP_YOUR_SLEEVE.id} /> or <SpellLink id={SPELLS.DEADSHOT.id} /> traits, the only time you should use <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging finisher is during <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} />.</>)
         .icon(SPELLS.BETWEEN_THE_EYES.icon)
-        .actual(`${formatPercentage(actual)}% inefficient casts`)
+        .actual(i18n._(t('rogue.outlaw.suggestions.betweentheEyes.efficiency')`${formatPercentage(actual)}% inefficient casts`))
         .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }

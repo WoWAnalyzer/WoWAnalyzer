@@ -25,9 +25,9 @@ class Channeling extends CoreChanneling {
     return timestamp - this._previousPenanceTimestamp > PENANCE_MINIMUM_RECAST_TIME;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     if (!Penance.isPenance(event.ability.guid)) {
-      super.on_byPlayer_cast(event);
+      super.onCast(event);
       return;
     }
 

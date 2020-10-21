@@ -1,8 +1,9 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import Events from 'parser/core/Events';
 
 class InitialMarrowrendCast extends Analyzer {
 
@@ -13,9 +14,13 @@ class InitialMarrowrendCast extends Analyzer {
   firstMRCast = false;
   firstMRCastWithoutDRW = false;
 
-  on_byPlayer_cast(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MARROWREND), this.onCast);
+  }
 
-    if (event.ability.guid !== SPELLS.MARROWREND.id || this.firstMRCast) {
+  onCast(event) {
+    if (this.firstMRCast) {
       return;
     }
 

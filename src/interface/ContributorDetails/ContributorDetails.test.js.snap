@@ -68,7 +68,7 @@ exports[`ContributorDetails matches snapshot 1`] = `
       >
         <Panel
           pad={false}
-          title="Contributions"
+          title="Contributions this expansion"
         >
           <ul
             className="list"

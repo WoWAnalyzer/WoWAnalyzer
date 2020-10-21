@@ -2,12 +2,16 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
 import Events, { DamageEvent } from 'parser/core/Events';
+
+import Statistic from 'interface/statistics/Statistic';
+import BoringValueText from 'interface/statistics/components/BoringValueText'
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import SpellLink from 'common/SpellLink';
 
 const PUNISH_DAMAGE_INCREASE = 0.2;
 
@@ -17,7 +21,7 @@ class Punish extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  bonusDmg = 0;
+  bonusDmg: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -35,17 +39,23 @@ class Punish extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.PUNISH_TALENT.id} />}
-        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label="Damage contributed"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             Punish added a total of {formatNumber(this.bonusDmg)} damage to your Shield Slams ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%). <br />
             {formatPercentage(this.uptime)}% debuff uptime.
           </>
         )}
-      />
+      >
+        <BoringValueText label={<><SpellLink id={SPELLS.PUNISH_TALENT.id} /> Damage contributed</>}>
+          <>
+            {formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} <small>DPS</small>
+          </>
+        </BoringValueText>
+      </Statistic>
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

@@ -6,6 +6,8 @@ import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
@@ -31,7 +33,7 @@ class ArcaneMissiles extends Analyzer {
 	}
 
 	get missilesUtilization() {
-		return 1 - (this.castWithoutClearcasting / this.abilityTracker.getAbility(SPELLS.ARCANE_MISSILES.id).casts);
+		return 1 - (this.castWithoutClearcasting / (this.abilityTracker.getAbility(SPELLS.ARCANE_MISSILES.id).casts));
 	}
 
 	get arcaneMissileUsageThresholds() {
@@ -50,7 +52,7 @@ class ArcaneMissiles extends Analyzer {
 		when(this.arcaneMissileUsageThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> without <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> {this.castWithoutClearcasting} times. Arcane Missiles is a very expensive spell (more expensive than a 4 Charge Arcane Blast) and therefore it should only be cast when you have the Clearcasting buff which makes the spell free.</>)
 					.icon(SPELLS.ARCANE_MISSILES.icon)
-					.actual(`${formatPercentage(this.missilesUtilization)}% Uptime`)
+					.actual(i18n._(t('mage.arcane.suggestions.arcaneMissiles.clearCasting.uptime')`${formatPercentage(this.missilesUtilization)}% Uptime`))
 					.recommended(`${formatPercentage(recommended)}% is recommended`));
 	}
 }

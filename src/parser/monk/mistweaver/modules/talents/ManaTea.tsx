@@ -14,6 +14,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 class ManaTea extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -29,8 +32,8 @@ class ManaTea extends Analyzer {
   effectiveHealing: number = 0;
   overhealing: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
     if(!this.active){
       return;
@@ -79,9 +82,9 @@ class ManaTea extends Analyzer {
     return {
       actual: this.avgMtSaves,
       isLessThan: {
-        minor: 13000,
-        average: 11000,
-        major: 9000,
+        minor: 7500,
+        average: 6500,
+        major: 5500,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -110,7 +113,7 @@ class ManaTea extends Analyzer {
         </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(`${formatNumber(this.avgMtSaves)} average mana saved per Mana Tea cast`)
+        .actual(`${formatNumber(this.avgMtSaves)}${i18n._(t('monk.mistweaver.suggestions.manaTea.avgManaSaved')` average mana saved per Mana Tea cast`)}`)
         .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`));
     when(this.suggestionThresholdsOverhealing).addSuggestion((suggest, actual, recommended) => suggest(
         <>
@@ -118,7 +121,7 @@ class ManaTea extends Analyzer {
         </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(`${formatPercentage(this.avgOverhealing)} % average overhealing per Mana Tea cast`)
+        .actual(`${formatPercentage(this.avgOverhealing)}${i18n._(t('monk.mistweaver.suggestions.manaTea.avgOverHealing')` % average overhealing per Mana Tea cast`)}`)
         .recommended(`under ${formatPercentage(recommended)}% over healing is recommended`));
   }
 

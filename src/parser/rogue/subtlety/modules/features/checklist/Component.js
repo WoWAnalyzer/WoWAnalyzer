@@ -65,57 +65,6 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
         />
       </Rule>
       <Rule
-        name="Manage Nightblade correctly"
-        description={(
-          <>
-            <SpellLink id={SPELLS.NIGHTBLADE.id} /> is a crucial part of Subtlety rotation, due to the 15% damage buff it provides. However you do not want to apply it during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> or <SpellLink id={SPELLS.SHADOW_DANCE.id} /> if specced in to <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} /> because it will take the place of an <SpellLink id={SPELLS.EVISCERATE.id} />. <TooltipElement content="Refresh Nightblade when Symbols has less then 5 seconds cooldown left">Instead, you should refresh Nightblade early, so that it covers the full duration of Symbols*</TooltipElement>
-          </>
-        )}
-      >
-        <Requirement
-          name={(
-            <>
-              <SpellLink id={SPELLS.NIGHTBLADE.id} /> uptime
-            </>
-          )}
-          thresholds={thresholds.nightbladeUptime}
-        />
-        <Requirement
-          name={(
-            <>
-              Damage buffed by <SpellLink id={SPELLS.NIGHTBLADE.id} />
-            </>
-          )}
-          thresholds={thresholds.nightbladeEffect}
-        />
-        <Requirement
-          name={(
-            <>
-              <SpellLink id={SPELLS.NIGHTBLADE.id} /> refreshed during  <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />
-            </>
-          )}
-          thresholds={thresholds.nightbladeDuringSymbols}
-        />
-        <Requirement
-          name={(
-            <>
-              <SpellLink id={SPELLS.NIGHTBLADE.id} /> effective refresh duration
-            </>
-          )}
-          thresholds={thresholds.nightbladeEarlyRefresh}
-        />
-        {combatant.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && (
-        <Requirement
-          name={(
-            <>
-              <SpellLink id={SPELLS.NIGHTBLADE.id} /> refreshed during <SpellLink id={SPELLS.SHADOW_DANCE.id} /> with  <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} />
-            </>
-          )}
-          thresholds={thresholds.darkShadowNightblade}
-        />
-        )}
-      </Rule>
-      <Rule
         name="Utilize Stealth and Shadow Dance to full potential"
         description={(
           <>
@@ -155,16 +104,6 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
           )}
           thresholds={thresholds.backstabInStealth}
         />
-        {combatant.hasTalent(SPELLS.FIND_WEAKNESS_TALENT.id) && (
-        <Requirement
-          name={(
-            <>
-              With <SpellLink id={SPELLS.FIND_WEAKNESS_TALENT.id} /> use <SpellLink id={SPELLS.VANISH.id} /> only when Find Weakness is not up or about to run out
-            </>
-          )}
-          thresholds={thresholds.findWeaknessVanish}
-        />
-)}
       </Rule>
       <PreparationRule thresholds={thresholds} />
 

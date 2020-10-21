@@ -4,10 +4,11 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 const STARFALL_BONUS_DAMAGE = 0.25;
 
@@ -17,13 +18,11 @@ class StellarDrift extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_DRIFT_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STARFALL), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.STARFALL.id) {
-      return;
-    }
-      this.bonusDamage += calculateEffectiveDamage(event, STARFALL_BONUS_DAMAGE);
+  onDamage(event) {
+    this.bonusDamage += calculateEffectiveDamage(event, STARFALL_BONUS_DAMAGE);
   }
 
   get damagePercent() {

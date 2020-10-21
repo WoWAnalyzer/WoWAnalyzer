@@ -1,9 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 const RANGE_WHERE_YOU_SHOULDNT_DC = 12; // yrd
 
@@ -21,16 +24,14 @@ class DeathsCaress extends Analyzer {
 
   constructor(...args) {
     super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATHS_CARESS), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATHS_CARESS), this.onDamage);
     if(this.selectedCombatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id)) {
       this.spellsThatShouldBeUsedFirst.push(SPELLS.BLOODDRINKER_TALENT.id);
     }
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.DEATHS_CARESS.id) {
-      return;
-    }
-
+  onCast(event) {
     const hadAnotherRangedSpell = this.spellsThatShouldBeUsedFirst.some(e => this.spellUsable.isAvailable(e));
     this.dcCasts += 1;
 
@@ -48,8 +49,8 @@ class DeathsCaress extends Analyzer {
     });
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.DEATHS_CARESS.id || this.cast.length === 0) {
+  onDamage(event) {
+    if (this.cast.length === 0) {
       return;
     }
 
@@ -97,7 +98,7 @@ class DeathsCaress extends Analyzer {
     when(this.averageCastSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>Avoid casting <SpellLink id={SPELLS.DEATHS_CARESS.id} /> unless you're out of melee range and about to cap your runes while <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> and <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> are on cooldown. Dump runes primarily with <SpellLink id={SPELLS.HEART_STRIKE.id} />.</>)
             .icon(SPELLS.DEATHS_CARESS.icon)
-            .actual(`${formatPercentage(this.badDcCasts / this.dcCasts)}% bad ${SPELLS.DEATHS_CARESS.name} casts`)
+            .actual(i18n._(t('deathknight.blood.suggestions.deathCaress.badCasts')`${formatPercentage(this.badDcCasts / this.dcCasts)}% bad ${SPELLS.DEATHS_CARESS.name} casts`))
             .recommended(`0% are recommended`));
   }
 }

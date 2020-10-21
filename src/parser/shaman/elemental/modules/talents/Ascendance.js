@@ -4,10 +4,15 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
+import Events from 'parser/core/Events';
 
 import Abilities from '../Abilities';
 
@@ -43,6 +48,7 @@ class Ascendance extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
   get AscendanceUptime() {
@@ -53,7 +59,7 @@ class Ascendance extends Analyzer {
     return (this.numCasts[SPELLS.LAVA_BURST.id]/this.numCasts[SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id]) || 0;
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
     const target = this.enemies.getEntity(event);
 
@@ -134,7 +140,7 @@ class Ascendance extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Maximize your damage during ascendance by only using ${this.abilites}.</span>)
           .icon(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.icon)
-          .actual(`${actual} other casts during Ascendence`)
+          .actual(i18n._(t('shaman.elemental.suggestions.Ascendance.efficiency')`${actual} other casts during Ascendence`))
           .recommended(`Only cast ${abilities} during Ascendence.`));
   }
 

@@ -17,11 +17,14 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import ManaTea from './ManaTea';
 import SpiritOfTheCrane from './SpiritOfTheCrane';
 import Lifecycles from './Lifecycles';
 
-const debug: boolean = false;
+const debug = false;
 
 class Tier45Comparison extends Analyzer {
   static dependencies = {
@@ -72,8 +75,8 @@ class Tier45Comparison extends Analyzer {
   returnedFromSelected = 0;
   best!: BestTalent;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.sotc.selected = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
     this.manatea.selected = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
     this.lifecycles.selected = !(this.sotc.selected || this.manatea.selected);
@@ -141,9 +144,9 @@ class Tier45Comparison extends Analyzer {
 
     if(this.lifecycles !== this.best){
       //life cycles reduces mana cost of two spells if you casted the other before hand
-      //so best = (x-1) * 3500 * .25 + x * 5200 * .25 = (best + 875) / 2715 = x
+      //so best = (x-1) * VivCost * LifcylesReduction + x * EnvCost * LifcylesReduction = (best + ReducedViv) / ReducedEnv = x
       //x-1 since you viv first in all fights
-      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + 875) / 2715);
+      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + SPELLS.VIVIFY.manaCost * SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed) / SPELLS.ENVELOPING_MIST.manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
       this.lifecycles.requiredVivs = this.lifecycles.requiredEnvs-1;
     }
 
@@ -158,7 +161,7 @@ class Tier45Comparison extends Analyzer {
   //anaylze current play style and see how much mana they would have gained from this talent
   generateSotc(){
     const sotcBlackOutKicks = this.abilityTracker.getAbility(SPELLS.BLACKOUT_KICK_TOTM.id).damageHits || 0;
-    const manaPercentFromSotc = sotcBlackOutKicks * .0065;
+    const manaPercentFromSotc = sotcBlackOutKicks * SPELLS.SPIRIT_OF_THE_CRANE_BUFF.manaRet;
     const rawManaFromSotc = manaPercentFromSotc * this.manaTracker.maxResource;
     return rawManaFromSotc || 0;
   }
@@ -167,8 +170,8 @@ class Tier45Comparison extends Analyzer {
   generateManaTea(){
     const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time)/1000;
     const manaTeasPossible = (Math.ceil(fightLength / 90) || 1);
-    const manaPerTwelve = (this.totalManaSpent()/fightLength) * 12;//duration of mana Tea
-    const manaPerTea = manaTeasPossible * manaPerTwelve;
+    const manaPerDuration = (this.totalManaSpent()/fightLength) * SPELLS.MANA_TEA_TALENT.duration/1000;//duration of mana Tea
+    const manaPerTea = manaTeasPossible * manaPerDuration;
     return manaPerTea || 0;
   }
 
@@ -209,7 +212,7 @@ class Tier45Comparison extends Analyzer {
         </>,
       )
         .icon(this.best.icon)
-        .actual(`${formatNumber(this.returnedFromSelected)} mana returned through ${this.best.name}`)
+        .actual(`${formatNumber(this.returnedFromSelected)}${i18n._(t('monk.mistweaver.suggestions.tier45Talent.efficiency')` mana returned through `)}${this.best.name}`)
         .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`));
   }
 

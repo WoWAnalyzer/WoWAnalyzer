@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -12,6 +13,8 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { DamageEvent } from 'parser/core/Events';
 import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from 'parser/hunter/survival/constants';
 import { ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -33,7 +36,7 @@ class ButcheryCarve extends Analyzer {
   wastedReductionMs: number = 0;
   targetsHit: number = 0;
   casts: number = 0;
-  spellKnown: any = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+  spellKnown: Spell = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
   damage: number = 0;
   bombSpellKnown: number = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id) ? SPELLS.WILDFIRE_INFUSION_TALENT.id : SPELLS.WILDFIRE_BOMB.id;
 
@@ -92,7 +95,7 @@ class ButcheryCarve extends Analyzer {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
       when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
           .icon(this.spellKnown.icon)
-          .actual(`${actual} average targets hit per cast`)
+          .actual(i18n._(t('hunter.survival.suggestions.butcheryCarve.averageTargets')`${actual} average targets hit per cast`))
           .recommended(`>${recommended} is recommended`));
     }
   }

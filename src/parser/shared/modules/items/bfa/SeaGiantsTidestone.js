@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
@@ -12,6 +12,7 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import HasteIcon from 'interface/icons/Haste';
+import Events from 'parser/core/Events';
 
 /**
 * Sea Giant's Tidestone
@@ -56,12 +57,10 @@ class SeaGiantsTidestone extends Analyzer {
         haste: this.haste,
       });
     }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FEROCITY_OF_THE_SKROG), this.onCast);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.FEROCITY_OF_THE_SKROG.id) {
-    return;
-    }
+  onCast(event) {
     this.casts += 1;
   }
 

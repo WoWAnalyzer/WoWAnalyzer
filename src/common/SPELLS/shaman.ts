@@ -15,7 +15,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 77130,
     name: 'Purify Spirit',
     icon: 'ability_shaman_cleansespirit',
-    manaCost: 650,
+    manaCost: 130,
   },
   WIND_SHEAR: {
     id: 57994,
@@ -26,7 +26,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 2484,
     name: 'Earthbind Totem',
     icon: 'spell_nature_strengthofearthtotem02',
-    manaCost: 250,
+    manaCost: 50,
   },
   RESONANCE_TOTEM: {
     id: 262417,
@@ -37,7 +37,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 370,
     name: 'Purge',
     icon: 'spell_nature_purge',
-    manaCost: 800,
+    manaCost: 160,
   },
   FAR_SIGHT: {
     id: 6196,
@@ -68,7 +68,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 8143,
     name: 'Tremor Totem',
     icon: 'spell_nature_tremortotem',
-    manaCost: 230,
+    manaCost: 46,
   },
   SPIRIT_WOLF_BUFF: {
     id: 260881,
@@ -79,7 +79,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 974,
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
-    manaCost: 1000,
+    manaCost: 200,
   },
   EARTH_SHIELD_HEAL: {
     id: 379,
@@ -90,7 +90,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 192058,
     name: 'Capacitor Totem',
     icon: 'spell_nature_brilliance',
-    manaCost: 1000,
+    manaCost: 200,
   },
   EARTH_ELEMENTAL: {
     id: 198103,
@@ -106,11 +106,19 @@ const spells: SpellList<ShamanSpell> = {
     id: 192106,
     name: 'Lightning Shield',
     icon: 'spell_nature_lightningshield',
+    manaCost: 30,
   },
   FROST_SHOCK: {
     id: 196840,
     name: 'Frost Shock',
     icon: 'spell_frost_frostshock',
+    manaCost: 20,
+  },
+  PRIMAL_STRIKE: {
+    id: 73899,
+    name: 'Primal Strike',
+    icon: 'spell_shaman_primalstrike',
+    manaCost: 188,
   },
   // Hex and its variations
   HEX: {
@@ -179,7 +187,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 51505,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
-    manaCost: 250,
+    manaCost: 50,
     coefficient: 0.53125,
   },
   LAVA_BURST_DAMAGE: {
@@ -192,10 +200,16 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Lava Burst Overload',
     icon: 'spell_shaman_lavaburst',
   },
+  LAVA_BURST_OVERLOAD_DAMAGE: {
+    id: 285466,
+    name: 'Lava Burst Overload',
+    icon: 'spell_shaman_lavaburst',
+  },
   LIGHTNING_BOLT: {
     id: 188196,
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
+    manaCost: 20,
   },
   LIGHTNING_BOLT_INSTANT: {
     id: 214815,
@@ -251,6 +265,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 188443,
     name: 'Chain Lightning',
     icon: 'spell_nature_chainlightning',
+    manaCost: 20,
   },
   CHAIN_LIGHTNING_INSTANT: {
     id: 195897,
@@ -327,6 +342,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 188389,
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
+    manaCost: 30,
     max_maelstrom: 20,
   },
   FROST_SHOCK_ENERGIZE: {
@@ -530,7 +546,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 188070,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 2400,
+    manaCost: 480,
     maelstrom: 20,
   },
   LIGHTNING_BOLT_ENHANCE: {
@@ -552,13 +568,13 @@ const spells: SpellList<ShamanSpell> = {
     id: 2825,
     name: 'Bloodlust',
     icon: 'spell_nature_bloodlust',
-    manaCost: 2150,
+    manaCost: 430,
   },
   HEROISM: {
     id: 32182,
     name: 'Heroism',
     icon: 'ability_shaman_heroism',
-    manaCost: 2150,
+    manaCost: 430,
   },
   REINCARNATION: {
     id: 21169,
@@ -665,7 +681,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 1064,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
-    manaCost: 3000,
+    manaCost: 600,
     color: '#203755',
     coefficient: 1.4,
   },
@@ -673,7 +689,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
-    manaCost: 1500,
+    manaCost: 300,
     color: '#146585',
     coefficient: 1.7,
     castTime: 2.5,
@@ -682,7 +698,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 2400,
+    manaCost: 480,
     color: '#40b3bf',
     coefficient: 1.57,
   },
@@ -690,7 +706,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 61295,
     name: 'Riptide',
     icon: 'spell_nature_riptide',
-    manaCost: 800,
+    manaCost: 160,
     color: '#a3dbce',
   },
   TIDAL_WAVES_BUFF: {
@@ -702,7 +718,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 73920,
     name: 'Healing Rain',
     icon: 'spell_nature_giftofthewaterspirit',
-    manaCost: 2160,
+    manaCost: 432,
   },
   HEALING_RAIN_HEAL: {
     id: 73921,
@@ -713,7 +729,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 5394,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
-    manaCost: 900,
+    manaCost: 180,
   },
   HEALING_STREAM_TOTEM_HEAL: {
     id: 52042,
@@ -724,7 +740,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 108280,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
-    manaCost: 560,
+    manaCost: 112,
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
@@ -746,7 +762,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 98008,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
-    manaCost: 1100,
+    manaCost: 220,
   },
   SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
     id: 98021,
@@ -787,29 +803,12 @@ const spells: SpellList<ShamanSpell> = {
     id: 79206,
     name: 'Spiritwalker\'s Grace',
     icon: 'spell_shaman_spiritwalkersgrace',
-    manaCost: 1410,
+    manaCost: 282,
   },
   WELLSPRING_HEAL: {
     id: 197997,
     name: 'Wellspring',
     icon: 'ability_shawaterelemental_split',
-  },
-  FLAME_SHOCK_RESTORATION: {
-    id: 188838,
-    name: 'Flame Shock',
-    icon: 'spell_fire_flameshock',
-    manaCost: 150,
-  },
-  LIGHTNING_BOLT_RESTORATION: {
-    id: 403,
-    name: 'Lightning Bolt',
-    icon: 'spell_nature_lightning',
-  },
-  CHAIN_LIGHTNING_RESTORATION: {
-    id: 421,
-    name: 'Chain Lightning',
-    icon: 'spell_nature_chainlightning',
-    manaCost: 100,
   },
   RESURGENCE: {
     id: 101033,

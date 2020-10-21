@@ -33,6 +33,7 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
           tooltip={<>This is a <em>filler</em> ability and should only be cast while your other spells are on cooldown.</>}
           thresholds={thresholds.hotrBadCasts}
         />
+        <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
       </Rule>
 
       <Rule
@@ -64,6 +65,23 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
         <AbilityRequirement spell={SPELLS.ARDENT_DEFENDER.id}
           name={(<><SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> cast efficiency</>)}
         />
+      </Rule>
+      <Rule name={<>Use <SpellLink id={SPELLS.WORD_OF_GLORY.id}/> to heal yourself</>}
+        description={(
+          <>
+            You should use <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> to heal yourself (or others, with <SpellLink id={SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id} />). However, you should <b>not</b> do this at the expense of <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> uptime. Instead, take advantage of <SpellLink id={SPELLS.SHINING_LIGHT_DESC.id} /> to make most of your <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> casts free.<br/>
+            <em>Section under construction.</em>
+          </>
+        )}>
+        <Requirement name={<><SpellLink id={SPELLS.WORD_OF_GLORY.id} /> casts with large overhealing</>}
+                     tooltip="Critical heals are excluded. A cast is counted as having large overhealing if at least 25% of it overhealed."
+                     thresholds={thresholds.wogOverheal} />
+        <Requirement name={<>Free casts from <SpellLink id={SPELLS.SHINING_LIGHT_DESC.id} /> wasted</>}
+                     tooltip="A cast is wasted if the Shining Light buff expires without being used."
+                     thresholds={thresholds.wogSlWaste}/>
+        <Requirement name={<>Stacks of <SpellLink id={SPELLS.SHINING_LIGHT_DESC.id} /> lost to overcapping</>}
+                     thresholds={thresholds.wogSotrCasts}
+                     tooltip="Shining Light stacks up to 5 times. Casting Shield of the Righteous while at 5 stacks loses a stack."/>
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

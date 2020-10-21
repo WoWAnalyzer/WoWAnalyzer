@@ -10,12 +10,13 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import UptimeIcon from 'interface/icons/Uptime';
 import SPECS from 'game/SPECS';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Combatants from 'parser/shared/modules/Combatants';
+import { Trans } from '@lingui/macro';
 
 import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from '../constants';
 
@@ -32,7 +33,7 @@ class EarthShield extends Analyzer {
   buffHealing = 0;
   category = STATISTIC_CATEGORY.TALENTS;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     const isRsham = this.selectedCombatant.specId === SPECS.RESTORATION_SHAMAN.id;
     this.active = isRsham || this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD.id);
@@ -91,7 +92,7 @@ class EarthShield extends Analyzer {
         label={<SpellLink id={SPELLS.EARTH_SHIELD.id} />}
         category={this.category}
         position={STATISTIC_ORDER.OPTIONAL(45)}
-        tooltip={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the HoT and ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing increase.`}
+        tooltip={<Trans id="shaman.shared.earthShield.statistic.tooltip">{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the HoT and {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing increase.</Trans>}
         value={
           (
             <div>

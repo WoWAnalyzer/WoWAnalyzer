@@ -12,6 +12,9 @@ import Combatants from 'parser/shared/modules/Combatants';
 import { When } from 'parser/core/ParseResults';
 import Events, { HealEvent } from 'parser/core/Events';
 
+import { i18n } from '@lingui/core';
+import { t, Trans } from '@lingui/macro';
+
 // 50 was too low, 100 was too high
 // had no issues with 85ms
 const BUFFER_MS = 85;
@@ -45,10 +48,10 @@ class HealingRain extends Analyzer {
     const suggestionThreshold = this.suggestionThreshold;
     when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Try to always cast <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> in areas where players stack. This allows the spell to consitantly hit all 6 possible targets.</span>)
-        .icon(SPELLS.HEALING_RAIN_CAST.icon)
-        .actual(`${suggestionThreshold.actual.toFixed(2)} average targets healed`)
-        .recommended(`${suggestionThreshold.isLessThan.minor} average targets healed`)
-        .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
+          .icon(SPELLS.HEALING_RAIN_CAST.icon)
+          .actual(i18n._(t('shaman.restoration.suggestions.healingRain.averageTargets')`${suggestionThreshold.actual.toFixed(2)} average targets healed`))
+          .recommended(`${suggestionThreshold.isLessThan.minor} average targets healed`)
+          .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
   }
 
   get suggestionThreshold() {
@@ -94,8 +97,8 @@ class HealingRain extends Analyzer {
         value={`${this.averageHitsPerTick.toFixed(2)}`}
         position={STATISTIC_ORDER.OPTIONAL()}
         label={(
-          <TooltipElement content="The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.">
-            Average Healing Rain Targets
+          <TooltipElement content={<Trans id="shaman.restoration.healingRain.averageTargets.label.tooltip">The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.</Trans>}>
+            <Trans id="shaman.restoration.healingRain.averageTargets.label">Average Healing Rain Targets</Trans>
           </TooltipElement>
         )}
       />

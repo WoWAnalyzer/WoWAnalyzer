@@ -4,13 +4,22 @@ import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import Events from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
 class IronFur extends Analyzer {
   _hitsPerStack = [];
+
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+    this.addEventListener(Events.fightend, this.onFightend);
+  }
 
   registerHit(stackCount) {
     if (!this._hitsPerStack[stackCount]) {
@@ -20,7 +29,7 @@ class IronFur extends Analyzer {
     this._hitsPerStack[stackCount] += 1;
   }
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     // Physical
     if (event.ability.type === SCHOOLS.ids.PHYSICAL) {
       const ironfur = this.selectedCombatant.getBuff(SPELLS.IRONFUR.id);
@@ -64,7 +73,7 @@ class IronFur extends Analyzer {
     return this._hitsPerStack.map(hits => hits / this.totalHitsTaken);
   }
 
-  on_fightend() {
+  onFightend() {
     if (debug) {
       console.log(`Hits with ironfur ${this.hitsMitigated}`);
       console.log(`Hits without ironfur ${this.hitsUnmitigated}`);
@@ -77,7 +86,7 @@ class IronFur extends Analyzer {
     when(this.percentOfHitsMitigated).isLessThan(0.90)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You only had the <SpellLink id={SPELLS.IRONFUR.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have the Ironfur buff up to mitigate as much physical damage as possible.</span>)
           .icon(SPELLS.IRONFUR.icon)
-          .actual(`${formatPercentage(actual)}% was mitigated by Ironfur`)
+          .actual(i18n._(t('druid.guardian.suggestions.ironfur.uptime')`${formatPercentage(actual)}% was mitigated by Ironfur`))
           .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
           .regular(recommended - 0.10).major(recommended - 0.2));
   }

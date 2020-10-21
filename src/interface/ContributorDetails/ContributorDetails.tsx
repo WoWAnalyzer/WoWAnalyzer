@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 
-import * as contributors from 'CONTRIBUTORS';
 import CoreChangelog from 'CHANGELOG';
 import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
@@ -8,7 +7,8 @@ import DropdownIcon from 'interface/icons/Dropdown';
 import Panel from 'interface/others/Panel';
 import Expandable from 'interface/common/Expandable';
 import AVAILABLE_CONFIGS from 'parser';
-import { ChangelogEntry, Character, Contributor } from 'common/changelog';
+import { ChangelogEntry } from 'common/changelog';
+import contributors, { Character, Contributor } from 'common/contributor';
 
 type ContributorProps = {
   contributorId: string,
@@ -16,7 +16,7 @@ type ContributorProps = {
 }
 
 class ContributorDetails extends React.PureComponent<ContributorProps> {
-  constructor(props: any) {
+  constructor(props: ContributorProps) {
     super(props);
     this.filterChangelog = this.filterChangelog.bind(this);
   }
@@ -29,7 +29,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
 
   renderCharacter(character: Character) {
     return (
-      <div>
+      <div key={character.name}>
         <a href={character.link} className={this.removeWhiteSpaces(character.spec.className)}>
           <SpecIcon id={character.spec.id} /> {character.name}
         </a>
@@ -38,7 +38,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
   }
 
   filterChangelog(contribution: ChangelogEntry) {
-    return contribution.contributors.includes((contributors as any)[this.props.contributorId]);
+    return contribution.contributors.includes(contributors[this.props.contributorId]);
   }
 
   contributionHeader(spec: number) {
@@ -82,16 +82,17 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
     );
   }
 
-  additionalInfo(object: any) {
-    if (!object) {
+  additionalInfo(object: Contributor['others']) {
+    if (object === undefined) {
       return null;
     }
 
     const value: React.ReactNode[] = [];
     Object.keys(object).forEach((key) => {
-      if (Array.isArray(object[key])) {
+      const info = object[key];
+      if (Array.isArray(info)) {
         const subvalue: React.ReactNode[] = [];
-        object[key].forEach((elem: any) => {
+        info.forEach((elem) => {
           subvalue.push(<div>{elem}</div>);
         });
 
@@ -102,7 +103,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
           </div>
         </div>);
 
-      } else if (typeof object[key] === 'string') {
+      } else if (typeof info === 'string') {
         value.push(<div className="row">
           <div className="col-md-3"><b>{key}:</b></div>
           <div className="col-md-9">
@@ -189,14 +190,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
 
     document.body.classList.toggle('no-scroll');
   }
-  // eslint-disable-next-line react/no-deprecated
-  componentWillReceiveProps(nextProps: any) {
-    if (this.props.ownPage) {
-      return;
-    }
 
-    document.body.classList.toggle('no-scroll');
-  }
   componentWillUnmount() {
     if (this.props.ownPage) {
       return;
@@ -209,7 +203,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
 
   render() {
     const { contributorId } = this.props;
-    const contributor: Contributor | undefined = (contributors as any)[contributorId];
+    const contributor: Contributor | undefined = contributors[contributorId];
 
     if (!contributor) {
       return this.invalidContributor();
@@ -263,7 +257,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
 
             <div className="col-md-7">
               <Panel
-                title="Contributions"
+                title="Contributions this expansion"
                 pad={false}
               >
                 <ul className="list">
@@ -274,7 +268,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
                       header={(
                         <div className="flex">
                           <div className="flex-main name">
-                            {this.contributionHeader(type)} ({contributions[type].length} commits)
+                            {this.contributionHeader(type)} ({contributions[type].length} {contributions[type].length === 1 ?  'change' : 'changes'})
                           </div>
                           <div className="flex-sub chevron">
                             <DropdownIcon />

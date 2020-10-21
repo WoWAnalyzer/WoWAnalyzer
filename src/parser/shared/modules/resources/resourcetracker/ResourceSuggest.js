@@ -1,13 +1,15 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 function suggest(when, tracker, suggestion) {
   let tracked = { generated: 0, wasted: 0, casts: 0 };
   //If an array of spells is passed, we manipulate the data to aggregate all the generated and wasted resources as well as the individual focus instances into 1 spell so that it can be displayed.
   if (Array.isArray(suggestion.spell)) {
     let newSuggestionSpell = { id: null };
-    for (let i = 0; i < suggestion.spell.length; i++) {
+    for (let i = 0; i < suggestion.spell.length; i += 1) {
       if (!tracker.buildersObj[suggestion.spell[i].id]) {
         continue;
       }
@@ -37,7 +39,7 @@ function suggest(when, tracker, suggestion) {
         </>,
       )
         .icon(suggestion.spell.icon)
-        .actual(`${formatPercentage(wastedShare)}% wasted. Generated ${tracked.generated} out of ${maxGenerated} possible ${resourceNameLower}`)
+        .actual(i18n._(t('shared.suggestions.resources.wasted')`${formatPercentage(wastedShare)}% wasted. Generated ${tracked.generated} out of ${maxGenerated} possible ${resourceNameLower}`))
         .recommended(`<${formatPercentage(suggestion.minor)}%  ${resourceNameLower} wasted is recommend`)
         .regular(suggestion.avg).major(suggestion.major));
 }

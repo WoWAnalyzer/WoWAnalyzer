@@ -12,7 +12,10 @@ import DonutChart from 'interface/statistics/components/DonutChart';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-const debug: boolean = false;
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
+const debug = false;
 
 //TODO clean up and make easier to add triggers
 class ThunderFocusTea extends Analyzer {
@@ -30,8 +33,8 @@ class ThunderFocusTea extends Analyzer {
   ftActive: boolean = false;
   rmActive: boolean = false;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.ftActive = this.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
     this.rmActive = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_FOCUS_TEA), this.tftCast);
@@ -141,7 +144,7 @@ class ThunderFocusTea extends Analyzer {
             </>,
           )
             .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
-            .actual(`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`)
+            .actual(`${this.incorrectTftCasts}${i18n._(t('monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts')`incorrect casts with Thunder Focus Tea`)}`)
             .recommended(`<${recommended} incorrect cast is recommended`));
   }
 

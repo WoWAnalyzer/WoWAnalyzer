@@ -38,7 +38,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) =
     const requirements = [];
 
     // eslint-disable-next-line react/prop-types
-    for (let voidFormIndex = 0; voidFormIndex < props.voidform.voidforms.length; voidFormIndex++) {
+    for (let voidFormIndex = 0; voidFormIndex < props.voidform.voidforms.length; voidFormIndex += 1) {
       // eslint-disable-next-line react/prop-types
       const thresholds = props.voidform.suggestionStackThresholds(props.voidform.voidforms[voidFormIndex]);
       // If you end the fight in voidform, we want to mark that voidform as green.

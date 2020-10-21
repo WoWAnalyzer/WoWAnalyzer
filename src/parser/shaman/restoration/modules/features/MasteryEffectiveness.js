@@ -7,17 +7,20 @@ import { TooltipElement } from 'common/Tooltip';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Panel from 'interface/statistics/Panel';
 import PlayerBreakdown from 'interface/others/PlayerBreakdown';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
+import { Trans } from '@lingui/macro';
+
+import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
 import { ABILITIES_AFFECTED_BY_MASTERY, BASE_ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    abilityTracker: RestorationAbilityTracker,
     combatants: Combatants,
     statTracker: StatTracker,
   };
@@ -27,12 +30,13 @@ class MasteryEffectiveness extends Analyzer {
 
   masteryHealEvents = [];
 
-  on_byPlayer_heal(event) {
-    const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.some(s => s.id === event.ability.guid);
-    if (!isAbilityAffectedByMastery) {
-      return;
-    }
+  constructor(options){
+    super(options);
+    // Totems count as pets, but are still affected by mastery.
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(ABILITIES_AFFECTED_BY_MASTERY), this.onHeal);
+  }
 
+  onHeal(event) {
     const heal = new HealingValue(event.amount, event.absorbed, event.overheal);
     const healthBeforeHeal = event.hitPoints - event.amount;
     const masteryEffectiveness = Math.max(0, 1 - healthBeforeHeal / event.maxHitPoints);
@@ -61,11 +65,6 @@ class MasteryEffectiveness extends Analyzer {
     event.masteryEffectiveness = masteryEffectiveness;
   }
 
-  // Totems count as pets, but are still affected by mastery.
-  on_byPlayerPet_heal(event) {
-    this.on_byPlayer_heal(event);
-  }
-
   get masteryEffectivenessPercent() {
     return this.totalMasteryHealing / this.totalMaxPotentialMasteryHealing;
   }
@@ -82,8 +81,8 @@ class MasteryEffectiveness extends Analyzer {
           value={`${formatPercentage(this.masteryEffectivenessPercent)} %`}
           position={STATISTIC_ORDER.CORE(30)}
           label={(
-            <TooltipElement content={`The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have ${formatPercentage(masteryPercent)}% mastery, this means that on average your heals were increased by ${formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.`}>
-              Mastery benefit
+            <TooltipElement content={<Trans id="shaman.restoration.masteryEffectiveness.statistic.tooltip">The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have {formatPercentage(masteryPercent)}% mastery, this means that on average your heals were increased by {formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.</Trans>}>
+              <Trans id="shaman.restoration.masteryEffectiveness.statistic.label">Mastery benefit</Trans>
             </TooltipElement>
           )}
         />
@@ -91,7 +90,7 @@ class MasteryEffectiveness extends Analyzer {
       (
         <Panel
           key="Panel"
-          title="Mastery effectiveness breakdown"
+          title={<Trans id="shaman.restoration.masteryEffectiveness.statistic.panel">Mastery effectiveness breakdown</Trans>}
           position={200}
           pad={false}
         >

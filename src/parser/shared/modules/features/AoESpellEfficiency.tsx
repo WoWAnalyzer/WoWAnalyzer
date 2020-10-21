@@ -1,16 +1,19 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Abilities from 'parser/core/modules/Abilities';
 import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-import { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Spell from 'common/SPELLS/Spell';
 
 import React from 'react';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /*
   Creates a suggestion for an AoE-Spell based on the amount of hits done and min. amount of hits possible
@@ -18,26 +21,31 @@ import React from 'react';
 
 class AoESpellEfficiency extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    abilities: Abilities,
   };
-  protected abilityTracker!: AbilityTracker;
+  protected abilities!: Abilities;
 
   ability!: Spell;
   bonusDmg = 0;
   casts: Array<{ timestamp: number, hits: number }> = [];
 
-  on_byPlayer_cast(event: CastEvent) {
-    if (event.ability.guid !== this.ability.id) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+  }
+
+  onCast(event: CastEvent) {
+    if(event.ability.guid !== this.ability.id) {
       return;
     }
-
     this.casts.push({
       timestamp: event.timestamp,
       hits: 0,
     });
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
+  onDamage(event: DamageEvent) {
     if (event.ability.guid !== this.ability.id) {
       return;
     }
@@ -47,12 +55,16 @@ class AoESpellEfficiency extends Analyzer {
   }
 
   get maxCasts() {
-    const cooldown = this.abilityTracker.getAbility(this.ability.id).cooldown;
+    const cooldown = this.abilities.getAbility(this.ability.id)?.cooldown ?? Infinity;
     return Math.ceil(calculateMaxCasts(cooldown, this.owner.fightDuration));
   }
 
   get possibleHits() {
-    const cooldownMS = this.abilityTracker.getAbility(this.ability.id).cooldown * 1000;
+    const cooldownS = this.abilities.getAbility(this.ability.id)?.cooldown;
+    if (cooldownS === undefined) {
+      return 0;
+    }
+    const cooldownMS = cooldownS * 1000;
     let lastCast: number | null = null;
     let missedCasts = 0;
     let timeSum = 0;
@@ -99,7 +111,7 @@ class AoESpellEfficiency extends Analyzer {
     when(this.hitSuggestionThreshold)
       .addSuggestion((suggest) => suggest(<>It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but don't delay it too long or you'll miss out on casts and possible hits.</>)
           .icon(this.ability.icon)
-          .actual(`${this.totalHits} total hits`)
+          .actual(i18n._(t('shared.suggestions.aoeSpells.efficiency')`${this.totalHits} total hits`))
           .recommended(`${this.possibleHits} or more hits were possible`));
   }
 

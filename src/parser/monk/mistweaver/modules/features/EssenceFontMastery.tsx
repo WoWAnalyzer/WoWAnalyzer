@@ -13,6 +13,9 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 const debug = false;
 
 class EssenceFontMastery extends Analyzer {
@@ -31,8 +34,8 @@ class EssenceFontMastery extends Analyzer {
   secondGustOverheal: number = 0;
 
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.hasUpwelling = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.gustHealing);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.efCast);
@@ -43,11 +46,11 @@ class EssenceFontMastery extends Analyzer {
       if (!this.combatants.players[targetId]) {
         return;
       }
-      if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true && !this.gustHeal) {
+      if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0, event.sourceID) && !this.gustHeal) {
         debug && console.log(`First Gust Heal: Player ID: ${event.targetID}  Timestamp: ${event.timestamp}`);
         this.healEF += 1;
         this.gustHeal = true;
-      } else if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true && this.gustHeal) {
+      } else if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0, event.sourceID) && this.gustHeal) {
         this.healEF += 1;
         this.healing += (event.amount || 0) + (event.absorbed || 0);
         this.gustHeal = false;
@@ -95,7 +98,7 @@ class EssenceFontMastery extends Analyzer {
           </>,
         )
           .icon(SPELLS.ESSENCE_FONT.icon)
-          .actual(`${this.avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`)
+          .actual(i18n._(t('monk.mistweaver.suggestions.essenceFontMastery.averageHots')`${this.avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`))
           .recommended(`${recommended} or more EF HoTs utilized is recommended`));
   }
 

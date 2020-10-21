@@ -14,8 +14,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 
 
-const BASE_HOT_TIME: number = 8000;//ef's hot base time
-const BASE_BOLTS: number = 17;//18 base but we start counting at 0 so 18th on bolt count = 19th bolt
+const BASE_HOT_TIME = 8000;//ef's hot base time
+const BASE_BOLTS = 17;//18 base but we start counting at 0 so 18th on bolt count = 19th bolt
 
 
 /**
@@ -55,8 +55,8 @@ class Upwelling extends Analyzer {
   masteryOverhealing: number = 0;
   masteryAbsorbed: number = 0;
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT);
     if (!this.active) {
       return;
@@ -139,7 +139,7 @@ class Upwelling extends Analyzer {
       return;
     }
 
-    if(this.combatants.players[targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0)) {//do they have the hot
+    if(this.combatants.players[targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0, event.sourceID)) {//do they have the hot
       if(hot.fullCount || event.timestamp - BASE_HOT_TIME > hot.applicationTime){
         if(!this.masteryTickTock){
           this.masteryHit += 1;
@@ -191,7 +191,7 @@ class Upwelling extends Analyzer {
         )}
       >
         <BoringValueText 
-          label={<><SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} /> Upwelling Healing</>}
+          label={<><SpellIcon id={SPELLS.UPWELLING_TALENT.id} /> Upwelling Healing</>}
         >
           <>
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealingAll))}% Total Healing

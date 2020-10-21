@@ -3,10 +3,13 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const SHIELD_OF_VENGEANCE_HEALTH_SCALING = 0.3;
 
@@ -17,11 +20,12 @@ class ShieldOfVengeance extends Analyzer {
   };
   totalPossibleAbsorb = 0;
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.SHIELD_OF_VENGEANCE.id !== spellId) {
-      return;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_VENGEANCE), this.onCast);
+  }
+
+  onCast(event) {
     this.totalPossibleAbsorb += event.maxHitPoints * SHIELD_OF_VENGEANCE_HEALTH_SCALING * (1+this.statTracker.currentVersatilityPercentage);
   }
 
@@ -44,7 +48,7 @@ class ShieldOfVengeance extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You consumed a low amount of your total <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage can be difficult on lower difficulty encounters.</>)
         .icon(SPELLS.SHIELD_OF_VENGEANCE.icon)
-        .actual(`${formatPercentage(actual)}% Shield of Vengeance absorb used`)
+        .actual(i18n._(t('paladin.retribution.suggestions.shieldOfVengeance.absorbUsed')`${formatPercentage(actual)}% Shield of Vengeance absorb used`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
