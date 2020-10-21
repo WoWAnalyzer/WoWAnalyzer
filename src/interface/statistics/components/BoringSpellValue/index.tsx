@@ -4,13 +4,21 @@
  * Do NOT use for items or azerite powers.
  */
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
 
 import '../BoringValue.scss';
+import Spell from 'common/SPELLS/Spell';
 
-const BoringSpellValue = ({ spell, value, label, extra, className }) => (
+type Props = {
+  spell: Spell;
+  value: React.ReactNode;
+  label: React.ReactNode;
+  extra?: React.ReactNode;
+  className?: string;
+}
+
+const BoringSpellValue = ({ spell, value, label, extra, className }: Props) => (
   <div className={`flex boring-value ${className || ''}`}>
     <div className="flex-sub icon">
       <SpellIcon id={spell.id} />
@@ -22,14 +30,5 @@ const BoringSpellValue = ({ spell, value, label, extra, className }) => (
     </div>
   </div>
 );
-BoringSpellValue.propTypes = {
-  spell: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-  }).isRequired,
-  value: PropTypes.node.isRequired,
-  label: PropTypes.node.isRequired,
-  extra: PropTypes.node,
-  className: PropTypes.string,
-};
 
 export default BoringSpellValue;

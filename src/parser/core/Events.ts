@@ -139,6 +139,7 @@ export interface ClassResources {
   amount: number;
   max: number;
   type: number;
+  cost?: number;
 }
 
 // TODO: Find a good place for this

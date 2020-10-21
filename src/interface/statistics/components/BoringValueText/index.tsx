@@ -3,10 +3,14 @@
  * Use this only as the very last resort.
  */
 import React from 'react';
-import PropTypes from 'prop-types';
 
+type Props = {
+  label: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
+}
 
-const BoringValue = ({ label, children, className }) => (
+const BoringValue = ({ label, children, className }: Props) => (
   <div className={`pad boring-text ${className || ''}`}>
     <label>
       {label}
@@ -16,10 +20,5 @@ const BoringValue = ({ label, children, className }) => (
     </div>
   </div>
 );
-BoringValue.propTypes = {
-  label: PropTypes.node.isRequired,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
 
 export default BoringValue;

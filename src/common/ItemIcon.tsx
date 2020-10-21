@@ -1,11 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import ITEMS from './ITEMS';
 import ItemLink from './ItemLink';
 import Icon from './Icon';
 
-const ItemIcon = ({ id, noLink, details, alt, ...others }) => {
+type Props = {
+  id: number;
+  noLink?: boolean;
+  details?: Record<string, any>;
+  alt?: string;
+}
+
+const ItemIcon = ({ id, noLink, details, alt, ...others }: Props) => {
   const icon = (
     <Icon
       icon={ITEMS[id] ? ITEMS[id].icon : 'inv_misc_questionmark'}
@@ -23,12 +29,6 @@ const ItemIcon = ({ id, noLink, details, alt, ...others }) => {
       {icon}
     </ItemLink>
   );
-};
-ItemIcon.propTypes = {
-  id: PropTypes.number.isRequired,
-  noLink: PropTypes.bool,
-  details: PropTypes.object,
-  alt: PropTypes.string,
 };
 
 export default ItemIcon;

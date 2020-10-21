@@ -12,6 +12,7 @@ import Contributor from 'interface/ContributorButton';
 export default [
   change(date(2020, 10, 21), 'Update some news components to Typescript', ChagriAli),
   change(date(2020, 10, 21), 'Update to "2018-01-31-1st-Anniversary" Typescript', ChagriAli),
+  change(date(2020, 10, 19), 'Converted Boring components to TypeScript', Khazak),
   change(date(2020, 10, 19), 'Updated some react components, and adjusted our ContributorDetails modal to more accurately show what it represents', Putro),
   change(date(2020, 10, 19), 'Removed legacy event listener support', Zeboot),
   change(date(2020, 10, 18), 'Updated talent row levels.', Abelito75),
