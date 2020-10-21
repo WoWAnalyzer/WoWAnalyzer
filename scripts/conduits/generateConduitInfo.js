@@ -20,9 +20,9 @@ function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
-//Generated from https://wow.tools/dbc/?dbc=soulbindconduititem&build=9.0.2.35938#page=1
+//Generated from https://wow.tools/dbc/?dbc=soulbindconduititem&build=9.0.2.36294
 const conduitItemInfo = readJson('./data/soulbindconduititem.json');
-//Generated from https://wow.tools/dbc/?dbc=soulbindconduitrank&build=9.0.2.35938#page=1
+//Generated from https://wow.tools/dbc/?dbc=soulbindconduitrank&build=9.0.2.36294
 const conduitRankInfo = readJson('./data/soulbindconduitrank.json');
 //Taken from https://www.raidbots.com/static/data/beta/conduits.json
 const conduitRaidbots = readJson('./data/raidbotsConduitsInfo.json');
@@ -37,6 +37,7 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
   let soulbindConduitID = '';
   let conduitItemID = 0;
   let conduitRanks = '';
+  const conduitRanksArray = [];
 
   let finishedRaidbotsLoop = false;
   Object.keys(conduitRaidbots).forEach(raidBotsKey => {
@@ -65,17 +66,18 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
     if (finishedRanksLoop) {
       return;
     }
-    if (conduitRankInfo[rankInfoKey].SoulbindConduitID === conduitItemInfo[itemInfoKey].SoulbindConduitID) {
+    if (conduitRankInfo[rankInfoKey].SoulbindConduitID === conduitItemInfo[itemInfoKey].ConduitID) {
 
       if (conduitRanks.length > 0) {
-        conduitRanks += `,\n\t\t\t"${[conduitRankInfo[rankInfoKey].Rank]}": ${[conduitRankInfo[rankInfoKey].SpellModifier]}`;
-      } else {
-        conduitRanks += `\t\t\t"${[conduitRankInfo[rankInfoKey].Rank]}": ${[conduitRankInfo[rankInfoKey].SpellModifier]}`;
+        conduitRanks += `,\n`;
       }
+
+      conduitRanks += `\t\t\t"${[conduitRankInfo[rankInfoKey].RankIndex]}": ${[conduitRankInfo[rankInfoKey].AuraPointsOverride]}`;
+      conduitRanksArray.push(conduitRankInfo[rankInfoKey].AuraPointsOverride)
 
       conduitSpellId = conduitRankInfo[rankInfoKey].SpellID;
 
-      if (conduitRankInfo[rankInfoKey].Rank + 1 === maxRank) {
+      if (conduitRankInfo[rankInfoKey].RankIndex + 1 === maxRank) {
         finishedRanksLoop = true;
       }
     }
@@ -93,8 +95,8 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
     \t"covenantID": ${conduitCovenant},
     \t"soulbindConduitID": ${soulbindConduitID},
     \t"conduitItemID": ${conduitItemID},
-    \t"spellModifierByRanks": { \n${conduitRanks}
-    \t}
+    \t"AuraPointsOverrideArray": [${conduitRanksArray}],
+    \t"AuraPointsOverride": { \n${conduitRanks}\n\t\t}
     }${Object.keys(conduitItemInfo).length - 1 > idx ? ',' : ''}\n`;
 
   conduitName = conduitName.replace('\'', '\\\'');
@@ -104,6 +106,7 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
   \tid: ${conduitSpellId},
   \tname: '${conduitName}',
   \ticon: '${conduitIcon}',
+  \tAuraPointsOverrideArray: [${conduitRanksArray}],
   },\n`;
 
   jsItemOutput +=
