@@ -161,7 +161,7 @@ class Tier45Comparison extends Analyzer {
   //anaylze current play style and see how much mana they would have gained from this talent
   generateSotc(){
     const sotcBlackOutKicks = this.abilityTracker.getAbility(SPELLS.BLACKOUT_KICK_TOTM.id).damageHits || 0;
-    const manaPercentFromSotc = sotcBlackOutKicks * .0065;
+    const manaPercentFromSotc = sotcBlackOutKicks * SPELLS.SPIRIT_OF_THE_CRANE_BUFF.manaRet;
     const rawManaFromSotc = manaPercentFromSotc * this.manaTracker.maxResource;
     return rawManaFromSotc || 0;
   }
@@ -170,8 +170,8 @@ class Tier45Comparison extends Analyzer {
   generateManaTea(){
     const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time)/1000;
     const manaTeasPossible = (Math.ceil(fightLength / 90) || 1);
-    const manaPerTwelve = (this.totalManaSpent()/fightLength) * 12;//duration of mana Tea
-    const manaPerTea = manaTeasPossible * manaPerTwelve;
+    const manaPerDuration = (this.totalManaSpent()/fightLength) * SPELLS.MANA_TEA_TALENT.duration/1000;//duration of mana Tea
+    const manaPerTea = manaTeasPossible * manaPerDuration;
     return manaPerTea || 0;
   }
 
