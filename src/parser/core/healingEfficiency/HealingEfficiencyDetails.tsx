@@ -11,16 +11,15 @@ class HealingEfficiencyDetails extends Analyzer {
     healingEfficiencyTracker: HealingEfficiencyTracker,
   };
 
+  protected healingEfficiencyTracker!: HealingEfficiencyTracker;
+
   statistic() {
     return (
       <Panel
         title="Mana Efficiency"
         position={120}
       >
-        <HealingEfficiencyBreakdown
-          tracker={this.healingEfficiencyTracker}
-          showSpenders
-        />
+        <HealingEfficiencyBreakdown tracker={this.healingEfficiencyTracker} />
       </Panel>
     );
   }

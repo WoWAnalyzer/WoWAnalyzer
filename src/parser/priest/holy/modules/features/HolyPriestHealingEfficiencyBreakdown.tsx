@@ -4,19 +4,23 @@ import Toggle from 'react-toggle';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS/index';
 
+import HolyPriestHealingEfficiencyTracker from './HolyPriestHealingEfficiencyTracker';
+
+interface Props {
+  tracker: HolyPriestHealingEfficiencyTracker;
+}
+
 class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
-  constructor() {
-    super();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    this.state.showEchoOfLight = false;
+  constructor(props: Props) {
+    super(props);
+
+    super.setState({showEchoOfLight: false})
+    //this.state.showEchoOfLight = false;
   }
 
   render() {
     const { tracker } = this.props;
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
     return (
       <div>
         <div className="row">
@@ -41,7 +45,7 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                   icons={false}
                   onChange={(event: any) => {
                     this.setState({ showEchoOfLight: event.target.checked });
-                    tracker.includeEchoOfLight = event.target.checked;
+                    (tracker as HolyPriestHealingEfficiencyTracker).includeEchoOfLight = event.target.checked;
                   }}
                   id="cooldown-toggle"
                 />
@@ -85,7 +89,7 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                 </tr>
               </thead>
               <tbody>
-                {this.HealingEfficiencyTable({ tracker, showHealing: this.state.showHealing })}
+                {this.HealingEfficiencyTable({ tracker })}
               </tbody>
             </table>
           </div>

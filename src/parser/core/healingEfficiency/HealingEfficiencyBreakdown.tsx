@@ -1,18 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { formatNumber, formatPercentage,formatDuration } from 'common/format';
+import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import Toggle from 'react-toggle';
 import PerformanceBar from 'interface/PerformanceBar';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
+import HolyPriestHealingEfficiencyTracker from 'parser/priest/holy/modules/features/HolyPriestHealingEfficiencyTracker';
 
-class HealingEfficiencyBreakdown extends React.Component {
-  static propTypes = {
-    tracker: PropTypes.object.isRequired,
-  };
+import HealingEfficiencyTracker, { SpellInfoDetails } from './HealingEfficiencyTracker';
 
-  constructor() {
-    super();
+export interface Props {
+  tracker: HealingEfficiencyTracker | HolyPriestHealingEfficiencyTracker;
+}
+export interface State {
+  showHealing: boolean;
+  detailedView: boolean;
+  showCooldowns: boolean;
+  showEchoOfLight?: boolean;
+}
+
+class HealingEfficiencyBreakdown extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
     this.state = {
       showHealing: true,
       detailedView: false,
@@ -20,7 +29,7 @@ class HealingEfficiencyBreakdown extends React.Component {
     };
   }
 
-  HealingEfficiencyTable = (props) => {
+  HealingEfficiencyTable = (props: Props) => {
     const { tracker } = props;
     const { spells, topHpm, topDpm, topHpet, topDpet } = tracker.getAllSpellStats(this.state.showCooldowns);
 
@@ -51,41 +60,42 @@ class HealingEfficiencyBreakdown extends React.Component {
       return null;
     }));
 
-    return spellRows;
+    return <>{spellRows}</>;
   };
 
-  HealingEfficiencySpellRow = (spellDetail, topHpm, topDpm, topHpet, topDpet) => (
-      <tr key={spellDetail.spell.id}>
-        <td>
-          <SpellLink id={spellDetail.spell.id} />
-        </td>
-        {this.state.detailedView ? <this.DetailView spellDetail={spellDetail} /> : <this.BarView spellDetail={spellDetail} topHpm={topHpm} topDpm={topDpm} topHpet={topHpet} topDpet={topDpet} />}
-      </tr>
-    );
+  HealingEfficiencySpellRow = (spellDetail: SpellInfoDetails, topHpm: number, topDpm: number, topHpet: number, topDpet: number) => (
+    <tr key={spellDetail.spell.id}>
+      <td>
+        <SpellLink id={spellDetail.spell.id} />
+      </td>
+      {this.state.detailedView ? <this.DetailView spellDetail={spellDetail} /> : <this.BarView spellDetail={spellDetail} topHpm={topHpm} topDpm={topDpm} topHpet={topHpet} topDpet={topDpet} />}
+    </tr>
+  );
 
   BarHeader = () => (
-      <>
-        <th>Mana Spent</th>
-        {this.state.showHealing && (
-          <>
-            <th colSpan={2} className="text-center">Healing per mana spent</th>
-            <th colSpan={2} className="text-center">
-              <TooltipElement content="This includes time spent waiting on the GCD">
-                Healing per second spent casting
+    <>
+      <th>Mana Spent</th>
+      {this.state.showHealing && (
+        <>
+          <th colSpan={2} className="text-center">Healing per mana spent</th>
+          <th colSpan={2} className="text-center">
+            <TooltipElement content="This includes time spent waiting on the GCD">
+              Healing per second spent casting
               </TooltipElement>
-            </th>
-          </>
-        )}
-        {!this.state.showHealing && (
-          <>
-            <th colSpan={2} className="text-center">Damage per mana spent</th>
-            <th colSpan={2} className="text-center">Damage per second spent casting</th>
-          </>
-        )}
-      </>
-    );
+          </th>
+        </>
+      )}
+      {!this.state.showHealing && (
+        <>
+          <th colSpan={2} className="text-center">Damage per mana spent</th>
+          <th colSpan={2} className="text-center">Damage per second spent casting</th>
+        </>
+      )}
+    </>
+  );
 
-  BarView = (props) => {
+
+  BarView = (props: { spellDetail: SpellInfoDetails, topHpm: number, topDpm: number, topHpet: number, topDpet: number }) => {
     const { spellDetail, topHpm, topDpm, topHpet, topDpet } = props;
     const hasHealing = spellDetail.healingDone;
     const hasDamage = spellDetail.damageDone > 0;
@@ -120,39 +130,39 @@ class HealingEfficiencyBreakdown extends React.Component {
   };
 
   DetailHeader = () => (
-      <>
-        <th>
-          <TooltipElement content="Total Casts (Number of targets hit)">Casts</TooltipElement>
-        </th>
-        <th>Mana Spent</th>
-        <th>Time Spent</th>
-        {this.state.showHealing && (
-          <>
-            <th>Healing Done</th>
-            <th>Overhealing</th>
-            <th>
-              <TooltipElement content="Healing per mana spent casting the spell">HPM</TooltipElement>
-            </th>
-            <th>
-              <TooltipElement content="Healing per second spent casting the spell, including GCD wait time.">HPET</TooltipElement>
-            </th>
-          </>
-        )}
-        {!this.state.showHealing && (
-          <>
-            <th>Damage Done</th>
-            <th>
-              <TooltipElement content="Damage per mana spent casting the spell">DPM</TooltipElement>
-            </th>
-            <th>
-              <TooltipElement content="Damage per second spent casting the spell">DPET</TooltipElement>
-            </th>
-          </>
-        )}
-      </>
-    );
+    <>
+      <th>
+        <TooltipElement content="Total Casts (Number of targets hit)">Casts</TooltipElement>
+      </th>
+      <th>Mana Spent</th>
+      <th>Time Spent</th>
+      {this.state.showHealing && (
+        <>
+          <th>Healing Done</th>
+          <th>Overhealing</th>
+          <th>
+            <TooltipElement content="Healing per mana spent casting the spell">HPM</TooltipElement>
+          </th>
+          <th>
+            <TooltipElement content="Healing per second spent casting the spell, including GCD wait time.">HPET</TooltipElement>
+          </th>
+        </>
+      )}
+      {!this.state.showHealing && (
+        <>
+          <th>Damage Done</th>
+          <th>
+            <TooltipElement content="Damage per mana spent casting the spell">DPM</TooltipElement>
+          </th>
+          <th>
+            <TooltipElement content="Damage per second spent casting the spell">DPET</TooltipElement>
+          </th>
+        </>
+      )}
+    </>
+  );
 
-  DetailView = (props) => {
+  DetailView = (props: { spellDetail: SpellInfoDetails }) => {
     const { spellDetail } = props;
     const hasHealing = spellDetail.healingDone;
     const hasOverhealing = spellDetail.healingDone > 0 || spellDetail.overhealingDone > 0;
@@ -249,7 +259,7 @@ class HealingEfficiencyBreakdown extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <this.HealingEfficiencyTable tracker={tracker} showHealing={this.state.showHealing} />
+            <this.HealingEfficiencyTable tracker={tracker} />
           </tbody>
         </table>
       </>
