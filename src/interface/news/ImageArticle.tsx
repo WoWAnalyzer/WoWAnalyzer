@@ -1,31 +1,25 @@
-/* eslint react/prop-types: 0 */
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface Props {
-  title: React.ReactNode,
-  image: React.ReactNode,
-  style: object
+  title: React.ReactNode;
+  image: React.ReactNode;
+  style: object;
+  children: ReactNode;
 }
 
-const ImageArticle = (props: Props) => {
-  const { title, children, image, style } = props;
-
-  return (
-    <article>
-      <div className="panel image-background" style={{ backgroundImage: `url(${image})`, ...style }}>
-        <div className="panel-body">
-          <div className="row">
-            <div className="col-md-10">
-              <h1>{title}</h1>
-              <div className="description">
-                {children}
-              </div>
-            </div>
+const ImageArticle = ({ title, children, image, style }: Props) => (
+  <article>
+    <div className="panel image-background" style={{ backgroundImage: `url(${image})`, ...style }}>
+      <div className="panel-body">
+        <div className="row">
+          <div className="col-md-10">
+            <h1>{title}</h1>
+            <div className="description">{children}</div>
           </div>
         </div>
       </div>
-    </article>
-  );
-};
+    </div>
+  </article>
+);
 
 export default ImageArticle;
