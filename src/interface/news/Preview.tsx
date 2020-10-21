@@ -9,7 +9,7 @@ interface Props {
   image: string
 }
 
-const Preview: React.FC<Props> = props => {
+const Preview = (props: Props) => {
   const { title, children, image } = props;
 
   return (
