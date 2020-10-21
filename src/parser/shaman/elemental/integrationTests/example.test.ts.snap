@@ -5061,26 +5061,8 @@ exports[`Elemental Shaman integration test: example log OverwhelmingPower matche
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Elemental Shaman integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_purple",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-      
-      . 
-      
-    </React.Fragment>,
-    "stat": null,
-  },
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
@@ -6757,7 +6739,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "0%",
+                  "width": "25%",
                 }
               }
             />
@@ -6951,7 +6933,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                Combat potions used
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6972,8 +6954,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  common.yes
+                  2
                    
+                  / 1
                    
                 </div>
               </div>
@@ -6994,7 +6977,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                       Object {
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "200%",
                       }
                     }
                   />
@@ -7011,7 +6994,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                Used a second potion
+                High quality combat potions used
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7032,68 +7015,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  common.no
+                  0
                    
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Used a high quality pre-potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
+                  / 1
                    
                 </div>
               </div>

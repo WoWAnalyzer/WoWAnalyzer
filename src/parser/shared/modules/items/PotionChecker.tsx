@@ -85,7 +85,7 @@ const SACRIFICIAL_ANIMA: number[] = [
 ];
 
 
-const WEAK_PRE_POTIONS: number[] = [
+const WEAK_POTIONS: number[] = [
   SPELLS.BATTLE_POTION_OF_INTELLECT.id,
   SPELLS.BATTLE_POTION_OF_STRENGTH.id,
   SPELLS.BATTLE_POTION_OF_AGILITY.id,
@@ -104,7 +104,7 @@ const WEAK_PRE_POTIONS: number[] = [
   SPELLS.POTION_OF_EMPOWERED_PROXIMITY.id,
 ];
 
-const STRONG_PRE_POTIONS: number[] = [
+const STRONG_POTIONS: number[] = [
   SPELLS.POTION_OF_SPECTRAL_AGILITY.id,
   SPELLS.POTION_OF_SPECTRAL_INTELLECT.id,
   SPELLS.POTION_OF_SPECTRAL_STRENGTH.id,
@@ -116,7 +116,7 @@ const STRONG_PRE_POTIONS: number[] = [
   SPELLS.POTION_OF_SACRIFICIAL_ANIMA.id,
 ];
 
-export const SECOND_POTIONS: number[] = [
+export const COMBAT_POTIONS: number[] = [
   SPELLS.POTION_OF_SPECTRAL_AGILITY.id,
   SPELLS.POTION_OF_SPECTRAL_INTELLECT.id,
   SPELLS.POTION_OF_SPECTRAL_STRENGTH.id,
@@ -134,15 +134,15 @@ export const SECOND_POTIONS: number[] = [
 
 const COMMON_MANA_POTION_AMOUNT = 11084;
 
-class PrePotion extends Analyzer {
-  usedPrePotion = false;
-  usedSecondPotion = false;
+class PotionChecker extends Analyzer {
+  potionsUsed = 0;
+  weakPotionsUsed = 0;
+  strongPotionsUsed = 0;
+  potionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id; //Giving it an initial value to prevent crashing
+  potionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.icon; //Giving it an initial value to prevent crashing
+  strongPotionId = ITEMS.POTION_OF_SPECTRAL_INTELLECT.id;
+  strongPotionIcon = ITEMS.POTION_OF_SPECTRAL_INTELLECT.icon;
   neededManaSecondPotion = false;
-  usedStrongPrePotion = false;
-  potionId = ITEMS.BATTLE_POTION_OF_INTELLECT.id; //Giving it an initial value to prevent crashing
-  potionIcon = ITEMS.BATTLE_POTION_OF_INTELLECT.icon; //Giving it an initial value to prevent crashing
-  strongPotionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id;
-  strongPotionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.icon;
   addedSuggestionText = false;
   alternatePotion = null;
   isHealer = false;
@@ -157,23 +157,26 @@ class PrePotion extends Analyzer {
 
   _applybuff(event: ApplyBuffEvent){
     const spellId = event.ability.guid;
-    if (WEAK_PRE_POTIONS.includes(spellId) && event.prepull && event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time) {
-      this.usedPrePotion = true;
+    if (WEAK_POTIONS.includes(spellId) && event.prepull && event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time) {
+      this.potionsUsed += 1;
+      this.weakPotionsUsed += 1;
     }
-    if (STRONG_PRE_POTIONS.includes(spellId) && event.prepull && event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time) {
-      this.usedPrePotion = true;
-      this.usedStrongPrePotion = true;
+    if (STRONG_POTIONS.includes(spellId) && event.prepull && event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time) {
+      this.potionsUsed += 1;
+      this.strongPotionsUsed += 1;
     }
   }
 
   _cast(event: CastEvent | FilterCooldownInfoEvent) {
     const spellId = event.ability.guid;
 
-    if (SECOND_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
-      this.usedSecondPotion = true;
+    if (WEAK_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
+      this.potionsUsed += 1;
+      this.weakPotionsUsed += 1;
     }
-    if (STRONG_PRE_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
-      this.usedStrongPrePotion = true;
+    if (STRONG_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
+      this.potionsUsed += 1;
+      this.strongPotionsUsed += 1;
     }
 
     if (event.classResources && event.classResources[0] && event.classResources[0].type === RESOURCE_TYPES.MANA.id) {
@@ -187,30 +190,31 @@ class PrePotion extends Analyzer {
 
   _fightend() {
     if (debug) {
-      console.log(`used potion:${this.usedPrePotion}`);
-      console.log(`used 2nd potion:${this.usedSecondPotion}`);
+      console.log(`Potions Used: ${this.potionsUsed}`);
+      console.log(`Max Potions: ${this.maxPotions}`);
     }
   }
 
-  get prePotionSuggestionThresholds() {
+  get maxPotions() {
+    return 1 + Math.floor(this.owner.fightDuration / 300000);
+  }
+
+  get potionsUsedThresholds() {
     return {
-      actual: this.usedPrePotion,
-      isEqual: false,
-      style: ThresholdStyle.BOOLEAN,
+      actual: this.potionsUsed,
+      isLessThan: {
+        average: this.maxPotions,
+      },
+      style: ThresholdStyle.NUMBER,
     };
   }
-  get prePotionStrengthSuggestion() {
+  get potionStrengthThresholds() {
     return {
-      actual: this.usedStrongPrePotion,
-      isEqual: false,
-      style: ThresholdStyle.BOOLEAN,
-    };
-  }
-  get secondPotionSuggestionThresholds() {
-    return {
-      actual: this.usedSecondPotion,
-      isEqual: false,
-      style: ThresholdStyle.BOOLEAN,
+      actual: this.strongPotionsUsed,
+      isLessThan: {
+        minor: this.maxPotions,
+      },
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -266,23 +270,15 @@ class PrePotion extends Analyzer {
   suggestions(when: When) {
     this.potionAdjuster(this.selectedCombatant.specId);
     this.setStrongPotionForSpec(this.selectedCombatant.specId);
-    when(this.prePotionSuggestionThresholds)
-      .addSuggestion((suggest) => suggest(<>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={this.strongPotionId} /> can be very effective, especially during shorter encounters. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>,
-          )
-            .icon(this.strongPotionIcon)
-            .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
-      );
-    when(this.secondPotionSuggestionThresholds)
-      .addSuggestion((suggest) => suggest(<>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {this.isHealer ? 'either' : ''} increasing output through <ItemLink id={this.strongPotionId} />{this.isHealer ? <> or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} /> or <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /></> : ''}. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>)
+    when(this.potionsUsedThresholds)
+      .addSuggestion((suggest) => suggest(<>You used {this.potionsUsed} combat potions during this encounter, but you could have used {this.maxPotions}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.</>)
+          .icon(this.strongPotionIcon)
+          .staticImportance(SUGGESTION_IMPORTANCE.REGULAR));
+    when(this.potionStrengthThresholds)
+      .addSuggestion((suggest) => suggest(<>You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</>)
           .icon(this.strongPotionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
-    if ((this.usedPrePotion || this.usedSecondPotion) && !this.usedStrongPrePotion) {
-      when(this.prePotionStrengthSuggestion)
-        .addSuggestion((suggest) => suggest(<>You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</>)
-            .icon(this.strongPotionIcon)
-            .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
-    }
   }
 }
 
-export default PrePotion;
+export default PotionChecker;

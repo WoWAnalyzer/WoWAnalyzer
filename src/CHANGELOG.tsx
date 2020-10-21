@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 21), 'Updated Potions Checklist items to show potions used instead of pre Potions/second Potions', Sharrq),
   change(date(2020, 10, 21), 'Update some news components to Typescript', ChagriAli),
   change(date(2020, 10, 21), 'Update to "2018-01-31-1st-Anniversary" Typescript', ChagriAli),
   change(date(2020, 10, 19), 'Converted Boring components to TypeScript', Khazak),

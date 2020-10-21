@@ -8465,49 +8465,37 @@ Array [
 ]
 `;
 
-exports[`Holy Paladin integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Holy Paladin integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione2",
-    "importance": "minor",
+    "icon": "inv_alchemy_90_combat2_purple",
+    "importance": "regular",
     "issue": <React.Fragment>
-      You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
-      <ItemLink
-        icon={true}
-        id={168498}
-      />
-       can be very effective, especially during shorter encounters. 
-      
+      You used 
+      0
+       combat potions during this encounter, but you could have used 
+      2
+      . Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.
     </React.Fragment>,
     "stat": null,
   },
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione2",
+    "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
     "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      either
-       increasing output through 
+      You used a weak potion. 
+      <ItemLink
+        icon={true}
+        id={171273}
+      />
+       can be used instead of 
       <ItemLink
         icon={true}
         id={168498}
       />
-      <React.Fragment>
-         or allowing you to gain mana using 
-        <ItemLink
-          icon={true}
-          id={152495}
-        />
-         or 
-        <ItemLink
-          icon={true}
-          id={152561}
-        />
-      </React.Fragment>
-      . 
-      
+       in order to get a slightly higher damage output.
     </React.Fragment>,
     "stat": null,
   },
@@ -11792,7 +11780,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                Combat potions used
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11813,8 +11801,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  common.no
+                  0
                    
+                  / 2
                    
                 </div>
               </div>
@@ -11852,7 +11841,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Used a second potion
+                High quality combat potions used
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11873,68 +11862,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  common.no
+                  0
                    
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Used a high quality pre-potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
+                  / 2
                    
                 </div>
               </div>
