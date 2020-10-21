@@ -36,13 +36,13 @@ class AuspiciousSpirits extends Analyzer {
           <>
             {formatNumber(this.insanity)} Insanity generated.<br /><br />
 
-            The damage displayed is the additional damage you gained from taking this talent. The Spirits are doing roughly twice as much overall damage.
+            The damage displayed is the additional damage you gained from taking this talent.
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.AUSPICIOUS_SPIRITS_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
+            <ItemDamageDone amount={this.damage - (this.damage / SPIRIT_DAMAGE_MULTIPLIER)} />
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -772,8 +772,13 @@ export const Adoraci: Contributor = {
   avatar: require('./interface/images/avatars/Adoraci-avatar.jpg'),
   mains: [{
     name: 'Adoraci',
-    spec: SPECS.DISCIPLINE_PRIEST,
+    spec: SPECS.SHADOW_PRIEST,
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
+  }], 
+  alts: [{
+    name: 'Zenavi',
+    spec: SPECS.FURY_WARRIOR,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/zenavi',
   }],
 };
 export const TheJigglr: Contributor = {
