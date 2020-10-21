@@ -42,7 +42,7 @@ export default class ExpelHarm extends EventsNormalizer {
       }
       const target = i;
       // move everything down
-      for(i = idx; i > target; i--) {
+      for(i = idx; i > target; i -= 1) {
         events[i] = events[i-1];
       }
       // put EH at the start

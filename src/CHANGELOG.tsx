@@ -10,7 +10,16 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 21), 'Update some news components to Typescript', ChagriAli),
+  change(date(2020, 10, 21), 'Update to "2018-01-31-1st-Anniversary" Typescript', ChagriAli),
+  change(date(2020, 10, 19), 'Updated some react components, and adjusted our ContributorDetails modal to more accurately show what it represents', Putro),
+  change(date(2020, 10, 19), 'Removed legacy event listener support', Zeboot),
+  change(date(2020, 10, 18), 'Updated talent row levels.', Abelito75),
+  change(date(2020, 10, 18), 'Added drain event', Zeboot),
+  change(date(2020, 10, 18), 'Converted components in interface/common to functional components in TypeScript.', Barter),
+  change(date(2020, 10, 18), 'Refactored Contributor and fixed some typing of ContributorDetails', Dambroda),
   change(date(2020, 10, 18), 'Updated core legacy event listeners to event filters', Zeboot),
+  change(date(2020, 10, 15), 'Updated the Spec tab styles', Dambroda),
   change(date(2020, 10, 15), 'Updated the Spec tab styles to clearly indicate unmaintained specs', Dambroda),
   change(date(2020, 10, 15), 'Added a warning message when loading Classic Logs', Sharrq),
   change(date(2020, 10, 14), 'Fixed the character page.', Abelito75),
@@ -22,9 +31,9 @@ export default [
   change(date(2020, 10, 13), 'Fixed Putros StatTracker', niseko),
   change(date(2020, 10, 13), 'Updated our StatTracker to reflect prepatch stat values and the diminishing return system added in Shadowlands', Putro),
   change(date(2020, 10, 13), 'Converted StatisticsSectionTitle/TABS to TypeScript', ChagriAli),
-  change(date(2020, 10, 13), 'Throughput files TypeScript conversion', niseko),
+  change(date(2020, 10, 13), 'Throughput & Language files  TypeScript conversion', niseko),
   change(date(2020, 10, 13), 'Converted BAD_ICONS, aprilFools, colorForPerformance, Alerts, ContributorButton, Modal to TypeScript', Barter),
-  change(date(2020, 10, 13), 'Converted Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
+  change(date(2020, 10, 13), 'Converted AbilityTracker, Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
   change(date(2020, 10, 13), 'Allow the use of any of the threshold breakpoints (minor, average, major) as the primary breakpoint for suggestions', Dambroda),
   change(date(2020, 10, 13), 'Merged CooldownTrackers to remove duplicated code and converted them to TypeScript', Putro),
   change(date(2020, 10, 13), 'Converted Items to TypeScript', Zeboot),

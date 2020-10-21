@@ -7,7 +7,7 @@ class DragonRoar extends AoESpellEfficiency {
   constructor(options: Options) {
     super(options);
     this.ability = SPELLS.DRAGON_ROAR_TALENT;
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(this.ability.id);
   }
 }
 

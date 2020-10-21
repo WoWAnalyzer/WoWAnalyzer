@@ -14,6 +14,7 @@ export enum EventType {
   Damage = 'damage',
   BeginCast = 'begincast',
   Cast = 'cast',
+  Drain = 'drain',
   ApplyBuff = 'applybuff',
   ApplyDebuff = 'applydebuff',
   ApplyBuffStack = 'applybuffstack',
@@ -83,6 +84,7 @@ export enum EventType {
 }
 
 type MappedEventTypes = {
+  [EventType.Event]: Event<EventType.Event>,
   [EventType.Heal]: HealEvent,
   [EventType.Absorbed]: AbsorbedEvent,
   [EventType.Damage]: DamageEvent,
@@ -394,6 +396,7 @@ export interface ApplyBuffStackEvent extends BuffEvent<EventType.ApplyBuffStack>
 
 export interface ApplyDebuffStackEvent extends BuffEvent<EventType.ApplyDebuffStack> {
   sourceID: number;
+  targetInstance?: number;
   stack: number;
 }
 
@@ -437,6 +440,7 @@ export interface ChangeDebuffStackEvent extends Omit<ChangeBuffStackEvent, "type
 
 export interface RemoveDebuffStackEvent extends BuffEvent<EventType.RemoveDebuffStack> {
   sourceID: number;
+  targetInstance?: number;
   stack: number;
 }
 
@@ -473,6 +477,29 @@ export interface EnergizeEvent extends Event<EventType.Energize> {
   itemLevel: number;
 }
 
+export interface DrainEvent extends Event<EventType.Drain> {
+  ability: Ability;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetIsFriendly: boolean;
+  resourceChange: number;
+  resourceChangeType: number;
+  otherResourceChange: number;
+  resourceActor: number;
+  classResources: ClassResources[];
+  hitPoints: number;
+  maxHitPoints: number;
+  attackPower: number;
+  spellPower: number;
+  armor: number;
+  absorb: number;
+  x: number;
+  y: number;
+  facing: number;
+  mapID: number;
+  itemLevel: number;
+}
 export interface InterruptEvent extends Event<EventType.Interrupt> {
   ability: Ability;
   extraAbility: Ability;
@@ -484,11 +511,20 @@ export interface InterruptEvent extends Event<EventType.Interrupt> {
 }
 
 export interface DeathEvent extends Event<EventType.Death> {
+  killingAbility?: Ability;
   source: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceIsFriendly: boolean;
   targetID: number;
   targetIsFriendly: boolean;
   ability: Ability;
+}
+
+export interface ResurrectEvent extends Event<EventType.Resurrect> {
+  ability?: Ability,
+  sourceID: number,
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetIsFriendly: boolean;
 }
 
 export interface SummonEvent extends Event<EventType.Summon> {
@@ -905,6 +941,9 @@ const Events = {
   },
   get energize() {
     return new EventFilter(EventType.Energize);
+  },
+  get drain() {
+    return new EventFilter(EventType.Drain);
   },
   get interrupt() {
     return new EventFilter(EventType.Interrupt);

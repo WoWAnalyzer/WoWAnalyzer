@@ -3,7 +3,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
 import { AnyEvent, EventType } from 'parser/core/Events';
 
-const MAX_DELAY: number = 50;
+const MAX_DELAY = 50;
 
 // Occasionally HoT heal has same timestamp but happens before the applybuff event, which causes issues when attempting to attribute the heal.
 // This normalizes the heal to always be after the applybuff

@@ -1,10 +1,10 @@
 const TALENT_ROWS = {
   LV15: 0,
-  LV30: 1,
-  LV45: 2,
-  LV60: 3,
-  LV75: 4,
-  LV90: 5,
-  LV100: 6,
+  LV25: 1,
+  LV30: 2,
+  LV35: 3,
+  LV40: 4,
+  LV45: 5,
+  LV50: 6,
 };
 export default TALENT_ROWS;

@@ -1255,7 +1255,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
+                      "backgroundColor": "#ff8000",
                       "width": "17.648486274625153%",
                     }
                   }
@@ -1280,7 +1280,9 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   "width": "25%",
                 }
               }
-            />
+            >
+              shared.castEfficiency.canBeImproved
+            </td>
           </tr>
           <tr>
             <td
@@ -1449,7 +1451,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
+                      "backgroundColor": "#ff8000",
                       "width": "0%",
                     }
                   }
@@ -1474,7 +1476,9 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   "width": "25%",
                 }
               }
-            />
+            >
+              shared.castEfficiency.canBeImproved
+            </td>
           </tr>
           <tr>
             <td
@@ -3975,6 +3979,88 @@ Array [
   },
   Object {
     "details": null,
+    "icon": "ability_monk_chicocoon",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={116849}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 1,
+            "1": 6,
+            "2": "18",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "80",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "ability_monk_dragonkick",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={322118}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 4,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "80",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
     "icon": "ability_monk_touchofdeath",
     "importance": "major",
     "issue": <React.Fragment>
@@ -4438,6 +4524,73 @@ Array [
 ]
 `;
 
+exports[`Mistweaver Monk integration test: example log EnvelopingBreath matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="GENERAL"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=325209"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Enveloping Breath"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_chiexplosion.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=325209"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Enveloping Breath
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          0
+           
+          <small>
+            healing contributed by the buff
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Mistweaver Monk integration test: example log EnvelopingMists matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -4476,7 +4629,7 @@ exports[`Mistweaver Monk integration test: example log EnvelopingMists matches t
         <div
           className="value"
         >
-          1.03m
+          356k
            
           <small>
             healing contributed by the buff
@@ -4731,7 +4884,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontHealingBreakdo
                   onTouchStart={[Function]}
                   style={Object {}}
                 >
-                  7
+                  6
                   %
                 </dfn>
               </div>
@@ -4794,7 +4947,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontMastery matche
         <div
           className="value"
         >
-          94.5
+          92
         </div>
       </div>
     </div>
@@ -4807,7 +4960,7 @@ Array [
   Object {
     "details": null,
     "icon": "ability_monk_essencefont",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       You are currently not utilizing your 
       <ForwardRef
@@ -4824,7 +4977,7 @@ Array [
        procs.
     </React.Fragment>,
     "stat": <React.Fragment>
-      3.05 average EF HoTs
+      2.97 average EF HoTs
        (
       4 or more EF HoTs utilized is recommended
       )
@@ -5189,40 +5342,6 @@ Array [
     "icon": "monk_ability_cherrymanatea",
     "importance": "minor",
     "issue": <React.Fragment>
-      Your mana spent during 
-      <ForwardRef
-        id={197908}
-      />
-       can be improved. Aim to prioritize as many 
-      <ForwardRef
-        id={116670}
-      />
-       casts until the last second of the buff and then cast 
-      <ForwardRef
-        id={191837}
-      />
-      . 
-      <ForwardRef
-        id={191837}
-      />
-      's mana cost is taken at the beginning of the channel, so you gain the benefit of 
-      <ForwardRef
-        id={197908}
-      />
-       even if the channel continues past the buff.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      13k average mana saved per Mana Tea cast
-       (
-      13k average mana saved is recommended
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "monk_ability_cherrymanatea",
-    "importance": "minor",
-    "issue": <React.Fragment>
       Your average overhealing was high during your 
       <ForwardRef
         id={197908}
@@ -5575,7 +5694,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                   onTouchStart={[Function]}
                   style={Object {}}
                 >
-                  36
+                  35
                   %
                 </dfn>
               </div>
@@ -6102,73 +6221,6 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
-              href="http://wowhead.com/spell=124682"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_monk_envelopingmist.jpg"
-              />
-               
-              Enveloping Mist
-            </a>
-          </td>
-          <td>
-            6,000
-             (1.49%)
-          </td>
-          <td
-            className="text-right"
-          >
-            226
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#a6c34c",
-                    "transition": "background-color 800ms",
-                    "width": "99.55947136563876%",
-                  }
-                }
-              />
-            </div>
-          </td>
-          <td
-            className="text-right"
-          >
-            907k
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#a6c34c",
-                    "transition": "background-color 800ms",
-                    "width": "83.05860805860806%",
-                  }
-                }
-              />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a
               href="http://wowhead.com/spell=115151"
               rel="noopener noreferrer"
               target="_blank"
@@ -6226,7 +6278,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "25.549450549450547%",
+                    "width": "25.596330275229356%",
                   }
                 }
               />
@@ -6293,7 +6345,74 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#df7102",
                     "transition": "background-color 800ms",
-                    "width": "36.446886446886445%",
+                    "width": "36.51376146788991%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="http://wowhead.com/spell=124682"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_monk_envelopingmist.jpg"
+              />
+               
+              Enveloping Mist
+            </a>
+          </td>
+          <td>
+            6,000
+             (1.49%)
+          </td>
+          <td
+            className="text-right"
+          >
+            114
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ffc84a",
+                    "transition": "background-color 800ms",
+                    "width": "50.22026431718062%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            457k
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#df7102",
+                    "transition": "background-color 800ms",
+                    "width": "41.92660550458716%",
                   }
                 }
               />
@@ -6360,7 +6479,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "5.4945054945054945%",
+                    "width": "5.5045871559633035%",
                   }
                 }
               />
@@ -6631,7 +6750,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      100.00 % of Soothing Mist casts with max spells casted
+      50.00% of Soothing Mist casts with max spells casted
        (
       1 is recommended
       )
@@ -8003,7 +8122,7 @@ Array [
       . It is advised to limit the number of spells buffed to only these two.
     </React.Fragment>,
     "stat": <React.Fragment>
-      13 incorrect casts with Thunder Focus Tea
+      13incorrect casts with Thunder Focus Tea
        (
       &lt;1 incorrect cast is recommended
       )
@@ -9664,7 +9783,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "94.08921666666666%",
+                  "width": "95.6488%",
                 }
               }
             />
@@ -9850,9 +9969,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "95.32125%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -9963,7 +10082,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "20.822828784119107%",
+                  "width": "19.032506203473947%",
                 }
               }
             />
@@ -10142,7 +10261,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  3.05
+                  2.97
                    
                    
                 </div>
@@ -10162,9 +10281,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "36.52258064516129%",
+                        "width": "32.94193548387097%",
                       }
                     }
                   />
@@ -10439,7 +10558,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  0.00%
+                  50.00%
                    
                    
                 </div>
@@ -10461,7 +10580,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "18.5%",
                       }
                     }
                   />

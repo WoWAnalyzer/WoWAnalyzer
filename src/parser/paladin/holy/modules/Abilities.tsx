@@ -7,8 +7,10 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
+import { TrackedPaladinAbility } from './core/PaladinAbilityTracker';
+
 class Abilities extends CoreAbilities {
-  spellbook(): SpellbookAbility[] {
+  spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {
     const combatant = this.selectedCombatant;
     const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
     return [
@@ -265,7 +267,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           name: `Filler ${SPELLS.FLASH_OF_LIGHT.name}`,
-          casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
+          casts: castCount => castCount.casts - (castCount.healingIolHits || 0),
         },
         timelineSortIndex: 9,
       },
@@ -290,7 +292,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           name: `Filler ${SPELLS.HOLY_LIGHT.name}`,
-          casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
+          casts: castCount => castCount.casts - (castCount.healingIolHits || 0),
         },
         timelineSortIndex: 2,
       },

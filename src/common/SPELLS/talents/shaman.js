@@ -5,7 +5,6 @@ export default {
   STATIC_CHARGE_TALENT: { id: 265046, name: 'Static Charge', icon: 'spell_nature_brilliance' },
   NATURES_GUARDIAN_TALENT: { id: 30884, name: 'Nature\'s Guardian', icon: 'spell_nature_natureguardian' },
   WIND_RUSH_TOTEM_TALENT: { id: 192077, name: 'Wind Rush Totem', icon: 'ability_shaman_windwalktotem' },
-  CLOUDBURST_TOTEM_TALENT: { id: 157153, name: 'Cloudburst Totem', icon: 'ability_shaman_condensationtotem', manaCost: 860 },
   // Enhancement
   BOULDERFIST_TALENT: { id: 246035, name: 'Boulderfist', icon: 'ability_earthenfury_giftofearth' },
   HOT_HAND_TALENT: { id: 201900, name: 'Hot Hand', icon: 'spell_fire_playingwithfire' },
@@ -22,7 +21,7 @@ export default {
   EARTHEN_SPIKE_TALENT: { id: 188089, name: 'Earthen Spike', icon: 'ability_earthen_pillar', maelstromCost: 20 },
   TOTEM_MASTERY_TALENT_ENHANCEMENT: { id: 262395, name: 'Totem Mastery', icon: 'spell_nature_wrathofair_totem' },
   ASCENDANCE_TALENT_ENHANCEMENT: { id: 114051, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },
-  
+
   // Elemental
   // 15
   EARTHEN_RAGE_TALENT: { id: 170374, name: 'Earthen Rage', icon: 'ability_earthen_pillar' },
@@ -54,19 +53,92 @@ export default {
   ASCENDANCE_TALENT_ELEMENTAL: { id: 114050, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },
 
   // Restoration
-  // TODO Surge of Earth
-  TORRENT_TALENT: { id: 200072, name: 'Torrent', icon: 'spell_nature_riptide' },
-  UNDULATION_TALENT: { id: 200071, name: 'Undulation', icon: 'spell_nature_healingwavelesser' },
-  UNLEASH_LIFE_TALENT: { id: 73685, name: 'Unleash Life', icon: 'spell_shaman_unleashweapon_life', manaCost: 400 },
-  DELUGE_TALENT: { id: 200076, name: 'Deluge', icon: 'ability_shawaterelemental_reform' },
-  EARTHGRAB_TOTEM_TALENT: { id: 51485, name: 'Earthgrab Totem', icon: 'spell_nature_stranglevines', manaCost: 250 },
-  ANCESTRAL_VIGOR_TALENT: { id: 207401, name: 'Ancestral Vigor', icon: 'spell_shaman_blessingoftheeternals' },
-  EARTHEN_WALL_TOTEM_TALENT: { id: 198838, name: 'Earthen Wall Totem', icon: 'spell_nature_stoneskintotem', manaCost: 1100 },
-  ANCESTRAL_PROTECTION_TOTEM_TALENT: { id: 207399, name: 'Ancestral Protection Totem', icon: 'spell_nature_reincarnation', manaCost: 1100 },
-  GRACEFUL_SPIRIT_TALENT: { id: 192088, name: 'Graceful Spirit', icon: 'spell_shaman_spectraltransformation' },
-  FLASH_FLOOD_TALENT: { id: 280614, name: 'Flash Flood', icon: 'spell_frost_summonwaterelemental' },
-  DOWNPOUR_TALENT: { id: 207778, name: 'Downpour', icon: 'ability_mage_waterjet', manaCost: 1500 },
-  HIGH_TIDE_TALENT: { id: 157154, name: 'High Tide', icon: 'spell_shaman_hightide' },
-  WELLSPRING_TALENT: { id: 197995, name: 'Wellspring', icon: 'ability_shawaterelemental_split', manaCost: 2000 },
-  ASCENDANCE_TALENT_RESTORATION: { id: 114052, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },
+  TORRENT_TALENT: {
+    id: 200072,
+    name: 'Torrent',
+    icon: 'spell_nature_riptide'
+  },
+  UNDULATION_TALENT: {
+    id: 200071,
+    name: 'Undulation',
+    icon: 'spell_nature_healingwavelesser'
+  },
+  UNLEASH_LIFE_TALENT: {
+    id: 73685,
+    name: 'Unleash Life',
+    icon: 'spell_shaman_unleashweapon_life',
+    manaCost: 80
+  },
+  DELUGE_TALENT: {
+    id: 200076,
+    name: 'Deluge',
+    icon: 'ability_shawaterelemental_reform'
+  },
+  SURGE_OF_EARTH_TALENT: {
+    id: 320746,
+    name: 'Surge of Earth',
+    icon: 'inv_elementalearth2',
+    manaCost: 200
+  },
+  EARTHGRAB_TOTEM_TALENT: {
+    id: 51485,
+    name: 'Earthgrab Totem',
+    icon: 'spell_nature_stranglevines',
+    manaCost: 50
+  },
+  ANCESTRAL_VIGOR_TALENT: {
+    id: 207401,
+    name: 'Ancestral Vigor',
+    icon: 'spell_shaman_blessingoftheeternals'
+  },
+  EARTHEN_WALL_TOTEM_TALENT: {
+    id: 198838,
+    name: 'Earthen Wall Totem',
+    icon: 'spell_nature_stoneskintotem',
+    manaCost: 220
+  },
+  ANCESTRAL_PROTECTION_TOTEM_TALENT: {
+    id: 207399,
+    name: 'Ancestral Protection Totem',
+    icon: 'spell_nature_reincarnation',
+    manaCost: 220
+  },
+  GRACEFUL_SPIRIT_TALENT: {
+    id: 192088,
+    name: 'Graceful Spirit',
+    icon: 'spell_shaman_spectraltransformation'
+  },
+  FLASH_FLOOD_TALENT: {
+    id: 280614,
+    name: 'Flash Flood',
+    icon: 'spell_frost_summonwaterelemental'
+  },
+  DOWNPOUR_TALENT: {
+    id: 207778,
+    name: 'Downpour',
+    icon: 'ability_mage_waterjet',
+    manaCost: 300
+  },
+  CLOUDBURST_TOTEM_TALENT: {
+    id: 157153,
+    name: 'Cloudburst Totem',
+    icon: 'ability_shaman_condensationtotem',
+    manaCost: 172
+  },
+  HIGH_TIDE_TALENT: {
+    id: 157154,
+    name: 'High Tide',
+    icon: 'spell_shaman_hightide'
+  },
+  WELLSPRING_TALENT: {
+    id: 197995,
+    name: 'Wellspring',
+    icon: 'ability_shawaterelemental_split',
+    manaCost: 400
+  },
+  ASCENDANCE_TALENT_RESTORATION: {
+    id: 114052,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation'
+  },
 };

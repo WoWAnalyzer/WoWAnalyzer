@@ -6,8 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
 import Combatants from 'parser/shared/modules/Combatants';
-import Analyzer from 'parser/core/Analyzer';
-import { DamageEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import { Options } from 'parser/core/Module';
@@ -50,6 +50,9 @@ class SinsOfTheMany extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SINS_OF_THE_MANY_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
   get currentBonus() {
@@ -67,11 +70,7 @@ class SinsOfTheMany extends Analyzer {
   /**
    * Sins of the Many buffs all of your damage, there is no whitelist
    */
-  on_byPlayer_damage(event: DamageEvent) {
-    this.bonusDamage += calculateEffectiveDamage(event, this.currentBonus);
-  }
-
-  on_byPlayerPet_damage(event: DamageEvent) {
+  onDamage(event: DamageEvent) {
     this.bonusDamage += calculateEffectiveDamage(event, this.currentBonus);
   }
 
@@ -79,7 +78,7 @@ class SinsOfTheMany extends Analyzer {
    * This is whitelisted by virtue of Atonement naturally not occuring
    * from abilities not in the whitelist.
    */
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     if (!isAtonement(event)) {
       return;
     }

@@ -7,7 +7,11 @@ import { change, date } from 'common/changelog';
 
 
 export default [
-  change(date(2020, 10, 14), <>Corrected upwelling's icon. </>, Abelito75),
+  change(date(2020, 10, 20), <>Fixed Mana Tea duration in T45Comparison and updated Mana Tea suggestion.</>, Vohrr),
+  change(date(2020, 10, 19), <>Fixed Refreshing Jade Wind. </>, Abelito75),
+  change(date(2020, 10, 19), <>Added Enveloping Breath module. </>, Vohrr),
+  change(date(2020, 10, 14), <>Converted some more files to typescript as well as fixing internalization. </>, Abelito75),
+  change(date(2020, 10, 14), <>Corrected Upwelling's icon. </>, Abelito75),
   change(date(2020, 10, 14), <>Updating Yu'lon's tooltip! </>, Abelito75),
   change(date(2020, 10, 14), <>We're updated for 9.0.1! </>, Abelito75),
   change(date(2020, 10, 12), <>Updated <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> and <SpellLink id={SPELLS.SOOTHING_MIST.id} /> modules to use Event Listeners.</>, [Anomoly]),

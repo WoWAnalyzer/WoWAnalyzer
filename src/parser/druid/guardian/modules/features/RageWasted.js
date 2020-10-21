@@ -5,7 +5,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -36,6 +37,12 @@ class RageWasted extends Analyzer {
   // Currently always 1000, but in case a future tier set/talent/artifact trait increases this it should "just work"
   _currentMaxRage = 0;
 
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onEnergize);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+  }
+
   synchronizeRage(event) {
     if (!event.classResources) {
       console.log('no classResources', event);
@@ -56,7 +63,7 @@ class RageWasted extends Analyzer {
     }
   }
 
-  on_byPlayer_energize(event) {
+  onEnergize(event) {
     this.synchronizeRage(event);
     if (event.resourceChangeType !== RESOURCE_TYPES.RAGE.id) {
       return;
@@ -69,7 +76,7 @@ class RageWasted extends Analyzer {
     this.totalRageGained += event.resourceChange + event.waste;
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if (event.ability.guid === SPELLS.MELEE.id) {
       if (this._currentRawRage + RAW_RAGE_GAINED_FROM_MELEE > this._currentMaxRage) {
         const realRageWasted = Math.floor((this._currentRawRage + RAW_RAGE_GAINED_FROM_MELEE - this._currentMaxRage) / 10);

@@ -2,11 +2,12 @@ import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import { TrackedRestoShamanAbility } from 'parser/shaman/restoration/modules/core/RestorationAbilityTracker';
 
 const totemGCD = 1000;
 
 class Abilities extends CoreAbilities {
-  spellbook(): SpellbookAbility[] { 
+  spellbook(): Array<SpellbookAbility<TrackedRestoShamanAbility>> {
     const combatant = this.selectedCombatant;
     return [
       {
@@ -81,7 +82,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.lv100Talent === SPELLS.WELLSPRING_TALENT.id,
+        enabled: combatant.lv50Talent === SPELLS.WELLSPRING_TALENT.id,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.30,
@@ -157,7 +158,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
+        enabled: combatant.lv50Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.2,
@@ -223,7 +224,7 @@ class Abilities extends CoreAbilities {
         },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
-          casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
+          casts: castCount => castCount.casts - (castCount.healingTwHits || 0),
         },
       },
       {
@@ -246,7 +247,7 @@ class Abilities extends CoreAbilities {
         },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
-          casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
+          casts: castCount => (castCount.casts) - (castCount.healingTwHits || 0),
         },
       },
       {
@@ -280,8 +281,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FLAME_SHOCK_RESTORATION,
-        buffSpellId: SPELLS.FLAME_SHOCK_RESTORATION.id,
+        spell: SPELLS.FLAME_SHOCK,
+        buffSpellId: SPELLS.FLAME_SHOCK.id,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         timelineSortIndex: 60,
         cooldown: 6,
@@ -301,7 +302,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LIGHTNING_BOLT_RESTORATION,
+        spell: SPELLS.LIGHTNING_BOLT,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         gcd: {
           base: 1500,
@@ -309,7 +310,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 60,
       },
       {
-        spell: SPELLS.CHAIN_LIGHTNING_RESTORATION,
+        spell: SPELLS.CHAIN_LIGHTNING,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         gcd: {
           base: 1500,

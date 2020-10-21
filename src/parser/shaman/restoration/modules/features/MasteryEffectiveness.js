@@ -8,19 +8,19 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Panel from 'interface/statistics/Panel';
 import PlayerBreakdown from 'interface/others/PlayerBreakdown';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import { Trans } from '@lingui/macro';
 
-import Events from 'parser/core/Events';
+import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
 import { ABILITIES_AFFECTED_BY_MASTERY, BASE_ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    abilityTracker: RestorationAbilityTracker,
     combatants: Combatants,
     statTracker: StatTracker,
   };
@@ -32,17 +32,11 @@ class MasteryEffectiveness extends Analyzer {
 
   constructor(options){
     super(options);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     // Totems count as pets, but are still affected by mastery.
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(ABILITIES_AFFECTED_BY_MASTERY), this.onHeal);
   }
 
   onHeal(event) {
-    const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.some(s => s.id === event.ability.guid);
-    if (!isAbilityAffectedByMastery) {
-      return;
-    }
-
     const heal = new HealingValue(event.amount, event.absorbed, event.overheal);
     const healthBeforeHeal = event.hitPoints - event.amount;
     const masteryEffectiveness = Math.max(0, 1 - healthBeforeHeal / event.maxHitPoints);

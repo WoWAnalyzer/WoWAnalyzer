@@ -16,6 +16,7 @@ import Abilities from './modules/Abilities';
 
 import HealingDone from './modules/core/HealingDone';
 import HealingRainLocation from './modules/core/HealingRainLocation';
+import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker';
 
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -71,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: HealingDone,
     abilities: Abilities,
     healingRainLocation: HealingRainLocation,
+    restorationAbilityTracker: RestorationAbilityTracker,
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,

@@ -17,7 +17,7 @@ import SpellLink from 'common/SpellLink';
  * These abilities also heal 2 nearby allies for a Gust of Mist heal.
  * Casting Enveloping Mist while Chiji is active applies Enveloping Breath on up to 6 nearby allies within 10 yards.
 */
-const MAX_STACKS: number = 3;
+const MAX_STACKS = 3;
 class InvokeChiJi extends Analyzer {
   chijiActive: boolean = false;
   //healing breakdown vars
@@ -38,8 +38,8 @@ class InvokeChiJi extends Analyzer {
   checkForSckDamage: number = -1;
 
 
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id);
     if (!this.active) {return;}
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI), this.handleGust);

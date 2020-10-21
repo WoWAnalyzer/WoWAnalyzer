@@ -1,10 +1,9 @@
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Events, { ApplyBuffEvent, EnergizeEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, EnergizeEvent, RemoveBuffEvent, AnyEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import React from 'react';
 import SpellLink from 'common/SpellLink';
@@ -79,7 +78,7 @@ class MemoryOfLucidDreams extends Analyzer {
       leech: this.leechGain,
     });
 
-    this.addEventListener(EventEmitter.catchAll, this.onEvent);
+    this.addEventListener(Events.any, this.onEvent);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.LUCID_DREAMS_MAJOR), this.onLucidApplied);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.LUCID_DREAMS_MAJOR), this.onLucidRemoved);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.LUCID_DREAMS_MINOR_RESOURCE_REFUND_FOCUS), this.onLucidEnergize);
@@ -93,7 +92,7 @@ class MemoryOfLucidDreams extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.LUCID_DREAMS_MAJOR.id) / this.owner.fightDuration;
   }
 
-  onEvent(event: any) {
+  onEvent(event: AnyEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.LUCID_DREAMS_MAJOR.id) || event.timestamp <= this.lastTimestamp || this.lastTimestamp === 0 || !this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_SV.id)) {
       return;
     }

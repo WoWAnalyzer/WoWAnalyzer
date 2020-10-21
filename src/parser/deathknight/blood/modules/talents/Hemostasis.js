@@ -1,11 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import Events from 'parser/core/Events';
 
 const MAX_BUFF_STACKS = 5;
 const PERCENT_BUFF = 0.08;
@@ -22,23 +23,18 @@ class Hemostasis extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HEMOSTASIS_TALENT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DEATH_STRIKE_HEAL), this.onHeal);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_STRIKE, SPELLS.BLOOD_BOIL]), this.onDamage);
   }
 
-  on_byPlayer_heal(event) {
-    if (event.ability.guid !== SPELLS.DEATH_STRIKE_HEAL.id) {
-      return;
-    }
+  onHeal(event) {
     if(this.buffStack > 0){
       this.heal += calculateEffectiveHealing(event, PERCENT_BUFF * this.buffStack);
     }
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const spellID = event.ability.guid;
-    if (spellID !== SPELLS.DEATH_STRIKE.id && spellID !== SPELLS.BLOOD_BOIL.id) {
-      return;
-    }
-
     if (spellID === SPELLS.DEATH_STRIKE.id) {
       if(this.buffStack > 0){
         this.buffedDeathStrikes += 1;

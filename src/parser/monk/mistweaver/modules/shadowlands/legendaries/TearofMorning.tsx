@@ -13,7 +13,7 @@ import { formatThousands } from 'common/format';
 import DonutChart from 'interface/statistics/components/DonutChart';
 
 
-const POWER_TRANSFER: number = .25;
+const POWER_TRANSFER = .25;
 
 class TearofMorning extends Analyzer {
 
@@ -26,8 +26,8 @@ class TearofMorning extends Analyzer {
   /**
    * When you cast renewing mist on a target you grant them extend life, Extend life makes it so all vivify and eveloping mist/breath is replicated on the target by 25%
    */
-  constructor(args: Options) {
-    super(args);
+  constructor(options: Options){
+    super(options);
     this.active = false;
 
     if (!this.active) {

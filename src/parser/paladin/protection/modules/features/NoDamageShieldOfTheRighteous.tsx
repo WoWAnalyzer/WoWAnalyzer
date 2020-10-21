@@ -43,7 +43,7 @@ class NoDamageShieldOfTheRighteous extends Analyzer {
 
     get sotrCastToHitRatio(): number {
         const totalCasts: number = this.sotrCastsToHits.size;
-        let numCastsWithHit: number = 0;
+        let numCastsWithHit = 0;
         this.sotrCastsToHits.forEach((hits, cast) => {
             if (hits.length > 0) {
                 numCastsWithHit += 1;

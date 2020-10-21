@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 /**
  * Restless Blades
@@ -25,7 +26,12 @@ class RestlessBlades extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  on_byPlayer_spendresource(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
+  }
+
+  onSpendResource(event) {
     const spent = event.resourceChange;
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) {
       return;

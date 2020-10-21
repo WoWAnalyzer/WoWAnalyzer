@@ -46,12 +46,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: P
           name={(<>Effective <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> Casts </>)}
           thresholds={thresholds.shieldBlock}
         />
-        {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
-          <Requirement
-            name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} />)}
-            thresholds={thresholds.demoShoutCD}
-          />
-        )}
+        {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (<AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />)}
         {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && <AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />}
 
       </Rule>
@@ -64,23 +59,14 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: P
           </>
         )}
       >
-        <Requirement
-          name={(<SpellLink id={SPELLS.SHIELD_WALL.id} />)}
-          thresholds={thresholds.shieldWallCD}
-        />
-        <Requirement
-          name={(<SpellLink id={SPELLS.LAST_STAND.id} />)}
-          thresholds={thresholds.lastStandCD}
-        />
+        <AbilityRequirement spell={SPELLS.SHIELD_WALL.id} />
+        <AbilityRequirement spell={SPELLS.LAST_STAND.id} />
         <Requirement
           name={(<>Magic damage with <SpellLink id={SPELLS.SPELL_REFLECTION.id} /></>)}
           thresholds={thresholds.spellReflect}
         />
         {!combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
-          <Requirement
-            name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} />)}
-            thresholds={thresholds.demoShoutCD}
-          />
+          <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
         )}
       </Rule>
 
@@ -93,16 +79,8 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: P
           </>
         )}
       >
-        <Requirement
-          name={(<SpellLink id={SPELLS.AVATAR_TALENT.id} />)}
-          thresholds={thresholds.avatarCD}
-        />
-        {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
-          <Requirement
-            name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} />)}
-            thresholds={thresholds.demoShoutCD}
-          />
-        )}
+        <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />
+        <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
         {combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id) && <AbilityRequirement spell={SPELLS.RAVAGER_TALENT_PROTECTION.id} />}
 
       </Rule>

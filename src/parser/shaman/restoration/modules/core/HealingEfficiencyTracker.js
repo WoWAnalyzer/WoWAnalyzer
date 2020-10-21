@@ -1,4 +1,3 @@
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
@@ -8,6 +7,7 @@ import EarthShield from 'parser/shaman/shared/talents/EarthShield';
 import SPELLS from 'common/SPELLS';
 
 import HealingDone from './HealingDone';
+import RestorationAbilityTracker from './RestorationAbilityTracker';
 import Resurgence from '../spells/Resurgence';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 import UnleashLife from '../talents/UnleashLife';
@@ -15,7 +15,7 @@ import UnleashLife from '../talents/UnleashLife';
 class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   static dependencies = {
     manaTracker: ManaTracker,
-    abilityTracker: AbilityTracker,
+    abilityTracker: RestorationAbilityTracker,
     healingDone: HealingDone,
     damageDone: DamageDone,
     castEfficiency: CastEfficiency,
