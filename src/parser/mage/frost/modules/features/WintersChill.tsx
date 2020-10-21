@@ -63,18 +63,18 @@ class WintersChill extends Analyzer {
   hasEbonbolt: boolean;
   //isKyrian: boolean;
 
-  totalProcs: number = 0;
-  totalChillStacks: number = 0;
+  totalProcs = 0;
+  totalChillStacks = 0;
   preCastFound = false;
-  preCastSpellId: number = 0;
+  preCastSpellId = 0;
   wintersChillHits: number[] = [];
   lastCastEvent?: CastEvent;
-  goodShatteredCasts: number = 0;
-  badShatteredCasts: number = 0;
-  missedHardcasts: number = 0;
-  missedShatters: number = 0;
-  badShatters: number = 0;
-  buffRemovedTimestamp: number = 0;
+  goodShatteredCasts = 0;
+  badShatteredCasts = 0;
+  missedHardcasts = 0;
+  missedShatters = 0;
+  badShatters = 0;
+  buffRemovedTimestamp = 0;
 
   constructor(options: Options) {
     super(options);

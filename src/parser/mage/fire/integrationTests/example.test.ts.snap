@@ -4636,7 +4636,7 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
             Proc Utilization
           </small>
           <br />
-          88
+          82
           % 
           <small>
             Procs used alongside Fireball
@@ -4663,6 +4663,65 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
     </div>
   </div>
 </div>
+`;
+
+exports[`Fire Mage integration test: example log HotStreakPreCasts matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_mage_hotstreak",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      When 
+      <ForwardRef
+        id={190319}
+      />
+       is not active
+      
+       
+       and the target is over 30% health
+      , 
+      <ForwardRef
+        id={48108}
+      />
+       procs should be used immediately after casting 
+      <ForwardRef
+        id={133}
+      />
+       
+      
+      . This way, if one of the two abilities crit you will gain a new 
+      <ForwardRef
+        id={48107}
+      />
+       proc, and if both crit you will get a new 
+      <ForwardRef
+        id={48108}
+      />
+       proc. You failed to do this 
+      3
+       times. If you have a 
+      <ForwardRef
+        id={48108}
+      />
+       proc and need to move, you can hold the proc and cast 
+      <ForwardRef
+        id={2948}
+      />
+       once or twice until you are able to stop and cast 
+      <ForwardRef
+        id={133}
+      />
+       or you can use your procs while you move.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      82.35% Utilization
+       (
+      85.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Fire Mage integration test: example log HotStreakWastedCrits matches the suggestions snapshot 1`] = `
@@ -6445,7 +6504,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "88.35058504755496%",
+                  "width": "86.56764387108437%",
                 }
               }
             />
@@ -6748,7 +6807,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  88.24%
+                  82.35%
                    
                    
                 </div>
@@ -6768,9 +6827,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "91.08529411764705%",
                       }
                     }
                   />

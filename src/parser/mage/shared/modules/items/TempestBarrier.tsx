@@ -10,7 +10,7 @@ import { formatNumber } from 'common/format';
 
 class TempestBarrier extends Analyzer {
 
-  damageAbsorbed: number = 0;
+  damageAbsorbed = 0;
 
   constructor(props: Options) {
     super(props);

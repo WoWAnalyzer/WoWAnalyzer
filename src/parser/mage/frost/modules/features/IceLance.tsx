@@ -22,14 +22,14 @@ class IceLance extends Analyzer {
   protected enemies!: EnemyInstances;
   protected abilityTracker!: AbilityTracker;
 
-  hadFingersProc: boolean = false;
-  iceLanceTargetId: string = "";
-  nonShatteredCasts: number = 0;
+  hadFingersProc = false;
+  iceLanceTargetId = "";
+  nonShatteredCasts = 0;
 
-  iceLanceCastTimestamp: number = 0;
-  totalFingersProcs: number = 0;
-  overwrittenFingersProcs: number = 0;
-  expiredFingersProcs: number = 0;
+  iceLanceCastTimestamp = 0;
+  totalFingersProcs = 0;
+  overwrittenFingersProcs = 0;
+  expiredFingersProcs = 0;
 
   constructor(options: Options) {
     super(options);

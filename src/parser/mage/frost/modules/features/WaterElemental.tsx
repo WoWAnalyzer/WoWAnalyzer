@@ -22,15 +22,15 @@ class WaterElemental extends Analyzer {
   protected abc!: AlwaysBeCasting;
 
   beginCastSpell?: BeginCastEvent;
-  _waterboltsCancelled: number = 0;
-  _waterboltsCastStarts: number = 0;
-  _waterboltHits: number = 0;
-  _waterboltDamage: number = 0;
-  wasCastStarted: boolean = false;
-  petActiveTime: number = 0;
-  _timestampLastFinish: number = 0;
-  _timestampLastCast: number = 0;
-  _timestampFirstCast: number = 0;
+  _waterboltsCancelled = 0;
+  _waterboltsCastStarts = 0;
+  _waterboltHits = 0;
+  _waterboltDamage = 0;
+  wasCastStarted = false;
+  petActiveTime = 0;
+  _timestampLastFinish = 0;
+  _timestampLastCast = 0;
+  _timestampFirstCast = 0;
 
   constructor(options: Options) {
     super(options);

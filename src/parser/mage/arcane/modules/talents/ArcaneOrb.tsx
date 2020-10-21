@@ -18,9 +18,9 @@ class ArcaneOrb extends Analyzer {
 	};
 	protected abilityTracker!: AbilityTracker;
 
-	totalHits: number = 0;
-	badCasts: number = 0;
-	orbCast: boolean = false;
+	totalHits = 0;
+	badCasts = 0;
+	orbCast = false;
 
 	constructor(options: Options) {
     super(options);

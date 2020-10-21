@@ -24,12 +24,12 @@ class SearingTouch extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   lastCastEvent?: CastEvent;
 
-  fireballExecuteCasts: number = 0;
-  totalNonExecuteCasts: number = 0;
-  totalExecuteCasts: number = 0;
-  healthPercent: number = 1;
-  nonExecuteScorchCasts: number = 0;
-  combustionEnded: number = 0;
+  fireballExecuteCasts = 0;
+  totalNonExecuteCasts = 0;
+  totalExecuteCasts = 0;
+  healthPercent = 1;
+  nonExecuteScorchCasts = 0;
+  combustionEnded = 0;
 
   constructor(options: Options) {
     super(options);

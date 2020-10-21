@@ -5,9 +5,11 @@ import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
-import { MS_BUFFER_250, COMBUSTION_END_BUFFER, FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD, FIRE_DIRECT_DAMAGE_SPELLS } from 'parser/mage/shared/constants';
+import { COMBUSTION_END_BUFFER, FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD, FIRE_DIRECT_DAMAGE_SPELLS } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+
+const PROC_BUFFER = 200;
 
 const debug = false;
 
@@ -15,14 +17,14 @@ class HotStreakPreCasts extends Analyzer {
   hasPyroclasm: boolean;
   hasFirestarter: boolean;
   hasSearingTouch: boolean;
-  lastCastTimestamp: number = 0;
-  hotStreakRemoved: number = 0;
-  pyroclasmProcRemoved: number = 0;
-  castedBeforeHotStreak: number = 0;
-  noCastBeforeHotStreak: number = 0;
-  healthPercent: number = 1;
-  castTimestamp: number = 0;
-  combustionEnded: number = 0;
+  lastCastTimestamp = 0;
+  hotStreakRemoved = 0;
+  pyroclasmProcRemoved = 0;
+  castedBeforeHotStreak = 0;
+  noCastBeforeHotStreak = 0;
+  healthPercent = 1;
+  castTimestamp = 0;
+  combustionEnded = 0;
 
   constructor(options: Options) {
     super(options);
@@ -74,7 +76,7 @@ class HotStreakPreCasts extends Analyzer {
       return;
     }
 
-    if (this.hotStreakRemoved - MS_BUFFER_250 < this.castTimestamp || this.hotStreakRemoved - MS_BUFFER_250 < this.pyroclasmProcRemoved) {
+    if (this.hotStreakRemoved - PROC_BUFFER < this.castTimestamp || this.hotStreakRemoved - PROC_BUFFER < this.pyroclasmProcRemoved) {
       this.castedBeforeHotStreak += 1;
     } else {
       this.noCastBeforeHotStreak += 1;

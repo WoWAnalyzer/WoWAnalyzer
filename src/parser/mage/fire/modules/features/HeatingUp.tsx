@@ -28,11 +28,11 @@ class HeatingUp extends Analyzer {
   hasFirestarter: boolean;
   hasSearingTouch: boolean;
   phoenixFlamesCastEvent?: CastEvent;
-  fireBlastWithoutHeatingUp: number = 0;
-  phoenixFlamesWithoutHeatingUp: number = 0;
-  fireBlastWithHotStreak: number = 0;
-  phoenixFlamesWithHotStreak: number = 0;
-  healthPercent: number = 1;
+  fireBlastWithoutHeatingUp = 0;
+  phoenixFlamesWithoutHeatingUp = 0;
+  fireBlastWithHotStreak = 0;
+  phoenixFlamesWithHotStreak = 0;
+  healthPercent = 1;
 
   constructor(options: Options) {
     super(options);

@@ -31,9 +31,9 @@ class SplittingIce extends Analyzer {
 
   hasGlacialSpike: boolean;
   hasEbonbolt: boolean;
-  cleaveDamage: number = 0; // all damage to secondary target
-  boostDamage: number = 0; // damage to primary target attributable to boost
-  castTarget: string = ""; // player's last directly targeted foe, used to tell which hit was on primary target
+  cleaveDamage = 0; // all damage to secondary target
+  boostDamage = 0; // damage to primary target attributable to boost
+  castTarget = ""; // player's last directly targeted foe, used to tell which hit was on primary target
 
   constructor(options: Options) {
     super(options);

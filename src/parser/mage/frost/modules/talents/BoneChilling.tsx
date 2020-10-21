@@ -31,7 +31,7 @@ const AFFECTED_SPELLS = [
 
 class BoneChilling extends Analyzer {
 
-  totalDamage: number = 0;
+  totalDamage = 0;
 
   constructor(options: Options) {
     super(options);

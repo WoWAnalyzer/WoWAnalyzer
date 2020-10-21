@@ -16,8 +16,7 @@ const DAMAGE_BONUS_PER_STACK: number = 0.02;
 
 class ControlledDestruction extends Analyzer {
 
-  conduitRank: number = 0;
-
+  conduitRank = 0;
   bonusDamage = 0;
 
   constructor(props: Options) {

@@ -19,8 +19,8 @@ class MeteorRune extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected enemies!: EnemyInstances;
 
-  lastRuneCast: number = 0
-  badMeteor: number = 0
+  lastRuneCast = 0
+  badMeteor = 0
 
   constructor(options: Options) {
     super(options);

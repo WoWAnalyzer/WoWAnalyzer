@@ -15,9 +15,9 @@ import { t } from '@lingui/macro';
 
 class FocusMagic extends Analyzer {
 
-  buffStack: number = 0;
-  highStackTimestamp: number = 0;
-  intUptime: number = 0;
+  buffStack = 0;
+  highStackTimestamp = 0;
+  intUptime = 0;
 
   constructor(options: Options) {
     super(options);

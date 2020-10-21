@@ -13,17 +13,16 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const DAMAGE_MODIFIER = 240;
-
 const FIGHT_END_BUFFER = 5000;
 
 const debug = false;
 
 class Pyroclasm extends Analyzer {
 
-  totalProcs: number = 0;
-  usedProcs: number = 0;
-  unusedProcs: number = 0;
-  overwrittenProcs: number = 0;
+  totalProcs = 0;
+  usedProcs = 0;
+  unusedProcs = 0;
+  overwrittenProcs = 0;
   beginCastEvent?: BeginCastEvent;
   castEvent?: CastEvent;
   buffAppliedEvent?: ApplyBuffEvent | ApplyBuffStackEvent;

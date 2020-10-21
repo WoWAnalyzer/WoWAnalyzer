@@ -25,9 +25,9 @@ class GlacialSpike extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   lastCastEvent?: CastEvent;
-  lastCastDidDamage: boolean = false;
-  spikeShattered: number = 0;
-  spikeNotShattered: number = 0;
+  lastCastDidDamage = false;
+  spikeShattered = 0;
+  spikeNotShattered = 0;
 
   constructor(options: Options) {
     super(options);

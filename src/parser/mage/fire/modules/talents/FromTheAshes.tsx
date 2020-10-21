@@ -18,7 +18,7 @@ class FromTheAshes extends Analyzer {
   };
   protected spellUsable!: SpellUsable;
 
-  cooldownReduction: number = 0;
+  cooldownReduction = 0;
 
   constructor(options: Options) {
     super(options);

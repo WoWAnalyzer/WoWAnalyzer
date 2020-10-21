@@ -12,9 +12,9 @@ const debug = false;
 
 class CombustionFirestarter extends Analyzer {
 
-  combustionCast: boolean = false;
-  combustionDuringFirestarter: boolean = false;
-  healthPercent: number = 1;
+  combustionCast = false;
+  combustionDuringFirestarter = false;
+  healthPercent = 1;
 
   constructor(options: Options) {
     super(options);

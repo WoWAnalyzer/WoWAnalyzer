@@ -23,10 +23,10 @@ class HotStreak extends Analyzer {
   protected hotStreakPreCasts!: HotStreakPreCasts;
 
   hasPyroclasm: boolean;
-  totalHotStreakProcs: number = 0;
-  expiredProcs: number = 0;
-  hotStreakRemoved: number = 0;
-  castTimestamp: number = 0;
+  totalHotStreakProcs = 0;
+  expiredProcs = 0;
+  hotStreakRemoved = 0;
+  castTimestamp = 0;
 
   constructor(options: Options) {
     super(options);

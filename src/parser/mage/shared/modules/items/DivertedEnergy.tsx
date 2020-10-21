@@ -11,8 +11,8 @@ import { formatNumber } from 'common/format';
 
 class DivertedEnergy extends Analyzer {
 
-  healingDone: number = 0;
-  overhealing: number = 0;
+  healingDone = 0;
+  overhealing = 0;
 
   constructor(props: Options) {
     super(props);

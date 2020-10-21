@@ -21,12 +21,12 @@ class MeteorCombustion extends Analyzer {
   protected enemies!: EnemyInstances;
   protected eventHistory!: EventHistory;
 
-  lastRuneCast: number = 0
-  badMeteor: number = 0
-  meteorCast: boolean = false;
-  meteorDuringCombustion: boolean = false;
-  meteorInCombustion: number = 0;
-  combustionActive: boolean = false;
+  lastRuneCast = 0
+  badMeteor = 0
+  meteorCast = false;
+  meteorDuringCombustion = false;
+  meteorInCombustion = 0;
+  combustionActive = false;
 
   constructor(options: Options) {
     super(options);

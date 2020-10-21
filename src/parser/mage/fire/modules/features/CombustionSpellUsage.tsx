@@ -20,10 +20,10 @@ class CombustionSpellUsage extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
 
-  scorchCastsStarted: number = 0;
-  scorchCastsCompleted: number = 0;
-  fireballCastsStarted: number = 0;
-  fireballCastsCompleted: number = 0;
+  scorchCastsStarted = 0;
+  scorchCastsCompleted = 0;
+  fireballCastsStarted = 0;
+  fireballCastsCompleted = 0;
 
   constructor(options: Options) {
     super(options);

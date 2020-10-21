@@ -20,7 +20,19 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import ArcaneChargeTracker from './ArcaneChargeTracker';
-import { ARCANE_POWER_MANA_THRESHOLD, ARCANE_POWER_SPELL_BLACKLIST } from '../../constants';
+
+const MANA_THRESHOLD = 0.40;
+const ARCANE_POWER_SPELL_BLACKLIST = [
+  SPELLS.ARCANE_BARRAGE,
+  SPELLS.ARCANE_FAMILIAR_TALENT,
+  SPELLS.ARCANE_INTELLECT,
+  SPELLS.EVOCATION,
+  SPELLS.SUPERNOVA_TALENT,
+  SPELLS.MIRROR_IMAGE_TALENT,
+  SPELLS.NETHER_TEMPEST_TALENT,
+  SPELLS.ARCANE_ORB_TALENT,
+  SPELLS.RUNE_OF_POWER_TALENT,
+];
 
 const debug = false;
 
@@ -74,7 +86,7 @@ class ArcanePower extends Analyzer {
       const currentManaPercent = manaResource.amount / manaResource.max;
       this.arcanePowerCasted = true;
 
-      if (this.arcaneChargeTracker.charges < 4 || (this.hasRuneOfPower && event.timestamp - this.runeTimestamp > 200) || (!this.hasOverpowered && currentManaPercent < ARCANE_POWER_MANA_THRESHOLD)) {
+      if (this.arcaneChargeTracker.charges < 4 || (this.hasRuneOfPower && event.timestamp - this.runeTimestamp > 200) || (!this.hasOverpowered && currentManaPercent < MANA_THRESHOLD)) {
         this.badUses += 1;
       }
 
@@ -99,7 +111,7 @@ class ArcanePower extends Analyzer {
         this.delayedRuneCast += 1;
       }
 
-      if (!this.hasOverpowered && currentManaPercent < ARCANE_POWER_MANA_THRESHOLD) {
+      if (!this.hasOverpowered && currentManaPercent < MANA_THRESHOLD) {
         debug && this.log('Arcane Power Cast with low mana');
         debug && !this.hasOverpowered && this.log('Mana Percent: ' + currentManaPercent);
         this.lowManaCast += 1;

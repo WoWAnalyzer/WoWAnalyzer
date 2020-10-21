@@ -23,8 +23,8 @@ class CombustionCharges extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   hasFlameOn: boolean;
-  lowPhoenixFlamesCharges: number = 0;
-  lowFireBlastCharges: number = 0;
+  lowPhoenixFlamesCharges = 0;
+  lowFireBlastCharges = 0;
   badCast = false;
 
   constructor(options: Options) {

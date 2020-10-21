@@ -21,10 +21,10 @@ class HotStreakWastedCrits extends Analyzer {
 
   hasPyromaniac: boolean;
   lastCastEvent?: CastEvent;
-  wastedCrits: number = 0;
-  hasPyromaniacProc: boolean = false;
-  pyromaniacProc: boolean = false;
-  hotStreakRemoved: number = 0;
+  wastedCrits = 0;
+  hasPyromaniacProc = false;
+  pyromaniacProc = false;
+  hotStreakRemoved = 0;
 
   constructor(options: Options) {
     super(options);

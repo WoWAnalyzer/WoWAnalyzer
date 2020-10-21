@@ -16,7 +16,7 @@ class ColdFront extends Analyzer {
   };
   protected eventHistory!: EventHistory;
 
-  bonusFrozenOrbs: number = 0;
+  bonusFrozenOrbs = 0;
 
   constructor(props: Options) {
     super(props);

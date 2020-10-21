@@ -21,14 +21,14 @@ class BrainFreeze extends Analyzer {
   };
   protected eventHistory!: EventHistory;
 
-  usedProcs: number = 0;
-  overwrittenProcs: number = 0;
-  expiredProcs: number = 0;
-  totalProcs: number = 0;
-  flurryHardCast: number = 0;
+  usedProcs = 0;
+  overwrittenProcs = 0;
+  expiredProcs = 0;
+  totalProcs = 0;
+  flurryHardCast = 0;
 
   // Tracks whether the last brain freeze generator to be cast was Ebonbolt or Frostbolt
-  wasLastGeneratorEB: boolean = false;
+  wasLastGeneratorEB = false;
 
   constructor(options: Options) {
     super(options);
