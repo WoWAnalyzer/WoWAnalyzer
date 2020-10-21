@@ -7,6 +7,7 @@ import { change, date } from 'common/changelog';
 
 export default [
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
+  change(date(2020, 10, 17), <>Convert <SpellLink id={SPELLS.GRAND_CRUSADER.id} /> and SpellUsable to TypeScript.</>, Hordehobbs),
   change(date(2020, 10, 17), <>Added preliminary <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> suggestions.</>, emallson),
   change(date(2020, 10, 16), "Add Sanctified Wrath judgement tracker.", Hordehobbs),
   change(date(2020, 10, 14), <>Added suggestion for <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> hits.</>, Hordehobbs),

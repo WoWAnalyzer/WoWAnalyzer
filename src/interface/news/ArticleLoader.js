@@ -24,7 +24,7 @@ class ArticleLoader extends React.PureComponent {
   }
 
   load(fileName) {
-    return retryingPromise(() => import(/* webpackChunkName: "articles/[request]" */ `articles/${fileName}/index.js`)
+    return retryingPromise(() => import(/* webpackChunkName: "articles/[request]" */ `articles/${fileName}/index.tsx`)
       .then(exports => exports.default)
       .then(article => {
         this.setState({
