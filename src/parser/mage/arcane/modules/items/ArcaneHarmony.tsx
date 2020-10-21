@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -22,7 +22,7 @@ class ArcaneHarmony extends Analyzer {
   stacks: number = 0
   totalStacks: number = 0;
 
-  constructor(props: any) {
+  constructor(props: Options) {
     super(props);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.ARCANE_HARMONY.bonusID);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE), this.onBarrageCast);

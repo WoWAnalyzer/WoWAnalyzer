@@ -44,6 +44,7 @@ class BlackoutKick extends Analyzer {
 
   onCast(event) {
     const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some(spellId => this.spellUsable.isAvailable(spellId));
+    const currentCooldownReductionMS = (this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1) * COOLDOWN_REDUCTION_MS;
     if (hasImportantCastsAvailable) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
@@ -51,18 +52,18 @@ class BlackoutKick extends Analyzer {
     }
 
     if (!this.spellUsable.isOnCooldown(SPELLS.RISING_SUN_KICK.id)) {
-      this.wastedRisingSunKickReductionMs += COOLDOWN_REDUCTION_MS;
+      this.wastedRisingSunKickReductionMs += currentCooldownReductionMS;
     } else {
-      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.RISING_SUN_KICK.id, COOLDOWN_REDUCTION_MS);
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.RISING_SUN_KICK.id, currentCooldownReductionMS);
       this.effectiveRisingSunKickReductionMs += reductionMs;
-      this.wastedRisingSunKickReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
+      this.wastedRisingSunKickReductionMs += currentCooldownReductionMS - reductionMs;
     }
     if (!this.spellUsable.isOnCooldown(SPELLS.FISTS_OF_FURY_CAST.id)) {
-      this.wastedFistsOfFuryReductionMs += COOLDOWN_REDUCTION_MS;
+      this.wastedFistsOfFuryReductionMs += currentCooldownReductionMS;
     } else {
-      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.FISTS_OF_FURY_CAST.id, COOLDOWN_REDUCTION_MS);
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.FISTS_OF_FURY_CAST.id, currentCooldownReductionMS);
       this.effectiveFistsOfFuryReductionMs += reductionMs;
-      this.wastedFistsOfFuryReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
+      this.wastedFistsOfFuryReductionMs += currentCooldownReductionMS - reductionMs;
     }
   }
 

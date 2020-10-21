@@ -1,11 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -36,12 +37,12 @@ class PrematureRejuvenations extends Analyzer {
     super(...args);
     // TODO - Extend this module to also support when using Germination.
     this.active = !this.selectedCombatant.hasTalent(SPELLS.GERMINATION_TALENT.id);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION), this.onRemoveBuff);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.FLOURISH_TALENT]), this.onCast);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.REJUVENATION.id) {
-      return;
-    }
+  onRemoveBuff(event) {
     const target = this.combatants.getEntity(event);
     if (!target) {
       return; // target wasn't important (a pet probably)
@@ -51,7 +52,7 @@ class PrematureRejuvenations extends Analyzer {
     this.rejuvenations = this.rejuvenations.filter(e => e.targetId !== event.targetID);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if (event.ability.guid === SPELLS.REJUVENATION.id) {
       this.totalRejuvsCasts += 1;
 
@@ -84,7 +85,7 @@ class PrematureRejuvenations extends Analyzer {
     }
   }
 
-  on_fightend() {
+  onFightend() {
     debug && console.log("Finished: %o", this.rejuvenations);
     debug && console.log("Early refreshments: "+ this.earlyRefreshments);
     debug && console.log("Time lost: " + this.timeLost);

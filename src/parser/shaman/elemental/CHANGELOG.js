@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { niseko, HawkCorrigan, Draenal, TheJigglr } from 'CONTRIBUTORS';
+import { niseko, HawkCorrigan, Draenal, TheJigglr, Zeboot } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 8, 28), <>First go at removing obsolete Spells and Azerite.</>, [HawkCorrigan]),
   change(date(2020, 3, 17), <>Adjust wording of downtime suggestion. Cancelled casts don't consume a gcd.</>, [Draenal]),
   change(date(2020, 2, 28), <>Added a statistic for <SpellLink id={SPELLS.ANCESTRAL_RESONANCE.id} />.</>, [niseko]),

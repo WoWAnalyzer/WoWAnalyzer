@@ -1,11 +1,11 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import Renew from 'parser/priest/holy/modules/spells/Renew';
 import PrayerOfMending from 'parser/priest/holy/modules/spells/PrayerOfMending';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatThousands } from 'common/format';
-import { HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -72,17 +72,14 @@ class HolyWordSalvation extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SALVATION_TALENT), this.onHeal);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
-      this.healingFromSalv += event.amount || 0;
-      this.overhealingFromSalv += event.overheal || 0;
-      this.absorptionFromSalv += event.absorbed || 0;
-      this.salvTicks += 1;
-    }
+  onHeal(event: HealEvent) {
+    this.healingFromSalv += event.amount || 0;
+    this.overhealingFromSalv += event.overheal || 0;
+    this.absorptionFromSalv += event.absorbed || 0;
+    this.salvTicks += 1;
   }
 
   statistic() {

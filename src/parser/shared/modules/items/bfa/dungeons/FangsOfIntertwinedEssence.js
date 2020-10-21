@@ -6,9 +6,10 @@ import { formatPercentage } from 'common/format';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import ItemManaGained from 'interface/ItemManaGained';
+import Events from 'parser/core/Events';
 
 const MAX_RESTORES_PER_USE = 6;
 const ACTIVATION_COOLDOWN = 120; // seconds
@@ -46,19 +47,15 @@ class FangsOfIntertwinedEssence extends Analyzer {
         },
       });
     }
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.FANGS_OF_INTERTWINED_ESSENCE_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.FANGS_OF_INTERTWINED_ESSENCE_ENERGIZE), this.onEnergize);
   }
 
-  on_toPlayer_applybuff(event) {
-    if (SPELLS.FANGS_OF_INTERTWINED_ESSENCE_BUFF.id !== event.ability.guid) {
-      return;
-    }
+  onApplyBuff(event) {
     this.useCount += 1;
   }
 
-  on_toPlayer_energize(event) {
-    if (SPELLS.FANGS_OF_INTERTWINED_ESSENCE_ENERGIZE.id !== event.ability.guid) {
-      return;
-    }
+  onEnergize(event) {
     this.restoreCount += 1;
     this.manaRestored += event.resourceChange;
   }

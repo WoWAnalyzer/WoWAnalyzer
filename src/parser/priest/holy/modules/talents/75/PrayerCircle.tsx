@@ -25,7 +25,7 @@ class PrayerCircle extends Analyzer {
   buffedCohCasts = 0;
 
   get unbuffedCohCasts() {
-    return (this.abilityTracker.getAbility(SPELLS.PRAYER_OF_HEALING.id).casts || 0) - this.buffedCohCasts;
+    return (this.abilityTracker.getAbility(SPELLS.PRAYER_OF_HEALING.id).casts) - this.buffedCohCasts;
   }
 
   constructor(options: Options) {

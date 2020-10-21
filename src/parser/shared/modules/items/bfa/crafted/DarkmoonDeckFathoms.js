@@ -2,10 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import Events from 'parser/core/Events';
 
 /**
  * Darkmoon Deck: Fathoms
@@ -21,13 +22,10 @@ class DarkmoonDeckFathoms extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.DARKMOON_DECK_FATHOMS.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FATHOM_FALL), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FATHOM_FALL.id) {
-      return;
-    }
+  onDamage(event) {
     this.damage += event.amount + (event.absorbed || 0);
   }
 

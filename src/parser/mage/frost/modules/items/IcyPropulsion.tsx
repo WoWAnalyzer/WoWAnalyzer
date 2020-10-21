@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -42,7 +42,7 @@ class IcyPropulsion extends Analyzer {
 
   cooldownReduction = 0;
 
-  constructor(props: any) {
+  constructor(props: Options) {
     super(props);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.ICY_PROPULSION.id);
     if (!this.active) {

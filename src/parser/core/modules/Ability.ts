@@ -1,8 +1,8 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
-
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-
 import Combatant from 'parser/core/Combatant';
+
+import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 
 import Spell from 'common/SPELLS/Spell';
 
@@ -13,31 +13,7 @@ import PropTypes from 'prop-types';
 import { AnyEvent } from '../Events';
 import Abilities from './Abilities';
 
-
-export interface AbilityTrackerAbility {
-  casts: number;
-  manaUsed: number;
-  healingHits?: number;
-  healingEffective?: number;
-  healingAbsorbed?: number;
-  healingOverheal?: number;
-  healingCriticalHits?: number;
-  healingCriticalEffective?: number;
-  healingCriticalAbsorbed?: number;
-  healingCriticalOverheal?: number;
-  damageHits?: number;
-  damageEffective?: number;
-  damageAbsorbed?: number;
-  damageCriticalHits?: number;
-  damageCriticalEffective?: number;
-  damageCriticalAbsorbed?: number;
-
-  // TODO: Fix this proper
-  healingIolHits?: number;
-  // TODO: Fix this proper as well
-  healingTwHits?: number;
-}
-export interface SpellbookAbility {
+export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = TrackedAbility> {
   /**
    * REQUIRED The spell definition. If an array of spell definitions is
    * provided, the first element in the array will be what shows in suggestions
@@ -45,9 +21,7 @@ export interface SpellbookAbility {
    * used to tie multiple cast / buff IDs together as the same ability (with a
    * shared cooldown)
    */
-  spell:
-    | Spell
-    | Spell[];
+  spell: Spell | Spell[];
   /**
    * The name to use if it is different from the name provided by the `spell`
    * object. This should only be used in rare situations.
@@ -111,7 +85,7 @@ export interface SpellbookAbility {
      * @deprecated Usage should be avoided. This may be removed in the future.
      */
     casts?: (
-      castCount: AbilityTrackerAbility,
+      castCount: TrackedAbilityType,
       parser: CombatLogParser,
     ) => number;
     /**

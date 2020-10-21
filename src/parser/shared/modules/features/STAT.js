@@ -1,3 +1,6 @@
+import React from 'react';
+import { Trans } from '@lingui/macro';
+
 import HealthIcon from 'interface/icons/Health';
 import StaminaIcon from 'interface/icons/Stamina';
 import ManaIcon from 'interface/icons/Mana';
@@ -50,6 +53,27 @@ export function getName(stat) {
     case STAT.LEECH: return 'Leech';
     case STAT.AVOIDANCE: return 'Avoidance';
     case STAT.SPEED: return 'Speed';
+    default: return null;
+  }
+}
+export function getNameTranslated(stat) { // there's stuff using getName with string functions which Trans breaks
+  switch (stat) {
+    case STAT.HEALTH: return <Trans id="common.stat.health">Health</Trans>;
+    case STAT.STAMINA: return <Trans id="common.stat.stamina">Stamina</Trans>;
+    case STAT.MANA: return <Trans id="common.stat.mana">Mana</Trans>;
+    case STAT.STRENGTH: return <Trans id="common.stat.strength">Strength</Trans>;
+    case STAT.AGILITY: return <Trans id="common.stat.agility">Agility</Trans>;
+    case STAT.INTELLECT: return <Trans id="common.stat.intellect">Intellect</Trans>;
+    case STAT.CRITICAL_STRIKE: return <Trans id="common.stat.criticalStrike">Critical Strike</Trans>;
+    case STAT.HASTE: return <Trans id="common.stat.haste">Haste</Trans>;
+    case STAT.HASTE_HPCT: return <Trans id="common.stat.hasteHPCT">Haste (HPCT)</Trans>;
+    case STAT.HASTE_HPM: return <Trans id="common.stat.hasteHPM">Haste (HPM)</Trans>;
+    case STAT.MASTERY: return <Trans id="common.stat.mastery">Mastery</Trans>;
+    case STAT.VERSATILITY: return <Trans id="common.stat.versatility">Versatility</Trans>;
+    case STAT.VERSATILITY_DR: return <Trans id="common.stat.versatilityDR">Versatility (with DR)</Trans>;
+    case STAT.LEECH: return <Trans id="common.stat.leech">Leech</Trans>;
+    case STAT.AVOIDANCE: return <Trans id="common.stat.avoidance">Avoidance</Trans>;
+    case STAT.SPEED: return <Trans id="common.stat.speed">Speed</Trans>;
     default: return null;
   }
 }

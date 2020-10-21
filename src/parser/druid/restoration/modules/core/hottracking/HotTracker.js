@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Haste from 'parser/shared/modules/Haste';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 
 import Mastery from '../Mastery';
 
@@ -39,9 +39,13 @@ class HotTracker extends Analyzer {
   constructor(...args) {
     super(...args);
     this.hotInfo = this._generateHotInfo(); // some HoT info depends on traits and so must be generated dynamically
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER), this.onRefreshBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     const spellId = event.ability.guid;
     const target = this._getTarget(event);
     if (!target) {
@@ -89,7 +93,7 @@ class HotTracker extends Analyzer {
     // extensions handled when HoT falls, using ticks list
   }
 
-  on_byPlayer_applybuff(event) {
+  onApplyBuff(event) {
     const spellId = event.ability.guid;
     const target = this._getTarget(event);
     if (!target) {
@@ -116,7 +120,7 @@ class HotTracker extends Analyzer {
     this.hots[targetId][spellId] = newHot;
   }
 
-  on_byPlayer_refreshbuff(event) {
+  onRefreshBuff(event) {
     const spellId = event.ability.guid;
     const target = this._getTarget(event);
     if (!target) {
@@ -153,7 +157,7 @@ class HotTracker extends Analyzer {
     hot.boosts = [];
   }
 
-  on_byPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     const spellId = event.ability.guid;
     const target = this._getTarget(event);
     if (!target) {

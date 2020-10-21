@@ -1,10 +1,10 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Spell from 'common/SPELLS/Spell';
-import { DeathEvent } from 'parser/core/Events';
+import Events, { DeathEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const ONE_HOUR_MS = 3600000; // one hour
@@ -51,7 +51,7 @@ class Potion extends Analyzer {
     if (!this.isAvailable) {
       this.active = false;
       return;
-    } 
+    }
     (options.abilities as Abilities).add({
       spell: this.static.spells,
       category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
@@ -78,6 +78,8 @@ class Potion extends Analyzer {
         });
       });
     }
+
+    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
   }
 
   // To be overwriten by classes extending the Potion module.
@@ -91,7 +93,7 @@ class Potion extends Analyzer {
     return ability.primarySpell.id;
   }
 
-  on_toPlayer_death(event: DeathEvent) {
+  onDeath(event: DeathEvent) {
     if (!this.spellUsable.isOnCooldown(this.spellId)) {
       // If the potion was not on cooldown, only increase maxCasts if it would have been ready again since the previous death.
       if (this.lastDeathWithPotionReady) {
@@ -123,7 +125,7 @@ class Potion extends Analyzer {
   }
 
   get potionCasts() {
-    return this.abilityTracker.getAbility(this.spellId).casts || 0;
+    return this.abilityTracker.getAbility(this.spellId).casts;
   }
 
   get suggestionThresholds() {

@@ -12,6 +12,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
+import { Trans } from '@lingui/macro';
 
 const SPELLS_PROCCING_RESURGENCE = {
   [SPELLS.HEALING_SURGE_RESTORATION.id]: 0.006,
@@ -89,18 +90,18 @@ class Resurgence extends Analyzer {
         icon={<SpellIcon id={SPELLS.RESURGENCE.id} />}
         position={STATISTIC_ORDER.UNIMPORTANT(90)}
         value={`${formatNumber(this.totalResurgenceGain)}`}
-        label="Mana gained from Resurgence"
+        label={<Trans id="shaman.restoration.resurgence.statistic.label">Mana gained from Resurgence</Trans>}
       >
         <div>
-          <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }} /> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana).
+          <Trans id="shaman.restoration.resurgence.statistic.table.description"><SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }} /> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana).</Trans>
         </div>
         <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           <thead>
             <tr>
-              <th>Spell</th>
-              <th>Amount</th>
-              <th>Crits</th>
-              <th>% of mana</th>
+              <th><Trans id="shaman.restoration.resurgence.statistic.tableHeader.spell">Spell</Trans></th>
+              <th><Trans id="shaman.restoration.resurgence.statistic.tableHeader.amount">Amount</Trans></th>
+              <th><Trans id="shaman.restoration.resurgence.statistic.tableHeader.crits">Crits</Trans></th>
+              <th><Trans id="shaman.restoration.resurgence.statistic.tableHeader.mana">% of mana</Trans></th>
             </tr>
           </thead>
           <tbody>

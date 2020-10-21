@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 /**
  * Secret Technique
@@ -15,9 +16,10 @@ class SecretTechniqueCdr extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SECRET_TECHNIQUE_TALENT.id);
+    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
   }
 
-  on_byPlayer_spendresource(event) {
+  onSpendResource(event) {
     const comboPointsSpent = event.resourceChange;
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) {
       return;

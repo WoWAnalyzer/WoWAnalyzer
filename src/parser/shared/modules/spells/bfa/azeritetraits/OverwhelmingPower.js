@@ -7,9 +7,9 @@ import UptimeIcon from 'interface/icons/Uptime';
 import HasteIcon from 'interface/icons/Haste';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 
 const MAX_OVERWHELMING_POWER_STACKS = 25;
 
@@ -53,33 +53,14 @@ class OverwhelmingPower extends Analyzer {
     this.statTracker.add(SPELLS.OVERWHELMING_POWER_BUFF.id, {
       haste,
     });
-  }
-
-  on_byPlayer_applybuff(event) {
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_applybuffstack(event) {
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuff(event) {
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_removebuffstack(event) {
-    this.handleStacks(event);
-  }
-
-  on_byPlayer_refreshbuff(event) {
-    this.handleStacks(event);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.OVERWHELMING_POWER_BUFF), this.handleStacks);
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.OVERWHELMING_POWER_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.OVERWHELMING_POWER_BUFF), this.handleStacks);
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.OVERWHELMING_POWER_BUFF), this.handleStacks);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.OVERWHELMING_POWER_BUFF), this.handleStacks);
   }
 
   handleStacks(event) {
-    if (event.ability.guid !== SPELLS.OVERWHELMING_POWER_BUFF.id) {
-      return;
-    }
-
     if (this.currentStacks !== 0 && this.lastTimestamp !== 0) {
       const uptimeOnStack = event.timestamp - this.lastTimestamp;
       this.totalHaste += this.currentStacks * this.haste * uptimeOnStack;

@@ -3,9 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 
 const swirlingSandsStats = traits => Object.values(traits).reduce((total, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.SWIRLING_SANDS.id, rank);
@@ -37,19 +38,15 @@ class SwirlingSands extends Analyzer {
     this.statTracker.add(SPELLS.SWIRLING_SANDS_BUFF.id, {
       crit: this.crit,
     });
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SWIRLING_SANDS_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SWIRLING_SANDS_BUFF), this.onRefreshBuff);
   }
 
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.SWIRLING_SANDS_BUFF.id) {
-      return;
-    }
+  onApplyBuff(event) {
     this.swirlingSandsProcs += 1;
   }
 
-  on_byPlayer_refreshbuff(event) {
-    if (event.ability.guid !== SPELLS.SWIRLING_SANDS_BUFF.id) {
-      return;
-    }
+  onRefreshBuff(event) {
     this.swirlingSandsProcs += 1;
   }
 

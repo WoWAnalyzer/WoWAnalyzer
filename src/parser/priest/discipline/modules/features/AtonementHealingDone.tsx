@@ -3,9 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Panel from 'interface/statistics/Panel';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
-import { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import { IsPenanceDamageEvent } from 'parser/priest/discipline/modules/spells/Helper';
 
 import isAtonement from '../core/isAtonement';
@@ -32,17 +32,24 @@ class AtonementHealingDone extends Analyzer {
 
   bySource: any = {};
 
-  on_byPlayer_absorbed(event: AbsorbedEvent) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PENANCE), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+  }
+
+  onAbsorb(event: AbsorbedEvent) {
     this.total += event.amount || 0;
   }
 
-  on_byPlayer_damage(event: DamageEvent) {
-    if (event.ability.guid === SPELLS.PENANCE.id && IsPenanceDamageEvent(event)) {
+  onDamage(event: DamageEvent) {
+    if (IsPenanceDamageEvent(event)) {
       this._lastPenanceBoltNumber = event.penanceBoltNumber;
     }
   }
 
-  on_byPlayer_heal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     this.total += event.amount || 0;
     this.total += event.absorbed || 0;
 

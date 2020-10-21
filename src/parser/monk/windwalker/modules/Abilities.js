@@ -73,6 +73,17 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.EXPEL_HARM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 15,
+        gcd: {
+          static: 500,
+        },
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
         spell: SPELLS.CHI_WAVE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
@@ -121,6 +132,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.TOUCH_OF_KARMA_CAST.id,
         category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         cooldown: 90,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.6,
@@ -131,6 +143,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SERENITY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
+        gcd: null,
         enabled: combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -141,6 +154,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
+        gcd: null,
         enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         charges: 2,
         castEfficiency: {
@@ -165,9 +179,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ENERGIZING_ELIXIR_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
-        gcd: {
-          static: 1000,
-        },
+        gcd: null,
         enabled: combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id),
       },
       // Utility
@@ -204,6 +216,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ROLL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 15 : 20,
+        gcd: null,
         charges: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 3 : 2,
         enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
       },
@@ -211,6 +224,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHI_TORPEDO_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
+        gcd: null,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
       },
@@ -248,13 +262,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.EXPEL_HARM,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: {
-          static: 500,
-        },
-      },
-      {
         spell: SPELLS.VIVIFY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
@@ -273,10 +280,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SPEAR_HAND_STRIKE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: null,
       },
       {
         spell: SPELLS.PROVOKE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: null,
       },
       {
         spell: SPELLS.CRACKLING_JADE_LIGHTNING,
@@ -289,6 +298,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STORM_EARTH_AND_FIRE_FIXATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: null,
       },
       // Defensives
       {
@@ -296,12 +306,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.FORTIFYING_BREW.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
+        gcd: null,
       },
       {
         spell: SPELLS.DIFFUSE_MAGIC_TALENT,
         buffSpellId: SPELLS.DIFFUSE_MAGIC_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
+        gcd: null,
         enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
       },
       {
@@ -309,6 +321,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.DAMPEN_HARM_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
+        gcd: null,
         enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
       },
     ];

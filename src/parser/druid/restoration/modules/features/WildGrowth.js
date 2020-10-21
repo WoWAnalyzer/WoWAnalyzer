@@ -6,8 +6,9 @@ import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
+import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -34,14 +35,13 @@ class WildGrowth extends Analyzer {
   constructor(...args) {
     super(...args);
     this.wgTracker.startTimestamp = this.owner.fight.start_time;
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onApplyBuff);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WILD_GROWTH.id) {
-      return;
-    }
-
+  onCast(event) {
     if(this.wgTracker.wgBuffs.length > 0) {
       this.wgTracker.badPrecast = (this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw) > PRECAST_THRESHOLD;
       this.wgHistory.push(this.wgTracker);
@@ -56,11 +56,7 @@ class WildGrowth extends Analyzer {
     this.wgTracker.firstTicksRaw = 0;
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WILD_GROWTH.id) {
-      return;
-    }
+  onHeal(event) {
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
     this.wgTracker.heal += healVal.effective;
     this.wgTracker.overheal += healVal.overheal;
@@ -72,15 +68,11 @@ class WildGrowth extends Analyzer {
     }
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WILD_GROWTH.id) {
-      return;
-    }
+  onApplyBuff(event) {
     this.wgTracker.wgBuffs.push(event.targetID);
   }
 
-  on_fightend() {
+  onFightend() {
     this.wgHistory.push(this.wgTracker);
   }
 

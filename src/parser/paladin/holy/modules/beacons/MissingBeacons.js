@@ -3,8 +3,10 @@ import { Trans } from '@lingui/macro';
 
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
+import Events from 'parser/core/Events';
 
 import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
@@ -18,7 +20,12 @@ class MissingBeacons extends Analyzer {
 
   lostBeaconHealing = 0;
 
-  on_byPlayer_heal(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+  }
+
+  onHeal(event) {
     const spellId = event.ability.guid;
     const spellBeaconTransferFactor = BEACON_TRANSFERING_ABILITIES[spellId];
     if (!spellBeaconTransferFactor) {

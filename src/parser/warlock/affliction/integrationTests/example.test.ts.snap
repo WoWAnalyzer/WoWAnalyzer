@@ -162,7 +162,7 @@ exports[`Affliction Warlock integration test: example log AlwaysBeCasting matche
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(62.769725862724385deg)",
+                    "transform": "rotate(65.38810139289913deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -192,7 +192,7 @@ exports[`Affliction Warlock integration test: example log AlwaysBeCasting matche
                 }
               }
             >
-              72
+              73
               %
             </div>
           </div>
@@ -241,7 +241,7 @@ Array [
     "issue": <React.Fragment>
       Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots. Make good use of your 
       <ForwardRef
-        id={48020}
+        id={268358}
       />
        or 
       <ForwardRef
@@ -250,7 +250,7 @@ Array [
        when you can.
     </React.Fragment>,
     "stat": <React.Fragment>
-      27.58% downtime
+      26.65% downtime
        (
       &lt;10.00% is recommended
       )
@@ -318,7 +318,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -331,7 +331,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -344,7 +344,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -530,7 +530,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -712,6 +712,91 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                href="http://wowhead.com/spell=324536"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_everlastingaffliction.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Malefic Rapture
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              7.82
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              18
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
                 href="http://wowhead.com/spell=63106"
                 rel="noopener noreferrer"
                 style={
@@ -755,6 +840,91 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               7
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=232670"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowbolt.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Shadow Bolt
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
               
                
               casts
@@ -891,7 +1061,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -904,7 +1074,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -917,7 +1087,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1122,7 +1292,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1135,7 +1305,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1148,7 +1318,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1346,7 +1516,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -1367,7 +1537,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1380,7 +1550,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1393,7 +1563,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1494,7 +1664,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -1515,7 +1685,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1528,7 +1698,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1541,7 +1711,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1769,6 +1939,200 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
             >
               0
               /4
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=48018"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Demonic Circle Summon
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /14
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=48020"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccircleteleport.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Demonic Circle Teleport
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /5
                
               casts
             </td>
@@ -2526,6 +2890,261 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                href="http://wowhead.com/spell=1714"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_curseoftounges.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Curse of Tongues
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=702"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_curseofmannoroth.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Curse of Weakness
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=334275"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_grimward.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Curse of Exhaustion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
                 href="http://wowhead.com/spell=755"
                 rel="noopener noreferrer"
                 style={
@@ -2869,6 +3488,103 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             />
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=333889"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_felmending.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Fel Domination
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -2887,7 +3603,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2900,7 +3616,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2913,7 +3629,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3483,7 +4199,7 @@ exports[`Affliction Warlock integration test: example log DistanceMoved matches 
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -4109,206 +4825,266 @@ Array [
     "details": null,
     "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5448,
-              1543,
-              4786,
-              6510,
-            ],
-            "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
-            "id": 158349,
-            "itemLevel": 135,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5448,
+                  1543,
+                  4786,
+                  6510,
+                ],
+                "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
+                "id": 158349,
+                "itemLevel": 135,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158349}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={158349}
-        quality={3}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_bracer_cloth_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6536,
-              6578,
-              6579,
-              6546,
-              6513,
-              1543,
-              4786,
-            ],
-            "icon": "inv_bracer_cloth_zandalardungeon_c_01.jpg",
-            "id": 159240,
-            "itemLevel": 130,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  6579,
+                  6546,
+                  6513,
+                  1543,
+                  4786,
+                ],
+                "icon": "inv_bracer_cloth_zandalardungeon_c_01.jpg",
+                "id": 159240,
+                "itemLevel": 130,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159240}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Bracers"
+            id="common.slots.bracers"
+          />,
         }
-        icon={false}
-        id={159240}
-        quality={3}
-      >
-        Bracers
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_70_raid_ring8d.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4824,
-              6516,
-              6515,
-              1517,
-              4786,
-            ],
-            "icon": "inv_70_raid_ring8d.jpg",
-            "id": 174530,
-            "itemLevel": 130,
-            "permanentEnchant": 6109,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4824,
+                  6516,
+                  6515,
+                  1517,
+                  4786,
+                ],
+                "icon": "inv_70_raid_ring8d.jpg",
+                "id": 174530,
+                "itemLevel": 130,
+                "permanentEnchant": 6109,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={174530}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={174530}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_02a.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6536,
-              40,
-              6578,
-              6513,
-              1543,
-              4786,
-              6476,
-              6470,
-            ],
-            "icon": "inv_ring_80_02a.jpg",
-            "id": 162542,
-            "itemLevel": 130,
-            "permanentEnchant": 6109,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  40,
+                  6578,
+                  6513,
+                  1543,
+                  4786,
+                  6476,
+                  6470,
+                ],
+                "icon": "inv_ring_80_02a.jpg",
+                "id": 162542,
+                "itemLevel": 130,
+                "permanentEnchant": 6109,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={162542}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={162542}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6598,
-              1472,
-            ],
-            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
-            "id": 169223,
-            "itemLevel": 155,
-            "quality": 5,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6598,
+                  1472,
+                ],
+                "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+                "id": 169223,
+                "itemLevel": 155,
+                "quality": 5,
+              }
+            }
+            icon={false}
+            id={169223}
+            quality={5}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={169223}
-        quality={5}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_knife_1h_nzothraid_d_03.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4824,
-              1808,
-              6578,
-              6515,
-              1517,
-              4786,
-              6476,
-              6470,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_yellow.jpg",
-                "id": 168641,
-                "itemLevel": 50,
-              },
-            ],
-            "icon": "inv_knife_1h_nzothraid_d_03.jpg",
-            "id": 172201,
-            "itemLevel": 130,
-            "permanentEnchant": 5963,
-            "quality": 4,
-          }
+                "bonusIDs": Array [
+                  4824,
+                  1808,
+                  6578,
+                  6515,
+                  1517,
+                  4786,
+                  6476,
+                  6470,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_yellow.jpg",
+                    "id": 168641,
+                    "itemLevel": 50,
+                  },
+                ],
+                "icon": "inv_knife_1h_nzothraid_d_03.jpg",
+                "id": 172201,
+                "itemLevel": 130,
+                "permanentEnchant": 5963,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={172201}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
         }
-        icon={false}
-        id={172201}
-        quality={4}
-      >
-        Weapon
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -4830,6 +5606,91 @@ exports[`Affliction Warlock integration test: example log QuickNavigation matche
 </div>
 `;
 
+exports[`Affliction Warlock integration test: example log ShadowEmbrace matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=32388"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Shadow Embrace"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowembrace.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=32388"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Shadow Embrace
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          0.00
+           %
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            <small>
+              uptime 
+              <sup>
+                *
+              </sup>
+            </small>
+          </dfn>
+          <br />
+          0
+           DPS 
+          <small>
+            0.00
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Affliction Warlock integration test: example log SiphonLifeUptime matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -4970,84 +5831,6 @@ exports[`Affliction Warlock integration test: example log Strife matches the sta
           <small>
             average Versatility gained
           </small>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Affliction Warlock integration test: example log SuddenOnset matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic small "
-    position={1001}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=278721"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Sudden Onset"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_curseofsargeras.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=278721"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Sudden Onset
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <span
-            style={
-              Object {
-                "fontSize": 29,
-              }
-            }
-          >
-            57
-             DPS 
-            <small>
-              (
-              2.07
-               % of total)
-            </small>
-          </span>
         </div>
       </div>
     </div>
@@ -5535,85 +6318,6 @@ exports[`Affliction Warlock integration test: example log VitaChargedTitanshard 
           <br />
         </div>
       </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Affliction Warlock integration test: example log WrackingBrilliance matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic small "
-    position={1001}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=272891"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Wracking Brilliance"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_felmending.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=272891"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Wracking Brilliance
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 17 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
-            />
-          </svg>
-           
-          50
-           
-          <small>
-            average Intellect
-          </small>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
     </div>
   </div>
 </div>
@@ -6649,6 +7353,78 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  href="http://wowhead.com/spell=48020"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccircleteleport.jpg"
+                  />
+                   
+                  Demonic Circle Teleport
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
                   href="http://wowhead.com/spell=104773"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6741,7 +7517,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "24.145971522583842%",
+                  "width": "24.99333262942227%",
                 }
               }
             />
@@ -6890,7 +7666,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  27.58%
+                  26.65%
                    
                    
                 </div>
@@ -6912,7 +7688,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "24.145971522583842%",
+                        "width": "24.99333262942227%",
                       }
                     }
                   />
@@ -7165,7 +7941,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7225,7 +8001,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7285,7 +8061,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7345,7 +8121,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7405,7 +8181,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -7465,7 +8241,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7525,7 +8301,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>

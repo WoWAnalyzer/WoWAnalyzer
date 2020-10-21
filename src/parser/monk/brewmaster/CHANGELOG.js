@@ -1,11 +1,14 @@
 import React from 'react';
 
-import { Abelito75, emallson, Zerotorescue } from 'CONTRIBUTORS';
+import { Abelito75, emallson, Zerotorescue, Dambroda, Zeboot } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
+  change(date(2020, 10, 17), 'Added some missing abilities and updated ability cooldowns.', Dambroda),
+  change(date(2020, 10, 16), <>Removed "Inefficient <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Casts" statistic.</>, emallson),
   change(date(2020, 10, 12), 'Updated checklist to reflect the Shadowlands changes.', emallson),
   change(date(2020, 10, 6), <>Added Fallen Order statistic.</>, Abelito75),
   change(date(2020, 9, 5), <>Updated Brewmaster spells for Shadowlands.</>, emallson),
