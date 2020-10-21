@@ -8,7 +8,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import HIT_TYPES from 'game/HIT_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { FIRE_DIRECT_DAMAGE_SPELLS, PHOENIX_FLAMES_MAX_CHARGES } from 'parser/mage/shared/constants';
+import { FIRE_DIRECT_DAMAGE_SPELLS } from 'parser/mage/shared/constants';
 
 const MS_REDUCTION = 1000;
 
