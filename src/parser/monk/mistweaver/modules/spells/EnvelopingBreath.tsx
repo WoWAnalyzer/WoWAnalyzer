@@ -11,7 +11,7 @@ import Events, {HealEvent } from 'parser/core/Events';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Combatants from 'parser/shared/modules/Combatants';
 
-const ENVELOPING_BREATH_INCREASE: number = .1;
+const ENVELOPING_BREATH_INCREASE = .1;
 
 class EnvelopingBreath extends Analyzer {
     static dependencies = {

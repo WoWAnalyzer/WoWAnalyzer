@@ -255,7 +255,7 @@ class EchoOfLightMastery extends Analyzer {
 
     const rows = [];
 
-    for (let i = 0; i < spellDetails.length; i++) {
+    for (let i = 0; i < spellDetails.length; i += 1) {
       if (DEBUG || this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId) > CUTOFF_PERCENT) {
         rows.push(
           <tr key={'mastery_' + spellDetails[i].spellId}>

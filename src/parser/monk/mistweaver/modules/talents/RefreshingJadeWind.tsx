@@ -11,7 +11,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-const TARGETSPERCAST: number = 78;
+const TARGETSPERCAST = 78;
 
 class RefreshingJadeWind extends Analyzer {
   healsRJW: number = 0;

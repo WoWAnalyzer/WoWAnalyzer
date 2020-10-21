@@ -17,11 +17,11 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 
-const LC_MANA_PER_SECOND_RETURN_MINOR: number = 80;
+const LC_MANA_PER_SECOND_RETURN_MINOR = 80;
 const LC_MANA_PER_SECOND_RETURN_AVERAGE: number = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
 const LC_MANA_PER_SECOND_RETURN_MAJOR: number = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
 
-const debug: boolean = false;
+const debug = false;
 
 class Lifecycles extends Analyzer {
   manaSaved: number = 0;

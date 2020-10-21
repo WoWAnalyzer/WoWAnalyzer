@@ -24,7 +24,7 @@ import ManaTea from './ManaTea';
 import SpiritOfTheCrane from './SpiritOfTheCrane';
 import Lifecycles from './Lifecycles';
 
-const debug: boolean = false;
+const debug = false;
 
 class Tier45Comparison extends Analyzer {
   static dependencies = {

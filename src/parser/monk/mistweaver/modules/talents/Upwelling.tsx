@@ -14,8 +14,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 
 
-const BASE_HOT_TIME: number = 8000;//ef's hot base time
-const BASE_BOLTS: number = 17;//18 base but we start counting at 0 so 18th on bolt count = 19th bolt
+const BASE_HOT_TIME = 8000;//ef's hot base time
+const BASE_BOLTS = 17;//18 base but we start counting at 0 so 18th on bolt count = 19th bolt
 
 
 /**
