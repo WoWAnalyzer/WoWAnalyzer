@@ -146,7 +146,7 @@ class Tier45Comparison extends Analyzer {
       //life cycles reduces mana cost of two spells if you casted the other before hand
       //so best = (x-1) * 3500 * .25 + x * 5200 * .25 = (best + 875) / 2715 = x
       //x-1 since you viv first in all fights
-      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + 875) / 2715);
+      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + SPELLS.VIVIFY.manaCost * SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed) / SPELLS.ENVELOPING_MIST.manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
       this.lifecycles.requiredVivs = this.lifecycles.requiredEnvs-1;
     }
 
