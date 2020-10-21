@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
 import * as CONTRIBUTORS from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
@@ -7,8 +6,9 @@ import ItemLink from 'common/ItemLink';
 import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SPECS from 'game/SPECS';
+import SPECS, { Spec } from 'game/SPECS';
 import Contributor from 'interface/ContributorButton';
+import {ContributorType} from 'interface/ContributorButton/ContributorButton';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
 import RegularArticle from 'interface/news/RegularArticle';
@@ -49,10 +49,10 @@ import ElementalShamanCastEfficiency from './ElementalShamanCastEfficiency.jpg';
 import ElementalShamanCooldowns from './ElementalShamanCooldowns.jpg';
 import ElementalShamanProcs from './ElementalShamanProcs.jpg';
 import ElementalShamanMaelstrom from './ElementalShamanMaelstrom.jpg';
-import ManaTab from './ManaTab.PNG';
+import ManaTab from './ManaTab.png';
 import RestoShaman from './RestoShaman.png';
 import RestoShamanFeeding from './RestoShamanFeeding.png';
-import HolyPriest from './HolyPriest.PNG';
+import HolyPriest from './HolyPriest.png';
 import LowHealthHealing from './LowHealthHealing.png';
 import ExtensionToolbar from './ExtensionToolbar.jpg';
 import ExtensionActive from './ExtensionActive.jpg';
@@ -106,29 +106,24 @@ import GearTab from './GearTab.png';
 import WoWAnalyzerPartyHat from './WoWAnalyzerPartyHat.png';
 import AntorusImage from '../2017-11-26-Updated-for-Antorus/antorus.jpg';
 
-const SpecIcon = ({ spec }) => (
+interface SpecIconProps {
+  spec: Spec
+};
+
+const SpecIcon = ({spec}: SpecIconProps) => (
   <img
     src={`/specs/${spec.className.replace(' ', '')}-${spec.specName.replace(' ', '')}.jpg`}
     alt={`${spec.specName} ${spec.className}`}
     style={{ float: 'left', borderRadius: 5, margin: '5px 10px 10px 0px' }}
   />
 );
-SpecIcon.propTypes = {
-  spec: PropTypes.object.isRequired,
-};
 
 /* eslint-disable jsx-a11y/accessible-emoji */
 
-class Article extends React.PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      expanded: false,
-    };
-  }
+const Article = (props: ArticleProps) => {
+  const [expanded, setExpanded] = useState(false);
 
-  renderExpansion() {
-    return (
+  const renderExpansion = () => (
       <>
         <Item title="A new layout" date="4 Feb">
           As the project was getting a lot of attention in the Holy Paladin community, the layout was cleaned up a bit and a player breakdown was added. This layout stayed largely the same for a couple of months.<br /><br />
@@ -976,12 +971,10 @@ class Article extends React.PureComponent {
           We'll continue working on making WoWAnalyzer the best place for (automated) analysis. There are a lot of things planned for 2018, we're thinking Battle for Azeroth support for as many specs as possible, layout reworks and other interface improvements, <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues">fixing all issues/suggestions</a>, account system with personal customizations, Patreon integration that will support cool new <a href="https://www.patreon.com/wowanalyzer">Patreon-funded</a> features and much more!
         </Item>
       </>
-    );
-  }
+    )
 
-  render() {
     return (
-      <RegularArticle bodyStyle={{ position: 'relative', overflow: 'hidden' }} {...this.props}>
+      <RegularArticle bodyStyle={{ position: 'relative', overflow: 'hidden' }} {...props}>
         <img src={WoWAnalyzerPartyHat} style={{ float: 'right', maxWidth: 200, marginLeft: 15, marginBottom: 15 }} alt="1" />
         WoWAnalyzer turned one! Time flies when you're having fun working hard. We want to use this milestone to look back at the progress we have made during this past year. So much progress has been made!<br /><br />
 
@@ -1015,9 +1008,9 @@ class Article extends React.PureComponent {
             <Image source={v001} description="Holy Paladin mastery effectiveness calculator v0.0.1. Do note that at the time WCL throttled the events API to 300 events per API call, so loading a fight took considerably longer back then." />
           </Item>
 
-          {this.state.expanded && this.renderExpansion()}
+          {expanded && renderExpansion()}
         </Timeline>
-        {!this.state.expanded && (
+        {!expanded && (
           <div
             style={{
               position: 'absolute',
@@ -1036,9 +1029,7 @@ class Article extends React.PureComponent {
               cursor: 'pointer',
             }}
             onClick={() => {
-              this.setState({
-                expanded: true,
-              });
+              setExpanded(true);
             }}
           >
             <div style={{ width: '100%' }}>
@@ -1048,7 +1039,12 @@ class Article extends React.PureComponent {
         )}
       </RegularArticle>
     );
-  }
+}
+
+interface ArticleProps {
+  title: string,
+  publishedAt: string,
+  publishedBy: ContributorType
 }
 
 export default (
