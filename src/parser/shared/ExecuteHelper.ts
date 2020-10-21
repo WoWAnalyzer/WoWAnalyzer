@@ -132,7 +132,7 @@ class ExecuteHelper extends Analyzer {
    * Returns true if the combatant has one of the buffs that enable execute to be used outside of the regular execute windows
    */
   isExecuteUsableOutsideExecuteRange() {
-    let usable: boolean = false;
+    let usable = false;
     this.executeOutsideRangeEnablers.forEach(spell => {
       if (this.selectedCombatant.hasBuff(spell.id)) {
         usable = true;
