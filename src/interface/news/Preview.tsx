@@ -1,10 +1,15 @@
+/* eslint react/prop-types: 0 */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import makeUrl from './makeUrl';
 
-const Preview = props => {
+interface Props {
+  title: React.ReactNode,
+  image: string
+}
+
+const Preview = (props: Props) => {
   const { title, children, image } = props;
 
   return (
@@ -25,12 +30,6 @@ const Preview = props => {
       </div>
     </article>
   );
-};
-
-Preview.propTypes = {
-  title: PropTypes.node.isRequired,
-  children: PropTypes.node.isRequired,
-  image: PropTypes.string.isRequired,
 };
 
 export default Preview;
