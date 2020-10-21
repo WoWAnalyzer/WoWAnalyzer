@@ -9,7 +9,7 @@ import { ContributorType } from 'interface/ContributorButton/ContributorButton';
 
 interface Props {
   title: ReactNode;
-  bodyStyle: object;
+  bodyStyle?: object;
   children: ReactNode,
   publishedAt: string,
   publishedBy: ContributorType
