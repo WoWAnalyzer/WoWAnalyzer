@@ -1,6 +1,16 @@
 import indexById from 'common/indexById';
+import { ClassResources } from 'parser/core/Events';
 
-const RESOURCE_TYPES = {
+interface ResourceTypes { [type: string]: Resource }
+
+export interface Resource {
+  id: number;
+  name: string;
+  icon: string;
+  url: string;
+}
+
+const RESOURCE_TYPES: ResourceTypes = {
   MANA: { // Paladin, Priest, Shaman, Mage, Warlock, Monk, Druid
     id: 0,
     name: 'Mana',
@@ -108,6 +118,9 @@ const RESOURCE_TYPES = {
 };
 export default indexById(RESOURCE_TYPES);
 
-export function getResource(classResources, type) {
+export function getResource(classResources: ClassResources[] | undefined, type: number) {
+  if (!classResources) {
+    return undefined;
+  }
   return classResources.find(resource => resource.type === type);
 }

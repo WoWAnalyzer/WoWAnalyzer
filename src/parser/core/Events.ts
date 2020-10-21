@@ -57,14 +57,14 @@ export enum EventType {
   Dispel = 'dispel',
   Time = 'time',
   Test = 'test',
-  SpendResource = "spendresource",
+  SpendResource = 'spendresource',
 
   // Monk
   AddStagger = 'addstagger',
   RemoveStagger = 'removestagger',
 
   // Priest
-  Atonement ='atonement',
+  Atonement = 'atonement',
   AtonementDamage = 'atonementDamageSource',
   AtonementApplied = 'atonement_applied',
   AtonementFaded = 'atonement_faded',
@@ -139,6 +139,7 @@ export interface ClassResources {
   amount: number;
   max: number;
   type: number;
+  cost?: number;
 }
 
 // TODO: Find a good place for this
