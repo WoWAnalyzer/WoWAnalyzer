@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 19), 'Update to "2018-01-31-1st-Anniversary" Typescript', ChagriAli),
   change(date(2020, 10, 19), 'Updated some react components, and adjusted our ContributorDetails modal to more accurately show what it represents', Putro),
   change(date(2020, 10, 19), 'Removed legacy event listener support', Zeboot),
   change(date(2020, 10, 18), 'Updated talent row levels.', Abelito75),
