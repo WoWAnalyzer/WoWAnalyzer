@@ -10,7 +10,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { FIRE_DIRECT_DAMAGE_SPELLS, PHOENIX_FLAMES_MAX_CHARGES } from 'parser/mage/shared/constants';
 
-const MS_REDUCTION_PER_STACK = 1000;
+const MS_REDUCTION = 1000;
 
 class FromTheAshes extends Analyzer {
   static dependencies = {
@@ -31,8 +31,7 @@ class FromTheAshes extends Analyzer {
     if (!this.spellUsable.isOnCooldown(SPELLS.PHOENIX_FLAMES.id) || event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
-    const chargesOnCD = PHOENIX_FLAMES_MAX_CHARGES - this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES.id);
-    this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.PHOENIX_FLAMES, MS_REDUCTION_PER_STACK * chargesOnCD);
+    this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.PHOENIX_FLAMES, MS_REDUCTION);
   }
 
   get cooldownReductionSeconds() {
