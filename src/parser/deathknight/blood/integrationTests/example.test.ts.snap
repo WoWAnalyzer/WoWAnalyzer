@@ -253,7 +253,7 @@ exports[`Blood Death Knight integration test: example log BloodPlagueUptime matc
           95.49
           % 
           <small>
-            Blood Plague uptime
+            uptime
           </small>
         </div>
       </div>
@@ -449,7 +449,7 @@ exports[`Blood Death Knight integration test: example log BoneShield matches the
           96.21
           % 
           <small>
-            Bone Shield uptime
+            uptime
           </small>
         </div>
       </div>
@@ -3490,7 +3490,7 @@ exports[`Blood Death Knight integration test: example log CrimsonScourge matches
           33.33
            % 
           <small>
-            Crimson Scourge procs wasted
+            procs wasted
           </small>
         </div>
       </div>
@@ -4265,7 +4265,7 @@ exports[`Blood Death Knight integration test: example log MarrowrendUsage matche
           10
            
           <small>
-            Bad Marrowrend casts
+            bad casts
           </small>
         </div>
       </div>
