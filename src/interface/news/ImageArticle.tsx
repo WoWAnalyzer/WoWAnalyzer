@@ -7,7 +7,7 @@ interface Props {
   style: object
 }
 
-const ImageArticle: React.FC<Props> = (props) => {
+const ImageArticle = (props: Props) => {
   const { title, children, image, style } = props;
 
   return (
