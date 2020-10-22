@@ -147,10 +147,10 @@ class HealingEfficiencyTracker extends Analyzer {
         if (includeCooldowns || ability.category !== 'Cooldown') {
           spells[ability.spell.id] = this.getSpellStats(ability.spell.id, ability.healSpellIds);
 
-          topHpm = Math.max(topHpm, spells[ability.spell.id].hpm || 0);
-          topDpm = Math.max(topDpm, spells[ability.spell.id].dpm || 0);
-          topHpet = Math.max(topHpet, spells[ability.spell.id].hpet || 0);
-          topDpet = Math.max(topDpet, spells[ability.spell.id].dpet || 0);
+          topHpm = Math.max(topHpm, spells[ability.spell.id].hpm);
+          topDpm = Math.max(topDpm, spells[ability.spell.id].dpm);
+          topHpet = Math.max(topHpet, spells[ability.spell.id].hpet);
+          topDpet = Math.max(topDpet, spells[ability.spell.id].dpet);
         }
       }
     }

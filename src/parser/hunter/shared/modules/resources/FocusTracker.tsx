@@ -20,7 +20,6 @@ class FocusTracker extends ResourceTracker {
     const spellId = event.ability.guid;
     let waste;
     let gain;
-
     if (BEAST_MASTERY_SPELLS_WITHOUT_WASTE.includes(spellId)) {
       gain = event.resourceChange;
       if (BARBED_SHOT_FOCUS_REGEN_BUFFS.includes(spellId)) {
@@ -29,10 +28,10 @@ class FocusTracker extends ResourceTracker {
         waste = AOTW_REGEN - event.resourceChange;
       } else if (spellId === SPELLS.CHIMAERA_SHOT_FOCUS.id) {
         waste = CHIM_REGEN - event.resourceChange;
-      } else {
-        waste = event.waste;
-        gain = event.resourceChange - waste;
       }
+    } else {
+      waste = event.waste;
+      gain = event.resourceChange - waste;
     }
 
     this._applyBuilder(spellId, this.getResource(event), gain, waste, event.timestamp);
