@@ -119,10 +119,10 @@
 			"14": -22
 		}
     },
-	"IRON_MAIDEN": {
+	"FUELED_BY_VIOLENCE": {
     	"id": 347213,
-    	"name": "Iron Maiden",
-    	"icon": "inv_titanium_shield_spike",
+    	"name": "Fueled by Violence",
+    	"icon": "ability_demonhunter_bloodlet",
     	"type": "endurance",
     	"covenantID": 0,
     	"soulbindConduitID": 10,
@@ -2225,9 +2225,9 @@
 			"14": 14.4
 		}
     },
-	"BITING_COLD": {
+	"EVERFROST": {
     	"id": 337988,
-    	"name": "Biting Cold",
+    	"name": "Everfrost",
     	"icon": "ability_mage_deepfreeze",
     	"type": "potency",
     	"covenantID": 0,
@@ -2522,10 +2522,10 @@
 			"14": 9120
 		}
     },
-	"EARTH_AND_SKY": {
+	"PYROCLASTIC_SHOCK": {
     	"id": 345594,
-    	"name": "Earth and Sky",
-    	"icon": "inv_misc_stormlordsfavor",
+    	"name": "Pyroclastic Shock",
+    	"icon": "ability_siege_engineer_purification_beam",
     	"type": "potency",
     	"covenantID": 0,
     	"soulbindConduitID": 100,
@@ -3572,9 +3572,9 @@
 			"14": 20000
 		}
     },
-	"EMPOWERED_SHOT": {
+	"EMPOWERED_RELEASE": {
     	"id": 339059,
-    	"name": "Empowered Shot",
+    	"name": "Empowered Release",
     	"icon": "buff_epichunter",
     	"type": "potency",
     	"covenantID": 2,
@@ -3653,10 +3653,10 @@
 			"14": 480
 		}
     },
-	"STALWART_AS_A_CRUSADER": {
+	"PURE_CONCENTRATION": {
     	"id": 339124,
-    	"name": "Stalwart as a Crusader",
-    	"icon": "achievement_guildperk_everyones_a_hero",
+    	"name": "Pure Concentration",
+    	"icon": "spell_holy_mindsooth",
     	"type": "finesse",
     	"covenantID": 0,
     	"soulbindConduitID": 142,
@@ -3842,9 +3842,9 @@
 			"14": 17
 		}
     },
-	"DEMONS_TOUCH": {
+	"RELENTLESS_ONSLAUGHT": {
     	"id": 339151,
-    	"name": "Demon's Touch",
+    	"name": "Relentless Onslaught",
     	"icon": "ability_demonhunter_soulcleave2",
     	"type": "potency",
     	"covenantID": 0,
@@ -5624,10 +5624,10 @@
 			"14": 24
 		}
     },
-	"PROLONGED_DECIMATION": {
+	"FATAL_DECIMATION": {
     	"id": 340268,
-    	"name": "Prolonged Decimation",
-    	"icon": "spell_animamaldraxxus_wave",
+    	"name": "Fatal Decimation",
+    	"icon": "spell_animamaldraxxus_missile",
     	"type": "potency",
     	"covenantID": 4,
     	"soulbindConduitID": 218,
@@ -6812,9 +6812,9 @@
 			"14": 192
 		}
     },
-	"SLAUGHTER_SCARS": {
+	"LASHING_SCARS": {
     	"id": 341310,
-    	"name": "Slaughter Scars",
+    	"name": "Lashing Scars",
     	"icon": "spell_animaardenweald_buff",
     	"type": "potency",
     	"covenantID": 2,
@@ -7298,9 +7298,9 @@
 			"14": 9.6
 		}
     },
-	"STILETO_STACCATO": {
+	"STILETTO_STACCATO": {
     	"id": 341559,
-    	"name": "Stileto Staccato",
+    	"name": "Stiletto Staccato",
     	"icon": "spell_animaardenweald_buff",
     	"type": "potency",
     	"covenantID": 0,
@@ -7352,9 +7352,9 @@
 			"14": 46
 		}
     },
-	"COLLATERAL_DAMAGE": {
+	"UNNATURAL_MALICE": {
     	"id": 344358,
-    	"name": "Collateral Damage",
+    	"name": "Unnatural Malice",
     	"icon": "spell_animaardenweald_missile",
     	"type": "potency",
     	"covenantID": 3,
@@ -7379,4 +7379,31 @@
 			"14": 60
 		}
     },
+	"AMBUSCADE": {
+    	"id": 346747,
+    	"name": "Ambuscade",
+    	"icon": "ability_rogue_feint",
+    	"type": "finesse",
+    	"covenantID": 0,
+    	"soulbindConduitID": 282,
+    	"conduitItemID": 184587,
+    	"AuraPointsOverrideArray": [1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,1000,2300,2400],
+    	"AuraPointsOverride": { 
+			"0": 1000,
+			"1": 1100,
+			"2": 1200,
+			"3": 1300,
+			"4": 1400,
+			"5": 1500,
+			"6": 1600,
+			"7": 1700,
+			"8": 1800,
+			"9": 1900,
+			"10": 2000,
+			"11": 2100,
+			"12": 1000,
+			"13": 2300,
+			"14": 2400
+		}
+    }
 }

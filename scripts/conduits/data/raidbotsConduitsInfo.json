@@ -481,8 +481,8 @@
   },
   {
     "id": 10,
-    "name": "Iron Maiden",
-    "icon": "inv_titanium_shield_spike",
+    "name": "Fueled by Violence",
+    "icon": "ability_demonhunter_bloodlet",
     "typeId": 2,
     "type": "endurance",
     "covenant": 0,
@@ -494,78 +494,78 @@
     "ranks": [
       {
         "rank": 1,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 2,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 3,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 4,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 5,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 6,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 7,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 8,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 9,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 10,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 11,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 12,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 13,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 14,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 15,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       }
     ]
   },
@@ -7847,7 +7847,7 @@
   },
   {
     "id": 91,
-    "name": "Biting Cold",
+    "name": "Everfrost",
     "icon": "ability_mage_deepfreeze",
     "typeId": 1,
     "type": "potency",
@@ -8596,85 +8596,85 @@
     "ranks": [
       {
         "rank": 1,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 2,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 3,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 4,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 5,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 6,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 7,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 8,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 9,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 10,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 11,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 12,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 13,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 14,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 15,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       }
     ]
   },
   {
     "id": 100,
-    "name": "Earth and Sky",
-    "icon": "inv_misc_stormlordsfavor",
+    "name": "Pyroclastic Shock",
+    "icon": "ability_siege_engineer_purification_beam",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
@@ -8686,78 +8686,78 @@
     "ranks": [
       {
         "rank": 1,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 2,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 3,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 4,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 5,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 6,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 7,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 8,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 9,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 10,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 11,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 12,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 13,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 14,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 15,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       }
     ]
   },
@@ -12104,7 +12104,7 @@
   },
   {
     "id": 139,
-    "name": "Empowered Shot",
+    "name": "Empowered Release",
     "icon": "buff_epichunter",
     "typeId": 1,
     "type": "potency",
@@ -12380,8 +12380,8 @@
   },
   {
     "id": 142,
-    "name": "Stalwart as a Crusader",
-    "icon": "achievement_guildperk_everyones_a_hero",
+    "name": "Pure Concentration",
+    "icon": "spell_holy_mindsooth",
     "typeId": 0,
     "type": "finesse",
     "covenant": 0,
@@ -12396,77 +12396,77 @@
       {
         "rank": 1,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 2,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 3,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 4,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 5,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 6,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 7,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 8,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 9,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 10,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 11,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 12,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 13,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 14,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 15,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       }
     ]
   },
@@ -13115,7 +13115,7 @@
   },
   {
     "id": 150,
-    "name": "Demon's Touch",
+    "name": "Relentless Onslaught",
     "icon": "ability_demonhunter_soulcleave2",
     "typeId": 1,
     "type": "potency",
@@ -13390,9 +13390,10 @@
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
-    "specSet": 9,
+    "specSet": 8,
     "specUsable": [
-      577
+      577,
+      581
     ],
     "itemId": 182385,
     "ranks": [
@@ -19106,8 +19107,8 @@
   },
   {
     "id": 218,
-    "name": "Prolonged Decimation",
-    "icon": "spell_animamaldraxxus_wave",
+    "name": "Fatal Decimation",
+    "icon": "spell_animamaldraxxus_missile",
     "typeId": 1,
     "type": "potency",
     "covenant": 4,
@@ -19122,77 +19123,77 @@
       {
         "rank": 1,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 2,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 3,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 4,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 5,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 6,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 7,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 8,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 9,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 10,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 11,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 12,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 13,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 14,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 15,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       }
     ]
   },
@@ -20112,7 +20113,7 @@
   },
   {
     "id": 229,
-    "name": "Slaughter Scars",
+    "name": "Lashing Scars",
     "icon": "spell_animaardenweald_buff",
     "typeId": 1,
     "type": "potency",
@@ -21748,7 +21749,7 @@
   },
   {
     "id": 247,
-    "name": "Stileto Staccato",
+    "name": "Stiletto Staccato",
     "icon": "spell_animaardenweald_buff",
     "typeId": 1,
     "type": "potency",
@@ -24843,7 +24844,7 @@
   },
   {
     "id": 281,
-    "name": "Collateral Damage",
+    "name": "Unnatural Malice",
     "icon": "spell_animaardenweald_missile",
     "typeId": 1,
     "type": "potency",
@@ -24929,6 +24930,98 @@
         "rank": 15,
         "spellId": 344358,
         "icon": "spell_animaardenweald_missile"
+      }
+    ]
+  },
+  {
+    "id": 282,
+    "name": "Ambuscade",
+    "icon": "ability_rogue_feint",
+    "typeId": 0,
+    "type": "finesse",
+    "covenant": 0,
+    "specSet": 163,
+    "specUsable": [
+      253,
+      254,
+      255
+    ],
+    "itemId": 184587,
+    "ranks": [
+      {
+        "rank": 1,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 2,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 3,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 4,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 5,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 6,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 7,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 8,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 9,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 10,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 11,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 12,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 13,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 14,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 15,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
       }
     ]
   }
