@@ -4,7 +4,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent } from 'parser/core/Events';
 
-import { ASSASSINATION_ABILITY_COOLDOWNS, SUBTLETY_ABILITY_COOLDOWNS, OUTLAW_ABILITY_COOLDOWNS, SHARED_ABILITY_COOLDOWNS } from 'parser/rogue/shared/constants';
+import { ASSASSINATION_ABILITY_COOLDOWNS, SUBTLETY_ABILITY_COOLDOWNS, OUTLAW_ABILITY_COOLDOWNS } from 'parser/rogue/shared/constants';
 import { SpellList } from 'common/SPELLS/Spell';
 
 /**
@@ -22,33 +22,34 @@ class InvigoratingShadowdust extends Analyzer {
   protected spellUsable!: SpellUsable;
   spec: string = '';
   cooldownReduction: number = 15000; // 15 seconds
+  cooldowns: SpellList[] = [];
 
   constructor(options: Options) {
     super(options);
     this.spec = this.selectedCombatant.spec().specName;
+    switch (this.spec) {
+      case 'Assassination':
+        this.cooldowns = ASSASSINATION_ABILITY_COOLDOWNS;
+        break;
+      case 'Outlaw':
+        this.cooldowns = OUTLAW_ABILITY_COOLDOWNS;
+        break;
+      case 'Subtlety':
+        this.cooldowns = SUBTLETY_ABILITY_COOLDOWNS;
+        break;
+      default:
+        break;
+    }
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.INVIGORATING_SHADOWDUST.bonusID);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VANISH), this.onCast);
   }
 
   onCast(event: CastEvent) {
-    let cooldowns: SpellList[];
-    switch (this.spec) {
-      case 'Assassination':
-        cooldowns = [ASSASSINATION_ABILITY_COOLDOWNS, SHARED_ABILITY_COOLDOWNS];
-        break;
-      case 'Outlaw':
-        cooldowns = [OUTLAW_ABILITY_COOLDOWNS, SHARED_ABILITY_COOLDOWNS];
-        break;
-      case 'Subtlety':
-        cooldowns = [SUBTLETY_ABILITY_COOLDOWNS, SHARED_ABILITY_COOLDOWNS];
-        break;
-      default:
-        cooldowns = [SHARED_ABILITY_COOLDOWNS]
-    }
-
-    cooldowns.map((cooldown, index) => {
+    this.cooldowns.map((cooldown, index) => {
       const { id } = cooldown[index];
-      return this.spellUsable.reduceCooldown(id, this.cooldownReduction, event.timestamp);
+      if (this.spellUsable.isOnCooldown(id)) {
+        return this.spellUsable.reduceCooldown(id, this.cooldownReduction, event.timestamp);
+      }
     });
   }
 }
