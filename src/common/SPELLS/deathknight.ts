@@ -289,10 +289,10 @@ const spells: SpellList = {
     icon: 'inv_misc_rune_10',
   },
 
-  PESTILENT_PUSTULES: {
-    id: 220211,
-    name: 'Pestilent Pustules',
-    icon: 'spell_yorsahj_bloodboil_purpleoil',
+  OBLITERATION_RUNE_GAIN:{
+    id: 281327,
+    name: 'Obliteration',
+    icon: 'inv_axe_114',
   },
   
   // Unholy:
@@ -349,6 +349,12 @@ const spells: SpellList = {
     id: 51460,
     name: 'Runic Corruption',
     icon: 'spell_shadow_rune',
+  },
+
+  PESTILENT_PUSTULES: {
+    id: 220211,
+    name: 'Pestilent Pustules',
+    icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
   // scourge strike has one cast event but two damage events, the cast and physical
