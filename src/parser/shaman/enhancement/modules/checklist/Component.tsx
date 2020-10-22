@@ -51,13 +51,17 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
         name="Maintain your buffs"
         description="You should maintain your buffs in order to passively increase your damage done to targets without refreshing them too early."
       >
+        <Requirement name={<> <SpellLink id={SPELLS.EARTH_SHIELD.id} /> & <SpellLink id={SPELLS.LIGHTNING_SHIELD.id} /> uptime</>} thresholds={thresholds.elementalShieldUptime} />
 
         <Requirement name={<> <SpellLink id={SPELLS.FLAMETONGUE.id} /> uptime</>} thresholds={thresholds.flametongueUptime} />
+
         {!combatant.hasTalent(SPELLS.SEARING_ASSAULT_TALENT.id) &&
         <Requirement name={<> <SpellLink id={SPELLS.FLAMETONGUE.id} /> early refreshes</>} thresholds={thresholds.flametongueEarlyRefreshes} />}
 
         {combatant.hasTalent(SPELLS.HAILSTORM_TALENT.id) &&
         <Requirement name={<> <SpellLink id={SPELLS.FROSTBRAND.id} /> uptime</>} thresholds={thresholds.frostbrandUptime} />}
+
+
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import React from 'react';
 import SpellLink from 'common/SpellLink';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class LightningShield extends Analyzer {
 
@@ -14,7 +15,7 @@ class LightningShield extends Analyzer {
 
   /** Returns calculated decimal value of Earth Shield buff uptime. */
   get earthShieldUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.EARTH_SHIELD_TALENT.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.EARTH_SHIELD.id) / this.owner.fightDuration;
   }
 
   /** Returns a Threshold-compatible object based on the values from lightningShieldUptime() and earthShieldUptime(). */
@@ -24,18 +25,16 @@ class LightningShield extends Analyzer {
       isLessThan: {
         minor: 0.95,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: any) {
+  suggestions(when: When) {
     when(this.elementalShieldUptimeThreshold)
-      .addSuggestion((suggest: any, actual: any, recommended: any) => {
-        return suggest(<span>Remember to have <SpellLink id={SPELLS.LIGHTNING_SHIELD.id} /> (or <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> up as constantly as possible. As a 30 minute buff, one should always be cast before combat as well as just after res, if possible.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Remember to have <SpellLink id={SPELLS.LIGHTNING_SHIELD.id} /> or <SpellLink id={SPELLS.EARTH_SHIELD.id} /> up as much as possible. As a 30 minute buff, one should always be cast before combat as well as just after a death, if possible.</span>)
           .icon(SPELLS.LIGHTNING_SHIELD.icon)
           .actual(`${formatPercentage(actual)}% Elemental Shield uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
 
