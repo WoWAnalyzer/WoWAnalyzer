@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 22), 'Healing Efficiency Tracker TypeScript conversion', niseko),
   change(date(2020, 10, 22), 'Update Progressbar to Typescript', Guyius),
   change(date(2020, 10, 21), 'Update some news components to Typescript', ChagriAli),
   change(date(2020, 10, 21), 'Update to "2018-01-31-1st-Anniversary" Typescript', ChagriAli),
@@ -33,7 +34,7 @@ export default [
   change(date(2020, 10, 13), 'Fixed Putros StatTracker', niseko),
   change(date(2020, 10, 13), 'Updated our StatTracker to reflect prepatch stat values and the diminishing return system added in Shadowlands', Putro),
   change(date(2020, 10, 13), 'Converted StatisticsSectionTitle/TABS to TypeScript', ChagriAli),
-  change(date(2020, 10, 13), 'Throughput & Language files TypeScript conversion', niseko),
+  change(date(2020, 10, 13), 'Throughput & Language files  TypeScript conversion', niseko),
   change(date(2020, 10, 13), 'Converted BAD_ICONS, aprilFools, colorForPerformance, Alerts, ContributorButton, Modal to TypeScript', Barter),
   change(date(2020, 10, 13), 'Converted AbilityTracker, Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
   change(date(2020, 10, 13), 'Allow the use of any of the threshold breakpoints (minor, average, major) as the primary breakpoint for suggestions', Dambroda),
