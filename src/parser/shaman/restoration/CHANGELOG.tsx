@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 22), <>Added a module to show the estimated damage reduction from <SpellLink id={SPELLS.SPIRIT_LINK_TOTEM.id} />, as Blizzard finally added the buff to combat logs.</>, niseko),
   change(date(2020, 10, 17), `Fixed imports so we stop crashing!`, Abelito75),
   change(date(2020, 10, 17), `Made almost all of Restoration Shaman localizable.`, niseko),
   change(date(2020, 10, 16), <>Fixed <SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> not displaying its full healing contribution.</>, niseko),

@@ -8,33 +8,17 @@ import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
 
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import makeWclUrl from 'common/makeWclUrl';
-import SpellLink from 'common/SpellLink';
-import Events, { BuffEvent, DamageEvent, EventType } from 'parser/core/Events';
-import { Options } from 'parser/core/Module';
+import { EventType } from 'parser/core/Events';
+import { WCLDamageTaken, WCLDamageTakenTableResponse } from 'common/WCL_TYPES';
 
-const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = .1;
-
-/**
- * Falling damage is considered "pure" or w/e damage meaning it doesn't get reduced by damage reductions. The ability description of such an event can look like this: {
-		"name": "Falling",
-		"guid": 3,
-		"type": 1,
-		"abilityIcon": "inv_axe_02.jpg"
-	},
- * `type: 1` seems to only be used by Falling, but I was unable to verify this. I want to ignore this kind of damage taken. I figured the savest solution would be to filter by ability id instead of type, but if you find another such ability that needs to be ignored and it has `type: 1` while nothing else does, we may want to refactor this.
- */
-// const THIS_MIGHT_BE_PURE_ABILITY_TYPE_ID = 1;
-const FALLING_DAMAGE_ABILITY_ID = 3;
+const SPIRIT_LINK_TOTEM_DAMAGE_REDUCTION = .1;
 
 /**
- * Devotion Aura
- * Damage dealt to allies within 10 yards is reduced by up to 10%, diminishing as more allies enter the aura.
- * While Aura Mastery is active, all affected allies gain 20% damage reduction.
- * ---
- * See the markdown file next to this module for info about how this is analyzed.
+ * Spirit Link Totem
+ * Summons a totem at the target location for 6 sec, which reduces damage taken by all party and raid members within 10 yards by 10%.
  */
 class SpiritLinkDamageReduction extends Analyzer {
   static dependencies = {
@@ -46,28 +30,18 @@ class SpiritLinkDamageReduction extends Analyzer {
     return (this.damageReduced / this.owner.fightDuration) * 1000;
   }
 
-  get auraMasteryUptimeFilter() {
-    const buffHistory = this.selectedCombatant.getBuffHistory(SPELLS.SPIRIT_LINK_TOTEM_BUFF.id); // check source with multiple shamans...
-    if (buffHistory.length === 0) {
-      return null;
-    }
-    // WCL's filter requires the timestamp to be relative to fight start
-    return buffHistory.map(buff => `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${buff.end! - this.owner.fight.start_time})`,)
-      .join(' OR ');
-  }
   get filter() {
     const playerName = this.owner.player.name;
-    const pet = this.owner.playerPets.find(p => p.guid === 53006); //make a pets file or something
-    if (!pet) {
-      return; // do this better
-    }
-//        AND source.id='${pet.id}'
+
     return `
       IN RANGE
-      FROM type='${EventType.ApplyBuff}'
-        AND ability.id=${SPELLS.SPIRIT_LINK_TOTEM_BUFF.id}
-      TO type='${EventType.RemoveBuff}'
-        AND ability.id=${SPELLS.SPIRIT_LINK_TOTEM_BUFF.id}
+        FROM type='${EventType.ApplyBuff}'
+          AND ability.id=${SPELLS.SPIRIT_LINK_TOTEM_BUFF.id}
+          AND source.owner.name='${playerName}'
+        TO type='${EventType.RemoveBuff}'
+          AND ability.id=${SPELLS.SPIRIT_LINK_TOTEM_BUFF.id}
+          AND source.owner.name='${playerName}'
+        GROUP BY target
       END
     `;
   }
@@ -76,23 +50,26 @@ class SpiritLinkDamageReduction extends Analyzer {
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
+      filter: this.filter,
     }).then(json => {
-      console.log('Received AM damage taken', json);
-      
-     // const totalDamageTaken = json.entries.reduce(
-     //   (damageTaken, entry) => damageTaken + entry.total,
-     //   0,
-     // );
-     // this.damageReduced =
-     //   (totalDamageTaken / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION)) *
-     //   DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
+      json = json as WCLDamageTakenTableResponse;
+
+      const totalDamageTaken = (json.entries as WCLDamageTaken[]).reduce((damageTaken: number, entry) => damageTaken + entry.total, 0);
+      this.damageReduced = (totalDamageTaken / (1 - SPIRIT_LINK_TOTEM_DAMAGE_REDUCTION)) * SPIRIT_LINK_TOTEM_DAMAGE_REDUCTION;
     });
   }
 
   statistic() {
     const tooltip = (
-      <Trans>
-        Text
+      <Trans id="shaman.restoration.slt.statistic.tooltip">
+        The total estimated damage reduced during Spirit Link was {formatThousands(this.damageReduced)} ({formatNumber(this.drps)} DRPS).
+        This has a 99% accuracy.
+        <br />
+        <br />
+        This value is calculated using the <i>Optional DRs</i> method.
+        This results in the lowest possible damage reduction value being shown.
+        This should be the correct value in most circumstances.
+        Health redistribution is not part of this calculated value.
       </Trans>
     );
 
@@ -100,9 +77,9 @@ class SpiritLinkDamageReduction extends Analyzer {
       <LazyLoadStatisticBox
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.DEVOTION_AURA.id} />}
-        value={0} //<Trans>≈{formatNumber(this.totalDrps)} DRPS</Trans>
-        label={<Trans>Damage reduction</Trans>}
+        icon={<SpellIcon id={SPELLS.SPIRIT_LINK_TOTEM.id} />}
+        value={<Trans id="shaman.restoration.slt.statistic.value">≈{formatNumber(this.drps)} DRPS</Trans>}
+        label={<Trans id="shaman.restoration.slt.statistic.label">Damage reduction</Trans>}
         tooltip={tooltip}
         drilldown={makeWclUrl(this.owner.report.code, {
           fight: this.owner.fightId,
