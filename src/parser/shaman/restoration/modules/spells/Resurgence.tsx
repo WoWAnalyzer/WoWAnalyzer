@@ -85,6 +85,7 @@ class Resurgence extends Analyzer {
   }
 
   statistic() {
+    console.log(this.owner.playerPets);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RESURGENCE.id} />}
