@@ -228,7 +228,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
                 id="detailed-toggle"
               />
               <label htmlFor="detailed-toggle" style={{ marginLeft: '0.5em' }}>
-                Detailed View
+                <Trans id="shared.healingEfficiency.toggle.detailed">Detailed View</Trans>
               </label>
             </div>
           </div>
@@ -241,12 +241,12 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
                 id="cooldown-toggle"
               />
               <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em' }}>
-                Show Cooldowns
+                <Trans id="shared.healingEfficiency.toggle.cooldowns">Show Cooldowns</Trans>
               </label>
             </div>
             <div className="toggle-control pull-left" style={{ marginLeft: '.5em' }}>
               <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
-                Show Damage
+                <Trans id="shared.healingEfficiency.toggle.damage">Show Damage</Trans>
               </label>
               <Toggle
                 defaultChecked
@@ -255,7 +255,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
                 id="healing-toggle"
               />
               <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
-                Show Healing
+                <Trans id="shared.healingEfficiency.toggle.healing">Show Healing</Trans>
               </label>
             </div>
           </div>
@@ -263,7 +263,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
         <table className="data-table">
           <thead>
             <tr>
-              <th>Ability</th>
+              <Trans render="th" id="common.ability">Ability</Trans>
               {this.state.detailedView ? <this.DetailHeader /> : <this.BarHeader />}
             </tr>
           </thead>
