@@ -4,7 +4,7 @@ export function abbreviateBossNames(originalBossName: string) {
   }
   const splitNames = originalBossName.trim().split(' ');
   let abbreviatedBossName = '';
-  for (let i = 0; i < splitNames.length; i++) {
+  for (let i = 0; i < splitNames.length; i += 1) {
     if (i < splitNames.length - 1) {
       abbreviatedBossName += splitNames[i].charAt(0) + '. ';
     } else {

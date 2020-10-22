@@ -11,7 +11,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-const TARGETSPERCAST: number = 78;
+const TARGETSPERCAST = 78;
 
 class RefreshingJadeWind extends Analyzer {
   healsRJW: number = 0;
@@ -27,7 +27,7 @@ class RefreshingJadeWind extends Analyzer {
     }
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT), this.rjwBuff);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT), this.rjwHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_HEAL), this.rjwHeal);
   }
 
   rjwBuff(event: ApplyBuffEvent) {

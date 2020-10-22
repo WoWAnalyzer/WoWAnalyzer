@@ -33,7 +33,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.80,
-          //extraSuggestion: <>You should use this with every <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} />, otherwise use it with <SpellLink id={SPELLS.PILLAR_OF_FROST} /> if Breath of Sindragosa is not talented.</>,
+          extraSuggestion: <>You should use this with every <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> if it is talented. Otherwise use it with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} />.</>,
         },
         timelineSortIndex: 1,
       },

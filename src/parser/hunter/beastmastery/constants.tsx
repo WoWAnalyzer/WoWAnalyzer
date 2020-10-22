@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 //region Spells
 /** Barbed Shot */
 //max stacks your pet can have of the Frenzy buff
-export const MAX_FRENZY_STACKS: number = 3;
+export const MAX_FRENZY_STACKS = 3;
 //Frenzy lasts 8 seconds normally, but can be adjusted by some effects
 export const ORIGINAL_FRENZY_DURATION = 8000;
 /** Bestial Wrath */

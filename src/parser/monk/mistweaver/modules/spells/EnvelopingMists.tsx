@@ -34,6 +34,7 @@ class EnvelopingMists extends Analyzer {
     this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? .4 : .3;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.castEnvelopingMist);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleEnvelopingMist);
+    
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.masteryEnvelopingMist);
   }
 

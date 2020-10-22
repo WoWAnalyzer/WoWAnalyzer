@@ -10,7 +10,7 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import UptimeIcon from 'interface/icons/Uptime';
 import SPECS from 'game/SPECS';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
@@ -33,7 +33,7 @@ class EarthShield extends Analyzer {
   buffHealing = 0;
   category = STATISTIC_CATEGORY.TALENTS;
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     const isRsham = this.selectedCombatant.specId === SPECS.RESTORATION_SHAMAN.id;
     this.active = isRsham || this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD.id);

@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SYMBOLS_OF_DEATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         buffSpellId: SPELLS.SYMBOLS_OF_DEATH.id,
-        cooldown: 30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_4SET_BONUS.id) ? 5 : 0),
+        cooldown: 30,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,

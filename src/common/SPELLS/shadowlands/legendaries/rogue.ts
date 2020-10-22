@@ -46,6 +46,11 @@ const legendaries: SpellList<LegendarySpell> = {
     name: "Greenskin's Wickers",
     icon: 'ability_creature_cursed_04',
   },
+  GREENSKINS_WICKERS_BUFF: {
+    id: 340573,
+    name: "Greenskin's Wickers",
+    icon: 'ability_creature_cursed_04',
+  },
   GUILE_CHARM: {
     id: 340086,
     bonusID: 7120,
@@ -105,6 +110,11 @@ const legendaries: SpellList<LegendarySpell> = {
   ESSENCE_OF_BLOODFANG: {
     id: 340079,
     bonusID: 7113,
+    name: 'Essence of Bloodfang',
+    icon: 'spell_shadow_lifedrain',
+  },
+  ESSENCE_OF_BLOODFANG_BUFF: {
+    id: 340424,
     name: 'Essence of Bloodfang',
     icon: 'spell_shadow_lifedrain',
   },
