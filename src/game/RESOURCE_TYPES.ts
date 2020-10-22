@@ -1,8 +1,6 @@
 import indexById from 'common/indexById';
 import { ClassResources } from 'parser/core/Events';
 
-interface ResourceTypes { [type: string]: Resource }
-
 export interface Resource {
   id: number;
   name: string;
@@ -10,7 +8,7 @@ export interface Resource {
   url: string;
 }
 
-const RESOURCE_TYPES: ResourceTypes = {
+const RESOURCE_TYPES: { [key: string]: Resource } = {
   MANA: { // Paladin, Priest, Shaman, Mage, Warlock, Monk, Druid
     id: 0,
     name: 'Mana',

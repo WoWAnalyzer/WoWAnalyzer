@@ -1,11 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import ResourceLink from './ResourceLink';
 import Icon from './Icon';
 
-const ResourceIcon = ({ id, noLink, ...others }) => {
+interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
+  id: number;
+  noLink?: boolean;
+}
+
+const ResourceIcon = ({ id, noLink, ...others }: Props) => {
   if (process.env.NODE_ENV === 'development' && !RESOURCE_TYPES[id]) {
     throw new Error(`Unknown spell: ${id}`);
   }
@@ -32,10 +36,6 @@ const ResourceIcon = ({ id, noLink, ...others }) => {
       {icon}
     </ResourceLink>
   );
-};
-ResourceIcon.propTypes = {
-  id: PropTypes.number.isRequired,
-  noLink: PropTypes.bool,
 };
 
 export default ResourceIcon;

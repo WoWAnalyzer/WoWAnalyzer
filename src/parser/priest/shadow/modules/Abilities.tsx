@@ -10,27 +10,27 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.VOID_BOLT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: any) => 4.5 / (1 + haste),
+        cooldown: (haste: number) => 4.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          maxCasts: (cooldown: any) => calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id)),
+          maxCasts: (cooldown: number) => calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id)),
         },
       },
       {
         spell: SPELLS.MIND_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: any) => 7.5 / (1 + haste),
+        cooldown: (haste: number) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
         charges: combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 2 : 1,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.55,
+          recommendedEfficiency: 0.85,
         },
       },
       {
@@ -42,7 +42,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MIND_SEAR,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
@@ -58,7 +58,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOW_WORD_DEATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: any) => 20 / (1 + haste),
+        cooldown: (haste: number) => 20 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -118,7 +118,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.85,
+          recommendedEfficiency: 0.95,
         },
       },
       {
@@ -144,7 +144,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -177,6 +177,10 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+        },
       },
 
       // Utility
@@ -226,9 +230,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DESPERATE_PRAYER,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
       },
       {
         spell: SPELLS.LEAP_OF_FAITH,

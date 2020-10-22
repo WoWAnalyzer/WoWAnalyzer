@@ -35,6 +35,7 @@ class BladeRush extends Analyzer {
       } else {
         this.spellUsable.reduceCooldown(SPELLS.BLADE_RUSH_TALENT.id, cooldownReduction, event.timestamp);
       }
+      
     }
   }
 }
