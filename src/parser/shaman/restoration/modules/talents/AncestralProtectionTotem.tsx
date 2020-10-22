@@ -11,10 +11,11 @@ import SPECS from 'game/SPECS';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import { ApplyDebuffEvent, CastEvent, EventType, HasSource } from 'parser/core/Events';
 import { WCLEventsResponse, WclOptions } from 'common/WCL_TYPES';
+import { Trans } from '@lingui/macro';
 
 //RQXjBJ1kG9pAC2DV/21-Mythic++Atal'Dazar+-+Kill+(51:52)/Koorshaman/
 
@@ -27,7 +28,7 @@ class AncestralProtectionTotem extends Analyzer {
 
   loaded = false;
   aptEvents: Array<CastEvent | ApplyDebuffEvent> = [];
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = Boolean(this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id));
   }
@@ -69,11 +70,11 @@ class AncestralProtectionTotem extends Analyzer {
   spellToText(ability: number) {
     switch (ability) {
       case SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id:
-        return "Totem placed";
+        return <Trans id="shaman.restoration.apt.status.totemPlaced">Totem placed</Trans>;
       case SPELLS.TOTEMIC_REVIVAL_DEBUFF.id:
-        return "Able to revive";
+        return <Trans id="shaman.restoration.apt.status.revivable">Able to revive</Trans>;
       case SPELLS.TOTEMIC_REVIVAL_CAST.id:
-        return "Resurrected";
+        return <Trans id="shaman.restoration.apt.status.res">Resurrected</Trans>;
       default:
         return "";
     }
@@ -81,15 +82,15 @@ class AncestralProtectionTotem extends Analyzer {
 
   statistic() {
     const tooltip = this.loaded
-      ? 'This includes the APT casts of all Restoration Shamans in the fight.'
-      : 'Click to analyze APT usage on this fight.';
-    const value = this.aptEvents.length > 0 ? `${this.aptEvents.length} events found` : 'No Results';
+      ? <Trans id="shaman.restoration.apt.statistic.tooltip.active">This includes the APT casts of all Restoration Shamans in the fight.</Trans>
+      : <Trans id="shaman.restoration.apt.statistic.tooltip.inactive">Click to analyze APT usage on this fight.</Trans>;
+    const value = this.aptEvents.length > 0 ? <Trans id="shaman.restoration.apt.statistic.label.success">{this.aptEvents.length} events found</Trans> : <Trans id="shaman.restoration.apt.statistic.label.failure">No Results</Trans>;
 
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />}
-        label="Ancestral Protection Totem"
+        label={<Trans id="shaman.restoration.apt.statistic.label">Ancestral Protection Totem</Trans>}
         value={value}
         tooltip={tooltip}
         category={STATISTIC_CATEGORY.TALENTS}
@@ -99,9 +100,9 @@ class AncestralProtectionTotem extends Analyzer {
           <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
             <thead>
               <tr>
-                <th>Time</th>
-                <th>Player</th>
-                <th style={{ textAlign: 'center' }}>Ability</th>
+                <th><Trans id="common.time">Time</Trans></th>
+                <th><Trans id="common.player">Player</Trans></th>
+                <th style={{ textAlign: 'center' }}><Trans id="common.ability">Ability</Trans></th>
               </tr>
             </thead>
             <tbody>

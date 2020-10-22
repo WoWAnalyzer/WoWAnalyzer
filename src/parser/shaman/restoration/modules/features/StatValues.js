@@ -8,6 +8,8 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 
+import Events from 'parser/core/Events';
+
 import SPELL_INFO from './StatValuesSpellInfo';
 import MasteryEffectiveness from './MasteryEffectiveness';
 
@@ -27,7 +29,12 @@ class StatValues extends BaseHealerStatValues {
   spellInfo = SPELL_INFO;
   qeLive = true;
 
-  on_feed_heal(event) {
+  constructor(options) {
+    super(options);
+    this.addEventListener(Events.feedheal, this.onFeedHeal);
+  }
+
+  onFeedHeal(event) {
     const spellInfo = this._getSpellInfo(event);
     const healVal = new HealingValue(event.feed, 0, 0);
     const targetHealthPercentage = (event.hitPoints - event.amount) / event.maxHitPoints; // hitPoints contains HP *after* the heal
@@ -38,8 +45,7 @@ class StatValues extends BaseHealerStatValues {
     const spellId = event.ability.guid;
     const critChanceBreakdown = super._getCritChance(event);
 
-    const hasTidalWaves = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, BUFFER_MS, BUFFER_MS);
-
+    const hasTidalWaves = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, 0, BUFFER_MS);
     if (spellId === SPELLS.HEALING_SURGE_RESTORATION.id && hasTidalWaves) {
       critChanceBreakdown.baseCritChance += 0.4;
     }
@@ -51,7 +57,7 @@ class StatValues extends BaseHealerStatValues {
     if (healVal.overheal) {
       return 0;
     }
-    if(event.ability.guid === SPELLS.RIPTIDE.id && !event.tick) {
+    if (event.ability.guid === SPELLS.RIPTIDE.id && !event.tick) {
       return 0;
     }
     return super._hasteHpm(event, healVal);
@@ -79,7 +85,7 @@ class StatValues extends BaseHealerStatValues {
       STAT.INTELLECT,
       {
         stat: STAT.CRITICAL_STRIKE,
-        tooltip: 'Weight does not include Resurgence mana gain.',
+        tooltip: <Trans id="shaman.restoration.statValues.crit">Weight does not include Resurgence mana gain.</Trans>,
       },
       {
         stat: STAT.HASTE_HPCT,

@@ -1,7 +1,9 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
+
+import Events from 'parser/core/Events';
 
 import DemoPets from './index';
 import { isWildImp } from '../helpers';
@@ -28,7 +30,18 @@ class PetSummonHandler extends Analyzer {
     y: 0,
   };
 
-  on_byPlayer_summon(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.summon.by(SELECTED_PLAYER), this.onSummon);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealTaken);
+    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER), this.onAbsorb);
+  }
+
+  onSummon(event) {
     const petInfo = this.demoPets._getPetInfo(event.targetID);
     if (!petInfo) {
       debug && this.error('Summoned unknown pet', event);
@@ -64,7 +77,7 @@ class PetSummonHandler extends Analyzer {
     }
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     this._updatePlayerPosition(event);
     if (event.ability.guid !== SPELLS.SUMMON_DEMONIC_TYRANT.id) {
       return;
@@ -72,7 +85,7 @@ class PetSummonHandler extends Analyzer {
     this._lastDemonicTyrantCast = event.timestamp;
   }
 
-  on_byPlayer_spendresource(event) {
+  onSpendResource(event) {
     this._lastSpendResource = event.timestamp;
   }
 
@@ -80,19 +93,19 @@ class PetSummonHandler extends Analyzer {
   // important, since Wild Imp summons uses player position as default (not entirely accurate, as they're spawned around player, not exactly on top of it, but that's as close as I'm gonna get)
   // needed for Implosion - there's a possibility that Wild Imps don't cast anything between their 'summon' and Implosion, therefore I wouldn't get their position
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     this._updatePlayerPosition(event);
   }
 
-  on_toPlayer_energize(event) {
+  onEnergize(event) {
     this._updatePlayerPosition(event);
   }
 
-  on_toPlayer_heal(event) {
+  onHealTaken(event) {
     this._updatePlayerPosition(event);
   }
 
-  on_toPlayer_absorbed(event) {
+  onAbsorb(event) {
     this._updatePlayerPosition(event);
   }
 

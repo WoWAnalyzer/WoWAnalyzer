@@ -8,9 +8,10 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import IntellectIcon from 'interface/icons/Intellect';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 
 /*
 * Ancient Knot of Wisdom
@@ -58,12 +59,10 @@ class AncientKnotOfWisdom extends Analyzer {
         intellect: this.intellectPerStack,
       });
     }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WISDOM_OF_THE_FOREST_LORD), this.onCast);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.WISDOM_OF_THE_FOREST_LORD.id) {
-      return;
-    }
+  onCast(event) {
     this.casts += 1;
   }
 

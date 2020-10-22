@@ -4,9 +4,9 @@ import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stat
 import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 import STAT from 'parser/shared/modules/features/STAT';
 
 const ARMOR_INT_BONUS = .05;
@@ -400,7 +400,7 @@ class StatTracker extends Analyzer {
       intellect: this.selectedCombatant._combatantInfo.intellect,
       stamina: this.selectedCombatant._combatantInfo.stamina,
       crit: this.selectedCombatant._combatantInfo.critSpell,
-      haste: this.selectedCombatant._combatantInfo.hasteSpell,
+      haste: this.selectedCombatant._combatantInfo.hasteSpell || 0, // the || 0 fixes tests where combatantinfo may not be defined
       mastery: this.selectedCombatant._combatantInfo.mastery,
       versatility: this.selectedCombatant._combatantInfo.versatilityHealingDone,
       avoidance: this.selectedCombatant._combatantInfo.avoidance,
@@ -425,6 +425,12 @@ class StatTracker extends Analyzer {
       strength: 1 + ARMOR_INT_BONUS,
       agility: 1 + ARMOR_INT_BONUS,
     });
+
+    this.addEventListener(Events.changebuffstack.to(SELECTED_PLAYER), this.onChangeBuffStack);
+    this.addEventListener(Events.changedebuffstack.to(SELECTED_PLAYER), this.onChangeDebuffStack);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealTaken);
+
 
     debug && this._debugPrintStats(this._currentStats);
   }
@@ -790,19 +796,19 @@ class StatTracker extends Analyzer {
     return this.speedPercentage(this.currentSpeedRating, true);
   }
 
-  on_toPlayer_changebuffstack(event) {
+  onChangeBuffStack(event) {
     this._changeBuffStack(event);
   }
 
-  on_toPlayer_changedebuffstack(event) {
+  onChangeDebuffStack(event) {
     this._changeBuffStack(event);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     this._updateIntellect(event);
   }
 
-  on_toPlayer_heal(event) {
+  onHealTaken(event) {
     this._updateIntellect(event);
   }
 

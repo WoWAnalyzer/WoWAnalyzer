@@ -35,15 +35,13 @@ class GuileCharm extends Analyzer {
 
   statistic() {
     return (
-      <>
-        <Statistic size="flexible" tooltip="This measures how long each buff from this legendary is active.">
-          <BoringSpellValueText spell={SPELLS.GUILE_CHARM}>
-            <SpellIcon id={SPELLS.SHALLOW_INSIGHT_BUFF.id} /> {formatPercentage(this.percentUptime.shallowInsight)}% <small>Shallow Insight uptime</small><br />
-            <SpellIcon id={SPELLS.MODERATE_INSIGHT_BUFF.id} /> {formatPercentage(this.percentUptime.moderateInsight)}% <small>Moderate Insight uptime</small><br />
-            <SpellIcon id={SPELLS.DEEP_INSIGHT_BUFF.id} /> {formatPercentage(this.percentUptime.deepInsight)}% <small>Deep Insight uptime</small>
-          </BoringSpellValueText>
-        </Statistic>
-      </>
+      <Statistic size="flexible" tooltip="This measures how long each buff from this legendary is active.">
+        <BoringSpellValueText spell={SPELLS.GUILE_CHARM}>
+          <SpellIcon id={SPELLS.SHALLOW_INSIGHT_BUFF.id} /> {formatPercentage(this.percentUptime.shallowInsight)}% <small>Shallow Insight uptime</small><br />
+          <SpellIcon id={SPELLS.MODERATE_INSIGHT_BUFF.id} /> {formatPercentage(this.percentUptime.moderateInsight)}% <small>Moderate Insight uptime</small><br />
+          <SpellIcon id={SPELLS.DEEP_INSIGHT_BUFF.id} /> {formatPercentage(this.percentUptime.deepInsight)}% <small>Deep Insight uptime</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

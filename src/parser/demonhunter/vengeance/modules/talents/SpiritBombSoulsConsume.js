@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
@@ -9,6 +9,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 const MS_BUFFER = 100;
 
@@ -23,6 +24,9 @@ class SpiritBombSoulsConsume extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_BOMB_TALENT), this.onCast);
+    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK), this.onChangeBuffStack);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
 
   castTimestamp = 0;
@@ -31,11 +35,7 @@ class SpiritBombSoulsConsume extends Analyzer {
 
   soulsConsumedByAmount = Array.from({length: 6}, x => 0);
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SPIRIT_BOMB_TALENT.id) {
-      return;
-    }
+  onCast(event) {
     if(this.cast > 0) {
       this.countHits();
     }
@@ -43,10 +43,8 @@ class SpiritBombSoulsConsume extends Analyzer {
     this.cast += 1;
   }
 
-  on_byPlayer_changebuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id || event.oldStacks < event.newStacks) {
-      // only interested in lost stacks of souls
+  onChangeBuffStack(event) {
+    if (event.oldStacks < event.newStacks) {
       return;
     }
     if (event.timestamp - this.castTimestamp < MS_BUFFER) {
@@ -65,7 +63,7 @@ class SpiritBombSoulsConsume extends Analyzer {
     this.castSoulsConsumed = 0;
   }
 
-  on_fightend() {
+  onFightend() {
     this.countHits();
   }
 

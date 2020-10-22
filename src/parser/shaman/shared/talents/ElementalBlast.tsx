@@ -18,31 +18,19 @@ class ElementalBlast extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
-
-    ELEMENTAL_BLAST_BUFFS.forEach(buff => {
-      this.addEventListener(
-        Events.applybuff.by(SELECTED_PLAYER)
-          .spell(buff),
-        this.onBuffApplied,
-      );
-
-      this.addEventListener(
-        Events.removebuff.by(SELECTED_PLAYER)
-          .spell(buff),
-        this.onBuffRemoved,
-      );
-    });
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_BUFFS), this.onRemoveBuff);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_BUFFS), this.onApplyBuff);
   }
 
-  onBuffRemoved(event: RemoveBuffEvent) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     this.currentBuffAmount -= 1;
-    if (this.currentBuffAmount === 0) {
+    if (this.currentBuffAmount===0) {
       this.resultDuration += event.timestamp - this.lastFreshApply;
     }
   }
 
-  onBuffApplied(event: ApplyBuffEvent) {
-    if (this.currentBuffAmount === 0) {
+  onApplyBuff(event: ApplyBuffEvent) {
+    if (this.currentBuffAmount===0) {
       this.lastFreshApply = event.timestamp;
     }
     this.currentBuffAmount += 1;

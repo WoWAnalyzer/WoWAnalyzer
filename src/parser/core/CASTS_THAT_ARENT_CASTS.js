@@ -12,6 +12,7 @@ export default [
   SPELLS.CHI_BURST_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
   SPELLS.REFRESHING_JADE_WIND_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
   SPELLS.SHADOWY_APPARITION.id,
+  SPELLS.SHADOWY_APPARITION_CAST.id, // Shadow priest shadow apparitions passive
   SPELLS.DEFILED_AUGMENT_RUNE.id,
   SPELLS.PRIMAL_FURY.id, // Feral Druid "extra CP on crit" proc causes a cast event
   SPELLS.GUSHING_LACERATIONS_PROC.id, // Feral Druid azerite trait causes a cast event when it procs a combo point

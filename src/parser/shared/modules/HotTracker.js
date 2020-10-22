@@ -289,7 +289,7 @@ class HotTracker extends Analyzer {
     let healing = 0;
     // sums healing of every tick within 'amount',
     // also gets the latest tick outside the range, used to scale the healing amount
-    for (let i = ticks.length - 1; i >= 0; i--) {
+    for (let i = ticks.length - 1; i >= 0; i -= 1) {
       const tick = ticks[i];
       latestOutside = tick.timestamp;
       if ((now - tick.timestamp) > amount) {

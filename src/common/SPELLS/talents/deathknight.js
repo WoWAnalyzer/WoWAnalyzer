@@ -55,7 +55,7 @@ export default {
   PERMAFROST_TALENT: { id: 207200, name: 'Permafrost', icon: 'achievement_zone_frostfire' },
   GATHERING_STORM_TALENT: { id: 194912, name: 'Gathering Storm', icon: 'spell_frost_iceshards' },
   GLACIAL_ADVANCE_TALENT: { id: 194913, name: 'Glacial Advance', icon: 'ability_hunter_glacialtrap' },
-  FROSTWYRMS_FURY_TALENT: { id: 279302, name: 'Frostwyrm\'s Fury', icon: 'achievement_boss_sindragosa' },
+  HYPOTHERMIC_PRESENCE_TALENT: { id: 321995, name: 'Hypothermic Presence', icon: 'ability_mage_shattershield' },
   ICECAP_TALENT: { id: 207126, name: 'Icecap', icon: 'inv_misc_herb_icecap' },
   OBLITERATION_TALENT: { id: 281238, name: 'Obliteration', icon: 'inv_axe_114' },
   BREATH_OF_SINDRAGOSA_TALENT: { id: 152279, name: 'Breath of Sindragosa', icon: 'spell_deathknight_breathofsindragosa' },

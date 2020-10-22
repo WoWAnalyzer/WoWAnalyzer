@@ -1,10 +1,11 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 export const REDUCTION_TIME = 3000; // ms
 
@@ -20,18 +21,14 @@ class RighteousProtector extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS), this.onCast);
   }
 
   lightOfTheProtectorReduced = 0;
   lightOfTheProtectorReductionWasted = 0;
   avengingWrathReduced = 0;
   avengingWrathReductionWasted = 0;
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SHIELD_OF_THE_RIGHTEOUS.id) {
-      return;
-    }
-
+  onCast(event) {
     let LOTP_ID = SPELLS.LIGHT_OF_THE_PROTECTOR.id;
     if (this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id)) {
       LOTP_ID = SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id;

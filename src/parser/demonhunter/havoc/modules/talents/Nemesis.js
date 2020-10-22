@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
@@ -9,6 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 const NEMESIS_BUFF_IDS = [
   SPELLS.NEMESIS_DEMON.id,
@@ -36,6 +37,7 @@ class Nemesis extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.NEMESIS_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   get hasNemesisBuff() {
@@ -43,7 +45,7 @@ class Nemesis extends Analyzer {
     return buffs.some(buff => NEMESIS_BUFF_IDS.includes(buff.ability.guid));
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     if (event.targetIsFriendly) {
       return;
     }

@@ -189,7 +189,7 @@ exports[`Elemental Shaman integration test: example log AstralShift matches the 
             />
           </a>
            
-          Estimated damage reduced
+          shaman.shared.damageReduced.label
         </label>
         <div
           className="value"
@@ -373,7 +373,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -386,7 +386,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -399,7 +399,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -871,7 +871,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -884,7 +884,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -897,7 +897,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1175,7 +1175,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1188,7 +1188,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1201,7 +1201,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1399,7 +1399,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1687,7 +1687,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1700,7 +1700,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1713,7 +1713,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1833,7 +1833,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1846,7 +1846,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1859,7 +1859,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1967,7 +1967,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1980,7 +1980,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1993,7 +1993,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2392,7 +2392,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2405,7 +2405,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2418,7 +2418,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2782,7 +2782,7 @@ exports[`Elemental Shaman integration test: example log DistanceMoved matches th
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -2861,220 +2861,280 @@ Array [
     "details": null,
     "icon": "inv_chest_mail_kultirasdungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5448,
-              1617,
-              4786,
-              6269,
-            ],
-            "icon": "inv_chest_mail_kultirasdungeon_c_01.jpg",
-            "id": 159362,
-            "itemLevel": 450,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5448,
+                  1617,
+                  4786,
+                  6269,
+                ],
+                "icon": "inv_chest_mail_kultirasdungeon_c_01.jpg",
+                "id": 159362,
+                "itemLevel": 450,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159362}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={159362}
-        quality={3}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_bracer_mail_nazjatar_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6300,
-              4802,
-              6294,
-              1512,
-              4786,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
-                "id": 168642,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_bracer_mail_nazjatar_c_01.jpg",
-            "id": 170304,
-            "itemLevel": 425,
-            "quality": 4,
-          }
+                "bonusIDs": Array [
+                  6300,
+                  4802,
+                  6294,
+                  1512,
+                  4786,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
+                    "id": 168642,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_bracer_mail_nazjatar_c_01.jpg",
+                "id": 170304,
+                "itemLevel": 425,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={170304}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Bracers"
+            id="common.slots.bracers"
+          />,
         }
-        icon={false}
-        id={170304}
-        quality={4}
-      >
-        Bracers
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_jewelry_ring_44.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4800,
-              1808,
-              1537,
-              4786,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
-                "id": 168642,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_jewelry_ring_44.jpg",
-            "id": 165565,
-            "itemLevel": 415,
-            "permanentEnchant": 6108,
-            "quality": 4,
-          }
+                "bonusIDs": Array [
+                  4800,
+                  1808,
+                  1537,
+                  4786,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
+                    "id": 168642,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_jewelry_ring_44.jpg",
+                "id": 165565,
+                "itemLevel": 415,
+                "permanentEnchant": 6108,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={165565}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={165565}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_01c.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4799,
-              1808,
-              41,
-              1502,
-              4786,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
-                "id": 168642,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_ring_80_01c.jpg",
-            "id": 168891,
-            "itemLevel": 430,
-            "permanentEnchant": 6108,
-            "quality": 4,
-          }
+                "bonusIDs": Array [
+                  4799,
+                  1808,
+                  41,
+                  1502,
+                  4786,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
+                    "id": 168642,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_ring_80_01c.jpg",
+                "id": 168891,
+                "itemLevel": 430,
+                "permanentEnchant": 6108,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={168891}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={168891}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_cape_leather_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5010,
-              4802,
-              1612,
-              4783,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
-                "id": 168639,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_cape_leather_zandalardungeon_c_01.jpg",
-            "id": 159292,
-            "itemLevel": 440,
-            "onUseEnchant": 4897,
-            "quality": 3,
-          }
+                "bonusIDs": Array [
+                  5010,
+                  4802,
+                  1612,
+                  4783,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                    "id": 168639,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_cape_leather_zandalardungeon_c_01.jpg",
+                "id": 159292,
+                "itemLevel": 440,
+                "onUseEnchant": 4897,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159292}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={159292}
-        quality={3}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_mace_1h_pandaraid_d_01.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5010,
-              40,
-              1612,
-              4783,
-            ],
-            "icon": "inv_mace_1h_pandaraid_d_01.jpg",
-            "id": 158369,
-            "itemLevel": 440,
-            "permanentEnchant": 5949,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5010,
+                  40,
+                  1612,
+                  4783,
+                ],
+                "icon": "inv_mace_1h_pandaraid_d_01.jpg",
+                "id": 158369,
+                "itemLevel": 440,
+                "permanentEnchant": 5949,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158369}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
         }
-        icon={false}
-        id={158369}
-        quality={3}
-      >
-        Weapon
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -4755,7 +4815,7 @@ exports[`Elemental Shaman integration test: example log Overload matches the sta
           >
             <li>
               <a
-                href="http://wowhead.com/spell=77451"
+                href="http://wowhead.com/spell=285466"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -4780,8 +4840,9 @@ exports[`Elemental Shaman integration test: example log Overload matches the sta
                   }
                 }
               >
-                0
+                22
                  / 
+                56
               </span>
             </li>
             <li>
@@ -5074,7 +5135,7 @@ exports[`Elemental Shaman integration test: example log SpiritWolf matches the s
             />
           </a>
            
-          Estimated damage reduced
+          shaman.shared.damageReduced.label
         </label>
         <div
           className="value"
@@ -6911,7 +6972,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -6971,7 +7032,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7031,7 +7092,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7091,7 +7152,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7151,7 +7212,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -7211,7 +7272,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7271,7 +7332,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>

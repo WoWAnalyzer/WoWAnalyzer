@@ -6,7 +6,6 @@ exports[`CyclingVideo matches snapshot 1`] = `
   key="1"
   muted={true}
   onEnded={[Function]}
-  randomValue={0}
 >
   <source
     src="1"
@@ -21,7 +20,6 @@ exports[`CyclingVideo passes unrecognized props 1`] = `
   key="1"
   muted={true}
   onEnded={[Function]}
-  randomValue={0}
   style={
     Object {
       "color": "red",

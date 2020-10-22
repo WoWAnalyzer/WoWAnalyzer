@@ -14,6 +14,7 @@ export enum EventType {
   Damage = 'damage',
   BeginCast = 'begincast',
   Cast = 'cast',
+  Drain = 'drain',
   ApplyBuff = 'applybuff',
   ApplyDebuff = 'applydebuff',
   ApplyBuffStack = 'applybuffstack',
@@ -21,6 +22,7 @@ export enum EventType {
   RemoveBuffStack = 'removebuffstack',
   RemoveDebuffStack = 'removedebuffstack',
   ChangeBuffStack = 'changebuffstack',
+  ChangeDebuffStack = 'changedebuffstack',
   RefreshBuff = 'refreshbuff',
   RefreshDebuff = 'refreshdebuff',
   RemoveBuff = 'removebuff',
@@ -55,6 +57,7 @@ export enum EventType {
   Dispel = 'dispel',
   Time = 'time',
   Test = 'test',
+  SpendResource = "spendresource",
 
   // Monk
   AddStagger = 'addstagger',
@@ -68,6 +71,9 @@ export enum EventType {
   AtonementRefresh = 'atonement_refresh',
   AtonementRefreshImproper = 'atonement_refresh_improper',
 
+  //Shaman
+  FeedHeal = 'feed_heal',
+
   // Phases:
   PhaseStart = 'phasestart',
   PhaseEnd = 'phaseend',
@@ -78,6 +84,7 @@ export enum EventType {
 }
 
 type MappedEventTypes = {
+  [EventType.Event]: Event<EventType.Event>,
   [EventType.Heal]: HealEvent,
   [EventType.Absorbed]: AbsorbedEvent,
   [EventType.Damage]: DamageEvent,
@@ -90,6 +97,7 @@ type MappedEventTypes = {
   [EventType.RemoveBuffStack]: RemoveBuffStackEvent,
   [EventType.RemoveDebuffStack]: RemoveDebuffStackEvent,
   [EventType.ChangeBuffStack]: ChangeBuffStackEvent,
+  [EventType.ChangeDebuffStack]: ChangeDebuffStackEvent,
   [EventType.RefreshBuff]: RefreshBuffEvent,
   [EventType.RefreshDebuff]: RefreshDebuffEvent,
   [EventType.RemoveBuff]: RemoveBuffEvent,
@@ -107,6 +115,8 @@ type MappedEventTypes = {
   [EventType.EndChannel]: EndChannelEvent,
   [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent,
   [EventType.ChangeStats]: ChangeStatsEvent,
+  [EventType.SpendResource]: SpendResourceEvent,
+  [EventType.FeedHeal]: FeedHealEvent,
   // Phases:
   [EventType.PhaseStart]: PhaseStartEvent,
   [EventType.PhaseEnd]: PhaseEndEvent,
@@ -129,6 +139,7 @@ export interface ClassResources {
   amount: number;
   max: number;
   type: number;
+  cost?: number;
 }
 
 // TODO: Find a good place for this
@@ -290,6 +301,11 @@ export interface BeaconHealEvent extends Omit<HealEvent, 'type'> {
   originalHeal: HealEvent,
 }
 
+export interface FeedHealEvent extends Omit<HealEvent, 'type'> {
+  type: EventType.FeedHeal,
+  feed: number,
+}
+
 export interface AbsorbedEvent extends Event<EventType.Absorbed> {
   sourceID: number;
   sourceIsFriendly: boolean;
@@ -381,6 +397,7 @@ export interface ApplyBuffStackEvent extends BuffEvent<EventType.ApplyBuffStack>
 
 export interface ApplyDebuffStackEvent extends BuffEvent<EventType.ApplyDebuffStack> {
   sourceID: number;
+  targetInstance?: number;
   stack: number;
 }
 
@@ -418,8 +435,13 @@ export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStac
   };
 }
 
+export interface ChangeDebuffStackEvent extends Omit<ChangeBuffStackEvent, "type"> {
+  type: EventType.ChangeDebuffStack;
+}
+
 export interface RemoveDebuffStackEvent extends BuffEvent<EventType.RemoveDebuffStack> {
   sourceID: number;
+  targetInstance?: number;
   stack: number;
 }
 
@@ -456,6 +478,29 @@ export interface EnergizeEvent extends Event<EventType.Energize> {
   itemLevel: number;
 }
 
+export interface DrainEvent extends Event<EventType.Drain> {
+  ability: Ability;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetIsFriendly: boolean;
+  resourceChange: number;
+  resourceChangeType: number;
+  otherResourceChange: number;
+  resourceActor: number;
+  classResources: ClassResources[];
+  hitPoints: number;
+  maxHitPoints: number;
+  attackPower: number;
+  spellPower: number;
+  armor: number;
+  absorb: number;
+  x: number;
+  y: number;
+  facing: number;
+  mapID: number;
+  itemLevel: number;
+}
 export interface InterruptEvent extends Event<EventType.Interrupt> {
   ability: Ability;
   extraAbility: Ability;
@@ -467,11 +512,20 @@ export interface InterruptEvent extends Event<EventType.Interrupt> {
 }
 
 export interface DeathEvent extends Event<EventType.Death> {
+  killingAbility?: Ability;
   source: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceIsFriendly: boolean;
   targetID: number;
   targetIsFriendly: boolean;
   ability: Ability;
+}
+
+export interface ResurrectEvent extends Event<EventType.Resurrect> {
+  ability?: Ability,
+  sourceID: number,
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetIsFriendly: boolean;
 }
 
 export interface SummonEvent extends Event<EventType.Summon> {
@@ -560,9 +614,9 @@ export interface ChangeHasteEvent extends Event<EventType.ChangeHaste> {
   newHaste: number;
 }
 
-export interface DispelEvent extends Event<EventType.Dispel>{
-  ability: Ability;
-  extraAbility: Ability;
+export interface DispelEvent extends Event<EventType.Dispel> {
+  ability: Ability; // The ability used to dispel
+  extraAbility: Ability; // The ability that was dispelled
   isBuff: number;
   sourceID?: number;
   sourceIsFriendly: boolean;
@@ -573,6 +627,14 @@ export interface DispelEvent extends Event<EventType.Dispel>{
 
 export interface BasePhaseEvent<T extends string> extends Event<T> {
   phase: PhaseConfig;
+  __fabricated: true;
+}
+export interface SpendResourceEvent extends Event<EventType.SpendResource>{
+  sourceID: number;
+  targetID: number;
+  resourceChange: number;
+  resourceChangeType: number;
+  ability: Ability;
   __fabricated: true;
 }
 
@@ -826,6 +888,9 @@ const Events = {
   get changebuffstack() {
     return new EventFilter(EventType.ChangeBuffStack);
   },
+  get changedebuffstack() {
+    return new EventFilter(EventType.ChangeDebuffStack);
+  },
   get applydebuffstack() {
     return new EventFilter(EventType.ApplyDebuffStack);
   },
@@ -878,6 +943,9 @@ const Events = {
   get energize() {
     return new EventFilter(EventType.Energize);
   },
+  get drain() {
+    return new EventFilter(EventType.Drain);
+  },
   get interrupt() {
     return new EventFilter(EventType.Interrupt);
   },
@@ -895,6 +963,9 @@ const Events = {
   },
   get phaseend() {
     return new EventFilter(EventType.PhaseEnd);
+  },
+  get instakill() {
+    return new EventFilter(EventType.Instakill);
   },
   get prefiltercd() {
     return new EventFilter(EventType.FilterCooldownInfo);
@@ -917,6 +988,24 @@ const Events = {
   get ChangeStats() {
     return new EventFilter(EventType.ChangeStats);
   },
+  get ChangeHaste() {
+    return new EventFilter(EventType.ChangeHaste);
+  },
+  get SpendResource() {
+    return new EventFilter(EventType.SpendResource);
+  },
+  get beacontransfer() {
+    return new EventFilter(EventType.BeaconTransfer);
+  },
+  get feedheal() {
+    return new EventFilter(EventType.FeedHeal);
+  },
+  get any() {
+    return new EventFilter(EventType.Event);
+  },
+  get test() {
+    return new EventFilter(EventType.Test);
+  }
 };
 
 export default Events;

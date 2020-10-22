@@ -4,8 +4,8 @@ import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import EventFilter from 'parser/core/EventFilter';
-import { EventType } from 'parser/core/Events';
+import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events, { EventType } from 'parser/core/Events';
 import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
 import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
 
@@ -38,9 +38,6 @@ class Haste extends Analyzer {
     [SPELLS.GUARDIAN_OF_AZEROTH_HASTE_BUFF.id]: {
       hastePerStack: 0.02, //Essence
     },
-    [SPELLS.DARK_PASSION.id]: {
-      hastePerStack: 0.01, //Shadow Priest Legacy of the Void
-    },
 
     //region Hunter Haste Buffs
     [SPELLS.DIRE_BEAST_BUFF.id]: DIRE_BEAST_HASTE_PERCENT,
@@ -61,27 +58,34 @@ class Haste extends Analyzer {
     this.current = this.statTracker.currentHastePercentage;
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
     this._triggerChangeHaste(null, null, this.current);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.changebuffstack.to(SELECTED_PLAYER), this.onChangeBuffStack);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER), this.onRemoveBuff);
+    this.addEventListener(Events.applydebuff.to(SELECTED_PLAYER), this.onApplyDebuff);
+    this.addEventListener(Events.changedebuffstack.to(SELECTED_PLAYER), this.onChangeDebuffStack);
+    this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER), this.onRemoveDebuff);
+    this.addEventListener(Events.ChangeStats.to(SELECTED_PLAYER), this.onChangeStats);
   }
-  on_toPlayer_applybuff(event) {
+  onApplyBuff(event) {
     this._applyActiveBuff(event);
   }
-  on_toPlayer_changebuffstack(event) {
+  onChangeBuffStack(event) {
     this._changeBuffStack(event);
   }
-  on_toPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     this._removeActiveBuff(event);
   }
-  on_toPlayer_applydebuff(event) {
+  onApplyDebuff(event) {
     this._applyActiveBuff(event);
   }
-  on_toPlayer_changedebuffstack(event) {
+  onChangeDebuffStack(event) {
     this._changeBuffStack(event);
   }
-  on_toPlayer_removedebuff(event) {
+  onRemoveDebuff(event) {
     this._removeActiveBuff(event);
   }
 
-  on_toPlayer_changestats(event) { // fabbed event from StatTracker
+  onChangeStats(event) { // fabbed event from StatTracker
     if (!event.delta.haste) {
       return;
     }

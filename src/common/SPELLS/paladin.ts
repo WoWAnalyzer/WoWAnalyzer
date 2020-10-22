@@ -474,6 +474,11 @@ const spells: SpellList = {
     name: 'Sacrifice of the Just',
     icon: 'spell_holy_divineshield',
   },
+  SANCTIFIED_WRATH_PROT_TALENT: {
+    id: 171648,
+    name: 'Sanctified Wrath',
+    icon: 'ability_paladin_judgementsofthejust',
+  },
 
 	// Buffs
   SHIELD_OF_THE_RIGHTEOUS_BUFF: {
@@ -505,6 +510,17 @@ const spells: SpellList = {
     id: 207603,
     name: 'Immortal Object',
     icon: 'spell_holy_avengersshield',
+  },
+  SHINING_LIGHT: {
+    id: 327510,
+    name: 'Shining Light',
+    icon: 'ability_paladin_lightoftheprotector',
+  },
+  // the shining light buff does not have a proper tooltip. this one does. used in display
+  SHINING_LIGHT_DESC: {
+    id: 321136,
+    name: 'Shining Light',
+    icon: 'ability_paladin_toweroflight',
   },
 	// Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {

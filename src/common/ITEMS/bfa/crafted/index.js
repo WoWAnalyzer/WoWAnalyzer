@@ -1,4 +1,4 @@
-import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
+import { ITEM_QUALITIES } from 'game/ITEM_QUALITIES';
 
 export default {
   DARKMOON_DECK_BLOCKADES: {

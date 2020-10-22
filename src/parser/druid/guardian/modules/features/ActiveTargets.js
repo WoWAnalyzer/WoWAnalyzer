@@ -1,6 +1,7 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import Events from 'parser/core/Events';
 
 /*
  * The amount of time elapsed without a combat event before a target is considered inactive.
@@ -16,12 +17,17 @@ class ActiveTargets extends Analyzer {
   */
   _targetActivity = {};
 
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+  }
+
   /* Only player damage to the target is reliable for detecting enemy activity
    * (mechanics like Shadow Shot on Sisters can trigger enemy damage to the player events
    * even though the enemy is not targetable).  Pet damage may be reliable too, if
    * you were a pet class.
    */
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     if (event.targetIsFriendly === false && event.targetID !== undefined) {
       const enemyInstanceID = encodeTargetString(event.targetID, event.targetInstance);
       this.registerEnemyActivity(enemyInstanceID, this.owner.currentTimestamp);

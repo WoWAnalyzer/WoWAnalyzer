@@ -15,7 +15,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
         className="pad"
       >
         <label>
-          Active time
+          shared.alwaysBeCasting.statistic.label
         </label>
         <div
           className="flex"
@@ -761,7 +761,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -774,7 +774,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -787,7 +787,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1623,7 +1623,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1636,7 +1636,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1649,7 +1649,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1769,7 +1769,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1782,7 +1782,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1795,7 +1795,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1896,7 +1896,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -1917,7 +1917,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1930,7 +1930,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1943,109 +1943,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                href="http://wowhead.com/spell=55342"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_magic_lesserinvisibilty.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Mirror Image
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.00
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              0
-              /2
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "0%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              0.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            >
-              Can be improved.
-            </td>
           </tr>
           <tr>
             <td
@@ -2259,7 +2160,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2272,7 +2173,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2285,7 +2186,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2484,6 +2385,103 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             />
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=55342"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_magic_lesserinvisibilty.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Mirror Image
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /2
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -2502,7 +2500,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2515,7 +2513,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2528,7 +2526,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3740,7 +3738,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -3753,7 +3751,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -3766,7 +3764,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -4073,47 +4071,6 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sug
 Array [
   Object {
     "details": null,
-    "icon": "spell_magic_lesserinvisibilty",
-    "importance": "major",
-    "issue": <React.Fragment>
-      <WithI18n
-        components={
-          Array [
-            <ForwardRef
-              id={55342}
-            />,
-          ]
-        }
-        id="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 0,
-            "1": 2,
-            "2": "0",
-          }
-        }
-      />
-       (
-      <WithI18n
-        id=">{0}% is recommended"
-        values={
-          Object {
-            "0": "90",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
     "icon": "inv_staff_26",
     "importance": "major",
     "issue": <React.Fragment>
@@ -4171,7 +4128,7 @@ exports[`Frost Mage integration test: example log DistanceMoved matches the stat
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -4220,6 +4177,85 @@ exports[`Frost Mage integration test: example log DistanceMoved matches the stat
               }
             />
           </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Mage integration test: example log ElementalBarrier matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={31}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=11426"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Ice Barrier"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_ice_lament.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=11426"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Ice Barrier
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          552k
+           
+          <small>
+            Damage absorbed
+          </small>
+          <br />
+          110k
+           
+          <small>
+            Avg. absorbed per barrier
+          </small>
+          <br />
+          13.99
+          % 
+          <small>
+             % of Damage absorbed
+          </small>
         </div>
       </div>
     </div>
@@ -4384,203 +4420,263 @@ Array [
     "details": null,
     "icon": "inv_chest_cloth_nzothraid_d_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              1502,
-              4786,
-              6504,
-            ],
-            "icon": "inv_chest_cloth_nzothraid_d_01.jpg",
-            "id": 173846,
-            "itemLevel": 450,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  1502,
+                  4786,
+                  6504,
+                ],
+                "icon": "inv_chest_cloth_nzothraid_d_01.jpg",
+                "id": 173846,
+                "itemLevel": 450,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={173846}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={173846}
-        quality={3}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_bracer_cloth_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5007,
-              4802,
-              6516,
-              6515,
-              1622,
-              4786,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
-                "id": 168639,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_bracer_cloth_zandalardungeon_c_01.jpg",
-            "id": 159240,
-            "itemLevel": 450,
-            "quality": 3,
-          }
+                "bonusIDs": Array [
+                  5007,
+                  4802,
+                  6516,
+                  6515,
+                  1622,
+                  4786,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                    "id": 168639,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_bracer_cloth_zandalardungeon_c_01.jpg",
+                "id": 159240,
+                "itemLevel": 450,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159240}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Bracers"
+            id="common.slots.bracers"
+          />,
         }
-        icon={false}
-        id={159240}
-        quality={3}
-      >
-        Bracers
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_05a.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5006,
-              6578,
-              6579,
-              6476,
-              6470,
-              6513,
-              1627,
-              4786,
-            ],
-            "icon": "inv_ring_80_05a.jpg",
-            "id": 159463,
-            "itemLevel": 455,
-            "permanentEnchant": 6111,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5006,
+                  6578,
+                  6579,
+                  6476,
+                  6470,
+                  6513,
+                  1627,
+                  4786,
+                ],
+                "icon": "inv_ring_80_05a.jpg",
+                "id": 159463,
+                "itemLevel": 455,
+                "permanentEnchant": 6111,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159463}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={159463}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_jewelry_mech_ring_green.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5006,
-              6516,
-              6515,
-              1502,
-              4786,
-            ],
-            "icon": "inv_jewelry_mech_ring_green.jpg",
-            "id": 169159,
-            "itemLevel": 445,
-            "permanentEnchant": 6111,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5006,
+                  6516,
+                  6515,
+                  1502,
+                  4786,
+                ],
+                "icon": "inv_jewelry_mech_ring_green.jpg",
+                "id": 169159,
+                "itemLevel": 445,
+                "permanentEnchant": 6111,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={169159}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={169159}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6283,
-              1472,
-            ],
-            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
-            "id": 169223,
-            "itemLevel": 492,
-            "quality": 5,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6283,
+                  1472,
+                ],
+                "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+                "id": 169223,
+                "itemLevel": 492,
+                "quality": 5,
+              }
+            }
+            icon={false}
+            id={169223}
+            quality={5}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={169223}
-        quality={5}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_staff_2h_zandalarquest_b_03.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4803,
-              6578,
-              6579,
-              6553,
-              6515,
-              1637,
-              4786,
-            ],
-            "icon": "inv_staff_2h_zandalarquest_b_03.jpg",
-            "id": 158131,
-            "itemLevel": 445,
-            "permanentEnchant": 5949,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4803,
+                  6578,
+                  6579,
+                  6553,
+                  6515,
+                  1637,
+                  4786,
+                ],
+                "icon": "inv_staff_2h_zandalarquest_b_03.jpg",
+                "id": 158131,
+                "itemLevel": 445,
+                "permanentEnchant": 5949,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158131}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
         }
-        icon={false}
-        id={158131}
-        quality={3}
-      >
-        Weapon
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -4951,10 +5047,10 @@ exports[`Frost Mage integration test: example log MirrorImage matches the statis
         <div
           className="value"
         >
-          0.00
-          % 
+          0
+           
           <small>
-             damage contribution
+             Damage Avoided
           </small>
         </div>
       </div>
@@ -4978,37 +5074,6 @@ exports[`Frost Mage integration test: example log MirrorImage matches the statis
     </div>
   </div>
 </div>
-`;
-
-exports[`Frost Mage integration test: example log MirrorImage matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_magic_lesserinvisibilty",
-    "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ForwardRef
-        id={55342}
-      />
-       damage is below the expected passive gain from 
-      <ForwardRef
-        id={1463}
-      />
-      . Consider switching to 
-      <ForwardRef
-        id={1463}
-      />
-      .
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      0.00% damage increase from Mirror Image
-       (
-      12.00% is the passive gain from Incanter's Flow
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Frost Mage integration test: example log OverwhelmingPower matches the statistic snapshot 1`] = `
@@ -7604,7 +7669,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -7664,7 +7729,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7724,7 +7789,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7784,7 +7849,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7844,7 +7909,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -7904,7 +7969,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7964,7 +8029,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>

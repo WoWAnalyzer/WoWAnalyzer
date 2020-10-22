@@ -36,7 +36,7 @@
 */
 
 import SPECS from 'game/SPECS';
-import { Contributor } from 'common/changelog';
+import { Contributor } from 'common/contributor';
 
 // For testing purposes because I am too lazy to work out a solution for testing that does not involve adding regular code
 export const Dummy: Contributor = {
@@ -432,14 +432,18 @@ export const Zeboot: Contributor = {
       spec: SPECS.BREWMASTER_MONK,
       link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/zebeer',
     }, {
+      name: 'Zeaccent',
+      spec: SPECS.PROTECTION_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/Zeaccent',
+    }, ],
+    alts: [{
+      name: 'Zebot',
+      spec: SPECS.PROTECTION_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Zebot',
+    }, {
       name: 'Zeboot',
       spec: SPECS.GUARDIAN_DRUID,
       link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/zeboot',
-    }],
-    alts: [{
-      name: 'Zelightsneak',
-      spec: SPECS.ASSASSINATION_ROGUE,
-      link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/zelightsneak',
     }],
 };
 export const HawkCorrigan: Contributor = {
@@ -726,7 +730,7 @@ export const LeoZhekov: Contributor = {
   mains: [{
     name: 'Lisossa',
     spec: SPECS.SURVIVAL_HUNTER,
-    link: 'https://worldofwarcraft.com/en-gb/character/Zenedar/Lisossa',
+    link: 'https://worldofwarcraft.com/en-gb/character/Ravencrest/Lisossa',
   }],
 };
 export const Amrux: Contributor = {
@@ -768,8 +772,13 @@ export const Adoraci: Contributor = {
   avatar: require('./interface/images/avatars/Adoraci-avatar.jpg'),
   mains: [{
     name: 'Adoraci',
-    spec: SPECS.DISCIPLINE_PRIEST,
+    spec: SPECS.SHADOW_PRIEST,
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
+  }], 
+  alts: [{
+    name: 'Zenavi',
+    spec: SPECS.FURY_WARRIOR,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/zenavi',
   }],
 };
 export const TheJigglr: Contributor = {
@@ -971,4 +980,9 @@ export const Jafowler: Contributor = {
   nickname: 'Jake',
   github: 'jafowler',
   discord: 'Xinnk#3169',
+};
+export const Guyius: Contributor = {
+  nickname: 'Guyius',
+  github: 'guyius',
+  discord: 'Guyius#1560',
 };

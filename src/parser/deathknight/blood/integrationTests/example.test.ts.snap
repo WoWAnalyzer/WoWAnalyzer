@@ -207,19 +207,14 @@ exports[`Blood Death Knight integration test: example log BloodPlagueUptime matc
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={2}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -234,12 +229,32 @@ exports[`Blood Death Knight integration test: example log BloodPlagueUptime matc
             />
           </a>
            
-          Blood Plague uptime
+          <a
+            href="http://wowhead.com/spell=55078"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Blood Plague
+          </a>
         </label>
         <div
           className="value"
         >
-          95.49 %
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          95.49
+          % 
+          <small>
+            uptime
+          </small>
         </div>
       </div>
     </div>
@@ -252,19 +267,14 @@ exports[`Blood Death Knight integration test: example log Blooddrinker matches t
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={6}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -279,12 +289,24 @@ exports[`Blood Death Knight integration test: example log Blooddrinker matches t
             />
           </a>
            
-          Channels cancelled early
+          <a
+            href="http://wowhead.com/spell=206931"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Blooddrinker
+          </a>
         </label>
         <div
           className="value"
         >
-          1 out of 4
+          1
+           / 
+          4
+           
+          <small>
+            Channels cancelled early
+          </small>
         </div>
       </div>
     </div>
@@ -376,10 +398,10 @@ exports[`Blood Death Knight integration test: example log BoneShield matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
+    className="panel statistic flexible "
+    position={5}
     style={
       Object {
-        "height": "auto",
         "zIndex": 1,
       }
     }
@@ -388,7 +410,7 @@ exports[`Blood Death Knight integration test: example log BoneShield matches the
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -403,12 +425,32 @@ exports[`Blood Death Knight integration test: example log BoneShield matches the
             />
           </a>
            
-          Bone Shield uptime
+          <a
+            href="http://wowhead.com/spell=195181"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Bone Shield
+          </a>
         </label>
         <div
           className="value"
         >
-          96.21 %
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          96.21
+          % 
+          <small>
+            uptime
+          </small>
         </div>
       </div>
       <div
@@ -556,7 +598,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -569,7 +611,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -582,7 +624,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -683,7 +725,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -782,7 +824,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1240,7 +1282,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1253,7 +1295,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1266,7 +1308,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1386,7 +1428,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1399,7 +1441,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1412,7 +1454,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1513,7 +1555,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1612,7 +1654,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1711,7 +1753,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1810,7 +1852,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
         </tbody>
@@ -1831,7 +1873,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1844,7 +1886,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1857,7 +1899,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1977,7 +2019,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1990,7 +2032,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2003,7 +2045,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2111,7 +2153,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2124,7 +2166,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2137,7 +2179,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2827,7 +2869,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2840,7 +2882,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2853,7 +2895,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3412,19 +3454,14 @@ exports[`Blood Death Knight integration test: example log CrimsonScourge matches
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={6}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3439,12 +3476,22 @@ exports[`Blood Death Knight integration test: example log CrimsonScourge matches
             />
           </a>
            
-          Crimson Scourge procs wasted
+          <a
+            href="http://wowhead.com/spell=81141"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Crimson Scourge
+          </a>
         </label>
         <div
           className="value"
         >
-          33.33 %
+          33.33
+           % 
+          <small>
+            procs wasted
+          </small>
         </div>
       </div>
     </div>
@@ -3570,7 +3617,7 @@ exports[`Blood Death Knight integration test: example log DistanceMoved matches 
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -3649,161 +3696,211 @@ Array [
     "details": null,
     "icon": "inv_chest_plate_nazmirraid_d_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4824,
-              1507,
-              4786,
-            ],
-            "icon": "inv_chest_plate_nazmirraid_d_01.jpg",
-            "id": 160722,
-            "itemLevel": 385,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4824,
+                  1507,
+                  4786,
+                ],
+                "icon": "inv_chest_plate_nazmirraid_d_01.jpg",
+                "id": 160722,
+                "itemLevel": 385,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={160722}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={160722}
-        quality={4}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_glove_plate_nazmirraid_d_01.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4800,
-              1808,
-              1512,
-              4783,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_jewelcrafting_80_cutgem02_yellow.jpg",
-                "id": 154127,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_glove_plate_nazmirraid_d_01.jpg",
-            "id": 160635,
-            "itemLevel": 390,
-            "permanentEnchant": 5937,
-            "quality": 4,
-          }
+                "bonusIDs": Array [
+                  4800,
+                  1808,
+                  1512,
+                  4783,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_jewelcrafting_80_cutgem02_yellow.jpg",
+                    "id": 154127,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_glove_plate_nazmirraid_d_01.jpg",
+                "id": 160635,
+                "itemLevel": 390,
+                "permanentEnchant": 5937,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={160635}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Gloves"
+            id="common.slots.gloves"
+          />,
         }
-        icon={false}
-        id={160635}
-        quality={4}
-      >
-        Gloves
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_01e.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5010,
-              1552,
-              4783,
-            ],
-            "icon": "inv_ring_80_01e.jpg",
-            "id": 158362,
-            "itemLevel": 380,
-            "permanentEnchant": 5944,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5010,
+                  1552,
+                  4783,
+                ],
+                "icon": "inv_ring_80_01e.jpg",
+                "id": 158362,
+                "itemLevel": 380,
+                "permanentEnchant": 5944,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158362}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={158362}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_06b.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5010,
-              1542,
-              4786,
-            ],
-            "icon": "inv_ring_80_06b.jpg",
-            "id": 158314,
-            "itemLevel": 370,
-            "permanentEnchant": 5943,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5010,
+                  1542,
+                  4786,
+                ],
+                "icon": "inv_ring_80_06b.jpg",
+                "id": 158314,
+                "itemLevel": 370,
+                "permanentEnchant": 5943,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158314}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={158314}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_cape_mail_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5010,
-              1562,
-              4784,
-            ],
-            "icon": "inv_cape_mail_zandalardungeon_c_01.jpg",
-            "id": 159288,
-            "itemLevel": 390,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5010,
+                  1562,
+                  4784,
+                ],
+                "icon": "inv_cape_mail_zandalardungeon_c_01.jpg",
+                "id": 159288,
+                "itemLevel": 390,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159288}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={159288}
-        quality={3}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -4130,19 +4227,14 @@ exports[`Blood Death Knight integration test: example log MarrowrendUsage matche
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={3}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4157,12 +4249,24 @@ exports[`Blood Death Knight integration test: example log MarrowrendUsage matche
             />
           </a>
            
-          Bad Marrowrend casts
+          <a
+            href="http://wowhead.com/spell=195182"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Marrowrend
+          </a>
         </label>
         <div
           className="value"
         >
-          0 / 10
+          0
+           / 
+          10
+           
+          <small>
+            bad casts
+          </small>
         </div>
       </div>
     </div>
@@ -4273,19 +4377,14 @@ exports[`Blood Death Knight integration test: example log Ossuary matches the st
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={3}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4300,12 +4399,24 @@ exports[`Blood Death Knight integration test: example log Ossuary matches the st
             />
           </a>
            
-          Death Strikes without Ossuary
+          <a
+            href="http://wowhead.com/spell=219788"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Ossuary
+          </a>
         </label>
         <div
           className="value"
         >
-          3 / 20
+          3
+           / 
+          20
+           
+          <small>
+            Death Strikes without Ossuary
+          </small>
         </div>
       </div>
     </div>
@@ -4394,10 +4505,10 @@ exports[`Blood Death Knight integration test: example log RuneTracker matches th
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
+    className="panel statistic flexible "
+    position={10}
     style={
       Object {
-        "height": "auto",
         "zIndex": 1,
       }
     }
@@ -4406,21 +4517,33 @@ exports[`Blood Death Knight integration test: example log RuneTracker matches th
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
-          <img
-            alt="Rune 1"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_frozenruneweapon.jpg"
-          />
-           
-          Runes overcapped
-        </label>
         <div
-          className="value"
+          className="flex-sub icon"
         >
-          43.20 %
+          <a
+            href="http://wowhead.com/runes"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Runes"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_frozenruneweapon.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            43.20 %
+          </div>
+          <small>
+            Runes overcapped
+          </small>
         </div>
       </div>
       <div
@@ -4490,33 +4613,40 @@ exports[`Blood Death Knight integration test: example log RunicPowerDetails matc
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={3}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
-          <img
-            alt=""
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
-          />
-           
-          Runic Power wasted
-        </label>
         <div
-          className="value"
+          className="flex-sub icon"
         >
-          1.70 %
+          <a
+            href="http://wowhead.com/runic-power"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Runic Power"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            1.70 %
+          </div>
+          <small>
+            Runic Power wasted
+          </small>
         </div>
       </div>
     </div>
@@ -6698,7 +6828,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -6758,7 +6888,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6818,7 +6948,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6878,7 +7008,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6938,7 +7068,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6998,7 +7128,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7058,7 +7188,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>

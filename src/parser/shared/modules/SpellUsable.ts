@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { AnyEvent, CastEvent, ChangeHasteEvent, EventType, FilterCooldownInfoEvent, UpdateSpellUsableEvent } from 'parser/core/Events';
+import Events, { AnyEvent, CastEvent, ChangeHasteEvent, EventType, FilterCooldownInfoEvent, UpdateSpellUsableEvent } from 'parser/core/Events';
 
 import Abilities from '../../core/modules/Abilities';
 
@@ -43,6 +43,15 @@ class SpellUsable extends Analyzer {
 
   get isAccurate() {
     return this.errorsPerMinute < 1.5;
+  }
+
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.any, this.onEvent);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.prefiltercd.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.ChangeHaste, this.onChangehaste);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
 
   /**
@@ -349,7 +358,7 @@ class SpellUsable extends Analyzer {
     this.eventEmitter.fabricateEvent(event);
   }
 
-  on_byPlayer_cast(event: CastEvent | FilterCooldownInfoEvent) {
+  onCast(event: CastEvent | FilterCooldownInfoEvent) {
     const spellId = event.ability.guid;
     this.beginCooldown(spellId, event);
   }
@@ -368,13 +377,10 @@ class SpellUsable extends Analyzer {
 
   _lastTimestamp: number = -1;
 
-  on_event(event: AnyEvent) {
+  onEvent(event: AnyEvent) {
     const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
     //if cast event from previous phase was found, add it to the cooldown tracker without adding it to the phase itself
-    if (event.type === EventType.FilterCooldownInfo && event.sourceID === this.owner.playerId) {
-      this.on_byPlayer_cast(event);
-    }
-    if (timestamp === this._lastTimestamp) {
+    if (event.type === EventType.FilterCooldownInfo && timestamp === this._lastTimestamp) {
       return;
     }
     this._lastTimestamp = timestamp;
@@ -383,7 +389,7 @@ class SpellUsable extends Analyzer {
 
   // Haste-based cooldowns gets longer/shorter when your Haste changes
   // `newDuration = timePassed + (newCooldownDuration * (1 - progress))` (where `timePassed` is the time since the spell went on cooldown, `newCooldownDuration` is the full cooldown duration based on the new Haste, `progress` is the percentage of progress cooling down the spell)
-  on_changehaste(event: ChangeHasteEvent) {
+  onChangehaste(event: ChangeHasteEvent) {
     Object.keys(this._currentCooldowns).map(Number).forEach(spellId => {
       const cooldown = this._currentCooldowns[spellId];
       const originalExpectedDuration = cooldown.expectedDuration;
@@ -406,7 +412,7 @@ class SpellUsable extends Analyzer {
     });
   }
 
-  on_fightend() {
+  onFightend() {
     const timestamp = this.owner.fight.end_time;
     // Get the remaining cooldowns in order of expiration
     const expiringCooldowns = Object.keys(this._currentCooldowns).map(Number).map(spellId => {

@@ -4,9 +4,10 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 class Aftershock extends Analyzer {
   refund = 0;
@@ -14,12 +15,10 @@ class Aftershock extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AFTERSHOCK_TALENT.id);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.AFTERSHOCK), this.onEnergize);
   }
 
-  on_byPlayer_energize(event) {
-    if (event.ability.guid !== SPELLS.AFTERSHOCK.id) {
-      return;
-    }
+  onEnergize(event) {
     this.refund += event.resourceChange;
   }
 

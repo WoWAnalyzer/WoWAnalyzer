@@ -17,7 +17,7 @@ import { t } from '@lingui/macro';
  *  https://www.warcraftlogs.com/reports/jz4KrnGBmahcfxt9#fight=43&type=summary&source=9
  */
 
-const DAMAGE_BONUS: number = 0.1;
+const DAMAGE_BONUS = 0.1;
 
 class FrothingBerserker extends Analyzer {
   static dependencies = {

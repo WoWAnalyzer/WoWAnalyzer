@@ -14,6 +14,8 @@ import BlackoutKick from '../../spells/BlackoutKick';
 import HitCombo from '../../talents/HitCombo';
 import ChiDetails from '../../resources/ChiDetails';
 
+import LastEmperorsCapacitor from '../../items/LastEmperorsCapacitor';
+
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -30,6 +32,8 @@ class Checklist extends BaseChecklist {
 
     hitCombo: HitCombo,
     chiDetails: ChiDetails,
+
+    lastEmperorsCapacitor: LastEmperorsCapacitor,
   };
 
   render() {
@@ -48,6 +52,9 @@ class Checklist extends BaseChecklist {
 
           hitCombo: this.hitCombo.suggestionThresholds,
           chiDetails: this.chiDetails.suggestionThresholds,
+
+          lastEmperorsCapacitorAverageStacks: this.lastEmperorsCapacitor.averageStacksSuggestionThresholds,
+          lastEmperorsCapacitorWastedStacks: this.lastEmperorsCapacitor.wastedStacksSuggestionsThresholds,
        }}
      />
     );

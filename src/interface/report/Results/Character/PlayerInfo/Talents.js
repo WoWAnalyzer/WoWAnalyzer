@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import { Trans } from '@lingui/macro';
 
 const FALLBACK_ICON = 'inv_misc_questionmark';
 
@@ -13,12 +14,12 @@ const Talents = (
     talents,
   },
 ) => {
-  const rows = [15, 30, 45, 60, 75, 90, 100];
+  const rows = [15, 25, 30, 35, 40, 45, 50];
 
   return (
     <>
       <h3>
-        Talents
+        <Trans id="common.talents">Talents</Trans>
       </h3>
       <div className="talent-info">
         {talents.map((spellId, index) => (

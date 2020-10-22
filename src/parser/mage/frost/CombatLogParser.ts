@@ -11,6 +11,7 @@ import WintersChill from './modules/features/WintersChill';
 import BrainFreeze from './modules/features/BrainFreeze';
 import IceLance from './modules/features/IceLance';
 import MirrorImage from '../shared/modules/features/MirrorImage';
+import ElementalBarrier from '../shared/modules/features/ElementalBarrier';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
@@ -55,12 +56,13 @@ class CombatLogParser extends CoreCombatLogParser {
     brainFreeze: BrainFreeze,
     iceLance: IceLance,
     arcaneIntellect: ArcaneIntellect,
+    mirrorImage: MirrorImage,
+    elementalBarrier: ElementalBarrier,
     waterElemental: WaterElemental,
 
     // Talents
     boneChilling: BoneChilling,
     lonelyWinter: LonelyWinter,
-    mirrorImage: MirrorImage,
     focusMagic: FocusMagic,
     runeOfPower: RuneOfPower,
     splittingIce: SplittingIce,

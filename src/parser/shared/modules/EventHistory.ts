@@ -17,7 +17,7 @@ class EventHistory extends Module {
     if (maxTime) {
       const minTime = this.owner.currentTimestamp - maxTime;
       const prevFilter = filter;
-      filter = (event: any) => {
+      filter = (event) => {
         if (!event.timestamp || event.timestamp < minTime) {
           return false;
         }

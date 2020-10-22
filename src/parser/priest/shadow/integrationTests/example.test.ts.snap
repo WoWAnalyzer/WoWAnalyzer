@@ -31,7 +31,7 @@ exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the
         <div
           className="value"
         >
-          22.19 %
+          9.38 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "77.80585834420951%",
+                  "width": "90.62281728342391%",
                 }
               }
             >
@@ -90,101 +90,6 @@ exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the
           d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
         />
       </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_mage_altertime",
-    "importance": "major",
-    "issue": "Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots.",
-    "stat": <React.Fragment>
-      22.19% downtime
-       (
-      &lt;10.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
-exports[`Shadow Priest integration test: example log Ashjrakamas matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-    position={1000}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="legendary"
-            href="http://wowhead.com/item=169223"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            <img
-              alt="Ashjra'kamas, Shroud of Resolve"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_cape_deathwingraid_d_03.jpg"
-            />
-          </a>
-           
-          <a
-            className="legendary"
-            href="http://wowhead.com/item=169223"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            Ashjra'kamas, Shroud of Resolve
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 17 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
-            />
-          </svg>
-           
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-             
-            677
-             
-            <small>
-              average 
-              Intellect
-               gained
-            </small>
-          </dfn>
-          <br />
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -234,11 +139,11 @@ exports[`Shadow Priest integration test: example log AuspiciousSpirits matches t
             src="/img/sword.png"
           />
            
-          12k
+          424
            DPS
            
           <small>
-            12.18
+            7.07
              % of total
           </small>
         </div>
@@ -260,96 +165,6 @@ exports[`Shadow Priest integration test: example log AuspiciousSpirits matches t
           d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
         />
       </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Shadow Priest integration test: example log BloodOfTheEnemy matches the statistic snapshot 1`] = `
-<div
-  category="ITEMS"
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "padding": 0,
-    }
-  }
->
-  <div
-    className="col-md-12"
-  >
-    <div
-      category="ITEMS"
-      className="panel statistic standard "
-      position={1000}
-    >
-      <div
-        className="panel-body"
-      >
-        <div
-          className="pad"
-        >
-          <label>
-            <a
-              href="http://wowhead.com/spell=298274"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/inv__azeriteexplosion.jpg"
-              />
-               
-              Blood-Soaked
-            </a>
-             - Minor Rank 
-            2
-          </label>
-          <div
-            className="value"
-          >
-            <svg
-              className="icon"
-              version="1.1"
-              viewBox="16 16 32 32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
-              />
-            </svg>
-             
-            313
-             
-            <small>
-              average Haste gained
-            </small>
-            <br />
-            <svg
-              className="icon"
-              version="1.1"
-              viewBox="16 16 32 32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="32.111"
-                cy="32.678"
-                r="2.989"
-              />
-              <path
-                d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
-              />
-            </svg>
-             
-            134
-             
-            <small>
-              average Crit gained
-            </small>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -414,7 +229,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -427,7 +242,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -440,7 +255,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -486,7 +301,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              17.44
+              9.81
             </td>
             <td
               className="text-right"
@@ -496,8 +311,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              112
-              /159
+              19
+              /15
                
               casts
             </td>
@@ -515,8 +330,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "70.53313646751245%",
+                      "backgroundColor": "#70b570",
+                      "width": "100%",
                     }
                   }
                 />
@@ -531,7 +346,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              70.53%
+              100.00%
             </td>
             <td
               style={
@@ -540,9 +355,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   "width": "25%",
                 }
               }
-            >
-              Can be improved.
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -585,7 +398,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0.00
+              12.39
             </td>
             <td
               className="text-right"
@@ -595,8 +408,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0
-              /117
+              24
+              /24
                
               casts
             </td>
@@ -614,8 +427,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "0%",
+                      "backgroundColor": "#70b570",
+                      "width": "100.26758284736079%",
                     }
                   }
                 />
@@ -630,7 +443,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0.00%
+              100.27%
             </td>
             <td
               style={
@@ -639,9 +452,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   "width": "25%",
                 }
               }
-            >
-              Can be improved.
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -684,7 +495,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              9.19
+              8.77
             </td>
             <td
               className="text-right"
@@ -694,92 +505,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              59
-              
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                href="http://wowhead.com/spell=48045"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_mindshear.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Mind Sear
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.78
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              5
+              17
               
                
               casts
@@ -854,7 +580,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0.00
+              0.52
             </td>
             <td
               className="text-right"
@@ -864,8 +590,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0
-              /44
+              1
+              /8
                
               casts
             </td>
@@ -884,7 +610,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "0%",
+                      "width": "13.408119198575399%",
                     }
                   }
                 />
@@ -899,7 +625,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0.00%
+              13.41%
             </td>
             <td
               style={
@@ -951,7 +677,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              8.87
+              1.55
             </td>
             <td
               className="text-right"
@@ -961,7 +687,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              57
+              3
               
                
               casts
@@ -1036,7 +762,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0.00
+              11.36
             </td>
             <td
               className="text-right"
@@ -1046,7 +772,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0
+              22
               
                
               casts
@@ -1121,7 +847,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              4.20
+              5.16
             </td>
             <td
               className="text-right"
@@ -1131,7 +857,141 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              27
+              10
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                Spell (AOE)
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                shared.castEfficiency.cpm
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                shared.castEfficiency.casts
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                shared.castEfficiency.timeOnCooldown
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=48045"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_mindshear.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Mind Sear
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
               
                
               casts
@@ -1183,7 +1043,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1196,7 +1056,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1209,7 +1069,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1255,7 +1115,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              1.40
+              1.03
             </td>
             <td
               className="text-right"
@@ -1265,8 +1125,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              9
-              /8
+              2
+              /2
                
               casts
             </td>
@@ -1285,7 +1145,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100.67280921849824%",
+                      "width": "96.29913199074352%",
                     }
                   }
                 />
@@ -1300,7 +1160,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              100.67%
+              96.30%
             </td>
             <td
               style={
@@ -1320,7 +1180,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
-                href="http://wowhead.com/spell=34433"
+                href="http://wowhead.com/spell=200174"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1332,7 +1192,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowfiend.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_soulleech_3.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -1341,7 +1201,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   }
                 />
                  
-                Shadowfiend
+                Mindbender
               </a>
             </td>
             <td
@@ -1352,7 +1212,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0.31
+              1.03
             </td>
             <td
               className="text-right"
@@ -1363,7 +1223,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               2
-              /3
+              /2
                
               casts
             </td>
@@ -1381,8 +1241,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "67.56582139548884%",
+                      "backgroundColor": "#70b570",
+                      "width": "96.84712197723734%",
                     }
                   }
                 />
@@ -1397,7 +1257,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              67.57%
+              96.85%
             </td>
             <td
               style={
@@ -1406,9 +1266,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   "width": "25%",
                 }
               }
-            >
-              Can be improved.
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -1462,7 +1320,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /4
+              /1
                
               casts
             </td>
@@ -1525,7 +1383,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1538,7 +1396,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1551,7 +1409,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1597,7 +1455,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0.31
+              0.00
             </td>
             <td
               className="text-right"
@@ -1607,8 +1465,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              2
-              /4
+              0
+              /1
                
               casts
             </td>
@@ -1627,7 +1485,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "36.718569586324826%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -1642,7 +1500,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              36.72%
+              0.00%
             </td>
             <td
               style={
@@ -1705,7 +1563,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /9
+              /4
                
               casts
             </td>
@@ -1791,7 +1649,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0.47
+              0.00
             </td>
             <td
               className="text-right"
@@ -1801,8 +1659,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              3
-              /4
+              0
+              /1
                
               casts
             </td>
@@ -1821,7 +1679,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "80.62034411090843%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -1836,7 +1694,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              80.62%
+              0.00%
             </td>
             <td
               style={
@@ -1888,7 +1746,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              3.89
+              2.06
             </td>
             <td
               className="text-right"
@@ -1898,8 +1756,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              25
-              /150
+              4
+              /25
                
               casts
             </td>
@@ -1918,7 +1776,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "16.74524324141993%",
+                      "width": "13.382307154120523%",
                     }
                   }
                 />
@@ -1933,7 +1791,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              16.75%
+              13.38%
             </td>
             <td
               style={
@@ -2081,7 +1939,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /5
+              /2
                
               casts
             </td>
@@ -2178,7 +2036,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /5
+              /2
                
               casts
             </td>
@@ -2264,7 +2122,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0.16
+              0.00
             </td>
             <td
               className="text-right"
@@ -2274,8 +2132,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              1
-              /13
+              0
+              /4
                
               casts
             </td>
@@ -2294,7 +2152,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "7.784140591957945%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2309,7 +2167,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              7.78%
+              0.00%
             </td>
             <td
               style={
@@ -2361,7 +2219,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              0.16
+              0.00
             </td>
             <td
               className="text-right"
@@ -2371,7 +2229,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              1
+              0
               
                
               casts
@@ -2627,7 +2485,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /9
+              /3
                
               casts
             </td>
@@ -2979,104 +2837,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /7
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "0%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              0.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                href="http://wowhead.com/spell=64044"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_psychichorrors.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Psychic Horror
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.00
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              0
-              /9
+              /2
                
               casts
             </td>
@@ -3258,7 +3019,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /49
+              /15
                
               casts
             </td>
@@ -3491,7 +3252,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -3504,7 +3265,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -3517,7 +3278,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3574,7 +3335,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /2
+              /1
                
               casts
             </td>
@@ -3671,7 +3432,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /2
+              /1
                
               casts
             </td>
@@ -3768,7 +3529,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /2
+              /1
                
               casts
             </td>
@@ -3818,134 +3579,6 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
     </div>
   </div>
 </div>
-`;
-
-exports[`Shadow Priest integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "ability_ironmaidens_convulsiveshadows",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      <WithI18n
-        components={
-          Array [
-            <ForwardRef
-              id={205448}
-            />,
-          ]
-        }
-        id="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 112,
-            "1": 159,
-            "2": "71",
-          }
-        }
-      />
-       (
-      <WithI18n
-        id=">{0}% is recommended"
-        values={
-          Object {
-            "0": "85",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_shadow_unholyfrenzy",
-    "importance": "major",
-    "issue": <React.Fragment>
-      <WithI18n
-        components={
-          Array [
-            <ForwardRef
-              id={8092}
-            />,
-          ]
-        }
-        id="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 0,
-            "1": 117,
-            "2": "0",
-          }
-        }
-      />
-       (
-      <WithI18n
-        id=">{0}% is recommended"
-        values={
-          Object {
-            "0": "55",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_shadow_shadowfiend",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      <WithI18n
-        components={
-          Array [
-            <ForwardRef
-              id={34433}
-            />,
-          ]
-        }
-        id="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 2,
-            "1": 3,
-            "2": "68",
-          }
-        }
-      />
-       (
-      <WithI18n
-        id=">{0}% is recommended"
-        values={
-          Object {
-            "0": "80",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Shadow Priest integration test: example log DeadlyNavigation matches the statistic snapshot 1`] = `
@@ -4001,7 +3634,7 @@ exports[`Shadow Priest integration test: example log DeadlyNavigation matches th
             />
           </svg>
            
-          87
+          72
           % 
           <small>
             uptime
@@ -4023,7 +3656,7 @@ exports[`Shadow Priest integration test: example log DeadlyNavigation matches th
             />
           </svg>
            
-          187
+          159
            
           <small>
             average 
@@ -4064,52 +3697,21 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You died during this fight and were dead for 
-      0.86
+      26.23
       % of the fight duration (
-      3
+      30
        seconds). Dying has a significant performance cost. View the 
       <Link
-        to="/report/pxNCHk3K92AdG6gJ/12-Mythic+Carapace+of+N'Zoth+-+Kill+(6:28)/Kringe/standard/death-recap"
+        to="/report/Ctv2jxFXQz8cMDaR/15-Mythic+Ra-den+the+Despoiled+-+Kill+(2:26)/Noodlesp/standard/death-recap"
       >
         Death Recap
       </Link>
        to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
     "stat": <React.Fragment>
-      You were dead for 0.86% of the fight
+      You were dead for 26.23% of the fight
        (
       0% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
-exports[`Shadow Priest integration test: example log Disperion matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_shadow_dispersion",
-    "importance": "minor",
-    "issue": <span>
-      You spent 
-      5
-       seconds (out of a possible 
-      24
-       seconds) in 
-      <ForwardRef
-        id={47585}
-      />
-      . Consider using 
-      <ForwardRef
-        id={47585}
-      />
-       less or cancel it early.
-    </span>,
-    "stat": <React.Fragment>
-      22.35% Dispersion uptime
-       (
-      &lt;20.00% is recommended, unless the encounter requires it.
       )
     </React.Fragment>,
   },
@@ -4131,13 +3733,13 @@ exports[`Shadow Priest integration test: example log DistanceMoved matches the s
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
         >
           ≈ 
-          1,205
+          178
            yards
           <small
             style={
@@ -4147,7 +3749,7 @@ exports[`Shadow Priest integration test: example log DistanceMoved matches the s
             }
           >
             ≈ 
-            43.64
+            31.48
             %
           </small>
         </div>
@@ -4208,229 +3810,271 @@ exports[`Shadow Priest integration test: example log EnchantChecker matches the 
 Array [
   Object {
     "details": null,
-    "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
+    "icon": "inv_chest_cloth_kultirasdungeon_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              5448,
-              1647,
-              4786,
-              6510,
-            ],
-            "icon": "inv_chest_cloth_zandalardungeon_c_01.jpg",
-            "id": 158349,
-            "itemLevel": 480,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5448,
+                  1543,
+                  4786,
+                  6510,
+                ],
+                "icon": "inv_chest_cloth_kultirasdungeon_c_01.jpg",
+                "id": 159268,
+                "itemLevel": 135,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159268}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={158349}
-        quality={3}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_bracer_cloth_nzothraid_d_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4824,
-              1517,
-              4786,
-              6482,
-              6470,
-              6514,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
-                "id": 168639,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_bracer_cloth_nzothraid_d_01.jpg",
-            "id": 174122,
-            "itemLevel": 475,
-            "quality": 4,
-          }
+                "bonusIDs": Array [
+                  4824,
+                  1517,
+                  4786,
+                  6482,
+                  6470,
+                  6514,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                    "id": 168639,
+                    "itemLevel": 50,
+                  },
+                ],
+                "icon": "inv_bracer_cloth_nzothraid_d_01.jpg",
+                "id": 174122,
+                "itemLevel": 130,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={174122}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Bracers"
+            id="common.slots.bracers"
+          />,
         }
-        icon={false}
-        id={174122}
-        quality={4}
-      >
-        Bracers
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
-    "icon": "inv_ring_80_05b.jpg",
+    "icon": "inv_70_raid_ring8d.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6534,
-              4802,
-              6515,
-              1637,
-              4786,
-              6476,
-              6470,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
-                "id": 168639,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_ring_80_05b.jpg",
-            "id": 159461,
-            "itemLevel": 465,
-            "permanentEnchant": 6108,
-            "quality": 3,
-          }
+                "bonusIDs": Array [
+                  4824,
+                  6515,
+                  1517,
+                  4786,
+                  6482,
+                  6470,
+                ],
+                "icon": "inv_70_raid_ring8d.jpg",
+                "id": 174530,
+                "itemLevel": 130,
+                "permanentEnchant": 6108,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={174530}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={159461}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_jewelry_mech_ring_blue.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6536,
-              6578,
-              1532,
-              4786,
-              6514,
-              6476,
-              6470,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
-                "id": 168639,
+                "bonusIDs": Array [
+                  6536,
+                  6516,
+                  6513,
+                  1514,
+                  4786,
+                ],
+                "icon": "inv_jewelry_mech_ring_blue.jpg",
+                "id": 169158,
                 "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_jewelry_mech_ring_blue.jpg",
-            "id": 169158,
-            "itemLevel": 475,
-            "permanentEnchant": 6108,
-            "quality": 4,
-          }
+                "permanentEnchant": 6108,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={169158}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={169158}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6603,
-              1472,
-            ],
-            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
-            "id": 169223,
-            "itemLevel": 500,
-            "quality": 5,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6599,
+                  1472,
+                ],
+                "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+                "id": 169223,
+                "itemLevel": 155,
+                "quality": 5,
+              }
+            }
+            icon={false}
+            id={169223}
+            quality={5}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={169223}
-        quality={5}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
-    "icon": "inv_staff_2h_battledungeon_c_04.jpg",
+    "icon": "inv_mace_1h_battledungeon_c_01.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6536,
-              43,
-              6578,
-              1647,
-              4786,
-              6514,
-              6482,
-              6470,
-            ],
-            "gems": Array [
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
               Object {
-                "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
-                "id": 168639,
-                "itemLevel": 120,
-              },
-            ],
-            "icon": "inv_staff_2h_battledungeon_c_04.jpg",
-            "id": 159636,
-            "itemLevel": 475,
-            "permanentEnchant": 5965,
-            "quality": 3,
-          }
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  1543,
+                  4786,
+                  6482,
+                  6470,
+                  6514,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                    "id": 168639,
+                    "itemLevel": 50,
+                  },
+                ],
+                "icon": "inv_mace_1h_battledungeon_c_01.jpg",
+                "id": 159652,
+                "itemLevel": 130,
+                "permanentEnchant": 5965,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159652}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
         }
-        icon={false}
-        id={159636}
-        quality={3}
-      >
-        Weapon
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -4475,7 +4119,7 @@ exports[`Shadow Priest integration test: example log EssenceOfTheFocusingIris ma
               Focused Energy
             </a>
              - Minor Rank 
-            3
+            4
           </label>
           <div
             className="value"
@@ -4491,7 +4135,7 @@ exports[`Shadow Priest integration test: example log EssenceOfTheFocusingIris ma
               />
             </svg>
              
-            394
+            10
              
             <small>
               average Haste gained
@@ -4508,7 +4152,7 @@ exports[`Shadow Priest integration test: example log EssenceOfTheFocusingIris ma
               />
             </svg>
              
-            97.37
+            99.21
             % 
             <small>
               uptime
@@ -4589,7 +4233,75 @@ exports[`Shadow Priest integration test: example log Gutripper matches the stati
         <div
           className="value"
         >
-          1.53 % / 1,488 DPS
+          0.46 % / 27 DPS
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Shadow Priest integration test: example log HeedMyCall matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=263987"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Heed My Call"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shaman_thunderstorm.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=263987"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Heed My Call
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          0.27 % / 16 DPS
         </div>
       </div>
     </div>
@@ -4694,7 +4406,7 @@ exports[`Shadow Priest integration test: example log ShadowWordPain matches the 
         <div
           className="value"
         >
-          98.36
+          125.44
           % 
           <small>
             Uptime
@@ -4706,68 +4418,80 @@ exports[`Shadow Priest integration test: example log ShadowWordPain matches the 
 </div>
 `;
 
-exports[`Shadow Priest integration test: example log SkippableCasts matches the statistic snapshot 1`] = `
+exports[`Shadow Priest integration test: example log TheCrucibleofFlame matches the statistic snapshot 1`] = `
 <div
+  category="ITEMS"
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "padding": 0,
+    }
+  }
 >
   <div
-    className="panel statistic flexible "
-    position={7}
+    className="col-md-12"
   >
     <div
-      className="panel-body"
+      category="ITEMS"
+      className="panel statistic standard "
+      position={1000}
     >
       <div
-        className="pad boring-text "
+        className="panel-body"
       >
-        <label>
-          <a
-            href="http://wowhead.com/spell=205448"
-            rel="noopener noreferrer"
-            target="_blank"
+        <div
+          className="pad"
+        >
+          <label>
+            <a
+              href="http://wowhead.com/spell=299348"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_radientazeritematrix.jpg"
+              />
+               
+              Ancient Flame
+            </a>
+             - Minor Rank 
+            3
+          </label>
+          <div
+            className="value"
           >
             <img
-              alt="Void Bolt"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_ironmaidens_convulsiveshadows.jpg"
+              alt="Damage"
+              className="icon"
+              src="/img/sword.png"
             />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=205448"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Void Bolt
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          5
-           
-          <small>
-            Skippable casts
-          </small>
+             
+            203
+             DPS
+             
+            <small>
+              3.39
+               % of total
+            </small>
+            <br />
+            <img
+              alt="Healing"
+              className="icon"
+              src="/img/healing.png"
+            />
+             
+            0
+             HPS
+             
+            <small>
+              0.00
+              % of total
+            </small>
+          </div>
         </div>
       </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
     </div>
   </div>
 </div>
@@ -4822,7 +4546,7 @@ exports[`Shadow Priest integration test: example log ThroughputStatisticGroup ma
               }
             }
           >
-            97,576
+            6,002
              DPS
           </div>
           <div
@@ -4839,7 +4563,7 @@ exports[`Shadow Priest integration test: example log ThroughputStatisticGroup ma
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/pxNCHk3K92AdG6gJ/#fight=12&source=10&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/Ctv2jxFXQz8cMDaR/#fight=15&source=194&type=damage-done"
             >
               <div
                 style={
@@ -4911,7 +4635,7 @@ exports[`Shadow Priest integration test: example log ThroughputStatisticGroup ma
               }
             }
           >
-            20,381
+            396
              HPS
           </div>
           <div
@@ -4933,7 +4657,7 @@ exports[`Shadow Priest integration test: example log ThroughputStatisticGroup ma
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/pxNCHk3K92AdG6gJ/#fight=12&source=10&type=healing"
+              href="https://www.warcraftlogs.com/reports/Ctv2jxFXQz8cMDaR/#fight=15&source=194&type=healing"
             >
               <div
                 style={
@@ -5005,7 +4729,7 @@ exports[`Shadow Priest integration test: example log ThroughputStatisticGroup ma
               }
             }
           >
-            23,602
+            668
              DTPS
           </div>
           <div
@@ -5023,7 +4747,7 @@ exports[`Shadow Priest integration test: example log ThroughputStatisticGroup ma
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/pxNCHk3K92AdG6gJ/#fight=12&source=10&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/Ctv2jxFXQz8cMDaR/#fight=15&source=194&type=damage-taken"
             >
               <div
                 style={
@@ -5055,81 +4779,6 @@ exports[`Shadow Priest integration test: example log ThroughputStatisticGroup ma
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Shadow Priest integration test: example log TwistOfFate matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="TALENTS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=123254"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Twist of Fate"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_mindtwisting.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=123254"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Twist of Fate
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <img
-            alt="Damage"
-            className="icon"
-            src="/img/sword.png"
-          />
-           
-          5,795
-           DPS
-           
-          <small>
-            5.94
-             % of total
-          </small>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
     </div>
   </div>
 </div>
@@ -5179,11 +4828,11 @@ exports[`Shadow Priest integration test: example log VampiricEmbrace matches the
             src="/img/healing.png"
           />
            
-          7,758
+          0
            HPS
            
           <small>
-            38.07
+            0.00
             % of total
           </small>
         </div>
@@ -5248,7 +4897,7 @@ exports[`Shadow Priest integration test: example log VampiricTouch matches the s
         <div
           className="value"
         >
-          92.17
+          125.44
           % 
           <small>
             Uptime
@@ -5258,33 +4907,6 @@ exports[`Shadow Priest integration test: example log VampiricTouch matches the s
     </div>
   </div>
 </div>
-`;
-
-exports[`Shadow Priest integration test: example log VampiricTouch matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_holy_stoicism",
-    "importance": "minor",
-    "issue": <span>
-      Your 
-      <ForwardRef
-        id={34914}
-      />
-       uptime can be improved. Try to pay more attention to your 
-      <ForwardRef
-        id={34914}
-      />
-       on the boss.
-    </span>,
-    "stat": <React.Fragment>
-      92.17% Vampiric Touch uptime
-       (
-      &gt;95.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Shadow Priest integration test: example log VitaChargedTitanshard matches the statistic snapshot 1`] = `
@@ -5304,7 +4926,7 @@ exports[`Shadow Priest integration test: example log VitaChargedTitanshard match
         <label>
           <a
             className="epic"
-            href="http://wowhead.com/item=174500&gems=168639&bonus=4824:1517:4786:6514"
+            href="http://wowhead.com/item=174500&gems=168638&bonus=4824:1517:4786:6514"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5330,7 +4952,7 @@ exports[`Shadow Priest integration test: example log VitaChargedTitanshard match
             />
           </svg>
            
-          16
+          13
           % 
           <small>
             uptime
@@ -5347,7 +4969,7 @@ exports[`Shadow Priest integration test: example log VitaChargedTitanshard match
             />
           </svg>
            
-          261
+          26
            
           <small>
             average Haste gained
@@ -5355,103 +4977,6 @@ exports[`Shadow Priest integration test: example log VitaChargedTitanshard match
           <br />
         </div>
       </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Shadow Priest integration test: example log VoidformAverageStacks matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic flexible "
-    position={0}
-    style={
-      Object {
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=228264"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Voidform"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_priest_voidform.jpg"
-            />
-          </a>
-           
-          <a
-            href="http://wowhead.com/spell=228264"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Voidform
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          83.20
-          % 
-          <small>
-            Uptime
-          </small>
-          <br />
-          302
-           
-          <small>
-            Average stacks
-          </small>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-xs-12"
-        />
-      </div>
-      <div
-        className="statistic-expansion-button-holster"
-      >
-        <button
-          className="btn btn-primary"
-          onClick={[Function]}
-        >
-          <span
-            className="glyphicon glyphicon-chevron-down"
-          />
-        </button>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
     </div>
   </div>
 </div>
@@ -5486,8 +5011,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "90.5327891354155%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -5544,21 +5069,35 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
           <div
             className="col-md-12"
           >
-            Both 
+            When not in 
             <a
-              href="http://wowhead.com/spell=589"
+              href="http://wowhead.com/spell=228264"
               rel="noopener noreferrer"
               target="_blank"
             >
               <img
                 alt=""
                 className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowwordpain.jpg"
+                src="//render-us.worldofwarcraft.com/icons/56/spell_priest_voidform.jpg"
               />
                
-              Shadow Word: Pain
+              Voidform
             </a>
-             and 
+            , it's important to keep your DoTs up on the boss. While in 
+            <a
+              href="http://wowhead.com/spell=228264"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_priest_voidform.jpg"
+              />
+               
+              Voidform
+            </a>
+            ,  your 
             <a
               href="http://wowhead.com/spell=34914"
               rel="noopener noreferrer"
@@ -5572,7 +5111,35 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Vampiric Touch
             </a>
-             duration extends when the target or a nearby target gets hit by 
+            , 
+            <a
+              href="http://wowhead.com/spell=335467"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_devouringplague.jpg"
+              />
+               
+              Devouring Plague
+            </a>
+            , and 
+            <a
+              href="http://wowhead.com/spell=589"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowwordpain.jpg"
+              />
+               
+              Shadow Word: Pain
+            </a>
+             durations are extended when the target or a nearby target gets hit by 
             <a
               href="http://wowhead.com/spell=205448"
               rel="noopener noreferrer"
@@ -5586,7 +5153,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Void Bolt
             </a>
-            . Due to this, you often only need to apply these spells to new targets and refresh them on targets that are too far away from your primary target.
+            .
           </div>
         </div>
         <div
@@ -5635,7 +5202,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  98.36%
+                  125.44%
                    
                    
                 </div>
@@ -5708,7 +5275,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  92.17%
+                  125.44%
                    
                    
                 </div>
@@ -5728,9 +5295,9 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "81.06557827083101%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5743,7 +5310,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -5767,8 +5334,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "17.537672218408236%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -5901,7 +5468,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  70.53%
+                  100.00%
                    
                    
                 </div>
@@ -5921,9 +5488,9 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "35.07534443681647%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5973,7 +5540,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  0.00%
+                  100.00%
                    
                    
                 </div>
@@ -5993,9 +5560,9 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6008,7 +5575,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -6032,8 +5599,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "41.844185246977815%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -6106,17 +5673,17 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
-                  href="http://wowhead.com/spell=34433"
+                  href="http://wowhead.com/spell=228260"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img
                     alt=""
                     className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowfiend.jpg"
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_priest_voidblast.jpg"
                   />
                    
-                  Shadowfiend
+                  Void Eruption
                 </a>
               </div>
               <div
@@ -6138,7 +5705,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  67.57%
+                  100.00%
                    
                    
                 </div>
@@ -6158,9 +5725,81 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "41.844185246977815%",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=200174"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_soulleech_3.jpg"
+                  />
+                   
+                  Mindbender
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6185,21 +5824,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
         <div
           className="flex-main name"
         >
-          Maximize 
-          <a
-            href="http://wowhead.com/spell=228264"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_priest_voidform.jpg"
-            />
-             
-            Voidform
-          </a>
-           stacks
+          Minimize casting downtime
         </div>
         <div
           className="flex-sub perf"
@@ -6213,274 +5838,6 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 Object {
                   "backgroundColor": "#4ec04e",
                   "width": "100%",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="flex-sub chevron"
-        >
-          <div>
-            <svg
-              className="icon"
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      aria-hidden={true}
-      className="rah-static rah-static--height-zero details"
-      style={
-        Object {
-          "height": 0,
-          "overflow": "hidden",
-        }
-      }
-    >
-      <div
-        style={Object {}}
-      >
-        <div
-          className="row text-muted description"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-            />
-            <path
-              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-            />
-            <path
-              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-            />
-          </svg>
-          <div
-            className="col-md-12"
-          >
-            Your Voidforms are an important part of your overall damage. Try to get at least 20 stacks every Voidform with proper 
-            <a
-              href="http://wowhead.com/spell=205448"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_ironmaidens_convulsiveshadows.jpg"
-              />
-               
-              Void Bolt
-            </a>
-             and 
-            <a
-              href="http://wowhead.com/spell=8092"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_unholyfrenzy.jpg"
-              />
-               
-              Mind Blast
-            </a>
-             usage. Use 
-            <a
-              href="http://wowhead.com/spell=200174"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_soulleech_3.jpg"
-              />
-               
-              Mindbender
-            </a>
-             on cooldown (even outside of Voidform).
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  href="http://wowhead.com/spell=228264"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_priest_voidform.jpg"
-                  />
-                   
-                  Voidform
-                </a>
-                 uptime
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  83.20%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Voidform #1 stacks
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  302
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li
-    className="expandable expanded failed"
-  >
-    <div
-      className="meta"
-      onClick={[Function]}
-    >
-      <div
-        className="flex wrapable"
-      >
-        <div
-          className="flex-main name"
-        >
-          Minimize casting downtime
-        </div>
-        <div
-          className="flex-sub perf"
-        >
-          <div
-            className="perf-container"
-          >
-            <div
-              className="perf-bar"
-              style={
-                Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "30.00791877104378%",
                 }
               }
             />
@@ -6551,6 +5908,20 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Void Bolt
             </a>
+             or 
+            <a
+              href="http://wowhead.com/spell=335467"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_devouringplague.jpg"
+              />
+               
+              Devouring Plague
+            </a>
              cast towards that location. During high movement you can use 
             <a
               href="http://wowhead.com/spell=589"
@@ -6601,7 +5972,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  22.19%
+                  9.38%
                    
                    
                 </div>
@@ -6621,9 +5992,9 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "30.00791877104378%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6876,7 +6247,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -6936,7 +6307,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6996,7 +6367,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7056,7 +6427,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7116,7 +6487,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -7176,7 +6547,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -7236,7 +6607,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>

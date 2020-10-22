@@ -47,7 +47,6 @@ export default class Checklist extends BaseChecklist {
           bocDpsWaste: this.boc.dpsWasteThreshold,
           bocTp: this.tp.bocEmpoweredThreshold,
           rjw: this.rjw.uptimeThreshold,
-          purifyHeavy: this.pb.purifyHeavySuggestion,
           purifyDelay: this.pb.purifyDelaySuggestion,
           shuffleHits: this.shuffle.uptimeSuggestionThreshold,
           goodCBCasts: this.cb.goodCastSuggestion,

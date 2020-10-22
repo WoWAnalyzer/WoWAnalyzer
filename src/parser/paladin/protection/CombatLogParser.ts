@@ -16,10 +16,13 @@ import LightOfTheProtector from './modules/spells/LightOfTheProtector';
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import GrandCrusader from './modules/core/GrandCrusader';
 import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
+import NoDamageShieldOfTheRighteous from './modules/features/NoDamageShieldOfTheRighteous';
+import WordOfGlory from './modules/spells/WordOfGlory';
 
 //Talents
 import Seraphim from './modules/talents/Seraphim';
 import RighteousProtector from './modules/talents/RighteousProtector';
+import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
@@ -33,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     lightOfTheProtector: LightOfTheProtector,
     hotr: HammerOfTheRighteous,
+    wordOfGlory: WordOfGlory,
 
     // Features
     abilities: Abilities,
@@ -43,12 +47,14 @@ class CombatLogParser extends CoreCombatLogParser {
     shieldOfTheRighteous: ShieldOfTheRighteous,
     consecration: Consecration,
     mitigationcheck: MitigationCheck,
+    noDamageSOTR: NoDamageShieldOfTheRighteous,
     //cooldownTracker: CooldownTracker,
 
     // Talents
     righteousProtector: RighteousProtector,
     judgment: Judgment,
     seraphim: Seraphim,
+    sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

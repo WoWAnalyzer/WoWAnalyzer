@@ -19,7 +19,7 @@ const SIEGEBREAKER_DAMAGE_MODIFIER = 0.15;
 // Example log: https://www.warcraftlogs.com/reports/QHjLTpxknR47CZhm#fight=6&type=damage-done&source=5
 class Siegebreaker extends Analyzer {
   static dependencies = {
-      enemies: Enemies,
+    enemies: Enemies,
   }
 
   protected enemies!: Enemies;
@@ -29,42 +29,44 @@ class Siegebreaker extends Analyzer {
   recklessnessCasted: number = 0;
   inValidRecklessness: boolean = false;
   siegeCasted: boolean = false;
-  lastRecklessness: any = null;
+  lastRecklessness: CastEvent | null = null;
 
   constructor(options: Options) {
-      super(options);
-      this.active = this.selectedCombatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id);
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id);
 
-      if (!this.active) {
-        return;
-      }
+    if (!this.active) {
+      return;
+    }
 
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
-      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SIEGEBREAKER_TALENT), this.siegeTurnOn);
-      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.playerCastedRecklessness);
-      this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.buffCheck);
-      this.addEventListener(Events.fightend, this.buffCheck);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SIEGEBREAKER_TALENT), this.siegeTurnOn);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.playerCastedRecklessness);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.buffCheck);
+    this.addEventListener(Events.fightend, this.buffCheck);
   }
 
-  playerCastedRecklessness(event: CastEvent){
+  playerCastedRecklessness(event: CastEvent) {
     this.inValidRecklessness = true;
     this.recklessnessCasted += 1;
     this.lastRecklessness = event;
   }
 
-  siegeTurnOn(){
-    if(this.inValidRecklessness){
+  siegeTurnOn() {
+    if (this.inValidRecklessness) {
       this.siegeCasted = true;
     }
   }
 
-  buffCheck(event: any){
-    if(this.inValidRecklessness && this.siegeCasted){
+  buffCheck() {
+    if (this.inValidRecklessness && this.siegeCasted) {
       this.goodRecklessness += 1;
-    }else if(this.inValidRecklessness){
-      this.lastRecklessness.meta = event.meta || {};
-      this.lastRecklessness.meta.isInefficientCast = true;
-      this.lastRecklessness.meta.inefficientCastReason = `You didn't cast Siege Breaker during this Recklessness.`;
+    } else if (this.inValidRecklessness) {
+      // lastRecklessness cant be null when validRecklesness is true
+      this.lastRecklessness!.meta = {
+        isInefficientCast: true,
+        inefficientCastReason: `You didn't cast Siege Breaker during this Recklessness.`,
+      };
     }
     this.inValidRecklessness = false;
     this.siegeCasted = false;
@@ -85,23 +87,23 @@ class Siegebreaker extends Analyzer {
     return this.damage / (this.owner.fightDuration / 1000);
   }
 
-  get suggestionThresholds(){
-	  return{
-		  actual: (this.goodRecklessness / this.recklessnessCasted),
-		  isLessThan:{
-			  minor: .9,
-			  average: .8,
-			  major: .7,
-		  },
-		  style: ThresholdStyle.PERCENTAGE,
-	  };
+  get suggestionThresholds() {
+    return {
+      actual: (this.goodRecklessness / this.recklessnessCasted),
+      isLessThan: {
+        minor: .9,
+        average: .8,
+        major: .7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
-  suggestions(when: When){
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're not casting <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} /> and <SpellLink id={SPELLS.RECKLESSNESS.id} /> together.</>)
-        .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-        .actual(i18n._(t('warrior.fury.suggestions.siegeBreaker.efficiency')`${formatPercentage(actual)}% of Recklessnesses casts without a Siegebreaker cast`))
-        .recommended(`${formatPercentage(recommended)}+% is recommended`));
+      .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
+      .actual(i18n._(t('warrior.fury.suggestions.siegeBreaker.efficiency')`${formatPercentage(actual)}% of Recklessnesses casts without a Siegebreaker cast`))
+      .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 
   statistic() {
