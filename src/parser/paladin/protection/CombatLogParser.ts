@@ -23,6 +23,7 @@ import WordOfGlory from './modules/spells/WordOfGlory';
 import Seraphim from './modules/talents/Seraphim';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
+import HolyShieldSpellBlock from './modules/talents/HolyShieldSpellBlock';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
@@ -55,10 +56,11 @@ class CombatLogParser extends CoreCombatLogParser {
     judgment: Judgment,
     seraphim: Seraphim,
     sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
+    holyShieldSpellBlock: HolyShieldSpellBlock,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
-    
+
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
