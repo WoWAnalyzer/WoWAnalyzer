@@ -22,6 +22,10 @@ class HolyShieldSpellBlock extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HOLY_SHIELD_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHIELD_TALENT), this.trackHolyShieldAbsorbs);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.trackSpellsHitPlayer);
   }
