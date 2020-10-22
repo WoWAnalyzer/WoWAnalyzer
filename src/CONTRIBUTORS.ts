@@ -974,3 +974,9 @@ export const Guyius: Contributor = {
   github: 'guyius',
   discord: 'Guyius#1560',
 };
+export const Amani: Contributor = {
+  nickname: 'Amani',
+  github: 'AmaniZandalari',
+  discord: 'Amani#0001',
+  about: 'Russian localizator',
+};
