@@ -325,19 +325,14 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={60}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -352,12 +347,22 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
             />
           </a>
            
-          Average Breath of Sindragosa Duration
+          <a
+            href="http://wowhead.com/spell=152279"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Breath of Sindragosa
+          </a>
         </label>
         <div
           className="value"
         >
-          14.1 seconds
+          14.1
+          s  
+          <small>
+            average duration
+          </small>
         </div>
       </div>
     </div>
@@ -4219,19 +4224,14 @@ exports[`Frost Death Knight integration test: example log FrostFeverUptime match
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={20}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4246,12 +4246,32 @@ exports[`Frost Death Knight integration test: example log FrostFeverUptime match
             />
           </a>
            
-          Frost Fever Uptime
+          <a
+            href="http://wowhead.com/spell=55095"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Frost Fever
+          </a>
         </label>
         <div
           className="value"
         >
-          107.99 %
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          107.99
+          % 
+          <small>
+            uptime
+          </small>
         </div>
       </div>
     </div>
@@ -4264,19 +4284,14 @@ exports[`Frost Death Knight integration test: example log Frostscythe matches th
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4291,12 +4306,22 @@ exports[`Frost Death Knight integration test: example log Frostscythe matches th
             />
           </a>
            
-          Frostscythe efficiency
+          <a
+            href="http://wowhead.com/spell=207230"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Frostscythe
+          </a>
         </label>
         <div
           className="value"
         >
-          0.00%
+          0.00
+           % 
+          <small>
+            efficiency
+          </small>
         </div>
       </div>
     </div>
@@ -4326,19 +4351,14 @@ exports[`Frost Death Knight integration test: example log GatheringStorm matches
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4353,7 +4373,13 @@ exports[`Frost Death Knight integration test: example log GatheringStorm matches
             />
           </a>
            
-          Gathering Storm
+          <a
+            href="http://wowhead.com/spell=194912"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Gathering Storm
+          </a>
         </label>
         <div
           className="value"
@@ -4468,40 +4494,44 @@ exports[`Frost Death Knight integration test: example log HardHowlingBlastCasts 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    postion={50}
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={50}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
-            href="http://wowhead.com/spell=59052"
+            href="http://wowhead.com/spell=49184"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Rime"
+              alt="Howling Blast"
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/spell_frost_arcticwinds.jpg"
             />
           </a>
            
-          Howling Blasts without Rime proc
+          <a
+            href="http://wowhead.com/spell=49184"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Howling Blast
+          </a>
         </label>
         <div
           className="value"
         >
           2
+           
+          <small>
+            casts without Rime proc
+          </small>
         </div>
       </div>
     </div>
@@ -4531,19 +4561,14 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={5}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4558,12 +4583,22 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
             />
           </a>
            
-          Killing Machine Efficiency
+          <a
+            href="http://wowhead.com/spell=51124"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Killing Machine
+          </a>
         </label>
         <div
           className="value"
         >
-          90.00 %
+          90.00
+           % 
+          <small>
+            efficiency
+          </small>
         </div>
       </div>
     </div>
@@ -4607,7 +4642,7 @@ Array [
       <ForwardRef
         id={207230}
       />
-       within 1 or 2 GCDs of gaining a Killing Machine proc to avoid wasting it.  See one of the guides on the About tab for more information on when another ability takes precedence over spending Killing Machine
+       within 1 or 2 GCDs of gaining a Killing Machine proc to avoid wasting it. See one of the guides on the About tab for more information on when another ability takes precedence over spending Killing Machine
     </React.Fragment>,
     "stat": <React.Fragment>
       10.00% of Killing Machine procs were either refreshed and lost or expired without being used
@@ -4757,19 +4792,14 @@ exports[`Frost Death Knight integration test: example log RimeEfficiency matches
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={5}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4784,12 +4814,22 @@ exports[`Frost Death Knight integration test: example log RimeEfficiency matches
             />
           </a>
            
-          Rime Efficiency
+          <a
+            href="http://wowhead.com/spell=59052"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rime
+          </a>
         </label>
         <div
           className="value"
         >
-          100.00 %
+          100.00
+           % 
+          <small>
+            efficiency
+          </small>
         </div>
       </div>
     </div>
@@ -4927,33 +4967,40 @@ exports[`Frost Death Knight integration test: example log RunicPowerDetails matc
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={11}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
-          <img
-            alt=""
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
-          />
-           
-          Runic Power wasted
-        </label>
         <div
-          className="value"
+          className="flex-sub icon"
         >
-          4.29 %
+          <a
+            href="http://wowhead.com/runic-power"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Runic Power"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            4.29 %
+          </div>
+          <small>
+            Runic Power wasted
+          </small>
         </div>
       </div>
     </div>
