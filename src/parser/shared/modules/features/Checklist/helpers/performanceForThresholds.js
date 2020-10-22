@@ -24,21 +24,23 @@ function performanceForLessThanThresholds(actual, { minor, average, major }) {
     return 1;
   }
 }
+
 function performanceForGreaterThanThresholds(actual, { minor, average, major }) {
   if (actual > major) {
     // major issue
-    return 0.333 * major / actual;
+    return 0.333 * major > 0 ? major / actual : 0;
   } else if (actual > average) {
     // average issue (between major and average issue)
-    return 0.666 - 0.333 * ((actual - average) / (major - average));
+    return 0.666 - 0.333 * average > 0 ? ((actual - average) / (major - average)) : 0;
   } else if (actual > minor) {
     // minor issue (between average and minor issue)
-    return 1 - 0.333 * ((actual - minor) / (average - minor));
+    return 1 - 0.333 * minor > 0 ? ((actual - minor) / (average - minor)) : 0;
   } else {
     // no issue
     return 1;
   }
 }
+
 export default function performanceForThresholds(thresholds) {
   if (thresholds.isGreaterThan) {
     if (typeof thresholds.isGreaterThan === 'object') {
