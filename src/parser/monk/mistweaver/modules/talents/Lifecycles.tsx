@@ -83,7 +83,7 @@ class Lifecycles extends Analyzer {
     this.manaSaved += (manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
     this.manaSavedEnm += (manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
     this.castsRedEnm += 1;
-    debug && console.log('Viv Reduced');
+    debug && console.log('Env Reduced');
   }
 
   get suggestionThresholds() {
