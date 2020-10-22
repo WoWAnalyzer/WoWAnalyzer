@@ -21,20 +21,23 @@ class BladeRush extends Analyzer {
   }
 
   onFinishMove(event: CastEvent) {
-    if (!getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id)) {
+    if (!event.classResources || !getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id)) {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.BLADE_RUSH_TALENT.id)) {
       const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.BLADE_RUSH_TALENT.id);
-      const cpCost = getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id).cost;
-      const extraCDR = this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id) ? (cpCost * 1000) : 0;
-      const cooldownReduction = (cpCost * 1000) + extraCDR;
-      const newChargeCDR = cooldownRemaining - cooldownReduction;
-      if (newChargeCDR < 0) {
-        this.spellUsable.endCooldown(SPELLS.BLADE_RUSH_TALENT.id, false, event.timestamp);
-      } else {
-        this.spellUsable.reduceCooldown(SPELLS.BLADE_RUSH_TALENT.id, cooldownReduction, event.timestamp);
+      const cpCost = getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id)?.cost;
+      if (cpCost) {
+        const extraCDR = this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id) ? (cpCost * 1000) : 0;
+        const cooldownReduction = (cpCost * 1000) + extraCDR;
+        const newChargeCDR = cooldownRemaining - cooldownReduction;
+        if (newChargeCDR < 0) {
+          this.spellUsable.endCooldown(SPELLS.BLADE_RUSH_TALENT.id, false, event.timestamp);
+        } else {
+          this.spellUsable.reduceCooldown(SPELLS.BLADE_RUSH_TALENT.id, cooldownReduction, event.timestamp);
+        }
       }
+      
     }
   }
 }
