@@ -47,9 +47,11 @@ class InvigoratingShadowdust extends Analyzer {
   onCast(event: CastEvent) {
     this.cooldowns.map((cooldown, index) => {
       const { id } = cooldown[index];
-      if (this.spellUsable.isOnCooldown(id)) {
-        return this.spellUsable.reduceCooldown(id, this.cooldownReduction, event.timestamp);
+      if (!this.spellUsable.isOnCooldown(id)) {
+        // eslint-disable-next-line array-callback-return
+        return;
       }
+      return this.spellUsable.reduceCooldown(id, this.cooldownReduction, event.timestamp);
     });
   }
 }
