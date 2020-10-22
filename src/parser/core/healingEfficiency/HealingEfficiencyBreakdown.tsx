@@ -5,6 +5,7 @@ import PerformanceBar from 'interface/PerformanceBar';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
 import HolyPriestHealingEfficiencyTracker from 'parser/priest/holy/modules/features/HolyPriestHealingEfficiencyTracker';
+import { Trans } from '@lingui/macro';
 
 import HealingEfficiencyTracker, { SpellInfoDetails } from './HealingEfficiencyTracker';
 
@@ -74,21 +75,21 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
 
   BarHeader = () => (
     <>
-      <th>Mana Spent</th>
+      <Trans render="th" id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans>
       {this.state.showHealing && (
         <>
-          <th colSpan={2} className="text-center">Healing per mana spent</th>
+          <th colSpan={2} className="text-center"><Trans id="common.stat.healingPerMana">Healing per mana spent</Trans></th>
           <th colSpan={2} className="text-center">
-            <TooltipElement content="This includes time spent waiting on the GCD">
-              Healing per second spent casting
-              </TooltipElement>
+            <TooltipElement content={<Trans id="common.stat.healingPerExecutionTime.long">Healing per second spent casting the spell, including GCD wait time.</Trans>}>
+              <Trans id="common.stat.healingPerExecutionTime">Healing per second spent casting</Trans>
+            </TooltipElement>
           </th>
         </>
       )}
       {!this.state.showHealing && (
         <>
-          <th colSpan={2} className="text-center">Damage per mana spent</th>
-          <th colSpan={2} className="text-center">Damage per second spent casting</th>
+          <th colSpan={2} className="text-center"><Trans id="common.stat.damagePerMana">Damage per mana spent</Trans></th>
+          <th colSpan={2} className="text-center"><Trans id="common.stat.damagePerExecutionTime.long">Damage per second spent casting the spell</Trans></th>
         </>
       )}
     </>
@@ -132,30 +133,38 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
   DetailHeader = () => (
     <>
       <th>
-        <TooltipElement content="Total Casts (Number of targets hit)">Casts</TooltipElement>
+        <TooltipElement content={<Trans id="shared.healingEfficiency.tableHeader.casts.tooltip">Total Casts (Number of targets hit)</Trans>}><Trans id="shared.healingEfficiency.tableHeader.casts">Casts</Trans></TooltipElement>
       </th>
-      <th>Mana Spent</th>
-      <th>Time Spent</th>
+      <Trans render="th" id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans>
+      <Trans render="th" id="shared.healingEfficiency.tableHeader.timeSpent">Time Spent</Trans>
       {this.state.showHealing && (
         <>
-          <th>Healing Done</th>
-          <th>Overhealing</th>
+          <Trans render="th" id="shared.healingEfficiency.tableHeader.healingDone">Healing Done</Trans>
+          <Trans render="th" id="shared.healingEfficiency.tableHeader.overhealingDone">Overhealing</Trans>
           <th>
-            <TooltipElement content="Healing per mana spent casting the spell">HPM</TooltipElement>
+            <TooltipElement content={<Trans id="common.stat.healingPerMana.long">Healing per mana spent casting the spell</Trans>}>
+              <Trans id="common.stat.healingPerMana.short">HPM</Trans>
+            </TooltipElement>
           </th>
           <th>
-            <TooltipElement content="Healing per second spent casting the spell, including GCD wait time.">HPET</TooltipElement>
+            <TooltipElement content={<Trans id="common.stat.healingPerExecutionTime.long">Healing per second spent casting the spell, including GCD wait time.</Trans>}>
+              <Trans id="common.stat.healingPerExecutionTime.short">HPET</Trans>
+            </TooltipElement>
           </th>
         </>
       )}
       {!this.state.showHealing && (
         <>
-          <th>Damage Done</th>
+          <Trans render="th" id="shared.healingEfficiency.tableHeader.damageDone">Damage Done</Trans>
           <th>
-            <TooltipElement content="Damage per mana spent casting the spell">DPM</TooltipElement>
+            <TooltipElement content={<Trans id="common.stat.damagePerMana.long">Damage per mana spent casting the spell</Trans>}>
+              <Trans id="common.stat.damagePerMana.short">DPM</Trans>
+            </TooltipElement>
           </th>
           <th>
-            <TooltipElement content="Damage per second spent casting the spell">DPET</TooltipElement>
+            <TooltipElement content={<Trans id="common.stat.damagePerExecutionTime.long">Damage per second spent casting the spell</Trans>}>
+              <Trans id="common.stat.damagePerExecutionTime.short">DPET</Trans>
+            </TooltipElement>
           </th>
         </>
       )}
