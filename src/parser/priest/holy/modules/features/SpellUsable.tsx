@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
-import Events, { DispelEvent } from 'parser/core/Events';
+import Events, { AnyEvent, DispelEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 class SpellUsable extends CoreSpellUsable {
@@ -20,7 +20,7 @@ class SpellUsable extends CoreSpellUsable {
     }
   }
 
-  beginCooldown(spellId: number, cooldownTriggerEvent: any) {
+  beginCooldown(spellId: number, cooldownTriggerEvent: AnyEvent) {
     // Essentially having the purify cast not be able to trigger the cooldown, the dispel event does it instead.
     if (spellId === SPELLS.PURIFY.id) {
       return;

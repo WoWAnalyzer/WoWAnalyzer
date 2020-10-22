@@ -1,10 +1,10 @@
-import { EventType } from 'parser/core/Events';
+import { ApplyBuffEvent, ApplyBuffStackEvent, ApplyDebuffEvent, ApplyDebuffStackEvent, EventType, RemoveBuffEvent, RemoveBuffStackEvent, RemoveDebuffEvent, RemoveDebuffStackEvent } from 'parser/core/Events';
 
 /**
  * Returns the current stacks on a given event
  * @param event
  */
-export function currentStacks(event: any) {
+export function currentStacks(event: RemoveBuffEvent | RemoveDebuffEvent | ApplyBuffEvent | ApplyDebuffEvent | ApplyBuffStackEvent | RemoveBuffStackEvent | ApplyDebuffStackEvent | RemoveDebuffStackEvent) {
   switch (event.type) {
     case EventType.RemoveBuff:
     case EventType.RemoveDebuff:
@@ -17,7 +17,6 @@ export function currentStacks(event: any) {
     case EventType.ApplyDebuffStack:
     case EventType.RemoveDebuffStack:
       return event.stack;
-    default:
-      return null;
   }
+  throw new Error("Invalid event type for currentStacks");
 }

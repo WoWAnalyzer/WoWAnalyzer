@@ -2,8 +2,8 @@ import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 
 class Pet extends Analyzer {
-  _damageDone = 0;
-  _sourceId = null;
+  _damageDone: number = 0;
+  _sourceId: number | null = null;
   _pets: any = {}
 
   constructor(options: Options) {

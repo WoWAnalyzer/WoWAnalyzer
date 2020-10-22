@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import Events, { AnyEvent, CastEvent, ChangeHasteEvent, EventType, FilterCooldownInfoEvent, UpdateSpellUsableEvent, Event } from 'parser/core/Events';
+import Events, { AnyEvent, CastEvent, ChangeHasteEvent, EventType, FilterCooldownInfoEvent, UpdateSpellUsableEvent } from 'parser/core/Events';
 
 import Abilities from '../../core/modules/Abilities';
 
@@ -377,7 +377,7 @@ class SpellUsable extends Analyzer {
 
   _lastTimestamp: number = -1;
 
-  onEvent(event: Event<any>) {
+  onEvent(event: AnyEvent) {
     const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
     //if cast event from previous phase was found, add it to the cooldown tracker without adding it to the phase itself
     if (event.type === EventType.FilterCooldownInfo && timestamp === this._lastTimestamp) {

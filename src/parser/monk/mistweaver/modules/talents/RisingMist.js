@@ -181,7 +181,7 @@ class RisingMist extends Analyzer {
   get hotHealing() {
     const array = this.hotTracker.hotHistory;
     let value = 0;
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.length; i += 1) {
       value += (array[i].healingAfterOriginalEnd || 0);
     }
     return value;
@@ -251,7 +251,7 @@ class RisingMist extends Analyzer {
           </>
         )}
       >
-        <BoringValueText 
+        <BoringValueText
           label={<><SpellIcon id={SPELLS.RISING_MIST_TALENT.id} /> Healing Contributed</>}
         >
           <>

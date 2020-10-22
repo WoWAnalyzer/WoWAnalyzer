@@ -39,7 +39,7 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
     const betterFillers = this.betterFillersAvailable(this.lastCast);
     if (betterFillers && betterFillers.length > 0) { // A better movement filler was available.
       let fillers = '';
-      for (let i = 0; i < betterFillers.length; i++) {
+      for (let i = 0; i < betterFillers.length; i += 1) {
         fillers += betterFillers[i];
         if (i + 2 < betterFillers.length) {
           fillers += ', ';

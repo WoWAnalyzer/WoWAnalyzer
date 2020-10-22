@@ -28,7 +28,7 @@ export function binomialPMF(k: number, n: number, p: number) {
  */
 export function binomialCDF(k: number, n: number, p: number) {
   let probability = 0;
-  for (let i = 0; i <= k; i++) {
+  for (let i = 0; i <= k; i += 1) {
     probability += binomialPMF(i, n, p);
   }
   return probability;
@@ -43,7 +43,7 @@ export function binomialCDF(k: number, n: number, p: number) {
 export function findMax(n: number, pmf: (i: number, n: any) => any) {
   let max = -1;
   let maxP = 0;
-  for (let i = 0; i <= n; i++) {
+  for (let i = 0; i <= n; i += 1) {
     const probability = pmf(i, n);
     if (probability > maxP) {
       max = i;
@@ -66,10 +66,10 @@ function binomialDistribution(n: number, k: number) {
   // (n - k + 1) * (n - k + 2) * ... n / k!
   let numerator = 1;
   let denominator = 1;
-  for (let i = n - k + 1; i <= n; i++) {
+  for (let i = n - k + 1; i <= n; i += 1) {
     numerator *= i;
   }
-  for (let i = 1; i <= k; i++) {
+  for (let i = 1; i <= k; i += 1) {
     denominator *= i;
   }
   return numerator / denominator;
@@ -165,7 +165,7 @@ export function poissonBinomialCDF(k: number, n: number, p: number[]) {
   let probability = 0;
   // since Ekj uses the values from "previous row" (Ekj(k - 1, j - 1, ...)), it's better to iterate from 0
   // this way, it produces the least necessary amount of calculations with the lookup table (only the Ekj(k, j - 1) parts)
-  for (let i = 0; i <= k; i++) {
+  for (let i = 0; i <= k; i += 1) {
     probability += Ekj(i, n, p, lookup);
   }
   return probability;

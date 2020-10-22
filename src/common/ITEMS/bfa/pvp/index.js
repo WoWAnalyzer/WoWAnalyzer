@@ -1,6 +1,6 @@
 // Items from pvp
 
-import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
+import { ITEM_QUALITIES } from 'game/ITEM_QUALITIES';
 
 export default {
   DREAD_GLADIATORS_MEDALLION: {

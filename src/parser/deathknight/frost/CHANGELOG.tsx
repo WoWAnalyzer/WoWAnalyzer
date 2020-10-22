@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+    change(date(2020, 10, 22), 'Tweaked spells for prepatch, fixed bug where abilities that only wasted Runic Power and generated none were not showing up in the resource tab', [Khazak]),
     change(date(2020, 10, 22), 'Replaced deprecated StatisticBoxes with Statistic for frost DK', [LeoZhekov]),
     change(date(2020, 10, 16), 'Updated Abilities with pre-patch spells', [Khazak]),
     change(date(2020, 8, 11), 'Converted Frost Death Knight modules to Typescript', [Khazak]),

@@ -48,7 +48,7 @@ class RuneTracker extends ResourceTracker {
     this.resource = RESOURCE_TYPES.RUNES;
     this._lastTimestamp = this.owner.fight.start_time;
     this._runesReadySum = [MAX_RUNES + 1];
-    for (let i = 0; i <= MAX_RUNES; i++) {
+    for (let i = 0; i <= MAX_RUNES; i += 1) {
       this._runesReadySum[i] = 0;
     }
     this.addEventListener(Events.fightend, this.onFightend);
@@ -83,7 +83,7 @@ class RuneTracker extends ResourceTracker {
         if (runeCost <= 0) {
           return;
         }
-        for (let i = 0; i < runeCost; i++) { //start rune cooldown
+        for (let i = 0; i < runeCost; i += 1) { //start rune cooldown
           this.startCooldown(event);
         }
       });
@@ -95,7 +95,7 @@ class RuneTracker extends ResourceTracker {
       return;
     }
     const amount = event.resourceChange;
-    for (let i = 0; i < amount; i++) {
+    for (let i = 0; i < amount; i += 1) {
       this.addCharge();
     }
   }
