@@ -29,8 +29,6 @@ class Lifecycles extends Analyzer {
   castsRedViv: number = 0;
   castsNonRedViv: number = 0;
   castsNonRedEnm: number = 0;
-  chijiStacksAtEnvCast?: number = 0;
-  modifiedManaCost: number = 0;
 
   constructor(options: Options){
     super(options);
@@ -43,48 +41,49 @@ class Lifecycles extends Analyzer {
   }
 
   vivifyCast(event: CastEvent){
-    if(this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
-      // Checking for TFT->Viv and classify as non-reduced Viv
-      if(this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) || this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
-        return;
-      }
-      this.manaSaved += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
-      this.manaSavedViv += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
-      this.castsRedViv += 1;
-      debug && console.log('Viv Reduced');
-    } else {
-      this.castsNonRedViv += 1;
+    // Checking for TFT->Viv and classify as non-reduced Viv
+    if(this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) || this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+      return;
     }
+    if(!this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
+      this.castsNonRedViv += 1;
+      return;
+    }
+    this.manaSaved += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
+    this.manaSavedViv += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
+    this.castsRedViv += 1;
+    debug && console.log('Viv Reduced');
   }
 
   envelopingMistCast(event: CastEvent){
-    // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
-    if(this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
-      if(this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
-        return;
-      }
-      // Checking for chiji stacks and determine mana reduction
-      this.chijiStacksAtEnvCast = this.selectedCombatant.getBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id, event.timestamp)?.stacks;
-      if(this.chijiStacksAtEnvCast) {
-        //check for free cast from chiji
-        if(this.chijiStacksAtEnvCast === MAX_CHIJI_STACKS) {
-          return;
-        } else {
-          //have to do this weird because blizzard decided to make each chiji stack reduce the mana cost by 1001 instead of and exact 33%
-          this.modifiedManaCost = SPELLS.ENVELOPING_MIST.manaCost - (CHIJI_MANA_SAVED_PER_STACK * this.chijiStacksAtEnvCast);
-          this.manaSaved += (this.modifiedManaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-          this.manaSavedEnm += (this.modifiedManaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-          this.castsRedEnm += 1;
-        }
-      } else {
-        this.manaSaved += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-        this.manaSavedEnm += SPELLS.ENVELOPING_MIST.manaCost * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-        this.castsRedEnm += 1;
-        debug && console.log('ENM Reduced');
-      }
-    } else {
-      this.castsNonRedEnm += 1;
+    if(this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+      return;
     }
+    // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
+    if(!this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
+      this.castsNonRedEnm += 1;
+      return;
+    }
+    // Checking for chiji stacks and determine mana reduction
+    const chijiStacksAtEnvCast = this.selectedCombatant.getBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id, event.timestamp)?.stacks;
+    if(!chijiStacksAtEnvCast) {
+      this.calculateEnvManaSaved(SPELLS.ENVELOPING_MIST.manaCost);
+      return;
+    }
+    //check for free cast from chiji
+    if(chijiStacksAtEnvCast === MAX_CHIJI_STACKS) {
+      return;
+    }
+    //have to do this weird because blizzard decided to make each chiji stack reduce the mana cost by 1001 instead of and exact 33%
+    const modifiedManaCost = SPELLS.ENVELOPING_MIST.manaCost - (CHIJI_MANA_SAVED_PER_STACK * chijiStacksAtEnvCast);
+    this.calculateEnvManaSaved(modifiedManaCost); 
+  }
+
+  calculateEnvManaSaved(manaCost: number) { 
+    this.manaSaved += (manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+    this.manaSavedEnm += (manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+    this.castsRedEnm += 1;
+    debug && console.log('Viv Reduced');
   }
 
   get suggestionThresholds() {
