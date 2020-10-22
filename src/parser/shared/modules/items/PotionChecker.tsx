@@ -196,7 +196,8 @@ class PotionChecker extends Analyzer {
   }
 
   get maxPotions() {
-    return 1 + Math.floor(this.owner.fightDuration / 300000);
+    //Adjusted the fight Duration by 25 seconds so that if you couldnt have gotten the full use of a second potion then it wont count it against you if you dont use it
+    return 1 + Math.floor((this.owner.fightDuration - 25000) / 300000);
   }
 
   get potionsUsedThresholds() {
