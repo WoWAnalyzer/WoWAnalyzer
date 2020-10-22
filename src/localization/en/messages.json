@@ -713,6 +713,7 @@
   "shared.healingEfficiency.tableHeader.timeSpent": "Time Spent",
   "shared.healingEfficiency.title": "Mana Efficiency",
   "shared.healingEfficiency.toggle.cooldowns": "Show Cooldowns",
+  "shared.healingEfficiency.toggle.damage": "Show Damage",
   "shared.healingEfficiency.toggle.detailed": "Detailed View",
   "shared.healingEfficiency.toggle.healing": "Show Healing",
   "shared.lowHealthHealing.slider.maxHealth": "Max health of target:",
