@@ -10,7 +10,8 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
-  change(date(2020, 10, 22), 'Healing Efficiency Tracker TypeScript conversion', niseko),
+  change(date(2020, 10, 23), 'Healing Efficiency Tracker TypeScript conversion', niseko),
+  change(date(2020, 10, 22), 'Update Footer to Typescript', Ssabbar),
   change(date(2020, 10, 22), 'Update Progressbar to Typescript', Guyius),
   change(date(2020, 10, 21), 'Update some news components to Typescript', ChagriAli),
   change(date(2020, 10, 21), 'Update to "2018-01-31-1st-Anniversary" Typescript', ChagriAli),
