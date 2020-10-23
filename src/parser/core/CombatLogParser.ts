@@ -443,7 +443,13 @@ class CombatLogParser {
 
   // Player info from WCL - required
   player: SelectedPlayer;
-  playerPets: any[];
+  playerPets: Array<{
+    name: string;
+    id: number;
+    guid: number;
+    type: "Pet",
+    icon: string;
+  }>;
   fight: Fight;
   build: string;
   builds: Builds;

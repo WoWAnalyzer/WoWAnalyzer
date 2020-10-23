@@ -112,7 +112,7 @@ class AncestralVigor extends Analyzer {
           category={STATISTIC_CATEGORY.TALENTS}
           position={STATISTIC_ORDER.OPTIONAL(60)}
         >
-          <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
+          <table className="table table-condensed">
             <thead>
               <tr>
                 <th><Trans id="common.time">Time</Trans></th>
