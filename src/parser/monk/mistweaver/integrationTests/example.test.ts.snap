@@ -5998,7 +5998,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
               }
             }
           >
-            Detailed View
+            shared.healingEfficiency.toggle.detailed
           </label>
         </div>
       </div>
@@ -6052,7 +6052,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
               }
             }
           >
-            Show Cooldowns
+            shared.healingEfficiency.toggle.cooldowns
           </label>
         </div>
         <div
@@ -6072,7 +6072,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
               }
             }
           >
-            Show Damage
+            shared.healingEfficiency.toggle.damage
           </label>
           <div
             className="react-toggle react-toggle--checked"
@@ -6112,7 +6112,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
               }
             }
           >
-            Show Healing
+            shared.healingEfficiency.toggle.healing
           </label>
         </div>
       </div>
@@ -6123,16 +6123,16 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       <thead>
         <tr>
           <th>
-            Ability
+            common.ability
           </th>
           <th>
-            Mana Spent
+            shared.healingEfficiency.tableHeader.manaSpent
           </th>
           <th
             className="text-center"
             colSpan={2}
           >
-            Healing per mana spent
+            common.stat.healingPerMana
           </th>
           <th
             className="text-center"
@@ -6145,7 +6145,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
               onTouchStart={[Function]}
               style={Object {}}
             >
-              Healing per second spent casting
+              common.stat.healingPerExecutionTime
             </dfn>
           </th>
         </tr>
