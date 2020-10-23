@@ -53,7 +53,7 @@ class Bloodshed extends Analyzer {
     const damage = calculateEffectiveDamage(event, BLOODSHED_DAMAGE_AMP);
     if (!foundPet) {
       const sourcePet = this.owner.playerPets.find((pet: { id: number | undefined; }) => pet.id === event.sourceID);
-      if (!isPermanentPet(sourcePet.guid)) {
+      if (!sourcePet || !isPermanentPet(sourcePet.guid)) {
         return;
       }
       this.pets.push({
