@@ -18,6 +18,7 @@ import ManaIcon from 'interface/icons/Mana';
 import './ManaTideTotem.scss'
 import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
+import SpecIcon from 'common/SpecIcon';
 
 const MANA_REGEN_PER_SECOND = 400 / 5;//Prepatch value
 
@@ -53,7 +54,7 @@ class ManaTideTotem extends Analyzer {
   }
 
   regenFromUptime(value: number) {
-    return value / 1000 * MANA_REGEN_PER_SECOND
+    return value / 1000 * MANA_REGEN_PER_SECOND;
   }
 
   statistic() {
@@ -77,7 +78,7 @@ class ManaTideTotem extends Analyzer {
 
                     return (
                       <tr key={p.healer.id}>
-                        <td className={specClassName}>{p.healer.name}</td>
+                        <th className={specClassName}><SpecIcon id={p.healer.specId} />{' '}{p.healer.name}</th>
                         <td>{formatNumber(this.regenFromUptime(p.uptime))}</td>
                       </tr>
                     );
