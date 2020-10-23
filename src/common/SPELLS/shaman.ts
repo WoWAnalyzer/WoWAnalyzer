@@ -769,6 +769,11 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
   },
+  SPIRIT_LINK_TOTEM_BUFF: { // casted by totem
+    id: 325174,
+    name: 'Spirit Link Totem',
+    icon: 'spell_shaman_spiritlink',
+  },
   CLOUDBURST_TOTEM_HEAL: {
     id: 157503,
     name: 'Cloudburst',
