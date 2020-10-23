@@ -16,6 +16,8 @@ import BoringValue from 'interface/statistics/components/BoringValueText';
 import ManaIcon from 'interface/icons/Mana';
 
 import './ManaTideTotem.scss'
+import Combatant from 'parser/core/Combatant';
+import SPECS from 'game/SPECS';
 
 const MANA_REGEN_PER_SECOND = 400 / 5;//Prepatch value
 
@@ -39,28 +41,59 @@ class ManaTideTotem extends Analyzer {
   }
 
   get regenOnPlayer() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.MANA_TIDE_TOTEM_BUFF.id, this.sourceID) / 1000 * MANA_REGEN_PER_SECOND;
+    return this.selectedCombatant.getBuffUptime(SPELLS.MANA_TIDE_TOTEM_BUFF.id, this.sourceID);
   };
   get regenOnHealers() {
-    return Object.values((this.combatants.players))
+    return Object.values(this.regenPerHealer).reduce((uptime, player) => uptime + player.uptime, 0);
+  };
+  get regenPerHealer(): { [playerId: number]: { healer: Combatant; uptime: number; } } {
+    return Object.assign({}, ...Object.values((this.combatants.players))
       .filter(player => player.spec.role === ROLES.HEALER)
-      .reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.MANA_TIDE_TOTEM_BUFF.id, this.sourceID), 0) / 1000 * MANA_REGEN_PER_SECOND;
-  };
-  get regenOnGroup() {
-    return Object.values((this.combatants.players))
-      .reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.MANA_TIDE_TOTEM_BUFF.id, this.sourceID), 0) / 1000 * MANA_REGEN_PER_SECOND;
-  };
+      .map(player => ({ [player.id]: { healer: player, uptime: player.getBuffUptime(SPELLS.MANA_TIDE_TOTEM_BUFF.id, this.sourceID) } })));
+  }
+
+  regenFromUptime(value: number) {
+    return value / 1000 * MANA_REGEN_PER_SECOND
+  }
 
   statistic() {
     return (
-      <Statistic size='flexible'>
+      <Statistic
+        size='flexible'
+        dropdown={(
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <Trans render="th" id="common.player">Player</Trans>
+                <Trans render="th" id="common.stat.mana">Mana</Trans>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                Object.values(this.regenPerHealer)
+                  .map(p => {
+                    const spec = SPECS[p.healer.specId];
+                    const specClassName = spec.className.replace(' ', '');
+
+                    return (
+                      <tr key={p.healer.id}>
+                        <td className={specClassName}>{p.healer.name}</td>
+                        <td>{formatNumber(this.regenFromUptime(p.uptime))}</td>
+                      </tr>
+                    );
+                  })
+              }
+            </tbody>
+          </table>
+        )}
+      >
         <BoringValue label={<SpellLink id={SPELLS.MANA_TIDE_TOTEM_CAST.id} />}>
           <div className="flex mtt-value">
             <div className="flex-sub icon">
               <ManaIcon />
             </div>
             <div className="flex-main value">
-              {formatNumber(this.regenOnPlayer)}
+              {formatNumber(this.regenFromUptime(this.regenOnPlayer))}
               <br /><small><Trans id="shaman.restoration.manaTideTotem.statistic.manaRestored">Mana restored</Trans></small>
             </div>
           </div>
@@ -69,7 +102,7 @@ class ManaTideTotem extends Analyzer {
               <ManaIcon />
             </div>
             <div className="flex-main value">
-              {formatNumber(this.regenOnHealers)}
+              {formatNumber(this.regenFromUptime(this.regenOnHealers))}
               <br /><small><Trans id="shaman.restoration.manaTideTotem.statistic.healerManaRestored">Mana restored (all Healers)</Trans></small>
             </div>
           </div>
