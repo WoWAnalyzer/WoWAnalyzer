@@ -2,13 +2,24 @@
  * A simple component that shows the resource icon left and a value right.
  */
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import ResourceIcon from 'common/ResourceIcon';
 
 import '../BoringValue.scss';
 
-const BoringResourceValue = ({ resource, value, label, extra, className }) => (
+interface Resource {
+  id: number;
+}
+
+type Props = {
+  resource: Resource;
+  value: React.ReactNode;
+  label: React.ReactNode;
+  extra?: React.ReactNode;
+  className?: string;
+}
+
+const BoringResourceValue = ({ resource, value, label, extra, className }: Props) => (
   <div className={`flex boring-value ${className || ''}`}>
     <div className="flex-sub icon">
       <ResourceIcon id={resource.id} />
@@ -20,14 +31,5 @@ const BoringResourceValue = ({ resource, value, label, extra, className }) => (
     </div>
   </div>
 );
-BoringResourceValue.propTypes = {
-  resource: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-  }).isRequired,
-  value: PropTypes.node.isRequired,
-  label: PropTypes.node.isRequired,
-  extra: PropTypes.node,
-  className: PropTypes.string,
-};
 
 export default BoringResourceValue;
