@@ -3,7 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValueText from 'interface/statistics/components/BoringValueText';
 
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -14,15 +16,19 @@ class SymbolsOfDeathUptime extends Analyzer {
     enemies: Enemies,
   };
 
+  protected enemies!: Enemies;
+
   statistic() {
     const symbolsOfDeathUptime = this.selectedCombatant.getBuffUptime(SPELLS.SYMBOLS_OF_DEATH.id) / this.owner.fightDuration;
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(30)}
-        icon={<SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} />}
-        value={`${formatPercentage(symbolsOfDeathUptime)} %`}
-        label="Symbols of Death uptime"
-      />
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.GENERAL}
+      >
+        <BoringValueText label={<><SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} /> Symboles of Death Uptime</>}>
+          {formatPercentage(symbolsOfDeathUptime)} %
+          </BoringValueText>
+      </Statistic>
     );
   }
 }
