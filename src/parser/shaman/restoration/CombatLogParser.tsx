@@ -50,6 +50,7 @@ import HealingRain from './modules/spells/HealingRain';
 import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
 import Resurgence from './modules/spells/Resurgence';
+import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
 // Potency Conduits
 import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
 import HeavyRainfall from './modules/shadowlands/conduits/HeavyRainfall';
@@ -115,6 +116,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingWave: HealingWave,
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
+    spiritLinkDamageReduction: SpiritLinkDamageReduction,
 
     // Shared:
     spiritWolf: SpiritWolf,

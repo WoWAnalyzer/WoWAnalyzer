@@ -8,6 +8,8 @@ class ManaTracker extends ResourceTracker {
     this.resource = RESOURCE_TYPES.MANA;
     this.maxResource = 50000; // 6% mana chest enchant gets added automatically
   }
+
+  maxResource: number;
 }
 
 export default ManaTracker;

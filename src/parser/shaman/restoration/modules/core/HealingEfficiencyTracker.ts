@@ -1,7 +1,7 @@
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
-import CoreHealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
+import CoreHealingEfficiencyTracker, { SpellInfoDetails } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import EarthShield from 'parser/shaman/shared/talents/EarthShield';
 import SPELLS from 'common/SPELLS';
@@ -26,7 +26,18 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     earthShield: EarthShield,
   };
 
-  getCustomSpellStats(spellInfo, spellId) {
+  protected manaTracker!: ManaTracker;
+  protected abilityTracker!: RestorationAbilityTracker;
+  protected healingDone!: HealingDone;
+  protected damageDone!: DamageDone;
+  protected castEfficiency!: CastEfficiency;
+  protected abilities!: Abilities;
+  protected resurgence!: Resurgence;
+  protected cooldownThroughputTracker!: CooldownThroughputTracker;
+  protected unleashLife!: UnleashLife;
+  protected earthShield!: EarthShield;
+
+  getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
     if (this.resurgence.resurgence[spellId]) {
       this.getResurgenceDetails(spellInfo, spellId);
     }
@@ -44,29 +55,29 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   }
 
   // Resurgence "refunds" mana, so the spell is essentially cheaper
-  getResurgenceDetails(spellInfo, spellId) {
+  getResurgenceDetails(spellInfo: SpellInfoDetails, spellId: number) {
     spellInfo.manaSpent -= this.resurgence.resurgence[spellId].resurgenceTotal;
   }
 
   // Healing from other spells that Unleash Life is responsible for
-  getUnleashLifeDetails(spellInfo) {
+  getUnleashLifeDetails(spellInfo: SpellInfoDetails) {
     const unleashLifeContribution = this.unleashLife.totalBuffedHealing;
     spellInfo.healingDone += unleashLifeContribution;
   }
 
   // Remove Unleash Life's contribution to the affected spells
-  getUnleashLifeBuffDetails(spellInfo, spellId) {
+  getUnleashLifeBuffDetails(spellInfo: SpellInfoDetails, spellId: number) {
     const unleashLifeContribution = (this.unleashLife.healingBuff[spellId].healing || 0);
     spellInfo.healingDone -= unleashLifeContribution;
   }
 
   // Todo: Same treatment for Earth Shield as for Unleash Life and remove the healing from affected spells
-  getEarthShieldBuffDetails(spellInfo) {
+  getEarthShieldBuffDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone += this.earthShield.buffHealing || 0;
   }
 
   // Different spellId for damage and no existing "damageSpellIds" implementation
-  getLavaBurstDamageDetails(spellInfo) {
+  getLavaBurstDamageDetails(spellInfo: SpellInfoDetails) {
     const ability = this.abilityTracker.getAbility(SPELLS.LAVA_BURST_DAMAGE.id);
     spellInfo.damageHits = ability.damageHits || 0;
     spellInfo.damageDone = ability.damageEffective || 0;
