@@ -625,6 +625,8 @@
   "shaman.restoration.healingRain.averageTargets.label.tooltip": "The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.",
   "shaman.restoration.healingWave.inefficientCast.reason": "Riptide was off cooldown when you started casting this unbuffed Healing Wave. Casting Riptide into Healing Wave to generate and use a Tidal Wave stack, or using a Flash Flood buff (if talented) is a lot more efficient compared to casting a full-length Healing Wave.",
   "shaman.restoration.highTide.statistic.tooltip": "{0} High Tide buff stacks used out of {1}.",
+  "shaman.restoration.manaTideTotem.statistic.healerManaRestored": "Mana restored (all Healers)",
+  "shaman.restoration.manaTideTotem.statistic.manaRestored": "Mana restored",
   "shaman.restoration.masteryEffectiveness.statistic.label": "Mastery benefit",
   "shaman.restoration.masteryEffectiveness.statistic.panel": "Mastery effectiveness breakdown",
   "shaman.restoration.masteryEffectiveness.statistic.tooltip": "The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have {0}% mastery, this means that on average your heals were increased by {1}% by your mastery.",

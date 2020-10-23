@@ -625,6 +625,8 @@
   "shaman.restoration.healingRain.averageTargets.label.tooltip": "",
   "shaman.restoration.healingWave.inefficientCast.reason": "",
   "shaman.restoration.highTide.statistic.tooltip": "",
+  "shaman.restoration.manaTideTotem.statistic.healerManaRestored": "",
+  "shaman.restoration.manaTideTotem.statistic.manaRestored": "",
   "shaman.restoration.masteryEffectiveness.statistic.label": "",
   "shaman.restoration.masteryEffectiveness.statistic.panel": "",
   "shaman.restoration.masteryEffectiveness.statistic.tooltip": "",

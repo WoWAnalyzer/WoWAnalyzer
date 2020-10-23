@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 23), <>Added a statistic for <SpellLink id={SPELLS.MANA_TIDE_TOTEM_CAST.id} />.</>, niseko),
   change(date(2020, 10, 17), `Fixed imports so we stop crashing!`, Abelito75),
   change(date(2020, 10, 17), `Made almost all of Restoration Shaman localizable.`, niseko),
   change(date(2020, 10, 16), <>Fixed <SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> not displaying its full healing contribution.</>, niseko),
