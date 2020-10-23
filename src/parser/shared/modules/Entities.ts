@@ -37,7 +37,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
   abstract getEntity(event: AnyEvent): T | null;
 
   applyBuff(event: ApplyBuffEvent | ApplyDebuffEvent) {
-    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
+    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event) && !this.owner.byPlayerPet(event) && !this.owner.toPlayerPet(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
     }
@@ -68,7 +68,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
   }
 
   updateBuffStack(event: ApplyBuffStackEvent | ApplyDebuffStackEvent | RemoveBuffStackEvent | RemoveDebuffStackEvent) {
-    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
+    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event) && !this.owner.byPlayerPet(event) && !this.owner.toPlayerPet(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
     }
@@ -92,7 +92,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
   }
 
   removeBuff(event: RemoveBuffEvent | RemoveDebuffEvent) {
-    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
+    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event) && !this.owner.byPlayerPet(event) && !this.owner.toPlayerPet(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
     }
