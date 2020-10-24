@@ -55,7 +55,14 @@ const spells: SpellList = {
     id: 164862,
     name: 'Flap',
     icon: 'inv_feather_12',
-  },
+  },  
+  // the action of wild charging
+  WILD_CHARGE_TALENT: { 
+    id: 102401,
+    name: 'Wild Charge',
+    icon: 'spell_druid_wildcharge'
+   },
+
 
   //shared talent spells
 
