@@ -4,12 +4,13 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { findByBossId } from 'raids/index';
 import Events, { AnyEvent, CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
+import { shouldIgnore, magic } from 'parser/shared/modules/hit-tracking/utilities';
+import Enemies from 'parser/shared/modules/Enemies';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -28,13 +29,15 @@ const isGoodCast = (cast: CastMetadata, endTime: number) => cast.melees >= 2 || 
 
 class ShieldOfTheRighteous extends Analyzer {
   static dependencies = {
-    spellUsable: SpellUsable,
+    enemies: Enemies,
   };
 
-  physicalHitsWithShieldOfTheRighteous = 0;
-  physicalDamageWithShieldOfTheRighteous = 0;
-  physicalHitsWithoutShieldOfTheRighteous = 0;
-  physicalDamageWithoutShieldOfTheRighteous = 0;
+  protected enemies!: Enemies;
+
+  totalHits = 0;
+  sotrHits = 0;
+  totalDamageTaken = 0;
+  sotrDamageTaken = 0;
 
   _tankbusters: number[] = [];
 
@@ -63,6 +66,7 @@ class ShieldOfTheRighteous extends Analyzer {
       this._tankbusters = (boss.fight.softMitigationChecks && boss.fight.softMitigationChecks.physical) || [];
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS), this.onCast);
       this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+      this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.trackHits);
       this.addEventListener(Events.fightend, this.onFightend);
     }
   }
@@ -104,17 +108,26 @@ class ShieldOfTheRighteous extends Analyzer {
     }
 
     if (this.selectedCombatant.hasBuff(SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id)) {
-      this.physicalHitsWithShieldOfTheRighteous += 1;
-      this.physicalDamageWithShieldOfTheRighteous += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-
       if (this._tankbusters.includes(event.ability.guid)) {
         this._processTankbuster(event);
       } else {
         this._processPhysicalHit(event);
       }
-    } else {
-      this.physicalHitsWithoutShieldOfTheRighteous += 1;
-      this.physicalDamageWithoutShieldOfTheRighteous += event.amount + (event.absorbed || 0) + (event.overkill || 0);
+    }
+  }
+
+  trackHits(event: DamageEvent) {
+    if(shouldIgnore(this.enemies, event) || magic(event)) {
+      return;
+    }
+
+    const amount = event.amount + (event.absorbed || 0) + (event.overkill || 0);
+
+    this.totalHits += 1;
+    this.totalDamageTaken += amount;
+    if(this.selectedCombatant.hasBuff(SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id)) {
+      this.sotrHits += 1;
+      this.sotrDamageTaken += amount;
     }
   }
 
@@ -187,22 +200,20 @@ class ShieldOfTheRighteous extends Analyzer {
   }
 
   statistic() {
-    const physicalHitsMitigatedPercent = this.physicalHitsWithShieldOfTheRighteous / (this.physicalHitsWithShieldOfTheRighteous + this.physicalHitsWithoutShieldOfTheRighteous);
-    const physicalDamageMitigatedPercent = this.physicalDamageWithShieldOfTheRighteous / (this.physicalDamageWithShieldOfTheRighteous + this.physicalDamageWithoutShieldOfTheRighteous);
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />}
-        value={`${formatPercentage(physicalDamageMitigatedPercent)}%`}
-        label="Physical damage mitigated"
+        value={`${formatPercentage(this.sotrHits / this.totalHits)}%`}
+        label="Physical Hits Mitigated"
         tooltip={(
           <>
             Shield of the Righteous usage breakdown:
             <ul>
-              <li>You were hit <strong>{this.physicalHitsWithShieldOfTheRighteous}</strong> times with your Shield of the Righteous buff (<strong>{formatThousands(this.physicalDamageWithShieldOfTheRighteous)}</strong> damage).</li>
-              <li>You were hit <strong>{this.physicalHitsWithoutShieldOfTheRighteous}</strong> times <strong><em>without</em></strong> your Shield of the Righteous buff (<strong>{formatThousands(this.physicalDamageWithoutShieldOfTheRighteous)}</strong> damage).</li>
+              <li>You were hit <strong>{this.sotrHits}</strong> times with your Shield of the Righteous buff (<strong>{formatThousands(this.sotrDamageTaken)}</strong> damage).</li>
+              <li>You were hit <strong>{this.totalHits - this.sotrHits}</strong> times <strong><em>without</em></strong> your Shield of the Righteous buff (<strong>{formatThousands(this.totalDamageTaken - this.sotrDamageTaken)}</strong> damage).</li>
             </ul>
-            <strong>{formatPercentage(physicalHitsMitigatedPercent)}%</strong> of physical attacks were mitigated with Shield of the Righteous (<strong>{formatPercentage(physicalDamageMitigatedPercent)}%</strong> of physical damage taken).<br />
+            <strong>{formatPercentage(this.sotrHits / this.totalHits)}%</strong> of physical attacks were mitigated with Shield of the Righteous.<br />
             <strong>{this.goodCasts.length}</strong> of your {this._sotrCasts.length} casts were <em>good</em> (blocked at least 2 melees or a tankbuster, or prevented capping charges).
           </>
         )}
