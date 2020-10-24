@@ -111,7 +111,7 @@ class FeedingFrenzy extends Analyzer {
         estimatedDamage *= critMultiplier;
       }
       estimatedDamage *= externalModifier;
-      const damageDone = event.amount + event.absorbed;
+      const damageDone = event.amount + (event.absorbed || 0);
       console.log(`Damage: ${damageDone}, externalModifier: ${externalModifier.toFixed(3)}, estimatedDamage: ${estimatedDamage.toFixed(0)}, traitDamageContribution: ${traitDamageContribution.toFixed(0)}`);
 
       const variation = estimatedDamage / traitDamageContribution;

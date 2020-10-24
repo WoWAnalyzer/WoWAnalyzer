@@ -335,7 +335,7 @@ export interface DamageEvent extends Event<EventType.Damage> {
   ability: Ability;
   hitType: number;
   amount: number;
-  absorbed: number;
+  absorbed?: number;
   resourceActor?: number;
   classResources?: ClassResources[];
   hitPoints?: number;
