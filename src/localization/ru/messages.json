@@ -518,7 +518,6 @@
   "paladin.protection.suggestions.hammerOfTheRighteous.efficiency": "{0}% применений, пока были доступны более полезные способности",
   "paladin.protection.suggestions.lightOfTheProtector.averageDelay": "Средняя задержка {0}с",
   "paladin.protection.suggestions.lightOfTheProtector.overhealing": "{0}% Избыточного исцеления",
-  "paladin.protection.suggestions.shieldOfTheRighteous.goodCasts": "{0}% хороших применений Щита праведника",
   "paladin.retribution.alwaysBeCasting.downtime": "{0}% простоев",
   "paladin.retribution.suggestions.Crusade.efficiency": "{0} плохие первые усиления",
   "paladin.retribution.suggestions.artOfWar.procsUsed": "{0}% срабатываний использовано.",

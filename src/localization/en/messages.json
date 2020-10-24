@@ -518,7 +518,6 @@
   "paladin.protection.suggestions.hammerOfTheRighteous.efficiency": "{0}% of casts while better spells were available",
   "paladin.protection.suggestions.lightOfTheProtector.averageDelay": "{0}s Average Delay",
   "paladin.protection.suggestions.lightOfTheProtector.overhealing": "{0}% Overhealing",
-  "paladin.protection.suggestions.shieldOfTheRighteous.goodCasts": "{0}% good Shield of the Righteous casts",
   "paladin.retribution.alwaysBeCasting.downtime": "{0}% downtime",
   "paladin.retribution.suggestions.Crusade.efficiency": "{0} bad first global(s)",
   "paladin.retribution.suggestions.artOfWar.procsUsed": "{0}% proc(s) used.",
