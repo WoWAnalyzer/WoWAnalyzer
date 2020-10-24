@@ -6,15 +6,9 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
-import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
-import { findByBossId } from 'raids/index';
-import Events, { AnyEvent, CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { shouldIgnore, magic } from 'parser/shared/modules/hit-tracking/utilities';
 import Enemies from 'parser/shared/modules/Enemies';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
-
-const SOTR_DURATION = 4500;
 
 interface CastMetadata {
   castTime: number,
@@ -24,8 +18,6 @@ interface CastMetadata {
   tankbusters: number,
   _event: CastEvent,
 }
-
-const isGoodCast = (cast: CastMetadata, endTime: number) => cast.melees >= 2 || cast.tankbusters >= 1 || cast.buffEndTime > endTime;
 
 class ShieldOfTheRighteous extends Analyzer {
   static dependencies = {

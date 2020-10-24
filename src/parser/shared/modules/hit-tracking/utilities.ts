@@ -1,6 +1,7 @@
 import Enemies from 'parser/shared/modules/Enemies';
 import { DamageEvent } from 'parser/core/Events';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
+
 import IgnoredAbilities from './IgnoredAbilities';
 
 export function notableEnemy(enemies: Enemies, event: DamageEvent): boolean {

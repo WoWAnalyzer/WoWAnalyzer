@@ -2868,7 +2868,7 @@ exports[`Protection Paladin integration test: example log Consecration matches t
           className="flex-main value"
         >
           <div>
-            57.78 %
+            68.33 %
           </div>
           <small>
             Hits Mitigated w/ Consecration
@@ -2888,7 +2888,7 @@ Array [
     "importance": "major",
     "issue": "Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.",
     "stat": <React.Fragment>
-      57.78% of hits were mitigated by Consecration
+      68.33% of hits were mitigated by Consecration
        (
       &gt;95.00% is recommended
       )
@@ -4374,12 +4374,12 @@ exports[`Protection Paladin integration test: example log ShieldOfTheRighteous m
             />
           </a>
            
-          Physical damage mitigated
+          Physical Hits Mitigated
         </label>
         <div
           className="value"
         >
-          59.99%
+          69.57%
         </div>
       </div>
     </div>
@@ -4411,21 +4411,16 @@ Array [
     "icon": "ability_paladin_shieldofvengeance",
     "importance": "major",
     "issue": <React.Fragment>
-      23.53
-      % of your 
+      You should maintain 
       <ForwardRef
         id={53600}
       />
-       casts were 
-      <em>
-        good
-      </em>
-       (they mitigated at least 2 auto-attacks or 1 tankbuster, or prevented capping charges). You should have Shield of the Righteous up to mitigate as much physical damage as possible.
+       while actively tanking
     </React.Fragment>,
     "stat": <React.Fragment>
-      23.53% good Shield of the Righteous casts
+      69.57% of hits mitigated by Shield of the Righteous
        (
-      90% or more is recommended
+      at least 95.00% is recommended
       )
     </React.Fragment>,
   },
@@ -5289,7 +5284,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "16.84047648585716%",
+                  "width": "21.487507336240792%",
                 }
               }
             />
@@ -5479,7 +5474,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Good 
+                Hits Mitigated with 
                 <a
                   href="http://wowhead.com/spell=53600"
                   rel="noopener noreferrer"
@@ -5493,7 +5488,36 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                    
                   Shield of the Righteous
                 </a>
-                 casts
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5514,7 +5538,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  23.53%
+                  69.57%
                    
                    
                 </div>
@@ -5536,7 +5560,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "13.058823529411768%",
+                        "width": "27.253196930946295%",
                       }
                     }
                   />
@@ -5587,7 +5611,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  57.78%
+                  68.33%
                    
                    
                 </div>
@@ -5609,7 +5633,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "24.049999999999997%",
+                        "width": "28.44375%",
                       }
                     }
                   />

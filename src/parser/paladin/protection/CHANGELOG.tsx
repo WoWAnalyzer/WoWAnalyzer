@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 24), <>Changed <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> tracking from "good casts" to hits mitigated.</>, emallson),
   change(date(2020, 10, 23), <>Aggregate Prot and Ret <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> analyzers into single analyzer.</>, Hordehobbs),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 10, 17), <>Convert <SpellLink id={SPELLS.GRAND_CRUSADER.id} /> and SpellUsable to TypeScript.</>, Hordehobbs),
