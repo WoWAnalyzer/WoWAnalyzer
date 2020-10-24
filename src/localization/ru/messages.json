@@ -491,6 +491,7 @@
   "monk.mistweaver.suggestions.alwaysBeCasting.nonHealing": "{0}% время без исцелений",
   "monk.mistweaver.suggestions.chiBurst.targetsHit": "Задето целей Выбросом ци - ",
   "monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo": "% попаданий по рейду",
+  "monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv": "",
   "monk.mistweaver.suggestions.essenceFont.averageTargetsHit": "в среднем целей за применение",
   "monk.mistweaver.suggestions.essenceFontMastery.averageHots": "в среднем {0} ХоТ от Купели Сущности",
   "monk.mistweaver.suggestions.lifecycles.manaSaved": " сохранено маны с помощью Жизненых циклов",
