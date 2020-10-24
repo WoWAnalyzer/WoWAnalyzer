@@ -58,9 +58,7 @@ class EnvelopingBreath extends Analyzer {
   }
 
   handleEnvelopingBreathCount(event: ApplyBuffEvent) {
-    if(this.chijiActive || this.selectedCombatant.hasBuff(SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id)) {
       this.envBreathsApplied += 1;
-    }
   }
 
   handleChijiSummon(event: CastEvent) { 
