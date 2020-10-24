@@ -197,7 +197,6 @@
   "Try to avoid overhealing with <0/>. If Flash of Light would overheal it is generally advisable to cast a <1/> instead.": "Старайтесь избегать избыточного исцеления от <0/>. Если Вы ожидаете что Вспышка Света будет избыточна рекомендуем использовать <1/> вместо нее.",
   "Try to avoid overhealing with <0/>. Save it for when people are missing health.": "Старайтесь избегать избыточного исцеления от <0/>. Придержите ее до момента когда люди получат урон",
   "Try to cast <0/> more often.": "Старайтесь использовать <0/> чаще.",
-  "Try to make sure the Frostbrand is always up, when it drops you should refresh it as soon as possible": "",
   "Unknown difficulty": "Неизвестная сложность",
   "Up to {lostBeaconHealing}": "Вплоть до {lostBeaconHealing}",
   "Updated for patch": "Обновлено для патча",
