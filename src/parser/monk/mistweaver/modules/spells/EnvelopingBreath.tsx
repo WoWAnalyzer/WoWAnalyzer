@@ -7,7 +7,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, {CastEvent, HealEvent, DeathEvent, ApplyBuffEvent } from 'parser/core/Events';
+import Events, {CastEvent, HealEvent, DeathEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Combatants from 'parser/shared/modules/Combatants';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -15,6 +15,7 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const ENVELOPING_BREATH_INCREASE = .1;
+const debug: boolean = false;
 
 class EnvelopingBreath extends Analyzer {
     static dependencies = {
@@ -33,9 +34,14 @@ class EnvelopingBreath extends Analyzer {
         this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleEnvelopingBreathHeal);
         this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.handleEnvelopingBreathCount);
         this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.handleEnvelopingMist);
-        this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleCelestialDeath);
-        this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT), this.handleCelestialSummon);
-        this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_YULON_THE_JADE_SERPENT), this.handleCelestialSummon);
+        if(this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT)){
+          this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
+          this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT), this.handleCelestialSummon);
+        } else {
+          this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_YULON_THE_JADE_SERPENT), this.handleCelestialSummon);
+          this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_YULON_THE_JADE_SERPENT), this.handleYulonEnd);
+
+        }
     }
     
   handleEnvelopingBreathHeal(event: HealEvent) {
@@ -63,10 +69,17 @@ class EnvelopingBreath extends Analyzer {
 
   handleCelestialSummon(event: CastEvent) { 
     this.celestialActive = true;
+    debug && console.log("Yulon/Chiji summoned");
   }
 
-  handleCelestialDeath(event: DeathEvent) {
+  handleChijiDeath(event: DeathEvent) {
     this.celestialActive = false;
+    debug && console.log("Chiji Died");
+  }
+
+  handleYulonEnd(event: RemoveBuffEvent) {
+    this.celestialActive = false;
+    debug && console.log("Yulon Died");
   }
 
   get averageEnvBPerEnv() {
