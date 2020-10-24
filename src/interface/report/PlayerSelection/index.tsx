@@ -10,9 +10,10 @@ import './PlayerSelection.scss';
 const ROLE_SORT_KEY: {[key: string]: number} = {
   [ROLES.TANK]: 0,
   [ROLES.HEALER]: 1,
+  //Different sort for range/melee was tested and felt intuitive.
+  //Because of this all DPS are treated the same for sorting purposes.
   [ROLES.DPS.MELEE]: 2,
-  //I'm not sure if this is a bug or intended behaviour, But if this is 2 then there is no sort based or range/melle only on dps.
-  [ROLES.DPS.RANGED]: 3,
+  [ROLES.DPS.RANGED]: 2,
 };
 
 function sortPlayers(a: Player, b: Player) {  
