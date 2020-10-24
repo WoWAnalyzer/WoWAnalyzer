@@ -3,18 +3,28 @@ import { formatPercentage, formatThousands } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { findByBossId } from 'raids/index';
-import Events from 'parser/core/Events';
+import Events, { AnyEvent, CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const SOTR_DURATION = 4500;
 
-const isGoodCast = (cast, endTime) => cast.melees >= 2 || cast.tankbusters >= 1 || cast.buffEndTime > endTime;
+interface CastMetadata {
+  castTime: number,
+  buffStartTime: number,
+  buffEndTime: number,
+  melees: number,
+  tankbusters: number,
+  _event: CastEvent,
+}
+
+const isGoodCast = (cast: CastMetadata, endTime: number) => cast.melees >= 2 || cast.tankbusters >= 1 || cast.buffEndTime > endTime;
 
 class ShieldOfTheRighteous extends Analyzer {
   static dependencies = {
@@ -26,24 +36,14 @@ class ShieldOfTheRighteous extends Analyzer {
   physicalHitsWithoutShieldOfTheRighteous = 0;
   physicalDamageWithoutShieldOfTheRighteous = 0;
 
-  _tankbusters = [];
+  _tankbusters: number[] = [];
 
-  _sotrCasts = [
-    /*
-    {
-        castTime: <timestamp>,
-        buffStartTime: <timestamp>, // if extending, when the "new" buff starts. otherwise just castTime
-        buffEndTime: <timestamp>, // end time of the buff. if the current buff is > 2x SOTR_DURATION then this can be < SOTR_DURATION
-        melees: <number>, // melees received while during buff
-        tankbusters: <number>, // tankbusters mitigated by buff
-     }
-     */
-  ];
+  _sotrCasts: CastMetadata[] = [];
 
   // this setup is used to track which melee attacks are mitigated by
   // which casts.
-  _futureCasts = [];
-  _activeCast = null;
+  _futureCasts: CastMetadata[] = [];
+  _activeCast?: CastMetadata;
 
   _buffExpiration = 0;
 
@@ -55,11 +55,11 @@ class ShieldOfTheRighteous extends Analyzer {
     return this._activeCast;
   }
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     // M+ doesn't have a boss prop
     if (this.owner.boss) {
-      const boss = findByBossId(this.owner.boss.id);
+      const boss = findByBossId(this.owner.boss.id)!;
       this._tankbusters = (boss.fight.softMitigationChecks && boss.fight.softMitigationChecks.physical) || [];
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS), this.onCast);
       this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
@@ -68,7 +68,7 @@ class ShieldOfTheRighteous extends Analyzer {
   }
 
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const buffEndTime = Math.min(
       // if the buff expired before the current event, its just
       // event.timestamp + SOTR_DURATION ...
@@ -98,7 +98,7 @@ class ShieldOfTheRighteous extends Analyzer {
     this._sotrCasts.push(cast);
   }
 
-  onDamageTaken(event) {
+  onDamageTaken(event: DamageEvent) {
     if (event.ability.type !== MAGIC_SCHOOLS.ids.PHYSICAL) {
       return;
     }
@@ -118,14 +118,14 @@ class ShieldOfTheRighteous extends Analyzer {
     }
   }
 
-  onFightend(event) {
+  onFightend(event: FightEndEvent) {
     if (this._activeCast) {
       this._markupCast(this._activeCast);
     }
     this._futureCasts.forEach(this._markupCast.bind(this));
   }
 
-  _processPhysicalHit(event) {
+  _processPhysicalHit(event: DamageEvent) {
     this._updateActiveCast(event);
     if (!this._activeCast) {
       return;
@@ -134,7 +134,7 @@ class ShieldOfTheRighteous extends Analyzer {
     this._activeCast.melees += 1;
   }
 
-  _processTankbuster(event) {
+  _processTankbuster(event: DamageEvent) {
     this._updateActiveCast(event);
     if (!this._activeCast) {
       return;
@@ -145,14 +145,14 @@ class ShieldOfTheRighteous extends Analyzer {
 
   // if the buff associated with the current active cast is no longer
   // active, move to the next.
-  _updateActiveCast(event) {
+  _updateActiveCast(event: AnyEvent) {
     while (this._activeCast && this._activeCast.buffEndTime < event.timestamp) {
       this._markupCast(this._activeCast);
       this._activeCast = this._futureCasts.shift();
     }
   }
 
-  _markupCast(cast) {
+  _markupCast(cast: CastMetadata) {
     if (isGoodCast(cast, this.owner.fight.end_time)) {
       return;
     }
@@ -174,16 +174,16 @@ class ShieldOfTheRighteous extends Analyzer {
         average: 0.75,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>{formatPercentage(actual)}% of your <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts were <em>good</em> (they mitigated at least 2 auto-attacks or 1 tankbuster, or prevented capping charges). You should have Shield of the Righteous up to mitigate as much physical damage as possible.</>)
           .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
           .actual(i18n._(t('paladin.protection.suggestions.shieldOfTheRighteous.goodCasts')`${formatPercentage(actual)}% good Shield of the Righteous casts`))
-          .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`));
+          .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`));
   }
 
   statistic() {
