@@ -1,26 +1,60 @@
+import React from 'react';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
-
+import Combatant from 'parser/core/Combatant';
+import { SpellInfo } from 'parser/core/EventFilter';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../core/SharedBrews';
 
 const TIGER_PALM_REDUCTION = 1000;
 
+interface ConditionalSpell {
+  spell: SpellInfo,
+  when: (c: Combatant) => boolean,
+}
+
+function isConditional(spell: ConditionalSpell | SpellInfo): spell is ConditionalSpell {
+  return Object.prototype.hasOwnProperty.call(spell, 'when');
+}
+
+const BETTER_SPELLS: Array<SpellInfo | ConditionalSpell> = [
+  SPELLS.KEG_SMASH,
+  SPELLS.BLACKOUT_KICK,
+  SPELLS.BREATH_OF_FIRE,
+  {
+    spell: SPELLS.RUSHING_JADE_WIND,
+    when: (combatant: Combatant) => combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id) && !combatant.hasBuff(SPELLS.RUSHING_JADE_WIND.id),
+  },
+  {
+    spell: SPELLS.CHI_BURST_TALENT,
+    when: (combatant: Combatant) => combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+  },
+  {
+    spell: SPELLS.CHI_WAVE_TALENT,
+    when: (combatant: Combatant) => combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
+  },
+];
+
 class TigerPalm extends Analyzer {
   static dependencies = {
     boc: BlackoutCombo,
     brews: SharedBrews,
     statTracker: StatTracker,
+    spellUsable: SpellUsable,
   };
 
   protected boc!: BlackoutCombo;
   protected brews!: SharedBrews;
   protected statTracker!: StatTracker;
+  protected spellUsable!: SpellUsable;
 
   totalCasts = 0;
+  badCasts = 0;
   normalHits = 0;
   bocHits = 0;
   lastAttackPower = 0;
@@ -56,6 +90,7 @@ class TigerPalm extends Analyzer {
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onLoseBOC);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.checkBadTP);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onDamage);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
@@ -92,6 +127,42 @@ class TigerPalm extends Analyzer {
     if (event.attackPower !== undefined && event.attackPower > 0) {
       this.lastAttackPower = event.attackPower;
     }
+  }
+
+  // a Tiger Palm cast is bad if it is cast while one of the `BETTER_SPELLS` is
+  // off cooldown, or if casting it delayed Keg Smash due to energy starvation.
+  checkBadTP(event: CastEvent) {
+    if(this.bocBuffActive) {
+      return; // TP+BoC is highest prio
+    }
+
+    const availableSpells: SpellInfo[] = BETTER_SPELLS.filter(entry => {
+      if (isConditional(entry)) {
+        return entry.when(this.selectedCombatant) && this.spellUsable.isAvailable(entry.spell.id);
+      } else {
+        return this.spellUsable.isAvailable(entry.id);
+      }
+    }).map(entry => isConditional(entry) ? entry.spell : entry);
+
+    if (availableSpells.length === 0) {
+      return; // nothing better to cast, so this is OK
+    }
+
+    // this clobbers the timeline metadata, but at this time nothing sets it
+    // outside of individual analyzers.
+    event.meta = {
+      isInefficientCast: true,
+      inefficientCastReason: (
+        <>
+          The following better spells were available during this GCD:
+          <ul>
+        {availableSpells.map(({ id }) => <li key={id}><SpellLink id={id} /></li>)}
+          </ul>
+        </>
+      )
+    };
+
+    this.badCasts += 1;
   }
 }
 
