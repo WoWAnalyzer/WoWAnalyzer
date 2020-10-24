@@ -3,8 +3,15 @@ import PropTypes from 'prop-types';
 
 import ROLES from 'game/ROLES';
 
-const RoleIcon = ({ id, className, ...others }) => {
-  let iconName;
+import Icon from './Icon';
+
+interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
+  id: number;
+  className: string;
+}
+
+const RoleIcon = ({ id, className, ...others }: Props) => {
+  let iconName: string;
   switch (id) {
     case ROLES.TANK: iconName = 'shield'; break;
     case ROLES.HEALER: iconName = 'healing'; break;

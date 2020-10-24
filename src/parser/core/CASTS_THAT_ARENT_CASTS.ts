@@ -46,4 +46,4 @@ export default [
   SPELLS.COMBAT_MEDITATION_PICK_UP.id, //The Spell ID that is "cast" when an orb is picked up
   SPELLS.WILD_MARK.id, //The debuff applied from enemies inside Wild Spirits
   //endregion
-];
+] as number[];
