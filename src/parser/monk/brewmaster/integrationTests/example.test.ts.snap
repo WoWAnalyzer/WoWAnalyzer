@@ -4817,6 +4817,36 @@ exports[`Brewmaster Monk integration test: example log ThroughputStatisticGroup 
 </div>
 `;
 
+exports[`Brewmaster Monk integration test: example log TigerPalm matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_monk_tigerpalm",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <ForwardRef
+        id={100780}
+      />
+       is your lowest priority ability. You should avoid casting it when you have other damaging abilities like 
+      <ForwardRef
+        id={121253}
+      />
+       or 
+      <ForwardRef
+        id={205523}
+      />
+       available.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      74.24% of casts while better spells were available
+       (
+      &lt; 5.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Brewmaster Monk integration test: example log VersatileNavigation matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -5775,7 +5805,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "14.11650761247712%",
+                  "width": "12.88508287434318%",
                 }
               }
             />
@@ -6133,6 +6163,109 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
                         "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=100780"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
+                  />
+                   
+                  Tiger Palm
+                </a>
+                 casts while better abilities were available
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  74.24%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "6.72795918367347%",
                       }
                     }
                   />

@@ -7,6 +7,8 @@ import Combatant from 'parser/core/Combatant';
 import { SpellInfo } from 'parser/core/EventFilter';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { formatPercentage } from 'common/format';
 
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../core/SharedBrews';
@@ -80,7 +82,7 @@ class TigerPalm extends Analyzer {
         average: 0.9,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -163,6 +165,29 @@ class TigerPalm extends Analyzer {
     };
 
     this.badCasts += 1;
+  }
+
+  get badCastSuggestion() {
+    const actual = this.badCasts / this.totalCasts;
+    return {
+      actual,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.1,
+        major: 0.15,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.badCastSuggestion)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<><SpellLink id={SPELLS.TIGER_PALM.id} /> is your lowest priority ability. You should avoid casting it when you have other damaging abilities like <SpellLink id={SPELLS.KEG_SMASH.id} /> or <SpellLink id={SPELLS.BLACKOUT_KICK_BRM.id} /> available.</>)
+          .icon(SPELLS.TIGER_PALM.icon)
+          .actual(`${formatPercentage(actual)}% of casts while better spells were available`)
+          .recommended(`< ${formatPercentage(recommended)}% is recommended`);
+      });
   }
 }
 
