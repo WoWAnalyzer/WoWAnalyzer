@@ -11,7 +11,6 @@ import UptimeIcon from 'interface/icons/Uptime';
 import SPECS from 'game/SPECS';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Combatant from 'parser/core/Combatant';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -51,7 +50,7 @@ class EarthShield extends Analyzer {
   }
 
   get uptime() {
-    return Object.values((this.combatants.players as Combatant[])).reduce((uptime: number, player: Combatant) => uptime + player.getBuffUptime(SPELLS.EARTH_SHIELD.id, this.owner.playerId), 0);
+    return Object.values((this.combatants.players)).reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.EARTH_SHIELD.id, this.owner.playerId), 0);
   }
 
   get uptimePercent() {

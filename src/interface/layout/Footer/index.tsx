@@ -8,7 +8,7 @@ import Logo from 'interface/images/logo.svg';
 
 import './style.scss';
 
-const Footer = props => (
+const Footer = () => (
     <footer>
       <div className="container text-center">
         <div>

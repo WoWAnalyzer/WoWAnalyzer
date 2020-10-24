@@ -64,8 +64,7 @@ class RunicPowerDetails extends Analyzer {
           resource={RESOURCE_TYPES.RUNIC_POWER}
           value={`${formatPercentage(this.wastedPercent)} %`}
           label="Runic Power wasted"
-        >
-        </BoringResourceValue>
+        />
       </Statistic>
     );
   }

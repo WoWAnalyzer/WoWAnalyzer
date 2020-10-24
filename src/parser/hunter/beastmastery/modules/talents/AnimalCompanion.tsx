@@ -37,7 +37,7 @@ class AnimalCompanion extends Analyzer {
       (event.absorbed || 0);
     if (!foundPet) {
       const sourcePet = this.owner.playerPets.find((pet: { id: number | undefined; }) => pet.id === event.sourceID);
-      if (!isPermanentPet(sourcePet.guid)) {
+      if (!sourcePet || !isPermanentPet(sourcePet.guid)) {
         return;
       }
       this.pets.push({

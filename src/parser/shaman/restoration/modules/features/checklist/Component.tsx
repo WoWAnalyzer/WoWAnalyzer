@@ -55,6 +55,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
       >
         <AbilityRequirement spell={SPELLS.HEALING_TIDE_TOTEM_CAST.id} />
         <AbilityRequirement spell={SPELLS.SPIRIT_LINK_TOTEM.id} />
+        <AbilityRequirement spell={SPELLS.MANA_TIDE_TOTEM_CAST.id} />
         {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id) && (
           <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} />
         )}
