@@ -179,7 +179,7 @@ class ShieldOfTheRighteous extends Analyzer {
     return this._sotrCasts.filter(cast => isGoodCast(cast, this.owner.fight.end_time));
   }
 
-  get suggestionThresholds() {
+  get goodCastThreshold() {
     return {
       actual: this.goodCasts.length / this._sotrCasts.length,
       isLessThan: {
@@ -191,12 +191,30 @@ class ShieldOfTheRighteous extends Analyzer {
     };
   }
 
+  get hitsMitigatedThreshold() {
+    return {
+      actual: this.sotrHits / this.totalHits,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   suggestions(when: When) {
-    when(this.suggestionThresholds)
+    when(this.goodCastThreshold)
       .addSuggestion((suggest, actual, recommended) => suggest(<>{formatPercentage(actual)}% of your <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts were <em>good</em> (they mitigated at least 2 auto-attacks or 1 tankbuster, or prevented capping charges). You should have Shield of the Righteous up to mitigate as much physical damage as possible.</>)
           .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
           .actual(i18n._(t('paladin.protection.suggestions.shieldOfTheRighteous.goodCasts')`${formatPercentage(actual)}% good Shield of the Righteous casts`))
           .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`));
+
+    when(this.hitsMitigatedThreshold)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You should maintain <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> while actively tanking</>)
+        .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
+        .actual(`${formatPercentage(actual)}% of hits mitigated by Shield of the Righteous`)
+        .recommended(`at least ${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

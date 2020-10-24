@@ -59,6 +59,6 @@ export default class Shuffle extends Analyzer {
         <>You should maintain <SpellLink id={SPELLS.SHUFFLE.id} /> while actively tanking.</>
       ).icon(SPELLS.SHUFFLE.icon)
        .actual(`${formatPercentage(actual)}% of hits mitigated by Shuffle.`)
-       .recommended(`< ${formatPercentage(recommended)}% is recommended`));
+       .recommended(`at least ${formatPercentage(recommended)}% is recommended`));
   }
 }
