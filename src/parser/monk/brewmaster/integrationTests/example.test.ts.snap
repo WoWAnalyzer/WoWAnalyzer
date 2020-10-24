@@ -212,7 +212,7 @@ Array [
   Object {
     "details": null,
     "icon": "ability_monk_breathoffire",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <React.Fragment>
       Your 
       <ForwardRef
@@ -221,7 +221,7 @@ Array [
        usage can be improved. The associated debuff is a key part of our damage mitigation.
     </React.Fragment>,
     "stat": <React.Fragment>
-      65.52% of hits mitigated with Breath of Fire
+      58.70% of hits mitigated with Breath of Fire
        (
       &gt; 70.00% is recommended
       )
