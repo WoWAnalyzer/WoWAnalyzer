@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../core/SharedBrews';
@@ -15,6 +15,10 @@ class TigerPalm extends Analyzer {
     brews: SharedBrews,
     statTracker: StatTracker,
   };
+
+  protected boc!: BlackoutCombo;
+  protected brews!: SharedBrews;
+  protected statTracker!: StatTracker;
 
   totalCasts = 0;
   normalHits = 0;
@@ -46,7 +50,7 @@ class TigerPalm extends Analyzer {
     };
   }
 
-  constructor(options){
+  constructor(options: Options){
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
@@ -56,20 +60,20 @@ class TigerPalm extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
 
-  onGainBOC(event){
-    this._bocBuffActive = true;
+  onGainBOC(event: ApplyBuffEvent | RefreshBuffEvent){
+    this.bocBuffActive = true;
   }
 
-  onLoseBOC(event){
-    this._bocBuffActive = false;
+  onLoseBOC(event: RemoveBuffEvent){
+    this.bocBuffActive = false;
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     this.totalCasts += 1;
     this.bocApplyToTP = this.bocBuffActive;
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     // OK SO we have a hit, lets reduce the CD by the base amount...
     const actualReduction = this.brews.reduceCooldown(TIGER_PALM_REDUCTION);
     this.cdr += actualReduction;
@@ -82,7 +86,7 @@ class TigerPalm extends Analyzer {
     }
   }
 
-  onDamageTaken(event) {
+  onDamageTaken(event: DamageEvent) {
     // record the last known AP to estimate the amount of damage a
     // non-FP TP should do
     if (event.attackPower !== undefined && event.attackPower > 0) {
