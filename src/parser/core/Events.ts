@@ -328,10 +328,10 @@ export interface AbsorbedEvent extends Event<EventType.Absorbed> {
 export interface DamageEvent extends Event<EventType.Damage> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceID?: number;
-  sourceIsFriendly: true;
+  sourceIsFriendly: boolean;
   targetID: number;
   targetInstance: number;
-  targetIsFriendly: false;
+  targetIsFriendly: boolean;
   ability: Ability;
   hitType: number;
   amount: number;

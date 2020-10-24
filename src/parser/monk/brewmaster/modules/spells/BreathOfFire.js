@@ -10,9 +10,9 @@ import { t } from '@lingui/macro';
 
 import Events from 'parser/core/Events';
 
-import { BOF as ABILITY_BLACKLIST } from '../constants/AbilityBlacklist';
+import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 
-const DEBUG_ABILITIES = false;
+const DEBUG_ABILITIES = true;
 
 class BreathOfFire extends Analyzer {
   static dependencies = {
@@ -52,11 +52,8 @@ class BreathOfFire extends Analyzer {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
-    if (ABILITY_BLACKLIST.includes(event.ability.guid)) {
+    if (shouldIgnore(this.enemies, event)) {
       return;
-    }
-    if (!this.enemies.getEntities()[event.sourceID]) {
-      return; // either stagger or not a notable entity (e.g. imonar traps, environment damage) or an ability we want to ignore
     }
 
     if (this.enemies.enemies[event.sourceID].hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
