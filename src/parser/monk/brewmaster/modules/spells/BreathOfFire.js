@@ -12,7 +12,7 @@ import Events from 'parser/core/Events';
 
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 
-const DEBUG_ABILITIES = true;
+const DEBUG_ABILITIES = false;
 
 class BreathOfFire extends Analyzer {
   static dependencies = {
@@ -56,7 +56,8 @@ class BreathOfFire extends Analyzer {
       return;
     }
 
-    if (this.enemies.enemies[event.sourceID].hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
+    const enemy = this.enemies.enemies[event.sourceID];
+    if (enemy && enemy.hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
       this.hitsWithBoF += 1;
     } else {
       if (DEBUG_ABILITIES && event.ability.guid !== SPELLS.MELEE.id) {
