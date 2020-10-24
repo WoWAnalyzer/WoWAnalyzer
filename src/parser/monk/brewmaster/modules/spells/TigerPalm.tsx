@@ -182,12 +182,10 @@ class TigerPalm extends Analyzer {
 
   suggestions(when: When) {
     when(this.badCastSuggestion)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<><SpellLink id={SPELLS.TIGER_PALM.id} /> is your lowest priority ability. You should avoid casting it when you have other damaging abilities like <SpellLink id={SPELLS.KEG_SMASH.id} /> or <SpellLink id={SPELLS.BLACKOUT_KICK_BRM.id} /> available.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<><SpellLink id={SPELLS.TIGER_PALM.id} /> is your lowest priority ability. You should avoid casting it when you have other damaging abilities like <SpellLink id={SPELLS.KEG_SMASH.id} /> or <SpellLink id={SPELLS.BLACKOUT_KICK_BRM.id} /> available.</>)
           .icon(SPELLS.TIGER_PALM.icon)
           .actual(`${formatPercentage(actual)}% of casts while better spells were available`)
-          .recommended(`< ${formatPercentage(recommended)}% is recommended`);
-      });
+          .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 }
 

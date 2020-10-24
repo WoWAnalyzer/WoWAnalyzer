@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 24), <>Added checklist item and timeline annotations for bad <SpellLink id={SPELLS.TIGER_PALM.id} /> casts.</>, emallson),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 10, 17), 'Added some missing abilities and updated ability cooldowns.', Dambroda),
   change(date(2020, 10, 16), <>Removed "Inefficient <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Casts" statistic.</>, emallson),
