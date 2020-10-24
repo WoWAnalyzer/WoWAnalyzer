@@ -1,4 +1,4 @@
-export default function parseVersionString(string) {
+export default function parseVersionString(string: string) {
   const [major, minor, patch] = string.split('.');
 
   return {
