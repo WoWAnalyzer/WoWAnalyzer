@@ -24,7 +24,7 @@ function isConditional(spell: ConditionalSpell | SpellInfo): spell is Conditiona
 
 const BETTER_SPELLS: Array<SpellInfo | ConditionalSpell> = [
   SPELLS.KEG_SMASH,
-  SPELLS.BLACKOUT_KICK,
+  SPELLS.BLACKOUT_KICK_BRM,
   SPELLS.BREATH_OF_FIRE,
   {
     spell: SPELLS.RUSHING_JADE_WIND,
