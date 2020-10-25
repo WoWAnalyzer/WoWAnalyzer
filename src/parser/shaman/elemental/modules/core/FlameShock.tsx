@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import UptimeIcon from 'interface/icons/Uptime';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -9,9 +9,12 @@ import Enemies from 'parser/shared/modules/Enemies';
 import EarlyDotRefreshesAnalyzer from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { DamageEvent } from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
 import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -21,6 +24,8 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     ...EarlyDotRefreshesAnalyzer.dependencies,
     enemies: Enemies,
   };
+
+  protected enemies!: Enemies;
 
   static dots = [{
     name: "Flame Shock",
@@ -37,9 +42,10 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
   }
 
   get refreshThreshold() {
+    const casts: any = this.casts;
     return {
       spell: SPELLS.FLAME_SHOCK,
-      count: this.casts[SPELLS.FLAME_SHOCK.id].badCasts,
+      count: casts[SPELLS.FLAME_SHOCK.id].badCasts,
       actual: this.badCastsPercent(SPELLS.FLAME_SHOCK.id),
       isGreaterThan: {
         minor: 0.10,
@@ -58,23 +64,23 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
         average: 0.95,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  constructor(options){
+  constructor(options: Options){
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_BURST), this.onDamage);
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     const target = this.enemies.getEntity(event);
     if(target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)){
       this.badLavaBursts += 1;
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.</span>)
         .icon(SPELLS.FLAME_SHOCK.icon)
         .actual(i18n._(t('shaman.elemental.suggestions.flameShock.uptime')`${formatPercentage(actual)}% uptime`))
@@ -92,15 +98,19 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FLAME_SHOCK.id} />}
+      <Statistic
+        position={STATISTIC_ORDER.CORE()}
+        size="flexible"
+        >
+        <>
+          <UptimeIcon /> {formatPercentage(this.uptime)}% uptime on Flame Shock
+        </>
         value={`${formatPercentage(this.uptime)} %`}
         label="Uptime"
         tooltip="Flame Shock Uptime"
-      />
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default FlameShock;
