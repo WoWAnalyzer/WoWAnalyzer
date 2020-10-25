@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 interface HeadingProps {
   title?: React.ReactNode;
