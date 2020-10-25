@@ -45,8 +45,8 @@ const Heading = ({ title, explanation, actions, backButton }: HeadingProps) => {
 interface PanelProps {
   children: React.ReactNode;
   className?: string;
-  style?: object;
-  bodyStyle?: object;
+  style?: CSSProperties;
+  bodyStyle?: CSSProperties;
   pad?: boolean;
   // Heading
   title?: React.ReactNode;
