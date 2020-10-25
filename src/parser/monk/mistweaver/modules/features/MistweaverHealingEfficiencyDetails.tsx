@@ -26,10 +26,7 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
         pad={false}
         position={120}
       >
-        <HealingEfficiencyBreakdown
-          tracker={this.healingEfficiencyTracker}
-          showSpenders
-        />
+        <HealingEfficiencyBreakdown tracker={this.healingEfficiencyTracker} />
       </Panel>
     );
   }

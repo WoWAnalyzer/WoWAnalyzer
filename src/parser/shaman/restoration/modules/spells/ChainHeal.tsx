@@ -157,7 +157,7 @@ class ChainHeal extends Analyzer {
             <div>
               <Trans id="shaman.restoration.chainHeal.averageTargets.title">Below are the casts that only hit the initial target. A large list indicates that target selection is an area for improvement.</Trans>
             </div>
-            <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
+            <table className="table table-condensed">
               <thead>
                 <tr>
                   <th><Trans id="common.cast">Cast</Trans></th>

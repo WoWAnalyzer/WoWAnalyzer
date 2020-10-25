@@ -26,10 +26,7 @@ class Sundering extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id)) {
-      this.active = false;
-      return;
-    }
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)

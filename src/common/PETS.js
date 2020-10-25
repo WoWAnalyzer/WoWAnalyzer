@@ -56,6 +56,10 @@ const PETS = {
     id: 98167,
     name: 'Void Tendril',
   },
+  SPIRIT_LINK_TOTEM: {
+    id: 53006,
+    name: 'Spirit Link Totem',
+  }
 };
 
 export default indexById(PETS);

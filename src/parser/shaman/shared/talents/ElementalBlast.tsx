@@ -3,14 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
-import Events from 'parser/core/Events';
-
-import { ELEMENTAL_BLAST_SPELLS } from '../../constants';
+import { ELEMENTAL_BLAST_BUFFS } from '../constants';
 
 class ElementalBlast extends Analyzer {
   currentBuffAmount=0;
@@ -18,21 +15,21 @@ class ElementalBlast extends Analyzer {
   resultDuration=0;
 
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_SPELLS), this.onRemoveBuff);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_SPELLS), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_BUFFS), this.onRemoveBuff);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_BUFFS), this.onApplyBuff);
   }
 
-  onRemoveBuff(event) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     this.currentBuffAmount -= 1;
     if (this.currentBuffAmount===0) {
       this.resultDuration += event.timestamp - this.lastFreshApply;
     }
   }
 
-  onApplyBuff(event) {
+  onApplyBuff(event: ApplyBuffEvent) {
     if (this.currentBuffAmount===0) {
       this.lastFreshApply = event.timestamp;
     }

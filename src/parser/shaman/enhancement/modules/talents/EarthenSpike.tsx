@@ -36,10 +36,7 @@ class EarthenSpike extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id)) {
-      this.active = false;
-      return;
-    }
+    this.active = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
