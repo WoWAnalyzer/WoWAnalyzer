@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS/index';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { SpendResourceEvent } from 'parser/core/Events';
 
 /**
  * Deepening Shadows
@@ -13,15 +13,17 @@ class DeepeningShadows extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  cdrPerComboPoint = null;
+  protected spellUsable!: SpellUsable;
 
-  constructor(...args) {
-    super(...args);
+  cdrPerComboPoint: number = 0;
+
+  constructor(options: Options) {
+    super(options);
     this.cdrPerComboPoint = 1500 + (this.selectedCombatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id) ? 1000 : 0);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
   }
 
-  onSpendResource(event) {
+  onSpendResource(event: SpendResourceEvent) {
     const comboPointsSpent = event.resourceChange;
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) {
       return;

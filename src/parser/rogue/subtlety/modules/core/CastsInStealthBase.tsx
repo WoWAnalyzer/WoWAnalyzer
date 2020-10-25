@@ -3,24 +3,26 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Spell from 'common/SPELLS/Spell';
+import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class CastsInStealthBase extends Analyzer {
-  constructor(...args) {
-    super(...args);
+  backstabSpell: Spell;
+  badStealthSpells: Spell[] = [];
+  stealthCondition = '';
+  maxCastsPerStealth = 0;
 
+  constructor(options: Options) {
+    super(options);
     this.backstabSpell = this.selectedCombatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id)
     ? SPELLS.GLOOMBLADE_TALENT
     : SPELLS.BACKSTAB;
     this.badStealthSpells = [this.backstabSpell];
   }
-  backstabSpell = null;
-  badStealthSpells = [];
-  stealthCondition = '';
-  maxCastsPerStealth = 0;
+  
 
-  createWrongCastThresholds(spell, tracker) {
+  createWrongCastThresholds(spell: Spell, tracker: any) {
     return {
       actual: tracker.getAbility(spell.id).casts,
       isGreaterThan: {
@@ -32,9 +34,9 @@ class CastsInStealthBase extends Analyzer {
     };
   }
 
-  suggestWrongCast(when, spell, thresholds) {
+  suggestWrongCast(when: When, spell: Spell, thresholds: any) {
     when(thresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={spell.id} /> during {this.stealthCondition}. </>)
+      .addSuggestion((suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) => suggest(<>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={spell.id} /> during {this.stealthCondition}. </>)
           .icon(spell.icon)
           .actual(i18n._(t('rogue.subtlety.suggestions.castsInStealth.casts')`${actual} ${spell.name} casts`))
           .recommended(`${recommended} is recommended`));
@@ -66,13 +68,13 @@ class CastsInStealthBase extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestAvgCasts(when, spell) {
+  suggestAvgCasts(when: When, spell: Spell) {
     when(this.castsInStealthThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast {this.maxCastsPerStealth} spells during {this.stealthCondition}</>)
+      .addSuggestion((suggest: SuggestionFactory) => suggest(<>Try to cast {this.maxCastsPerStealth} spells during {this.stealthCondition}</>)
           .icon(spell.icon)
           .actual(i18n._(t('rogue.subtlety.suggestions.castsInStealth.efficiency')`${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`))
           .recommended(`${this.maxCastsPerStealth} in each ${this.stealthCondition} window`));

@@ -3,11 +3,15 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { Options } from 'parser/core/Analyzer';
+import Spell from 'common/SPELLS/Spell';
+import { When } from 'parser/core/ParseResults';
 
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 import CastsInStealthBase from './CastsInStealthBase';
 import DanceDamageTracker from './DanceDamageTracker';
+
 
 class CastsInShadowDance extends CastsInStealthBase {
   static dependencies = {
@@ -15,33 +19,36 @@ class CastsInShadowDance extends CastsInStealthBase {
     danceDamageTracker: DanceDamageTracker,
   };
 
-  constructor(...args) {
-    super(...args);
-    
+  protected damageTracker!: DamageTracker;
+  protected danceDamageTracker!: DanceDamageTracker;
+
+  constructor(options: Options) {
+    super(options);
+
     this.maxCastsPerStealth = 5 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 1 : 0);
 
     this.stealthCondition = "Shadow Dance";
 
     this.danceDamageTracker.subscribeInefficientCast(
       this.badStealthSpells,
-      (s) => `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`,
-    );    
+      (s: Spell) => `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`,
+    );
   }
 
   get danceBackstabThresholds() {
     return this.createWrongCastThresholds(this.backstabSpell, this.danceDamageTracker);
   }
 
-  suggestions(when) {
-    this.suggestWrongCast(when,this.backstabSpell,this.danceBackstabThresholds);
+  suggestions(when: When) {
+    this.suggestWrongCast(when, this.backstabSpell, this.danceBackstabThresholds);
     this.suggestAvgCasts(when, SPELLS.SHADOW_DANCE);
   }
-  
-  get stealthMaxCasts(){
+
+  get stealthMaxCasts() {
     return this.maxCastsPerStealth * this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts || 0;
   }
-  get stealthActualCasts(){
-    return this.validStealthSpellIds.map(s=>this.danceDamageTracker.getAbility(s).casts || 0).reduce((p,c) => p + c);
+  get stealthActualCasts() {
+    return this.validStealthSpellIds.map(s => this.danceDamageTracker.getAbility(s).casts || 0).reduce((p, c) => p + c);
   }
 
   statistic() {

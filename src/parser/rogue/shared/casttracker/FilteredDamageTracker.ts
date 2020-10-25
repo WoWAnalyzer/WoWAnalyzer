@@ -1,38 +1,36 @@
+import Spell from 'common/SPELLS/Spell';
+import { HealEvent, DamageEvent, CastEvent } from 'parser/core/Events';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 class FilteredDamageTracker extends DamageTracker {
+  castObservers: any[] = [];
   
-  constructor(...args) {
-    super(...args);
-    this.castObservers = [];
-  }
-  
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     if(!this.shouldProcessEvent(event)) {return;}
     super.onDamage(event);
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     if(!this.shouldProcessEvent(event)) {return;}
     super.onHeal(event);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if(!this.shouldProcessEvent(event)) {return;}
     this.broadcastCastEvent(event);
     super.onCast(event);
   }
     
-  shouldProcessEvent(event) {
+  shouldProcessEvent(event: any) {
     return false;
   }
 
-  subscribeToCastEvent(fn) {
+  subscribeToCastEvent(fn: any) {
     this.castObservers.push(fn);
   }
 
-  subscribeInefficientCast(spells, messageFunction) {
-    this.subscribeToCastEvent((event) => {
+  subscribeInefficientCast(spells: Spell[], messageFunction: any) {
+    this.subscribeToCastEvent((event: any) => {
       const spell = spells.find(s=>event.ability.guid === s.id);
       if(spell) {
         event.meta = event.meta || {};
@@ -42,7 +40,7 @@ class FilteredDamageTracker extends DamageTracker {
     });
   }
 
-  broadcastCastEvent(event) {
+  broadcastCastEvent(event: CastEvent) {
     this.castObservers.forEach((subscriber) => subscriber(event));
   }
 }
