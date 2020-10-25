@@ -13,7 +13,7 @@ import { TWIST_OF_FATE_INCREASE } from '../../constants';
 
 // Example log: /report/9fLF3NhHTqCBtmXy/10-Normal+Zul+-+Kill+(2:26)/7-Nospheratu
 class TwistOfFate extends Analyzer {
-  damage = 0;
+  damage: number = 0;
 
   constructor(options: Options) {
     super(options);

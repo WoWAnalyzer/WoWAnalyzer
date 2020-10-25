@@ -12,7 +12,7 @@ import StormFireElemental from './modules/features/StormFireElemental';
 import Aftershock from './modules/talents/Aftershock';
 import Ascendance from './modules/talents/Ascendance';
 import EarthenRage from './modules/talents/EarthenRage';
-import ElementalBlast from './modules/talents/ElementalBlast';
+import ElementalBlast from '../shared/talents/ElementalBlast';
 import LiquidMagmaTotem from './modules/talents/LiquidMagmaTotem';
 import MasterOfTheElements from './modules/talents/MasterOfTheElements';
 import PrimalFireElemental from './modules/talents/PrimalFireElemental';

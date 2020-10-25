@@ -10,8 +10,8 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const HEALTH_THRESHOLD: number = .35;
-const DAMAGE_BONUS: number = .8;
+const HEALTH_THRESHOLD = .35;
+const DAMAGE_BONUS = .8;
 
 class ArcaneBombardment extends Analyzer {
   static dependencies = {

@@ -1,5 +1,4 @@
-
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import DonutChart from 'interface/statistics/components/DonutChart';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -123,6 +122,16 @@ class ResourceUsage extends Analyzer {
     );
   }
 
+  sortResourceUsage(a: { value: number; }, b: { value: number; }) {
+    let comparison = 0;
+    if (a.value > b.value) {
+      comparison = -1;
+    } else if (a.value < b.value) {
+      comparison = 1;
+    }
+    return comparison;
+  }
+
   get resourceUsageChart() {
     const items: Array<{ color: string, label: string, spellId: number, value: number, valueTooltip: JSX.Element }> = [];
     let colourIndex = 0;
@@ -138,6 +147,8 @@ class ResourceUsage extends Analyzer {
         colourIndex += 1;
       }
     });
+
+    items.sort(this.sortResourceUsage);
 
     return (
       <DonutChart

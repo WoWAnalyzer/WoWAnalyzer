@@ -36,7 +36,7 @@ class FuriousSlashUptime extends Analyzer {
   get uptime(){
     const stacks = Object.values(this.furiousSlashTimesByStack).map((e) => e.reduce((a, b) => a + b, 0));
     stacks.shift();
-    let value: number = 0;
+    let value = 0;
     stacks.forEach(function(i){
       value += i;
     });

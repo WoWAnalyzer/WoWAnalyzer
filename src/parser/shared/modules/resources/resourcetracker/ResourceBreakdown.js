@@ -19,7 +19,7 @@ class ResourceBreakdown extends React.Component {
         wasted: buildersObj[abilityId].wasted,
       }))
       .sort((a, b) => b.generated - a.generated)
-      .filter(ability => ability.generated > 0);
+      .filter(ability => ability.generated > 0 || ability.wasted);
   }
   prepareSpent(spendersObj) {
     return Object.keys(spendersObj)

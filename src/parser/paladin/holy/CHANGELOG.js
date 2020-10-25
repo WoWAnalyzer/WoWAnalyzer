@@ -7,6 +7,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 18), <>Updating wording and translation tags.</>, Abelito75),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 10, 15), <>Removed Light Of Dawn from Crusaders Might statistic box and fixed beacon uptime for glimmer players. </>, Abelito75),
   change(date(2020, 10, 14), <>Added nice graphic for DP to show how lucky or unlucky you were. </>, Abelito75),

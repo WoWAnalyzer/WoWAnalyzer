@@ -16,7 +16,7 @@ export default {
   MIST_WRAP_TALENT: { id: 197900, name: 'Mist Wrap', icon: 'ability_monk_pathofmists' },
   LIFECYCLES_TALENT: { id: 197915, name: 'Lifecycles', icon: 'ability_monk_souldance' },
   SPIRIT_OF_THE_CRANE_TALENT: { id: 210802, name: 'Spirit of the Crane', icon: 'monk_stance_redcrane' },
-  MANA_TEA_TALENT: { id: 197908, name: 'Mana Tea', icon: 'monk_ability_cherrymanatea' },
+  MANA_TEA_TALENT: { id: 197908, name: 'Mana Tea', icon: 'monk_ability_cherrymanatea', duration: 10000 },
   SONG_OF_CHIJI_TALENT: { id: 198898, name: 'Song of Chi-Ji', icon: 'inv_chaos_orb' },
   SUMMON_JADE_SERPENT_STATUE_TALENT: { id: 115313, name: 'Summon Jade Serpent Statue', icon: 'ability_monk_summonserpentstatue' },
   REFRESHING_JADE_WIND_TALENT: { id: 196725, name: 'Refreshing Jade Wind', icon: 'ability_monk_rushingjadewind', manaCost: 1750 },

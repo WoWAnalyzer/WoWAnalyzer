@@ -15,7 +15,7 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatNumber } from 'common/format';
 
 
-const RISING_SUN_REDUCTION: number = 1000;
+const RISING_SUN_REDUCTION = 1000;
 /**
  * Every time you cast rising sun kick it reduces revival's cooldown by 1 second and whenever you cast revival x% of that healing is done again as a hot over 10 seconds
  */
