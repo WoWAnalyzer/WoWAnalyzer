@@ -151,8 +151,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-<<<<<<< HEAD
-    "importance": "minor",
+    "importance": "major",
     "issue": <React.Fragment>
       Your downtime can be improved. If you need to move use 
       <ForwardRef
@@ -167,10 +166,6 @@ Array [
         id={196840}
       />
     </React.Fragment>,
-=======
-    "importance": "major",
-    "issue": "Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.",
->>>>>>> upstream/shadowlands
     "stat": <React.Fragment>
       26.73% downtime
        (
@@ -4779,207 +4774,6 @@ exports[`Elemental Shaman integration test: example log MasterOfTheElements matc
 </div>
 `;
 
-<<<<<<< HEAD
-=======
-exports[`Elemental Shaman integration test: example log Overload matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=168534"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Elemental Overload"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_nature_lightningoverload.jpg"
-            />
-          </a>
-           
-          Overload procs
-        </label>
-        <div
-          className="value"
-        >
-          <ul
-            style={
-              Object {
-                "listStyle": "none",
-                "paddingLeft": 0,
-              }
-            }
-          >
-            <li>
-              <a
-                href="http://wowhead.com/spell=285466"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt="Lava Burst Overload"
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_shaman_lavaburst.jpg"
-                  style={
-                    Object {
-                      "height": "1.3em",
-                      "marginTop": "-.1em",
-                    }
-                  }
-                />
-              </a>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": "0.5em",
-                    "textAlign": "left",
-                  }
-                }
-              >
-                22
-                 / 
-                56
-              </span>
-            </li>
-            <li>
-              <a
-                href="http://wowhead.com/spell=45284"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt="Lightning Bolt Overload"
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_nature_lightning.jpg"
-                  style={
-                    Object {
-                      "height": "1.3em",
-                      "marginTop": "-.1em",
-                    }
-                  }
-                />
-              </a>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": "0.5em",
-                    "textAlign": "left",
-                  }
-                }
-              >
-                10
-                 / 
-                27
-              </span>
-            </li>
-            <li>
-              <a
-                href="http://wowhead.com/spell=45297"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt="Chain Lightning Overload"
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_nature_chainlightning.jpg"
-                  style={
-                    Object {
-                      "height": "1.3em",
-                      "marginTop": "-.1em",
-                    }
-                  }
-                />
-              </a>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": "0.5em",
-                    "textAlign": "left",
-                  }
-                }
-              >
-                22
-                 / 
-                23
-              </span>
-            </li>
-            <li>
-              <a
-                href="http://wowhead.com/spell=219271"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt="Icefury Overload"
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_frost_iceshard.jpg"
-                  style={
-                    Object {
-                      "height": "1.3em",
-                      "marginTop": "-.1em",
-                    }
-                  }
-                />
-              </a>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": "0.5em",
-                    "textAlign": "left",
-                  }
-                }
-              >
-                2
-                 / 
-                8
-              </span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
->>>>>>> upstream/shadowlands
 exports[`Elemental Shaman integration test: example log OverwhelmingPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -5878,11 +5672,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               style={
                 Object {
                   "backgroundColor": "#df7102",
-<<<<<<< HEAD
-                  "width": "44.10001829508857%",
-=======
-                  "width": "45.5158243796942%",
->>>>>>> upstream/shadowlands
+                  "width": "33.67879785112661%",
                 }
               }
             />
@@ -6053,11 +5843,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-<<<<<<< HEAD
-                        "width": "28.318457642808703%",
-=======
-                        "width": "31.150069812019975%",
->>>>>>> upstream/shadowlands
+                        "width": "7.476016754884794%",
                       }
                     }
                   />
