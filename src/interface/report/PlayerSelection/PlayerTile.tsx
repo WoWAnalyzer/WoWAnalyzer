@@ -1,29 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import SpecIcon from 'common/SpecIcon';
+import Icon from 'common/Icon';
+import { Character } from "common/contributor";
 import { getClassName } from 'game/ROLES';
 import getAverageItemLevel from 'game/getAverageItemLevel';
-import Icon from 'common/Icon';
 import SPECS from 'game/SPECS';
 import { getCharacterById } from 'interface/selectors/characters';
 import { fetchCharacter, SUPPORTED_REGIONS } from 'interface/actions/characters';
 
-class PlayerTile extends React.PureComponent {
-  static propTypes = {
-    player: PropTypes.object.isRequired,
-    makeUrl: PropTypes.func.isRequired,
-    characterInfo: PropTypes.shape({
-      region: PropTypes.string.isRequired,
-      thumbnail: PropTypes.string.isRequired,
-      heartOfAzeroth: PropTypes.any,
-    }),
-    fetchCharacter: PropTypes.func.isRequired,
-  };
+import { Player } from "./index";
 
-  constructor(props) {
+interface Props {
+  player: Player;
+  makeUrl: (playerId: string) => string;
+  characterInfo: Character;
+  fetchCharacter: (characterId: string, region: string, realm: string, name: string) => void;
+}
+
+class PlayerTile extends React.PureComponent<Props> {
+  constructor(props: Props) {
     super(props);
     if (!this.props.characterInfo) {
       // noinspection JSIgnoredPromiseFromCall
@@ -47,13 +45,15 @@ class PlayerTile extends React.PureComponent {
 
   render() {
     const { player, characterInfo, makeUrl } = this.props;
-    const avatar = characterInfo && characterInfo.thumbnail ? `https://render-${characterInfo.region}.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}` : '/img/fallback-character.jpg';
+    const avatar = characterInfo?.thumbnail ? 
+    `https://render-${characterInfo.region}.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}` : 
+    '/img/fallback-character.jpg';
     const spec = SPECS[player.combatant.specID];
     const analysisUrl = makeUrl(player.id);
-    const heartOfAzeroth = characterInfo && characterInfo.heartOfAzeroth ? characterInfo.heartOfAzeroth : null;
+    const heartOfAzeroth = characterInfo?.heartOfAzeroth || null;
 
-    player.parsable = !player.combatant.error && spec;
-    if (!player.parsable) {
+    const isParsable = !player.combatant.error && spec;
+    if (!isParsable) {
       return (
         <span
           className="player"
@@ -111,7 +111,7 @@ class PlayerTile extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, { player }) => ({
+const mapStateToProps = (state: any, { player }: {player: Player}) => ({
   characterInfo: getCharacterById(state, player.guid),
 });
 export default connect(
