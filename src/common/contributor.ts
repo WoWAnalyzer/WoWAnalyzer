@@ -1,15 +1,10 @@
 import { Spec } from 'game/SPECS';
 import * as contributors from 'CONTRIBUTORS';
 
-import { HeartOfAzeroth } from './heartOfAzeroth';
-
 export type Character = {
   name: string;
   spec: Spec;
   link: string;
-  thumbnail?: string;
-  region?: string;
-  heartOfAzeroth?: HeartOfAzeroth;
 }
 export type Contributor = {
   nickname: string;

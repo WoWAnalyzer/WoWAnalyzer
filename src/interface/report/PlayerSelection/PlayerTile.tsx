@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import SpecIcon from 'common/SpecIcon';
 import Icon from 'common/Icon';
-import { Character } from 'common/contributor';
+import { Character } from 'common/character';
 import { getClassName } from 'game/ROLES';
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import SPECS from 'game/SPECS';
