@@ -10,16 +10,12 @@ import SpellLink from 'common/SpellLink';
 
 const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds}: any) => {
 
-  const AbilityRequirement = (props: any) => (
+  const AbilityRequirement = (props: { spell: number }) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>

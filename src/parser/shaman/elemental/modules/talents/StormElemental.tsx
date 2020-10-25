@@ -26,9 +26,9 @@ class StormElemental extends Analyzer {
   protected enemies !: Enemies;
   protected abilities !: Abilities;
 
-  badFS: number = 0;
-  justEnteredSE: boolean = false;
-  checkDelay: number = 0;
+  badFS = 0;
+  justEnteredSE = false;
+  checkDelay = 0;
 
   numCasts = {
     [SPELLS.STORM_ELEMENTAL_TALENT.id]: 0,

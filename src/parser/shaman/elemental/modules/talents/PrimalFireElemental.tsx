@@ -19,13 +19,13 @@ const damagingCasts = [SPELLS.FIRE_ELEMENTAL_METEOR, SPELLS.FIRE_ELEMENTAL_IMMOL
 
 
 class PrimalFireElemental extends Analyzer {
-  meteorCasts: number = 0;
-  PFEcasts: number = 0;
+  meteorCasts = 0;
+  PFEcasts = 0;
 
   usedCasts: {[key: number]: boolean};
 
-  damageGained: number = 0;
-  maelstromGained: number = 0;
+  damageGained = 0;
+  maelstromGained = 0;
 
   constructor(options: Options) {
     super(options);

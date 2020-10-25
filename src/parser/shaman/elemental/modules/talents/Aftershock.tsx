@@ -13,7 +13,7 @@ import ResourceGenerated from 'interface/others/ResourceGenerated';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 class Aftershock extends Analyzer {
-  refund: number = 0;
+  refund = 0;
 
   constructor(options: Options) {
     super(options);

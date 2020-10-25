@@ -12,7 +12,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 class EarthenRage extends Analyzer {
-  damageGained: number = 0;
+  damageGained = 0;
 
   constructor(options: Options) {
     super(options);

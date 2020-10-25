@@ -13,7 +13,7 @@ class Icefury extends Analyzer {
     abilityTracker: AbilityTracker,
   };
   protected abilityTracker!: AbilityTracker;
-  empoweredFrostShockCasts: number = 0;
+  empoweredFrostShockCasts = 0;
 
   constructor(options: Options) {
     super(options);

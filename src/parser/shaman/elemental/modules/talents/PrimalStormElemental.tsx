@@ -8,7 +8,7 @@ import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/
 
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -17,15 +17,15 @@ const damagingCasts = [SPELLS.EYE_OF_THE_STORM.id, SPELLS.WIND_GUST.id, SPELLS.C
 const CALL_LIGHTNING_BUFF_DURATION: number = 15000;
 
 class PrimalStormElemental extends Analyzer {
-  eotsCasts: number = 0;
-  pseCasts: number = 0;
-  lastCLCastTimestamp: number = 0;
+  eotsCasts = 0;
+  pseCasts = 0;
+  lastCLCastTimestamp = 0;
 
   usedCasts: {[key: number]: boolean};
 
-  damageGained: number = 0;
-  maelstromGained: number = 0;
-  badCasts: number = 0;
+  damageGained = 0;
+  maelstromGained = 0;
+  badCasts = 0;
 
   constructor(options: Options) {
     super(options);
@@ -59,23 +59,46 @@ class PrimalStormElemental extends Analyzer {
     }
   }
 
+  get unusedSpells(){
+    return Object.keys(this.usedCasts).filter(key => !this.usedCasts[Number(key)]);
+  }
+
+  get unusedSpellsSuggestionTresholds() {
+    return {
+      actual: this.unusedSpells.length,
+      isGreaterThan: {
+        minor: 1,
+        major: 1,
+      },
+      style: ThresholdStyle.NUMBER,
+    }
+  }
+
+  get badCastsSuggestionTresholds() {
+    return {
+      actual: this.unusedSpells.length,
+      isGreaterThan: {
+        minor: 1,
+        major: 5,
+      },
+      style: ThresholdStyle.NUMBER,
+    }
+  }
+
   suggestions(when: When) {
-    const unusedSpells = Object.keys(this.usedCasts).filter(key => !this.usedCasts[Number(key)]);
-    const unusedSpellsString = unusedSpells.join(', ');
-    const unusedSpellsCount = unusedSpells.length;
-    when(unusedSpellsCount).isGreaterThan(0)
+    const unusedSpellsString = this.unusedSpells.join(', ');
+
+    when(this.unusedSpellsSuggestionTresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span> Your Storm Elemental is not using all of it's spells. Check if Wind Gust and Call Lightning are set to autocast and you are using Eye Of The Storm.</span>)
         .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-        .actual(`${formatNumber(unusedSpellsCount)} spells not used by your Storm Elemental (${unusedSpellsString})`)
-        .recommended(`You should be using all spells of your Storm Elemental.`)
-        .major(recommended+1));
+        .actual(`${formatNumber(actual)} spells not used by your Storm Elemental (${unusedSpellsString})`)
+        .recommended(`You should be using all spells of your Storm Elemental.`));
 
-    when(this.badCasts).isGreaterThan(0)
+    when(this.badCastsSuggestionTresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You are not using <SpellLink id={SPELLS.CALL_LIGHTNING.id} /> on cooldown.</span>)
         .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-        .actual(`${formatNumber(this.badCasts)} casts done by your Storm Elemental without the "Call Lightning"-Buff.}`)
-        .recommended(`You should be recasting "Call Lightning" before the buff drops off.`)
-        .major(recommended+5));
+        .actual(`${formatNumber(actual)} casts done by your Storm Elemental without the "Call Lightning"-Buff.}`)
+        .recommended(`You should be recasting "Call Lightning" before the buff drops off.`));
   }
 
   statistic() {

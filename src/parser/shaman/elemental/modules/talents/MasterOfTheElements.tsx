@@ -46,7 +46,7 @@ class MasterOfTheElements extends Analyzer {
   moteBuffedAbilities: {[key: number]: number} = {};
   moteActivationTimestamp: number|null = null;
   moteConsumptionTimestamp: number|null = null;
-  damageGained: number = 0;
+  damageGained = 0;
 
   constructor(options: Options) {
     super(options);

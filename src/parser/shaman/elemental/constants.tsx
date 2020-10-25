@@ -7,4 +7,4 @@ export const ELEMENTAL_BLAST_BUFFS: SpellInfo[] = [
   SPELLS.ELEMENTAL_BLAST_HASTE,
 ];
 
-export const CRIT_MULTIPLIER: number = 2.5;
+export const CRIT_MULTIPLIER = 2.5;

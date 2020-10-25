@@ -11,7 +11,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 
 class LiquidMagmaTotem extends Analyzer {
-  damageGained: number = 0;
+  damageGained = 0;
 
   constructor(options: Options) {
     super(options);

@@ -24,9 +24,9 @@ const SURGE_OF_POWER = {
 class SurgeOfPower extends Analyzer {
   sopBuffedAbilities: {[key: number]: number} = {};
   // total SK + SoP lightning bolt casts
-  skSopCasts: number = 0;
+  skSopCasts = 0;
   // total SK lightning bolt casts
-  skCasts: number = 0;
+  skCasts = 0;
 
   constructor(options: Options) {
     super(options);

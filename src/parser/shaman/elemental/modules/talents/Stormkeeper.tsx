@@ -16,7 +16,7 @@ const AFFECTED_ABILITIES = [SPELLS.LIGHTNING_BOLT_OVERLOAD.id,
                            SPELLS.CHAIN_LIGHTNING.id];
 
 class Stormkeeper extends Analyzer {
-  damageDoneByBuffedCasts: number = 0;
+  damageDoneByBuffedCasts = 0;
 
   constructor(options: Options) {
     super(options);
@@ -30,10 +30,7 @@ class Stormkeeper extends Analyzer {
       return;
     }
 
-    if (!AFFECTED_ABILITIES.includes(event.ability.guid)) {
-      return;
-    }
-    this.damageDoneByBuffedCasts+=event.amount;
+    this.damageDoneByBuffedCasts += event.amount + (event.absorbed || 0);
   }
 
   statistic() {

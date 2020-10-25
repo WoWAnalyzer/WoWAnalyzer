@@ -25,8 +25,8 @@ class Ascendance extends Analyzer {
   protected abilities!: Abilities;
   protected enemies!: Enemies;
 
-  justEnteredAscendance: boolean = false;
-  checkDelay: number = 0;
+  justEnteredAscendance = false;
+  checkDelay = 0;
 
   numCasts = {
     [SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id]: 0,
@@ -98,8 +98,6 @@ class Ascendance extends Analyzer {
         .actual(`${actual} other casts during Ascendence`)
         .recommended(`Only cast ${abilities} during Ascendence.`));
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Ascendance;

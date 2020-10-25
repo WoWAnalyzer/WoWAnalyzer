@@ -11,8 +11,8 @@ const MAX_UP_STACKS = 20; //might need to be increased
 
 class UnlimitedPowerTimesByStacks extends Analyzer {
   unlimitedPowerStacks: number[][]= [];
-  lastUPStack: number = 0;
-  lastUPUpdate: number = this.owner.fight.start_time;
+  lastUPStack = 0;
+  lastUPUpdate = this.owner.fight.start_time;
 
   constructor(options: Options) {
     super(options);
