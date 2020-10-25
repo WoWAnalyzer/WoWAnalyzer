@@ -2,7 +2,7 @@ export default {
   // Shared
   TIGER_DASH_TALENT: { id: 252216, name: 'Tiger Dash', icon: 'ability_druid_dash_orange' },
   RENEWAL_TALENT: { id: 108238, name: 'Renewal', icon: 'spell_nature_natureblessing' },
-  WILD_CHARGE_TALENT: { id: 102401, name: 'Wild Charge', icon: 'spell_druid_wildcharge' },
+  WILD_CHARGE_TALENT: { id: 132302, name: 'Wild Charge', icon: 'spell_druid_wildcharge' },
   RESTORATION_AFFINITY_TALENT: { id: 197492, name: 'Restoration Affinity', icon: 'ability_druid_improvedtreeform' },
   MIGHTY_BASH_TALENT: { id: 5211, name: 'Mighty Bash', icon: 'ability_druid_bash' },
   MASS_ENTANGLEMENT_TALENT: { id: 102359, name: 'Mass Entanglement', icon: 'spell_druid_massentanglement' },
@@ -10,6 +10,7 @@ export default {
   INCARNATION_CHOSEN_OF_ELUNE_TALENT: { id: 102560, name: 'Incarnation: Chosen of Elune', icon: 'spell_druid_incarnation' },
   BALANCE_AFFINITY_TALENT_SHARED: { id: 197488, name: 'Balance Affinity', icon: 'ability_druid_improvedmoonkinform' },
   GUARDIAN_AFFINITY_TALENT_SHARED: { id: 197491, name: 'Guardian Affinity', icon: 'talentspec_druid_feral_bear' },
+  HEART_OF_THE_WILD_TALENT_SHARED: { id: 319454, name: 'Heart of the Wild', icon: 'spell_holy_blessingofagility' },
   // Feral
   PREDATOR_TALENT: { id: 202021, name: "Predator", icon: "ability_hunter_catlikereflexes" },
   SABERTOOTH_TALENT: { id: 202031, name: "Sabertooth", icon: "inv_misc_monsterfang_01" },
@@ -40,20 +41,30 @@ export default {
   SOUL_OF_THE_FOREST_TALENT_GUARDIAN: { id: 158477, name: 'Soul of the Forest', icon: 'ability_druid_manatree' },
   FERAL_AFFINITY_TALENT_GUARDIAN: { id: 202155, name: 'Feral Affinity', icon: 'talentspec_druid_feral_cat' },
   // Restoration
+  // 15
   ABUNDANCE_TALENT: { id: 207383, name: 'Abundance', icon: 'ability_druid_empoweredrejuvination' },
-  PROSPERITY_TALENT: { id: 200383, name: 'Prosperity', icon: 'spell_druid_rampantgrowth' },
+  NOURISH_TALENT: { id: 50464, name: 'Nourish', icon: 'ability_druid_nourish' },
   CENARION_WARD_TALENT: { id: 102351, name: 'Cenarion Ward', icon: 'ability_druid_naturalperfection', manaCost: 920 },
-  CULTIVATION_TALENT: { id: 200390, name: 'Cultivation', icon: 'ability_druid_nourish' },
+  // 25 ( Tiger Dash, Renewal, Wild Charge)
+
+  // 30 (Guardian Affinity)
+  BALANCE_AFFINITY_TALENT_RESTORATION: { id: 197632, name: 'Balance Affinity', icon: 'ability_druid_improvedmoonkinform' },
+  FERAL_AFFINITY_TALENT_RESTORATION: { id: 197490, name: 'Feral Affinity', icon: 'talentspec_druid_feral_cat' },
+  // 35 (Mighty Bash, Mass Entanglement, Heart of the Wild)
+
+  // 40
+  SOUL_OF_THE_FOREST_TALENT_RESTORATION: { id: 158478, name: 'Soul of the Forest', icon: 'ability_druid_manatree' },
+  CULTIVATION_TALENT: { id: 200390, name: 'Cultivation', icon: 'spell_nature_healingtouch' },
   INCARNATION_TREE_OF_LIFE_TALENT: { id: 33891, name: 'Incarnation: Tree of Life', icon: 'ability_druid_improvedtreeform' },
+  // 45
   INNER_PEACE_TALENT: { id: 197073, name: 'Inner Peace', icon: 'ability_druid_dreamstate' },
-  STONEBARK_TALENT: { id: 197061, name: 'Stonebark', icon: 'ability_druid_replenish' },
   SPRING_BLOSSOMS_TALENT: { id: 207385, name: 'Spring Blossoms', icon: 'inv_misc_trailofflowers' },
+  OVERGROWTH_TALENT: { id: 203651, name: 'Overgrowth', icon: 'ability_druid_overgrowth' },
+  // 50
   PHOTOSYNTHESIS_TALENT: { id: 274902, name: 'Photosynthesis', icon: 'spell_lifegivingseed' },
   GERMINATION_TALENT: { id: 155675, name: 'Germination', icon: 'spell_druid_germination' },
   FLOURISH_TALENT: { id: 197721, name: 'Flourish', icon: 'spell_druid_wildburst' },
-  BALANCE_AFFINITY_TALENT_RESTORATION: { id: 197632, name: 'Balance Affinity', icon: 'ability_druid_improvedmoonkinform' },
-  SOUL_OF_THE_FOREST_TALENT_RESTORATION: { id: 158478, name: 'Soul of the Forest', icon: 'ability_druid_manatree' },
-  FERAL_AFFINITY_TALENT_RESTORATION: { id: 197490, name: 'Feral Affinity', icon: 'talentspec_druid_feral_cat' },
+
   // Balance
   NATURES_BALANCE_TALENT: { id: 202430, name: 'Nature\'s Balance', icon: 'ability_druid_balanceofpower' },
   WARRIOR_OF_ELUNE_TALENT: { id: 202425, name: 'Warrior of Elune', icon: 'spell_holy_elunesgrace' },

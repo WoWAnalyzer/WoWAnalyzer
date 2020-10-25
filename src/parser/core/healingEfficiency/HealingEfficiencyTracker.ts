@@ -108,7 +108,7 @@ class HealingEfficiencyTracker extends Analyzer {
     // Now we can add custom logic for spells.
     spellInfo = this.getCustomSpellStats(spellInfo, spellId, healingSpellIds);
 
-    spellInfo.percentOverhealingDone = spellInfo.overhealingDone / ((spellInfo.healingDone || 0) + spellInfo.overhealingDone);
+    spellInfo.percentOverhealingDone = spellInfo.overhealingDone / ((spellInfo.healingDone || 0) + spellInfo.overhealingDone) || 0;
     spellInfo.percentHealingDone = spellInfo.healingDone / this.healingDone.total.regular || 0;
     spellInfo.percentDamageDone = spellInfo.damageDone / this.damageDone.total.regular || 0;
     spellInfo.manaPercentSpent = spellInfo.manaSpent / this.manaTracker.spent;
