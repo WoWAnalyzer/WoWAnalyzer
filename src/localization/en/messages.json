@@ -621,6 +621,7 @@
   "shaman.restoration.flashFlood.statistic.description.tooltip": "Cast time saved by Flash Flood. <0/>{0} seconds 'saved' on reductions below GCD.",
   "shaman.restoration.flashFlood.statistic.label": "<0/> usage",
   "shaman.restoration.flashFlood.statistic.title": "Total Cast Time Saved",
+  "shaman.restoration.healingEfficiencyDetails": "<0/> mana gained is removed from the spell, meaning the mana spent of that spell will be lower.<1/>Healing that is caused by the <2/> buff, is added to <3/> instead of the spell that was buffed.<4/><5/> is given the healing from its healing buff and is removed from the spells that were buffed.",
   "shaman.restoration.healingRain.averageTargets.label": "Average Healing Rain Targets",
   "shaman.restoration.healingRain.averageTargets.label.tooltip": "The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.",
   "shaman.restoration.healingWave.inefficientCast.reason": "Riptide was off cooldown when you started casting this unbuffed Healing Wave. Casting Riptide into Healing Wave to generate and use a Tidal Wave stack, or using a Flash Flood buff (if talented) is a lot more efficient compared to casting a full-length Healing Wave.",
