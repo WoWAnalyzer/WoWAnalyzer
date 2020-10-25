@@ -1,5 +1,4 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
@@ -61,7 +60,6 @@ class RollTheBonesEfficiency extends Analyzer {
     const lastCast = this.rollTheBonesCastTracker.lastCast;
     if(lastCast && this.rollTheBonesCastTracker.categorizeCast(lastCast) === ROLL_THE_BONES_CATEGORIES.LOW_VALUE){
       //FIX WHEN UPDATING ROGUE TO TS
-      // eslint-disable-next-line @typescript-eslint/camelcase
       lastCast.RTB_IsDelayed = true;
     }
   }

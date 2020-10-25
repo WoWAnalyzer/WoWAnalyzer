@@ -5,7 +5,9 @@
   Timestamps are for the NA Region to match WCL
 */
 
-const PATCHES = [
+import Patch from './Patch';
+
+const PATCHES: Patch[] = [
   {
     name: '8.0',
     timestamp: 1534197600000, // GMT: Monday, 13 August 2018 22:00:00

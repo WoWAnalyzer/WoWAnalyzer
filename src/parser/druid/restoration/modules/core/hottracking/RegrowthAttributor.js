@@ -3,7 +3,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import Events from 'parser/core/Events';
 
-import HotTracker from './HotTracker';
+import HotTrackerRestoDruid from './HotTrackerRestoDruid';
 
 const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> applybuff
 /*
@@ -12,7 +12,7 @@ const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> 
  */
 class RegrowthAttributor extends Analyzer {
   static dependencies = {
-    hotTracker: HotTracker,
+    hotTracker: HotTrackerRestoDruid,
   };
 
 

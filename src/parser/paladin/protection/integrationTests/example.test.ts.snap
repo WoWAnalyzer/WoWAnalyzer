@@ -4099,39 +4099,39 @@ exports[`Protection Paladin integration test: example log Judgment matches the s
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={100}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
+        <div
+          className="flex-sub icon"
+        >
           <a
-            href="http://wowhead.com/spell=53600"
+            href="http://wowhead.com/spell=197277"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Shield of the Righteous"
+              alt="Judgment"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_shieldofvengeance.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_righteousfury.jpg"
             />
           </a>
-           
-          Effective SotR CDR
-        </label>
+        </div>
         <div
-          className="value"
+          className="flex-main value"
         >
-          0.00%
+          <div>
+            15
+          </div>
+          <small>
+            Judgment Debuffs Consumed
+          </small>
         </div>
       </div>
     </div>
@@ -4154,6 +4154,30 @@ exports[`Protection Paladin integration test: example log Judgment matches the s
     </div>
   </div>
 </div>
+`;
+
+exports[`Protection Paladin integration test: example log Judgment matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_holy_righteousfury",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You're not consuming all your 
+      <ForwardRef
+        icon={true}
+        id={20271}
+      />
+       debuffs.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      39.47% Judgments consumed
+       (
+      &gt;95.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Protection Paladin integration test: example log NoDamageShieldOfTheRighteous matches the statistic snapshot 1`] = `
