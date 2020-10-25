@@ -87,6 +87,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        damageSpellIds: [ SPELLS.FIRE_BLAST.id, SPELLS.METEOR_DAMAGE.id, SPELLS.FIRE_ELEMENTAL_IMMOLATE.id ],
         enabled: !combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -111,6 +112,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60 * 2.5,
         enabled: combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
+        damageSpellIds: [ SPELLS.WIND_GUST.id, SPELLS.EYE_OF_THE_STORM.id, SPELLS.CALL_LIGHTNING.id ],
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
