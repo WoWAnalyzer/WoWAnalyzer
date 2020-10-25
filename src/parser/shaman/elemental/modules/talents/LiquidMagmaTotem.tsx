@@ -20,7 +20,7 @@ class LiquidMagmaTotem extends Analyzer {
   }
 
   onLMTDamage(event: DamageEvent) {
-    this.damageGained += event.amount;
+    this.damageGained += event.amount + (event.absorbed || 0);
   }
 
   statistic() {

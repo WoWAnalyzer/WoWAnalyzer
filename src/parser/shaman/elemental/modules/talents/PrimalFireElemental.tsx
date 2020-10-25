@@ -42,7 +42,7 @@ class PrimalFireElemental extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.damageGained+=event.amount;
+    this.damageGained += event.amount + (event.absorbed || 0);
   }
 
   onFECast(event: CastEvent) {

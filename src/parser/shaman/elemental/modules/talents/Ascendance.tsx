@@ -11,12 +11,9 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Abilities from 'parser/shaman/elemental/modules/Abilities';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import { CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-const ASCENDANCE_DURATION = 15000 - 1500; //remove the gcd for Ascendence itself because we only check for FS on the first cast after
 
 class Ascendance extends Analyzer {
 
@@ -29,7 +26,6 @@ class Ascendance extends Analyzer {
   protected enemies!: Enemies;
 
   justEnteredAscendance: boolean = false;
-  badFSAscendence: number = 0;
   checkDelay: number = 0;
 
   numCasts = {
@@ -51,41 +47,6 @@ class Ascendance extends Analyzer {
 
   get averageLavaBurstCasts() {
     return (this.numCasts[SPELLS.LAVA_BURST.id] / this.numCasts[SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id]) || 0;
-  }
-
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    const target = this.enemies.getEntity(event);
-
-    if (spellId === SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) {
-      this.justEnteredAscendance = true;
-      this.numCasts[SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id] += 1;
-    }
-
-    const ability = this.abilities.getAbility(spellId);
-    if (!ability) {
-      return;
-    }
-
-    if (!this.selectedCombatant.hasBuff(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id, event.timestamp) || spellId === SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) {
-      return;
-    }
-
-    if (this.justEnteredAscendance) {
-      if (target) {
-        this.justEnteredAscendance = false;
-        if (!target.hasBuff(SPELLS.FLAME_SHOCK.id, event.timestamp - this.checkDelay) ||
-          (target.getBuff(SPELLS.FLAME_SHOCK.id, event.timestamp - this.checkDelay)?.end || 0 - event.timestamp) < ASCENDANCE_DURATION) {
-          this.badFSAscendence += 1;
-        }
-      }
-    }
-
-    if (this.numCasts[spellId] !== undefined) {
-      this.numCasts[spellId] += 1;
-    } else {
-      this.numCasts.others += 1;
-    }
   }
 
   statistic() {

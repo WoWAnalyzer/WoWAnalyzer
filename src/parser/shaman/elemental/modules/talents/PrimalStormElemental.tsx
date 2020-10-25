@@ -42,7 +42,7 @@ class PrimalStormElemental extends Analyzer {
   }
 
   onPSECast(event: CastEvent) {
-    this.pseCasts+=1;
+    this.pseCasts += 1;
   }
 
   onPetCast(event: CastEvent) {
@@ -50,7 +50,7 @@ class PrimalStormElemental extends Analyzer {
   }
 
   onPetDamage(event: DamageEvent) {
-    this.damageGained+=event.amount;
+    this.damageGained += event.amount + (event.absorbed || 0);
 
     if(event.ability.guid !== SPELLS.CALL_LIGHTNING.id) {
       if(event.timestamp>this.lastCLCastTimestamp+CALL_LIGHTNING_BUFF_DURATION){

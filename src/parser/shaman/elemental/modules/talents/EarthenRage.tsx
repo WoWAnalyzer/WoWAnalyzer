@@ -21,7 +21,7 @@ class EarthenRage extends Analyzer {
   }
 
   onERDamage(event: DamageEvent) {
-    this.damageGained += event.amount;
+    this.damageGained += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
