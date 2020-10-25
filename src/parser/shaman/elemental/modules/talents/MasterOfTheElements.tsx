@@ -54,7 +54,7 @@ class MasterOfTheElements extends Analyzer {
 
     for (const key in MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS) {
       const spellid = MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS[key].id;
-      if((this.selectedCombatant.hasTalent(spellid)) || (!MASTER_OF_THE_ELEMENTS.TALENTS.includes(spellid))) {
+      if(this.selectedCombatant.hasTalent(spellid) || !MASTER_OF_THE_ELEMENTS.TALENTS.includes(spellid)) {
         this.moteBuffedAbilities[spellid] = 0;
       }
     }
