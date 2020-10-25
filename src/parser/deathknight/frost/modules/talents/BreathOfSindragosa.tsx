@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import { i18n } from '@lingui/core';
@@ -11,9 +10,10 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, {CastEvent, RemoveBuffEvent, FightEndEvent, DamageEvent, EventType, ClassResources, EnergizeEvent, Ability} from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
 
 const GOOD_BREATH_DURATION_MS = 25000;
 const BREATH_COST_PER_TICK = 160;
@@ -128,7 +128,7 @@ class BreathOfSindragosa extends Analyzer {
 
   suggestions(when: When){
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<> You are not getting good uptime from your <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. A good cast is one that lasts 25 seconds or more.  To ensure a good duration, make you sure have 60+ Runic Power pooled and have less than 5 Runes available before you start the cast.  Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not overcapping. {this.tickingOnFinishedString}</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<> You are not getting good uptime from your <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. A good cast is one that lasts 25 seconds or more.  To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast.  Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not overcapping. {this.tickingOnFinishedString}</>)
         .icon(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.icon)
         .actual(i18n._(t('deathknight.frost.suggestions.breathOfSindragosa.uptime')`You averaged ${(this.averageDuration).toFixed(1)} seconds of uptime per cast`))
         .recommended(`>${recommended} seconds is recommended`));
@@ -157,13 +157,17 @@ class BreathOfSindragosa extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} />}
-        value={`${(this.averageDuration).toFixed(1)} seconds`}
-        label="Average Breath of Sindragosa Duration"
+      <Statistic
         tooltip={`You cast Breath of Sindragosa ${this.casts} times for a combined total of ${(this.totalDuration / 1000).toFixed(1)} seconds.  ${this.badCasts} casts were under 25 seconds.  ${this.tickingOnFinishedString}`}
         position={STATISTIC_ORDER.CORE(60)}
-      />
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.BREATH_OF_SINDRAGOSA_TALENT}>
+          <>
+           {(this.averageDuration).toFixed(1)}s  <small>average duration</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
