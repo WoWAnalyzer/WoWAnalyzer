@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 import Contributor from 'interface/ContributorButton';
@@ -8,7 +8,7 @@ import { ContributorType } from 'interface/ContributorButton/ContributorButton';
 
 interface Props {
   title: ReactNode;
-  bodyStyle?: object;
+  bodyStyle?: CSSProperties;
   children: ReactNode,
   publishedAt: string,
   publishedBy: ContributorType
